@@ -51,8 +51,8 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
-    use crate::parsers::cst::ConcreteSyntaxTree;
+    use crate::*;
+
     #[test]
     fn midb_simple() {
         let source = r#"
@@ -65,72 +65,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("result"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            MidBKeyword,
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"Hello\""),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("2"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("3"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -145,65 +86,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("result"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            MidBKeyword,
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"VB6 Programming\""),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("5"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -221,105 +110,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        TextKeyword,
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("pos"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        LongKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        LenKeyword,
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        LongKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("result"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            MidBKeyword,
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        TextKeyword,
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("pos"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        LenKeyword,
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -334,81 +131,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("result"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            MidBKeyword,
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    CallExpression {
-                                        Identifier ("UCase$"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                StringLiteralExpression {
-                                                    StringLiteral ("\"hello world\""),
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("1"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("5"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -423,88 +152,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("result"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            BinaryExpression {
-                                StringLiteralExpression {
-                                    StringLiteral ("\"Start: \""),
-                                },
-                                Whitespace,
-                                Ampersand,
-                                Whitespace,
-                                CallExpression {
-                                    MidBKeyword,
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            StringLiteralExpression {
-                                                StringLiteral ("\"ABCDEFGH\""),
-                                            },
-                                        },
-                                        Comma,
-                                        Whitespace,
-                                        Argument {
-                                            NumericLiteralExpression {
-                                                IntegerLiteral ("3"),
-                                            },
-                                        },
-                                        Comma,
-                                        Whitespace,
-                                        Argument {
-                                            NumericLiteralExpression {
-                                                IntegerLiteral ("4"),
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                            },
-                            Whitespace,
-                            Ampersand,
-                            Whitespace,
-                            StringLiteralExpression {
-                                StringLiteral ("\" :End\""),
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -519,84 +173,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("isEqual"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        BooleanKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("isEqual"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        ParenthesizedExpression {
-                            LeftParenthesis,
-                            BinaryExpression {
-                                CallExpression {
-                                    MidBKeyword,
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            StringLiteralExpression {
-                                                StringLiteral ("\"Testing\""),
-                                            },
-                                        },
-                                        Comma,
-                                        Whitespace,
-                                        Argument {
-                                            NumericLiteralExpression {
-                                                IntegerLiteral ("2"),
-                                            },
-                                        },
-                                        Comma,
-                                        Whitespace,
-                                        Argument {
-                                            NumericLiteralExpression {
-                                                IntegerLiteral ("3"),
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                                Whitespace,
-                                EqualityOperator,
-                                Whitespace,
-                                StringLiteralExpression {
-                                    StringLiteral ("\"est\""),
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -613,88 +196,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        TextKeyword,
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                MidBKeyword,
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            TextKeyword,
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("1"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("4"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            StringLiteralExpression {
-                                StringLiteral ("\"http\""),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            EndOfLineComment,
-                            Newline,
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -710,83 +218,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("data"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("chunk"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("chunk"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            MidBKeyword,
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("data"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("1"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("256"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -804,123 +242,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("buffer"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("header"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("payload"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("header"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            MidBKeyword,
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("buffer"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("1"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("16"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("payload"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            MidBKeyword,
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("buffer"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("17"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -936,97 +264,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("arr"),
-                        LeftParenthesis,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("10"),
-                        },
-                        RightParenthesis,
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("result"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            MidBKeyword,
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    CallExpression {
-                                        Identifier ("arr"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                NumericLiteralExpression {
-                                                    IntegerLiteral ("5"),
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("2"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("3"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1045,137 +289,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("i"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        LongKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        TextKeyword,
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("bytes"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    ForStatement {
-                        Whitespace,
-                        ForKeyword,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("i"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("1"),
-                        },
-                        Whitespace,
-                        ToKeyword,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("LenB"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        TextKeyword,
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Whitespace,
-                        StepKeyword,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("10"),
-                        },
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            AssignmentStatement {
-                                IdentifierExpression {
-                                    Identifier ("bytes"),
-                                },
-                                Whitespace,
-                                EqualityOperator,
-                                Whitespace,
-                                CallExpression {
-                                    MidBKeyword,
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            IdentifierExpression {
-                                                TextKeyword,
-                                            },
-                                        },
-                                        Comma,
-                                        Whitespace,
-                                        Argument {
-                                            IdentifierExpression {
-                                                Identifier ("i"),
-                                            },
-                                        },
-                                        Comma,
-                                        Whitespace,
-                                        Argument {
-                                            NumericLiteralExpression {
-                                                IntegerLiteral ("10"),
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        NextKeyword,
-                        Whitespace,
-                        Identifier ("i"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1191,114 +311,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("s"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("result"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                MidBKeyword,
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("s"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("1"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("2"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            Ampersand,
-                            Whitespace,
-                            CallExpression {
-                                MidBKeyword,
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("s"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("5"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("3"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1312,70 +331,13 @@ End Function
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("ProcessBytes"),
-                ParameterList {
-                    LeftParenthesis,
-                },
-                TextKeyword,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                RightParenthesis,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("ProcessBytes"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            MidBKeyword,
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        TextKeyword,
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("1"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("10"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1391,92 +353,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        TextKeyword,
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("result"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("CStr"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    CallExpression {
-                                        MidBKeyword,
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                IdentifierExpression {
-                                                    TextKeyword,
-                                                },
-                                            },
-                                            Comma,
-                                            Whitespace,
-                                            Argument {
-                                                NumericLiteralExpression {
-                                                    IntegerLiteral ("5"),
-                                                },
-                                            },
-                                            Comma,
-                                            Whitespace,
-                                            Argument {
-                                                NumericLiteralExpression {
-                                                    IntegerLiteral ("10"),
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1498,123 +381,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("data"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("magic"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("magic"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            MidBKeyword,
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("data"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("1"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("4"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    SelectCaseStatement {
-                        Whitespace,
-                        SelectKeyword,
-                        Whitespace,
-                        CaseKeyword,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("magic"),
-                        },
-                        Newline,
-                        Whitespace,
-                        CaseClause {
-                            CaseKeyword,
-                            Whitespace,
-                            StringLiteral ("\"RIFF\""),
-                            Newline,
-                            StatementList {
-                                Whitespace,
-                                EndOfLineComment,
-                                Newline,
-                                Whitespace,
-                            },
-                        },
-                        CaseClause {
-                            CaseKeyword,
-                            Whitespace,
-                            StringLiteral ("\"PNG\""),
-                            Newline,
-                            StatementList {
-                                Whitespace,
-                                EndOfLineComment,
-                                Newline,
-                                Whitespace,
-                            },
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        SelectKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1631,110 +404,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        TextKeyword,
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("offset"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        LongKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("result"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            MidBKeyword,
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        TextKeyword,
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    BinaryExpression {
-                                        BinaryExpression {
-                                            IdentifierExpression {
-                                                Identifier ("offset"),
-                                            },
-                                            Whitespace,
-                                            MultiplicationOperator,
-                                            Whitespace,
-                                            NumericLiteralExpression {
-                                                IntegerLiteral ("2"),
-                                            },
-                                        },
-                                        Whitespace,
-                                        AdditionOperator,
-                                        Whitespace,
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("1"),
-                                        },
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("5"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1752,130 +428,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("fileData"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("signature"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        VersionKeyword,
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("signature"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            MidBKeyword,
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("fileData"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("1"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("8"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            VersionKeyword,
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            MidBKeyword,
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("fileData"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("9"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("4"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1893,136 +452,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        ConstKeyword,
-                        Whitespace,
-                        Identifier ("BINARY_DATA"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        StringLiteralExpression {
-                            StringLiteral ("\"ABCDEF123456\""),
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("part1"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("part2"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("part1"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            MidBKeyword,
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("BINARY_DATA"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("1"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("6"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("part2"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            MidBKeyword,
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("BINARY_DATA"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("7"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("6"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2043,110 +479,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("BinaryRecord"),
-                Newline,
-                Whitespace,
-                Identifier ("Data"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("ID"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("rec"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        Identifier ("BinaryRecord"),
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("bytes"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("bytes"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            MidBKeyword,
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    MemberAccessExpression {
-                                        Identifier ("rec"),
-                                        PeriodOperator,
-                                        Identifier ("Data"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("1"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("5"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2160,76 +499,12 @@ End Function
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("GetBytes"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("s"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    StringKeyword,
-                    Comma,
-                    Whitespace,
-                    Identifier ("pos"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("GetBytes"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            MidBKeyword,
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("s"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("pos"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("3"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
