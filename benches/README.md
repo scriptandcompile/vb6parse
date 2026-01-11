@@ -4,16 +4,27 @@ This directory contains performance benchmarks for the VB6Parse library using th
 
 ## Benchmark Organization
 
-The benchmarks are organized by file type, with each benchmark file focusing on a specific aspect of the parser:
+The benchmarks are organized by parsing layer and file type:
 
-- **`project_files.rs`** - Benchmarks for `.vbp` (VB6 project) file parsing
-- **`class_files.rs`** - Benchmarks for `.cls` (VB6 class) file parsing
-- **`module_files.rs`** - Benchmarks for `.bas` (VB6 module) file parsing
-- **`form_files.rs`** - Benchmarks for `.frm` (VB6 form) file parsing
+### Parsing Layers
+- **`lexer.rs`** - Tokenization performance (source code → tokens)
+- **`parser.rs`** - CST construction performance (tokens → concrete syntax tree)
+
+### File Type Parsers
+- **`project_files.rs`** - `.vbp` (VB6 project) file parsing
+- **`class_files.rs`** - `.cls` (VB6 class) file parsing
+- **`module_files.rs`** - `.bas` (VB6 module) file parsing
+- **`form_files.rs`** - `.frm` (VB6 form) file parsing
+- **`form_resources.rs`** - `.frx` (VB6 form resource) file parsing
 
 ## File Size Categories
 
 Benchmarks are categorized by file size to help identify performance characteristics across different input sizes:
+
+### Lexer and Parser Benchmarks
+- **Small**: < 2KB (simple code files)
+- **Medium**: 2-10KB (typical VB6 files)
+- **Large**: > 10KB (complex files with extensive code)
 
 ### Projects, Classes, and Modules
 - **Small**: < 2KB (simple files with minimal code)
@@ -25,7 +36,17 @@ Benchmarks are categorized by file size to help identify performance characteris
 - **Medium**: 5-20KB (typical forms with moderate complexity)
 - **Large**: > 20KB (complex forms with many controls)
 
-## Running Benchmarks
+### Form Resources (FRX)
+- **Small**: < 500 byparsing layers
+cargo bench --bench lexer
+cargo bench --bench parser
+
+# Run benchmarks for specific file types
+cargo bench --bench project_files
+cargo bench --bench class_files
+cargo bench --bench module_files
+cargo bench --bench form_files
+cargo bench --bench form_resourc
 
 ```bash
 # Run all benchmarks
