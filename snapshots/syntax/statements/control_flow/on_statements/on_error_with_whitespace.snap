@@ -1,0 +1,25 @@
+---
+source: src/syntax/statements/control_flow/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: OnErrorStatement
+      children:
+        - kind: OnKeyword
+          text: "On"
+        - kind: Whitespace
+          text: "    "
+        - kind: ErrorKeyword
+          text: Error
+        - kind: Whitespace
+          text: "    "
+        - kind: GotoKeyword
+          text: GoTo
+        - kind: Whitespace
+          text: "    "
+        - kind: Identifier
+          text: Handler
+        - kind: Newline
+          text: "\n"
