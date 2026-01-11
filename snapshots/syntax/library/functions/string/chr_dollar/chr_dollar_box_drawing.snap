@@ -1,0 +1,267 @@
+---
+source: src/syntax/library/functions/string/chr_dollar.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: FunctionStatement
+      children:
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: CreateBox
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+        - kind: WidthKeyword
+          text: width
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerKeyword
+          text: Integer
+        - kind: RightParenthesis
+          text: )
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: StringKeyword
+          text: String
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: DimStatement
+              children:
+                - kind: DimKeyword
+                  text: Dim
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: result
+                - kind: Whitespace
+                  text: " "
+                - kind: AsKeyword
+                  text: As
+                - kind: Whitespace
+                  text: " "
+                - kind: StringKeyword
+                  text: String
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: result
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
+                  children:
+                    - kind: StringKeyword
+                      text: String
+            - kind: Unknown
+              text: $
+            - kind: Unknown
+              text: (
+            - kind: WidthStatement
+              children:
+                - kind: WidthKeyword
+                  text: width
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: Chr$
+                - kind: LeftParenthesis
+                  text: (
+                - kind: IntegerLiteral
+                  text: "45"
+                - kind: RightParenthesis
+                  text: )
+                - kind: RightParenthesis
+                  text: )
+                - kind: Whitespace
+                  text: " "
+                - kind: Ampersand
+                  text: "&"
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: Chr$
+                - kind: LeftParenthesis
+                  text: (
+                - kind: IntegerLiteral
+                  text: "13"
+                - kind: RightParenthesis
+                  text: )
+                - kind: Whitespace
+                  text: " "
+                - kind: Ampersand
+                  text: "&"
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: Chr$
+                - kind: LeftParenthesis
+                  text: (
+                - kind: IntegerLiteral
+                  text: "10"
+                - kind: RightParenthesis
+                  text: )
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: result
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: BinaryExpression
+                  children:
+                    - kind: BinaryExpression
+                      children:
+                        - kind: BinaryExpression
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: result
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Ampersand
+                              text: "&"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: Chr$
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: NumericLiteralExpression
+                                          children:
+                                            - kind: IntegerLiteral
+                                              text: "124"
+                                - kind: RightParenthesis
+                                  text: )
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Ampersand
+                          text: "&"
+                        - kind: Whitespace
+                          text: " "
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: Space$
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: BinaryExpression
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: WidthKeyword
+                                              text: width
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: SubtractionOperator
+                                          text: "-"
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: NumericLiteralExpression
+                                          children:
+                                            - kind: IntegerLiteral
+                                              text: "2"
+                            - kind: RightParenthesis
+                              text: )
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: Chr$
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: NumericLiteralExpression
+                                  children:
+                                    - kind: IntegerLiteral
+                                      text: "124"
+                        - kind: RightParenthesis
+                          text: )
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: CreateBox
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: result
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Newline
+          text: "\n"
