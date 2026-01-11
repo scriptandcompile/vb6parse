@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Getting Started with VB6Parse - Step-by-step tutorial for parsing Visual Basic 6 code">
+    <title>Getting Started - VB6Parse</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="index.html">VB6Parse</a> / <a href="documentation.html">Documentation</a> / Getting Started</h1>
+            <p class="tagline">Step-by-step tutorial for parsing Visual Basic 6 code</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="index.html">Home</a>
+            <a href="documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <p>
+                This guide will walk you through using VB6Parse, from installation to advanced parsing scenarios.
+                By the end, you'll understand how to parse VB6 projects, handle errors, navigate syntax trees, and
+                build tools that process legacy Visual Basic 6 code.
+            </p>
+        </section>
+
+        <section id="prerequisites">
+            <h2>Prerequisites</h2>
+            <ul>
+                <li><strong>Rust:</strong> Version 1.70 or later (Install from <a href="https://rustup.rs" target="_blank">rustup.rs</a>)</li>
+                <li><strong>Basic Rust knowledge:</strong> Understanding of Result types, ownership, and cargo</li>
+                <li><strong>VB6 familiarity:</strong> Helpful but not required</li>
+            </ul>
+        </section>
+
+        <section id="installation">
+            <h2>Installation</h2>
+            
+            <div class="step-card">
+                <span class="step-number">1</span>
+                <h3>Create a new Rust project</h3>
+            </div>
+            <pre data-lang="bash"><code class="language-bash">cargo new vb6parse-demo
+cd vb6parse-demo</code></pre>
+
+            <div class="step-card">
+                <span class="step-number">2</span>
+                <h3>Add VB6Parse to Cargo.toml</h3>
+            </div>
+            <pre data-file="Cargo.toml" data-lang="toml"><code class="language-toml">[dependencies]
+vb6parse = "0.5.1"</code></pre>
+
+            <div class="step-card">
+                <span class="step-number">3</span>
+                <h3>Verify installation</h3>
+            </div>
+            <pre data-lang="bash"><code class="language-bash">cargo build</code></pre>
+            <div class="output-box">
+                Compiling vb6parse v0.5.1<br>
+                Compiling vb6parse-demo v0.1.0<br>
+                Finished dev [unoptimized + debuginfo] target(s)
+            </div>
+        </section>
+
+        <section id="hello-world">
+            <h2>Your First Parse: Hello World</h2>
+            <p>Let's start with the simplest possible example - parsing a VB6 module with a single subroutine.</p>
+
+            <div class="step-card">
+                <span class="step-number">1</span>
+                <h3>Create a simple module parser</h3>
+                <p>Replace the contents of <code>src/main.rs</code>:</p>
+            </div>
+            <pre data-file="src/main.rs" data-lang="rust"><code class="language-rust">use vb6parse::*;
+
+fn main() {
+    // VB6 code to parse
+    let code = r#"Attribute VB_Name = "HelloWorld"
+
+Public Sub SayHello()
+    MsgBox "Hello from VB6Parse!"
+End Sub
+"#;
+
+    // Step 1: Create a SourceFile (handles encoding)
+    let source = SourceFile::from_string("HelloWorld.bas", code);
+    
+    // Step 2: Parse as a module
+    let result = ModuleFile::parse(&source);
+    
+    // Step 3: Unpack the result (separates output from errors)
+    let (module_opt, failures) = result.unpack();
+    
+    // Step 4: Handle the result
+    if let Some(module) = module_opt {
+        println!("✓ Successfully parsed module: {}", module.name);
+        println!("  Version: {}", module.header.version);
+        println!("  Has code: {}", module.code.is_some());
+    }
+    
+    // Step 5: Display any parsing errors
+    if !failures.is_empty() {
+        println!("\n⚠ Encountered {} parsing issues:", failures.len());
+        for failure in failures {
+            failure.print();
+        }
+    }
+}</code></pre>
+
+            <div class="step-card">
+                <span class="step-number">2</span>
+                <h3>Run the example</h3>
+            </div>
+            <pre data-file="src/main.rs" data-lang="bash"><code class="language-bash">cargo run</code></pre>
+            <div class="output-box">
+✓ Successfully parsed module: HelloWorld<br>
+  Version: 1.0<br>
+  Has code: true
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 Key Concept: ParseResult</strong><br>
+                VB6Parse uses a <code>ParseResult&lt;T, E&gt;</code> type that contains both the parsed output 
+                (<code>Option&lt;T&gt;</code>) and any failures (<code>Vec&lt;ErrorDetails&lt;E&gt;&gt;</code>). 
+                This allows partial success - you can get a usable parse tree even if some parts failed.
+            </div>
+        </section>
+
+        <section id="project-parsing">
+            <h2>Parsing VB6 Projects</h2>
+            <p>VB6 projects (.vbp files) list all modules, forms, and references. Let's parse one:</p>
+
+            <pre data-file="src/main.rs" data-lang="rust"><code class="language-rust">use vb6parse::*;
+
+fn main() {
+    let project_content = r#"Type=Exe
+Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
+Object={831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0; MSCOMCTL.OCX
+Module=Utilities; Utilities.bas
+Module=DataAccess; DataAccess.bas
+Form=MainForm.frm
+Class=DatabaseConnection; DatabaseConnection.cls
+"#;
+
+    let source = SourceFile::from_string("MyProject.vbp", project_content);
+    let result = ProjectFile::parse(&source);
+    let (project, failures) = result.unpack();
+
+    if let Some(proj) = project {
+        println!("Project Type: {:?}", proj.project_type);
+        
+        // Iterate over modules
+        println!("\nModules:");
+        for module in proj.modules() {
+            println!("  - {} ({})", module.name, module.path);
+        }
+        
+        // Iterate over forms
+        println!("\nForms:");
+        for form in proj.forms() {
+            println!("  - {} ({})", form.name, form.path);
+        }
+        
+        // Iterate over classes
+        println!("\nClasses:");
+        for class in proj.classes() {
+            println!("  - {} ({})", class.name, class.path);
+        }
+        
+        // Check references
+        println!("\nReferences: {}", proj.references().count());
+    }
+}</code></pre>
+
+            <div class="output-box">
+Project Type: Exe<br>
+<br>
+Modules:<br>
+&emsp;&emsp;- Utilities (Utilities.bas)<br>
+&emsp;&emsp;- DataAccess (DataAccess.bas)<br>
+<br>
+Forms:<br>
+&emsp;&emsp;- MainForm (MainForm.frm)<br>
+<br>
+Classes:<br>
+&emsp;&emsp;- DatabaseConnection (DatabaseConnection.cls)<br>
+<br>
+References: 2
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ Important:</strong> ProjectFile only parses the .vbp file itself - it doesn't load 
+                the referenced files. You'll need to read and parse each module/form/class file separately.
+            </div>
+        </section>
+
+        <section id="error-handling">
+            <h2>Handling Parse Errors</h2>
+            <p>VB6Parse is designed to handle malformed input gracefully. Even with syntax errors, you often get partial results:</p>
+
+            <pre data-file="src/main.rs" data-lang="rust"><code class="language-rust">use vb6parse::*;
+
+fn main() {
+    // Malformed VB6 code (missing End Sub, invalid syntax)
+    let bad_code = r#"Attribute VB_Name = "BadModule"
+
+Public Sub BrokenFunction()
+    x = 5 + 
+    ' Missing closing and the expression is incomplete
+
+Public Sub AnotherFunction()
+    MsgBox "This one is fine"
+End Sub
+"#;
+
+    let source = SourceFile::from_string("BadModule.bas", bad_code);
+    let result = ModuleFile::parse(&source);
+    let (module, failures) = result.unpack();
+
+    // We still might get a module!
+    if let Some(module) = module {
+        println!("✓ Parsed module: {}", module.name);
+        println!("  (Despite {} errors)", failures.len());
+    } else {
+        println!("✗ Parsing completely failed");
+    }
+
+    // Always check and handle failures
+    if !failures.is_empty() {
+        println!("\nParsing Issues:");
+        for failure in failures {
+            println!("  Line {}-{}: {:?}", 
+                failure.line_start, 
+                failure.line_end, 
+                failure.kind
+            );
+            
+            // Print the error with source context
+            failure.print();
+        }
+    }
+}</code></pre>
+
+            <div class="tip-box">
+                <strong>💡 Best Practice:</strong> Always check both the result and failures. In tools that 
+                process many files, log failures but continue processing - don't stop on the first error.
+            </div>
+        </section>
+
+        <section id="tokenization">
+            <h2>Tokenization</h2>
+            <p>For lower-level analysis, you can tokenize VB6 code without building a full parse tree:</p>
+
+            <pre data-file="src/main.rs" data-lang="rust"><code class="language-rust">use vb6parse::*;
+
+fn main() {
+    let code = "Dim x As Integer ' Declare a variable";
+    let mut source = SourceStream::new("test.bas", code);
+    let result = tokenize(&mut source);
+    let (token_stream, _) = result.unpack();
+                
+    if let Some(tokens) = token_stream {
+        println!("Tokens found: {}", tokens.len());
+                
+        for (text, token) in tokens.tokens().iter() {
+            println!("  {token:?}: '{text}'");
+        }
+    }
+}
+            </code></pre>
+
+            <div class="output-box">
+Tokens found: 9<br>
+  DimKeyword: 'Dim'<br>
+  Whitespace: ' '<br>
+  Identifier: 'x'<br>
+  Whitespace: ' '<br>
+  AsKeyword: 'As'<br>
+  Whitespace: ' '<br>
+  IntegerKeyword: 'Integer'<br>
+  Whitespace: ' '<br>
+  EndOfLineComment: '' Declare a variable'<br>
+            </div>
+        </section>
+
+        <section id="cst-navigation">
+            <h2>Navigating the Concrete Syntax Tree</h2>
+            <p>The CST preserves all source information including whitespace and comments, making it perfect for code analysis tools:</p>
+
+            <pre data-file="src/main.rs" data-lang="rust"><code class="language-rust">use vb6parse::*;
+use vb6parse::parsers::SyntaxKind;
+
+fn main() {
+    let code = r#"Sub Calculate()
+    Dim result As Double
+    result = 10 * 5 + 3
+    MsgBox result
+End Sub"#;
+
+    let cst = ConcreteSyntaxTree::from_text("test.bas", code).unwrap();
+    let root = cst.to_serializable().root;
+
+    println!("Total nodes in tree: {}", root.descendants().count());
+    
+    // Find all Dim statements
+    let dims = root.find_all(SyntaxKind::DimStatement);
+    println!("Found {} Dim statements", dims.len());
+    
+    // Find all identifiers
+    let identifiers = root.find_all_if(|n| {
+        n.kind() == SyntaxKind::Identifier
+    });
+    println!("Found {} identifiers", identifiers.len());
+    for id in identifiers {
+        println!("  - {}", id.text());
+    }
+    
+    // Navigate to specific nodes
+    if let Some(sub_stmt) = root.find(SyntaxKind::SubStatement) {
+        println!("\nSubroutine found:");
+        println!("  Text:\n'{}'", sub_stmt.text());
+        println!("  Children: {}", sub_stmt.child_count());
+    }
+}
+</code></pre>
+
+            <div class="output-box">
+Total nodes in tree: 51<br>
+Found 1 Dim statements<br>
+Found 5 identifiers<br>
+&emsp;&emsp;- Calculate<br>
+&emsp;&emsp;- result<br>
+&emsp;&emsp;- result<br>
+&emsp;&emsp;- MsgBox<br>
+&emsp;&emsp;- result<br>
+<br>
+Subroutine found:<br>
+&emsp;&emsp;Text:<br>
+'Sub Calculate()<br>
+&emsp;&emsp;&emsp;Dim result As Double<br>
+&emsp;&emsp;&emsp;result = 10 * 5 + 3<br>
+&emsp;&emsp;&emsp;MsgBox result<br>
+End Sub'<br>
+&emsp;&emsp;Children: 9
+            </div>
+
+        </section>
+
+        <section id="form-parsing">
+            <h2>Parsing Forms and Controls</h2>
+            <p>Forms are the most complex VB6 file type, containing both UI controls and code:</p>
+
+            <pre data-file="src/main.rs" data-lang="rust"><code class="language-rust">use vb6parse::{language::ControlKind, *};
+
+fn main() {
+    let form_content = r#"VERSION 5.00
+Begin VB.Form MainForm 
+   Caption         =   "My Application"
+   ClientHeight    =   3090
+   ClientWidth     =   4560
+   Begin VB.CommandButton btnSubmit 
+      Caption         =   "Submit"
+      Height          =   375
+      Left            =   1680
+      TabIndex        =   0
+      Top             =   1200
+      Width           =   1215
+   End
+End
+Attribute VB_Name = "MainForm"
+
+Private Sub btnSubmit_Click()
+    MsgBox "Button clicked!"
+End Sub
+"#;
+
+    let source = SourceFile::from_string("MainForm.frm", form_content);
+    let result = FormFile::parse(&source);
+    let (form_opt, _failures) = result.unpack();
+
+    let Some(form_file) = form_opt else {
+        println!("Failed to parse the form file.");
+        return;
+    };
+
+    // Access the root form control
+    match form_file.form.kind() {
+        ControlKind::Form {
+            controls: _,
+            menus: _,
+            properties,
+        } => {
+            println!("Form: {}", form_file.attributes.name);
+            println!("  Caption: {}", properties.caption);
+            println!(
+                "  Size: {}x{}",
+                properties.client_width, properties.client_height
+            );
+        }
+        ControlKind::MDIForm {
+            properties,
+            controls: _,
+            menus: _,
+        } => {
+            println!("MDI Form: {}", form_file.attributes.name);
+            println!("  Caption: {}", properties.caption);
+            println!("  Size: {}x{}", properties.width, properties.height);
+        }
+        _ => {
+            println!("Only Form and MDIForm are valid top level controls in a form file.");
+            return;
+        }
+    }
+
+    // Iterate child controls
+    println!("\n  Controls:");
+    if let Some(children) = form_file.form.children() {
+        for child in children {
+            println!("      - {} ({})", child.name(), child.kind());
+        }
+    };
+}</code></pre>
+
+<div class="output-box">
+Form: MainForm<br>
+&emsp;&emsp;Caption: My Application<br>
+&emsp;&emsp;Size: 4560x3090<br>
+<br>
+&emsp;Controls:<br>
+&emsp;&emsp;&emsp;- btnSubmit (CommandButton)<br>
+</div>
+
+        </section>
+
+        <section id="use-cases">
+            <h2>Common Use Cases</h2>
+            <p>Here are some practical applications you can build with VB6Parse:</p>
+
+            <div class="use-case-grid">
+                <div class="use-case-card">
+                    <h4>Code Migration Tools</h4>
+                    <p>Parse VB6 projects and convert them to modern languages (C#, VB.NET, Python). Extract 
+                    forms, business logic, and database connections for automated conversion.</p>
+                </div>
+
+                <div class="use-case-card">
+                    <h4>Static Analysis</h4>
+                    <p>Build linters and code quality tools for legacy VB6 codebases. Find deprecated API usage, 
+                    detect code smells, enforce coding standards.</p>
+                </div>
+
+                <div class="use-case-card">
+                    <h4>Documentation Generation</h4>
+                    <p>Automatically generate API documentation from VB6 source code. Extract function signatures, 
+                    comments, and module relationships.</p>
+                </div>
+
+                <div class="use-case-card">
+                    <h4>Code Metrics</h4>
+                    <p>Calculate lines of code, cyclomatic complexity, dependency graphs, and other metrics 
+                    for project planning and technical debt assessment.</p>
+                </div>
+
+                <div class="use-case-card">
+                    <h4>Form Extraction</h4>
+                    <p>Extract UI layouts and control hierarchies from .frm files for migration to modern 
+                    UI frameworks or for visual documentation.</p>
+                </div>
+
+                <div class="use-case-card">
+                    <h4>Code Search Tools</h4>
+                    <p>Build semantic search tools that understand VB6 syntax. Find all usages of a function, 
+                    locate API calls, track variable usage across projects.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="next-steps">
+            <h2>Next Steps</h2>
+            <p>Now that you understand the basics, explore these resources:</p>
+
+            <div class="doc-links">
+                <a href="https://docs.rs/vb6parse" class="doc-link" target="_blank">
+                    <h3>📖 API Documentation</h3>
+                    <p>Complete API reference with all types, methods, and examples</p>
+                </a>
+
+                <a href="https://github.com/scriptandcompile/vb6parse/tree/main/examples" class="doc-link" target="_blank">
+                    <h3>💡 Code Examples</h3>
+                    <p>More examples showing advanced parsing scenarios and techniques</p>
+                </a>
+
+                <a href="documentation.html" class="doc-link">
+                    <h3>📚 Technical Documentation</h3>
+                    <p>Deep dive into VB6 file formats and parser architecture</p>
+                </a>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 Need Help?</strong><br>
+                • Check the <a href="https://github.com/scriptandcompile/vb6parse/issues" target="_blank">GitHub Issues</a> for common problems<br>
+                • Review the <a href="https://github.com/scriptandcompile/vb6parse/tree/main/examples" target="_blank">examples directory</a> for more code samples<br>
+                • Open a discussion or issue if you encounter problems
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors</p>
+            <p>
+                <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a> |
+                <a href="https://crates.io/crates/vb6parse" target="_blank">Crates.io</a> |
+                <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a> |
+                <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

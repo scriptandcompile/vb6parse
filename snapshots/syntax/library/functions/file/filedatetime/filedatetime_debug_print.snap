@@ -1,0 +1,29 @@
+---
+source: src/syntax/library/functions/file/filedatetime.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: Debug
+        - kind: PeriodOperator
+          text: "."
+        - kind: PrintKeyword
+          text: Print
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: FileDateTime
+        - kind: LeftParenthesis
+          text: (
+        - kind: StringLiteral
+          text: "\"C:\\temp.dat\""
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

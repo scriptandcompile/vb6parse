@@ -1,0 +1,13 @@
+---
+source: src/syntax/statements/objects/call.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: InitializeRandomDNA
+        - kind: Newline
+          text: "\n"

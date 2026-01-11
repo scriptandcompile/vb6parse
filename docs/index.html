@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse - A complete, high-performance parser library for Visual Basic 6 code and project files">
+    <meta name="keywords" content="vb6, parser, visual basic 6, rust, legacy code, code analysis">
+    <title>VB6Parse - Visual Basic 6 Parser Library</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="assets/js/theme-switcher.js"></script>
+    <script src="assets/js/stats.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>VB6Parse</h1>
+            <p class="tagline">A complete, high-performance parser library for Visual Basic 6 code and project files</p>
+            <div class="badges">
+                <a href="https://crates.io/crates/vb6parse" target="_blank">
+                    <img src="https://img.shields.io/crates/v/vb6parse.svg" alt="Crates.io">
+                </a>
+                <a href="https://docs.rs/vb6parse" target="_blank">
+                    <img src="https://docs.rs/vb6parse/badge.svg" alt="Documentation">
+                </a>
+                <a href="https://opensource.org/licenses/MIT" target="_blank">
+                    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <a href="#overview">Overview</a>
+            <a href="#features">Features</a>
+            <a href="#architecture">Architecture</a>
+            <a href="getting-started.html">Getting Started</a>
+            <a href="documentation.html">Documentation</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>
+                VB6Parse is designed as a foundational library for tools that analyze, convert, or process Visual Basic 6 code. 
+                While capable of supporting real-time syntax highlighting and language servers, its primary focus is on 
+                offline analysis, legacy code utilities, and migration tools.
+            </p>
+        </section>
+
+        <section id="features">
+            <h2>Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🚀 High Performance</h3>
+                    <p>Fast, efficient parsing with minimal allocations and zero-copy tokenization</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📦 Full VB6 Support</h3>
+                    <p>Supports projects (.vbp), modules (.bas), classes (.cls), forms (.frm), and resources (.frx)</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🌲 Concrete Syntax Tree</h3>
+                    <p>Complete source fidelity with CST preserving all whitespace and comments</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📚 VB6 Library</h3>
+                    <p>160+ built-in VB6 library functions and 42 statements documented</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🛡️ Error Handling</h3>
+                    <p>Comprehensive error handling with detailed failure information and recovery</p>
+                </div>
+                <a href="coverage.html" class="feature-card" style="text-decoration: none; color: inherit;">
+                    <h3>✅ Well Tested</h3>
+                    <p>5,500+ tests including unit tests, integration tests, doc tests, and fuzz testing</p>
+                </a>
+            </div>
+        </section>
+
+        <section id="quick-start">
+            <h2>Quick Start</h2>
+            
+            <div class="quick-start-cta">
+                <h3 style="margin-top: 0; color: var(--primary-color);">👉 New to VB6Parse?</h3>
+                <p style="margin-bottom: 1rem; font-size: 1.1rem; color: var(--text-color);">Follow our comprehensive Getting Started guide for step-by-step tutorials, error handling, and real-world examples.</p>
+                <a href="getting-started.html" style="display: inline-block; background: var(--primary-color); color: white; padding: 10px 24px; border-radius: 6px; text-decoration: none; font-weight: 600; transition: transform 0.2s ease, background 0.2s ease;">
+                    View Getting Started Guide →
+                </a>
+            </div>
+        </section>
+
+        <section id="architecture">
+            <h2>Architecture</h2>
+            <p>
+                VB6Parse uses a seven-layer parsing pipeline that transforms raw bytes into structured VB6 objects.
+                Each layer builds on the previous one, providing clean separation of concerns and allowing you to 
+                hook into the parsing process at any level.
+            </p>
+            <div class="architecture-diagram">
+                <div class="pipeline-layer">
+                    <div class="layer-title">I/O Layer</div>
+                    <div class="pipeline-components">
+                        <div class="pipeline-box">Bytes/String/File</div>
+                        <div class="pipeline-arrow">→</div>
+                        <div class="pipeline-box">SourceFile<br><small>(Windows-1252)</small></div>
+                        <div class="pipeline-arrow">→</div>
+                        <div class="pipeline-box">SourceStream<br><small>(Characters)</small></div>
+                    </div>
+                </div>
+                <div class="vertical-arrow">↓</div>
+                <div class="pipeline-layer">
+                    <div class="layer-title">Lexer Layer</div>
+                    <div class="pipeline-components">
+                        <div class="pipeline-box">TokenStream<br><small>(Tokens)</small></div>
+                    </div>
+                </div>
+                <div class="vertical-arrow">↓</div>
+                <div class="pipeline-layer">
+                    <div class="layer-title">Parser Layer</div>
+                    <div class="pipeline-components">
+                        <div class="pipeline-box">CST<br><small>(Syntax Tree)</small></div>
+                    </div>
+                </div>
+                <div class="vertical-arrow">↓</div>
+                <div class="pipeline-layer">
+                    <div class="layer-title">VB6 Language Layer</div>
+                    <div class="pipeline-components">
+                        <div class="pipeline-box">VB6 Objects<br><small>(ProjectFile, ClassFile, ModuleFile, FormFile, etc.)</small></div>
+                        <div class="pipeline-box">Controls<br><small>(50+ control types)</small></div>
+                        <div class="pipeline-box">Colors<br><small>(24 predefined)</small></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="architecture-details" style="margin-top: 2rem;">
+                <h3>Layer Details</h3>
+                <div class="layer-grid">
+                    <div class="layer-card">
+                        <h4>I/O Layer</h4>
+                        <p><strong>Input:</strong> Raw bytes, strings, or files</p>
+                        <p><strong>Output:</strong> Character streams</p>
+                        <p><strong>Purpose:</strong> Handles Windows-1252 encoding and provides character-level access to source code.</p>
+                        <p><strong>Key Types:</strong> <code>SourceFile</code>, <code>SourceStream</code></p>
+                    </div>
+
+                    <div class="layer-card">
+                        <h4>Lexer Layer</h4>
+                        <p><strong>Input:</strong> Character stream</p>
+                        <p><strong>Output:</strong> Token stream</p>
+                        <p><strong>Purpose:</strong> Converts characters into tokens (keywords, identifiers, operators, literals).</p>
+                        <p><strong>Key Types:</strong> <code>TokenStream</code>, <code>Token</code></p>
+                    </div>
+
+                    <div class="layer-card">
+                        <h4>Parser Layer</h4>
+                        <p><strong>Input:</strong> Token stream</p>
+                        <p><strong>Output:</strong> Concrete Syntax Tree (CST)</p>
+                        <p><strong>Purpose:</strong> Builds a complete tree structure preserving all source information.</p>
+                        <p><strong>Key Types:</strong> <code>ConcreteSyntaxTree</code>, <code>CstNode</code></p>
+                    </div>
+
+                    <div class="layer-card">
+                        <h4>VB6 Language Layer</h4>
+                        <p><strong>Input:</strong> Source files</p>
+                        <p><strong>Output:</strong> Structured file objects</p>
+                        <p><strong>Purpose:</strong> High-level parsers for each VB6 file type.</p>
+                        <p><strong>Key Types:</strong> <code>ProjectFile</code>, <code>ClassFile</code>, <code>ModuleFile</code>, <code>FormFile</code></p>
+                    </div>
+
+                </div>
+
+                <div class="tip-box">
+                    <strong>💡 Flexibility by Design:</strong> You can use VB6Parse at any layer depending on your needs.
+                    Need just tokens? Use the Lexer. Need full file parsing? Use the Files layer. Want to build custom
+                    analysis tools? Navigate the CST directly. Each layer is independently useful.
+                </div>
+            </div>
+        </section>
+
+        <section id="file-support">
+            <h2>Supported File Types</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Extension</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.vbp</code></td>
+                        <td>Project files</td>
+                        <td>✅ Complete</td>
+                    </tr>
+                    <tr>
+                        <td><code>.cls</code></td>
+                        <td>Class modules</td>
+                        <td>✅ Complete</td>
+                    </tr>
+                    <tr>
+                        <td><code>.bas</code></td>
+                        <td>Code modules</td>
+                        <td>✅ Complete</td>
+                    </tr>
+                    <tr>
+                        <td><code>.frm</code></td>
+                        <td>Forms</td>
+                        <td>⚠️ Partial</td>
+                    </tr>
+                    <tr>
+                        <td><code>.frx</code></td>
+                        <td>Form resources</td>
+                        <td>⚠️ Partial</td>
+                    </tr>
+                    <tr>
+                        <td><code>.ctl</code></td>
+                        <td>User controls</td>
+                        <td>✅ Parsed as forms</td>
+                    </tr>
+                    <tr>
+                        <td><code>.dob</code></td>
+                        <td>User documents</td>
+                        <td>✅ Parsed as forms</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="testing">
+            <h2>Testing & Quality</h2>
+            <div id="stats-loading" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 3rem 2rem; text-align: center; margin: 2rem 0;">
+                <div style="width: 48px; height: 48px; border: 4px solid var(--border-color); border-top-color: var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem;"></div>
+                <p style="color: var(--text-secondary); margin: 0;">Test statistics being generated...</p>
+                <style>
+                    @keyframes spin {
+                        to { transform: rotate(360deg); }
+                    }
+                </style>
+            </div>
+            <div class="stats-grid" id="stats-grid" style="display: none;">
+                <div class="stat-card">
+                    <div class="stat-number" data-stat="lib_tests"></div>
+                    <div class="stat-label">Library Tests</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-stat="doc_tests"></div>
+                    <div class="stat-label">Doc Tests</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-stat="integration_tests"></div>
+                    <div class="stat-label">Integration Tests</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-stat="fuzz_targets"></div>
+                    <div class="stat-label">Fuzz Targets</div>
+                </div>
+            </div>
+            <p class="testing-info">
+                VB6Parse uses comprehensive testing including unit tests, snapshot testing with 
+                <a href="https://docs.rs/insta" target="_blank">insta</a>, benchmarking with 
+                <a href="https://github.com/bheisler/criterion.rs" target="_blank">criterion</a>, 
+                and fuzz testing with <a href="https://github.com/rust-fuzz/cargo-fuzz" target="_blank">cargo-fuzz</a>.
+            </p>
+        </section>
+
+        <section id="community">
+            <h2>Community & Contributing</h2>
+            <p>
+                VB6Parse is open source and welcomes contributions! Whether you're reporting bugs, 
+                suggesting features, or submitting pull requests, your help is appreciated.
+            </p>
+            <div class="community-links">
+                <a href="https://github.com/scriptandcompile/vb6parse/issues" class="community-btn" target="_blank">
+                    Report an Issue
+                </a>
+                <a href="https://github.com/scriptandcompile/vb6parse/blob/main/CONTRIBUTING.md" class="community-btn" target="_blank">
+                    Contributing Guide
+                </a>
+                <a href="https://github.com/scriptandcompile/vb6parse/blob/main/CHANGELOG.md" class="community-btn" target="_blank">
+                    Changelog
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>VB6Parse is licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a></p>
+            <p>Built with ❤️ by <a href="https://github.com/scriptandcompile" target="_blank">ScriptAndCompile</a></p>
+        </div>
+    </footer>
+</body>
+</html>

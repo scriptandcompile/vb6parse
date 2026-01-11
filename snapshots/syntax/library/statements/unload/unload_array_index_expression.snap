@@ -1,0 +1,101 @@
+---
+source: src/syntax/library/statements/system_interaction/unload.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: DimStatement
+              children:
+                - kind: DimKeyword
+                  text: Dim
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: idx
+                - kind: Whitespace
+                  text: " "
+                - kind: AsKeyword
+                  text: As
+                - kind: Whitespace
+                  text: " "
+                - kind: IntegerKeyword
+                  text: Integer
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: idx
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: NumericLiteralExpression
+                  children:
+                    - kind: IntegerLiteral
+                      text: "5"
+                - kind: Newline
+                  text: "\n"
+            - kind: UnloadStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: UnloadKeyword
+                  text: Unload
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: picImage
+                - kind: LeftParenthesis
+                  text: (
+                - kind: Identifier
+                  text: idx
+                - kind: Whitespace
+                  text: " "
+                - kind: MultiplicationOperator
+                  text: "*"
+                - kind: Whitespace
+                  text: " "
+                - kind: IntegerLiteral
+                  text: "2"
+                - kind: RightParenthesis
+                  text: )
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

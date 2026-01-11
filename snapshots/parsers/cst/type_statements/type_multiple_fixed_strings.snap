@@ -1,0 +1,115 @@
+---
+source: src/parsers/cst/type_statements.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: TypeStatement
+      children:
+        - kind: TypeKeyword
+          text: Type
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: ContactInfo
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: Identifier
+          text: FirstName
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: StringKeyword
+          text: String
+        - kind: Whitespace
+          text: " "
+        - kind: MultiplicationOperator
+          text: "*"
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "30"
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: Identifier
+          text: LastName
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: StringKeyword
+          text: String
+        - kind: Whitespace
+          text: " "
+        - kind: MultiplicationOperator
+          text: "*"
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "30"
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: Identifier
+          text: Phone
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: StringKeyword
+          text: String
+        - kind: Whitespace
+          text: " "
+        - kind: MultiplicationOperator
+          text: "*"
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "15"
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: Identifier
+          text: Email
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: StringKeyword
+          text: String
+        - kind: Whitespace
+          text: " "
+        - kind: MultiplicationOperator
+          text: "*"
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "50"
+        - kind: Newline
+          text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: TypeKeyword
+          text: Type
+        - kind: Newline
+          text: "\n"

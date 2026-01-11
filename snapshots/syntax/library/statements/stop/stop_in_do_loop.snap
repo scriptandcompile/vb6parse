@@ -1,0 +1,73 @@
+---
+source: src/syntax/library/statements/system_interaction/stop.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: DoStatement
+      children:
+        - kind: DoKeyword
+          text: Do
+        - kind: Whitespace
+          text: " "
+        - kind: WhileKeyword
+          text: While
+        - kind: Whitespace
+          text: " "
+        - kind: UnaryExpression
+          children:
+            - kind: NotKeyword
+              text: Not
+            - kind: Whitespace
+              text: " "
+            - kind: MemberAccessExpression
+              children:
+                - kind: Identifier
+                  text: rs
+                - kind: PeriodOperator
+                  text: "."
+                - kind: Identifier
+                  text: EOF
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: StopStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: StopKeyword
+                  text: Stop
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: ProcessRecord
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: rs
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: rs
+                - kind: PeriodOperator
+                  text: "."
+                - kind: Identifier
+                  text: MoveNext
+                - kind: Newline
+                  text: "\n"
+        - kind: LoopKeyword
+          text: Loop
+        - kind: Newline
+          text: "\n"

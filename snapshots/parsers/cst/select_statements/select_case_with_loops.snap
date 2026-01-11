@@ -1,0 +1,247 @@
+---
+source: src/parsers/cst/select_statements.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SelectCaseStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SelectKeyword
+                  text: Select
+                - kind: Whitespace
+                  text: " "
+                - kind: CaseKeyword
+                  text: Case
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: operation
+                - kind: Newline
+                  text: "\n"
+                - kind: Whitespace
+                  text: "        "
+                - kind: CaseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteral
+                      text: "\"add\""
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: ForStatement
+                          children:
+                            - kind: Whitespace
+                              text: "            "
+                            - kind: ForKeyword
+                              text: For
+                            - kind: Whitespace
+                              text: " "
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: i
+                            - kind: Whitespace
+                              text: " "
+                            - kind: EqualityOperator
+                              text: "="
+                            - kind: Whitespace
+                              text: " "
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "1"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: ToKeyword
+                              text: To
+                            - kind: Whitespace
+                              text: " "
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "10"
+                            - kind: Newline
+                              text: "\n"
+                            - kind: StatementList
+                              children:
+                                - kind: Whitespace
+                                  text: "                "
+                                - kind: AssignmentStatement
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: total
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: EqualityOperator
+                                      text: "="
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: BinaryExpression
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: total
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: AdditionOperator
+                                          text: +
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: i
+                                    - kind: Newline
+                                      text: "\n"
+                                - kind: Whitespace
+                                  text: "            "
+                            - kind: NextKeyword
+                              text: Next
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Identifier
+                              text: i
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "        "
+                - kind: CaseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteral
+                      text: "\"multiply\""
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: ForStatement
+                          children:
+                            - kind: Whitespace
+                              text: "            "
+                            - kind: ForKeyword
+                              text: For
+                            - kind: Whitespace
+                              text: " "
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: i
+                            - kind: Whitespace
+                              text: " "
+                            - kind: EqualityOperator
+                              text: "="
+                            - kind: Whitespace
+                              text: " "
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "1"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: ToKeyword
+                              text: To
+                            - kind: Whitespace
+                              text: " "
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "10"
+                            - kind: Newline
+                              text: "\n"
+                            - kind: StatementList
+                              children:
+                                - kind: Whitespace
+                                  text: "                "
+                                - kind: AssignmentStatement
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: total
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: EqualityOperator
+                                      text: "="
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: BinaryExpression
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: total
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: MultiplicationOperator
+                                          text: "*"
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: i
+                                    - kind: Newline
+                                      text: "\n"
+                                - kind: Whitespace
+                                  text: "            "
+                            - kind: NextKeyword
+                              text: Next
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Identifier
+                              text: i
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: SelectKeyword
+                  text: Select
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

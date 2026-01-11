@@ -1,0 +1,15 @@
+---
+source: src/syntax/library/statements/system_interaction/beep.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: BeepStatement
+      children:
+        - kind: BeepKeyword
+          text: Beep
+        - kind: Newline
+          text: "\n"

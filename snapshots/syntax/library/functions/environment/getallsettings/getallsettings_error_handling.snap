@@ -1,0 +1,63 @@
+---
+source: src/syntax/library/functions/environment/getallsettings.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: OnErrorStatement
+      children:
+        - kind: OnKeyword
+          text: "On"
+        - kind: Whitespace
+          text: " "
+        - kind: ErrorKeyword
+          text: Error
+        - kind: Whitespace
+          text: " "
+        - kind: GotoKeyword
+          text: GoTo
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: ErrorHandler
+        - kind: Newline
+          text: "\n"
+    - kind: AssignmentStatement
+      children:
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: settings
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: GetAllSettings
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: appName
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: section
+            - kind: RightParenthesis
+              text: )

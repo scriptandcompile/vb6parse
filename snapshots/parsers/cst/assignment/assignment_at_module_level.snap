@@ -1,0 +1,37 @@
+---
+source: src/parsers/cst/assignment.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: OptionStatement
+      children:
+        - kind: OptionKeyword
+          text: Option
+        - kind: Whitespace
+          text: " "
+        - kind: ExplicitKeyword
+          text: Explicit
+        - kind: Newline
+          text: "\n"
+    - kind: AssignmentStatement
+      children:
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: x
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "5"
+        - kind: Newline
+          text: "\n"

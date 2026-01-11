@@ -1,11 +1,21 @@
-use crate::errors::VB6ErrorKind;
+//! Properties for a `Data` control.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::Data`](crate::language::controls::ControlKind::Data).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
+
+use std::fmt::Display;
+use std::str::FromStr;
+
+use crate::errors::FormErrorKind;
+use crate::files::common::Properties;
 use crate::language::controls::{
     Activation, Align, Appearance, DragMode, MousePointer, OLEDropMode, TextDirection, Visibility,
 };
-use crate::parsers::Properties;
-use crate::VB6Color;
+use crate::language::Color;
 
-use bstr::{BString, ByteSlice};
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
@@ -13,41 +23,72 @@ use serde::Serialize;
 /// Properties for a `Data` control.
 ///
 /// This is used as an enum variant of
-/// [`VB6ControlKind::Data`](crate::language::controls::VB6ControlKind::Data).
+/// [`ControlKind::Data`](crate::language::controls::ControlKind::Data).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
+/// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct DataProperties {
+    /// A store for the properties of the Data control.
     pub align: Align,
+    /// Appearance of the Data control.
     pub appearance: Appearance,
-    pub back_color: VB6Color,
+    /// Background color of the Data control.
+    pub back_color: Color,
+    /// Action to take when the BOF (Beginning of File) is reached.
     pub bof_action: BOFAction,
-    pub caption: BString,
-    pub connection: Connection,
-    pub database_name: BString,
+    /// Caption of the Data control.
+    pub caption: String,
+    /// Type of connection to the database.
+    pub connection: ConnectionType,
+    /// Name of the database to connect to.
+    pub database_name: String,
+    /// Default cursor type for the Data control.
     pub default_cursor_type: DefaultCursorType,
-    pub default_type: DefaultType,
+    /// Default type of data source for the Data control.
+    pub default_type: DatabaseDriverType,
+    /// Drag icon for the Data control.
     pub drag_icon: Option<DynamicImage>,
+    /// Drag mode for the Data control.
     pub drag_mode: DragMode,
+    /// Whether the Data control is enabled.
     pub enabled: Activation,
+    /// Action to take when the EOF (End of File) is reached.
     pub eof_action: EOFAction,
+    /// Whether the Data control is exclusive.
     pub exclusive: bool,
-    pub fore_color: VB6Color,
+    /// Foreground color of the Data control.
+    pub fore_color: Color,
+    /// Height of the Data control.
     pub height: i32,
+    /// Left position of the Data control.
     pub left: i32,
+    /// Mouse icon for the Data control.
     pub mouse_icon: Option<DynamicImage>,
+    /// Mouse pointer type for the Data control.
     pub mouse_pointer: MousePointer,
-    pub negotitate: bool,
+    /// Whether to negotiate the connection.
+    pub negotiate: bool,
+    /// OLE drop mode for the Data control.
     pub ole_drop_mode: OLEDropMode,
+    /// Options for the Data control.
     pub options: i32,
+    /// Whether the Data control is read-only.
     pub read_only: bool,
+    /// Type of record set for the Data control.
     pub record_set_type: RecordSetType,
-    pub record_source: BString,
+    /// Record source for the Data control.
+    pub record_source: String,
+    /// Text direction for the Data control.
     pub right_to_left: TextDirection,
-    pub tool_tip_text: BString,
+    /// Tool tip text for the Data control.
+    pub tool_tip_text: String,
+    /// Top position of the Data control.
     pub top: i32,
+    /// Visibility of the Data control.
     pub visible: Visibility,
+    /// What's This Help ID for the Data control.
     pub whats_this_help_id: i32,
+    /// Width of the Data control.
     pub width: i32,
 }
 
@@ -56,31 +97,31 @@ impl Default for DataProperties {
         DataProperties {
             align: Align::None,
             appearance: Appearance::ThreeD,
-            back_color: VB6Color::System { index: 5 },
+            back_color: Color::System { index: 5 },
             bof_action: BOFAction::MoveFirst,
-            caption: "".into(),
-            connection: Connection::Access,
-            database_name: "".into(),
+            caption: String::new(),
+            connection: ConnectionType::Access,
+            database_name: String::new(),
             default_cursor_type: DefaultCursorType::Default,
-            default_type: DefaultType::UseJet,
+            default_type: DatabaseDriverType::UseJet,
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
             eof_action: EOFAction::MoveLast,
             exclusive: false,
-            fore_color: VB6Color::System { index: 8 },
+            fore_color: Color::System { index: 8 },
             height: 1215,
             left: 480,
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
-            negotitate: false,
+            negotiate: false,
             ole_drop_mode: OLEDropMode::default(),
             options: 0,
             read_only: false,
             record_set_type: RecordSetType::Dynaset,
-            record_source: "".into(),
+            record_source: String::new(),
             right_to_left: TextDirection::LeftToRight,
-            tool_tip_text: "".into(),
+            tool_tip_text: String::new(),
             top: 840,
             visible: Visibility::Visible,
             whats_this_help_id: 0,
@@ -122,7 +163,7 @@ impl Serialize for DataProperties {
 
         s.serialize_field("mouse_icon", &option_text)?;
         s.serialize_field("mouse_pointer", &self.mouse_pointer)?;
-        s.serialize_field("negotitate", &self.negotitate)?;
+        s.serialize_field("negotiate", &self.negotiate)?;
         s.serialize_field("ole_drop_mode", &self.ole_drop_mode)?;
         s.serialize_field("options", &self.options)?;
         s.serialize_field("read_only", &self.read_only)?;
@@ -139,77 +180,76 @@ impl Serialize for DataProperties {
     }
 }
 
-impl<'a> From<Properties<'a>> for DataProperties {
-    fn from(prop: Properties<'a>) -> Self {
+impl From<Properties> for DataProperties {
+    fn from(prop: Properties) -> Self {
         let mut data_prop = DataProperties::default();
 
-        data_prop.align = prop.get_property(b"Align".into(), data_prop.align);
-        data_prop.appearance = prop.get_property(b"Appearance".into(), data_prop.appearance);
-        data_prop.back_color = prop.get_color(b"BackColor".into(), data_prop.back_color);
-        data_prop.bof_action = prop.get_property(b"BOFAction".into(), data_prop.bof_action);
-        data_prop.caption = match prop.get(b"Caption".into()) {
-            Some(caption) => caption.into(),
+        data_prop.align = prop.get_property("Align", data_prop.align);
+        data_prop.appearance = prop.get_property("Appearance", data_prop.appearance);
+        data_prop.back_color = prop.get_color("BackColor", data_prop.back_color);
+        data_prop.bof_action = prop.get_property("BOFAction", data_prop.bof_action);
+        data_prop.caption = match prop.get("Caption") {
+            Some(caption) => caption.clone(),
             None => data_prop.caption,
         };
         data_prop.connection = prop
-            .get(b"Connection".into())
-            .map_or(Ok(Connection::Access), |v| {
-                Connection::try_from(v.to_str().unwrap_or("Access"))
-            })
-            .unwrap();
-        data_prop.database_name = match prop.get("DatabaseName".into()) {
-            Some(database_name) => database_name.into(),
-            None => "".into(),
+            .get("Connection")
+            .map_or(Ok(ConnectionType::Access), |v| v.as_str().try_into())
+            .unwrap_or(ConnectionType::Access);
+        data_prop.database_name = match prop.get("DatabaseName") {
+            Some(database_name) => database_name.clone(),
+            None => String::new(),
         };
         data_prop.default_cursor_type =
-            prop.get_property(b"DefaultCursorType".into(), data_prop.default_cursor_type);
-        data_prop.default_type = prop.get_property(b"DefaultType".into(), data_prop.default_type);
+            prop.get_property("DefaultCursorType", data_prop.default_cursor_type);
+        data_prop.default_type = prop.get_property("DefaultType", data_prop.default_type);
 
+        // TODO: Implement DragIcon parsing
         // DragIcon
 
-        data_prop.drag_mode = prop.get_property(b"DragMode".into(), data_prop.drag_mode);
-        data_prop.enabled = prop.get_property(b"Enabled".into(), data_prop.enabled);
-        data_prop.eof_action = prop.get_property(b"EOFAction".into(), data_prop.eof_action);
-        data_prop.exclusive = prop.get_bool(b"Exclusive".into(), data_prop.exclusive);
-        data_prop.fore_color = prop.get_color(b"ForeColor".into(), data_prop.fore_color);
-        data_prop.height = prop.get_i32(b"Height".into(), data_prop.height);
-        data_prop.left = prop.get_i32(b"Left".into(), data_prop.left);
-        data_prop.mouse_pointer =
-            prop.get_property(b"MousePointer".into(), data_prop.mouse_pointer);
-        data_prop.negotitate = prop.get_bool(b"Negotitate".into(), data_prop.negotitate);
-        data_prop.ole_drop_mode = prop.get_property(b"OLEDropMode".into(), data_prop.ole_drop_mode);
-        data_prop.options = prop.get_i32(b"Options".into(), data_prop.options);
-        data_prop.read_only = prop.get_bool(b"ReadOnly".into(), data_prop.read_only);
-        data_prop.record_set_type =
-            prop.get_property(b"RecordsetType".into(), data_prop.record_set_type);
-        data_prop.record_source = match prop.get(b"RecordSource".into()) {
+        data_prop.drag_mode = prop.get_property("DragMode", data_prop.drag_mode);
+        data_prop.enabled = prop.get_property("Enabled", data_prop.enabled);
+        data_prop.eof_action = prop.get_property("EOFAction", data_prop.eof_action);
+        data_prop.exclusive = prop.get_bool("Exclusive", data_prop.exclusive);
+        data_prop.fore_color = prop.get_color("ForeColor", data_prop.fore_color);
+        data_prop.height = prop.get_i32("Height", data_prop.height);
+        data_prop.left = prop.get_i32("Left", data_prop.left);
+        data_prop.mouse_pointer = prop.get_property("MousePointer", data_prop.mouse_pointer);
+        data_prop.negotiate = prop.get_bool("Negotiate", data_prop.negotiate);
+        data_prop.ole_drop_mode = prop.get_property("OLEDropMode", data_prop.ole_drop_mode);
+        data_prop.options = prop.get_i32("Options", data_prop.options);
+        data_prop.read_only = prop.get_bool("ReadOnly", data_prop.read_only);
+        data_prop.record_set_type = prop.get_property("RecordsetType", data_prop.record_set_type);
+        data_prop.record_source = match prop.get("RecordSource") {
             Some(record_source) => record_source.into(),
-            None => "".into(),
+            None => String::new(),
         };
 
-        data_prop.right_to_left = prop.get_property(b"RightToLeft".into(), data_prop.right_to_left);
-        data_prop.tool_tip_text = match prop.get(b"ToolTipText".into()) {
+        data_prop.right_to_left = prop.get_property("RightToLeft", data_prop.right_to_left);
+        data_prop.tool_tip_text = match prop.get("ToolTipText") {
             Some(tool_tip_text) => tool_tip_text.into(),
-            None => "".into(),
+            None => String::new(),
         };
-        data_prop.top = prop.get_i32(b"Top".into(), data_prop.top);
-        data_prop.visible = prop.get_property(b"Visible".into(), data_prop.visible);
+        data_prop.top = prop.get_i32("Top", data_prop.top);
+        data_prop.visible = prop.get_property("Visible", data_prop.visible);
         data_prop.whats_this_help_id =
-            prop.get_i32(b"WhatsThisHelpID".into(), data_prop.whats_this_help_id);
-        data_prop.width = prop.get_i32(b"Width".into(), data_prop.width);
+            prop.get_i32("WhatsThisHelpID", data_prop.whats_this_help_id);
+        data_prop.width = prop.get_i32("Width", data_prop.width);
 
         data_prop
     }
 }
 
-/// BOFAction is used to determine what action the ADODC takes when the BOF
+/// `BOFAction` is used to determine what action the ADODC takes when the BOF
 /// property is true.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245042(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum BOFAction {
-    /// Keeps tthe first record as the current record.
+    /// Keeps the first record as the current record.
     ///
     /// This is the default value.
     #[default]
@@ -220,86 +260,153 @@ pub enum BOFAction {
     Bof = 1,
 }
 
+impl Display for BOFAction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            BOFAction::MoveFirst => "MoveFirst",
+            BOFAction::Bof => "BOF",
+        };
+        write!(f, "{text}")
+    }
+}
+
+impl FromStr for BOFAction {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "0" => Ok(BOFAction::MoveFirst),
+            "1" => Ok(BOFAction::Bof),
+            _ => Err(FormErrorKind::InvalidBOFAction(s.to_string())),
+        }
+    }
+}
+
+impl TryFrom<&str> for BOFAction {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        BOFAction::from_str(value)
+    }
+}
+
 /// Determine the type of connection to the ADODC database.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
-pub enum Connection {
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, Copy, Hash, PartialOrd, Ord)]
+pub enum ConnectionType {
     /// The Data control is connecting to Microsoft Access database.
     ///
     /// This is the default value.
     #[default]
     Access,
-    /// The Data control is connecting to dBase III database.
+    /// The Data control is connecting to `dBase III` database.
     DBaseIII,
-    /// The Data control is connecting to dBase IV database.
+    /// The Data control is connecting to `dBase IV` database.
     DBaseIV,
-    /// The Data control is connecting to dBase 5.0 database.
+    /// The Data control is connecting to `dBase 5.0` database.
     DBase5_0,
-    /// The Data control is connecting to Excel 3.0 database.
+    /// The Data control is connecting to `Excel 3.0` database.
     Excel3_0,
-    /// The Data control is connecting to Excel 4.0 database.
+    /// The Data control is connecting to `Excel 4.0` database.
     Excel4_0,
-    /// The Data control is connecting to Excel 5.0 database.
+    /// The Data control is connecting to `Excel 5.0` database.
     Excel5_0,
-    /// The Data control is connecting to Excel 8.0 database.
+    /// The Data control is connecting to `Excel 8.0` database.
     Excel8_0,
-    /// The Data control is connecting to FoxPro 2.0 database.
+    /// The Data control is connecting to `FoxPro 2.0` database.
     FoxPro2_0,
-    /// The Data control is connecting to FoxPro 2.5 database.
+    /// The Data control is connecting to `FoxPro 2.5` database.
     FoxPro2_5,
-    /// The Data control is connecting to FoxPro 2.6 database.
+    /// The Data control is connecting to `FoxPro 2.6` database.
     FoxPro2_6,
-    /// The Data control is connecting to FoxPro 3.0 database.
+    /// The Data control is connecting to `FoxPro 3.0` database.
     FoxPro3_0,
-    /// The Data control is connecting to Lotus Works 1 database.
+    /// The Data control is connecting to `Lotus Works 1` database.
     LotusWk1,
-    /// The Data control is connecting to Lotus Works 3 database.
+    /// The Data control is connecting to `Lotus Works 3` database.
     LotusWk3,
-    /// The Data control is connecting to Lotus Works 4 database.
+    /// The Data control is connecting to `Lotus Works 4` database.
     LotusWk4,
-    /// The Data control is connecting to Paradox 3.X database.
+    /// The Data control is connecting to `Paradox 3.X` database.
     Paradox3X,
-    /// The Data control is connecting to Paradox 4.X database.
+    /// The Data control is connecting to `Paradox 4.X` database.
     Paradox4X,
-    /// The Data control is connecting to Paradox 5.X database.
+    /// The Data control is connecting to `Paradox 5.X` database.
     Paradox5X,
-    /// The Data control is connecting to Text data set.
+    /// The Data control is connecting to a `Text` data set.
     Text,
 }
 
-impl TryFrom<&str> for Connection {
-    type Error = VB6ErrorKind;
+impl Display for ConnectionType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            ConnectionType::Access => "Access",
+            ConnectionType::DBaseIII => "dBase III",
+            ConnectionType::DBaseIV => "dBase IV",
+            ConnectionType::DBase5_0 => "dBase 5.0",
+            ConnectionType::Excel3_0 => "Excel 3.0",
+            ConnectionType::Excel4_0 => "Excel 4.0",
+            ConnectionType::Excel5_0 => "Excel 5.0",
+            ConnectionType::Excel8_0 => "Excel 8.0",
+            ConnectionType::FoxPro2_0 => "FoxPro 2.0",
+            ConnectionType::FoxPro2_5 => "FoxPro 2.5",
+            ConnectionType::FoxPro2_6 => "FoxPro 2.6",
+            ConnectionType::FoxPro3_0 => "FoxPro 3.0",
+            ConnectionType::LotusWk1 => "Lotus WK1",
+            ConnectionType::LotusWk3 => "Lotus WK3",
+            ConnectionType::LotusWk4 => "Lotus WK4",
+            ConnectionType::Paradox3X => "Paradox 3.X",
+            ConnectionType::Paradox4X => "Paradox 4.X",
+            ConnectionType::Paradox5X => "Paradox 5.X",
+            ConnectionType::Text => "Text",
+        };
+        write!(f, "{text}")
+    }
+}
 
-    fn try_from(value: &str) -> Result<Self, Self::Error> {
-        match value {
-            "Access" => Ok(Connection::Access),
-            "dBase III" => Ok(Connection::DBaseIII),
-            "dBase IV" => Ok(Connection::DBaseIV),
-            "dBase 5.0" => Ok(Connection::DBase5_0),
-            "Excel 3.0" => Ok(Connection::Excel3_0),
-            "Excel 4.0" => Ok(Connection::Excel4_0),
-            "Excel 5.0" => Ok(Connection::Excel5_0),
-            "Excel 8.0" => Ok(Connection::Excel8_0),
-            "FoxPro 2.0" => Ok(Connection::FoxPro2_0),
-            "FoxPro 2.5" => Ok(Connection::FoxPro2_5),
-            "FoxPro 2.6" => Ok(Connection::FoxPro2_6),
-            "FoxPro 3.0" => Ok(Connection::FoxPro3_0),
-            "Lotus WK1" => Ok(Connection::LotusWk1),
-            "Lotus WK3" => Ok(Connection::LotusWk3),
-            "Lotus WK4" => Ok(Connection::LotusWk4),
-            "Paradox 3.X" => Ok(Connection::Paradox3X),
-            "Paradox 4.X" => Ok(Connection::Paradox4X),
-            "Paradox 5.X" => Ok(Connection::Paradox5X),
-            "Text" => Ok(Connection::Text),
-            _ => Err(VB6ErrorKind::ConnectionTypeUnparseable),
+impl FromStr for ConnectionType {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "Access" => Ok(ConnectionType::Access),
+            "dBase III" => Ok(ConnectionType::DBaseIII),
+            "dBase IV" => Ok(ConnectionType::DBaseIV),
+            "dBase 5.0" => Ok(ConnectionType::DBase5_0),
+            "Excel 3.0" => Ok(ConnectionType::Excel3_0),
+            "Excel 4.0" => Ok(ConnectionType::Excel4_0),
+            "Excel 5.0" => Ok(ConnectionType::Excel5_0),
+            "Excel 8.0" => Ok(ConnectionType::Excel8_0),
+            "FoxPro 2.0" => Ok(ConnectionType::FoxPro2_0),
+            "FoxPro 2.5" => Ok(ConnectionType::FoxPro2_5),
+            "FoxPro 2.6" => Ok(ConnectionType::FoxPro2_6),
+            "FoxPro 3.0" => Ok(ConnectionType::FoxPro3_0),
+            "Lotus WK1" => Ok(ConnectionType::LotusWk1),
+            "Lotus WK3" => Ok(ConnectionType::LotusWk3),
+            "Lotus WK4" => Ok(ConnectionType::LotusWk4),
+            "Paradox 3.X" => Ok(ConnectionType::Paradox3X),
+            "Paradox 4.X" => Ok(ConnectionType::Paradox4X),
+            "Paradox 5.X" => Ok(ConnectionType::Paradox5X),
+            "Text" => Ok(ConnectionType::Text),
+            _ => Err(FormErrorKind::InvalidConnectionType(s.to_string())),
         }
     }
 }
 
-/// Controls what type of cursor driver is used on the connection (ODBCDirect only)
+impl TryFrom<&str> for ConnectionType {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        ConnectionType::from_str(value)
+    }
+}
+
+/// Controls what type of cursor driver is used on the connection (`ODBCDirect` only)
 /// created by the `Data` control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa234557(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum DefaultCursorType {
     /// Let the ODBC driver determine which type of cursor to use.
@@ -310,32 +417,98 @@ pub enum DefaultCursorType {
     /// Use the ODBC cursor library. This option gives better performance for
     /// small result sets, but degrades quickly for larger result sets.
     Odbc = 1,
-    /// Use server side cutsors. For most large operations this gives
+    /// Use server side cursors. For most large operations this gives
     /// better performance, but might cause more network traffic.
     ServerSide = 2,
 }
 
-/// Determines the type of data source (Jet or ODBCDirect) that is used by the
+impl Display for DefaultCursorType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            DefaultCursorType::Default => "Default",
+            DefaultCursorType::Odbc => "Odbc",
+            DefaultCursorType::ServerSide => "ServerSide",
+        };
+        write!(f, "{text}")
+    }
+}
+
+impl FromStr for DefaultCursorType {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "0" => Ok(DefaultCursorType::Default),
+            "1" => Ok(DefaultCursorType::Odbc),
+            "2" => Ok(DefaultCursorType::ServerSide),
+            _ => Err(FormErrorKind::InvalidDefaultCursorType(s.to_string())),
+        }
+    }
+}
+
+impl TryFrom<&str> for DefaultCursorType {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        DefaultCursorType::from_str(value)
+    }
+}
+
+/// Determines the type of data source (`Jet` or `ODBCDirect`) that is used by the
 /// `Data` control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa234568(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
-pub enum DefaultType {
-    /// Use the ODBCDirect driver to access the data source.
+pub enum DatabaseDriverType {
+    /// Use the `ODBCDirect` driver to access the data source.
     UseODBC = 1,
-    /// Use the Microsoft Jet database engine to access the data source.
+    /// Use the `Microsoft Jet` database engine to access the data source.
     ///
     /// This is the default value.
     #[default]
     UseJet = 2,
 }
 
+impl Display for DatabaseDriverType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            DatabaseDriverType::UseODBC => "UseODBC",
+            DatabaseDriverType::UseJet => "UseJet",
+        };
+        write!(f, "{text}")
+    }
+}
+
+impl FromStr for DatabaseDriverType {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "1" => Ok(DatabaseDriverType::UseODBC),
+            "2" => Ok(DatabaseDriverType::UseJet),
+            _ => Err(FormErrorKind::InvalidDatabaseDriverType(s.to_string())),
+        }
+    }
+}
+
+impl TryFrom<&str> for DatabaseDriverType {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        DatabaseDriverType::from_str(value)
+    }
+}
+
 /// Determines what actions to take within the `Data` control when the EOF
 /// property is true.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245042(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum EOFAction {
     /// Keep the last record as the current record.
@@ -343,7 +516,7 @@ pub enum EOFAction {
     /// This is the default value.
     #[default]
     MoveLast = 0,
-    /// Moving past the end of a `Recordset` triggers the `Data` constrol's
+    /// Moving past the end of a `Recordset` triggers the `Data` control's
     /// `Validation` event on the last record, followed by a `Reposition` event
     /// on the invalid (EOF) record. At that point, the `MoveNext` button on the
     /// `Data` control is disabled.
@@ -354,11 +527,45 @@ pub enum EOFAction {
     AddNew = 2,
 }
 
+impl Display for EOFAction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            EOFAction::MoveLast => "MoveLast",
+            EOFAction::Eof => "EOF",
+            EOFAction::AddNew => "AddNew",
+        };
+        write!(f, "{text}")
+    }
+}
+
+impl FromStr for EOFAction {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "0" => Ok(EOFAction::MoveLast),
+            "1" => Ok(EOFAction::Eof),
+            "2" => Ok(EOFAction::AddNew),
+            _ => Err(FormErrorKind::InvalidEOFAction(s.to_string())),
+        }
+    }
+}
+
+impl TryFrom<&str> for EOFAction {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        EOFAction::from_str(value)
+    }
+}
+
 /// Determines the type of `Recordset` object you want the `Data` control to
 /// create.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa268103(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum RecordSetType {
     /// Use a `Table` type `Recordset` object.
@@ -370,4 +577,36 @@ pub enum RecordSetType {
     Dynaset = 1,
     /// Use a `Snapshot` type `Recordset` object.
     Snapshot = 2,
+}
+
+impl Display for RecordSetType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            RecordSetType::Table => "Table",
+            RecordSetType::Dynaset => "Dynaset",
+            RecordSetType::Snapshot => "Snapshot",
+        };
+        write!(f, "{text}")
+    }
+}
+
+impl FromStr for RecordSetType {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "0" => Ok(RecordSetType::Table),
+            "1" => Ok(RecordSetType::Dynaset),
+            "2" => Ok(RecordSetType::Snapshot),
+            _ => Err(FormErrorKind::InvalidRecordSetType(s.to_string())),
+        }
+    }
+}
+
+impl TryFrom<&str> for RecordSetType {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        RecordSetType::from_str(value)
+    }
 }

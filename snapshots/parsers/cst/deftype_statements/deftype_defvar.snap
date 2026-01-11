@@ -1,0 +1,21 @@
+---
+source: src/parsers/cst/deftype_statements.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: DefTypeStatement
+      children:
+        - kind: DefVarKeyword
+          text: DefVar
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: V
+        - kind: SubtractionOperator
+          text: "-"
+        - kind: Identifier
+          text: Z
+        - kind: Newline
+          text: "\n"

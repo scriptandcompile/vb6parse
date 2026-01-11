@@ -1,0 +1,19 @@
+---
+source: src/syntax/library/functions/interaction/doevents.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: DoEvents
+        - kind: Newline
+          text: "\n"

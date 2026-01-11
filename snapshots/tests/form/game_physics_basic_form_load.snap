@@ -1,0 +1,2883 @@
+---
+source: tests/form.rs
+expression: form_file
+---
+form:
+  name: frmMain
+  tag: ""
+  index: 0
+  kind:
+    Form:
+      properties:
+        appearance: ThreeD
+        auto_redraw: Manual
+        back_color:
+          System:
+            index: 5
+        border_style: Sizable
+        caption: Simple Game Physics (in VB6) - www.tannerhelland.com
+        client_height: 10005
+        client_left: 60
+        client_top: 345
+        client_width: 12300
+        clip_controls: Clipped
+        control_box: Included
+        draw_mode: CopyPen
+        draw_style: Solid
+        draw_width: 1
+        enabled: Enabled
+        fill_color:
+          System:
+            index: 0
+        fill_style: Transparent
+        font_transparent: Transparent
+        fore_color:
+          System:
+            index: 18
+        has_dc: HasContext
+        height: 240
+        help_context_id: 0
+        icon: ~
+        key_preview: false
+        left: 0
+        link_mode: None
+        link_topic: Form1
+        max_button: Included
+        mdi_child: false
+        min_button: Included
+        mouse_icon: ~
+        mouse_pointer: Default
+        moveable: Moveable
+        negotiate_menus: true
+        ole_drop_mode: None
+        palette: ~
+        palette_mode: HalfTone
+        picture: ~
+        right_to_left: LeftToRight
+        scale_height: 667
+        scale_left: 0
+        scale_mode: Twip
+        scale_top: 0
+        scale_width: 820
+        show_in_taskbar: Show
+        start_up_position: WindowsDefault
+        top: 0
+        visible: Visible
+        whats_this_button: Excluded
+        whats_this_help: F1Help
+        width: 240
+        window_state: Normal
+      controls:
+        - name: chkFramerate
+          tag: ""
+          index: 0
+          kind:
+            CheckBox:
+              properties:
+                alignment: LeftJustify
+                appearance: ThreeD
+                back_color:
+                  System:
+                    index: 5
+                caption: Lock Framerate at 60 fps
+                causes_validation: "Yes"
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
+                disabled_picture: ~
+                down_picture: ~
+                drag_icon: ~
+                drag_mode: Manual
+                enabled: Enabled
+                fore_color:
+                  System:
+                    index: 8
+                height: 375
+                help_context_id: 0
+                left: 1440
+                mask_color:
+                  RGB:
+                    red: 192
+                    green: 192
+                    blue: 192
+                mouse_icon: ~
+                mouse_pointer: Default
+                ole_drop_mode: None
+                picture: ~
+                right_to_left: LeftToRight
+                style: Standard
+                tab_index: 16
+                tab_stop: Included
+                tool_tip_text: ""
+                top: 9360
+                use_mask_color: DoNotUseMaskColor
+                value: Unchecked
+                visible: Visible
+                whats_this_help_id: 0
+                width: 2175
+        - name: cmdExit
+          tag: ""
+          index: 0
+          kind:
+            CommandButton:
+              properties:
+                appearance: ThreeD
+                back_color:
+                  System:
+                    index: 15
+                cancel: false
+                caption: Exit
+                causes_validation: "Yes"
+                default: false
+                disabled_picture: ~
+                down_picture: ~
+                drag_icon: ~
+                drag_mode: Manual
+                enabled: Enabled
+                height: 375
+                help_context_id: 0
+                left: 11280
+                mask_color:
+                  RGB:
+                    red: 192
+                    green: 192
+                    blue: 192
+                mouse_icon: ~
+                mouse_pointer: Default
+                ole_drop_mode: None
+                picture: ~
+                right_to_left: LeftToRight
+                style: Standard
+                tab_index: 15
+                tab_stop: Included
+                tool_tip_text: ""
+                top: 9360
+                use_mask_color: DoNotUseMaskColor
+                whats_this_help_id: 0
+                width: 855
+        - name: PicMain
+          tag: ""
+          index: 0
+          kind:
+            PictureBox:
+              properties:
+                align: None
+                appearance: ThreeD
+                auto_redraw: Manual
+                auto_size: Fixed
+                back_color:
+                  RGB:
+                    red: 0
+                    green: 0
+                    blue: 0
+                border_style: FixedSingle
+                causes_validation: "Yes"
+                clip_controls: Clipped
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
+                drag_icon: ~
+                drag_mode: Manual
+                draw_mode: CopyPen
+                draw_style: Solid
+                draw_width: 1
+                enabled: Enabled
+                fill_color:
+                  System:
+                    index: 0
+                fill_style: Transparent
+                font_transparent: Transparent
+                fore_color:
+                  System:
+                    index: 8
+                has_dc: HasContext
+                height: 8940
+                help_context_id: 0
+                left: 120
+                link_item: ""
+                link_mode: None
+                link_timeout: 50
+                link_topic: ""
+                mouse_icon: ~
+                mouse_pointer: Default
+                negotiate: false
+                ole_drag_mode: Manual
+                ole_drop_mode: None
+                picture: ~
+                right_to_left: LeftToRight
+                scale_height: 594
+                scale_left: 0
+                scale_mode: Twip
+                scale_top: 0
+                scale_width: 802
+                tab_index: 10
+                tab_stop: Included
+                tool_tip_text: ""
+                top: 120
+                visible: Visible
+                whats_this_help_id: 0
+                width: 12060
+              controls: []
+        - name: PicBulletM
+          tag: ""
+          index: 0
+          kind:
+            PictureBox:
+              properties:
+                align: None
+                appearance: ThreeD
+                auto_redraw: Manual
+                auto_size: Fixed
+                back_color:
+                  System:
+                    index: 5
+                border_style: FixedSingle
+                causes_validation: "Yes"
+                clip_controls: Clipped
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
+                drag_icon: ~
+                drag_mode: Manual
+                draw_mode: CopyPen
+                draw_style: Solid
+                draw_width: 1
+                enabled: Enabled
+                fill_color:
+                  System:
+                    index: 0
+                fill_style: Transparent
+                font_transparent: Transparent
+                fore_color:
+                  System:
+                    index: 8
+                has_dc: HasContext
+                height: 90
+                help_context_id: 0
+                left: 9840
+                link_item: ""
+                link_mode: None
+                link_timeout: 50
+                link_topic: ""
+                mouse_icon: ~
+                mouse_pointer: Default
+                negotiate: false
+                ole_drag_mode: Manual
+                ole_drop_mode: None
+                picture: ~
+                right_to_left: LeftToRight
+                scale_height: 4
+                scale_left: 0
+                scale_mode: Twip
+                scale_top: 0
+                scale_width: 4
+                tab_index: 9
+                tab_stop: Included
+                tool_tip_text: ""
+                top: 360
+                visible: Visible
+                whats_this_help_id: 0
+                width: 90
+              controls: []
+        - name: PicBullet
+          tag: ""
+          index: 0
+          kind:
+            PictureBox:
+              properties:
+                align: None
+                appearance: ThreeD
+                auto_redraw: Manual
+                auto_size: Fixed
+                back_color:
+                  System:
+                    index: 5
+                border_style: FixedSingle
+                causes_validation: "Yes"
+                clip_controls: Clipped
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
+                drag_icon: ~
+                drag_mode: Manual
+                draw_mode: CopyPen
+                draw_style: Solid
+                draw_width: 1
+                enabled: Enabled
+                fill_color:
+                  System:
+                    index: 0
+                fill_style: Transparent
+                font_transparent: Transparent
+                fore_color:
+                  System:
+                    index: 8
+                has_dc: HasContext
+                height: 90
+                help_context_id: 0
+                left: 9840
+                link_item: ""
+                link_mode: None
+                link_timeout: 50
+                link_topic: ""
+                mouse_icon: ~
+                mouse_pointer: Default
+                negotiate: false
+                ole_drag_mode: Manual
+                ole_drop_mode: None
+                picture: ~
+                right_to_left: LeftToRight
+                scale_height: 4
+                scale_left: 0
+                scale_mode: Twip
+                scale_top: 0
+                scale_width: 4
+                tab_index: 8
+                tab_stop: Included
+                tool_tip_text: ""
+                top: 120
+                visible: Visible
+                whats_this_help_id: 0
+                width: 90
+              controls: []
+        - name: PicTM
+          tag: ""
+          index: 0
+          kind:
+            PictureBox:
+              properties:
+                align: None
+                appearance: ThreeD
+                auto_redraw: Manual
+                auto_size: Fixed
+                back_color:
+                  System:
+                    index: 5
+                border_style: FixedSingle
+                causes_validation: "Yes"
+                clip_controls: Clipped
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
+                drag_icon: ~
+                drag_mode: Manual
+                draw_mode: CopyPen
+                draw_style: Solid
+                draw_width: 1
+                enabled: Enabled
+                fill_color:
+                  System:
+                    index: 0
+                fill_style: Transparent
+                font_transparent: Transparent
+                fore_color:
+                  System:
+                    index: 8
+                has_dc: HasContext
+                height: 990
+                help_context_id: 0
+                left: 6600
+                link_item: ""
+                link_mode: None
+                link_timeout: 50
+                link_topic: ""
+                mouse_icon: ~
+                mouse_pointer: Default
+                negotiate: false
+                ole_drag_mode: Manual
+                ole_drop_mode: None
+                picture: ~
+                right_to_left: LeftToRight
+                scale_height: 64
+                scale_left: 0
+                scale_mode: Twip
+                scale_top: 0
+                scale_width: 64
+                tab_index: 7
+                tab_stop: Included
+                tool_tip_text: ""
+                top: 120
+                visible: Visible
+                whats_this_help_id: 0
+                width: 990
+              controls: []
+        - name: PicT
+          tag: ""
+          index: 0
+          kind:
+            PictureBox:
+              properties:
+                align: None
+                appearance: ThreeD
+                auto_redraw: Manual
+                auto_size: Fixed
+                back_color:
+                  System:
+                    index: 5
+                border_style: FixedSingle
+                causes_validation: "Yes"
+                clip_controls: Clipped
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
+                drag_icon: ~
+                drag_mode: Manual
+                draw_mode: CopyPen
+                draw_style: Solid
+                draw_width: 1
+                enabled: Enabled
+                fill_color:
+                  System:
+                    index: 0
+                fill_style: Transparent
+                font_transparent: Transparent
+                fore_color:
+                  System:
+                    index: 8
+                has_dc: HasContext
+                height: 990
+                help_context_id: 0
+                left: 5520
+                link_item: ""
+                link_mode: None
+                link_timeout: 50
+                link_topic: ""
+                mouse_icon: ~
+                mouse_pointer: Default
+                negotiate: false
+                ole_drag_mode: Manual
+                ole_drop_mode: None
+                picture: ~
+                right_to_left: LeftToRight
+                scale_height: 64
+                scale_left: 0
+                scale_mode: Twip
+                scale_top: 0
+                scale_width: 64
+                tab_index: 6
+                tab_stop: Included
+                tool_tip_text: ""
+                top: 120
+                visible: Visible
+                whats_this_help_id: 0
+                width: 990
+              controls: []
+        - name: PicRM
+          tag: ""
+          index: 0
+          kind:
+            PictureBox:
+              properties:
+                align: None
+                appearance: ThreeD
+                auto_redraw: Manual
+                auto_size: Fixed
+                back_color:
+                  System:
+                    index: 5
+                border_style: FixedSingle
+                causes_validation: "Yes"
+                clip_controls: Clipped
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
+                drag_icon: ~
+                drag_mode: Manual
+                draw_mode: CopyPen
+                draw_style: Solid
+                draw_width: 1
+                enabled: Enabled
+                fill_color:
+                  System:
+                    index: 0
+                fill_style: Transparent
+                font_transparent: Transparent
+                fore_color:
+                  System:
+                    index: 8
+                has_dc: HasContext
+                height: 990
+                help_context_id: 0
+                left: 4440
+                link_item: ""
+                link_mode: None
+                link_timeout: 50
+                link_topic: ""
+                mouse_icon: ~
+                mouse_pointer: Default
+                negotiate: false
+                ole_drag_mode: Manual
+                ole_drop_mode: None
+                picture: ~
+                right_to_left: LeftToRight
+                scale_height: 64
+                scale_left: 0
+                scale_mode: Twip
+                scale_top: 0
+                scale_width: 64
+                tab_index: 5
+                tab_stop: Included
+                tool_tip_text: ""
+                top: 120
+                visible: Visible
+                whats_this_help_id: 0
+                width: 990
+              controls: []
+        - name: PicR
+          tag: ""
+          index: 0
+          kind:
+            PictureBox:
+              properties:
+                align: None
+                appearance: ThreeD
+                auto_redraw: Manual
+                auto_size: Fixed
+                back_color:
+                  System:
+                    index: 5
+                border_style: FixedSingle
+                causes_validation: "Yes"
+                clip_controls: Clipped
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
+                drag_icon: ~
+                drag_mode: Manual
+                draw_mode: CopyPen
+                draw_style: Solid
+                draw_width: 1
+                enabled: Enabled
+                fill_color:
+                  System:
+                    index: 0
+                fill_style: Transparent
+                font_transparent: Transparent
+                fore_color:
+                  System:
+                    index: 8
+                has_dc: HasContext
+                height: 990
+                help_context_id: 0
+                left: 3360
+                link_item: ""
+                link_mode: None
+                link_timeout: 50
+                link_topic: ""
+                mouse_icon: ~
+                mouse_pointer: Default
+                negotiate: false
+                ole_drag_mode: Manual
+                ole_drop_mode: None
+                picture: ~
+                right_to_left: LeftToRight
+                scale_height: 64
+                scale_left: 0
+                scale_mode: Twip
+                scale_top: 0
+                scale_width: 64
+                tab_index: 4
+                tab_stop: Included
+                tool_tip_text: ""
+                top: 120
+                visible: Visible
+                whats_this_help_id: 0
+                width: 990
+              controls: []
+        - name: PicLM
+          tag: ""
+          index: 0
+          kind:
+            PictureBox:
+              properties:
+                align: None
+                appearance: ThreeD
+                auto_redraw: Manual
+                auto_size: Fixed
+                back_color:
+                  System:
+                    index: 5
+                border_style: FixedSingle
+                causes_validation: "Yes"
+                clip_controls: Clipped
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
+                drag_icon: ~
+                drag_mode: Manual
+                draw_mode: CopyPen
+                draw_style: Solid
+                draw_width: 1
+                enabled: Enabled
+                fill_color:
+                  System:
+                    index: 0
+                fill_style: Transparent
+                font_transparent: Transparent
+                fore_color:
+                  System:
+                    index: 8
+                has_dc: HasContext
+                height: 990
+                help_context_id: 0
+                left: 2280
+                link_item: ""
+                link_mode: None
+                link_timeout: 50
+                link_topic: ""
+                mouse_icon: ~
+                mouse_pointer: Default
+                negotiate: false
+                ole_drag_mode: Manual
+                ole_drop_mode: None
+                picture: ~
+                right_to_left: LeftToRight
+                scale_height: 64
+                scale_left: 0
+                scale_mode: Twip
+                scale_top: 0
+                scale_width: 64
+                tab_index: 3
+                tab_stop: Included
+                tool_tip_text: ""
+                top: 120
+                visible: Visible
+                whats_this_help_id: 0
+                width: 990
+              controls: []
+        - name: PicL
+          tag: ""
+          index: 0
+          kind:
+            PictureBox:
+              properties:
+                align: None
+                appearance: ThreeD
+                auto_redraw: Manual
+                auto_size: Fixed
+                back_color:
+                  System:
+                    index: 5
+                border_style: FixedSingle
+                causes_validation: "Yes"
+                clip_controls: Clipped
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
+                drag_icon: ~
+                drag_mode: Manual
+                draw_mode: CopyPen
+                draw_style: Solid
+                draw_width: 1
+                enabled: Enabled
+                fill_color:
+                  System:
+                    index: 0
+                fill_style: Transparent
+                font_transparent: Transparent
+                fore_color:
+                  System:
+                    index: 8
+                has_dc: HasContext
+                height: 990
+                help_context_id: 0
+                left: 1200
+                link_item: ""
+                link_mode: None
+                link_timeout: 50
+                link_topic: ""
+                mouse_icon: ~
+                mouse_pointer: Default
+                negotiate: false
+                ole_drag_mode: Manual
+                ole_drop_mode: None
+                picture: ~
+                right_to_left: LeftToRight
+                scale_height: 64
+                scale_left: 0
+                scale_mode: Twip
+                scale_top: 0
+                scale_width: 64
+                tab_index: 2
+                tab_stop: Included
+                tool_tip_text: ""
+                top: 120
+                visible: Visible
+                whats_this_help_id: 0
+                width: 990
+              controls: []
+        - name: picShipMask
+          tag: ""
+          index: 0
+          kind:
+            PictureBox:
+              properties:
+                align: None
+                appearance: ThreeD
+                auto_redraw: Manual
+                auto_size: Fixed
+                back_color:
+                  System:
+                    index: 5
+                border_style: FixedSingle
+                causes_validation: "Yes"
+                clip_controls: Clipped
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
+                drag_icon: ~
+                drag_mode: Manual
+                draw_mode: CopyPen
+                draw_style: Solid
+                draw_width: 1
+                enabled: Enabled
+                fill_color:
+                  System:
+                    index: 0
+                fill_style: Transparent
+                font_transparent: Transparent
+                fore_color:
+                  System:
+                    index: 8
+                has_dc: HasContext
+                height: 990
+                help_context_id: 0
+                left: 8760
+                link_item: ""
+                link_mode: None
+                link_timeout: 50
+                link_topic: ""
+                mouse_icon: ~
+                mouse_pointer: Default
+                negotiate: false
+                ole_drag_mode: Manual
+                ole_drop_mode: None
+                picture: ~
+                right_to_left: LeftToRight
+                scale_height: 64
+                scale_left: 0
+                scale_mode: Twip
+                scale_top: 0
+                scale_width: 64
+                tab_index: 1
+                tab_stop: Included
+                tool_tip_text: ""
+                top: 120
+                visible: Visible
+                whats_this_help_id: 0
+                width: 990
+              controls: []
+        - name: picShip
+          tag: ""
+          index: 0
+          kind:
+            PictureBox:
+              properties:
+                align: None
+                appearance: ThreeD
+                auto_redraw: Manual
+                auto_size: Fixed
+                back_color:
+                  System:
+                    index: 5
+                border_style: FixedSingle
+                causes_validation: "Yes"
+                clip_controls: Clipped
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
+                drag_icon: ~
+                drag_mode: Manual
+                draw_mode: CopyPen
+                draw_style: Solid
+                draw_width: 1
+                enabled: Enabled
+                fill_color:
+                  System:
+                    index: 0
+                fill_style: Transparent
+                font_transparent: Transparent
+                fore_color:
+                  System:
+                    index: 8
+                has_dc: HasContext
+                height: 990
+                help_context_id: 0
+                left: 7680
+                link_item: ""
+                link_mode: None
+                link_timeout: 50
+                link_topic: ""
+                mouse_icon: ~
+                mouse_pointer: Default
+                negotiate: false
+                ole_drag_mode: Manual
+                ole_drop_mode: None
+                picture: ~
+                right_to_left: LeftToRight
+                scale_height: 64
+                scale_left: 0
+                scale_mode: Twip
+                scale_top: 0
+                scale_width: 64
+                tab_index: 0
+                tab_stop: Included
+                tool_tip_text: ""
+                top: 120
+                visible: Visible
+                whats_this_help_id: 0
+                width: 990
+              controls: []
+        - name: PicScreenBuffer
+          tag: ""
+          index: 0
+          kind:
+            PictureBox:
+              properties:
+                align: None
+                appearance: ThreeD
+                auto_redraw: Manual
+                auto_size: Fixed
+                back_color:
+                  RGB:
+                    red: 0
+                    green: 0
+                    blue: 0
+                border_style: FixedSingle
+                causes_validation: "Yes"
+                clip_controls: Clipped
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
+                drag_icon: ~
+                drag_mode: Manual
+                draw_mode: CopyPen
+                draw_style: Solid
+                draw_width: 1
+                enabled: Enabled
+                fill_color:
+                  System:
+                    index: 0
+                fill_style: Transparent
+                font_transparent: Transparent
+                fore_color:
+                  System:
+                    index: 8
+                has_dc: HasContext
+                height: 8940
+                help_context_id: 0
+                left: 120
+                link_item: ""
+                link_mode: None
+                link_timeout: 50
+                link_topic: ""
+                mouse_icon: ~
+                mouse_pointer: Default
+                negotiate: false
+                ole_drag_mode: Manual
+                ole_drop_mode: None
+                picture: ~
+                right_to_left: LeftToRight
+                scale_height: 594
+                scale_left: 0
+                scale_mode: Twip
+                scale_top: 0
+                scale_width: 802
+                tab_index: 14
+                tab_stop: Included
+                tool_tip_text: ""
+                top: 120
+                visible: Visible
+                whats_this_help_id: 0
+                width: 12060
+              controls: []
+        - name: Label3
+          tag: ""
+          index: 0
+          kind:
+            Label:
+              properties:
+                alignment: LeftJustify
+                appearance: ThreeD
+                auto_size: Fixed
+                back_color:
+                  System:
+                    index: 15
+                back_style: Opaque
+                border_style: None
+                caption: Use the arrow keys to move the ship Use the space button to fire
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
+                drag_icon: ~
+                drag_mode: Manual
+                enabled: Enabled
+                fore_color:
+                  RGB:
+                    red: 0
+                    green: 0
+                    blue: 64
+                height: 495
+                left: 5640
+                link_item: ""
+                link_mode: None
+                link_timeout: 50
+                link_topic: ""
+                mouse_icon: ~
+                mouse_pointer: Default
+                ole_drop_mode: None
+                right_to_left: LeftToRight
+                tab_index: 17
+                tool_tip_text: ""
+                top: 9330
+                use_mnemonic: true
+                visible: Visible
+                whats_this_help_id: 0
+                width: 3015
+                word_wrap: NonWrapping
+        - name: Label2
+          tag: ""
+          index: 0
+          kind:
+            Label:
+              properties:
+                alignment: LeftJustify
+                appearance: ThreeD
+                auto_size: Fixed
+                back_color:
+                  System:
+                    index: 15
+                back_style: Opaque
+                border_style: None
+                caption: VELOCITY
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
+                drag_icon: ~
+                drag_mode: Manual
+                enabled: Enabled
+                fore_color:
+                  RGB:
+                    red: 0
+                    green: 0
+                    blue: 255
+                height: 225
+                left: 120
+                link_item: ""
+                link_mode: None
+                link_timeout: 50
+                link_topic: ""
+                mouse_icon: ~
+                mouse_pointer: Default
+                ole_drop_mode: None
+                right_to_left: LeftToRight
+                tab_index: 13
+                tool_tip_text: ""
+                top: 9360
+                use_mnemonic: true
+                visible: Visible
+                whats_this_help_id: 0
+                width: 840
+                word_wrap: NonWrapping
+        - name: LblVel
+          tag: ""
+          index: 0
+          kind:
+            Label:
+              properties:
+                alignment: LeftJustify
+                appearance: ThreeD
+                auto_size: Fixed
+                back_color:
+                  System:
+                    index: 15
+                back_style: Opaque
+                border_style: None
+                caption: ""
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
+                drag_icon: ~
+                drag_mode: Manual
+                enabled: Enabled
+                fore_color:
+                  RGB:
+                    red: 0
+                    green: 0
+                    blue: 255
+                height: 225
+                left: 120
+                link_item: ""
+                link_mode: None
+                link_timeout: 50
+                link_topic: ""
+                mouse_icon: ~
+                mouse_pointer: Default
+                ole_drop_mode: None
+                right_to_left: LeftToRight
+                tab_index: 12
+                tool_tip_text: ""
+                top: 9600
+                use_mnemonic: true
+                visible: Visible
+                whats_this_help_id: 0
+                width: 885
+                word_wrap: NonWrapping
+        - name: Label1
+          tag: ""
+          index: 0
+          kind:
+            Label:
+              properties:
+                alignment: LeftJustify
+                appearance: ThreeD
+                auto_size: Fixed
+                back_color:
+                  System:
+                    index: 15
+                back_style: Opaque
+                border_style: None
+                caption: ""
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
+                drag_icon: ~
+                drag_mode: Manual
+                enabled: Enabled
+                fore_color:
+                  RGB:
+                    red: 0
+                    green: 0
+                    blue: 255
+                height: 180
+                left: 9960
+                link_item: ""
+                link_mode: None
+                link_timeout: 50
+                link_topic: ""
+                mouse_icon: ~
+                mouse_pointer: Default
+                ole_drop_mode: None
+                right_to_left: LeftToRight
+                tab_index: 11
+                tool_tip_text: ""
+                top: 120
+                use_mnemonic: true
+                visible: Visible
+                whats_this_help_id: 0
+                width: 120
+                word_wrap: NonWrapping
+      menus: []
+objects: []
+version:
+  major: 5
+  minor: 0
+attributes:
+  name: frmMain
+  global_name_space: Local
+  creatable: "False"
+  predeclared_id: "True"
+  exposed: "False"
+  description: ~
+  ext_key: {}
+cst:
+  root:
+    kind: Root
+    children:
+      - kind: EndOfLineComment
+        text: "'***************************************************************************"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'Code Copyright 2018 by Tanner Helland"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "' www.tannerhelland.com"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'Documentation for this project can be found at https://tannerhelland.com/code/"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'Art assets for this demo were borrowed from the old DOS game Raptor: Call of the Shadows"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "' https://en.wikipedia.org/wiki/Raptor:_Call_of_the_Shadows"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "' They are used here under Fair Use for educational purposes only."
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'The source code in this project is licensed under a Simplified BSD license."
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'***************************************************************************"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: OptionStatement
+        children:
+          - kind: OptionKeyword
+            text: Option
+          - kind: Whitespace
+            text: " "
+          - kind: ExplicitKeyword
+            text: Explicit
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: chkFramerate_Click
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: Whitespace
+                text: "    "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: PicMain
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: SetFocus
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'START GAME AT FORM LOAD..."
+      - kind: Newline
+        text: "\r\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Form_Load
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'Upon form load, it's necessary to initialize some key variables"
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: InitializeGameEngine
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'When everything is set, start the game!"
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: GameActive
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BooleanLiteralExpression
+                    children:
+                      - kind: TrueKeyword
+                        text: "True"
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: MainLoop
+                  - kind: Whitespace
+                    text: "   "
+                  - kind: EndOfLineComment
+                    text: "'MainLoop appears at the bottom of the form"
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Newline
+                text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'END GAME"
+      - kind: Newline
+        text: "\r\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: cmdExit_Click
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: Whitespace
+                text: "    "
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: GameActive
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BooleanLiteralExpression
+                    children:
+                      - kind: FalseKeyword
+                        text: "False"
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'WHEN A KEY IS PRESSED..."
+      - kind: Newline
+        text: "\r\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Form_KeyDown
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: KeyCode
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: IntegerKeyword
+                text: Integer
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: Shift
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: IntegerKeyword
+                text: Integer
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: Whitespace
+                text: "    "
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'Depending on the arrow key being pressed, set the correct direction variable"
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "' and the correct ship picture"
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'Left"
+              - kind: Newline
+                text: "\r\n"
+              - kind: IfStatement
+                children:
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: KeyCode
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: vbKeyLeft
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\r\n"
+                  - kind: StatementList
+                    children:
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: sLeft
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: picShip
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Picture
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: PicL
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Picture
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: picShipMask
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Picture
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: PicLM
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Picture
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'Right"
+              - kind: Newline
+                text: "\r\n"
+              - kind: IfStatement
+                children:
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: KeyCode
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: vbKeyRight
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\r\n"
+                  - kind: StatementList
+                    children:
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: sRight
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: picShip
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Picture
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: PicR
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Picture
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: picShipMask
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Picture
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: PicRM
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Picture
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'Up"
+              - kind: Newline
+                text: "\r\n"
+              - kind: IfStatement
+                children:
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: KeyCode
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: vbKeyUp
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AssignmentStatement
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: sUp
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "1"
+                      - kind: Newline
+                        text: "\r\n"
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'Down"
+              - kind: Newline
+                text: "\r\n"
+              - kind: IfStatement
+                children:
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: KeyCode
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: vbKeyDown
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AssignmentStatement
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: sDown
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "1"
+                      - kind: Newline
+                        text: "\r\n"
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'Space (fire the gun)"
+              - kind: Newline
+                text: "\r\n"
+              - kind: IfStatement
+                children:
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: KeyCode
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: vbKeySpace
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AssignmentStatement
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: Firing
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: BooleanLiteralExpression
+                        children:
+                          - kind: TrueKeyword
+                            text: "True"
+                      - kind: Newline
+                        text: "\r\n"
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'Escape (end the game)"
+              - kind: Newline
+                text: "\r\n"
+              - kind: IfStatement
+                children:
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: KeyCode
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: vbKeyEscape
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AssignmentStatement
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: GameActive
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: BooleanLiteralExpression
+                        children:
+                          - kind: FalseKeyword
+                            text: "False"
+                      - kind: Newline
+                        text: "\r\n"
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'WHEN A KEY IS RELEASED..."
+      - kind: Newline
+        text: "\r\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Form_KeyUp
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: KeyCode
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: IntegerKeyword
+                text: Integer
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: Shift
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: IntegerKeyword
+                text: Integer
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'Whenever an arrow key is released, reset motion in that direction"
+              - kind: Newline
+                text: "\r\n"
+              - kind: IfStatement
+                children:
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: KeyCode
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: vbKeyLeft
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AssignmentStatement
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: sLeft
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "0"
+                      - kind: Newline
+                        text: "\r\n"
+                  - kind: IfStatement
+                    children:
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: IfKeyword
+                        text: If
+                      - kind: Whitespace
+                        text: " "
+                      - kind: BinaryExpression
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: KeyCode
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: vbKeyRight
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ThenKeyword
+                        text: Then
+                      - kind: Whitespace
+                        text: " "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: sRight
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "0"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: KeyCode
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: vbKeyUp
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: sUp
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "0"
+                              - kind: Newline
+                                text: "\r\n"
+                          - kind: IfStatement
+                            children:
+                              - kind: Whitespace
+                                text: "    "
+                              - kind: IfKeyword
+                                text: If
+                              - kind: Whitespace
+                                text: " "
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: KeyCode
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: vbKeyDown
+                              - kind: Whitespace
+                                text: " "
+                              - kind: ThenKeyword
+                                text: Then
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AssignmentStatement
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: sDown
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "0"
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: Whitespace
+                                text: "    "
+                              - kind: Newline
+                                text: "\r\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: EndOfLineComment
+                            text: "'When the space bar is released, stop firing"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: KeyCode
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: vbKeySpace
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Firing
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: BooleanLiteralExpression
+                                children:
+                                  - kind: FalseKeyword
+                                    text: "False"
+                              - kind: Newline
+                                text: "\r\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: EndKeyword
+                        text: End
+                      - kind: Whitespace
+                        text: " "
+                      - kind: SubKeyword
+                        text: Sub
+                      - kind: Newline
+                        text: "\r\n"
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: EndOfLineComment
+                text: "'MAIN LOOP"
+              - kind: Newline
+                text: "\r\n"
+              - kind: DimStatement
+                children:
+                  - kind: PublicKeyword
+                    text: Public
+                  - kind: Whitespace
+                    text: " "
+                  - kind: SubKeyword
+                    text: Sub
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: MainLoop
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'This variable is used to track time and reduce framerate (if necessary)"
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: timeDelay
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: SingleKeyword
+                    text: Single
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Newline
+                text: "\r\n"
+              - kind: DoStatement
+                children:
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: DoKeyword
+                    text: Do
+                  - kind: Whitespace
+                    text: " "
+                  - kind: WhileKeyword
+                    text: While
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: GameActive
+                  - kind: Newline
+                    text: "\r\n"
+                  - kind: StatementList
+                    children:
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ParenthesizedExpression
+                            children:
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: UnaryExpression
+                                children:
+                                  - kind: NotKeyword
+                                    text: Not
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: GameActive
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ExitStatement
+                            children:
+                              - kind: ExitKeyword
+                                text: Exit
+                              - kind: Whitespace
+                                text: " "
+                              - kind: DoKeyword
+                                text: Do
+                              - kind: Newline
+                                text: "\r\n"
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: EndOfLineComment
+                        text: "'Calculate time at the start of the function"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: timeDelay
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: Timer
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: EndOfLineComment
+                        text: "'Draw the background stars"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: DrawStars
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: EndOfLineComment
+                        text: "'Calculate the ship's motion and location"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: VelocityCode
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: EndOfLineComment
+                        text: "'If necessary, fire some bullets"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: FireBullets
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: EndOfLineComment
+                        text: "'Change the velocity caption"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: LblVel
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Caption
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: CallExpression
+                                children:
+                                  - kind: Identifier
+                                    text: CStr
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "50"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: SubtractionOperator
+                                                text: "-"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: sVelVert
+                                  - kind: RightParenthesis
+                                    text: )
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\" kps\""
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: GameActive
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: DoEvents
+                          - kind: Whitespace
+                            text: " "
+                      - kind: Unknown
+                        text: Else
+                      - kind: ExitStatement
+                        children:
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ExitKeyword
+                            text: Exit
+                          - kind: Whitespace
+                            text: " "
+                          - kind: DoKeyword
+                            text: Do
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: EndOfLineComment
+                        text: "'If framerate limitations are active, loop until enough time has passed"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ParenthesizedExpression
+                            children:
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: chkFramerate
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Value
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: vbChecked
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Newline
+                            text: "\r\n"
+                          - kind: StatementList
+                            children:
+                              - kind: DoStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "            "
+                                  - kind: DoKeyword
+                                    text: Do
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: WhileKeyword
+                                    text: While
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ParenthesizedExpression
+                                    children:
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: GameActive
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: AndKeyword
+                                            text: And
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: ParenthesizedExpression
+                                            children:
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: BinaryExpression
+                                                children:
+                                                  - kind: ParenthesizedExpression
+                                                    children:
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: BinaryExpression
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: Timer
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: SubtractionOperator
+                                                            text: "-"
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: timeDelay
+                                                      - kind: RightParenthesis
+                                                        text: )
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: LessThanOperator
+                                                    text: "<"
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: NumericLiteralExpression
+                                                    children:
+                                                      - kind: SingleLiteral
+                                                        text: "1.66666666666667E-02"
+                                              - kind: RightParenthesis
+                                                text: )
+                                      - kind: RightParenthesis
+                                        text: )
+                                  - kind: Newline
+                                    text: "\r\n"
+                                  - kind: StatementList
+                                    children:
+                                      - kind: IfStatement
+                                        children:
+                                          - kind: Whitespace
+                                            text: "                "
+                                          - kind: IfKeyword
+                                            text: If
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: GameActive
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: ThenKeyword
+                                            text: Then
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: DoEvents
+                                          - kind: Whitespace
+                                            text: " "
+                                      - kind: Unknown
+                                        text: Else
+                                      - kind: ExitStatement
+                                        children:
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: ExitKeyword
+                                            text: Exit
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: DoKeyword
+                                            text: Do
+                                          - kind: Newline
+                                            text: "\r\n"
+                                      - kind: Whitespace
+                                        text: "            "
+                                  - kind: LoopKeyword
+                                    text: Loop
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: Whitespace
+                                text: "        "
+                          - kind: EndKeyword
+                            text: End
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: EndOfLineComment
+                        text: "'Then do it all again..."
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                  - kind: LoopKeyword
+                    text: Loop
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'When the loop exits, release the main form"
+              - kind: Newline
+                text: "\r\n"
+              - kind: UnloadStatement
+                children:
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: UnloadKeyword
+                    text: Unload
+                  - kind: Whitespace
+                    text: " "
+                  - kind: MeKeyword
+                    text: Me
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Newline
+                text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Form_QueryUnload
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: Cancel
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: IntegerKeyword
+                text: Integer
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: UnloadMode
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: IntegerKeyword
+                text: Integer
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: Whitespace
+                text: "    "
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: GameActive
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BooleanLiteralExpression
+                    children:
+                      - kind: FalseKeyword
+                        text: "False"
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"

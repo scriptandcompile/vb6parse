@@ -1,0 +1,41 @@
+---
+source: src/syntax/library/statements/system_interaction/savesetting.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: SaveSettingStatement
+      children:
+        - kind: SaveSettingKeyword
+          text: SaveSetting
+        - kind: Whitespace
+          text: "   "
+        - kind: StringLiteral
+          text: "\"App\""
+        - kind: Whitespace
+          text: "  "
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: "  "
+        - kind: StringLiteral
+          text: "\"Sec\""
+        - kind: Whitespace
+          text: "  "
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: "  "
+        - kind: StringLiteral
+          text: "\"Key\""
+        - kind: Whitespace
+          text: "  "
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: "  "
+        - kind: StringLiteral
+          text: "\"Val\""
+        - kind: Newline
+          text: "\n"

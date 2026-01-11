@@ -1,0 +1,47 @@
+---
+source: src/parsers/cst/option_statements.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: OptionStatement
+      children:
+        - kind: OptionKeyword
+          text: Option
+        - kind: Whitespace
+          text: " "
+        - kind: BaseKeyword
+          text: Base
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "0"
+        - kind: Newline
+          text: "\n"
+    - kind: DimStatement
+      children:
+        - kind: DimKeyword
+          text: Dim
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: x
+        - kind: LeftParenthesis
+          text: (
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "5"
+        - kind: RightParenthesis
+          text: )
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerKeyword
+          text: Integer
+        - kind: Newline
+          text: "\n"

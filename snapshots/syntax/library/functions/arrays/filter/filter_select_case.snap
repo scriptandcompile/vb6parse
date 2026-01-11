@@ -1,0 +1,185 @@
+---
+source: src/syntax/library/functions/arrays/filter.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SelectCaseStatement
+      children:
+        - kind: SelectKeyword
+          text: Select
+        - kind: Whitespace
+          text: " "
+        - kind: CaseKeyword
+          text: Case
+        - kind: Whitespace
+          text: " "
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: filterType
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: CaseClause
+          children:
+            - kind: CaseKeyword
+              text: Case
+            - kind: Whitespace
+              text: " "
+            - kind: StringLiteral
+              text: "\"include\""
+            - kind: Newline
+              text: "\n"
+            - kind: StatementList
+              children:
+                - kind: Whitespace
+                  text: "        "
+                - kind: AssignmentStatement
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: result
+                    - kind: Whitespace
+                      text: " "
+                    - kind: EqualityOperator
+                      text: "="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: Filter
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: items
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: term
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: BooleanLiteralExpression
+                                  children:
+                                    - kind: TrueKeyword
+                                      text: "True"
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: vbTextCompare
+                        - kind: RightParenthesis
+                          text: )
+                    - kind: Newline
+                      text: "\n"
+                - kind: Whitespace
+                  text: "    "
+        - kind: CaseClause
+          children:
+            - kind: CaseKeyword
+              text: Case
+            - kind: Whitespace
+              text: " "
+            - kind: StringLiteral
+              text: "\"exclude\""
+            - kind: Newline
+              text: "\n"
+            - kind: StatementList
+              children:
+                - kind: Whitespace
+                  text: "        "
+                - kind: AssignmentStatement
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: result
+                    - kind: Whitespace
+                      text: " "
+                    - kind: EqualityOperator
+                      text: "="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: Filter
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: items
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: term
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: BooleanLiteralExpression
+                                  children:
+                                    - kind: FalseKeyword
+                                      text: "False"
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: vbTextCompare
+                        - kind: RightParenthesis
+                          text: )
+                    - kind: Newline
+                      text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SelectKeyword
+          text: Select
+        - kind: Newline
+          text: "\n"

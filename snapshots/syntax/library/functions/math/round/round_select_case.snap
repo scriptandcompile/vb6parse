@@ -1,0 +1,129 @@
+---
+source: src/syntax/library/functions/math/round.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SelectCaseStatement
+      children:
+        - kind: SelectKeyword
+          text: Select
+        - kind: Whitespace
+          text: " "
+        - kind: CaseKeyword
+          text: Case
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: Round
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: score
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: CaseClause
+          children:
+            - kind: CaseKeyword
+              text: Case
+            - kind: Whitespace
+              text: " "
+            - kind: IntegerLiteral
+              text: "90"
+            - kind: Whitespace
+              text: " "
+            - kind: ToKeyword
+              text: To
+            - kind: Whitespace
+              text: " "
+            - kind: IntegerLiteral
+              text: "100"
+            - kind: Newline
+              text: "\n"
+            - kind: StatementList
+              children:
+                - kind: Whitespace
+                  text: "        "
+                - kind: AssignmentStatement
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: grade
+                    - kind: Whitespace
+                      text: " "
+                    - kind: EqualityOperator
+                      text: "="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"A\""
+                    - kind: Newline
+                      text: "\n"
+                - kind: Whitespace
+                  text: "    "
+        - kind: CaseClause
+          children:
+            - kind: CaseKeyword
+              text: Case
+            - kind: Whitespace
+              text: " "
+            - kind: IntegerLiteral
+              text: "80"
+            - kind: Whitespace
+              text: " "
+            - kind: ToKeyword
+              text: To
+            - kind: Whitespace
+              text: " "
+            - kind: IntegerLiteral
+              text: "89"
+            - kind: Newline
+              text: "\n"
+            - kind: StatementList
+              children:
+                - kind: Whitespace
+                  text: "        "
+                - kind: AssignmentStatement
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: grade
+                    - kind: Whitespace
+                      text: " "
+                    - kind: EqualityOperator
+                      text: "="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"B\""
+                    - kind: Newline
+                      text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SelectKeyword
+          text: Select
+        - kind: Newline
+          text: "\n"

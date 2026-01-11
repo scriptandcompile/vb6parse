@@ -1,0 +1,35 @@
+---
+source: src/syntax/library/functions/string/format.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: Debug
+        - kind: PeriodOperator
+          text: "."
+        - kind: PrintKeyword
+          text: Print
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Format
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: value
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"General Number\""
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

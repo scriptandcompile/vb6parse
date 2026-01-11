@@ -1,0 +1,22 @@
+# GitHub Pages Configuration for VB6Parse
+
+# Theme (optional - can use default)
+# theme: jekyll-theme-cayman
+
+# Site settings
+title: VB6Parse
+description: A complete, high-performance parser library for Visual Basic 6 code and project files
+url: https://scriptandcompile.github.io
+baseurl: /vb6parse
+
+# GitHub repository
+repository: scriptandcompile/vb6parse
+
+# Build settings
+markdown: kramdown
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock

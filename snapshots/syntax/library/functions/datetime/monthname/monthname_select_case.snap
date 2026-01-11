@@ -1,0 +1,143 @@
+---
+source: src/syntax/library/functions/datetime/monthname.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SelectCaseStatement
+      children:
+        - kind: SelectKeyword
+          text: Select
+        - kind: Whitespace
+          text: " "
+        - kind: CaseKeyword
+          text: Case
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: MonthName
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: Month
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: DateKeyword
+                                      text: Date
+                        - kind: RightParenthesis
+                          text: )
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: BooleanLiteralExpression
+                      children:
+                        - kind: TrueKeyword
+                          text: "True"
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: CaseClause
+          children:
+            - kind: CaseKeyword
+              text: Case
+            - kind: Whitespace
+              text: " "
+            - kind: StringLiteral
+              text: "\"Jan\""
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: StringLiteral
+              text: "\"Feb\""
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: StringLiteral
+              text: "\"Mar\""
+            - kind: Newline
+              text: "\n"
+            - kind: StatementList
+              children:
+                - kind: Whitespace
+                  text: "        "
+                - kind: CallStatement
+                  children:
+                    - kind: Identifier
+                      text: MsgBox
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteral
+                      text: "\"Q1\""
+                    - kind: Newline
+                      text: "\n"
+                - kind: Whitespace
+                  text: "    "
+        - kind: CaseClause
+          children:
+            - kind: CaseKeyword
+              text: Case
+            - kind: Whitespace
+              text: " "
+            - kind: StringLiteral
+              text: "\"Apr\""
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: StringLiteral
+              text: "\"May\""
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: StringLiteral
+              text: "\"Jun\""
+            - kind: Newline
+              text: "\n"
+            - kind: StatementList
+              children:
+                - kind: Whitespace
+                  text: "        "
+                - kind: CallStatement
+                  children:
+                    - kind: Identifier
+                      text: MsgBox
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteral
+                      text: "\"Q2\""
+                    - kind: Newline
+                      text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SelectKeyword
+          text: Select
+        - kind: Newline
+          text: "\n"

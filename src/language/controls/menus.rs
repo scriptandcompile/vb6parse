@@ -1,30 +1,155 @@
-use crate::errors::VB6ErrorKind;
-use crate::language::controls::{Activation, Visibility};
-use crate::parsers::Properties;
+//! Properties and structures for a `Menu` control.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::Menu`](crate::language::controls::ControlKind::Menu).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
+//! This should only be used as a child of a Form / `MDIForm`.
 
-use bstr::BString;
+use std::convert::TryFrom;
+use std::fmt::Display;
+use std::str::FromStr;
+
+use crate::errors::FormErrorKind;
+use crate::files::common::Properties;
+use crate::language::controls::{Activation, Visibility};
+
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
 /// Represents a VB6 menu control.
-/// This should only be used as a child of a Form.
+/// This should only be used as a child of a Form / `MDIForm`.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
-pub struct VB6MenuControl {
-    pub name: BString,
-    pub tag: BString,
-    pub index: i32,
-    pub properties: MenuProperties,
-    pub sub_menus: Vec<VB6MenuControl>,
+pub struct MenuControl {
+    /// The name of the menu control.
+    name: String,
+    /// The tag of the menu control.
+    tag: String,
+    /// The index of the menu control.
+    index: i32,
+    /// The properties of the menu control.
+    properties: MenuProperties,
+    /// The sub-menus of the menu control.
+    sub_menus: Vec<MenuControl>,
+}
+
+impl MenuControl {
+    /// Creates a new `MenuControl` with the specified properties.
+    ///
+    /// # Arguments
+    ///
+    /// * `name` - The name of the menu control
+    /// * `tag` - The tag of the menu control
+    /// * `index` - The index of the menu control
+    /// * `properties` - The properties of the menu control
+    /// * `sub_menus` - The sub-menus of the menu control
+    ///
+    /// # Returns
+    ///
+    /// A new `MenuControl` instance.
+    #[must_use]
+    pub fn new(
+        name: String,
+        tag: String,
+        index: i32,
+        properties: MenuProperties,
+        sub_menus: Vec<MenuControl>,
+    ) -> Self {
+        Self {
+            name,
+            tag,
+            index,
+            properties,
+            sub_menus,
+        }
+    }
+
+    /// Returns the name of the menu control.
+    #[must_use]
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+
+    /// Returns the tag of the menu control.
+    #[must_use]
+    pub fn tag(&self) -> &str {
+        &self.tag
+    }
+
+    /// Returns the index of the menu control.
+    #[must_use]
+    pub fn index(&self) -> i32 {
+        self.index
+    }
+
+    /// Returns a reference to the menu properties.
+    #[must_use]
+    pub fn properties(&self) -> &MenuProperties {
+        &self.properties
+    }
+
+    /// Returns a slice of the sub-menus.
+    #[must_use]
+    pub fn sub_menus(&self) -> &[MenuControl] {
+        &self.sub_menus
+    }
+
+    /// Consumes the menu control and returns its name.
+    #[must_use]
+    pub fn into_name(self) -> String {
+        self.name
+    }
+
+    /// Consumes the menu control and returns its tag.
+    #[must_use]
+    pub fn into_tag(self) -> String {
+        self.tag
+    }
+
+    /// Consumes the menu control and returns its properties.
+    #[must_use]
+    pub fn into_properties(self) -> MenuProperties {
+        self.properties
+    }
+
+    /// Consumes the menu control and returns its sub-menus.
+    #[must_use]
+    pub fn into_sub_menus(self) -> Vec<MenuControl> {
+        self.sub_menus
+    }
+
+    /// Consumes the menu control and returns all of its parts as a tuple.
+    ///
+    /// # Returns
+    ///
+    /// A tuple containing `(name, tag, index, properties, sub_menus)`.
+    #[must_use]
+    pub fn into_parts(self) -> (String, String, i32, MenuProperties, Vec<MenuControl>) {
+        (
+            self.name,
+            self.tag,
+            self.index,
+            self.properties,
+            self.sub_menus,
+        )
+    }
+}
+
+impl Display for MenuControl {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "MenuControl: {}", self.name)
+    }
 }
 
 /// Properties for a `Menu` control.
 ///
 /// This is used as an enum variant of
-/// [`VB6ControlKind::Menu`](crate::language::controls::VB6ControlKind::Menu).
+/// [`ControlKind::Menu`](crate::language::controls::ControlKind::Menu).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
+/// of the parent [`Control`](crate::language::controls::Control) struct.
 /// This is represented within the parsing code independently of
-/// [`VB6MenuControl`](crate::language::controls::VB6MenuControl)'s.
+/// [`MenuControl`](crate::language::controls::MenuControl)'s.
 ///
 /// This is currently redundant, but is included for the future where the correct
 /// behavior of a menu control only being a child of a form is enforced.
@@ -32,20 +157,28 @@ pub struct VB6MenuControl {
 /// As is, the parser will not enforce this, but the VB6 IDE will.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct MenuProperties {
-    pub caption: BString,
+    /// Caption of the menu.
+    pub caption: String,
+    /// Whether or not the menu is checked.
     pub checked: bool,
+    /// Enabled state of the menu.
     pub enabled: Activation,
+    /// Help context ID of the menu.
     pub help_context_id: i32,
+    /// Negotiation position of the menu.
     pub negotiate_position: NegotiatePosition,
+    /// Shortcut key of the menu.
     pub shortcut: Option<ShortCut>,
+    /// Visibility of the menu.
     pub visible: Visibility,
+    /// Whether the menu is part of the window list.
     pub window_list: bool,
 }
 
 impl Default for MenuProperties {
     fn default() -> Self {
         MenuProperties {
-            caption: BString::from(""),
+            caption: String::new(),
             checked: false,
             enabled: Activation::Enabled,
             help_context_id: 0,
@@ -57,23 +190,22 @@ impl Default for MenuProperties {
     }
 }
 
-impl<'a> From<Properties<'a>> for MenuProperties {
-    fn from(prop: Properties<'a>) -> Self {
+impl From<Properties> for MenuProperties {
+    fn from(prop: Properties) -> Self {
         let mut menu_prop = MenuProperties::default();
 
-        menu_prop.caption = match prop.get(b"Caption".into()) {
+        menu_prop.caption = match prop.get("Caption") {
             Some(caption) => caption.into(),
             None => menu_prop.caption,
         };
-        menu_prop.checked = prop.get_bool(b"Checked".into(), menu_prop.checked);
-        menu_prop.enabled = prop.get_property(b"Enabled".into(), menu_prop.enabled);
-        menu_prop.help_context_id =
-            prop.get_i32(b"HelpContextID".into(), menu_prop.help_context_id);
+        menu_prop.checked = prop.get_bool("Checked", menu_prop.checked);
+        menu_prop.enabled = prop.get_property("Enabled", menu_prop.enabled);
+        menu_prop.help_context_id = prop.get_i32("HelpContextID", menu_prop.help_context_id);
         menu_prop.negotiate_position =
-            prop.get_property(b"NegotiationPosition".into(), menu_prop.negotiate_position);
-        menu_prop.shortcut = prop.get_option(b"Shortcut".into(), menu_prop.shortcut);
-        menu_prop.visible = prop.get_property(b"Visible".into(), menu_prop.visible);
-        menu_prop.window_list = prop.get_bool(b"WindowList".into(), menu_prop.window_list);
+            prop.get_property("NegotiationPosition", menu_prop.negotiate_position);
+        menu_prop.shortcut = prop.get_option("Shortcut", menu_prop.shortcut);
+        menu_prop.visible = prop.get_property("Visible", menu_prop.visible);
+        menu_prop.window_list = prop.get_bool("WindowList", menu_prop.window_list);
 
         menu_prop
     }
@@ -83,9 +215,9 @@ impl<'a> From<Properties<'a>> for MenuProperties {
 /// bar while a linked object or embedded object  on a form is active and
 /// displaying its menus.
 ///
-/// Using the NegotiatePosition property, you determine the individual menus on
+/// Using the `NegotiatePosition` property, you determine the individual menus on
 /// the menu bar of your form that share (or negotiate) menu bar space with the
-/// menus of an active object on the form. Any menu with NegotiatePosition set
+/// menus of an active object on the form. Any menu with `NegotiatePosition` set
 /// to a nonzero value is displayed on the menu bar of the form along with menus
 /// from the active object.
 ///
@@ -93,7 +225,9 @@ impl<'a> From<Properties<'a>> for MenuProperties {
 /// false, the setting of the `NegotiatePosition` property has no effect.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa278135(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum NegotiatePosition {
     /// The menu is not displayed on the menu bar.
@@ -109,6 +243,40 @@ pub enum NegotiatePosition {
     Right = 3,
 }
 
+impl FromStr for NegotiatePosition {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "0" => Ok(NegotiatePosition::None),
+            "1" => Ok(NegotiatePosition::Left),
+            "2" => Ok(NegotiatePosition::Middle),
+            "3" => Ok(NegotiatePosition::Right),
+            _ => Err(FormErrorKind::InvalidNegotiatePosition(s.to_string())),
+        }
+    }
+}
+
+impl TryFrom<&str> for NegotiatePosition {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        NegotiatePosition::from_str(value)
+    }
+}
+
+impl Display for NegotiatePosition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            NegotiatePosition::None => "None",
+            NegotiatePosition::Left => "Left",
+            NegotiatePosition::Middle => "Middle",
+            NegotiatePosition::Right => "Right",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Represents a keyboard shortcut for a menu item.
 ///
 /// Note:
@@ -118,7 +286,7 @@ pub enum NegotiatePosition {
 /// property setting.
 ///
 /// The F10, Ctrl+F10, Shift+F10, and Ctrl+Shift+F10 keys are not valid shortcut keys.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Copy, Hash, PartialOrd, Ord)]
 pub enum ShortCut {
     /// Ctrl + A
     ///
@@ -422,10 +590,101 @@ pub enum ShortCut {
     AltBKsp,
 }
 
-impl TryFrom<&str> for ShortCut {
-    type Error = VB6ErrorKind;
+impl Display for ShortCut {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            ShortCut::CtrlA => "Ctrl+A",
+            ShortCut::CtrlB => "Ctrl+B",
+            ShortCut::CtrlC => "Ctrl+C",
+            ShortCut::CtrlD => "Ctrl+D",
+            ShortCut::CtrlE => "Ctrl+E",
+            ShortCut::CtrlF => "Ctrl+F",
+            ShortCut::CtrlG => "Ctrl+G",
+            ShortCut::CtrlH => "Ctrl+H",
+            ShortCut::CtrlI => "Ctrl+I",
+            ShortCut::CtrlJ => "Ctrl+J",
+            ShortCut::CtrlK => "Ctrl+K",
+            ShortCut::CtrlL => "Ctrl+L",
+            ShortCut::CtrlM => "Ctrl+M",
+            ShortCut::CtrlN => "Ctrl+N",
+            ShortCut::CtrlO => "Ctrl+O",
+            ShortCut::CtrlP => "Ctrl+P",
+            ShortCut::CtrlQ => "Ctrl+Q",
+            ShortCut::CtrlR => "Ctrl+R",
+            ShortCut::CtrlS => "Ctrl+S",
+            ShortCut::CtrlT => "Ctrl+T",
+            ShortCut::CtrlU => "Ctrl+U",
+            ShortCut::CtrlV => "Ctrl+V",
+            ShortCut::CtrlW => "Ctrl+W",
+            ShortCut::CtrlX => "Ctrl+X",
+            ShortCut::CtrlY => "Ctrl+Y",
+            ShortCut::CtrlZ => "Ctrl+Z",
+            ShortCut::F1 => "F1",
+            ShortCut::F2 => "F2",
+            ShortCut::F3 => "F3",
+            ShortCut::F4 => "F4",
+            ShortCut::F5 => "F5",
+            ShortCut::F6 => "F6",
+            ShortCut::F7 => "F7",
+            ShortCut::F8 => "F8",
+            ShortCut::F9 => "F9",
+            ShortCut::F11 => "F11",
+            ShortCut::F12 => "F12",
+            ShortCut::CtrlF1 => "Ctrl+F1",
+            ShortCut::CtrlF2 => "Ctrl+F2",
+            ShortCut::CtrlF3 => "Ctrl+F3",
+            ShortCut::CtrlF4 => "Ctrl+F4",
+            ShortCut::CtrlF5 => "Ctrl+F5",
+            ShortCut::CtrlF6 => "Ctrl+F6",
+            ShortCut::CtrlF7 => "Ctrl+F7",
+            ShortCut::CtrlF8 => "Ctrl+F8",
+            ShortCut::CtrlF9 => "Ctrl+F9",
+            ShortCut::CtrlF11 => "Ctrl+F11",
+            ShortCut::CtrlF12 => "Ctrl+F12",
+            ShortCut::ShiftF1 => "Shift+F1",
+            ShortCut::ShiftF2 => "Shift+F2",
+            ShortCut::ShiftF3 => "Shift+F3",
+            ShortCut::ShiftF4 => "Shift+F4",
+            ShortCut::ShiftF5 => "Shift+F5",
+            ShortCut::ShiftF6 => "Shift+F6",
+            ShortCut::ShiftF7 => "Shift+F7",
+            ShortCut::ShiftF8 => "Shift+F8",
+            ShortCut::ShiftF9 => "Shift+F9",
+            ShortCut::ShiftF11 => "Shift+F11",
+            ShortCut::ShiftF12 => "Shift+F12",
+            ShortCut::ShiftCtrlF1 => "Shift+Ctrl+F1",
+            ShortCut::ShiftCtrlF2 => "Shift+Ctrl+F2",
+            ShortCut::ShiftCtrlF3 => "Shift+Ctrl+F3",
+            ShortCut::ShiftCtrlF4 => "Shift+Ctrl+F4",
+            ShortCut::ShiftCtrlF5 => "Shift+Ctrl+F5",
+            ShortCut::ShiftCtrlF6 => "Shift+Ctrl+F6",
+            ShortCut::ShiftCtrlF7 => "Shift+Ctrl+F7",
+            ShortCut::ShiftCtrlF8 => "Shift+Ctrl+F8",
+            ShortCut::ShiftCtrlF9 => "Shift+Ctrl+F9",
+            ShortCut::ShiftCtrlF11 => "Shift+Ctrl+F11",
+            ShortCut::ShiftCtrlF12 => "Shift+Ctrl+F12",
+            ShortCut::CtrlIns => "Ctrl+Insert",
+            ShortCut::ShiftIns => "Shift+Insert",
+            ShortCut::Del => "Delete",
+            ShortCut::ShiftDel => "Shift+Delete",
+            ShortCut::AltBKsp => "Alt+Backspace",
+        };
+        write!(f, "{text}")
+    }
+}
 
-    fn try_from(s: &str) -> Result<Self, VB6ErrorKind> {
+impl FromStr for ShortCut {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        ShortCut::try_from(s)
+    }
+}
+
+impl TryFrom<&str> for ShortCut {
+    type Error = FormErrorKind;
+
+    fn try_from(s: &str) -> Result<Self, FormErrorKind> {
         match s {
             "^A" => Ok(ShortCut::CtrlA),
             "^B" => Ok(ShortCut::CtrlB),
@@ -502,7 +761,7 @@ impl TryFrom<&str> for ShortCut {
             "{DEL}" => Ok(ShortCut::Del),
             "+{DEL}" => Ok(ShortCut::ShiftDel),
             "%{BKSP}" => Ok(ShortCut::AltBKsp),
-            _ => Err(VB6ErrorKind::ShortCutUnparseable),
+            _ => Err(FormErrorKind::ShortCutUnparsable),
         }
     }
 }

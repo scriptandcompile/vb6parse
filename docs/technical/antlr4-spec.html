@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ANTLR4 Grammar Specification for Visual Basic 6">
+    <title>ANTLR4 VB6 Grammar - VB6Parse</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/ebnf.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            hljs.highlightAll();
+        });
+    </script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../index.html">VB6Parse</a> / <a href="../documentation.html">Documentation</a> / ANTLR4 Grammar</h1>
+            <p class="tagline">Visual Basic 6.0 ANTLR4 Grammar Specification</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../index.html">Home</a>
+            <a href="../documentation.html">Documentation</a>
+            <a href="frx-format.html">FRX Format</a>
+            <a href="frm-format.html">FRM Architecture</a>
+            <a href="antlr4-spec.html" class="active">ANTLR4 Grammar</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="docs-content">
+            <aside class="toc">
+                <h3>Table of Contents</h3>
+                <ul>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#grammar-structure">Grammar Structure</a>
+                        <ul>
+                            <li><a href="#module-rules">Module Rules</a></li>
+                            <li><a href="#control-properties">Control Properties</a></li>
+                            <li><a href="#block-statements">Block Statements</a></li>
+                            <li><a href="#declarations">Declarations</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#statement-types">Statement Types</a>
+                        <ul>
+                            <li><a href="#control-flow">Control Flow</a></li>
+                            <li><a href="#file-operations">File Operations</a></li>
+                            <li><a href="#variable-operations">Variable Operations</a></li>
+                            <li><a href="#error-handling">Error Handling</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#expressions">Expressions</a></li>
+                    <li><a href="#lexer-rules">Lexer Rules</a></li>
+                    <li><a href="#usage-notes">Usage Notes</a></li>
+                </ul>
+            </aside>
+
+            <article>
+                <h2 id="overview">Overview</h2>
+                <p>
+                    This document describes the ANTLR4 grammar specification for Visual Basic 6.0 used by the 
+                    <a href="https://github.com/uwol/proleap-vb6-parser" target="_blank">ProLeap VB6 Parser</a>. 
+                    The grammar is derived from the official Visual Basic 6.0 language reference and has been tested 
+                    with MSDN VB6 statements and several Visual Basic 6.0 code repositories.
+                </p>
+
+                <div class="info-box">
+                    <strong>📝 Note:</strong> This grammar is provided for reference purposes. VB6Parse uses its own 
+                    custom parsing implementation but references this ANTLR4 specification for completeness and 
+                    comparative analysis.
+                </div>
+
+                <h3>Grammar File Location</h3>
+                <p>
+                    The complete grammar specification can be found at:<br>
+                    <a href="https://github.com/uwol/proleap-vb6-parser/blob/master/src/main/antlr4/io/proleap/vb6/VisualBasic6.g4" target="_blank"><code>VisualBasic6.g4</code></a>
+                </p>
+
+                <h3>Grammar Statistics</h3>
+                <ul>
+                    <li><strong>Total Lines:</strong> 2,225 lines</li>
+                    <li><strong>License:</strong> MIT License</li>
+                    <li><strong>Author:</strong> Ulrich Wolffgang (proleap.io)</li>
+                    <li><strong>Source:</strong> <a href="https://github.com/uwol/proleap-vb6-parser" target="_blank">github.com/uwol/proleap-vb6-parser</a></li>
+                </ul>
+
+                <h2 id="grammar-structure">Grammar Structure</h2>
+                <p>
+                    The ANTLR4 grammar is organized into several major sections that correspond to the structure 
+                    of Visual Basic 6.0 source files.
+                </p>
+
+                <h3 id="module-rules">Module Rules</h3>
+                <p>
+                    The top-level grammar rule defines the structure of a VB6 module (class, form, or standard module):
+                </p>
+
+                <pre><code class="language-ebnf">startRule
+   : module EOF
+   ;
+
+module
+   : WS? NEWLINE* (moduleHeader NEWLINE +)? 
+     moduleReferences? NEWLINE* 
+     controlProperties? NEWLINE* 
+     moduleConfig? NEWLINE* 
+     moduleAttributes? NEWLINE* 
+     moduleOptions? NEWLINE* 
+     moduleBody? NEWLINE* WS?
+   ;</code></pre>
+
+                <h4>Module Components</h4>
+                <ul>
+                    <li><strong>moduleHeader:</strong> VERSION line (e.g., <code>VERSION 1.0 CLASS</code>)</li>
+                    <li><strong>moduleReferences:</strong> Object/library references</li>
+                    <li><strong>controlProperties:</strong> Form control definitions (for .frm files)</li>
+                    <li><strong>moduleConfig:</strong> BEGIN/END configuration blocks</li>
+                    <li><strong>moduleAttributes:</strong> Attribute statements</li>
+                    <li><strong>moduleOptions:</strong> Option Base, Option Explicit, Option Compare, etc.</li>
+                    <li><strong>moduleBody:</strong> The actual code (functions, subs, declarations)</li>
+                </ul>
+
+                <h3 id="control-properties">Control Properties</h3>
+                <p>
+                    Form files (.frm) contain control property definitions that are parsed using specialized rules:
+                </p>
+
+                <pre><code class="language-ebnf">controlProperties
+   : WS? BEGIN WS cp_ControlType WS cp_ControlIdentifier WS? NEWLINE+
+     cp_Properties+ 
+     END NEWLINE*
+   ;
+
+cp_SingleProperty
+   : WS? implicitCallStmt_InStmt WS? EQ WS? '$'? 
+     cp_PropertyValue FRX_OFFSET? NEWLINE+
+   ;
+
+cp_NestedProperty
+   : WS? BEGINPROPERTY WS ambiguousIdentifier 
+     (LPAREN INTEGERLITERAL RPAREN)? (WS GUID)? NEWLINE+ 
+     (cp_Properties+)? 
+     ENDPROPERTY NEWLINE+
+   ;</code></pre>
+
+                <div class="info-box">
+                    <strong>🎯 Key Feature:</strong> The grammar supports nested properties (BEGINPROPERTY/ENDPROPERTY blocks) 
+                    and references to external binary resources via FRX_OFFSET markers.
+                </div>
+
+                <h3 id="block-statements">Block Statements</h3>
+                <p>
+                    The <code>blockStmt</code> rule enumerates all possible VB6 statements that can appear in code blocks:
+                </p>
+
+                <div class="statement-grid">
+                    <div class="statement-category">
+                        <h4>Control Flow</h4>
+                        <ul>
+                            <li>doLoopStmt</li>
+                            <li>forEachStmt</li>
+                            <li>forNextStmt</li>
+                            <li>ifThenElseStmt</li>
+                            <li>selectCaseStmt</li>
+                            <li>whileWendStmt</li>
+                            <li>withStmt</li>
+                        </ul>
+                    </div>
+                    <div class="statement-category">
+                        <h4>File I/O</h4>
+                        <ul>
+                            <li>closeStmt</li>
+                            <li>getStmt</li>
+                            <li>inputStmt</li>
+                            <li>lineInputStmt</li>
+                            <li>openStmt</li>
+                            <li>printStmt</li>
+                            <li>putStmt</li>
+                            <li>writeStmt</li>
+                        </ul>
+                    </div>
+                    <div class="statement-category">
+                        <h4>File System</h4>
+                        <ul>
+                            <li>chDirStmt</li>
+                            <li>chDriveStmt</li>
+                            <li>filecopyStmt</li>
+                            <li>killStmt</li>
+                            <li>mkdirStmt</li>
+                            <li>nameStmt</li>
+                            <li>rmdirStmt</li>
+                        </ul>
+                    </div>
+                    <div class="statement-category">
+                        <h4>Error Handling</h4>
+                        <ul>
+                            <li>errorStmt</li>
+                            <li>onErrorStmt</li>
+                            <li>resumeStmt</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 id="declarations">Declarations</h3>
+                <p>
+                    VB6 supports various declaration types at the module level:
+                </p>
+
+                <pre><code class="language-ebnf">moduleBodyElement
+   : moduleBlock
+   | moduleOption
+   | declareStmt        // External API declarations
+   | enumerationStmt    // Enum definitions
+   | eventStmt          // Event declarations
+   | functionStmt       // Function definitions
+   | propertyGetStmt    // Property Get
+   | propertySetStmt    // Property Set
+   | propertyLetStmt    // Property Let
+   | subStmt            // Subroutine definitions
+   | typeStmt           // User-defined types
+   | macroIfThenElseStmt  // Conditional compilation
+   ;</code></pre>
+
+                <h2 id="statement-types">Statement Types</h2>
+
+                <h3 id="control-flow">Control Flow Statements</h3>
+
+                <h4>If-Then-Else</h4>
+                <pre><code class="language-ebnf">ifThenElseStmt
+   : IF WS ifConditionStmt WS THEN WS blockStmt 
+     (WS ELSE WS blockStmt)?                      // Single-line form
+   | ifBlockStmt ifElseIfBlockStmt* ifElseBlockStmt? 
+     END_IF                                       // Block form
+   ;</code></pre>
+
+                <h4>Select Case</h4>
+                <pre><code class="language-ebnf">selectCaseStmt
+   : SELECT WS CASE WS valueStmt NEWLINE+ 
+     sC_Case* 
+     END_SELECT
+   ;
+
+sC_Case
+   : CASE WS sC_Cond NEWLINE+ (block NEWLINE+)?
+   ;
+
+sC_Cond
+   : ELSE                                         // Case Else
+   | sC_CondExpr (WS? COMMA WS? sC_CondExpr)*
+   ;</code></pre>
+
+                <h4>Loops</h4>
+                <pre><code class="language-ebnf">// Do...Loop variants
+doLoopStmt
+   : DO NEWLINE+ (block NEWLINE+)? LOOP
+   | DO WS (WHILE | UNTIL) WS valueStmt NEWLINE+ 
+     (block NEWLINE+)? LOOP
+   | DO NEWLINE+ (block NEWLINE+) 
+     LOOP WS (WHILE | UNTIL) WS valueStmt
+   ;
+
+// For...Next
+forNextStmt
+   : FOR WS iCS_S_VariableOrProcedureCall typeHint? 
+     (WS asTypeClause)? WS? EQ WS? valueStmt 
+     WS TO WS valueStmt (WS STEP WS valueStmt)? NEWLINE+ 
+     (block NEWLINE+)? 
+     NEXT (WS ambiguousIdentifier typeHint?)?
+   ;
+
+// For Each...Next
+forEachStmt
+   : FOR WS EACH WS ambiguousIdentifier typeHint? 
+     WS IN WS valueStmt NEWLINE+ 
+     (block NEWLINE+)? 
+     NEXT (WS ambiguousIdentifier)?
+   ;</code></pre>
+
+                <h3 id="file-operations">File Operations</h3>
+
+                <h4>Open Statement</h4>
+                <pre><code class="language-ebnf">openStmt
+   : OPEN WS valueStmt WS FOR WS 
+     (APPEND | BINARY | INPUT | OUTPUT | RANDOM) 
+     (WS ACCESS WS (READ | WRITE | READ_WRITE))? 
+     (WS (SHARED | LOCK_READ | LOCK_WRITE | LOCK_READ_WRITE))? 
+     WS AS WS valueStmt 
+     (WS LEN WS? EQ WS? valueStmt)?
+   ;</code></pre>
+
+                <div class="algorithm-box">
+                    <strong>💡 Design Note:</strong> The Open statement grammar captures all the complexity of VB6's 
+                    file I/O modes, access types, and locking mechanisms in a single comprehensive rule.
+                </div>
+
+                <h3 id="variable-operations">Variable Operations</h3>
+
+                <h4>Variable Declaration</h4>
+                <pre><code class="language-ebnf">variableStmt
+   : (DIM | STATIC | visibility) WS 
+     (WITHEVENTS WS)? variableListStmt
+   ;
+
+variableSubStmt
+   : ambiguousIdentifier typeHint? 
+     (WS? LPAREN WS? (subscripts WS?)? RPAREN WS?)? 
+     (WS asTypeClause)?
+   ;</code></pre>
+
+                <h4>Let/Set Statements</h4>
+                <pre><code class="language-ebnf">letStmt
+   : (LET WS)? implicitCallStmt_InStmt WS? 
+     (EQ | PLUS_EQ | MINUS_EQ) WS? valueStmt
+   ;
+
+setStmt
+   : SET WS implicitCallStmt_InStmt WS? EQ WS? valueStmt
+   ;</code></pre>
+
+                <h3 id="error-handling">Error Handling</h3>
+
+                <pre><code class="language-ebnf">onErrorStmt
+   : (ON_ERROR | ON_LOCAL_ERROR) WS 
+     (GOTO WS valueStmt COLON? | RESUME WS NEXT)
+   ;
+
+errorStmt
+   : ERROR WS valueStmt
+   ;
+
+resumeStmt
+   : RESUME (WS (NEXT | ambiguousIdentifier))?
+   ;</code></pre>
+
+                <h2 id="expressions">Expressions</h2>
+
+                <p>
+                    The grammar includes comprehensive expression parsing with operator precedence:
+                </p>
+
+                <pre><code class="language-ebnf">valueStmt
+   : literal                          // Literals
+   | implicitCallStmt_InStmt         // Function/variable references
+   | LPAREN WS? valueStmt WS? RPAREN // Parenthesized expressions
+   | NEW WS valueStmt                // Object instantiation
+   | valueStmt WS? POW WS? valueStmt // Exponentiation
+   | MINUS WS? valueStmt             // Unary minus
+   | PLUS WS? valueStmt              // Unary plus
+   | valueStmt WS? MULT WS? valueStmt  // Multiplication
+   | valueStmt WS? DIV WS? valueStmt   // Division
+   | valueStmt WS? INTDIV WS? valueStmt // Integer division
+   | valueStmt WS? MOD WS? valueStmt   // Modulo
+   | valueStmt WS? PLUS WS? valueStmt  // Addition
+   | valueStmt WS? MINUS WS? valueStmt // Subtraction
+   | valueStmt WS? AMPERSAND WS? valueStmt // String concatenation
+   | valueStmt WS? EQ WS? valueStmt    // Equality
+   | valueStmt WS? NEQ WS? valueStmt   // Inequality
+   | valueStmt WS? LT WS? valueStmt    // Less than
+   | valueStmt WS? GT WS? valueStmt    // Greater than
+   | valueStmt WS? LEQ WS? valueStmt   // Less than or equal
+   | valueStmt WS? GEQ WS? valueStmt   // Greater than or equal
+   | valueStmt WS? LIKE WS? valueStmt  // Pattern matching
+   | valueStmt WS? IS WS? valueStmt    // Object comparison
+   | NOT WS? valueStmt                 // Logical NOT
+   | valueStmt WS? AND WS? valueStmt   // Logical AND
+   | valueStmt WS? OR WS? valueStmt    // Logical OR
+   | valueStmt WS? XOR WS? valueStmt   // Logical XOR
+   | valueStmt WS? EQV WS? valueStmt   // Logical equivalence
+   | valueStmt WS? IMP WS? valueStmt   // Logical implication
+   ;</code></pre>
+
+                <h2 id="lexer-rules">Lexer Rules</h2>
+
+                <p>
+                    The grammar defines lexer rules for VB6 tokens including keywords, operators, and literals.
+                </p>
+
+                <h3>Keywords</h3>
+                <p>
+                    The grammar recognizes all VB6 keywords including data types, control flow keywords, 
+                    file operation keywords, and visibility modifiers:
+                </p>
+
+                <div class="keyword-grid">
+                    <div><code>DIM</code></div>
+                    <div><code>PUBLIC</code></div>
+                    <div><code>PRIVATE</code></div>
+                    <div><code>STATIC</code></div>
+                    <div><code>CONST</code></div>
+                    <div><code>IF</code></div>
+                    <div><code>THEN</code></div>
+                    <div><code>ELSE</code></div>
+                    <div><code>ELSEIF</code></div>
+                    <div><code>END</code></div>
+                    <div><code>FOR</code></div>
+                    <div><code>NEXT</code></div>
+                    <div><code>DO</code></div>
+                    <div><code>LOOP</code></div>
+                    <div><code>WHILE</code></div>
+                    <div><code>UNTIL</code></div>
+                    <div><code>SELECT</code></div>
+                    <div><code>CASE</code></div>
+                    <div><code>FUNCTION</code></div>
+                    <div><code>SUB</code></div>
+                    <div><code>PROPERTY</code></div>
+                    <div><code>GET</code></div>
+                    <div><code>SET</code></div>
+                    <div><code>LET</code></div>
+                </div>
+
+                <h3>Literals</h3>
+                <pre><code class="language-ebnf">literal
+   : COLORLITERAL      // Color literals (&H00FF00&)
+   | DATELITERAL       // Date literals (#1/1/2000#)
+   | DOUBLELITERAL     // Double-precision floats
+   | FILENUMBER        // File numbers (#1)
+   | INTEGERLITERAL    // Integers
+   | STRINGLITERAL     // String literals
+   | TRUE              // Boolean True
+   | FALSE             // Boolean False
+   | NOTHING           // Nothing keyword
+   | NULL              // Null keyword
+   ;</code></pre>
+
+                <h3>Type Hints</h3>
+                <p>
+                    VB6 supports single-character type declaration suffixes:
+                </p>
+
+                <ul>
+                    <li><code>%</code> - Integer</li>
+                    <li><code>&amp;</code> - Long</li>
+                    <li><code>!</code> - Single</li>
+                    <li><code>#</code> - Double</li>
+                    <li><code>@</code> - Currency</li>
+                    <li><code>$</code> - String</li>
+                </ul>
+
+                <h2 id="usage-notes">Usage Notes</h2>
+
+                <div class="warning-box">
+                    <strong>⚠️ Important:</strong> This ANTLR4 grammar is provided for reference and comparative 
+                    analysis. VB6Parse does not use ANTLR4 but instead implements a custom parser in Rust for 
+                    better performance and control over the parsing process.
+                </div>
+
+                <h3>Differences from VB6Parse Implementation</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            <th>ANTLR4 Grammar</th>
+                            <th>VB6Parse</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Parser Generator</strong></td>
+                            <td>ANTLR4 (Java-based)</td>
+                            <td>Custom hand-written parser (Rust)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Parse Tree</strong></td>
+                            <td>AST (Abstract Syntax Tree)</td>
+                            <td>CST (Concrete Syntax Tree) via rowan</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Whitespace</strong></td>
+                            <td>Explicit WS tokens in grammar</td>
+                            <td>Preserved in CST automatically</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Error Recovery</strong></td>
+                            <td>ANTLR4 built-in recovery</td>
+                            <td>Custom error handling with ParseResult</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Performance</strong></td>
+                            <td>JVM overhead</td>
+                            <td>Native Rust performance</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Why Not Use ANTLR4?</h3>
+
+                <p>VB6Parse uses a custom parser implementation for several reasons:</p>
+
+                <ul>
+                    <li><strong>Rust:</strong> Native Rust API instead of a Java API</li>
+                    <li><strong>Memory Efficiency:</strong> Fine-grained control over allocations</li>
+                    <li><strong>CST Preservation:</strong> Full source fidelity including whitespace and comments</li>
+                    <li><strong>Error Recovery:</strong> Custom error handling tailored to VB6 parsing needs</li>
+                    <li><strong>Integration:</strong> Seamless integration with Rust ecosystem</li>
+                    <li><strong>Incremental Parsing:</strong> Potential for future incremental reparsing optimizations</li>
+                </ul>
+
+                <h3>Grammar Reference Value</h3>
+
+                <p>
+                    Despite not being used directly, this ANTLR4 grammar specification is valuable for:
+                </p>
+
+                <ul>
+                    <li>Understanding the complete VB6 language syntax</li>
+                    <li>Cross-referencing VB6Parse implementation against a formal specification</li>
+                    <li>Identifying edge cases and language features that need testing</li>
+                    <li>Serving as documentation for VB6 language constructs</li>
+                    <li>Comparative analysis between different parsing approaches</li>
+                </ul>
+
+                <h3>Further Reading</h3>
+
+                <ul style="margin-bottom: 60px;">
+                    <li><a href="https://github.com/uwol/proleap-vb6-parser" target="_blank">ProLeap VB6 Parser on GitHub</a></li>
+                    <li><a href="https://www.antlr.org/" target="_blank">ANTLR Official Website</a></li>
+                    <li><a href="https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa338033(v=vs.60)" target="_blank">VB6 Language Reference (MSDN Archive)</a></li>
+                    <li><a href="frm-format.html">FormFile Architecture Documentation</a></li>
+                    <li><a href="frx-format.html">FRX Binary Format Specification</a></li>
+                </ul>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>VB6Parse is licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a></p>
+            <p>Built with ❤️ by <a href="https://github.com/scriptandcompile" target="_blank">ScriptAndCompile</a></p>
+        </div>
+    </footer>
+</body>
+</html>

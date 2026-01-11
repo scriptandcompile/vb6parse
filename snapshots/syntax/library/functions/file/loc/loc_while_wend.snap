@@ -1,0 +1,81 @@
+---
+source: src/syntax/library/functions/file/loc.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: WhileStatement
+      children:
+        - kind: WhileKeyword
+          text: While
+        - kind: Whitespace
+          text: " "
+        - kind: BinaryExpression
+          children:
+            - kind: CallExpression
+              children:
+                - kind: Identifier
+                  text: Loc
+                - kind: LeftParenthesis
+                  text: (
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: fileNum
+                - kind: RightParenthesis
+                  text: )
+            - kind: Whitespace
+              text: " "
+            - kind: LessThanOperator
+              text: "<"
+            - kind: Whitespace
+              text: " "
+            - kind: IdentifierExpression
+              children:
+                - kind: Identifier
+                  text: totalRecords
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: GetStatement
+              children:
+                - kind: Whitespace
+                  text: "                "
+                - kind: GetKeyword
+                  text: Get
+                - kind: Whitespace
+                  text: " "
+                - kind: Octothorpe
+                  text: "#"
+                - kind: Identifier
+                  text: fileNum
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: record
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "            "
+        - kind: WendKeyword
+          text: Wend
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "

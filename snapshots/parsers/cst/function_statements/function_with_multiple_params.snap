@@ -1,0 +1,73 @@
+---
+source: src/parsers/cst/function_statements.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: FunctionStatement
+      children:
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Add
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: ByValKeyword
+              text: ByVal
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: x
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: LongKeyword
+              text: Long
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: ByValKeyword
+              text: ByVal
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: y
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: LongKeyword
+              text: Long
+            - kind: RightParenthesis
+              text: )
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: LongKeyword
+          text: Long
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children: []
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Newline
+          text: "\n"

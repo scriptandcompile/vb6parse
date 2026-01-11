@@ -1,0 +1,17 @@
+---
+source: src/syntax/library/statements/system_interaction/load.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: LoadStatement
+      children:
+        - kind: LoadKeyword
+          text: Load
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: frmMain
+        - kind: Newline
+          text: "\n"

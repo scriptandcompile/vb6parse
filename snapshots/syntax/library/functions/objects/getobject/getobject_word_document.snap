@@ -1,0 +1,29 @@
+---
+source: src/syntax/library/functions/objects/getobject.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: SetStatement
+      children:
+        - kind: SetKeyword
+          text: Set
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: wordDoc
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: GetObject
+        - kind: LeftParenthesis
+          text: (
+        - kind: StringLiteral
+          text: "\"C:\\Documents\\Letter.doc\""
+        - kind: RightParenthesis
+          text: )

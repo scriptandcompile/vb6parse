@@ -1,0 +1,33 @@
+---
+source: src/syntax/library/functions/string/formatpercent.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Identifier
+      text: MsgBox
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "\"Success Rate: \""
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "&"
+    - kind: Whitespace
+      text: " "
+    - kind: Identifier
+      text: FormatPercent
+    - kind: Unknown
+      text: (
+    - kind: Identifier
+      text: rate
+    - kind: Unknown
+      text: ","
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "1"
+    - kind: Unknown
+      text: )

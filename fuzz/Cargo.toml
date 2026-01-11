@@ -1,0 +1,77 @@
+[package]
+name = "vb6parse-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+
+[dependencies.vb6parse]
+path = ".."
+
+[[bin]]
+name = "sourcefile_decode"
+path = "fuzz_targets/sourcefile_decode.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "sourcestream"
+path = "fuzz_targets/sourcestream.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "tokenize"
+path = "fuzz_targets/tokenize.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "cst_parse"
+path = "fuzz_targets/cst_parse.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "project_file"
+path = "fuzz_targets/project_file.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "class_file"
+path = "fuzz_targets/class_file.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "module_file"
+path = "fuzz_targets/module_file.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "form_file"
+path = "fuzz_targets/form_file.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "form_resource"
+path = "fuzz_targets/form_resource.rs"
+test = false
+doc = false
+bench = false

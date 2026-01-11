@@ -1,0 +1,37 @@
+---
+source: src/syntax/library/functions/environment/error.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Error: \""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: ErrorKeyword
+          text: Error
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: Err
+        - kind: PeriodOperator
+          text: "."
+        - kind: Identifier
+          text: Number
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

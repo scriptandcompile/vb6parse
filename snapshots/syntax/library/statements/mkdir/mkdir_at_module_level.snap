@@ -1,0 +1,15 @@
+---
+source: src/syntax/library/statements/filesystem/mkdir.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: MkDirStatement
+      children:
+        - kind: MkDirKeyword
+          text: MkDir
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"C:\\Temp\""

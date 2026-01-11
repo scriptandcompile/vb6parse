@@ -1,0 +1,71 @@
+---
+source: src/syntax/library/functions/financial/pmt.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Monthly payment: $\""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Format
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: Abs
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: Pmt
+        - kind: LeftParenthesis
+          text: (
+        - kind: SingleLiteral
+          text: "0.06"
+        - kind: Whitespace
+          text: " "
+        - kind: DivisionOperator
+          text: /
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "12"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "60"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "25000"
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"0.00\""
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

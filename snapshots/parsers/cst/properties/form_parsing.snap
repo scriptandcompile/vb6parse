@@ -1,0 +1,281 @@
+---
+source: src/parsers/cst/properties.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: VersionStatement
+      children:
+        - kind: VersionKeyword
+          text: VERSION
+        - kind: Whitespace
+          text: " "
+        - kind: SingleLiteral
+          text: "5.00"
+        - kind: Newline
+          text: "\n"
+    - kind: PropertiesBlock
+      children:
+        - kind: BeginKeyword
+          text: Begin
+        - kind: Whitespace
+          text: " "
+        - kind: PropertiesType
+          children:
+            - kind: Identifier
+              text: VB
+            - kind: PeriodOperator
+              text: "."
+            - kind: Identifier
+              text: Form
+        - kind: Whitespace
+          text: " "
+        - kind: PropertiesName
+          children:
+            - kind: Identifier
+              text: Form1
+        - kind: Whitespace
+          text: " "
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "   "
+        - kind: Property
+          children:
+            - kind: PropertyKey
+              children:
+                - kind: Identifier
+                  text: Caption
+            - kind: Whitespace
+              text: "         "
+            - kind: EqualityOperator
+              text: "="
+            - kind: Whitespace
+              text: "   "
+            - kind: PropertyValue
+              children:
+                - kind: StringLiteral
+                  text: "\"Form1\""
+            - kind: Newline
+              text: "\n"
+        - kind: Whitespace
+          text: "   "
+        - kind: Property
+          children:
+            - kind: PropertyKey
+              children:
+                - kind: Identifier
+                  text: ClientHeight
+            - kind: Whitespace
+              text: "    "
+            - kind: EqualityOperator
+              text: "="
+            - kind: Whitespace
+              text: "   "
+            - kind: PropertyValue
+              children:
+                - kind: IntegerLiteral
+                  text: "3195"
+            - kind: Newline
+              text: "\n"
+        - kind: Whitespace
+          text: "   "
+        - kind: PropertiesBlock
+          children:
+            - kind: BeginKeyword
+              text: Begin
+            - kind: Whitespace
+              text: " "
+            - kind: PropertiesType
+              children:
+                - kind: Identifier
+                  text: VB
+                - kind: PeriodOperator
+                  text: "."
+                - kind: Identifier
+                  text: CommandButton
+            - kind: Whitespace
+              text: " "
+            - kind: PropertiesName
+              children:
+                - kind: Identifier
+                  text: Command1
+            - kind: Whitespace
+              text: " "
+            - kind: Newline
+              text: "\n"
+            - kind: Whitespace
+              text: "      "
+            - kind: Property
+              children:
+                - kind: PropertyKey
+                  children:
+                    - kind: Identifier
+                      text: Caption
+                - kind: Whitespace
+                  text: "         "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: "   "
+                - kind: PropertyValue
+                  children:
+                    - kind: StringLiteral
+                      text: "\"Command1\""
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "   "
+            - kind: EndKeyword
+              text: End
+            - kind: Newline
+              text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Newline
+          text: "\n"
+    - kind: AttributeStatement
+      children:
+        - kind: AttributeKeyword
+          text: Attribute
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: VB_Name
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Form1\""
+        - kind: Newline
+          text: "\n"
+    - kind: AttributeStatement
+      children:
+        - kind: AttributeKeyword
+          text: Attribute
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: VB_GlobalNameSpace
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: FalseKeyword
+          text: "False"
+        - kind: Newline
+          text: "\n"
+    - kind: AttributeStatement
+      children:
+        - kind: AttributeKeyword
+          text: Attribute
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: VB_Creatable
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: FalseKeyword
+          text: "False"
+        - kind: Newline
+          text: "\n"
+    - kind: AttributeStatement
+      children:
+        - kind: AttributeKeyword
+          text: Attribute
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: VB_PredeclaredId
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: TrueKeyword
+          text: "True"
+        - kind: Newline
+          text: "\n"
+    - kind: AttributeStatement
+      children:
+        - kind: AttributeKeyword
+          text: Attribute
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: VB_Exposed
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: FalseKeyword
+          text: "False"
+        - kind: Newline
+          text: "\n"
+    - kind: OptionStatement
+      children:
+        - kind: OptionKeyword
+          text: Option
+        - kind: Whitespace
+          text: " "
+        - kind: ExplicitKeyword
+          text: Explicit
+        - kind: Newline
+          text: "\n"
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: PrivateKeyword
+          text: Private
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Command1_Click
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: MsgBox
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Hello\""
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

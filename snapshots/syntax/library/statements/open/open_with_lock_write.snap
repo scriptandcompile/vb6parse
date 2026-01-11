@@ -1,0 +1,73 @@
+---
+source: src/syntax/library/statements/file_operations/open.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: OpenStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: OpenKeyword
+                  text: Open
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"TESTFILE\""
+                - kind: Whitespace
+                  text: " "
+                - kind: ForKeyword
+                  text: For
+                - kind: Whitespace
+                  text: " "
+                - kind: BinaryKeyword
+                  text: Binary
+                - kind: Whitespace
+                  text: " "
+                - kind: LockKeyword
+                  text: Lock
+                - kind: Whitespace
+                  text: " "
+                - kind: WriteKeyword
+                  text: Write
+                - kind: Whitespace
+                  text: " "
+                - kind: AsKeyword
+                  text: As
+                - kind: Whitespace
+                  text: " "
+                - kind: Octothorpe
+                  text: "#"
+                - kind: IntegerLiteral
+                  text: "1"
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

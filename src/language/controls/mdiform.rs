@@ -1,48 +1,80 @@
+//! Properties for a `MDIForm` control.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::MDIForm`](crate::language::controls::ControlKind::MDIForm).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
+
+use crate::files::common::Properties;
 use crate::language::{
     controls::{
         Activation, Appearance, FormLinkMode, MousePointer, Movability, OLEDropMode,
-        StartUpPosition, TextDirection, Visibility, WhatsThisHelp, WindowState,
+        ReferenceOrValue, StartUpPosition, TextDirection, Visibility, WhatsThisHelp, WindowState,
     },
-    VB6Color,
+    Color, VB_APPLICATION_WORKSPACE,
 };
-use crate::parsers::Properties;
 
-use bstr::BString;
 use image::DynamicImage;
 use serde::Serialize;
 
 /// Properties for a `MDIForm` control.
 ///
 /// This is used as an enum variant of
-/// [`VB6ControlKind::MDIForm`](crate::language::controls::VB6ControlKind::MDIForm).
+/// [`ControlKind::MDIForm`](crate::language::controls::ControlKind::MDIForm).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
+/// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct MDIFormProperties {
+    /// Appearance of the MDI form.
     pub appearance: Appearance,
+    /// Auto show children setting of the MDI form.
     pub auto_show_children: bool,
-    pub back_color: VB6Color,
-    pub caption: BString,
+    /// Background color of the MDI form.
+    pub back_color: Color,
+    /// Caption of the MDI form.
+    pub caption: String,
+    /// Enabled state of the MDI form.
     pub enabled: Activation,
+    /// Height of the MDI form.
     pub height: i32,
+    /// Help context ID of the MDI form.
     pub help_context_id: i32,
-    pub icon: Option<DynamicImage>,
+    /// Icon of the MDI form.
+    pub icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Left position of the MDI form.
     pub left: i32,
+    /// Link mode of the MDI form.
     pub link_mode: FormLinkMode,
-    pub link_topic: BString,
-    pub mouse_icon: Option<DynamicImage>,
+    /// Link topic of the MDI form.
+    pub link_topic: String,
+    /// Mouse icon of the MDI form.
+    pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Mouse pointer of the MDI form.
     pub mouse_pointer: MousePointer,
+    /// Movability of the MDI form.
     pub moveable: Movability,
+    /// Negotiate toolbars setting of the MDI form.
     pub negotiate_toolbars: bool,
+    /// OLE drop mode of the MDI form.
     pub ole_drop_mode: OLEDropMode,
-    pub picture: Option<DynamicImage>,
+    /// Picture of the MDI form.
+    pub picture: Option<ReferenceOrValue<DynamicImage>>,
+    /// Right to left setting of the MDI form.
     pub right_to_left: TextDirection,
+    /// Scroll bars setting of the MDI form.
     pub scroll_bars: bool,
+    /// Start up position of the MDI form.
     pub start_up_position: StartUpPosition,
+    /// Top position of the MDI form.
     pub top: i32,
+    /// Visibility of the MDI form.
     pub visible: Visibility,
+    /// What's This help setting of the MDI form.
     pub whats_this_help: WhatsThisHelp,
+    /// Width of the MDI form.
     pub width: i32,
+    /// Window state of the MDI form.
     pub window_state: WindowState,
 }
 
@@ -98,16 +130,17 @@ impl Default for MDIFormProperties {
         MDIFormProperties {
             appearance: Appearance::ThreeD,
             auto_show_children: true,
-            back_color: VB6Color::from_hex("&H8000000C&").unwrap(),
-            caption: "".into(),
+            back_color: VB_APPLICATION_WORKSPACE,
+            caption: String::new(),
             enabled: Activation::Enabled,
+            // TODO: process font
             //font
             height: 3600,
             help_context_id: 0,
             icon: None,
             left: 0,
             link_mode: FormLinkMode::None,
-            link_topic: "".into(),
+            link_topic: String::new(),
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             moveable: Movability::Moveable,
@@ -126,32 +159,31 @@ impl Default for MDIFormProperties {
     }
 }
 
-impl<'a> From<Properties<'a>> for MDIFormProperties {
-    fn from(prop: Properties<'a>) -> Self {
+impl From<Properties> for MDIFormProperties {
+    fn from(prop: Properties) -> Self {
         let mut mdi_form_prop = MDIFormProperties::default();
 
-        mdi_form_prop.appearance =
-            prop.get_property(b"Appearance".into(), mdi_form_prop.appearance);
+        mdi_form_prop.appearance = prop.get_property("Appearance", mdi_form_prop.appearance);
         mdi_form_prop.auto_show_children =
-            prop.get_bool(b"AutoShowChildren".into(), mdi_form_prop.auto_show_children);
-        mdi_form_prop.back_color = prop.get_color(b"BackColor".into(), mdi_form_prop.back_color);
-        mdi_form_prop.caption = match prop.get(b"Caption".into()) {
+            prop.get_bool("AutoShowChildren", mdi_form_prop.auto_show_children);
+        mdi_form_prop.back_color = prop.get_color("BackColor", mdi_form_prop.back_color);
+        mdi_form_prop.caption = match prop.get("Caption") {
             Some(caption) => caption.into(),
             None => mdi_form_prop.caption,
         };
-        mdi_form_prop.enabled = prop.get_property(b"Enabled".into(), mdi_form_prop.enabled);
+        mdi_form_prop.enabled = prop.get_property("Enabled", mdi_form_prop.enabled);
 
         // Font - group
 
-        mdi_form_prop.height = prop.get_i32(b"Height".into(), mdi_form_prop.height);
+        mdi_form_prop.height = prop.get_i32("Height", mdi_form_prop.height);
         mdi_form_prop.help_context_id =
-            prop.get_i32(b"HelpContextID".into(), mdi_form_prop.help_context_id);
+            prop.get_i32("HelpContextID", mdi_form_prop.help_context_id);
 
         // Icon
 
-        mdi_form_prop.left = prop.get_i32(b"Left".into(), mdi_form_prop.left);
-        mdi_form_prop.link_mode = prop.get_property(b"LinkMode".into(), mdi_form_prop.link_mode);
-        mdi_form_prop.link_topic = match prop.get(b"LinkTopic".into()) {
+        mdi_form_prop.left = prop.get_i32("Left", mdi_form_prop.left);
+        mdi_form_prop.link_mode = prop.get_property("LinkMode", mdi_form_prop.link_mode);
+        mdi_form_prop.link_topic = match prop.get("LinkTopic") {
             Some(link_topic) => link_topic.into(),
             None => mdi_form_prop.link_topic,
         };
@@ -159,29 +191,24 @@ impl<'a> From<Properties<'a>> for MDIFormProperties {
         // MouseIcon
 
         mdi_form_prop.mouse_pointer =
-            prop.get_property(b"MousePointer".into(), mdi_form_prop.mouse_pointer);
-        mdi_form_prop.moveable = prop.get_property(b"Moveable".into(), mdi_form_prop.moveable);
-        mdi_form_prop.negotiate_toolbars = prop.get_bool(
-            b"NegotiateToolbars".into(),
-            mdi_form_prop.negotiate_toolbars,
-        );
-        mdi_form_prop.ole_drop_mode =
-            prop.get_property(b"OLEDropMode".into(), mdi_form_prop.ole_drop_mode);
+            prop.get_property("MousePointer", mdi_form_prop.mouse_pointer);
+        mdi_form_prop.moveable = prop.get_property("Moveable", mdi_form_prop.moveable);
+        mdi_form_prop.negotiate_toolbars =
+            prop.get_bool("NegotiateToolbars", mdi_form_prop.negotiate_toolbars);
+        mdi_form_prop.ole_drop_mode = prop.get_property("OLEDropMode", mdi_form_prop.ole_drop_mode);
 
         // Picture
 
-        mdi_form_prop.right_to_left =
-            prop.get_property(b"RightToLeft".into(), mdi_form_prop.right_to_left);
-        mdi_form_prop.scroll_bars = prop.get_bool(b"Scrollbars".into(), mdi_form_prop.scroll_bars);
+        mdi_form_prop.right_to_left = prop.get_property("RightToLeft", mdi_form_prop.right_to_left);
+        mdi_form_prop.scroll_bars = prop.get_bool("Scrollbars", mdi_form_prop.scroll_bars);
         mdi_form_prop.start_up_position =
-            prop.get_startup_position(b"StartUpPosition".into(), mdi_form_prop.start_up_position);
-        mdi_form_prop.top = prop.get_i32(b"Top".into(), mdi_form_prop.top);
-        mdi_form_prop.visible = prop.get_property(b"Visible".into(), mdi_form_prop.visible);
+            prop.get_startup_position("StartUpPosition", mdi_form_prop.start_up_position);
+        mdi_form_prop.top = prop.get_i32("Top", mdi_form_prop.top);
+        mdi_form_prop.visible = prop.get_property("Visible", mdi_form_prop.visible);
         mdi_form_prop.whats_this_help =
-            prop.get_property(b"WhatsThisHelp".into(), mdi_form_prop.whats_this_help);
-        mdi_form_prop.width = prop.get_i32(b"Width".into(), mdi_form_prop.width);
-        mdi_form_prop.window_state =
-            prop.get_property(b"WindowState".into(), mdi_form_prop.window_state);
+            prop.get_property("WhatsThisHelp", mdi_form_prop.whats_this_help);
+        mdi_form_prop.width = prop.get_i32("Width", mdi_form_prop.width);
+        mdi_form_prop.window_state = prop.get_property("WindowState", mdi_form_prop.window_state);
 
         mdi_form_prop
     }

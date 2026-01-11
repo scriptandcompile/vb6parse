@@ -1,0 +1,13 @@
+---
+source: src/syntax/statements/control_flow/jump.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: LabelStatement
+      children:
+        - kind: Identifier
+          text: MyLabel
+        - kind: ColonOperator
+          text: ":"

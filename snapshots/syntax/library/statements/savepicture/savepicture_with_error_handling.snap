@@ -1,0 +1,101 @@
+---
+source: src/syntax/library/statements/system_interaction/savepicture.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: OnErrorStatement
+      children:
+        - kind: OnKeyword
+          text: "On"
+        - kind: Whitespace
+          text: " "
+        - kind: ErrorKeyword
+          text: Error
+        - kind: Whitespace
+          text: " "
+        - kind: ResumeKeyword
+          text: Resume
+        - kind: Whitespace
+          text: " "
+        - kind: NextKeyword
+          text: Next
+        - kind: Newline
+          text: "\n"
+    - kind: SavePictureStatement
+      children:
+        - kind: SavePictureKeyword
+          text: SavePicture
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Picture1
+        - kind: PeriodOperator
+          text: "."
+        - kind: Identifier
+          text: Picture
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: fileName
+        - kind: Newline
+          text: "\n"
+    - kind: IfStatement
+      children:
+        - kind: IfKeyword
+          text: If
+        - kind: Whitespace
+          text: " "
+        - kind: BinaryExpression
+          children:
+            - kind: MemberAccessExpression
+              children:
+                - kind: Identifier
+                  text: Err
+                - kind: PeriodOperator
+                  text: "."
+                - kind: Identifier
+                  text: Number
+            - kind: Whitespace
+              text: " "
+            - kind: InequalityOperator
+              text: "<>"
+            - kind: Whitespace
+              text: " "
+            - kind: NumericLiteralExpression
+              children:
+                - kind: IntegerLiteral
+                  text: "0"
+        - kind: Whitespace
+          text: " "
+        - kind: ThenKeyword
+          text: Then
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: MsgBox
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Error\""
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: IfKeyword
+          text: If
+        - kind: Newline
+          text: "\n"

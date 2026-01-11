@@ -1,0 +1,77 @@
+---
+source: src/parsers/cst/declarations.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: EventStatement
+      children:
+        - kind: PublicKeyword
+          text: Public
+        - kind: Whitespace
+          text: " "
+        - kind: EventKeyword
+          text: Event
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: ProgressUpdate
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: ByValKeyword
+              text: ByVal
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: PercentComplete
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: IntegerKeyword
+              text: Integer
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: ByValKeyword
+              text: ByVal
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: Message
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: StringKeyword
+              text: String
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: ByRefKeyword
+              text: ByRef
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: Cancel
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: BooleanKeyword
+              text: Boolean
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"

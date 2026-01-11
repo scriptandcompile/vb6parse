@@ -1,0 +1,79 @@
+---
+source: src/syntax/expressions/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: AssignmentStatement
+      children:
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: x
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: BinaryExpression
+          children:
+            - kind: BinaryExpression
+              children:
+                - kind: ParenthesizedExpression
+                  children:
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: BinaryExpression
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: a
+                        - kind: Whitespace
+                          text: " "
+                        - kind: AdditionOperator
+                          text: +
+                        - kind: Whitespace
+                          text: " "
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: b
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Whitespace
+                  text: " "
+                - kind: MultiplicationOperator
+                  text: "*"
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: c
+            - kind: Whitespace
+              text: " "
+            - kind: SubtractionOperator
+              text: "-"
+            - kind: Whitespace
+              text: " "
+            - kind: BinaryExpression
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: d
+                - kind: Whitespace
+                  text: " "
+                - kind: DivisionOperator
+                  text: /
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: e
+        - kind: Newline
+          text: "\n"

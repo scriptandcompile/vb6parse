@@ -1,0 +1,17 @@
+---
+source: src/syntax/statements/objects/call.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: MySubroutine
+        - kind: Newline
+          text: "\n"

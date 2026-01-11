@@ -1,0 +1,53 @@
+---
+source: src/syntax/library/functions/string/formatpercent.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Identifier
+      text: MsgBox
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "\"Growth: \""
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "&"
+    - kind: Whitespace
+      text: " "
+    - kind: Identifier
+      text: FormatPercent
+    - kind: Unknown
+      text: (
+    - kind: Unknown
+      text: (
+    - kind: Identifier
+      text: currentValue
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "-"
+    - kind: Whitespace
+      text: " "
+    - kind: Identifier
+      text: previousValue
+    - kind: Unknown
+      text: )
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: /
+    - kind: Whitespace
+      text: " "
+    - kind: Identifier
+      text: previousValue
+    - kind: Unknown
+      text: ","
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "1"
+    - kind: Unknown
+      text: )

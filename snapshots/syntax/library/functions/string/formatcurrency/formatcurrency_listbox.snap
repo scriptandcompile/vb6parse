@@ -1,0 +1,35 @@
+---
+source: src/syntax/library/functions/string/formatcurrency.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: lstPrices
+        - kind: PeriodOperator
+          text: "."
+        - kind: Identifier
+          text: AddItem
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: FormatCurrency
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: prices
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: i
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

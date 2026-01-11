@@ -1,0 +1,35 @@
+---
+source: src/syntax/library/statements/file_operations/get.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Whitespace
+      text: "    "
+    - kind: GetStatement
+      children:
+        - kind: GetKeyword
+          text: Get
+        - kind: Whitespace
+          text: "    "
+        - kind: Octothorpe
+          text: "#"
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: Whitespace
+          text: "  "
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: "  "
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: "  "
+        - kind: Identifier
+          text: myVar
+        - kind: Whitespace
+          text: "    "
+        - kind: Newline
+          text: "\n"

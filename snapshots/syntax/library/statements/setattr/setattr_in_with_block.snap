@@ -1,0 +1,49 @@
+---
+source: src/syntax/library/statements/filesystem/setattr.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: WithStatement
+      children:
+        - kind: WithKeyword
+          text: With
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: fileObj
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SetAttrStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SetAttrKeyword
+                  text: SetAttr
+                - kind: Whitespace
+                  text: " "
+                - kind: PeriodOperator
+                  text: "."
+                - kind: Identifier
+                  text: Path
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: vbArchive
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: WithKeyword
+          text: With
+        - kind: Newline
+          text: "\n"

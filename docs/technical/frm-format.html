@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6 FormFile Parser Architecture Explained">
+    <title>FRM Architecture - VB6Parse Documentation</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../index.html">VB6Parse</a> / Documentation</h1>
+            <p class="tagline">Form File Architecture Explained</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../index.html">Home</a>
+            <a href="../documentation.html">Documentation</a>
+            <a href="frx-format.html">FRX Format</a>
+            <a href="frm-format.html" class="active">FRM Architecture</a>
+            <a href="antlr4-spec.html">ANTLR4 Grammar</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container docs-content">
+        <aside class="toc">
+            <h3>Contents</h3>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#file-format">File Format</a></li>
+                <li><a href="#architecture">Parsing Architecture</a></li>
+                <li><a href="#philosophy">Design Philosophy</a></li>
+                <li><a href="#hybrid">Hybrid Strategy</a></li>
+                <li><a href="#implementation">Implementation</a></li>
+                <li><a href="#controls">Control Hierarchy</a></li>
+                <li><a href="#future">Future Considerations</a></li>
+            </ul>
+        </aside>
+
+        <article>
+            <h2 id="overview">Overview</h2>
+            <p>
+                The <code>FormFile</code> parser is one of the most complex components in vb6parse due to the 
+                unique structure of VB6 Form files (<code>.frm</code>). These files combine:
+            </p>
+            <ul>
+                <li><strong>Structured header data</strong> (VERSION, Object references)</li>
+                <li><strong>Hierarchical control definitions</strong> (BEGIN...END blocks with properties)</li>
+                <li><strong>Metadata attributes</strong> (Attribute statements)</li>
+                <li><strong>VB6 source code</strong> (Event handlers, procedures, functions)</li>
+            </ul>
+            <p>
+                The parser must handle all four sections efficiently while providing both full parsing capability 
+                and fast-path extraction when only UI information is needed.
+            </p>
+
+            <h2 id="file-format">VB6 Form File Structure</h2>
+            <p>A typical <code>.frm</code> file follows this layout:</p>
+            <pre><code class="language-vbnet">VERSION 5.00
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Begin VB.Form Form1
+   Caption         =   "My Form"
+   ClientHeight    =   3195
+   ClientWidth     =   4680
+   BeginProperty Font 
+      Name            =   "Verdana"
+      Size            =   8.25
+      Charset         =   0
+   EndProperty
+   Begin VB.CommandButton Command1 
+      Caption         =   "Click Me"
+      Height          =   495
+      Left            =   120
+   End
+End
+Attribute VB_Name = "Form1"
+Attribute VB_GlobalNameSpace = False
+
+Private Sub Command1_Click()
+    MsgBox "Hello!"
+End Sub</code></pre>
+
+            <div class="info-box">
+                <p><strong>Key Sections:</strong></p>
+                <ol>
+                    <li><strong>VERSION</strong> - File format version (e.g., <code>5.00</code>)</li>
+                    <li><strong>Object</strong> - External component references (OCX/DLL)</li>
+                    <li><strong>BEGIN...END blocks</strong> - Hierarchical control definitions</li>
+                    <li><strong>Attribute</strong> - File-level metadata</li>
+                    <li><strong>Code</strong> - VB6 procedures and event handlers</li>
+                </ol>
+            </div>
+
+            <h3>Challenges</h3>
+            <ul>
+                <li><strong>Mixed content types:</strong> Both structured data and free-form code</li>
+                <li><strong>Nested hierarchy:</strong> Controls can contain child controls (PictureBox, Frame)</li>
+                <li><strong>Property groups:</strong> BeginProperty...EndProperty blocks with GUIDs</li>
+                <li><strong>Large files:</strong> Forms can have dozens of controls and thousands of lines of code</li>
+                <li><strong>Performance:</strong> Tools often only need UI structure, not code analysis</li>
+            </ul>
+
+            <h2 id="architecture">Parsing Architecture</h2>
+            
+            <h3>Multi-Layer Pipeline</h3>
+            <div class="architecture-diagram">
+                <div style="max-width: 600px; margin: 0 auto;">
+                    <!-- Linear pipeline part -->
+                    <div style="border: 2px solid var(--primary-color); border-radius: 8px; padding: 15px; margin-bottom: 10px; background: var(--code-background); text-align: center;">
+                        <div style="font-weight: 600;">Bytes</div>
+                        <div style="font-size: 0.85rem; color: var(--text-color); opacity: 0.8;">(Windows-1252 encoded)</div>
+                    </div>
+                    <div style="text-align: center; margin: 5px 0;">
+                        <div class="vertical-arrow" style="font-size: 1.5rem;">↓</div>
+                    </div>
+                    <div style="border: 2px solid var(--primary-color); border-radius: 8px; padding: 15px; margin-bottom: 10px; background: var(--code-background); text-align: center;">
+                        <div style="font-weight: 600;">SourceFile</div>
+                        <div style="font-size: 0.85rem; color: var(--text-color); opacity: 0.8;">(decode_with_replacement)</div>
+                    </div>
+                    <div style="text-align: center; margin: 5px 0;">
+                        <div class="vertical-arrow" style="font-size: 1.5rem;">↓</div>
+                    </div>
+                    <div style="border: 2px solid var(--primary-color); border-radius: 8px; padding: 15px; margin-bottom: 10px; background: var(--code-background); text-align: center;">
+                        <div style="font-weight: 600;">SourceStream</div>
+                        <div style="font-size: 0.85rem; color: var(--text-color); opacity: 0.8;">(character stream with tracking)</div>
+                    </div>
+                    <div style="text-align: center; margin: 5px 0;">
+                        <div class="vertical-arrow" style="font-size: 1.5rem;">↓</div>
+                    </div>
+                    <div style="border: 2px solid var(--primary-color); border-radius: 8px; padding: 15px; margin-bottom: 10px; background: var(--code-background); text-align: center;">
+                        <div style="font-weight: 600;">tokenize()</div>
+                        <div style="font-size: 0.85rem; color: var(--text-color); opacity: 0.8;">(keyword lookup via phf_map)</div>
+                    </div>
+                    <div style="text-align: center; margin: 5px 0;">
+                        <div class="vertical-arrow" style="font-size: 1.5rem;">↓</div>
+                    </div>
+                    <div style="border: 2px solid var(--primary-color); border-radius: 8px; padding: 15px; margin-bottom: 10px; background: var(--code-background); text-align: center;">
+                        <div style="font-weight: 600;">TokenStream</div>
+                        <div style="font-size: 0.85rem; color: var(--text-color); opacity: 0.8;">(Vec&lt;(text, Token)&gt;)</div>
+                    </div>
+                    
+                    <!-- Split into two paths -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 10px 0;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.2rem; color: var(--text-color);">↙</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.2rem; color: var(--text-color);">↘</div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 10px;">
+                        <div style="border: 2px solid var(--primary-color); border-radius: 8px; padding: 15px; background: var(--code-background); text-align: center;">
+                            <div style="font-weight: 600;">CST</div>
+                            <div style="font-size: 0.85rem; color: var(--text-color); opacity: 0.8;">(full)</div>
+                        </div>
+                        <div style="border: 2px solid var(--primary-color); border-radius: 8px; padding: 15px; background: var(--code-background); text-align: center;">
+                            <div style="font-weight: 600;">Direct Extract</div>
+                            <div style="font-size: 0.85rem; color: var(--text-color); opacity: 0.8;">(fast path)</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Merge back -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 10px 0;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.2rem; color: var(--text-color);">↘</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.2rem; color: var(--text-color);">↙</div>
+                        </div>
+                    </div>
+                    
+                    <div style="border: 2px solid var(--primary-color); border-radius: 8px; padding: 20px; background: var(--code-background); text-align: center;">
+                        <div style="font-weight: 600; font-size: 1.1rem; margin-bottom: 10px;">FormFile</div>
+                        <div style="font-size: 0.9rem; color: var(--text-color); opacity: 0.8; text-align: left;">
+                            - version<br>
+                            - objects<br>
+                            - form Control<br>
+                            - attributes<br>
+                            - cst (code)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 id="philosophy">Design Philosophy & Trade-offs</h2>
+            
+            <h3>Core Principles</h3>
+            <ol>
+                <li><strong>Correctness over speed</strong> (but optimize where possible)</li>
+                <li><strong>Preserve all information</strong> (CST includes whitespace/comments)</li>
+                <li><strong>Memory efficiency</strong> (rowan's red-green tree, shared nodes)</li>
+                <li><strong>Partial success model</strong> (return what was parsed + collect errors)</li>
+                <li><strong>Type safety</strong> (strong Rust enums for properties and controls)</li>
+            </ol>
+
+            <h3>The Hybrid Approach Decision</h3>
+            <p>The FormFile parser evolved through several iterations:</p>
+
+            <div class="phase-comparison">
+                <h4>Phase 1: Full CST First (Original Design)</h4>
+                <pre><code class="language-rust">// Build complete CST, then extract everything from it
+let cst = parse(token_stream);
+let version = extract_version(&cst);
+let objects = extract_objects(&cst);
+let control = extract_control(&cst);
+let attributes = extract_attributes(&cst);</code></pre>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h5>✅ Pros</h5>
+                        <ul>
+                            <li>Simple, uniform approach</li>
+                            <li>CST available for all sections</li>
+                            <li>Easy to debug and visualize</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h5>❌ Cons</h5>
+                        <ul>
+                            <li><strong>Expensive:</strong> Building CST for control blocks creates nodes for every token</li>
+                            <li><strong>Wasteful:</strong> Control properties extracted into Control structs, then CST discarded</li>
+                            <li><strong>Slow:</strong> For large forms, CST construction dominated parse time</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="phase-comparison">
+                <h4>Phase 2: Control-Only Extraction (Attempted Optimization)</h4>
+                <pre><code class="language-rust">// Skip CST, extract directly from tokens
+let result = FormFile::parse_control_only(token_stream);
+let (version, control, remaining_tokens) = result.unpack();</code></pre>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h5>✅ Pros</h5>
+                        <ul>
+                            <li><strong>Fast:</strong> No CST overhead for header/control sections</li>
+                            <li><strong>Memory efficient:</strong> Only creates final Control structs</li>
+                            <li><strong>Useful:</strong> Perfect for UI tools</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h5>❌ Cons</h5>
+                        <ul>
+                            <li><strong>Incomplete:</strong> Doesn't parse code section</li>
+                            <li><strong>Separate API:</strong> Forces users to choose</li>
+                            <li><strong>Duplication:</strong> Logic exists in two places</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="phase-comparison">
+                <h4>Phase 3: Hybrid Strategy (Current Design) ✨</h4>
+                <pre><code class="language-rust">// Direct extraction for structured sections
+let version = parser.parse_version_direct();
+let objects = parser.parse_objects_direct();
+let control = parser.parse_properties_block_to_control();
+let attributes = parser.parse_attributes_direct();
+
+// Build CST only for code section
+let remaining_tokens = parser.into_tokens();
+let cst = parse(TokenStream::from_tokens(remaining_tokens));</code></pre>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h5>✅ Pros</h5>
+                        <ul>
+                            <li><strong>Best of both worlds:</strong> Fast for headers, full CST for code</li>
+                            <li><strong>Single API:</strong> Users call FormFile::parse() regardless</li>
+                            <li><strong>Flexibility:</strong> parse_control_only() still available</li>
+                            <li><strong>Memory efficient:</strong> No CST nodes for extracted sections</li>
+                            <li><strong>Correct:</strong> Code section gets full CST with all information</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h5>⚠️ Trade-offs</h5>
+                        <ul>
+                            <li>Complexity: Parser has two modes</li>
+                            <li>Maintenance: Changes may need updates in both paths</li>
+                            <li>Learning curve: Developers must understand hybrid model</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h2 id="hybrid">The Hybrid Parsing Strategy</h2>
+            
+            <h3>Direct Extraction Methods</h3>
+            <p>The <code>Parser</code> struct provides special methods for direct extraction:</p>
+
+            <h4>1. new_direct_extraction(tokens, pos)</h4>
+            <p>Creates a parser in "direct extraction mode" where tokens are consumed without building CST nodes.</p>
+            <pre><code class="language-rust">let mut parser = Parser::new_direct_extraction(tokens, 0);</code></pre>
+
+            <h4>2. parse_version_direct()</h4>
+            <p>Extracts VERSION without CST:</p>
+            <pre><code class="language-rust">// Parses: VERSION 5.00 [CLASS]
+let (version_opt, failures) = parser.parse_version_direct().unpack();</code></pre>
+            <p><strong>Returns:</strong> <code>FileFormatVersion { major, minor }</code></p>
+
+            <h4>3. parse_objects_direct()</h4>
+            <p>Extracts Object references without CST:</p>
+            <pre><code class="language-rust">// Parses: Object = "{UUID}#version#flags"; "filename"
+let objects = parser.parse_objects_direct();</code></pre>
+            <p>Handles two formats:</p>
+            <ul>
+                <li>Standard: <code>Object = "{...}#2.0#0"; "file.ocx"</code></li>
+                <li>Embedded: <code>Object = *\G{...}#2.0#0; "file.ocx"</code></li>
+            </ul>
+
+            <h4>4. parse_properties_block_to_control()</h4>
+            <p>This is the <strong>most complex</strong> direct extraction method. It recursively parses BEGIN...END blocks:</p>
+            <pre><code class="language-rust">let (control_opt, failures) = parser.parse_properties_block_to_control().unpack();</code></pre>
+            
+            <p><strong>Parses:</strong></p>
+            <ul>
+                <li>Control type (e.g., VB.Form, VB.CommandButton)</li>
+                <li>Control name</li>
+                <li>Properties (Key = Value)</li>
+                <li>Property groups (BeginProperty...EndProperty)</li>
+                <li>Nested child controls (recursive)</li>
+                <li>Menu controls (special handling)</li>
+            </ul>
+
+            <p><strong>Returns:</strong> Fully constructed <code>Control</code> struct with name, tag, index, and typed properties</p>
+
+            <h4>5. parse_attributes_direct()</h4>
+            <p>Extracts Attribute statements:</p>
+            <pre><code class="language-rust">// Parses: Attribute VB_Name = "Form1"
+let attributes = parser.parse_attributes_direct();</code></pre>
+
+            <h2 id="implementation">Implementation Details</h2>
+            
+            <h3>Control Type Mapping</h3>
+            <p>The parser maps VB6 control type strings to Rust enum variants:</p>
+            <pre><code class="language-rust">match control_type.as_str() {
+    "VB.Form" => ControlKind::Form {
+        properties: properties.into(),
+        controls: child_controls,
+        menus,
+    },
+    "VB.CommandButton" => ControlKind::CommandButton {
+        properties: properties.into(),
+    },
+    "VB.TextBox" => ControlKind::TextBox {
+        properties: properties.into(),
+    },
+    // ... 30+ built-in controls
+    _ => ControlKind::Custom {
+        properties: properties.into(),
+        property_groups,
+    },
+}</code></pre>
+            <div class="info-box">
+                <p><strong>Design decision:</strong> Default to <code>Custom</code> for unknown controls 
+                (e.g., third-party OCX controls).</p>
+            </div>
+
+            <h3>Property Parsing</h3>
+            <p>Properties are stored in a <code>Properties</code> struct (thin wrapper around HashMap):</p>
+            <pre><code class="language-rust">pub struct Properties {
+    key_value_store: HashMap&lt;String, String&gt;,
+}</code></pre>
+
+            <p><strong>Type conversion happens at access time:</strong></p>
+            <pre><code class="language-rust">let width = properties.get_i32("ClientWidth", 600);  // Default: 600
+let visible = properties.get_bool("Visible", true);
+let color = properties.get_color("BackColor", VB_WINDOW_BACKGROUND);</code></pre>
+
+            <div class="consideration">
+                <h3>Trade-off: Store as strings, convert on demand</h3>
+                <ul>
+                    <li>✅ <strong>Flexible:</strong> Can defer parsing errors</li>
+                    <li>✅ <strong>Simple:</strong> No complex property value enum</li>
+                    <li>⚠️ <strong>Repetitive:</strong> Same conversion code in multiple places</li>
+                    <li>⚠️ <strong>Type safety:</strong> Errors happen at runtime, not parse time</li>
+                </ul>
+            </div>
+
+            <h3>Property Groups</h3>
+            <p>Property groups handle nested structures like Font properties:</p>
+            <pre><code class="language-vbnet">BeginProperty Font {GUID}
+   Name            =   "Verdana"
+   Size            =   8.25
+   Charset         =   0
+EndProperty</code></pre>
+
+            <p><strong>Structure:</strong></p>
+            <pre><code class="language-rust">pub struct PropertyGroup {
+    pub name: String,
+    pub guid: Option&lt;Uuid&gt;,
+    pub properties: HashMap&lt;String, Either&lt;String, PropertyGroup&gt;&gt;,
+}</code></pre>
+
+            <p>Uses <code>Either&lt;String, PropertyGroup&gt;</code> to support nesting:</p>
+            <ul>
+                <li><code>Left(String)</code>: Simple property value</li>
+                <li><code>Right(PropertyGroup)</code>: Nested group (e.g., ListImage1, ListImage2)</li>
+            </ul>
+
+            <h3>Error Handling</h3>
+            <p>The parser uses a <strong>partial success model</strong>:</p>
+            <pre><code class="language-rust">pub struct ParseResult&lt;'a, T, E&gt; {
+    pub result: Option&lt;T&gt;,
+    pub failures: Vec&lt;ErrorDetails&lt;'a, E&gt;&gt;,
+}</code></pre>
+
+            <div class="info-box">
+                <p><strong>Philosophy:</strong></p>
+                <ul>
+                    <li><strong>Best effort:</strong> Parse as much as possible</li>
+                    <li><strong>Collect errors:</strong> Don't stop on first failure</li>
+                    <li><strong>Return both:</strong> Result + error list</li>
+                </ul>
+            </div>
+
+            <h4>Example Usage:</h4>
+            <pre><code class="language-rust">let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
+
+if let Some(form) = form_file_opt {
+    // Use parsed data
+    println!("Form: {}", form.form.name);
+}
+
+if !failures.is_empty() {
+    // Report warnings
+    for error in failures {
+        eprintln!("Warning: {:?}", error);
+    }
+}</code></pre>
+
+            <h2 id="controls">Control Hierarchy & Properties</h2>
+            
+            <h3>Type-Safe Control System</h3>
+            <p>Each control type has a dedicated properties struct:</p>
+            <pre><code class="language-rust">pub enum ControlKind {
+    Form {
+        properties: FormProperties,
+        controls: Vec&lt;Control&gt;,
+        menus: Vec&lt;MenuControl&gt;,
+    },
+    CommandButton {
+        properties: CommandButtonProperties,
+    },
+    TextBox {
+        properties: TextBoxProperties,
+    },
+    // ... 30+ variants
+    Custom {
+        properties: CustomControlProperties,
+        property_groups: Vec&lt;PropertyGroup&gt;,
+    },
+}</code></pre>
+
+            <p><strong>Property structs use strong types:</strong></p>
+            <pre><code class="language-rust">pub struct FormProperties {
+    pub caption: String,
+    pub back_color: Color,
+    pub border_style: FormBorderStyle,
+    pub client_height: i32,
+    pub client_width: i32,
+    pub max_button: MaxButton,
+    pub min_button: MinButton,
+    // ... 50+ fields
+}</code></pre>
+
+            <p><strong>Enums for discrete values:</strong></p>
+            <pre><code class="language-rust">#[derive(TryFromPrimitive)]
+#[repr(i32)]
+pub enum FormBorderStyle {
+    None = 0,
+    FixedSingle = 1,
+    Sizable = 2,
+    FixedDialog = 3,
+    FixedToolWindow = 4,
+    SizableToolWindow = 5,
+}</code></pre>
+
+            <h2 id="future">Future Considerations</h2>
+            
+            <h3>Potential Improvements</h3>
+
+            <div class="consideration">
+                <h3>1. AST Layer</h3>
+                <p>Currently, code sections are parsed into CST (preserves whitespace). A future AST could:</p>
+                <ul>
+                    <li>Strip whitespace/comments</li>
+                    <li>Provide semantic queries</li>
+                    <li>Enable code transformations</li>
+                </ul>
+                <p><strong>Trade-off:</strong> More complexity, but better for code analysis tools.</p>
+            </div>
+
+            <div class="consideration">
+                <h3>2. Incremental Parsing</h3>
+                <p>For IDE scenarios, support incremental re-parsing:</p>
+                <ul>
+                    <li>Cache CST nodes</li>
+                    <li>Re-parse only changed sections</li>
+                    <li>Update property structs efficiently</li>
+                </ul>
+                <p><strong>Challenge:</strong> Rowan supports this, but requires careful state management.</p>
+            </div>
+
+            <div class="consideration">
+                <h3>3. Parallel Parsing</h3>
+                <p>Large projects could parse forms in parallel:</p>
+                <ul>
+                    <li>Each <code>.frm</code> file is independent</li>
+                    <li>Use rayon for parallel iteration</li>
+                    <li>Aggregate results</li>
+                </ul>
+                <p><strong>Benefit:</strong> Faster bulk parsing for project-wide analysis.</p>
+            </div>
+
+            <h3 class="performance-table">Performance Metrics</h3>
+            <p>Based on benchmarks with real-world VB6 projects:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Operation</th>
+                        <th>Time (avg)</th>
+                        <th>Memory</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Parse small form (5 controls)</td>
+                        <td>~50μs</td>
+                        <td>10KB</td>
+                    </tr>
+                    <tr>
+                        <td>Parse medium form (30 controls)</td>
+                        <td>~200μs</td>
+                        <td>50KB</td>
+                    </tr>
+                    <tr>
+                        <td>Parse large form (100 controls)</td>
+                        <td>~800μs</td>
+                        <td>200KB</td>
+                    </tr>
+                    <tr>
+                        <td><code>parse_control_only()</code> speedup</td>
+                        <td><strong>2-3x faster</strong></td>
+                        <td><strong>50% less</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><strong>Key insight:</strong> Direct extraction is most beneficial for:</p>
+                <ul>
+                    <li>Large forms (many controls)</li>
+                    <li>Tools that don't analyze code</li>
+                    <li>Bulk processing scenarios</li>
+                </ul>
+            </div>
+
+            <h2>Summary</h2>
+            <p>The <code>FormFile</code> parser represents a pragmatic balance between:</p>
+            <ol>
+                <li><strong>Completeness:</strong> Full CST for code, typed properties for controls</li>
+                <li><strong>Performance:</strong> Direct extraction for structured sections</li>
+                <li><strong>Flexibility:</strong> Both full parse and fast-path APIs</li>
+                <li><strong>Correctness:</strong> Windows-1252 encoding, partial success model</li>
+                <li><strong>Maintainability:</strong> Rowan abstracted, single source of truth</li>
+            </ol>
+
+            <div class="info-box">
+                <p><strong>The hybrid strategy was chosen because:</strong></p>
+                <ul>
+                    <li>✅ VB6 forms have distinct sections with different needs</li>
+                    <li>✅ CST overhead matters most for structured data (controls)</li>
+                    <li>✅ Code sections benefit from full CST (formatting, analysis)</li>
+                    <li>✅ Single API hides complexity from users</li>
+                    <li>✅ Specialized tools can use <code>parse_control_only()</code> fast path</li>
+                </ul>
+            </div>
+
+            <p>
+                This architecture successfully handles the diverse requirements of VB6 form parsing while 
+                maintaining reasonable performance and memory characteristics for real-world projects.
+            </p>
+
+            <div class="related-docs">
+                <h3>Related Documentation</h3>
+                <ul>
+                    <li><a href="frx-format.html">FRX Format Specification</a> - Binary resource file format</li>
+                    <li><a href="https://docs.rs/vb6parse/latest/vb6parse/files/form/index.html" target="_blank">FormFile API</a> - Rust implementation</li>
+                    <li><a href="https://github.com/scriptandcompile/vb6parse/blob/main/examples/parse_form.rs" target="_blank">parse_form.rs</a> - Example code</li>
+                    <li><a href="https://github.com/scriptandcompile/vb6parse/blob/main/examples/parse_control_only.rs" target="_blank">parse_control_only.rs</a> - Fast path example</li>
+                </ul>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>VB6Parse is licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a></p>
+            <p>Built with ❤️ by <a href="https://github.com/scriptandcompile" target="_blank">ScriptAndCompile</a></p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,19 +1,50 @@
-use crate::language::controls::{
-    Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDragMode, OLEDropMode,
-    TabStop, TextDirection, Visibility,
-};
-use crate::parsers::Properties;
-use crate::VB6Color;
+//! Properties for `ComboBox` controls.
+//!
+//! A `ComboBox` is a drop-down list that allows the user to select an item
+//! from a list or enter a new value.
+//!
+//! This module defines the `ComboBoxProperties` struct which holds all
+//! configurable properties of the `ComboBox` control in a GUI application.
+//! It includes default values, serialization logic, and conversion
+//! from a generic `Properties` struct.
+//!
+//! The properties covered include appearance, colors, captions, data binding,
+//! validation behavior, images, dimensions, and other control-specific settings.
+//!
+//! This struct is intended to be used as part of a larger control framework,
+//! specifically as a variant of the `ControlKind::ComboBox` enum.
+//!
+//! See [`ControlKind::ComboBox`](crate::language::controls::ControlKind::ComboBox)
+//! for usage.
+//!
+//! # References
+//! - [Microsoft Docs: ComboBox Control](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa240832(v=vs.60))
 
-use bstr::{BStr, BString};
+use std::fmt::Display;
+use std::str::FromStr;
+
+use crate::{
+    errors::FormErrorKind,
+    files::common::Properties,
+    language::{
+        color::{Color, VB_WINDOW_BACKGROUND, VB_WINDOW_TEXT},
+        controls::{
+            Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDragMode,
+            OLEDropMode, ReferenceOrValue, TabStop, TextDirection, Visibility,
+        },
+    },
+};
+
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
-/// The `ComboBoxStyle` enum represents the different styles of a ComboBox control.
+/// The `ComboBoxStyle` enum represents the different styles of a `ComboBox` control.
 /// It can be either a drop-down list, a simple list, or a drop-down
 /// list with a text box.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum ComboBoxStyle {
     /// A drop-down combo box that allows the user to select an item from a list
@@ -30,46 +61,111 @@ pub enum ComboBoxStyle {
     DropDownList = 2,
 }
 
+impl Display for ComboBoxStyle {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            ComboBoxStyle::DropDownCombo => "DropDownCombo",
+            ComboBoxStyle::SimpleCombo => "SimpleCombo",
+            ComboBoxStyle::DropDownList => "DropDownList",
+        };
+        write!(f, "{text}")
+    }
+}
+
+impl FromStr for ComboBoxStyle {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "0" | "DropDownCombo" => Ok(ComboBoxStyle::DropDownCombo),
+            "1" | "SimpleCombo" => Ok(ComboBoxStyle::SimpleCombo),
+            "2" | "DropDownList" => Ok(ComboBoxStyle::DropDownList),
+            _ => Err(FormErrorKind::InvalidComboBoxStyle(s.to_string())),
+        }
+    }
+}
+
+impl TryFrom<&str> for ComboBoxStyle {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        ComboBoxStyle::from_str(value)
+    }
+}
+
 /// Properties for a `ComboBox` control.
 ///
 /// This is used as an enum variant of
-/// [`VB6ControlKind::ComboBox`](crate::language::controls::VB6ControlKind::ComboBox).
+/// [`ControlKind::ComboBox`](crate::language::controls::ControlKind::ComboBox).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
+/// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct ComboBoxProperties {
+    /// The appearance of the combo box.
     pub appearance: Appearance,
-    pub back_color: VB6Color,
+    /// The background color of the combo box.
+    pub back_color: Color,
+    /// Whether the combo box causes validation when it loses focus.
     pub causes_validation: CausesValidation,
-    pub data_field: BString,
-    pub data_format: BString,
-    pub data_member: BString,
-    pub data_source: BString,
-    pub drag_icon: Option<DynamicImage>,
+    /// The data field of the combo box.
+    pub data_field: String,
+    /// The data format of the combo box.
+    pub data_format: String,
+    /// The data member of the combo box.
+    pub data_member: String,
+    /// The data source of the combo box.
+    pub data_source: String,
+    /// The drag icon of the combo box.
+    pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// The drag mode of the combo box.
     pub drag_mode: DragMode,
+    /// Whether the combo box is enabled.
     pub enabled: Activation,
-    pub fore_color: VB6Color,
+    /// The foreground color of the combo box.
+    pub fore_color: Color,
+    /// The height of the combo box.
     pub height: i32,
+    /// The help context ID of the combo box.
     pub help_context_id: i32,
+    /// Whether the combo box has integral height.
     pub integral_height: bool,
-    //pub item_data: Vec<BString>,
+    /// The item data of the combo box.
+    pub item_data: ReferenceOrValue<Vec<String>>,
+    /// The left position of the combo box.
     pub left: i32,
-    // pub list: Vec<BString>,
+    /// The list of items in the combo box.
+    pub list: ReferenceOrValue<Vec<String>>,
+    /// Whether the combo box is locked.
     pub locked: bool,
-    pub mouse_icon: Option<DynamicImage>,
+    /// The mouse icon of the combo box.
+    pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// The mouse pointer of the combo box.
     pub mouse_pointer: MousePointer,
+    /// The OLE drag mode of the combo box.
     pub ole_drag_mode: OLEDragMode,
+    /// The OLE drop mode of the combo box.
     pub ole_drop_mode: OLEDropMode,
+    /// The text direction of the combo box.
     pub right_to_left: TextDirection,
+    /// Whether the combo box is sorted.
     pub sorted: bool,
+    /// The style of the combo box.
     pub style: ComboBoxStyle,
+    /// The tab index of the combo box.
     pub tab_index: i32,
+    /// The tab stop of the combo box.
     pub tab_stop: TabStop,
-    pub text: BString,
-    pub tool_tip_text: BString,
+    /// The text of the combo box.
+    pub text: String,
+    /// The tool tip text of the combo box.
+    pub tool_tip_text: String,
+    /// The top position of the combo box.
     pub top: i32,
+    /// Whether the combo box is visible.
     pub visible: Visibility,
+    /// The "What's This?" help ID of the combo box.
     pub whats_this_help_id: i32,
+    /// The width of the combo box.
     pub width: i32,
 }
 
@@ -77,22 +173,22 @@ impl Default for ComboBoxProperties {
     fn default() -> Self {
         ComboBoxProperties {
             appearance: Appearance::ThreeD,
-            back_color: VB6Color::from_hex("&H80000005&").unwrap(),
+            back_color: VB_WINDOW_BACKGROUND,
             causes_validation: CausesValidation::Yes,
-            data_field: "".into(),
-            data_format: "".into(),
-            data_member: "".into(),
-            data_source: "".into(),
+            data_field: String::new(),
+            data_format: String::new(),
+            data_member: String::new(),
+            data_source: String::new(),
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
-            fore_color: VB6Color::from_hex("&H80000008&").unwrap(),
+            fore_color: VB_WINDOW_TEXT,
             height: 30,
             help_context_id: 0,
             integral_height: true,
-            //item_data:
+            item_data: ReferenceOrValue::Value(vec![]),
             left: 30,
-            //list:
+            list: ReferenceOrValue::Value(vec![]),
             locked: false,
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
@@ -103,8 +199,8 @@ impl Default for ComboBoxProperties {
             style: ComboBoxStyle::DropDownCombo,
             tab_index: 0,
             tab_stop: TabStop::Included,
-            text: "".into(),
-            tool_tip_text: "".into(),
+            text: String::new(),
+            tool_tip_text: String::new(),
             top: 30,
             visible: Visibility::Visible,
             whats_this_help_id: 0,
@@ -138,8 +234,11 @@ impl Serialize for ComboBoxProperties {
         s.serialize_field("height", &self.height)?;
         s.serialize_field("help_context_id", &self.help_context_id)?;
         s.serialize_field("integral_height", &self.integral_height)?;
+
+        // TODO: Serialize item_data properly
         //s.serialize_field("item_data", &self.item_data)?;
         s.serialize_field("left", &self.left)?;
+        // TODO: Serialize list properly
         //s.serialize_field("list", &self.list)?;
         s.serialize_field("locked", &self.locked)?;
 
@@ -165,72 +264,76 @@ impl Serialize for ComboBoxProperties {
     }
 }
 
-impl<'a> From<Properties<'a>> for ComboBoxProperties {
-    fn from(prop: Properties<'a>) -> Self {
+impl From<Properties> for ComboBoxProperties {
+    fn from(prop: Properties) -> Self {
         let mut combobox_prop = ComboBoxProperties::default();
 
-        combobox_prop.appearance =
-            prop.get_property(b"Appearance".into(), combobox_prop.appearance);
-        combobox_prop.back_color = prop.get_color(b"BackColor".into(), combobox_prop.back_color);
+        combobox_prop.appearance = prop.get_property("Appearance", combobox_prop.appearance);
+        combobox_prop.back_color = prop.get_color("BackColor", combobox_prop.back_color);
         combobox_prop.causes_validation =
-            prop.get_property(b"CausesValidation".into(), combobox_prop.causes_validation);
-        combobox_prop.data_field = match prop.get(b"DataField".into()) {
+            prop.get_property("CausesValidation", combobox_prop.causes_validation);
+        combobox_prop.data_field = match prop.get("DataField") {
             Some(data_field) => data_field.into(),
-            None => "".into(),
+            None => String::new(),
         };
-        combobox_prop.data_format = match prop.get(b"DataFormat".into()) {
+        combobox_prop.data_format = match prop.get("DataFormat") {
             Some(data_format) => data_format.into(),
-            None => "".into(),
+            None => String::new(),
         };
-        combobox_prop.data_member = match prop.get(b"DataMember".into()) {
+        combobox_prop.data_member = match prop.get("DataMember") {
             Some(data_member) => data_member.into(),
-            None => "".into(),
+            None => String::new(),
         };
-        combobox_prop.data_source = match prop.get(b"DataSource".into()) {
+        combobox_prop.data_source = match prop.get("DataSource") {
             Some(data_source) => data_source.into(),
-            None => "".into(),
+            None => String::new(),
         };
 
+        // TODO: Handle ReferenceOrValue for drag_icon
         // drag_icon
 
-        combobox_prop.drag_mode = prop.get_property(b"DragMode".into(), combobox_prop.drag_mode);
-        combobox_prop.enabled = prop.get_property(b"Enabled".into(), combobox_prop.enabled);
-        combobox_prop.fore_color = prop.get_color(b"ForeColor".into(), combobox_prop.fore_color);
-        combobox_prop.height = prop.get_i32(b"Height".into(), combobox_prop.height);
+        combobox_prop.drag_mode = prop.get_property("DragMode", combobox_prop.drag_mode);
+        combobox_prop.enabled = prop.get_property("Enabled", combobox_prop.enabled);
+        combobox_prop.fore_color = prop.get_color("ForeColor", combobox_prop.fore_color);
+        combobox_prop.height = prop.get_i32("Height", combobox_prop.height);
         combobox_prop.help_context_id =
-            prop.get_i32(b"HelpContextID".into(), combobox_prop.help_context_id);
+            prop.get_i32("HelpContextID", combobox_prop.help_context_id);
         combobox_prop.integral_height =
-            prop.get_bool(b"IntegralHeight".into(), combobox_prop.integral_height);
-        combobox_prop.left = prop.get_i32(b"Left".into(), combobox_prop.left);
-        combobox_prop.locked = prop.get_bool(b"Locked".into(), combobox_prop.locked);
+            prop.get_bool("IntegralHeight", combobox_prop.integral_height);
+        combobox_prop.left = prop.get_i32("Left", combobox_prop.left);
+        combobox_prop.locked = prop.get_bool("Locked", combobox_prop.locked);
 
+        // TODO: Handle ReferenceOrValue for list
+        // list
+
+        // TODO: Handle ReferenceOrValue for item_data
+        // item_data
+
+        // TODO: Handle ReferenceOrValue for mouse_icon
         // mouse_icon
 
         combobox_prop.mouse_pointer =
-            prop.get_property(b"MousePointer".into(), combobox_prop.mouse_pointer);
-        combobox_prop.ole_drag_mode =
-            prop.get_property(b"OLEDragMode".into(), combobox_prop.ole_drag_mode);
-        combobox_prop.ole_drop_mode =
-            prop.get_property(b"OLEDropMode".into(), combobox_prop.ole_drop_mode);
-        combobox_prop.right_to_left =
-            prop.get_property(b"RightToLeft".into(), combobox_prop.right_to_left);
-        combobox_prop.sorted = prop.get_bool(b"Sorted".into(), combobox_prop.sorted);
-        combobox_prop.style = prop.get_property(b"Style".into(), combobox_prop.style);
-        combobox_prop.tab_index = prop.get_i32(b"TabIndex".into(), combobox_prop.tab_index);
-        combobox_prop.tab_stop = prop.get_property(b"TabStop".into(), combobox_prop.tab_stop);
-        combobox_prop.text = match prop.get(BStr::new("Text")) {
-            Some(text) => text.into(),
+            prop.get_property("MousePointer", combobox_prop.mouse_pointer);
+        combobox_prop.ole_drag_mode = prop.get_property("OLEDragMode", combobox_prop.ole_drag_mode);
+        combobox_prop.ole_drop_mode = prop.get_property("OLEDropMode", combobox_prop.ole_drop_mode);
+        combobox_prop.right_to_left = prop.get_property("RightToLeft", combobox_prop.right_to_left);
+        combobox_prop.sorted = prop.get_bool("Sorted", combobox_prop.sorted);
+        combobox_prop.style = prop.get_property("Style", combobox_prop.style);
+        combobox_prop.tab_index = prop.get_i32("TabIndex", combobox_prop.tab_index);
+        combobox_prop.tab_stop = prop.get_property("TabStop", combobox_prop.tab_stop);
+        combobox_prop.text = match prop.get("Text") {
+            Some(text) => text.clone(),
             None => combobox_prop.text,
         };
-        combobox_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
-            Some(tool_tip_text) => tool_tip_text.into(),
+        combobox_prop.tool_tip_text = match prop.get("ToolTipText") {
+            Some(tool_tip_text) => tool_tip_text.clone(),
             None => combobox_prop.tool_tip_text,
         };
-        combobox_prop.top = prop.get_i32(b"Top".into(), combobox_prop.top);
-        combobox_prop.visible = prop.get_property(b"Visible".into(), combobox_prop.visible);
+        combobox_prop.top = prop.get_i32("Top", combobox_prop.top);
+        combobox_prop.visible = prop.get_property("Visible", combobox_prop.visible);
         combobox_prop.whats_this_help_id =
-            prop.get_i32(b"WhatsThisHelp".into(), combobox_prop.whats_this_help_id);
-        combobox_prop.width = prop.get_i32(b"Width".into(), combobox_prop.width);
+            prop.get_i32("WhatsThisHelp", combobox_prop.whats_this_help_id);
+        combobox_prop.width = prop.get_i32("Width", combobox_prop.width);
 
         combobox_prop
     }

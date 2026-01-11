@@ -1,0 +1,105 @@
+---
+source: src/syntax/library/functions/logic/switch.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: CallStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: CallKeyword
+                  text: Call
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: DisplayMessage
+                - kind: LeftParenthesis
+                  text: (
+                - kind: Identifier
+                  text: Switch
+                - kind: LeftParenthesis
+                  text: (
+                - kind: Identifier
+                  text: level
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: IntegerLiteral
+                  text: "1"
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Info\""
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: level
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: IntegerLiteral
+                  text: "2"
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Warning\""
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: TrueKeyword
+                  text: "True"
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Error\""
+                - kind: RightParenthesis
+                  text: )
+                - kind: RightParenthesis
+                  text: )
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

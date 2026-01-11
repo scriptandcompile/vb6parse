@@ -1,0 +1,67 @@
+---
+source: src/parsers/cst/property_statements.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: PropertyStatement
+      children:
+        - kind: PropertyKeyword
+          text: Property
+        - kind: Whitespace
+          text: " "
+        - kind: GetKeyword
+          text: Get
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Callback
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: InterPress
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SetStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SetKeyword
+                  text: Set
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: Callback
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: mCallback
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: PropertyKeyword
+          text: Property
+        - kind: Newline
+          text: "\n"

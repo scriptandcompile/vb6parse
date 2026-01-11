@@ -1,0 +1,41 @@
+---
+source: src/syntax/library/functions/string/format.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: lstBox
+        - kind: PeriodOperator
+          text: "."
+        - kind: Identifier
+          text: AddItem
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Format
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: items
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: i
+        - kind: RightParenthesis
+          text: )
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"$#,##0.00\""
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

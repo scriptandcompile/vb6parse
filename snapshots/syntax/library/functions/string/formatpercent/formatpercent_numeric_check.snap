@@ -1,0 +1,93 @@
+---
+source: src/syntax/library/functions/string/formatpercent.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: IfStatement
+      children:
+        - kind: IfKeyword
+          text: If
+        - kind: Whitespace
+          text: " "
+        - kind: UnaryExpression
+          children:
+            - kind: NotKeyword
+              text: Not
+            - kind: Whitespace
+              text: " "
+            - kind: CallExpression
+              children:
+                - kind: Identifier
+                  text: IsNumeric
+                - kind: LeftParenthesis
+                  text: (
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: value
+                - kind: RightParenthesis
+                  text: )
+        - kind: Whitespace
+          text: " "
+        - kind: ThenKeyword
+          text: Then
+        - kind: Whitespace
+          text: " "
+        - kind: ExitStatement
+          children:
+            - kind: ExitKeyword
+              text: Exit
+            - kind: Whitespace
+              text: " "
+            - kind: FunctionKeyword
+              text: Function
+        - kind: Whitespace
+          text: " "
+    - kind: Unknown
+      text: Else
+    - kind: Whitespace
+      text: " "
+    - kind: AssignmentStatement
+      children:
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: result
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: FormatPercent
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: value
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "2"
+            - kind: RightParenthesis
+              text: )

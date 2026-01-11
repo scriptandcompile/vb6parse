@@ -1,0 +1,37 @@
+---
+source: src/syntax/library/functions/environment/environ.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: Debug
+        - kind: PeriodOperator
+          text: "."
+        - kind: PrintKeyword
+          text: Print
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"User: \""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Environ
+        - kind: LeftParenthesis
+          text: (
+        - kind: StringLiteral
+          text: "\"USERNAME\""
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

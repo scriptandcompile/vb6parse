@@ -1,0 +1,21 @@
+---
+source: src/syntax/library/statements/runtime_state/error.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Whitespace
+      text: "    "
+    - kind: ErrorStatement
+      children:
+        - kind: ErrorKeyword
+          text: Error
+        - kind: Whitespace
+          text: "    "
+        - kind: IntegerLiteral
+          text: "11"
+        - kind: Whitespace
+          text: "    "
+        - kind: Newline
+          text: "\n"

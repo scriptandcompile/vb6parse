@@ -1,0 +1,37 @@
+---
+source: src/syntax/library/statements/string_manipulation/mid.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: MidStatement
+      children:
+        - kind: MidKeyword
+          text: Mid
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: globalStr
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "5"
+        - kind: RightParenthesis
+          text: )
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"START\""

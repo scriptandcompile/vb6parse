@@ -1,0 +1,25 @@
+---
+source: src/syntax/library/statements/string_manipulation/rset.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: RSetStatement
+      children:
+        - kind: RSetKeyword
+          text: RSet
+        - kind: Whitespace
+          text: "   "
+        - kind: Identifier
+          text: target
+        - kind: Whitespace
+          text: "   "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: "   "
+        - kind: Identifier
+          text: source
+        - kind: Newline
+          text: "\n"

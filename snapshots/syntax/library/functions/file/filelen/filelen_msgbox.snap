@@ -1,0 +1,39 @@
+---
+source: src/syntax/library/functions/file/filelen.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"File size: \""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: FormatFileSize
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: FileLen
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: filePath
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

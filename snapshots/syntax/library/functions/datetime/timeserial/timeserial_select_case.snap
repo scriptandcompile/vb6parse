@@ -1,0 +1,167 @@
+---
+source: src/syntax/library/functions/datetime/timeserial.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SelectCaseStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SelectKeyword
+                  text: Select
+                - kind: Whitespace
+                  text: " "
+                - kind: CaseKeyword
+                  text: Case
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
+                  children:
+                    - kind: TimeKeyword
+                      text: Time
+                - kind: Newline
+                  text: "\n"
+                - kind: Whitespace
+                  text: "        "
+                - kind: CaseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IsKeyword
+                      text: Is
+                    - kind: Whitespace
+                      text: " "
+                    - kind: GreaterThanOrEqualOperator
+                      text: ">="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Identifier
+                      text: TimeSerial
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: IntegerLiteral
+                      text: "0"
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IntegerLiteral
+                      text: "0"
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IntegerLiteral
+                      text: "0"
+                    - kind: RightParenthesis
+                      text: )
+                    - kind: Whitespace
+                      text: " "
+                    - kind: AndKeyword
+                      text: And
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IsKeyword
+                      text: Is
+                    - kind: Whitespace
+                      text: " "
+                    - kind: LessThanOperator
+                      text: "<"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Identifier
+                      text: TimeSerial
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: IntegerLiteral
+                      text: "12"
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IntegerLiteral
+                      text: "0"
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IntegerLiteral
+                      text: "0"
+                    - kind: RightParenthesis
+                      text: )
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: Whitespace
+                          text: "            "
+                        - kind: CallStatement
+                          children:
+                            - kind: Identifier
+                              text: Morning
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "        "
+                - kind: CaseElseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: ElseKeyword
+                      text: Else
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: Whitespace
+                          text: "            "
+                        - kind: CallStatement
+                          children:
+                            - kind: Identifier
+                              text: Afternoon
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: SelectKeyword
+                  text: Select
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

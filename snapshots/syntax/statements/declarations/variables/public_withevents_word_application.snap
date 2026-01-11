@@ -1,0 +1,33 @@
+---
+source: src/syntax/statements/declarations/variables.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: DimStatement
+      children:
+        - kind: PublicKeyword
+          text: Public
+        - kind: Whitespace
+          text: " "
+        - kind: WithEventsKeyword
+          text: WithEvents
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: wdApp
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Word
+        - kind: PeriodOperator
+          text: "."
+        - kind: Identifier
+          text: Application
+        - kind: Newline
+          text: "\n"

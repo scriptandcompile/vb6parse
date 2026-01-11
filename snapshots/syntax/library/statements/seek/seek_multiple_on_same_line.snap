@@ -1,0 +1,25 @@
+---
+source: src/syntax/library/statements/file_operations/seek.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: SeekStatement
+      children:
+        - kind: SeekKeyword
+          text: Seek
+        - kind: Whitespace
+          text: " "
+        - kind: DateLiteral
+          text: "#1, 100: Seek #"
+        - kind: IntegerLiteral
+          text: "2"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "200"
+        - kind: Newline
+          text: "\n"

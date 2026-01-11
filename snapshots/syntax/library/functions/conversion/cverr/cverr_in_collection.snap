@@ -1,0 +1,29 @@
+---
+source: src/syntax/library/functions/conversion/cverr.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: errors
+        - kind: PeriodOperator
+          text: "."
+        - kind: Identifier
+          text: Add
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: CVErr
+        - kind: LeftParenthesis
+          text: (
+        - kind: IntegerLiteral
+          text: "2042"
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

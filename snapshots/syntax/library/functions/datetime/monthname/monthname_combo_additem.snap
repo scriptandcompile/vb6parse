@@ -1,0 +1,35 @@
+---
+source: src/syntax/library/functions/datetime/monthname.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: cboMonths
+        - kind: PeriodOperator
+          text: "."
+        - kind: Identifier
+          text: AddItem
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: MonthName
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: i
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: FalseKeyword
+          text: "False"
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

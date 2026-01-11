@@ -1,0 +1,37 @@
+---
+source: src/syntax/library/functions/graphics/qbcolor.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: Debug
+        - kind: PeriodOperator
+          text: "."
+        - kind: PrintKeyword
+          text: Print
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"RGB Value: \""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: QBColor
+        - kind: LeftParenthesis
+          text: (
+        - kind: IntegerLiteral
+          text: "14"
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

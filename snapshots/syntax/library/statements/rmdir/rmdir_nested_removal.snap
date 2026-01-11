@@ -1,0 +1,71 @@
+---
+source: src/syntax/library/statements/filesystem/rmdir.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: RemoveNestedDirectories()
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: EndOfLineComment
+              text: "' Remove innermost first"
+            - kind: Newline
+              text: "\n"
+            - kind: RmDirStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: RmDirKeyword
+                  text: RmDir
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"C:\\Project\\Temp\\Cache\\Old\""
+                - kind: Newline
+                  text: "\n"
+            - kind: RmDirStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: RmDirKeyword
+                  text: RmDir
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"C:\\Project\\Temp\\Cache\""
+                - kind: Newline
+                  text: "\n"
+            - kind: RmDirStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: RmDirKeyword
+                  text: RmDir
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"C:\\Project\\Temp\""
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

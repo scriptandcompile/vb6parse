@@ -1,0 +1,31 @@
+---
+source: src/syntax/library/functions/math/cos.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: PrintStatement
+      children:
+        - kind: PrintKeyword
+          text: Print
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Cosine: \""
+        - kind: Semicolon
+          text: ;
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Cos
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: angle
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

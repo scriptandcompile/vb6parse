@@ -1,0 +1,35 @@
+---
+source: src/syntax/library/functions/string/rtrim.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: ProcessText
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: RTrim
+        - kind: LeftParenthesis
+          text: (
+        - kind: InputKeyword
+          text: input
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "
