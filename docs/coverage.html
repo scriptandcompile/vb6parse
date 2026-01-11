@@ -111,7 +111,7 @@
             </p>
 
             <div class="file-list">
-                <h2>File Coverage Details</h2>
+                <h2>Files Needing Coverage</h2>
                 <div class="file-filter">
                     <input type="text" id="file-search" placeholder="Filter files by name...">
                 </div>
@@ -125,6 +125,25 @@
                         </tr>
                     </thead>
                     <tbody id="file-table-body">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="file-list" id="complete-coverage-section" style="display: none;">
+                <h2>Files with 100% Coverage</h2>
+                <div class="file-filter">
+                    <input type="text" id="complete-file-search" placeholder="Filter files by name...">
+                </div>
+                <table class="file-table">
+                    <thead>
+                        <tr>
+                            <th>File</th>
+                            <th>Lines</th>
+                            <th>Functions</th>
+                            <th>Regions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="complete-file-table-body">
                     </tbody>
                 </table>
             </div>
@@ -192,7 +211,10 @@
 
         function displayFiles(files) {
             const tbody = document.getElementById('file-table-body');
+            const completeTbody = document.getElementById('complete-file-table-body');
             const allFiles = [];
+            const githubBase = 'https://github.com/scriptandcompile/vb6parse';
+            const branch = 'master';
 
             files.forEach(file => {
                 const fileName = file.filename.replace(/^.*\/src\//, 'src/');
@@ -204,34 +226,162 @@
                     name: fileName,
                     lines: lines,
                     functions: functions,
-                    regions: regions
+                    regions: regions,
+                    isComplete: lines.percent === 100 && functions.percent === 100 && regions.percent === 100
                 });
             });
 
-            // Sort by file name
-            allFiles.sort((a, b) => a.name.localeCompare(b.name));
-
-            // Render rows
+            // Group files by directory and calculate directory totals
+            const groupedFiles = {};
+            const completeGroupedFiles = {};
+            
             allFiles.forEach(file => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td class="file-name">${file.name}</td>
-                    <td>${getCoverageBadge(file.lines.percent)}</td>
-                    <td>${getCoverageBadge(file.functions.percent)}</td>
-                    <td>${getCoverageBadge(file.regions.percent)}</td>
-                `;
-                tbody.appendChild(row);
+                let dir = 'src/';
+                if (file.name.includes('/')) {
+                    const parts = file.name.split('/');
+                    if (parts.length > 2) {
+                        dir = parts.slice(0, 2).join('/'); // e.g., "src/errors"
+                    }
+                }
+                
+                const targetGroup = file.isComplete ? completeGroupedFiles : groupedFiles;
+                
+                if (!targetGroup[dir]) {
+                    targetGroup[dir] = {
+                        files: [],
+                        totalLines: { covered: 0, count: 0 },
+                        totalFunctions: { covered: 0, count: 0 },
+                        totalRegions: { covered: 0, count: 0 }
+                    };
+                }
+                targetGroup[dir].files.push(file);
+                
+                // Accumulate totals for directory
+                targetGroup[dir].totalLines.covered += file.lines.covered;
+                targetGroup[dir].totalLines.count += file.lines.count;
+                targetGroup[dir].totalFunctions.covered += file.functions.covered;
+                targetGroup[dir].totalFunctions.count += file.functions.count;
+                targetGroup[dir].totalRegions.covered += file.regions.covered;
+                targetGroup[dir].totalRegions.count += file.regions.count;
             });
 
-            // Add search functionality
-            document.getElementById('file-search').addEventListener('input', (e) => {
-                const search = e.target.value.toLowerCase();
-                const rows = tbody.querySelectorAll('tr');
-                rows.forEach(row => {
-                    const fileName = row.querySelector('.file-name').textContent.toLowerCase();
-                    row.style.display = fileName.includes(search) ? '' : 'none';
+            // Calculate percentages for each directory
+            [groupedFiles, completeGroupedFiles].forEach(grouped => {
+                Object.keys(grouped).forEach(dir => {
+                    const group = grouped[dir];
+                    group.totalLines.percent = group.totalLines.count > 0 
+                        ? (group.totalLines.covered / group.totalLines.count * 100) 
+                        : 0;
+                    group.totalFunctions.percent = group.totalFunctions.count > 0 
+                        ? (group.totalFunctions.covered / group.totalFunctions.count * 100) 
+                        : 0;
+                    group.totalRegions.percent = group.totalRegions.count > 0 
+                        ? (group.totalRegions.covered / group.totalRegions.count * 100) 
+                        : 0;
+                    // Average coverage for sorting
+                    group.avgCoverage = (group.totalLines.percent + group.totalFunctions.percent + group.totalRegions.percent) / 3;
                 });
             });
+
+            // Function to render a table
+            function renderTable(targetTbody, grouped, sortAscending = true) {
+                // Sort directories by average coverage
+                const sortedDirs = Object.keys(grouped).sort((a, b) => {
+                    return sortAscending 
+                        ? grouped[a].avgCoverage - grouped[b].avgCoverage
+                        : grouped[b].avgCoverage - grouped[a].avgCoverage;
+                });
+
+                // Render rows grouped by directory
+                sortedDirs.forEach(dir => {
+                    const group = grouped[dir];
+                    const githubDirUrl = `${githubBase}/tree/${branch}/${dir}`;
+                    
+                    // Add directory header with coverage
+                    const dirRow = document.createElement('tr');
+                    dirRow.className = 'directory-header';
+                    dirRow.innerHTML = `
+                        <td class="directory-name">
+                            <a href="${githubDirUrl}" target="_blank" class="directory-link">
+                                📁 ${dir}
+                            </a>
+                        </td>
+                        <td>${getCoverageBadge(group.totalLines.percent)}</td>
+                        <td>${getCoverageBadge(group.totalFunctions.percent)}</td>
+                        <td>${getCoverageBadge(group.totalRegions.percent)}</td>
+                    `;
+                    targetTbody.appendChild(dirRow);
+
+                    // Sort files within directory by line coverage
+                    group.files.sort((a, b) => sortAscending 
+                        ? a.lines.percent - b.lines.percent
+                        : b.lines.percent - a.lines.percent);
+
+                    // Add file rows
+                    group.files.forEach(file => {
+                        const row = document.createElement('tr');
+                        row.className = 'file-row';
+                        const displayName = file.name.replace(dir + '/', '');
+                        const githubFileUrl = `${githubBase}/blob/${branch}/${file.name}`;
+                        
+                        row.innerHTML = `
+                            <td class="file-name">
+                                &nbsp;&nbsp;<a href="${githubFileUrl}" target="_blank" class="file-link">${displayName}</a>
+                            </td>
+                            <td>${getCoverageBadge(file.lines.percent)}</td>
+                            <td>${getCoverageBadge(file.functions.percent)}</td>
+                            <td>${getCoverageBadge(file.regions.percent)}</td>
+                        `;
+                        row.dataset.fullName = file.name;
+                        targetTbody.appendChild(row);
+                    });
+                });
+            }
+
+            // Render both tables
+            renderTable(tbody, groupedFiles, true); // Incomplete files sorted least to most
+            renderTable(completeTbody, completeGroupedFiles, false); // Complete files sorted most to least (all 100% anyway)
+
+            // Show complete coverage section if there are complete files
+            if (Object.keys(completeGroupedFiles).length > 0) {
+                document.getElementById('complete-coverage-section').style.display = 'block';
+            }
+
+            // Add search functionality for both tables
+            function setupSearch(searchId, tableBodyId) {
+                document.getElementById(searchId).addEventListener('input', (e) => {
+                    const search = e.target.value.toLowerCase();
+                    const targetTbody = document.getElementById(tableBodyId);
+                    const dirHeaders = targetTbody.querySelectorAll('.directory-header');
+                    
+                    // First pass: filter file rows
+                    const fileRows = targetTbody.querySelectorAll('.file-row');
+                    fileRows.forEach(row => {
+                        const fileName = row.dataset.fullName.toLowerCase();
+                        row.style.display = fileName.includes(search) ? '' : 'none';
+                    });
+                    
+                    // Second pass: hide/show directory headers based on visible files
+                    dirHeaders.forEach(header => {
+                        let nextSibling = header.nextElementSibling;
+                        let hasVisibleFiles = false;
+                        
+                        // Check if any files in this directory are visible
+                        while (nextSibling && nextSibling.classList.contains('file-row')) {
+                            if (nextSibling.style.display !== 'none') {
+                                hasVisibleFiles = true;
+                                break;
+                            }
+                            nextSibling = nextSibling.nextElementSibling;
+                        }
+                        
+                        header.style.display = hasVisibleFiles ? '' : 'none';
+                    });
+                });
+            }
+            
+            setupSearch('file-search', 'file-table-body');
+            setupSearch('complete-file-search', 'complete-file-table-body');
         }
 
         function showError(message) {

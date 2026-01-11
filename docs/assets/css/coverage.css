@@ -97,6 +97,16 @@
     color: var(--text-primary);
 }
 
+#complete-coverage-section {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 3px solid var(--border-color);
+}
+
+#complete-coverage-section h2 {
+    color: var(--primary-color);
+}
+
 .file-filter {
     margin-bottom: 1.5rem;
 }
@@ -127,22 +137,35 @@
 }
 
 .file-table thead {
-    background: var(--bg-secondary);
+    background: var(--primary-color);
+    border-bottom: 2px solid var(--border-color);
 }
 
 .file-table th {
     text-align: left;
     padding: 1rem;
-    font-weight: 600;
-    color: var(--text-secondary);
+    font-weight: 700;
+    color: white;
     text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
+    font-size: 0.875rem;
+    letter-spacing: 0.8px;
+}
+
+.file-table th:nth-child(2),
+.file-table th:nth-child(3),
+.file-table th:nth-child(4) {
+    text-align: center;
 }
 
 .file-table td {
     padding: 0.75rem 1rem;
     border-top: 1px solid var(--border-color);
+}
+
+.file-table td:nth-child(2),
+.file-table td:nth-child(3),
+.file-table td:nth-child(4) {
+    text-align: center;
 }
 
 .file-table tbody tr {
@@ -153,9 +176,61 @@
     background: var(--bg-secondary);
 }
 
+/* Directory header styling */
+.directory-header {
+    background: var(--bg-secondary);
+    font-weight: 700;
+    border-top: 2px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.directory-header:hover {
+    background: var(--bg-secondary) !important;
+}
+
+.directory-name {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--primary-color);
+    padding: 1rem !important;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+    font-weight: 700;
+}
+
+.directory-header td {
+    font-weight: 600;
+}
+
+.directory-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.directory-link:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+/* File row styling */
+.file-row .file-name {
+    padding-left: 2.5rem !important;
+}
+
 .file-name {
     font-family: 'Courier New', monospace;
     color: var(--text-primary);
+}
+
+.file-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.file-link:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
 }
 
 .coverage-badge {
