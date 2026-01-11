@@ -1,0 +1,107 @@
+---
+source: src/syntax/library/statements/reset.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: OpenStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: OpenKeyword
+                  text: Open
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"test.txt\""
+                - kind: Whitespace
+                  text: " "
+                - kind: ForKeyword
+                  text: For
+                - kind: Whitespace
+                  text: " "
+                - kind: OutputKeyword
+                  text: Output
+                - kind: Whitespace
+                  text: " "
+                - kind: AsKeyword
+                  text: As
+                - kind: Whitespace
+                  text: " "
+                - kind: Octothorpe
+                  text: "#"
+                - kind: IntegerLiteral
+                  text: "1"
+                - kind: Newline
+                  text: "\n"
+            - kind: PrintStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: PrintKeyword
+                  text: Print
+                - kind: Whitespace
+                  text: " "
+                - kind: Octothorpe
+                  text: "#"
+                - kind: IntegerLiteral
+                  text: "1"
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"data\""
+                - kind: Newline
+                  text: "\n"
+            - kind: CloseStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: CloseKeyword
+                  text: Close
+                - kind: Whitespace
+                  text: " "
+                - kind: Octothorpe
+                  text: "#"
+                - kind: IntegerLiteral
+                  text: "1"
+                - kind: Newline
+                  text: "\n"
+            - kind: ResetStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: ResetKeyword
+                  text: Reset
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

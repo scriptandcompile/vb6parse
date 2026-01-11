@@ -1,0 +1,17 @@
+---
+source: src/syntax/library/statements/reset.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Whitespace
+      text: "    "
+    - kind: ResetStatement
+      children:
+        - kind: ResetKeyword
+          text: Reset
+        - kind: Whitespace
+          text: "    "
+        - kind: Newline
+          text: "\n"
