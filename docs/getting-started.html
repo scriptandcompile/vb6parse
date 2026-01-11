@@ -93,31 +93,32 @@ vb6parse = "0.5.1"</code></pre>
             </div>
             <pre data-file="src/main.rs" data-lang="rust"><code class="language-rust">use vb6parse::*;
 
+                
 fn main() {
     // VB6 code to parse
     let code = r#"Attribute VB_Name = "HelloWorld"
-
-Public Sub SayHello()
-    MsgBox "Hello from VB6Parse!"
-End Sub
-"#;
-
+            
+    Public Sub SayHello()
+        MsgBox "Hello from VB6Parse!"
+    End Sub
+    "#;
+            
     // Step 1: Create a SourceFile (handles encoding)
     let source = SourceFile::from_string("HelloWorld.bas", code);
-    
+
     // Step 2: Parse as a module
     let result = ModuleFile::parse(&source);
-    
+
     // Step 3: Unpack the result (separates output from errors)
     let (module_opt, failures) = result.unpack();
-    
+
     // Step 4: Handle the result
     if let Some(module) = module_opt {
         println!("✓ Successfully parsed module: {}", module.name);
-        println!("  Version: {}", module.header.version);
-        println!("  Has code: {}", module.code.is_some());
+        println!("  Version: {}", module.name);
+        println!("  Has code: {}", module.cst.debug_tree());
     }
-    
+
     // Step 5: Display any parsing errors
     if !failures.is_empty() {
         println!("\n⚠ Encountered {} parsing issues:", failures.len());
@@ -161,32 +162,32 @@ Module=DataAccess; DataAccess.bas
 Form=MainForm.frm
 Class=DatabaseConnection; DatabaseConnection.cls
 "#;
-
+                
     let source = SourceFile::from_string("MyProject.vbp", project_content);
     let result = ProjectFile::parse(&source);
-    let (project, failures) = result.unpack();
-
+    let (project, _failures) = result.unpack();
+                
     if let Some(proj) = project {
         println!("Project Type: {:?}", proj.project_type);
-        
+                
         // Iterate over modules
         println!("\nModules:");
         for module in proj.modules() {
             println!("  - {} ({})", module.name, module.path);
         }
-        
+                
         // Iterate over forms
         println!("\nForms:");
-        for form in proj.forms() {
-            println!("  - {} ({})", form.name, form.path);
+        for form_name in proj.forms() {
+            println!("  - {form_name}");
         }
-        
+                
         // Iterate over classes
         println!("\nClasses:");
         for class in proj.classes() {
             println!("  - {} ({})", class.name, class.path);
         }
-        
+                
         // Check references
         println!("\nReferences: {}", proj.references().count());
     }
@@ -200,12 +201,12 @@ Modules:<br>
 &emsp;&emsp;- DataAccess (DataAccess.bas)<br>
 <br>
 Forms:<br>
-&emsp;&emsp;- MainForm (MainForm.frm)<br>
+&emsp;&emsp;- MainForm.frm<br>
 <br>
 Classes:<br>
 &emsp;&emsp;- DatabaseConnection (DatabaseConnection.cls)<br>
 <br>
-References: 2
+References: 1
             </div>
 
             <div class="warning-box">
