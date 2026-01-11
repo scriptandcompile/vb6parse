@@ -11,6 +11,5 @@ pub mod pmt;
 pub mod ppmt;
 pub mod pv;
 pub mod rate;
-/// VB6 `SLN` function - calculates straight-line depreciation.
 pub mod sln;
 pub mod syd;
