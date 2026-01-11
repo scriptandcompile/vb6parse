@@ -1,0 +1,79 @@
+---
+source: src/syntax/library/functions/math/rnd.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: IfStatement
+      children:
+        - kind: IfKeyword
+          text: If
+        - kind: Whitespace
+          text: " "
+        - kind: BinaryExpression
+          children:
+            - kind: IdentifierExpression
+              children:
+                - kind: Identifier
+                  text: Rnd
+            - kind: Whitespace
+              text: " "
+            - kind: GreaterThanOperator
+              text: ">"
+            - kind: Whitespace
+              text: " "
+            - kind: NumericLiteralExpression
+              children:
+                - kind: SingleLiteral
+                  text: "0.5"
+        - kind: Whitespace
+          text: " "
+        - kind: ThenKeyword
+          text: Then
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: MsgBox
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Heads\""
+                - kind: Newline
+                  text: "\n"
+        - kind: ElseClause
+          children:
+            - kind: ElseKeyword
+              text: Else
+            - kind: Newline
+              text: "\n"
+            - kind: StatementList
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: CallStatement
+                  children:
+                    - kind: Identifier
+                      text: MsgBox
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteral
+                      text: "\"Tails\""
+                    - kind: Newline
+                      text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: IfKeyword
+          text: If
+        - kind: Newline
+          text: "\n"
