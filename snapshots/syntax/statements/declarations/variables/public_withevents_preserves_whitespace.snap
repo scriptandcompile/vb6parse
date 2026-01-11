@@ -1,0 +1,33 @@
+---
+source: src/syntax/statements/declarations/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Whitespace
+      text: "    "
+    - kind: DimStatement
+      children:
+        - kind: PublicKeyword
+          text: Public
+        - kind: Whitespace
+          text: "    "
+        - kind: WithEventsKeyword
+          text: WithEvents
+        - kind: Whitespace
+          text: "    "
+        - kind: Identifier
+          text: g_obj
+        - kind: Whitespace
+          text: "    "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: "    "
+        - kind: Identifier
+          text: CustomClass
+        - kind: Whitespace
+          text: "    "
+        - kind: Newline
+          text: "\n"
