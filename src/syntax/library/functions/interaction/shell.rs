@@ -758,8 +758,8 @@
 //!
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn shell_basic() {
         let source = r#"
@@ -771,58 +771,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("taskId"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        DoubleKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("taskId"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Shell"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"notepad.exe\""),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -836,65 +793,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("result"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        DoubleKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Shell"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"calc.exe\""),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbNormalFocus"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -909,74 +816,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("Shell"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"notepad.exe\""),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("vbNormalFocus"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("0"),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("MsgBox"),
-                                Whitespace,
-                                StringLiteral ("\"Failed\""),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -989,58 +837,15 @@ End Function
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("LaunchApp"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                DoubleKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("LaunchApp"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Shell"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"notepad.exe\""),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbNormalFocus"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1054,65 +859,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("procId"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        DoubleKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("procId"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Shell"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("programPath"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbMaximizedFocus"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1125,42 +880,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("MsgBox"),
-                        Whitespace,
-                        StringLiteral ("\"Task ID: \""),
-                        Whitespace,
-                        Ampersand,
-                        Whitespace,
-                        Identifier ("Shell"),
-                        LeftParenthesis,
-                        StringLiteral ("\"calc.exe\""),
-                        Comma,
-                        Whitespace,
-                        Identifier ("vbNormalFocus"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1173,40 +901,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("Debug"),
-                        PeriodOperator,
-                        PrintKeyword,
-                        Whitespace,
-                        Identifier ("Shell"),
-                        LeftParenthesis,
-                        StringLiteral ("\"notepad.exe\""),
-                        Comma,
-                        Whitespace,
-                        Identifier ("vbHide"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1224,89 +927,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SelectCaseStatement {
-                        Whitespace,
-                        SelectKeyword,
-                        Whitespace,
-                        CaseKeyword,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Shell"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("appPath"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbNormalFocus"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                        Whitespace,
-                        CaseClause {
-                            CaseKeyword,
-                            Whitespace,
-                            IntegerLiteral ("0"),
-                            Newline,
-                            StatementList {
-                                Whitespace,
-                                CallStatement {
-                                    Identifier ("MsgBox"),
-                                    Whitespace,
-                                    StringLiteral ("\"Failed\""),
-                                    Newline,
-                                },
-                                Whitespace,
-                            },
-                        },
-                        CaseElseClause {
-                            CaseKeyword,
-                            Whitespace,
-                            ElseKeyword,
-                            Newline,
-                            StatementList {
-                                Whitespace,
-                                CallStatement {
-                                    Identifier ("MsgBox"),
-                                    Whitespace,
-                                    StringLiteral ("\"Success\""),
-                                    Newline,
-                                },
-                                Whitespace,
-                            },
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        SelectKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1321,77 +950,15 @@ End Class
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Unknown,
-            Whitespace,
-            CallStatement {
-                Identifier ("AppLauncher"),
-                Newline,
-            },
-            Whitespace,
-            FunctionStatement {
-                PublicKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("Launch"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("path"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    StringKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                DoubleKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("Launch"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Shell"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("path"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbNormalFocus"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-            Unknown,
-            Whitespace,
-            Unknown,
-            Newline,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1407,79 +974,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    WithStatement {
-                        Whitespace,
-                        WithKeyword,
-                        Whitespace,
-                        Identifier ("AppLauncher"),
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            DimStatement {
-                                DimKeyword,
-                                Whitespace,
-                                Identifier ("id"),
-                                Whitespace,
-                                AsKeyword,
-                                Whitespace,
-                                DoubleKeyword,
-                                Newline,
-                            },
-                            Whitespace,
-                            AssignmentStatement {
-                                IdentifierExpression {
-                                    Identifier ("id"),
-                                },
-                                Whitespace,
-                                EqualityOperator,
-                                Whitespace,
-                                CallExpression {
-                                    Identifier ("Shell"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            StringLiteralExpression {
-                                                StringLiteral ("\"notepad.exe\""),
-                                            },
-                                        },
-                                        Comma,
-                                        Whitespace,
-                                        Argument {
-                                            IdentifierExpression {
-                                                Identifier ("vbNormalFocus"),
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        WithKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1498,126 +1001,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("t"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        DoubleKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("t"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Shell"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("path"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbNormalFocus"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("t"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("0"),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("MsgBox"),
-                                Whitespace,
-                                StringLiteral ("\"Failed\""),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        ElseIfClause {
-                            ElseIfKeyword,
-                            Whitespace,
-                            BinaryExpression {
-                                IdentifierExpression {
-                                    Identifier ("t"),
-                                },
-                                Whitespace,
-                                GreaterThanOperator,
-                                Whitespace,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("0"),
-                                },
-                            },
-                            Whitespace,
-                            ThenKeyword,
-                            Newline,
-                            StatementList {
-                                Whitespace,
-                                CallStatement {
-                                    Identifier ("MsgBox"),
-                                    Whitespace,
-                                    StringLiteral ("\"Success\""),
-                                    Newline,
-                                },
-                                Whitespace,
-                            },
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1633,74 +1025,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("i"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        IntegerKeyword,
-                        Newline,
-                    },
-                    ForStatement {
-                        Whitespace,
-                        ForKeyword,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("i"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("1"),
-                        },
-                        Whitespace,
-                        ToKeyword,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("3"),
-                        },
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("Shell"),
-                                Whitespace,
-                                StringLiteral ("\"notepad.exe\""),
-                                Comma,
-                                Whitespace,
-                                Identifier ("vbNormalFocus"),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        NextKeyword,
-                        Whitespace,
-                        Identifier ("i"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1715,72 +1048,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    DoStatement {
-                        Whitespace,
-                        DoKeyword,
-                        Whitespace,
-                        WhileKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("Shell"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("program"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("vbHide"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            InequalityOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("0"),
-                            },
-                        },
-                        Newline,
-                        StatementList {
-                            ExitStatement {
-                                Whitespace,
-                                ExitKeyword,
-                                Whitespace,
-                                DoKeyword,
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        LoopKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1795,70 +1071,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    DoStatement {
-                        Whitespace,
-                        DoKeyword,
-                        Whitespace,
-                        UntilKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("Shell"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("cmd"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("vbNormalFocus"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            GreaterThanOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("0"),
-                            },
-                        },
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("DoEvents"),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        LoopKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1874,78 +1095,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    WhileStatement {
-                        Whitespace,
-                        WhileKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("retries"),
-                            },
-                            Whitespace,
-                            LessThanOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("3"),
-                            },
-                        },
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("Shell"),
-                                Whitespace,
-                                Identifier ("program"),
-                                Comma,
-                                Whitespace,
-                                Identifier ("vbNormalFocus"),
-                                Newline,
-                            },
-                            Whitespace,
-                            AssignmentStatement {
-                                IdentifierExpression {
-                                    Identifier ("retries"),
-                                },
-                                Whitespace,
-                                EqualityOperator,
-                                Whitespace,
-                                BinaryExpression {
-                                    IdentifierExpression {
-                                        Identifier ("retries"),
-                                    },
-                                    Whitespace,
-                                    AdditionOperator,
-                                    Whitespace,
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("1"),
-                                    },
-                                },
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        WendKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1959,69 +1117,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("result"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        DoubleKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        ParenthesizedExpression {
-                            LeftParenthesis,
-                            CallExpression {
-                                Identifier ("Shell"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"notepad.exe\""),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("vbNormalFocus"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2035,96 +1139,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("msg"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("msg"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("IIf"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    BinaryExpression {
-                                        CallExpression {
-                                            Identifier ("Shell"),
-                                            LeftParenthesis,
-                                            ArgumentList {
-                                                Argument {
-                                                    StringLiteralExpression {
-                                                        StringLiteral ("\"calc.exe\""),
-                                                    },
-                                                },
-                                                Comma,
-                                                Whitespace,
-                                                Argument {
-                                                    IdentifierExpression {
-                                                        Identifier ("vbHide"),
-                                                    },
-                                                },
-                                            },
-                                            RightParenthesis,
-                                        },
-                                        Whitespace,
-                                        GreaterThanOperator,
-                                        Whitespace,
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("0"),
-                                        },
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"OK\""),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"Failed\""),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2138,79 +1161,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("tasks"),
-                        LeftParenthesis,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("5"),
-                        },
-                        RightParenthesis,
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        DoubleKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        CallExpression {
-                            Identifier ("tasks"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("0"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Shell"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"notepad.exe\""),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbNormalFocus"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2228,91 +1187,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Unknown,
-            Whitespace,
-            CallStatement {
-                Identifier ("Process"),
-                Newline,
-            },
-            Whitespace,
-            DimStatement {
-                PublicKeyword,
-                Whitespace,
-                Identifier ("TaskId"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                DoubleKeyword,
-                Newline,
-            },
-            Unknown,
-            Whitespace,
-            Unknown,
-            Newline,
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("p"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        NewKeyword,
-                        Whitespace,
-                        Identifier ("Process"),
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        MemberAccessExpression {
-                            Identifier ("p"),
-                            PeriodOperator,
-                            Identifier ("TaskId"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Shell"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"calc.exe\""),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbNormalFocus"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2328,59 +1211,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("ProcessTask"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("taskId"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    DoubleKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList,
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("ProcessTask"),
-                        Whitespace,
-                        Identifier ("Shell"),
-                        LeftParenthesis,
-                        StringLiteral ("\"notepad.exe\""),
-                        Comma,
-                        Whitespace,
-                        Identifier ("vbNormalFocus"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2394,73 +1233,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("msg"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("msg"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Task: \""),
-                            },
-                            Whitespace,
-                            Ampersand,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("Shell"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"calc.exe\""),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("vbNormalFocus"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2474,77 +1255,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("success"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        BooleanKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("success"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        ParenthesizedExpression {
-                            LeftParenthesis,
-                            BinaryExpression {
-                                CallExpression {
-                                    Identifier ("Shell"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            IdentifierExpression {
-                                                Identifier ("path"),
-                                            },
-                                        },
-                                        Comma,
-                                        Whitespace,
-                                        Argument {
-                                            IdentifierExpression {
-                                                Identifier ("vbNormalFocus"),
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                                Whitespace,
-                                GreaterThanOperator,
-                                Whitespace,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("0"),
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2558,65 +1277,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("t"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        DoubleKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("t"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Shell"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"notepad.exe C:\\file.txt\""),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbNormalFocus"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2630,99 +1299,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("id"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        DoubleKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("id"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Shell"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    BinaryExpression {
-                                        BinaryExpression {
-                                            CallExpression {
-                                                Identifier ("Chr"),
-                                                LeftParenthesis,
-                                                ArgumentList {
-                                                    Argument {
-                                                        NumericLiteralExpression {
-                                                            IntegerLiteral ("34"),
-                                                        },
-                                                    },
-                                                },
-                                                RightParenthesis,
-                                            },
-                                            Whitespace,
-                                            Ampersand,
-                                            Whitespace,
-                                            IdentifierExpression {
-                                                Identifier ("path"),
-                                            },
-                                        },
-                                        Whitespace,
-                                        Ampersand,
-                                        Whitespace,
-                                        CallExpression {
-                                            Identifier ("Chr"),
-                                            LeftParenthesis,
-                                            ArgumentList {
-                                                Argument {
-                                                    NumericLiteralExpression {
-                                                        IntegerLiteral ("34"),
-                                                    },
-                                                },
-                                            },
-                                            RightParenthesis,
-                                        },
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbNormalFocus"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2740,111 +1325,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    OnErrorStatement {
-                        Whitespace,
-                        OnKeyword,
-                        Whitespace,
-                        ErrorKeyword,
-                        Whitespace,
-                        ResumeKeyword,
-                        Whitespace,
-                        NextKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("t"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        DoubleKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("t"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Shell"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("programPath"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbNormalFocus"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            MemberAccessExpression {
-                                Identifier ("Err"),
-                                PeriodOperator,
-                                Identifier ("Number"),
-                            },
-                            Whitespace,
-                            InequalityOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("0"),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("MsgBox"),
-                                Whitespace,
-                                StringLiteral ("\"Error\""),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2862,95 +1351,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    OnErrorStatement {
-                        Whitespace,
-                        OnKeyword,
-                        Whitespace,
-                        ErrorKeyword,
-                        Whitespace,
-                        GotoKeyword,
-                        Whitespace,
-                        Identifier ("ErrorHandler"),
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("taskId"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        DoubleKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("taskId"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Shell"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"C:\\app.exe\""),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbNormalFocus"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    ExitStatement {
-                        Whitespace,
-                        ExitKeyword,
-                        Whitespace,
-                        SubKeyword,
-                        Newline,
-                    },
-                    LabelStatement {
-                        Identifier ("ErrorHandler"),
-                        ColonOperator,
-                        Newline,
-                    },
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("MsgBox"),
-                        Whitespace,
-                        StringLiteral ("\"Error launching app\""),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2964,64 +1373,14 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("cmdTaskId"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        DoubleKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("cmdTaskId"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Shell"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"cmd.exe /c dir\""),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbHide"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/shell",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }

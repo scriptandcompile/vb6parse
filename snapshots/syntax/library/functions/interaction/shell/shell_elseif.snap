@@ -1,0 +1,195 @@
+---
+source: src/syntax/library/functions/interaction/shell.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: DimStatement
+              children:
+                - kind: DimKeyword
+                  text: Dim
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: t
+                - kind: Whitespace
+                  text: " "
+                - kind: AsKeyword
+                  text: As
+                - kind: Whitespace
+                  text: " "
+                - kind: DoubleKeyword
+                  text: Double
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: t
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: Shell
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: path
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: vbNormalFocus
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
+            - kind: IfStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: IfKeyword
+                  text: If
+                - kind: Whitespace
+                  text: " "
+                - kind: BinaryExpression
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: t
+                    - kind: Whitespace
+                      text: " "
+                    - kind: EqualityOperator
+                      text: "="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "0"
+                - kind: Whitespace
+                  text: " "
+                - kind: ThenKeyword
+                  text: Then
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: CallStatement
+                      children:
+                        - kind: Identifier
+                          text: MsgBox
+                        - kind: Whitespace
+                          text: " "
+                        - kind: StringLiteral
+                          text: "\"Failed\""
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "    "
+                - kind: ElseIfClause
+                  children:
+                    - kind: ElseIfKeyword
+                      text: ElseIf
+                    - kind: Whitespace
+                      text: " "
+                    - kind: BinaryExpression
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: t
+                        - kind: Whitespace
+                          text: " "
+                        - kind: GreaterThanOperator
+                          text: ">"
+                        - kind: Whitespace
+                          text: " "
+                        - kind: NumericLiteralExpression
+                          children:
+                            - kind: IntegerLiteral
+                              text: "0"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: ThenKeyword
+                      text: Then
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: Whitespace
+                          text: "        "
+                        - kind: CallStatement
+                          children:
+                            - kind: Identifier
+                              text: MsgBox
+                            - kind: Whitespace
+                              text: " "
+                            - kind: StringLiteral
+                              text: "\"Success\""
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: IfKeyword
+                  text: If
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
