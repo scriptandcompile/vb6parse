@@ -1,0 +1,35 @@
+---
+source: src/syntax/library/functions/math/log.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: ProcessLog
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: Log
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: value
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "
