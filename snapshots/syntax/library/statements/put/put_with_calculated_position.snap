@@ -1,0 +1,89 @@
+---
+source: src/syntax/library/statements/put.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: PutStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: PutKeyword
+                  text: Put
+                - kind: Whitespace
+                  text: " "
+                - kind: Octothorpe
+                  text: "#"
+                - kind: IntegerLiteral
+                  text: "1"
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: LeftParenthesis
+                  text: (
+                - kind: Identifier
+                  text: recordNum
+                - kind: Whitespace
+                  text: " "
+                - kind: SubtractionOperator
+                  text: "-"
+                - kind: Whitespace
+                  text: " "
+                - kind: IntegerLiteral
+                  text: "1"
+                - kind: RightParenthesis
+                  text: )
+                - kind: Whitespace
+                  text: " "
+                - kind: MultiplicationOperator
+                  text: "*"
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: recordLength
+                - kind: Whitespace
+                  text: " "
+                - kind: AdditionOperator
+                  text: +
+                - kind: Whitespace
+                  text: " "
+                - kind: IntegerLiteral
+                  text: "1"
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: myData
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
