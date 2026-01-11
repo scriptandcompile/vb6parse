@@ -1,0 +1,185 @@
+---
+source: src/syntax/library/functions/string/instr.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: DimStatement
+              children:
+                - kind: DimKeyword
+                  text: Dim
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: i
+                - kind: Whitespace
+                  text: " "
+                - kind: AsKeyword
+                  text: As
+                - kind: Whitespace
+                  text: " "
+                - kind: LongKeyword
+                  text: Long
+                - kind: Newline
+                  text: "\n"
+            - kind: ForStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: ForKeyword
+                  text: For
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: i
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: NumericLiteralExpression
+                  children:
+                    - kind: IntegerLiteral
+                      text: "1"
+                - kind: Whitespace
+                  text: " "
+                - kind: ToKeyword
+                  text: To
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
+                  children:
+                    - kind: LenKeyword
+                      text: Len
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: TextKeyword
+                                  text: text
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: IfStatement
+                      children:
+                        - kind: Whitespace
+                          text: "        "
+                        - kind: IfKeyword
+                          text: If
+                        - kind: Whitespace
+                          text: " "
+                        - kind: BinaryExpression
+                          children:
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: InStr
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: i
+                                    - kind: Comma
+                                      text: ","
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: Argument
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: TextKeyword
+                                              text: text
+                                    - kind: Comma
+                                      text: ","
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: Argument
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: searchChar
+                                - kind: RightParenthesis
+                                  text: )
+                            - kind: Whitespace
+                              text: " "
+                            - kind: GreaterThanOperator
+                              text: ">"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "0"
+                        - kind: Whitespace
+                          text: " "
+                        - kind: ThenKeyword
+                          text: Then
+                        - kind: Whitespace
+                          text: " "
+                        - kind: ExitStatement
+                          children:
+                            - kind: ExitKeyword
+                              text: Exit
+                            - kind: Whitespace
+                              text: " "
+                            - kind: ForKeyword
+                              text: For
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "    "
+                        - kind: NextKeyword
+                          text: Next
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Identifier
+                          text: i
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Unknown
+                      text: End
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Unknown
+                      text: Sub
+                    - kind: Newline
+                      text: "\n"
