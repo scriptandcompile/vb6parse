@@ -807,8 +807,8 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn npv_basic() {
         let source = r"
@@ -821,9 +821,8 @@ result = NPV(0.1, cashFlows)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -841,9 +840,8 @@ netValue = NPV(0.08, cashFlows) - initialInvestment
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -862,9 +860,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -883,9 +880,8 @@ End Function
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -903,9 +899,8 @@ presentValue = NPV(0.12, projectedCashFlows)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -922,9 +917,8 @@ MsgBox "NPV: $" & Format(NPV(discountRate, flows), "0.00")
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -941,9 +935,8 @@ Debug.Print "Net Present Value: " & NPV(r, cf)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -967,9 +960,8 @@ End Select
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -990,9 +982,8 @@ End Sub
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1011,9 +1002,8 @@ End With
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1034,9 +1024,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1056,9 +1045,8 @@ Next rate
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1077,9 +1065,8 @@ Loop
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1098,9 +1085,8 @@ Loop
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1119,9 +1105,8 @@ Wend
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1139,9 +1124,8 @@ result = (NPV(rate, cashFlows))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1159,9 +1143,8 @@ decision = IIf(NPV(r, cf) - cost > 0, "Accept", "Reject")
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1180,9 +1163,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1200,9 +1182,8 @@ npvValues(i) = NPV(rates(i), cashFlows)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1220,9 +1201,8 @@ obj.PresentValue = NPV(obj.Rate, obj.CashFlows)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1239,9 +1219,8 @@ Call DisplayInvestmentAnalysis(NPV(discountRate, projectedFlows))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1259,9 +1238,8 @@ formatted = "NPV: " & Format(NPV(0.1, flows), "0.00")
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1279,9 +1257,8 @@ profitabilityIndex = NPV(rate, flows) / initialInvestment
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1299,9 +1276,8 @@ msg = "Present Value: $" & NPV(r, cf) & " at " & r * 100 & "%"
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1319,9 +1295,8 @@ absValue = Abs(NPV(discountRate, cashFlows) - targetValue)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1343,9 +1318,8 @@ On Error GoTo 0
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1369,9 +1343,8 @@ End Sub
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/financial/npv",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/npv");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
