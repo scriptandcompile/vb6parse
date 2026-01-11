@@ -1,0 +1,29 @@
+---
+source: src/syntax/library/statements/name.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Whitespace
+      text: "    "
+    - kind: NameStatement
+      children:
+        - kind: NameKeyword
+          text: Name
+        - kind: Whitespace
+          text: "    "
+        - kind: StringLiteral
+          text: "\"old.txt\""
+        - kind: Whitespace
+          text: "    "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: "    "
+        - kind: StringLiteral
+          text: "\"new.txt\""
+        - kind: Whitespace
+          text: "    "
+        - kind: Newline
+          text: "\n"
