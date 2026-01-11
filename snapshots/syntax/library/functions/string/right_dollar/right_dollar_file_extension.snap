@@ -1,0 +1,223 @@
+---
+source: src/syntax/library/functions/string/right_dollar.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: FunctionStatement
+      children:
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: GetExtension
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: Identifier
+              text: fileName
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: StringKeyword
+              text: String
+            - kind: RightParenthesis
+              text: )
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: StringKeyword
+          text: String
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: DimStatement
+              children:
+                - kind: DimKeyword
+                  text: Dim
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: dotPos
+                - kind: Whitespace
+                  text: " "
+                - kind: AsKeyword
+                  text: As
+                - kind: Whitespace
+                  text: " "
+                - kind: IntegerKeyword
+                  text: Integer
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: dotPos
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: InStrRev
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: fileName
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\".\""
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
+            - kind: IfStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: IfKeyword
+                  text: If
+                - kind: Whitespace
+                  text: " "
+                - kind: BinaryExpression
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: dotPos
+                    - kind: Whitespace
+                      text: " "
+                    - kind: GreaterThanOperator
+                      text: ">"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "0"
+                - kind: Whitespace
+                  text: " "
+                - kind: ThenKeyword
+                  text: Then
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: AssignmentStatement
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: GetExtension
+                        - kind: Whitespace
+                          text: " "
+                        - kind: EqualityOperator
+                          text: "="
+                        - kind: Whitespace
+                          text: " "
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: Right$
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: fileName
+                                - kind: Comma
+                                  text: ","
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Argument
+                                  children:
+                                    - kind: BinaryExpression
+                                      children:
+                                        - kind: CallExpression
+                                          children:
+                                            - kind: LenKeyword
+                                              text: Len
+                                            - kind: LeftParenthesis
+                                              text: (
+                                            - kind: ArgumentList
+                                              children:
+                                                - kind: Argument
+                                                  children:
+                                                    - kind: IdentifierExpression
+                                                      children:
+                                                        - kind: Identifier
+                                                          text: fileName
+                                            - kind: RightParenthesis
+                                              text: )
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: SubtractionOperator
+                                          text: "-"
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: dotPos
+                            - kind: RightParenthesis
+                              text: )
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: IfKeyword
+                  text: If
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Newline
+          text: "\n"
