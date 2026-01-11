@@ -1,0 +1,95 @@
+---
+source: src/syntax/library/functions/string/space_dollar.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: PrintReport
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: Debug
+                - kind: PeriodOperator
+                  text: "."
+                - kind: PrintKeyword
+                  text: Print
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Name\""
+                - kind: Whitespace
+                  text: " "
+                - kind: Ampersand
+                  text: "&"
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: Space$
+                - kind: LeftParenthesis
+                  text: (
+                - kind: IntegerLiteral
+                  text: "15"
+                - kind: RightParenthesis
+                  text: )
+                - kind: Whitespace
+                  text: " "
+                - kind: Ampersand
+                  text: "&"
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Age\""
+                - kind: Whitespace
+                  text: " "
+                - kind: Ampersand
+                  text: "&"
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: Space$
+                - kind: LeftParenthesis
+                  text: (
+                - kind: IntegerLiteral
+                  text: "10"
+                - kind: RightParenthesis
+                  text: )
+                - kind: Whitespace
+                  text: " "
+                - kind: Ampersand
+                  text: "&"
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"City\""
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
