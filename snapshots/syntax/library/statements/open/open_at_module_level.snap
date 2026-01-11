@@ -1,0 +1,33 @@
+---
+source: src/syntax/library/statements/open.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: OpenStatement
+      children:
+        - kind: OpenKeyword
+          text: Open
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"TESTFILE\""
+        - kind: Whitespace
+          text: " "
+        - kind: ForKeyword
+          text: For
+        - kind: Whitespace
+          text: " "
+        - kind: InputKeyword
+          text: Input
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: Octothorpe
+          text: "#"
+        - kind: IntegerLiteral
+          text: "1"
