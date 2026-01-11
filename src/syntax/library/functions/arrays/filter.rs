@@ -806,7 +806,7 @@ filtered = Filter(fruits, "e")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -825,7 +825,7 @@ filtered = Filter(fruits, "e", False)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -844,7 +844,7 @@ filtered = Filter(fruits, "a", True, vbTextCompare)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -863,7 +863,7 @@ result = Filter(names, "J", True, vbBinaryCompare)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -881,7 +881,7 @@ textFiles = Filter(files, ".bak", False)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -901,7 +901,7 @@ End Function
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -923,7 +923,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -942,7 +942,7 @@ result = temp
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -963,7 +963,7 @@ Next i
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -985,7 +985,7 @@ ErrorHandler:
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1008,7 +1008,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1026,7 +1026,7 @@ txtFiles = Filter(allFiles, ".txt", True, vbTextCompare)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1046,7 +1046,7 @@ result = Filter(sourceData, pattern, includeMatches, searchMode)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1065,7 +1065,7 @@ result = Filter(logEntries, levelTag, True, vbTextCompare)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1084,7 +1084,7 @@ temp = Filter(temp, excludeText, False, vbTextCompare)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1102,7 +1102,7 @@ Debug.Print "Found: " & UBound(Filter(items, searchTerm)) + 1
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1120,7 +1120,7 @@ matchedNames = Filter(names, searchTerm, True, vbTextCompare)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1141,7 +1141,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1160,7 +1160,7 @@ cachedResults = filtered
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1181,7 +1181,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1205,7 +1205,7 @@ result = Filter(items, searchTerm, True, compareMode)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1225,7 +1225,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1245,7 +1245,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1265,7 +1265,7 @@ elapsedMs = (Timer - startTime) * 1000
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1287,7 +1287,7 @@ Next item
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1311,7 +1311,7 @@ End Select
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+            "../../../../../snapshots/syntax/library/functions/arrays/filter",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();

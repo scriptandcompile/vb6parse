@@ -714,7 +714,7 @@ fileName = Dir("*.txt")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -732,7 +732,7 @@ fileName = Dir("C:\Data\*.txt")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -750,7 +750,7 @@ fileName = Dir("*.*", vbDirectory)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -768,7 +768,7 @@ fileName = Dir
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -790,7 +790,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -810,7 +810,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -828,7 +828,7 @@ volumeLabel = Dir("C:\", vbVolume)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -848,7 +848,7 @@ End Function
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -866,7 +866,7 @@ fileName = Dir("*.*", vbHidden)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -884,7 +884,7 @@ fileName = Dir("*.*", vbHidden + vbSystem)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -903,7 +903,7 @@ fileName = Dir(pattern)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -921,7 +921,7 @@ fileName = Dir(folderPath & "\*.txt")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -944,7 +944,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -966,7 +966,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -988,7 +988,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1010,7 +1010,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1032,7 +1032,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1055,7 +1055,7 @@ End Select
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1079,7 +1079,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1097,7 +1097,7 @@ MsgBox "First file: " & Dir("*.txt")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1115,7 +1115,7 @@ fileName = Dir()
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1133,7 +1133,7 @@ fileName = Dir("C:\Users\Documents\Reports\*.pdf")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1151,7 +1151,7 @@ fileName = Dir("test?.txt")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1169,7 +1169,7 @@ fileName = Dir("*.*")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1193,7 +1193,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+            "../../../../../snapshots/syntax/library/functions/file/dir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();

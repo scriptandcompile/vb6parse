@@ -794,7 +794,7 @@ mod tests {
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -810,7 +810,7 @@ mod tests {
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -826,7 +826,7 @@ mod tests {
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -842,7 +842,7 @@ mod tests {
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -860,7 +860,7 @@ End Function"#;
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -878,7 +878,7 @@ Next i";
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -894,7 +894,7 @@ Next i";
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -913,7 +913,7 @@ End Select"#;
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -930,7 +930,7 @@ settings = GetAllSettings("MyApp", "Settings")"#;
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -946,7 +946,7 @@ settings = GetAllSettings("MyApp", "Settings")"#;
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -963,7 +963,7 @@ settings = GetAllSettings("MyApp", "Settings")"#;
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -980,7 +980,7 @@ settings = GetAllSettings("MyApp", "Settings")"#;
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -997,7 +997,7 @@ settings = GetAllSettings(appName, section)";
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1013,7 +1013,7 @@ settings = GetAllSettings(appName, section)";
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1029,7 +1029,7 @@ settings = GetAllSettings(appName, section)";
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1045,7 +1045,7 @@ settings = GetAllSettings(appName, section)";
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1061,7 +1061,7 @@ settings = GetAllSettings(appName, section)";
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1077,7 +1077,7 @@ settings = GetAllSettings(appName, section)";
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1093,7 +1093,7 @@ settings = GetAllSettings(appName, section)";
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1109,7 +1109,7 @@ settings = GetAllSettings(appName, section)";
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1125,7 +1125,7 @@ settings = GetAllSettings(appName, section)";
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1144,7 +1144,7 @@ Loop";
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1160,7 +1160,7 @@ Loop";
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1176,7 +1176,7 @@ Loop";
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1192,7 +1192,7 @@ Loop";
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1208,7 +1208,7 @@ Loop";
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+            "../../../../../snapshots/syntax/library/functions/environment/getallsettings",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();

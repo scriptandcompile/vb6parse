@@ -557,7 +557,7 @@ birthday = DateSerial(1990, 5, 15)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -575,7 +575,7 @@ result = DateSerial(y, m, d)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -593,7 +593,7 @@ lastDay = DateSerial(2025, 2, 0)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -611,7 +611,7 @@ newYear = DateSerial(Year(Date), 1, 1)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -629,7 +629,7 @@ result = DateSerial(2025, 13, 1)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -647,7 +647,7 @@ result = DateSerial(2025, 1, 32)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -665,7 +665,7 @@ result = DateSerial(2025, -1, 1)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -685,7 +685,7 @@ End Function
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -703,7 +703,7 @@ result = DateSerial(Year(Date), Month(Date) + 1, 0)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -723,7 +723,7 @@ Next i
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -741,7 +741,7 @@ quarterStart = DateSerial(year, (quarter - 1) * 3 + 1, 1)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -759,7 +759,7 @@ result = DateSerial(y, m, Day(someDate))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -779,7 +779,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -797,7 +797,7 @@ offset = DateSerial(y, m, d) - Date
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -816,7 +816,7 @@ result = DateSerial(YEAR, 1, 1)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -834,7 +834,7 @@ formatted = Format(DateSerial(2025, 12, 25), "yyyy-mm-dd")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -855,7 +855,7 @@ End Select
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -874,7 +874,7 @@ endDate = DateSerial(2025, 12, 31)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -892,7 +892,7 @@ result = DateSerial(DatePart("yyyy", Date), 1, 1)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -911,7 +911,7 @@ dates(1) = DateSerial(2025, 2, 1)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -929,7 +929,7 @@ weekStart = DateSerial(Year(Date), Month(Date), Day(Date) - offset)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -947,7 +947,7 @@ anniversary = DateSerial(Year(original) + years, Month(original), Day(original))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -965,7 +965,7 @@ lastMonth = DateSerial(2025, 2, 0)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -983,7 +983,7 @@ MsgBox "Date: " & DateSerial(2025, 12, 25)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1001,7 +1001,7 @@ result = DateSerial(Year(base) + yOffset, Month(base) + mOffset, Day(base) + dOf
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateserial",
+            "../../../../../snapshots/syntax/library/functions/datetime/dateserial",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();

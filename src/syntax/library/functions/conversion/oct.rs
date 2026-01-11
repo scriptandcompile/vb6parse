@@ -674,7 +674,7 @@ result = Oct(64)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -694,7 +694,7 @@ Debug.Print Oct(permissions)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -714,7 +714,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -734,7 +734,7 @@ End Function
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -753,7 +753,7 @@ octStr = Oct(511)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -771,7 +771,7 @@ MsgBox "Octal: " & Oct(value)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -789,7 +789,7 @@ Debug.Print "Dec: " & num & " Oct: " & Oct(num)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -814,7 +814,7 @@ End Select
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -836,7 +836,7 @@ End Sub
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -856,7 +856,7 @@ End With
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -878,7 +878,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -898,7 +898,7 @@ Next i
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -918,7 +918,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -938,7 +938,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -959,7 +959,7 @@ Wend
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -978,7 +978,7 @@ result = (Oct(value))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -997,7 +997,7 @@ display = IIf(showOctal, Oct(num), Hex(num))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1017,7 +1017,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1036,7 +1036,7 @@ octValues(i) = Oct(numbers(i))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1055,7 +1055,7 @@ obj.OctalString = Oct(obj.DecimalValue)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1073,7 +1073,7 @@ Call LogValue("Octal", Oct(deviceCode))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1092,7 +1092,7 @@ combined = CLng("&O" & Oct(value1)) + CLng("&O" & Oct(value2))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1111,7 +1111,7 @@ info = "Dec: " & num & " Hex: " & Hex(num) & " Oct: " & Oct(num)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1130,7 +1130,7 @@ formatted = "&O" & Oct(value)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1149,7 +1149,7 @@ digitCount = Len(Oct(number))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1172,7 +1172,7 @@ On Error GoTo 0
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1197,7 +1197,7 @@ End Sub
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/oct",
+            "../../../../../snapshots/syntax/library/functions/conversion/oct",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
