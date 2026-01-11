@@ -711,7 +711,7 @@ m = Month(Now)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -730,7 +730,7 @@ currentMonth = Month(Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -749,7 +749,7 @@ m = Month(#3/15/2025#)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -769,7 +769,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -789,7 +789,7 @@ End Function
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -816,7 +816,7 @@ End Select
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -834,7 +834,7 @@ Debug.Print Month(Now)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -854,7 +854,7 @@ End With
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -876,7 +876,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -895,7 +895,7 @@ m = (Month(Date))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -914,7 +914,7 @@ result = IIf(Month(Date) = 12, "December", "Other")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -936,7 +936,7 @@ End Sub
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -954,7 +954,7 @@ Call ProcessMonth(Month(Date))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -973,7 +973,7 @@ obj.CurrentMonth = Month(Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -993,7 +993,7 @@ months(i) = Month(Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1014,7 +1014,7 @@ Next i
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1034,7 +1034,7 @@ Wend
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1054,7 +1054,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1074,7 +1074,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1092,7 +1092,7 @@ MsgBox "Current month: " & Month(Now)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1111,7 +1111,7 @@ dateStr = Year(Date) & "/" & Month(Date) & "/" & Day(Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1131,7 +1131,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1150,7 +1150,7 @@ formatted = Format(Month(Date), "00")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1169,7 +1169,7 @@ quarter = ((Month(Date) - 1) \ 3) + 1
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1187,7 +1187,7 @@ lblMonth.Caption = "Month: " & CStr(Month(Date))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1207,7 +1207,7 @@ If fiscalPeriod <= 0 Then fiscalPeriod = fiscalPeriod + 12
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1227,7 +1227,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/month",
+            "../../../../../snapshots/syntax/library/functions/datetime/month",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();

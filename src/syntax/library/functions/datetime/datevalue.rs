@@ -609,7 +609,7 @@ result = DateValue("1/15/2025")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -627,7 +627,7 @@ birthday = DateValue(userInput)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -645,7 +645,7 @@ holiday = DateValue("December 25, 2025")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -663,7 +663,7 @@ dt = DateValue("2025-01-15")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -683,7 +683,7 @@ End Function
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -703,7 +703,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -723,7 +723,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -741,7 +741,7 @@ formatted = Format(DateValue(dateStr), "yyyy-mm-dd")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -763,7 +763,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -783,7 +783,7 @@ Next i
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -801,7 +801,7 @@ cleanDate = DateValue(Trim(input))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -824,7 +824,7 @@ End Select
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -842,7 +842,7 @@ dateOnly = DateValue(CStr(dateTime))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -864,7 +864,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -882,7 +882,7 @@ y = Year(DateValue(dateStr))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -901,7 +901,7 @@ dates(1) = DateValue("12/31/2025")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -919,7 +919,7 @@ rs("DateField") = DateValue(importedDate)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -937,7 +937,7 @@ msg = "Date: " & DateValue(input)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -955,7 +955,7 @@ days = DateDiff("d", DateValue(start), DateValue(finish))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -975,7 +975,7 @@ diff = d2 - d1
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -993,7 +993,7 @@ MsgBox "Parsed: " & DateValue(userInput)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1011,7 +1011,7 @@ testDate = DateValue(txtDate.Text)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1032,7 +1032,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1050,7 +1050,7 @@ filter = "Date >= #" & DateValue(startStr) & "#"
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1068,7 +1068,7 @@ dt = DateValue("Jan 15, 2025")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datevalue",
+            "../../../../../snapshots/syntax/library/functions/datetime/datevalue",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();

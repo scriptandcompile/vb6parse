@@ -784,7 +784,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -804,7 +804,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -824,7 +824,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -844,7 +844,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -866,7 +866,7 @@ End Function
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -887,7 +887,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -909,7 +909,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -930,7 +930,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -951,7 +951,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -973,7 +973,7 @@ Next i
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -996,7 +996,7 @@ Close #fileNum
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1021,7 +1021,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1042,7 +1042,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1064,7 +1064,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1086,7 +1086,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1111,7 +1111,7 @@ If fileNum > 0 Then Close #fileNum
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1129,7 +1129,7 @@ isAtEnd = EOF(fileNum)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1156,7 +1156,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1178,7 +1178,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1199,7 +1199,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1222,7 +1222,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1246,7 +1246,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1269,7 +1269,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1290,7 +1290,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1312,7 +1312,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/eof",
+            "../../../../../snapshots/syntax/library/functions/file/eof",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();

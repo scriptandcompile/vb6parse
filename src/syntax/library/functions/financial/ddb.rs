@@ -601,9 +601,8 @@ depreciation = DDB(10000, 1000, 5, 1)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -620,9 +619,8 @@ depreciation = DDB(10000, 1000, 5, 1, 1.5)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -639,9 +637,8 @@ depr = DDB(cost, salvage, life, period)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -660,9 +657,8 @@ End Function
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -682,9 +678,8 @@ Next period
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -701,9 +696,8 @@ bookValue = cost - DDB(cost, salvage, life, period)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -722,9 +716,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -741,9 +734,8 @@ schedule(i, 2) = DDB(cost, salvage, life, i)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -760,9 +752,8 @@ formatted = Format(DDB(cost, salvage, life, period), "Currency")
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -779,9 +770,8 @@ monthlyDepr = DDB(cost, salvage, lifeYears * 12, month)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -800,9 +790,8 @@ Next i
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -823,9 +812,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -847,9 +835,8 @@ End Select
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -866,9 +853,8 @@ Debug.Print "Depreciation: " & DDB(10000, 1000, 5, 1)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -885,9 +871,8 @@ depr150 = DDB(cost, salvage, life, period, 1.5)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -904,9 +889,8 @@ totalDepr = DDB(asset1Cost, asset1Salvage, life, year) + DDB(asset2Cost, asset2S
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -923,9 +907,8 @@ depr = DDB(cost, cost * 0.1, 5, currentYear - purchaseYear + 1)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -942,9 +925,8 @@ taxSavings = DDB(cost, salvage, life, year) * taxRate
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -961,9 +943,8 @@ MsgBox "Year " & year & " depreciation: " & DDB(cost, salvage, life, year)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -980,9 +961,8 @@ depr = IIf(useDDB, DDB(cost, salvage, life, year), SLN(cost, salvage, life))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -999,9 +979,8 @@ rs("Depreciation") = DDB(rs("Cost"), rs("Salvage"), rs("Life"), currentYear)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1018,9 +997,8 @@ partialDepr = DDB(cost, salvage, life, 1) * (monthsInYear / 12)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1037,9 +1015,8 @@ maxDepr = Application.Max(DDB(cost, salvage, life, year), SLN(cost, salvage, lif
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1058,9 +1035,8 @@ Next yr
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1079,9 +1055,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/financial/ddb",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/financial/ddb");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);

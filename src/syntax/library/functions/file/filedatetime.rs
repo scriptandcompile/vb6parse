@@ -856,7 +856,7 @@ fileDate = FileDateTime("C:\data.txt")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -874,7 +874,7 @@ fileDate = FileDateTime(filePath)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -892,7 +892,7 @@ isNewer = (FileDateTime(file1) > FileDateTime(file2))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -910,7 +910,7 @@ Debug.Print FileDateTime("C:\temp.dat")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -930,7 +930,7 @@ End Function
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -948,7 +948,7 @@ formatted = Format(FileDateTime(filePath), "yyyy-mm-dd hh:nn:ss")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -968,7 +968,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -986,7 +986,7 @@ ageInDays = DateDiff("d", FileDateTime(filePath), Now)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1004,7 +1004,7 @@ msg = "File modified: " & FileDateTime(filePath)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1026,7 +1026,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1047,7 +1047,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1065,7 +1065,7 @@ info.ModifiedDate = FileDateTime(filePath)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1083,7 +1083,7 @@ dates(i) = FileDateTime(files(i))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1106,7 +1106,7 @@ End Select
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1124,7 +1124,7 @@ MsgBox "Last modified: " & FileDateTime(filePath)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1145,7 +1145,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1165,7 +1165,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1183,7 +1183,7 @@ Print #reportNum, fileName, FileDateTime(fullPath)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1201,7 +1201,7 @@ configDate = FileDateTime(App.Path & "\config.ini")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1219,7 +1219,7 @@ isToday = (Int(FileDateTime(filePath)) = Int(Date))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1240,7 +1240,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1261,7 +1261,7 @@ Next i
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1281,7 +1281,7 @@ info = "File: " & filePath & vbCrLf & _
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1301,7 +1301,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1319,7 +1319,7 @@ needsCopy = (FileDateTime(sourceFile) > FileDateTime(destFile))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filedatetime",
+            "../../../../../snapshots/syntax/library/functions/file/filedatetime",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();

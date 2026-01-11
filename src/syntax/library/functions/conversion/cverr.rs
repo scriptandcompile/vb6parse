@@ -513,7 +513,7 @@ result = CVErr(2042)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -531,7 +531,7 @@ error = CVErr(2007)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -556,7 +556,7 @@ End Function
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -575,7 +575,7 @@ result = CVErr(xlErrNA)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -593,7 +593,7 @@ err = CVErr(2015)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -614,7 +614,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -633,7 +633,7 @@ myError = CVErr(2036)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -652,7 +652,7 @@ result = CVErr(APP_ERR_INVALID)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -670,7 +670,7 @@ refError = CVErr(2023)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -688,7 +688,7 @@ numError = CVErr(2036)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -711,7 +711,7 @@ End Select
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -733,7 +733,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -751,7 +751,7 @@ nameErr = CVErr(2029)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -769,7 +769,7 @@ nullErr = CVErr(2000)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -787,7 +787,7 @@ results(i) = CVErr(2042)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -807,7 +807,7 @@ result = CVErr(errorNum)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -827,7 +827,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -847,7 +847,7 @@ err3 = CVErr(2015)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -870,7 +870,7 @@ Next i
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -890,7 +890,7 @@ End Function
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -913,7 +913,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -932,7 +932,7 @@ result = CVErr(errCode)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -950,7 +950,7 @@ errors.Add CVErr(2042)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -968,7 +968,7 @@ err = CVErr(0)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -986,7 +986,7 @@ result = CVErr( 2042 )
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/cverr",
+            "../../../../../snapshots/syntax/library/functions/conversion/cverr",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();

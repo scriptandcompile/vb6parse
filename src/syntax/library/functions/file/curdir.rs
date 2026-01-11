@@ -483,7 +483,7 @@ currentDir = CurDir()
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -501,7 +501,7 @@ path = CurDir("C")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -519,7 +519,7 @@ path = CurDir("C:")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -538,7 +538,7 @@ savedDir = CurDir()
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -558,7 +558,7 @@ ChDir savedDir
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -578,7 +578,7 @@ End Function
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -596,7 +596,7 @@ fullPath = CurDir() & "\data.txt"
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -616,7 +616,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -636,7 +636,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -654,7 +654,7 @@ drive = Left(CurDir(), 1)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -673,7 +673,7 @@ dPath = CurDir("D")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -695,7 +695,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -713,7 +713,7 @@ MsgBox "Current directory: " & CurDir()
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -733,7 +733,7 @@ path = CurDir(drv)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -756,7 +756,7 @@ End Select
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -776,7 +776,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -796,7 +796,7 @@ Next i
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -816,7 +816,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -834,7 +834,7 @@ currentPath = CurDir("")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -852,7 +852,7 @@ Print "Current directory: "; CurDir()
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -872,7 +872,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -892,7 +892,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -910,7 +910,7 @@ pathPart = Mid(CurDir(), 4)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -930,7 +930,7 @@ End Sub
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -948,7 +948,7 @@ path = CurDir( )
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/curdir",
+            "../../../../../snapshots/syntax/library/functions/file/curdir",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();

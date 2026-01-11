@@ -588,7 +588,7 @@ year = DatePart("yyyy", Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -606,7 +606,7 @@ quarter = DatePart("q", currentDate)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -624,7 +624,7 @@ month = DatePart("m", #3/15/2025#)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -642,7 +642,7 @@ day = DatePart("d", Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -660,7 +660,7 @@ dayOfYear = DatePart("y", Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -678,7 +678,7 @@ weekday = DatePart("w", Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -696,7 +696,7 @@ week = DatePart("ww", Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -714,7 +714,7 @@ hour = DatePart("h", Now)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -732,7 +732,7 @@ minute = DatePart("n", timestamp)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -750,7 +750,7 @@ second = DatePart("s", Now)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -768,7 +768,7 @@ weekday = DatePart("w", Date, vbMonday)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -786,7 +786,7 @@ week = DatePart("ww", Date, vbMonday, vbFirstFourDays)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -806,7 +806,7 @@ End Function
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -829,7 +829,7 @@ End Select
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -849,7 +849,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -867,7 +867,7 @@ key = DatePart("yyyy", Date) & "-" & DatePart("m", Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -885,7 +885,7 @@ endMonth = DatePart("q", Date) * 3
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -905,7 +905,7 @@ Next i
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -925,7 +925,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -945,7 +945,7 @@ d = DatePart("d", Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -963,7 +963,7 @@ MsgBox "Quarter: " & DatePart("q", Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -981,7 +981,7 @@ formatted = Format(DatePart("m", Date), "00")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -999,7 +999,7 @@ quarterEnd = DateSerial(DatePart("yyyy", Date), DatePart("q", Date) * 3 + 1, 0)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1019,7 +1019,7 @@ result = DatePart(interval, Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1039,7 +1039,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/datetime/datepart",
+            "../../../../../snapshots/syntax/library/functions/datetime/datepart",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();

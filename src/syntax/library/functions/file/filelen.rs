@@ -846,7 +846,7 @@ fileSize = FileLen("C:\data.txt")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -864,7 +864,7 @@ size = FileLen(filePath)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -882,7 +882,7 @@ Debug.Print FileLen("C:\temp.dat")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -900,7 +900,7 @@ formatted = Format(FileLen(filePath) / 1024, "0.00") & " KB"
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -920,7 +920,7 @@ End Function
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -938,7 +938,7 @@ totalSize = totalSize + FileLen(fullPath)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -956,7 +956,7 @@ isLarger = (FileLen(file1) > FileLen(file2))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -976,7 +976,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -998,7 +998,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1019,7 +1019,7 @@ Loop
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1037,7 +1037,7 @@ msg = "Size: " & FileLen(filePath) & " bytes"
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1057,7 +1057,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1075,7 +1075,7 @@ isValid = (FileLen(filePath) = expectedSize)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1095,7 +1095,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1113,7 +1113,7 @@ stats.TotalSize = stats.TotalSize + FileLen(fullPath)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1134,7 +1134,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1153,7 +1153,7 @@ ReDim buffer(0 To fileSize - 1)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1171,7 +1171,7 @@ ProgressBar.Value = (bytesRead / FileLen(sourceFile)) * 100
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1189,7 +1189,7 @@ files(count).Size = FileLen(fullPath)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1208,7 +1208,7 @@ sizeInMB = FileLen(filePath) / 1048576
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1226,7 +1226,7 @@ MsgBox "File size: " & FormatFileSize(FileLen(filePath))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1251,7 +1251,7 @@ End Select
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1269,7 +1269,7 @@ Print #reportNum, fileName, FileLen(fullPath)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1289,7 +1289,7 @@ Next i
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1309,7 +1309,7 @@ info = "File: " & fileName & vbCrLf & _
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1333,7 +1333,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/file/filelen",
+            "../../../../../snapshots/syntax/library/functions/file/filelen",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
