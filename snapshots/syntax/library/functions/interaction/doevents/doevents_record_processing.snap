@@ -1,0 +1,61 @@
+---
+source: src/syntax/library/functions/interaction/doevents.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: ForEachStatement
+      children:
+        - kind: ForKeyword
+          text: For
+        - kind: Whitespace
+          text: " "
+        - kind: EachKeyword
+          text: Each
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: item
+        - kind: Whitespace
+          text: " "
+        - kind: InKeyword
+          text: In
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: collection
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: ProcessItem
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: item
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: DoEvents
+                - kind: Newline
+                  text: "\n"
+        - kind: NextKeyword
+          text: Next
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: item
+        - kind: Newline
+          text: "\n"

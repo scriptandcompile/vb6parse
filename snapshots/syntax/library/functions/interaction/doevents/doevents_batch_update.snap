@@ -1,0 +1,105 @@
+---
+source: src/syntax/library/functions/interaction/doevents.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: DoStatement
+      children:
+        - kind: DoKeyword
+          text: Do
+        - kind: Whitespace
+          text: " "
+        - kind: UntilKeyword
+          text: Until
+        - kind: Whitespace
+          text: " "
+        - kind: MemberAccessExpression
+          children:
+            - kind: Identifier
+              text: rs
+            - kind: PeriodOperator
+              text: "."
+            - kind: Identifier
+              text: EOF
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: rs
+                - kind: PeriodOperator
+                  text: "."
+                - kind: Identifier
+                  text: Update
+                - kind: Newline
+                  text: "\n"
+            - kind: IfStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: IfKeyword
+                  text: If
+                - kind: Whitespace
+                  text: " "
+                - kind: BinaryExpression
+                  children:
+                    - kind: BinaryExpression
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: count
+                        - kind: Whitespace
+                          text: " "
+                        - kind: ModKeyword
+                          text: Mod
+                        - kind: Whitespace
+                          text: " "
+                        - kind: NumericLiteralExpression
+                          children:
+                            - kind: IntegerLiteral
+                              text: "25"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: EqualityOperator
+                      text: "="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "0"
+                - kind: Whitespace
+                  text: " "
+                - kind: ThenKeyword
+                  text: Then
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: DoEvents
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: rs
+                - kind: PeriodOperator
+                  text: "."
+                - kind: Identifier
+                  text: MoveNext
+                - kind: Newline
+                  text: "\n"
+        - kind: LoopKeyword
+          text: Loop
+        - kind: Newline
+          text: "\n"

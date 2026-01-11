@@ -656,8 +656,8 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn doevents_basic() {
         let source = r"
@@ -666,13 +666,15 @@ DoEvents
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            CallStatement {
-                Identifier ("DoEvents"),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -683,15 +685,15 @@ DoEvents()
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            CallStatement {
-                Identifier ("DoEvents"),
-                LeftParenthesis,
-                RightParenthesis,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -705,71 +707,15 @@ Next i
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            ForStatement {
-                ForKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("i"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("1"),
-                },
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("10000"),
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("ProcessItem"),
-                        Whitespace,
-                        Identifier ("i"),
-                        Newline,
-                    },
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            BinaryExpression {
-                                IdentifierExpression {
-                                    Identifier ("i"),
-                                },
-                                Whitespace,
-                                ModKeyword,
-                                Whitespace,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("100"),
-                                },
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("0"),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Whitespace,
-                        Identifier ("DoEvents"),
-                        Newline,
-                    },
-                },
-                NextKeyword,
-                Whitespace,
-                Identifier ("i"),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -780,24 +726,15 @@ formCount = DoEvents()
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("formCount"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("DoEvents"),
-                    LeftParenthesis,
-                    ArgumentList,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -811,44 +748,15 @@ Loop
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                UntilKeyword,
-                Whitespace,
-                CallExpression {
-                    Identifier ("EOF"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("ProcessLine"),
-                        Whitespace,
-                        LineKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("DoEvents"),
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -863,86 +771,15 @@ Next i
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            ForStatement {
-                ForKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("i"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("1"),
-                },
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("100000"),
-                },
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("cancelOperation"),
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Whitespace,
-                        ExitStatement {
-                            ExitKeyword,
-                            Whitespace,
-                            ForKeyword,
-                            Newline,
-                        },
-                        Whitespace,
-                        Identifier ("ProcessItem"),
-                        Whitespace,
-                        Identifier ("i"),
-                        Newline,
-                    },
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            BinaryExpression {
-                                IdentifierExpression {
-                                    Identifier ("i"),
-                                },
-                                Whitespace,
-                                ModKeyword,
-                                Whitespace,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("100"),
-                                },
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("0"),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Whitespace,
-                        Identifier ("DoEvents"),
-                        Newline,
-                    },
-                },
-                NextKeyword,
-                Whitespace,
-                Identifier ("i"),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -955,31 +792,15 @@ ProcessData
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                MemberAccessExpression {
-                    Identifier ("lblStatus"),
-                    PeriodOperator,
-                    Identifier ("Caption"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                StringLiteralExpression {
-                    StringLiteral ("\"Processing...\""),
-                },
-                Newline,
-            },
-            CallStatement {
-                Identifier ("DoEvents"),
-                Newline,
-            },
-            CallStatement {
-                Identifier ("ProcessData"),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -991,27 +812,15 @@ DoEvents
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                MemberAccessExpression {
-                    Identifier ("ProgressBar1"),
-                    PeriodOperator,
-                    Identifier ("Value"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("i"),
-                },
-                Newline,
-            },
-            CallStatement {
-                Identifier ("DoEvents"),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1026,56 +835,15 @@ Loop
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                WhileKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("fileName"),
-                    },
-                    Whitespace,
-                    InequalityOperator,
-                    Whitespace,
-                    StringLiteralExpression {
-                        StringLiteral ("\"\""),
-                    },
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("ProcessFile"),
-                        Whitespace,
-                        Identifier ("fileName"),
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("fileName"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("Dir"),
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("DoEvents"),
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1090,68 +858,15 @@ Loop
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                UntilKeyword,
-                Whitespace,
-                MemberAccessExpression {
-                    Identifier ("rs"),
-                    PeriodOperator,
-                    Identifier ("EOF"),
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("rs"),
-                        PeriodOperator,
-                        Identifier ("Update"),
-                        Newline,
-                    },
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            BinaryExpression {
-                                IdentifierExpression {
-                                    Identifier ("count"),
-                                },
-                                Whitespace,
-                                ModKeyword,
-                                Whitespace,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("25"),
-                                },
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("0"),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Whitespace,
-                        Identifier ("DoEvents"),
-                        Newline,
-                    },
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("rs"),
-                        PeriodOperator,
-                        Identifier ("MoveNext"),
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1167,53 +882,15 @@ ProcessData
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                MemberAccessExpression {
-                    Identifier ("lblStatus"),
-                    PeriodOperator,
-                    Identifier ("Caption"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                StringLiteralExpression {
-                    StringLiteral ("\"Step 1\""),
-                },
-                Newline,
-            },
-            CallStatement {
-                Identifier ("DoEvents"),
-                Newline,
-            },
-            CallStatement {
-                Identifier ("LoadData"),
-                Newline,
-            },
-            AssignmentStatement {
-                MemberAccessExpression {
-                    Identifier ("lblStatus"),
-                    PeriodOperator,
-                    Identifier ("Caption"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                StringLiteralExpression {
-                    StringLiteral ("\"Step 2\""),
-                },
-                Newline,
-            },
-            CallStatement {
-                Identifier ("DoEvents"),
-                Newline,
-            },
-            CallStatement {
-                Identifier ("ProcessData"),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1231,93 +908,15 @@ End Function
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("ProcessData"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                BooleanKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("i"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        LongKeyword,
-                        Newline,
-                    },
-                    ForStatement {
-                        Whitespace,
-                        ForKeyword,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("i"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("1"),
-                        },
-                        Whitespace,
-                        ToKeyword,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("1000"),
-                        },
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("ProcessItem"),
-                                Whitespace,
-                                Identifier ("i"),
-                                Newline,
-                            },
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("DoEvents"),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        NextKeyword,
-                        Whitespace,
-                        Identifier ("i"),
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("ProcessData"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BooleanLiteralExpression {
-                            TrueKeyword,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1332,57 +931,15 @@ Next i
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            OnErrorStatement {
-                OnKeyword,
-                Whitespace,
-                ErrorKeyword,
-                Whitespace,
-                ResumeKeyword,
-                Whitespace,
-                NextKeyword,
-                Newline,
-            },
-            ForStatement {
-                ForKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("i"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("1"),
-                },
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("10000"),
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("ProcessItem"),
-                        Whitespace,
-                        Identifier ("i"),
-                        Newline,
-                    },
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("DoEvents"),
-                        Newline,
-                    },
-                },
-                NextKeyword,
-                Whitespace,
-                Identifier ("i"),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1398,80 +955,15 @@ isProcessing = False
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("isProcessing"),
-                },
-                Whitespace,
-                ThenKeyword,
-                Whitespace,
-                ExitStatement {
-                    ExitKeyword,
-                    Whitespace,
-                    SubKeyword,
-                    Newline,
-                },
-                AssignmentStatement {
-                    IdentifierExpression {
-                        Identifier ("isProcessing"),
-                    },
-                    Whitespace,
-                    EqualityOperator,
-                    Whitespace,
-                    BooleanLiteralExpression {
-                        TrueKeyword,
-                    },
-                    Newline,
-                },
-                ForStatement {
-                    ForKeyword,
-                    Whitespace,
-                    IdentifierExpression {
-                        Identifier ("i"),
-                    },
-                    Whitespace,
-                    EqualityOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("1"),
-                    },
-                    Whitespace,
-                    ToKeyword,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("1000"),
-                    },
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        CallStatement {
-                            Identifier ("DoEvents"),
-                            Newline,
-                        },
-                    },
-                    NextKeyword,
-                    Whitespace,
-                    Identifier ("i"),
-                    Newline,
-                },
-                AssignmentStatement {
-                    IdentifierExpression {
-                        Identifier ("isProcessing"),
-                    },
-                    Whitespace,
-                    EqualityOperator,
-                    Whitespace,
-                    BooleanLiteralExpression {
-                        FalseKeyword,
-                    },
-                    Newline,
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1487,102 +979,15 @@ Loop
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                UntilKeyword,
-                Whitespace,
-                CallExpression {
-                    Identifier ("EOF"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("fileNum"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    LineInputStatement {
-                        Whitespace,
-                        LineKeyword,
-                        Whitespace,
-                        InputKeyword,
-                        Whitespace,
-                        Octothorpe,
-                        Identifier ("fileNum"),
-                        Comma,
-                        Whitespace,
-                        LineKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("ProcessLine"),
-                        Whitespace,
-                        LineKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("lineCount"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("lineCount"),
-                            },
-                            Whitespace,
-                            AdditionOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                        Newline,
-                    },
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            BinaryExpression {
-                                IdentifierExpression {
-                                    Identifier ("lineCount"),
-                                },
-                                Whitespace,
-                                ModKeyword,
-                                Whitespace,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("100"),
-                                },
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("0"),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Whitespace,
-                        Identifier ("DoEvents"),
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1596,59 +1001,15 @@ End If
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    BinaryExpression {
-                        IdentifierExpression {
-                            Identifier ("Timer"),
-                        },
-                        Whitespace,
-                        SubtractionOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("lastUpdate"),
-                        },
-                    },
-                    Whitespace,
-                    GreaterThanOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        SingleLiteral,
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("DoEvents"),
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("lastUpdate"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("Timer"),
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1666,83 +1027,15 @@ End Select
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SelectCaseStatement {
-                SelectKeyword,
-                Whitespace,
-                CaseKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    StepKeyword,
-                },
-                Newline,
-                Whitespace,
-                CaseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    IntegerLiteral ("1"),
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        AssignmentStatement {
-                            IdentifierExpression {
-                                Identifier ("x"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("DoEvents"),
-                                LeftParenthesis,
-                                ArgumentList,
-                                RightParenthesis,
-                            },
-                            Newline,
-                        },
-                        Whitespace,
-                        CallStatement {
-                            Identifier ("ProcessStep1"),
-                            Newline,
-                        },
-                        Whitespace,
-                    },
-                },
-                CaseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    IntegerLiteral ("2"),
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        AssignmentStatement {
-                            IdentifierExpression {
-                                Identifier ("y"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("DoEvents"),
-                                LeftParenthesis,
-                                ArgumentList,
-                                RightParenthesis,
-                            },
-                            Newline,
-                        },
-                        Whitespace,
-                        CallStatement {
-                            Identifier ("ProcessStep2"),
-                            Newline,
-                        },
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SelectKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1758,78 +1051,15 @@ Next i
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            ForStatement {
-                ForKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("i"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("1"),
-                },
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("100"),
-                },
-                Newline,
-                StatementList {
-                    ForStatement {
-                        Whitespace,
-                        ForKeyword,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("j"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("1"),
-                        },
-                        Whitespace,
-                        ToKeyword,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("100"),
-                        },
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("Process"),
-                                Whitespace,
-                                Identifier ("i"),
-                                Comma,
-                                Whitespace,
-                                Identifier ("j"),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        NextKeyword,
-                        Whitespace,
-                        Identifier ("j"),
-                        Newline,
-                    },
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("DoEvents"),
-                        Newline,
-                    },
-                },
-                NextKeyword,
-                Whitespace,
-                Identifier ("i"),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1843,35 +1073,15 @@ Loop
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                UntilKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("processingComplete"),
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("DoEvents"),
-                        Newline,
-                    },
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("Sleep"),
-                        Whitespace,
-                        IntegerLiteral ("10"),
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1889,121 +1099,15 @@ Loop
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"*.*\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                WhileKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("fileName"),
-                    },
-                    Whitespace,
-                    InequalityOperator,
-                    Whitespace,
-                    StringLiteralExpression {
-                        StringLiteral ("\"\""),
-                    },
-                },
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("InStr"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("fileName"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("searchTerm"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            GreaterThanOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("0"),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("lstResults"),
-                                PeriodOperator,
-                                Identifier ("AddItem"),
-                                Whitespace,
-                                Identifier ("fileName"),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("DoEvents"),
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("fileName"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("Dir"),
-                        },
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2017,63 +1121,15 @@ Next i
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            ForStatement {
-                ForKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("i"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("1"),
-                },
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("100"),
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        MemberAccessExpression {
-                            Identifier ("shpIndicator"),
-                            PeriodOperator,
-                            Identifier ("Left"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("i"),
-                            },
-                            Whitespace,
-                            MultiplicationOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("50"),
-                            },
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("DoEvents"),
-                        Newline,
-                    },
-                },
-                NextKeyword,
-                Whitespace,
-                Identifier ("i"),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2084,43 +1140,15 @@ If i Mod 100 = 0 Then DoEvents Else ProcessFast
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    BinaryExpression {
-                        IdentifierExpression {
-                            Identifier ("i"),
-                        },
-                        Whitespace,
-                        ModKeyword,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("100"),
-                        },
-                    },
-                    Whitespace,
-                    EqualityOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("0"),
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Whitespace,
-                Identifier ("DoEvents"),
-                Whitespace,
-            },
-            Unknown,
-            Whitespace,
-            CallStatement {
-                Identifier ("ProcessFast"),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2134,39 +1162,15 @@ Next item
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            ForEachStatement {
-                ForKeyword,
-                Whitespace,
-                EachKeyword,
-                Whitespace,
-                Identifier ("item"),
-                Whitespace,
-                InKeyword,
-                Whitespace,
-                Identifier ("collection"),
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("ProcessItem"),
-                        Whitespace,
-                        Identifier ("item"),
-                        Newline,
-                    },
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("DoEvents"),
-                        Newline,
-                    },
-                },
-                NextKeyword,
-                Whitespace,
-                Identifier ("item"),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2183,104 +1187,15 @@ Next i
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            ForStatement {
-                ForKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("i"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("1"),
-                },
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("recordCount"),
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("ExportRecord"),
-                        Whitespace,
-                        Identifier ("i"),
-                        Newline,
-                    },
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            BinaryExpression {
-                                IdentifierExpression {
-                                    Identifier ("i"),
-                                },
-                                Whitespace,
-                                ModKeyword,
-                                Whitespace,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("50"),
-                                },
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("0"),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            AssignmentStatement {
-                                MemberAccessExpression {
-                                    Identifier ("lblProgress"),
-                                    PeriodOperator,
-                                    Identifier ("Caption"),
-                                },
-                                Whitespace,
-                                EqualityOperator,
-                                Whitespace,
-                                BinaryExpression {
-                                    IdentifierExpression {
-                                        Identifier ("i"),
-                                    },
-                                    Whitespace,
-                                    Ampersand,
-                                    Whitespace,
-                                    StringLiteralExpression {
-                                        StringLiteral ("\" exported\""),
-                                    },
-                                },
-                                Newline,
-                            },
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("DoEvents"),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                NextKeyword,
-                Whitespace,
-                Identifier ("i"),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2291,14 +1206,14 @@ Call DoEvents
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            CallStatement {
-                CallKeyword,
-                Whitespace,
-                Identifier ("DoEvents"),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/interaction/doevents",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
