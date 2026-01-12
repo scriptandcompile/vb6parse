@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="rightb-function">RightB Function</h1>
+            <h1 id="rightb-function"><code>RightB</code> Function</h1>
 <p>Returns a Variant (String) containing a specified number of bytes from the right side of a string.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">RightB(string, length)</code></pre>
@@ -56,33 +56,33 @@
 - Returns empty string if length is 0
 - Returns entire string if length &gt;= LenB(string)
 - Returns Null if string argument is Null
-- Returns Variant type (RightB$ variant returns String type directly)</p>
+- Returns Variant type (<code>RightB$</code> variant returns String type directly)</p>
 <h2 id="remarks">Remarks</h2>
-<p>The RightB function extracts bytes from the end of a string:</p>
+<p>The <code>RightB</code> function extracts bytes from the end of a string:</p>
 <ul>
 <li>Returns rightmost bytes up to specified length</li>
 <li>Operates on byte level, not character level</li>
 <li>Particularly useful with double-byte character sets (DBCS)</li>
-<li>Complements LeftB function (which returns leftmost bytes)</li>
-<li>Works with MidB function for complete byte-level substring extraction</li>
+<li>Complements <code>LeftB</code> function (which returns leftmost bytes)</li>
+<li>Works with <code>MidB</code> function for complete byte-level substring extraction</li>
 <li>Extraction from end: RightB("ABC", 2) returns last 2 bytes</li>
 <li>Safe with lengths exceeding string byte length (returns full string)</li>
 <li>Null propagates through the function</li>
 <li>Negative length raises Error 5 (Invalid procedure call or argument)</li>
 <li>Common for extracting binary data suffixes, checksums, trailers</li>
-<li>More efficient than MidB for right extraction</li>
-<li>RightB$ variant returns String type (not Variant) for slight performance gain</li>
-<li>Cannot extract from left side (use LeftB for that)</li>
-<li>Cannot skip bytes (use MidB for that)</li>
+<li>More efficient than <code>MidB</code> for right extraction</li>
+<li><code>RightB$</code> variant returns String type (not Variant) for slight performance gain</li>
+<li>Cannot extract from left side (use <code>LeftB</code> for that)</li>
+<li>Cannot skip bytes (use <code>MidB</code> for that)</li>
 <li>Does not modify original string (strings are immutable)</li>
 </ul>
-<h2 id="differences-from-right-function">Differences from Right Function</h2>
+<h2 id="differences-from-right-function">Differences from <code>Right</code> Function</h2>
 <ul>
-<li>Right operates on characters, RightB operates on bytes</li>
+<li><code>Right</code> operates on characters, <code>RightB</code> operates on bytes</li>
 <li>In single-byte character sets (SBCS), they are equivalent</li>
 <li>In double-byte character sets (DBCS), one character may be multiple bytes</li>
-<li>RightB is essential for binary data manipulation</li>
-<li>RightB is used with LenB (byte length) rather than Len (character length)</li>
+<li><code>RightB</code> is essential for binary data manipulation</li>
+<li><code>RightB</code> is used with <code>LenB</code> (byte length) rather than <code>Len</code> (character length)</li>
 </ul>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
@@ -199,11 +199,11 @@ End If
 End Function</code></pre>
 <h2 id="see-also">See Also</h2>
 <ul>
-<li><code>RightB$</code>: String-returning variant of RightB</li>
+<li><code>RightB$</code>: String-returning variant of <code>RightB</code></li>
 <li><code>LeftB</code>: Returns leftmost bytes from string</li>
-<li><code>LeftB$</code>: String-returning variant of LeftB</li>
+<li><code>LeftB$</code>: String-returning variant of <code>LeftB</code></li>
 <li><code>MidB</code>: Returns bytes from middle of string</li>
-<li><code>MidB$</code>: String-returning variant of MidB</li>
+<li><code>MidB$</code>: String-returning variant of <code>MidB</code></li>
 <li><code>LenB</code>: Returns byte length of string</li>
 <li><code>Right</code>: Character-based right extraction</li>
 <li><code>Left</code>: Character-based left extraction</li>

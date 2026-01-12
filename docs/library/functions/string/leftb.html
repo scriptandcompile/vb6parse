@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="leftb-function">LeftB Function</h1>
+            <h1 id="leftb-function"><code>LeftB</code> Function</h1>
 <p>Returns a Variant (String) containing a specified number of bytes from the left side of a string.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">LeftB(string, length)</code></pre>
@@ -56,33 +56,33 @@
 - Returns empty string if length is 0
 - Returns entire string if length &gt;= LenB(string)
 - Returns Null if string argument is Null
-- Returns Variant type (LeftB$ variant returns String type directly)</p>
+- Returns Variant type (<code>LeftB$</code> variant returns String type directly)</p>
 <h2 id="remarks">Remarks</h2>
-<p>The LeftB function extracts bytes from the beginning of a string:</p>
+<p>The <code>LeftB</code> function extracts bytes from the beginning of a string:</p>
 <ul>
 <li>Returns leftmost bytes up to specified length</li>
 <li>Operates on byte level, not character level</li>
 <li>Particularly useful with double-byte character sets (DBCS)</li>
-<li>Complements RightB function (which returns rightmost bytes)</li>
-<li>Works with MidB function for complete byte-level substring extraction</li>
+<li>Complements <code>RightB</code> function (which returns rightmost bytes)</li>
+<li>Works with <code>MidB</code> function for complete byte-level substring extraction</li>
 <li>Zero-based extraction: LeftB("ABC", 2) returns first 2 bytes</li>
 <li>Safe with lengths exceeding string byte length (returns full string)</li>
 <li>Null propagates through the function</li>
 <li>Negative length raises Error 5 (Invalid procedure call or argument)</li>
 <li>Common for extracting binary data, protocol headers, file signatures</li>
 <li>More efficient than MidB(string, 1, length) for left extraction</li>
-<li>LeftB$ variant returns String type (not Variant) for slight performance gain</li>
-<li>Cannot extract from right side (use RightB for that)</li>
-<li>Cannot skip bytes (use MidB for that)</li>
+<li><code>LeftB$</code> variant returns String type (not Variant) for slight performance gain</li>
+<li>Cannot extract from right side (use <code>RightB</code> for that)</li>
+<li>Cannot skip bytes (use <code>MidB</code> for that)</li>
 <li>Does not modify original string (strings are immutable)</li>
 </ul>
-<h2 id="differences-from-left-function">Differences from Left Function</h2>
+<h2 id="differences-from-left-function">Differences from <code>Left</code> Function</h2>
 <ul>
-<li>Left operates on characters, LeftB operates on bytes</li>
+<li><code>Left</code> operates on characters, <code>LeftB</code> operates on bytes</li>
 <li>In single-byte character sets (SBCS), they are equivalent</li>
 <li>In double-byte character sets (DBCS), one character may be multiple bytes</li>
-<li>LeftB is essential for binary data manipulation</li>
-<li>LeftB is used with LenB (byte length) rather than Len (character length)</li>
+<li><code>LeftB</code> is essential for binary data manipulation</li>
+<li><code>LeftB</code> is used with <code>LenB</code> (byte length) rather than Len (character length)</li>
 </ul>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
@@ -159,11 +159,11 @@ payload = MidB(packet, 21)  &#x27; Remaining bytes
 End Sub</code></pre>
 <h2 id="see-also">See Also</h2>
 <ul>
-<li><code>LeftB$</code>: String-returning variant of LeftB</li>
+<li><code>LeftB$</code>: String-returning variant of <code>LeftB</code></li>
 <li><code>RightB</code>: Returns rightmost bytes from string</li>
-<li><code>RightB$</code>: String-returning variant of RightB</li>
+<li><code>RightB$</code>: String-returning variant of <code>RightB</code></li>
 <li><code>MidB</code>: Returns bytes from middle of string</li>
-<li><code>MidB$</code>: String-returning variant of MidB</li>
+<li><code>MidB$</code>: String-returning variant of <code>MidB</code></li>
 <li><code>LenB</code>: Returns byte length of string</li>
 <li><code>Left</code>: Character-based left extraction</li>
 <li><code>Right</code>: Character-based right extraction</li>
