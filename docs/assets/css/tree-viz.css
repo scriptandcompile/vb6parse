@@ -1,0 +1,480 @@
+/* VB6Parse Playground - Tree Visualization Styles */
+
+/* ============================================
+   D3.js Tree Specific Styles
+   ============================================ */
+
+/* SVG Container */
+#tree-viz-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Tree Group (zoomable/pannable container) */
+.tree-group {
+    cursor: grab;
+}
+
+.tree-group:active {
+    cursor: grabbing;
+}
+
+/* ============================================
+   Tree Nodes
+   ============================================ */
+
+/* Base node styling */
+.tree-node {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tree-node circle {
+    fill: var(--node-default);
+    stroke: var(--text-color);
+    stroke-width: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Node type colors */
+.tree-node.node-statement circle {
+    fill: var(--node-statement);
+}
+
+.tree-node.node-expression circle {
+    fill: var(--node-expression);
+}
+
+.tree-node.node-literal circle {
+    fill: var(--node-literal);
+}
+
+.tree-node.node-keyword circle {
+    fill: var(--node-keyword);
+}
+
+/* Hover state */
+.tree-node:hover circle {
+    stroke-width: 3px;
+    filter: brightness(1.2);
+    r: 8; /* Slightly larger on hover */
+}
+
+/* Selected/active node */
+.tree-node.selected circle {
+    stroke-width: 4px;
+    stroke: var(--accent-color);
+    filter: drop-shadow(0 0 4px var(--accent-color));
+}
+
+/* Node text labels */
+.tree-node text {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    fill: var(--text-color);
+    pointer-events: none;
+    text-anchor: middle;
+    dominant-baseline: central;
+}
+
+/* Node text for horizontal layout */
+.tree-node.horizontal text {
+    text-anchor: start;
+}
+
+/* Collapsed node indicator */
+.tree-node.has-children circle {
+    stroke-dasharray: 3, 3;
+}
+
+.tree-node.collapsed circle {
+    fill-opacity: 0.7;
+}
+
+/* ============================================
+   Tree Links (Edges)
+   ============================================ */
+
+.tree-link {
+    fill: none;
+    stroke: var(--panel-border);
+    stroke-width: 2px;
+    stroke-opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+/* Darker stroke in dark mode */
+[data-theme="dark"] .tree-link {
+    stroke: var(--text-color);
+    stroke-opacity: 0.4;
+}
+
+/* Highlighted link when node is hovered */
+.tree-link.highlighted {
+    stroke: var(--primary-color);
+    stroke-width: 3px;
+    stroke-opacity: 1;
+}
+
+/* Curved path links */
+.tree-link.curved {
+    /* Path curvature is handled by D3 */
+}
+
+/* Straight links */
+.tree-link.straight {
+    /* For orthogonal tree layouts */
+}
+
+/* ============================================
+   Zoom Controls
+   ============================================ */
+
+.zoom-controls {
+    position: absolute;
+    top: 70px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 10;
+}
+
+.zoom-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--background-color);
+    border: 1px solid var(--panel-border);
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.zoom-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.zoom-btn:active {
+    transform: scale(0.95);
+}
+
+/* ============================================
+   Tree Layout Toggle
+   ============================================ */
+
+/* Visual indicator for layout orientation */
+.tree-viz-container.horizontal {
+    /* Additional styling when horizontal layout is active */
+}
+
+.tree-viz-container.vertical {
+    /* Additional styling when vertical layout is active */
+}
+
+/* ============================================
+   Minimap (Optional Enhancement)
+   ============================================ */
+
+.tree-minimap {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 150px;
+    height: 100px;
+    background-color: var(--background-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 4px;
+    opacity: 0.8;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.tree-minimap svg {
+    width: 100%;
+    height: 100%;
+}
+
+.minimap-viewport {
+    fill: var(--primary-color);
+    fill-opacity: 0.2;
+    stroke: var(--primary-color);
+    stroke-width: 1px;
+    cursor: move;
+}
+
+/* ============================================
+   Tooltips for Nodes
+   ============================================ */
+
+.tree-tooltip {
+    position: absolute;
+    background-color: var(--background-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    pointer-events: none;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    max-width: 250px;
+    word-wrap: break-word;
+}
+
+.tree-tooltip.hidden {
+    display: none;
+}
+
+.tree-tooltip .tooltip-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--primary-color);
+}
+
+.tree-tooltip .tooltip-content {
+    font-size: 0.8rem;
+    color: var(--text-color);
+}
+
+.tree-tooltip .tooltip-range {
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    color: var(--placeholder-color);
+    margin-top: 4px;
+}
+
+/* ============================================
+   Search/Highlight in Tree
+   ============================================ */
+
+.tree-node.search-match circle {
+    fill: var(--accent-color);
+    stroke: var(--accent-color);
+    stroke-width: 3px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* ============================================
+   Context Menu (Right-click on nodes)
+   ============================================ */
+
+.tree-context-menu {
+    position: absolute;
+    background-color: var(--background-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    min-width: 150px;
+}
+
+.tree-context-menu.hidden {
+    display: none;
+}
+
+.context-menu-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 0.9rem;
+}
+
+.context-menu-item:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.context-menu-item:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.context-menu-item:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.context-menu-divider {
+    height: 1px;
+    background-color: var(--panel-border);
+    margin: 4px 0;
+}
+
+/* ============================================
+   Loading State
+   ============================================ */
+
+.tree-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.tree-loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--panel-border);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 10px;
+}
+
+/* ============================================
+   Empty State
+   ============================================ */
+
+.tree-empty {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: var(--placeholder-color);
+}
+
+.tree-empty-icon {
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+
+.tree-empty-text {
+    font-size: 1.1rem;
+}
+
+/* ============================================
+   Performance Optimizations
+   ============================================ */
+
+/* Disable animations for large trees (>500 nodes) */
+.tree-viz-container.large-tree .tree-node,
+.tree-viz-container.large-tree .tree-link {
+    transition: none;
+}
+
+/* Simplify rendering for very large trees (>1000 nodes) */
+.tree-viz-container.very-large-tree .tree-node text {
+    display: none; /* Hide labels to improve performance */
+}
+
+.tree-viz-container.very-large-tree .tree-node circle {
+    r: 3; /* Smaller nodes */
+}
+
+.tree-viz-container.very-large-tree .tree-link {
+    stroke-width: 1px;
+}
+
+/* ============================================
+   Export/Screenshot Mode
+   ============================================ */
+
+.tree-viz-container.export-mode {
+    background-color: white;
+}
+
+.tree-viz-container.export-mode .tree-node text {
+    fill: #000000;
+}
+
+.tree-viz-container.export-mode .tree-link {
+    stroke: #cccccc;
+}
+
+/* ============================================
+   Responsive Adjustments
+   ============================================ */
+
+@media (max-width: 768px) {
+    .tree-node text {
+        font-size: 10px;
+    }
+    
+    .tree-minimap {
+        width: 100px;
+        height: 70px;
+    }
+    
+    .zoom-controls {
+        top: 10px;
+        left: 10px;
+    }
+    
+    .zoom-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+
+/* Focus indicator for keyboard navigation */
+.tree-node:focus {
+    outline: none;
+}
+
+.tree-node:focus circle {
+    stroke: var(--accent-color);
+    stroke-width: 4px;
+    filter: drop-shadow(0 0 4px var(--accent-color));
+}
+
+/* Screen reader only text */
+.tree-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .tree-node circle {
+        stroke-width: 3px;
+    }
+    
+    .tree-link {
+        stroke-width: 3px;
+        stroke-opacity: 1;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .tree-node,
+    .tree-link,
+    .zoom-btn {
+        transition: none;
+    }
+    
+    .tree-node.search-match circle {
+        animation: none;
+    }
+}
