@@ -26,7 +26,7 @@
 //!
 //! ## Remarks
 //! - The arraylist argument is a list of one or more comma-delimited array variable names
-//! - After erasing a dynamic array, you must use ReDim to reallocate it before using again
+//! - After erasing a dynamic array, you must use `ReDim` to reallocate it before using again
 //! - Erasing a fixed-size array does not deallocate memory, just resets values
 //!
 //! [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/erase-statement)
