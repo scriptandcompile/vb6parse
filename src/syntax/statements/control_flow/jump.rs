@@ -1,4 +1,4 @@
-//! Jump statement parsing for VB6 (GoTo, GoSub, Return, Labels).
+//! Jump statement parsing for VB6 (`GoTo`, `GoSub`, `Return`, `Labels`).
 
 use crate::language::Token;
 use crate::parsers::cst::Parser;
