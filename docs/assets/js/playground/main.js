@@ -195,7 +195,6 @@ async function handleParse() {
 
     const code = Editor.getEditorContent();
     if (!code || code.trim().length === 0) {
-        showError('No code to parse');
         return;
     }
 
