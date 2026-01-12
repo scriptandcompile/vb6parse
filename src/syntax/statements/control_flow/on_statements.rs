@@ -1,4 +1,4 @@
-//! On-prefixed statement parsing for VB6 (On Error, On GoTo, On GoSub).
+//! On-prefixed statement parsing for VB6 (`On Error`, `On GoTo`, `On GoSub`).
 
 use crate::language::Token;
 use crate::parsers::cst::Parser;
