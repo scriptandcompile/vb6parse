@@ -55,8 +55,8 @@ impl Parser<'_> {
     /// Check if the current token is a library statement keyword.
     ///
     /// Special handling:
-    /// - `ErrorKeyword` followed by `DollarSign` is NOT a statement (it's the Error$ function)
-    /// - `MidKeyword` followed by `DollarSign` is NOT a statement (it's the Mid$ function) so we exclude those patterns.
+    /// - `ErrorKeyword` followed by `DollarSign` is NOT a statement (it's the `Error$` function)
+    /// - `MidKeyword` followed by `DollarSign` is NOT a statement (it's the `Mid$` function) so we exclude those patterns.
     ///
     /// Checks both current position and next non-whitespace token.
     pub(crate) fn is_library_statement_keyword(&self) -> bool {
@@ -116,7 +116,7 @@ impl Parser<'_> {
         )
     }
 
-    /// Dispatch library statement parsing to the appropriate parser.
+    /// Start of dispatch library statement parsing to the appropriate parser.
     pub(crate) fn parse_library_statement(&mut self) {
         let token = if self.at_token(Token::Whitespace) {
             self.peek_next_keyword()
