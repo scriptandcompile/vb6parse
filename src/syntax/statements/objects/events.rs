@@ -57,7 +57,8 @@ impl Parser<'_> {
     /// Parse a `RaiseEvent` statement.
     ///
     /// VB6 `RaiseEvent` statement syntax:
-    /// ```
+    ///
+    /// ```text
     /// RaiseEvent eventName [(argumentList)]
     /// ```
     ///
