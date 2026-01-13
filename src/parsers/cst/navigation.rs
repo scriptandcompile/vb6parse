@@ -209,7 +209,7 @@ impl Serialize for CstNode {
         let mut state = serializer.serialize_struct("CstNode", 2)?;
         state.serialize_field("kind", &self.kind)?;
 
-        if self.is_token == true {
+        if self.is_token {
             state.serialize_field("text", &self.text)?;
         } else {
             state.serialize_field("children", &self.children)?;

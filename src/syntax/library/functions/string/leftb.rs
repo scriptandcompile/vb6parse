@@ -1,4 +1,4 @@
-//! # LeftB Function
+//! # `LeftB` Function
 //!
 //! Returns a Variant (String) containing a specified number of bytes from the left side of a string.
 //!
@@ -24,35 +24,35 @@
 //! - Returns empty string if length is 0
 //! - Returns entire string if length >= LenB(string)
 //! - Returns Null if string argument is Null
-//! - Returns Variant type (LeftB$ variant returns String type directly)
+//! - Returns Variant type (`LeftB$` variant returns String type directly)
 //!
 //! ## Remarks
 //!
-//! The LeftB function extracts bytes from the beginning of a string:
+//! The `LeftB` function extracts bytes from the beginning of a string:
 //!
 //! - Returns leftmost bytes up to specified length
 //! - Operates on byte level, not character level
 //! - Particularly useful with double-byte character sets (DBCS)
-//! - Complements RightB function (which returns rightmost bytes)
-//! - Works with MidB function for complete byte-level substring extraction
+//! - Complements `RightB` function (which returns rightmost bytes)
+//! - Works with `MidB` function for complete byte-level substring extraction
 //! - Zero-based extraction: LeftB("ABC", 2) returns first 2 bytes
 //! - Safe with lengths exceeding string byte length (returns full string)
 //! - Null propagates through the function
 //! - Negative length raises Error 5 (Invalid procedure call or argument)
 //! - Common for extracting binary data, protocol headers, file signatures
 //! - More efficient than MidB(string, 1, length) for left extraction
-//! - LeftB$ variant returns String type (not Variant) for slight performance gain
-//! - Cannot extract from right side (use RightB for that)
-//! - Cannot skip bytes (use MidB for that)
+//! - `LeftB$` variant returns String type (not Variant) for slight performance gain
+//! - Cannot extract from right side (use `RightB` for that)
+//! - Cannot skip bytes (use `MidB` for that)
 //! - Does not modify original string (strings are immutable)
 //!
-//! ## Differences from Left Function
+//! ## Differences from `Left` Function
 //!
-//! - Left operates on characters, LeftB operates on bytes
+//! - `Left` operates on characters, `LeftB` operates on bytes
 //! - In single-byte character sets (SBCS), they are equivalent
 //! - In double-byte character sets (DBCS), one character may be multiple bytes
-//! - LeftB is essential for binary data manipulation
-//! - LeftB is used with LenB (byte length) rather than Len (character length)
+//! - `LeftB` is essential for binary data manipulation
+//! - `LeftB` is used with `LenB` (byte length) rather than Len (character length)
 //!
 //! ## Typical Uses
 //!
@@ -137,11 +137,11 @@
 //!
 //! ## See Also
 //!
-//! - `LeftB$`: String-returning variant of LeftB
+//! - `LeftB$`: String-returning variant of `LeftB`
 //! - `RightB`: Returns rightmost bytes from string
-//! - `RightB$`: String-returning variant of RightB
+//! - `RightB$`: String-returning variant of `RightB`
 //! - `MidB`: Returns bytes from middle of string
-//! - `MidB$`: String-returning variant of MidB
+//! - `MidB$`: String-returning variant of `MidB`
 //! - `LenB`: Returns byte length of string
 //! - `Left`: Character-based left extraction
 //! - `Right`: Character-based right extraction

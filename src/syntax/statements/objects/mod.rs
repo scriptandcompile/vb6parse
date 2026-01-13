@@ -11,10 +11,10 @@
 //! # Module Organization
 //!
 //! The object manipulation statement parsers are organized into focused submodules:
-//! - [`call`] - Call statements and procedure calls
-//! - [`events`] - RaiseEvent statements for custom events
-//! - [`set`] - Set statements for object reference assignment
-//! - [`with_block`] - With...End With blocks for simplified object access
+//! - [`call`] - `Call` statements and procedure calls
+//! - [`events`] - `RaiseEvent` statements for custom events
+//! - [`set`] - `Set` statements for object reference assignment
+//! - [`with_block`] - `With...End With` blocks for simplified object access
 //!
 //! Each submodule implements parser methods as `Parser` extensions and includes
 //! comprehensive tests with snapshot-based verification.

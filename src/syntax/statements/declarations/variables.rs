@@ -34,10 +34,10 @@
 //!
 //! ## Remarks
 //! - `WithEvents` can only be used with object variables
-//! - `WithEvents` variables must be declared as a specific class type, not As Object
+//! - `WithEvents` variables must be declared as a specific class type, not `As Object`
 //! - Events are accessible through the object's event procedures (`objectname_eventname`)
 //! - Public `WithEvents` variables are accessible from other modules
-//! - Commonly used with form controls, ActiveX objects, and custom classes that raise events
+//! - Commonly used with form controls, `ActiveX` objects, and custom classes that raise events
 //!
 //! [WithEvents Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243352(v=vs.60))
 

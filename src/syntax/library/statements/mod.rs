@@ -8,38 +8,38 @@
 //!
 //! ## File Operations ([`file_operations`])
 //! Statements for file I/O and manipulation:
-//! - **Binary I/O**: Get, Put
-//! - **Sequential I/O**: Input, Line Input, Print, Write
-//! - **File Management**: Open, Close, Reset
-//! - **File Control**: Lock, Unlock, Seek
-//! - **File Manipulation**: FileCopy, Kill, Name
-//! - **Formatting**: Width
+//! - **Binary I/O**: `Get`, `Put`
+//! - **Sequential I/O**: `Input`, `Line Input`, `Print`, `Write`
+//! - **File Management**: `Open`, `Close`, `Reset`
+//! - **File Control**: `Lock`, `Unlock`, `Seek`
+//! - **File Manipulation**: `FileCopy`, `Kill`, `Name`
+//! - **Formatting**: `Width`
 //!
 //! ## Filesystem ([`filesystem`])
 //! Statements for directory and filesystem operations:
-//! - **Navigation**: ChDir, ChDrive
-//! - **Management**: MkDir, RmDir
-//! - **Attributes**: SetAttr
+//! - **Navigation**: `ChDir`, `ChDrive`
+//! - **Management**: `MkDir`, `RmDir`
+//! - **Attributes**: `SetAttr`
 //!
 //! ## System Interaction ([`system_interaction`])
 //! Statements for system and user interaction:
-//! - **Application Control**: AppActivate, Stop
-//! - **User Feedback**: Beep
-//! - **UI Management**: Load, Unload
-//! - **Registry**: DeleteSetting, SaveSetting
-//! - **Graphics**: SavePicture
-//! - **Input Simulation**: SendKeys
+//! - **Application Control**: `AppActivate`, `Stop`
+//! - **User Feedback**: `Beep`
+//! - **UI Management**: `Load`, `Unload`
+//! - **Registry**: `DeleteSetting`, `SaveSetting`
+//! - **Graphics**: `SavePicture`
+//! - **Input Simulation**: `SendKeys`
 //!
 //! ## String Manipulation ([`string_manipulation`])
 //! Statements for string operations:
-//! - **Alignment**: LSet, RSet
-//! - **Replacement**: Mid, MidB
+//! - **Alignment**: `LSet`, `RSet`
+//! - **Replacement**: `Mid`, `MidB`
 //!
 //! ## Runtime State ([`runtime_state`])
 //! Statements for runtime state management:
-//! - **System Time**: Date, Time
-//! - **Error Handling**: Error
-//! - **Random Numbers**: Randomize
+//! - **System Time**: `Date`, `Time`
+//! - **Error Handling**: `Error`
+//! - **Random Numbers**: `Randomize`
 
 use crate::language::Token;
 use crate::parsers::cst::Parser;
@@ -55,8 +55,8 @@ impl Parser<'_> {
     /// Check if the current token is a library statement keyword.
     ///
     /// Special handling:
-    /// - `ErrorKeyword` followed by `DollarSign` is NOT a statement (it's the Error$ function)
-    /// - `MidKeyword` followed by `DollarSign` is NOT a statement (it's the Mid$ function) so we exclude those patterns.
+    /// - `ErrorKeyword` followed by `DollarSign` is NOT a statement (it's the `Error$` function)
+    /// - `MidKeyword` followed by `DollarSign` is NOT a statement (it's the `Mid$` function) so we exclude those patterns.
     ///
     /// Checks both current position and next non-whitespace token.
     pub(crate) fn is_library_statement_keyword(&self) -> bool {
@@ -116,7 +116,7 @@ impl Parser<'_> {
         )
     }
 
-    /// Dispatch library statement parsing to the appropriate parser.
+    /// Start of dispatch library statement parsing to the appropriate parser.
     pub(crate) fn parse_library_statement(&mut self) {
         let token = if self.at_token(Token::Whitespace) {
             self.peek_next_keyword()

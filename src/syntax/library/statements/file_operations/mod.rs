@@ -1,13 +1,13 @@
 //! File I/O operation statements.
 //!
 //! This module contains parsers for VB6 statements that perform file input/output operations:
-//! - Binary file operations (Get, Put)
-//! - Sequential file operations (Input, Line Input, Print, Write)
-//! - File management (Open, Close, Reset)
-//! - File positioning (Seek)
+//! - Binary file operations (`Get`, `Put`)
+//! - Sequential file operations (`Input`, `Line Input`, `Print`, `Write`)
+//! - File management (`Open`, `Close`, `Reset`)
+//! - File positioning (`Seek`)
 //! - File access control (Lock, Unlock)
-//! - File manipulation (FileCopy, Kill, Name)
-//! - Output formatting (Width)
+//! - File manipulation (`FileCopy`, `Kill`, `Name`)
+//! - Output formatting (`Width`)
 
 pub(crate) mod close;
 pub(crate) mod file_copy;
