@@ -1,3 +1,4 @@
+#![allow(rustdoc::private_intra_doc_links)]
 #![warn(missing_docs)]
 //! # Summary
 //!
@@ -13,7 +14,7 @@
 //! highlighting, a language server, an interpreter, or a high speed compiler,
 //! the primary goal is focused around offline analysis, legacy utilities,
 //! and tools that convert VB6 code to more modern languages.
-
+//!
 //! ## Project File Parsing
 //!
 //! To load a VB6 project file, you can use the `Project::parse` method.
@@ -179,9 +180,6 @@
 //!
 //! assert_eq!(project.attributes.name, "frmExampleForm");
 //! ```
-
-// Had to add a larger recursion limit because of particularly large assert_tree requests.
-#![cfg_attr(test, recursion_limit = "256")]
 
 // =============================================================================
 // Layer modules (for advanced users who need full access)

@@ -1,4 +1,4 @@
-//! # RightB Function
+//! # `RightB` Function
 //!
 //! Returns a Variant (String) containing a specified number of bytes from the right side of a string.
 //!
@@ -24,35 +24,35 @@
 //! - Returns empty string if length is 0
 //! - Returns entire string if length >= LenB(string)
 //! - Returns Null if string argument is Null
-//! - Returns Variant type (RightB$ variant returns String type directly)
+//! - Returns Variant type (`RightB$` variant returns String type directly)
 //!
 //! ## Remarks
 //!
-//! The RightB function extracts bytes from the end of a string:
+//! The `RightB` function extracts bytes from the end of a string:
 //!
 //! - Returns rightmost bytes up to specified length
 //! - Operates on byte level, not character level
 //! - Particularly useful with double-byte character sets (DBCS)
-//! - Complements LeftB function (which returns leftmost bytes)
-//! - Works with MidB function for complete byte-level substring extraction
+//! - Complements `LeftB` function (which returns leftmost bytes)
+//! - Works with `MidB` function for complete byte-level substring extraction
 //! - Extraction from end: RightB("ABC", 2) returns last 2 bytes
 //! - Safe with lengths exceeding string byte length (returns full string)
 //! - Null propagates through the function
 //! - Negative length raises Error 5 (Invalid procedure call or argument)
 //! - Common for extracting binary data suffixes, checksums, trailers
-//! - More efficient than MidB for right extraction
-//! - RightB$ variant returns String type (not Variant) for slight performance gain
-//! - Cannot extract from left side (use LeftB for that)
-//! - Cannot skip bytes (use MidB for that)
+//! - More efficient than `MidB` for right extraction
+//! - `RightB$` variant returns String type (not Variant) for slight performance gain
+//! - Cannot extract from left side (use `LeftB` for that)
+//! - Cannot skip bytes (use `MidB` for that)
 //! - Does not modify original string (strings are immutable)
 //!
-//! ## Differences from Right Function
+//! ## Differences from `Right` Function
 //!
-//! - Right operates on characters, RightB operates on bytes
+//! - `Right` operates on characters, `RightB` operates on bytes
 //! - In single-byte character sets (SBCS), they are equivalent
 //! - In double-byte character sets (DBCS), one character may be multiple bytes
-//! - RightB is essential for binary data manipulation
-//! - RightB is used with LenB (byte length) rather than Len (character length)
+//! - `RightB` is essential for binary data manipulation
+//! - `RightB` is used with `LenB` (byte length) rather than `Len` (character length)
 //!
 //! ## Typical Uses
 //!
@@ -181,11 +181,11 @@
 //!
 //! ## See Also
 //!
-//! - `RightB$`: String-returning variant of RightB
+//! - `RightB$`: String-returning variant of `RightB`
 //! - `LeftB`: Returns leftmost bytes from string
-//! - `LeftB$`: String-returning variant of LeftB
+//! - `LeftB$`: String-returning variant of `LeftB`
 //! - `MidB`: Returns bytes from middle of string
-//! - `MidB$`: String-returning variant of MidB
+//! - `MidB$`: String-returning variant of `MidB`
 //! - `LenB`: Returns byte length of string
 //! - `Right`: Character-based right extraction
 //! - `Left`: Character-based left extraction

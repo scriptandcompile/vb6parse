@@ -1,12 +1,12 @@
-//! RaiseEvent statement parsing for VB6 CST.
+//! `RaiseEvent` statement parsing for VB6 CST.
 //!
-//! This module handles parsing of VB6 RaiseEvent statements for firing custom events:
+//! This module handles parsing of VB6 `RaiseEvent` statements for firing custom events:
 //! - `RaiseEvent` - Fire a custom event declared in a class or form
 //!
-//! # RaiseEvent Statement
+//! # `RaiseEvent` Statement
 //!
-//! The RaiseEvent statement fires an event that has been declared within a class, form,
-//! or document using the Event statement. Events can be raised with or without arguments.
+//! The `RaiseEvent` statement fires an event that has been declared within a class, form,
+//! or document using the `Event` statement. Events can be raised with or without arguments.
 //!
 //! ## Syntax
 //! ```vb
@@ -27,10 +27,10 @@
 //! ```
 //!
 //! ## Remarks
-//! - Events must be declared with the Event statement before they can be raised
-//! - RaiseEvent can only be used in the module where the event is declared
+//! - Events must be declared with the `Event` statement before they can be raised
+//! - `RaiseEvent` can only be used in the module where the event is declared
 //! - Arguments passed must match the event declaration
-//! - Events are consumed by objects that declare variables WithEvents
+//! - Events are consumed by objects that declare variables `WithEvents`
 //! - Events cannot be raised recursively (no re-entrancy)
 //! - Events raised in forms and controls are handled by the container
 //!
@@ -54,10 +54,13 @@ use crate::parsers::cst::Parser;
 use crate::parsers::SyntaxKind;
 
 impl Parser<'_> {
-    /// Parse a RaiseEvent statement.
+    /// Parse a `RaiseEvent` statement.
     ///
-    /// VB6 RaiseEvent statement syntax:
-    /// - RaiseEvent eventName [(argumentList)]
+    /// VB6 `RaiseEvent` statement syntax:
+    ///
+    /// ```text
+    /// RaiseEvent eventName [(argumentList)]
+    /// ```
     ///
     /// ## Examples
     /// ```vb

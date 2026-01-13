@@ -1,10 +1,10 @@
-//! ReDim statement parsing for VB6 CST.
+//! `ReDim` statement parsing for VB6 CST.
 //!
-//! This module handles parsing of VB6 ReDim (reallocate dimension) statements:
+//! This module handles parsing of VB6 `ReDim` (reallocate dimension) statements:
 //! - `ReDim` - Reallocate storage space for dynamic array variables
 //! - `ReDim Preserve` - Reallocate while preserving existing data
 //!
-//! # ReDim Statement
+//! # `ReDim` Statement
 //!
 //! The `ReDim` statement is used at procedure level to reallocate storage space
 //! for dynamic array variables. The optional `Preserve` keyword preserves the data
