@@ -176,7 +176,7 @@ function registerVB6Language() {
 
             string: [
                 [/[^\\"]+/, 'string'],
-                [/\\"/, 'string.escape'],
+                [/\"\"/, 'string.escape'],
                 [/"/, 'string', '@pop']
             ],
         },
