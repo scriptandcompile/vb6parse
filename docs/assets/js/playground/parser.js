@@ -9,7 +9,8 @@
  * TODO: Add error handling for WASM failures
  */
 
-let wasmModule = null;
+import init, { tokenize_vb6_code } from "../../wasm/vb6parse.js";
+
 let wasmInitialized = false;
 
 /**
@@ -35,17 +36,11 @@ let wasmInitialized = false;
  * }
  */
 export async function initWasm() {
-    console.log('🔧 TODO: Initialize WASM module');
-    
-    // TODO: Implement actual WASM initialization
-    // For now, simulate async loading
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            wasmInitialized = true;
-            console.log('✅ WASM module initialized (placeholder)');
-            resolve(true);
-        }, 1000);
-    });
+    const response = await fetch('../docs/assets/wasm/vb6parse_bg.wasm');
+    const wasmBytes = await response.arrayBuffer();
+    await init(wasmBytes); // This initializes the wasm module
+    wasmInitialized = true;
+    return wasmInitialized;
 }
 
 /**
@@ -120,9 +115,7 @@ export async function tokenizeCode(code) {
         // TODO: Call actual WASM tokenize function
         // const tokens = tokenize_vb6_code(code);
         
-        // Placeholder: return mock tokens
-        const mockTokens = createMockTokens(code);
-        return mockTokens;
+        return await tokenize_vb6_code(code);
 
     } catch (error) {
         console.error('Tokenize error:', error);
@@ -134,9 +127,9 @@ export async function tokenizeCode(code) {
  * Create mock parse result for testing UI
  * TODO: Remove when WASM is integrated
  */
-function createMockParseResult(code, fileType) {
+async function createMockParseResult(code, fileType) {
     const lines = code.split('\n');
-    const tokens = createMockTokens(code);
+    const tokens = await tokenizeCode(code)
     
     return {
         tokens: tokens,
@@ -234,8 +227,8 @@ function createMockCst(code, fileType) {
  * Type definitions (for documentation)
  * 
  * @typedef {Object} TokenInfo
- * @property {string} type - Token type: 'keyword', 'identifier', 'literal', 'operator', 'comment', 'whitespace'
- * @property {string} value - Token text content
+ * @property {string} kind - Token kind: 'keyword', 'identifier', 'literal', 'operator', 'comment', 'whitespace'
+ * @property {string} content - Token text content
  * @property {number} line - Line number (1-based)
  * @property {number} column - Column number (1-based)
  * @property {number} length - Token length in characters
