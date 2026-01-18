@@ -51,7 +51,7 @@ export function renderTokensTab(tokens) {
     const showWhitespace = document.getElementById('show-whitespace')?.checked ?? false;
 
     // Filter tokens
-    const filteredTokens = showWhitespace ? tokens : tokens.filter(t => t.type !== 'whitespace');
+    const filteredTokens = showWhitespace ? tokens : tokens.filter(t => t.kind !== 'whitespace');
 
     // Create table
     const table = document.createElement('table');
@@ -85,13 +85,13 @@ export function renderTokensTab(tokens) {
         // Type badge
         const typeCell = document.createElement('td');
         const typeBadge = document.createElement('span');
-        typeBadge.className = `token-type ${token.type}`;
-        typeBadge.textContent = token.type;
+        typeBadge.className = `token-type ${token.kind}`;
+        typeBadge.textContent = token.kind;
         typeCell.appendChild(typeBadge);
 
         // Value (escape HTML)
         const valueCell = document.createElement('td');
-        const escapedValue = escapeHtml(token.value);
+        const escapedValue = escapeHtml(token.content);
         valueCell.textContent = escapedValue;
         valueCell.style.fontFamily = "'Courier New', monospace";
 
