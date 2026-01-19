@@ -62,6 +62,9 @@ pub fn tokenize_vb6_code(code: &str) -> Result<JsValue, JsValue> {
 
     let token_stream = token_stream_opt.unwrap();
 
+    let mut column = 1;
+    let mut line = 1;
+
     for (text, token) in token_stream {
         let kind = match token {
             Token::Whitespace => WHITESPACE.to_string(),
@@ -80,18 +83,28 @@ pub fn tokenize_vb6_code(code: &str) -> Result<JsValue, JsValue> {
                 } else if token.is_operator() {
                     OPERATOR.to_string()
                 } else {
-                    "".to_string()
+                    format!("{:?}", token)
                 }
             }
         };
 
+        if token == Token::Newline {
+            line += 1;
+            column = 0;
+        }
+
+        let content = text.to_string();
+        let length = content.len() as u32;
+
         let token = TokenInfo {
             kind: kind,
-            content: text.to_string(),
-            line: 1,
-            column: 1,
-            length: 1,
+            content: content,
+            line: line,
+            column: column,
+            length: length,
         };
+
+        column += length;
 
         tokens.push(token);
     }
