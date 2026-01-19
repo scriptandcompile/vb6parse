@@ -83,7 +83,7 @@ pub fn tokenize_vb6_code(code: &str) -> Result<JsValue, JsValue> {
                 } else if token.is_operator() {
                     OPERATOR.to_string()
                 } else {
-                    format!("{:?}", token)
+                    format!("{token:?}")
                 }
             }
         };
