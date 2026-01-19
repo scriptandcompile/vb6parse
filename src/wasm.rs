@@ -138,6 +138,11 @@ pub fn tokenize_vb6_code(code: &str) -> Result<JsValue, JsValue> {
             length,
         };
 
+        // We update the column position here because the column is supposed to be
+        // the *starting* position of the token and the length represents the number
+        // of characters in the token which should be added to the column for the next token.
+        // This ensures that the column number correctly reflects the position of the next token
+        // on the next run of the loop.
         column += length;
 
         tokens.push(token);
