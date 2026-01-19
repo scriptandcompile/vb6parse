@@ -97,11 +97,11 @@ pub fn tokenize_vb6_code(code: &str) -> Result<JsValue, JsValue> {
         let length = content.len() as u32;
 
         let token = TokenInfo {
-            kind: kind,
-            content: content,
-            line: line,
-            column: column,
-            length: length,
+            kind,
+            content,
+            line,
+            column,
+            length,
         };
 
         column += length;
