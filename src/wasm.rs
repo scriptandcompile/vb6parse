@@ -41,8 +41,8 @@ pub struct PlaygroundOutput {
 
 #[wasm_bindgen]
 pub fn parse_vb6_code(
-    code: &str,
-    file_type: &str, // "project", "class", "module", "form"
+    _code: &str,
+    _file_type: &str, // "project", "class", "module", "form"
 ) -> Result<JsValue, JsValue> {
     // Implementation that calls appropriate parser
     // Returns serialized PlaygroundOutput
