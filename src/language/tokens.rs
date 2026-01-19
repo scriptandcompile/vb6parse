@@ -1224,7 +1224,7 @@ impl Token {
                 | Token::TrueKeyword
                 | Token::PrivateKeyword
                 | Token::DimKeyword
-                | Token::PrivateKeyword
+                | Token::TypeKeyword
                 | Token::ByValKeyword
                 | Token::LongKeyword
                 | Token::AsKeyword
