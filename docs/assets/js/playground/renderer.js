@@ -51,7 +51,7 @@ export function renderTokensTab(tokens) {
     const showWhitespace = document.getElementById('show-whitespace')?.checked ?? false;
 
     // Filter tokens
-    const filteredTokens = showWhitespace ? tokens : tokens.filter(t => t.kind !== 'whitespace');
+    const filteredTokens = showWhitespace ? tokens : tokens.filter(t => t.kind !== 'whitespace' & t.kind !== 'Newline');
 
     // Create table
     const table = document.createElement('table');
