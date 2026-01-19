@@ -146,53 +146,6 @@ async function createMockParseResult(code, fileType) {
 }
 
 /**
- * Create mock tokens for testing UI
- * TODO: Remove when WASM is integrated
- */
-function createMockTokens(code) {
-    const tokens = [];
-    const lines = code.split('\n');
-    
-    // Very simple mock tokenization
-    lines.forEach((line, lineIndex) => {
-        const words = line.split(/(\s+|[(),:.])/);
-        let col = 0;
-        
-        words.forEach(word => {
-            if (word.length === 0) return;
-            
-            let type = 'identifier';
-            
-            // Simple keyword detection
-            const lowerWord = word.toLowerCase();
-            if (['sub', 'function', 'end', 'public', 'private', 'dim', 'as', 'option', 'explicit'].includes(lowerWord)) {
-                type = 'keyword';
-            } else if (word.startsWith("'")) {
-                type = 'comment';
-            } else if (word.startsWith('"')) {
-                type = 'literal';
-            } else if (/\s+/.test(word)) {
-                type = 'whitespace';
-            } else if (/[(),:.]/.test(word)) {
-                type = 'operator';
-            }
-            
-            tokens.push({
-                type: type,
-                value: word,
-                line: lineIndex + 1,
-                column: col + 1,
-                length: word.length
-            });
-            
-            col += word.length;
-        });
-    });
-    
-    return tokens;
-}
-
-/**
  * Create mock CST for testing UI
  * TODO: Remove when WASM is integrated
  */
