@@ -96,7 +96,7 @@
 //!
 //! ### Basic Usage
 //!
-//! ```vb
+//! ```vb6
 //! Dim fruits() As String
 //! Dim filtered() As String
 //!
@@ -117,7 +117,7 @@
 //!
 //! ### Case-Sensitive vs Case-Insensitive
 //!
-//! ```vb
+//! ```vb6
 //! Dim names() As String
 //! names = Array("John", "jane", "JAMES", "Julia", "jack")
 //!
@@ -134,7 +134,7 @@
 //!
 //! ### Exclude Matches
 //!
-//! ```vb
+//! ```vb6
 //! Dim files() As String
 //! files = Array("data.txt", "backup.bak", "report.txt", "temp.bak", "notes.txt")
 //!
@@ -148,7 +148,7 @@
 //!
 //! ### Filter List Based on User Input
 //!
-//! ```vb
+//! ```vb6
 //! Function SearchList(items() As String, searchTerm As String) As String()
 //!     On Error GoTo ErrorHandler
 //!     
@@ -172,7 +172,7 @@
 //!
 //! ### Count Matching Items
 //!
-//! ```vb
+//! ```vb6
 //! Function CountMatches(items() As String, searchTerm As String) As Long
 //!     On Error GoTo ErrorHandler
 //!     
@@ -195,7 +195,7 @@
 //!
 //! ### Filter File List by Extension
 //!
-//! ```vb
+//! ```vb6
 //! Function GetFilesByExtension(files() As String, extension As String) As String()
 //!     ' Ensure extension starts with dot
 //!     If Left(extension, 1) <> "." Then
@@ -215,7 +215,7 @@
 //!
 //! ### Multiple Filter Criteria
 //!
-//! ```vb
+//! ```vb6
 //! Function FilterMultiple(items() As String, filters() As String) As String()
 //!     Dim result() As String
 //!     Dim temp() As String
@@ -243,7 +243,7 @@
 //!
 //! ### Populate `ListBox` with Filtered Results
 //!
-//! ```vb
+//! ```vb6
 //! Sub UpdateFilteredList(lstBox As ListBox, items() As String, searchText As String)
 //!     Dim filtered() As String
 //!     Dim i As Long
@@ -277,7 +277,7 @@
 //!
 //! ### Remove Duplicates with Filter
 //!
-//! ```vb
+//! ```vb6
 //! Function RemoveDuplicates(items() As String) As String()
 //!     Dim result() As String
 //!     Dim dict As Object
@@ -308,7 +308,7 @@
 //!
 //! ### Filter with Wildcard Simulation
 //!
-//! ```vb
+//! ```vb6
 //! Function FilterWildcard(items() As String, pattern As String) As Collection
 //!     ' Simple wildcard: * at start, end, or both
 //!     Dim results As New Collection
@@ -359,7 +359,7 @@
 //!
 //! ### Autocomplete Implementation
 //!
-//! ```vb
+//! ```vb6
 //! Sub TextBox_Change()
 //!     Dim allItems() As String
 //!     Dim matches() As String
@@ -391,7 +391,7 @@
 //!
 //! ### Filter Log Entries
 //!
-//! ```vb
+//! ```vb6
 //! Function FilterLogsByLevel(logEntries() As String, level As String) As String()
 //!     ' Assume log format: "[LEVEL] Message"
 //!     Dim levelTag As String
@@ -410,7 +410,7 @@
 //!
 //! ### Check If Array Contains Value
 //!
-//! ```vb
+//! ```vb6
 //! Function ArrayContains(items() As String, value As String, _
 //!                        Optional caseSensitive As Boolean = False) As Boolean
 //!     On Error GoTo ErrorHandler
@@ -445,7 +445,7 @@
 //!
 //! ### Combine Include and Exclude Filters
 //!
-//! ```vb
+//! ```vb6
 //! Function FilterIncludeExclude(items() As String, includeText As String, _
 //!                               excludeText As String) As String()
 //!     Dim temp() As String
@@ -473,7 +473,7 @@
 //!
 //! ### Dynamic Search with Multiple Columns
 //!
-//! ```vb
+//! ```vb6
 //! Type RecordData
 //!     ID As String
 //!     Name As String
@@ -542,7 +542,7 @@
 //!
 //! ### Incremental Filter (Type-Ahead)
 //!
-//! ```vb
+//! ```vb6
 //! Private lastSearch As String
 //! Private cachedResults() As String
 //!
@@ -572,7 +572,7 @@
 //!
 //! ### Category-Based Filtering
 //!
-//! ```vb
+//! ```vb6
 //! Type Product
 //!     Name As String
 //!     Category As String
@@ -620,7 +620,7 @@
 //!
 //! ### Filter with Performance Tracking
 //!
-//! ```vb
+//! ```vb6
 //! Function FilterWithStats(items() As String, searchTerm As String, _
 //!                          ByRef matchCount As Long, _
 //!                          ByRef elapsedMs As Double) As String()
@@ -653,7 +653,7 @@
 //!
 //! ### Smart Case-Sensitive Filter
 //!
-//! ```vb
+//! ```vb6
 //! Function SmartFilter(items() As String, searchTerm As String) As String()
 //!     Dim compareMode As VbCompareMethod
 //!     
@@ -671,7 +671,7 @@
 //!
 //! ## Error Handling
 //!
-//! ```vb
+//! ```vb6
 //! Function SafeFilter(items As Variant, searchTerm As String) As Variant
 //!     On Error GoTo ErrorHandler
 //!     
@@ -716,7 +716,7 @@
 //!
 //! ### Always Check Result Array
 //!
-//! ```vb
+//! ```vb6
 //! Dim results() As String
 //! results = Filter(items, searchTerm)
 //!
@@ -732,7 +732,7 @@
 //!
 //! ### Use Error Handling
 //!
-//! ```vb
+//! ```vb6
 //! On Error Resume Next
 //! filtered = Filter(sourceArray, searchText, True, vbTextCompare)
 //! If Err.Number <> 0 Then
@@ -744,7 +744,7 @@
 //!
 //! ### Default to Case-Insensitive for User Input
 //!
-//! ```vb
+//! ```vb6
 //! ' Good - User-friendly search
 //! results = Filter(items, userInput, True, vbTextCompare)
 //!
@@ -756,7 +756,7 @@
 //!
 //! ### Filter vs Manual Loop
 //!
-//! ```vb
+//! ```vb6
 //! ' Using Filter (concise)
 //! matches = Filter(items, searchTerm, True, vbTextCompare)
 //!
@@ -776,7 +776,7 @@
 //!
 //! ### Filter vs Collection/Dictionary
 //!
-//! ```vb
+//! ```vb6
 //! ' Filter - Returns array
 //! Dim arr() As String
 //! arr = Filter(items, searchTerm)
