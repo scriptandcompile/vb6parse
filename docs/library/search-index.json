@@ -11,7 +11,7 @@
     "type": "function",
     "category": "Arrays",
     "url": "functions/arrays/filter.html",
-    "description": "Filter Function Returns a zero-based array containing a subset of a string array based on specified filter criteria. Syntax vb Filter(sourcearray, match, include, compare) Parameters - sourcearray: Re"
+    "description": "Filter Function Returns a zero-based array containing a subset of a string array based on specified filter criteria. Syntax text Filter(sourcearray, match, include, compare) Parameters - sourcearray: "
   },
   {
     "name": "join",
