@@ -37,10 +37,10 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="filter-function">Filter Function</h1>
+            <h2 id="filter-function">Filter Function</h2>
 <p>Returns a zero-based array containing a subset of a string array based on specified filter criteria.</p>
 <h2 id="syntax">Syntax</h2>
-<pre><code class="language-vbnet">Filter(sourcearray, match[, include[, compare]])</code></pre>
+<pre><code class="language-text">Filter(sourcearray, match[, include[, compare]])</code></pre>
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><strong>sourcearray</strong>: Required. One-dimensional array of strings to be searched.</li>
@@ -54,14 +54,14 @@ Filter returns subset excluding match.</li>
 <li>2 = vbDatabaseCompare (Microsoft Access only)</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
-<p>Returns a Variant containing a zero-based array of strings. If no matches are found,
+<p>Returns a <code>Variant</code> containing a zero-based array of strings. If no matches are found,
 Filter returns an empty array. If sourcearray is Null or not a one-dimensional array,
 an error occurs.</p>
 <h2 id="remarks">Remarks</h2>
 <p>The <code>Filter</code> function searches a string array for elements containing a specified substring
 and returns a new array with matching (or non-matching) elements. This is useful for
 filtering lists, implementing search functionality, and processing string collections.</p>
-<p><strong>Important Characteristics:</strong></p>
+<h2 id="important-characteristics">Important Characteristics</h2>
 <ul>
 <li>Returns zero-based array regardless of input array bounds</li>
 <li>Match is substring search (not whole string match)</li>
@@ -76,6 +76,21 @@ filtering lists, implementing search functionality, and processing string collec
 <li>Returned array starts at index 0</li>
 <li>Can be used to implement NOT logic (include=False)</li>
 </ul>
+<h3 id="common-errors">Common Errors</h3>
+<ul>
+<li><strong>Error 13</strong> (Type Mismatch): sourcearray is not an array or not a string array</li>
+<li><strong>Error 5</strong> (Invalid procedure call): sourcearray is multi-dimensional</li>
+<li><strong>Error 94</strong> (Invalid use of Null): sourcearray is Null</li>
+</ul>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li>Filter is efficient for small to medium arrays (&lt; 10,000 elements)</li>
+<li>For very large arrays, consider Dictionary-based approaches</li>
+<li>Case-insensitive search is slightly slower than case-sensitive</li>
+<li>Filtering already-filtered results is faster than re-filtering original array</li>
+<li>Consider caching results for repeated searches</li>
+<li>Empty string match returns entire array</li>
+</ul>
 <h2 id="typical-uses">Typical Uses</h2>
 <ul>
 <li>Filter lists based on user input</li>
@@ -86,6 +101,25 @@ filtering lists, implementing search functionality, and processing string collec
 <li>Filter file lists</li>
 <li>Process search results</li>
 <li>Implement autocomplete features</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Works only with one-dimensional arrays</li>
+<li>Only supports string arrays</li>
+<li>Returns zero-based array (even if source is 1-based)</li>
+<li>Substring match only (no regex or wildcards)</li>
+<li>Cannot filter on multiple criteria in single call</li>
+<li>No built-in support for custom comparison functions</li>
+<li>Case-insensitive limited to vbTextCompare behavior</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Array</code>: Creates a <code>Variant</code> array</li>
+<li><code>Split</code>: Splits a string into an array</li>
+<li><code>Join</code>: Joins array elements into a string</li>
+<li><code>InStr</code>: Finds substring position</li>
+<li><code>LBound</code>/<code>UBound</code>: Gets array bounds</li>
+<li><code>IsArray</code>: Checks if variable is an array</li>
 </ul>
 <h2 id="examples">Examples</h2>
 <h3 id="basic-usage">Basic Usage</h3>
@@ -624,21 +658,6 @@ End Select
 ReDim emptyArray(0 To -1)
 SafeFilter = emptyArray
 End Function</code></pre>
-<h3 id="common-errors">Common Errors</h3>
-<ul>
-<li><strong>Error 13</strong> (Type Mismatch): sourcearray is not an array or not a string array</li>
-<li><strong>Error 5</strong> (Invalid procedure call): sourcearray is multi-dimensional</li>
-<li><strong>Error 94</strong> (Invalid use of Null): sourcearray is Null</li>
-</ul>
-<h2 id="performance-considerations">Performance Considerations</h2>
-<ul>
-<li>Filter is efficient for small to medium arrays (&lt; 10,000 elements)</li>
-<li>For very large arrays, consider Dictionary-based approaches</li>
-<li>Case-insensitive search is slightly slower than case-sensitive</li>
-<li>Filtering already-filtered results is faster than re-filtering original array</li>
-<li>Consider caching results for repeated searches</li>
-<li>Empty string match returns entire array</li>
-</ul>
 <h2 id="best-practices">Best Practices</h2>
 <h3 id="always-check-result-array">Always Check Result Array</h3>
 <pre><code class="language-vbnet">Dim results() As String
@@ -695,25 +714,6 @@ If InStr(1, items(i), searchTerm, vbTextCompare) &gt; 0 Then
 coll.Add items(i)
 End If
 Next i</code></pre>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Works only with one-dimensional arrays</li>
-<li>Only supports string arrays</li>
-<li>Returns zero-based array (even if source is 1-based)</li>
-<li>Substring match only (no regex or wildcards)</li>
-<li>Cannot filter on multiple criteria in single call</li>
-<li>No built-in support for custom comparison functions</li>
-<li>Case-insensitive limited to vbTextCompare behavior</li>
-</ul>
-<h2 id="related-functions">Related Functions</h2>
-<ul>
-<li><code>Array</code>: Creates a Variant array</li>
-<li><code>Split</code>: Splits a string into an array</li>
-<li><code>Join</code>: Joins array elements into a string</li>
-<li><code>InStr</code>: Finds substring position</li>
-<li><code>LBound</code>/<code>UBound</code>: Gets array bounds</li>
-<li><code>IsArray</code>: Checks if variable is an array</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

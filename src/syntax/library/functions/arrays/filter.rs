@@ -1,10 +1,10 @@
-//! # Filter Function
+//! ## Filter Function
 //!
 //! Returns a zero-based array containing a subset of a string array based on specified filter criteria.
 //!
 //! ## Syntax
 //!
-//! ```vb
+//! ```text
 //! Filter(sourcearray, match[, include[, compare]])
 //! ```
 //!
@@ -16,13 +16,13 @@
 //!   or exclude match. If True (default), Filter returns subset including match. If False,
 //!   Filter returns subset excluding match.
 //! - **compare**: Optional. Numeric value indicating the kind of string comparison to use.
-//!   - 0 = vbBinaryCompare (case-sensitive, default)
-//!   - 1 = vbTextCompare (case-insensitive)
-//!   - 2 = vbDatabaseCompare (Microsoft Access only)
+//!   * 0 = vbBinaryCompare (case-sensitive, default)
+//!   * 1 = vbTextCompare (case-insensitive)
+//!   * 2 = vbDatabaseCompare (Microsoft Access only)
 //!
 //! ## Return Value
 //!
-//! Returns a Variant containing a zero-based array of strings. If no matches are found,
+//! Returns a `Variant` containing a zero-based array of strings. If no matches are found,
 //! Filter returns an empty array. If sourcearray is Null or not a one-dimensional array,
 //! an error occurs.
 //!
@@ -32,7 +32,7 @@
 //! and returns a new array with matching (or non-matching) elements. This is useful for
 //! filtering lists, implementing search functionality, and processing string collections.
 //!
-//! **Important Characteristics:**
+//! ## Important Characteristics
 //!
 //! - Returns zero-based array regardless of input array bounds
 //! - Match is substring search (not whole string match)
@@ -47,6 +47,21 @@
 //! - Returned array starts at index 0
 //! - Can be used to implement NOT logic (include=False)
 //!
+//! ### Common Errors
+//!
+//! - **Error 13** (Type Mismatch): sourcearray is not an array or not a string array
+//! - **Error 5** (Invalid procedure call): sourcearray is multi-dimensional
+//! - **Error 94** (Invalid use of Null): sourcearray is Null
+//!
+//! ## Performance Considerations
+//!
+//! - Filter is efficient for small to medium arrays (< 10,000 elements)
+//! - For very large arrays, consider Dictionary-based approaches
+//! - Case-insensitive search is slightly slower than case-sensitive
+//! - Filtering already-filtered results is faster than re-filtering original array
+//! - Consider caching results for repeated searches
+//! - Empty string match returns entire array
+//!
 //! ## Typical Uses
 //!
 //! - Filter lists based on user input
@@ -57,6 +72,25 @@
 //! - Filter file lists
 //! - Process search results
 //! - Implement autocomplete features
+//!
+//! ## Limitations
+//!
+//! - Works only with one-dimensional arrays
+//! - Only supports string arrays
+//! - Returns zero-based array (even if source is 1-based)
+//! - Substring match only (no regex or wildcards)
+//! - Cannot filter on multiple criteria in single call
+//! - No built-in support for custom comparison functions
+//! - Case-insensitive limited to vbTextCompare behavior
+//!
+//! ## Related Functions
+//!
+//! - `Array`: Creates a `Variant` array
+//! - `Split`: Splits a string into an array
+//! - `Join`: Joins array elements into a string
+//! - `InStr`: Finds substring position
+//! - `LBound`/`UBound`: Gets array bounds
+//! - `IsArray`: Checks if variable is an array
 //!
 //! ## Examples
 //!
@@ -678,21 +712,6 @@
 //! End Function
 //! ```
 //!
-//! ### Common Errors
-//!
-//! - **Error 13** (Type Mismatch): sourcearray is not an array or not a string array
-//! - **Error 5** (Invalid procedure call): sourcearray is multi-dimensional
-//! - **Error 94** (Invalid use of Null): sourcearray is Null
-//!
-//! ## Performance Considerations
-//!
-//! - Filter is efficient for small to medium arrays (< 10,000 elements)
-//! - For very large arrays, consider Dictionary-based approaches
-//! - Case-insensitive search is slightly slower than case-sensitive
-//! - Filtering already-filtered results is faster than re-filtering original array
-//! - Consider caching results for repeated searches
-//! - Empty string match returns entire array
-//!
 //! ## Best Practices
 //!
 //! ### Always Check Result Array
@@ -771,24 +790,6 @@
 //! Next i
 //! ```
 //!
-//! ## Limitations
-//!
-//! - Works only with one-dimensional arrays
-//! - Only supports string arrays
-//! - Returns zero-based array (even if source is 1-based)
-//! - Substring match only (no regex or wildcards)
-//! - Cannot filter on multiple criteria in single call
-//! - No built-in support for custom comparison functions
-//! - Case-insensitive limited to vbTextCompare behavior
-//!
-//! ## Related Functions
-//!
-//! - `Array`: Creates a Variant array
-//! - `Split`: Splits a string into an array
-//! - `Join`: Joins array elements into a string
-//! - `InStr`: Finds substring position
-//! - `LBound`/`UBound`: Gets array bounds
-//! - `IsArray`: Checks if variable is an array
 
 #[cfg(test)]
 mod tests {
