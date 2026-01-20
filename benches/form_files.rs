@@ -192,22 +192,16 @@ fn form_benchmarks(criterion: &mut Criterion) {
     let mut group = criterion.benchmark_group("form_files");
 
     for form in &forms {
-        let benchmark_name = format!(
-            "{}/{}",
-            form.size_category.as_str(),
-            form.name
-        );
+        let benchmark_name = format!("{}/{}", form.size_category.as_str(), form.name);
 
         group.throughput(Throughput::Bytes(form.data.len() as u64));
         group.bench_with_input(
             BenchmarkId::from_parameter(&benchmark_name),
             &form,
             |bench, form| {
-                let source_file = SourceFile::decode_with_replacement(
-                    &form.name,
-                    form.data.as_slice(),
-                )
-                .expect("Failed to decode form file");
+                let source_file =
+                    SourceFile::decode_with_replacement(&form.name, form.data.as_slice())
+                        .expect("Failed to decode form file");
 
                 bench.iter(|| {
                     black_box(FormFile::parse(black_box(&source_file)));
