@@ -84,22 +84,16 @@ fn module_benchmarks(criterion: &mut Criterion) {
     let mut group = criterion.benchmark_group("module_files");
 
     for module in &modules {
-        let benchmark_name = format!(
-            "{}/{}",
-            module.size_category.as_str(),
-            module.name
-        );
+        let benchmark_name = format!("{}/{}", module.size_category.as_str(), module.name);
 
         group.throughput(Throughput::Bytes(module.data.len() as u64));
         group.bench_with_input(
             BenchmarkId::from_parameter(&benchmark_name),
             &module,
             |bench, module| {
-                let source_file = SourceFile::decode_with_replacement(
-                    &module.name,
-                    module.data.as_slice(),
-                )
-                .expect("Failed to decode module file");
+                let source_file =
+                    SourceFile::decode_with_replacement(&module.name, module.data.as_slice())
+                        .expect("Failed to decode module file");
 
                 bench.iter(|| {
                     black_box(ModuleFile::parse(black_box(&source_file)));
