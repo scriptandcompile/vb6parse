@@ -1,34 +1,35 @@
-//! # `Join` Function
+//! ## Join Function
 //!
 //! Returns a string created by joining a number of substrings contained in an array.
 //!
 //! ## Syntax
 //!
-//! ```vb
+//! ```text
 //! Join(sourcearray, [delimiter])
 //! ```
 //!
 //! ## Parameters
 //!
-//! - `sourcearray` (Required): One-dimensional array containing substrings to be joined
-//! - `delimiter` (Optional): `String` used to separate the substrings in the returned string
+//! - **sourcearray** (Required): One-dimensional array containing substrings to be joined
+//! - **delimiter** (Optional): `String` used to separate the substrings in the returned string
 //!   - If omitted, space character (" ") is used
 //!   - If empty string (""), items are concatenated with no separator
 //!
 //! ## Return Value
 //!
-//! Returns a `String`:
+//! Returns a `String`
+//!
 //! - `String` containing all elements of the array joined by the delimiter
 //! - `Empty` string ("") if array has zero length
 //! - Returns `Null` if `sourcearray` is `Null`
 //! - Each array element is converted to `String` before joining
 //! - Non-string elements are automatically converted using `Str`/`CStr`
 //! - `Empty` array elements become empty strings in result
-//! - Trailing/leading spaces in delimiter are preserved
+//! - Trailing / leading spaces in delimiter are preserved
 //!
 //! ## Remarks
 //!
-//! The `Join` function is the inverse of the Split function:
+//! The `Join` function is the inverse of the `Split` function:
 //!
 //! - Combines array elements into a single string
 //! - Only works with one-dimensional arrays
@@ -42,8 +43,32 @@
 //! - Much faster than repeated string concatenation in loops
 //! - Available in VB6 and VBA (added in VB6/Office 2000)
 //! - Common in text processing and file generation
-//! - Works with Variant arrays containing mixed types
+//! - Works with `Variant` arrays containing mixed types
 //! - Does not add delimiter after last element
+//!
+//! ### Common Errors
+//!
+//! - **Error 13** (Type Mismatch): `sourcearray` is a multi-dimensional array.
+//!
+//! ## Performance Considerations
+//!
+//! - **Very Efficient**: Join is much faster than repeated concatenation
+//! - **String Building**: Use Join instead of concatenation in loops
+//! - **Memory Usage**: Creates single string allocation for result
+//! - **Large Arrays**: Handles large arrays efficiently
+//!
+//! ### Performance comparison:
+//!
+//! ```vb6
+//! ' SLOW: Repeated concatenation
+//! Dim result As String
+//! For i = 0 To 999
+//!     result = result & arr(i) & ","
+//! Next i
+//!
+//! ' FAST: Using Join
+//! result = Join(arr, ",")
+//! ```
 //!
 //! ## Typical Uses
 //!
@@ -56,17 +81,48 @@
 //! 7. **String Building**: Efficient alternative to concatenation loops
 //! 8. **Report Generation**: Format report lines from data arrays
 //!
-//! ## Basic Usage Examples
+//! ## Limitations
 //!
-//! ```vb
-//! ' Example 1: Basic join with default delimiter (space)
+//! - Cannot join multi-dimensional arrays (use loops to flatten first)
+//! - Returns `Null` for `Null` array (not empty `String`)
+//! - No built-in escaping for CSV (must implement manually)
+//! - Cannot skip empty elements automatically
+//! - No formatting options for numeric values
+//! - Delimiter is applied between all elements (no custom logic)
+//!
+//! ### Platform and Version Notes
+//!
+//! - Added in VB6 and Office 2000 VBA
+//! - Not available in VB5 or earlier
+//! - Part of `VBA.Strings` module
+//! - Returns `String` type
+//! - Only works with one-dimensional arrays
+//! - Automatically converts array elements to `String`
+//!
+//! ## Related Functions
+//!
+//! - `Split`: Split string into array (inverse of `Join`)
+//! - `Filter`: Filter array elements based on criteria
+//! - `UBound`/`LBound`: Get array bounds
+//! - `Array`: Create array from values
+//! - `Replace`: Replace substrings in `String`
+//!
+//! ## Examples
+//!
+//! ### Join With Default Delimiter (space)
+//!
+//! ```vb6
 //! Dim words(2) As String
 //! words(0) = "Hello"
 //! words(1) = "Visual"
 //! words(2) = "Basic"
 //!
 //! Debug.Print Join(words)              ' "Hello Visual Basic"
+//! ```
 //!
+//! ### Join With Custom Delimiter
+//!
+//! ```vb6
 //! ' Example 2: Join with custom delimiter
 //! Dim values(3) As String
 //! values(0) = "apple"
@@ -77,8 +133,11 @@
 //! Debug.Print Join(values, ", ")       ' "apple, banana, cherry, date"
 //! Debug.Print Join(values, " | ")      ' "apple | banana | cherry | date"
 //! Debug.Print Join(values, "")         ' "applebananacherrydate"
+//! ```
 //!
-//! ' Example 3: CSV generation
+//! ### CSV Generation
+//!
+//! ```vb6
 //! Dim fields(2) As String
 //! fields(0) = "John Doe"
 //! fields(1) = "Engineer"
@@ -87,8 +146,11 @@
 //! Dim csvLine As String
 //! csvLine = Join(fields, ",")
 //! Debug.Print csvLine                  ' "John Doe,Engineer,50000"
+//! ```
 //!
-//! ' Example 4: Working with Split and Join
+//! ### Working with Split and Join
+//!
+//! ```vb6
 //! Dim original As String
 //! Dim parts() As String
 //! Dim rebuilt As String
@@ -101,18 +163,25 @@
 //!
 //! ## Common Patterns
 //!
-//! ```vb
-//! ' Pattern 1: Build CSV row
+//! ### Pattern 1: Build CSV Row
+//!
+//! ```vb6
 //! Function BuildCSVRow(fields As Variant) As String
 //!     BuildCSVRow = Join(fields, ",")
 //! End Function
+//! ```
 //!
-//! ' Pattern 2: Join with line breaks
+//! ### Pattern 2: Join With Line Breaks
+//!
+//! ```vb6
 //! Function JoinLines(lines As Variant) As String
 //!     JoinLines = Join(lines, vbCrLf)
 //! End Function
+//! ```
 //!
-//! ' Pattern 3: Build path from components
+//! ### Pattern 3: Build Path From Components
+//!
+//! ```vb6
 //! Function BuildPath(ParamArray parts() As Variant) As String
 //!     Dim arr() As String
 //!     Dim i As Long
@@ -124,8 +193,11 @@
 //!     
 //!     BuildPath = Join(arr, "\")
 //! End Function
+//! ```
 //!
-//! ' Pattern 4: Create comma-separated list
+//! ### Pattern 4: Create Comma-Separated List
+//!
+//! ```vb6
 //! Function ToCommaSeparated(items As Variant) As String
 //!     If IsArray(items) Then
 //!         ToCommaSeparated = Join(items, ", ")
@@ -133,8 +205,11 @@
 //!         ToCommaSeparated = CStr(items)
 //!     End If
 //! End Function
+//! ```
 //!
-//! ' Pattern 5: Build SQL IN clause
+//! ### Pattern 5: Build SQL IN Clause
+//!
+//! ```vb6
 //! Function BuildInClause(values As Variant) As String
 //!     Dim i As Long
 //!     Dim quoted() As String
@@ -148,8 +223,11 @@
 //!     
 //!     BuildInClause = Join(quoted, ", ")
 //! End Function
+//! ```
 //!
-//! ' Pattern 6: Join non-empty values only
+//! ### Pattern 6: Join Non-Empty Values Only
+//!
+//! ```vb6
 //! Function JoinNonEmpty(arr As Variant, delimiter As String) As String
 //!     Dim result As Collection
 //!     Dim i As Long
@@ -177,8 +255,11 @@
 //!     
 //!     JoinNonEmpty = Join(temp, delimiter)
 //! End Function
+//! ```
 //!
-//! ' Pattern 7: Format array for display
+//! ### Pattern 7: Format Array For Display
+//!
+//! ```vb6
 //! Function FormatArray(arr As Variant) As String
 //!     If Not IsArray(arr) Then
 //!         FormatArray = CStr(arr)
@@ -186,8 +267,11 @@
 //!         FormatArray = "[" & Join(arr, ", ") & "]"
 //!     End If
 //! End Function
+//! ```
 //!
-//! ' Pattern 8: Build WHERE clause
+//! ### Pattern 8: Build WHERE Clause
+//!
+//! ```vb6
 //! Function BuildWhereClause(conditions As Variant) As String
 //!     If Not IsArray(conditions) Then Exit Function
 //!     
@@ -197,8 +281,11 @@
 //!         BuildWhereClause = Join(conditions, " AND ")
 //!     End If
 //! End Function
+//! ```
 //!
-//! ' Pattern 9: Create delimited string with quotes
+//! ### Pattern 9: Create Delimited String With Quotes
+//!
+//! ```vb6
 //! Function JoinQuoted(items As Variant, delimiter As String) As String
 //!     Dim i As Long
 //!     Dim quoted() As String
@@ -212,8 +299,11 @@
 //!     
 //!     JoinQuoted = Join(quoted, delimiter)
 //! End Function
+//! ```
 //!
-//! ' Pattern 10: Reverse of Split for round-trip
+//! ### Pattern 10: Reverse of Split for Round-Trip
+//!
+//! ```vb6
 //! Function ReverseTransform(text As String) As String
 //!     Dim parts() As String
 //!     Dim i As Long
@@ -234,8 +324,9 @@
 //!
 //! ## Advanced Usage Examples
 //!
-//! ```vb
-//! ' Example 1: CSV Builder with proper escaping
+//! ### Example 1: CSV Builder with proper escaping
+//!
+//! ```vb6
 //! Public Class CSVBuilder
 //!     Private m_rows As Collection
 //!     
@@ -286,8 +377,11 @@
 //!         Set m_rows = New Collection
 //!     End Sub
 //! End Class
+//! ```
 //!
-//! ' Example 2: String builder for efficient concatenation
+//! ### Example 2: String Builder For Efficient Concatenation
+//!
+//! ```vb6
 //! Public Class StringBuilder
 //!     Private m_parts As Collection
 //!     Private m_delimiter As String
@@ -334,8 +428,11 @@
 //!         Length = Len(ToString())
 //!     End Function
 //! End Class
+//! ```
 //!
-//! ' Example 3: Query builder using Join
+//! ### Example 3: Query Builder Using Join
+//!
+//! ```vb6
 //! Public Class QueryBuilder
 //!     Private m_select As Collection
 //!     Private m_from As String
@@ -415,8 +512,11 @@
 //!         Set m_orderBy = New Collection
 //!     End Sub
 //! End Class
+//! ```
 //!
-//! ' Example 4: Report formatter
+//! ### Example 4: Report Formatter
+//!
+//! ```vb6
 //! Public Class ReportFormatter
 //!     Public Function FormatTable(data As Variant, headers As Variant, _
 //!                                  Optional delimiter As String = " | ") As String
@@ -483,46 +583,37 @@
 //!
 //! Join handles several special cases:
 //!
-//! ```vb
-//! ' Empty array returns empty string
+//! ### Empty Array Returns Empty String
+//!
+//! ```vb6
 //! Dim emptyArr() As String
 //! ReDim emptyArr(0 To -1)  ' Zero-length array
 //! Debug.Print Join(emptyArr, ",")  ' Returns ""
+//! ```
 //!
-//! ' Null array returns Null
+//! ### Null Array Returns Null
+//!
+//! ```vb6
 //! Dim nullArr As Variant
 //! nullArr = Null
 //! Debug.Print IsNull(Join(nullArr, ","))  ' True
+//! ```
 //!
-//! ' Works with mixed-type Variant arrays
+//! ### Works With Mixed-Type Variant Arrays
+//!
+//! ```vb6
 //! Dim mixed(2) As Variant
 //! mixed(0) = 123
 //! mixed(1) = "text"
 //! mixed(2) = True
 //! Debug.Print Join(mixed, "-")  ' "123-text-True"
-//!
-//! ' Multi-dimensional arrays cause Type Mismatch error
-//! Dim multi(1, 1) As String
-//! ' Join(multi, ",")  ' Error 13: Type Mismatch
 //! ```
 //!
-//! ## Performance Considerations
+//! ### Multi-Dimensional Arrays Cause Type Mismatch Error
 //!
-//! - **Very Efficient**: Join is much faster than repeated concatenation
-//! - **String Building**: Use Join instead of concatenation in loops
-//! - **Memory Usage**: Creates single string allocation for result
-//! - **Large Arrays**: Handles large arrays efficiently
-//!
-//! Performance comparison:
-//! ```vb
-//! ' SLOW: Repeated concatenation
-//! Dim result As String
-//! For i = 0 To 999
-//!     result = result & arr(i) & ","
-//! Next i
-//!
-//! ' FAST: Using Join
-//! result = Join(arr, ",")
+//! ```vb6
+//! Dim multi(1, 1) As String
+//! ' Join(multi, ",")  ' Error 13: Type Mismatch
 //! ```
 //!
 //! ## Best Practices
@@ -546,9 +637,9 @@
 //! | `Filter` | Filter array elements | `Array` | `Array` |
 //! | `UBound`/`LBound` | Get array bounds | `Array` | `Long` |
 //!
-//! ## `Join` vs `String` Concatenation
+//! ## Join vs String Concatenation
 //!
-//! ```vb
+//! ```vb6
 //! Dim arr(2) As String
 //! arr(0) = "A"
 //! arr(1) = "B"
@@ -563,9 +654,9 @@
 //! ' For large arrays, Join is dramatically faster
 //! ```
 //!
-//! ## `Join` and `Split` Round-Trip
+//! ## Join and Split Round-Trip
 //!
-//! ```vb
+//! ```vb6
 //! ' Original string
 //! original = "apple,banana,cherry"
 //!
@@ -578,31 +669,6 @@
 //! Debug.Print original = rebuilt       ' True - perfect round-trip
 //! ```
 //!
-//! ## Platform and Version Notes
-//!
-//! - Added in VB6 and Office 2000 VBA
-//! - Not available in VB5 or earlier
-//! - Part of `VBA.Strings` module
-//! - Returns `String` type
-//! - Only works with one-dimensional arrays
-//! - Automatically converts array elements to `String`
-//!
-//! ## Limitations
-//!
-//! - Cannot join multi-dimensional arrays (use loops to flatten first)
-//! - Returns `Null` for `Null` array (not empty `String`)
-//! - No built-in escaping for CSV (must implement manually)
-//! - Cannot skip empty elements automatically
-//! - No formatting options for numeric values
-//! - Delimiter is applied between all elements (no custom logic)
-//!
-//! ## Related Functions
-//!
-//! - `Split`: Split string into array (inverse of `Join`)
-//! - `Filter`: Filter array elements based on criteria
-//! - `UBound`/`LBound`: Get array bounds
-//! - `Array`: Create array from values
-//! - `Replace`: Replace substrings in `String`
 
 #[cfg(test)]
 mod tests {

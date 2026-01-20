@@ -18,7 +18,7 @@
     "type": "function",
     "category": "Arrays",
     "url": "functions/arrays/join.html",
-    "description": "Join Function Returns a string created by joining a number of substrings contained in an array. Syntax vb Join(sourcearray, delimiter) Parameters - sourcearray (Required): One-dimensional array contai"
+    "description": "Join Function Returns a string created by joining a number of substrings contained in an array. Syntax text Join(sourcearray, delimiter) Parameters - sourcearray (Required): One-dimensional array cont"
   },
   {
     "name": "lbound",
