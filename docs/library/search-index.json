@@ -4,7 +4,7 @@
     "type": "function",
     "category": "Arrays",
     "url": "functions/arrays/array.html",
-    "description": "Array Function Returns a Variant containing an array. Syntax vb Array(arglist) Parts - arglist: Required. A comma-delimited list of values that are assigned to the elements of the array contained with"
+    "description": "Array Function Returns a Variant containing an array formed from the comma-delimited arg list of values passed into the function. Syntax text Array(arglist) Parameters - arglist: Required. A comma-del"
   },
   {
     "name": "filter",

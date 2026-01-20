@@ -37,14 +37,15 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="array-function"><code>Array</code> Function</h1>
-<p>Returns a Variant containing an array.</p>
+            <h2 id="array-function">Array Function</h2>
+<p>Returns a <code>Variant</code> containing an array formed from the comma-delimited arg list of values
+passed into the function.</p>
 <h2 id="syntax">Syntax</h2>
-<pre><code class="language-vbnet">Array(arglist)</code></pre>
-<h2 id="parts">Parts</h2>
+<pre><code class="language-text">Array(arglist)</code></pre>
+<h2 id="parameters">Parameters</h2>
 <ul>
 <li><code>arglist</code>: Required. A comma-delimited list of values that are assigned to the elements
-of the array contained within the Variant. If no arguments are specified, an array of zero
+of the array contained within the <code>Variant</code>. If no arguments are specified, an array of zero
 length is created.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
@@ -64,6 +65,38 @@ with specific dimensions.</li>
 <code>LBound</code> always returns 0, <code>UBound</code> returns (number of elements - 1).</li>
 <li><code>Option Base</code>: The <code>Array</code> function is not affected by <code>Option Base</code> statements; it always
 creates zero-based arrays.</li>
+</ul>
+<h2 id="important-characteristics">Important Characteristics</h2>
+<h3 id="assignment-requirements">Assignment Requirements</h3>
+<pre><code class="language-vbnet">&#x27; Correct - assign to Variant
+Dim v As Variant
+v = Array(1, 2, 3)  &#x27; OK
+
+&#x27; Incorrect - cannot assign to typed array
+Dim arr(2) As Integer
+arr = Array(1, 2, 3)  &#x27; ERROR: Type mismatch</code></pre>
+<h3 id="zero-based-indexing">Zero-Based Indexing</h3>
+<pre><code class="language-vbnet">Dim arr As Variant
+arr = Array(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
+Debug.Print LBound(arr)  &#x27; Always 0
+Debug.Print UBound(arr)  &#x27; 2 (not 3!)
+
+&#x27; First element is arr(0), last is arr(2)</code></pre>
+<h3 id="performance-considerations">Performance Considerations</h3>
+<ul>
+<li><code>Array()</code> creates a <code>Variant</code> array, which has more overhead than typed arrays</li>
+<li>For large arrays with known types, consider using <code>ReDim</code> instead</li>
+<li><code>Array()</code> is best for small, temporary arrays or mixed-type collections</li>
+<li>Each element is a <code>Variant</code>, which uses more memory than native types</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Split</code>: Splits a string into an array of substrings</li>
+<li><code>Join</code>: Concatenates array elements into a string</li>
+<li><code>LBound</code>: Returns the lowest available subscript for an array dimension</li>
+<li><code>UBound</code>: Returns the highest available subscript for an array dimension</li>
+<li><code>IsArray</code>: Determines whether a variable is an array</li>
+<li><code>Filter</code>: Returns a zero-based array containing a subset of a string array</li>
 </ul>
 <h2 id="examples">Examples</h2>
 <h3 id="basic-array-creation">Basic Array Creation</h3>
@@ -180,75 +213,6 @@ End Sub</code></pre>
 <pre><code class="language-vbnet">Function GetDefaults() As Variant
 GetDefaults = Array(0, &quot;&quot;, False, Null, Empty)
 End Function</code></pre>
-<h2 id="related-functions">Related Functions</h2>
-<ul>
-<li><code>Split</code>: Splits a string into an array of substrings</li>
-<li><code>Join</code>: Concatenates array elements into a string</li>
-<li><code>LBound</code>: Returns the lowest available subscript for an array dimension</li>
-<li><code>UBound</code>: Returns the highest available subscript for an array dimension</li>
-<li><code>IsArray</code>: Determines whether a variable is an array</li>
-<li><code>Filter</code>: Returns a zero-based array containing a subset of a string array</li>
-</ul>
-<h2 id="important-notes">Important Notes</h2>
-<h3 id="assignment-requirements">Assignment Requirements</h3>
-<pre><code class="language-vbnet">&#x27; Correct - assign to Variant
-Dim v As Variant
-v = Array(1, 2, 3)  &#x27; OK
-
-&#x27; Incorrect - cannot assign to typed array
-Dim arr(2) As Integer
-arr = Array(1, 2, 3)  &#x27; ERROR: Type mismatch</code></pre>
-<h3 id="zero-based-indexing">Zero-Based Indexing</h3>
-<pre><code class="language-vbnet">Dim arr As Variant
-arr = Array(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
-Debug.Print LBound(arr)  &#x27; Always 0
-Debug.Print UBound(arr)  &#x27; 2 (not 3!)
-
-&#x27; First element is arr(0), last is arr(2)</code></pre>
-<h3 id="performance-considerations">Performance Considerations</h3>
-<ul>
-<li><code>Array()</code> creates a <code>Variant</code> array, which has more overhead than typed arrays</li>
-<li>For large arrays with known types, consider using <code>ReDim</code> instead</li>
-<li><code>Array()</code> is best for small, temporary arrays or mixed-type collections</li>
-<li>Each element is a <code>Variant</code>, which uses more memory than native types</li>
-</ul>
-<h2 id="type-information">Type Information</h2>
-<table>
-<thead>
-<tr>
-<th>Aspect</th>
-<th>Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Return Type</td>
-<td><code>Variant</code> (subtype: Array)</td>
-</tr>
-<tr>
-<td>Element Type</td>
-<td><code>Variant</code> (can hold any type)</td>
-</tr>
-<tr>
-<td>Lower Bound</td>
-<td>Always 0 (not affected by <code>Option Base</code>)</td>
-</tr>
-<tr>
-<td>Upper Bound</td>
-<td>Number of arguments - 1</td>
-</tr>
-<tr>
-<td>Dimensions</td>
-<td>Always single-dimensional</td>
-</tr>
-<tr>
-<td>Size</td>
-<td>Dynamic, determined by argument count</td>
-</tr>
-</tbody>
-</table>
-<p><code>Array</code> is parsed as a regular function call (<code>CallExpression</code>)
-This module serves as documentation and reference for the <code>Array</code> function</p>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
