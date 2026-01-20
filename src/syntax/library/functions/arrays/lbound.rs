@@ -1,31 +1,28 @@
-//! # `LBound` Function
+//! ## LBound Function
 //!
 //! Returns a `Long` containing the smallest available subscript for the indicated dimension of an array.
 //!
 //! ## Syntax
 //!
-//! ```vb
+//! ```text
 //! LBound(arrayname, [dimension])
 //! ```
 //!
 //! ## Parameters
 //!
-//! - `arrayname` (Required): Name of the array variable
-//! - `dimension` (Optional): `Integer` specifying which dimension's lower bound to return
+//! - **arrayname** (Required): Name of the array variable
+//! - *dimension** (Optional): `Integer` specifying which dimension's lower bound to return
 //!   - If omitted, defaults to 1 (first dimension)
 //!   - Must be between 1 and the number of dimensions in the array
 //!
 //! ## Return Value
 //!
-//! Returns a `Long`:
-//! - The smallest available subscript for the specified dimension
-//! - By default, arrays start at 0 unless `Option Base 1` is specified
-//! - Returns 0 for standard arrays (`Option Base 0`)
-//! - Returns 1 for arrays when `Option Base 1` is specified
-//! - For arrays declared with explicit bounds, returns the specified lower bound
-//! - Dynamic arrays preserve their lower bound across `ReDim` operations
-//! - Error 9 (Subscript out of range) if dimension exceeds array dimensions
-//! - Error 9 if array has not been dimensioned (for dynamic arrays)
+//! - Returns a `Long` of the smallest available subscript for the specified dimension.
+//! - By default, arrays start at 0 unless `Option Base 1` is specified.
+//! - Returns 0 for standard arrays (`Option Base 0`).
+//! - Returns 1 for arrays when `Option Base 1` is specified.
+//! - For arrays declared with explicit bounds, returns the specified lower bound.
+//! - Dynamic arrays preserve their lower bound across `ReDim` operations.
 //!
 //! ## Remarks
 //!
@@ -35,54 +32,203 @@
 //! - Counterpart to `UBound` (which returns upper bound)
 //! - Critical for correctly iterating through arrays
 //! - Default lower bound is 0 (unless `Option Base 1`)
-//! - Can specify explicit lower bounds: ```Dim arr(5 To 10)``` has ```LBound = 5```
+//! - Can specify explicit lower bounds:
+//!
+//! ```vb6
+//! Dim arr(5 To 10) 'LBound = 5
+//! ```
+//!
 //! - Works with multi-dimensional arrays using dimension parameter
 //! - Omitting dimension parameter returns bound of first dimension
 //! - Dynamic arrays must be dimensioned before calling `LBound`
 //! - Fixed-size arrays always have bounds available
-//! - `ParamArray` parameters always have ```LBound = 0```
+//! - `ParamArray` parameters always have an `LBound` value of 0.
 //! - Essential for writing dimension-agnostic code
-//! - Use with `UBound` to determine array size: ```UBound - LBound + 1```
+//! - Use with `UBound` to determine array size = `UBound` - `LBound` + 1
 //! - Safer than assuming arrays start at 0
 //! - `ReDim Preserve` maintains lower bounds
-//! - Common in For loops: ```For i = LBound(arr) To UBound(arr)```
+//! - Common in For loops:
+//!
+//! ```vb6
+//! For i = LBound(arr) To UBound(arr)
+//!
+//! Next
+//! ```
+//!
+//! ### Common Errors
+//!
+//! - **Error 9** (Subscript out of range): If dimension exceeds array dimensions
+//! - **Error 9** (Subscript out of range): If array has not been dimensioned (for dynamic arrays)
+//!
+//! ## Performance Considerations
+//!
+//! - **Fast Operation**: `LBound` is a very fast intrinsic function
+//! - **No Overhead**: Direct access to array metadata
+//! - **Cache Results**: If using in loops, cache `LBound`/`UBound` values
+//! - **Bounds in Loops**: Better to cache than call repeatedly
+//!
+//! ### Performance Optimization
+//!
+//! #### Less efficient - Calls `LBound` Every Iteration
+//!
+//! ```vb6
+//! For i = LBound(arr) To UBound(arr)
+//!     ' process arr(i)
+//! Next i
+//! ```
+//!
+//! #### More efficient for very large loops
+//!
+//! ```vb6
+//! Dim lb As Long, ub As Long
+//! lb = LBound(arr)
+//! ub = UBound(arr)
+//! For i = lb To ub
+//!     ' process arr(i)
+//! Next i
+//! ```
 //!
 //! ## Typical Uses
 //!
-//! 1. **Array Iteration**: Loop through arrays with correct starting index
-//! 2. **Array Size Calculation**: Determine number of elements
-//! 3. **Bounds Validation**: Check if index is within valid range
-//! 4. **Array Copying**: Copy elements with proper bounds
-//! 5. **Multi-dimensional Arrays**: Access correct dimension bounds
-//! 6. **Dynamic Arrays**: Verify array has been dimensioned
-//! 7. **Generic Functions**: Write functions that work with any array bounds
-//! 8. **`Option Base` Handling**: Code that works regardless of `Option Base` setting
+//! - **Array Iteration**: Loop through arrays with correct starting index
+//! - **Array Size Calculation**: Determine number of elements
+//! - **Bounds Validation**: Check if index is within valid range
+//! - **Array Copying**: Copy elements with proper bounds
+//! - **Multi-dimensional Arrays**: Access correct dimension bounds
+//! - **Dynamic Arrays**: Verify array has been dimensioned
+//! - **Generic Functions**: Write functions that work with any array bounds
+//! - **`Option Base` Handling**: Code that works regardless of `Option Base` setting
 //!
-//! ## Basic Usage Examples
+//! ## Limitations
 //!
-//! ```vb
-//! ' Example 1: Basic array iteration
+//! - Cannot modify array bounds (use `ReDim` for that)
+//! - Raises error for undimensioned dynamic arrays
+//! - Dimension parameter must be valid (1 to number of dimensions)
+//! - Cannot determine if array is fixed-size or dynamic
+//! - No way to get all bounds at once (must call separately for each dimension)
+//!
+//! ## Platform and Version Notes
+//!
+//! - Available in all VB6 versions
+//! - Part of VBA core functions
+//! - Returns Long type
+//! - Works with all array types (Variant, typed, object arrays)
+//! - `ReDim` Preserve maintains lower bounds
+//! - `ParamArray` always has `LBound` = 0
+//!
+//! ## Related Functions
+//!
+//! - `UBound`: Get upper bound of array dimension
+//! - `IsArray`: Check if variable is an array
+//! - `ReDim`: Redimension dynamic array
+//! - `Array`: Create Variant array
+//! - `Split`: Create array from delimited string
+//!
+//! ## Best Practices
+//!
+//! - **Always Use `LBound`**: Don't assume arrays start at 0
+//! - **Dimension Parameter**: Specify dimension for multi-dimensional arrays
+//! - **Error Handling**: Handle undimensioned dynamic arrays
+//! - **Array Size**: Use ```UBound - LBound + 1``` for element count
+//! - **Cache Values**: Store `LBound`/`UBound` in variables for repeated use
+//! - **Generic Code**: Write functions that work with any array bounds
+//! - **Validate Bounds**: Check if indices are within `LBound` to `UBound` range
+//! - **Document Assumptions**: Note expected array bounds in comments
+//!
+//! ## Comparison with Related Functions
+//!
+//! | Function | Purpose | Returns | Use Case |
+//! |----------|---------|---------|----------|
+//! | `LBound` | Get lower bound | `Long` | Minimum valid index |
+//! | `UBound` | Get upper bound | `Long` | Maximum valid index |
+//! | `IsArray` | Check if array | `Boolean` | Validate array type |
+//! | `Array` | Create array | `Variant` | Initialize arrays |
+//! | `ReDim` | Resize array | N/A | Dynamic array sizing |
+//!
+//! ## `LBound` and `Option Base`
+//!
+//! ### Option Base 0 (default)
+//!
+//! ```vb6
+//! Dim arr1(5) As Integer
+//! Debug.Print LBound(arr1)         ' 0
+//! Debug.Print UBound(arr1)         ' 5
+//! ```
+//!
+//! ### Option Base 1
+//!
+//! ```vb6
+//! Option Base 1
+//! Dim arr2(5) As Integer
+//! Debug.Print LBound(arr2)         ' 1
+//! Debug.Print UBound(arr2)         ' 5
+//! ```
+//!
+//! ### Explicit Bounds (Overrides Option Base)
+//!
+//! ```vb6
+//! Dim arr3(10 To 20) As Integer
+//! Debug.Print LBound(arr3)         ' 10
+//! Debug.Print UBound(arr3)         ' 20
+//! ```
+//!
+//! ### Array Size Calculation
+//!
+//! ```vb6
+//! ' Correct way to get array size
+//! Function GetArraySize(arr As Variant) As Long
+//!     If Not IsArray(arr) Then
+//!         GetArraySize = 0
+//!     Else
+//!         GetArraySize = UBound(arr) - LBound(arr) + 1
+//!     End If
+//! End Function
+//!
+//! ' Examples
+//! Dim a(0 To 10) As Integer       ' Size = 11
+//! Dim b(1 To 10) As Integer       ' Size = 10
+//! Dim c(5 To 15) As Integer       ' Size = 11
+//!
+//! Debug.Print GetArraySize(a)     ' 11
+//! Debug.Print GetArraySize(b)     ' 10
+//! Debug.Print GetArraySize(c)     ' 11
+//! ```
+//!
+//! ## Examples
+//!
+//! ### Example 1: Basic Array Iteration
+//!
+//! ```vb6
 //! Dim arr(5) As Integer
 //! Dim i As Long
 //!
 //! For i = LBound(arr) To UBound(arr)
 //!     arr(i) = i * 2
 //! Next i
+//! ```
 //!
-//! ' Example 2: Explicit lower bound
+//! ### Example 2: Explicit Lower Bound
+//!
+//! ```vb6
 //! Dim months(1 To 12) As String
 //!
 //! Debug.Print LBound(months)           ' 1
 //! Debug.Print UBound(months)           ' 12
+//! ```
 //!
-//! ' Example 3: Multi-dimensional array
+//! ### Example 3: Multi-Dimensional Array
+//!
+//! ```vb6
 //! Dim grid(1 To 10, 1 To 20) As Integer
 //!
 //! Debug.Print LBound(grid, 1)          ' 1 - first dimension
 //! Debug.Print LBound(grid, 2)          ' 1 - second dimension
 //! Debug.Print LBound(grid)             ' 1 - defaults to first dimension
+//! ```
 //!
-//! ' Example 4: Calculate array size
+//! ### Example 4: Calculate Array Size
+//!
+//! ```vb6
 //! Dim values(10 To 50) As Double
 //! Dim size As Long
 //!
@@ -92,8 +238,9 @@
 //!
 //! ## Common Patterns
 //!
-//! ```vb
-//! ' Pattern 1: Safe array iteration
+//! ### Pattern 1: Safe Array Iteration
+//!
+//! ```vb6
 //! Sub ProcessArray(arr As Variant)
 //!     Dim i As Long
 //!     
@@ -103,8 +250,11 @@
 //!         Debug.Print arr(i)
 //!     Next i
 //! End Sub
+//! ```
 //!
-//! ' Pattern 2: Array size function
+//! ### Pattern 2: Array Size Function
+//!
+//! ```vb6
 //! Function ArraySize(arr As Variant, Optional dimension As Long = 1) As Long
 //!     If Not IsArray(arr) Then
 //!         ArraySize = 0
@@ -112,8 +262,11 @@
 //!         ArraySize = UBound(arr, dimension) - LBound(arr, dimension) + 1
 //!     End If
 //! End Function
+//! ```
 //!
-//! ' Pattern 3: Copy array with correct bounds
+//! ### Pattern 3: Copy Array With Correct Bounds
+//!
+//! ```vb6
 //! Function CopyArray(source As Variant) As Variant
 //!     Dim dest As Variant
 //!     Dim i As Long
@@ -131,16 +284,22 @@
 //!     
 //!     CopyArray = dest
 //! End Function
+//! ```
 //!
-//! ' Pattern 4: Check if array is empty
+//! ### Pattern 4: Check If Array Is Empty
+//!
+//! ```vb6
 //! Function IsArrayEmpty(arr As Variant) As Boolean
 //!     On Error Resume Next
 //!     IsArrayEmpty = (UBound(arr) < LBound(arr))
 //!     If Err.Number <> 0 Then IsArrayEmpty = True
 //!     On Error GoTo 0
 //! End Function
+//! ```
 //!
-//! ' Pattern 5: Array contains value
+//! ### Pattern 5: Array Contains Value
+//!
+//! ```vb6
 //! Function ArrayContains(arr As Variant, value As Variant) As Boolean
 //!     Dim i As Long
 //!     
@@ -155,8 +314,11 @@
 //!     
 //!     ArrayContains = False
 //! End Function
+//! ```
 //!
-//! ' Pattern 6: Find element index
+//! ### Pattern 6: Find Element Index
+//!
+//! ```vb6
 //! Function FindInArray(arr As Variant, value As Variant) As Long
 //!     Dim i As Long
 //!     
@@ -170,8 +332,11 @@
 //!         End If
 //!     Next i
 //! End Function
+//! ```
 //!
-//! ' Pattern 7: Reverse array in place
+//! ### Pattern 7: Reverse Array In Place
+//!
+//! ```vb6
 //! Sub ReverseArray(arr As Variant)
 //!     Dim i As Long
 //!     Dim j As Long
@@ -190,8 +355,11 @@
 //!         j = j - 1
 //!     Loop
 //! End Sub
+//! ```
 //!
-//! ' Pattern 8: Slice array
+//! ### Pattern 8: Slice Array
+//!
+//! ```vb6
 //! Function SliceArray(arr As Variant, startIndex As Long, endIndex As Long) As Variant
 //!     Dim result() As Variant
 //!     Dim i As Long
@@ -209,8 +377,11 @@
 //!     
 //!     SliceArray = result
 //! End Function
+//! ```
 //!
-//! ' Pattern 9: Fill array with value
+//! ### Pattern 9: Fill Array With Value
+//!
+//! ```vb6
 //! Sub FillArray(arr As Variant, value As Variant)
 //!     Dim i As Long
 //!     
@@ -224,8 +395,11 @@
 //!         End If
 //!     Next i
 //! End Sub
+//! ```
 //!
-//! ' Pattern 10: Multi-dimensional array iteration
+//! ### Pattern 10: Multi-Dimensional Array Iteration
+//!
+//! ```vb6
 //! Sub ProcessGrid(grid As Variant)
 //!     Dim i As Long, j As Long
 //!     
@@ -241,8 +415,9 @@
 //!
 //! ## Advanced Usage Examples
 //!
-//! ```vb
-//! ' Example 1: Generic array utilities class
+//! ### Example 1: Generic Array Utilities Class
+//!
+//! ```vb6
 //! Public Class ArrayUtils
 //!     Public Function GetSize(arr As Variant, Optional dimension As Long = 1) As Long
 //!         On Error GoTo ErrorHandler
@@ -307,8 +482,11 @@
 //!         Reverse = result
 //!     End Function
 //! End Class
+//! ```
 //!
-//! ' Example 2: Safe array accessor with bounds checking
+//! ### Example 2: Safe array accessor with bounds checking
+//!
+//! ```vb6
 //! Public Class SafeArray
 //!     Private m_data As Variant
 //!     
@@ -353,8 +531,11 @@
 //!         Count = UBound(m_data) - LBound(m_data) + 1
 //!     End Property
 //! End Class
+//! ```
 //!
-//! ' Example 3: Matrix operations helper
+//! ### Example 3: Matrix Operations Helper
+//!
+//! ```vb6
 //! Public Class MatrixHelper
 //!     Public Function GetRowCount(matrix As Variant) As Long
 //!         If Not IsArray(matrix) Then
@@ -413,8 +594,11 @@
 //!         Next i
 //!     End Sub
 //! End Class
+//! ```
 //!
-//! ' Example 4: Dynamic array manager
+//! ### Example 4: Dynamic Array Manager
+//!
+//! ```vb6
 //! Public Class DynamicArray
 //!     Private m_data() As Variant
 //!     Private m_count As Long
@@ -476,15 +660,19 @@
 //!
 //! `LBound` can raise errors in specific cases:
 //!
-//! ```vb
+//! ```vb6
 //! ' Error 9: Subscript out of range - dimension exceeds array dimensions
 //! Dim arr(5, 10) As Integer
 //! ' Debug.Print LBound(arr, 3)  ' Error 9 - only 2 dimensions
+//! ```
 //!
+//! ```vb6
 //! ' Error 9: Array not dimensioned (dynamic arrays)
 //! Dim dynArr() As String
 //! ' Debug.Print LBound(dynArr)  ' Error 9 - not dimensioned yet
+//! ```
 //!
+//! ```vb6
 //! ' Safe pattern with error handling
 //! Function GetLowerBound(arr As Variant, Optional dimension As Long = 1) As Long
 //!     On Error Resume Next
@@ -496,116 +684,6 @@
 //! End Function
 //! ```
 //!
-//! ## Performance Considerations
-//!
-//! - **Fast Operation**: `LBound` is a very fast intrinsic function
-//! - **No Overhead**: Direct access to array metadata
-//! - **Cache Results**: If using in loops, cache `LBound`/`UBound` values
-//! - **Bounds in Loops**: Better to cache than call repeatedly
-//!
-//! Performance optimization:
-//! ```vb
-//! ' Less efficient - calls LBound every iteration
-//! For i = LBound(arr) To UBound(arr)
-//!     ' process arr(i)
-//! Next i
-//!
-//! ' More efficient for very large loops
-//! Dim lb As Long, ub As Long
-//! lb = LBound(arr)
-//! ub = UBound(arr)
-//! For i = lb To ub
-//!     ' process arr(i)
-//! Next i
-//! ```
-//!
-//! ## Best Practices
-//!
-//! 1. **Always Use `LBound`**: Don't assume arrays start at 0
-//! 2. **Dimension Parameter**: Specify dimension for multi-dimensional arrays
-//! 3. **Error Handling**: Handle undimensioned dynamic arrays
-//! 4. **Array Size**: Use ```UBound - LBound + 1``` for element count
-//! 5. **Cache Values**: Store `LBound`/`UBound` in variables for repeated use
-//! 6. **Generic Code**: Write functions that work with any array bounds
-//! 7. **Validate Bounds**: Check if indices are within `LBound` to `UBound` range
-//! 8. **Document Assumptions**: Note expected array bounds in comments
-//!
-//! ## Comparison with Related Functions
-//!
-//! | Function | Purpose | Returns | Use Case |
-//! |----------|---------|---------|----------|
-//! | `LBound` | Get lower bound | `Long` | Minimum valid index |
-//! | `UBound` | Get upper bound | `Long` | Maximum valid index |
-//! | `IsArray` | Check if array | `Boolean` | Validate array type |
-//! | `Array` | Create array | `Variant` | Initialize arrays |
-//! | `ReDim` | Resize array | N/A | Dynamic array sizing |
-//!
-//! ## `LBound` and `Option Base`
-//!
-//! ```vb
-//! ' Option Base 0 (default)
-//! Dim arr1(5) As Integer
-//! Debug.Print LBound(arr1)         ' 0
-//! Debug.Print UBound(arr1)         ' 5
-//!
-//! ' Option Base 1
-//! Option Base 1
-//! Dim arr2(5) As Integer
-//! Debug.Print LBound(arr2)         ' 1
-//! Debug.Print UBound(arr2)         ' 5
-//!
-//! ' Explicit bounds (overrides Option Base)
-//! Dim arr3(10 To 20) As Integer
-//! Debug.Print LBound(arr3)         ' 10
-//! Debug.Print UBound(arr3)         ' 20
-//! ```
-//!
-//! ## Array Size Calculation
-//!
-//! ```vb
-//! ' Correct way to get array size
-//! Function GetArraySize(arr As Variant) As Long
-//!     If Not IsArray(arr) Then
-//!         GetArraySize = 0
-//!     Else
-//!         GetArraySize = UBound(arr) - LBound(arr) + 1
-//!     End If
-//! End Function
-//!
-//! ' Examples
-//! Dim a(0 To 10) As Integer       ' Size = 11
-//! Dim b(1 To 10) As Integer       ' Size = 10
-//! Dim c(5 To 15) As Integer       ' Size = 11
-//!
-//! Debug.Print GetArraySize(a)     ' 11
-//! Debug.Print GetArraySize(b)     ' 10
-//! Debug.Print GetArraySize(c)     ' 11
-//! ```
-//!
-//! ## Platform and Version Notes
-//!
-//! - Available in all VB6 versions
-//! - Part of VBA core functions
-//! - Returns Long type
-//! - Works with all array types (Variant, typed, object arrays)
-//! - `ReDim` Preserve maintains lower bounds
-//! - `ParamArray` always has ```LBound = 0```
-//!
-//! ## Limitations
-//!
-//! - Cannot modify array bounds (use `ReDim` for that)
-//! - Raises error for undimensioned dynamic arrays
-//! - Dimension parameter must be valid (1 to number of dimensions)
-//! - Cannot determine if array is fixed-size or dynamic
-//! - No way to get all bounds at once (must call separately for each dimension)
-//!
-//! ## Related Functions
-//!
-//! - `UBound`: Get upper bound of array dimension
-//! - `IsArray`: Check if variable is an array
-//! - `ReDim`: Redimension dynamic array
-//! - `Array`: Create Variant array
-//! - `Split`: Create array from delimited string
 
 #[cfg(test)]
 mod tests {

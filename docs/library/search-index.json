@@ -25,7 +25,7 @@
     "type": "function",
     "category": "Arrays",
     "url": "functions/arrays/lbound.html",
-    "description": "LBound Function Returns a Long containing the smallest available subscript for the indicated dimension of an array. Syntax vb LBound(arrayname, dimension) Parameters - arrayname (Required): Name of th"
+    "description": "LBound Function Returns a Long containing the smallest available subscript for the indicated dimension of an array. Syntax text LBound(arrayname, dimension) Parameters - arrayname (Required): Name of "
   },
   {
     "name": "split",
