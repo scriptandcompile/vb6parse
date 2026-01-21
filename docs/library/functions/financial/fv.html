@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p><code>Fv</code> Function</p>
-<p>Returns a Double specifying the future value of an annuity based on periodic, fixed payments and a fixed interest rate.</p>
+            <p><code>Fv</code> Function
+Returns a Double specifying the future value of an annuity based on periodic, fixed payments and a fixed interest rate.</p>
 <h1 id="syntax">Syntax</h1>
 <pre><code class="language-vbnet">Fv(rate, nper, pmt[, pv[, type]])</code></pre>
 <h1 id="parameters">Parameters</h1>
@@ -75,472 +75,388 @@ Dim monthlyDeposit As Double
 Dim annualRate As Double
 Dim years As Integer
 Dim futureValue As Double
-
 monthlyDeposit = -100  &#x27; $100 per month (negative because it&#x27;s paid out)
 annualRate = 0.06      &#x27; 6% annual interest
 years = 10
-
 &#x27; Calculate future value
 futureValue = Fv(annualRate / 12, years * 12, monthlyDeposit)
 &#x27; Returns approximately $16,387.93
-
 &#x27; Calculate future value with initial deposit
 Dim initialDeposit As Double
 initialDeposit = -1000  &#x27; $1000 initial deposit
-
 futureValue = Fv(annualRate / 12, years * 12, monthlyDeposit, initialDeposit)
 &#x27; Returns approximately $18,193.97
-
 &#x27; Calculate with payments at beginning of period
 futureValue = Fv(annualRate / 12, years * 12, monthlyDeposit, initialDeposit, 1)
 &#x27; Returns approximately $18,284.68
-
 &#x27; Calculate investment growth with no regular payments
 Dim lumpSum As Double
 lumpSum = -5000  &#x27; $5000 one-time investment
-
 futureValue = Fv(0.08 / 12, 5 * 12, 0, lumpSum)
 &#x27; Returns approximately $7,449.23 (compound interest on lump sum)</code></pre>
 <h1 id="common-patterns">Common Patterns</h1>
 <h2 id="1-monthly-savings-calculator">1. Monthly Savings Calculator</h2>
 <pre><code class="language-vbnet">Function CalculateSavings(monthlyAmount As Double, years As Integer, _
-annualRate As Double) As Double
-Dim monthlyRate As Double
-Dim periods As Integer
-
-monthlyRate = annualRate / 12
-periods = years * 12
-
-&#x27; Negative because it&#x27;s money paid out
-CalculateSavings = Fv(monthlyRate, periods, -monthlyAmount)
+                          annualRate As Double) As Double
+    Dim monthlyRate As Double
+    Dim periods As Integer
+    monthlyRate = annualRate / 12
+    periods = years * 12
+    &#x27; Negative because it&#x27;s money paid out
+    CalculateSavings = Fv(monthlyRate, periods, -monthlyAmount)
 End Function
-
 &#x27; Usage
 Dim savings As Double
 savings = CalculateSavings(200, 20, 0.07)  &#x27; $200/month, 20 years, 7%
 MsgBox &quot;Future value: &quot; &amp; FormatCurrency(savings)</code></pre>
 <h2 id="2-retirement-planning">2. Retirement Planning</h2>
 <pre><code class="language-vbnet">Function CalculateRetirementFund(monthlyContribution As Double, _
-currentAge As Integer, _
-retirementAge As Integer, _
-currentBalance As Double, _
-expectedReturn As Double) As Double
-Dim years As Integer
-Dim periods As Integer
-Dim monthlyRate As Double
-
-years = retirementAge - currentAge
-periods = years * 12
-monthlyRate = expectedReturn / 12
-
-CalculateRetirementFund = Fv(monthlyRate, periods, _
--monthlyContribution, _
--currentBalance)
+                                 currentAge As Integer, _
+                                 retirementAge As Integer, _
+                                 currentBalance As Double, _
+                                 expectedReturn As Double) As Double
+    Dim years As Integer
+    Dim periods As Integer
+    Dim monthlyRate As Double
+    years = retirementAge - currentAge
+    periods = years * 12
+    monthlyRate = expectedReturn / 12
+    CalculateRetirementFund = Fv(monthlyRate, periods, _
+                                 -monthlyContribution, _
+                                 -currentBalance)
 End Function
-
 &#x27; Usage
 Dim retirementValue As Double
 retirementValue = CalculateRetirementFund(500, 30, 65, 10000, 0.08)
 Debug.Print &quot;Retirement fund at 65: &quot; &amp; FormatCurrency(retirementValue)</code></pre>
 <h2 id="3-college-savings-plan">3. College Savings Plan</h2>
 <pre><code class="language-vbnet">Function CollegeSavingsPlan(yearsUntilCollege As Integer, _
-monthlyDeposit As Double, _
-initialAmount As Double, _
-expectedRate As Double) As Double
-Dim monthlyRate As Double
-Dim periods As Integer
-
-monthlyRate = expectedRate / 12
-periods = yearsUntilCollege * 12
-
-CollegeSavingsPlan = Fv(monthlyRate, periods, _
--monthlyDeposit, _
--initialAmount)
+                            monthlyDeposit As Double, _
+                            initialAmount As Double, _
+                            expectedRate As Double) As Double
+    Dim monthlyRate As Double
+    Dim periods As Integer
+    monthlyRate = expectedRate / 12
+    periods = yearsUntilCollege * 12
+    CollegeSavingsPlan = Fv(monthlyRate, periods, _
+                            -monthlyDeposit, _
+                            -initialAmount)
 End Function
-
 &#x27; Usage
 Dim collegeFund As Double
 collegeFund = CollegeSavingsPlan(18, 250, 5000, 0.06)
 MsgBox &quot;College fund in 18 years: &quot; &amp; FormatCurrency(collegeFund)</code></pre>
 <h2 id="4-investment-comparison">4. Investment Comparison</h2>
 <pre><code class="language-vbnet">Sub CompareInvestments()
-Dim option1 As Double
-Dim option2 As Double
-Dim years As Integer
-
-years = 10
-
-&#x27; Option 1: $100/month at 6%
-option1 = Fv(0.06 / 12, years * 12, -100)
-
-&#x27; Option 2: $50/month at 8%
-option2 = Fv(0.08 / 12, years * 12, -50)
-
-Debug.Print &quot;Option 1 (6%): &quot; &amp; FormatCurrency(option1)
-Debug.Print &quot;Option 2 (8%): &quot; &amp; FormatCurrency(option2)
-
-If option1 &gt; option2 Then
-Debug.Print &quot;Option 1 is better&quot;
-Else
-Debug.Print &quot;Option 2 is better&quot;
-End If
+    Dim option1 As Double
+    Dim option2 As Double
+    Dim years As Integer
+    years = 10
+    &#x27; Option 1: $100/month at 6%
+    option1 = Fv(0.06 / 12, years * 12, -100)
+    &#x27; Option 2: $50/month at 8%
+    option2 = Fv(0.08 / 12, years * 12, -50)
+    Debug.Print &quot;Option 1 (6%): &quot; &amp; FormatCurrency(option1)
+    Debug.Print &quot;Option 2 (8%): &quot; &amp; FormatCurrency(option2)
+    If option1 &gt; option2 Then
+        Debug.Print &quot;Option 1 is better&quot;
+    Else
+        Debug.Print &quot;Option 2 is better&quot;
+    End If
 End Sub</code></pre>
 <h2 id="5-compound-interest-calculator">5. Compound Interest Calculator</h2>
 <pre><code class="language-vbnet">Function CompoundInterest(principal As Double, rate As Double, _
-years As Integer, _
-Optional compoundFrequency As Integer = 12) As Double
-Dim periods As Integer
-Dim periodRate As Double
-
-periods = years * compoundFrequency
-periodRate = rate / compoundFrequency
-
-&#x27; No periodic payment, just compound the principal
-CompoundInterest = Fv(periodRate, periods, 0, -principal)
+                         years As Integer, _
+                         Optional compoundFrequency As Integer = 12) As Double
+    Dim periods As Integer
+    Dim periodRate As Double
+    periods = years * compoundFrequency
+    periodRate = rate / compoundFrequency
+    &#x27; No periodic payment, just compound the principal
+    CompoundInterest = Fv(periodRate, periods, 0, -principal)
 End Function
-
 &#x27; Usage
 Dim finalAmount As Double
 finalAmount = CompoundInterest(10000, 0.05, 10, 12)  &#x27; Monthly compounding
 Debug.Print &quot;Principal grows to: &quot; &amp; FormatCurrency(finalAmount)</code></pre>
 <h2 id="6-savings-goal-calculator">6. Savings Goal Calculator</h2>
 <pre><code class="language-vbnet">Function MonthlyDepositNeeded(targetAmount As Double, _
-years As Integer, _
-rate As Double, _
-Optional startingBalance As Double = 0) As Double
-&#x27; This is the inverse - given FV, find PMT
-&#x27; Using trial and error or formula
-Dim monthlyRate As Double
-Dim periods As Integer
-
-monthlyRate = rate / 12
-periods = years * 12
-
-&#x27; Use Pmt function instead for accurate calculation
-&#x27; This example shows how Fv relates to the goal
-Dim testPayment As Double
-testPayment = 100
-
-Do While Fv(monthlyRate, periods, -testPayment, -startingBalance) &lt; targetAmount
-testPayment = testPayment + 10
-Loop
-
-MonthlyDepositNeeded = testPayment
+                              years As Integer, _
+                              rate As Double, _
+                              Optional startingBalance As Double = 0) As Double
+    &#x27; This is the inverse - given FV, find PMT
+    &#x27; Using trial and error or formula
+    Dim monthlyRate As Double
+    Dim periods As Integer
+    monthlyRate = rate / 12
+    periods = years * 12
+    &#x27; Use Pmt function instead for accurate calculation
+    &#x27; This example shows how Fv relates to the goal
+    Dim testPayment As Double
+    testPayment = 100
+    Do While Fv(monthlyRate, periods, -testPayment, -startingBalance) &lt; targetAmount
+        testPayment = testPayment + 10
+    Loop
+    MonthlyDepositNeeded = testPayment
 End Function</code></pre>
 <h2 id="7-annuity-future-value">7. Annuity Future Value</h2>
 <pre><code class="language-vbnet">Function AnnuityFutureValue(payment As Double, rate As Double, _
-years As Integer, _
-paymentTiming As Integer) As Double
-&#x27; paymentTiming: 0 = end of period, 1 = beginning of period
-Dim periods As Integer
-
-periods = years
-AnnuityFutureValue = Fv(rate, periods, -payment, 0, paymentTiming)
+                            years As Integer, _
+                            paymentTiming As Integer) As Double
+    &#x27; paymentTiming: 0 = end of period, 1 = beginning of period
+    Dim periods As Integer
+    periods = years
+    AnnuityFutureValue = Fv(rate, periods, -payment, 0, paymentTiming)
 End Function
-
 &#x27; Usage
 Dim fvOrdinary As Double
 Dim fvDue As Double
-
 fvOrdinary = AnnuityFutureValue(1000, 0.05, 10, 0)  &#x27; Ordinary annuity
 fvDue = AnnuityFutureValue(1000, 0.05, 10, 1)       &#x27; Annuity due
-
 Debug.Print &quot;Ordinary annuity FV: &quot; &amp; FormatCurrency(fvOrdinary)
 Debug.Print &quot;Annuity due FV: &quot; &amp; FormatCurrency(fvDue)</code></pre>
 <h2 id="8-investment-portfolio-projection">8. Investment Portfolio Projection</h2>
 <pre><code class="language-vbnet">Type PortfolioProjection
-Years As Integer
-FutureValue As Double
+    Years As Integer
+    FutureValue As Double
 End Type
-
 Function ProjectPortfolio(monthlyDeposit As Double, _
-startingBalance As Double, _
-rate As Double, _
-maxYears As Integer) As PortfolioProjection()
-Dim projections() As PortfolioProjection
-Dim i As Integer
-Dim monthlyRate As Double
-
-ReDim projections(1 To maxYears)
-monthlyRate = rate / 12
-
-For i = 1 To maxYears
-projections(i).Years = i
-projections(i).FutureValue = Fv(monthlyRate, i * 12, _
--monthlyDeposit, _
--startingBalance)
-Next i
-
-ProjectPortfolio = projections
+                         startingBalance As Double, _
+                         rate As Double, _
+                         maxYears As Integer) As PortfolioProjection()
+    Dim projections() As PortfolioProjection
+    Dim i As Integer
+    Dim monthlyRate As Double
+    ReDim projections(1 To maxYears)
+    monthlyRate = rate / 12
+    For i = 1 To maxYears
+        projections(i).Years = i
+        projections(i).FutureValue = Fv(monthlyRate, i * 12, _
+                                        -monthlyDeposit, _
+                                        -startingBalance)
+    Next i
+    ProjectPortfolio = projections
 End Function</code></pre>
 <h2 id="9-loan-payoff-calculator-inverse-use">9. Loan Payoff Calculator (Inverse Use)</h2>
 <pre><code class="language-vbnet">Sub AnalyzeLoanPayoff()
-Dim loanAmount As Double
-Dim monthlyPayment As Double
-Dim annualRate As Double
-Dim years As Integer
-Dim remainingBalance As Double
-
-loanAmount = 200000     &#x27; Initial loan
-monthlyPayment = 1200   &#x27; Monthly payment
-annualRate = 0.045      &#x27; 4.5% APR
-years = 5               &#x27; After 5 years
-
-&#x27; Future value will be negative (debt remaining)
-remainingBalance = -Fv(annualRate / 12, years * 12, _
-monthlyPayment, -loanAmount)
-
-Debug.Print &quot;Remaining balance after &quot; &amp; years &amp; &quot; years: &quot; &amp; _
-FormatCurrency(remainingBalance)
+    Dim loanAmount As Double
+    Dim monthlyPayment As Double
+    Dim annualRate As Double
+    Dim years As Integer
+    Dim remainingBalance As Double
+    loanAmount = 200000     &#x27; Initial loan
+    monthlyPayment = 1200   &#x27; Monthly payment
+    annualRate = 0.045      &#x27; 4.5% APR
+    years = 5               &#x27; After 5 years
+    &#x27; Future value will be negative (debt remaining)
+    remainingBalance = -Fv(annualRate / 12, years * 12, _
+                          monthlyPayment, -loanAmount)
+    Debug.Print &quot;Remaining balance after &quot; &amp; years &amp; &quot; years: &quot; &amp; _
+                FormatCurrency(remainingBalance)
 End Sub</code></pre>
 <h2 id="10-recurring-deposit-calculator">10. Recurring Deposit Calculator</h2>
 <pre><code class="language-vbnet">Sub RecurringDepositCalculator()
-Dim deposit As Double
-Dim rate As Double
-Dim quarters As Integer
-Dim maturityValue As Double
-
-deposit = 500           &#x27; Quarterly deposit
-rate = 0.06 / 4        &#x27; Quarterly rate (6% annual)
-quarters = 20          &#x27; 5 years
-
-maturityValue = Fv(rate, quarters, -deposit)
-
-Debug.Print &quot;Maturity value: &quot; &amp; FormatCurrency(maturityValue)
-Debug.Print &quot;Total deposits: &quot; &amp; FormatCurrency(deposit * quarters)
-Debug.Print &quot;Interest earned: &quot; &amp; _
-FormatCurrency(maturityValue - (deposit * quarters))
+    Dim deposit As Double
+    Dim rate As Double
+    Dim quarters As Integer
+    Dim maturityValue As Double
+    deposit = 500           &#x27; Quarterly deposit
+    rate = 0.06 / 4        &#x27; Quarterly rate (6% annual)
+    quarters = 20          &#x27; 5 years
+    maturityValue = Fv(rate, quarters, -deposit)
+    Debug.Print &quot;Maturity value: &quot; &amp; FormatCurrency(maturityValue)
+    Debug.Print &quot;Total deposits: &quot; &amp; FormatCurrency(deposit * quarters)
+    Debug.Print &quot;Interest earned: &quot; &amp; _
+                FormatCurrency(maturityValue - (deposit * quarters))
 End Sub</code></pre>
 <h1 id="advanced-usage">Advanced Usage</h1>
 <h2 id="1-flexible-savings-calculator-with-ui">1. Flexible Savings Calculator with UI</h2>
 <pre><code class="language-vbnet">Sub CalculateAndDisplay()
-Dim monthlyDeposit As Double
-Dim years As Integer
-Dim annualRate As Double
-Dim initialBalance As Double
-Dim paymentType As Integer
-Dim futureValue As Double
-
-&#x27; Get inputs from form controls
-monthlyDeposit = CDbl(txtMonthlyDeposit.Text)
-years = CInt(txtYears.Text)
-annualRate = CDbl(txtRate.Text) / 100
-initialBalance = CDbl(txtInitialBalance.Text)
-
-&#x27; Check if payments at beginning or end
-paymentType = IIf(chkBeginning.Value = 1, 1, 0)
-
-&#x27; Calculate
-futureValue = Fv(annualRate / 12, years * 12, _
--monthlyDeposit, _
--initialBalance, _
-paymentType)
-
-&#x27; Display result
-lblResult.Caption = &quot;Future Value: &quot; &amp; FormatCurrency(futureValue, 2)
-
-&#x27; Calculate total contributions
-Dim totalContributions As Double
-totalContributions = initialBalance + (monthlyDeposit * years * 12)
-
-&#x27; Calculate interest earned
-Dim interestEarned As Double
-interestEarned = futureValue - totalContributions
-
-lblTotalDeposits.Caption = &quot;Total Deposits: &quot; &amp; _
-FormatCurrency(totalContributions, 2)
-lblInterest.Caption = &quot;Interest Earned: &quot; &amp; _
-FormatCurrency(interestEarned, 2)
+    Dim monthlyDeposit As Double
+    Dim years As Integer
+    Dim annualRate As Double
+    Dim initialBalance As Double
+    Dim paymentType As Integer
+    Dim futureValue As Double
+    &#x27; Get inputs from form controls
+    monthlyDeposit = CDbl(txtMonthlyDeposit.Text)
+    years = CInt(txtYears.Text)
+    annualRate = CDbl(txtRate.Text) / 100
+    initialBalance = CDbl(txtInitialBalance.Text)
+    &#x27; Check if payments at beginning or end
+    paymentType = IIf(chkBeginning.Value = 1, 1, 0)
+    &#x27; Calculate
+    futureValue = Fv(annualRate / 12, years * 12, _
+                    -monthlyDeposit, _
+                    -initialBalance, _
+                    paymentType)
+    &#x27; Display result
+    lblResult.Caption = &quot;Future Value: &quot; &amp; FormatCurrency(futureValue, 2)
+    &#x27; Calculate total contributions
+    Dim totalContributions As Double
+    totalContributions = initialBalance + (monthlyDeposit * years * 12)
+    &#x27; Calculate interest earned
+    Dim interestEarned As Double
+    interestEarned = futureValue - totalContributions
+    lblTotalDeposits.Caption = &quot;Total Deposits: &quot; &amp; _
+                               FormatCurrency(totalContributions, 2)
+    lblInterest.Caption = &quot;Interest Earned: &quot; &amp; _
+                         FormatCurrency(interestEarned, 2)
 End Sub</code></pre>
 <h2 id="2-scenario-analysis">2. Scenario Analysis</h2>
 <pre><code class="language-vbnet">Sub AnalyzeScenarios()
-Dim rates() As Double
-Dim deposit As Double
-Dim years As Integer
-Dim i As Integer
-
-deposit = 300
-years = 15
-rates = Array(0.04, 0.06, 0.08, 0.10)  &#x27; Different return scenarios
-
-Debug.Print &quot;Scenario Analysis for $&quot; &amp; deposit &amp; &quot;/month over &quot; &amp; years &amp; &quot; years:&quot;
-Debug.Print String(60, &quot;=&quot;)
-
-For i = LBound(rates) To UBound(rates)
-Dim fv As Double
-fv = Fv(rates(i) / 12, years * 12, -deposit)
-
-Debug.Print &quot;At &quot; &amp; FormatPercent(rates(i), 0) &amp; &quot;: &quot; &amp; _
-FormatCurrency(fv, 2) &amp; &quot; (gain: &quot; &amp; _
-FormatCurrency(fv - (deposit * years * 12), 2) &amp; &quot;)&quot;
-Next i
+    Dim rates() As Double
+    Dim deposit As Double
+    Dim years As Integer
+    Dim i As Integer
+    deposit = 300
+    years = 15
+    rates = Array(0.04, 0.06, 0.08, 0.10)  &#x27; Different return scenarios
+    Debug.Print &quot;Scenario Analysis for $&quot; &amp; deposit &amp; &quot;/month over &quot; &amp; years &amp; &quot; years:&quot;
+    Debug.Print String(60, &quot;=&quot;)
+    For i = LBound(rates) To UBound(rates)
+        Dim fv As Double
+        fv = Fv(rates(i) / 12, years * 12, -deposit)
+        Debug.Print &quot;At &quot; &amp; FormatPercent(rates(i), 0) &amp; &quot;: &quot; &amp; _
+                   FormatCurrency(fv, 2) &amp; &quot; (gain: &quot; &amp; _
+                   FormatCurrency(fv - (deposit * years * 12), 2) &amp; &quot;)&quot;
+    Next i
 End Sub</code></pre>
 <h2 id="3-goal-based-planning">3. Goal-Based Planning</h2>
 <pre><code class="language-vbnet">Function YearsToReachGoal(targetAmount As Double, _
-monthlyDeposit As Double, _
-startingBalance As Double, _
-annualRate As Double) As Double
-Dim years As Double
-Dim fv As Double
-Dim monthlyRate As Double
-
-monthlyRate = annualRate / 12
-years = 1
-
-Do While years &lt;= 50  &#x27; Max 50 years
-fv = Fv(monthlyRate, years * 12, -monthlyDeposit, -startingBalance)
-
-If fv &gt;= targetAmount Then
-YearsToReachGoal = years
-Exit Function
-End If
-
-years = years + 0.25  &#x27; Check quarterly
-Loop
-
-YearsToReachGoal = -1  &#x27; Goal not reachable
+                          monthlyDeposit As Double, _
+                          startingBalance As Double, _
+                          annualRate As Double) As Double
+    Dim years As Double
+    Dim fv As Double
+    Dim monthlyRate As Double
+    monthlyRate = annualRate / 12
+    years = 1
+    Do While years &lt;= 50  &#x27; Max 50 years
+        fv = Fv(monthlyRate, years * 12, -monthlyDeposit, -startingBalance)
+        If fv &gt;= targetAmount Then
+            YearsToReachGoal = years
+            Exit Function
+        End If
+        years = years + 0.25  &#x27; Check quarterly
+    Loop
+    YearsToReachGoal = -1  &#x27; Goal not reachable
 End Function
-
 &#x27; Usage
 Dim yearsNeeded As Double
 yearsNeeded = YearsToReachGoal(500000, 1000, 50000, 0.07)
-
 If yearsNeeded &gt; 0 Then
-MsgBox &quot;You will reach your goal in &quot; &amp; Format(yearsNeeded, &quot;0.0&quot;) &amp; &quot; years&quot;
+    MsgBox &quot;You will reach your goal in &quot; &amp; Format(yearsNeeded, &quot;0.0&quot;) &amp; &quot; years&quot;
 Else
-MsgBox &quot;Goal not reachable with current parameters&quot;
+    MsgBox &quot;Goal not reachable with current parameters&quot;
 End If</code></pre>
 <h2 id="4-monte-carlo-simulation">4. Monte Carlo Simulation</h2>
 <pre><code class="language-vbnet">Function SimulateFutureValue(deposit As Double, years As Integer, _
-avgRate As Double, volatility As Double, _
-simulations As Integer) As Variant
-Dim results() As Double
-Dim i As Integer
-Dim simulatedRate As Double
-
-ReDim results(1 To simulations)
-Randomize
-
-For i = 1 To simulations
-&#x27; Simple random variation around average rate
-simulatedRate = avgRate + ((Rnd() - 0.5) * 2 * volatility)
-
-&#x27; Ensure rate doesn&#x27;t go negative
-If simulatedRate &lt; 0 Then simulatedRate = 0
-
-results(i) = Fv(simulatedRate / 12, years * 12, -deposit)
-Next i
-
-SimulateFutureValue = results
+                             avgRate As Double, volatility As Double, _
+                             simulations As Integer) As Variant
+    Dim results() As Double
+    Dim i As Integer
+    Dim simulatedRate As Double
+    ReDim results(1 To simulations)
+    Randomize
+    For i = 1 To simulations
+        &#x27; Simple random variation around average rate
+        simulatedRate = avgRate + ((Rnd() - 0.5) * 2 * volatility)
+        &#x27; Ensure rate doesn&#x27;t go negative
+        If simulatedRate &lt; 0 Then simulatedRate = 0
+        results(i) = Fv(simulatedRate / 12, years * 12, -deposit)
+    Next i
+    SimulateFutureValue = results
 End Function
-
 &#x27; Analyze results
 Sub AnalyzeSimulation()
-Dim results As Variant
-Dim avg As Double, minVal As Double, maxVal As Double
-Dim i As Integer
-
-results = SimulateFutureValue(500, 20, 0.07, 0.02, 1000)
-
-avg = 0
-minVal = 1E+308
-maxVal = -1E+308
-
-For i = 1 To UBound(results)
-avg = avg + results(i)
-If results(i) &lt; minVal Then minVal = results(i)
-If results(i) &gt; maxVal Then maxVal = results(i)
-Next i
-
-avg = avg / UBound(results)
-
-Debug.Print &quot;Average FV: &quot; &amp; FormatCurrency(avg, 2)
-Debug.Print &quot;Min FV: &quot; &amp; FormatCurrency(minVal, 2)
-Debug.Print &quot;Max FV: &quot; &amp; FormatCurrency(maxVal, 2)
+    Dim results As Variant
+    Dim avg As Double, minVal As Double, maxVal As Double
+    Dim i As Integer
+    results = SimulateFutureValue(500, 20, 0.07, 0.02, 1000)
+    avg = 0
+    minVal = 1E+308
+    maxVal = -1E+308
+    For i = 1 To UBound(results)
+        avg = avg + results(i)
+        If results(i) &lt; minVal Then minVal = results(i)
+        If results(i) &gt; maxVal Then maxVal = results(i)
+    Next i
+    avg = avg / UBound(results)
+    Debug.Print &quot;Average FV: &quot; &amp; FormatCurrency(avg, 2)
+    Debug.Print &quot;Min FV: &quot; &amp; FormatCurrency(minVal, 2)
+    Debug.Print &quot;Max FV: &quot; &amp; FormatCurrency(maxVal, 2)
 End Sub</code></pre>
 <h2 id="5-tax-advantaged-account-calculator">5. Tax-Advantaged Account Calculator</h2>
 <pre><code class="language-vbnet">Function TaxAdvantaged401k(salary As Double, contributionPct As Double, _
-employerMatch As Double, years As Integer, _
-currentBalance As Double, rate As Double) As Double
-Dim monthlyContribution As Double
-Dim monthlyEmployerMatch As Double
-Dim totalMonthlyDeposit As Double
-
-&#x27; Calculate monthly contributions
-monthlyContribution = (salary * contributionPct) / 12
-monthlyEmployerMatch = (salary * employerMatch) / 12
-totalMonthlyDeposit = monthlyContribution + monthlyEmployerMatch
-
-TaxAdvantaged401k = Fv(rate / 12, years * 12, _
--totalMonthlyDeposit, _
--currentBalance)
+                           employerMatch As Double, years As Integer, _
+                           currentBalance As Double, rate As Double) As Double
+    Dim monthlyContribution As Double
+    Dim monthlyEmployerMatch As Double
+    Dim totalMonthlyDeposit As Double
+    &#x27; Calculate monthly contributions
+    monthlyContribution = (salary * contributionPct) / 12
+    monthlyEmployerMatch = (salary * employerMatch) / 12
+    totalMonthlyDeposit = monthlyContribution + monthlyEmployerMatch
+    TaxAdvantaged401k = Fv(rate / 12, years * 12, _
+                           -totalMonthlyDeposit, _
+                           -currentBalance)
 End Function
-
 &#x27; Usage
 Dim retirement401k As Double
 retirement401k = TaxAdvantaged401k(75000, 0.06, 0.03, 30, 25000, 0.08)
 Debug.Print &quot;401(k) at retirement: &quot; &amp; FormatCurrency(retirement401k, 2)</code></pre>
 <h2 id="6-education-savings-with-increasing-contributions">6. Education Savings with Increasing Contributions</h2>
 <pre><code class="language-vbnet">Function EducationSavingsWithIncrease(initialMonthly As Double, _
-annualIncrease As Double, _
-years As Integer, _
-rate As Double) As Double
-Dim yearlyFV As Double
-Dim currentMonthly As Double
-Dim i As Integer
-
-yearlyFV = 0
-currentMonthly = initialMonthly
-
-For i = 1 To years
-&#x27; Calculate FV for this year&#x27;s contributions
-Dim yearContribution As Double
-yearContribution = Fv(rate / 12, (years - i + 1) * 12, _
--currentMonthly)
-
-yearlyFV = yearlyFV + yearContribution
-
-&#x27; Increase for next year
-currentMonthly = currentMonthly * (1 + annualIncrease)
-Next i
-
-EducationSavingsWithIncrease = yearlyFV
+                                      annualIncrease As Double, _
+                                      years As Integer, _
+                                      rate As Double) As Double
+    Dim yearlyFV As Double
+    Dim currentMonthly As Double
+    Dim i As Integer
+    yearlyFV = 0
+    currentMonthly = initialMonthly
+    For i = 1 To years
+        &#x27; Calculate FV for this year&#x27;s contributions
+        Dim yearContribution As Double
+        yearContribution = Fv(rate / 12, (years - i + 1) * 12, _
+                             -currentMonthly)
+        yearlyFV = yearlyFV + yearContribution
+        &#x27; Increase for next year
+        currentMonthly = currentMonthly * (1 + annualIncrease)
+    Next i
+    EducationSavingsWithIncrease = yearlyFV
 End Function</code></pre>
 <h1 id="error-handling">Error Handling</h1>
 <pre><code class="language-vbnet">Function SafeFv(rate As Double, nper As Integer, pmt As Double, _
-Optional pv As Variant, Optional pType As Variant) As Variant
-On Error GoTo ErrorHandler
-
-&#x27; Validate inputs
-If nper &lt;= 0 Then
-SafeFv = &quot;Error: Number of periods must be positive&quot;
-Exit Function
-End If
-
-If rate &lt;= -1 Then
-SafeFv = &quot;Error: Rate must be greater than -100%&quot;
-Exit Function
-End If
-
-&#x27; Set defaults
-If IsMissing(pv) Then pv = 0
-If IsMissing(pType) Then pType = 0
-
-&#x27; Calculate
-SafeFv = Fv(rate, nper, pmt, pv, pType)
-Exit Function
-
+                Optional pv As Variant, Optional pType As Variant) As Variant
+    On Error GoTo ErrorHandler
+    &#x27; Validate inputs
+    If nper &lt;= 0 Then
+        SafeFv = &quot;Error: Number of periods must be positive&quot;
+        Exit Function
+    End If
+    If rate &lt;= -1 Then
+        SafeFv = &quot;Error: Rate must be greater than -100%&quot;
+        Exit Function
+    End If
+    &#x27; Set defaults
+    If IsMissing(pv) Then pv = 0
+    If IsMissing(pType) Then pType = 0
+    &#x27; Calculate
+    SafeFv = Fv(rate, nper, pmt, pv, pType)
+    Exit Function
 ErrorHandler:
-Select Case Err.Number
-Case 5  &#x27; Invalid procedure call
-SafeFv = &quot;Error: Invalid arguments&quot;
-Case 6  &#x27; Overflow
-SafeFv = &quot;Error: Result too large&quot;
-Case 13  &#x27; Type mismatch
-SafeFv = &quot;Error: Invalid data types&quot;
-Case Else
-SafeFv = &quot;Error: &quot; &amp; Err.Description
-End Select
+    Select Case Err.Number
+        Case 5  &#x27; Invalid procedure call
+            SafeFv = &quot;Error: Invalid arguments&quot;
+        Case 6  &#x27; Overflow
+            SafeFv = &quot;Error: Result too large&quot;
+        Case 13  &#x27; Type mismatch
+            SafeFv = &quot;Error: Invalid data types&quot;
+        Case Else
+            SafeFv = &quot;Error: &quot; &amp; Err.Description
+    End Select
 End Function</code></pre>
 <p>Common errors:
 - <strong>Error 5 (Invalid procedure call)</strong>: Invalid argument values (e.g., negative periods).
@@ -568,19 +484,16 @@ End Function</code></pre>
 <h2 id="fv-vs-pv"><code>Fv</code> vs <code>Pv</code></h2>
 <pre><code class="language-vbnet">&#x27; Fv: Future value of an investment
 futureValue = Fv(0.06 / 12, 10 * 12, -100)  &#x27; What will I have?
-
 &#x27; Pv: Present value of an investment
 presentValue = Pv(0.06 / 12, 10 * 12, -100)  &#x27; What is it worth today?</code></pre>
 <h2 id="fv-vs-nper"><code>Fv</code> vs <code>NPer</code></h2>
 <pre><code class="language-vbnet">&#x27; Fv: Calculate future value given payments
 fv = Fv(0.05 / 12, 120, -100)
-
 &#x27; NPer: Calculate periods needed to reach a goal
 periods = NPer(0.05 / 12, -100, 0, 16000)  &#x27; How long to reach $16,000?</code></pre>
 <h2 id="fv-vs-pmt">Fv vs Pmt</h2>
 <pre><code class="language-vbnet">&#x27; Fv: Calculate future value given payment amount
 fv = Fv(0.06 / 12, 120, -200)
-
 &#x27; Pmt: Calculate payment needed to reach future value
 payment = Pmt(0.06 / 12, 120, 0, -30000)  &#x27; How much to save for $30,000?</code></pre>
 <h1 id="limitations">Limitations</h1>
@@ -596,10 +509,8 @@ payment = Pmt(0.06 / 12, 120, 0, -30000)  &#x27; How much to save for $30,000?</
 <p>The future value calculation uses the formula:</p>
 <pre><code class="language-text">For type = 0 (payments at end of period):
 FV = -PV * (1 + rate)^nper - PMT * [((1 + rate)^nper - 1) / rate]
-
 For type = 1 (payments at beginning of period):
 FV = -PV * (1 + rate)^nper - PMT * [((1 + rate)^nper - 1) / rate] * (1 + rate)
-
 Special case when rate = 0:
 FV = -PV - PMT * nper</code></pre>
 <h1 id="related-functions">Related Functions</h1>

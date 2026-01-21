@@ -48,17 +48,15 @@
 <h2 id="return-value">Return Value</h2>
 <p>Returns an <code>Integer</code> from 0 to 23 representing the hour of the day. The hour is returned in 24-hour format (0 = midnight, 23 = 11 PM).</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>Hour</code> function extracts the hour component from a date/time value:</p>
-<ul>
-<li>Returns values from 0 (midnight) to 23 (11 PM)</li>
-<li>Uses 24-hour format, not 12-hour AM/PM format</li>
-<li>If <code>time</code> is <code>Null</code>, the function returns <code>Null</code></li>
-<li>If <code>time</code> contains only a date with no time component, returns 0</li>
-<li>Works with <code>Date</code> variables, time strings, and numeric date/time values</li>
-<li>Can be used with <code>Now</code>, <code>Time</code>, <code>TimeValue</code>, and other date/time functions</li>
-<li>For 12-hour format with AM/PM, use <code>Format$</code> function instead</li>
-<li>Complements <code>Minute</code> and <code>Second</code> functions for complete time extraction</li>
-</ul>
+<p>The <code>Hour</code> function extracts the hour component from a date/time value:
+- Returns values from 0 (midnight) to 23 (11 PM)
+- Uses 24-hour format, not 12-hour AM/PM format
+- If <code>time</code> is <code>Null</code>, the function returns <code>Null</code>
+- If <code>time</code> contains only a date with no time component, returns 0
+- Works with <code>Date</code> variables, time strings, and numeric date/time values
+- Can be used with <code>Now</code>, <code>Time</code>, <code>TimeValue</code>, and other date/time functions
+- For 12-hour format with AM/PM, use <code>Format$</code> function instead
+- Complements <code>Minute</code> and <code>Second</code> functions for complete time extraction</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Time-Based Logic</strong>: Determine if an event occurred during business hours</li>
@@ -73,16 +71,13 @@
 Dim currentHour As Integer
 currentHour = Hour(Now)
 Debug.Print &quot;Current hour: &quot; &amp; currentHour
-
 &#x27; Example 2: Extract hour from time string
 Dim h As Integer
 h = Hour(&quot;14:30:00&quot;)    &#x27; Returns 14 (2 PM)
-
 &#x27; Example 3: Check for business hours
 If Hour(Now) &gt;= 9 And Hour(Now) &lt; 17 Then
-Debug.Print &quot;Within business hours&quot;
+    Debug.Print &quot;Within business hours&quot;
 End If
-
 &#x27; Example 4: Get hour from Date variable
 Dim myDate As Date
 myDate = #1/15/2024 3:45:00 PM#
@@ -90,272 +85,225 @@ Debug.Print Hour(myDate)    &#x27; Returns 15</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Check if current time is within business hours
 Function IsBusinessHours() As Boolean
-Dim h As Integer
-h = Hour(Now)
-IsBusinessHours = (h &gt;= 9 And h &lt; 17)
+    Dim h As Integer
+    h = Hour(Now)
+    IsBusinessHours = (h &gt;= 9 And h &lt; 17)
 End Function
-
 &#x27; Pattern 2: Categorize time of day
 Function GetTimeOfDay() As String
-Dim h As Integer
-h = Hour(Now)
-
-If h &gt;= 0 And h &lt; 6 Then
-GetTimeOfDay = &quot;Night&quot;
-ElseIf h &gt;= 6 And h &lt; 12 Then
-GetTimeOfDay = &quot;Morning&quot;
-ElseIf h &gt;= 12 And h &lt; 18 Then
-GetTimeOfDay = &quot;Afternoon&quot;
-Else
-GetTimeOfDay = &quot;Evening&quot;
-End If
+    Dim h As Integer
+    h = Hour(Now)
+    If h &gt;= 0 And h &lt; 6 Then
+        GetTimeOfDay = &quot;Night&quot;
+    ElseIf h &gt;= 6 And h &lt; 12 Then
+        GetTimeOfDay = &quot;Morning&quot;
+    ElseIf h &gt;= 12 And h &lt; 18 Then
+        GetTimeOfDay = &quot;Afternoon&quot;
+    Else
+        GetTimeOfDay = &quot;Evening&quot;
+    End If
 End Function
-
 &#x27; Pattern 3: Format time in 12-hour format with AM/PM
 Function Format12Hour(timeValue As Date) As String
-Dim h As Integer
-Dim ampm As String
-
-h = Hour(timeValue)
-
-If h &gt;= 12 Then
-ampm = &quot;PM&quot;
-If h &gt; 12 Then h = h - 12
-Else
-ampm = &quot;AM&quot;
-If h = 0 Then h = 12
-End If
-
-Format12Hour = h &amp; &quot;:&quot; &amp; Right$(&quot;0&quot; &amp; Minute(timeValue), 2) &amp; &quot; &quot; &amp; ampm
+    Dim h As Integer
+    Dim ampm As String
+    h = Hour(timeValue)
+    If h &gt;= 12 Then
+        ampm = &quot;PM&quot;
+        If h &gt; 12 Then h = h - 12
+    Else
+        ampm = &quot;AM&quot;
+        If h = 0 Then h = 12
+    End If
+    Format12Hour = h &amp; &quot;:&quot; &amp; Right$(&quot;0&quot; &amp; Minute(timeValue), 2) &amp; &quot; &quot; &amp; ampm
 End Function
-
 &#x27; Pattern 4: Round time to nearest hour
 Function RoundToNearestHour(timeValue As Date) As Date
-If Minute(timeValue) &gt;= 30 Then
-RoundToNearestHour = DateSerial(Year(timeValue), Month(timeValue), Day(timeValue)) + _
-TimeSerial(Hour(timeValue) + 1, 0, 0)
-Else
-RoundToNearestHour = DateSerial(Year(timeValue), Month(timeValue), Day(timeValue)) + _
-TimeSerial(Hour(timeValue), 0, 0)
-End If
+    If Minute(timeValue) &gt;= 30 Then
+        RoundToNearestHour = DateSerial(Year(timeValue), Month(timeValue), Day(timeValue)) + _
+                             TimeSerial(Hour(timeValue) + 1, 0, 0)
+    Else
+        RoundToNearestHour = DateSerial(Year(timeValue), Month(timeValue), Day(timeValue)) + _
+                             TimeSerial(Hour(timeValue), 0, 0)
+    End If
 End Function
-
 &#x27; Pattern 5: Calculate hours elapsed
 Function HoursElapsed(startTime As Date, endTime As Date) As Integer
-Dim totalHours As Double
-totalHours = (endTime - startTime) * 24
-HoursElapsed = Int(totalHours)
+    Dim totalHours As Double
+    totalHours = (endTime - startTime) * 24
+    HoursElapsed = Int(totalHours)
 End Function
-
 &#x27; Pattern 6: Check if after specific hour
 Function IsAfterHour(checkTime As Date, hourThreshold As Integer) As Boolean
-IsAfterHour = (Hour(checkTime) &gt;= hourThreshold)
+    IsAfterHour = (Hour(checkTime) &gt;= hourThreshold)
 End Function
-
 &#x27; Pattern 7: Get hour range description
 Function GetHourRange(timeValue As Date) As String
-Dim h As Integer
-h = Hour(timeValue)
-GetHourRange = h &amp; &quot;:00 - &quot; &amp; h &amp; &quot;:59&quot;
+    Dim h As Integer
+    h = Hour(timeValue)
+    GetHourRange = h &amp; &quot;:00 - &quot; &amp; h &amp; &quot;:59&quot;
 End Function
-
 &#x27; Pattern 8: Validate time is within allowed hours
 Function IsWithinAllowedHours(checkTime As Date, startHour As Integer, endHour As Integer) As Boolean
-Dim h As Integer
-h = Hour(checkTime)
-
-If startHour &lt;= endHour Then
-IsWithinAllowedHours = (h &gt;= startHour And h &lt;= endHour)
-Else
-&#x27; Handle overnight range (e.g., 22:00 to 6:00)
-IsWithinAllowedHours = (h &gt;= startHour Or h &lt;= endHour)
-End If
+    Dim h As Integer
+    h = Hour(checkTime)
+    If startHour &lt;= endHour Then
+        IsWithinAllowedHours = (h &gt;= startHour And h &lt;= endHour)
+    Else
+        &#x27; Handle overnight range (e.g., 22:00 to 6:00)
+        IsWithinAllowedHours = (h &gt;= startHour Or h &lt;= endHour)
+    End If
 End Function
-
 &#x27; Pattern 9: Count hourly occurrences
 Sub CountByHour(timestamps() As Date, hourCounts() As Long)
-Dim i As Long
-Dim h As Integer
-
-ReDim hourCounts(0 To 23)
-
-For i = LBound(timestamps) To UBound(timestamps)
-h = Hour(timestamps(i))
-hourCounts(h) = hourCounts(h) + 1
-Next i
+    Dim i As Long
+    Dim h As Integer
+    ReDim hourCounts(0 To 23)
+    For i = LBound(timestamps) To UBound(timestamps)
+        h = Hour(timestamps(i))
+        hourCounts(h) = hourCounts(h) + 1
+    Next i
 End Sub
-
 &#x27; Pattern 10: Create time from hour
 Function CreateTimeFromHour(hourValue As Integer, Optional minuteValue As Integer = 0) As Date
-CreateTimeFromHour = TimeSerial(hourValue, minuteValue, 0)
+    CreateTimeFromHour = TimeSerial(hourValue, minuteValue, 0)
 End Function</code></pre>
 <h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Business hours scheduler
 Public Class BusinessScheduler
-Private Const BUSINESS_START As Integer = 9
-Private Const BUSINESS_END As Integer = 17
-Private Const LUNCH_START As Integer = 12
-Private Const LUNCH_END As Integer = 13
-
-Public Function IsAvailable(checkTime As Date) As Boolean
-Dim h As Integer
-h = Hour(checkTime)
-
-If h &lt; BUSINESS_START Or h &gt;= BUSINESS_END Then
-IsAvailable = False
-ElseIf h &gt;= LUNCH_START And h &lt; LUNCH_END Then
-IsAvailable = False
-Else
-IsAvailable = True
-End If
-End Function
-
-Public Function GetNextAvailableSlot(currentTime As Date) As Date
-Dim h As Integer
-Dim nextSlot As Date
-
-h = Hour(currentTime)
-
-If h &lt; BUSINESS_START Then
-nextSlot = DateSerial(Year(currentTime), Month(currentTime), Day(currentTime)) + _
-TimeSerial(BUSINESS_START, 0, 0)
-ElseIf h &gt;= LUNCH_START And h &lt; LUNCH_END Then
-nextSlot = DateSerial(Year(currentTime), Month(currentTime), Day(currentTime)) + _
-TimeSerial(LUNCH_END, 0, 0)
-ElseIf h &gt;= BUSINESS_END Then
-nextSlot = DateSerial(Year(currentTime), Month(currentTime), Day(currentTime) + 1) + _
-TimeSerial(BUSINESS_START, 0, 0)
-Else
-nextSlot = currentTime
-End If
-
-GetNextAvailableSlot = nextSlot
-End Function
+    Private Const BUSINESS_START As Integer = 9
+    Private Const BUSINESS_END As Integer = 17
+    Private Const LUNCH_START As Integer = 12
+    Private Const LUNCH_END As Integer = 13
+    Public Function IsAvailable(checkTime As Date) As Boolean
+        Dim h As Integer
+        h = Hour(checkTime)
+        If h &lt; BUSINESS_START Or h &gt;= BUSINESS_END Then
+            IsAvailable = False
+        ElseIf h &gt;= LUNCH_START And h &lt; LUNCH_END Then
+            IsAvailable = False
+        Else
+            IsAvailable = True
+        End If
+    End Function
+    Public Function GetNextAvailableSlot(currentTime As Date) As Date
+        Dim h As Integer
+        Dim nextSlot As Date
+        h = Hour(currentTime)
+        If h &lt; BUSINESS_START Then
+            nextSlot = DateSerial(Year(currentTime), Month(currentTime), Day(currentTime)) + _
+                       TimeSerial(BUSINESS_START, 0, 0)
+        ElseIf h &gt;= LUNCH_START And h &lt; LUNCH_END Then
+            nextSlot = DateSerial(Year(currentTime), Month(currentTime), Day(currentTime)) + _
+                       TimeSerial(LUNCH_END, 0, 0)
+        ElseIf h &gt;= BUSINESS_END Then
+            nextSlot = DateSerial(Year(currentTime), Month(currentTime), Day(currentTime) + 1) + _
+                       TimeSerial(BUSINESS_START, 0, 0)
+        Else
+            nextSlot = currentTime
+        End If
+        GetNextAvailableSlot = nextSlot
+    End Function
 End Class
-
 &#x27; Example 2: Hourly activity analyzer
 Public Class ActivityAnalyzer
-Private m_hourlyData(0 To 23) As Long
-
-Public Sub RecordActivity(activityTime As Date)
-Dim h As Integer
-h = Hour(activityTime)
-m_hourlyData(h) = m_hourlyData(h) + 1
-End Sub
-
-Public Function GetPeakHour() As Integer
-Dim i As Integer
-Dim maxCount As Long
-Dim peakHour As Integer
-
-maxCount = 0
-peakHour = 0
-
-For i = 0 To 23
-If m_hourlyData(i) &gt; maxCount Then
-maxCount = m_hourlyData(i)
-peakHour = i
-End If
-Next i
-
-GetPeakHour = peakHour
-End Function
-
-Public Function GetActivityInRange(startHour As Integer, endHour As Integer) As Long
-Dim i As Integer
-Dim total As Long
-
-total = 0
-For i = startHour To endHour
-total = total + m_hourlyData(i)
-Next i
-
-GetActivityInRange = total
-End Function
+    Private m_hourlyData(0 To 23) As Long
+    Public Sub RecordActivity(activityTime As Date)
+        Dim h As Integer
+        h = Hour(activityTime)
+        m_hourlyData(h) = m_hourlyData(h) + 1
+    End Sub
+    Public Function GetPeakHour() As Integer
+        Dim i As Integer
+        Dim maxCount As Long
+        Dim peakHour As Integer
+        maxCount = 0
+        peakHour = 0
+        For i = 0 To 23
+            If m_hourlyData(i) &gt; maxCount Then
+                maxCount = m_hourlyData(i)
+                peakHour = i
+            End If
+        Next i
+        GetPeakHour = peakHour
+    End Function
+    Public Function GetActivityInRange(startHour As Integer, endHour As Integer) As Long
+        Dim i As Integer
+        Dim total As Long
+        total = 0
+        For i = startHour To endHour
+            total = total + m_hourlyData(i)
+        Next i
+        GetActivityInRange = total
+    End Function
 End Class
-
 &#x27; Example 3: Time slot manager
 Public Class TimeSlotManager
-Private Type TimeSlot
-StartHour As Integer
-EndHour As Integer
-IsAvailable As Boolean
-End Type
-
-Private m_slots() As TimeSlot
-
-Public Sub Initialize()
-Dim i As Integer
-ReDim m_slots(0 To 23)
-
-For i = 0 To 23
-m_slots(i).StartHour = i
-m_slots(i).EndHour = i
-m_slots(i).IsAvailable = True
-Next i
-End Sub
-
-Public Function BookSlot(bookingTime As Date) As Boolean
-Dim h As Integer
-h = Hour(bookingTime)
-
-If m_slots(h).IsAvailable Then
-m_slots(h).IsAvailable = False
-BookSlot = True
-Else
-BookSlot = False
-End If
-End Function
-
-Public Function FindNextAvailable(afterTime As Date) As Integer
-Dim h As Integer
-Dim i As Integer
-
-h = Hour(afterTime)
-
-For i = h To 23
-If m_slots(i).IsAvailable Then
-FindNextAvailable = i
-Exit Function
-End If
-Next i
-
-FindNextAvailable = -1  &#x27; No available slots
-End Function
+    Private Type TimeSlot
+        StartHour As Integer
+        EndHour As Integer
+        IsAvailable As Boolean
+    End Type
+    Private m_slots() As TimeSlot
+    Public Sub Initialize()
+        Dim i As Integer
+        ReDim m_slots(0 To 23)
+        For i = 0 To 23
+            m_slots(i).StartHour = i
+            m_slots(i).EndHour = i
+            m_slots(i).IsAvailable = True
+        Next i
+    End Sub
+    Public Function BookSlot(bookingTime As Date) As Boolean
+        Dim h As Integer
+        h = Hour(bookingTime)
+        If m_slots(h).IsAvailable Then
+            m_slots(h).IsAvailable = False
+            BookSlot = True
+        Else
+            BookSlot = False
+        End If
+    End Function
+    Public Function FindNextAvailable(afterTime As Date) As Integer
+        Dim h As Integer
+        Dim i As Integer
+        h = Hour(afterTime)
+        For i = h To 23
+            If m_slots(i).IsAvailable Then
+                FindNextAvailable = i
+                Exit Function
+            End If
+        Next i
+        FindNextAvailable = -1  &#x27; No available slots
+    End Function
 End Class
-
 &#x27; Example 4: Shift time calculator
 Public Function CalculateShiftHours(clockIn As Date, clockOut As Date) As Double
-Dim totalHours As Double
-Dim inHour As Integer
-Dim outHour As Integer
-
-inHour = Hour(clockIn)
-outHour = Hour(clockOut)
-
-If clockOut &lt; clockIn Then
-&#x27; Overnight shift
-totalHours = (clockOut + 1 - clockIn) * 24
-Else
-totalHours = (clockOut - clockIn) * 24
-End If
-
-CalculateShiftHours = totalHours
+    Dim totalHours As Double
+    Dim inHour As Integer
+    Dim outHour As Integer
+    inHour = Hour(clockIn)
+    outHour = Hour(clockOut)
+    If clockOut &lt; clockIn Then
+        &#x27; Overnight shift
+        totalHours = (clockOut + 1 - clockIn) * 24
+    Else
+        totalHours = (clockOut - clockIn) * 24
+    End If
+    CalculateShiftHours = totalHours
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The Hour function can raise errors in certain situations:</p>
-<ul>
-<li><strong>Type Mismatch (Error 13)</strong>: If the argument cannot be interpreted as a date/time value</li>
-<li><strong>Invalid Procedure Call (Error 5)</strong>: If the date value is invalid</li>
-<li><strong>Null Propagation</strong>: If the argument is <code>Null</code>, the function returns <code>Null</code> (not an error)</li>
-</ul>
+<p>The Hour function can raise errors in certain situations:
+- <strong>Type Mismatch (Error 13)</strong>: If the argument cannot be interpreted as a date/time value
+- <strong>Invalid Procedure Call (Error 5)</strong>: If the date value is invalid
+- <strong>Null Propagation</strong>: If the argument is <code>Null</code>, the function returns <code>Null</code> (not an error)</p>
 <pre><code class="language-vbnet">On Error Resume Next
 Dim h As Integer
 h = Hour(someValue)
 If Err.Number &lt;&gt; 0 Then
-Debug.Print &quot;Error extracting hour: &quot; &amp; Err.Description
-h = 0  &#x27; Default value
-Err.Clear
+    Debug.Print &quot;Error extracting hour: &quot; &amp; Err.Description
+    h = 0  &#x27; Default value
+    Err.Clear
 End If
 On Error GoTo 0</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
@@ -420,32 +368,33 @@ On Error GoTo 0</code></pre>
 <td>Get day of week</td>
 <td>1-7</td>
 </tr>
+<tr>
+<td>## Conversion Examples</td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="conversion-examples">Conversion Examples</h2>
 <pre><code class="language-vbnet">&#x27; Convert 24-hour to 12-hour with AM/PM
 Function To12Hour(hour24 As Integer) As String
-Dim hour12 As Integer
-Dim ampm As String
-
-If hour24 &gt;= 12 Then
-ampm = &quot;PM&quot;
-hour12 = IIf(hour24 = 12, 12, hour24 - 12)
-Else
-ampm = &quot;AM&quot;
-hour12 = IIf(hour24 = 0, 12, hour24)
-End If
-
-To12Hour = hour12 &amp; &quot; &quot; &amp; ampm
+    Dim hour12 As Integer
+    Dim ampm As String
+    If hour24 &gt;= 12 Then
+        ampm = &quot;PM&quot;
+        hour12 = IIf(hour24 = 12, 12, hour24 - 12)
+    Else
+        ampm = &quot;AM&quot;
+        hour12 = IIf(hour24 = 0, 12, hour24)
+    End If
+    To12Hour = hour12 &amp; &quot; &quot; &amp; ampm
 End Function
-
 &#x27; Convert 12-hour to 24-hour
 Function To24Hour(hour12 As Integer, isPM As Boolean) As Integer
-If isPM Then
-To24Hour = IIf(hour12 = 12, 12, hour12 + 12)
-Else
-To24Hour = IIf(hour12 = 12, 0, hour12)
-End If
+    If isPM Then
+        To24Hour = IIf(hour12 = 12, 12, hour12 + 12)
+    Else
+        To24Hour = IIf(hour12 = 12, 0, hour12)
+    End If
 End Function</code></pre>
 <h2 id="platform-and-version-notes">Platform and Version Notes</h2>
 <ul>

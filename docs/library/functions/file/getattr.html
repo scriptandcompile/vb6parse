@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p><code>GetAttr</code> Function</p>
-<p>Returns an Integer representing the attributes of a file, directory, or folder.</p>
+            <p><code>GetAttr</code> Function
+Returns an Integer representing the attributes of a file, directory, or folder.</p>
 <h1 id="syntax">Syntax</h1>
 <pre><code class="language-vbnet">GetAttr(pathname)</code></pre>
 <h1 id="parameters">Parameters</h1>
@@ -46,58 +46,17 @@
 <li><code>pathname</code> - Required. String expression that specifies a file name. May include directory or folder, and drive.</li>
 </ul>
 <h1 id="return-value">Return Value</h1>
-<p>Returns an Integer representing the sum of the following attribute values:</p>
-<table>
-<thead>
-<tr>
-<th>Constant</th>
-<th>Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>vbNormal</td>
-<td>0</td>
-<td>Normal (no attributes set)</td>
-</tr>
-<tr>
-<td>vbReadOnly</td>
-<td>1</td>
-<td>Read-only</td>
-</tr>
-<tr>
-<td>vbHidden</td>
-<td>2</td>
-<td>Hidden</td>
-</tr>
-<tr>
-<td>vbSystem</td>
-<td>4</td>
-<td>System file</td>
-</tr>
-<tr>
-<td>vbVolume</td>
-<td>8</td>
-<td>Volume label</td>
-</tr>
-<tr>
-<td>vbDirectory</td>
-<td>16</td>
-<td>Directory or folder</td>
-</tr>
-<tr>
-<td>vbArchive</td>
-<td>32</td>
-<td>File has changed since last backup</td>
-</tr>
-<tr>
-<td>vbAlias</td>
-<td>64</td>
-<td>Specified file name is an alias (Macintosh only)</td>
-</tr>
-</tbody>
-</table>
+<p>Returns an Integer representing the sum of the following attribute values:
+| Constant | Value | Description |
+|----------|-------|-------------|
+| vbNormal | 0 | Normal (no attributes set) |
+| vbReadOnly | 1 | Read-only |
+| vbHidden | 2 | Hidden |
+| vbSystem | 4 | System file |
+| vbVolume | 8 | Volume label |
+| vbDirectory | 16 | Directory or folder |
+| vbArchive | 32 | File has changed since last backup |
+| vbAlias | 64 | Specified file name is an alias (Macintosh only) |</p>
 <h1 id="remarks">Remarks</h1>
 <ul>
 <li>Use the And operator to test for a specific attribute.</li>
@@ -121,579 +80,462 @@
 <pre><code class="language-vbnet">&#x27; Check if file is read-only
 Dim attr As Integer
 attr = GetAttr(&quot;C:\data.txt&quot;)
-
 If attr And vbReadOnly Then
-MsgBox &quot;File is read-only&quot;
+    MsgBox &quot;File is read-only&quot;
 End If
-
 &#x27; Check if path is a directory
 Dim pathAttr As Integer
 pathAttr = GetAttr(&quot;C:\MyFolder&quot;)
-
 If pathAttr And vbDirectory Then
-MsgBox &quot;This is a directory&quot;
+    MsgBox &quot;This is a directory&quot;
 End If
-
 &#x27; Check for hidden file
 Dim fileAttr As Integer
 fileAttr = GetAttr(&quot;C:\hidden.sys&quot;)
-
 If fileAttr And vbHidden Then
-MsgBox &quot;File is hidden&quot;
+    MsgBox &quot;File is hidden&quot;
 End If
-
 &#x27; Check for system file
 If GetAttr(&quot;C:\Windows\System32\ntoskrnl.exe&quot;) And vbSystem Then
-MsgBox &quot;This is a system file&quot;
+    MsgBox &quot;This is a system file&quot;
 End If</code></pre>
 <h1 id="common-patterns">Common Patterns</h1>
 <h2 id="1-check-read-only-before-writing">1. Check Read-Only Before Writing</h2>
 <pre><code class="language-vbnet">Sub WriteToFile(filename As String, content As String)
-Dim attr As Integer
-
-On Error GoTo ErrorHandler
-
-attr = GetAttr(filename)
-
-If attr And vbReadOnly Then
-MsgBox &quot;Cannot write to read-only file: &quot; &amp; filename
-Exit Sub
-End If
-
-&#x27; Proceed with writing
-Dim fileNum As Integer
-fileNum = FreeFile
-Open filename For Output As #fileNum
-Print #fileNum, content
-Close #fileNum
-
-Exit Sub
-
+    Dim attr As Integer
+    On Error GoTo ErrorHandler
+    attr = GetAttr(filename)
+    If attr And vbReadOnly Then
+        MsgBox &quot;Cannot write to read-only file: &quot; &amp; filename
+        Exit Sub
+    End If
+    &#x27; Proceed with writing
+    Dim fileNum As Integer
+    fileNum = FreeFile
+    Open filename For Output As #fileNum
+    Print #fileNum, content
+    Close #fileNum
+    Exit Sub
 ErrorHandler:
-MsgBox &quot;Error accessing file: &quot; &amp; Err.Description
+    MsgBox &quot;Error accessing file: &quot; &amp; Err.Description
 End Sub</code></pre>
 <h2 id="2-detect-directory-vs-file">2. Detect Directory vs File</h2>
 <pre><code class="language-vbnet">Function IsDirectory(path As String) As Boolean
-On Error GoTo ErrorHandler
-
-Dim attr As Integer
-attr = GetAttr(path)
-
-IsDirectory = (attr And vbDirectory) &lt;&gt; 0
-Exit Function
-
+    On Error GoTo ErrorHandler
+    Dim attr As Integer
+    attr = GetAttr(path)
+    IsDirectory = (attr And vbDirectory) &lt;&gt; 0
+    Exit Function
 ErrorHandler:
-IsDirectory = False
+    IsDirectory = False
 End Function
-
 &#x27; Usage
 If IsDirectory(&quot;C:\Windows&quot;) Then
-Debug.Print &quot;Path is a directory&quot;
+    Debug.Print &quot;Path is a directory&quot;
 Else
-Debug.Print &quot;Path is a file&quot;
+    Debug.Print &quot;Path is a file&quot;
 End If</code></pre>
 <h2 id="3-find-hidden-files">3. Find Hidden Files</h2>
 <pre><code class="language-vbnet">Sub ListHiddenFiles(folderPath As String)
-Dim filename As String
-Dim fullPath As String
-Dim attr As Integer
-
-filename = Dir(folderPath &amp; &quot;\*.*&quot;, vbHidden)
-
-Do While filename &lt;&gt; &quot;&quot;
-fullPath = folderPath &amp; &quot;\&quot; &amp; filename
-
-On Error Resume Next
-attr = GetAttr(fullPath)
-On Error GoTo 0
-
-If (attr And vbHidden) And Not (attr And vbDirectory) Then
-Debug.Print &quot;Hidden file: &quot; &amp; filename
-End If
-
-filename = Dir
-Loop
+    Dim filename As String
+    Dim fullPath As String
+    Dim attr As Integer
+    filename = Dir(folderPath &amp; &quot;\*.*&quot;, vbHidden)
+    Do While filename &lt;&gt; &quot;&quot;
+        fullPath = folderPath &amp; &quot;\&quot; &amp; filename
+        On Error Resume Next
+        attr = GetAttr(fullPath)
+        On Error GoTo 0
+        If (attr And vbHidden) And Not (attr And vbDirectory) Then
+            Debug.Print &quot;Hidden file: &quot; &amp; filename
+        End If
+        filename = Dir
+    Loop
 End Sub</code></pre>
 <h2 id="4-check-multiple-attributes">4. Check Multiple Attributes</h2>
 <pre><code class="language-vbnet">Function GetFileAttributeDescription(filename As String) As String
-Dim attr As Integer
-Dim description As String
-
-On Error GoTo ErrorHandler
-
-attr = GetAttr(filename)
-description = &quot;&quot;
-
-If attr = vbNormal Then
-description = &quot;Normal&quot;
-Else
-If attr And vbReadOnly Then description = description &amp; &quot;Read-Only &quot;
-If attr And vbHidden Then description = description &amp; &quot;Hidden &quot;
-If attr And vbSystem Then description = description &amp; &quot;System &quot;
-If attr And vbDirectory Then description = description &amp; &quot;Directory &quot;
-If attr And vbArchive Then description = description &amp; &quot;Archive &quot;
-End If
-
-GetFileAttributeDescription = Trim(description)
-Exit Function
-
+    Dim attr As Integer
+    Dim description As String
+    On Error GoTo ErrorHandler
+    attr = GetAttr(filename)
+    description = &quot;&quot;
+    If attr = vbNormal Then
+        description = &quot;Normal&quot;
+    Else
+        If attr And vbReadOnly Then description = description &amp; &quot;Read-Only &quot;
+        If attr And vbHidden Then description = description &amp; &quot;Hidden &quot;
+        If attr And vbSystem Then description = description &amp; &quot;System &quot;
+        If attr And vbDirectory Then description = description &amp; &quot;Directory &quot;
+        If attr And vbArchive Then description = description &amp; &quot;Archive &quot;
+    End If
+    GetFileAttributeDescription = Trim(description)
+    Exit Function
 ErrorHandler:
-GetFileAttributeDescription = &quot;Error: &quot; &amp; Err.Description
+    GetFileAttributeDescription = &quot;Error: &quot; &amp; Err.Description
 End Function</code></pre>
 <h2 id="5-safe-file-delete">5. Safe File Delete</h2>
 <pre><code class="language-vbnet">Function SafeDeleteFile(filename As String) As Boolean
-Dim attr As Integer
-
-On Error GoTo ErrorHandler
-
-&#x27; Check if file exists and get attributes
-attr = GetAttr(filename)
-
-&#x27; Don&#x27;t delete system or read-only files
-If attr And vbSystem Then
-MsgBox &quot;Cannot delete system file: &quot; &amp; filename
-SafeDeleteFile = False
-Exit Function
-End If
-
-&#x27; Remove read-only attribute if set
-If attr And vbReadOnly Then
-SetAttr filename, attr And Not vbReadOnly
-End If
-
-&#x27; Delete the file
-Kill filename
-SafeDeleteFile = True
-Exit Function
-
+    Dim attr As Integer
+    On Error GoTo ErrorHandler
+    &#x27; Check if file exists and get attributes
+    attr = GetAttr(filename)
+    &#x27; Don&#x27;t delete system or read-only files
+    If attr And vbSystem Then
+        MsgBox &quot;Cannot delete system file: &quot; &amp; filename
+        SafeDeleteFile = False
+        Exit Function
+    End If
+    &#x27; Remove read-only attribute if set
+    If attr And vbReadOnly Then
+        SetAttr filename, attr And Not vbReadOnly
+    End If
+    &#x27; Delete the file
+    Kill filename
+    SafeDeleteFile = True
+    Exit Function
 ErrorHandler:
-MsgBox &quot;Error deleting file: &quot; &amp; Err.Description
-SafeDeleteFile = False
+    MsgBox &quot;Error deleting file: &quot; &amp; Err.Description
+    SafeDeleteFile = False
 End Function</code></pre>
 <h2 id="6-list-files-by-attribute">6. List Files by Attribute</h2>
 <pre><code class="language-vbnet">Sub ListFilesByAttribute(folderPath As String, attributeFlag As Integer)
-Dim filename As String
-Dim fullPath As String
-Dim attr As Integer
-
-filename = Dir(folderPath &amp; &quot;\*.*&quot;, vbNormal + vbHidden + vbSystem)
-
-Do While filename &lt;&gt; &quot;&quot;
-fullPath = folderPath &amp; &quot;\&quot; &amp; filename
-
-On Error Resume Next
-attr = GetAttr(fullPath)
-On Error GoTo 0
-
-If (attr And attributeFlag) And Not (attr And vbDirectory) Then
-Debug.Print filename &amp; &quot; (Attribute: &quot; &amp; attr &amp; &quot;)&quot;
-End If
-
-filename = Dir
-Loop
+    Dim filename As String
+    Dim fullPath As String
+    Dim attr As Integer
+    filename = Dir(folderPath &amp; &quot;\*.*&quot;, vbNormal + vbHidden + vbSystem)
+    Do While filename &lt;&gt; &quot;&quot;
+        fullPath = folderPath &amp; &quot;\&quot; &amp; filename
+        On Error Resume Next
+        attr = GetAttr(fullPath)
+        On Error GoTo 0
+        If (attr And attributeFlag) And Not (attr And vbDirectory) Then
+            Debug.Print filename &amp; &quot; (Attribute: &quot; &amp; attr &amp; &quot;)&quot;
+        End If
+        filename = Dir
+    Loop
 End Sub
-
 &#x27; Usage
 ListFilesByAttribute &quot;C:\Temp&quot;, vbArchive  &#x27; List files needing backup</code></pre>
 <h2 id="7-backup-file-scanner">7. Backup File Scanner</h2>
 <pre><code class="language-vbnet">Function NeedsBackup(filename As String) As Boolean
-Dim attr As Integer
-
-On Error GoTo ErrorHandler
-
-attr = GetAttr(filename)
-
-&#x27; Check if archive bit is set
-NeedsBackup = (attr And vbArchive) &lt;&gt; 0
-Exit Function
-
+    Dim attr As Integer
+    On Error GoTo ErrorHandler
+    attr = GetAttr(filename)
+    &#x27; Check if archive bit is set
+    NeedsBackup = (attr And vbArchive) &lt;&gt; 0
+    Exit Function
 ErrorHandler:
-NeedsBackup = False
+    NeedsBackup = False
 End Function
-
 Sub FindFilesNeedingBackup(folderPath As String, lst As ListBox)
-Dim filename As String
-Dim fullPath As String
-
-lst.Clear
-filename = Dir(folderPath &amp; &quot;\*.*&quot;)
-
-Do While filename &lt;&gt; &quot;&quot;
-fullPath = folderPath &amp; &quot;\&quot; &amp; filename
-
-If NeedsBackup(fullPath) Then
-lst.AddItem filename
-End If
-
-filename = Dir
-Loop
+    Dim filename As String
+    Dim fullPath As String
+    lst.Clear
+    filename = Dir(folderPath &amp; &quot;\*.*&quot;)
+    Do While filename &lt;&gt; &quot;&quot;
+        fullPath = folderPath &amp; &quot;\&quot; &amp; filename
+        If NeedsBackup(fullPath) Then
+            lst.AddItem filename
+        End If
+        filename = Dir
+    Loop
 End Sub</code></pre>
 <h2 id="8-file-permission-check">8. File Permission Check</h2>
 <pre><code class="language-vbnet">Function CanModifyFile(filename As String) As Boolean
-Dim attr As Integer
-
-On Error GoTo ErrorHandler
-
-attr = GetAttr(filename)
-
-&#x27; File can be modified if it&#x27;s not read-only and not a system file
-CanModifyFile = Not ((attr And vbReadOnly) Or (attr And vbSystem))
-Exit Function
-
+    Dim attr As Integer
+    On Error GoTo ErrorHandler
+    attr = GetAttr(filename)
+    &#x27; File can be modified if it&#x27;s not read-only and not a system file
+    CanModifyFile = Not ((attr And vbReadOnly) Or (attr And vbSystem))
+    Exit Function
 ErrorHandler:
-CanModifyFile = False
+    CanModifyFile = False
 End Function
-
 Sub ModifyFileIfAllowed(filename As String)
-If CanModifyFile(filename) Then
-&#x27; Proceed with modification
-Debug.Print &quot;File can be modified&quot;
-Else
-Debug.Print &quot;File is protected&quot;
-End If
+    If CanModifyFile(filename) Then
+        &#x27; Proceed with modification
+        Debug.Print &quot;File can be modified&quot;
+    Else
+        Debug.Print &quot;File is protected&quot;
+    End If
 End Sub</code></pre>
 <h2 id="9-directory-tree-walker">9. Directory Tree Walker</h2>
 <pre><code class="language-vbnet">Sub WalkDirectory(path As String, Optional level As Integer = 0)
-Dim filename As String
-Dim fullPath As String
-Dim attr As Integer
-Dim indent As String
-
-indent = String(level * 2, &quot; &quot;)
-filename = Dir(path &amp; &quot;\*.*&quot;, vbDirectory)
-
-Do While filename &lt;&gt; &quot;&quot;
-If filename &lt;&gt; &quot;.&quot; And filename &lt;&gt; &quot;..&quot; Then
-fullPath = path &amp; &quot;\&quot; &amp; filename
-
-On Error Resume Next
-attr = GetAttr(fullPath)
-On Error GoTo 0
-
-If attr And vbDirectory Then
-Debug.Print indent &amp; &quot;[DIR] &quot; &amp; filename
-WalkDirectory fullPath, level + 1
-Else
-Debug.Print indent &amp; filename
-End If
-End If
-
-filename = Dir
-Loop
+    Dim filename As String
+    Dim fullPath As String
+    Dim attr As Integer
+    Dim indent As String
+    indent = String(level * 2, &quot; &quot;)
+    filename = Dir(path &amp; &quot;\*.*&quot;, vbDirectory)
+    Do While filename &lt;&gt; &quot;&quot;
+        If filename &lt;&gt; &quot;.&quot; And filename &lt;&gt; &quot;..&quot; Then
+            fullPath = path &amp; &quot;\&quot; &amp; filename
+            On Error Resume Next
+            attr = GetAttr(fullPath)
+            On Error GoTo 0
+            If attr And vbDirectory Then
+                Debug.Print indent &amp; &quot;[DIR] &quot; &amp; filename
+                WalkDirectory fullPath, level + 1
+            Else
+                Debug.Print indent &amp; filename
+            End If
+        End If
+        filename = Dir
+    Loop
 End Sub</code></pre>
 <h2 id="10-file-attribute-report">10. File Attribute Report</h2>
 <pre><code class="language-vbnet">Sub GenerateAttributeReport(folderPath As String)
-Dim filename As String
-Dim fullPath As String
-Dim attr As Integer
-Dim normalCount As Long
-Dim readOnlyCount As Long
-Dim hiddenCount As Long
-Dim systemCount As Long
-Dim archiveCount As Long
-
-filename = Dir(folderPath &amp; &quot;\*.*&quot;, vbNormal + vbHidden + vbSystem)
-
-Do While filename &lt;&gt; &quot;&quot;
-fullPath = folderPath &amp; &quot;\&quot; &amp; filename
-
-On Error Resume Next
-attr = GetAttr(fullPath)
-On Error GoTo 0
-
-If Not (attr And vbDirectory) Then
-If attr = vbNormal Then normalCount = normalCount + 1
-If attr And vbReadOnly Then readOnlyCount = readOnlyCount + 1
-If attr And vbHidden Then hiddenCount = hiddenCount + 1
-If attr And vbSystem Then systemCount = systemCount + 1
-If attr And vbArchive Then archiveCount = archiveCount + 1
-End If
-
-filename = Dir
-Loop
-
-Debug.Print &quot;File Attribute Report for: &quot; &amp; folderPath
-Debug.Print String(50, &quot;=&quot;)
-Debug.Print &quot;Normal: &quot; &amp; normalCount
-Debug.Print &quot;Read-Only: &quot; &amp; readOnlyCount
-Debug.Print &quot;Hidden: &quot; &amp; hiddenCount
-Debug.Print &quot;System: &quot; &amp; systemCount
-Debug.Print &quot;Archive: &quot; &amp; archiveCount
+    Dim filename As String
+    Dim fullPath As String
+    Dim attr As Integer
+    Dim normalCount As Long
+    Dim readOnlyCount As Long
+    Dim hiddenCount As Long
+    Dim systemCount As Long
+    Dim archiveCount As Long
+    filename = Dir(folderPath &amp; &quot;\*.*&quot;, vbNormal + vbHidden + vbSystem)
+    Do While filename &lt;&gt; &quot;&quot;
+        fullPath = folderPath &amp; &quot;\&quot; &amp; filename
+        On Error Resume Next
+        attr = GetAttr(fullPath)
+        On Error GoTo 0
+        If Not (attr And vbDirectory) Then
+            If attr = vbNormal Then normalCount = normalCount + 1
+            If attr And vbReadOnly Then readOnlyCount = readOnlyCount + 1
+            If attr And vbHidden Then hiddenCount = hiddenCount + 1
+            If attr And vbSystem Then systemCount = systemCount + 1
+            If attr And vbArchive Then archiveCount = archiveCount + 1
+        End If
+        filename = Dir
+    Loop
+    Debug.Print &quot;File Attribute Report for: &quot; &amp; folderPath
+    Debug.Print String(50, &quot;=&quot;)
+    Debug.Print &quot;Normal: &quot; &amp; normalCount
+    Debug.Print &quot;Read-Only: &quot; &amp; readOnlyCount
+    Debug.Print &quot;Hidden: &quot; &amp; hiddenCount
+    Debug.Print &quot;System: &quot; &amp; systemCount
+    Debug.Print &quot;Archive: &quot; &amp; archiveCount
 End Sub</code></pre>
 <h1 id="advanced-usage">Advanced Usage</h1>
 <h2 id="1-file-attribute-manager-class">1. File Attribute Manager Class</h2>
 <pre><code class="language-vbnet">&#x27; Class: FileAttributeManager
 Private m_Filename As String
 Private m_Attributes As Integer
-
 Public Sub LoadFile(filename As String)
-m_Filename = filename
-RefreshAttributes
+    m_Filename = filename
+    RefreshAttributes
 End Sub
-
 Private Sub RefreshAttributes()
-On Error Resume Next
-m_Attributes = GetAttr(m_Filename)
-On Error GoTo 0
+    On Error Resume Next
+    m_Attributes = GetAttr(m_Filename)
+    On Error GoTo 0
 End Sub
-
 Public Property Get IsReadOnly() As Boolean
-IsReadOnly = (m_Attributes And vbReadOnly) &lt;&gt; 0
+    IsReadOnly = (m_Attributes And vbReadOnly) &lt;&gt; 0
 End Property
-
 Public Property Let IsReadOnly(value As Boolean)
-If value Then
-SetAttr m_Filename, m_Attributes Or vbReadOnly
-Else
-SetAttr m_Filename, m_Attributes And Not vbReadOnly
-End If
-RefreshAttributes
+    If value Then
+        SetAttr m_Filename, m_Attributes Or vbReadOnly
+    Else
+        SetAttr m_Filename, m_Attributes And Not vbReadOnly
+    End If
+    RefreshAttributes
 End Property
-
 Public Property Get IsHidden() As Boolean
-IsHidden = (m_Attributes And vbHidden) &lt;&gt; 0
+    IsHidden = (m_Attributes And vbHidden) &lt;&gt; 0
 End Property
-
 Public Property Let IsHidden(value As Boolean)
-If value Then
-SetAttr m_Filename, m_Attributes Or vbHidden
-Else
-SetAttr m_Filename, m_Attributes And Not vbHidden
-End If
-RefreshAttributes
+    If value Then
+        SetAttr m_Filename, m_Attributes Or vbHidden
+    Else
+        SetAttr m_Filename, m_Attributes And Not vbHidden
+    End If
+    RefreshAttributes
 End Property
-
 Public Property Get IsDirectory() As Boolean
-IsDirectory = (m_Attributes And vbDirectory) &lt;&gt; 0
+    IsDirectory = (m_Attributes And vbDirectory) &lt;&gt; 0
 End Property
-
 Public Property Get AttributeValue() As Integer
-AttributeValue = m_Attributes
+    AttributeValue = m_Attributes
 End Property</code></pre>
 <h2 id="2-smart-file-filter">2. Smart File Filter</h2>
 <pre><code class="language-vbnet">Type FileFilter
-IncludeReadOnly As Boolean
-IncludeHidden As Boolean
-IncludeSystem As Boolean
-IncludeArchive As Boolean
-ExcludeDirectories As Boolean
+    IncludeReadOnly As Boolean
+    IncludeHidden As Boolean
+    IncludeSystem As Boolean
+    IncludeArchive As Boolean
+    ExcludeDirectories As Boolean
 End Type
-
 Function MatchesFilter(filename As String, filter As FileFilter) As Boolean
-Dim attr As Integer
-
-On Error GoTo ErrorHandler
-
-attr = GetAttr(filename)
-
-&#x27; Check exclusions first
-If filter.ExcludeDirectories And (attr And vbDirectory) Then
-MatchesFilter = False
-Exit Function
-End If
-
-&#x27; Check inclusions
-MatchesFilter = True
-
-If Not filter.IncludeReadOnly And (attr And vbReadOnly) Then
-MatchesFilter = False
-ElseIf Not filter.IncludeHidden And (attr And vbHidden) Then
-MatchesFilter = False
-ElseIf Not filter.IncludeSystem And (attr And vbSystem) Then
-MatchesFilter = False
-ElseIf Not filter.IncludeArchive And (attr And vbArchive) Then
-MatchesFilter = False
-End If
-
-Exit Function
-
+    Dim attr As Integer
+    On Error GoTo ErrorHandler
+    attr = GetAttr(filename)
+    &#x27; Check exclusions first
+    If filter.ExcludeDirectories And (attr And vbDirectory) Then
+        MatchesFilter = False
+        Exit Function
+    End If
+    &#x27; Check inclusions
+    MatchesFilter = True
+    If Not filter.IncludeReadOnly And (attr And vbReadOnly) Then
+        MatchesFilter = False
+    ElseIf Not filter.IncludeHidden And (attr And vbHidden) Then
+        MatchesFilter = False
+    ElseIf Not filter.IncludeSystem And (attr And vbSystem) Then
+        MatchesFilter = False
+    ElseIf Not filter.IncludeArchive And (attr And vbArchive) Then
+        MatchesFilter = False
+    End If
+    Exit Function
 ErrorHandler:
-MatchesFilter = False
+    MatchesFilter = False
 End Function</code></pre>
 <h2 id="3-attribute-change-monitor">3. Attribute Change Monitor</h2>
 <pre><code class="language-vbnet">Type FileSnapshot
-Filename As String
-Attributes As Integer
-Timestamp As Date
+    Filename As String
+    Attributes As Integer
+    Timestamp As Date
 End Type
-
 Private m_Snapshots As Collection
-
 Sub InitializeMonitor()
-Set m_Snapshots = New Collection
+    Set m_Snapshots = New Collection
 End Sub
-
 Sub TakeSnapshot(filename As String)
-Dim snapshot As FileSnapshot
-
-snapshot.Filename = filename
-snapshot.Attributes = GetAttr(filename)
-snapshot.Timestamp = Now
-
-m_Snapshots.Add snapshot, filename
+    Dim snapshot As FileSnapshot
+    snapshot.Filename = filename
+    snapshot.Attributes = GetAttr(filename)
+    snapshot.Timestamp = Now
+    m_Snapshots.Add snapshot, filename
 End Sub
-
 Function DetectAttributeChanges(filename As String) As Boolean
-Dim currentAttr As Integer
-Dim snapshot As FileSnapshot
-Dim i As Long
-
-currentAttr = GetAttr(filename)
-
-&#x27; Find snapshot
-For i = 1 To m_Snapshots.Count
-snapshot = m_Snapshots(i)
-If snapshot.Filename = filename Then
-DetectAttributeChanges = (snapshot.Attributes &lt;&gt; currentAttr)
-Exit Function
-End If
-Next i
-
-DetectAttributeChanges = False
+    Dim currentAttr As Integer
+    Dim snapshot As FileSnapshot
+    Dim i As Long
+    currentAttr = GetAttr(filename)
+    &#x27; Find snapshot
+    For i = 1 To m_Snapshots.Count
+        snapshot = m_Snapshots(i)
+        If snapshot.Filename = filename Then
+            DetectAttributeChanges = (snapshot.Attributes &lt;&gt; currentAttr)
+            Exit Function
+        End If
+    Next i
+    DetectAttributeChanges = False
 End Function</code></pre>
 <h2 id="4-bulk-attribute-operations">4. Bulk Attribute Operations</h2>
 <pre><code class="language-vbnet">Sub SetAttributeForMultipleFiles(filenames() As String, _
-attributeToSet As Integer, _
-enable As Boolean)
-Dim i As Long
-Dim currentAttr As Integer
-Dim newAttr As Integer
-
-For i = LBound(filenames) To UBound(filenames)
-On Error Resume Next
-
-currentAttr = GetAttr(filenames(i))
-
-If enable Then
-newAttr = currentAttr Or attributeToSet
-Else
-newAttr = currentAttr And Not attributeToSet
-End If
-
-SetAttr filenames(i), newAttr
-
-On Error GoTo 0
-Next i
+                                 attributeToSet As Integer, _
+                                 enable As Boolean)
+    Dim i As Long
+    Dim currentAttr As Integer
+    Dim newAttr As Integer
+    For i = LBound(filenames) To UBound(filenames)
+        On Error Resume Next
+        currentAttr = GetAttr(filenames(i))
+        If enable Then
+            newAttr = currentAttr Or attributeToSet
+        Else
+            newAttr = currentAttr And Not attributeToSet
+        End If
+        SetAttr filenames(i), newAttr
+        On Error GoTo 0
+    Next i
 End Sub
-
 &#x27; Usage
 Sub MakeFilesReadOnly()
-Dim files() As String
-files = Array(&quot;file1.txt&quot;, &quot;file2.txt&quot;, &quot;file3.txt&quot;)
-
-SetAttributeForMultipleFiles files, vbReadOnly, True
+    Dim files() As String
+    files = Array(&quot;file1.txt&quot;, &quot;file2.txt&quot;, &quot;file3.txt&quot;)
+    SetAttributeForMultipleFiles files, vbReadOnly, True
 End Sub</code></pre>
 <h2 id="5-file-security-analyzer">5. File Security Analyzer</h2>
 <pre><code class="language-vbnet">Type SecurityIssue
-Filename As String
-IssueType As String
-Severity As String
+    Filename As String
+    IssueType As String
+    Severity As String
 End Type
-
 Function AnalyzeFileSecurity(folderPath As String) As Collection
-Dim issues As New Collection
-Dim filename As String
-Dim fullPath As String
-Dim attr As Integer
-Dim issue As SecurityIssue
-
-filename = Dir(folderPath &amp; &quot;\*.*&quot;, vbNormal + vbHidden + vbSystem)
-
-Do While filename &lt;&gt; &quot;&quot;
-fullPath = folderPath &amp; &quot;\&quot; &amp; filename
-
-On Error Resume Next
-attr = GetAttr(fullPath)
-On Error GoTo 0
-
-If Not (attr And vbDirectory) Then
-&#x27; Check for security issues
-
-&#x27; Issue 1: System files that are not hidden
-If (attr And vbSystem) And Not (attr And vbHidden) Then
-issue.Filename = filename
-issue.IssueType = &quot;System file not hidden&quot;
-issue.Severity = &quot;Medium&quot;
-issues.Add issue
-End If
-
-&#x27; Issue 2: Important files not marked read-only
-If InStr(1, filename, &quot;config&quot;, vbTextCompare) &gt; 0 Then
-If Not (attr And vbReadOnly) Then
-issue.Filename = filename
-issue.IssueType = &quot;Config file not read-only&quot;
-issue.Severity = &quot;Low&quot;
-issues.Add issue
-End If
-End If
-End If
-
-filename = Dir
-Loop
-
-Set AnalyzeFileSecurity = issues
+    Dim issues As New Collection
+    Dim filename As String
+    Dim fullPath As String
+    Dim attr As Integer
+    Dim issue As SecurityIssue
+    filename = Dir(folderPath &amp; &quot;\*.*&quot;, vbNormal + vbHidden + vbSystem)
+    Do While filename &lt;&gt; &quot;&quot;
+        fullPath = folderPath &amp; &quot;\&quot; &amp; filename
+        On Error Resume Next
+        attr = GetAttr(fullPath)
+        On Error GoTo 0
+        If Not (attr And vbDirectory) Then
+            &#x27; Check for security issues
+            &#x27; Issue 1: System files that are not hidden
+            If (attr And vbSystem) And Not (attr And vbHidden) Then
+                issue.Filename = filename
+                issue.IssueType = &quot;System file not hidden&quot;
+                issue.Severity = &quot;Medium&quot;
+                issues.Add issue
+            End If
+            &#x27; Issue 2: Important files not marked read-only
+            If InStr(1, filename, &quot;config&quot;, vbTextCompare) &gt; 0 Then
+                If Not (attr And vbReadOnly) Then
+                    issue.Filename = filename
+                    issue.IssueType = &quot;Config file not read-only&quot;
+                    issue.Severity = &quot;Low&quot;
+                    issues.Add issue
+                End If
+            End If
+        End If
+        filename = Dir
+    Loop
+    Set AnalyzeFileSecurity = issues
 End Function</code></pre>
 <h2 id="6-attribute-comparison-tool">6. Attribute Comparison Tool</h2>
 <pre><code class="language-vbnet">Function CompareFileAttributes(file1 As String, file2 As String) As String
-Dim attr1 As Integer
-Dim attr2 As Integer
-Dim differences As String
-
-On Error GoTo ErrorHandler
-
-attr1 = GetAttr(file1)
-attr2 = GetAttr(file2)
-
-differences = &quot;&quot;
-
-If (attr1 And vbReadOnly) &lt;&gt; (attr2 And vbReadOnly) Then
-differences = differences &amp; &quot;Read-Only differs&quot; &amp; vbCrLf
-End If
-
-If (attr1 And vbHidden) &lt;&gt; (attr2 And vbHidden) Then
-differences = differences &amp; &quot;Hidden differs&quot; &amp; vbCrLf
-End If
-
-If (attr1 And vbSystem) &lt;&gt; (attr2 And vbSystem) Then
-differences = differences &amp; &quot;System differs&quot; &amp; vbCrLf
-End If
-
-If (attr1 And vbArchive) &lt;&gt; (attr2 And vbArchive) Then
-differences = differences &amp; &quot;Archive differs&quot; &amp; vbCrLf
-End If
-
-If differences = &quot;&quot; Then
-CompareFileAttributes = &quot;Attributes are identical&quot;
-Else
-CompareFileAttributes = &quot;Differences found:&quot; &amp; vbCrLf &amp; differences
-End If
-
-Exit Function
-
+    Dim attr1 As Integer
+    Dim attr2 As Integer
+    Dim differences As String
+    On Error GoTo ErrorHandler
+    attr1 = GetAttr(file1)
+    attr2 = GetAttr(file2)
+    differences = &quot;&quot;
+    If (attr1 And vbReadOnly) &lt;&gt; (attr2 And vbReadOnly) Then
+        differences = differences &amp; &quot;Read-Only differs&quot; &amp; vbCrLf
+    End If
+    If (attr1 And vbHidden) &lt;&gt; (attr2 And vbHidden) Then
+        differences = differences &amp; &quot;Hidden differs&quot; &amp; vbCrLf
+    End If
+    If (attr1 And vbSystem) &lt;&gt; (attr2 And vbSystem) Then
+        differences = differences &amp; &quot;System differs&quot; &amp; vbCrLf
+    End If
+    If (attr1 And vbArchive) &lt;&gt; (attr2 And vbArchive) Then
+        differences = differences &amp; &quot;Archive differs&quot; &amp; vbCrLf
+    End If
+    If differences = &quot;&quot; Then
+        CompareFileAttributes = &quot;Attributes are identical&quot;
+    Else
+        CompareFileAttributes = &quot;Differences found:&quot; &amp; vbCrLf &amp; differences
+    End If
+    Exit Function
 ErrorHandler:
-CompareFileAttributes = &quot;Error: &quot; &amp; Err.Description
+    CompareFileAttributes = &quot;Error: &quot; &amp; Err.Description
 End Function</code></pre>
 <h1 id="error-handling">Error Handling</h1>
 <pre><code class="language-vbnet">Function SafeGetAttr(pathname As String, _
-Optional defaultValue As Integer = -1) As Integer
-On Error GoTo ErrorHandler
-
-SafeGetAttr = GetAttr(pathname)
-Exit Function
-
+                     Optional defaultValue As Integer = -1) As Integer
+    On Error GoTo ErrorHandler
+    SafeGetAttr = GetAttr(pathname)
+    Exit Function
 ErrorHandler:
-Select Case Err.Number
-Case 53  &#x27; File not found
-Debug.Print &quot;File not found: &quot; &amp; pathname
-Case 76  &#x27; Path not found
-Debug.Print &quot;Path not found: &quot; &amp; pathname
-Case 68  &#x27; Device unavailable
-Debug.Print &quot;Device unavailable: &quot; &amp; pathname
-Case Else
-Debug.Print &quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Err.Description
-End Select
-
-SafeGetAttr = defaultValue
+    Select Case Err.Number
+        Case 53  &#x27; File not found
+            Debug.Print &quot;File not found: &quot; &amp; pathname
+        Case 76  &#x27; Path not found
+            Debug.Print &quot;Path not found: &quot; &amp; pathname
+        Case 68  &#x27; Device unavailable
+            Debug.Print &quot;Device unavailable: &quot; &amp; pathname
+        Case Else
+            Debug.Print &quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Err.Description
+    End Select
+    SafeGetAttr = defaultValue
 End Function</code></pre>
 <p>Common errors:
 - <strong>Error 53 (File not found)</strong>: The specified file doesn't exist.
@@ -721,19 +563,16 @@ End Function</code></pre>
 <h2 id="getattr-vs-filelen"><code>GetAttr</code> vs <code>FileLen</code></h2>
 <pre><code class="language-vbnet">&#x27; GetAttr - Returns file attributes
 attr = GetAttr(&quot;file.txt&quot;)  &#x27; Returns attribute flags
-
 &#x27; FileLen - Returns file size
 size = FileLen(&quot;file.txt&quot;)  &#x27; Returns size in bytes</code></pre>
 <h2 id="getattr-vs-dir"><code>GetAttr</code> vs <code>Dir</code></h2>
 <pre><code class="language-vbnet">&#x27; GetAttr - Gets attributes of specific file
 attr = GetAttr(&quot;file.txt&quot;)
-
 &#x27; Dir - Searches for files matching pattern
 filename = Dir(&quot;*.txt&quot;, vbNormal)</code></pre>
 <h2 id="getattr-vs-filedatetime"><code>GetAttr</code> vs <code>FileDateTime</code></h2>
 <pre><code class="language-vbnet">&#x27; GetAttr - Returns attributes
 attr = GetAttr(&quot;file.txt&quot;)
-
 &#x27; FileDateTime - Returns modification date/time
 dt = FileDateTime(&quot;file.txt&quot;)</code></pre>
 <h1 id="limitations">Limitations</h1>
@@ -749,13 +588,10 @@ dt = FileDateTime(&quot;file.txt&quot;)</code></pre>
 <p>Testing for specific attributes:</p>
 <pre><code class="language-vbnet">&#x27; Test if read-only
 If (attr And vbReadOnly) Then &#x27; Has read-only attribute
-
 &#x27; Test if NOT read-only
 If Not (attr And vbReadOnly) Then &#x27; Doesn&#x27;t have read-only
-
 &#x27; Test for multiple attributes
 If (attr And (vbReadOnly Or vbHidden)) Then &#x27; Has either attribute
-
 &#x27; Test for exact attribute combination
 If attr = (vbReadOnly Or vbHidden) Then &#x27; Has exactly these two</code></pre>
 <h1 id="related-functions">Related Functions</h1>

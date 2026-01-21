@@ -59,24 +59,22 @@
 - For Variant containing string: Returns length of string
 - For user-defined types: Returns total size in bytes</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>Len</code> function measures string length or variable size:</p>
-<ul>
-<li>Most commonly used for string length</li>
-<li>Returns character count, not byte count (for strings)</li>
-<li>Empty string ("") returns 0</li>
-<li>Null propagates through the function</li>
-<li>Spaces and special characters are counted</li>
-<li>For fixed-length strings (e.g., String * 10), returns declared length</li>
-<li>Variable-length strings return actual content length</li>
-<li><code>LenB</code> function returns byte count (useful for Unicode/DBCS)</li>
-<li>Cannot determine array size (use UBound/LBound instead)</li>
-<li>Essential for string manipulation and validation</li>
-<li>Used with Left, Right, Mid for substring operations</li>
-<li>Common in loops iterating through string characters</li>
-<li>Efficient operation with minimal overhead</li>
-<li>For user-defined types, returns structure size</li>
-<li>Object variables may return unpredictable values</li>
-</ul>
+<p>The <code>Len</code> function measures string length or variable size:
+- Most commonly used for string length
+- Returns character count, not byte count (for strings)
+- Empty string ("") returns 0
+- Null propagates through the function
+- Spaces and special characters are counted
+- For fixed-length strings (e.g., String * 10), returns declared length
+- Variable-length strings return actual content length
+- <code>LenB</code> function returns byte count (useful for Unicode/DBCS)
+- Cannot determine array size (use UBound/LBound instead)
+- Essential for string manipulation and validation
+- Used with Left, Right, Mid for substring operations
+- Common in loops iterating through string characters
+- Efficient operation with minimal overhead
+- For user-defined types, returns structure size
+- Object variables may return unpredictable values</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Validate Input</strong>: Check if string is empty or within length limits</li>
@@ -92,424 +90,352 @@
 <pre><code class="language-vbnet">&#x27; Example 1: Basic string length
 Dim text As String
 text = &quot;Hello World&quot;
-
 Debug.Print Len(text)                &#x27; 11 - includes space
 Debug.Print Len(&quot;VB6&quot;)               &#x27; 3
 Debug.Print Len(&quot;&quot;)                  &#x27; 0 - empty string
-
 &#x27; Example 2: Validation
 Dim password As String
 password = &quot;secret123&quot;
-
 If Len(password) &lt; 8 Then
-MsgBox &quot;Password must be at least 8 characters&quot;
+    MsgBox &quot;Password must be at least 8 characters&quot;
 End If
-
 &#x27; Example 3: String iteration
 Dim i As Long
 Dim char As String
 text = &quot;ABC&quot;
-
 For i = 1 To Len(text)
-char = Mid(text, i, 1)
-Debug.Print char
+    char = Mid(text, i, 1)
+    Debug.Print char
 Next i
-
 &#x27; Example 4: Null handling
 Dim value As Variant
 value = Null
-
 Debug.Print IsNull(Len(value))       &#x27; True - Null propagates</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Check if string is empty
 Function IsEmpty(text As String) As Boolean
-IsEmpty = (Len(text) = 0)
+    IsEmpty = (Len(text) = 0)
 End Function
-
 &#x27; Pattern 2: Validate string length range
 Function ValidateLength(text As String, minLen As Long, maxLen As Long) As Boolean
-Dim length As Long
-length = Len(text)
-ValidateLength = (length &gt;= minLen And length &lt;= maxLen)
+    Dim length As Long
+    length = Len(text)
+    ValidateLength = (length &gt;= minLen And length &lt;= maxLen)
 End Function
-
 &#x27; Pattern 3: Pad string to fixed width
 Function PadRight(text As String, width As Long, Optional padChar As String = &quot; &quot;) As String
-If Len(text) &gt;= width Then
-PadRight = Left(text, width)
-Else
-PadRight = text &amp; String(width - Len(text), padChar)
-End If
+    If Len(text) &gt;= width Then
+        PadRight = Left(text, width)
+    Else
+        PadRight = text &amp; String(width - Len(text), padChar)
+    End If
 End Function
-
 &#x27; Pattern 4: Center text in field
 Function CenterText(text As String, width As Long) As String
-Dim padding As Long
-
-If Len(text) &gt;= width Then
-CenterText = Left(text, width)
-Else
-padding = (width - Len(text)) \ 2
-CenterText = String(padding, &quot; &quot;) &amp; text &amp; _
-String(width - Len(text) - padding, &quot; &quot;)
-End If
+    Dim padding As Long
+    If Len(text) &gt;= width Then
+        CenterText = Left(text, width)
+    Else
+        padding = (width - Len(text)) \ 2
+        CenterText = String(padding, &quot; &quot;) &amp; text &amp; _
+                     String(width - Len(text) - padding, &quot; &quot;)
+    End If
 End Function
-
 &#x27; Pattern 5: Reverse string
 Function ReverseString(text As String) As String
-Dim i As Long
-Dim result As String
-
-result = &quot;&quot;
-For i = Len(text) To 1 Step -1
-result = result &amp; Mid(text, i, 1)
-Next i
-
-ReverseString = result
+    Dim i As Long
+    Dim result As String
+    result = &quot;&quot;
+    For i = Len(text) To 1 Step -1
+        result = result &amp; Mid(text, i, 1)
+    Next i
+    ReverseString = result
 End Function
-
 &#x27; Pattern 6: Count occurrences of character
 Function CountChar(text As String, searchChar As String) As Long
-Dim i As Long
-Dim count As Long
-
-count = 0
-For i = 1 To Len(text)
-If Mid(text, i, 1) = searchChar Then
-count = count + 1
-End If
-Next i
-
-CountChar = count
+    Dim i As Long
+    Dim count As Long
+    count = 0
+    For i = 1 To Len(text)
+        If Mid(text, i, 1) = searchChar Then
+            count = count + 1
+        End If
+    Next i
+    CountChar = count
 End Function
-
 &#x27; Pattern 7: Truncate with ellipsis
 Function TruncateText(text As String, maxLength As Long) As String
-If Len(text) &lt;= maxLength Then
-TruncateText = text
-ElseIf maxLength &lt;= 3 Then
-TruncateText = Left(text, maxLength)
-Else
-TruncateText = Left(text, maxLength - 3) &amp; &quot;...&quot;
-End If
+    If Len(text) &lt;= maxLength Then
+        TruncateText = text
+    ElseIf maxLength &lt;= 3 Then
+        TruncateText = Left(text, maxLength)
+    Else
+        TruncateText = Left(text, maxLength - 3) &amp; &quot;...&quot;
+    End If
 End Function
-
 &#x27; Pattern 8: Extract last N characters
 Function GetLastChars(text As String, count As Long) As String
-If count &gt;= Len(text) Then
-GetLastChars = text
-Else
-GetLastChars = Right(text, count)
-End If
+    If count &gt;= Len(text) Then
+        GetLastChars = text
+    Else
+        GetLastChars = Right(text, count)
+    End If
 End Function
-
 &#x27; Pattern 9: Check minimum length
 Function HasMinLength(text As String, minLength As Long) As Boolean
-HasMinLength = (Len(text) &gt;= minLength)
+    HasMinLength = (Len(text) &gt;= minLength)
 End Function
-
 &#x27; Pattern 10: Calculate character position from end
 Function GetCharFromEnd(text As String, posFromEnd As Long) As String
-Dim pos As Long
-pos = Len(text) - posFromEnd + 1
-
-If pos &gt;= 1 And pos &lt;= Len(text) Then
-GetCharFromEnd = Mid(text, pos, 1)
-Else
-GetCharFromEnd = &quot;&quot;
-End If
+    Dim pos As Long
+    pos = Len(text) - posFromEnd + 1
+    If pos &gt;= 1 And pos &lt;= Len(text) Then
+        GetCharFromEnd = Mid(text, pos, 1)
+    Else
+        GetCharFromEnd = &quot;&quot;
+    End If
 End Function</code></pre>
 <h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: String analyzer
 Public Class StringAnalyzer
-Public Function GetStats(text As String) As String
-Dim length As Long
-Dim words As Long
-Dim lines As Long
-Dim result As String
-
-length = Len(text)
-words = UBound(Split(text, &quot; &quot;)) + 1
-lines = UBound(Split(text, vbCrLf)) + 1
-
-result = &quot;Length: &quot; &amp; length &amp; vbCrLf
-result = result &amp; &quot;Words: &quot; &amp; words &amp; vbCrLf
-result = result &amp; &quot;Lines: &quot; &amp; lines
-
-GetStats = result
-End Function
-
-Public Function GetCharFrequency(text As String) As Object
-Dim dict As Object
-Dim i As Long
-Dim char As String
-
-Set dict = CreateObject(&quot;Scripting.Dictionary&quot;)
-
-For i = 1 To Len(text)
-char = Mid(text, i, 1)
-If dict.Exists(char) Then
-dict(char) = dict(char) + 1
-Else
-dict.Add char, 1
-End If
-Next i
-
-Set GetCharFrequency = dict
-End Function
-
-Public Function IsPalindrome(text As String) As Boolean
-Dim i As Long
-Dim length As Long
-
-length = Len(text)
-For i = 1 To length \ 2
-If Mid(text, i, 1) &lt;&gt; Mid(text, length - i + 1, 1) Then
-IsPalindrome = False
-Exit Function
-End If
-Next i
-
-IsPalindrome = True
-End Function
+    Public Function GetStats(text As String) As String
+        Dim length As Long
+        Dim words As Long
+        Dim lines As Long
+        Dim result As String
+        length = Len(text)
+        words = UBound(Split(text, &quot; &quot;)) + 1
+        lines = UBound(Split(text, vbCrLf)) + 1
+        result = &quot;Length: &quot; &amp; length &amp; vbCrLf
+        result = result &amp; &quot;Words: &quot; &amp; words &amp; vbCrLf
+        result = result &amp; &quot;Lines: &quot; &amp; lines
+        GetStats = result
+    End Function
+    Public Function GetCharFrequency(text As String) As Object
+        Dim dict As Object
+        Dim i As Long
+        Dim char As String
+        Set dict = CreateObject(&quot;Scripting.Dictionary&quot;)
+        For i = 1 To Len(text)
+            char = Mid(text, i, 1)
+            If dict.Exists(char) Then
+                dict(char) = dict(char) + 1
+            Else
+                dict.Add char, 1
+            End If
+        Next i
+        Set GetCharFrequency = dict
+    End Function
+    Public Function IsPalindrome(text As String) As Boolean
+        Dim i As Long
+        Dim length As Long
+        length = Len(text)
+        For i = 1 To length \ 2
+            If Mid(text, i, 1) &lt;&gt; Mid(text, length - i + 1, 1) Then
+                IsPalindrome = False
+                Exit Function
+            End If
+        Next i
+        IsPalindrome = True
+    End Function
 End Class
-
 &#x27; Example 2: Text formatter
 Public Class TextFormatter
-Public Function WordWrap(text As String, lineWidth As Long) As String
-Dim result As String
-Dim currentLine As String
-Dim words() As String
-Dim i As Long
-Dim word As String
-
-result = &quot;&quot;
-currentLine = &quot;&quot;
-words = Split(text, &quot; &quot;)
-
-For i = LBound(words) To UBound(words)
-word = words(i)
-
-If Len(currentLine) = 0 Then
-currentLine = word
-ElseIf Len(currentLine) + 1 + Len(word) &lt;= lineWidth Then
-currentLine = currentLine &amp; &quot; &quot; &amp; word
-Else
-result = result &amp; currentLine &amp; vbCrLf
-currentLine = word
-End If
-Next i
-
-If Len(currentLine) &gt; 0 Then
-result = result &amp; currentLine
-End If
-
-WordWrap = result
-End Function
-
-Public Function JustifyText(text As String, width As Long) As String
-Dim words() As String
-Dim totalLen As Long
-Dim gaps As Long
-Dim extraSpaces As Long
-Dim spacesPerGap As Long
-Dim result As String
-Dim i As Long
-
-words = Split(text, &quot; &quot;)
-If UBound(words) = 0 Then
-JustifyText = text
-Exit Function
-End If
-
-&#x27; Calculate total word length
-totalLen = 0
-For i = LBound(words) To UBound(words)
-totalLen = totalLen + Len(words(i))
-Next i
-
-gaps = UBound(words) - LBound(words)
-extraSpaces = width - totalLen
-spacesPerGap = extraSpaces \ gaps
-
-result = &quot;&quot;
-For i = LBound(words) To UBound(words)
-result = result &amp; words(i)
-If i &lt; UBound(words) Then
-result = result &amp; String(spacesPerGap, &quot; &quot;)
-End If
-Next i
-
-JustifyText = result
-End Function
+    Public Function WordWrap(text As String, lineWidth As Long) As String
+        Dim result As String
+        Dim currentLine As String
+        Dim words() As String
+        Dim i As Long
+        Dim word As String
+        result = &quot;&quot;
+        currentLine = &quot;&quot;
+        words = Split(text, &quot; &quot;)
+        For i = LBound(words) To UBound(words)
+            word = words(i)
+            If Len(currentLine) = 0 Then
+                currentLine = word
+            ElseIf Len(currentLine) + 1 + Len(word) &lt;= lineWidth Then
+                currentLine = currentLine &amp; &quot; &quot; &amp; word
+            Else
+                result = result &amp; currentLine &amp; vbCrLf
+                currentLine = word
+            End If
+        Next i
+        If Len(currentLine) &gt; 0 Then
+            result = result &amp; currentLine
+        End If
+        WordWrap = result
+    End Function
+    Public Function JustifyText(text As String, width As Long) As String
+        Dim words() As String
+        Dim totalLen As Long
+        Dim gaps As Long
+        Dim extraSpaces As Long
+        Dim spacesPerGap As Long
+        Dim result As String
+        Dim i As Long
+        words = Split(text, &quot; &quot;)
+        If UBound(words) = 0 Then
+            JustifyText = text
+            Exit Function
+        End If
+        &#x27; Calculate total word length
+        totalLen = 0
+        For i = LBound(words) To UBound(words)
+            totalLen = totalLen + Len(words(i))
+        Next i
+        gaps = UBound(words) - LBound(words)
+        extraSpaces = width - totalLen
+        spacesPerGap = extraSpaces \ gaps
+        result = &quot;&quot;
+        For i = LBound(words) To UBound(words)
+            result = result &amp; words(i)
+            If i &lt; UBound(words) Then
+                result = result &amp; String(spacesPerGap, &quot; &quot;)
+            End If
+        Next i
+        JustifyText = result
+    End Function
 End Class
-
 &#x27; Example 3: Input validator
 Public Class InputValidator
-Public Function ValidateEmail(email As String) As Boolean
-&#x27; Basic email validation
-If Len(email) = 0 Then
-ValidateEmail = False
-Exit Function
-End If
-
-If InStr(email, &quot;@&quot;) = 0 Then
-ValidateEmail = False
-Exit Function
-End If
-
-If InStr(email, &quot;.&quot;) = 0 Then
-ValidateEmail = False
-Exit Function
-End If
-
-ValidateEmail = True
-End Function
-
-Public Function ValidatePassword(password As String) As String
-Dim errors As Collection
-Dim i As Long
-Dim char As String
-Dim hasUpper As Boolean
-Dim hasLower As Boolean
-Dim hasDigit As Boolean
-
-Set errors = New Collection
-
-If Len(password) &lt; 8 Then
-errors.Add &quot;Password must be at least 8 characters&quot;
-End If
-
-If Len(password) &gt; 128 Then
-errors.Add &quot;Password must not exceed 128 characters&quot;
-End If
-
-hasUpper = False
-hasLower = False
-hasDigit = False
-
-For i = 1 To Len(password)
-char = Mid(password, i, 1)
-If char &gt;= &quot;A&quot; And char &lt;= &quot;Z&quot; Then hasUpper = True
-If char &gt;= &quot;a&quot; And char &lt;= &quot;z&quot; Then hasLower = True
-If char &gt;= &quot;0&quot; And char &lt;= &quot;9&quot; Then hasDigit = True
-Next i
-
-If Not hasUpper Then errors.Add &quot;Password must contain uppercase letter&quot;
-If Not hasLower Then errors.Add &quot;Password must contain lowercase letter&quot;
-If Not hasDigit Then errors.Add &quot;Password must contain digit&quot;
-
-If errors.Count = 0 Then
-ValidatePassword = &quot;&quot;
-Else
-Dim msg As String
-msg = &quot;&quot;
-For i = 1 To errors.Count
-msg = msg &amp; errors(i) &amp; vbCrLf
-Next i
-ValidatePassword = msg
-End If
-End Function
-
-Public Function ValidateLength(text As String, fieldName As String, _
-minLen As Long, maxLen As Long) As String
-Dim length As Long
-length = Len(text)
-
-If length &lt; minLen Then
-ValidateLength = fieldName &amp; &quot; must be at least &quot; &amp; minLen &amp; &quot; characters&quot;
-ElseIf length &gt; maxLen Then
-ValidateLength = fieldName &amp; &quot; must not exceed &quot; &amp; maxLen &amp; &quot; characters&quot;
-Else
-ValidateLength = &quot;&quot;
-End If
-End Function
+    Public Function ValidateEmail(email As String) As Boolean
+        &#x27; Basic email validation
+        If Len(email) = 0 Then
+            ValidateEmail = False
+            Exit Function
+        End If
+        If InStr(email, &quot;@&quot;) = 0 Then
+            ValidateEmail = False
+            Exit Function
+        End If
+        If InStr(email, &quot;.&quot;) = 0 Then
+            ValidateEmail = False
+            Exit Function
+        End If
+        ValidateEmail = True
+    End Function
+    Public Function ValidatePassword(password As String) As String
+        Dim errors As Collection
+        Dim i As Long
+        Dim char As String
+        Dim hasUpper As Boolean
+        Dim hasLower As Boolean
+        Dim hasDigit As Boolean
+        Set errors = New Collection
+        If Len(password) &lt; 8 Then
+            errors.Add &quot;Password must be at least 8 characters&quot;
+        End If
+        If Len(password) &gt; 128 Then
+            errors.Add &quot;Password must not exceed 128 characters&quot;
+        End If
+        hasUpper = False
+        hasLower = False
+        hasDigit = False
+        For i = 1 To Len(password)
+            char = Mid(password, i, 1)
+            If char &gt;= &quot;A&quot; And char &lt;= &quot;Z&quot; Then hasUpper = True
+            If char &gt;= &quot;a&quot; And char &lt;= &quot;z&quot; Then hasLower = True
+            If char &gt;= &quot;0&quot; And char &lt;= &quot;9&quot; Then hasDigit = True
+        Next i
+        If Not hasUpper Then errors.Add &quot;Password must contain uppercase letter&quot;
+        If Not hasLower Then errors.Add &quot;Password must contain lowercase letter&quot;
+        If Not hasDigit Then errors.Add &quot;Password must contain digit&quot;
+        If errors.Count = 0 Then
+            ValidatePassword = &quot;&quot;
+        Else
+            Dim msg As String
+            msg = &quot;&quot;
+            For i = 1 To errors.Count
+                msg = msg &amp; errors(i) &amp; vbCrLf
+            Next i
+            ValidatePassword = msg
+        End If
+    End Function
+    Public Function ValidateLength(text As String, fieldName As String, _
+                                   minLen As Long, maxLen As Long) As String
+        Dim length As Long
+        length = Len(text)
+        If length &lt; minLen Then
+            ValidateLength = fieldName &amp; &quot; must be at least &quot; &amp; minLen &amp; &quot; characters&quot;
+        ElseIf length &gt; maxLen Then
+            ValidateLength = fieldName &amp; &quot; must not exceed &quot; &amp; maxLen &amp; &quot; characters&quot;
+        Else
+            ValidateLength = &quot;&quot;
+        End If
+    End Function
 End Class
-
 &#x27; Example 4: String builder with size tracking
 Public Class StringBuilder
-Private m_buffer As String
-Private m_length As Long
-
-Private Sub Class_Initialize()
-m_buffer = &quot;&quot;
-m_length = 0
-End Sub
-
-Public Sub Append(text As String)
-m_buffer = m_buffer &amp; text
-m_length = m_length + Len(text)
-End Sub
-
-Public Sub AppendLine(Optional text As String = &quot;&quot;)
-Append text &amp; vbCrLf
-End Sub
-
-Public Function ToString() As String
-ToString = m_buffer
-End Function
-
-Public Property Get Length() As Long
-Length = m_length
-End Property
-
-Public Sub Clear()
-m_buffer = &quot;&quot;
-m_length = 0
-End Sub
-
-Public Function Substring(startIndex As Long, length As Long) As String
-If startIndex &lt; 0 Or startIndex &gt;= m_length Then
-Substring = &quot;&quot;
-Exit Function
-End If
-
-Substring = Mid(m_buffer, startIndex + 1, length)
-End Function
+    Private m_buffer As String
+    Private m_length As Long
+    Private Sub Class_Initialize()
+        m_buffer = &quot;&quot;
+        m_length = 0
+    End Sub
+    Public Sub Append(text As String)
+        m_buffer = m_buffer &amp; text
+        m_length = m_length + Len(text)
+    End Sub
+    Public Sub AppendLine(Optional text As String = &quot;&quot;)
+        Append text &amp; vbCrLf
+    End Sub
+    Public Function ToString() As String
+        ToString = m_buffer
+    End Function
+    Public Property Get Length() As Long
+        Length = m_length
+    End Property
+    Public Sub Clear()
+        m_buffer = &quot;&quot;
+        m_length = 0
+    End Sub
+    Public Function Substring(startIndex As Long, length As Long) As String
+        If startIndex &lt; 0 Or startIndex &gt;= m_length Then
+            Substring = &quot;&quot;
+            Exit Function
+        End If
+        Substring = Mid(m_buffer, startIndex + 1, length)
+    End Function
 End Class</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <p>Len handles special cases gracefully:</p>
 <pre><code class="language-vbnet">&#x27; Empty string returns 0
 Debug.Print Len(&quot;&quot;)                  &#x27; 0
-
 &#x27; Null propagates
 Dim value As Variant
 value = Null
 Debug.Print IsNull(Len(value))       &#x27; True
-
 &#x27; Spaces are counted
 Debug.Print Len(&quot;   &quot;)               &#x27; 3
-
 &#x27; Special characters are counted
 Debug.Print Len(vbCrLf)              &#x27; 2 - CR + LF
 Debug.Print Len(vbTab)               &#x27; 1
-
 &#x27; Safe pattern with Null check
 Function SafeLen(value As Variant) As Long
-If IsNull(value) Then
-SafeLen = 0
-Else
-SafeLen = Len(value)
-End If
+    If IsNull(value) Then
+        SafeLen = 0
+    Else
+        SafeLen = Len(value)
+    End If
 End Function</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
 <li><strong>Fast Operation</strong>: <code>Len</code> is very fast, minimal overhead</li>
 <li><strong>Cache Result</strong>: If checking length multiple times, cache the value</li>
 <li><strong>String Iteration</strong>: For large strings, cache <code>Len</code> result in loop variable</li>
-<li><strong>No Side Effects</strong>: <code>Len</code> does not modify the string</li>
+<li><strong>No Side Effects</strong>: <code>Len</code> does not modify the string
+Performance tips:</li>
 </ul>
-<p>Performance tips:</p>
 <pre><code class="language-vbnet">&#x27; Less efficient - calls Len every iteration
 For i = 1 To Len(text)
-&#x27; process
+    &#x27; process
 Next i
-
 &#x27; More efficient - cache length
 Dim length As Long
 length = Len(text)
 For i = 1 To length
-&#x27; process
+    &#x27; process
 Next i</code></pre>
 <h2 id="best-practices">Best Practices</h2>
 <ol>
@@ -573,13 +499,10 @@ Next i</code></pre>
 </table>
 <pre><code class="language-vbnet">Dim text As String
 text = &quot;Hello&quot;
-
 &#x27; Len - character count
 Debug.Print Len(text)                &#x27; 5 characters
-
 &#x27; LenB - byte count (may differ for Unicode)
 Debug.Print LenB(text)               &#x27; 10 bytes (2 bytes per char in Unicode)
-
 &#x27; For ASCII characters, LenB is typically 2 * Len
 &#x27; For DBCS characters, varies by character</code></pre>
 <h2 id="fixed-length-vs-variable-length-strings">Fixed-Length vs Variable-Length Strings</h2>
@@ -587,7 +510,6 @@ Debug.Print LenB(text)               &#x27; 10 bytes (2 bytes per char in Unicod
 Dim varStr As String
 varStr = &quot;ABC&quot;
 Debug.Print Len(varStr)              &#x27; 3
-
 &#x27; Fixed-length string - Len returns declared length
 Dim fixStr As String * 10
 fixStr = &quot;ABC&quot;

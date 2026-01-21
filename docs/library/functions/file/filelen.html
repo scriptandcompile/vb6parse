@@ -44,7 +44,7 @@
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><strong>pathname</strong>: Required. A <code>String</code> expression that specifies a file name. May include
-directory or folder, and drive. If the file is not found, an error occurs.</li>
+  directory or folder, and drive. If the file is not found, an error occurs.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>Long</code> representing the length of the file in bytes. For open files, the value
@@ -52,20 +52,18 @@ returned is the size of the file immediately before it was opened.</p>
 <h2 id="remarks">Remarks</h2>
 <p>The <code>FileLen</code> function returns the size of a file in bytes. This is useful for
 determining file sizes before reading, checking disk space requirements, validating
-file downloads, and managing storage.</p>
-<p><strong>Important Characteristics:</strong></p>
-<ul>
-<li>Returns file size in bytes</li>
-<li>File does not need to be open</li>
-<li>Error if file does not exist (Error 53)</li>
-<li>Error if path is invalid (Error 76)</li>
-<li>Works with full paths and relative paths</li>
-<li>For open files, returns size before opening</li>
-<li>Maximum file size: 2,147,483,647 bytes (2GB - 1) due to <code>Long</code> limit</li>
-<li>Returns 0 for empty files</li>
-<li>Does not include file system overhead</li>
-<li>Can be used with wildcards via <code>Dir</code> function</li>
-</ul>
+file downloads, and managing storage.
+<strong>Important Characteristics:</strong>
+- Returns file size in bytes
+- File does not need to be open
+- Error if file does not exist (Error 53)
+- Error if path is invalid (Error 76)
+- Works with full paths and relative paths
+- For open files, returns size before opening
+- Maximum file size: 2,147,483,647 bytes (2GB - 1) due to <code>Long</code> limit
+- Returns 0 for empty files
+- Does not include file system overhead
+- Can be used with wildcards via <code>Dir</code> function</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ul>
 <li>Check available space before file operations</li>
@@ -80,614 +78,492 @@ file downloads, and managing storage.</p>
 <h2 id="examples">Examples</h2>
 <h3 id="basic-usage">Basic Usage</h3>
 <pre><code class="language-vbnet">Dim fileSize As Long
-
 &#x27; Get file size in bytes
 fileSize = FileLen(&quot;C:\data.txt&quot;)
 Debug.Print &quot;File size: &quot; &amp; fileSize &amp; &quot; bytes&quot;
-
 &#x27; Convert to KB, MB, GB
 Debug.Print &quot;Size in KB: &quot; &amp; Format(fileSize / 1024, &quot;0.00&quot;)
 Debug.Print &quot;Size in MB: &quot; &amp; Format(fileSize / 1048576, &quot;0.00&quot;)</code></pre>
 <h3 id="format-file-size-for-display">Format File Size for Display</h3>
 <pre><code class="language-vbnet">Function FormatFileSize(bytes As Long) As String
-Const KB = 1024
-Const MB = 1048576         &#x27; 1024 * 1024
-Const GB = 1073741824      &#x27; 1024 * 1024 * 1024
-
-If bytes &gt;= GB Then
-FormatFileSize = Format(bytes / GB, &quot;0.00&quot;) &amp; &quot; GB&quot;
-ElseIf bytes &gt;= MB Then
-FormatFileSize = Format(bytes / MB, &quot;0.00&quot;) &amp; &quot; MB&quot;
-ElseIf bytes &gt;= KB Then
-FormatFileSize = Format(bytes / KB, &quot;0.00&quot;) &amp; &quot; KB&quot;
-Else
-FormatFileSize = bytes &amp; &quot; bytes&quot;
-End If
+    Const KB = 1024
+    Const MB = 1048576         &#x27; 1024 * 1024
+    Const GB = 1073741824      &#x27; 1024 * 1024 * 1024
+    If bytes &gt;= GB Then
+        FormatFileSize = Format(bytes / GB, &quot;0.00&quot;) &amp; &quot; GB&quot;
+    ElseIf bytes &gt;= MB Then
+        FormatFileSize = Format(bytes / MB, &quot;0.00&quot;) &amp; &quot; MB&quot;
+    ElseIf bytes &gt;= KB Then
+        FormatFileSize = Format(bytes / KB, &quot;0.00&quot;) &amp; &quot; KB&quot;
+    Else
+        FormatFileSize = bytes &amp; &quot; bytes&quot;
+    End If
 End Function
-
 &#x27; Usage
 Debug.Print FormatFileSize(FileLen(&quot;C:\data.txt&quot;))</code></pre>
 <h3 id="check-if-file-exists-and-get-size">Check If File Exists and Get Size</h3>
 <pre><code class="language-vbnet">Function GetFileSize(filePath As String) As Long
-On Error GoTo ErrorHandler
-
-GetFileSize = FileLen(filePath)
-Exit Function
-
+    On Error GoTo ErrorHandler
+    GetFileSize = FileLen(filePath)
+    Exit Function
 ErrorHandler:
-GetFileSize = -1  &#x27; Indicate error
+    GetFileSize = -1  &#x27; Indicate error
 End Function</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="calculate-directory-size">Calculate Directory Size</h3>
 <pre><code class="language-vbnet">Function GetDirectorySize(folderPath As String) As Long
-Dim fileName As String
-Dim totalSize As Long
-Dim fileSize As Long
-
-If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
-folderPath = folderPath &amp; &quot;\&quot;
-End If
-
-fileName = Dir(folderPath &amp; &quot;*.*&quot;)
-totalSize = 0
-
-Do While fileName &lt;&gt; &quot;&quot;
-On Error Resume Next
-fileSize = FileLen(folderPath &amp; fileName)
-
-If Err.Number = 0 Then
-totalSize = totalSize + fileSize
-End If
-
-Err.Clear
-fileName = Dir
-Loop
-
-GetDirectorySize = totalSize
+    Dim fileName As String
+    Dim totalSize As Long
+    Dim fileSize As Long
+    If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
+        folderPath = folderPath &amp; &quot;\&quot;
+    End If
+    fileName = Dir(folderPath &amp; &quot;*.*&quot;)
+    totalSize = 0
+    Do While fileName &lt;&gt; &quot;&quot;
+        On Error Resume Next
+        fileSize = FileLen(folderPath &amp; fileName)
+        If Err.Number = 0 Then
+            totalSize = totalSize + fileSize
+        End If
+        Err.Clear
+        fileName = Dir
+    Loop
+    GetDirectorySize = totalSize
 End Function</code></pre>
 <h3 id="find-largest-file">Find Largest File</h3>
 <pre><code class="language-vbnet">Function FindLargestFile(folderPath As String) As String
-Dim fileName As String
-Dim largestFile As String
-Dim largestSize As Long
-Dim currentSize As Long
-
-If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
-folderPath = folderPath &amp; &quot;\&quot;
-End If
-
-fileName = Dir(folderPath &amp; &quot;*.*&quot;)
-largestSize = 0
-
-Do While fileName &lt;&gt; &quot;&quot;
-On Error Resume Next
-currentSize = FileLen(folderPath &amp; fileName)
-
-If Err.Number = 0 And currentSize &gt; largestSize Then
-largestSize = currentSize
-largestFile = fileName
-End If
-
-Err.Clear
-fileName = Dir
-Loop
-
-FindLargestFile = largestFile
+    Dim fileName As String
+    Dim largestFile As String
+    Dim largestSize As Long
+    Dim currentSize As Long
+    If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
+        folderPath = folderPath &amp; &quot;\&quot;
+    End If
+    fileName = Dir(folderPath &amp; &quot;*.*&quot;)
+    largestSize = 0
+    Do While fileName &lt;&gt; &quot;&quot;
+        On Error Resume Next
+        currentSize = FileLen(folderPath &amp; fileName)
+        If Err.Number = 0 And currentSize &gt; largestSize Then
+            largestSize = currentSize
+            largestFile = fileName
+        End If
+        Err.Clear
+        fileName = Dir
+    Loop
+    FindLargestFile = largestFile
 End Function</code></pre>
 <h3 id="filter-files-by-size">Filter Files by Size</h3>
 <pre><code class="language-vbnet">Function GetFilesBySize(folderPath As String, minSize As Long, _
-maxSize As Long) As Collection
-Dim files As New Collection
-Dim fileName As String
-Dim fullPath As String
-Dim fileSize As Long
-
-If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
-folderPath = folderPath &amp; &quot;\&quot;
-End If
-
-fileName = Dir(folderPath &amp; &quot;*.*&quot;)
-
-Do While fileName &lt;&gt; &quot;&quot;
-fullPath = folderPath &amp; fileName
-
-On Error Resume Next
-fileSize = FileLen(fullPath)
-
-If Err.Number = 0 Then
-If fileSize &gt;= minSize And fileSize &lt;= maxSize Then
-files.Add fullPath
-End If
-End If
-
-Err.Clear
-fileName = Dir
-Loop
-
-Set GetFilesBySize = files
+                        maxSize As Long) As Collection
+    Dim files As New Collection
+    Dim fileName As String
+    Dim fullPath As String
+    Dim fileSize As Long
+    If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
+        folderPath = folderPath &amp; &quot;\&quot;
+    End If
+    fileName = Dir(folderPath &amp; &quot;*.*&quot;)
+    Do While fileName &lt;&gt; &quot;&quot;
+        fullPath = folderPath &amp; fileName
+        On Error Resume Next
+        fileSize = FileLen(fullPath)
+        If Err.Number = 0 Then
+            If fileSize &gt;= minSize And fileSize &lt;= maxSize Then
+                files.Add fullPath
+            End If
+        End If
+        Err.Clear
+        fileName = Dir
+    Loop
+    Set GetFilesBySize = files
 End Function</code></pre>
 <h3 id="validate-file-download">Validate File Download</h3>
 <pre><code class="language-vbnet">Function ValidateDownload(filePath As String, expectedSize As Long) As Boolean
-On Error GoTo ErrorHandler
-
-Dim actualSize As Long
-actualSize = FileLen(filePath)
-
-ValidateDownload = (actualSize = expectedSize)
-
-If Not ValidateDownload Then
-Debug.Print &quot;Size mismatch - Expected: &quot; &amp; expectedSize &amp; _
-&quot;, Actual: &quot; &amp; actualSize
-End If
-
-Exit Function
-
+    On Error GoTo ErrorHandler
+    Dim actualSize As Long
+    actualSize = FileLen(filePath)
+    ValidateDownload = (actualSize = expectedSize)
+    If Not ValidateDownload Then
+        Debug.Print &quot;Size mismatch - Expected: &quot; &amp; expectedSize &amp; _
+                    &quot;, Actual: &quot; &amp; actualSize
+    End If
+    Exit Function
 ErrorHandler:
-ValidateDownload = False
+    ValidateDownload = False
 End Function</code></pre>
 <h3 id="check-available-space">Check Available Space</h3>
 <pre><code class="language-vbnet">Function HasEnoughSpace(filePath As String, drive As String) As Boolean
-On Error GoTo ErrorHandler
-
-Dim fileSize As Long
-Dim freeSpace As Currency
-Dim fso As Object
-
-&#x27; Get file size
-fileSize = FileLen(filePath)
-
-&#x27; Get free space (using FileSystemObject)
-Set fso = CreateObject(&quot;Scripting.FileSystemObject&quot;)
-freeSpace = fso.GetDrive(drive).FreeSpace
-
-HasEnoughSpace = (freeSpace &gt; fileSize)
-Exit Function
-
+    On Error GoTo ErrorHandler
+    Dim fileSize As Long
+    Dim freeSpace As Currency
+    Dim fso As Object
+    &#x27; Get file size
+    fileSize = FileLen(filePath)
+    &#x27; Get free space (using FileSystemObject)
+    Set fso = CreateObject(&quot;Scripting.FileSystemObject&quot;)
+    freeSpace = fso.GetDrive(drive).FreeSpace
+    HasEnoughSpace = (freeSpace &gt; fileSize)
+    Exit Function
 ErrorHandler:
-HasEnoughSpace = False
+    HasEnoughSpace = False
 End Function</code></pre>
 <h3 id="progress-bar-for-file-copy">Progress Bar for File Copy</h3>
 <pre><code class="language-vbnet">Sub CopyFileWithProgress(sourceFile As String, destFile As String)
-Dim fileSize As Long
-Dim buffer() As Byte
-Dim sourceNum As Integer
-Dim destNum As Integer
-Dim bytesRead As Long
-Dim chunkSize As Long
-
-On Error GoTo ErrorHandler
-
-&#x27; Get total file size
-fileSize = FileLen(sourceFile)
-
-If fileSize = 0 Then Exit Sub
-
-chunkSize = 65536  &#x27; 64KB chunks
-bytesRead = 0
-
-sourceNum = FreeFile
-Open sourceFile For Binary As #sourceNum
-
-destNum = FreeFile
-Open destFile For Binary As #destNum
-
-Do While bytesRead &lt; fileSize
-If fileSize - bytesRead &lt; chunkSize Then
-chunkSize = fileSize - bytesRead
-End If
-
-ReDim buffer(0 To chunkSize - 1)
-Get #sourceNum, , buffer
-Put #destNum, , buffer
-
-bytesRead = bytesRead + chunkSize
-
-&#x27; Update progress bar
-ProgressBar.Value = (bytesRead / fileSize) * 100
-DoEvents
-Loop
-
-Close #sourceNum
-Close #destNum
-Exit Sub
-
+    Dim fileSize As Long
+    Dim buffer() As Byte
+    Dim sourceNum As Integer
+    Dim destNum As Integer
+    Dim bytesRead As Long
+    Dim chunkSize As Long
+    On Error GoTo ErrorHandler
+    &#x27; Get total file size
+    fileSize = FileLen(sourceFile)
+    If fileSize = 0 Then Exit Sub
+    chunkSize = 65536  &#x27; 64KB chunks
+    bytesRead = 0
+    sourceNum = FreeFile
+    Open sourceFile For Binary As #sourceNum
+    destNum = FreeFile
+    Open destFile For Binary As #destNum
+    Do While bytesRead &lt; fileSize
+        If fileSize - bytesRead &lt; chunkSize Then
+            chunkSize = fileSize - bytesRead
+        End If
+        ReDim buffer(0 To chunkSize - 1)
+        Get #sourceNum, , buffer
+        Put #destNum, , buffer
+        bytesRead = bytesRead + chunkSize
+        &#x27; Update progress bar
+        ProgressBar.Value = (bytesRead / fileSize) * 100
+        DoEvents
+    Loop
+    Close #sourceNum
+    Close #destNum
+    Exit Sub
 ErrorHandler:
-If sourceNum &gt; 0 Then Close #sourceNum
-If destNum &gt; 0 Then Close #destNum
+    If sourceNum &gt; 0 Then Close #sourceNum
+    If destNum &gt; 0 Then Close #destNum
 End Sub</code></pre>
 <h3 id="list-files-with-sizes">List Files with Sizes</h3>
 <pre><code class="language-vbnet">Sub ListFilesWithSizes(folderPath As String)
-Dim fileName As String
-Dim fullPath As String
-Dim fileSize As Long
-
-If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
-folderPath = folderPath &amp; &quot;\&quot;
-End If
-
-Debug.Print &quot;Files in: &quot; &amp; folderPath
-Debug.Print String(60, &quot;-&quot;)
-Debug.Print &quot;Filename&quot;, &quot;Size&quot;
-Debug.Print String(60, &quot;-&quot;)
-
-fileName = Dir(folderPath &amp; &quot;*.*&quot;)
-
-Do While fileName &lt;&gt; &quot;&quot;
-fullPath = folderPath &amp; fileName
-
-On Error Resume Next
-fileSize = FileLen(fullPath)
-
-If Err.Number = 0 Then
-Debug.Print fileName, FormatFileSize(fileSize)
-End If
-
-Err.Clear
-fileName = Dir
-Loop
+    Dim fileName As String
+    Dim fullPath As String
+    Dim fileSize As Long
+    If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
+        folderPath = folderPath &amp; &quot;\&quot;
+    End If
+    Debug.Print &quot;Files in: &quot; &amp; folderPath
+    Debug.Print String(60, &quot;-&quot;)
+    Debug.Print &quot;Filename&quot;, &quot;Size&quot;
+    Debug.Print String(60, &quot;-&quot;)
+    fileName = Dir(folderPath &amp; &quot;*.*&quot;)
+    Do While fileName &lt;&gt; &quot;&quot;
+        fullPath = folderPath &amp; fileName
+        On Error Resume Next
+        fileSize = FileLen(fullPath)
+        If Err.Number = 0 Then
+            Debug.Print fileName, FormatFileSize(fileSize)
+        End If
+        Err.Clear
+        fileName = Dir
+    Loop
 End Sub</code></pre>
 <h3 id="allocate-buffer-based-on-file-size">Allocate Buffer Based on File Size</h3>
 <pre><code class="language-vbnet">Function ReadFileToBuffer(filePath As String) As Byte()
-Dim fileSize As Long
-Dim buffer() As Byte
-Dim fileNum As Integer
-
-On Error GoTo ErrorHandler
-
-&#x27; Get file size to allocate exact buffer
-fileSize = FileLen(filePath)
-
-If fileSize = 0 Then
-ReadFileToBuffer = buffer
-Exit Function
-End If
-
-&#x27; Allocate buffer
-ReDim buffer(0 To fileSize - 1)
-
-&#x27; Read file
-fileNum = FreeFile
-Open filePath For Binary As #fileNum
-Get #fileNum, , buffer
-Close #fileNum
-
-ReadFileToBuffer = buffer
-Exit Function
-
+    Dim fileSize As Long
+    Dim buffer() As Byte
+    Dim fileNum As Integer
+    On Error GoTo ErrorHandler
+    &#x27; Get file size to allocate exact buffer
+    fileSize = FileLen(filePath)
+    If fileSize = 0 Then
+        ReadFileToBuffer = buffer
+        Exit Function
+    End If
+    &#x27; Allocate buffer
+    ReDim buffer(0 To fileSize - 1)
+    &#x27; Read file
+    fileNum = FreeFile
+    Open filePath For Binary As #fileNum
+    Get #fileNum, , buffer
+    Close #fileNum
+    ReadFileToBuffer = buffer
+    Exit Function
 ErrorHandler:
-If fileNum &gt; 0 Then Close #fileNum
-ReadFileToBuffer = buffer
+    If fileNum &gt; 0 Then Close #fileNum
+    ReadFileToBuffer = buffer
 End Function</code></pre>
 <h3 id="find-empty-files">Find Empty Files</h3>
 <pre><code class="language-vbnet">Function FindEmptyFiles(folderPath As String) As Collection
-Dim emptyFiles As New Collection
-Dim fileName As String
-Dim fullPath As String
-Dim fileSize As Long
-
-If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
-folderPath = folderPath &amp; &quot;\&quot;
-End If
-
-fileName = Dir(folderPath &amp; &quot;*.*&quot;)
-
-Do While fileName &lt;&gt; &quot;&quot;
-fullPath = folderPath &amp; fileName
-
-On Error Resume Next
-fileSize = FileLen(fullPath)
-
-If Err.Number = 0 And fileSize = 0 Then
-emptyFiles.Add fullPath
-End If
-
-Err.Clear
-fileName = Dir
-Loop
-
-Set FindEmptyFiles = emptyFiles
+    Dim emptyFiles As New Collection
+    Dim fileName As String
+    Dim fullPath As String
+    Dim fileSize As Long
+    If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
+        folderPath = folderPath &amp; &quot;\&quot;
+    End If
+    fileName = Dir(folderPath &amp; &quot;*.*&quot;)
+    Do While fileName &lt;&gt; &quot;&quot;
+        fullPath = folderPath &amp; fileName
+        On Error Resume Next
+        fileSize = FileLen(fullPath)
+        If Err.Number = 0 And fileSize = 0 Then
+            emptyFiles.Add fullPath
+        End If
+        Err.Clear
+        fileName = Dir
+    Loop
+    Set FindEmptyFiles = emptyFiles
 End Function</code></pre>
 <h3 id="compare-file-sizes">Compare File Sizes</h3>
 <pre><code class="language-vbnet">Function CompareFileSizes(file1 As String, file2 As String) As Long
-&#x27; Returns: -1 if file1 &lt; file2, 0 if equal, 1 if file1 &gt; file2
-On Error GoTo ErrorHandler
-
-Dim size1 As Long
-Dim size2 As Long
-
-size1 = FileLen(file1)
-size2 = FileLen(file2)
-
-If size1 &lt; size2 Then
-CompareFileSizes = -1
-ElseIf size1 &gt; size2 Then
-CompareFileSizes = 1
-Else
-CompareFileSizes = 0
-End If
-
-Exit Function
-
+    &#x27; Returns: -1 if file1 &lt; file2, 0 if equal, 1 if file1 &gt; file2
+    On Error GoTo ErrorHandler
+    Dim size1 As Long
+    Dim size2 As Long
+    size1 = FileLen(file1)
+    size2 = FileLen(file2)
+    If size1 &lt; size2 Then
+        CompareFileSizes = -1
+    ElseIf size1 &gt; size2 Then
+        CompareFileSizes = 1
+    Else
+        CompareFileSizes = 0
+    End If
+    Exit Function
 ErrorHandler:
-CompareFileSizes = 0
+    CompareFileSizes = 0
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="disk-usage-report">Disk Usage Report</h3>
 <pre><code class="language-vbnet">Type DirectoryStats
-Path As String
-FileCount As Long
-TotalSize As Long
-LargestFile As String
-LargestSize As Long
-SmallestFile As String
-SmallestSize As Long
-AverageSize As Long
+    Path As String
+    FileCount As Long
+    TotalSize As Long
+    LargestFile As String
+    LargestSize As Long
+    SmallestFile As String
+    SmallestSize As Long
+    AverageSize As Long
 End Type
-
 Function AnalyzeDirectory(folderPath As String) As DirectoryStats
-Dim stats As DirectoryStats
-Dim fileName As String
-Dim fullPath As String
-Dim fileSize As Long
-
-If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
-folderPath = folderPath &amp; &quot;\&quot;
-End If
-
-stats.Path = folderPath
-stats.FileCount = 0
-stats.TotalSize = 0
-stats.LargestSize = 0
-stats.SmallestSize = 2147483647  &#x27; Max Long
-
-fileName = Dir(folderPath &amp; &quot;*.*&quot;)
-
-Do While fileName &lt;&gt; &quot;&quot;
-fullPath = folderPath &amp; fileName
-
-On Error Resume Next
-fileSize = FileLen(fullPath)
-
-If Err.Number = 0 Then
-stats.FileCount = stats.FileCount + 1
-stats.TotalSize = stats.TotalSize + fileSize
-
-If fileSize &gt; stats.LargestSize Then
-stats.LargestSize = fileSize
-stats.LargestFile = fileName
-End If
-
-If fileSize &lt; stats.SmallestSize Then
-stats.SmallestSize = fileSize
-stats.SmallestFile = fileName
-End If
-End If
-
-Err.Clear
-fileName = Dir
-Loop
-
-If stats.FileCount &gt; 0 Then
-stats.AverageSize = stats.TotalSize / stats.FileCount
-End If
-
-AnalyzeDirectory = stats
+    Dim stats As DirectoryStats
+    Dim fileName As String
+    Dim fullPath As String
+    Dim fileSize As Long
+    If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
+        folderPath = folderPath &amp; &quot;\&quot;
+    End If
+    stats.Path = folderPath
+    stats.FileCount = 0
+    stats.TotalSize = 0
+    stats.LargestSize = 0
+    stats.SmallestSize = 2147483647  &#x27; Max Long
+    fileName = Dir(folderPath &amp; &quot;*.*&quot;)
+    Do While fileName &lt;&gt; &quot;&quot;
+        fullPath = folderPath &amp; fileName
+        On Error Resume Next
+        fileSize = FileLen(fullPath)
+        If Err.Number = 0 Then
+            stats.FileCount = stats.FileCount + 1
+            stats.TotalSize = stats.TotalSize + fileSize
+            If fileSize &gt; stats.LargestSize Then
+                stats.LargestSize = fileSize
+                stats.LargestFile = fileName
+            End If
+            If fileSize &lt; stats.SmallestSize Then
+                stats.SmallestSize = fileSize
+                stats.SmallestFile = fileName
+            End If
+        End If
+        Err.Clear
+        fileName = Dir
+    Loop
+    If stats.FileCount &gt; 0 Then
+        stats.AverageSize = stats.TotalSize / stats.FileCount
+    End If
+    AnalyzeDirectory = stats
 End Function</code></pre>
 <h3 id="sort-files-by-size">Sort Files by Size</h3>
 <pre><code class="language-vbnet">Type FileSizeInfo
-Name As String
-Size As Long
+    Name As String
+    Size As Long
 End Type
-
 Function GetFilesSortedBySize(folderPath As String) As Variant
-Dim files() As FileSizeInfo
-Dim fileName As String
-Dim fullPath As String
-Dim count As Long
-Dim i As Long, j As Long
-Dim temp As FileSizeInfo
-
-If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
-folderPath = folderPath &amp; &quot;\&quot;
-End If
-
-ReDim files(0 To 100)
-count = 0
-fileName = Dir(folderPath &amp; &quot;*.*&quot;)
-
-Do While fileName &lt;&gt; &quot;&quot;
-fullPath = folderPath &amp; fileName
-
-On Error Resume Next
-files(count).Name = fileName
-files(count).Size = FileLen(fullPath)
-
-If Err.Number = 0 Then
-count = count + 1
-If count &gt; UBound(files) Then
-ReDim Preserve files(0 To UBound(files) + 100)
-End If
-End If
-
-Err.Clear
-fileName = Dir
-Loop
-
-If count &gt; 0 Then
-ReDim Preserve files(0 To count - 1)
-
-&#x27; Bubble sort by size (largest first)
-For i = 0 To count - 2
-For j = i + 1 To count - 1
-If files(j).Size &gt; files(i).Size Then
-temp = files(i)
-files(i) = files(j)
-files(j) = temp
-End If
-Next j
-Next i
-End If
-
-GetFilesSortedBySize = files
+    Dim files() As FileSizeInfo
+    Dim fileName As String
+    Dim fullPath As String
+    Dim count As Long
+    Dim i As Long, j As Long
+    Dim temp As FileSizeInfo
+    If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
+        folderPath = folderPath &amp; &quot;\&quot;
+    End If
+    ReDim files(0 To 100)
+    count = 0
+    fileName = Dir(folderPath &amp; &quot;*.*&quot;)
+    Do While fileName &lt;&gt; &quot;&quot;
+        fullPath = folderPath &amp; fileName
+        On Error Resume Next
+        files(count).Name = fileName
+        files(count).Size = FileLen(fullPath)
+        If Err.Number = 0 Then
+            count = count + 1
+            If count &gt; UBound(files) Then
+                ReDim Preserve files(0 To UBound(files) + 100)
+            End If
+        End If
+        Err.Clear
+        fileName = Dir
+    Loop
+    If count &gt; 0 Then
+        ReDim Preserve files(0 To count - 1)
+        &#x27; Bubble sort by size (largest first)
+        For i = 0 To count - 2
+            For j = i + 1 To count - 1
+                If files(j).Size &gt; files(i).Size Then
+                    temp = files(i)
+                    files(i) = files(j)
+                    files(j) = temp
+                End If
+            Next j
+        Next i
+    End If
+    GetFilesSortedBySize = files
 End Function</code></pre>
 <h3 id="file-size-distribution">File Size Distribution</h3>
 <pre><code class="language-vbnet">Type SizeDistribution
-Range As String
-Count As Long
-TotalSize As Long
+    Range As String
+    Count As Long
+    TotalSize As Long
 End Type
-
 Function GetSizeDistribution(folderPath As String) As Variant
-Dim dist(0 To 5) As SizeDistribution
-Dim fileName As String
-Dim fullPath As String
-Dim fileSize As Long
-
-&#x27; Define ranges
-dist(0).Range = &quot;&lt; 1 KB&quot;
-dist(1).Range = &quot;1 KB - 100 KB&quot;
-dist(2).Range = &quot;100 KB - 1 MB&quot;
-dist(3).Range = &quot;1 MB - 10 MB&quot;
-dist(4).Range = &quot;10 MB - 100 MB&quot;
-dist(5).Range = &quot;&gt; 100 MB&quot;
-
-If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
-folderPath = folderPath &amp; &quot;\&quot;
-End If
-
-fileName = Dir(folderPath &amp; &quot;*.*&quot;)
-
-Do While fileName &lt;&gt; &quot;&quot;
-fullPath = folderPath &amp; fileName
-
-On Error Resume Next
-fileSize = FileLen(fullPath)
-
-If Err.Number = 0 Then
-If fileSize &lt; 1024 Then
-dist(0).Count = dist(0).Count + 1
-dist(0).TotalSize = dist(0).TotalSize + fileSize
-ElseIf fileSize &lt; 102400 Then
-dist(1).Count = dist(1).Count + 1
-dist(1).TotalSize = dist(1).TotalSize + fileSize
-ElseIf fileSize &lt; 1048576 Then
-dist(2).Count = dist(2).Count + 1
-dist(2).TotalSize = dist(2).TotalSize + fileSize
-ElseIf fileSize &lt; 10485760 Then
-dist(3).Count = dist(3).Count + 1
-dist(3).TotalSize = dist(3).TotalSize + fileSize
-ElseIf fileSize &lt; 104857600 Then
-dist(4).Count = dist(4).Count + 1
-dist(4).TotalSize = dist(4).TotalSize + fileSize
-Else
-dist(5).Count = dist(5).Count + 1
-dist(5).TotalSize = dist(5).TotalSize + fileSize
-End If
-End If
-
-Err.Clear
-fileName = Dir
-Loop
-
-GetSizeDistribution = dist
+    Dim dist(0 To 5) As SizeDistribution
+    Dim fileName As String
+    Dim fullPath As String
+    Dim fileSize As Long
+    &#x27; Define ranges
+    dist(0).Range = &quot;&lt; 1 KB&quot;
+    dist(1).Range = &quot;1 KB - 100 KB&quot;
+    dist(2).Range = &quot;100 KB - 1 MB&quot;
+    dist(3).Range = &quot;1 MB - 10 MB&quot;
+    dist(4).Range = &quot;10 MB - 100 MB&quot;
+    dist(5).Range = &quot;&gt; 100 MB&quot;
+    If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
+        folderPath = folderPath &amp; &quot;\&quot;
+    End If
+    fileName = Dir(folderPath &amp; &quot;*.*&quot;)
+    Do While fileName &lt;&gt; &quot;&quot;
+        fullPath = folderPath &amp; fileName
+        On Error Resume Next
+        fileSize = FileLen(fullPath)
+        If Err.Number = 0 Then
+            If fileSize &lt; 1024 Then
+                dist(0).Count = dist(0).Count + 1
+                dist(0).TotalSize = dist(0).TotalSize + fileSize
+            ElseIf fileSize &lt; 102400 Then
+                dist(1).Count = dist(1).Count + 1
+                dist(1).TotalSize = dist(1).TotalSize + fileSize
+            ElseIf fileSize &lt; 1048576 Then
+                dist(2).Count = dist(2).Count + 1
+                dist(2).TotalSize = dist(2).TotalSize + fileSize
+            ElseIf fileSize &lt; 10485760 Then
+                dist(3).Count = dist(3).Count + 1
+                dist(3).TotalSize = dist(3).TotalSize + fileSize
+            ElseIf fileSize &lt; 104857600 Then
+                dist(4).Count = dist(4).Count + 1
+                dist(4).TotalSize = dist(4).TotalSize + fileSize
+            Else
+                dist(5).Count = dist(5).Count + 1
+                dist(5).TotalSize = dist(5).TotalSize + fileSize
+            End If
+        End If
+        Err.Clear
+        fileName = Dir
+    Loop
+    GetSizeDistribution = dist
 End Function</code></pre>
 <h3 id="quota-management">Quota Management</h3>
 <pre><code class="language-vbnet">Function CheckQuota(userFolder As String, quotaLimit As Long) As Boolean
-Dim totalSize As Long
-Dim fileName As String
-Dim fullPath As String
-Dim fileSize As Long
-
-If Right(userFolder, 1) &lt;&gt; &quot;\&quot; Then
-userFolder = userFolder &amp; &quot;\&quot;
-End If
-
-totalSize = 0
-fileName = Dir(userFolder &amp; &quot;*.*&quot;)
-
-Do While fileName &lt;&gt; &quot;&quot;
-fullPath = userFolder &amp; fileName
-
-On Error Resume Next
-fileSize = FileLen(fullPath)
-
-If Err.Number = 0 Then
-totalSize = totalSize + fileSize
-End If
-
-Err.Clear
-fileName = Dir
-Loop
-
-If totalSize &gt; quotaLimit Then
-MsgBox &quot;Quota exceeded!&quot; &amp; vbCrLf &amp; _
-&quot;Used: &quot; &amp; FormatFileSize(totalSize) &amp; vbCrLf &amp; _
-&quot;Limit: &quot; &amp; FormatFileSize(quotaLimit), vbExclamation
-CheckQuota = False
-Else
-CheckQuota = True
-End If
+    Dim totalSize As Long
+    Dim fileName As String
+    Dim fullPath As String
+    Dim fileSize As Long
+    If Right(userFolder, 1) &lt;&gt; &quot;\&quot; Then
+        userFolder = userFolder &amp; &quot;\&quot;
+    End If
+    totalSize = 0
+    fileName = Dir(userFolder &amp; &quot;*.*&quot;)
+    Do While fileName &lt;&gt; &quot;&quot;
+        fullPath = userFolder &amp; fileName
+        On Error Resume Next
+        fileSize = FileLen(fullPath)
+        If Err.Number = 0 Then
+            totalSize = totalSize + fileSize
+        End If
+        Err.Clear
+        fileName = Dir
+    Loop
+    If totalSize &gt; quotaLimit Then
+        MsgBox &quot;Quota exceeded!&quot; &amp; vbCrLf &amp; _
+               &quot;Used: &quot; &amp; FormatFileSize(totalSize) &amp; vbCrLf &amp; _
+               &quot;Limit: &quot; &amp; FormatFileSize(quotaLimit), vbExclamation
+        CheckQuota = False
+    Else
+        CheckQuota = True
+    End If
 End Function</code></pre>
 <h3 id="duplicate-file-finder-by-size">Duplicate File Finder (by size)</h3>
 <pre><code class="language-vbnet">Function FindPotentialDuplicates(folderPath As String) As Collection
-&#x27; Files with same size are potential duplicates
-Dim sizeMap As New Collection
-Dim duplicates As New Collection
-Dim fileName As String
-Dim fullPath As String
-Dim fileSize As Long
-Dim sizeKey As String
-
-If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
-folderPath = folderPath &amp; &quot;\&quot;
-End If
-
-fileName = Dir(folderPath &amp; &quot;*.*&quot;)
-
-Do While fileName &lt;&gt; &quot;&quot;
-fullPath = folderPath &amp; fileName
-
-On Error Resume Next
-fileSize = FileLen(fullPath)
-
-If Err.Number = 0 Then
-sizeKey = CStr(fileSize)
-
-&#x27; Try to add to collection
-Err.Clear
-sizeMap.Add fullPath, sizeKey
-
-If Err.Number &lt;&gt; 0 Then
-&#x27; Duplicate size found
-duplicates.Add fullPath
-End If
-End If
-
-Err.Clear
-fileName = Dir
-Loop
-
-Set FindPotentialDuplicates = duplicates
+    &#x27; Files with same size are potential duplicates
+    Dim sizeMap As New Collection
+    Dim duplicates As New Collection
+    Dim fileName As String
+    Dim fullPath As String
+    Dim fileSize As Long
+    Dim sizeKey As String
+    If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
+        folderPath = folderPath &amp; &quot;\&quot;
+    End If
+    fileName = Dir(folderPath &amp; &quot;*.*&quot;)
+    Do While fileName &lt;&gt; &quot;&quot;
+        fullPath = folderPath &amp; fileName
+        On Error Resume Next
+        fileSize = FileLen(fullPath)
+        If Err.Number = 0 Then
+            sizeKey = CStr(fileSize)
+            &#x27; Try to add to collection
+            Err.Clear
+            sizeMap.Add fullPath, sizeKey
+            If Err.Number &lt;&gt; 0 Then
+                &#x27; Duplicate size found
+                duplicates.Add fullPath
+            End If
+        End If
+        Err.Clear
+        fileName = Dir
+    Loop
+    Set FindPotentialDuplicates = duplicates
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeFileLen(filePath As String) As Long
-On Error GoTo ErrorHandler
-
-SafeFileLen = FileLen(filePath)
-Exit Function
-
+    On Error GoTo ErrorHandler
+    SafeFileLen = FileLen(filePath)
+    Exit Function
 ErrorHandler:
-Select Case Err.Number
-Case 53  &#x27; File not found
-Debug.Print &quot;File not found: &quot; &amp; filePath
-SafeFileLen = -1
-Case 76  &#x27; Path not found
-Debug.Print &quot;Path not found: &quot; &amp; filePath
-SafeFileLen = -1
-Case Else
-Debug.Print &quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Err.Description
-SafeFileLen = -1
-End Select
+    Select Case Err.Number
+        Case 53  &#x27; File not found
+            Debug.Print &quot;File not found: &quot; &amp; filePath
+            SafeFileLen = -1
+        Case 76  &#x27; Path not found
+            Debug.Print &quot;Path not found: &quot; &amp; filePath
+            SafeFileLen = -1
+        Case Else
+            Debug.Print &quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Err.Description
+            SafeFileLen = -1
+    End Select
 End Function</code></pre>
 <h3 id="common-errors">Common Errors</h3>
 <ul>
@@ -708,16 +584,15 @@ End Function</code></pre>
 <h3 id="check-file-existence-first">Check File Existence First</h3>
 <pre><code class="language-vbnet">&#x27; Good - Check existence to avoid error
 If Dir(filePath) &lt;&gt; &quot;&quot; Then
-fileSize = FileLen(filePath)
+    fileSize = FileLen(filePath)
 Else
-MsgBox &quot;File not found&quot;
+    MsgBox &quot;File not found&quot;
 End If
-
 &#x27; Or use error handling
 On Error Resume Next
 fileSize = FileLen(filePath)
 If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Cannot get file size&quot;
+    MsgBox &quot;Cannot get file size&quot;
 End If
 On Error GoTo 0</code></pre>
 <h3 id="format-for-display">Format for Display</h3>
@@ -725,14 +600,12 @@ On Error GoTo 0</code></pre>
 Dim size As Long
 size = FileLen(filePath)
 MsgBox &quot;File size: &quot; &amp; FormatFileSize(size)
-
 &#x27; Bad - Raw bytes for large files
 MsgBox &quot;File size: &quot; &amp; FileLen(filePath) &amp; &quot; bytes&quot;</code></pre>
 <h2 id="comparison-with-other-functions">Comparison with Other Functions</h2>
 <h3 id="filelen-vs-lof"><code>FileLen</code> vs <code>LOF</code></h3>
 <pre><code class="language-vbnet">&#x27; FileLen - For closed files, returns current size
 fileSize = FileLen(&quot;C:\data.txt&quot;)
-
 &#x27; LOF - For open files only, returns current size
 Open &quot;C:\data.txt&quot; For Input As #1
 fileSize = LOF(1)
@@ -740,7 +613,6 @@ Close #1</code></pre>
 <h3 id="filelen-vs-filesystemobjectgetfilesize"><code>FileLen</code> vs <code>FileSystemObject.GetFile.Size</code></h3>
 <pre><code class="language-vbnet">&#x27; FileLen - Built-in VB6 function
 fileSize = FileLen(&quot;C:\data.txt&quot;)
-
 &#x27; FSO - Requires reference to Scripting Runtime
 Dim fso As Object
 Set fso = CreateObject(&quot;Scripting.FileSystemObject&quot;)

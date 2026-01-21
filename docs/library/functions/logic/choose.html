@@ -43,187 +43,164 @@
 <pre><code class="language-vbnet">Choose(index, choice-1[, choice-2, ... [, choice-n]])</code></pre>
 <h2 id="parameters">Parameters</h2>
 <ul>
-<li>
-<p><strong>index</strong>: Required. Numeric expression (typically Integer or Long) that results in a value
-between 1 and the number of available choices. The index is 1-based.</p>
-</li>
-<li>
-<p><strong>choice</strong>: Required. Variant expression containing one of the possible choices. You must
-provide at least one choice argument.</p>
-</li>
+<li><strong>index</strong>: Required. Numeric expression (typically Integer or Long) that results in a value
+  between 1 and the number of available choices. The index is 1-based.</li>
+<li><strong>choice</strong>: Required. Variant expression containing one of the possible choices. You must
+  provide at least one choice argument.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a Variant containing the value of the choice at the specified index position. If the
 index is less than 1 or greater than the number of choices, <code>Choose</code> returns <code>Null</code>.</p>
 <h2 id="remarks">Remarks</h2>
 <p>The <code>Choose</code> function provides a convenient way to select from a list of values based on an
-index, similar to a switch/case statement but as an expression. It's particularly useful for:</p>
-<ul>
-<li>Mapping numeric codes to string values</li>
-<li>Selecting values based on calculated indices</li>
-<li>Simplifying multi-way conditional expressions</li>
-<li>Implementing lookup tables inline</li>
-</ul>
-<p><strong>Important Characteristics:</strong></p>
-<ul>
-<li>The index is 1-based (first choice is at index 1)</li>
-<li>Returns <code>Null</code> if index is out of range (&lt; 1 or &gt; number of choices)</li>
-<li>All choice arguments are evaluated before selection occurs (unlike <code>IIf</code>)</li>
-<li>Can accept any Variant-compatible expressions as choices</li>
-<li>Choices can be of mixed types (numbers, strings, objects, etc.)</li>
-<li>The returned value's type depends on the selected choice</li>
-</ul>
+index, similar to a switch/case statement but as an expression. It's particularly useful for:
+- Mapping numeric codes to string values
+- Selecting values based on calculated indices
+- Simplifying multi-way conditional expressions
+- Implementing lookup tables inline
+<strong>Important Characteristics:</strong>
+- The index is 1-based (first choice is at index 1)
+- Returns <code>Null</code> if index is out of range (&lt; 1 or &gt; number of choices)
+- All choice arguments are evaluated before selection occurs (unlike <code>IIf</code>)
+- Can accept any Variant-compatible expressions as choices
+- Choices can be of mixed types (numbers, strings, objects, etc.)
+- The returned value's type depends on the selected choice</p>
 <h2 id="examples">Examples</h2>
 <h3 id="basic-usage">Basic Usage</h3>
 <pre><code class="language-vbnet">&#x27; Simple value selection
 Dim dayType As String
 dayType = Choose(Weekday(Date), &quot;Sun&quot;, &quot;Mon&quot;, &quot;Tue&quot;, &quot;Wed&quot;, &quot;Thu&quot;, &quot;Fri&quot;, &quot;Sat&quot;)
-
 &#x27; Numeric selection
 Dim priority As Integer
 priority = Choose(level, 1, 5, 10, 50, 100)
-
 &#x27; Mixed types
 Dim result As Variant
 result = Choose(2, 100, &quot;Text&quot;, #1/1/2000#, True)  &#x27; Returns &quot;Text&quot;</code></pre>
 <h3 id="mapping-codes-to-descriptions">Mapping Codes to Descriptions</h3>
 <pre><code class="language-vbnet">Function GetStatusDescription(statusCode As Integer) As String
-GetStatusDescription = Choose(statusCode, _
-&quot;Pending&quot;, _
-&quot;Approved&quot;, _
-&quot;Rejected&quot;, _
-&quot;On Hold&quot;, _
-&quot;Completed&quot;)
-
-If IsNull(GetStatusDescription) Then
-GetStatusDescription = &quot;Unknown&quot;
-End If
+    GetStatusDescription = Choose(statusCode, _
+        &quot;Pending&quot;, _
+        &quot;Approved&quot;, _
+        &quot;Rejected&quot;, _
+        &quot;On Hold&quot;, _
+        &quot;Completed&quot;)
+    If IsNull(GetStatusDescription) Then
+        GetStatusDescription = &quot;Unknown&quot;
+    End If
 End Function</code></pre>
 <h3 id="dynamic-message-selection">Dynamic Message Selection</h3>
 <pre><code class="language-vbnet">Sub ShowErrorMessage(errorLevel As Integer)
-Dim msg As String
-msg = Choose(errorLevel, _
-&quot;Operation completed successfully.&quot;, _
-&quot;Warning: Please review the results.&quot;, _
-&quot;Error: Operation failed.&quot;, _
-&quot;Critical: System error occurred.&quot;)
-
-MsgBox msg, vbInformation
+    Dim msg As String
+    msg = Choose(errorLevel, _
+        &quot;Operation completed successfully.&quot;, _
+        &quot;Warning: Please review the results.&quot;, _
+        &quot;Error: Operation failed.&quot;, _
+        &quot;Critical: System error occurred.&quot;)
+    MsgBox msg, vbInformation
 End Sub</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="month-name-lookup">Month Name Lookup</h3>
 <pre><code class="language-vbnet">Function GetMonthName(monthNum As Integer) As String
-GetMonthName = Choose(monthNum, _
-&quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quot;April&quot;, _
-&quot;May&quot;, &quot;June&quot;, &quot;July&quot;, &quot;August&quot;, _
-&quot;September&quot;, &quot;October&quot;, &quot;November&quot;, &quot;December&quot;)
+    GetMonthName = Choose(monthNum, _
+        &quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quot;April&quot;, _
+        &quot;May&quot;, &quot;June&quot;, &quot;July&quot;, &quot;August&quot;, _
+        &quot;September&quot;, &quot;October&quot;, &quot;November&quot;, &quot;December&quot;)
 End Function</code></pre>
 <h3 id="grade-calculation">Grade Calculation</h3>
 <pre><code class="language-vbnet">Function GetLetterGrade(score As Integer) As String
-Dim gradeIndex As Integer
-gradeIndex = Int(score / 10) - 5  &#x27; 60-69=1, 70-79=2, etc.
-If gradeIndex &lt; 1 Then gradeIndex = 1
-If gradeIndex &gt; 5 Then gradeIndex = 5
-
-GetLetterGrade = Choose(gradeIndex, &quot;F&quot;, &quot;D&quot;, &quot;C&quot;, &quot;B&quot;, &quot;A&quot;)
+    Dim gradeIndex As Integer
+    gradeIndex = Int(score / 10) - 5  &#x27; 60-69=1, 70-79=2, etc.
+    If gradeIndex &lt; 1 Then gradeIndex = 1
+    If gradeIndex &gt; 5 Then gradeIndex = 5
+    GetLetterGrade = Choose(gradeIndex, &quot;F&quot;, &quot;D&quot;, &quot;C&quot;, &quot;B&quot;, &quot;A&quot;)
 End Function</code></pre>
 <h3 id="configuration-selection">Configuration Selection</h3>
 <pre><code class="language-vbnet">Function GetServerURL(environment As Integer) As String
-&#x27; 1=Development, 2=Testing, 3=Staging, 4=Production
-GetServerURL = Choose(environment, _
-&quot;http://localhost:8080&quot;, _
-&quot;http://test.example.com&quot;, _
-&quot;http://staging.example.com&quot;, _
-&quot;https://www.example.com&quot;)
+    &#x27; 1=Development, 2=Testing, 3=Staging, 4=Production
+    GetServerURL = Choose(environment, _
+        &quot;http://localhost:8080&quot;, _
+        &quot;http://test.example.com&quot;, _
+        &quot;http://staging.example.com&quot;, _
+        &quot;https://www.example.com&quot;)
 End Function</code></pre>
 <h3 id="color-code-mapping">Color Code Mapping</h3>
 <pre><code class="language-vbnet">Function GetColorValue(colorCode As Integer) As Long
-GetColorValue = Choose(colorCode, _
-vbRed, vbGreen, vbBlue, vbYellow, _
-vbMagenta, vbCyan, vbWhite, vbBlack)
+    GetColorValue = Choose(colorCode, _
+        vbRed, vbGreen, vbBlue, vbYellow, _
+        vbMagenta, vbCyan, vbWhite, vbBlack)
 End Function</code></pre>
 <h3 id="day-of-week-operations">Day of Week Operations</h3>
 <pre><code class="language-vbnet">Function IsBusinessDay(dayOfWeek As Integer) As Boolean
-&#x27; Sunday=1, Monday=2, ... Saturday=7
-IsBusinessDay = Choose(dayOfWeek, _
-False, True, True, True, True, True, False)
+    &#x27; Sunday=1, Monday=2, ... Saturday=7
+    IsBusinessDay = Choose(dayOfWeek, _
+        False, True, True, True, True, True, False)
 End Function</code></pre>
 <h3 id="file-extension-mapping">File Extension Mapping</h3>
 <pre><code class="language-vbnet">Function GetFileTypeDescription(fileType As Integer) As String
-GetFileTypeDescription = Choose(fileType, _
-&quot;Text Document&quot;, _
-&quot;Spreadsheet&quot;, _
-&quot;Database&quot;, _
-&quot;Image File&quot;, _
-&quot;Executable Program&quot;)
+    GetFileTypeDescription = Choose(fileType, _
+        &quot;Text Document&quot;, _
+        &quot;Spreadsheet&quot;, _
+        &quot;Database&quot;, _
+        &quot;Image File&quot;, _
+        &quot;Executable Program&quot;)
 End Function</code></pre>
 <h3 id="priority-level-mapping">Priority Level Mapping</h3>
 <pre><code class="language-vbnet">Function GetPriorityWeight(priority As Integer) As Double
-GetPriorityWeight = Choose(priority, 0.25, 0.5, 1.0, 2.0, 5.0)
+    GetPriorityWeight = Choose(priority, 0.25, 0.5, 1.0, 2.0, 5.0)
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="with-null-handling">With Null Handling</h3>
 <pre><code class="language-vbnet">Function SafeChoose(index As Integer, ParamArray choices()) As Variant
-Dim result As Variant
-Dim i As Integer
-Dim args As String
-
-&#x27; Build argument list
-For i = LBound(choices) To UBound(choices)
-If i &gt; LBound(choices) Then args = args &amp; &quot;, &quot;
-args = args &amp; &quot;&quot;&quot;&quot; &amp; choices(i) &amp; &quot;&quot;&quot;&quot;
-Next i
-
-&#x27; Use Execute to call Choose dynamically
-result = Choose(index, choices(0), choices(1), choices(2))  &#x27; etc.
-
-If IsNull(result) Then
-SafeChoose = &quot;Invalid Index&quot;
-Else
-SafeChoose = result
-End If
+    Dim result As Variant
+    Dim i As Integer
+    Dim args As String
+    &#x27; Build argument list
+    For i = LBound(choices) To UBound(choices)
+        If i &gt; LBound(choices) Then args = args &amp; &quot;, &quot;
+        args = args &amp; &quot;&quot;&quot;&quot; &amp; choices(i) &amp; &quot;&quot;&quot;&quot;
+    Next i
+    &#x27; Use Execute to call Choose dynamically
+    result = Choose(index, choices(0), choices(1), choices(2))  &#x27; etc.
+    If IsNull(result) Then
+        SafeChoose = &quot;Invalid Index&quot;
+    Else
+        SafeChoose = result
+    End If
 End Function</code></pre>
 <h3 id="combined-with-calculation">Combined with Calculation</h3>
 <pre><code class="language-vbnet">Function CalculateDiscount(customerType As Integer, amount As Currency) As Currency
-Dim discountRate As Double
-discountRate = Choose(customerType, 0.05, 0.1, 0.15, 0.2)
-
-If IsNull(discountRate) Then
-discountRate = 0
-End If
-
-CalculateDiscount = amount * discountRate
+    Dim discountRate As Double
+    discountRate = Choose(customerType, 0.05, 0.1, 0.15, 0.2)
+    If IsNull(discountRate) Then
+        discountRate = 0
+    End If
+    CalculateDiscount = amount * discountRate
 End Function</code></pre>
 <h3 id="nested-choose">Nested Choose</h3>
 <pre><code class="language-vbnet">Function GetRegionalGreeting(region As Integer, timeOfDay As Integer) As String
-&#x27; region: 1=North, 2=South, 3=East, 4=West
-&#x27; timeOfDay: 1=Morning, 2=Afternoon, 3=Evening
-
-GetRegionalGreeting = Choose(region, _
-Choose(timeOfDay, &quot;Good morning, y&#x27;all&quot;, &quot;Good afternoon, y&#x27;all&quot;, &quot;Good evening, y&#x27;all&quot;), _
-Choose(timeOfDay, &quot;Mornin&#x27;&quot;, &quot;Afternoon&quot;, &quot;Evenin&#x27;&quot;), _
-Choose(timeOfDay, &quot;Good morning&quot;, &quot;Good afternoon&quot;, &quot;Good evening&quot;), _
-Choose(timeOfDay, &quot;Hey, morning!&quot;, &quot;Hey, afternoon!&quot;, &quot;Hey, evening!&quot;))
+    &#x27; region: 1=North, 2=South, 3=East, 4=West
+    &#x27; timeOfDay: 1=Morning, 2=Afternoon, 3=Evening
+    GetRegionalGreeting = Choose(region, _
+        Choose(timeOfDay, &quot;Good morning, y&#x27;all&quot;, &quot;Good afternoon, y&#x27;all&quot;, &quot;Good evening, y&#x27;all&quot;), _
+        Choose(timeOfDay, &quot;Mornin&#x27;&quot;, &quot;Afternoon&quot;, &quot;Evenin&#x27;&quot;), _
+        Choose(timeOfDay, &quot;Good morning&quot;, &quot;Good afternoon&quot;, &quot;Good evening&quot;), _
+        Choose(timeOfDay, &quot;Hey, morning!&quot;, &quot;Hey, afternoon!&quot;, &quot;Hey, evening!&quot;))
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeChooseWithError(index As Integer) As Variant
-On Error GoTo ErrorHandler
-
-Dim result As Variant
-result = Choose(index, &quot;First&quot;, &quot;Second&quot;, &quot;Third&quot;)
-
-If IsNull(result) Then
-MsgBox &quot;Index out of range: &quot; &amp; index
-SafeChooseWithError = Empty
-Else
-SafeChooseWithError = result
-End If
-
-Exit Function
-
+    On Error GoTo ErrorHandler
+    Dim result As Variant
+    result = Choose(index, &quot;First&quot;, &quot;Second&quot;, &quot;Third&quot;)
+    If IsNull(result) Then
+        MsgBox &quot;Index out of range: &quot; &amp; index
+        SafeChooseWithError = Empty
+    Else
+        SafeChooseWithError = result
+    End If
+    Exit Function
 ErrorHandler:
-MsgBox &quot;Error in Choose: &quot; &amp; Err.Description
-SafeChooseWithError = Empty
+    MsgBox &quot;Error in Choose: &quot; &amp; Err.Description
+    SafeChooseWithError = Empty
 End Function</code></pre>
 <h3 id="common-errors">Common Errors</h3>
 <ul>
@@ -242,19 +219,18 @@ End Function</code></pre>
 <h3 id="choose-vs-select-case">Choose vs. Select Case</h3>
 <pre><code class="language-vbnet">&#x27; Using Choose (expression-based)
 result = Choose(index, &quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
-
 &#x27; Using Select Case (statement-based)
 Select Case index
-Case 1: result = &quot;A&quot;
-Case 2: result = &quot;B&quot;
-Case 3: result = &quot;C&quot;
-Case Else: result = Null
+    Case 1: result = &quot;A&quot;
+    Case 2: result = &quot;B&quot;
+    Case 3: result = &quot;C&quot;
+    Case Else: result = Null
 End Select</code></pre>
 <p><strong>Choose advantages:</strong>
 - More concise for simple selections
 - Can be used as an expression
-- Good for inline value lookup</p>
-<p><strong>Select Case advantages:</strong>
+- Good for inline value lookup
+<strong>Select Case advantages:</strong>
 - Doesn't evaluate all branches
 - Better for complex logic
 - More readable for many cases
@@ -262,14 +238,13 @@ End Select</code></pre>
 <h3 id="choose-vs-array-lookup">Choose vs. Array Lookup</h3>
 <pre><code class="language-vbnet">&#x27; Using Choose
 result = Choose(index, &quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
-
 &#x27; Using Array
 Dim choices() As Variant
 choices = Array(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
 If index &gt;= 1 And index &lt;= UBound(choices) + 1 Then
-result = choices(index - 1)  &#x27; Array is 0-based, Choose is 1-based
+    result = choices(index - 1)  &#x27; Array is 0-based, Choose is 1-based
 Else
-result = Null
+    result = Null
 End If</code></pre>
 <h2 id="limitations">Limitations</h2>
 <ul>

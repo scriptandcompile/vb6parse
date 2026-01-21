@@ -88,153 +88,140 @@ lower = LCase$(&quot;already lowercase&quot;)  &#x27; Returns &quot;already lowe
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="case-insensitive-comparison">Case-Insensitive Comparison</h3>
 <pre><code class="language-vbnet">Function CompareIgnoreCase(str1 As String, str2 As String) As Boolean
-CompareIgnoreCase = (LCase$(str1) = LCase$(str2))
+    CompareIgnoreCase = (LCase$(str1) = LCase$(str2))
 End Function</code></pre>
 <h3 id="normalize-user-input">Normalize User Input</h3>
 <pre><code class="language-vbnet">Function NormalizeInput(userInput As String) As String
-NormalizeInput = Trim$(LCase$(userInput))
+    NormalizeInput = Trim$(LCase$(userInput))
 End Function</code></pre>
 <h3 id="email-address-normalization">Email Address Normalization</h3>
 <pre><code class="language-vbnet">Function NormalizeEmail(email As String) As String
-NormalizeEmail = LCase$(Trim$(email))
+    NormalizeEmail = LCase$(Trim$(email))
 End Function</code></pre>
 <h3 id="case-insensitive-search">Case-Insensitive Search</h3>
 <pre><code class="language-vbnet">Function ContainsIgnoreCase(text As String, searchFor As String) As Boolean
-ContainsIgnoreCase = (InStr(LCase$(text), LCase$(searchFor)) &gt; 0)
+    ContainsIgnoreCase = (InStr(LCase$(text), LCase$(searchFor)) &gt; 0)
 End Function</code></pre>
 <h3 id="username-validation">Username Validation</h3>
 <pre><code class="language-vbnet">Function ValidateUsername(username As String) As String
-&#x27; Normalize to lowercase
-ValidateUsername = LCase$(Trim$(username))
+    &#x27; Normalize to lowercase
+    ValidateUsername = LCase$(Trim$(username))
 End Function</code></pre>
 <h3 id="file-extension-check">File Extension Check</h3>
 <pre><code class="language-vbnet">Function HasExtension(filename As String, ext As String) As Boolean
-Dim fileExt As String
-fileExt = LCase$(Right$(filename, Len(ext)))
-HasExtension = (fileExt = LCase$(ext))
+    Dim fileExt As String
+    fileExt = LCase$(Right$(filename, Len(ext)))
+    HasExtension = (fileExt = LCase$(ext))
 End Function</code></pre>
 <h3 id="dictionary-key-normalization">Dictionary Key Normalization</h3>
 <pre><code class="language-vbnet">Sub AddToDictionary(dict As Object, key As String, value As Variant)
-dict.Add LCase$(key), value
+    dict.Add LCase$(key), value
 End Sub</code></pre>
 <h3 id="case-insensitive-replace">Case-Insensitive Replace</h3>
 <pre><code class="language-vbnet">Function ReplaceIgnoreCase(text As String, findText As String, replaceWith As String) As String
-Dim lowerText As String
-Dim lowerFind As String
-Dim pos As Long
-
-lowerText = LCase$(text)
-lowerFind = LCase$(findText)
-pos = InStr(lowerText, lowerFind)
-
-If pos &gt; 0 Then
-ReplaceIgnoreCase = Left$(text, pos - 1) &amp; replaceWith &amp; Mid$(text, pos + Len(findText))
-Else
-ReplaceIgnoreCase = text
-End If
+    Dim lowerText As String
+    Dim lowerFind As String
+    Dim pos As Long
+    lowerText = LCase$(text)
+    lowerFind = LCase$(findText)
+    pos = InStr(lowerText, lowerFind)
+    If pos &gt; 0 Then
+        ReplaceIgnoreCase = Left$(text, pos - 1) &amp; replaceWith &amp; Mid$(text, pos + Len(findText))
+    Else
+        ReplaceIgnoreCase = text
+    End If
 End Function</code></pre>
 <h3 id="sort-key-generation">Sort Key Generation</h3>
 <pre><code class="language-vbnet">Function GenerateSortKey(text As String) As String
-GenerateSortKey = LCase$(Trim$(text))
+    GenerateSortKey = LCase$(Trim$(text))
 End Function</code></pre>
 <h3 id="command-parser">Command Parser</h3>
 <pre><code class="language-vbnet">Function ParseCommand(input As String) As String
-Dim cmd As String
-cmd = LCase$(Trim$(input))
-
-Select Case cmd
-Case &quot;help&quot;
-ParseCommand = &quot;ShowHelp&quot;
-Case &quot;exit&quot;, &quot;quit&quot;
-ParseCommand = &quot;Exit&quot;
-Case Else
-ParseCommand = &quot;Unknown&quot;
-End Select
+    Dim cmd As String
+    cmd = LCase$(Trim$(input))
+    Select Case cmd
+        Case &quot;help&quot;
+            ParseCommand = &quot;ShowHelp&quot;
+        Case &quot;exit&quot;, &quot;quit&quot;
+            ParseCommand = &quot;Exit&quot;
+        Case Else
+            ParseCommand = &quot;Unknown&quot;
+    End Select
 End Function</code></pre>
 <h2 id="advanced-examples">Advanced Examples</h2>
 <h3 id="case-insensitive-collection-lookup">Case-Insensitive Collection Lookup</h3>
 <pre><code class="language-vbnet">Function FindInCollection(col As Collection, key As String) As Variant
-On Error Resume Next
-Dim lowerKey As String
-Dim item As Variant
-Dim i As Long
-
-lowerKey = LCase$(key)
-
-&#x27; Try direct lookup first
-FindInCollection = col(lowerKey)
-
-If Err.Number &lt;&gt; 0 Then
-&#x27; Not found, search manually
-Err.Clear
-For i = 1 To col.Count
-If LCase$(col(i)) = lowerKey Then
-FindInCollection = col(i)
-Exit Function
-End If
-Next i
-End If
+    On Error Resume Next
+    Dim lowerKey As String
+    Dim item As Variant
+    Dim i As Long
+    lowerKey = LCase$(key)
+    &#x27; Try direct lookup first
+    FindInCollection = col(lowerKey)
+    If Err.Number &lt;&gt; 0 Then
+        &#x27; Not found, search manually
+        Err.Clear
+        For i = 1 To col.Count
+            If LCase$(col(i)) = lowerKey Then
+                FindInCollection = col(i)
+                Exit Function
+            End If
+        Next i
+    End If
 End Function</code></pre>
 <h3 id="sql-query-builder">SQL Query Builder</h3>
 <pre><code class="language-vbnet">Function BuildWhereClause(fieldName As String, operator As String, value As String) As String
-Dim op As String
-op = LCase$(Trim$(operator))
-
-Select Case op
-Case &quot;equals&quot;, &quot;=&quot;
-BuildWhereClause = fieldName &amp; &quot; = &#x27;&quot; &amp; value &amp; &quot;&#x27;&quot;
-Case &quot;contains&quot;, &quot;like&quot;
-BuildWhereClause = fieldName &amp; &quot; LIKE &#x27;%&quot; &amp; value &amp; &quot;%&#x27;&quot;
-Case &quot;startswith&quot;
-BuildWhereClause = fieldName &amp; &quot; LIKE &#x27;&quot; &amp; value &amp; &quot;%&#x27;&quot;
-Case Else
-BuildWhereClause = &quot;&quot;
-End Select
+    Dim op As String
+    op = LCase$(Trim$(operator))
+    Select Case op
+        Case &quot;equals&quot;, &quot;=&quot;
+            BuildWhereClause = fieldName &amp; &quot; = &#x27;&quot; &amp; value &amp; &quot;&#x27;&quot;
+        Case &quot;contains&quot;, &quot;like&quot;
+            BuildWhereClause = fieldName &amp; &quot; LIKE &#x27;%&quot; &amp; value &amp; &quot;%&#x27;&quot;
+        Case &quot;startswith&quot;
+            BuildWhereClause = fieldName &amp; &quot; LIKE &#x27;&quot; &amp; value &amp; &quot;%&#x27;&quot;
+        Case Else
+            BuildWhereClause = &quot;&quot;
+    End Select
 End Function</code></pre>
 <h3 id="configuration-file-parser">Configuration File Parser</h3>
 <pre><code class="language-vbnet">Function ParseConfigLine(line As String, ByRef key As String, ByRef value As String) As Boolean
-Dim pos As Long
-Dim trimmedLine As String
-
-trimmedLine = Trim$(line)
-
-&#x27; Skip comments and empty lines
-If Len(trimmedLine) = 0 Or Left$(trimmedLine, 1) = &quot;#&quot; Then
-ParseConfigLine = False
-Exit Function
-End If
-
-pos = InStr(trimmedLine, &quot;=&quot;)
-If pos &gt; 0 Then
-key = LCase$(Trim$(Left$(trimmedLine, pos - 1)))
-value = Trim$(Mid$(trimmedLine, pos + 1))
-ParseConfigLine = True
-Else
-ParseConfigLine = False
-End If
+    Dim pos As Long
+    Dim trimmedLine As String
+    trimmedLine = Trim$(line)
+    &#x27; Skip comments and empty lines
+    If Len(trimmedLine) = 0 Or Left$(trimmedLine, 1) = &quot;#&quot; Then
+        ParseConfigLine = False
+        Exit Function
+    End If
+    pos = InStr(trimmedLine, &quot;=&quot;)
+    If pos &gt; 0 Then
+        key = LCase$(Trim$(Left$(trimmedLine, pos - 1)))
+        value = Trim$(Mid$(trimmedLine, pos + 1))
+        ParseConfigLine = True
+    Else
+        ParseConfigLine = False
+    End If
 End Function</code></pre>
 <h3 id="smart-string-comparison">Smart String Comparison</h3>
 <pre><code class="language-vbnet">Function SmartCompare(str1 As String, str2 As String, caseSensitive As Boolean) As Boolean
-If caseSensitive Then
-SmartCompare = (str1 = str2)
-Else
-SmartCompare = (LCase$(str1) = LCase$(str2))
-End If
+    If caseSensitive Then
+        SmartCompare = (str1 = str2)
+    Else
+        SmartCompare = (LCase$(str1) = LCase$(str2))
+    End If
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeLCase(text As String) As String
-On Error GoTo ErrorHandler
-
-If IsNull(text) Then
-SafeLCase = &quot;&quot;
-Exit Function
-End If
-
-SafeLCase = LCase$(text)
-Exit Function
-
+    On Error GoTo ErrorHandler
+    If IsNull(text) Then
+        SafeLCase = &quot;&quot;
+        Exit Function
+    End If
+    SafeLCase = LCase$(text)
+    Exit Function
 ErrorHandler:
-SafeLCase = &quot;&quot;
+    SafeLCase = &quot;&quot;
 End Function</code></pre>
 <h2 id="performance-notes">Performance Notes</h2>
 <ul>
@@ -296,42 +283,47 @@ End Function</code></pre>
 <td>Various conversions</td>
 <td>Complex case conversions</td>
 </tr>
+<tr>
+<td>## Common Use Cases</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>### Case-Insensitive String Arrays</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="common-use-cases">Common Use Cases</h2>
-<h3 id="case-insensitive-string-arrays">Case-Insensitive String Arrays</h3>
 <pre><code class="language-vbnet">Function ArrayContains(arr() As String, value As String) As Boolean
-Dim i As Long
-Dim lowerValue As String
-
-lowerValue = LCase$(value)
-
-For i = LBound(arr) To UBound(arr)
-If LCase$(arr(i)) = lowerValue Then
-ArrayContains = True
-Exit Function
-End If
-Next i
-
-ArrayContains = False
+    Dim i As Long
+    Dim lowerValue As String
+    lowerValue = LCase$(value)
+    For i = LBound(arr) To UBound(arr)
+        If LCase$(arr(i)) = lowerValue Then
+            ArrayContains = True
+            Exit Function
+        End If
+    Next i
+    ArrayContains = False
 End Function</code></pre>
 <h3 id="url-parameter-parsing">URL Parameter Parsing</h3>
 <pre><code class="language-vbnet">Function GetURLParameter(url As String, paramName As String) As String
-Dim lowerURL As String
-Dim lowerParam As String
-Dim startPos As Long
-Dim endPos As Long
-
-lowerURL = LCase$(url)
-lowerParam = LCase$(paramName) &amp; &quot;=&quot;
-
-startPos = InStr(lowerURL, lowerParam)
-If startPos &gt; 0 Then
-startPos = startPos + Len(lowerParam)
-endPos = InStr(startPos, url, &quot;&amp;&quot;)
-If endPos = 0 Then endPos = Len(url) + 1
-GetURLParameter = Mid$(url, startPos, endPos - startPos)
-End If
+    Dim lowerURL As String
+    Dim lowerParam As String
+    Dim startPos As Long
+    Dim endPos As Long
+    lowerURL = LCase$(url)
+    lowerParam = LCase$(paramName) &amp; &quot;=&quot;
+    startPos = InStr(lowerURL, lowerParam)
+    If startPos &gt; 0 Then
+        startPos = startPos + Len(lowerParam)
+        endPos = InStr(startPos, url, &quot;&amp;&quot;)
+        If endPos = 0 Then endPos = Len(url) + 1
+        GetURLParameter = Mid$(url, startPos, endPos - startPos)
+    End If
 End Function</code></pre>
 <h2 id="platform-notes">Platform Notes</h2>
 <ul>

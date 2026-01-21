@@ -74,47 +74,41 @@
 <pre><code class="language-vbnet">&#x27; Example 1: Simple array check
 Dim myArray(1 To 10) As Integer
 Dim myValue As Integer
-
 If IsArray(myArray) Then
-Debug.Print &quot;myArray is an array&quot;  &#x27; This prints
+    Debug.Print &quot;myArray is an array&quot;  &#x27; This prints
 End If
-
 If IsArray(myValue) Then
-Debug.Print &quot;myValue is an array&quot;
+    Debug.Print &quot;myValue is an array&quot;
 Else
-Debug.Print &quot;myValue is not an array&quot;  &#x27; This prints
+    Debug.Print &quot;myValue is not an array&quot;  &#x27; This prints
 End If</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 2: Checking Variant contents
 Dim myVariant As Variant
-
 myVariant = Array(1, 2, 3, 4, 5)
 If IsArray(myVariant) Then
-Debug.Print &quot;Variant contains an array&quot;  &#x27; This prints
+    Debug.Print &quot;Variant contains an array&quot;  &#x27; This prints
 End If
-
 myVariant = 42
 If IsArray(myVariant) Then
-Debug.Print &quot;Variant contains an array&quot;
+    Debug.Print &quot;Variant contains an array&quot;
 Else
-Debug.Print &quot;Variant does not contain an array&quot;  &#x27; This prints
+    Debug.Print &quot;Variant does not contain an array&quot;  &#x27; This prints
 End If</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 3: Dynamic array before ReDim
 Dim dynamicArray() As String
-
 If IsArray(dynamicArray) Then
-Debug.Print &quot;Dynamic array variable is an array&quot;  &#x27; This prints even before ReDim
+    Debug.Print &quot;Dynamic array variable is an array&quot;  &#x27; This prints even before ReDim
 End If</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 4: Validating function parameters
 Function ProcessData(data As Variant) As Long
-If IsArray(data) Then
-ProcessData = UBound(data) - LBound(data) + 1
-Debug.Print &quot;Processing array with &quot; &amp; ProcessData &amp; &quot; elements&quot;
-Else
-ProcessData = 1
-Debug.Print &quot;Processing single value&quot;
-End If
+    If IsArray(data) Then
+        ProcessData = UBound(data) - LBound(data) + 1
+        Debug.Print &quot;Processing array with &quot; &amp; ProcessData &amp; &quot; elements&quot;
+    Else
+        ProcessData = 1
+        Debug.Print &quot;Processing single value&quot;
+    End If
 End Function
-
 &#x27; Usage
 Dim result As Long
 result = ProcessData(Array(1, 2, 3, 4, 5))  &#x27; Prints: Processing array with 5 elements
@@ -122,372 +116,342 @@ result = ProcessData(100)                    &#x27; Prints: Processing single va
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Validate array parameter
 Function SumValues(values As Variant) As Double
-Dim i As Long
-Dim total As Double
-
-If Not IsArray(values) Then
-Err.Raise 5, , &quot;Parameter must be an array&quot;
-End If
-
-For i = LBound(values) To UBound(values)
-total = total + values(i)
-Next i
-
-SumValues = total
+    Dim i As Long
+    Dim total As Double
+    If Not IsArray(values) Then
+        Err.Raise 5, , &quot;Parameter must be an array&quot;
+    End If
+    For i = LBound(values) To UBound(values)
+        total = total + values(i)
+    Next i
+    SumValues = total
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 2: Handle single value or array
 Sub DisplayData(data As Variant)
-Dim i As Long
-
-If IsArray(data) Then
-For i = LBound(data) To UBound(data)
-Debug.Print &quot;Item &quot; &amp; i &amp; &quot;: &quot; &amp; data(i)
-Next i
-Else
-Debug.Print &quot;Single value: &quot; &amp; data
-End If
+    Dim i As Long
+    If IsArray(data) Then
+        For i = LBound(data) To UBound(data)
+            Debug.Print &quot;Item &quot; &amp; i &amp; &quot;: &quot; &amp; data(i)
+        Next i
+    Else
+        Debug.Print &quot;Single value: &quot; &amp; data
+    End If
 End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 3: Convert single value to array if needed
 Function EnsureArray(value As Variant) As Variant
-If IsArray(value) Then
-EnsureArray = value
-Else
-EnsureArray = Array(value)
-End If
-End Function
-</code></pre>
+    If IsArray(value) Then
+        EnsureArray = value
+    Else
+        EnsureArray = Array(value)
+    End If
+End Function</code></pre>
 <p>vb
 ' Pattern 4: Count array elements safely
 Function GetElementCount(data As Variant) As Long
-If IsArray(data) Then
-GetElementCount = UBound(data) - LBound(data) + 1
-Else
-GetElementCount = 1
-End If
+    If IsArray(data) Then
+        GetElementCount = UBound(data) - LBound(data) + 1
+    Else
+        GetElementCount = 1
+    End If
 End Function</p>
-<pre><code></code></pre>
-<p>vb
-' Pattern 5: Validate before array operation
+<pre><code>```vb
+&#x27; Pattern 5: Validate before array operation
 Function GetFirstElement(arr As Variant) As Variant
-If Not IsArray(arr) Then
-GetFirstElement = arr
-Exit Function
-End If</p>
-<p>If UBound(arr) &gt;= LBound(arr) Then
-GetFirstElement = arr(LBound(arr))
-Else
-GetFirstElement = Null
-End If
-End Function</p>
-<pre><code></code></pre>
-<p>vb
-' Pattern 6: Type checking with IsArray
+    If Not IsArray(arr) Then
+        GetFirstElement = arr
+        Exit Function
+    End If
+    If UBound(arr) &gt;= LBound(arr) Then
+        GetFirstElement = arr(LBound(arr))
+    Else
+        GetFirstElement = Null
+    End If
+End Function</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 6: Type checking with IsArray
 Function DescribeVariable(v As Variant) As String
-If IsArray(v) Then
-DescribeVariable = "Array with " &amp; (UBound(v) - LBound(v) + 1) &amp; " elements"
-ElseIf IsNumeric(v) Then
-DescribeVariable = "Numeric value: " &amp; v
-ElseIf IsDate(v) Then
-DescribeVariable = "Date value: " &amp; v
-ElseIf IsNull(v) Then
-DescribeVariable = "Null value"
-ElseIf IsEmpty(v) Then
-DescribeVariable = "Empty variant"
-Else
-DescribeVariable = "String or object: " &amp; v
-End If
-End Function</p>
-<pre><code></code></pre>
-<p>vb
-' Pattern 7: ParamArray validation
+    If IsArray(v) Then
+        DescribeVariable = &quot;Array with &quot; &amp; (UBound(v) - LBound(v) + 1) &amp; &quot; elements&quot;
+    ElseIf IsNumeric(v) Then
+        DescribeVariable = &quot;Numeric value: &quot; &amp; v
+    ElseIf IsDate(v) Then
+        DescribeVariable = &quot;Date value: &quot; &amp; v
+    ElseIf IsNull(v) Then
+        DescribeVariable = &quot;Null value&quot;
+    ElseIf IsEmpty(v) Then
+        DescribeVariable = &quot;Empty variant&quot;
+    Else
+        DescribeVariable = &quot;String or object: &quot; &amp; v
+    End If
+End Function</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 7: ParamArray validation
 Sub ProcessItems(ParamArray items() As Variant)
-Dim i As Long</p>
-<p>For i = LBound(items) To UBound(items)
-If IsArray(items(i)) Then
-Debug.Print "Item " &amp; i &amp; " is an array"
-Else
-Debug.Print "Item " &amp; i &amp; ": " &amp; items(i)
-End If
-Next i
-End Sub</p>
-<pre><code></code></pre>
-<p>vb
-' Pattern 8: Safely iterate over data
+    Dim i As Long
+    For i = LBound(items) To UBound(items)
+        If IsArray(items(i)) Then
+            Debug.Print &quot;Item &quot; &amp; i &amp; &quot; is an array&quot;
+        Else
+            Debug.Print &quot;Item &quot; &amp; i &amp; &quot;: &quot; &amp; items(i)
+        End If
+    Next i
+End Sub</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 8: Safely iterate over data
 Sub SafeIterate(data As Variant)
-Dim i As Long</p>
-<p>If IsArray(data) Then
-For i = LBound(data) To UBound(data)
-ProcessValue data(i)
-Next i
-Else
-ProcessValue data
-End If
-End Sub</p>
-<pre><code></code></pre>
-<p>vb
-' Pattern 9: Flatten nested arrays
+    Dim i As Long
+    If IsArray(data) Then
+        For i = LBound(data) To UBound(data)
+            ProcessValue data(i)
+        Next i
+    Else
+        ProcessValue data
+    End If
+End Sub</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 9: Flatten nested arrays
 Function FlattenArray(arr As Variant) As Variant
-Dim result() As Variant
-Dim i As Long
-Dim count As Long</p>
-<p>If Not IsArray(arr) Then
-ReDim result(0 To 0)
-result(0) = arr
-FlattenArray = result
-Exit Function
-End If</p>
-<p>count = 0
-ReDim result(0 To 100)  ' Initial size</p>
-<p>For i = LBound(arr) To UBound(arr)
-If IsArray(arr(i)) Then
-' Handle nested array (recursive)
-Dim flattened As Variant
-flattened = FlattenArray(arr(i))
-' Add flattened elements to result...
-Else
-result(count) = arr(i)
-count = count + 1
-End If
-Next i</p>
-<p>ReDim Preserve result(0 To count - 1)
-FlattenArray = result
-End Function</p>
-<pre><code></code></pre>
-<p>vb
-' Pattern 10: Conditional array processing
+    Dim result() As Variant
+    Dim i As Long
+    Dim count As Long
+    If Not IsArray(arr) Then
+        ReDim result(0 To 0)
+        result(0) = arr
+        FlattenArray = result
+        Exit Function
+    End If
+    count = 0
+    ReDim result(0 To 100)  &#x27; Initial size
+    For i = LBound(arr) To UBound(arr)
+        If IsArray(arr(i)) Then
+            &#x27; Handle nested array (recursive)
+            Dim flattened As Variant
+            flattened = FlattenArray(arr(i))
+            &#x27; Add flattened elements to result...
+        Else
+            result(count) = arr(i)
+            count = count + 1
+        End If
+    Next i
+    ReDim Preserve result(0 To count - 1)
+    FlattenArray = result
+End Function</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 10: Conditional array processing
 Function ApplyOperation(data As Variant, operation As String) As Variant
-Dim i As Long
-Dim result As Variant</p>
-<p>If IsArray(data) Then
-ReDim result(LBound(data) To UBound(data))
-For i = LBound(data) To UBound(data)
-result(i) = PerformOperation(data(i), operation)
-Next i
-ApplyOperation = result
-Else
-ApplyOperation = PerformOperation(data, operation)
-End If
-End Function</p>
-<pre><code>
-## Advanced Usage Examples
-</code></pre>
-<p>vb
-' Example 1: Flexible data processor class
+    Dim i As Long
+    Dim result As Variant
+    If IsArray(data) Then
+        ReDim result(LBound(data) To UBound(data))
+        For i = LBound(data) To UBound(data)
+            result(i) = PerformOperation(data(i), operation)
+        Next i
+        ApplyOperation = result
+    Else
+        ApplyOperation = PerformOperation(data, operation)
+    End If
+End Function</code></pre>
+<h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Flexible data processor class
 Public Class DataProcessor
-Private m_data As Variant</p>
-<p>Public Sub SetData(data As Variant)
-m_data = data
-End Sub</p>
-<p>Public Function GetCount() As Long
-If IsArray(m_data) Then
-GetCount = UBound(m_data) - LBound(m_data) + 1
-ElseIf IsEmpty(m_data) Then
-GetCount = 0
-Else
-GetCount = 1
-End If
-End Function</p>
-<p>Public Function GetSum() As Double
-Dim i As Long
-Dim total As Double</p>
-<p>If IsArray(m_data) Then
-For i = LBound(m_data) To UBound(m_data)
-If IsNumeric(m_data(i)) Then
-total = total + m_data(i)
-End If
-Next i
-ElseIf IsNumeric(m_data) Then
-total = m_data
-End If</p>
-<p>GetSum = total
-End Function</p>
-<p>Public Function GetAverage() As Double
-Dim count As Long
-count = GetCount()</p>
-<p>If count &gt; 0 Then
-GetAverage = GetSum() / count
-End If
-End Function</p>
-<p>Public Sub DisplayData()
-Dim i As Long</p>
-<p>If IsArray(m_data) Then
-Debug.Print "Array with " &amp; GetCount() &amp; " elements:"
-For i = LBound(m_data) To UBound(m_data)
-Debug.Print "  [" &amp; i &amp; "] = " &amp; m_data(i)
-Next i
-ElseIf IsEmpty(m_data) Then
-Debug.Print "No data"
-Else
-Debug.Print "Single value: " &amp; m_data
-End If
-End Sub
-End Class</p>
-<pre><code></code></pre>
-<p>vb
-' Example 2: Generic collection converter
+    Private m_data As Variant
+    Public Sub SetData(data As Variant)
+        m_data = data
+    End Sub
+    Public Function GetCount() As Long
+        If IsArray(m_data) Then
+            GetCount = UBound(m_data) - LBound(m_data) + 1
+        ElseIf IsEmpty(m_data) Then
+            GetCount = 0
+        Else
+            GetCount = 1
+        End If
+    End Function
+    Public Function GetSum() As Double
+        Dim i As Long
+        Dim total As Double
+        If IsArray(m_data) Then
+            For i = LBound(m_data) To UBound(m_data)
+                If IsNumeric(m_data(i)) Then
+                    total = total + m_data(i)
+                End If
+            Next i
+        ElseIf IsNumeric(m_data) Then
+            total = m_data
+        End If
+        GetSum = total
+    End Function
+    Public Function GetAverage() As Double
+        Dim count As Long
+        count = GetCount()
+        If count &gt; 0 Then
+            GetAverage = GetSum() / count
+        End If
+    End Function
+    Public Sub DisplayData()
+        Dim i As Long
+        If IsArray(m_data) Then
+            Debug.Print &quot;Array with &quot; &amp; GetCount() &amp; &quot; elements:&quot;
+            For i = LBound(m_data) To UBound(m_data)
+                Debug.Print &quot;  [&quot; &amp; i &amp; &quot;] = &quot; &amp; m_data(i)
+            Next i
+        ElseIf IsEmpty(m_data) Then
+            Debug.Print &quot;No data&quot;
+        Else
+            Debug.Print &quot;Single value: &quot; &amp; m_data
+        End If
+    End Sub
+End Class</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 2: Generic collection converter
 Public Class CollectionConverter
-Public Function ToArray(source As Variant) As Variant
-Dim result() As Variant
-Dim i As Long</p>
-<p>If IsArray(source) Then
-' Already an array, just return it
-ToArray = source
-ElseIf TypeName(source) = "Collection" Then
-' Convert collection to array
-ReDim result(1 To source.Count)
-For i = 1 To source.Count
-result(i) = source(i)
-Next i
-ToArray = result
-Else
-' Single value, wrap in array
-ReDim result(0 To 0)
-result(0) = source
-ToArray = result
-End If
-End Function</p>
-<p>Public Function ToCollection(source As Variant) As Collection
-Dim result As Collection
-Dim i As Long</p>
-<p>Set result = New Collection</p>
-<p>If IsArray(source) Then
-For i = LBound(source) To UBound(source)
-result.Add source(i)
-Next i
-Else
-result.Add source
-End If</p>
-<p>Set ToCollection = result
-End Function
-End Class</p>
-<pre><code></code></pre>
-<p>vb
-' Example 3: Safe array utilities module
+    Public Function ToArray(source As Variant) As Variant
+        Dim result() As Variant
+        Dim i As Long
+        If IsArray(source) Then
+            &#x27; Already an array, just return it
+            ToArray = source
+        ElseIf TypeName(source) = &quot;Collection&quot; Then
+            &#x27; Convert collection to array
+            ReDim result(1 To source.Count)
+            For i = 1 To source.Count
+                result(i) = source(i)
+            Next i
+            ToArray = result
+        Else
+            &#x27; Single value, wrap in array
+            ReDim result(0 To 0)
+            result(0) = source
+            ToArray = result
+        End If
+    End Function
+    Public Function ToCollection(source As Variant) As Collection
+        Dim result As Collection
+        Dim i As Long
+        Set result = New Collection
+        If IsArray(source) Then
+            For i = LBound(source) To UBound(source)
+                result.Add source(i)
+            Next i
+        Else
+            result.Add source
+        End If
+        Set ToCollection = result
+    End Function
+End Class</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 3: Safe array utilities module
 Public Module ArrayUtils
-Public Function SafeUBound(arr As Variant, Optional dimension As Integer = 1) As Long
-On Error Resume Next
-If IsArray(arr) Then
-SafeUBound = UBound(arr, dimension)
-If Err.Number &lt;&gt; 0 Then SafeUBound = -1
-Else
-SafeUBound = -1
-End If
-On Error GoTo 0
-End Function</p>
-<p>Public Function SafeLBound(arr As Variant, Optional dimension As Integer = 1) As Long
-On Error Resume Next
-If IsArray(arr) Then
-SafeLBound = LBound(arr, dimension)
-If Err.Number &lt;&gt; 0 Then SafeLBound = 0
-Else
-SafeLBound = 0
-End If
-On Error GoTo 0
-End Function</p>
-<p>Public Function IsAllocatedArray(arr As Variant) As Boolean
-On Error Resume Next
-If IsArray(arr) Then
-Dim ub As Long
-ub = UBound(arr)
-IsAllocatedArray = (Err.Number = 0)
-Else
-IsAllocatedArray = False
-End If
-On Error GoTo 0
-End Function</p>
-<p>Public Function CombineArrays(arr1 As Variant, arr2 As Variant) As Variant
-Dim result() As Variant
-Dim i As Long, count As Long</p>
-<p>count = 0</p>
-<p>' Count total elements
-If IsArray(arr1) Then
-count = count + (UBound(arr1) - LBound(arr1) + 1)
-Else
-count = count + 1
-End If</p>
-<p>If IsArray(arr2) Then
-count = count + (UBound(arr2) - LBound(arr2) + 1)
-Else
-count = count + 1
-End If</p>
-<p>ReDim result(0 To count - 1)</p>
-<p>' Copy elements
-count = 0
-If IsArray(arr1) Then
-For i = LBound(arr1) To UBound(arr1)
-result(count) = arr1(i)
-count = count + 1
-Next i
-Else
-result(count) = arr1
-count = count + 1
-End If</p>
-<p>If IsArray(arr2) Then
-For i = LBound(arr2) To UBound(arr2)
-result(count) = arr2(i)
-count = count + 1
-Next i
-Else
-result(count) = arr2
-count = count + 1
-End If</p>
-<p>CombineArrays = result
-End Function
-End Module</p>
-<pre><code></code></pre>
-<p>vb
-' Example 4: Flexible function that handles multiple input types
+    Public Function SafeUBound(arr As Variant, Optional dimension As Integer = 1) As Long
+        On Error Resume Next
+        If IsArray(arr) Then
+            SafeUBound = UBound(arr, dimension)
+            If Err.Number &lt;&gt; 0 Then SafeUBound = -1
+        Else
+            SafeUBound = -1
+        End If
+        On Error GoTo 0
+    End Function
+    Public Function SafeLBound(arr As Variant, Optional dimension As Integer = 1) As Long
+        On Error Resume Next
+        If IsArray(arr) Then
+            SafeLBound = LBound(arr, dimension)
+            If Err.Number &lt;&gt; 0 Then SafeLBound = 0
+        Else
+            SafeLBound = 0
+        End If
+        On Error GoTo 0
+    End Function
+    Public Function IsAllocatedArray(arr As Variant) As Boolean
+        On Error Resume Next
+        If IsArray(arr) Then
+            Dim ub As Long
+            ub = UBound(arr)
+            IsAllocatedArray = (Err.Number = 0)
+        Else
+            IsAllocatedArray = False
+        End If
+        On Error GoTo 0
+    End Function
+    Public Function CombineArrays(arr1 As Variant, arr2 As Variant) As Variant
+        Dim result() As Variant
+        Dim i As Long, count As Long
+        count = 0
+        &#x27; Count total elements
+        If IsArray(arr1) Then
+            count = count + (UBound(arr1) - LBound(arr1) + 1)
+        Else
+            count = count + 1
+        End If
+        If IsArray(arr2) Then
+            count = count + (UBound(arr2) - LBound(arr2) + 1)
+        Else
+            count = count + 1
+        End If
+        ReDim result(0 To count - 1)
+        &#x27; Copy elements
+        count = 0
+        If IsArray(arr1) Then
+            For i = LBound(arr1) To UBound(arr1)
+                result(count) = arr1(i)
+                count = count + 1
+            Next i
+        Else
+            result(count) = arr1
+            count = count + 1
+        End If
+        If IsArray(arr2) Then
+            For i = LBound(arr2) To UBound(arr2)
+                result(count) = arr2(i)
+                count = count + 1
+            Next i
+        Else
+            result(count) = arr2
+            count = count + 1
+        End If
+        CombineArrays = result
+    End Function
+End Module</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 4: Flexible function that handles multiple input types
 Function CalculateTotal(values As Variant, Optional taxRate As Double = 0) As Double
-Dim i As Long
-Dim subtotal As Double
-Dim tax As Double</p>
-<p>subtotal = 0</p>
-<p>If IsArray(values) Then
-' Process array of values
-For i = LBound(values) To UBound(values)
-If IsNumeric(values(i)) Then
-subtotal = subtotal + values(i)
-ElseIf IsArray(values(i)) Then
-' Handle nested array (recursive call)
-subtotal = subtotal + CalculateTotal(values(i), 0)
-End If
-Next i
-ElseIf IsNumeric(values) Then
-' Process single value
-subtotal = values
-Else
-Err.Raise 13, , "Type mismatch: values must be numeric or array"
-End If</p>
-<p>' Apply tax
-If taxRate &gt; 0 Then
-tax = subtotal * taxRate
-CalculateTotal = subtotal + tax
-Else
-CalculateTotal = subtotal
-End If
-End Function</p>
-<pre><code>
-## Error Handling
-
-The `IsArray` function itself does not raise errors, but it&#x27;s often used in error prevention:
-</code></pre>
-<p>vb
-Function SafeArrayOperation(arr As Variant) As Variant
-On Error GoTo ErrorHandler</p>
-<p>If Not IsArray(arr) Then
-Err.Raise 5, , "Invalid procedure call: array expected"
-End If</p>
-<p>' Proceed with array operations
-Dim i As Long
-For i = LBound(arr) To UBound(arr)
-' Process array elements
-Next i</p>
-<p>Exit Function</p>
-<p>ErrorHandler:
-MsgBox "Error: " &amp; Err.Description, vbCritical
-SafeArrayOperation = Null
-End Function
-```</p>
+    Dim i As Long
+    Dim subtotal As Double
+    Dim tax As Double
+    subtotal = 0
+    If IsArray(values) Then
+        &#x27; Process array of values
+        For i = LBound(values) To UBound(values)
+            If IsNumeric(values(i)) Then
+                subtotal = subtotal + values(i)
+            ElseIf IsArray(values(i)) Then
+                &#x27; Handle nested array (recursive call)
+                subtotal = subtotal + CalculateTotal(values(i), 0)
+            End If
+        Next i
+    ElseIf IsNumeric(values) Then
+        &#x27; Process single value
+        subtotal = values
+    Else
+        Err.Raise 13, , &quot;Type mismatch: values must be numeric or array&quot;
+    End If
+    &#x27; Apply tax
+    If taxRate &gt; 0 Then
+        tax = subtotal * taxRate
+        CalculateTotal = subtotal + tax
+    Else
+        CalculateTotal = subtotal
+    End If
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>The <code>IsArray</code> function itself does not raise errors, but it's often used in error prevention:</p>
+<pre><code class="language-vbnet">Function SafeArrayOperation(arr As Variant) As Variant
+    On Error GoTo ErrorHandler
+    If Not IsArray(arr) Then
+        Err.Raise 5, , &quot;Invalid procedure call: array expected&quot;
+    End If
+    &#x27; Proceed with array operations
+    Dim i As Long
+    For i = LBound(arr) To UBound(arr)
+        &#x27; Process array elements
+    Next i
+    Exit Function
+ErrorHandler:
+    MsgBox &quot;Error: &quot; &amp; Err.Description, vbCritical
+    SafeArrayOperation = Null
+End Function</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
 <li><strong>Fast Operation</strong>: <code>IsArray</code> is a very fast check with minimal overhead</li>
@@ -559,34 +523,128 @@ End Function
 <td><code>String</code></td>
 <td>Type name as string</td>
 </tr>
+<tr>
+<td>## Platform and Version Notes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in all VB6 versions</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Part of VBA core functions</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns <code>Boolean</code> type</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Works with all array types (fixed, dynamic, single or multi-dimensional)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns <code>True</code> for unallocated dynamic arrays</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Does not indicate whether dynamic array is allocated (dimensioned vs <code>ReDim</code>-med)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot determine number of dimensions</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot determine array bounds</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Does not validate array contents</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Does not distinguish between different array types</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Related Functions</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>UBound</code>: Upper bound of array dimension</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>LBound</code>: Lower bound of array dimension</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Array</code>: Create <code>Variant</code> array</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>VarType</code>: Get detailed type information</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>TypeName</code>: Get type name as string</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>IsEmpty</code>: Check if <code>Variant</code> is uninitialized</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>IsNull</code>: Check if <code>Variant</code> is <code>Null</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
-<ul>
-<li>Available in all VB6 versions</li>
-<li>Part of VBA core functions</li>
-<li>Returns <code>Boolean</code> type</li>
-<li>Works with all array types (fixed, dynamic, single or multi-dimensional)</li>
-<li>Returns <code>True</code> for unallocated dynamic arrays</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Does not indicate whether dynamic array is allocated (dimensioned vs <code>ReDim</code>-med)</li>
-<li>Cannot determine number of dimensions</li>
-<li>Cannot determine array bounds</li>
-<li>Does not validate array contents</li>
-<li>Does not distinguish between different array types</li>
-</ul>
-<h2 id="related-functions">Related Functions</h2>
-<ul>
-<li><code>UBound</code>: Upper bound of array dimension</li>
-<li><code>LBound</code>: Lower bound of array dimension</li>
-<li><code>Array</code>: Create <code>Variant</code> array</li>
-<li><code>VarType</code>: Get detailed type information</li>
-<li><code>TypeName</code>: Get type name as string</li>
-<li><code>IsEmpty</code>: Check if <code>Variant</code> is uninitialized</li>
-<li><code>IsNull</code>: Check if <code>Variant</code> is <code>Null</code></li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

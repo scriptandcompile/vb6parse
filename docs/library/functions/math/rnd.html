@@ -46,46 +46,24 @@
 <li><code>number</code> - Optional. Single or any valid numeric expression.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
-<p>Returns a <code>Single</code> value greater than or equal to 0 and less than 1.</p>
-<p>The behavior depends on the <code>number</code> argument:</p>
-<table>
-<thead>
-<tr>
-<th>Number Value</th>
-<th>Result</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>&lt; 0</td>
-<td>Same number every time, using <code>number</code> as the seed</td>
-</tr>
-<tr>
-<td>&gt; 0</td>
-<td>Next random number in sequence</td>
-</tr>
-<tr>
-<td>= 0</td>
-<td>Most recently generated number</td>
-</tr>
-<tr>
-<td>Omitted</td>
-<td>Next random number in sequence</td>
-</tr>
-</tbody>
-</table>
+<p>Returns a <code>Single</code> value greater than or equal to 0 and less than 1.
+The behavior depends on the <code>number</code> argument:
+| Number Value | Result |
+|--------------|--------|
+| &lt; 0 | Same number every time, using <code>number</code> as the seed |
+| &gt; 0 | Next random number in sequence |
+| = 0 | Most recently generated number |
+| Omitted | Next random number in sequence |</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>Rnd</code> function returns a pseudo-random number from a deterministic sequence. It is used for generating random values in games, simulations, testing, and sampling.</p>
-<p>Each new number is the product of the previous number times a constant (a) plus another constant (c).
+<p>The <code>Rnd</code> function returns a pseudo-random number from a deterministic sequence. It is used for generating random values in games, simulations, testing, and sampling.
+Each new number is the product of the previous number times a constant (a) plus another constant (c).
 The result is kept modulo a third number (m), which is invariably the width of its ‘long’ integer size (or fraction thereof).
 Standard examples are m=2^64, 2^48 or 2^32.
-Mathematically, this is represented as: r(i+1)=r(i)*a+c (mod m), where r(0) is the ‘seed’ value.</p>
-<p>Although the algorithm in use can be obtained from analyzing a string of outputs from the generator and deducing the values of a, c and M.
-Microsoft has published their constants on their web site and it turns out that they use an LCPRNG with:</p>
-<p>```a = 16598013, c = 2820163 and m=2^24 = 16777216</p>
-<pre><code>
-[Reference](http://www.noesis.net.au/main/Resources/Resources/prng_files/vba_prng.html)
-
+Mathematically, this is represented as: r(i+1)=r(i)*a+c (mod m), where r(0) is the ‘seed’ value.
+Although the algorithm in use can be obtained from analyzing a string of outputs from the generator and deducing the values of a, c and M.
+Microsoft has published their constants on their web site and it turns out that they use an LCPRNG with:
+```a = 16598013, c = 2820163 and m=2^24 = 16777216</p>
+<pre><code>[Reference](http://www.noesis.net.au/main/Resources/Resources/prng_files/vba_prng.html)
 **Important Notes**:
 - Returns values in range [0, 1) - includes 0, excludes 1
 - Same seed produces same sequence (deterministic)
@@ -93,25 +71,20 @@ Microsoft has published their constants on their web site and it turns out that 
 - Without `Randomize`, same sequence is generated each program run
 - Passing negative number sets seed for reproducible sequences
 - Passing 0 returns last generated number (useful for debugging)
-
 **Common Usage Pattern**:</code></pre>
 <p>vb
 Randomize               ' Initialize with time-based seed
 x = Rnd                 ' Get random number 0 &lt;= x &lt; 1</p>
-<pre><code>
-**Generating Random Integers**:</code></pre>
+<pre><code>**Generating Random Integers**:</code></pre>
 <p>vb
 ' Random integer from min to max (inclusive)
 randomInt = Int((max - min + 1) * Rnd + min)</p>
-<pre><code>
-**Seeding for Reproducibility**:</code></pre>
+<pre><code>**Seeding for Reproducibility**:</code></pre>
 <p>vb
 Rnd -1                  ' Reset to use seed
 Randomize seed          ' Set specific seed
 x = Rnd                 ' Get first number in sequence</p>
-<pre><code>
-## Typical Uses
-
+<pre><code>## Typical Uses
 1. **Games**: Generate random positions, events, or outcomes
 2. **Simulations**: Create random data for Monte Carlo simulations
 3. **Testing**: Generate random test data
@@ -120,453 +93,427 @@ x = Rnd                 ' Get first number in sequence</p>
 6. **Password Generation**: Create random character sequences
 7. **Animation**: Random movement or effects
 8. **Data Masking**: Generate random replacement values
-
 ## Basic Examples
-
 ### Example 1: Simple Random Number</code></pre>
 <p>vb
 ' Generate random number between 0 and 1
 Randomize
 Dim randomValue As Single
 randomValue = Rnd()  ' e.g., 0.7234567</p>
-<pre><code>
-### Example 2: Random Integer in Range</code></pre>
+<pre><code>### Example 2: Random Integer in Range</code></pre>
 <p>vb
 ' Generate random integer from 1 to 100
 Randomize
 Dim randomInt As Integer
 randomInt = Int(Rnd * 100) + 1</p>
-<pre><code>
-### Example 3: Random Dice Roll</code></pre>
+<pre><code>### Example 3: Random Dice Roll</code></pre>
 <p>vb
 ' Simulate rolling a six-sided die
 Randomize
 Dim diceRoll As Integer
 diceRoll = Int(Rnd * 6) + 1  ' Returns 1-6</p>
-<pre><code>
-### Example 4: Random Selection</code></pre>
+<pre><code>### Example 4: Random Selection</code></pre>
 <p>vb
 ' Select random item from array
 Randomize
 Dim items(5) As String
-Dim randomIndex As Integer</p>
-<p>items(0) = "Apple"
+Dim randomIndex As Integer
+items(0) = "Apple"
 items(1) = "Banana"
 items(2) = "Cherry"
 items(3) = "Date"
-items(4) = "Elderberry"</p>
-<p>randomIndex = Int(Rnd * 5)
+items(4) = "Elderberry"
+randomIndex = Int(Rnd * 5)
 MsgBox "Selected: " &amp; items(randomIndex)</p>
-<pre><code>
-## Common Patterns
-
+<pre><code>## Common Patterns
 ### Pattern 1: `RandomInteger`</code></pre>
 <p>vb
 Function RandomInteger(minValue As Long, maxValue As Long) As Long
-' Generate random integer in range [minValue, maxValue]
-RandomInteger = Int((maxValue - minValue + 1) * Rnd + minValue)
+    ' Generate random integer in range [minValue, maxValue]
+    RandomInteger = Int((maxValue - minValue + 1) * Rnd + minValue)
 End Function</p>
-<pre><code>
-### Pattern 2: `RandomDouble`</code></pre>
+<pre><code>### Pattern 2: `RandomDouble`</code></pre>
 <p>vb
 Function RandomDouble(minValue As Double, maxValue As Double) As Double
-' Generate random double in range [minValue, maxValue)
-RandomDouble = (maxValue - minValue) * Rnd + minValue
+    ' Generate random double in range [minValue, maxValue)
+    RandomDouble = (maxValue - minValue) * Rnd + minValue
 End Function</p>
-<pre><code>
-### Pattern 3: `RandomBoolean`</code></pre>
+<pre><code>### Pattern 3: `RandomBoolean`</code></pre>
 <p>vb
 Function RandomBoolean() As Boolean
-' Generate random True/False
-RandomBoolean = (Rnd &gt;= 0.5)
+    ' Generate random True/False
+    RandomBoolean = (Rnd &gt;= 0.5)
 End Function</p>
-<pre><code>
-### Pattern 4: `RandomChoice`</code></pre>
+<pre><code>### Pattern 4: `RandomChoice`</code></pre>
 <p>vb
 Function RandomChoice(items As Variant) As Variant
-' Select random item from array
-Dim index As Integer</p>
-<p>If Not IsArray(items) Then
-Err.Raise 5, , "Parameter must be an array"
-End If</p>
-<p>index = Int(Rnd * (UBound(items) - LBound(items) + 1)) + LBound(items)
-RandomChoice = items(index)
+    ' Select random item from array
+    Dim index As Integer
+    If Not IsArray(items) Then
+        Err.Raise 5, , "Parameter must be an array"
+    End If
+    index = Int(Rnd * (UBound(items) - LBound(items) + 1)) + LBound(items)
+    RandomChoice = items(index)
 End Function</p>
-<pre><code>
-### Pattern 5: `ShuffleArray`</code></pre>
+<pre><code>### Pattern 5: `ShuffleArray`</code></pre>
 <p>vb
 Sub ShuffleArray(arr As Variant)
-' Randomly shuffle array elements (Fisher-Yates algorithm)
-Dim i As Integer
-Dim j As Integer
-Dim temp As Variant</p>
-<p>For i = UBound(arr) To LBound(arr) + 1 Step -1
-j = Int(Rnd * (i - LBound(arr) + 1)) + LBound(arr)</p>
-<p>temp = arr(i)
-arr(i) = arr(j)
-arr(j) = temp
-Next i
+    ' Randomly shuffle array elements (Fisher-Yates algorithm)
+    Dim i As Integer
+    Dim j As Integer
+    Dim temp As Variant
+    For i = UBound(arr) To LBound(arr) + 1 Step -1
+        j = Int(Rnd * (i - LBound(arr) + 1)) + LBound(arr)
+        temp = arr(i)
+        arr(i) = arr(j)
+        arr(j) = temp
+    Next i
 End Sub</p>
-<pre><code>
-### Pattern 6: `RandomString`</code></pre>
+<pre><code>### Pattern 6: `RandomString`</code></pre>
 <p>vb
 Function RandomString(length As Integer, _
-Optional chars As String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789") As String
-' Generate random string of specified length
-Dim i As Integer
-Dim result As String
-Dim index As Integer</p>
-<p>result = ""</p>
-<p>For i = 1 To length
-index = Int(Rnd * Len(chars)) + 1
-result = result &amp; Mid(chars, index, 1)
-Next i</p>
-<p>RandomString = result
+                     Optional chars As String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789") As String
+    ' Generate random string of specified length
+    Dim i As Integer
+    Dim result As String
+    Dim index As Integer
+    result = ""
+    For i = 1 To length
+        index = Int(Rnd * Len(chars)) + 1
+        result = result &amp; Mid(chars, index, 1)
+    Next i
+    RandomString = result
 End Function</p>
-<pre><code>
-### Pattern 7: `RandomColor`</code></pre>
+<pre><code>### Pattern 7: `RandomColor`</code></pre>
 <p>vb
 Function RandomColor() As Long
-' Generate random RGB color
-Dim r As Integer
-Dim g As Integer
-Dim b As Integer</p>
-<p>r = Int(Rnd * 256)
-g = Int(Rnd * 256)
-b = Int(Rnd * 256)</p>
-<p>RandomColor = RGB(r, g, b)
+    ' Generate random RGB color
+    Dim r As Integer
+    Dim g As Integer
+    Dim b As Integer
+    r = Int(Rnd * 256)
+    g = Int(Rnd * 256)
+    b = Int(Rnd * 256)
+    RandomColor = RGB(r, g, b)
 End Function</p>
-<pre><code>
-### Pattern 8: `RandomPercentage`</code></pre>
+<pre><code>### Pattern 8: `RandomPercentage`</code></pre>
 <p>vb
 Function RandomPercentage(probability As Double) As Boolean
-' Return True with specified probability (0.0 to 1.0)
-RandomPercentage = (Rnd &lt; probability)
+    ' Return True with specified probability (0.0 to 1.0)
+    RandomPercentage = (Rnd &lt; probability)
 End Function</p>
-<pre><code>
-### Pattern 9: `RandomDate`</code></pre>
+<pre><code>### Pattern 9: `RandomDate`</code></pre>
 <p>vb
 Function RandomDate(startDate As Date, endDate As Date) As Date
-' Generate random date between start and end dates
-Dim daysDiff As Long
-Dim randomDays As Long</p>
-<p>daysDiff = DateDiff("d", startDate, endDate)
-randomDays = Int(Rnd * (daysDiff + 1))</p>
-<p>RandomDate = DateAdd("d", randomDays, startDate)
+    ' Generate random date between start and end dates
+    Dim daysDiff As Long
+    Dim randomDays As Long
+    daysDiff = DateDiff("d", startDate, endDate)
+    randomDays = Int(Rnd * (daysDiff + 1))
+    RandomDate = DateAdd("d", randomDays, startDate)
 End Function</p>
-<pre><code>
-### Pattern 10: `WeightedRandom`</code></pre>
+<pre><code>### Pattern 10: `WeightedRandom`</code></pre>
 <p>vb
 Function WeightedRandom(weights() As Double) As Integer
-' Select index based on weighted probabilities
-Dim total As Double
-Dim i As Integer
-Dim randomValue As Double
-Dim cumulative As Double</p>
-<p>' Calculate total weight
-total = 0
-For i = LBound(weights) To UBound(weights)
-total = total + weights(i)
-Next i</p>
-<p>' Generate random value
-randomValue = Rnd * total</p>
-<p>' Find corresponding index
-cumulative = 0
-For i = LBound(weights) To UBound(weights)
-cumulative = cumulative + weights(i)
-If randomValue &lt; cumulative Then
-WeightedRandom = i
-Exit Function
-End If
-Next i</p>
-<p>WeightedRandom = UBound(weights)
+    ' Select index based on weighted probabilities
+    Dim total As Double
+    Dim i As Integer
+    Dim randomValue As Double
+    Dim cumulative As Double
+    ' Calculate total weight
+    total = 0
+    For i = LBound(weights) To UBound(weights)
+        total = total + weights(i)
+    Next i
+    ' Generate random value
+    randomValue = Rnd * total
+    ' Find corresponding index
+    cumulative = 0
+    For i = LBound(weights) To UBound(weights)
+        cumulative = cumulative + weights(i)
+        If randomValue &lt; cumulative Then
+            WeightedRandom = i
+            Exit Function
+        End If
+    Next i
+    WeightedRandom = UBound(weights)
 End Function</p>
-<pre><code>
-## Advanced Usage
-
+<pre><code>## Advanced Usage
 ### Example 1: Random Number Generator Class</code></pre>
 <p>vb
 ' Comprehensive random number generator with multiple distributions
 Class RandomGenerator
-Private m_seed As Long
-Private m_seeded As Boolean</p>
-<p>Public Sub Initialize(Optional seed As Long = 0)
-If seed &lt;&gt; 0 Then
-m_seed = seed
-Rnd -1
-Randomize seed
-m_seeded = True
-Else
-Randomize
-m_seeded = False
-End If
-End Sub</p>
-<p>Public Function NextDouble() As Double
-' Get next random double [0, 1)
-NextDouble = Rnd
-End Function</p>
-<p>Public Function NextInteger(minValue As Long, maxValue As Long) As Long
-' Get random integer [minValue, maxValue]
-If minValue &gt; maxValue Then
-Err.Raise 5, , "minValue must be &lt;= maxValue"
-End If</p>
-<p>NextInteger = Int((maxValue - minValue + 1) * Rnd + minValue)
-End Function</p>
-<p>Public Function NextBoolean() As Boolean
-' Get random boolean
-NextBoolean = (Rnd &gt;= 0.5)
-End Function</p>
-<p>Public Function NextGaussian(Optional mean As Double = 0, _
-Optional stdDev As Double = 1) As Double
-' Generate Gaussian (normal) distribution using Box-Muller transform
-Dim u1 As Double, u2 As Double
-Dim z0 As Double</p>
-<p>u1 = Rnd
-u2 = Rnd</p>
-<p>' Box-Muller transform
-z0 = Sqr(-2 * Log(u1)) * Cos(2 * 3.14159265358979 * u2)</p>
-<p>NextGaussian = mean + stdDev * z0
-End Function</p>
-<p>Public Function NextBytes(count As Long) As Byte()
-' Generate array of random bytes
-Dim bytes() As Byte
-Dim i As Long</p>
-<p>ReDim bytes(0 To count - 1)</p>
-<p>For i = 0 To count - 1
-bytes(i) = Int(Rnd * 256)
-Next i</p>
-<p>NextBytes = bytes
-End Function</p>
-<p>Public Sub Reset()
-' Reset to original seed if seeded
-If m_seeded Then
-Rnd -1
-Randomize m_seed
-Else
-Randomize
-End If
-End Sub</p>
-<p>Public Function GetSeed() As Long
-GetSeed = m_seed
-End Function
+    Private m_seed As Long
+    Private m_seeded As Boolean
+    Public Sub Initialize(Optional seed As Long = 0)
+        If seed &lt;&gt; 0 Then
+            m_seed = seed
+            Rnd -1
+            Randomize seed
+            m_seeded = True
+        Else
+            Randomize
+            m_seeded = False
+        End If
+    End Sub
+    Public Function NextDouble() As Double
+        ' Get next random double [0, 1)
+        NextDouble = Rnd
+    End Function
+    Public Function NextInteger(minValue As Long, maxValue As Long) As Long
+        ' Get random integer [minValue, maxValue]
+        If minValue &gt; maxValue Then
+            Err.Raise 5, , "minValue must be &lt;= maxValue"
+        End If
+        NextInteger = Int((maxValue - minValue + 1) * Rnd + minValue)
+    End Function
+    Public Function NextBoolean() As Boolean
+        ' Get random boolean
+        NextBoolean = (Rnd &gt;= 0.5)
+    End Function
+    Public Function NextGaussian(Optional mean As Double = 0, _
+                                Optional stdDev As Double = 1) As Double
+        ' Generate Gaussian (normal) distribution using Box-Muller transform
+        Dim u1 As Double, u2 As Double
+        Dim z0 As Double
+        u1 = Rnd
+        u2 = Rnd
+        ' Box-Muller transform
+        z0 = Sqr(-2 * Log(u1)) * Cos(2 * 3.14159265358979 * u2)
+        NextGaussian = mean + stdDev * z0
+    End Function
+    Public Function NextBytes(count As Long) As Byte()
+        ' Generate array of random bytes
+        Dim bytes() As Byte
+        Dim i As Long
+        ReDim bytes(0 To count - 1)
+        For i = 0 To count - 1
+            bytes(i) = Int(Rnd * 256)
+        Next i
+        NextBytes = bytes
+    End Function
+    Public Sub Reset()
+        ' Reset to original seed if seeded
+        If m_seeded Then
+            Rnd -1
+            Randomize m_seed
+        Else
+            Randomize
+        End If
+    End Sub
+    Public Function GetSeed() As Long
+        GetSeed = m_seed
+    End Function
 End Class</p>
-<pre><code>
-### Example 2: Monte Carlo Simulator</code></pre>
+<pre><code>### Example 2: Monte Carlo Simulator</code></pre>
 <p>vb
 ' Monte Carlo simulation for estimating probabilities
 Module MonteCarloSimulator
-Public Function EstimatePi(iterations As Long) As Double
-' Estimate Pi using Monte Carlo method
-Dim insideCircle As Long
-Dim i As Long
-Dim x As Double, y As Double</p>
-<p>Randomize
-insideCircle = 0</p>
-<p>For i = 1 To iterations
-x = Rnd
-y = Rnd</p>
-<p>If (x * x + y * y) &lt; 1 Then
-insideCircle = insideCircle + 1
-End If
-Next i</p>
-<p>EstimatePi = 4 * (insideCircle / iterations)
-End Function</p>
-<p>Public Function SimulateDiceRolls(numDice As Integer, _
-numRolls As Long) As Long()
-' Simulate rolling multiple dice and return frequency distribution
-Dim results() As Long
-Dim minSum As Integer, maxSum As Integer
-Dim i As Long, j As Integer
-Dim sum As Integer</p>
-<p>minSum = numDice
-maxSum = numDice * 6</p>
-<p>ReDim results(minSum To maxSum)</p>
-<p>Randomize</p>
-<p>For i = 1 To numRolls
-sum = 0
-For j = 1 To numDice
-sum = sum + Int(Rnd * 6) + 1
-Next j
-results(sum) = results(sum) + 1
-Next i</p>
-<p>SimulateDiceRolls = results
-End Function</p>
-<p>Public Function SimulateStockPrice(startPrice As Double, _
-days As Long, _
-volatility As Double, _
-drift As Double) As Double()
-' Simulate stock price using geometric Brownian motion
-Dim prices() As Double
-Dim i As Long
-Dim randomShock As Double</p>
-<p>ReDim prices(0 To days)
-prices(0) = startPrice</p>
-<p>Randomize</p>
-<p>For i = 1 To days
-randomShock = (Rnd - 0.5) * 2  ' -1 to 1
-prices(i) = prices(i - 1) * (1 + drift + volatility * randomShock)
-Next i</p>
-<p>SimulateStockPrice = prices
-End Function
+    Public Function EstimatePi(iterations As Long) As Double
+        ' Estimate Pi using Monte Carlo method
+        Dim insideCircle As Long
+        Dim i As Long
+        Dim x As Double, y As Double
+        Randomize
+        insideCircle = 0
+        For i = 1 To iterations
+            x = Rnd
+            y = Rnd
+            If (x * x + y * y) &lt; 1 Then
+                insideCircle = insideCircle + 1
+            End If
+        Next i
+        EstimatePi = 4 * (insideCircle / iterations)
+    End Function
+    Public Function SimulateDiceRolls(numDice As Integer, _
+                                     numRolls As Long) As Long()
+        ' Simulate rolling multiple dice and return frequency distribution
+        Dim results() As Long
+        Dim minSum As Integer, maxSum As Integer
+        Dim i As Long, j As Integer
+        Dim sum As Integer
+        minSum = numDice
+        maxSum = numDice * 6
+        ReDim results(minSum To maxSum)
+        Randomize
+        For i = 1 To numRolls
+            sum = 0
+            For j = 1 To numDice
+                sum = sum + Int(Rnd * 6) + 1
+            Next j
+            results(sum) = results(sum) + 1
+        Next i
+        SimulateDiceRolls = results
+    End Function
+    Public Function SimulateStockPrice(startPrice As Double, _
+                                      days As Long, _
+                                      volatility As Double, _
+                                      drift As Double) As Double()
+        ' Simulate stock price using geometric Brownian motion
+        Dim prices() As Double
+        Dim i As Long
+        Dim randomShock As Double
+        ReDim prices(0 To days)
+        prices(0) = startPrice
+        Randomize
+        For i = 1 To days
+            randomShock = (Rnd - 0.5) * 2  ' -1 to 1
+            prices(i) = prices(i - 1) * (1 + drift + volatility * randomShock)
+        Next i
+        SimulateStockPrice = prices
+    End Function
 End Module</p>
-<pre><code>
-### Example 3: Random Data Generator</code></pre>
+<pre><code>### Example 3: Random Data Generator</code></pre>
 <p>vb
 ' Generate random test data for various purposes
 Class RandomDataGenerator
-Private m_firstNames() As String
-Private m_lastNames() As String
-Private m_emailDomains() As String</p>
-<p>Public Sub Initialize()
-Randomize</p>
-<p>m_firstNames = Array("John", "Jane", "Michael", "Sarah", "David", _
-"Emily", "James", "Emma", "Robert", "Lisa")
-m_lastNames = Array("Smith", "Johnson", "Williams", "Brown", "Jones", _
-"Garcia", "Miller", "Davis", "Rodriguez", "Martinez")
-m_emailDomains = Array("gmail.com", "yahoo.com", "hotmail.com", _
-"outlook.com", "example.com")
-End Sub</p>
-<p>Public Function GenerateName() As String
-' Generate random full name
-Dim firstName As String
-Dim lastName As String</p>
-<p>firstName = m_firstNames(Int(Rnd * (UBound(m_firstNames) + 1)))
-lastName = m_lastNames(Int(Rnd * (UBound(m_lastNames) + 1)))</p>
-<p>GenerateName = firstName &amp; " " &amp; lastName
-End Function</p>
-<p>Public Function GenerateEmail(Optional name As String = "") As String
-' Generate random email address
-Dim localPart As String
-Dim domain As String</p>
-<p>If name = "" Then
-localPart = "user" &amp; Int(Rnd * 10000)
-Else
-localPart = LCase(Replace(name, " ", "."))
-End If</p>
-<p>domain = m_emailDomains(Int(Rnd * (UBound(m_emailDomains) + 1)))</p>
-<p>GenerateEmail = localPart &amp; "@" &amp; domain
-End Function</p>
-<p>Public Function GeneratePhoneNumber() As String
-' Generate random US phone number
-Dim areaCode As String
-Dim exchange As String
-Dim number As String</p>
-<p>areaCode = Format(Int(Rnd * 900) + 100, "000")
-exchange = Format(Int(Rnd * 900) + 100, "000")
-number = Format(Int(Rnd * 10000), "0000")</p>
-<p>GeneratePhoneNumber = "(" &amp; areaCode &amp; ") " &amp; exchange &amp; "-" &amp; number
-End Function</p>
-<p>Public Function GenerateAddress() As String
-' Generate random street address
-Dim streetNumber As String
-Dim streetNames() As String
-Dim streetName As String
-Dim streetTypes() As String
-Dim streetType As String</p>
-<p>streetNames = Array("Main", "Oak", "Maple", "Cedar", "Elm", _
-"Washington", "Park", "Lake", "Hill", "Pine")
-streetTypes = Array("St", "Ave", "Blvd", "Rd", "Ln", "Dr")</p>
-<p>streetNumber = Int(Rnd * 9900) + 100
-streetName = streetNames(Int(Rnd * (UBound(streetNames) + 1)))
-streetType = streetTypes(Int(Rnd * (UBound(streetTypes) + 1)))</p>
-<p>GenerateAddress = streetNumber &amp; " " &amp; streetName &amp; " " &amp; streetType
-End Function</p>
-<p>Public Function GeneratePassword(length As Integer) As String
-' Generate random password with mixed characters
-Dim chars As String
-Dim i As Integer
-Dim result As String
-Dim index As Integer</p>
-<p>chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&amp;*"
-result = ""</p>
-<p>For i = 1 To length
-index = Int(Rnd * Len(chars)) + 1
-result = result &amp; Mid(chars, index, 1)
-Next i</p>
-<p>GeneratePassword = result
-End Function
+    Private m_firstNames() As String
+    Private m_lastNames() As String
+    Private m_emailDomains() As String
+    Public Sub Initialize()
+        Randomize
+        m_firstNames = Array("John", "Jane", "Michael", "Sarah", "David", _
+                            "Emily", "James", "Emma", "Robert", "Lisa")
+        m_lastNames = Array("Smith", "Johnson", "Williams", "Brown", "Jones", _
+                           "Garcia", "Miller", "Davis", "Rodriguez", "Martinez")
+        m_emailDomains = Array("gmail.com", "yahoo.com", "hotmail.com", _
+                              "outlook.com", "example.com")
+    End Sub
+    Public Function GenerateName() As String
+        ' Generate random full name
+        Dim firstName As String
+        Dim lastName As String
+        firstName = m_firstNames(Int(Rnd * (UBound(m_firstNames) + 1)))
+        lastName = m_lastNames(Int(Rnd * (UBound(m_lastNames) + 1)))
+        GenerateName = firstName &amp; " " &amp; lastName
+    End Function
+    Public Function GenerateEmail(Optional name As String = "") As String
+        ' Generate random email address
+        Dim localPart As String
+        Dim domain As String
+        If name = "" Then
+            localPart = "user" &amp; Int(Rnd * 10000)
+        Else
+            localPart = LCase(Replace(name, " ", "."))
+        End If
+        domain = m_emailDomains(Int(Rnd * (UBound(m_emailDomains) + 1)))
+        GenerateEmail = localPart &amp; "@" &amp; domain
+    End Function
+    Public Function GeneratePhoneNumber() As String
+        ' Generate random US phone number
+        Dim areaCode As String
+        Dim exchange As String
+        Dim number As String
+        areaCode = Format(Int(Rnd * 900) + 100, "000")
+        exchange = Format(Int(Rnd * 900) + 100, "000")
+        number = Format(Int(Rnd * 10000), "0000")
+        GeneratePhoneNumber = "(" &amp; areaCode &amp; ") " &amp; exchange &amp; "-" &amp; number
+    End Function
+    Public Function GenerateAddress() As String
+        ' Generate random street address
+        Dim streetNumber As String
+        Dim streetNames() As String
+        Dim streetName As String
+        Dim streetTypes() As String
+        Dim streetType As String
+        streetNames = Array("Main", "Oak", "Maple", "Cedar", "Elm", _
+                          "Washington", "Park", "Lake", "Hill", "Pine")
+        streetTypes = Array("St", "Ave", "Blvd", "Rd", "Ln", "Dr")
+        streetNumber = Int(Rnd * 9900) + 100
+        streetName = streetNames(Int(Rnd * (UBound(streetNames) + 1)))
+        streetType = streetTypes(Int(Rnd * (UBound(streetTypes) + 1)))
+        GenerateAddress = streetNumber &amp; " " &amp; streetName &amp; " " &amp; streetType
+    End Function
+    Public Function GeneratePassword(length As Integer) As String
+        ' Generate random password with mixed characters
+        Dim chars As String
+        Dim i As Integer
+        Dim result As String
+        Dim index As Integer
+        chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&amp;*"
+        result = ""
+        For i = 1 To length
+            index = Int(Rnd * Len(chars)) + 1
+            result = result &amp; Mid(chars, index, 1)
+        Next i
+        GeneratePassword = result
+    End Function
 End Class</p>
-<pre><code>
-### Example 4: Card Deck Shuffler</code></pre>
+<pre><code>### Example 4: Card Deck Shuffler</code></pre>
 <p>vb
 ' Simulate a deck of cards with shuffling
 Class CardDeck
-Private Type Card
-Suit As String
-Rank As String
-Value As Integer
-End Type</p>
-<p>Private m_cards() As Card
-Private m_currentCard As Integer</p>
-<p>Public Sub Initialize()
-Dim suits() As String
-Dim ranks() As String
-Dim i As Integer, j As Integer
-Dim cardIndex As Integer</p>
-<p>suits = Array("Hearts", "Diamonds", "Clubs", "Spades")
-ranks = Array("2", "3", "4", "5", "6", "7", "8", "9", "10", _
-"Jack", "Queen", "King", "Ace")</p>
-<p>ReDim m_cards(0 To 51)
-cardIndex = 0</p>
-<p>For i = 0 To 3
-For j = 0 To 12
-m_cards(cardIndex).Suit = suits(i)
-m_cards(cardIndex).Rank = ranks(j)
-m_cards(cardIndex).Value = j + 2
-cardIndex = cardIndex + 1
-Next j
-Next i</p>
-<p>m_currentCard = 0
-End Sub</p>
-<p>Public Sub Shuffle()
-' Shuffle deck using Fisher-Yates algorithm
-Dim i As Integer
-Dim j As Integer
-Dim temp As Card</p>
-<p>Randomize</p>
-<p>For i = 51 To 1 Step -1
-j = Int(Rnd * (i + 1))</p>
-<p>temp = m_cards(i)
-m_cards(i) = m_cards(j)
-m_cards(j) = temp
-Next i</p>
-<p>m_currentCard = 0
-End Sub</p>
-<p>Public Function DrawCard() As String
-' Draw next card from deck
-Dim card As Card</p>
-<p>If m_currentCard &gt; 51 Then
-DrawCard = "No cards left"
-Exit Function
-End If</p>
-<p>card = m_cards(m_currentCard)
-m_currentCard = m_currentCard + 1</p>
-<p>DrawCard = card.Rank &amp; " of " &amp; card.Suit
-End Function</p>
-<p>Public Function CardsRemaining() As Integer
-CardsRemaining = 52 - m_currentCard
-End Function</p>
-<p>Public Sub Reset()
-m_currentCard = 0
-End Sub
+    Private Type Card
+        Suit As String
+        Rank As String
+        Value As Integer
+    End Type
+    Private m_cards() As Card
+    Private m_currentCard As Integer
+    Public Sub Initialize()
+        Dim suits() As String
+        Dim ranks() As String
+        Dim i As Integer, j As Integer
+        Dim cardIndex As Integer
+        suits = Array("Hearts", "Diamonds", "Clubs", "Spades")
+        ranks = Array("2", "3", "4", "5", "6", "7", "8", "9", "10", _
+                     "Jack", "Queen", "King", "Ace")
+        ReDim m_cards(0 To 51)
+        cardIndex = 0
+        For i = 0 To 3
+            For j = 0 To 12
+                m_cards(cardIndex).Suit = suits(i)
+                m_cards(cardIndex).Rank = ranks(j)
+                m_cards(cardIndex).Value = j + 2
+                cardIndex = cardIndex + 1
+            Next j
+        Next i
+        m_currentCard = 0
+    End Sub
+    Public Sub Shuffle()
+        ' Shuffle deck using Fisher-Yates algorithm
+        Dim i As Integer
+        Dim j As Integer
+        Dim temp As Card
+        Randomize
+        For i = 51 To 1 Step -1
+            j = Int(Rnd * (i + 1))
+            temp = m_cards(i)
+            m_cards(i) = m_cards(j)
+            m_cards(j) = temp
+        Next i
+        m_currentCard = 0
+    End Sub
+    Public Function DrawCard() As String
+        ' Draw next card from deck
+        Dim card As Card
+        If m_currentCard &gt; 51 Then
+            DrawCard = "No cards left"
+            Exit Function
+        End If
+        card = m_cards(m_currentCard)
+        m_currentCard = m_currentCard + 1
+        DrawCard = card.Rank &amp; " of " &amp; card.Suit
+    End Function
+    Public Function CardsRemaining() As Integer
+        CardsRemaining = 52 - m_currentCard
+    End Function
+    Public Sub Reset()
+        m_currentCard = 0
+    End Sub
 End Class</p>
-<pre><code>
-## Error Handling
-
+<pre><code>## Error Handling
 The `Rnd` function rarely generates errors, but there are some considerations:
-
 **Type Mismatch (Error 13)**:
 - Occurs if the optional number parameter cannot be converted to numeric type
-
-Example error handling:
-</code></pre>
+Example error handling:</code></pre>
 <p>vb
 On Error Resume Next
 Dim randomValue As Single
 randomValue = Rnd(userInput)
 If Err.Number &lt;&gt; 0 Then
-MsgBox "Invalid seed value"
-randomValue = Rnd  ' Use default behavior
+    MsgBox "Invalid seed value"
+    randomValue = Rnd  ' Use default behavior
 End If
 On Error GoTo 0
 ```</p>
@@ -627,32 +574,116 @@ On Error GoTo 0
 <td>Single</td>
 <td>Often used with Randomize</td>
 </tr>
+<tr>
+<td>## Platform and Version Notes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in all versions of VB6 and VBA</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Uses linear congruential generator (LCG) algorithm</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Not cryptographically secure</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Sequence repeats after approximately 16 million numbers</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- In VB.NET, replaced by <code>System.Random</code> class</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Randomize</code> uses <code>Timer</code> function by default if no seed provided</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Not cryptographically secure (predictable sequence)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Limited period (sequence repeats after ~16M values)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No built-in support for other distributions (normal, exponential, etc.)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot generate random integers directly (requires Int/Floor conversion)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Thread safety not guaranteed in multi-threaded scenarios</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Quality lower than modern RNGs (Mersenne Twister, etc.)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Related Functions</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Randomize</code>: Initializes the random number generator with a seed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Int</code>: Returns the integer portion of a number (used to convert Rnd to integer range)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Timer</code>: Returns seconds since midnight (often used with Randomize)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
-<ul>
-<li>Available in all versions of VB6 and VBA</li>
-<li>Uses linear congruential generator (LCG) algorithm</li>
-<li>Not cryptographically secure</li>
-<li>Sequence repeats after approximately 16 million numbers</li>
-<li>In VB.NET, replaced by <code>System.Random</code> class</li>
-<li><code>Randomize</code> uses <code>Timer</code> function by default if no seed provided</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Not cryptographically secure (predictable sequence)</li>
-<li>Limited period (sequence repeats after ~16M values)</li>
-<li>No built-in support for other distributions (normal, exponential, etc.)</li>
-<li>Cannot generate random integers directly (requires Int/Floor conversion)</li>
-<li>Thread safety not guaranteed in multi-threaded scenarios</li>
-<li>Quality lower than modern RNGs (Mersenne Twister, etc.)</li>
-</ul>
-<h2 id="related-functions">Related Functions</h2>
-<ul>
-<li><code>Randomize</code>: Initializes the random number generator with a seed</li>
-<li><code>Int</code>: Returns the integer portion of a number (used to convert Rnd to integer range)</li>
-<li><code>Timer</code>: Returns seconds since midnight (often used with Randomize)</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

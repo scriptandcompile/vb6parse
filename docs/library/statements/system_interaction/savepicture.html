@@ -44,27 +44,27 @@
 <h2 id="parts">Parts</h2>
 <ul>
 <li><strong>picture</strong>: Required. A property or graphic object from which to save the image. The image
-can be from the <code>Picture</code> property of a Form, <code>PictureBox</code>, or Image control, or from the
-<code>Image</code> property of a <code>PictureBox</code> or Form.</li>
+  can be from the <code>Picture</code> property of a Form, <code>PictureBox</code>, or Image control, or from the
+  <code>Image</code> property of a <code>PictureBox</code> or Form.</li>
 <li><strong>stringexpression</strong>: Required. String expression specifying the name of the file to which
-the graphic is saved. Can include a drive and path specification.</li>
+  the graphic is saved. Can include a drive and path specification.</li>
 </ul>
 <h2 id="remarks">Remarks</h2>
 <ul>
 <li><strong>File Format</strong>: <code>SavePicture</code> saves graphics in bitmap (.bmp) format. The file created is
-compatible with bitmap files created by other applications.</li>
+  compatible with bitmap files created by other applications.</li>
 <li><strong>Picture Property</strong>: When used with the <code>Picture</code> property, <code>SavePicture</code> saves the persistent
-bitmap from the property. This is the image loaded at design time or assigned at run time via
-<code>LoadPicture</code> or other means.</li>
+  bitmap from the property. This is the image loaded at design time or assigned at run time via
+  <code>LoadPicture</code> or other means.</li>
 <li><strong>Image Property</strong>: When used with the <code>Image</code> property, <code>SavePicture</code> saves the current
-appearance of the form or picture box, including any graphics drawn with graphics methods.
-This creates a snapshot of the visible content.</li>
+  appearance of the form or picture box, including any graphics drawn with graphics methods.
+  This creates a snapshot of the visible content.</li>
 <li><strong>File Path</strong>: If no path is specified, the file is saved in the current directory.</li>
 <li><strong>Overwriting</strong>: If a file with the specified name already exists, it is overwritten without
-warning.</li>
+  warning.</li>
 <li><strong>Relative Paths</strong>: You can use relative path specifications (e.g., "..\Images\MyPic.bmp").</li>
 <li><strong>Graphics Methods</strong>: To save graphics created with graphics methods (Line, Circle, <code>PSet</code>,
-etc.), you must use the <code>Image</code> property, not the <code>Picture</code> property.</li>
+  etc.), you must use the <code>Image</code> property, not the <code>Picture</code> property.</li>
 <li><strong>Clipboard Graphics</strong>: <code>SavePicture</code> can also be used with graphics from the Clipboard object.</li>
 </ul>
 <h2 id="examples">Examples</h2>
@@ -88,7 +88,7 @@ SavePicture Clipboard.GetData(), &quot;C:\Temp\ClipImage.bmp&quot;</code></pre>
 <pre><code class="language-vbnet">On Error Resume Next
 SavePicture Picture1.Picture, &quot;C:\Images\Output.bmp&quot;
 If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Error saving picture: &quot; &amp; Err.Description
+    MsgBox &quot;Error saving picture: &quot; &amp; Err.Description
 End If
 On Error GoTo 0</code></pre>
 <h2 id="common-errors">Common Errors</h2>

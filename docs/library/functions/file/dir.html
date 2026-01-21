@@ -45,10 +45,10 @@ specified pattern or file attribute, or the volume label of a drive.</p>
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><strong>pathname</strong>: Optional. <code>String</code> expression that specifies a file name, directory name,
-or folder name. May include wildcards (* and ?). If not specified, uses the pattern
-from the previous <code>Dir</code> call.</li>
+  or folder name. May include wildcards (* and ?). If not specified, uses the pattern
+  from the previous <code>Dir</code> call.</li>
 <li><strong>attributes</strong>: Optional. Constant or numeric expression whose sum specifies file
-attributes. If omitted, returns files that match pathname but have no attributes.</li>
+  attributes. If omitted, returns files that match pathname but have no attributes.</li>
 </ul>
 <h2 id="attributes">Attributes</h2>
 <ul>
@@ -66,20 +66,18 @@ specified pattern and attributes. Returns a zero-length string ("") when no more
 are found.</p>
 <h2 id="remarks">Remarks</h2>
 <p>The <code>Dir</code> function is used to retrieve file and directory names that match a pattern.
-It's commonly used to iterate through files in a directory or to check if a file exists.</p>
-<p><strong>Important Characteristics:</strong></p>
-<ul>
-<li>First call with pathname initializes search and returns first match</li>
-<li>Subsequent calls without arguments return next matching file</li>
-<li>Returns empty string ("") when no more matches found</li>
-<li>Case-insensitive pattern matching</li>
-<li>Supports wildcards: * (multiple chars) and ? (single char)</li>
-<li>Does not return "." and ".." directory entries</li>
-<li>Order of returned files is not guaranteed (typically file system order)</li>
-<li>Maintains internal state between calls</li>
-<li>Multiple Dir loops cannot be nested without complications</li>
-<li>Changing directory during Dir enumeration can cause issues</li>
-</ul>
+It's commonly used to iterate through files in a directory or to check if a file exists.
+<strong>Important Characteristics:</strong>
+- First call with pathname initializes search and returns first match
+- Subsequent calls without arguments return next matching file
+- Returns empty string ("") when no more matches found
+- Case-insensitive pattern matching
+- Supports wildcards: * (multiple chars) and ? (single char)
+- Does not return "." and ".." directory entries
+- Order of returned files is not guaranteed (typically file system order)
+- Maintains internal state between calls
+- Multiple Dir loops cannot be nested without complications
+- Changing directory during Dir enumeration can cause issues</p>
 <h2 id="wildcards">Wildcards</h2>
 <ul>
 <li><code>*</code> - Matches zero or more characters</li>
@@ -94,436 +92,369 @@ It's commonly used to iterate through files in a directory or to check if a file
 Dim fileName As String
 fileName = Dir(&quot;*.txt&quot;)
 MsgBox fileName
-
 &#x27; Check if specific file exists
 If Len(Dir(&quot;C:\data\report.txt&quot;)) &gt; 0 Then
-MsgBox &quot;File exists&quot;
+    MsgBox &quot;File exists&quot;
 End If
-
 &#x27; Get volume label
 Dim volumeLabel As String
 volumeLabel = Dir(&quot;C:\&quot;, vbVolume)</code></pre>
 <h3 id="iterate-through-files">Iterate Through Files</h3>
 <pre><code class="language-vbnet">Sub ListAllTextFiles()
-Dim fileName As String
-
-&#x27; First call with pattern
-fileName = Dir(&quot;C:\Documents\*.txt&quot;)
-
-&#x27; Loop through all matches
-Do While fileName &lt;&gt; &quot;&quot;
-Debug.Print fileName
-fileName = Dir  &#x27; Subsequent calls without arguments
-Loop
+    Dim fileName As String
+    &#x27; First call with pattern
+    fileName = Dir(&quot;C:\Documents\*.txt&quot;)
+    &#x27; Loop through all matches
+    Do While fileName &lt;&gt; &quot;&quot;
+        Debug.Print fileName
+        fileName = Dir  &#x27; Subsequent calls without arguments
+    Loop
 End Sub</code></pre>
 <h3 id="count-files">Count Files</h3>
 <pre><code class="language-vbnet">Function CountFiles(path As String, pattern As String) As Long
-Dim fileName As String
-Dim count As Long
-
-count = 0
-fileName = Dir(path &amp; &quot;\&quot; &amp; pattern)
-
-Do While fileName &lt;&gt; &quot;&quot;
-count = count + 1
-fileName = Dir
-Loop
-
-CountFiles = count
+    Dim fileName As String
+    Dim count As Long
+    count = 0
+    fileName = Dir(path &amp; &quot;\&quot; &amp; pattern)
+    Do While fileName &lt;&gt; &quot;&quot;
+        count = count + 1
+        fileName = Dir
+    Loop
+    CountFiles = count
 End Function</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="file-existence-check">File Existence Check</h3>
 <pre><code class="language-vbnet">Function FileExists(filePath As String) As Boolean
-FileExists = (Len(Dir(filePath)) &gt; 0)
+    FileExists = (Len(Dir(filePath)) &gt; 0)
 End Function
-
 &#x27; Usage
 If FileExists(&quot;C:\data\file.txt&quot;) Then
-&#x27; File exists
+    &#x27; File exists
 End If</code></pre>
 <h3 id="get-all-files-in-directory">Get All Files in Directory</h3>
 <pre><code class="language-vbnet">Function GetFileList(folderPath As String, pattern As String) As Variant
-Dim files() As String
-Dim fileName As String
-Dim count As Long
-
-count = 0
-ReDim files(0 To 100)
-
-fileName = Dir(folderPath &amp; &quot;\&quot; &amp; pattern)
-Do While fileName &lt;&gt; &quot;&quot;
-files(count) = fileName
-count = count + 1
-
-If count &gt; UBound(files) Then
-ReDim Preserve files(0 To UBound(files) + 100)
-End If
-
-fileName = Dir
-Loop
-
-If count &gt; 0 Then
-ReDim Preserve files(0 To count - 1)
-GetFileList = files
-Else
-GetFileList = Array()
-End If
+    Dim files() As String
+    Dim fileName As String
+    Dim count As Long
+    count = 0
+    ReDim files(0 To 100)
+    fileName = Dir(folderPath &amp; &quot;\&quot; &amp; pattern)
+    Do While fileName &lt;&gt; &quot;&quot;
+        files(count) = fileName
+        count = count + 1
+        If count &gt; UBound(files) Then
+            ReDim Preserve files(0 To UBound(files) + 100)
+        End If
+        fileName = Dir
+    Loop
+    If count &gt; 0 Then
+        ReDim Preserve files(0 To count - 1)
+        GetFileList = files
+    Else
+        GetFileList = Array()
+    End If
 End Function</code></pre>
 <h3 id="find-files-by-attribute">Find Files by Attribute</h3>
 <pre><code class="language-vbnet">Sub ListHiddenFiles(folderPath As String)
-Dim fileName As String
-
-fileName = Dir(folderPath &amp; &quot;\*.*&quot;, vbHidden)
-Do While fileName &lt;&gt; &quot;&quot;
-Debug.Print &quot;Hidden: &quot; &amp; fileName
-fileName = Dir
-Loop
+    Dim fileName As String
+    fileName = Dir(folderPath &amp; &quot;\*.*&quot;, vbHidden)
+    Do While fileName &lt;&gt; &quot;&quot;
+        Debug.Print &quot;Hidden: &quot; &amp; fileName
+        fileName = Dir
+    Loop
 End Sub
-
 Sub ListDirectories(folderPath As String)
-Dim dirName As String
-
-dirName = Dir(folderPath &amp; &quot;\*.*&quot;, vbDirectory)
-Do While dirName &lt;&gt; &quot;&quot;
-&#x27; Filter out &quot;.&quot; and &quot;..&quot; if they appear
-If dirName &lt;&gt; &quot;.&quot; And dirName &lt;&gt; &quot;..&quot; Then
-&#x27; Check if it&#x27;s actually a directory
-If GetAttr(folderPath &amp; &quot;\&quot; &amp; dirName) And vbDirectory Then
-Debug.Print &quot;Directory: &quot; &amp; dirName
-End If
-End If
-dirName = Dir
-Loop
+    Dim dirName As String
+    dirName = Dir(folderPath &amp; &quot;\*.*&quot;, vbDirectory)
+    Do While dirName &lt;&gt; &quot;&quot;
+        &#x27; Filter out &quot;.&quot; and &quot;..&quot; if they appear
+        If dirName &lt;&gt; &quot;.&quot; And dirName &lt;&gt; &quot;..&quot; Then
+            &#x27; Check if it&#x27;s actually a directory
+            If GetAttr(folderPath &amp; &quot;\&quot; &amp; dirName) And vbDirectory Then
+                Debug.Print &quot;Directory: &quot; &amp; dirName
+            End If
+        End If
+        dirName = Dir
+    Loop
 End Sub</code></pre>
 <h3 id="search-multiple-file-types">Search Multiple File Types</h3>
 <pre><code class="language-vbnet">Function FindDocuments(folderPath As String) As Variant
-Dim files() As String
-Dim fileName As String
-Dim count As Long
-Dim extensions As Variant
-Dim i As Integer
-
-extensions = Array(&quot;*.txt&quot;, &quot;*.doc&quot;, &quot;*.docx&quot;, &quot;*.pdf&quot;)
-ReDim files(0 To 100)
-count = 0
-
-For i = LBound(extensions) To UBound(extensions)
-fileName = Dir(folderPath &amp; &quot;\&quot; &amp; extensions(i))
-Do While fileName &lt;&gt; &quot;&quot;
-files(count) = fileName
-count = count + 1
-
-If count &gt; UBound(files) Then
-ReDim Preserve files(0 To UBound(files) + 100)
-End If
-
-fileName = Dir
-Loop
-Next i
-
-If count &gt; 0 Then
-ReDim Preserve files(0 To count - 1)
-FindDocuments = files
-Else
-FindDocuments = Array()
-End If
+    Dim files() As String
+    Dim fileName As String
+    Dim count As Long
+    Dim extensions As Variant
+    Dim i As Integer
+    extensions = Array(&quot;*.txt&quot;, &quot;*.doc&quot;, &quot;*.docx&quot;, &quot;*.pdf&quot;)
+    ReDim files(0 To 100)
+    count = 0
+    For i = LBound(extensions) To UBound(extensions)
+        fileName = Dir(folderPath &amp; &quot;\&quot; &amp; extensions(i))
+        Do While fileName &lt;&gt; &quot;&quot;
+            files(count) = fileName
+            count = count + 1
+            If count &gt; UBound(files) Then
+                ReDim Preserve files(0 To UBound(files) + 100)
+            End If
+            fileName = Dir
+        Loop
+    Next i
+    If count &gt; 0 Then
+        ReDim Preserve files(0 To count - 1)
+        FindDocuments = files
+    Else
+        FindDocuments = Array()
+    End If
 End Function</code></pre>
 <h3 id="get-full-file-paths">Get Full File Paths</h3>
 <pre><code class="language-vbnet">Function GetFullPaths(folderPath As String, pattern As String) As Variant
-Dim paths() As String
-Dim fileName As String
-Dim count As Long
-
-count = 0
-ReDim paths(0 To 100)
-
-fileName = Dir(folderPath &amp; &quot;\&quot; &amp; pattern)
-Do While fileName &lt;&gt; &quot;&quot;
-paths(count) = folderPath &amp; &quot;\&quot; &amp; fileName
-count = count + 1
-
-If count &gt; UBound(paths) Then
-ReDim Preserve paths(0 To UBound(paths) + 100)
-End If
-
-fileName = Dir
-Loop
-
-If count &gt; 0 Then
-ReDim Preserve paths(0 To count - 1)
-GetFullPaths = paths
-Else
-GetFullPaths = Array()
-End If
+    Dim paths() As String
+    Dim fileName As String
+    Dim count As Long
+    count = 0
+    ReDim paths(0 To 100)
+    fileName = Dir(folderPath &amp; &quot;\&quot; &amp; pattern)
+    Do While fileName &lt;&gt; &quot;&quot;
+        paths(count) = folderPath &amp; &quot;\&quot; &amp; fileName
+        count = count + 1
+        If count &gt; UBound(paths) Then
+            ReDim Preserve paths(0 To UBound(paths) + 100)
+        End If
+        fileName = Dir
+    Loop
+    If count &gt; 0 Then
+        ReDim Preserve paths(0 To count - 1)
+        GetFullPaths = paths
+    Else
+        GetFullPaths = Array()
+    End If
 End Function</code></pre>
 <h3 id="delete-all-files-matching-pattern">Delete All Files Matching Pattern</h3>
 <pre><code class="language-vbnet">Sub DeleteMatchingFiles(folderPath As String, pattern As String)
-Dim fileName As String
-Dim fullPath As String
-
-fileName = Dir(folderPath &amp; &quot;\&quot; &amp; pattern)
-Do While fileName &lt;&gt; &quot;&quot;
-fullPath = folderPath &amp; &quot;\&quot; &amp; fileName
-
-&#x27; Get next file BEFORE deleting (Dir state would be lost)
-fileName = Dir
-
-&#x27; Delete the file
-Kill fullPath
-Loop
+    Dim fileName As String
+    Dim fullPath As String
+    fileName = Dir(folderPath &amp; &quot;\&quot; &amp; pattern)
+    Do While fileName &lt;&gt; &quot;&quot;
+        fullPath = folderPath &amp; &quot;\&quot; &amp; fileName
+        &#x27; Get next file BEFORE deleting (Dir state would be lost)
+        fileName = Dir
+        &#x27; Delete the file
+        Kill fullPath
+    Loop
 End Sub</code></pre>
 <h3 id="find-newest-file">Find Newest File</h3>
 <pre><code class="language-vbnet">Function GetNewestFile(folderPath As String, pattern As String) As String
-Dim fileName As String
-Dim newestFile As String
-Dim newestDate As Date
-Dim currentDate As Date
-Dim fullPath As String
-
-newestDate = 0
-fileName = Dir(folderPath &amp; &quot;\&quot; &amp; pattern)
-
-Do While fileName &lt;&gt; &quot;&quot;
-fullPath = folderPath &amp; &quot;\&quot; &amp; fileName
-currentDate = FileDateTime(fullPath)
-
-If currentDate &gt; newestDate Then
-newestDate = currentDate
-newestFile = fileName
-End If
-
-fileName = Dir
-Loop
-
-GetNewestFile = newestFile
+    Dim fileName As String
+    Dim newestFile As String
+    Dim newestDate As Date
+    Dim currentDate As Date
+    Dim fullPath As String
+    newestDate = 0
+    fileName = Dir(folderPath &amp; &quot;\&quot; &amp; pattern)
+    Do While fileName &lt;&gt; &quot;&quot;
+        fullPath = folderPath &amp; &quot;\&quot; &amp; fileName
+        currentDate = FileDateTime(fullPath)
+        If currentDate &gt; newestDate Then
+            newestDate = currentDate
+            newestFile = fileName
+        End If
+        fileName = Dir
+    Loop
+    GetNewestFile = newestFile
 End Function</code></pre>
 <h3 id="calculate-total-size">Calculate Total Size</h3>
 <pre><code class="language-vbnet">Function GetTotalFileSize(folderPath As String, pattern As String) As Double
-Dim fileName As String
-Dim totalSize As Double
-Dim fullPath As String
-
-totalSize = 0
-fileName = Dir(folderPath &amp; &quot;\&quot; &amp; pattern)
-
-Do While fileName &lt;&gt; &quot;&quot;
-fullPath = folderPath &amp; &quot;\&quot; &amp; fileName
-totalSize = totalSize + FileLen(fullPath)
-fileName = Dir
-Loop
-
-GetTotalFileSize = totalSize
+    Dim fileName As String
+    Dim totalSize As Double
+    Dim fullPath As String
+    totalSize = 0
+    fileName = Dir(folderPath &amp; &quot;\&quot; &amp; pattern)
+    Do While fileName &lt;&gt; &quot;&quot;
+        fullPath = folderPath &amp; &quot;\&quot; &amp; fileName
+        totalSize = totalSize + FileLen(fullPath)
+        fileName = Dir
+    Loop
+    GetTotalFileSize = totalSize
 End Function</code></pre>
 <h3 id="recursive-directory-search">Recursive Directory Search</h3>
 <pre><code class="language-vbnet">Sub SearchRecursive(folderPath As String, pattern As String)
-Dim fileName As String
-Dim dirName As String
-Dim fullPath As String
-
-&#x27; Search files in current directory
-fileName = Dir(folderPath &amp; &quot;\&quot; &amp; pattern)
-Do While fileName &lt;&gt; &quot;&quot;
-Debug.Print folderPath &amp; &quot;\&quot; &amp; fileName
-fileName = Dir
-Loop
-
-&#x27; Search subdirectories
-dirName = Dir(folderPath &amp; &quot;\*.*&quot;, vbDirectory)
-Do While dirName &lt;&gt; &quot;&quot;
-If dirName &lt;&gt; &quot;.&quot; And dirName &lt;&gt; &quot;..&quot; Then
-fullPath = folderPath &amp; &quot;\&quot; &amp; dirName
-If GetAttr(fullPath) And vbDirectory Then
-SearchRecursive fullPath, pattern
-End If
-End If
-dirName = Dir
-Loop
+    Dim fileName As String
+    Dim dirName As String
+    Dim fullPath As String
+    &#x27; Search files in current directory
+    fileName = Dir(folderPath &amp; &quot;\&quot; &amp; pattern)
+    Do While fileName &lt;&gt; &quot;&quot;
+        Debug.Print folderPath &amp; &quot;\&quot; &amp; fileName
+        fileName = Dir
+    Loop
+    &#x27; Search subdirectories
+    dirName = Dir(folderPath &amp; &quot;\*.*&quot;, vbDirectory)
+    Do While dirName &lt;&gt; &quot;&quot;
+        If dirName &lt;&gt; &quot;.&quot; And dirName &lt;&gt; &quot;..&quot; Then
+            fullPath = folderPath &amp; &quot;\&quot; &amp; dirName
+            If GetAttr(fullPath) And vbDirectory Then
+                SearchRecursive fullPath, pattern
+            End If
+        End If
+        dirName = Dir
+    Loop
 End Sub</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="file-filter-with-multiple-criteria">File Filter with Multiple Criteria</h3>
 <pre><code class="language-vbnet">Function FindFilesAdvanced(folderPath As String, _
-minSize As Long, maxSize As Long, _
-afterDate As Date) As Variant
-Dim files() As String
-Dim fileName As String
-Dim fullPath As String
-Dim fileSize As Long
-Dim fileDate As Date
-Dim count As Long
-
-count = 0
-ReDim files(0 To 100)
-
-fileName = Dir(folderPath &amp; &quot;\*.*&quot;)
-Do While fileName &lt;&gt; &quot;&quot;
-fullPath = folderPath &amp; &quot;\&quot; &amp; fileName
-fileSize = FileLen(fullPath)
-fileDate = FileDateTime(fullPath)
-
-If fileSize &gt;= minSize And fileSize &lt;= maxSize And fileDate &gt; afterDate Then
-files(count) = fileName
-count = count + 1
-
-If count &gt; UBound(files) Then
-ReDim Preserve files(0 To UBound(files) + 100)
-End If
-End If
-
-fileName = Dir
-Loop
-
-If count &gt; 0 Then
-ReDim Preserve files(0 To count - 1)
-FindFilesAdvanced = files
-Else
-FindFilesAdvanced = Array()
-End If
+                          minSize As Long, maxSize As Long, _
+                          afterDate As Date) As Variant
+    Dim files() As String
+    Dim fileName As String
+    Dim fullPath As String
+    Dim fileSize As Long
+    Dim fileDate As Date
+    Dim count As Long
+    count = 0
+    ReDim files(0 To 100)
+    fileName = Dir(folderPath &amp; &quot;\*.*&quot;)
+    Do While fileName &lt;&gt; &quot;&quot;
+        fullPath = folderPath &amp; &quot;\&quot; &amp; fileName
+        fileSize = FileLen(fullPath)
+        fileDate = FileDateTime(fullPath)
+        If fileSize &gt;= minSize And fileSize &lt;= maxSize And fileDate &gt; afterDate Then
+            files(count) = fileName
+            count = count + 1
+            If count &gt; UBound(files) Then
+                ReDim Preserve files(0 To UBound(files) + 100)
+            End If
+        End If
+        fileName = Dir
+    Loop
+    If count &gt; 0 Then
+        ReDim Preserve files(0 To count - 1)
+        FindFilesAdvanced = files
+    Else
+        FindFilesAdvanced = Array()
+    End If
 End Function</code></pre>
 <h3 id="safe-dir-loop-helper">Safe Dir Loop Helper</h3>
 <pre><code class="language-vbnet">&#x27; Helper to avoid nested Dir issues
 Type FileInfo
-Name As String
-FullPath As String
-Size As Long
-Modified As Date
+    Name As String
+    FullPath As String
+    Size As Long
+    Modified As Date
 End Type
-
 Function GetFileInfoList(folderPath As String, pattern As String) As Variant
-Dim files() As FileInfo
-Dim fileName As String
-Dim count As Long
-
-count = 0
-ReDim files(0 To 100)
-
-fileName = Dir(folderPath &amp; &quot;\&quot; &amp; pattern)
-Do While fileName &lt;&gt; &quot;&quot;
-files(count).Name = fileName
-files(count).FullPath = folderPath &amp; &quot;\&quot; &amp; fileName
-files(count).Size = FileLen(files(count).FullPath)
-files(count).Modified = FileDateTime(files(count).FullPath)
-
-count = count + 1
-If count &gt; UBound(files) Then
-ReDim Preserve files(0 To UBound(files) + 100)
-End If
-
-fileName = Dir
-Loop
-
-If count &gt; 0 Then
-ReDim Preserve files(0 To count - 1)
-GetFileInfoList = files
-Else
-GetFileInfoList = Array()
-End If
+    Dim files() As FileInfo
+    Dim fileName As String
+    Dim count As Long
+    count = 0
+    ReDim files(0 To 100)
+    fileName = Dir(folderPath &amp; &quot;\&quot; &amp; pattern)
+    Do While fileName &lt;&gt; &quot;&quot;
+        files(count).Name = fileName
+        files(count).FullPath = folderPath &amp; &quot;\&quot; &amp; fileName
+        files(count).Size = FileLen(files(count).FullPath)
+        files(count).Modified = FileDateTime(files(count).FullPath)
+        count = count + 1
+        If count &gt; UBound(files) Then
+            ReDim Preserve files(0 To UBound(files) + 100)
+        End If
+        fileName = Dir
+    Loop
+    If count &gt; 0 Then
+        ReDim Preserve files(0 To count - 1)
+        GetFileInfoList = files
+    Else
+        GetFileInfoList = Array()
+    End If
 End Function</code></pre>
 <h3 id="backup-old-files">Backup Old Files</h3>
 <pre><code class="language-vbnet">Sub BackupOldFiles(sourcePath As String, backupPath As String, daysOld As Integer)
-Dim fileName As String
-Dim fullPath As String
-Dim cutoffDate As Date
-
-cutoffDate = Date - daysOld
-fileName = Dir(sourcePath &amp; &quot;\*.*&quot;)
-
-Do While fileName &lt;&gt; &quot;&quot;
-fullPath = sourcePath &amp; &quot;\&quot; &amp; fileName
-
-If FileDateTime(fullPath) &lt; cutoffDate Then
-FileCopy fullPath, backupPath &amp; &quot;\&quot; &amp; fileName
-End If
-
-fileName = Dir
-Loop
+    Dim fileName As String
+    Dim fullPath As String
+    Dim cutoffDate As Date
+    cutoffDate = Date - daysOld
+    fileName = Dir(sourcePath &amp; &quot;\*.*&quot;)
+    Do While fileName &lt;&gt; &quot;&quot;
+        fullPath = sourcePath &amp; &quot;\&quot; &amp; fileName
+        If FileDateTime(fullPath) &lt; cutoffDate Then
+            FileCopy fullPath, backupPath &amp; &quot;\&quot; &amp; fileName
+        End If
+        fileName = Dir
+    Loop
 End Sub</code></pre>
 <h3 id="build-file-index">Build File Index</h3>
 <pre><code class="language-vbnet">Function BuildFileIndex(rootPath As String) As Collection
-Dim index As New Collection
-Dim fileName As String
-
-&#x27; Add all files to collection with full path as key
-fileName = Dir(rootPath &amp; &quot;\*.*&quot;)
-Do While fileName &lt;&gt; &quot;&quot;
-On Error Resume Next
-index.Add fileName, UCase(fileName)
-On Error GoTo 0
-fileName = Dir
-Loop
-
-Set BuildFileIndex = index
+    Dim index As New Collection
+    Dim fileName As String
+    &#x27; Add all files to collection with full path as key
+    fileName = Dir(rootPath &amp; &quot;\*.*&quot;)
+    Do While fileName &lt;&gt; &quot;&quot;
+        On Error Resume Next
+        index.Add fileName, UCase(fileName)
+        On Error GoTo 0
+        fileName = Dir
+    Loop
+    Set BuildFileIndex = index
 End Function</code></pre>
 <h3 id="file-synchronization-check">File Synchronization Check</h3>
 <pre><code class="language-vbnet">Function CompareDirectories(path1 As String, path2 As String) As String
-Dim files1 As Collection
-Dim files2 As Collection
-Dim fileName As String
-Dim report As String
-
-Set files1 = New Collection
-Set files2 = New Collection
-
-&#x27; Get files from first directory
-fileName = Dir(path1 &amp; &quot;\*.*&quot;)
-Do While fileName &lt;&gt; &quot;&quot;
-files1.Add fileName
-fileName = Dir
-Loop
-
-&#x27; Get files from second directory
-fileName = Dir(path2 &amp; &quot;\*.*&quot;)
-Do While fileName &lt;&gt; &quot;&quot;
-files2.Add fileName
-fileName = Dir
-Loop
-
-&#x27; Compare (simplified - full version would check both ways)
-report = &quot;Files only in &quot; &amp; path1 &amp; &quot;:&quot; &amp; vbCrLf
-&#x27; ... comparison logic ...
-
-CompareDirectories = report
+    Dim files1 As Collection
+    Dim files2 As Collection
+    Dim fileName As String
+    Dim report As String
+    Set files1 = New Collection
+    Set files2 = New Collection
+    &#x27; Get files from first directory
+    fileName = Dir(path1 &amp; &quot;\*.*&quot;)
+    Do While fileName &lt;&gt; &quot;&quot;
+        files1.Add fileName
+        fileName = Dir
+    Loop
+    &#x27; Get files from second directory
+    fileName = Dir(path2 &amp; &quot;\*.*&quot;)
+    Do While fileName &lt;&gt; &quot;&quot;
+        files2.Add fileName
+        fileName = Dir
+    Loop
+    &#x27; Compare (simplified - full version would check both ways)
+    report = &quot;Files only in &quot; &amp; path1 &amp; &quot;:&quot; &amp; vbCrLf
+    &#x27; ... comparison logic ...
+    CompareDirectories = report
 End Function</code></pre>
 <h3 id="generate-directory-listing-report">Generate Directory Listing Report</h3>
 <pre><code class="language-vbnet">Sub ExportDirectoryListing(folderPath As String, outputFile As String)
-Dim fileName As String
-Dim fullPath As String
-Dim fileNum As Integer
-
-fileNum = FreeFile
-Open outputFile For Output As #fileNum
-
-Print #fileNum, &quot;Directory Listing for: &quot; &amp; folderPath
-Print #fileNum, &quot;Generated: &quot; &amp; Now
-Print #fileNum, String(80, &quot;-&quot;)
-Print #fileNum, &quot;Filename&quot; &amp; vbTab &amp; &quot;Size&quot; &amp; vbTab &amp; &quot;Modified&quot;
-Print #fileNum, String(80, &quot;-&quot;)
-
-fileName = Dir(folderPath &amp; &quot;\*.*&quot;)
-Do While fileName &lt;&gt; &quot;&quot;
-fullPath = folderPath &amp; &quot;\&quot; &amp; fileName
-Print #fileNum, fileName &amp; vbTab &amp; _
-FileLen(fullPath) &amp; vbTab &amp; _
-FileDateTime(fullPath)
-fileName = Dir
-Loop
-
-Close #fileNum
+    Dim fileName As String
+    Dim fullPath As String
+    Dim fileNum As Integer
+    fileNum = FreeFile
+    Open outputFile For Output As #fileNum
+    Print #fileNum, &quot;Directory Listing for: &quot; &amp; folderPath
+    Print #fileNum, &quot;Generated: &quot; &amp; Now
+    Print #fileNum, String(80, &quot;-&quot;)
+    Print #fileNum, &quot;Filename&quot; &amp; vbTab &amp; &quot;Size&quot; &amp; vbTab &amp; &quot;Modified&quot;
+    Print #fileNum, String(80, &quot;-&quot;)
+    fileName = Dir(folderPath &amp; &quot;\*.*&quot;)
+    Do While fileName &lt;&gt; &quot;&quot;
+        fullPath = folderPath &amp; &quot;\&quot; &amp; fileName
+        Print #fileNum, fileName &amp; vbTab &amp; _
+                       FileLen(fullPath) &amp; vbTab &amp; _
+                       FileDateTime(fullPath)
+        fileName = Dir
+    Loop
+    Close #fileNum
 End Sub</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeDir(pathname As String, Optional attributes As Integer = 0) As String
-On Error Resume Next
-SafeDir = Dir(pathname, attributes)
-If Err.Number &lt;&gt; 0 Then
-SafeDir = &quot;&quot;
-End If
+    On Error Resume Next
+    SafeDir = Dir(pathname, attributes)
+    If Err.Number &lt;&gt; 0 Then
+        SafeDir = &quot;&quot;
+    End If
 End Function
-
 Function SafeFileExists(filePath As String) As Boolean
-On Error Resume Next
-SafeFileExists = (Len(Dir(filePath)) &gt; 0)
-If Err.Number &lt;&gt; 0 Then
-SafeFileExists = False
-End If
+    On Error Resume Next
+    SafeFileExists = (Len(Dir(filePath)) &gt; 0)
+    If Err.Number &lt;&gt; 0 Then
+        SafeFileExists = False
+    End If
 End Function</code></pre>
 <h3 id="common-errors">Common Errors</h3>
 <ul>
@@ -545,49 +476,44 @@ End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Good - Check for no more files
 fileName = Dir(&quot;*.txt&quot;)
 Do While fileName &lt;&gt; &quot;&quot;
-&#x27; Process file
-fileName = Dir
+    &#x27; Process file
+    fileName = Dir
 Loop
-
 &#x27; Avoid - May cause infinite loop
 fileName = Dir(&quot;*.txt&quot;)
 Do While Len(fileName) &gt; 0  &#x27; Less reliable
-fileName = Dir
+    fileName = Dir
 Loop</code></pre>
 <h3 id="store-files-before-processing">Store Files Before Processing</h3>
 <pre><code class="language-vbnet">&#x27; Good - Collect files first
 Dim files() As String, i As Integer
 ReDim files(0 To 100)
 count = 0
-
 fileName = Dir(&quot;*.txt&quot;)
 Do While fileName &lt;&gt; &quot;&quot;
-files(count) = fileName
-count = count + 1
-fileName = Dir
+    files(count) = fileName
+    count = count + 1
+    fileName = Dir
 Loop
-
 &#x27; Now process without Dir active
 For i = 0 To count - 1
-ProcessFile files(i)
+    ProcessFile files(i)
 Next i</code></pre>
 <h3 id="use-absolute-paths">Use Absolute Paths</h3>
 <pre><code class="language-vbnet">&#x27; Good - Explicit path
 fileName = Dir(&quot;C:\Data\*.txt&quot;)
-
 &#x27; Risky - Depends on current directory
 fileName = Dir(&quot;*.txt&quot;)</code></pre>
 <h3 id="handle-no-matches-gracefully">Handle No Matches Gracefully</h3>
 <pre><code class="language-vbnet">fileName = Dir(&quot;*.xyz&quot;)
 If fileName = &quot;&quot; Then
-MsgBox &quot;No matching files found&quot;
-Exit Sub
+    MsgBox &quot;No matching files found&quot;
+    Exit Sub
 End If</code></pre>
 <h2 id="comparison-with-other-methods">Comparison with Other Methods</h2>
 <h3 id="dir-vs-filesystemobject"><code>Dir</code> vs <code>FileSystemObject</code></h3>
 <pre><code class="language-vbnet">&#x27; Dir - Built-in, faster for simple cases
 fileName = Dir(&quot;C:\Data\*.txt&quot;)
-
 &#x27; FileSystemObject - More features, but requires reference
 Dim fso As New FileSystemObject
 Dim folder As Folder
@@ -596,7 +522,6 @@ Set folder = fso.GetFolder(&quot;C:\Data&quot;)
 <h3 id="dir-vs-file-dialog"><code>Dir</code> vs <code>File Dialog</code></h3>
 <pre><code class="language-vbnet">&#x27; Dir - Programmatic file discovery
 fileName = Dir(&quot;*.txt&quot;)
-
 &#x27; File Dialog - User selection
 fileName = Application.GetOpenFilename(&quot;Text Files (*.txt), *.txt&quot;)</code></pre>
 <h2 id="limitations">Limitations</h2>

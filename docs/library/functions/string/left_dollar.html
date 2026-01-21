@@ -49,9 +49,9 @@
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>String</code> containing the leftmost <code>length</code> characters from <code>string</code>. If <code>length</code> is 0, returns an empty string. If <code>length</code> is greater than or equal to the length of <code>string</code>, returns the entire string.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>Left$</code> function returns the specified number of characters from the left (beginning) of a string. It's commonly used for string parsing, extracting prefixes, or taking substrings from the start of a string.</p>
-<p>To determine the number of characters in <code>string</code>, use the <code>Len</code> function.</p>
-<p><code>Left$</code> is the string-specific version that always returns a <code>String</code>. The <code>Left</code> function returns a <code>Variant</code>.</p>
+<p>The <code>Left$</code> function returns the specified number of characters from the left (beginning) of a string. It's commonly used for string parsing, extracting prefixes, or taking substrings from the start of a string.
+To determine the number of characters in <code>string</code>, use the <code>Len</code> function.
+<code>Left$</code> is the string-specific version that always returns a <code>String</code>. The <code>Left</code> function returns a <code>Variant</code>.</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <h3 id="example-1-extracting-file-extension-prefix">Example 1: Extracting File Extension Prefix</h3>
 <pre><code class="language-vbnet">Dim filename As String
@@ -72,7 +72,7 @@ year = Left$(dateStr, 4)  &#x27; &quot;2024&quot;</code></pre>
 <h2 id="common-usage-patterns">Common Usage Patterns</h2>
 <h3 id="checking-string-prefix">Checking String Prefix</h3>
 <pre><code class="language-vbnet">If Left$(filename, 4) = &quot;tmp_&quot; Then
-Debug.Print &quot;Temporary file&quot;
+    Debug.Print &quot;Temporary file&quot;
 End If</code></pre>
 <h3 id="extracting-initials">Extracting Initials</h3>
 <pre><code class="language-vbnet">Dim name As String
@@ -86,7 +86,7 @@ id = Left$(record, 5)  &#x27; &quot;12345&quot;</code></pre>
 <pre><code class="language-vbnet">Dim description As String
 description = &quot;Very long description text...&quot;
 If Len(description) &gt; 50 Then
-description = Left$(description, 47) &amp; &quot;...&quot;
+    description = Left$(description, 47) &amp; &quot;...&quot;
 End If</code></pre>
 <h3 id="extracting-drive-letter">Extracting Drive Letter</h3>
 <pre><code class="language-vbnet">Dim path As String
@@ -100,13 +100,13 @@ protocol = Left$(url, 5)  &#x27; &quot;https&quot;</code></pre>
 <pre><code class="language-vbnet">Dim fileName As String
 fileName = &quot;IMG_1234.JPG&quot;
 If Left$(fileName, 4) = &quot;IMG_&quot; Then
-processImage fileName
+    processImage fileName
 End If</code></pre>
 <h3 id="extracting-country-code">Extracting Country Code</h3>
 <pre><code class="language-vbnet">Dim phoneNumber As String
 phoneNumber = &quot;+1-555-1234&quot;
 If Left$(phoneNumber, 1) = &quot;+&quot; Then
-countryCode = Left$(phoneNumber, 2)  &#x27; &quot;+1&quot;
+    countryCode = Left$(phoneNumber, 2)  &#x27; &quot;+1&quot;
 End If</code></pre>
 <h3 id="creating-abbreviations">Creating Abbreviations</h3>
 <pre><code class="language-vbnet">Dim state As String
@@ -118,7 +118,7 @@ csvLine = &quot;John,Doe,555-1234&quot;
 Dim pos As Integer
 pos = InStr(csvLine, &quot;,&quot;)
 If pos &gt; 0 Then
-firstName = Left$(csvLine, pos - 1)  &#x27; &quot;John&quot;
+    firstName = Left$(csvLine, pos - 1)  &#x27; &quot;John&quot;
 End If</code></pre>
 <h2 id="related-functions">Related Functions</h2>
 <ul>
@@ -176,27 +176,68 @@ End If</code></pre>
 <td>Negative</td>
 <td>Runtime error (Invalid procedure call or argument)</td>
 </tr>
+<tr>
+<td>## Common Pitfalls</td>
+<td></td>
+</tr>
+<tr>
+<td>- Passing negative length values (causes runtime error)</td>
+<td></td>
+</tr>
+<tr>
+<td>- Assuming <code>Left$</code> will throw an error if length exceeds string length (it doesn't)</td>
+<td></td>
+</tr>
+<tr>
+<td>- Not handling <code>Null</code> strings (causes runtime error)</td>
+<td></td>
+</tr>
+<tr>
+<td>- Confusing zero-based vs one-based indexing (VB6 strings are 1-based)</td>
+<td></td>
+</tr>
+<tr>
+<td>- Using <code>Left$</code> on binary data (use <code>LeftB$</code> instead)</td>
+<td></td>
+</tr>
+<tr>
+<td>- Forgetting that the length parameter is character count, not position</td>
+<td></td>
+</tr>
+<tr>
+<td>- Not trimming strings before extraction (may get unwanted spaces)</td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot extract from right side (use <code>Right$</code> instead)</td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot specify starting position (use <code>Mid$</code> instead)</td>
+<td></td>
+</tr>
+<tr>
+<td>- Does not work with byte arrays directly</td>
+<td></td>
+</tr>
+<tr>
+<td>- No built-in support for Unicode surrogate pairs</td>
+<td></td>
+</tr>
+<tr>
+<td>- Length parameter cannot be an expression that evaluates to <code>Null</code></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns <code>Null</code> if the string argument is <code>Null</code></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="common-pitfalls">Common Pitfalls</h2>
-<ul>
-<li>Passing negative length values (causes runtime error)</li>
-<li>Assuming <code>Left$</code> will throw an error if length exceeds string length (it doesn't)</li>
-<li>Not handling <code>Null</code> strings (causes runtime error)</li>
-<li>Confusing zero-based vs one-based indexing (VB6 strings are 1-based)</li>
-<li>Using <code>Left$</code> on binary data (use <code>LeftB$</code> instead)</li>
-<li>Forgetting that the length parameter is character count, not position</li>
-<li>Not trimming strings before extraction (may get unwanted spaces)</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Cannot extract from right side (use <code>Right$</code> instead)</li>
-<li>Cannot specify starting position (use <code>Mid$</code> instead)</li>
-<li>Does not work with byte arrays directly</li>
-<li>No built-in support for Unicode surrogate pairs</li>
-<li>Length parameter cannot be an expression that evaluates to <code>Null</code></li>
-<li>Returns <code>Null</code> if the string argument is <code>Null</code></li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

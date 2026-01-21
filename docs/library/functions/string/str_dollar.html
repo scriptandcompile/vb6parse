@@ -46,7 +46,7 @@ never a <code>Variant</code>.</p>
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><code>number</code> - Required. Any valid numeric expression. Can be of type <code>Byte</code>, <code>Integer</code>, <code>Long</code>,
-<code>Single</code>, <code>Double</code>, or <code>Currency</code>.</li>
+  <code>Single</code>, <code>Double</code>, or <code>Currency</code>.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>String</code> representation of the number. Positive numbers include a leading space
@@ -80,56 +80,53 @@ numStr = Str$(123)  &#x27; Returns &quot; 123&quot; (note leading space)
 numStr = Str$(-45)  &#x27; Returns &quot;-45&quot;</code></pre>
 <h3 id="2-concatenating-numbers-with-text">2. Concatenating Numbers with Text</h3>
 <pre><code class="language-vbnet">Function FormatMessage(count As Integer) As String
-FormatMessage = &quot;Found&quot; &amp; Str$(count) &amp; &quot; items&quot;
+    FormatMessage = &quot;Found&quot; &amp; Str$(count) &amp; &quot; items&quot;
 End Function
-
 Debug.Print FormatMessage(5)  &#x27; &quot;Found 5 items&quot;</code></pre>
 <h3 id="3-trimming-the-leading-space">3. Trimming the Leading Space</h3>
 <pre><code class="language-vbnet">Function NumberToString(value As Long) As String
-NumberToString = LTrim$(Str$(value))
+    NumberToString = LTrim$(Str$(value))
 End Function
-
 Dim result As String
 result = NumberToString(100)  &#x27; Returns &quot;100&quot; (no leading space)</code></pre>
 <h3 id="4-building-comma-separated-values">4. Building Comma-Separated Values</h3>
 <pre><code class="language-vbnet">Function BuildCSV(values() As Integer) As String
-Dim i As Integer
-Dim result As String
-For i = LBound(values) To UBound(values)
-If i &gt; LBound(values) Then result = result &amp; &quot;,&quot;
-result = result &amp; LTrim$(Str$(values(i)))
-Next i
-BuildCSV = result
+    Dim i As Integer
+    Dim result As String
+    For i = LBound(values) To UBound(values)
+        If i &gt; LBound(values) Then result = result &amp; &quot;,&quot;
+        result = result &amp; LTrim$(Str$(values(i)))
+    Next i
+    BuildCSV = result
 End Function</code></pre>
 <h3 id="5-logging-and-debug-output">5. Logging and Debug Output</h3>
 <pre><code class="language-vbnet">Sub LogValue(name As String, value As Double)
-Debug.Print name &amp; &quot; =&quot; &amp; Str$(value)
+    Debug.Print name &amp; &quot; =&quot; &amp; Str$(value)
 End Sub</code></pre>
 <h3 id="6-creating-numeric-labels">6. Creating Numeric Labels</h3>
 <pre><code class="language-vbnet">Function CreateLabel(index As Integer) As String
-CreateLabel = &quot;Item&quot; &amp; LTrim$(Str$(index))
+    CreateLabel = &quot;Item&quot; &amp; LTrim$(Str$(index))
 End Function
-
 Dim label As String
 label = CreateLabel(42)  &#x27; Returns &quot;Item42&quot;</code></pre>
 <h3 id="7-file-output-formatting">7. File Output Formatting</h3>
 <pre><code class="language-vbnet">Sub WriteDataLine(fileNum As Integer, id As Long, amount As Currency)
-Print #fileNum, LTrim$(Str$(id)) &amp; &quot;,&quot; &amp; LTrim$(Str$(amount))
+    Print #fileNum, LTrim$(Str$(id)) &amp; &quot;,&quot; &amp; LTrim$(Str$(amount))
 End Sub</code></pre>
 <h3 id="8-array-index-display">8. Array Index Display</h3>
 <pre><code class="language-vbnet">Sub ShowArrayContents(arr() As Integer)
-Dim i As Integer
-For i = LBound(arr) To UBound(arr)
-Debug.Print &quot;[&quot; &amp; LTrim$(Str$(i)) &amp; &quot;] = &quot; &amp; LTrim$(Str$(arr(i)))
-Next i
+    Dim i As Integer
+    For i = LBound(arr) To UBound(arr)
+        Debug.Print &quot;[&quot; &amp; LTrim$(Str$(i)) &amp; &quot;] = &quot; &amp; LTrim$(Str$(arr(i)))
+    Next i
 End Sub</code></pre>
 <h3 id="9-simple-calculator-display">9. Simple Calculator Display</h3>
 <pre><code class="language-vbnet">Function UpdateDisplay(value As Double) As String
-UpdateDisplay = LTrim$(Str$(value))
+    UpdateDisplay = LTrim$(Str$(value))
 End Function</code></pre>
 <h3 id="10-building-sql-statements">10. Building SQL Statements</h3>
 <pre><code class="language-vbnet">Function BuildQuery(userId As Long) As String
-BuildQuery = &quot;SELECT * FROM Users WHERE ID = &quot; &amp; LTrim$(Str$(userId))
+    BuildQuery = &quot;SELECT * FROM Users WHERE ID = &quot; &amp; LTrim$(Str$(userId))
 End Function</code></pre>
 <h2 id="related-functions">Related Functions</h2>
 <ul>
@@ -145,35 +142,29 @@ End Function</code></pre>
 <h3 id="when-to-use-str-vs-cstr-vs-format">When to Use <code>Str$</code> vs <code>CStr</code> vs <code>Format$</code></h3>
 <pre><code class="language-vbnet">Dim value As Integer
 value = 42
-
 &#x27; Str$ includes leading space for positive numbers
 Debug.Print Str$(value)  &#x27; &quot; 42&quot;
-
 &#x27; CStr has no leading space
 Debug.Print CStr(value)  &#x27; &quot;42&quot;
-
 &#x27; Format$ provides control over formatting
 Debug.Print Format$(value, &quot;000&quot;)  &#x27; &quot;042&quot;</code></pre>
 <h3 id="always-trim-for-display">Always Trim for Display</h3>
 <pre><code class="language-vbnet">&#x27; Without trim (has leading space for positive numbers)
 Label1.Caption = Str$(count)  &#x27; &quot; 5&quot;
-
 &#x27; With trim (clean output)
 Label1.Caption = LTrim$(Str$(count))  &#x27; &quot;5&quot;
-
 &#x27; Or use CStr instead
 Label1.Caption = CStr(count)  &#x27; &quot;5&quot;</code></pre>
 <h3 id="use-format-for-formatted-output">Use <code>Format$</code> for Formatted Output</h3>
 <pre><code class="language-vbnet">&#x27; Str$ has no formatting control
 Debug.Print Str$(1234.5678)  &#x27; &quot; 1234.5678&quot;
-
 &#x27; Format$ provides control
 Debug.Print Format$(1234.5678, &quot;#,##0.00&quot;)  &#x27; &quot;1,234.57&quot;</code></pre>
 <h3 id="handle-negative-numbers">Handle Negative Numbers</h3>
 <pre><code class="language-vbnet">Function SafeConvert(value As Long) As String
-&#x27; Str$ handles negative numbers correctly
-SafeConvert = LTrim$(Str$(value))
-&#x27; For negative: &quot;-123&quot;, for positive: &quot;123&quot;
+    &#x27; Str$ handles negative numbers correctly
+    SafeConvert = LTrim$(Str$(value))
+    &#x27; For negative: &quot;-123&quot;, for positive: &quot;123&quot;
 End Function</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
@@ -184,95 +175,80 @@ End Function</code></pre>
 </ul>
 <pre><code class="language-vbnet">&#x27; Fast: simple conversion
 For i = 1 To 10000
-text = LTrim$(Str$(i))
+    text = LTrim$(Str$(i))
 Next i
-
 &#x27; Slower: formatted conversion (but more control)
 For i = 1 To 10000
-text = Format$(i, &quot;0000&quot;)
+    text = Format$(i, &quot;0000&quot;)
 Next i</code></pre>
 <h2 id="common-pitfalls">Common Pitfalls</h2>
 <h3 id="1-leading-space-for-positive-numbers">1. Leading Space for Positive Numbers</h3>
 <pre><code class="language-vbnet">Dim result As String
 result = Str$(100)  &#x27; &quot; 100&quot; (note the leading space!)
-
 &#x27; This can cause problems in comparisons
 If Str$(100) = &quot;100&quot; Then  &#x27; FALSE! (&quot; 100&quot; &lt;&gt; &quot;100&quot;)
-Debug.Print &quot;Match&quot;
+    Debug.Print &quot;Match&quot;
 End If
-
 &#x27; Use LTrim$ or CStr instead
 If LTrim$(Str$(100)) = &quot;100&quot; Then  &#x27; TRUE
-Debug.Print &quot;Match&quot;
+    Debug.Print &quot;Match&quot;
 End If</code></pre>
 <h3 id="2-confusion-with-cstr">2. Confusion with <code>CStr</code></h3>
 <pre><code class="language-vbnet">Dim value As Integer
 value = 42
-
 Debug.Print Str$(value)   &#x27; &quot; 42&quot; (with space)
 Debug.Print CStr(value)   &#x27; &quot;42&quot; (no space)
-
 &#x27; Know which one you need</code></pre>
 <h3 id="3-no-formatting-control">3. No Formatting Control</h3>
 <pre><code class="language-vbnet">Dim amount As Currency
 amount = 1234.56
-
 &#x27; Str$ gives no control
 Debug.Print Str$(amount)  &#x27; &quot; 1234.56&quot;
-
 &#x27; Use Format$ for currency
 Debug.Print Format$(amount, &quot;$#,##0.00&quot;)  &#x27; &quot;$1,234.56&quot;</code></pre>
 <h3 id="4-floating-point-precision-issues">4. Floating-Point Precision Issues</h3>
 <pre><code class="language-vbnet">Dim value As Double
 value = 0.1 + 0.2
-
 Debug.Print Str$(value)  &#x27; May show &quot; 0.30000000000000004&quot;
-
 &#x27; Use Format$ to control precision
 Debug.Print Format$(value, &quot;0.00&quot;)  &#x27; &quot;0.30&quot;</code></pre>
 <h3 id="5-not-handling-very-large-or-small-numbers">5. Not Handling Very Large or Small Numbers</h3>
 <pre><code class="language-vbnet">Dim bigNum As Double
 bigNum = 1E+20
-
 Debug.Print Str$(bigNum)  &#x27; &quot; 1E+20&quot; (scientific notation)
-
 &#x27; Be aware of scientific notation in output</code></pre>
 <h3 id="6-null-values">6. Null Values</h3>
 <pre><code class="language-vbnet">&#x27; Str$ cannot handle Null
 Dim result As String
 result = Str$(nullValue)  &#x27; Runtime error if nullValue is Null
-
 &#x27; Check first
 If Not IsNull(value) Then
-result = Str$(value)
+    result = Str$(value)
 Else
-result = &quot;&quot;
+    result = &quot;&quot;
 End If</code></pre>
 <h2 id="practical-examples">Practical Examples</h2>
 <h3 id="building-a-progress-message">Building a Progress Message</h3>
 <pre><code class="language-vbnet">Function ProgressMessage(current As Long, total As Long) As String
-ProgressMessage = &quot;Processing item&quot; &amp; Str$(current) &amp; _
-&quot; of&quot; &amp; Str$(total)
+    ProgressMessage = &quot;Processing item&quot; &amp; Str$(current) &amp; _
+                     &quot; of&quot; &amp; Str$(total)
 End Function
-
 Debug.Print ProgressMessage(5, 10)  &#x27; &quot;Processing item 5 of 10&quot;</code></pre>
 <h3 id="creating-sequential-filenames">Creating Sequential Filenames</h3>
 <pre><code class="language-vbnet">Function GenerateFileName(baseNameStr As String, index As Integer) As String
-GenerateFileName = baseNameStr &amp; LTrim$(Str$(index)) &amp; &quot;.dat&quot;
+    GenerateFileName = baseNameStr &amp; LTrim$(Str$(index)) &amp; &quot;.dat&quot;
 End Function
-
 Dim fileName As String
 fileName = GenerateFileName(&quot;data&quot;, 1)  &#x27; &quot;data1.dat&quot;</code></pre>
 <h3 id="simple-data-export">Simple Data Export</h3>
 <pre><code class="language-vbnet">Sub ExportToCSV(data() As Double, fileName As String)
-Dim i As Integer
-Dim lineData As String
-
-Open fileName For Output As #1
-For i = LBound(data) To UBound(data)
-Print #1, LTrim$(Str$(data(i)))
-Next i
-Close #1
+    Dim i As Integer
+    Dim lineData As String
+    Open fileName For Output As #1
+    For i = LBound(data) To UBound(data)
+        Print #1, LTrim$(Str$(data(i)))
+    Next i
+    Close #1
 End Sub</code></pre>
 <h2 id="limitations">Limitations</h2>
 <ul>

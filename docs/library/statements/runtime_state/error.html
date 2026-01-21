@@ -38,33 +38,22 @@
         
         <article class="library-item">
             <p>VB6 Error statement syntax:
-- Error errornumber</p>
-<p>Generates a run-time error; can be used instead of the Err.Raise method.</p>
-<p>The Error statement syntax has this part:</p>
-<table>
-<thead>
-<tr>
-<th>Part</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>errornumber</td>
-<td>Required. Any valid error number.</td>
-</tr>
-</tbody>
-</table>
-<p>Remarks:
+- Error errornumber
+Generates a run-time error; can be used instead of the Err.Raise method.
+The Error statement syntax has this part:
+| Part          | Description |
+|---------------|-------------|
+| errornumber   | Required. Any valid error number. |
+Remarks:
 - The Error statement is supported for backward compatibility.
 - In new code, use the Err object's Raise method to generate run-time errors.
 - If errornumber is defined, the Error statement calls the error handler after the properties
-of the Err object are assigned the following default values:
-* Err.Number: The value specified as the argument to the Error statement
-* Err.Source: The name of the current Visual Basic project
-* Err.Description: String expression corresponding to the return value of the Error function
-for the specified Number, if this string exists</p>
-<p>Examples:</p>
+  of the Err object are assigned the following default values:
+  * Err.Number: The value specified as the argument to the Error statement
+  * Err.Source: The name of the current Visual Basic project
+  * Err.Description: String expression corresponding to the return value of the Error function
+    for the specified Number, if this string exists
+Examples:</p>
 <pre><code class="language-vbnet">Error 11  &#x27; Generate &quot;Division by zero&quot; error
 Error 53  &#x27; Generate &quot;File not found&quot; error
 Error vbObjectError + 1000  &#x27; Generate custom error</code></pre>

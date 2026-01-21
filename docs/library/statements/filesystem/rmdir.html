@@ -43,7 +43,7 @@
 <pre><code class="language-vbnet">RmDir path</code></pre>
 <ul>
 <li><code>path</code>: Required. String expression that identifies the directory or folder to be removed. May include drive.
-If no drive is specified, <code>RmDir</code> removes the directory or folder on the current drive.</li>
+  If no drive is specified, <code>RmDir</code> removes the directory or folder on the current drive.</li>
 </ul>
 <h2 id="remarks">Remarks</h2>
 <ul>
@@ -60,26 +60,21 @@ If no drive is specified, <code>RmDir</code> removes the directory or folder on 
 <h2 id="examples">Examples</h2>
 <pre><code class="language-vbnet">&#x27; Remove a directory in the current directory
 RmDir &quot;OldFolder&quot;
-
 &#x27; Remove a directory with full path
 RmDir &quot;C:\Temp\TempFiles&quot;
-
 &#x27; Remove a directory on another drive
 RmDir &quot;D:\Data\Archive&quot;
-
 &#x27; Remove nested directories (must remove innermost first)
 RmDir &quot;C:\Temp\Logs\Archive&quot;
 RmDir &quot;C:\Temp\Logs&quot;
 RmDir &quot;C:\Temp&quot;
-
 &#x27; Remove directory on network drive
 RmDir &quot;\\Server\Share\OldFolder&quot;
-
 &#x27; Safe removal with error handling
 On Error Resume Next
 RmDir &quot;C:\Temp\ToDelete&quot;
 If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Could not remove directory&quot;
+    MsgBox &quot;Could not remove directory&quot;
 End If
 On Error GoTo 0</code></pre>
 <h2 id="common-errors">Common Errors</h2>

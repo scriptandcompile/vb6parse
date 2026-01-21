@@ -58,24 +58,22 @@
 - Returns Null if string argument is Null
 - Returns Variant type (<code>LeftB$</code> variant returns String type directly)</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>LeftB</code> function extracts bytes from the beginning of a string:</p>
-<ul>
-<li>Returns leftmost bytes up to specified length</li>
-<li>Operates on byte level, not character level</li>
-<li>Particularly useful with double-byte character sets (DBCS)</li>
-<li>Complements <code>RightB</code> function (which returns rightmost bytes)</li>
-<li>Works with <code>MidB</code> function for complete byte-level substring extraction</li>
-<li>Zero-based extraction: LeftB("ABC", 2) returns first 2 bytes</li>
-<li>Safe with lengths exceeding string byte length (returns full string)</li>
-<li>Null propagates through the function</li>
-<li>Negative length raises Error 5 (Invalid procedure call or argument)</li>
-<li>Common for extracting binary data, protocol headers, file signatures</li>
-<li>More efficient than MidB(string, 1, length) for left extraction</li>
-<li><code>LeftB$</code> variant returns String type (not Variant) for slight performance gain</li>
-<li>Cannot extract from right side (use <code>RightB</code> for that)</li>
-<li>Cannot skip bytes (use <code>MidB</code> for that)</li>
-<li>Does not modify original string (strings are immutable)</li>
-</ul>
+<p>The <code>LeftB</code> function extracts bytes from the beginning of a string:
+- Returns leftmost bytes up to specified length
+- Operates on byte level, not character level
+- Particularly useful with double-byte character sets (DBCS)
+- Complements <code>RightB</code> function (which returns rightmost bytes)
+- Works with <code>MidB</code> function for complete byte-level substring extraction
+- Zero-based extraction: LeftB("ABC", 2) returns first 2 bytes
+- Safe with lengths exceeding string byte length (returns full string)
+- Null propagates through the function
+- Negative length raises Error 5 (Invalid procedure call or argument)
+- Common for extracting binary data, protocol headers, file signatures
+- More efficient than MidB(string, 1, length) for left extraction
+- <code>LeftB$</code> variant returns String type (not Variant) for slight performance gain
+- Cannot extract from right side (use <code>RightB</code> for that)
+- Cannot skip bytes (use <code>MidB</code> for that)
+- Does not modify original string (strings are immutable)</p>
 <h2 id="differences-from-left-function">Differences from <code>Left</code> Function</h2>
 <ul>
 <li><code>Left</code> operates on characters, <code>LeftB</code> operates on bytes</li>
@@ -99,63 +97,51 @@
 <pre><code class="language-vbnet">&#x27; Example 1: Basic byte extraction
 Dim data As String
 data = Chr$(65) &amp; Chr$(66) &amp; Chr$(67)  &#x27; &quot;ABC&quot;
-
 Debug.Print LeftB(data, 2)            &#x27; First 2 bytes
 Debug.Print LeftB(data, 1)            &#x27; First byte
-
 &#x27; Example 2: File signature checking
 Dim fileData As String
 Open &quot;test.exe&quot; For Binary As #1
 fileData = Input$(2, #1)
 Close #1
-
 If LeftB(fileData, 2) = &quot;MZ&quot; Then
-Debug.Print &quot;DOS/Windows executable&quot;
+    Debug.Print &quot;DOS/Windows executable&quot;
 End If
-
 &#x27; Example 3: Protocol header extraction
 Dim packet As String
 packet = ReceiveNetworkData()
-
 Dim header As String
 header = LeftB(packet, 16)  &#x27; 16-byte header
-
 &#x27; Example 4: DBCS text handling
 Dim japaneseText As String
 japaneseText = LoadJapaneseText()  &#x27; Load Japanese text
-
 Dim firstBytes As String
 firstBytes = LeftB(japaneseText, 4)  &#x27; First 4 bytes (may be 2 DBCS chars)</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Extract binary header
 Function GetBinaryHeader(data As String, headerSize As Long) As String
-If LenB(data) &lt; headerSize Then
-GetBinaryHeader = data
-Else
-GetBinaryHeader = LeftB(data, headerSize)
-End If
+    If LenB(data) &lt; headerSize Then
+        GetBinaryHeader = data
+    Else
+        GetBinaryHeader = LeftB(data, headerSize)
+    End If
 End Function
-
 &#x27; Pattern 2: Validate magic bytes
 Function ValidateMagicBytes(data As String, magic As String) As Boolean
-ValidateMagicBytes = (LeftB(data, LenB(magic)) = magic)
+    ValidateMagicBytes = (LeftB(data, LenB(magic)) = magic)
 End Function
-
 &#x27; Pattern 3: Extract record ID
 Function GetRecordID(record As String) As String
-&#x27; First 8 bytes contain record ID
-GetRecordID = LeftB(record, 8)
+    &#x27; First 8 bytes contain record ID
+    GetRecordID = LeftB(record, 8)
 End Function
-
 &#x27; Pattern 4: Parse network packet
 Sub ParsePacket(packet As String)
-Dim header As String
-Dim payload As String
-
-header = LeftB(packet, 20)  &#x27; 20-byte header
-payload = MidB(packet, 21)  &#x27; Remaining bytes
-
-&#x27; Process header and payload
+    Dim header As String
+    Dim payload As String
+    header = LeftB(packet, 20)  &#x27; 20-byte header
+    payload = MidB(packet, 21)  &#x27; Remaining bytes
+    &#x27; Process header and payload
 End Sub</code></pre>
 <h2 id="see-also">See Also</h2>
 <ul>

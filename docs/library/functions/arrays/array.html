@@ -45,33 +45,32 @@ passed into the function.</p>
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><code>arglist</code>: Required. A comma-delimited list of values that are assigned to the elements
-of the array contained within the <code>Variant</code>. If no arguments are specified, an array of zero
-length is created.</li>
+  of the array contained within the <code>Variant</code>. If no arguments are specified, an array of zero
+  length is created.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>Variant</code> whose subtype is <code>Array</code> containing the specified elements.</p>
 <h2 id="remarks">Remarks</h2>
 <ul>
 <li><code>Variant Array</code>: The <code>Array</code> function returns a <code>Variant</code> that contains an array. The array
-elements are <code>Variants</code> that can hold any data type.</li>
+  elements are <code>Variants</code> that can hold any data type.</li>
 <li><code>Zero-Based</code>: The array created by the <code>Array</code> function is zero-based. The first element
-has an index of 0.</li>
+  has an index of 0.</li>
 <li><code>Dynamic Size</code>: The size of the array is determined by the number of arguments provided.</li>
 <li><code>Mixed Types</code>: <code>Array</code> elements can be of different types since they are stored as <code>Variants</code>.</li>
 <li><code>Assignment</code>: The result must be assigned to a <code>Variant</code> variable, not an array declared
-with specific dimensions.</li>
+  with specific dimensions.</li>
 <li><code>Empty Array</code>: Calling <code>Array()</code> with no arguments creates a zero-length array.</li>
 <li><code>LBound and UBound</code>: You can use <code>LBound</code> and <code>UBound</code> to determine the array bounds.
-<code>LBound</code> always returns 0, <code>UBound</code> returns (number of elements - 1).</li>
+  <code>LBound</code> always returns 0, <code>UBound</code> returns (number of elements - 1).</li>
 <li><code>Option Base</code>: The <code>Array</code> function is not affected by <code>Option Base</code> statements; it always
-creates zero-based arrays.</li>
+  creates zero-based arrays.</li>
 </ul>
 <h2 id="important-characteristics">Important Characteristics</h2>
 <h3 id="assignment-requirements">Assignment Requirements</h3>
 <pre><code class="language-vbnet">&#x27; Correct - assign to Variant
 Dim v As Variant
 v = Array(1, 2, 3)  &#x27; OK
-
 &#x27; Incorrect - cannot assign to typed array
 Dim arr(2) As Integer
 arr = Array(1, 2, 3)  &#x27; ERROR: Type mismatch</code></pre>
@@ -80,7 +79,6 @@ arr = Array(1, 2, 3)  &#x27; ERROR: Type mismatch</code></pre>
 arr = Array(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
 Debug.Print LBound(arr)  &#x27; Always 0
 Debug.Print UBound(arr)  &#x27; 2 (not 3!)
-
 &#x27; First element is arr(0), last is arr(2)</code></pre>
 <h3 id="performance-considerations">Performance Considerations</h3>
 <ul>
@@ -120,14 +118,13 @@ emptyArr = Array()
 <h3 id="using-for-each">Using For Each</h3>
 <pre><code class="language-vbnet">Dim values As Variant
 values = Array(10, 20, 30, 40)
-
 Dim item As Variant
 For Each item In values
-Debug.Print item
+    Debug.Print item
 Next item</code></pre>
 <h3 id="array-as-function-return">Array as Function Return</h3>
 <pre><code class="language-vbnet">Function GetColors() As Variant
-GetColors = Array(&quot;Red&quot;, &quot;Green&quot;, &quot;Blue&quot;)
+    GetColors = Array(&quot;Red&quot;, &quot;Green&quot;, &quot;Blue&quot;)
 End Function</code></pre>
 <h3 id="accessing-elements">Accessing Elements</h3>
 <pre><code class="language-vbnet">Dim data As Variant
@@ -138,80 +135,73 @@ Debug.Print data(2)  &#x27; C</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="initialize-lookup-table">Initialize Lookup Table</h3>
 <pre><code class="language-vbnet">Function GetMonthName(monthNum As Integer) As String
-Dim months As Variant
-months = Array(&quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, _
-&quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;)
-
-If monthNum &gt;= 1 And monthNum &lt;= 12 Then
-GetMonthName = months(monthNum - 1)
-Else
-GetMonthName = &quot;&quot;
-End If
+    Dim months As Variant
+    months = Array(&quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, _
+                   &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;)
+    If monthNum &gt;= 1 And monthNum &lt;= 12 Then
+        GetMonthName = months(monthNum - 1)
+    Else
+        GetMonthName = &quot;&quot;
+    End If
 End Function</code></pre>
 <h3 id="configuration-data">Configuration Data</h3>
 <pre><code class="language-vbnet">Sub ProcessFiles()
-Dim extensions As Variant
-extensions = Array(&quot;.txt&quot;, &quot;.doc&quot;, &quot;.pdf&quot;, &quot;.xls&quot;)
-
-Dim ext As Variant
-For Each ext In extensions
-ProcessFileType CStr(ext)
-Next ext
+    Dim extensions As Variant
+    extensions = Array(&quot;.txt&quot;, &quot;.doc&quot;, &quot;.pdf&quot;, &quot;.xls&quot;)
+    Dim ext As Variant
+    For Each ext In extensions
+        ProcessFileType CStr(ext)
+    Next ext
 End Sub</code></pre>
 <h3 id="quick-test-data">Quick Test Data</h3>
 <pre><code class="language-vbnet">Sub TestFunction()
-Dim testCases As Variant
-testCases = Array(0, 1, 10, 100, -1, -100)
-
-Dim testValue As Variant
-For Each testValue In testCases
-Debug.Print &quot;Testing: &quot; &amp; testValue &amp; &quot; -&gt; &quot; &amp; MyFunction(testValue)
-Next testValue
+    Dim testCases As Variant
+    testCases = Array(0, 1, 10, 100, -1, -100)
+    Dim testValue As Variant
+    For Each testValue In testCases
+        Debug.Print &quot;Testing: &quot; &amp; testValue &amp; &quot; -&gt; &quot; &amp; MyFunction(testValue)
+    Next testValue
 End Sub</code></pre>
 <h3 id="passing-multiple-values">Passing Multiple Values</h3>
 <pre><code class="language-vbnet">Sub UpdateRecord()
-SaveData Array(&quot;Name&quot;, &quot;John&quot;), _
-Array(&quot;Age&quot;, 30), _
-Array(&quot;City&quot;, &quot;NYC&quot;)
+    SaveData Array(&quot;Name&quot;, &quot;John&quot;), _
+            Array(&quot;Age&quot;, 30), _
+            Array(&quot;City&quot;, &quot;NYC&quot;)
 End Sub
-
 Sub SaveData(ParamArray fields())
-Dim field As Variant
-For Each field In fields
-Debug.Print field(0) &amp; &quot;: &quot; &amp; field(1)
-Next field
+    Dim field As Variant
+    For Each field In fields
+        Debug.Print field(0) &amp; &quot;: &quot; &amp; field(1)
+    Next field
 End Sub</code></pre>
 <h3 id="enumeration-substitute">Enumeration Substitute</h3>
 <pre><code class="language-vbnet">Function GetStatusText(status As Integer) As String
-Dim statuses As Variant
-statuses = Array(&quot;Pending&quot;, &quot;Processing&quot;, &quot;Complete&quot;, &quot;Failed&quot;)
-
-If status &gt;= 0 And status &lt;= 3 Then
-GetStatusText = statuses(status)
-Else
-GetStatusText = &quot;Unknown&quot;
-End If
+    Dim statuses As Variant
+    statuses = Array(&quot;Pending&quot;, &quot;Processing&quot;, &quot;Complete&quot;, &quot;Failed&quot;)
+    If status &gt;= 0 And status &lt;= 3 Then
+        GetStatusText = statuses(status)
+    Else
+        GetStatusText = &quot;Unknown&quot;
+    End If
 End Function</code></pre>
 <h3 id="split-alternative-vb6-early-versions">Split Alternative (VB6 Early Versions)</h3>
 <pre><code class="language-vbnet">&#x27; Before Split function was widely available
 Function GetHeaderFields() As Variant
-GetHeaderFields = Array(&quot;ID&quot;, &quot;Name&quot;, &quot;Date&quot;, &quot;Status&quot;)
+    GetHeaderFields = Array(&quot;ID&quot;, &quot;Name&quot;, &quot;Date&quot;, &quot;Status&quot;)
 End Function</code></pre>
 <h3 id="matrixgrid-data">Matrix/Grid Data</h3>
 <pre><code class="language-vbnet">Sub CreateGrid()
-Dim row1 As Variant, row2 As Variant, row3 As Variant
-row1 = Array(1, 2, 3)
-row2 = Array(4, 5, 6)
-row3 = Array(7, 8, 9)
-
-Dim grid As Variant
-grid = Array(row1, row2, row3)
-
-&#x27; Access: grid(0)(0) = 1, grid(1)(2) = 6, etc.
+    Dim row1 As Variant, row2 As Variant, row3 As Variant
+    row1 = Array(1, 2, 3)
+    row2 = Array(4, 5, 6)
+    row3 = Array(7, 8, 9)
+    Dim grid As Variant
+    grid = Array(row1, row2, row3)
+    &#x27; Access: grid(0)(0) = 1, grid(1)(2) = 6, etc.
 End Sub</code></pre>
 <h3 id="default-values">Default Values</h3>
 <pre><code class="language-vbnet">Function GetDefaults() As Variant
-GetDefaults = Array(0, &quot;&quot;, False, Null, Empty)
+    GetDefaults = Array(0, &quot;&quot;, False, Null, Empty)
 End Function</code></pre>
         </article>
         

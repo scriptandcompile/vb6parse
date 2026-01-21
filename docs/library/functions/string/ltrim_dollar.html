@@ -48,9 +48,9 @@
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>String</code> with all leading (left-side) spaces removed. If the string contains only spaces, returns an empty string. Trailing spaces and spaces within the string are preserved.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>LTrim$</code> function removes leading space characters (ASCII 32) from a string. It's commonly used to clean up user input, process fixed-width data, or normalize strings for comparison.</p>
-<p>Only the space character (ASCII 32) is removed. Other whitespace characters like tabs, newlines, or non-breaking spaces are not affected by <code>LTrim$</code>.</p>
-<p><code>LTrim$</code> is the string-specific version that always returns a <code>String</code>. The <code>LTrim</code> function returns a <code>Variant</code>.</p>
+<p>The <code>LTrim$</code> function removes leading space characters (ASCII 32) from a string. It's commonly used to clean up user input, process fixed-width data, or normalize strings for comparison.
+Only the space character (ASCII 32) is removed. Other whitespace characters like tabs, newlines, or non-breaking spaces are not affected by <code>LTrim$</code>.
+<code>LTrim$</code> is the string-specific version that always returns a <code>String</code>. The <code>LTrim</code> function returns a <code>Variant</code>.</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <h3 id="example-1-cleaning-user-input">Example 1: Cleaning User Input</h3>
 <pre><code class="language-vbnet">Dim userInput As String
@@ -62,7 +62,7 @@ record = &quot;     12345&quot;
 id = LTrim$(record)  &#x27; &quot;12345&quot;</code></pre>
 <h3 id="example-3-normalizing-comparison">Example 3: Normalizing Comparison</h3>
 <pre><code class="language-vbnet">If LTrim$(text1) = LTrim$(text2) Then
-Debug.Print &quot;Match (ignoring leading spaces)&quot;
+    Debug.Print &quot;Match (ignoring leading spaces)&quot;
 End If</code></pre>
 <h3 id="example-4-parsing-indented-text">Example 4: Parsing Indented Text</h3>
 <pre><code class="language-vbnet">Dim line As String
@@ -73,13 +73,13 @@ code = LTrim$(line)  &#x27; &quot;Code line&quot;</code></pre>
 <pre><code class="language-vbnet">Dim name As String
 name = txtName.Text
 If LTrim$(name) = &quot;&quot; Then
-MsgBox &quot;Name cannot be empty or spaces only&quot;
+    MsgBox &quot;Name cannot be empty or spaces only&quot;
 End If</code></pre>
 <h3 id="processing-csv-fields">Processing CSV Fields</h3>
 <pre><code class="language-vbnet">Dim fields() As String
 fields = Split(csvLine, &quot;,&quot;)
 For i = 0 To UBound(fields)
-fields(i) = LTrim$(fields(i))
+    fields(i) = LTrim$(fields(i))
 Next i</code></pre>
 <h3 id="reading-indented-configuration">Reading Indented Configuration</h3>
 <pre><code class="language-vbnet">Dim configLine As String
@@ -101,18 +101,18 @@ amount = LTrim$(formatted)  &#x27; &quot;$1,234.56&quot;</code></pre>
 <pre><code class="language-vbnet">Dim line As String
 Open &quot;data.txt&quot; For Input As #1
 Do Until EOF(1)
-Line Input #1, line
-line = LTrim$(line)
-If Left$(line, 1) &lt;&gt; &quot;#&quot; Then
-processLine line
-End If
+    Line Input #1, line
+    line = LTrim$(line)
+    If Left$(line, 1) &lt;&gt; &quot;#&quot; Then
+        processLine line
+    End If
 Loop
 Close #1</code></pre>
 <h3 id="normalizing-string-arrays">Normalizing String Arrays</h3>
 <pre><code class="language-vbnet">Dim items() As String
 items = Split(data, vbCrLf)
 For i = 0 To UBound(items)
-items(i) = LTrim$(items(i))
+    items(i) = LTrim$(items(i))
 Next i</code></pre>
 <h3 id="removing-padding-from-fixed-fields">Removing Padding from Fixed Fields</h3>
 <pre><code class="language-vbnet">Dim fixedRecord As String
@@ -200,29 +200,93 @@ cleaned = Trim$(text)  &#x27; &quot;Data&quot;</code></pre>
 <td>12</td>
 <td>No</td>
 </tr>
+<tr>
+<td>## Common Pitfalls</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Assuming <code>LTrim$</code> removes all whitespace characters (it only removes spaces)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Not checking for empty string after trimming spaces-only input</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Using <code>LTrim$</code> when <code>Trim$</code> would be more appropriate</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Forgetting that trailing spaces are preserved</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Not handling <code>Null</code> string values (causes runtime error)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Assuming trimmed string is never empty</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Using repeatedly in loops without caching result</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Expecting tabs or newlines to be removed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Only removes space characters (ASCII 32), not other whitespace</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot specify which characters to remove</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Does not remove trailing spaces (use <code>RTrim$</code> or <code>Trim$</code>)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns <code>Null</code> if the string argument is <code>Null</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot remove spaces from the middle of strings</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No option to limit how many spaces are removed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Does not normalize multiple internal spaces to single spaces</td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="common-pitfalls">Common Pitfalls</h2>
-<ul>
-<li>Assuming <code>LTrim$</code> removes all whitespace characters (it only removes spaces)</li>
-<li>Not checking for empty string after trimming spaces-only input</li>
-<li>Using <code>LTrim$</code> when <code>Trim$</code> would be more appropriate</li>
-<li>Forgetting that trailing spaces are preserved</li>
-<li>Not handling <code>Null</code> string values (causes runtime error)</li>
-<li>Assuming trimmed string is never empty</li>
-<li>Using repeatedly in loops without caching result</li>
-<li>Expecting tabs or newlines to be removed</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Only removes space characters (ASCII 32), not other whitespace</li>
-<li>Cannot specify which characters to remove</li>
-<li>Does not remove trailing spaces (use <code>RTrim$</code> or <code>Trim$</code>)</li>
-<li>Returns <code>Null</code> if the string argument is <code>Null</code></li>
-<li>Cannot remove spaces from the middle of strings</li>
-<li>No option to limit how many spaces are removed</li>
-<li>Does not normalize multiple internal spaces to single spaces</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

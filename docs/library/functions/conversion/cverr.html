@@ -44,8 +44,8 @@
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><strong><code>errornumber</code></strong>: Required. <code>Long</code> integer that identifies an error. The valid range is from
-0 to 65535, though application-defined errors are typically in the range 513-65535 (VB6
-uses 1-512 for system errors).</li>
+  0 to 65535, though application-defined errors are typically in the range 513-65535 (VB6
+  uses 1-512 for system errors).</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>Variant</code> of subtype <code>Error</code> (<code>VarType = 10</code>) containing the specified error number.
@@ -53,23 +53,19 @@ This is not the same as raising an error with <code>Err.Raise</code>; instead, i
 value that can be assigned to variables and returned from functions.</p>
 <h2 id="remarks">Remarks</h2>
 <p>The <code>CVErr</code> function is used to create user-defined error values that can be returned from
-functions or assigned to <code>Variant</code> variables. This is particularly useful for:</p>
-<ul>
-<li>Returning error conditions from functions without raising exceptions</li>
-<li>Creating functions that behave like Excel worksheet functions (returning error values)</li>
-<li>Signaling invalid results that should propagate through calculations</li>
-<li>Implementing error handling in data processing pipelines</li>
-</ul>
-<p><strong>Important Characteristics:</strong></p>
-<ul>
-<li>Returns a <code>Variant</code> of subtype <code>Error</code> (not an exception)</li>
-<li><code>Error</code> values propagate through expressions</li>
-<li>Can be tested with <code>IsError()</code> function</li>
-<li>Not the same as <code>Err</code> object or <code>Err.Raise</code></li>
-<li>Commonly used with VBA functions called from Excel</li>
-<li><code>Error</code> values cannot be used in arithmetic operations</li>
-<li><code>VarType</code> of <code>CVErr</code> result is 10 (vbError)</li>
-</ul>
+functions or assigned to <code>Variant</code> variables. This is particularly useful for:
+- Returning error conditions from functions without raising exceptions
+- Creating functions that behave like Excel worksheet functions (returning error values)
+- Signaling invalid results that should propagate through calculations
+- Implementing error handling in data processing pipelines
+<strong>Important Characteristics:</strong>
+- Returns a <code>Variant</code> of subtype <code>Error</code> (not an exception)
+- <code>Error</code> values propagate through expressions
+- Can be tested with <code>IsError()</code> function
+- Not the same as <code>Err</code> object or <code>Err.Raise</code>
+- Commonly used with VBA functions called from Excel
+- <code>Error</code> values cannot be used in arithmetic operations
+- <code>VarType</code> of <code>CVErr</code> result is 10 (vbError)</p>
 <h2 id="error-number-ranges">Error Number Ranges</h2>
 <table>
 <thead>
@@ -91,111 +87,100 @@ functions or assigned to <code>Variant</code> variables. This is particularly us
 <td>2007-2042</td>
 <td>Excel error values (when used in Excel automation)</td>
 </tr>
-</tbody>
-</table>
-<h2 id="excel-error-constants">Excel Error Constants</h2>
-<p>When creating functions for Excel, these error values are commonly used:</p>
-<table>
-<thead>
 <tr>
-<th>Constant</th>
-<th>Value</th>
-<th>Excel Display</th>
-<th>Meaning</th>
+<td>## Excel Error Constants</td>
+<td></td>
 </tr>
-</thead>
-<tbody>
+<tr>
+<td>When creating functions for Excel, these error values are commonly used:</td>
+<td></td>
+</tr>
+<tr>
+<td>Constant</td>
+<td>Value</td>
+</tr>
+<tr>
+<td>----------</td>
+<td>-------</td>
+</tr>
 <tr>
 <td>xlErrDiv0</td>
 <td>2007</td>
-<td>#DIV/0!</td>
-<td>Division by zero</td>
 </tr>
 <tr>
 <td>xlErrNA</td>
 <td>2042</td>
-<td>#N/A</td>
-<td>Value not available</td>
 </tr>
 <tr>
 <td>xlErrName</td>
 <td>2029</td>
-<td>#NAME?</td>
-<td>Invalid name</td>
 </tr>
 <tr>
 <td>xlErrNull</td>
 <td>2000</td>
-<td>#NULL!</td>
-<td>Null intersection</td>
 </tr>
 <tr>
 <td>xlErrNum</td>
 <td>2036</td>
-<td>#NUM!</td>
-<td>Invalid number</td>
 </tr>
 <tr>
 <td>xlErrRef</td>
 <td>2023</td>
-<td>#REF!</td>
-<td>Invalid reference</td>
 </tr>
 <tr>
 <td>xlErrValue</td>
 <td>2015</td>
-<td>#VALUE!</td>
-<td>Wrong type</td>
+</tr>
+<tr>
+<td>## Examples</td>
+<td></td>
+</tr>
+<tr>
+<td>### Basic Usage</td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<h2 id="examples">Examples</h2>
-<h3 id="basic-usage">Basic Usage</h3>
 <pre><code class="language-vbnet">&#x27; Create an error value
 Dim result As Variant
 result = CVErr(2042)  &#x27; Create #N/A error
-
 &#x27; Test if value is an error
 If IsError(result) Then
-MsgBox &quot;Result is an error&quot;
+    MsgBox &quot;Result is an error&quot;
 End If</code></pre>
 <h3 id="function-returning-error-on-invalid-input">Function Returning Error on Invalid Input</h3>
 <pre><code class="language-vbnet">Function SafeDivide(numerator As Double, denominator As Double) As Variant
-If denominator = 0 Then
-SafeDivide = CVErr(2007)  &#x27; #DIV/0!
-Else
-SafeDivide = numerator / denominator
-End If
+    If denominator = 0 Then
+        SafeDivide = CVErr(2007)  &#x27; #DIV/0!
+    Else
+        SafeDivide = numerator / denominator
+    End If
 End Function
-
 &#x27; Usage
 Dim result As Variant
 result = SafeDivide(10, 0)
 If IsError(result) Then
-MsgBox &quot;Division error occurred&quot;
+    MsgBox &quot;Division error occurred&quot;
 Else
-MsgBox &quot;Result: &quot; &amp; result
+    MsgBox &quot;Result: &quot; &amp; result
 End If</code></pre>
 <h3 id="excel-udf-with-error-handling">Excel UDF with Error Handling</h3>
 <pre><code class="language-vbnet">Function Lookup(value As Variant, table As Range) As Variant
-Dim cell As Range
-
-&#x27; Validate input
-If IsEmpty(value) Then
-Lookup = CVErr(2042)  &#x27; #N/A
-Exit Function
-End If
-
-&#x27; Search for value
-For Each cell In table
-If cell.Value = value Then
-Lookup = cell.Offset(0, 1).Value
-Exit Function
-End If
-Next cell
-
-&#x27; Not found
-Lookup = CVErr(2042)  &#x27; #N/A
+    Dim cell As Range
+    &#x27; Validate input
+    If IsEmpty(value) Then
+        Lookup = CVErr(2042)  &#x27; #N/A
+        Exit Function
+    End If
+    &#x27; Search for value
+    For Each cell In table
+        If cell.Value = value Then
+            Lookup = cell.Offset(0, 1).Value
+            Exit Function
+        End If
+    Next cell
+    &#x27; Not found
+    Lookup = CVErr(2042)  &#x27; #N/A
 End Function</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="error-constants-definition">Error Constants Definition</h3>
@@ -207,135 +192,122 @@ Public Const xlErrNull As Long = 2000   &#x27; #NULL!
 Public Const xlErrNum As Long = 2036    &#x27; #NUM!
 Public Const xlErrRef As Long = 2023    &#x27; #REF!
 Public Const xlErrValue As Long = 2015  &#x27; #VALUE!
-
 &#x27; Use in functions
 Function MyFunction(input As Variant) As Variant
-If Not IsNumeric(input) Then
-MyFunction = CVErr(xlErrValue)
-Else
-MyFunction = input * 2
-End If
+    If Not IsNumeric(input) Then
+        MyFunction = CVErr(xlErrValue)
+    Else
+        MyFunction = input * 2
+    End If
 End Function</code></pre>
 <h3 id="validation-functions">Validation Functions</h3>
 <pre><code class="language-vbnet">Function ValidateRange(value As Double, min As Double, max As Double) As Variant
-If value &lt; min Or value &gt; max Then
-ValidateRange = CVErr(2036)  &#x27; #NUM! - Number out of range
-Else
-ValidateRange = value
-End If
+    If value &lt; min Or value &gt; max Then
+        ValidateRange = CVErr(2036)  &#x27; #NUM! - Number out of range
+    Else
+        ValidateRange = value
+    End If
 End Function</code></pre>
 <h3 id="error-propagation">Error Propagation</h3>
 <pre><code class="language-vbnet">Function Calculate(input As Variant) As Variant
-&#x27; Check if input is already an error
-If IsError(input) Then
-Calculate = input  &#x27; Propagate the error
-Exit Function
-End If
-
-&#x27; Perform calculation
-If input &lt; 0 Then
-Calculate = CVErr(2036)  &#x27; #NUM!
-Else
-Calculate = Sqr(input)
-End If
+    &#x27; Check if input is already an error
+    If IsError(input) Then
+        Calculate = input  &#x27; Propagate the error
+        Exit Function
+    End If
+    &#x27; Perform calculation
+    If input &lt; 0 Then
+        Calculate = CVErr(2036)  &#x27; #NUM!
+    Else
+        Calculate = Sqr(input)
+    End If
 End Function</code></pre>
 <h3 id="database-lookup-with-error">Database Lookup with Error</h3>
 <pre><code class="language-vbnet">Function GetEmployeeName(employeeID As Long) As Variant
-Dim rs As ADODB.Recordset
-
-On Error GoTo ErrorHandler
-
-Set rs = New ADODB.Recordset
-rs.Open &quot;SELECT Name FROM Employees WHERE ID = &quot; &amp; employeeID, conn
-
-If rs.EOF Then
-GetEmployeeName = CVErr(2042)  &#x27; #N/A - Not found
-Else
-GetEmployeeName = rs(&quot;Name&quot;)
-End If
-
-rs.Close
-Set rs = Nothing
-Exit Function
-
+    Dim rs As ADODB.Recordset
+    On Error GoTo ErrorHandler
+    Set rs = New ADODB.Recordset
+    rs.Open &quot;SELECT Name FROM Employees WHERE ID = &quot; &amp; employeeID, conn
+    If rs.EOF Then
+        GetEmployeeName = CVErr(2042)  &#x27; #N/A - Not found
+    Else
+        GetEmployeeName = rs(&quot;Name&quot;)
+    End If
+    rs.Close
+    Set rs = Nothing
+    Exit Function
 ErrorHandler:
-GetEmployeeName = CVErr(2042)  &#x27; #N/A
+    GetEmployeeName = CVErr(2042)  &#x27; #N/A
 End Function</code></pre>
 <h3 id="array-formula-with-errors">Array Formula with Errors</h3>
 <pre><code class="language-vbnet">Function ProcessArray(values As Variant) As Variant
-Dim results() As Variant
-Dim i As Long
-
-If Not IsArray(values) Then
-ProcessArray = CVErr(2015)  &#x27; #VALUE!
-Exit Function
-End If
-
-ReDim results(LBound(values) To UBound(values))
-
-For i = LBound(values) To UBound(values)
-If IsError(values(i)) Then
-results(i) = values(i)  &#x27; Propagate error
-ElseIf Not IsNumeric(values(i)) Then
-results(i) = CVErr(2015)  &#x27; #VALUE!
-Else
-results(i) = values(i) * 2
-End If
-Next i
-
-ProcessArray = results
+    Dim results() As Variant
+    Dim i As Long
+    If Not IsArray(values) Then
+        ProcessArray = CVErr(2015)  &#x27; #VALUE!
+        Exit Function
+    End If
+    ReDim results(LBound(values) To UBound(values))
+    For i = LBound(values) To UBound(values)
+        If IsError(values(i)) Then
+            results(i) = values(i)  &#x27; Propagate error
+        ElseIf Not IsNumeric(values(i)) Then
+            results(i) = CVErr(2015)  &#x27; #VALUE!
+        Else
+            results(i) = values(i) * 2
+        End If
+    Next i
+    ProcessArray = results
 End Function</code></pre>
 <h3 id="type-conversion-with-error">Type Conversion with Error</h3>
 <pre><code class="language-vbnet">Function SafeCLng(value As Variant) As Variant
-On Error GoTo ErrorHandler
-
-If IsError(value) Then
-SafeCLng = value  &#x27; Propagate error
-ElseIf IsEmpty(value) Then
-SafeCLng = CVErr(2042)  &#x27; #N/A
-ElseIf Not IsNumeric(value) Then
-SafeCLng = CVErr(2015)  &#x27; #VALUE!
-Else
-Dim temp As Double
-temp = CDbl(value)
-If temp &lt; -2147483648# Or temp &gt; 2147483647# Then
-SafeCLng = CVErr(2036)  &#x27; #NUM!
-Else
-SafeCLng = CLng(value)
-End If
-End If
-Exit Function
-
+    On Error GoTo ErrorHandler
+    If IsError(value) Then
+        SafeCLng = value  &#x27; Propagate error
+    ElseIf IsEmpty(value) Then
+        SafeCLng = CVErr(2042)  &#x27; #N/A
+    ElseIf Not IsNumeric(value) Then
+        SafeCLng = CVErr(2015)  &#x27; #VALUE!
+    Else
+        Dim temp As Double
+        temp = CDbl(value)
+        If temp &lt; -2147483648# Or temp &gt; 2147483647# Then
+            SafeCLng = CVErr(2036)  &#x27; #NUM!
+        Else
+            SafeCLng = CLng(value)
+        End If
+    End If
+    Exit Function
 ErrorHandler:
-SafeCLng = CVErr(2015)  &#x27; #VALUE!
+    SafeCLng = CVErr(2015)  &#x27; #VALUE!
 End Function</code></pre>
 <h3 id="conditional-error-return">Conditional Error Return</h3>
 <pre><code class="language-vbnet">Function GetDiscount(totalSales As Double) As Variant
-Select Case totalSales
-Case Is &lt; 0
-GetDiscount = CVErr(2036)  &#x27; #NUM! - Negative sales
-Case 0 To 999.99
-GetDiscount = 0
-Case 1000 To 4999.99
-GetDiscount = 0.05
-Case 5000 To 9999.99
-GetDiscount = 0.1
-Case Is &gt;= 10000
-GetDiscount = 0.15
-Case Else
-GetDiscount = CVErr(2042)  &#x27; #N/A
-End Select
+    Select Case totalSales
+        Case Is &lt; 0
+            GetDiscount = CVErr(2036)  &#x27; #NUM! - Negative sales
+        Case 0 To 999.99
+            GetDiscount = 0
+        Case 1000 To 4999.99
+            GetDiscount = 0.05
+        Case 5000 To 9999.99
+            GetDiscount = 0.1
+        Case Is &gt;= 10000
+            GetDiscount = 0.15
+        Case Else
+            GetDiscount = CVErr(2042)  &#x27; #N/A
+    End Select
 End Function</code></pre>
 <h3 id="error-checking-helper">Error Checking Helper</h3>
 <pre><code class="language-vbnet">Function GetErrorNumber(value As Variant) As Long
-&#x27; Returns error number or 0 if not an error
-If IsError(value) Then
-&#x27; There&#x27;s no direct way to extract error number in VB6
-&#x27; Would need to compare against known error values
-GetErrorNumber = -1  &#x27; Indicates error present
-Else
-GetErrorNumber = 0
-End If
+    &#x27; Returns error number or 0 if not an error
+    If IsError(value) Then
+        &#x27; There&#x27;s no direct way to extract error number in VB6
+        &#x27; Would need to compare against known error values
+        GetErrorNumber = -1  &#x27; Indicates error present
+    Else
+        GetErrorNumber = 0
+    End If
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="custom-error-type-system">Custom Error Type System</h3>
@@ -344,81 +316,68 @@ Public Const APP_ERR_INVALID_USER As Long = 1000
 Public Const APP_ERR_DATABASE As Long = 1001
 Public Const APP_ERR_NETWORK As Long = 1002
 Public Const APP_ERR_PERMISSION As Long = 1003
-
 Function AuthenticateUser(username As String, password As String) As Variant
-If Len(username) = 0 Then
-AuthenticateUser = CVErr(APP_ERR_INVALID_USER)
-Exit Function
-End If
-
-&#x27; Check credentials
-If Not ValidateCredentials(username, password) Then
-AuthenticateUser = CVErr(APP_ERR_PERMISSION)
-Exit Function
-End If
-
-&#x27; Return user object on success
-AuthenticateUser = GetUserObject(username)
+    If Len(username) = 0 Then
+        AuthenticateUser = CVErr(APP_ERR_INVALID_USER)
+        Exit Function
+    End If
+    &#x27; Check credentials
+    If Not ValidateCredentials(username, password) Then
+        AuthenticateUser = CVErr(APP_ERR_PERMISSION)
+        Exit Function
+    End If
+    &#x27; Return user object on success
+    AuthenticateUser = GetUserObject(username)
 End Function</code></pre>
 <h3 id="error-value-in-collections">Error Value in Collections</h3>
 <pre><code class="language-vbnet">Function ProcessRecords() As Collection
-Dim results As New Collection
-Dim rs As ADODB.Recordset
-Dim i As Long
-
-Set rs = GetRecords()
-
-While Not rs.EOF
-On Error Resume Next
-results.Add ProcessRecord(rs)
-
-If Err.Number &lt;&gt; 0 Then
-results.Add CVErr(2015)  &#x27; Add error marker
-Err.Clear
-End If
-
-rs.MoveNext
-Wend
-
-Set ProcessRecords = results
+    Dim results As New Collection
+    Dim rs As ADODB.Recordset
+    Dim i As Long
+    Set rs = GetRecords()
+    While Not rs.EOF
+        On Error Resume Next
+        results.Add ProcessRecord(rs)
+        If Err.Number &lt;&gt; 0 Then
+            results.Add CVErr(2015)  &#x27; Add error marker
+            Err.Clear
+        End If
+        rs.MoveNext
+    Wend
+    Set ProcessRecords = results
 End Function</code></pre>
 <h3 id="chainable-operations-with-error-propagation">Chainable Operations with Error Propagation</h3>
 <pre><code class="language-vbnet">Function Step1(input As Variant) As Variant
-If IsError(input) Then
-Step1 = input
-ElseIf input &lt; 0 Then
-Step1 = CVErr(2036)
-Else
-Step1 = Sqr(input)
-End If
+    If IsError(input) Then
+        Step1 = input
+    ElseIf input &lt; 0 Then
+        Step1 = CVErr(2036)
+    Else
+        Step1 = Sqr(input)
+    End If
 End Function
-
 Function Step2(input As Variant) As Variant
-If IsError(input) Then
-Step2 = input
-ElseIf input = 0 Then
-Step2 = CVErr(2007)
-Else
-Step2 = 100 / input
-End If
+    If IsError(input) Then
+        Step2 = input
+    ElseIf input = 0 Then
+        Step2 = CVErr(2007)
+    Else
+        Step2 = 100 / input
+    End If
 End Function
-
 &#x27; Chain operations
 result = Step2(Step1(value))</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function CreateErrorSafe(errorNum As Long) As Variant
-On Error GoTo ErrorHandler
-
-If errorNum &lt; 0 Or errorNum &gt; 65535 Then
-CreateErrorSafe = CVErr(2036)  &#x27; Invalid error number
-Else
-CreateErrorSafe = CVErr(errorNum)
-End If
-
-Exit Function
-
+    On Error GoTo ErrorHandler
+    If errorNum &lt; 0 Or errorNum &gt; 65535 Then
+        CreateErrorSafe = CVErr(2036)  &#x27; Invalid error number
+    Else
+        CreateErrorSafe = CVErr(errorNum)
+    End If
+    Exit Function
 ErrorHandler:
-CreateErrorSafe = CVErr(2042)  &#x27; Generic error
+    CreateErrorSafe = CVErr(2042)  &#x27; Generic error
 End Function</code></pre>
 <h3 id="common-errors">Common Errors</h3>
 <ul>
@@ -437,27 +396,26 @@ End Function</code></pre>
 <h3 id="cverr-vs-errraise"><code>CVErr</code> vs <code>Err.Raise</code></h3>
 <pre><code class="language-vbnet">&#x27; CVErr - Returns error value (doesn&#x27;t stop execution)
 Function Method1(x As Double) As Variant
-If x &lt; 0 Then
-Method1 = CVErr(2036)  &#x27; Returns error, continues
-Else
-Method1 = Sqr(x)
-End If
+    If x &lt; 0 Then
+        Method1 = CVErr(2036)  &#x27; Returns error, continues
+    Else
+        Method1 = Sqr(x)
+    End If
 End Function
-
 &#x27; Err.Raise - Throws exception (stops execution)
 Function Method2(x As Double) As Double
-If x &lt; 0 Then
-Err.Raise 5, , &quot;Invalid argument&quot;  &#x27; Stops execution
-Else
-Method2 = Sqr(x)
-End If
+    If x &lt; 0 Then
+        Err.Raise 5, , &quot;Invalid argument&quot;  &#x27; Stops execution
+    Else
+        Method2 = Sqr(x)
+    End If
 End Function</code></pre>
 <p><strong><code>CVErr</code> advantages:</strong>
 - Doesn't interrupt program flow
 - Can be used in expressions
 - Natural for functional-style programming
-- Compatible with Excel worksheet functions</p>
-<p><strong><code>Err.Raise</code> advantages:</strong>
+- Compatible with Excel worksheet functions
+<strong><code>Err.Raise</code> advantages:</strong>
 - Forces immediate attention to errors
 - Provides error description and source
 - Traditional exception handling model
@@ -466,18 +424,16 @@ End Function</code></pre>
 <h3 id="always-check-for-errors-before-using-values">Always Check for Errors Before Using Values</h3>
 <pre><code class="language-vbnet">Dim result As Variant
 result = SomeFunction()
-
 If IsError(result) Then
-MsgBox &quot;Error occurred&quot;
+    MsgBox &quot;Error occurred&quot;
 Else
-&#x27; Safe to use result
-Debug.Print result
+    &#x27; Safe to use result
+    Debug.Print result
 End If</code></pre>
 <h3 id="use-meaningful-error-numbers">Use Meaningful Error Numbers</h3>
 <pre><code class="language-vbnet">&#x27; Good - Use named constants
 Const ERR_INVALID_INPUT As Long = 1000
 result = CVErr(ERR_INVALID_INPUT)
-
 &#x27; Avoid - Magic numbers
 result = CVErr(42)  &#x27; What does 42 mean?</code></pre>
 <h3 id="document-custom-error-codes">Document Custom Error Codes</h3>

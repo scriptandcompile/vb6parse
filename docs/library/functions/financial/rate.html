@@ -53,16 +53,16 @@
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>Double</code> specifying the interest rate per period for an annuity. The rate is calculated using an iterative algorithm and is returned as a decimal (e.g., 0.08 for 8%).</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>Rate</code> function calculates the interest rate per period for an annuity based on periodic, fixed payments and a fixed principal. This is useful when you know the loan amount, payment, and term, but need to determine what interest rate is being charged.</p>
-<p>An annuity is a series of fixed cash payments made over a period of time. An annuity can be a loan (such as a home mortgage) or an investment (such as a monthly savings plan).</p>
-<p>For all arguments, cash paid out (such as deposits to savings) is represented by negative numbers; cash received (such as dividend checks) is represented by positive numbers.</p>
-<p><strong>Important Notes</strong>:
+<p>The <code>Rate</code> function calculates the interest rate per period for an annuity based on periodic, fixed payments and a fixed principal. This is useful when you know the loan amount, payment, and term, but need to determine what interest rate is being charged.
+An annuity is a series of fixed cash payments made over a period of time. An annuity can be a loan (such as a home mortgage) or an investment (such as a monthly savings plan).
+For all arguments, cash paid out (such as deposits to savings) is represented by negative numbers; cash received (such as dividend checks) is represented by positive numbers.
+<strong>Important Notes</strong>:
 - The <code>Rate</code> function uses an iterative technique to calculate the interest rate
 - If <code>Rate</code> cannot find a result after 20 iterations, it fails and returns an error
 - Different values for <code>guess</code> can result in different solutions or no solution
 - The rate returned is per period - multiply by periods per year for annual rate
-- Be consistent with units: if <code>nper</code> is in months, the result is monthly rate</p>
-<p><strong>Calculation Method</strong>:
+- Be consistent with units: if <code>nper</code> is in months, the result is monthly rate
+<strong>Calculation Method</strong>:
 The Rate function solves the present value equation for the rate:</p>
 <pre><code class="language-text">PV + PMT * ((1 - (1 + rate)^-nper) / rate) + FV / (1 + rate)^nper = 0</code></pre>
 <h2 id="typical-uses">Typical Uses</h2>
@@ -104,540 +104,454 @@ MsgBox &quot;APR: &quot; &amp; Format(apr, &quot;0.00&quot;) &amp; &quot;%&quot;
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-calculateapr">Pattern 1: <code>CalculateAPR</code></h3>
 <pre><code class="language-vbnet">Function CalculateAPR(loanAmount As Double, monthlyPayment As Double, _
-months As Integer) As Double
-&#x27; Calculate Annual Percentage Rate from loan terms
-Dim monthlyRate As Double
-
-On Error Resume Next
-monthlyRate = Rate(months, -monthlyPayment, loanAmount)
-
-If Err.Number = 0 Then
-CalculateAPR = monthlyRate * 12  &#x27; Convert to annual rate
-Else
-CalculateAPR = -1  &#x27; Error indicator
-Err.Clear
-End If
-On Error GoTo 0
+                      months As Integer) As Double
+    &#x27; Calculate Annual Percentage Rate from loan terms
+    Dim monthlyRate As Double
+    On Error Resume Next
+    monthlyRate = Rate(months, -monthlyPayment, loanAmount)
+    If Err.Number = 0 Then
+        CalculateAPR = monthlyRate * 12  &#x27; Convert to annual rate
+    Else
+        CalculateAPR = -1  &#x27; Error indicator
+        Err.Clear
+    End If
+    On Error GoTo 0
 End Function</code></pre>
 <h3 id="pattern-2-compareeffectiverates">Pattern 2: <code>CompareEffectiveRates</code></h3>
 <pre><code class="language-vbnet">Function CompareEffectiveRates(loan1PV As Double, loan1PMT As Double, loan1Nper As Integer, _
-loan2PV As Double, loan2PMT As Double, loan2Nper As Integer) As String
-Dim rate1 As Double, rate2 As Double
-
-On Error Resume Next
-rate1 = Rate(loan1Nper, -loan1PMT, loan1PV) * 12
-rate2 = Rate(loan2Nper, -loan2PMT, loan2PV) * 12
-
-If Err.Number &lt;&gt; 0 Then
-CompareEffectiveRates = &quot;Error calculating rates&quot;
-Err.Clear
-Exit Function
-End If
-On Error GoTo 0
-
-If rate1 &lt; rate2 Then
-CompareEffectiveRates = &quot;Loan 1 has lower rate: &quot; &amp; Format(rate1 * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
-ElseIf rate2 &lt; rate1 Then
-CompareEffectiveRates = &quot;Loan 2 has lower rate: &quot; &amp; Format(rate2 * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
-Else
-CompareEffectiveRates = &quot;Both loans have same rate: &quot; &amp; Format(rate1 * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
-End If
+                               loan2PV As Double, loan2PMT As Double, loan2Nper As Integer) As String
+    Dim rate1 As Double, rate2 As Double
+    On Error Resume Next
+    rate1 = Rate(loan1Nper, -loan1PMT, loan1PV) * 12
+    rate2 = Rate(loan2Nper, -loan2PMT, loan2PV) * 12
+    If Err.Number &lt;&gt; 0 Then
+        CompareEffectiveRates = &quot;Error calculating rates&quot;
+        Err.Clear
+        Exit Function
+    End If
+    On Error GoTo 0
+    If rate1 &lt; rate2 Then
+        CompareEffectiveRates = &quot;Loan 1 has lower rate: &quot; &amp; Format(rate1 * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+    ElseIf rate2 &lt; rate1 Then
+        CompareEffectiveRates = &quot;Loan 2 has lower rate: &quot; &amp; Format(rate2 * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+    Else
+        CompareEffectiveRates = &quot;Both loans have same rate: &quot; &amp; Format(rate1 * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+    End If
 End Function</code></pre>
 <h3 id="pattern-3-validaterateparameters">Pattern 3: <code>ValidateRateParameters</code></h3>
 <pre><code class="language-vbnet">Function ValidateRateParameters(nper As Integer, pmt As Double, pv As Double) As Boolean
-ValidateRateParameters = False
-
-If nper &lt;= 0 Then
-MsgBox &quot;Number of periods must be positive&quot;
-Exit Function
-End If
-
-If pmt = 0 Then
-MsgBox &quot;Payment cannot be zero&quot;
-Exit Function
-End If
-
-If pv = 0 Then
-MsgBox &quot;Present value cannot be zero&quot;
-Exit Function
-End If
-
-&#x27; Check if payment and PV have proper sign relationship
-If (pmt &gt; 0 And pv &gt; 0) Or (pmt &lt; 0 And pv &lt; 0) Then
-MsgBox &quot;Payment and present value must have opposite signs&quot;
-Exit Function
-End If
-
-ValidateRateParameters = True
+    ValidateRateParameters = False
+    If nper &lt;= 0 Then
+        MsgBox &quot;Number of periods must be positive&quot;
+        Exit Function
+    End If
+    If pmt = 0 Then
+        MsgBox &quot;Payment cannot be zero&quot;
+        Exit Function
+    End If
+    If pv = 0 Then
+        MsgBox &quot;Present value cannot be zero&quot;
+        Exit Function
+    End If
+    &#x27; Check if payment and PV have proper sign relationship
+    If (pmt &gt; 0 And pv &gt; 0) Or (pmt &lt; 0 And pv &lt; 0) Then
+        MsgBox &quot;Payment and present value must have opposite signs&quot;
+        Exit Function
+    End If
+    ValidateRateParameters = True
 End Function</code></pre>
 <h3 id="pattern-4-findratewithretry">Pattern 4: <code>FindRateWithRetry</code></h3>
 <pre><code class="language-vbnet">Function FindRateWithRetry(nper As Integer, pmt As Double, pv As Double, _
-Optional fv As Double = 0) As Double
-&#x27; Try multiple guess values if initial attempt fails
-Dim guesses As Variant
-Dim i As Integer
-Dim rate As Double
-
-guesses = Array(0.1, 0.05, 0.15, 0.01, 0.2, 0.001)
-
-For i = LBound(guesses) To UBound(guesses)
-On Error Resume Next
-rate = Rate(nper, pmt, pv, fv, 0, guesses(i))
-
-If Err.Number = 0 Then
-FindRateWithRetry = rate
-Exit Function
-End If
-
-Err.Clear
-Next i
-
-On Error GoTo 0
-FindRateWithRetry = -999  &#x27; Error code
+                           Optional fv As Double = 0) As Double
+    &#x27; Try multiple guess values if initial attempt fails
+    Dim guesses As Variant
+    Dim i As Integer
+    Dim rate As Double
+    guesses = Array(0.1, 0.05, 0.15, 0.01, 0.2, 0.001)
+    For i = LBound(guesses) To UBound(guesses)
+        On Error Resume Next
+        rate = Rate(nper, pmt, pv, fv, 0, guesses(i))
+        If Err.Number = 0 Then
+            FindRateWithRetry = rate
+            Exit Function
+        End If
+        Err.Clear
+    Next i
+    On Error GoTo 0
+    FindRateWithRetry = -999  &#x27; Error code
 End Function</code></pre>
 <h3 id="pattern-5-calculateeffectiveapr">Pattern 5: <code>CalculateEffectiveAPR</code></h3>
 <pre><code class="language-vbnet">Function CalculateEffectiveAPR(loanAmount As Double, payment As Double, _
-years As Integer, fees As Double) As Double
-&#x27; Calculate APR including fees
-Dim months As Integer
-Dim netLoanAmount As Double
-Dim monthlyRate As Double
-
-months = years * 12
-netLoanAmount = loanAmount - fees  &#x27; Reduce by fees paid upfront
-
-monthlyRate = Rate(months, -payment, netLoanAmount)
-CalculateEffectiveAPR = monthlyRate * 12
+                               years As Integer, fees As Double) As Double
+    &#x27; Calculate APR including fees
+    Dim months As Integer
+    Dim netLoanAmount As Double
+    Dim monthlyRate As Double
+    months = years * 12
+    netLoanAmount = loanAmount - fees  &#x27; Reduce by fees paid upfront
+    monthlyRate = Rate(months, -payment, netLoanAmount)
+    CalculateEffectiveAPR = monthlyRate * 12
 End Function</code></pre>
 <h3 id="pattern-6-getleaseimplicitrate">Pattern 6: <code>GetLeaseImplicitRate</code></h3>
 <pre><code class="language-vbnet">Function GetLeaseImplicitRate(vehiclePrice As Double, monthlyPayment As Double, _
-leaseTerm As Integer, residualValue As Double) As Double
-&#x27; Find the implicit interest rate in a lease
-Dim monthlyRate As Double
-
-&#x27; For a lease, the PV is the vehicle price, FV is the residual value
-monthlyRate = Rate(leaseTerm, -monthlyPayment, vehiclePrice, -residualValue)
-GetLeaseImplicitRate = monthlyRate * 12  &#x27; Annual rate
+                              leaseTerm As Integer, residualValue As Double) As Double
+    &#x27; Find the implicit interest rate in a lease
+    Dim monthlyRate As Double
+    &#x27; For a lease, the PV is the vehicle price, FV is the residual value
+    monthlyRate = Rate(leaseTerm, -monthlyPayment, vehiclePrice, -residualValue)
+    GetLeaseImplicitRate = monthlyRate * 12  &#x27; Annual rate
 End Function</code></pre>
 <h3 id="pattern-7-calculaterealrate">Pattern 7: <code>CalculateRealRate</code></h3>
 <pre><code class="language-vbnet">Function CalculateRealRate(nper As Integer, pmt As Double, pv As Double, _
-inflationRate As Double) As Double
-&#x27; Calculate real (inflation-adjusted) rate of return
-Dim nominalRate As Double
-Dim realRate As Double
-
-nominalRate = Rate(nper, pmt, pv)
-
-&#x27; Fisher equation: (1 + nominal) = (1 + real)(1 + inflation)
-realRate = ((1 + nominalRate) / (1 + inflationRate / 12)) - 1
-
-CalculateRealRate = realRate
+                           inflationRate As Double) As Double
+    &#x27; Calculate real (inflation-adjusted) rate of return
+    Dim nominalRate As Double
+    Dim realRate As Double
+    nominalRate = Rate(nper, pmt, pv)
+    &#x27; Fisher equation: (1 + nominal) = (1 + real)(1 + inflation)
+    realRate = ((1 + nominalRate) / (1 + inflationRate / 12)) - 1
+    CalculateRealRate = realRate
 End Function</code></pre>
 <h3 id="pattern-8-converttoapy">Pattern 8: <code>ConvertToAPY</code></h3>
 <pre><code class="language-vbnet">Function ConvertToAPY(periodicRate As Double, periodsPerYear As Integer) As Double
-&#x27; Convert periodic rate to Annual Percentage Yield (with compounding)
-ConvertToAPY = ((1 + periodicRate) ^ periodsPerYear) - 1
+    &#x27; Convert periodic rate to Annual Percentage Yield (with compounding)
+    ConvertToAPY = ((1 + periodicRate) ^ periodsPerYear) - 1
 End Function</code></pre>
 <h3 id="pattern-9-backoutrate">Pattern 9: <code>BackoutRate</code></h3>
 <pre><code class="language-vbnet">Function BackoutRate(payment As Double, principal As Double, _
-years As Integer, paymentType As Integer) As Double
-&#x27; Reverse engineer the rate from payment information
-Dim periods As Integer
-Dim rate As Double
-
-periods = years * 12
-
-On Error Resume Next
-rate = Rate(periods, -payment, principal, 0, paymentType)
-
-If Err.Number = 0 Then
-BackoutRate = rate * 12  &#x27; Annual rate
-Else
-BackoutRate = -1
-Err.Clear
-End If
-On Error GoTo 0
+                     years As Integer, paymentType As Integer) As Double
+    &#x27; Reverse engineer the rate from payment information
+    Dim periods As Integer
+    Dim rate As Double
+    periods = years * 12
+    On Error Resume Next
+    rate = Rate(periods, -payment, principal, 0, paymentType)
+    If Err.Number = 0 Then
+        BackoutRate = rate * 12  &#x27; Annual rate
+    Else
+        BackoutRate = -1
+        Err.Clear
+    End If
+    On Error GoTo 0
 End Function</code></pre>
 <h3 id="pattern-10-isratereasonable">Pattern 10: <code>IsRateReasonable</code></h3>
 <pre><code class="language-vbnet">Function IsRateReasonable(calculatedRate As Double) As Boolean
-&#x27; Validate that calculated rate is within reasonable bounds
-Dim annualRate As Double
-
-annualRate = calculatedRate * 12
-
-&#x27; Check if annual rate is between -50% and +50%
-IsRateReasonable = (annualRate &gt;= -0.5 And annualRate &lt;= 0.5)
+    &#x27; Validate that calculated rate is within reasonable bounds
+    Dim annualRate As Double
+    annualRate = calculatedRate * 12
+    &#x27; Check if annual rate is between -50% and +50%
+    IsRateReasonable = (annualRate &gt;= -0.5 And annualRate &lt;= 0.5)
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-comprehensive-loan-rate-analyzer">Example 1: Comprehensive Loan Rate Analyzer</h3>
 <pre><code class="language-vbnet">&#x27; Analyze and compare loan rates with detailed calculations
 Class LoanRateAnalyzer
-Private m_loanAmount As Double
-Private m_monthlyPayment As Double
-Private m_numPayments As Integer
-Private m_fees As Double
-Private m_calculatedRate As Double
-Private m_effectiveRate As Double
-
-Public Sub Initialize(loanAmount As Double, monthlyPayment As Double, _
-years As Integer, Optional fees As Double = 0)
-m_loanAmount = loanAmount
-m_monthlyPayment = monthlyPayment
-m_numPayments = years * 12
-m_fees = fees
-End Sub
-
-Public Function CalculateNominalRate() As Double
-&#x27; Calculate the stated interest rate
-Dim monthlyRate As Double
-
-On Error Resume Next
-monthlyRate = Rate(m_numPayments, -m_monthlyPayment, m_loanAmount)
-
-If Err.Number = 0 Then
-m_calculatedRate = monthlyRate * 12
-CalculateNominalRate = m_calculatedRate
-Else
-CalculateNominalRate = -1
-Err.Clear
-End If
-On Error GoTo 0
-End Function
-
-Public Function CalculateEffectiveRate() As Double
-&#x27; Calculate APR including fees
-Dim netAmount As Double
-Dim monthlyRate As Double
-
-netAmount = m_loanAmount - m_fees
-
-On Error Resume Next
-monthlyRate = Rate(m_numPayments, -m_monthlyPayment, netAmount)
-
-If Err.Number = 0 Then
-m_effectiveRate = monthlyRate * 12
-CalculateEffectiveRate = m_effectiveRate
-Else
-CalculateEffectiveRate = -1
-Err.Clear
-End If
-On Error GoTo 0
-End Function
-
-Public Function CalculateAPY() As Double
-&#x27; Calculate Annual Percentage Yield (with compounding)
-Dim monthlyRate As Double
-
-monthlyRate = m_calculatedRate / 12
-CalculateAPY = ((1 + monthlyRate) ^ 12) - 1
-End Function
-
-Public Function GetTotalInterestPaid() As Double
-&#x27; Calculate total interest over life of loan
-GetTotalInterestPaid = (m_monthlyPayment * m_numPayments) - m_loanAmount
-End Function
-
-Public Function GetInterestPercentage() As Double
-&#x27; Calculate interest as percentage of principal
-GetInterestPercentage = GetTotalInterestPaid() / m_loanAmount
-End Function
-
-Public Function GenerateRateReport() As String
-Dim report As String
-Dim nominalRate As Double
-Dim effectiveRate As Double
-Dim apy As Double
-
-nominalRate = CalculateNominalRate()
-effectiveRate = CalculateEffectiveRate()
-
-If nominalRate &lt; 0 Or effectiveRate &lt; 0 Then
-GenerateRateReport = &quot;Error: Could not calculate interest rate&quot;
-Exit Function
-End If
-
-apy = CalculateAPY()
-
-report = &quot;Loan Rate Analysis&quot; &amp; vbCrLf
-report = report &amp; String(50, &quot;=&quot;) &amp; vbCrLf
-report = report &amp; &quot;Loan Amount: $&quot; &amp; Format(m_loanAmount, &quot;#,##0.00&quot;) &amp; vbCrLf
-report = report &amp; &quot;Monthly Payment: $&quot; &amp; Format(m_monthlyPayment, &quot;#,##0.00&quot;) &amp; vbCrLf
-report = report &amp; &quot;Term: &quot; &amp; (m_numPayments / 12) &amp; &quot; years (&quot; &amp; m_numPayments &amp; &quot; months)&quot; &amp; vbCrLf
-report = report &amp; &quot;Fees: $&quot; &amp; Format(m_fees, &quot;#,##0.00&quot;) &amp; vbCrLf
-report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
-report = report &amp; &quot;Nominal APR: &quot; &amp; Format(nominalRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-report = report &amp; &quot;Effective APR (with fees): &quot; &amp; Format(effectiveRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-report = report &amp; &quot;APY (with compounding): &quot; &amp; Format(apy * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
-report = report &amp; &quot;Total Interest Paid: $&quot; &amp; Format(GetTotalInterestPaid(), &quot;#,##0.00&quot;) &amp; vbCrLf
-report = report &amp; &quot;Interest as % of Principal: &quot; &amp; Format(GetInterestPercentage() * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
-
-GenerateRateReport = report
-End Function
+    Private m_loanAmount As Double
+    Private m_monthlyPayment As Double
+    Private m_numPayments As Integer
+    Private m_fees As Double
+    Private m_calculatedRate As Double
+    Private m_effectiveRate As Double
+    Public Sub Initialize(loanAmount As Double, monthlyPayment As Double, _
+                         years As Integer, Optional fees As Double = 0)
+        m_loanAmount = loanAmount
+        m_monthlyPayment = monthlyPayment
+        m_numPayments = years * 12
+        m_fees = fees
+    End Sub
+    Public Function CalculateNominalRate() As Double
+        &#x27; Calculate the stated interest rate
+        Dim monthlyRate As Double
+        On Error Resume Next
+        monthlyRate = Rate(m_numPayments, -m_monthlyPayment, m_loanAmount)
+        If Err.Number = 0 Then
+            m_calculatedRate = monthlyRate * 12
+            CalculateNominalRate = m_calculatedRate
+        Else
+            CalculateNominalRate = -1
+            Err.Clear
+        End If
+        On Error GoTo 0
+    End Function
+    Public Function CalculateEffectiveRate() As Double
+        &#x27; Calculate APR including fees
+        Dim netAmount As Double
+        Dim monthlyRate As Double
+        netAmount = m_loanAmount - m_fees
+        On Error Resume Next
+        monthlyRate = Rate(m_numPayments, -m_monthlyPayment, netAmount)
+        If Err.Number = 0 Then
+            m_effectiveRate = monthlyRate * 12
+            CalculateEffectiveRate = m_effectiveRate
+        Else
+            CalculateEffectiveRate = -1
+            Err.Clear
+        End If
+        On Error GoTo 0
+    End Function
+    Public Function CalculateAPY() As Double
+        &#x27; Calculate Annual Percentage Yield (with compounding)
+        Dim monthlyRate As Double
+        monthlyRate = m_calculatedRate / 12
+        CalculateAPY = ((1 + monthlyRate) ^ 12) - 1
+    End Function
+    Public Function GetTotalInterestPaid() As Double
+        &#x27; Calculate total interest over life of loan
+        GetTotalInterestPaid = (m_monthlyPayment * m_numPayments) - m_loanAmount
+    End Function
+    Public Function GetInterestPercentage() As Double
+        &#x27; Calculate interest as percentage of principal
+        GetInterestPercentage = GetTotalInterestPaid() / m_loanAmount
+    End Function
+    Public Function GenerateRateReport() As String
+        Dim report As String
+        Dim nominalRate As Double
+        Dim effectiveRate As Double
+        Dim apy As Double
+        nominalRate = CalculateNominalRate()
+        effectiveRate = CalculateEffectiveRate()
+        If nominalRate &lt; 0 Or effectiveRate &lt; 0 Then
+            GenerateRateReport = &quot;Error: Could not calculate interest rate&quot;
+            Exit Function
+        End If
+        apy = CalculateAPY()
+        report = &quot;Loan Rate Analysis&quot; &amp; vbCrLf
+        report = report &amp; String(50, &quot;=&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Loan Amount: $&quot; &amp; Format(m_loanAmount, &quot;#,##0.00&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Monthly Payment: $&quot; &amp; Format(m_monthlyPayment, &quot;#,##0.00&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Term: &quot; &amp; (m_numPayments / 12) &amp; &quot; years (&quot; &amp; m_numPayments &amp; &quot; months)&quot; &amp; vbCrLf
+        report = report &amp; &quot;Fees: $&quot; &amp; Format(m_fees, &quot;#,##0.00&quot;) &amp; vbCrLf
+        report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Nominal APR: &quot; &amp; Format(nominalRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+        report = report &amp; &quot;Effective APR (with fees): &quot; &amp; Format(effectiveRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+        report = report &amp; &quot;APY (with compounding): &quot; &amp; Format(apy * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+        report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Total Interest Paid: $&quot; &amp; Format(GetTotalInterestPaid(), &quot;#,##0.00&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Interest as % of Principal: &quot; &amp; Format(GetInterestPercentage() * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+        GenerateRateReport = report
+    End Function
 End Class</code></pre>
 <h3 id="example-2-multi-loan-rate-comparison-tool">Example 2: Multi-Loan Rate Comparison Tool</h3>
 <pre><code class="language-vbnet">&#x27; Compare rates across multiple loan offers
 Module LoanRateComparison
-Private Type LoanOffer
-Name As String
-Principal As Double
-Payment As Double
-Months As Integer
-Fees As Double
-NominalRate As Double
-EffectiveRate As Double
-End Type
-
-Public Function CompareLoans(offers() As LoanOffer) As String
-Dim i As Integer
-Dim report As String
-Dim bestOffer As Integer
-Dim lowestRate As Double
-
-lowestRate = 999
-bestOffer = LBound(offers)
-
-&#x27; Calculate rates for all offers
-For i = LBound(offers) To UBound(offers)
-With offers(i)
-On Error Resume Next
-.NominalRate = Rate(.Months, -.Payment, .Principal) * 12
-.EffectiveRate = Rate(.Months, -.Payment, .Principal - .Fees) * 12
-
-If Err.Number &lt;&gt; 0 Then
-.NominalRate = -1
-.EffectiveRate = -1
-Err.Clear
-End If
-On Error GoTo 0
-
-If .EffectiveRate &gt; 0 And .EffectiveRate &lt; lowestRate Then
-lowestRate = .EffectiveRate
-bestOffer = i
-End If
-End With
-Next i
-
-&#x27; Generate comparison report
-report = &quot;Loan Offer Comparison&quot; &amp; vbCrLf
-report = report &amp; String(80, &quot;=&quot;) &amp; vbCrLf
-report = report &amp; &quot;Offer                Principal    Payment   Term   Fees      APR      Eff.APR&quot; &amp; vbCrLf
-report = report &amp; String(80, &quot;-&quot;) &amp; vbCrLf
-
-For i = LBound(offers) To UBound(offers)
-With offers(i)
-report = report &amp; Left(.Name &amp; Space(20), 20)
-report = report &amp; &quot; $&quot; &amp; Right(Space(9) &amp; Format(.Principal, &quot;#,##0&quot;), 9)
-report = report &amp; &quot;  $&quot; &amp; Right(Space(7) &amp; Format(.Payment, &quot;#,##0&quot;), 7)
-report = report &amp; Right(Space(5) &amp; (.Months / 12), 5) &amp; &quot;y&quot;
-report = report &amp; &quot; $&quot; &amp; Right(Space(6) &amp; Format(.Fees, &quot;#,##0&quot;), 6)
-
-If .NominalRate &gt;= 0 Then
-report = report &amp; Right(Space(6) &amp; Format(.NominalRate * 100, &quot;0.00&quot;), 6) &amp; &quot;%&quot;
-report = report &amp; Right(Space(7) &amp; Format(.EffectiveRate * 100, &quot;0.00&quot;), 7) &amp; &quot;%&quot;
-Else
-report = report &amp; &quot;  Error   Error&quot;
-End If
-
-If i = bestOffer Then report = report &amp; &quot; *BEST*&quot;
-report = report &amp; vbCrLf
-End With
-Next i
-
-report = report &amp; String(80, &quot;-&quot;) &amp; vbCrLf
-report = report &amp; &quot;Best Offer: &quot; &amp; offers(bestOffer).Name &amp; _
-&quot; (Effective APR: &quot; &amp; Format(offers(bestOffer).EffectiveRate * 100, &quot;0.00&quot;) &amp; &quot;%)&quot;
-
-CompareLoans = report
-End Function
-
-Public Function CalculateRateDifference(loan1 As LoanOffer, loan2 As LoanOffer) As String
-Dim diff As Double
-Dim savingsPerMonth As Double
-Dim totalSavings As Double
-
-diff = Abs(loan1.EffectiveRate - loan2.EffectiveRate)
-savingsPerMonth = Abs(loan1.Payment - loan2.Payment)
-totalSavings = savingsPerMonth * loan1.Months
-
-CalculateRateDifference = &quot;Rate Difference: &quot; &amp; Format(diff * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf &amp; _
-&quot;Monthly Savings: $&quot; &amp; Format(savingsPerMonth, &quot;#,##0.00&quot;) &amp; vbCrLf &amp; _
-&quot;Total Savings: $&quot; &amp; Format(totalSavings, &quot;#,##0.00&quot;)
-End Function
+    Private Type LoanOffer
+        Name As String
+        Principal As Double
+        Payment As Double
+        Months As Integer
+        Fees As Double
+        NominalRate As Double
+        EffectiveRate As Double
+    End Type
+    Public Function CompareLoans(offers() As LoanOffer) As String
+        Dim i As Integer
+        Dim report As String
+        Dim bestOffer As Integer
+        Dim lowestRate As Double
+        lowestRate = 999
+        bestOffer = LBound(offers)
+        &#x27; Calculate rates for all offers
+        For i = LBound(offers) To UBound(offers)
+            With offers(i)
+                On Error Resume Next
+                .NominalRate = Rate(.Months, -.Payment, .Principal) * 12
+                .EffectiveRate = Rate(.Months, -.Payment, .Principal - .Fees) * 12
+                If Err.Number &lt;&gt; 0 Then
+                    .NominalRate = -1
+                    .EffectiveRate = -1
+                    Err.Clear
+                End If
+                On Error GoTo 0
+                If .EffectiveRate &gt; 0 And .EffectiveRate &lt; lowestRate Then
+                    lowestRate = .EffectiveRate
+                    bestOffer = i
+                End If
+            End With
+        Next i
+        &#x27; Generate comparison report
+        report = &quot;Loan Offer Comparison&quot; &amp; vbCrLf
+        report = report &amp; String(80, &quot;=&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Offer                Principal    Payment   Term   Fees      APR      Eff.APR&quot; &amp; vbCrLf
+        report = report &amp; String(80, &quot;-&quot;) &amp; vbCrLf
+        For i = LBound(offers) To UBound(offers)
+            With offers(i)
+                report = report &amp; Left(.Name &amp; Space(20), 20)
+                report = report &amp; &quot; $&quot; &amp; Right(Space(9) &amp; Format(.Principal, &quot;#,##0&quot;), 9)
+                report = report &amp; &quot;  $&quot; &amp; Right(Space(7) &amp; Format(.Payment, &quot;#,##0&quot;), 7)
+                report = report &amp; Right(Space(5) &amp; (.Months / 12), 5) &amp; &quot;y&quot;
+                report = report &amp; &quot; $&quot; &amp; Right(Space(6) &amp; Format(.Fees, &quot;#,##0&quot;), 6)
+                If .NominalRate &gt;= 0 Then
+                    report = report &amp; Right(Space(6) &amp; Format(.NominalRate * 100, &quot;0.00&quot;), 6) &amp; &quot;%&quot;
+                    report = report &amp; Right(Space(7) &amp; Format(.EffectiveRate * 100, &quot;0.00&quot;), 7) &amp; &quot;%&quot;
+                Else
+                    report = report &amp; &quot;  Error   Error&quot;
+                End If
+                If i = bestOffer Then report = report &amp; &quot; *BEST*&quot;
+                report = report &amp; vbCrLf
+            End With
+        Next i
+        report = report &amp; String(80, &quot;-&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Best Offer: &quot; &amp; offers(bestOffer).Name &amp; _
+                 &quot; (Effective APR: &quot; &amp; Format(offers(bestOffer).EffectiveRate * 100, &quot;0.00&quot;) &amp; &quot;%)&quot;
+        CompareLoans = report
+    End Function
+    Public Function CalculateRateDifference(loan1 As LoanOffer, loan2 As LoanOffer) As String
+        Dim diff As Double
+        Dim savingsPerMonth As Double
+        Dim totalSavings As Double
+        diff = Abs(loan1.EffectiveRate - loan2.EffectiveRate)
+        savingsPerMonth = Abs(loan1.Payment - loan2.Payment)
+        totalSavings = savingsPerMonth * loan1.Months
+        CalculateRateDifference = &quot;Rate Difference: &quot; &amp; Format(diff * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf &amp; _
+                                 &quot;Monthly Savings: $&quot; &amp; Format(savingsPerMonth, &quot;#,##0.00&quot;) &amp; vbCrLf &amp; _
+                                 &quot;Total Savings: $&quot; &amp; Format(totalSavings, &quot;#,##0.00&quot;)
+    End Function
 End Module</code></pre>
 <h3 id="example-3-investment-rate-calculator">Example 3: Investment Rate Calculator</h3>
 <pre><code class="language-vbnet">&#x27; Calculate rate of return on investments
 Class InvestmentRateCalculator
-Private m_initialInvestment As Double
-Private m_monthlyContribution As Double
-Private m_finalValue As Double
-Private m_months As Integer
-
-Public Sub Initialize(initialInvestment As Double, monthlyContribution As Double, _
-finalValue As Double, years As Integer)
-m_initialInvestment = initialInvestment
-m_monthlyContribution = monthlyContribution
-m_finalValue = finalValue
-m_months = years * 12
-End Sub
-
-Public Function GetMonthlyRate() As Double
-&#x27; Calculate monthly rate of return
-On Error Resume Next
-GetMonthlyRate = Rate(m_months, -m_monthlyContribution, -m_initialInvestment, m_finalValue)
-
-If Err.Number &lt;&gt; 0 Then
-GetMonthlyRate = -999
-Err.Clear
-End If
-On Error GoTo 0
-End Function
-
-Public Function GetAnnualRate() As Double
-Dim monthlyRate As Double
-monthlyRate = GetMonthlyRate()
-
-If monthlyRate = -999 Then
-GetAnnualRate = -999
-Else
-GetAnnualRate = monthlyRate * 12
-End If
-End Function
-
-Public Function GetEffectiveAnnualRate() As Double
-&#x27; Calculate with compounding
-Dim monthlyRate As Double
-monthlyRate = GetMonthlyRate()
-
-If monthlyRate = -999 Then
-GetEffectiveAnnualRate = -999
-Else
-GetEffectiveAnnualRate = ((1 + monthlyRate) ^ 12) - 1
-End If
-End Function
-
-Public Function GetTotalContributed() As Double
-GetTotalContributed = m_initialInvestment + (m_monthlyContribution * m_months)
-End Function
-
-Public Function GetTotalReturn() As Double
-GetTotalReturn = m_finalValue - GetTotalContributed()
-End Function
-
-Public Function GenerateReport() As String
-Dim report As String
-Dim annualRate As Double
-Dim effectiveRate As Double
-
-annualRate = GetAnnualRate()
-effectiveRate = GetEffectiveAnnualRate()
-
-If annualRate = -999 Then
-GenerateReport = &quot;Error: Could not calculate rate of return&quot;
-Exit Function
-End If
-
-report = &quot;Investment Rate of Return Analysis&quot; &amp; vbCrLf
-report = report &amp; String(50, &quot;=&quot;) &amp; vbCrLf
-report = report &amp; &quot;Initial Investment: $&quot; &amp; Format(m_initialInvestment, &quot;#,##0.00&quot;) &amp; vbCrLf
-report = report &amp; &quot;Monthly Contribution: $&quot; &amp; Format(m_monthlyContribution, &quot;#,##0.00&quot;) &amp; vbCrLf
-report = report &amp; &quot;Investment Period: &quot; &amp; (m_months / 12) &amp; &quot; years&quot; &amp; vbCrLf
-report = report &amp; &quot;Final Value: $&quot; &amp; Format(m_finalValue, &quot;#,##0.00&quot;) &amp; vbCrLf
-report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
-report = report &amp; &quot;Total Contributed: $&quot; &amp; Format(GetTotalContributed(), &quot;#,##0.00&quot;) &amp; vbCrLf
-report = report &amp; &quot;Total Return: $&quot; &amp; Format(GetTotalReturn(), &quot;#,##0.00&quot;) &amp; vbCrLf
-report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
-report = report &amp; &quot;Annual Rate of Return: &quot; &amp; Format(annualRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-report = report &amp; &quot;Effective Annual Rate: &quot; &amp; Format(effectiveRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
-
-GenerateReport = report
-End Function
+    Private m_initialInvestment As Double
+    Private m_monthlyContribution As Double
+    Private m_finalValue As Double
+    Private m_months As Integer
+    Public Sub Initialize(initialInvestment As Double, monthlyContribution As Double, _
+                         finalValue As Double, years As Integer)
+        m_initialInvestment = initialInvestment
+        m_monthlyContribution = monthlyContribution
+        m_finalValue = finalValue
+        m_months = years * 12
+    End Sub
+    Public Function GetMonthlyRate() As Double
+        &#x27; Calculate monthly rate of return
+        On Error Resume Next
+        GetMonthlyRate = Rate(m_months, -m_monthlyContribution, -m_initialInvestment, m_finalValue)
+        If Err.Number &lt;&gt; 0 Then
+            GetMonthlyRate = -999
+            Err.Clear
+        End If
+        On Error GoTo 0
+    End Function
+    Public Function GetAnnualRate() As Double
+        Dim monthlyRate As Double
+        monthlyRate = GetMonthlyRate()
+        If monthlyRate = -999 Then
+            GetAnnualRate = -999
+        Else
+            GetAnnualRate = monthlyRate * 12
+        End If
+    End Function
+    Public Function GetEffectiveAnnualRate() As Double
+        &#x27; Calculate with compounding
+        Dim monthlyRate As Double
+        monthlyRate = GetMonthlyRate()
+        If monthlyRate = -999 Then
+            GetEffectiveAnnualRate = -999
+        Else
+            GetEffectiveAnnualRate = ((1 + monthlyRate) ^ 12) - 1
+        End If
+    End Function
+    Public Function GetTotalContributed() As Double
+        GetTotalContributed = m_initialInvestment + (m_monthlyContribution * m_months)
+    End Function
+    Public Function GetTotalReturn() As Double
+        GetTotalReturn = m_finalValue - GetTotalContributed()
+    End Function
+    Public Function GenerateReport() As String
+        Dim report As String
+        Dim annualRate As Double
+        Dim effectiveRate As Double
+        annualRate = GetAnnualRate()
+        effectiveRate = GetEffectiveAnnualRate()
+        If annualRate = -999 Then
+            GenerateReport = &quot;Error: Could not calculate rate of return&quot;
+            Exit Function
+        End If
+        report = &quot;Investment Rate of Return Analysis&quot; &amp; vbCrLf
+        report = report &amp; String(50, &quot;=&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Initial Investment: $&quot; &amp; Format(m_initialInvestment, &quot;#,##0.00&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Monthly Contribution: $&quot; &amp; Format(m_monthlyContribution, &quot;#,##0.00&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Investment Period: &quot; &amp; (m_months / 12) &amp; &quot; years&quot; &amp; vbCrLf
+        report = report &amp; &quot;Final Value: $&quot; &amp; Format(m_finalValue, &quot;#,##0.00&quot;) &amp; vbCrLf
+        report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Total Contributed: $&quot; &amp; Format(GetTotalContributed(), &quot;#,##0.00&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Total Return: $&quot; &amp; Format(GetTotalReturn(), &quot;#,##0.00&quot;) &amp; vbCrLf
+        report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Annual Rate of Return: &quot; &amp; Format(annualRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+        report = report &amp; &quot;Effective Annual Rate: &quot; &amp; Format(effectiveRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+        GenerateReport = report
+    End Function
 End Class</code></pre>
 <h3 id="example-4-credit-card-rate-analyzer">Example 4: Credit Card Rate Analyzer</h3>
 <pre><code class="language-vbnet">&#x27; Analyze credit card interest rates from payment information
 Class CreditCardRateAnalyzer
-Private m_balance As Double
-Private m_minimumPayment As Double
-Private m_monthsToPayoff As Integer
-
-Public Sub SetCardDetails(balance As Double, minimumPayment As Double, _
-monthsToPayoff As Integer)
-m_balance = balance
-m_minimumPayment = minimumPayment
-m_monthsToPayoff = monthsToPayoff
-End Sub
-
-Public Function GetImplicitRate() As Double
-&#x27; Calculate the implicit interest rate
-Dim monthlyRate As Double
-
-On Error Resume Next
-monthlyRate = Rate(m_monthsToPayoff, -m_minimumPayment, m_balance)
-
-If Err.Number = 0 Then
-GetImplicitRate = monthlyRate * 12  &#x27; Annual rate
-Else
-GetImplicitRate = -1
-Err.Clear
-End If
-On Error GoTo 0
-End Function
-
-Public Function GetTotalInterest() As Double
-GetTotalInterest = (m_minimumPayment * m_monthsToPayoff) - m_balance
-End Function
-
-Public Function GetInterestAsPercent() As Double
-GetInterestAsPercent = GetTotalInterest() / m_balance
-End Function
-
-Public Function CompareToFixedPayment(fixedPayment As Double) As String
-Dim result As String
-Dim currentRate As Double
-Dim fixedMonths As Integer
-Dim savings As Double
-
-currentRate = GetImplicitRate()
-
-If currentRate &lt; 0 Then
-CompareToFixedPayment = &quot;Error calculating current rate&quot;
-Exit Function
-End If
-
-&#x27; Calculate months to pay off with fixed payment
-fixedMonths = NPer(currentRate / 12, -fixedPayment, m_balance)
-savings = (m_minimumPayment * m_monthsToPayoff) - (fixedPayment * fixedMonths)
-
-result = &quot;Current Plan:&quot; &amp; vbCrLf
-result = result &amp; &quot;  Payment: $&quot; &amp; Format(m_minimumPayment, &quot;#,##0.00&quot;) &amp; vbCrLf
-result = result &amp; &quot;  Months: &quot; &amp; m_monthsToPayoff &amp; vbCrLf
-result = result &amp; &quot;  Total: $&quot; &amp; Format(m_minimumPayment * m_monthsToPayoff, &quot;#,##0.00&quot;) &amp; vbCrLf
-result = result &amp; vbCrLf &amp; &quot;Fixed Payment Plan:&quot; &amp; vbCrLf
-result = result &amp; &quot;  Payment: $&quot; &amp; Format(fixedPayment, &quot;#,##0.00&quot;) &amp; vbCrLf
-result = result &amp; &quot;  Months: &quot; &amp; fixedMonths &amp; vbCrLf
-result = result &amp; &quot;  Total: $&quot; &amp; Format(fixedPayment * fixedMonths, &quot;#,##0.00&quot;) &amp; vbCrLf
-result = result &amp; vbCrLf &amp; &quot;Savings: $&quot; &amp; Format(savings, &quot;#,##0.00&quot;)
-
-CompareToFixedPayment = result
-End Function
+    Private m_balance As Double
+    Private m_minimumPayment As Double
+    Private m_monthsToPayoff As Integer
+    Public Sub SetCardDetails(balance As Double, minimumPayment As Double, _
+                             monthsToPayoff As Integer)
+        m_balance = balance
+        m_minimumPayment = minimumPayment
+        m_monthsToPayoff = monthsToPayoff
+    End Sub
+    Public Function GetImplicitRate() As Double
+        &#x27; Calculate the implicit interest rate
+        Dim monthlyRate As Double
+        On Error Resume Next
+        monthlyRate = Rate(m_monthsToPayoff, -m_minimumPayment, m_balance)
+        If Err.Number = 0 Then
+            GetImplicitRate = monthlyRate * 12  &#x27; Annual rate
+        Else
+            GetImplicitRate = -1
+            Err.Clear
+        End If
+        On Error GoTo 0
+    End Function
+    Public Function GetTotalInterest() As Double
+        GetTotalInterest = (m_minimumPayment * m_monthsToPayoff) - m_balance
+    End Function
+    Public Function GetInterestAsPercent() As Double
+        GetInterestAsPercent = GetTotalInterest() / m_balance
+    End Function
+    Public Function CompareToFixedPayment(fixedPayment As Double) As String
+        Dim result As String
+        Dim currentRate As Double
+        Dim fixedMonths As Integer
+        Dim savings As Double
+        currentRate = GetImplicitRate()
+        If currentRate &lt; 0 Then
+            CompareToFixedPayment = &quot;Error calculating current rate&quot;
+            Exit Function
+        End If
+        &#x27; Calculate months to pay off with fixed payment
+        fixedMonths = NPer(currentRate / 12, -fixedPayment, m_balance)
+        savings = (m_minimumPayment * m_monthsToPayoff) - (fixedPayment * fixedMonths)
+        result = &quot;Current Plan:&quot; &amp; vbCrLf
+        result = result &amp; &quot;  Payment: $&quot; &amp; Format(m_minimumPayment, &quot;#,##0.00&quot;) &amp; vbCrLf
+        result = result &amp; &quot;  Months: &quot; &amp; m_monthsToPayoff &amp; vbCrLf
+        result = result &amp; &quot;  Total: $&quot; &amp; Format(m_minimumPayment * m_monthsToPayoff, &quot;#,##0.00&quot;) &amp; vbCrLf
+        result = result &amp; vbCrLf &amp; &quot;Fixed Payment Plan:&quot; &amp; vbCrLf
+        result = result &amp; &quot;  Payment: $&quot; &amp; Format(fixedPayment, &quot;#,##0.00&quot;) &amp; vbCrLf
+        result = result &amp; &quot;  Months: &quot; &amp; fixedMonths &amp; vbCrLf
+        result = result &amp; &quot;  Total: $&quot; &amp; Format(fixedPayment * fixedMonths, &quot;#,##0.00&quot;) &amp; vbCrLf
+        result = result &amp; vbCrLf &amp; &quot;Savings: $&quot; &amp; Format(savings, &quot;#,##0.00&quot;)
+        CompareToFixedPayment = result
+    End Function
 End Class</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>Rate</code> function can raise errors in the following situations:</p>
-<ul>
-<li><strong>Invalid Procedure Call (Error 5)</strong>: When:</li>
-<li>The function cannot find a solution after 20 iterations</li>
-<li><code>nper</code> is 0 or negative</li>
-<li><code>pmt</code> and <code>pv</code> have the same sign (both positive or both negative)</li>
-<li><strong>Type Mismatch (Error 13)</strong>: When arguments cannot be converted to numeric values</li>
-<li><strong>Overflow (Error 6)</strong>: When calculated values exceed Double range</li>
-</ul>
-<p>Always use error handling when calling <code>Rate</code>:</p>
+<p>The <code>Rate</code> function can raise errors in the following situations:
+- <strong>Invalid Procedure Call (Error 5)</strong>: When:
+  - The function cannot find a solution after 20 iterations
+  - <code>nper</code> is 0 or negative
+  - <code>pmt</code> and <code>pv</code> have the same sign (both positive or both negative)
+- <strong>Type Mismatch (Error 13)</strong>: When arguments cannot be converted to numeric values
+- <strong>Overflow (Error 6)</strong>: When calculated values exceed Double range
+Always use error handling when calling <code>Rate</code>:</p>
 <pre><code class="language-vbnet">On Error Resume Next
 interestRate = Rate(nper, pmt, pv, fv, type, guess)
 If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Error calculating rate: &quot; &amp; Err.Description
-interestRate = -1  &#x27; Error indicator
-Err.Clear
+    MsgBox &quot;Error calculating rate: &quot; &amp; Err.Description
+    interestRate = -1  &#x27; Error indicator
+    Err.Clear
 End If
 On Error GoTo 0</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
@@ -708,35 +622,134 @@ On Error GoTo 0</code></pre>
 <td>Double (rate)</td>
 <td>Find rate from irregular cash flows</td>
 </tr>
+<tr>
+<td>## Platform and Version Notes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in all versions of VBA and VB6</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Uses iterative algorithm that may not always converge</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Maximum 20 iterations before failure</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Results may vary slightly between platforms due to floating-point precision</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Default guess of 0.1 (10%) works well for most common scenarios</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- May fail to converge for some parameter combinations</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Limited to 20 iterations maximum</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot handle multiple solutions (returns first solution found)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Sensitive to initial guess value</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- May return unrealistic rates if inputs are invalid</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot handle variable rate scenarios</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Assumes constant periodic payments</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Related Functions</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Pmt</code>: Returns the periodic payment for an annuity</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>PV</code>: Returns the present value of an annuity</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>FV</code>: Returns the future value of an annuity</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>NPer</code>: Returns the number of periods for an annuity</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>IRR</code>: Returns internal rate of return for irregular cash flows</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>MIRR</code>: Returns modified internal rate of return</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
-<ul>
-<li>Available in all versions of VBA and VB6</li>
-<li>Uses iterative algorithm that may not always converge</li>
-<li>Maximum 20 iterations before failure</li>
-<li>Results may vary slightly between platforms due to floating-point precision</li>
-<li>Default guess of 0.1 (10%) works well for most common scenarios</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>May fail to converge for some parameter combinations</li>
-<li>Limited to 20 iterations maximum</li>
-<li>Cannot handle multiple solutions (returns first solution found)</li>
-<li>Sensitive to initial guess value</li>
-<li>May return unrealistic rates if inputs are invalid</li>
-<li>Cannot handle variable rate scenarios</li>
-<li>Assumes constant periodic payments</li>
-</ul>
-<h2 id="related-functions">Related Functions</h2>
-<ul>
-<li><code>Pmt</code>: Returns the periodic payment for an annuity</li>
-<li><code>PV</code>: Returns the present value of an annuity</li>
-<li><code>FV</code>: Returns the future value of an annuity</li>
-<li><code>NPer</code>: Returns the number of periods for an annuity</li>
-<li><code>IRR</code>: Returns internal rate of return for irregular cash flows</li>
-<li><code>MIRR</code>: Returns modified internal rate of return</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

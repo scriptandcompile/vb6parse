@@ -45,7 +45,7 @@ The "B" suffix indicates this is the byte (ANSI) version of the <code>Chr</code>
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><strong>charcode</strong>: Required. Long. A numeric expression that identifies a character in the ANSI character set.
-Valid values are 0-255.</li>
+  Valid values are 0-255.</li>
 </ul>
 <h2 id="returns">Returns</h2>
 <p>Returns a <code>String</code> containing a single byte character corresponding to the specified ANSI code.</p>
@@ -96,7 +96,7 @@ Dim result As String
 Dim bytes() As Byte
 bytes = Array(72, 101, 108, 108, 111)
 For i = LBound(bytes) To UBound(bytes)
-result = result &amp; ChrB(bytes(i))
+    result = result &amp; ChrB(bytes(i))
 Next i</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 4: Creating null-terminated strings
 Dim nullTerm As String
@@ -105,7 +105,7 @@ nullTerm = &quot;Hello&quot; &amp; ChrB(0)</code></pre>
 Dim alphabet As String
 Dim i As Integer
 For i = 65 To 90
-alphabet = alphabet &amp; ChrB(i)
+    alphabet = alphabet &amp; ChrB(i)
 Next i  &#x27; &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 6: Control character constants
 Const NULL_CHAR As String = ChrB(0)
@@ -120,12 +120,12 @@ quote = ChrB(34)  &#x27; Double quote character
 result = quote &amp; &quot;Hello&quot; &amp; quote  &#x27; &quot;Hello&quot;</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 8: Binary data to string conversion
 Function BytesToString(bytes() As Byte) As String
-Dim i As Long
-Dim result As String
-For i = LBound(bytes) To UBound(bytes)
-result = result &amp; ChrB(bytes(i))
-Next i
-BytesToString = result
+    Dim i As Long
+    Dim result As String
+    For i = LBound(bytes) To UBound(bytes)
+        result = result &amp; ChrB(bytes(i))
+    Next i
+    BytesToString = result
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 9: Creating delimited strings
 Dim PIPE As String
@@ -137,105 +137,84 @@ box = ChrB(218) &amp; String(10, ChrB(196)) &amp; ChrB(191)  &#x27; Top of box</
 <h2 id="advanced-examples">Advanced Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Complete ANSI string builder
 Function BuildANSIString(byteCodes() As Integer) As String
-Dim i As Integer
-Dim result As String
-
-For i = LBound(byteCodes) To UBound(byteCodes)
-If byteCodes(i) &gt;= 0 And byteCodes(i) &lt;= 255 Then
-result = result &amp; ChrB(byteCodes(i))
-Else
-Err.Raise 5, , &quot;Invalid byte code: &quot; &amp; byteCodes(i)
-End If
-Next i
-
-BuildANSIString = result
+    Dim i As Integer
+    Dim result As String
+    For i = LBound(byteCodes) To UBound(byteCodes)
+        If byteCodes(i) &gt;= 0 And byteCodes(i) &lt;= 255 Then
+            result = result &amp; ChrB(byteCodes(i))
+        Else
+            Err.Raise 5, , &quot;Invalid byte code: &quot; &amp; byteCodes(i)
+        End If
+    Next i
+    BuildANSIString = result
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 2: Legacy file format writer
 Sub WriteLegacyFormat(filename As String, data As String)
-Dim f As Integer
-Dim i As Integer
-Dim checksum As Byte
-
-f = FreeFile
-Open filename For Binary As #f
-
-&#x27; Write header with STX (Start of Text)
-Put #f, , ChrB(2)
-
-&#x27; Write data
-Put #f, , data
-
-&#x27; Calculate and write checksum
-checksum = 0
-For i = 1 To Len(data)
-checksum = checksum Xor Asc(Mid(data, i, 1))
-Next i
-Put #f, , ChrB(checksum)
-
-&#x27; Write ETX (End of Text)
-Put #f, , ChrB(3)
-
-Close #f
+    Dim f As Integer
+    Dim i As Integer
+    Dim checksum As Byte
+    f = FreeFile
+    Open filename For Binary As #f
+    &#x27; Write header with STX (Start of Text)
+    Put #f, , ChrB(2)
+    &#x27; Write data
+    Put #f, , data
+    &#x27; Calculate and write checksum
+    checksum = 0
+    For i = 1 To Len(data)
+        checksum = checksum Xor Asc(Mid(data, i, 1))
+    Next i
+    Put #f, , ChrB(checksum)
+    &#x27; Write ETX (End of Text)
+    Put #f, , ChrB(3)
+    Close #f
 End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 3: Character encoding converter
 Function ConvertToANSI(text As String) As String
-Dim i As Integer
-Dim result As String
-Dim charCode As Integer
-
-For i = 1 To Len(text)
-charCode = Asc(Mid(text, i, 1))
-If charCode &lt;= 255 Then
-result = result &amp; ChrB(charCode)
-Else
-result = result &amp; ChrB(63)  &#x27; &quot;?&quot; for unmappable chars
-End If
-Next i
-
-ConvertToANSI = result
+    Dim i As Integer
+    Dim result As String
+    Dim charCode As Integer
+    For i = 1 To Len(text)
+        charCode = Asc(Mid(text, i, 1))
+        If charCode &lt;= 255 Then
+            result = result &amp; ChrB(charCode)
+        Else
+            result = result &amp; ChrB(63)  &#x27; &quot;?&quot; for unmappable chars
+        End If
+    Next i
+    ConvertToANSI = result
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 4: Binary protocol message builder
 Function CreateProtocolMessage(msgType As Byte, payload As String) As String
-Dim msg As String
-Dim length As Integer
-
-length = Len(payload)
-
-&#x27; SOH (Start of Header)
-msg = ChrB(1)
-
-&#x27; Message type
-msg = msg &amp; ChrB(msgType)
-
-&#x27; Length (2 bytes, little-endian)
-msg = msg &amp; ChrB(length Mod 256)
-msg = msg &amp; ChrB(length \ 256)
-
-&#x27; STX (Start of Text)
-msg = msg &amp; ChrB(2)
-
-&#x27; Payload
-msg = msg &amp; payload
-
-&#x27; ETX (End of Text)
-msg = msg &amp; ChrB(3)
-
-CreateProtocolMessage = msg
+    Dim msg As String
+    Dim length As Integer
+    length = Len(payload)
+    &#x27; SOH (Start of Header)
+    msg = ChrB(1)
+    &#x27; Message type
+    msg = msg &amp; ChrB(msgType)
+    &#x27; Length (2 bytes, little-endian)
+    msg = msg &amp; ChrB(length Mod 256)
+    msg = msg &amp; ChrB(length \ 256)
+    &#x27; STX (Start of Text)
+    msg = msg &amp; ChrB(2)
+    &#x27; Payload
+    msg = msg &amp; payload
+    &#x27; ETX (End of Text)
+    msg = msg &amp; ChrB(3)
+    CreateProtocolMessage = msg
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeChrB(charcode As Long) As String
-On Error GoTo ErrorHandler
-
-If charcode &lt; 0 Or charcode &gt; 255 Then
-Err.Raise 5, , &quot;Character code must be between 0 and 255&quot;
-End If
-
-SafeChrB = ChrB(charcode)
-Exit Function
-
+    On Error GoTo ErrorHandler
+    If charcode &lt; 0 Or charcode &gt; 255 Then
+        Err.Raise 5, , &quot;Character code must be between 0 and 255&quot;
+    End If
+    SafeChrB = ChrB(charcode)
+    Exit Function
 ErrorHandler:
-SafeChrB = &quot;&quot;
-MsgBox &quot;Error converting character code &quot; &amp; charcode &amp; &quot;: &quot; &amp; Err.Description
+    SafeChrB = &quot;&quot;
+    MsgBox &quot;Error converting character code &quot; &amp; charcode &amp; &quot;: &quot; &amp; Err.Description
 End Function</code></pre>
 <h2 id="performance-notes">Performance Notes</h2>
 <ul>
@@ -288,37 +267,146 @@ End Function</code></pre>
 <td><code>Integer</code></td>
 <td>Get ANSI code from character</td>
 </tr>
+<tr>
+<td>## Platform Notes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>ChrB</code> behavior is consistent across Windows platforms.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Extended ANSI characters (128-255) may vary by system code page.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- In VB6, strings are internally Unicode but <code>ChrB</code> returns ANSI byte values.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>ChrB</code> is primarily for backward compatibility with older code.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Common Character Codes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- 0: Null character</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- 7: Bell/beep</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- 8: Backspace</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- 9: Tab</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- 10: Line feed (LF)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- 13: Carriage return (CR)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- 32: Space</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- 34: Double quote</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- 39: Single quote/apostrophe</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- 65-90: Uppercase A-Z</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- 97-122: Lowercase a-z</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- 48-57: Digits 0-9</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Only supports ANSI character codes (0-255).</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot represent Unicode characters beyond the ANSI range.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Code page dependent for values 128-255.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Runtime error if charcode is outside valid range.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-notes">Platform Notes</h2>
-<ul>
-<li><code>ChrB</code> behavior is consistent across Windows platforms.</li>
-<li>Extended ANSI characters (128-255) may vary by system code page.</li>
-<li>In VB6, strings are internally Unicode but <code>ChrB</code> returns ANSI byte values.</li>
-<li><code>ChrB</code> is primarily for backward compatibility with older code.</li>
-</ul>
-<h2 id="common-character-codes">Common Character Codes</h2>
-<ul>
-<li>0: Null character</li>
-<li>7: Bell/beep</li>
-<li>8: Backspace</li>
-<li>9: Tab</li>
-<li>10: Line feed (LF)</li>
-<li>13: Carriage return (CR)</li>
-<li>32: Space</li>
-<li>34: Double quote</li>
-<li>39: Single quote/apostrophe</li>
-<li>65-90: Uppercase A-Z</li>
-<li>97-122: Lowercase a-z</li>
-<li>48-57: Digits 0-9</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Only supports ANSI character codes (0-255).</li>
-<li>Cannot represent Unicode characters beyond the ANSI range.</li>
-<li>Code page dependent for values 128-255.</li>
-<li>Runtime error if charcode is outside valid range.</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

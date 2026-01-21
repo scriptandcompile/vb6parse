@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p>VB6 <code>TimeValue</code> Function</p>
-<p>The <code>TimeValue</code> function returns a Variant (Date) containing the time value represented by a string.</p>
+            <p>VB6 <code>TimeValue</code> Function
+The <code>TimeValue</code> function returns a Variant (Date) containing the time value represented by a string.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">TimeValue(time)</code></pre>
 <h2 id="parameters">Parameters</h2>
@@ -48,18 +48,16 @@
 <h2 id="returns">Returns</h2>
 <p>Returns a <code>Variant</code> of subtype <code>Date</code> containing the time value. The date portion is set to zero (December 30, 1899).</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>TimeValue</code> function parses a string and returns the corresponding time value:</p>
-<ul>
-<li><strong>String input</strong>: Accepts time strings in various formats (e.g., "14:30", "2:30 PM", "23:59:59")</li>
-<li><strong>Date portion</strong>: Always returns zero date (12/30/1899)</li>
-<li><strong>Locale aware</strong>: Accepts time formats based on system locale</li>
-<li><strong>Numeric input</strong>: Accepts numeric values representing fractional days (e.g., 0.5 = 12:00 PM)</li>
-<li><strong>Null handling</strong>: Returns Null if input is Null</li>
-<li><strong>Error handling</strong>: Error 13 (Type mismatch) if string cannot be parsed as a time</li>
-<li><strong>No milliseconds</strong>: Only parses up to seconds</li>
-<li><strong>Companion to <code>DateValue</code></strong>: Use <code>DateValue</code> for date-only parsing</li>
-<li><strong>Type returned</strong>: Returns Variant (Date), not a string</li>
-</ul>
+<p>The <code>TimeValue</code> function parses a string and returns the corresponding time value:
+- <strong>String input</strong>: Accepts time strings in various formats (e.g., "14:30", "2:30 PM", "23:59:59")
+- <strong>Date portion</strong>: Always returns zero date (12/30/1899)
+- <strong>Locale aware</strong>: Accepts time formats based on system locale
+- <strong>Numeric input</strong>: Accepts numeric values representing fractional days (e.g., 0.5 = 12:00 PM)
+- <strong>Null handling</strong>: Returns Null if input is Null
+- <strong>Error handling</strong>: Error 13 (Type mismatch) if string cannot be parsed as a time
+- <strong>No milliseconds</strong>: Only parses up to seconds
+- <strong>Companion to <code>DateValue</code></strong>: Use <code>DateValue</code> for date-only parsing
+- <strong>Type returned</strong>: Returns Variant (Date), not a string</p>
 <h3 id="accepted-time-formats">Accepted Time Formats</h3>
 <ul>
 <li>24-hour: "14:30", "23:59:59"</li>
@@ -88,204 +86,191 @@
 <h2 id="basic-examples">Basic Examples</h2>
 <h3 id="example-1-parse-time-string">Example 1: Parse Time String</h3>
 <pre><code class="language-vbnet">Sub ParseTime()
-Dim t As Date
-t = TimeValue(&quot;14:30:00&quot;)
-MsgBox &quot;Parsed time: &quot; &amp; Format$(t, &quot;hh:mm AM/PM&quot;)
+    Dim t As Date
+    t = TimeValue(&quot;14:30:00&quot;)
+    MsgBox &quot;Parsed time: &quot; &amp; Format$(t, &quot;hh:mm AM/PM&quot;)
 End Sub</code></pre>
 <h3 id="example-2-parse-12-hour-time">Example 2: Parse 12-hour Time</h3>
 <pre><code class="language-vbnet">Function ParseNoon() As Date
-ParseNoon = TimeValue(&quot;12:00 PM&quot;)
+    ParseNoon = TimeValue(&quot;12:00 PM&quot;)
 End Function</code></pre>
 <h3 id="example-3-validate-time-input">Example 3: Validate Time Input</h3>
 <pre><code class="language-vbnet">Function IsValidTime(inputStr As String) As Boolean
-On Error Resume Next
-Dim t As Date
-t = TimeValue(inputStr)
-IsValidTime = (Err.Number = 0)
-On Error GoTo 0
+    On Error Resume Next
+    Dim t As Date
+    t = TimeValue(inputStr)
+    IsValidTime = (Err.Number = 0)
+    On Error GoTo 0
 End Function</code></pre>
 <h3 id="example-4-compare-parsed-time">Example 4: Compare Parsed Time</h3>
 <pre><code class="language-vbnet">Function IsAfterNoon(timeStr As String) As Boolean
-IsAfterNoon = (TimeValue(timeStr) &gt; TimeValue(&quot;12:00 PM&quot;))
+    IsAfterNoon = (TimeValue(timeStr) &gt; TimeValue(&quot;12:00 PM&quot;))
 End Function</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-parse-and-add-minutes">Pattern 1: Parse and Add Minutes</h3>
 <pre><code class="language-vbnet">Function AddMinutes(timeStr As String, minutes As Integer) As Date
-AddMinutes = TimeValue(timeStr) + TimeSerial(0, minutes, 0)
+    AddMinutes = TimeValue(timeStr) + TimeSerial(0, minutes, 0)
 End Function</code></pre>
 <h3 id="pattern-2-parse-and-compare-to-now">Pattern 2: Parse and Compare to Now</h3>
 <pre><code class="language-vbnet">Function IsPast(timeStr As String) As Boolean
-IsPast = (TimeValue(timeStr) &lt; Time)
+    IsPast = (TimeValue(timeStr) &lt; Time)
 End Function</code></pre>
 <h3 id="pattern-3-parse-and-format">Pattern 3: Parse and Format</h3>
 <pre><code class="language-vbnet">Function FormatParsedTime(timeStr As String) As String
-FormatParsedTime = Format$(TimeValue(timeStr), &quot;hh:mm:ss&quot;)
+    FormatParsedTime = Format$(TimeValue(timeStr), &quot;hh:mm:ss&quot;)
 End Function</code></pre>
 <h3 id="pattern-4-parse-with-error-handling">Pattern 4: Parse with Error Handling</h3>
 <pre><code class="language-vbnet">Function TryParseTime(timeStr As String, ByRef result As Date) As Boolean
-On Error Resume Next
-result = TimeValue(timeStr)
-TryParseTime = (Err.Number = 0)
-On Error GoTo 0
+    On Error Resume Next
+    result = TimeValue(timeStr)
+    TryParseTime = (Err.Number = 0)
+    On Error GoTo 0
 End Function</code></pre>
 <h3 id="pattern-5-parse-numeric-time">Pattern 5: Parse Numeric Time</h3>
 <pre><code class="language-vbnet">Function ParseNumericTime(numericValue As Double) As Date
-ParseNumericTime = TimeValue(numericValue)
+    ParseNumericTime = TimeValue(numericValue)
 End Function</code></pre>
 <h3 id="pattern-6-parse-and-set-property">Pattern 6: Parse and Set Property</h3>
 <pre><code class="language-vbnet">Sub SetStartTime(obj As Object, timeStr As String)
-obj.StartTime = TimeValue(timeStr)
+    obj.StartTime = TimeValue(timeStr)
 End Sub</code></pre>
 <h3 id="pattern-7-parse-array-of-times">Pattern 7: Parse Array of Times</h3>
 <pre><code class="language-vbnet">Function ParseTimeArray(timeStrings() As String) As Variant
-Dim i As Integer
-Dim times() As Date
-ReDim times(LBound(timeStrings) To UBound(timeStrings))
-For i = LBound(timeStrings) To UBound(timeStrings)
-times(i) = TimeValue(timeStrings(i))
-Next i
-ParseTimeArray = times
+    Dim i As Integer
+    Dim times() As Date
+    ReDim times(LBound(timeStrings) To UBound(timeStrings))
+    For i = LBound(timeStrings) To UBound(timeStrings)
+        times(i) = TimeValue(timeStrings(i))
+    Next i
+    ParseTimeArray = times
 End Function</code></pre>
 <h3 id="pattern-8-filter-valid-times">Pattern 8: Filter Valid Times</h3>
 <pre><code class="language-vbnet">Function FilterValidTimes(timeStrings() As String) As Collection
-Dim validTimes As New Collection
-Dim i As Integer
-For i = LBound(timeStrings) To UBound(timeStrings)
-If IsValidTime(timeStrings(i)) Then
-validTimes.Add TimeValue(timeStrings(i))
-End If
-Next i
-Set FilterValidTimes = validTimes
+    Dim validTimes As New Collection
+    Dim i As Integer
+    For i = LBound(timeStrings) To UBound(timeStrings)
+        If IsValidTime(timeStrings(i)) Then
+            validTimes.Add TimeValue(timeStrings(i))
+        End If
+    Next i
+    Set FilterValidTimes = validTimes
 End Function</code></pre>
 <h3 id="pattern-9-parse-and-use-in-schedule">Pattern 9: Parse and Use in Schedule</h3>
 <pre><code class="language-vbnet">Sub AddScheduleEntry(schedule As Collection, timeStr As String, description As String)
-Dim entry As New Collection
-entry.Add TimeValue(timeStr), &quot;Time&quot;
-entry.Add description, &quot;Description&quot;
-schedule.Add entry
+    Dim entry As New Collection
+    entry.Add TimeValue(timeStr), &quot;Time&quot;
+    entry.Add description, &quot;Description&quot;
+    schedule.Add entry
 End Sub</code></pre>
 <h3 id="pattern-10-parse-and-compare-range">Pattern 10: Parse and Compare Range</h3>
 <pre><code class="language-vbnet">Function IsWithinRange(timeStr As String, startStr As String, endStr As String) As Boolean
-Dim t As Date
-t = TimeValue(timeStr)
-IsWithinRange = (t &gt;= TimeValue(startStr) And t &lt;= TimeValue(endStr))
+    Dim t As Date
+    t = TimeValue(timeStr)
+    IsWithinRange = (t &gt;= TimeValue(startStr) And t &lt;= TimeValue(endStr))
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-time-parser-class">Example 1: Time Parser Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: TimeParser
 &#x27; Parses and validates time strings
 Option Explicit
-
 Public Function Parse(timeStr As String) As Date
-Parse = TimeValue(timeStr)
+    Parse = TimeValue(timeStr)
 End Function
-
 Public Function TryParse(timeStr As String, ByRef result As Date) As Boolean
-On Error Resume Next
-result = TimeValue(timeStr)
-TryParse = (Err.Number = 0)
-On Error GoTo 0
+    On Error Resume Next
+    result = TimeValue(timeStr)
+    TryParse = (Err.Number = 0)
+    On Error GoTo 0
 End Function
-
 Public Function IsValid(timeStr As String) As Boolean
-On Error Resume Next
-Dim t As Date
-t = TimeValue(timeStr)
-IsValid = (Err.Number = 0)
-On Error GoTo 0
+    On Error Resume Next
+    Dim t As Date
+    t = TimeValue(timeStr)
+    IsValid = (Err.Number = 0)
+    On Error GoTo 0
 End Function
-
 Public Function Format(timeStr As String, formatStr As String) As String
-Format = Format$(TimeValue(timeStr), formatStr)
+    Format = Format$(TimeValue(timeStr), formatStr)
 End Function</code></pre>
 <h3 id="example-2-schedule-importer-module">Example 2: Schedule Importer Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: ScheduleImporter
 &#x27; Imports and parses schedule times from data
 Option Explicit
-
 Public Function ImportSchedule(times() As String, descriptions() As String) As Collection
-Dim schedule As New Collection
-Dim i As Integer
-For i = LBound(times) To UBound(times)
-Dim entry As New Collection
-entry.Add TimeValue(times(i)), &quot;Time&quot;
-entry.Add descriptions(i), &quot;Description&quot;
-schedule.Add entry
-Next i
-Set ImportSchedule = schedule
+    Dim schedule As New Collection
+    Dim i As Integer
+    For i = LBound(times) To UBound(times)
+        Dim entry As New Collection
+        entry.Add TimeValue(times(i)), &quot;Time&quot;
+        entry.Add descriptions(i), &quot;Description&quot;
+        schedule.Add entry
+    Next i
+    Set ImportSchedule = schedule
 End Function
-
 Public Function GetEarliestTime(times() As String) As Date
-Dim minTime As Date
-Dim i As Integer
-minTime = TimeValue(times(LBound(times)))
-For i = LBound(times) + 1 To UBound(times)
-If TimeValue(times(i)) &lt; minTime Then minTime = TimeValue(times(i))
-Next i
-GetEarliestTime = minTime
+    Dim minTime As Date
+    Dim i As Integer
+    minTime = TimeValue(times(LBound(times)))
+    For i = LBound(times) + 1 To UBound(times)
+        If TimeValue(times(i)) &lt; minTime Then minTime = TimeValue(times(i))
+    Next i
+    GetEarliestTime = minTime
 End Function
-
 Public Function GetLatestTime(times() As String) As Date
-Dim maxTime As Date
-Dim i As Integer
-maxTime = TimeValue(times(LBound(times)))
-For i = LBound(times) + 1 To UBound(times)
-If TimeValue(times(i)) &gt; maxTime Then maxTime = TimeValue(times(i))
-Next i
-GetLatestTime = maxTime
+    Dim maxTime As Date
+    Dim i As Integer
+    maxTime = TimeValue(times(LBound(times)))
+    For i = LBound(times) + 1 To UBound(times)
+        If TimeValue(times(i)) &gt; maxTime Then maxTime = TimeValue(times(i))
+    Next i
+    GetLatestTime = maxTime
 End Function</code></pre>
 <h3 id="example-3-time-validator-class">Example 3: Time Validator Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: TimeValidator
 &#x27; Validates and normalizes time strings
 Option Explicit
-
 Public Function IsValid(timeStr As String) As Boolean
-On Error Resume Next
-Dim t As Date
-t = TimeValue(timeStr)
-IsValid = (Err.Number = 0)
-On Error GoTo 0
+    On Error Resume Next
+    Dim t As Date
+    t = TimeValue(timeStr)
+    IsValid = (Err.Number = 0)
+    On Error GoTo 0
 End Function
-
 Public Function Normalize(timeStr As String) As String
-On Error Resume Next
-Dim t As Date
-t = TimeValue(timeStr)
-If Err.Number = 0 Then
-Normalize = Format$(t, &quot;hh:mm:ss&quot;)
-Else
-Normalize = &quot;&quot;
-End If
-On Error GoTo 0
+    On Error Resume Next
+    Dim t As Date
+    t = TimeValue(timeStr)
+    If Err.Number = 0 Then
+        Normalize = Format$(t, &quot;hh:mm:ss&quot;)
+    Else
+        Normalize = &quot;&quot;
+    End If
+    On Error GoTo 0
 End Function</code></pre>
 <h3 id="example-4-time-range-analyzer-module">Example 4: Time Range Analyzer Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: TimeRangeAnalyzer
 &#x27; Analyzes and compares time ranges
 Option Explicit
-
 Public Function GetTimeRange(times() As String) As String
-Dim minTime As Date, maxTime As Date
-Dim i As Integer
-minTime = TimeValue(times(LBound(times)))
-maxTime = minTime
-For i = LBound(times) + 1 To UBound(times)
-If TimeValue(times(i)) &lt; minTime Then minTime = TimeValue(times(i))
-If TimeValue(times(i)) &gt; maxTime Then maxTime = TimeValue(times(i))
-Next i
-GetTimeRange = Format$(minTime, &quot;hh:mm&quot;) &amp; &quot; - &quot; &amp; Format$(maxTime, &quot;hh:mm&quot;)
+    Dim minTime As Date, maxTime As Date
+    Dim i As Integer
+    minTime = TimeValue(times(LBound(times)))
+    maxTime = minTime
+    For i = LBound(times) + 1 To UBound(times)
+        If TimeValue(times(i)) &lt; minTime Then minTime = TimeValue(times(i))
+        If TimeValue(times(i)) &gt; maxTime Then maxTime = TimeValue(times(i))
+    Next i
+    GetTimeRange = Format$(minTime, &quot;hh:mm&quot;) &amp; &quot; - &quot; &amp; Format$(maxTime, &quot;hh:mm&quot;)
 End Function
-
 Public Function IsWithinRange(timeStr As String, startStr As String, endStr As String) As Boolean
-Dim t As Date
-t = TimeValue(timeStr)
-IsWithinRange = (t &gt;= TimeValue(startStr) And t &lt;= TimeValue(endStr))
+    Dim t As Date
+    t = TimeValue(timeStr)
+    IsWithinRange = (t &gt;= TimeValue(startStr) And t &lt;= TimeValue(endStr))
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>TimeValue</code> function can raise the following errors:</p>
-<ul>
-<li><strong>Error 13 (Type mismatch)</strong>: If the string cannot be parsed as a time</li>
-<li><strong>Returns Null</strong>: If the input is Null (not an error)</li>
-</ul>
+<p>The <code>TimeValue</code> function can raise the following errors:
+- <strong>Error 13 (Type mismatch)</strong>: If the string cannot be parsed as a time
+- <strong>Returns Null</strong>: If the input is Null (not an error)</p>
 <h2 id="performance-notes">Performance Notes</h2>
 <ul>
 <li>Fast operation - simple parsing</li>
@@ -347,26 +332,92 @@ End Function</code></pre>
 <td>expression</td>
 <td>Date</td>
 </tr>
+<tr>
+<td>## Platform Notes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in VB6, VBA, and <code>VBScript</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Consistent behavior across platforms</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Locale-aware parsing</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Date portion always zero (12/30/1899)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Compatible with all date/time functions</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Only parses up to seconds (no milliseconds)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Locale-dependent parsing (may fail on some formats)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot parse date and time together (use <code>CDate</code> for full datetime)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No timezone support</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No daylight saving time handling</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns only time portion (date is zero)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Error on invalid input (not Null)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-notes">Platform Notes</h2>
-<ul>
-<li>Available in VB6, VBA, and <code>VBScript</code></li>
-<li>Consistent behavior across platforms</li>
-<li>Locale-aware parsing</li>
-<li>Date portion always zero (12/30/1899)</li>
-<li>Compatible with all date/time functions</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Only parses up to seconds (no milliseconds)</li>
-<li>Locale-dependent parsing (may fail on some formats)</li>
-<li>Cannot parse date and time together (use <code>CDate</code> for full datetime)</li>
-<li>No timezone support</li>
-<li>No daylight saving time handling</li>
-<li>Returns only time portion (date is zero)</li>
-<li>Error on invalid input (not Null)</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

@@ -44,7 +44,7 @@
 <h2 id="parts">Parts</h2>
 <ul>
 <li><strong>number</strong>: Required. Any valid numeric expression. If number contains Null, Null is returned;
-if it is an uninitialized variable, zero is returned.</li>
+  if it is an uninitialized variable, zero is returned.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>The return type is the same as the input type, except:
@@ -54,12 +54,12 @@ if it is an uninitialized variable, zero is returned.</li>
 <h2 id="remarks">Remarks</h2>
 <ul>
 <li><strong>Absolute Value</strong>: The absolute value of a number is its unsigned magnitude. For example,
-Abs(-1) and Abs(1) both return 1.</li>
+  Abs(-1) and Abs(1) both return 1.</li>
 <li><strong>Type Preservation</strong>: The return type matches the input type. If you pass an Integer, you
-get an Integer back. If you pass a Double, you get a Double back.</li>
+  get an Integer back. If you pass a Double, you get a Double back.</li>
 <li><strong>Null Handling</strong>: If the argument is Null, the function returns Null.</li>
 <li><strong>Overflow</strong>: For the most negative value of Integer (-32768) or Long (-2147483648), Abs
-will cause an overflow error because the positive equivalent is outside the valid range.</li>
+  will cause an overflow error because the positive equivalent is outside the valid range.</li>
 <li><strong>Performance</strong>: Abs is highly optimized and very fast for numeric operations.</li>
 </ul>
 <h2 id="examples">Examples</h2>
@@ -88,9 +88,8 @@ difference = Abs(x - y)
 &#x27; difference = 10</code></pre>
 <h3 id="calculating-distance">Calculating Distance</h3>
 <pre><code class="language-vbnet">Function Distance(x1 As Double, y1 As Double, x2 As Double, y2 As Double) As Double
-Distance = Sqr((x2 - x1) ^ 2 + (y2 - y1) ^ 2)
+    Distance = Sqr((x2 - x1) ^ 2 + (y2 - y1) ^ 2)
 End Function
-
 &#x27; Often used with Abs for 1D distance:
 Dim dist As Double
 dist = Abs(x2 - x1)</code></pre>
@@ -107,41 +106,41 @@ result = Abs(v)
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="ensuring-positive-values">Ensuring Positive Values</h3>
 <pre><code class="language-vbnet">Sub ProcessValue(ByVal input As Integer)
-Dim positiveInput As Integer
-positiveInput = Abs(input)
-&#x27; Always work with positive values
-DoSomething positiveInput
+    Dim positiveInput As Integer
+    positiveInput = Abs(input)
+    &#x27; Always work with positive values
+    DoSomething positiveInput
 End Sub</code></pre>
 <h3 id="calculating-difference">Calculating Difference</h3>
 <pre><code class="language-vbnet">Function GetDifference(a As Long, b As Long) As Long
-GetDifference = Abs(a - b)
+    GetDifference = Abs(a - b)
 End Function</code></pre>
 <h3 id="data-validation">Data Validation</h3>
 <pre><code class="language-vbnet">Function IsWithinTolerance(actual As Double, expected As Double, tolerance As Double) As Boolean
-IsWithinTolerance = (Abs(actual - expected) &lt;= tolerance)
+    IsWithinTolerance = (Abs(actual - expected) &lt;= tolerance)
 End Function</code></pre>
 <h3 id="financial-calculations">Financial Calculations</h3>
 <pre><code class="language-vbnet">Function CalculateVariance(actual As Currency, budget As Currency) As Currency
-CalculateVariance = Abs(actual - budget)
+    CalculateVariance = Abs(actual - budget)
 End Function</code></pre>
 <h3 id="array-processing">Array Processing</h3>
 <pre><code class="language-vbnet">Sub MakeArrayPositive(arr() As Integer)
-Dim i As Integer
-For i = LBound(arr) To UBound(arr)
-arr(i) = Abs(arr(i))
-Next i
+    Dim i As Integer
+    For i = LBound(arr) To UBound(arr)
+        arr(i) = Abs(arr(i))
+    Next i
 End Sub</code></pre>
 <h3 id="comparison-logic">Comparison Logic</h3>
 <pre><code class="language-vbnet">Function MaxAbsValue(a As Double, b As Double) As Double
-If Abs(a) &gt; Abs(b) Then
-MaxAbsValue = Abs(a)
-Else
-MaxAbsValue = Abs(b)
-End If
+    If Abs(a) &gt; Abs(b) Then
+        MaxAbsValue = Abs(a)
+    Else
+        MaxAbsValue = Abs(b)
+    End If
 End Function</code></pre>
 <h3 id="coordinate-systems">Coordinate Systems</h3>
 <pre><code class="language-vbnet">Function ManhattanDistance(x1 As Integer, y1 As Integer, x2 As Integer, y2 As Integer) As Integer
-ManhattanDistance = Abs(x2 - x1) + Abs(y2 - y1)
+    ManhattanDistance = Abs(x2 - x1) + Abs(y2 - y1)
 End Function</code></pre>
 <h2 id="related-functions">Related Functions</h2>
 <ul>
@@ -200,17 +199,43 @@ End Function</code></pre>
 <td>Null</td>
 <td>Returns Null</td>
 </tr>
+<tr>
+<td>## Performance Notes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Abs</code> is a very fast intrinsic function</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No function call overhead in compiled code</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Optimized to CPU instructions where possible</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Prefer <code>Abs</code> over manual <code>If</code>/<code>Then</code> checks for performance</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>Abs</code> is parsed as a regular function call (<code>CallExpression</code>)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>This module serves as documentation and reference for the Abs function</td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="performance-notes">Performance Notes</h2>
-<ul>
-<li><code>Abs</code> is a very fast intrinsic function</li>
-<li>No function call overhead in compiled code</li>
-<li>Optimized to CPU instructions where possible</li>
-<li>Prefer <code>Abs</code> over manual <code>If</code>/<code>Then</code> checks for performance</li>
-</ul>
-<p><code>Abs</code> is parsed as a regular function call (<code>CallExpression</code>)
-This module serves as documentation and reference for the Abs function</p>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

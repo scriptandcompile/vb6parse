@@ -55,25 +55,49 @@
 <td>Optional</td>
 <td>A Variant or any valid numeric expression that is used as the new seed value to initialize the random number generator.</td>
 </tr>
+<tr>
+<td># Remarks</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- The Randomize statement initializes the random-number generator, giving it a new seed value.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- If you omit number, the value returned by the system timer is used as the new seed value.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- If Randomize is not used, the Rnd function (with no arguments) uses the same number as a seed the first time it is called, and thereafter uses the last generated number as a seed value.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- To repeat sequences of random numbers, call Rnd with a negative argument immediately before using Randomize with a numeric argument.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Using Randomize with the same value for number does not repeat the previous sequence.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td># Examples</td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h1 id="remarks">Remarks</h1>
-<ul>
-<li>The Randomize statement initializes the random-number generator, giving it a new seed value.</li>
-<li>If you omit number, the value returned by the system timer is used as the new seed value.</li>
-<li>If Randomize is not used, the Rnd function (with no arguments) uses the same number as a seed the first time it is called, and thereafter uses the last generated number as a seed value.</li>
-<li>To repeat sequences of random numbers, call Rnd with a negative argument immediately before using Randomize with a numeric argument.</li>
-<li>Using Randomize with the same value for number does not repeat the previous sequence.</li>
-</ul>
-<h1 id="examples">Examples</h1>
 <pre><code class="language-vbnet">&#x27; Initialize random number generator
 Randomize
 x = Int((100 * Rnd) + 1)
-
 &#x27; Initialize with specific seed
 Randomize 42
 x = Rnd
-
 &#x27; Use timer as seed
 Randomize Timer</code></pre>
 <h1 id="references">References</h1>

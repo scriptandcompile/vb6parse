@@ -45,7 +45,7 @@ representing the month of the year.</p>
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><strong>date</strong> (Required) - Any Variant, numeric expression, string expression, or any combination
-that can represent a date. If date contains Null, Null is returned.</li>
+  that can represent a date. If date contains Null, Null is returned.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <strong>Variant (Integer)</strong> from 1 to 12 representing the month of the year:
@@ -108,488 +108,399 @@ birthMonth = Month(#3/15/1990#)
 <pre><code class="language-vbnet">&#x27; Example 3: Filter records by month
 Dim orderDate As Date
 Dim orderMonth As Integer
-
 orderDate = rs(&quot;OrderDate&quot;)
 orderMonth = Month(orderDate)
-
 If orderMonth = 12 Then
-Debug.Print &quot;December order&quot;
+    Debug.Print &quot;December order&quot;
 End If</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 4: Determine fiscal quarter
 Dim transactionDate As Date
 Dim fiscalQuarter As Integer
-
 transactionDate = #5/15/2025#
-
 Select Case Month(transactionDate)
-Case 1, 2, 3
-fiscalQuarter = 1
-Case 4, 5, 6
-fiscalQuarter = 2
-Case 7, 8, 9
-fiscalQuarter = 3
-Case 10, 11, 12
-fiscalQuarter = 4
+    Case 1, 2, 3
+        fiscalQuarter = 1
+    Case 4, 5, 6
+        fiscalQuarter = 2
+    Case 7, 8, 9
+        fiscalQuarter = 3
+    Case 10, 11, 12
+        fiscalQuarter = 4
 End Select
-
 Debug.Print &quot;Q&quot; &amp; fiscalQuarter</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Safe month extraction with Null handling
 Function SafeMonth(dateValue As Variant) As Variant
-If IsNull(dateValue) Then
-SafeMonth = Null
-ElseIf Not IsDate(dateValue) Then
-SafeMonth = Null
-Else
-SafeMonth = Month(dateValue)
-End If
+    If IsNull(dateValue) Then
+        SafeMonth = Null
+    ElseIf Not IsDate(dateValue) Then
+        SafeMonth = Null
+    Else
+        SafeMonth = Month(dateValue)
+    End If
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 2: Get month name from number
 Function GetMonthName(dateValue As Date) As String
-Dim monthNames(1 To 12) As String
-monthNames(1) = &quot;January&quot;
-monthNames(2) = &quot;February&quot;
-monthNames(3) = &quot;March&quot;
-monthNames(4) = &quot;April&quot;
-monthNames(5) = &quot;May&quot;
-monthNames(6) = &quot;June&quot;
-monthNames(7) = &quot;July&quot;
-monthNames(8) = &quot;August&quot;
-monthNames(9) = &quot;September&quot;
-monthNames(10) = &quot;October&quot;
-monthNames(11) = &quot;November&quot;
-monthNames(12) = &quot;December&quot;
-
-GetMonthName = monthNames(Month(dateValue))
+    Dim monthNames(1 To 12) As String
+    monthNames(1) = &quot;January&quot;
+    monthNames(2) = &quot;February&quot;
+    monthNames(3) = &quot;March&quot;
+    monthNames(4) = &quot;April&quot;
+    monthNames(5) = &quot;May&quot;
+    monthNames(6) = &quot;June&quot;
+    monthNames(7) = &quot;July&quot;
+    monthNames(8) = &quot;August&quot;
+    monthNames(9) = &quot;September&quot;
+    monthNames(10) = &quot;October&quot;
+    monthNames(11) = &quot;November&quot;
+    monthNames(12) = &quot;December&quot;
+    GetMonthName = monthNames(Month(dateValue))
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 3: Check if date is in current month
 Function IsCurrentMonth(dateValue As Date) As Boolean
-IsCurrentMonth = (Month(dateValue) = Month(Date))
+    IsCurrentMonth = (Month(dateValue) = Month(Date))
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 4: Get fiscal quarter (Oct-Dec = Q1)
 Function GetFiscalQuarter(dateValue As Date, fiscalStartMonth As Integer) As Integer
-Dim monthNum As Integer
-Dim adjustedMonth As Integer
-
-monthNum = Month(dateValue)
-adjustedMonth = monthNum - fiscalStartMonth + 1
-
-If adjustedMonth &lt;= 0 Then
-adjustedMonth = adjustedMonth + 12
-End If
-
-GetFiscalQuarter = ((adjustedMonth - 1) \ 3) + 1
+    Dim monthNum As Integer
+    Dim adjustedMonth As Integer
+    monthNum = Month(dateValue)
+    adjustedMonth = monthNum - fiscalStartMonth + 1
+    If adjustedMonth &lt;= 0 Then
+        adjustedMonth = adjustedMonth + 12
+    End If
+    GetFiscalQuarter = ((adjustedMonth - 1) \ 3) + 1
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 5: Calculate months between two dates
 Function MonthsBetween(startDate As Date, endDate As Date) As Integer
-Dim years As Integer
-Dim months As Integer
-
-years = Year(endDate) - Year(startDate)
-months = Month(endDate) - Month(startDate)
-
-MonthsBetween = (years * 12) + months
+    Dim years As Integer
+    Dim months As Integer
+    years = Year(endDate) - Year(startDate)
+    months = Month(endDate) - Month(startDate)
+    MonthsBetween = (years * 12) + months
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 6: Get season from month
 Function GetSeason(dateValue As Date) As String
-Select Case Month(dateValue)
-Case 12, 1, 2
-GetSeason = &quot;Winter&quot;
-Case 3, 4, 5
-GetSeason = &quot;Spring&quot;
-Case 6, 7, 8
-GetSeason = &quot;Summer&quot;
-Case 9, 10, 11
-GetSeason = &quot;Fall&quot;
-End Select
+    Select Case Month(dateValue)
+        Case 12, 1, 2
+            GetSeason = &quot;Winter&quot;
+        Case 3, 4, 5
+            GetSeason = &quot;Spring&quot;
+        Case 6, 7, 8
+            GetSeason = &quot;Summer&quot;
+        Case 9, 10, 11
+            GetSeason = &quot;Fall&quot;
+    End Select
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 7: Format month with leading zero
 Function FormatMonth(dateValue As Date) As String
-FormatMonth = Format(Month(dateValue), &quot;00&quot;)
+    FormatMonth = Format(Month(dateValue), &quot;00&quot;)
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 8: Check if same month and year
 Function IsSameMonthYear(date1 As Date, date2 As Date) As Boolean
-IsSameMonthYear = (Month(date1) = Month(date2)) And _
-(Year(date1) = Year(date2))
+    IsSameMonthYear = (Month(date1) = Month(date2)) And _
+                      (Year(date1) = Year(date2))
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 9: Get first day of month
 Function GetFirstDayOfMonth(dateValue As Date) As Date
-GetFirstDayOfMonth = DateSerial(Year(dateValue), Month(dateValue), 1)
+    GetFirstDayOfMonth = DateSerial(Year(dateValue), Month(dateValue), 1)
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 10: Get last day of month
 Function GetLastDayOfMonth(dateValue As Date) As Date
-Dim nextMonth As Date
-nextMonth = DateSerial(Year(dateValue), Month(dateValue) + 1, 1)
-GetLastDayOfMonth = DateAdd(&quot;d&quot;, -1, nextMonth)
+    Dim nextMonth As Date
+    nextMonth = DateSerial(Year(dateValue), Month(dateValue) + 1, 1)
+    GetLastDayOfMonth = DateAdd(&quot;d&quot;, -1, nextMonth)
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-monthly-sales-report-generator">Example 1: Monthly Sales Report Generator</h3>
 <pre><code class="language-vbnet">&#x27; Class: MonthlySalesReport
 &#x27; Generates comprehensive monthly sales analysis
-
 Option Explicit
-
 Private m_year As Integer
 Private m_month As Integer
 Private m_sales() As Double
 Private m_recordCount As Long
-
 Public Sub Initialize(targetYear As Integer, targetMonth As Integer)
-m_year = targetYear
-m_month = targetMonth
-m_recordCount = 0
-ReDim m_sales(0)
+    m_year = targetYear
+    m_month = targetMonth
+    m_recordCount = 0
+    ReDim m_sales(0)
 End Sub
-
 Public Sub ProcessRecordset(rs As ADODB.Recordset)
-Dim saleDate As Date
-Dim saleAmount As Double
-
-rs.MoveFirst
-Do While Not rs.EOF
-saleDate = rs(&quot;SaleDate&quot;)
-
-If Year(saleDate) = m_year And Month(saleDate) = m_month Then
-saleAmount = rs(&quot;Amount&quot;)
-
-ReDim Preserve m_sales(m_recordCount)
-m_sales(m_recordCount) = saleAmount
-m_recordCount = m_recordCount + 1
-End If
-
-rs.MoveNext
-Loop
+    Dim saleDate As Date
+    Dim saleAmount As Double
+    rs.MoveFirst
+    Do While Not rs.EOF
+        saleDate = rs(&quot;SaleDate&quot;)
+        If Year(saleDate) = m_year And Month(saleDate) = m_month Then
+            saleAmount = rs(&quot;Amount&quot;)
+            ReDim Preserve m_sales(m_recordCount)
+            m_sales(m_recordCount) = saleAmount
+            m_recordCount = m_recordCount + 1
+        End If
+        rs.MoveNext
+    Loop
 End Sub
-
 Public Function GetTotalSales() As Double
-Dim i As Long
-Dim total As Double
-
-total = 0
-For i = 0 To m_recordCount - 1
-total = total + m_sales(i)
-Next i
-
-GetTotalSales = total
+    Dim i As Long
+    Dim total As Double
+    total = 0
+    For i = 0 To m_recordCount - 1
+        total = total + m_sales(i)
+    Next i
+    GetTotalSales = total
 End Function
-
 Public Function GetAverageSale() As Double
-If m_recordCount = 0 Then
-GetAverageSale = 0
-Else
-GetAverageSale = GetTotalSales() / m_recordCount
-End If
+    If m_recordCount = 0 Then
+        GetAverageSale = 0
+    Else
+        GetAverageSale = GetTotalSales() / m_recordCount
+    End If
 End Function
-
 Public Function GenerateReport() As String
-Dim report As String
-Dim monthName As String
-
-monthName = Format(DateSerial(m_year, m_month, 1), &quot;mmmm&quot;)
-
-report = &quot;Sales Report - &quot; &amp; monthName &amp; &quot; &quot; &amp; m_year &amp; vbCrLf
-report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
-report = report &amp; &quot;Total Sales: &quot; &amp; Format(GetTotalSales(), &quot;$#,##0.00&quot;) &amp; vbCrLf
-report = report &amp; &quot;Number of Transactions: &quot; &amp; m_recordCount &amp; vbCrLf
-report = report &amp; &quot;Average Sale: &quot; &amp; Format(GetAverageSale(), &quot;$#,##0.00&quot;) &amp; vbCrLf
-
-GenerateReport = report
+    Dim report As String
+    Dim monthName As String
+    monthName = Format(DateSerial(m_year, m_month, 1), &quot;mmmm&quot;)
+    report = &quot;Sales Report - &quot; &amp; monthName &amp; &quot; &quot; &amp; m_year &amp; vbCrLf
+    report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+    report = report &amp; &quot;Total Sales: &quot; &amp; Format(GetTotalSales(), &quot;$#,##0.00&quot;) &amp; vbCrLf
+    report = report &amp; &quot;Number of Transactions: &quot; &amp; m_recordCount &amp; vbCrLf
+    report = report &amp; &quot;Average Sale: &quot; &amp; Format(GetAverageSale(), &quot;$#,##0.00&quot;) &amp; vbCrLf
+    GenerateReport = report
 End Function</code></pre>
 <h3 id="example-2-fiscal-calendar-manager">Example 2: Fiscal Calendar Manager</h3>
 <pre><code class="language-vbnet">&#x27; Class: FiscalCalendar
 &#x27; Manages fiscal year calculations with custom start month
-
 Option Explicit
-
 Private m_fiscalStartMonth As Integer  &#x27; 1-12
-
 Public Sub Initialize(fiscalStartMonth As Integer)
-If fiscalStartMonth &lt; 1 Or fiscalStartMonth &gt; 12 Then
-Err.Raise 5, &quot;FiscalCalendar&quot;, &quot;Invalid fiscal start month&quot;
-End If
-m_fiscalStartMonth = fiscalStartMonth
+    If fiscalStartMonth &lt; 1 Or fiscalStartMonth &gt; 12 Then
+        Err.Raise 5, &quot;FiscalCalendar&quot;, &quot;Invalid fiscal start month&quot;
+    End If
+    m_fiscalStartMonth = fiscalStartMonth
 End Sub
-
 Public Function GetFiscalYear(calendarDate As Date) As Integer
-Dim calendarYear As Integer
-Dim calendarMonth As Integer
-
-calendarYear = Year(calendarDate)
-calendarMonth = Month(calendarDate)
-
-If calendarMonth &gt;= m_fiscalStartMonth Then
-GetFiscalYear = calendarYear
-Else
-GetFiscalYear = calendarYear - 1
-End If
+    Dim calendarYear As Integer
+    Dim calendarMonth As Integer
+    calendarYear = Year(calendarDate)
+    calendarMonth = Month(calendarDate)
+    If calendarMonth &gt;= m_fiscalStartMonth Then
+        GetFiscalYear = calendarYear
+    Else
+        GetFiscalYear = calendarYear - 1
+    End If
 End Function
-
 Public Function GetFiscalQuarter(calendarDate As Date) As Integer
-Dim monthNum As Integer
-Dim monthsFromStart As Integer
-
-monthNum = Month(calendarDate)
-monthsFromStart = monthNum - m_fiscalStartMonth
-
-If monthsFromStart &lt; 0 Then
-monthsFromStart = monthsFromStart + 12
-End If
-
-GetFiscalQuarter = (monthsFromStart \ 3) + 1
+    Dim monthNum As Integer
+    Dim monthsFromStart As Integer
+    monthNum = Month(calendarDate)
+    monthsFromStart = monthNum - m_fiscalStartMonth
+    If monthsFromStart &lt; 0 Then
+        monthsFromStart = monthsFromStart + 12
+    End If
+    GetFiscalQuarter = (monthsFromStart \ 3) + 1
 End Function
-
 Public Function GetFiscalPeriod(calendarDate As Date) As Integer
-&#x27; Returns 1-12 for each month of fiscal year
-Dim monthNum As Integer
-Dim period As Integer
-
-monthNum = Month(calendarDate)
-period = monthNum - m_fiscalStartMonth + 1
-
-If period &lt;= 0 Then
-period = period + 12
-End If
-
-GetFiscalPeriod = period
+    &#x27; Returns 1-12 for each month of fiscal year
+    Dim monthNum As Integer
+    Dim period As Integer
+    monthNum = Month(calendarDate)
+    period = monthNum - m_fiscalStartMonth + 1
+    If period &lt;= 0 Then
+        period = period + 12
+    End If
+    GetFiscalPeriod = period
 End Function
-
 Public Function GetQuarterStartDate(calendarDate As Date) As Date
-Dim fiscalYear As Integer
-Dim quarter As Integer
-Dim quarterStartMonth As Integer
-
-fiscalYear = GetFiscalYear(calendarDate)
-quarter = GetFiscalQuarter(calendarDate)
-
-quarterStartMonth = m_fiscalStartMonth + ((quarter - 1) * 3)
-If quarterStartMonth &gt; 12 Then
-quarterStartMonth = quarterStartMonth - 12
-fiscalYear = fiscalYear + 1
-End If
-
-GetQuarterStartDate = DateSerial(fiscalYear, quarterStartMonth, 1)
+    Dim fiscalYear As Integer
+    Dim quarter As Integer
+    Dim quarterStartMonth As Integer
+    fiscalYear = GetFiscalYear(calendarDate)
+    quarter = GetFiscalQuarter(calendarDate)
+    quarterStartMonth = m_fiscalStartMonth + ((quarter - 1) * 3)
+    If quarterStartMonth &gt; 12 Then
+        quarterStartMonth = quarterStartMonth - 12
+        fiscalYear = fiscalYear + 1
+    End If
+    GetQuarterStartDate = DateSerial(fiscalYear, quarterStartMonth, 1)
 End Function
-
 Public Function FormatFiscalPeriod(calendarDate As Date) As String
-Dim fy As Integer
-Dim period As Integer
-
-fy = GetFiscalYear(calendarDate)
-period = GetFiscalPeriod(calendarDate)
-
-FormatFiscalPeriod = &quot;FY&quot; &amp; fy &amp; &quot;-P&quot; &amp; Format(period, &quot;00&quot;)
+    Dim fy As Integer
+    Dim period As Integer
+    fy = GetFiscalYear(calendarDate)
+    period = GetFiscalPeriod(calendarDate)
+    FormatFiscalPeriod = &quot;FY&quot; &amp; fy &amp; &quot;-P&quot; &amp; Format(period, &quot;00&quot;)
 End Function</code></pre>
 <h3 id="example-3-date-range-validator">Example 3: Date Range Validator</h3>
 <pre><code class="language-vbnet">&#x27; Module: DateRangeValidator
 &#x27; Validates dates against month-based constraints
-
 Option Explicit
-
 Public Function IsInMonthRange(testDate As Date, _
-startMonth As Integer, _
-endMonth As Integer) As Boolean
-Dim testMonth As Integer
-testMonth = Month(testDate)
-
-If startMonth &lt;= endMonth Then
-&#x27; Same year range (e.g., March to September)
-IsInMonthRange = (testMonth &gt;= startMonth) And (testMonth &lt;= endMonth)
-Else
-&#x27; Wraps year boundary (e.g., November to February)
-IsInMonthRange = (testMonth &gt;= startMonth) Or (testMonth &lt;= endMonth)
-End If
+                               startMonth As Integer, _
+                               endMonth As Integer) As Boolean
+    Dim testMonth As Integer
+    testMonth = Month(testDate)
+    If startMonth &lt;= endMonth Then
+        &#x27; Same year range (e.g., March to September)
+        IsInMonthRange = (testMonth &gt;= startMonth) And (testMonth &lt;= endMonth)
+    Else
+        &#x27; Wraps year boundary (e.g., November to February)
+        IsInMonthRange = (testMonth &gt;= startMonth) Or (testMonth &lt;= endMonth)
+    End If
 End Function
-
 Public Function IsValidBusinessCycle(startDate As Date, endDate As Date) As Boolean
-Dim monthsDiff As Integer
-
-monthsDiff = ((Year(endDate) - Year(startDate)) * 12) + _
-(Month(endDate) - Month(startDate))
-
-&#x27; Business cycle should be at least 3 months, max 18 months
-IsValidBusinessCycle = (monthsDiff &gt;= 3) And (monthsDiff &lt;= 18)
+    Dim monthsDiff As Integer
+    monthsDiff = ((Year(endDate) - Year(startDate)) * 12) + _
+                 (Month(endDate) - Month(startDate))
+    &#x27; Business cycle should be at least 3 months, max 18 months
+    IsValidBusinessCycle = (monthsDiff &gt;= 3) And (monthsDiff &lt;= 18)
 End Function
-
 Public Function GetMonthsOverlap(start1 As Date, end1 As Date, _
-start2 As Date, end2 As Date) As Integer
-Dim overlapStart As Date
-Dim overlapEnd As Date
-Dim monthsOverlap As Integer
-
-&#x27; Determine overlap period
-If start1 &gt; start2 Then
-overlapStart = start1
-Else
-overlapStart = start2
-End If
-
-If end1 &lt; end2 Then
-overlapEnd = end1
-Else
-overlapEnd = end2
-End If
-
-If overlapStart &gt; overlapEnd Then
-GetMonthsOverlap = 0
-Else
-monthsOverlap = ((Year(overlapEnd) - Year(overlapStart)) * 12) + _
-(Month(overlapEnd) - Month(overlapStart)) + 1
-GetMonthsOverlap = monthsOverlap
-End If
+                                 start2 As Date, end2 As Date) As Integer
+    Dim overlapStart As Date
+    Dim overlapEnd As Date
+    Dim monthsOverlap As Integer
+    &#x27; Determine overlap period
+    If start1 &gt; start2 Then
+        overlapStart = start1
+    Else
+        overlapStart = start2
+    End If
+    If end1 &lt; end2 Then
+        overlapEnd = end1
+    Else
+        overlapEnd = end2
+    End If
+    If overlapStart &gt; overlapEnd Then
+        GetMonthsOverlap = 0
+    Else
+        monthsOverlap = ((Year(overlapEnd) - Year(overlapStart)) * 12) + _
+                       (Month(overlapEnd) - Month(overlapStart)) + 1
+        GetMonthsOverlap = monthsOverlap
+    End If
 End Function
-
 Public Function IsQuarterEnd(testDate As Date) As Boolean
-Dim monthNum As Integer
-Dim lastDay As Date
-
-monthNum = Month(testDate)
-
-&#x27; Check if month is quarter-end month
-If monthNum Mod 3 &lt;&gt; 0 Then
-IsQuarterEnd = False
-Exit Function
-End If
-
-&#x27; Check if it&#x27;s the last day of the month
-lastDay = DateSerial(Year(testDate), monthNum + 1, 1) - 1
-IsQuarterEnd = (Day(testDate) = Day(lastDay))
+    Dim monthNum As Integer
+    Dim lastDay As Date
+    monthNum = Month(testDate)
+    &#x27; Check if month is quarter-end month
+    If monthNum Mod 3 &lt;&gt; 0 Then
+        IsQuarterEnd = False
+        Exit Function
+    End If
+    &#x27; Check if it&#x27;s the last day of the month
+    lastDay = DateSerial(Year(testDate), monthNum + 1, 1) - 1
+    IsQuarterEnd = (Day(testDate) = Day(lastDay))
 End Function
-
 Public Function GetNextQuarterStart(fromDate As Date) As Date
-Dim currentMonth As Integer
-Dim nextQuarterMonth As Integer
-Dim targetYear As Integer
-
-currentMonth = Month(fromDate)
-targetYear = Year(fromDate)
-
-&#x27; Calculate next quarter start month
-nextQuarterMonth = ((currentMonth - 1) \ 3 + 1) * 3 + 1
-
-If nextQuarterMonth &gt; 12 Then
-nextQuarterMonth = nextQuarterMonth - 12
-targetYear = targetYear + 1
-End If
-
-GetNextQuarterStart = DateSerial(targetYear, nextQuarterMonth, 1)
+    Dim currentMonth As Integer
+    Dim nextQuarterMonth As Integer
+    Dim targetYear As Integer
+    currentMonth = Month(fromDate)
+    targetYear = Year(fromDate)
+    &#x27; Calculate next quarter start month
+    nextQuarterMonth = ((currentMonth - 1) \ 3 + 1) * 3 + 1
+    If nextQuarterMonth &gt; 12 Then
+        nextQuarterMonth = nextQuarterMonth - 12
+        targetYear = targetYear + 1
+    End If
+    GetNextQuarterStart = DateSerial(targetYear, nextQuarterMonth, 1)
 End Function</code></pre>
 <h3 id="example-4-subscription-manager">Example 4: Subscription Manager</h3>
 <pre><code class="language-vbnet">&#x27; Class: SubscriptionManager
 &#x27; Tracks monthly recurring subscriptions
-
 Option Explicit
-
 Private Type Subscription
-CustomerID As String
-StartDate As Date
-EndDate As Date
-MonthlyFee As Double
-Active As Boolean
+    CustomerID As String
+    StartDate As Date
+    EndDate As Date
+    MonthlyFee As Double
+    Active As Boolean
 End Type
-
 Private m_subscriptions() As Subscription
 Private m_count As Long
-
 Public Sub AddSubscription(customerID As String, startDate As Date, _
-endDate As Date, monthlyFee As Double)
-ReDim Preserve m_subscriptions(m_count)
-
-m_subscriptions(m_count).CustomerID = customerID
-m_subscriptions(m_count).StartDate = startDate
-m_subscriptions(m_count).EndDate = endDate
-m_subscriptions(m_count).MonthlyFee = monthlyFee
-m_subscriptions(m_count).Active = True
-
-m_count = m_count + 1
+                           endDate As Date, monthlyFee As Double)
+    ReDim Preserve m_subscriptions(m_count)
+    m_subscriptions(m_count).CustomerID = customerID
+    m_subscriptions(m_count).StartDate = startDate
+    m_subscriptions(m_count).EndDate = endDate
+    m_subscriptions(m_count).MonthlyFee = monthlyFee
+    m_subscriptions(m_count).Active = True
+    m_count = m_count + 1
 End Sub
-
 Public Function GetMonthlyRevenue(targetYear As Integer, _
-targetMonth As Integer) As Double
-Dim i As Long
-Dim revenue As Double
-Dim checkDate As Date
-
-checkDate = DateSerial(targetYear, targetMonth, 15) &#x27; Mid-month
-revenue = 0
-
-For i = 0 To m_count - 1
-If m_subscriptions(i).Active Then
-If IsSubscriptionActive(m_subscriptions(i), checkDate) Then
-revenue = revenue + m_subscriptions(i).MonthlyFee
-End If
-End If
-Next i
-
-GetMonthlyRevenue = revenue
+                                  targetMonth As Integer) As Double
+    Dim i As Long
+    Dim revenue As Double
+    Dim checkDate As Date
+    checkDate = DateSerial(targetYear, targetMonth, 15) &#x27; Mid-month
+    revenue = 0
+    For i = 0 To m_count - 1
+        If m_subscriptions(i).Active Then
+            If IsSubscriptionActive(m_subscriptions(i), checkDate) Then
+                revenue = revenue + m_subscriptions(i).MonthlyFee
+            End If
+        End If
+    Next i
+    GetMonthlyRevenue = revenue
 End Function
-
 Private Function IsSubscriptionActive(sub As Subscription, _
-checkDate As Date) As Boolean
-IsSubscriptionActive = (checkDate &gt;= sub.StartDate) And _
-(checkDate &lt;= sub.EndDate)
+                                      checkDate As Date) As Boolean
+    IsSubscriptionActive = (checkDate &gt;= sub.StartDate) And _
+                          (checkDate &lt;= sub.EndDate)
 End Function
-
 Public Function GetActiveSubscriptions(targetYear As Integer, _
-targetMonth As Integer) As Long
-Dim i As Long
-Dim count As Long
-Dim checkDate As Date
-
-checkDate = DateSerial(targetYear, targetMonth, 15)
-count = 0
-
-For i = 0 To m_count - 1
-If m_subscriptions(i).Active Then
-If IsSubscriptionActive(m_subscriptions(i), checkDate) Then
-count = count + 1
-End If
-End If
-Next i
-
-GetActiveSubscriptions = count
+                                       targetMonth As Integer) As Long
+    Dim i As Long
+    Dim count As Long
+    Dim checkDate As Date
+    checkDate = DateSerial(targetYear, targetMonth, 15)
+    count = 0
+    For i = 0 To m_count - 1
+        If m_subscriptions(i).Active Then
+            If IsSubscriptionActive(m_subscriptions(i), checkDate) Then
+                count = count + 1
+            End If
+        End If
+    Next i
+    GetActiveSubscriptions = count
 End Function
-
 Public Function CalculateLifetimeMonths(customerID As String) As Integer
-Dim i As Long
-Dim totalMonths As Integer
-Dim monthsActive As Integer
-
-totalMonths = 0
-
-For i = 0 To m_count - 1
-If m_subscriptions(i).CustomerID = customerID Then
-monthsActive = ((Year(m_subscriptions(i).EndDate) - _
-Year(m_subscriptions(i).StartDate)) * 12) + _
-(Month(m_subscriptions(i).EndDate) - _
-Month(m_subscriptions(i).StartDate)) + 1
-totalMonths = totalMonths + monthsActive
-End If
-Next i
-
-CalculateLifetimeMonths = totalMonths
+    Dim i As Long
+    Dim totalMonths As Integer
+    Dim monthsActive As Integer
+    totalMonths = 0
+    For i = 0 To m_count - 1
+        If m_subscriptions(i).CustomerID = customerID Then
+            monthsActive = ((Year(m_subscriptions(i).EndDate) - _
+                           Year(m_subscriptions(i).StartDate)) * 12) + _
+                          (Month(m_subscriptions(i).EndDate) - _
+                           Month(m_subscriptions(i).StartDate)) + 1
+            totalMonths = totalMonths + monthsActive
+        End If
+    Next i
+    CalculateLifetimeMonths = totalMonths
 End Function
-
 Public Sub GenerateAnnualReport(targetYear As Integer)
-Dim monthNum As Integer
-Dim revenue As Double
-
-Debug.Print &quot;Annual Subscription Report - &quot; &amp; targetYear
-Debug.Print String(60, &quot;-&quot;)
-
-For monthNum = 1 To 12
-revenue = GetMonthlyRevenue(targetYear, monthNum)
-Debug.Print Format(DateSerial(targetYear, monthNum, 1), &quot;mmmm&quot;) &amp; &quot;: &quot; &amp; _
-Format(revenue, &quot;$#,##0.00&quot;) &amp; &quot; (&quot; &amp; _
-GetActiveSubscriptions(targetYear, monthNum) &amp; &quot; subs)&quot;
-Next monthNum
+    Dim monthNum As Integer
+    Dim revenue As Double
+    Debug.Print &quot;Annual Subscription Report - &quot; &amp; targetYear
+    Debug.Print String(60, &quot;-&quot;)
+    For monthNum = 1 To 12
+        revenue = GetMonthlyRevenue(targetYear, monthNum)
+        Debug.Print Format(DateSerial(targetYear, monthNum, 1), &quot;mmmm&quot;) &amp; &quot;: &quot; &amp; _
+                   Format(revenue, &quot;$#,##0.00&quot;) &amp; &quot; (&quot; &amp; _
+                   GetActiveSubscriptions(targetYear, monthNum) &amp; &quot; subs)&quot;
+    Next monthNum
 End Sub</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">On Error Resume Next
 monthValue = Month(dateInput)
 If Err.Number = 13 Then
-MsgBox &quot;Invalid date format&quot;
+    MsgBox &quot;Invalid date format&quot;
 ElseIf Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Error extracting month: &quot; &amp; Err.Description
+    MsgBox &quot;Error extracting month: &quot; &amp; Err.Description
 End If
 On Error GoTo 0</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
@@ -660,43 +571,182 @@ On Error GoTo 0</code></pre>
 <td>String</td>
 <td>Get month name (not number)</td>
 </tr>
+<tr>
+<td>## Platform Notes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in VBA (Excel, Access, Word, etc.)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in VB6</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in <code>VBScript</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns Integer type (not Long)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Consistent across all VB6/VBA platforms</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Uses system's regional settings for date interpretation (when parsing strings)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot extract month from time-only values (use Date data type)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns Null if input is Null (not an error)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Type mismatch error if input cannot be interpreted as a date</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Always returns 1-12, no support for zero-based indexing</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Does not provide month name (use <code>MonthName()</code> or <code>Format()</code> for that)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Time component is ignored (only date portion matters)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Related Functions</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Year</strong> - Returns the year component of a date (1-9999)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Day</strong> - Returns the day component of a date (1-31)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Weekday</strong> - Returns the day of the week (1-7)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Hour</strong> - Returns the hour component of a time (0-23)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Minute</strong> - Returns the minute component of a time (0-59)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Second</strong> - Returns the second component of a time (0-59)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong><code>DatePart</code></strong> - Returns a specified part of a date (flexible)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong><code>DateSerial</code></strong> - Creates a date from year, month, and day components</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong><code>MonthName</code></strong> - Returns the name of the month as a string</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Format</strong> - Formats a date with custom patterns including month</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## VB6 Parser Notes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Month is parsed as a regular function call (<code>CallExpression</code>). This module exists primarily</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>for documentation purposes to provide comprehensive reference material for VB6 developers</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>working with date calculations and month extraction operations.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-notes">Platform Notes</h2>
-<ul>
-<li>Available in VBA (Excel, Access, Word, etc.)</li>
-<li>Available in VB6</li>
-<li>Available in <code>VBScript</code></li>
-<li>Returns Integer type (not Long)</li>
-<li>Consistent across all VB6/VBA platforms</li>
-<li>Uses system's regional settings for date interpretation (when parsing strings)</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Cannot extract month from time-only values (use Date data type)</li>
-<li>Returns Null if input is Null (not an error)</li>
-<li>Type mismatch error if input cannot be interpreted as a date</li>
-<li>Always returns 1-12, no support for zero-based indexing</li>
-<li>Does not provide month name (use <code>MonthName()</code> or <code>Format()</code> for that)</li>
-<li>Time component is ignored (only date portion matters)</li>
-</ul>
-<h2 id="related-functions">Related Functions</h2>
-<ul>
-<li><strong>Year</strong> - Returns the year component of a date (1-9999)</li>
-<li><strong>Day</strong> - Returns the day component of a date (1-31)</li>
-<li><strong>Weekday</strong> - Returns the day of the week (1-7)</li>
-<li><strong>Hour</strong> - Returns the hour component of a time (0-23)</li>
-<li><strong>Minute</strong> - Returns the minute component of a time (0-59)</li>
-<li><strong>Second</strong> - Returns the second component of a time (0-59)</li>
-<li><strong><code>DatePart</code></strong> - Returns a specified part of a date (flexible)</li>
-<li><strong><code>DateSerial</code></strong> - Creates a date from year, month, and day components</li>
-<li><strong><code>MonthName</code></strong> - Returns the name of the month as a string</li>
-<li><strong>Format</strong> - Formats a date with custom patterns including month</li>
-</ul>
-<h2 id="vb6-parser-notes">VB6 Parser Notes</h2>
-<p>Month is parsed as a regular function call (<code>CallExpression</code>). This module exists primarily
-for documentation purposes to provide comprehensive reference material for VB6 developers
-working with date calculations and month extraction operations.</p>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
