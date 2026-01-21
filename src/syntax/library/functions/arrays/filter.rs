@@ -1,4 +1,4 @@
-//! ## Filter Function
+//! ## `Filter` Function
 //!
 //! Returns a zero-based array containing a subset of a string array based on specified filter criteria.
 //!

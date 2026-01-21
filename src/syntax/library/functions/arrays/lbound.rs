@@ -1,4 +1,4 @@
-//! ## LBound Function
+//! ## `LBound` Function
 //!
 //! Returns a `Long` containing the smallest available subscript for the indicated dimension of an array.
 //!

@@ -78,9 +78,12 @@ def extract_module_docs(file_path: Path) -> Optional[str]:
     doc_lines = []
     in_module_doc = False
     
-    for line in lines:
+    for index, line in enumerate(lines):
         stripped = line.strip()
         
+        if index == 0 and "`" in stripped:
+            stripped = stripped.replace("`", "")
+
         # Check for module doc comment
         if stripped.startswith('//! '):
             in_module_doc = True
