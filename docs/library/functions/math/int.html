@@ -52,19 +52,17 @@
 - If <code>number</code> is <code>Null</code>: Returns <code>Null</code>
 - Return type matches the input type (Integer, Long, Single, Double, Currency, Decimal)</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>Int</code> function truncates toward negative infinity:</p>
-<ul>
-<li>Removes the fractional part of a number</li>
-<li>For positive numbers, behaves like truncation (same as <code>Fix</code>)</li>
-<li>For negative numbers, rounds DOWN (toward negative infinity)</li>
-<li><code>Fix</code> rounds toward zero (always truncates), <code>Int</code> rounds down</li>
-<li><code>Int</code>(-8.4) returns -9, <code>Fix</code>(-8.4) returns -8</li>
-<li><code>Int</code>(8.4) returns 8, <code>Fix</code>(8.4) returns 8</li>
-<li>Does not round to nearest integer (use <code>Round</code> for rounding)</li>
-<li>The return type preserves the input numeric type</li>
-<li>Commonly used with <code>Rnd</code> for generating random integers</li>
-<li>For currency calculations, consider using <code>Round</code> or <code>CCur</code> instead</li>
-</ul>
+<p>The <code>Int</code> function truncates toward negative infinity:
+- Removes the fractional part of a number
+- For positive numbers, behaves like truncation (same as <code>Fix</code>)
+- For negative numbers, rounds DOWN (toward negative infinity)
+- <code>Fix</code> rounds toward zero (always truncates), <code>Int</code> rounds down
+- <code>Int</code>(-8.4) returns -9, <code>Fix</code>(-8.4) returns -8
+- <code>Int</code>(8.4) returns 8, <code>Fix</code>(8.4) returns 8
+- Does not round to nearest integer (use <code>Round</code> for rounding)
+- The return type preserves the input numeric type
+- Commonly used with <code>Rnd</code> for generating random integers
+- For currency calculations, consider using <code>Round</code> or <code>CCur</code> instead</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Remove Decimals</strong>: Strip fractional part from numbers</li>
@@ -81,17 +79,14 @@
 Dim result As Integer
 result = Int(8.7)
 Debug.Print result  &#x27; Prints: 8
-
 &#x27; Example 2: Negative number behavior
 Dim result As Integer
 result = Int(-8.7)
 Debug.Print result  &#x27; Prints: -9 (rounds down, not toward zero)
-
 &#x27; Example 3: Random integer between 1 and 100
 Dim randomNum As Integer
 Randomize
 randomNum = Int(Rnd * 100) + 1
-
 &#x27; Example 4: Calculate whole pages
 Dim totalItems As Long
 Dim itemsPerPage As Long
@@ -103,302 +98,245 @@ Debug.Print totalPages  &#x27; Prints: 5</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Random integer in range
 Function RandomInteger(minValue As Long, maxValue As Long) As Long
-Randomize
-RandomInteger = Int((maxValue - minValue + 1) * Rnd) + minValue
+    Randomize
+    RandomInteger = Int((maxValue - minValue + 1) * Rnd) + minValue
 End Function
-
 &#x27; Pattern 2: Get whole number portion
 Function GetWholeNumber(value As Double) As Long
-If value &gt;= 0 Then
-GetWholeNumber = Int(value)
-Else
-&#x27; For negative numbers, Int rounds down
-&#x27; Use Fix if you want to truncate toward zero
-GetWholeNumber = Int(value)
-End If
+    If value &gt;= 0 Then
+        GetWholeNumber = Int(value)
+    Else
+        &#x27; For negative numbers, Int rounds down
+        &#x27; Use Fix if you want to truncate toward zero
+        GetWholeNumber = Int(value)
+    End If
 End Function
-
 &#x27; Pattern 3: Calculate pages needed
 Function CalculatePages(totalItems As Long, itemsPerPage As Long) As Long
-If itemsPerPage &lt;= 0 Then
-CalculatePages = 0
-Exit Function
-End If
-
-CalculatePages = Int((totalItems - 1) / itemsPerPage) + 1
+    If itemsPerPage &lt;= 0 Then
+        CalculatePages = 0
+        Exit Function
+    End If
+    CalculatePages = Int((totalItems - 1) / itemsPerPage) + 1
 End Function
-
 &#x27; Pattern 4: Round down to nearest multiple
 Function RoundDownToMultiple(value As Double, multiple As Double) As Double
-If multiple = 0 Then
-RoundDownToMultiple = value
-Else
-RoundDownToMultiple = Int(value / multiple) * multiple
-End If
+    If multiple = 0 Then
+        RoundDownToMultiple = value
+    Else
+        RoundDownToMultiple = Int(value / multiple) * multiple
+    End If
 End Function
-
 &#x27; Pattern 5: Extract integer part for display
 Function FormatNumber(value As Double) As String
-Dim wholePart As Long
-Dim decimalPart As Double
-
-wholePart = Int(Abs(value))
-decimalPart = Abs(value) - wholePart
-
-FormatNumber = CStr(wholePart) &amp; &quot;.&quot; &amp; _
-Format$(decimalPart, &quot;00&quot;)
+    Dim wholePart As Long
+    Dim decimalPart As Double
+    wholePart = Int(Abs(value))
+    decimalPart = Abs(value) - wholePart
+    FormatNumber = CStr(wholePart) &amp; &quot;.&quot; &amp; _
+                   Format$(decimalPart, &quot;00&quot;)
 End Function
-
 &#x27; Pattern 6: Generate random array index
 Function RandomArrayIndex(arr As Variant) As Long
-Dim lowerBound As Long
-Dim upperBound As Long
-
-lowerBound = LBound(arr)
-upperBound = UBound(arr)
-
-RandomArrayIndex = Int((upperBound - lowerBound + 1) * Rnd) + lowerBound
+    Dim lowerBound As Long
+    Dim upperBound As Long
+    lowerBound = LBound(arr)
+    upperBound = UBound(arr)
+    RandomArrayIndex = Int((upperBound - lowerBound + 1) * Rnd) + lowerBound
 End Function
-
 &#x27; Pattern 7: Calculate grid position
 Sub GetGridPosition(pixelX As Double, pixelY As Double, _
-gridSize As Double, _
-ByRef gridX As Long, ByRef gridY As Long)
-gridX = Int(pixelX / gridSize)
-gridY = Int(pixelY / gridSize)
+                    gridSize As Double, _
+                    ByRef gridX As Long, ByRef gridY As Long)
+    gridX = Int(pixelX / gridSize)
+    gridY = Int(pixelY / gridSize)
 End Sub
-
 &#x27; Pattern 8: Divide and get quotient
 Function IntegerDivision(dividend As Long, divisor As Long) As Long
-If divisor = 0 Then
-Err.Raise 11, , &quot;Division by zero&quot;
-End If
-
-IntegerDivision = Int(dividend / divisor)
+    If divisor = 0 Then
+        Err.Raise 11, , &quot;Division by zero&quot;
+    End If
+    IntegerDivision = Int(dividend / divisor)
 End Function
-
 &#x27; Pattern 9: Time to whole seconds
 Function GetWholeSeconds(timeValue As Double) As Long
-Dim secondsDecimal As Double
-secondsDecimal = timeValue * 86400  &#x27; Convert days to seconds
-GetWholeSeconds = Int(secondsDecimal)
+    Dim secondsDecimal As Double
+    secondsDecimal = timeValue * 86400  &#x27; Convert days to seconds
+    GetWholeSeconds = Int(secondsDecimal)
 End Function
-
 &#x27; Pattern 10: Percentage to whole number
 Function GetWholePercent(value As Double, total As Double) As Long
-If total = 0 Then
-GetWholePercent = 0
-Else
-GetWholePercent = Int((value / total) * 100)
-End If
+    If total = 0 Then
+        GetWholePercent = 0
+    Else
+        GetWholePercent = Int((value / total) * 100)
+    End If
 End Function</code></pre>
 <h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Random number generator class
 Public Class RandomNumberGenerator
-Private m_initialized As Boolean
-
-Private Sub EnsureInitialized()
-If Not m_initialized Then
-Randomize
-m_initialized = True
-End If
-End Sub
-
-Public Function NextInteger(minValue As Long, maxValue As Long) As Long
-EnsureInitialized
-
-If minValue &gt; maxValue Then
-Err.Raise 5, , &quot;minValue cannot be greater than maxValue&quot;
-End If
-
-NextInteger = Int((maxValue - minValue + 1) * Rnd) + minValue
-End Function
-
-Public Function NextDouble() As Double
-EnsureInitialized
-NextDouble = Rnd
-End Function
-
-Public Function NextBoolean() As Boolean
-EnsureInitialized
-NextBoolean = (Int(Rnd * 2) = 1)
-End Function
-
-Public Function Shuffle(arr As Variant) As Variant
-Dim i As Long
-Dim j As Long
-Dim temp As Variant
-Dim result() As Variant
-
-EnsureInitialized
-
-&#x27; Copy array
-ReDim result(LBound(arr) To UBound(arr))
-For i = LBound(arr) To UBound(arr)
-result(i) = arr(i)
-Next i
-
-&#x27; Fisher-Yates shuffle
-For i = UBound(result) To LBound(result) + 1 Step -1
-j = Int((i - LBound(result) + 1) * Rnd) + LBound(result)
-temp = result(i)
-result(i) = result(j)
-result(j) = temp
-Next i
-
-Shuffle = result
-End Function
+    Private m_initialized As Boolean
+    Private Sub EnsureInitialized()
+        If Not m_initialized Then
+            Randomize
+            m_initialized = True
+        End If
+    End Sub
+    Public Function NextInteger(minValue As Long, maxValue As Long) As Long
+        EnsureInitialized
+        If minValue &gt; maxValue Then
+            Err.Raise 5, , &quot;minValue cannot be greater than maxValue&quot;
+        End If
+        NextInteger = Int((maxValue - minValue + 1) * Rnd) + minValue
+    End Function
+    Public Function NextDouble() As Double
+        EnsureInitialized
+        NextDouble = Rnd
+    End Function
+    Public Function NextBoolean() As Boolean
+        EnsureInitialized
+        NextBoolean = (Int(Rnd * 2) = 1)
+    End Function
+    Public Function Shuffle(arr As Variant) As Variant
+        Dim i As Long
+        Dim j As Long
+        Dim temp As Variant
+        Dim result() As Variant
+        EnsureInitialized
+        &#x27; Copy array
+        ReDim result(LBound(arr) To UBound(arr))
+        For i = LBound(arr) To UBound(arr)
+            result(i) = arr(i)
+        Next i
+        &#x27; Fisher-Yates shuffle
+        For i = UBound(result) To LBound(result) + 1 Step -1
+            j = Int((i - LBound(result) + 1) * Rnd) + LBound(result)
+            temp = result(i)
+            result(i) = result(j)
+            result(j) = temp
+        Next i
+        Shuffle = result
+    End Function
 End Class
-
 &#x27; Example 2: Pagination calculator
 Public Class PaginationHelper
-Private m_totalItems As Long
-Private m_itemsPerPage As Long
-
-Public Property Let TotalItems(value As Long)
-m_totalItems = value
-End Property
-
-Public Property Let ItemsPerPage(value As Long)
-If value &lt;= 0 Then
-Err.Raise 5, , &quot;ItemsPerPage must be greater than zero&quot;
-End If
-m_itemsPerPage = value
-End Property
-
-Public Property Get PageCount() As Long
-If m_itemsPerPage = 0 Then
-PageCount = 0
-Else
-PageCount = Int((m_totalItems - 1) / m_itemsPerPage) + 1
-End If
-End Property
-
-Public Function GetPageStartIndex(pageNumber As Long) As Long
-If pageNumber &lt; 1 Or pageNumber &gt; PageCount Then
-GetPageStartIndex = -1
-Else
-GetPageStartIndex = (pageNumber - 1) * m_itemsPerPage
-End If
-End Function
-
-Public Function GetPageEndIndex(pageNumber As Long) As Long
-Dim startIndex As Long
-startIndex = GetPageStartIndex(pageNumber)
-
-If startIndex = -1 Then
-GetPageEndIndex = -1
-Else
-GetPageEndIndex = startIndex + m_itemsPerPage - 1
-If GetPageEndIndex &gt;= m_totalItems Then
-GetPageEndIndex = m_totalItems - 1
-End If
-End If
-End Function
-
-Public Function GetPageForItem(itemIndex As Long) As Long
-If itemIndex &lt; 0 Or itemIndex &gt;= m_totalItems Then
-GetPageForItem = -1
-Else
-GetPageForItem = Int(itemIndex / m_itemsPerPage) + 1
-End If
-End Function
+    Private m_totalItems As Long
+    Private m_itemsPerPage As Long
+    Public Property Let TotalItems(value As Long)
+        m_totalItems = value
+    End Property
+    Public Property Let ItemsPerPage(value As Long)
+        If value &lt;= 0 Then
+            Err.Raise 5, , &quot;ItemsPerPage must be greater than zero&quot;
+        End If
+        m_itemsPerPage = value
+    End Property
+    Public Property Get PageCount() As Long
+        If m_itemsPerPage = 0 Then
+            PageCount = 0
+        Else
+            PageCount = Int((m_totalItems - 1) / m_itemsPerPage) + 1
+        End If
+    End Property
+    Public Function GetPageStartIndex(pageNumber As Long) As Long
+        If pageNumber &lt; 1 Or pageNumber &gt; PageCount Then
+            GetPageStartIndex = -1
+        Else
+            GetPageStartIndex = (pageNumber - 1) * m_itemsPerPage
+        End If
+    End Function
+    Public Function GetPageEndIndex(pageNumber As Long) As Long
+        Dim startIndex As Long
+        startIndex = GetPageStartIndex(pageNumber)
+        If startIndex = -1 Then
+            GetPageEndIndex = -1
+        Else
+            GetPageEndIndex = startIndex + m_itemsPerPage - 1
+            If GetPageEndIndex &gt;= m_totalItems Then
+                GetPageEndIndex = m_totalItems - 1
+            End If
+        End If
+    End Function
+    Public Function GetPageForItem(itemIndex As Long) As Long
+        If itemIndex &lt; 0 Or itemIndex &gt;= m_totalItems Then
+            GetPageForItem = -1
+        Else
+            GetPageForItem = Int(itemIndex / m_itemsPerPage) + 1
+        End If
+    End Function
 End Class
-
 &#x27; Example 3: Grid coordinate mapper
 Public Class GridMapper
-Private m_cellWidth As Double
-Private m_cellHeight As Double
-
-Public Sub Initialize(cellWidth As Double, cellHeight As Double)
-m_cellWidth = cellWidth
-m_cellHeight = cellHeight
-End Sub
-
-Public Sub PixelToGrid(pixelX As Double, pixelY As Double, _
-ByRef gridX As Long, ByRef gridY As Long)
-gridX = Int(pixelX / m_cellWidth)
-gridY = Int(pixelY / m_cellHeight)
-End Sub
-
-Public Sub GridToPixel(gridX As Long, gridY As Long, _
-ByRef pixelX As Double, ByRef pixelY As Double)
-pixelX = gridX * m_cellWidth
-pixelY = gridY * m_cellHeight
-End Sub
-
-Public Function SnapToGrid(pixelX As Double, pixelY As Double) As Variant
-Dim gridX As Long
-Dim gridY As Long
-Dim snappedX As Double
-Dim snappedY As Double
-
-PixelToGrid pixelX, pixelY, gridX, gridY
-GridToPixel gridX, gridY, snappedX, snappedY
-
-SnapToGrid = Array(snappedX, snappedY)
-End Function
+    Private m_cellWidth As Double
+    Private m_cellHeight As Double
+    Public Sub Initialize(cellWidth As Double, cellHeight As Double)
+        m_cellWidth = cellWidth
+        m_cellHeight = cellHeight
+    End Sub
+    Public Sub PixelToGrid(pixelX As Double, pixelY As Double, _
+                          ByRef gridX As Long, ByRef gridY As Long)
+        gridX = Int(pixelX / m_cellWidth)
+        gridY = Int(pixelY / m_cellHeight)
+    End Sub
+    Public Sub GridToPixel(gridX As Long, gridY As Long, _
+                          ByRef pixelX As Double, ByRef pixelY As Double)
+        pixelX = gridX * m_cellWidth
+        pixelY = gridY * m_cellHeight
+    End Sub
+    Public Function SnapToGrid(pixelX As Double, pixelY As Double) As Variant
+        Dim gridX As Long
+        Dim gridY As Long
+        Dim snappedX As Double
+        Dim snappedY As Double
+        PixelToGrid pixelX, pixelY, gridX, gridY
+        GridToPixel gridX, gridY, snappedX, snappedY
+        SnapToGrid = Array(snappedX, snappedY)
+    End Function
 End Class
-
 &#x27; Example 4: Dice roller simulator
 Public Class DiceRoller
-Public Function Roll(sides As Long, Optional count As Long = 1) As Long
-Dim i As Long
-Dim total As Long
-
-Randomize
-total = 0
-
-For i = 1 To count
-total = total + Int(Rnd * sides) + 1
-Next i
-
-Roll = total
-End Function
-
-Public Function RollMultiple(sides As Long, count As Long) As Collection
-Dim i As Long
-Dim result As New Collection
-
-Randomize
-
-For i = 1 To count
-result.Add Int(Rnd * sides) + 1
-Next i
-
-Set RollMultiple = result
-End Function
-
-Public Function RollWithAdvantage(sides As Long) As Long
-Dim roll1 As Long
-Dim roll2 As Long
-
-Randomize
-roll1 = Int(Rnd * sides) + 1
-roll2 = Int(Rnd * sides) + 1
-
-RollWithAdvantage = IIf(roll1 &gt; roll2, roll1, roll2)
-End Function
+    Public Function Roll(sides As Long, Optional count As Long = 1) As Long
+        Dim i As Long
+        Dim total As Long
+        Randomize
+        total = 0
+        For i = 1 To count
+            total = total + Int(Rnd * sides) + 1
+        Next i
+        Roll = total
+    End Function
+    Public Function RollMultiple(sides As Long, count As Long) As Collection
+        Dim i As Long
+        Dim result As New Collection
+        Randomize
+        For i = 1 To count
+            result.Add Int(Rnd * sides) + 1
+        Next i
+        Set RollMultiple = result
+    End Function
+    Public Function RollWithAdvantage(sides As Long) As Long
+        Dim roll1 As Long
+        Dim roll2 As Long
+        Randomize
+        roll1 = Int(Rnd * sides) + 1
+        roll2 = Int(Rnd * sides) + 1
+        RollWithAdvantage = IIf(roll1 &gt; roll2, roll1, roll2)
+    End Function
 End Class</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>Int</code> function can raise errors or return <code>Null</code>:</p>
-<ul>
-<li><strong>Type Mismatch (Error 13)</strong>: If <code>number</code> is not a numeric expression</li>
-<li><strong>Invalid use of Null (Error 94)</strong>: If <code>number</code> is <code>Null</code> and result is assigned to non-Variant</li>
-<li><strong>Overflow (Error 6)</strong>: If result exceeds the range of the target data type</li>
-</ul>
+<p>The <code>Int</code> function can raise errors or return <code>Null</code>:
+- <strong>Type Mismatch (Error 13)</strong>: If <code>number</code> is not a numeric expression
+- <strong>Invalid use of Null (Error 94)</strong>: If <code>number</code> is <code>Null</code> and result is assigned to non-Variant
+- <strong>Overflow (Error 6)</strong>: If result exceeds the range of the target data type</p>
 <pre><code class="language-vbnet">On Error GoTo ErrorHandler
 Dim result As Long
 Dim value As Double
-
 value = 12.75
 result = Int(value)
-
 Debug.Print &quot;Integer portion: &quot; &amp; result
 Exit Sub
-
 ErrorHandler:
-MsgBox &quot;Error in Int: &quot; &amp; Err.Description, vbCritical</code></pre>
+    MsgBox &quot;Error in Int: &quot; &amp; Err.Description, vbCritical</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
 <li><strong>Fast Operation</strong>: <code>Int</code> is a very fast built-in function</li>
@@ -457,33 +395,103 @@ MsgBox &quot;Error in Int: &quot; &amp; Err.Description, vbCritical</code></pre>
 <td>Integer division</td>
 <td>-87 \ 10 = -8</td>
 </tr>
+<tr>
+<td>## Platform and Version Notes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in all VB6 versions</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Consistent behavior across platforms</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Return type matches input numeric type</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Different from many languages <code>int()</code> which truncates toward zero</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Equivalent to <code>Math.floor()</code> in many other languages</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Does not round to nearest (use Round for that)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Behavior with negative numbers can be unexpected (use Fix for truncation)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Return type depends on input type (can cause overflow)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot specify decimal places (always removes all decimals)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No control over rounding direction (always down)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Related Functions</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Fix</code>: Returns integer portion, truncating toward zero</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Round</code>: Rounds to nearest integer or specified decimal places</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>CInt</code>: Converts to Integer with rounding</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>CLng</code>: Converts to Long with rounding</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Rnd</code>: Random number generator (often used with Int)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>\</code>: Integer division operator</td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
-<ul>
-<li>Available in all VB6 versions</li>
-<li>Consistent behavior across platforms</li>
-<li>Return type matches input numeric type</li>
-<li>Different from many languages <code>int()</code> which truncates toward zero</li>
-<li>Equivalent to <code>Math.floor()</code> in many other languages</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Does not round to nearest (use Round for that)</li>
-<li>Behavior with negative numbers can be unexpected (use Fix for truncation)</li>
-<li>Return type depends on input type (can cause overflow)</li>
-<li>Cannot specify decimal places (always removes all decimals)</li>
-<li>No control over rounding direction (always down)</li>
-</ul>
-<h2 id="related-functions">Related Functions</h2>
-<ul>
-<li><code>Fix</code>: Returns integer portion, truncating toward zero</li>
-<li><code>Round</code>: Rounds to nearest integer or specified decimal places</li>
-<li><code>CInt</code>: Converts to Integer with rounding</li>
-<li><code>CLng</code>: Converts to Long with rounding</li>
-<li><code>Rnd</code>: Random number generator (often used with Int)</li>
-<li><code>\</code>: Integer division operator</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

@@ -51,17 +51,15 @@
 <p>Returns <code>truepart</code> if <code>expr</code> evaluates to True; otherwise returns <code>falsepart</code>. The return type
 is <code>Variant</code> and depends on the types of <code>truepart</code> and <code>falsepart</code>.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>IIf</code> function provides inline conditional evaluation:</p>
-<ul>
-<li>Always evaluates BOTH <code>truepart</code> and <code>falsepart</code> regardless of the condition result</li>
-<li>This can cause side effects if either part contains function calls or property accesses</li>
-<li>Returns <code>Variant</code> type, which may require explicit type conversion</li>
-<li>Can nest <code>IIf</code> calls for multiple conditions (though readability suffers)</li>
-<li>If <code>expr</code> is Null, the function returns Null</li>
-<li>Unlike <code>If...Then...Else</code> statements, <code>IIf</code> is an expression that returns a value</li>
-<li>Useful for inline assignments, but beware of evaluation side effects</li>
-<li>Consider using <code>If...Then...Else</code> for complex logic or when side effects matter</li>
-</ul>
+<p>The <code>IIf</code> function provides inline conditional evaluation:
+- Always evaluates BOTH <code>truepart</code> and <code>falsepart</code> regardless of the condition result
+- This can cause side effects if either part contains function calls or property accesses
+- Returns <code>Variant</code> type, which may require explicit type conversion
+- Can nest <code>IIf</code> calls for multiple conditions (though readability suffers)
+- If <code>expr</code> is Null, the function returns Null
+- Unlike <code>If...Then...Else</code> statements, <code>IIf</code> is an expression that returns a value
+- Useful for inline assignments, but beware of evaluation side effects
+- Consider using <code>If...Then...Else</code> for complex logic or when side effects matter</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Inline Conditionals</strong>: Simple conditional value assignment in one line</li>
@@ -75,152 +73,127 @@ is <code>Variant</code> and depends on the types of <code>truepart</code> and <c
 <pre><code class="language-vbnet">&#x27; Example 1: Simple conditional assignment
 Dim result As String
 result = IIf(age &gt;= 18, &quot;Adult&quot;, &quot;Minor&quot;)
-
 &#x27; Example 2: Numeric comparison
 Dim status As String
 status = IIf(score &gt;= 60, &quot;Pass&quot;, &quot;Fail&quot;)
-
 &#x27; Example 3: Null handling
 Dim display As String
 display = IIf(IsNull(value), &quot;N/A&quot;, CStr(value))
-
 &#x27; Example 4: Sign determination
 Dim sign As String
 sign = IIf(number &gt;= 0, &quot;+&quot;, &quot;-&quot;)</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Choose singular or plural
 Function FormatCount(count As Long, singular As String, plural As String) As String
-FormatCount = count &amp; &quot; &quot; &amp; IIf(count = 1, singular, plural)
+    FormatCount = count &amp; &quot; &quot; &amp; IIf(count = 1, singular, plural)
 End Function
 &#x27; Usage: FormatCount(5, &quot;item&quot;, &quot;items&quot;) =&gt; &quot;5 items&quot;
-
 &#x27; Pattern 2: Min/Max selection
 Function Min(a As Double, b As Double) As Double
-Min = IIf(a &lt; b, a, b)
+    Min = IIf(a &lt; b, a, b)
 End Function
-
 Function Max(a As Double, b As Double) As Double
-Max = IIf(a &gt; b, a, b)
+    Max = IIf(a &gt; b, a, b)
 End Function
-
 &#x27; Pattern 3: Safe division
 Function SafeDivide(numerator As Double, denominator As Double) As Variant
-SafeDivide = IIf(denominator &lt;&gt; 0, numerator / denominator, Null)
+    SafeDivide = IIf(denominator &lt;&gt; 0, numerator / denominator, Null)
 End Function
-
 &#x27; Pattern 4: Empty string default
 Function GetDisplayName(name As String) As String
-GetDisplayName = IIf(Len(Trim$(name)) &gt; 0, name, &quot;(unnamed)&quot;)
+    GetDisplayName = IIf(Len(Trim$(name)) &gt; 0, name, &quot;(unnamed)&quot;)
 End Function
-
 &#x27; Pattern 5: Range clamping
 Function Clamp(value As Long, minVal As Long, maxVal As Long) As Long
-Clamp = IIf(value &lt; minVal, minVal, IIf(value &gt; maxVal, maxVal, value))
+    Clamp = IIf(value &lt; minVal, minVal, IIf(value &gt; maxVal, maxVal, value))
 End Function
-
 &#x27; Pattern 6: Boolean to integer
 Function BoolToInt(value As Boolean) As Integer
-BoolToInt = IIf(value, 1, 0)
+    BoolToInt = IIf(value, 1, 0)
 End Function
-
 &#x27; Pattern 7: Sign function
 Function Sign(value As Double) As Integer
-Sign = IIf(value &gt; 0, 1, IIf(value &lt; 0, -1, 0))
+    Sign = IIf(value &gt; 0, 1, IIf(value &lt; 0, -1, 0))
 End Function
-
 &#x27; Pattern 8: Null coalescing
 Function Coalesce(value As Variant, defaultValue As Variant) As Variant
-Coalesce = IIf(IsNull(value) Or IsEmpty(value), defaultValue, value)
+    Coalesce = IIf(IsNull(value) Or IsEmpty(value), defaultValue, value)
 End Function
-
 &#x27; Pattern 9: Conditional formatting
 Function FormatBalance(balance As Currency) As String
-FormatBalance = IIf(balance &lt; 0, _
-&quot;(&quot; &amp; Format$(Abs(balance), &quot;Currency&quot;) &amp; &quot;)&quot;, _
-Format$(balance, &quot;Currency&quot;))
+    FormatBalance = IIf(balance &lt; 0, _
+                        &quot;(&quot; &amp; Format$(Abs(balance), &quot;Currency&quot;) &amp; &quot;)&quot;, _
+                        Format$(balance, &quot;Currency&quot;))
 End Function
-
 &#x27; Pattern 10: Toggle value
 Function Toggle(current As Boolean) As Boolean
-Toggle = IIf(current, False, True)
+    Toggle = IIf(current, False, True)
 End Function</code></pre>
 <h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Grade calculator with nested IIf
 Function GetGrade(score As Double) As String
-GetGrade = IIf(score &gt;= 90, &quot;A&quot;, _
-IIf(score &gt;= 80, &quot;B&quot;, _
-IIf(score &gt;= 70, &quot;C&quot;, _
-IIf(score &gt;= 60, &quot;D&quot;, &quot;F&quot;))))
+    GetGrade = IIf(score &gt;= 90, &quot;A&quot;, _
+               IIf(score &gt;= 80, &quot;B&quot;, _
+               IIf(score &gt;= 70, &quot;C&quot;, _
+               IIf(score &gt;= 60, &quot;D&quot;, &quot;F&quot;))))
 End Function
-
 &#x27; Example 2: Complex string builder
 Function BuildMessage(userName As String, isAdmin As Boolean, messageCount As Long) As String
-BuildMessage = &quot;Welcome &quot; &amp; IIf(Len(userName) &gt; 0, userName, &quot;Guest&quot;) &amp; _
-IIf(isAdmin, &quot; (Admin)&quot;, &quot;&quot;) &amp; _
-IIf(messageCount &gt; 0, &quot; - You have &quot; &amp; messageCount &amp; &quot; message&quot; &amp; _
-IIf(messageCount = 1, &quot;&quot;, &quot;s&quot;), &quot;&quot;)
+    BuildMessage = &quot;Welcome &quot; &amp; IIf(Len(userName) &gt; 0, userName, &quot;Guest&quot;) &amp; _
+                   IIf(isAdmin, &quot; (Admin)&quot;, &quot;&quot;) &amp; _
+                   IIf(messageCount &gt; 0, &quot; - You have &quot; &amp; messageCount &amp; &quot; message&quot; &amp; _
+                       IIf(messageCount = 1, &quot;&quot;, &quot;s&quot;), &quot;&quot;)
 End Function
-
 &#x27; Example 3: Data validation with IIf
 Function ValidateAndFormat(input As String, Optional maxLen As Long = 50) As String
-Dim cleaned As String
-cleaned = Trim$(input)
-
-ValidateAndFormat = IIf(Len(cleaned) = 0, &quot;&quot;, _
-IIf(Len(cleaned) &gt; maxLen, _
-Left$(cleaned, maxLen) &amp; &quot;...&quot;, _
-cleaned))
+    Dim cleaned As String
+    cleaned = Trim$(input)
+    ValidateAndFormat = IIf(Len(cleaned) = 0, &quot;&quot;, _
+                        IIf(Len(cleaned) &gt; maxLen, _
+                            Left$(cleaned, maxLen) &amp; &quot;...&quot;, _
+                            cleaned))
 End Function
-
 &#x27; Example 4: Status indicator with color codes
 Function GetStatusDisplay(value As Double, threshold As Double) As String
-Dim status As String
-Dim color As String
-
-status = IIf(value &gt;= threshold, &quot;OK&quot;, &quot;WARNING&quot;)
-color = IIf(value &gt;= threshold, &quot;Green&quot;, &quot;Red&quot;)
-
-GetStatusDisplay = &quot;[&quot; &amp; color &amp; &quot;] &quot; &amp; status &amp; &quot; (&quot; &amp; value &amp; &quot;)&quot;
+    Dim status As String
+    Dim color As String
+    status = IIf(value &gt;= threshold, &quot;OK&quot;, &quot;WARNING&quot;)
+    color = IIf(value &gt;= threshold, &quot;Green&quot;, &quot;Red&quot;)
+    GetStatusDisplay = &quot;[&quot; &amp; color &amp; &quot;] &quot; &amp; status &amp; &quot; (&quot; &amp; value &amp; &quot;)&quot;
 End Function
-
 &#x27; Example 5: Conditional object creation (DANGEROUS - both parts evaluate!)
 &#x27; WARNING: This pattern has side effects!
 Function GetConnection(useLocal As Boolean) As Object
-&#x27; BOTH CreateLocalConnection AND CreateRemoteConnection will execute!
-&#x27; Use If...Then...Else instead for object creation
-Set GetConnection = IIf(useLocal, CreateLocalConnection(), CreateRemoteConnection())
+    &#x27; BOTH CreateLocalConnection AND CreateRemoteConnection will execute!
+    &#x27; Use If...Then...Else instead for object creation
+    Set GetConnection = IIf(useLocal, CreateLocalConnection(), CreateRemoteConnection())
 End Function
-
 &#x27; Example 6: Safe property access
 Function GetPropertyValue(obj As Object, propertyName As String, defaultValue As Variant) As Variant
-On Error Resume Next
-Dim value As Variant
-value = CallByName(obj, propertyName, VbGet)
-
-If Err.Number = 0 Then
-GetPropertyValue = IIf(IsNull(value), defaultValue, value)
-Else
-GetPropertyValue = defaultValue
-End If
-On Error GoTo 0
+    On Error Resume Next
+    Dim value As Variant
+    value = CallByName(obj, propertyName, VbGet)
+    If Err.Number = 0 Then
+        GetPropertyValue = IIf(IsNull(value), defaultValue, value)
+    Else
+        GetPropertyValue = defaultValue
+    End If
+    On Error GoTo 0
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>IIf</code> function itself rarely raises errors, but be aware of:</p>
-<ul>
-<li><strong>Type Mismatch (Error 13)</strong>: Can occur if the result type doesn't match the receiving variable</li>
-<li><strong>Evaluation Errors</strong>: Both <code>truepart</code> and <code>falsepart</code> are always evaluated, so errors in either will occur</li>
-<li><strong>Null Propagation</strong>: If <code>expr</code> is Null, <code>IIf</code> returns Null</li>
-<li><strong>Division by Zero</strong>: Can occur if either part contains division and is evaluated</li>
-</ul>
+<p>The <code>IIf</code> function itself rarely raises errors, but be aware of:
+- <strong>Type Mismatch (Error 13)</strong>: Can occur if the result type doesn't match the receiving variable
+- <strong>Evaluation Errors</strong>: Both <code>truepart</code> and <code>falsepart</code> are always evaluated, so errors in either will occur
+- <strong>Null Propagation</strong>: If <code>expr</code> is Null, <code>IIf</code> returns Null
+- <strong>Division by Zero</strong>: Can occur if either part contains division and is evaluated</p>
 <pre><code class="language-vbnet">&#x27; WRONG - Both divisions execute regardless of condition!
 result = IIf(denominator &lt;&gt; 0, numerator / denominator, numerator / 1)
 &#x27; If denominator is 0, division by zero error still occurs in first part
-
 &#x27; CORRECT - Use If...Then...Else for conditional execution
 If denominator &lt;&gt; 0 Then
-result = numerator / denominator
+    result = numerator / denominator
 Else
-result = numerator / 1
+    result = numerator / 1
 End If</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
@@ -242,21 +215,17 @@ End If</code></pre>
 <h2 id="when-not-to-use-iif">When NOT to Use <code>IIf</code></h2>
 <pre><code class="language-vbnet">&#x27; DON&#x27;T: Object creation (both execute!)
 Set obj = IIf(condition, New ClassA, New ClassB)
-
 &#x27; DON&#x27;T: Functions with side effects (both execute!)
 result = IIf(condition, LogAndReturn(&quot;A&quot;), LogAndReturn(&quot;B&quot;))
-
 &#x27; DON&#x27;T: Error-prone operations (both execute!)
 value = IIf(x &lt;&gt; 0, 100 / x, 0)  &#x27; Division by zero still occurs!
-
 &#x27; DON&#x27;T: Complex nested logic (hard to read)
 result = IIf(a, IIf(b, IIf(c, 1, 2), IIf(d, 3, 4)), IIf(e, 5, 6))
-
 &#x27; DO: Use If...Then...Else instead
 If condition Then
-Set obj = New ClassA
+    Set obj = New ClassA
 Else
-Set obj = New ClassB
+    Set obj = New ClassB
 End If</code></pre>
 <h2 id="comparison-with-other-approaches">Comparison with Other Approaches</h2>
 <table>
@@ -293,32 +262,116 @@ End If</code></pre>
 <td><code>Variant</code></td>
 <td>Index-based selection</td>
 </tr>
+<tr>
+<td>## Platform and Version Notes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in all VB6 versions</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Consistent behavior across Windows platforms</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- VBA also includes <code>IIf</code> with identical behavior</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Always returns <code>Variant</code> type</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Evaluation of both branches is by design, not a bug</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot short-circuit evaluation (both parts always execute)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns Variant type (requires explicit conversion for strong typing)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Not suitable for conditional execution (use <code>If...Then...Else</code>)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Nested <code>IIf</code> calls quickly become unreadable</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot handle multiple conditions as cleanly as <code>Select Case</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- May have performance overhead compared to <code>If...Then...Else</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Related Functions</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>If...Then...Else</code>: Statement for conditional execution with short-circuit evaluation</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Choose</code>: Returns value from list based on numeric index (also evaluates all parts)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Switch</code>: Returns first value whose expression is True (evaluates sequentially)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Select Case</code>: Multi-condition statement with short-circuit evaluation</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
-<ul>
-<li>Available in all VB6 versions</li>
-<li>Consistent behavior across Windows platforms</li>
-<li>VBA also includes <code>IIf</code> with identical behavior</li>
-<li>Always returns <code>Variant</code> type</li>
-<li>Evaluation of both branches is by design, not a bug</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Cannot short-circuit evaluation (both parts always execute)</li>
-<li>Returns Variant type (requires explicit conversion for strong typing)</li>
-<li>Not suitable for conditional execution (use <code>If...Then...Else</code>)</li>
-<li>Nested <code>IIf</code> calls quickly become unreadable</li>
-<li>Cannot handle multiple conditions as cleanly as <code>Select Case</code></li>
-<li>May have performance overhead compared to <code>If...Then...Else</code></li>
-</ul>
-<h2 id="related-functions">Related Functions</h2>
-<ul>
-<li><code>If...Then...Else</code>: Statement for conditional execution with short-circuit evaluation</li>
-<li><code>Choose</code>: Returns value from list based on numeric index (also evaluates all parts)</li>
-<li><code>Switch</code>: Returns first value whose expression is True (evaluates sequentially)</li>
-<li><code>Select Case</code>: Multi-condition statement with short-circuit evaluation</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p>VB6 <code>StrConv</code> Function</p>
-<p>The <code>StrConv</code> function converts a string to a specified format.</p>
+            <p>VB6 <code>StrConv</code> Function
+The <code>StrConv</code> function converts a string to a specified format.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">StrConv(string, conversion[, LCID])</code></pre>
 <h2 id="parameters">Parameters</h2>
@@ -59,18 +59,16 @@
 <h2 id="returns">Returns</h2>
 <p>Returns a <code>Variant</code> (String) containing the converted string, or a <code>Variant</code> (Byte array) when converting to/from Unicode.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>StrConv</code> function provides powerful string transformation capabilities:</p>
-<ul>
-<li><strong>Case conversion</strong>: <code>vbUpperCase</code>, <code>vbLowerCase</code>, and <code>vbProperCase</code> for text normalization</li>
-<li><strong>Proper case rules</strong>: <code>vbProperCase</code> capitalizes first letter after spaces and certain punctuation</li>
-<li><strong>Wide/Narrow conversion</strong>: For Asian languages with double-byte character sets (DBCS)</li>
-<li><strong>Japanese character conversion</strong>: <code>vbKatakana</code> and <code>vbHiragana</code> for Japanese text</li>
-<li><strong>Unicode conversion</strong>: <code>vbUnicode</code> converts string to byte array, <code>vbFromUnicode</code> converts byte array to string</li>
-<li><strong>Combining conversions</strong>: Can combine multiple conversions using <code>+</code> or <code>Or</code> (e.g., <code>vbUpperCase + vbWide</code>)</li>
-<li><strong>Return type varies</strong>: String conversions return String, Unicode conversions return Byte array</li>
-<li><strong>Locale-aware</strong>: Proper case conversion respects locale settings</li>
-<li><strong>Performance</strong>: Efficient for bulk text transformation</li>
-</ul>
+<p>The <code>StrConv</code> function provides powerful string transformation capabilities:
+- <strong>Case conversion</strong>: <code>vbUpperCase</code>, <code>vbLowerCase</code>, and <code>vbProperCase</code> for text normalization
+- <strong>Proper case rules</strong>: <code>vbProperCase</code> capitalizes first letter after spaces and certain punctuation
+- <strong>Wide/Narrow conversion</strong>: For Asian languages with double-byte character sets (DBCS)
+- <strong>Japanese character conversion</strong>: <code>vbKatakana</code> and <code>vbHiragana</code> for Japanese text
+- <strong>Unicode conversion</strong>: <code>vbUnicode</code> converts string to byte array, <code>vbFromUnicode</code> converts byte array to string
+- <strong>Combining conversions</strong>: Can combine multiple conversions using <code>+</code> or <code>Or</code> (e.g., <code>vbUpperCase + vbWide</code>)
+- <strong>Return type varies</strong>: String conversions return String, Unicode conversions return Byte array
+- <strong>Locale-aware</strong>: Proper case conversion respects locale settings
+- <strong>Performance</strong>: Efficient for bulk text transformation</p>
 <h3 id="case-conversion-details">Case Conversion Details</h3>
 <ul>
 <li><code>vbUpperCase</code>: Converts all characters to uppercase using locale rules</li>
@@ -110,438 +108,351 @@
 <h3 id="example-1-case-conversion">Example 1: Case Conversion</h3>
 <pre><code class="language-vbnet">Dim text As String
 Dim result As String
-
 text = &quot;Hello World&quot;
-
 result = StrConv(text, vbUpperCase)    &#x27; &quot;HELLO WORLD&quot;
 result = StrConv(text, vbLowerCase)    &#x27; &quot;hello world&quot;
 result = StrConv(text, vbProperCase)   &#x27; &quot;Hello World&quot;
-
 text = &quot;the quick brown fox&quot;
 result = StrConv(text, vbProperCase)   &#x27; &quot;The Quick Brown Fox&quot;</code></pre>
 <h3 id="example-2-unicode-conversion">Example 2: Unicode Conversion</h3>
 <pre><code class="language-vbnet">Dim text As String
 Dim bytes() As Byte
 Dim restored As String
-
 text = &quot;Hello&quot;
-
 &#x27; Convert to Unicode byte array
 bytes = StrConv(text, vbUnicode)
 &#x27; bytes contains: 72, 0, 101, 0, 108, 0, 108, 0, 111, 0
-
 &#x27; Convert back to string
 restored = StrConv(bytes, vbFromUnicode)  &#x27; &quot;Hello&quot;</code></pre>
 <h3 id="example-3-combining-conversions">Example 3: Combining Conversions</h3>
 <pre><code class="language-vbnet">Dim text As String
 Dim result As String
-
 text = &quot;hello&quot;
-
 &#x27; Combine uppercase with wide conversion (for DBCS)
 result = StrConv(text, vbUpperCase + vbWide)</code></pre>
 <h3 id="example-4-proper-case-formatting">Example 4: Proper Case Formatting</h3>
 <pre><code class="language-vbnet">Dim name As String
 Dim formatted As String
-
 name = &quot;JOHN Q. PUBLIC&quot;
 formatted = StrConv(name, vbProperCase)  &#x27; &quot;John Q. Public&quot;
-
 name = &quot;o&#x27;brien&quot;
 formatted = StrConv(name, vbProperCase)  &#x27; &quot;O&#x27;brien&quot;
 &#x27; Note: StrConv doesn&#x27;t handle special cases like O&#x27;Brien</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-normalize-user-input">Pattern 1: Normalize User Input</h3>
 <pre><code class="language-vbnet">Function NormalizeInput(userInput As String) As String
-&#x27; Convert to uppercase for case-insensitive processing
-NormalizeInput = StrConv(Trim$(userInput), vbUpperCase)
+    &#x27; Convert to uppercase for case-insensitive processing
+    NormalizeInput = StrConv(Trim$(userInput), vbUpperCase)
 End Function</code></pre>
 <h3 id="pattern-2-format-name-properly">Pattern 2: Format Name Properly</h3>
 <pre><code class="language-vbnet">Function FormatName(name As String) As String
-&#x27; Convert to proper case for display
-FormatName = StrConv(Trim$(name), vbProperCase)
+    &#x27; Convert to proper case for display
+    FormatName = StrConv(Trim$(name), vbProperCase)
 End Function</code></pre>
 <h3 id="pattern-3-case-insensitive-comparison">Pattern 3: Case-Insensitive Comparison</h3>
 <pre><code class="language-vbnet">Function EqualsIgnoreCase(str1 As String, str2 As String) As Boolean
-EqualsIgnoreCase = (StrConv(str1, vbUpperCase) = StrConv(str2, vbUpperCase))
+    EqualsIgnoreCase = (StrConv(str1, vbUpperCase) = StrConv(str2, vbUpperCase))
 End Function</code></pre>
 <h3 id="pattern-4-write-unicode-file">Pattern 4: Write Unicode File</h3>
 <pre><code class="language-vbnet">Sub WriteUnicodeFile(filename As String, text As String)
-Dim fileNum As Integer
-Dim bytes() As Byte
-
-bytes = StrConv(text, vbUnicode)
-
-fileNum = FreeFile
-Open filename For Binary As #fileNum
-Put #fileNum, , bytes
-Close #fileNum
+    Dim fileNum As Integer
+    Dim bytes() As Byte
+    bytes = StrConv(text, vbUnicode)
+    fileNum = FreeFile
+    Open filename For Binary As #fileNum
+    Put #fileNum, , bytes
+    Close #fileNum
 End Sub</code></pre>
 <h3 id="pattern-5-read-unicode-file">Pattern 5: Read Unicode File</h3>
 <pre><code class="language-vbnet">Function ReadUnicodeFile(filename As String) As String
-Dim fileNum As Integer
-Dim bytes() As Byte
-Dim fileSize As Long
-
-fileNum = FreeFile
-Open filename For Binary As #fileNum
-
-fileSize = LOF(fileNum)
-ReDim bytes(0 To fileSize - 1)
-Get #fileNum, , bytes
-Close #fileNum
-
-ReadUnicodeFile = StrConv(bytes, vbFromUnicode)
+    Dim fileNum As Integer
+    Dim bytes() As Byte
+    Dim fileSize As Long
+    fileNum = FreeFile
+    Open filename For Binary As #fileNum
+    fileSize = LOF(fileNum)
+    ReDim bytes(0 To fileSize - 1)
+    Get #fileNum, , bytes
+    Close #fileNum
+    ReadUnicodeFile = StrConv(bytes, vbFromUnicode)
 End Function</code></pre>
 <h3 id="pattern-6-convert-array-of-strings">Pattern 6: Convert Array of Strings</h3>
 <pre><code class="language-vbnet">Sub ConvertArrayToUpperCase(arr() As String)
-Dim i As Integer
-
-For i = LBound(arr) To UBound(arr)
-arr(i) = StrConv(arr(i), vbUpperCase)
-Next i
+    Dim i As Integer
+    For i = LBound(arr) To UBound(arr)
+        arr(i) = StrConv(arr(i), vbUpperCase)
+    Next i
 End Sub</code></pre>
 <h3 id="pattern-7-title-case-for-sentences">Pattern 7: Title Case for Sentences</h3>
 <pre><code class="language-vbnet">Function FormatTitle(title As String) As String
-Dim result As String
-
-&#x27; Convert to proper case
-result = StrConv(title, vbProperCase)
-
-&#x27; Handle articles and prepositions (simplified)
-result = Replace(result, &quot; A &quot;, &quot; a &quot;)
-result = Replace(result, &quot; An &quot;, &quot; an &quot;)
-result = Replace(result, &quot; The &quot;, &quot; the &quot;)
-result = Replace(result, &quot; Of &quot;, &quot; of &quot;)
-result = Replace(result, &quot; In &quot;, &quot; in &quot;)
-
-FormatTitle = result
+    Dim result As String
+    &#x27; Convert to proper case
+    result = StrConv(title, vbProperCase)
+    &#x27; Handle articles and prepositions (simplified)
+    result = Replace(result, &quot; A &quot;, &quot; a &quot;)
+    result = Replace(result, &quot; An &quot;, &quot; an &quot;)
+    result = Replace(result, &quot; The &quot;, &quot; the &quot;)
+    result = Replace(result, &quot; Of &quot;, &quot; of &quot;)
+    result = Replace(result, &quot; In &quot;, &quot; in &quot;)
+    FormatTitle = result
 End Function</code></pre>
 <h3 id="pattern-8-database-normalization">Pattern 8: Database Normalization</h3>
 <pre><code class="language-vbnet">Function NormalizeForDatabase(value As String) As String
-&#x27; Trim and convert to uppercase for storage
-NormalizeForDatabase = StrConv(Trim$(value), vbUpperCase)
+    &#x27; Trim and convert to uppercase for storage
+    NormalizeForDatabase = StrConv(Trim$(value), vbUpperCase)
 End Function</code></pre>
 <h3 id="pattern-9-compare-with-wildcard">Pattern 9: Compare with Wildcard</h3>
 <pre><code class="language-vbnet">Function MatchesPattern(text As String, pattern As String) As Boolean
-&#x27; Case-insensitive pattern matching
-MatchesPattern = (StrConv(text, vbUpperCase) Like StrConv(pattern, vbUpperCase))
+    &#x27; Case-insensitive pattern matching
+    MatchesPattern = (StrConv(text, vbUpperCase) Like StrConv(pattern, vbUpperCase))
 End Function</code></pre>
 <h3 id="pattern-10-extract-unicode-bytes">Pattern 10: Extract Unicode Bytes</h3>
 <pre><code class="language-vbnet">Function GetUnicodeBytes(text As String) As String
-Dim bytes() As Byte
-Dim i As Integer
-Dim result As String
-
-bytes = StrConv(text, vbUnicode)
-
-result = &quot;&quot;
-For i = LBound(bytes) To UBound(bytes)
-result = result &amp; CStr(bytes(i)) &amp; &quot; &quot;
-Next i
-
-GetUnicodeBytes = Trim$(result)
+    Dim bytes() As Byte
+    Dim i As Integer
+    Dim result As String
+    bytes = StrConv(text, vbUnicode)
+    result = &quot;&quot;
+    For i = LBound(bytes) To UBound(bytes)
+        result = result &amp; CStr(bytes(i)) &amp; &quot; &quot;
+    Next i
+    GetUnicodeBytes = Trim$(result)
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-text-normalizer-class">Example 1: Text Normalizer Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: TextNormalizer
 &#x27; Provides text normalization and conversion utilities
 Option Explicit
-
 Public Enum NormalizationMode
-UpperCase = 1
-LowerCase = 2
-ProperCase = 3
-NoChange = 0
+    UpperCase = 1
+    LowerCase = 2
+    ProperCase = 3
+    NoChange = 0
 End Enum
-
 Private m_Mode As NormalizationMode
 Private m_TrimSpaces As Boolean
-
 Public Sub Initialize(mode As NormalizationMode, trimSpaces As Boolean)
-m_Mode = mode
-m_TrimSpaces = trimSpaces
+    m_Mode = mode
+    m_TrimSpaces = trimSpaces
 End Sub
-
 Public Function Normalize(text As String) As String
-Dim result As String
-
-result = text
-
-&#x27; Trim if requested
-If m_TrimSpaces Then
-result = Trim$(result)
-End If
-
-&#x27; Apply case conversion
-Select Case m_Mode
-Case UpperCase
-result = StrConv(result, vbUpperCase)
-Case LowerCase
-result = StrConv(result, vbLowerCase)
-Case ProperCase
-result = StrConv(result, vbProperCase)
-End Select
-
-Normalize = result
+    Dim result As String
+    result = text
+    &#x27; Trim if requested
+    If m_TrimSpaces Then
+        result = Trim$(result)
+    End If
+    &#x27; Apply case conversion
+    Select Case m_Mode
+        Case UpperCase
+            result = StrConv(result, vbUpperCase)
+        Case LowerCase
+            result = StrConv(result, vbLowerCase)
+        Case ProperCase
+            result = StrConv(result, vbProperCase)
+    End Select
+    Normalize = result
 End Function
-
 Public Function NormalizeArray(arr() As String) As String()
-Dim result() As String
-Dim i As Integer
-
-ReDim result(LBound(arr) To UBound(arr))
-
-For i = LBound(arr) To UBound(arr)
-result(i) = Normalize(arr(i))
-Next i
-
-NormalizeArray = result
+    Dim result() As String
+    Dim i As Integer
+    ReDim result(LBound(arr) To UBound(arr))
+    For i = LBound(arr) To UBound(arr)
+        result(i) = Normalize(arr(i))
+    Next i
+    NormalizeArray = result
 End Function
-
 Public Function NormalizeCollection(col As Collection) As Collection
-Dim result As New Collection
-Dim item As Variant
-
-For Each item In col
-result.Add Normalize(CStr(item))
-Next item
-
-Set NormalizeCollection = result
+    Dim result As New Collection
+    Dim item As Variant
+    For Each item In col
+        result.Add Normalize(CStr(item))
+    Next item
+    Set NormalizeCollection = result
 End Function</code></pre>
 <h3 id="example-2-unicode-file-handler">Example 2: Unicode File Handler</h3>
 <pre><code class="language-vbnet">&#x27; Class: UnicodeFileHandler
 &#x27; Handles reading and writing Unicode text files
 Option Explicit
-
 Public Sub WriteFile(filename As String, text As String, Optional appendMode As Boolean = False)
-Dim fileNum As Integer
-Dim bytes() As Byte
-Dim existingBytes() As Byte
-Dim existingSize As Long
-Dim newSize As Long
-
-bytes = StrConv(text, vbUnicode)
-fileNum = FreeFile
-
-If appendMode And Dir(filename) &lt;&gt; &quot;&quot; Then
-&#x27; Read existing content
-Open filename For Binary As #fileNum
-existingSize = LOF(fileNum)
-If existingSize &gt; 0 Then
-ReDim existingBytes(0 To existingSize - 1)
-Get #fileNum, , existingBytes
-End If
-Close #fileNum
-
-&#x27; Combine existing and new bytes
-newSize = existingSize + UBound(bytes) + 1
-ReDim Preserve existingBytes(0 To newSize - 1)
-
-Dim i As Long
-For i = 0 To UBound(bytes)
-existingBytes(existingSize + i) = bytes(i)
-Next i
-
-bytes = existingBytes
-End If
-
-&#x27; Write to file
-Open filename For Binary As #fileNum
-Put #fileNum, , bytes
-Close #fileNum
+    Dim fileNum As Integer
+    Dim bytes() As Byte
+    Dim existingBytes() As Byte
+    Dim existingSize As Long
+    Dim newSize As Long
+    bytes = StrConv(text, vbUnicode)
+    fileNum = FreeFile
+    If appendMode And Dir(filename) &lt;&gt; &quot;&quot; Then
+        &#x27; Read existing content
+        Open filename For Binary As #fileNum
+        existingSize = LOF(fileNum)
+        If existingSize &gt; 0 Then
+            ReDim existingBytes(0 To existingSize - 1)
+            Get #fileNum, , existingBytes
+        End If
+        Close #fileNum
+        &#x27; Combine existing and new bytes
+        newSize = existingSize + UBound(bytes) + 1
+        ReDim Preserve existingBytes(0 To newSize - 1)
+        Dim i As Long
+        For i = 0 To UBound(bytes)
+            existingBytes(existingSize + i) = bytes(i)
+        Next i
+        bytes = existingBytes
+    End If
+    &#x27; Write to file
+    Open filename For Binary As #fileNum
+    Put #fileNum, , bytes
+    Close #fileNum
 End Sub
-
 Public Function ReadFile(filename As String) As String
-Dim fileNum As Integer
-Dim bytes() As Byte
-Dim fileSize As Long
-
-If Dir(filename) = &quot;&quot; Then
-Err.Raise 53, , &quot;File not found&quot;
-End If
-
-fileNum = FreeFile
-Open filename For Binary As #fileNum
-
-fileSize = LOF(fileNum)
-If fileSize = 0 Then
-Close #fileNum
-ReadFile = &quot;&quot;
-Exit Function
-End If
-
-ReDim bytes(0 To fileSize - 1)
-Get #fileNum, , bytes
-Close #fileNum
-
-ReadFile = StrConv(bytes, vbFromUnicode)
+    Dim fileNum As Integer
+    Dim bytes() As Byte
+    Dim fileSize As Long
+    If Dir(filename) = &quot;&quot; Then
+        Err.Raise 53, , &quot;File not found&quot;
+    End If
+    fileNum = FreeFile
+    Open filename For Binary As #fileNum
+    fileSize = LOF(fileNum)
+    If fileSize = 0 Then
+        Close #fileNum
+        ReadFile = &quot;&quot;
+        Exit Function
+    End If
+    ReDim bytes(0 To fileSize - 1)
+    Get #fileNum, , bytes
+    Close #fileNum
+    ReadFile = StrConv(bytes, vbFromUnicode)
 End Function
-
 Public Function ReadLines(filename As String) As String()
-Dim content As String
-Dim lines() As String
-
-content = ReadFile(filename)
-lines = Split(content, vbCrLf)
-
-ReadLines = lines
+    Dim content As String
+    Dim lines() As String
+    content = ReadFile(filename)
+    lines = Split(content, vbCrLf)
+    ReadLines = lines
 End Function
-
 Public Sub WriteLines(filename As String, lines() As String)
-Dim content As String
-content = Join(lines, vbCrLf)
-WriteFile filename, content
+    Dim content As String
+    content = Join(lines, vbCrLf)
+    WriteFile filename, content
 End Sub</code></pre>
 <h3 id="example-3-case-converter-module">Example 3: Case Converter Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: CaseConverter
 &#x27; Utilities for case conversion and formatting
 Option Explicit
-
 Public Function ToUpper(text As String) As String
-ToUpper = StrConv(text, vbUpperCase)
+    ToUpper = StrConv(text, vbUpperCase)
 End Function
-
 Public Function ToLower(text As String) As String
-ToLower = StrConv(text, vbLowerCase)
+    ToLower = StrConv(text, vbLowerCase)
 End Function
-
 Public Function ToProper(text As String) As String
-ToProper = StrConv(text, vbProperCase)
+    ToProper = StrConv(text, vbProperCase)
 End Function
-
 Public Function ToTitleCase(text As String) As String
-&#x27; More sophisticated title case
-Dim result As String
-Dim words() As String
-Dim i As Integer
-Dim lowercaseWords As String
-
-&#x27; Start with proper case
-result = StrConv(text, vbProperCase)
-
-&#x27; Lowercase certain words (not first word)
-lowercaseWords = &quot; a an the and but or for nor of in on at to from by &quot;
-words = Split(result, &quot; &quot;)
-
-For i = 1 To UBound(words)  &#x27; Start at 1 to skip first word
-If InStr(lowercaseWords, &quot; &quot; &amp; LCase$(words(i)) &amp; &quot; &quot;) &gt; 0 Then
-words(i) = LCase$(words(i))
-End If
-Next i
-
-ToTitleCase = Join(words, &quot; &quot;)
+    &#x27; More sophisticated title case
+    Dim result As String
+    Dim words() As String
+    Dim i As Integer
+    Dim lowercaseWords As String
+    &#x27; Start with proper case
+    result = StrConv(text, vbProperCase)
+    &#x27; Lowercase certain words (not first word)
+    lowercaseWords = &quot; a an the and but or for nor of in on at to from by &quot;
+    words = Split(result, &quot; &quot;)
+    For i = 1 To UBound(words)  &#x27; Start at 1 to skip first word
+        If InStr(lowercaseWords, &quot; &quot; &amp; LCase$(words(i)) &amp; &quot; &quot;) &gt; 0 Then
+            words(i) = LCase$(words(i))
+        End If
+    Next i
+    ToTitleCase = Join(words, &quot; &quot;)
 End Function
-
 Public Function ToggleCase(text As String) As String
-&#x27; Toggle case of each character
-Dim i As Integer
-Dim char As String
-Dim result As String
-
-result = &quot;&quot;
-For i = 1 To Len(text)
-char = Mid$(text, i, 1)
-If char = UCase$(char) Then
-result = result &amp; LCase$(char)
-Else
-result = result &amp; UCase$(char)
-End If
-Next i
-
-ToggleCase = result
+    &#x27; Toggle case of each character
+    Dim i As Integer
+    Dim char As String
+    Dim result As String
+    result = &quot;&quot;
+    For i = 1 To Len(text)
+        char = Mid$(text, i, 1)
+        If char = UCase$(char) Then
+            result = result &amp; LCase$(char)
+        Else
+            result = result &amp; UCase$(char)
+        End If
+    Next i
+    ToggleCase = result
 End Function
-
 Public Function IsAllUpper(text As String) As Boolean
-IsAllUpper = (text = StrConv(text, vbUpperCase))
+    IsAllUpper = (text = StrConv(text, vbUpperCase))
 End Function
-
 Public Function IsAllLower(text As String) As Boolean
-IsAllLower = (text = StrConv(text, vbLowerCase))
+    IsAllLower = (text = StrConv(text, vbLowerCase))
 End Function
-
 Public Function IsProperCase(text As String) As Boolean
-IsProperCase = (text = StrConv(text, vbProperCase))
+    IsProperCase = (text = StrConv(text, vbProperCase))
 End Function</code></pre>
 <h3 id="example-4-string-comparison-helper">Example 4: String Comparison Helper</h3>
 <pre><code class="language-vbnet">&#x27; Module: StringComparisonHelper
 &#x27; Case-insensitive comparison utilities
 Option Explicit
-
 Public Function EqualsIgnoreCase(str1 As String, str2 As String) As Boolean
-EqualsIgnoreCase = (StrConv(str1, vbUpperCase) = StrConv(str2, vbUpperCase))
+    EqualsIgnoreCase = (StrConv(str1, vbUpperCase) = StrConv(str2, vbUpperCase))
 End Function
-
 Public Function StartsWithIgnoreCase(text As String, prefix As String) As Boolean
-Dim textUpper As String
-Dim prefixUpper As String
-
-textUpper = StrConv(text, vbUpperCase)
-prefixUpper = StrConv(prefix, vbUpperCase)
-
-StartsWithIgnoreCase = (Left$(textUpper, Len(prefixUpper)) = prefixUpper)
+    Dim textUpper As String
+    Dim prefixUpper As String
+    textUpper = StrConv(text, vbUpperCase)
+    prefixUpper = StrConv(prefix, vbUpperCase)
+    StartsWithIgnoreCase = (Left$(textUpper, Len(prefixUpper)) = prefixUpper)
 End Function
-
 Public Function EndsWithIgnoreCase(text As String, suffix As String) As Boolean
-Dim textUpper As String
-Dim suffixUpper As String
-
-textUpper = StrConv(text, vbUpperCase)
-suffixUpper = StrConv(suffix, vbUpperCase)
-
-EndsWithIgnoreCase = (Right$(textUpper, Len(suffixUpper)) = suffixUpper)
+    Dim textUpper As String
+    Dim suffixUpper As String
+    textUpper = StrConv(text, vbUpperCase)
+    suffixUpper = StrConv(suffix, vbUpperCase)
+    EndsWithIgnoreCase = (Right$(textUpper, Len(suffixUpper)) = suffixUpper)
 End Function
-
 Public Function ContainsIgnoreCase(text As String, searchValue As String) As Boolean
-Dim textUpper As String
-Dim searchUpper As String
-
-textUpper = StrConv(text, vbUpperCase)
-searchUpper = StrConv(searchValue, vbUpperCase)
-
-ContainsIgnoreCase = (InStr(textUpper, searchUpper) &gt; 0)
+    Dim textUpper As String
+    Dim searchUpper As String
+    textUpper = StrConv(text, vbUpperCase)
+    searchUpper = StrConv(searchValue, vbUpperCase)
+    ContainsIgnoreCase = (InStr(textUpper, searchUpper) &gt; 0)
 End Function
-
 Public Function IndexOfIgnoreCase(text As String, searchValue As String) As Long
-Dim textUpper As String
-Dim searchUpper As String
-
-textUpper = StrConv(text, vbUpperCase)
-searchUpper = StrConv(searchValue, vbUpperCase)
-
-IndexOfIgnoreCase = InStr(textUpper, searchUpper)
+    Dim textUpper As String
+    Dim searchUpper As String
+    textUpper = StrConv(text, vbUpperCase)
+    searchUpper = StrConv(searchValue, vbUpperCase)
+    IndexOfIgnoreCase = InStr(textUpper, searchUpper)
 End Function
-
 Public Function ReplaceIgnoreCase(text As String, findText As String, _
-replaceText As String) As String
-Dim result As String
-Dim pos As Long
-Dim lastPos As Long
-Dim textUpper As String
-Dim findUpper As String
-
-result = &quot;&quot;
-lastPos = 1
-textUpper = StrConv(text, vbUpperCase)
-findUpper = StrConv(findText, vbUpperCase)
-
-pos = InStr(lastPos, textUpper, findUpper)
-Do While pos &gt; 0
-result = result &amp; Mid$(text, lastPos, pos - lastPos) &amp; replaceText
-lastPos = pos + Len(findText)
-pos = InStr(lastPos, textUpper, findUpper)
-Loop
-
-result = result &amp; Mid$(text, lastPos)
-ReplaceIgnoreCase = result
+                                  replaceText As String) As String
+    Dim result As String
+    Dim pos As Long
+    Dim lastPos As Long
+    Dim textUpper As String
+    Dim findUpper As String
+    result = &quot;&quot;
+    lastPos = 1
+    textUpper = StrConv(text, vbUpperCase)
+    findUpper = StrConv(findText, vbUpperCase)
+    pos = InStr(lastPos, textUpper, findUpper)
+    Do While pos &gt; 0
+        result = result &amp; Mid$(text, lastPos, pos - lastPos) &amp; replaceText
+        lastPos = pos + Len(findText)
+        pos = InStr(lastPos, textUpper, findUpper)
+    Loop
+    result = result &amp; Mid$(text, lastPos)
+    ReplaceIgnoreCase = result
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>StrConv</code> function can raise the following errors:</p>
-<ul>
-<li><strong>Error 5 (Invalid procedure call or argument)</strong>: If <code>conversion</code> constant is invalid or incompatible combinations are used</li>
-<li><strong>Error 13 (Type mismatch)</strong>: If <code>string</code> argument cannot be converted to a string</li>
-<li><strong>Error 6 (Overflow)</strong>: In rare cases with very large strings or byte arrays</li>
-</ul>
+<p>The <code>StrConv</code> function can raise the following errors:
+- <strong>Error 5 (Invalid procedure call or argument)</strong>: If <code>conversion</code> constant is invalid or incompatible combinations are used
+- <strong>Error 13 (Type mismatch)</strong>: If <code>string</code> argument cannot be converted to a string
+- <strong>Error 6 (Overflow)</strong>: In rare cases with very large strings or byte arrays</p>
 <h2 id="performance-notes">Performance Notes</h2>
 <ul>
 <li>Very fast for case conversions (uppercase, lowercase, proper case)</li>
@@ -599,29 +510,110 @@ End Function</code></pre>
 <td>String</td>
 <td>Yes</td>
 </tr>
+<tr>
+<td>## Platform Notes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in VB6 and VBA</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Not available in <code>VBScript</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>vbWide</code>/<code>vbNarrow</code> primarily for Asian language environments</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>vbKatakana</code>/<code>vbHiragana</code> only meaningful for Japanese text</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Unicode conversion uses UTF-16LE (Windows default)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Proper case rules may vary by locale</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- LCID parameter rarely used (defaults to system locale)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Proper case doesn't handle special cases (O'Brien, <code>McDonald</code>, etc.)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot specify custom word delimiters for proper case</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Unicode conversion always uses UTF-16LE (cannot specify encoding)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No direct support for other Unicode formats (UTF-8, UTF-32)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Wide/Narrow conversion limited to DBCS environments</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot combine incompatible conversions (e.g., <code>vbUpperCase + vbLowerCase</code>)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No validation of byte array format when using <code>vbFromUnicode</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- LCID parameter has limited practical use</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-notes">Platform Notes</h2>
-<ul>
-<li>Available in VB6 and VBA</li>
-<li>Not available in <code>VBScript</code></li>
-<li><code>vbWide</code>/<code>vbNarrow</code> primarily for Asian language environments</li>
-<li><code>vbKatakana</code>/<code>vbHiragana</code> only meaningful for Japanese text</li>
-<li>Unicode conversion uses UTF-16LE (Windows default)</li>
-<li>Proper case rules may vary by locale</li>
-<li>LCID parameter rarely used (defaults to system locale)</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Proper case doesn't handle special cases (O'Brien, <code>McDonald</code>, etc.)</li>
-<li>Cannot specify custom word delimiters for proper case</li>
-<li>Unicode conversion always uses UTF-16LE (cannot specify encoding)</li>
-<li>No direct support for other Unicode formats (UTF-8, UTF-32)</li>
-<li>Wide/Narrow conversion limited to DBCS environments</li>
-<li>Cannot combine incompatible conversions (e.g., <code>vbUpperCase + vbLowerCase</code>)</li>
-<li>No validation of byte array format when using <code>vbFromUnicode</code></li>
-<li>LCID parameter has limited practical use</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

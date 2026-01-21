@@ -44,66 +44,28 @@
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><strong>interval</strong>: Required. <code>String</code> expression that is the interval of time you want to use
-to calculate the difference between date1 and date2. See Interval Settings for values.</li>
+  to calculate the difference between date1 and date2. See Interval Settings for values.</li>
 <li><strong>date1</strong>, <strong>date2</strong>: Required. <code>Variant</code> (<code>Date</code>) values that you want to use in the calculation.</li>
 <li><strong>firstdayofweek</strong>: Optional. Constant that specifies the first day of the week.
-If not specified, Sunday is assumed. See <code>FirstDayOfWeek</code> Constants.</li>
+  If not specified, Sunday is assumed. See <code>FirstDayOfWeek</code> Constants.</li>
 <li><strong>firstweekofyear</strong>: Optional. Constant that specifies the first week of the year.
-If not specified, the first week is assumed to be the week containing January 1.
-See <code>FirstWeekOfYear</code> Constants.</li>
+  If not specified, the first week is assumed to be the week containing January 1.
+  See <code>FirstWeekOfYear</code> Constants.</li>
 </ul>
 <h2 id="interval-settings">Interval Settings</h2>
-<p>The <code>interval</code> parameter can have the following values:</p>
-<table>
-<thead>
-<tr>
-<th>Setting</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>"yyyy"</td>
-<td>Year</td>
-</tr>
-<tr>
-<td>"q"</td>
-<td>Quarter</td>
-</tr>
-<tr>
-<td>"m"</td>
-<td>Month</td>
-</tr>
-<tr>
-<td>"y"</td>
-<td>Day of year</td>
-</tr>
-<tr>
-<td>"d"</td>
-<td>Day</td>
-</tr>
-<tr>
-<td>"w"</td>
-<td>Weekday</td>
-</tr>
-<tr>
-<td>"ww"</td>
-<td>Week of year</td>
-</tr>
-<tr>
-<td>"h"</td>
-<td>Hour</td>
-</tr>
-<tr>
-<td>"n"</td>
-<td>Minute</td>
-</tr>
-<tr>
-<td>"s"</td>
-<td>Second</td>
-</tr>
-</tbody>
-</table>
+<p>The <code>interval</code> parameter can have the following values:
+| Setting | Description |
+|---------|-------------|
+| "yyyy" | Year |
+| "q" | Quarter |
+| "m" | Month |
+| "y" | Day of year |
+| "d" | Day |
+| "w" | Weekday |
+| "ww" | Week of year |
+| "h" | Hour |
+| "n" | Minute |
+| "s" | Second |</p>
 <h2 id="firstdayofweek-constants"><code>FirstDayOfWeek</code> Constants</h2>
 <table>
 <thead>
@@ -154,18 +116,21 @@ See <code>FirstWeekOfYear</code> Constants.</li>
 <td>7</td>
 <td>Saturday</td>
 </tr>
-</tbody>
-</table>
-<h2 id="firstweekofyear-constants"><code>FirstWeekOfYear</code> Constants</h2>
-<table>
-<thead>
 <tr>
-<th>Constant</th>
-<th>Value</th>
-<th>Description</th>
+<td>## <code>FirstWeekOfYear</code> Constants</td>
+<td></td>
+<td></td>
 </tr>
-</thead>
-<tbody>
+<tr>
+<td>Constant</td>
+<td>Value</td>
+<td>Description</td>
+</tr>
+<tr>
+<td>----------</td>
+<td>-------</td>
+<td>-------------</td>
+</tr>
 <tr>
 <td>vbUseSystem</td>
 <td>0</td>
@@ -186,38 +151,114 @@ See <code>FirstWeekOfYear</code> Constants.</li>
 <td>3</td>
 <td>Start with first full week of the year</td>
 </tr>
+<tr>
+<td>## Return Value</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Returns a <code>Long</code> integer representing the number of intervals between the two dates.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>The result is positive if date2 is later than date1, negative if date2 is earlier than date1,</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>and zero if they are equal.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Remarks</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>The <code>DateDiff</code> function is used to calculate the difference between two dates in the</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>specified time interval. The function counts the number of interval boundaries crossed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>between the two dates.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Important Characteristics:</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns positive number if date2 &gt; date1 (future date)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns negative number if date2 &lt; date1 (past date)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns zero if date2 = date1 (same date/time)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Counts interval boundaries, not elapsed time</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- For "yyyy", crossing from Dec 31 to Jan 1 counts as 1 year</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- For "m", crossing from Jan 31 to Feb 1 counts as 1 month</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- For "ww", counts week boundaries (Sunday to Sunday by default)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Day of year ("y") is equivalent to day ("d")</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Weekday ("w") is equivalent to day ("d")</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Boundary Counting vs Elapsed Time</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>DateDiff</code> counts boundaries crossed, not elapsed time:</td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="return-value">Return Value</h2>
-<p>Returns a <code>Long</code> integer representing the number of intervals between the two dates.
-The result is positive if date2 is later than date1, negative if date2 is earlier than date1,
-and zero if they are equal.</p>
-<h2 id="remarks">Remarks</h2>
-<p>The <code>DateDiff</code> function is used to calculate the difference between two dates in the
-specified time interval. The function counts the number of interval boundaries crossed
-between the two dates.</p>
-<p><strong>Important Characteristics:</strong></p>
-<ul>
-<li>Returns positive number if date2 &gt; date1 (future date)</li>
-<li>Returns negative number if date2 &lt; date1 (past date)</li>
-<li>Returns zero if date2 = date1 (same date/time)</li>
-<li>Counts interval boundaries, not elapsed time</li>
-<li>For "yyyy", crossing from Dec 31 to Jan 1 counts as 1 year</li>
-<li>For "m", crossing from Jan 31 to Feb 1 counts as 1 month</li>
-<li>For "ww", counts week boundaries (Sunday to Sunday by default)</li>
-<li>Day of year ("y") is equivalent to day ("d")</li>
-<li>Weekday ("w") is equivalent to day ("d")</li>
-</ul>
-<h2 id="boundary-counting-vs-elapsed-time">Boundary Counting vs Elapsed Time</h2>
-<p><code>DateDiff</code> counts boundaries crossed, not elapsed time:</p>
 <pre><code class="language-vbnet">&#x27; Year example
 DateDiff(&quot;yyyy&quot;, #12/31/2024#, #1/1/2025#)  &#x27; Returns 1 (crossed 1 year boundary)
 &#x27; But only 1 day elapsed!
-
 &#x27; Month example
 DateDiff(&quot;m&quot;, #1/31/2025#, #2/1/2025#)  &#x27; Returns 1 (crossed 1 month boundary)
 &#x27; But only 1 day elapsed!
-
 &#x27; Day example (actual elapsed time)
 DateDiff(&quot;d&quot;, #1/1/2025#, #1/31/2025#)  &#x27; Returns 30 (30 days elapsed)</code></pre>
 <h2 id="examples">Examples</h2>
@@ -226,283 +267,243 @@ DateDiff(&quot;d&quot;, #1/1/2025#, #1/31/2025#)  &#x27; Returns 30 (30 days ela
 Dim days As Long
 days = DateDiff(&quot;d&quot;, #1/1/2025#, #1/31/2025#)
 MsgBox &quot;Days: &quot; &amp; days  &#x27; Shows 30
-
 &#x27; Calculate months between dates
 Dim months As Long
 months = DateDiff(&quot;m&quot;, #1/15/2025#, #6/15/2025#)
 MsgBox &quot;Months: &quot; &amp; months  &#x27; Shows 5
-
 &#x27; Calculate years between dates
 Dim years As Long
 years = DateDiff(&quot;yyyy&quot;, #1/1/2000#, #1/1/2025#)
 MsgBox &quot;Years: &quot; &amp; years  &#x27; Shows 25</code></pre>
 <h3 id="age-calculation">Age Calculation</h3>
 <pre><code class="language-vbnet">Function CalculateAge(birthDate As Date) As Integer
-Dim age As Integer
-age = DateDiff(&quot;yyyy&quot;, birthDate, Date)
-
-&#x27; Adjust if birthday hasn&#x27;t occurred this year
-If DateSerial(Year(Date), Month(birthDate), Day(birthDate)) &gt; Date Then
-age = age - 1
-End If
-
-CalculateAge = age
+    Dim age As Integer
+    age = DateDiff(&quot;yyyy&quot;, birthDate, Date)
+    &#x27; Adjust if birthday hasn&#x27;t occurred this year
+    If DateSerial(Year(Date), Month(birthDate), Day(birthDate)) &gt; Date Then
+        age = age - 1
+    End If
+    CalculateAge = age
 End Function</code></pre>
 <h3 id="days-untilsince-event">Days Until/Since Event</h3>
 <pre><code class="language-vbnet">Function DaysUntilEvent(eventDate As Date) As Long
-DaysUntilEvent = DateDiff(&quot;d&quot;, Date, eventDate)
+    DaysUntilEvent = DateDiff(&quot;d&quot;, Date, eventDate)
 End Function
-
 &#x27; Usage
 Dim daysLeft As Long
 daysLeft = DaysUntilEvent(#12/25/2025#)
 If daysLeft &gt; 0 Then
-MsgBox daysLeft &amp; &quot; days until Christmas&quot;
+    MsgBox daysLeft &amp; &quot; days until Christmas&quot;
 ElseIf daysLeft &lt; 0 Then
-MsgBox &quot;Christmas was &quot; &amp; Abs(daysLeft) &amp; &quot; days ago&quot;
+    MsgBox &quot;Christmas was &quot; &amp; Abs(daysLeft) &amp; &quot; days ago&quot;
 Else
-MsgBox &quot;Today is Christmas!&quot;
+    MsgBox &quot;Today is Christmas!&quot;
 End If</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="elapsed-time-display">Elapsed Time Display</h3>
 <pre><code class="language-vbnet">Function FormatElapsedTime(startTime As Date, endTime As Date) As String
-Dim hours As Long
-Dim minutes As Long
-Dim seconds As Long
-
-hours = DateDiff(&quot;h&quot;, startTime, endTime)
-minutes = DateDiff(&quot;n&quot;, startTime, endTime) Mod 60
-seconds = DateDiff(&quot;s&quot;, startTime, endTime) Mod 60
-
-FormatElapsedTime = hours &amp; &quot;:&quot; &amp; Format(minutes, &quot;00&quot;) &amp; &quot;:&quot; &amp; Format(seconds, &quot;00&quot;)
+    Dim hours As Long
+    Dim minutes As Long
+    Dim seconds As Long
+    hours = DateDiff(&quot;h&quot;, startTime, endTime)
+    minutes = DateDiff(&quot;n&quot;, startTime, endTime) Mod 60
+    seconds = DateDiff(&quot;s&quot;, startTime, endTime) Mod 60
+    FormatElapsedTime = hours &amp; &quot;:&quot; &amp; Format(minutes, &quot;00&quot;) &amp; &quot;:&quot; &amp; Format(seconds, &quot;00&quot;)
 End Function</code></pre>
 <h3 id="working-days-calculator">Working Days Calculator</h3>
 <pre><code class="language-vbnet">Function CountWorkingDays(startDate As Date, endDate As Date) As Long
-Dim dayCount As Long
-Dim workDays As Long
-Dim currentDate As Date
-
-dayCount = DateDiff(&quot;d&quot;, startDate, endDate)
-workDays = 0
-
-For i = 0 To dayCount
-currentDate = DateAdd(&quot;d&quot;, i, startDate)
-If Weekday(currentDate) &lt;&gt; vbSaturday And Weekday(currentDate) &lt;&gt; vbSunday Then
-workDays = workDays + 1
-End If
-Next i
-
-CountWorkingDays = workDays
+    Dim dayCount As Long
+    Dim workDays As Long
+    Dim currentDate As Date
+    dayCount = DateDiff(&quot;d&quot;, startDate, endDate)
+    workDays = 0
+    For i = 0 To dayCount
+        currentDate = DateAdd(&quot;d&quot;, i, startDate)
+        If Weekday(currentDate) &lt;&gt; vbSaturday And Weekday(currentDate) &lt;&gt; vbSunday Then
+            workDays = workDays + 1
+        End If
+    Next i
+    CountWorkingDays = workDays
 End Function</code></pre>
 <h3 id="overdue-indicator">Overdue Indicator</h3>
 <pre><code class="language-vbnet">Function GetOverdueDays(dueDate As Date) As Long
-Dim days As Long
-days = DateDiff(&quot;d&quot;, dueDate, Date)
-
-If days &gt; 0 Then
-GetOverdueDays = days  &#x27; Positive = overdue
-Else
-GetOverdueDays = 0     &#x27; Not overdue
-End If
+    Dim days As Long
+    days = DateDiff(&quot;d&quot;, dueDate, Date)
+    If days &gt; 0 Then
+        GetOverdueDays = days  &#x27; Positive = overdue
+    Else
+        GetOverdueDays = 0     &#x27; Not overdue
+    End If
 End Function</code></pre>
 <h3 id="subscription-status">Subscription Status</h3>
 <pre><code class="language-vbnet">Function GetSubscriptionStatus(startDate As Date, endDate As Date) As String
-Dim daysRemaining As Long
-
-daysRemaining = DateDiff(&quot;d&quot;, Date, endDate)
-
-Select Case daysRemaining
-Case Is &lt; 0
-GetSubscriptionStatus = &quot;Expired&quot;
-Case 0 To 7
-GetSubscriptionStatus = &quot;Expiring Soon (&quot; &amp; daysRemaining &amp; &quot; days)&quot;
-Case 8 To 30
-GetSubscriptionStatus = &quot;Active (&quot; &amp; daysRemaining &amp; &quot; days left)&quot;
-Case Else
-GetSubscriptionStatus = &quot;Active&quot;
-End Select
+    Dim daysRemaining As Long
+    daysRemaining = DateDiff(&quot;d&quot;, Date, endDate)
+    Select Case daysRemaining
+        Case Is &lt; 0
+            GetSubscriptionStatus = &quot;Expired&quot;
+        Case 0 To 7
+            GetSubscriptionStatus = &quot;Expiring Soon (&quot; &amp; daysRemaining &amp; &quot; days)&quot;
+        Case 8 To 30
+            GetSubscriptionStatus = &quot;Active (&quot; &amp; daysRemaining &amp; &quot; days left)&quot;
+        Case Else
+            GetSubscriptionStatus = &quot;Active&quot;
+    End Select
 End Function</code></pre>
 <h3 id="quarterly-report-period">Quarterly Report Period</h3>
 <pre><code class="language-vbnet">Function GetQuartersBetween(startDate As Date, endDate As Date) As Integer
-GetQuartersBetween = DateDiff(&quot;q&quot;, startDate, endDate)
+    GetQuartersBetween = DateDiff(&quot;q&quot;, startDate, endDate)
 End Function
-
 &#x27; Check if in same quarter
 Function InSameQuarter(date1 As Date, date2 As Date) As Boolean
-InSameQuarter = (DateDiff(&quot;q&quot;, date1, date2) = 0)
+    InSameQuarter = (DateDiff(&quot;q&quot;, date1, date2) = 0)
 End Function</code></pre>
 <h3 id="meeting-interval-tracker">Meeting Interval Tracker</h3>
 <pre><code class="language-vbnet">Function WeeksSinceLastMeeting(lastMeeting As Date) As Long
-WeeksSinceLastMeeting = DateDiff(&quot;ww&quot;, lastMeeting, Date)
+    WeeksSinceLastMeeting = DateDiff(&quot;ww&quot;, lastMeeting, Date)
 End Function
-
 Function IsMeetingDue(lastMeeting As Date, interval As Integer) As Boolean
-IsMeetingDue = (DateDiff(&quot;ww&quot;, lastMeeting, Date) &gt;= interval)
+    IsMeetingDue = (DateDiff(&quot;ww&quot;, lastMeeting, Date) &gt;= interval)
 End Function</code></pre>
 <h3 id="time-tracking">Time Tracking</h3>
 <pre><code class="language-vbnet">Sub LogSessionDuration(startTime As Date, endTime As Date)
-Dim hours As Long
-Dim minutes As Long
-
-hours = DateDiff(&quot;h&quot;, startTime, endTime)
-minutes = DateDiff(&quot;n&quot;, startTime, endTime) - (hours * 60)
-
-Debug.Print &quot;Session duration: &quot; &amp; hours &amp; &quot;h &quot; &amp; minutes &amp; &quot;m&quot;
+    Dim hours As Long
+    Dim minutes As Long
+    hours = DateDiff(&quot;h&quot;, startTime, endTime)
+    minutes = DateDiff(&quot;n&quot;, startTime, endTime) - (hours * 60)
+    Debug.Print &quot;Session duration: &quot; &amp; hours &amp; &quot;h &quot; &amp; minutes &amp; &quot;m&quot;
 End Sub</code></pre>
 <h3 id="age-range-categorization">Age Range Categorization</h3>
 <pre><code class="language-vbnet">Function GetAgeCategory(birthDate As Date) As String
-Dim age As Integer
-age = DateDiff(&quot;yyyy&quot;, birthDate, Date)
-
-&#x27; Adjust for birthday not yet occurred
-If Month(Date) &lt; Month(birthDate) Or _
-(Month(Date) = Month(birthDate) And Day(Date) &lt; Day(birthDate)) Then
-age = age - 1
-End If
-
-Select Case age
-Case 0 To 12
-GetAgeCategory = &quot;Child&quot;
-Case 13 To 19
-GetAgeCategory = &quot;Teenager&quot;
-Case 20 To 64
-GetAgeCategory = &quot;Adult&quot;
-Case Else
-GetAgeCategory = &quot;Senior&quot;
-End Select
+    Dim age As Integer
+    age = DateDiff(&quot;yyyy&quot;, birthDate, Date)
+    &#x27; Adjust for birthday not yet occurred
+    If Month(Date) &lt; Month(birthDate) Or _
+       (Month(Date) = Month(birthDate) And Day(Date) &lt; Day(birthDate)) Then
+        age = age - 1
+    End If
+    Select Case age
+        Case 0 To 12
+            GetAgeCategory = &quot;Child&quot;
+        Case 13 To 19
+            GetAgeCategory = &quot;Teenager&quot;
+        Case 20 To 64
+            GetAgeCategory = &quot;Adult&quot;
+        Case Else
+            GetAgeCategory = &quot;Senior&quot;
+    End Select
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="complete-time-breakdown">Complete Time Breakdown</h3>
 <pre><code class="language-vbnet">Type TimeBreakdown
-Years As Long
-Months As Long
-Days As Long
-Hours As Long
-Minutes As Long
-Seconds As Long
+    Years As Long
+    Months As Long
+    Days As Long
+    Hours As Long
+    Minutes As Long
+    Seconds As Long
 End Type
-
 Function GetDetailedDifference(startDate As Date, endDate As Date) As TimeBreakdown
-Dim result As TimeBreakdown
-Dim tempDate As Date
-
-&#x27; Calculate years
-result.Years = DateDiff(&quot;yyyy&quot;, startDate, endDate)
-tempDate = DateAdd(&quot;yyyy&quot;, result.Years, startDate)
-If tempDate &gt; endDate Then
-result.Years = result.Years - 1
-tempDate = DateAdd(&quot;yyyy&quot;, result.Years, startDate)
-End If
-
-&#x27; Calculate months
-result.Months = DateDiff(&quot;m&quot;, tempDate, endDate)
-tempDate = DateAdd(&quot;m&quot;, result.Months, tempDate)
-If tempDate &gt; endDate Then
-result.Months = result.Months - 1
-tempDate = DateAdd(&quot;m&quot;, result.Months, DateAdd(&quot;yyyy&quot;, result.Years, startDate))
-End If
-
-&#x27; Calculate remaining time
-result.Days = DateDiff(&quot;d&quot;, tempDate, endDate)
-result.Hours = DateDiff(&quot;h&quot;, tempDate, endDate) Mod 24
-result.Minutes = DateDiff(&quot;n&quot;, tempDate, endDate) Mod 60
-result.Seconds = DateDiff(&quot;s&quot;, tempDate, endDate) Mod 60
-
-GetDetailedDifference = result
+    Dim result As TimeBreakdown
+    Dim tempDate As Date
+    &#x27; Calculate years
+    result.Years = DateDiff(&quot;yyyy&quot;, startDate, endDate)
+    tempDate = DateAdd(&quot;yyyy&quot;, result.Years, startDate)
+    If tempDate &gt; endDate Then
+        result.Years = result.Years - 1
+        tempDate = DateAdd(&quot;yyyy&quot;, result.Years, startDate)
+    End If
+    &#x27; Calculate months
+    result.Months = DateDiff(&quot;m&quot;, tempDate, endDate)
+    tempDate = DateAdd(&quot;m&quot;, result.Months, tempDate)
+    If tempDate &gt; endDate Then
+        result.Months = result.Months - 1
+        tempDate = DateAdd(&quot;m&quot;, result.Months, DateAdd(&quot;yyyy&quot;, result.Years, startDate))
+    End If
+    &#x27; Calculate remaining time
+    result.Days = DateDiff(&quot;d&quot;, tempDate, endDate)
+    result.Hours = DateDiff(&quot;h&quot;, tempDate, endDate) Mod 24
+    result.Minutes = DateDiff(&quot;n&quot;, tempDate, endDate) Mod 60
+    result.Seconds = DateDiff(&quot;s&quot;, tempDate, endDate) Mod 60
+    GetDetailedDifference = result
 End Function</code></pre>
 <h3 id="week-number-with-custom-first-day">Week Number with Custom First Day</h3>
 <pre><code class="language-vbnet">Function GetWeekNumber(dateValue As Date, startDay As VbDayOfWeek) As Long
-Dim yearStart As Date
-yearStart = DateSerial(Year(dateValue), 1, 1)
-GetWeekNumber = DateDiff(&quot;ww&quot;, yearStart, dateValue, startDay, vbFirstFourDays)
+    Dim yearStart As Date
+    yearStart = DateSerial(Year(dateValue), 1, 1)
+    GetWeekNumber = DateDiff(&quot;ww&quot;, yearStart, dateValue, startDay, vbFirstFourDays)
 End Function
-
 &#x27; Usage
 Dim weekNum As Long
 weekNum = GetWeekNumber(Date, vbMonday)  &#x27; ISO week number (Monday start)</code></pre>
 <h3 id="performance-timer">Performance Timer</h3>
 <pre><code class="language-vbnet">Private m_startTime As Date
-
 Sub StartTimer()
-m_startTime = Now
+    m_startTime = Now
 End Sub
-
 Function GetElapsedMilliseconds() As Double
-Dim seconds As Long
-seconds = DateDiff(&quot;s&quot;, m_startTime, Now)
-
-&#x27; VB6 doesn&#x27;t support milliseconds directly
-&#x27; This gives seconds as closest approximation
-GetElapsedMilliseconds = seconds * 1000
+    Dim seconds As Long
+    seconds = DateDiff(&quot;s&quot;, m_startTime, Now)
+    &#x27; VB6 doesn&#x27;t support milliseconds directly
+    &#x27; This gives seconds as closest approximation
+    GetElapsedMilliseconds = seconds * 1000
 End Function</code></pre>
 <h3 id="date-range-validator">Date Range Validator</h3>
 <pre><code class="language-vbnet">Function ValidateDateRange(startDate As Date, endDate As Date, _
-maxDays As Long) As Boolean
-Dim daysDiff As Long
-
-&#x27; Check date order
-If startDate &gt; endDate Then
-ValidateDateRange = False
-Exit Function
-End If
-
-&#x27; Check range limit
-daysDiff = DateDiff(&quot;d&quot;, startDate, endDate)
-ValidateDateRange = (daysDiff &lt;= maxDays)
+                         maxDays As Long) As Boolean
+    Dim daysDiff As Long
+    &#x27; Check date order
+    If startDate &gt; endDate Then
+        ValidateDateRange = False
+        Exit Function
+    End If
+    &#x27; Check range limit
+    daysDiff = DateDiff(&quot;d&quot;, startDate, endDate)
+    ValidateDateRange = (daysDiff &lt;= maxDays)
 End Function</code></pre>
 <h3 id="fiscal-period-calculator">Fiscal Period Calculator</h3>
 <pre><code class="language-vbnet">Function GetFiscalPeriodDifference(date1 As Date, date2 As Date, _
-fiscalYearStart As Integer) As Long
-&#x27; Calculate fiscal months between dates
-&#x27; fiscalYearStart = month number (e.g., 4 for April)
-
-Dim adjustedDate1 As Date
-Dim adjustedDate2 As Date
-
-&#x27; Adjust dates to fiscal year basis
-adjustedDate1 = DateSerial(Year(date1), Month(date1) - fiscalYearStart + 1, Day(date1))
-adjustedDate2 = DateSerial(Year(date2), Month(date2) - fiscalYearStart + 1, Day(date2))
-
-GetFiscalPeriodDifference = DateDiff(&quot;m&quot;, adjustedDate1, adjustedDate2)
+                                  fiscalYearStart As Integer) As Long
+    &#x27; Calculate fiscal months between dates
+    &#x27; fiscalYearStart = month number (e.g., 4 for April)
+    Dim adjustedDate1 As Date
+    Dim adjustedDate2 As Date
+    &#x27; Adjust dates to fiscal year basis
+    adjustedDate1 = DateSerial(Year(date1), Month(date1) - fiscalYearStart + 1, Day(date1))
+    adjustedDate2 = DateSerial(Year(date2), Month(date2) - fiscalYearStart + 1, Day(date2))
+    GetFiscalPeriodDifference = DateDiff(&quot;m&quot;, adjustedDate1, adjustedDate2)
 End Function</code></pre>
 <h3 id="batch-date-comparison">Batch Date Comparison</h3>
 <pre><code class="language-vbnet">Function FindOldestDate(dates() As Date) As Date
-Dim i As Integer
-Dim oldest As Date
-
-oldest = dates(LBound(dates))
-
-For i = LBound(dates) + 1 To UBound(dates)
-If DateDiff(&quot;d&quot;, dates(i), oldest) &gt; 0 Then
-oldest = dates(i)
-End If
-Next i
-
-FindOldestDate = oldest
+    Dim i As Integer
+    Dim oldest As Date
+    oldest = dates(LBound(dates))
+    For i = LBound(dates) + 1 To UBound(dates)
+        If DateDiff(&quot;d&quot;, dates(i), oldest) &gt; 0 Then
+            oldest = dates(i)
+        End If
+    Next i
+    FindOldestDate = oldest
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeDateDiff(interval As String, date1 As Variant, _
-date2 As Variant) As Variant
-On Error GoTo ErrorHandler
-
-&#x27; Validate dates
-If Not IsDate(date1) Or Not IsDate(date2) Then
-SafeDateDiff = Null
-Exit Function
-End If
-
-&#x27; Validate interval
-Select Case LCase(interval)
-Case &quot;yyyy&quot;, &quot;q&quot;, &quot;m&quot;, &quot;y&quot;, &quot;d&quot;, &quot;w&quot;, &quot;ww&quot;, &quot;h&quot;, &quot;n&quot;, &quot;s&quot;
-SafeDateDiff = DateDiff(interval, CDate(date1), CDate(date2))
-Case Else
-SafeDateDiff = Null
-End Select
-
-Exit Function
-
+                     date2 As Variant) As Variant
+    On Error GoTo ErrorHandler
+    &#x27; Validate dates
+    If Not IsDate(date1) Or Not IsDate(date2) Then
+        SafeDateDiff = Null
+        Exit Function
+    End If
+    &#x27; Validate interval
+    Select Case LCase(interval)
+        Case &quot;yyyy&quot;, &quot;q&quot;, &quot;m&quot;, &quot;y&quot;, &quot;d&quot;, &quot;w&quot;, &quot;ww&quot;, &quot;h&quot;, &quot;n&quot;, &quot;s&quot;
+            SafeDateDiff = DateDiff(interval, CDate(date1), CDate(date2))
+        Case Else
+            SafeDateDiff = Null
+    End Select
+    Exit Function
 ErrorHandler:
-SafeDateDiff = Null
+    SafeDateDiff = Null
 End Function</code></pre>
 <h3 id="common-errors">Common Errors</h3>
 <ul>
@@ -522,41 +523,35 @@ End Function</code></pre>
 <h3 id="use-appropriate-intervals">Use Appropriate Intervals</h3>
 <pre><code class="language-vbnet">&#x27; Good - Use &quot;d&quot; for exact day count
 days = DateDiff(&quot;d&quot;, startDate, endDate)
-
 &#x27; Be careful - &quot;yyyy&quot; counts year boundaries, not elapsed years
 years = DateDiff(&quot;yyyy&quot;, #12/31/2024#, #1/1/2025#)  &#x27; Returns 1, but only 1 day!</code></pre>
 <h3 id="order-matters">Order Matters</h3>
 <pre><code class="language-vbnet">&#x27; Positive result - date2 is in future
 diff = DateDiff(&quot;d&quot;, #1/1/2025#, #1/31/2025#)  &#x27; Returns 30
-
 &#x27; Negative result - date2 is in past
 diff = DateDiff(&quot;d&quot;, #1/31/2025#, #1/1/2025#)  &#x27; Returns -30</code></pre>
 <h3 id="handle-negative-results">Handle Negative Results</h3>
 <pre><code class="language-vbnet">Function GetAbsoluteDaysDifference(date1 As Date, date2 As Date) As Long
-GetAbsoluteDaysDifference = Abs(DateDiff(&quot;d&quot;, date1, date2))
+    GetAbsoluteDaysDifference = Abs(DateDiff(&quot;d&quot;, date1, date2))
 End Function</code></pre>
 <h3 id="validate-date-order">Validate Date Order</h3>
 <pre><code class="language-vbnet">Function CalculateDuration(startDate As Date, endDate As Date) As Long
-If startDate &gt; endDate Then
-Err.Raise 5, , &quot;Start date must be before end date&quot;
-End If
-
-CalculateDuration = DateDiff(&quot;d&quot;, startDate, endDate)
+    If startDate &gt; endDate Then
+        Err.Raise 5, , &quot;Start date must be before end date&quot;
+    End If
+    CalculateDuration = DateDiff(&quot;d&quot;, startDate, endDate)
 End Function</code></pre>
 <h2 id="comparison-with-other-functions">Comparison with Other Functions</h2>
 <h3 id="datediff-vs-dateadd"><code>DateDiff</code> vs <code>DateAdd</code></h3>
 <pre><code class="language-vbnet">&#x27; `DateDiff` - Calculate interval between dates (returns Long)
 diff = DateDiff(&quot;d&quot;, #1/1/2025#, #1/31/2025#)  &#x27; Returns 30
-
 &#x27; `DateAdd` - Add interval to date (returns Date)
 newDate = DateAdd(&quot;d&quot;, 30, #1/1/2025#)  &#x27; Returns #1/31/2025#</code></pre>
 <h3 id="datediff-vs-subtraction"><code>DateDiff</code> vs Subtraction</h3>
 <pre><code class="language-vbnet">&#x27; Subtraction gives days as Double
 diff = #1/31/2025# - #1/1/2025#  &#x27; Returns 30.0
-
 &#x27; DateDiff gives days as Long
 diff = DateDiff(&quot;d&quot;, #1/1/2025#, #1/31/2025#)  &#x27; Returns 30
-
 &#x27; DateDiff supports other intervals
 months = DateDiff(&quot;m&quot;, #1/1/2025#, #6/1/2025#)  &#x27; Returns 5</code></pre>
 <h2 id="limitations">Limitations</h2>

@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p>VB6 <code>StrComp</code> Function</p>
-<p>The <code>StrComp</code> function compares two strings and returns a value indicating their relationship.</p>
+            <p>VB6 <code>StrComp</code> Function
+The <code>StrComp</code> function compares two strings and returns a value indicating their relationship.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">StrComp(string1, string2[, compare])</code></pre>
 <h2 id="parameters">Parameters</h2>
@@ -57,17 +57,15 @@
 - <code>1</code> if <code>string1</code> is greater than <code>string2</code>
 - <code>Null</code> if either <code>string1</code> or <code>string2</code> is <code>Null</code></p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>StrComp</code> function provides flexible string comparison with control over case sensitivity:</p>
-<ul>
-<li><strong>Binary comparison (vbBinaryCompare = 0)</strong>: Compares strings based on internal binary representation (character codes). This is case-sensitive and faster. "A" &lt; "a" because uppercase letters have lower ASCII values than lowercase letters.</li>
-<li><strong>Text comparison (vbTextCompare = 1)</strong>: Compares strings in a case-insensitive manner. "A" = "a" in text comparison.</li>
-<li><strong>Default behavior</strong>: If <code>compare</code> argument is omitted, the comparison mode is determined by the <code>Option Compare</code> statement at the module level. If no <code>Option Compare</code> is specified, binary comparison is used.</li>
-<li><strong>Null handling</strong>: If either string is <code>Null</code>, the function returns <code>Null</code> (not an error).</li>
-<li><strong>Empty strings</strong>: Empty strings ("") are less than any non-empty string.</li>
-<li><strong>Comparison logic</strong>: Uses lexicographic ordering based on character codes (binary) or case-folded characters (text).</li>
-<li><strong>Performance</strong>: Binary comparison is faster than text comparison.</li>
-<li><strong>Unicode support</strong>: VB6 uses Unicode internally, so comparisons work correctly with international characters.</li>
-</ul>
+<p>The <code>StrComp</code> function provides flexible string comparison with control over case sensitivity:
+- <strong>Binary comparison (vbBinaryCompare = 0)</strong>: Compares strings based on internal binary representation (character codes). This is case-sensitive and faster. "A" &lt; "a" because uppercase letters have lower ASCII values than lowercase letters.
+- <strong>Text comparison (vbTextCompare = 1)</strong>: Compares strings in a case-insensitive manner. "A" = "a" in text comparison.
+- <strong>Default behavior</strong>: If <code>compare</code> argument is omitted, the comparison mode is determined by the <code>Option Compare</code> statement at the module level. If no <code>Option Compare</code> is specified, binary comparison is used.
+- <strong>Null handling</strong>: If either string is <code>Null</code>, the function returns <code>Null</code> (not an error).
+- <strong>Empty strings</strong>: Empty strings ("") are less than any non-empty string.
+- <strong>Comparison logic</strong>: Uses lexicographic ordering based on character codes (binary) or case-folded characters (text).
+- <strong>Performance</strong>: Binary comparison is faster than text comparison.
+- <strong>Unicode support</strong>: VB6 uses Unicode internally, so comparisons work correctly with international characters.</p>
 <h3 id="option-compare-statement">Option Compare Statement</h3>
 <p>The module-level <code>Option Compare</code> statement affects default comparison behavior:</p>
 <pre><code class="language-vbnet">Option Compare Binary   &#x27; Default: case-sensitive comparisons
@@ -93,12 +91,10 @@ Option Compare Database &#x27; Database-based comparisons (Access only)</code></
 <h2 id="basic-examples">Basic Examples</h2>
 <h3 id="example-1-basic-string-comparison">Example 1: Basic String Comparison</h3>
 <pre><code class="language-vbnet">Dim result As Integer
-
 &#x27; Binary comparison (case-sensitive)
 result = StrComp(&quot;ABC&quot;, &quot;abc&quot;, vbBinaryCompare)   &#x27; Returns -1 (ABC &lt; abc)
 result = StrComp(&quot;ABC&quot;, &quot;ABC&quot;, vbBinaryCompare)   &#x27; Returns 0 (equal)
 result = StrComp(&quot;abc&quot;, &quot;ABC&quot;, vbBinaryCompare)   &#x27; Returns 1 (abc &gt; ABC)
-
 &#x27; Text comparison (case-insensitive)
 result = StrComp(&quot;ABC&quot;, &quot;abc&quot;, vbTextCompare)     &#x27; Returns 0 (equal)
 result = StrComp(&quot;ABC&quot;, &quot;ABD&quot;, vbTextCompare)     &#x27; Returns -1 (ABC &lt; ABD)
@@ -107,559 +103,462 @@ result = StrComp(&quot;XYZ&quot;, &quot;ABC&quot;, vbTextCompare)     &#x27; Ret
 <pre><code class="language-vbnet">Dim str1 As String
 Dim str2 As String
 Dim compareResult As Integer
-
 str1 = &quot;Apple&quot;
 str2 = &quot;apple&quot;
-
 compareResult = StrComp(str1, str2, vbTextCompare)
-
 Select Case compareResult
-Case -1
-MsgBox str1 &amp; &quot; comes before &quot; &amp; str2
-Case 0
-MsgBox str1 &amp; &quot; equals &quot; &amp; str2
-Case 1
-MsgBox str1 &amp; &quot; comes after &quot; &amp; str2
+    Case -1
+        MsgBox str1 &amp; &quot; comes before &quot; &amp; str2
+    Case 0
+        MsgBox str1 &amp; &quot; equals &quot; &amp; str2
+    Case 1
+        MsgBox str1 &amp; &quot; comes after &quot; &amp; str2
 End Select</code></pre>
 <h3 id="example-3-case-insensitive-search">Example 3: Case-Insensitive Search</h3>
 <pre><code class="language-vbnet">Function FindInArray(arr() As String, searchValue As String) As Integer
-Dim i As Integer
-
-For i = LBound(arr) To UBound(arr)
-If StrComp(arr(i), searchValue, vbTextCompare) = 0 Then
-FindInArray = i
-Exit Function
-End If
-Next i
-
-FindInArray = -1  &#x27; Not found
+    Dim i As Integer
+    For i = LBound(arr) To UBound(arr)
+        If StrComp(arr(i), searchValue, vbTextCompare) = 0 Then
+            FindInArray = i
+            Exit Function
+        End If
+    Next i
+    FindInArray = -1  &#x27; Not found
 End Function</code></pre>
 <h3 id="example-4-null-handling">Example 4: Null Handling</h3>
 <pre><code class="language-vbnet">Dim result As Variant
 Dim str1 As Variant
 Dim str2 As Variant
-
 str1 = &quot;Hello&quot;
 str2 = Null
-
 result = StrComp(str1, str2)  &#x27; Returns Null
-
 If IsNull(result) Then
-MsgBox &quot;One of the strings is Null&quot;
+    MsgBox &quot;One of the strings is Null&quot;
 End If</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-bubble-sort-with-strcomp">Pattern 1: Bubble Sort with <code>StrComp</code></h3>
 <pre><code class="language-vbnet">Sub SortStrings(arr() As String, caseInsensitive As Boolean)
-Dim i As Integer
-Dim j As Integer
-Dim temp As String
-Dim compareMode As Integer
-
-compareMode = IIf(caseInsensitive, vbTextCompare, vbBinaryCompare)
-
-For i = LBound(arr) To UBound(arr) - 1
-For j = i + 1 To UBound(arr)
-If StrComp(arr(i), arr(j), compareMode) &gt; 0 Then
-temp = arr(i)
-arr(i) = arr(j)
-arr(j) = temp
-End If
-Next j
-Next i
+    Dim i As Integer
+    Dim j As Integer
+    Dim temp As String
+    Dim compareMode As Integer
+    compareMode = IIf(caseInsensitive, vbTextCompare, vbBinaryCompare)
+    For i = LBound(arr) To UBound(arr) - 1
+        For j = i + 1 To UBound(arr)
+            If StrComp(arr(i), arr(j), compareMode) &gt; 0 Then
+                temp = arr(i)
+                arr(i) = arr(j)
+                arr(j) = temp
+            End If
+        Next j
+    Next i
 End Sub</code></pre>
 <h3 id="pattern-2-case-insensitive-equality-check">Pattern 2: Case-Insensitive Equality Check</h3>
 <pre><code class="language-vbnet">Function EqualsIgnoreCase(str1 As String, str2 As String) As Boolean
-EqualsIgnoreCase = (StrComp(str1, str2, vbTextCompare) = 0)
+    EqualsIgnoreCase = (StrComp(str1, str2, vbTextCompare) = 0)
 End Function</code></pre>
 <h3 id="pattern-3-find-minimum-string">Pattern 3: Find Minimum String</h3>
 <pre><code class="language-vbnet">Function FindMinString(arr() As String) As String
-Dim i As Integer
-Dim minStr As String
-
-If UBound(arr) &lt; LBound(arr) Then Exit Function
-
-minStr = arr(LBound(arr))
-For i = LBound(arr) + 1 To UBound(arr)
-If StrComp(arr(i), minStr, vbTextCompare) &lt; 0 Then
-minStr = arr(i)
-End If
-Next i
-
-FindMinString = minStr
+    Dim i As Integer
+    Dim minStr As String
+    If UBound(arr) &lt; LBound(arr) Then Exit Function
+    minStr = arr(LBound(arr))
+    For i = LBound(arr) + 1 To UBound(arr)
+        If StrComp(arr(i), minStr, vbTextCompare) &lt; 0 Then
+            minStr = arr(i)
+        End If
+    Next i
+    FindMinString = minStr
 End Function</code></pre>
 <h3 id="pattern-4-binary-search-sorted-array">Pattern 4: Binary Search (Sorted Array)</h3>
 <pre><code class="language-vbnet">Function BinarySearch(arr() As String, searchValue As String) As Integer
-Dim low As Integer
-Dim high As Integer
-Dim mid As Integer
-Dim compareResult As Integer
-
-low = LBound(arr)
-high = UBound(arr)
-
-Do While low &lt;= high
-mid = (low + high) \ 2
-compareResult = StrComp(arr(mid), searchValue, vbTextCompare)
-
-If compareResult = 0 Then
-BinarySearch = mid
-Exit Function
-ElseIf compareResult &lt; 0 Then
-low = mid + 1
-Else
-high = mid - 1
-End If
-Loop
-
-BinarySearch = -1  &#x27; Not found
+    Dim low As Integer
+    Dim high As Integer
+    Dim mid As Integer
+    Dim compareResult As Integer
+    low = LBound(arr)
+    high = UBound(arr)
+    Do While low &lt;= high
+        mid = (low + high) \ 2
+        compareResult = StrComp(arr(mid), searchValue, vbTextCompare)
+        If compareResult = 0 Then
+            BinarySearch = mid
+            Exit Function
+        ElseIf compareResult &lt; 0 Then
+            low = mid + 1
+        Else
+            high = mid - 1
+        End If
+    Loop
+    BinarySearch = -1  &#x27; Not found
 End Function</code></pre>
 <h3 id="pattern-5-validate-against-list">Pattern 5: Validate Against List</h3>
 <pre><code class="language-vbnet">Function IsValidValue(value As String, validValues() As String) As Boolean
-Dim i As Integer
-
-For i = LBound(validValues) To UBound(validValues)
-If StrComp(value, validValues(i), vbTextCompare) = 0 Then
-IsValidValue = True
-Exit Function
-End If
-Next i
-
-IsValidValue = False
+    Dim i As Integer
+    For i = LBound(validValues) To UBound(validValues)
+        If StrComp(value, validValues(i), vbTextCompare) = 0 Then
+            IsValidValue = True
+            Exit Function
+        End If
+    Next i
+    IsValidValue = False
 End Function</code></pre>
 <h3 id="pattern-6-remove-duplicates-case-insensitive">Pattern 6: Remove Duplicates (Case-Insensitive)</h3>
 <pre><code class="language-vbnet">Function RemoveDuplicates(arr() As String) As String()
-Dim result() As String
-Dim count As Integer
-Dim i As Integer
-Dim j As Integer
-Dim isDuplicate As Boolean
-
-count = 0
-For i = LBound(arr) To UBound(arr)
-isDuplicate = False
-For j = 0 To count - 1
-If StrComp(arr(i), result(j), vbTextCompare) = 0 Then
-isDuplicate = True
-Exit For
-End If
-Next j
-
-If Not isDuplicate Then
-ReDim Preserve result(0 To count)
-result(count) = arr(i)
-count = count + 1
-End If
-Next i
-
-RemoveDuplicates = result
+    Dim result() As String
+    Dim count As Integer
+    Dim i As Integer
+    Dim j As Integer
+    Dim isDuplicate As Boolean
+    count = 0
+    For i = LBound(arr) To UBound(arr)
+        isDuplicate = False
+        For j = 0 To count - 1
+            If StrComp(arr(i), result(j), vbTextCompare) = 0 Then
+                isDuplicate = True
+                Exit For
+            End If
+        Next j
+        If Not isDuplicate Then
+            ReDim Preserve result(0 To count)
+            result(count) = arr(i)
+            count = count + 1
+        End If
+    Next i
+    RemoveDuplicates = result
 End Function</code></pre>
 <h3 id="pattern-7-group-by-first-letter">Pattern 7: Group By First Letter</h3>
 <pre><code class="language-vbnet">Function GroupByFirstLetter(arr() As String) As Collection
-Dim groups As New Collection
-Dim i As Integer
-Dim firstLetter As String
-Dim group As Collection
-
-For i = LBound(arr) To UBound(arr)
-firstLetter = UCase$(Left$(arr(i), 1))
-
-On Error Resume Next
-Set group = groups(firstLetter)
-On Error GoTo 0
-
-If group Is Nothing Then
-Set group = New Collection
-groups.Add group, firstLetter
-End If
-
-group.Add arr(i)
-Set group = Nothing
-Next i
-
-Set GroupByFirstLetter = groups
+    Dim groups As New Collection
+    Dim i As Integer
+    Dim firstLetter As String
+    Dim group As Collection
+    For i = LBound(arr) To UBound(arr)
+        firstLetter = UCase$(Left$(arr(i), 1))
+        On Error Resume Next
+        Set group = groups(firstLetter)
+        On Error GoTo 0
+        If group Is Nothing Then
+            Set group = New Collection
+            groups.Add group, firstLetter
+        End If
+        group.Add arr(i)
+        Set group = Nothing
+    Next i
+    Set GroupByFirstLetter = groups
 End Function</code></pre>
 <h3 id="pattern-8-natural-sort-helper">Pattern 8: Natural Sort Helper</h3>
 <pre><code class="language-vbnet">Function CompareNatural(str1 As String, str2 As String) As Integer
-&#x27; Simple natural sort: compare non-numeric parts with StrComp
-&#x27; This is a simplified version
-
-If IsNumeric(str1) And IsNumeric(str2) Then
-If CDbl(str1) &lt; CDbl(str2) Then
-CompareNatural = -1
-ElseIf CDbl(str1) &gt; CDbl(str2) Then
-CompareNatural = 1
-Else
-CompareNatural = 0
-End If
-Else
-CompareNatural = StrComp(str1, str2, vbTextCompare)
-End If
+    &#x27; Simple natural sort: compare non-numeric parts with StrComp
+    &#x27; This is a simplified version
+    If IsNumeric(str1) And IsNumeric(str2) Then
+        If CDbl(str1) &lt; CDbl(str2) Then
+            CompareNatural = -1
+        ElseIf CDbl(str1) &gt; CDbl(str2) Then
+            CompareNatural = 1
+        Else
+            CompareNatural = 0
+        End If
+    Else
+        CompareNatural = StrComp(str1, str2, vbTextCompare)
+    End If
 End Function</code></pre>
 <h3 id="pattern-9-case-sensitive-contains">Pattern 9: Case-Sensitive Contains</h3>
 <pre><code class="language-vbnet">Function ContainsCaseSensitive(arr() As String, value As String) As Boolean
-Dim i As Integer
-
-For i = LBound(arr) To UBound(arr)
-If StrComp(arr(i), value, vbBinaryCompare) = 0 Then
-ContainsCaseSensitive = True
-Exit Function
-End If
-Next i
-
-ContainsCaseSensitive = False
+    Dim i As Integer
+    For i = LBound(arr) To UBound(arr)
+        If StrComp(arr(i), value, vbBinaryCompare) = 0 Then
+            ContainsCaseSensitive = True
+            Exit Function
+        End If
+    Next i
+    ContainsCaseSensitive = False
 End Function</code></pre>
 <h3 id="pattern-10-compare-file-extensions">Pattern 10: Compare File Extensions</h3>
 <pre><code class="language-vbnet">Function HasExtension(filename As String, extension As String) As Boolean
-Dim fileExt As String
-Dim dotPos As Integer
-
-dotPos = InStrRev(filename, &quot;.&quot;)
-If dotPos = 0 Then
-HasExtension = False
-Exit Function
-End If
-
-fileExt = Mid$(filename, dotPos + 1)
-HasExtension = (StrComp(fileExt, extension, vbTextCompare) = 0)
+    Dim fileExt As String
+    Dim dotPos As Integer
+    dotPos = InStrRev(filename, &quot;.&quot;)
+    If dotPos = 0 Then
+        HasExtension = False
+        Exit Function
+    End If
+    fileExt = Mid$(filename, dotPos + 1)
+    HasExtension = (StrComp(fileExt, extension, vbTextCompare) = 0)
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-string-sorter-class">Example 1: String Sorter Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: StringSorter
 &#x27; Provides sorting capabilities with various comparison modes
 Option Explicit
-
 Public Enum SortOrder
-Ascending = 1
-Descending = -1
+    Ascending = 1
+    Descending = -1
 End Enum
-
 Private m_CompareMode As VbCompareMethod
 Private m_SortOrder As SortOrder
-
 Public Sub Initialize(Optional compareMode As VbCompareMethod = vbBinaryCompare, _
-Optional sortOrder As SortOrder = Ascending)
-m_CompareMode = compareMode
-m_SortOrder = sortOrder
+                      Optional sortOrder As SortOrder = Ascending)
+    m_CompareMode = compareMode
+    m_SortOrder = sortOrder
 End Sub
-
 Public Sub QuickSort(arr() As String, Optional leftIndex As Long = -1, _
-Optional rightIndex As Long = -1)
-Dim i As Long
-Dim j As Long
-Dim pivot As String
-Dim temp As String
-
-&#x27; Initialize indices on first call
-If leftIndex = -1 Then leftIndex = LBound(arr)
-If rightIndex = -1 Then rightIndex = UBound(arr)
-
-If leftIndex &gt;= rightIndex Then Exit Sub
-
-&#x27; Choose pivot
-pivot = arr((leftIndex + rightIndex) \ 2)
-i = leftIndex
-j = rightIndex
-
-&#x27; Partition
-Do While i &lt;= j
-Do While CompareValues(arr(i), pivot) &lt; 0
-i = i + 1
-Loop
-
-Do While CompareValues(arr(j), pivot) &gt; 0
-j = j - 1
-Loop
-
-If i &lt;= j Then
-temp = arr(i)
-arr(i) = arr(j)
-arr(j) = temp
-i = i + 1
-j = j - 1
-End If
-Loop
-
-&#x27; Recursive calls
-If leftIndex &lt; j Then QuickSort arr, leftIndex, j
-If i &lt; rightIndex Then QuickSort arr, i, rightIndex
+                                      Optional rightIndex As Long = -1)
+    Dim i As Long
+    Dim j As Long
+    Dim pivot As String
+    Dim temp As String
+    &#x27; Initialize indices on first call
+    If leftIndex = -1 Then leftIndex = LBound(arr)
+    If rightIndex = -1 Then rightIndex = UBound(arr)
+    If leftIndex &gt;= rightIndex Then Exit Sub
+    &#x27; Choose pivot
+    pivot = arr((leftIndex + rightIndex) \ 2)
+    i = leftIndex
+    j = rightIndex
+    &#x27; Partition
+    Do While i &lt;= j
+        Do While CompareValues(arr(i), pivot) &lt; 0
+            i = i + 1
+        Loop
+        Do While CompareValues(arr(j), pivot) &gt; 0
+            j = j - 1
+        Loop
+        If i &lt;= j Then
+            temp = arr(i)
+            arr(i) = arr(j)
+            arr(j) = temp
+            i = i + 1
+            j = j - 1
+        End If
+    Loop
+    &#x27; Recursive calls
+    If leftIndex &lt; j Then QuickSort arr, leftIndex, j
+    If i &lt; rightIndex Then QuickSort arr, i, rightIndex
 End Sub
-
 Private Function CompareValues(str1 As String, str2 As String) As Integer
-CompareValues = StrComp(str1, str2, m_CompareMode) * m_SortOrder
+    CompareValues = StrComp(str1, str2, m_CompareMode) * m_SortOrder
 End Function
-
 Public Function IsSorted(arr() As String) As Boolean
-Dim i As Long
-
-For i = LBound(arr) To UBound(arr) - 1
-If CompareValues(arr(i), arr(i + 1)) &gt; 0 Then
-IsSorted = False
-Exit Function
-End If
-Next i
-
-IsSorted = True
+    Dim i As Long
+    For i = LBound(arr) To UBound(arr) - 1
+        If CompareValues(arr(i), arr(i + 1)) &gt; 0 Then
+            IsSorted = False
+            Exit Function
+        End If
+    Next i
+    IsSorted = True
 End Function</code></pre>
 <h3 id="example-2-dictionary-with-case-insensitive-keys">Example 2: Dictionary with Case-Insensitive Keys</h3>
 <pre><code class="language-vbnet">&#x27; Class: CaseInsensitiveDictionary
 &#x27; Dictionary that treats keys as case-insensitive
 Option Explicit
-
 Private m_Keys() As String
 Private m_Values() As Variant
 Private m_Count As Long
-
 Public Sub Initialize()
-m_Count = 0
-ReDim m_Keys(0 To 9)
-ReDim m_Values(0 To 9)
+    m_Count = 0
+    ReDim m_Keys(0 To 9)
+    ReDim m_Values(0 To 9)
 End Sub
-
 Public Sub Add(key As String, value As Variant)
-Dim index As Long
-
-&#x27; Check if key already exists
-index = FindKey(key)
-If index &gt;= 0 Then
-Err.Raise 457, , &quot;Key already exists&quot;
-End If
-
-&#x27; Resize if necessary
-If m_Count &gt; UBound(m_Keys) Then
-ReDim Preserve m_Keys(0 To UBound(m_Keys) * 2 + 1)
-ReDim Preserve m_Values(0 To UBound(m_Values) * 2 + 1)
-End If
-
-&#x27; Add new item
-m_Keys(m_Count) = key
-If IsObject(value) Then
-Set m_Values(m_Count) = value
-Else
-m_Values(m_Count) = value
-End If
-m_Count = m_Count + 1
+    Dim index As Long
+    &#x27; Check if key already exists
+    index = FindKey(key)
+    If index &gt;= 0 Then
+        Err.Raise 457, , &quot;Key already exists&quot;
+    End If
+    &#x27; Resize if necessary
+    If m_Count &gt; UBound(m_Keys) Then
+        ReDim Preserve m_Keys(0 To UBound(m_Keys) * 2 + 1)
+        ReDim Preserve m_Values(0 To UBound(m_Values) * 2 + 1)
+    End If
+    &#x27; Add new item
+    m_Keys(m_Count) = key
+    If IsObject(value) Then
+        Set m_Values(m_Count) = value
+    Else
+        m_Values(m_Count) = value
+    End If
+    m_Count = m_Count + 1
 End Sub
-
 Public Function Item(key As String) As Variant
-Dim index As Long
-index = FindKey(key)
-
-If index &lt; 0 Then
-Err.Raise 5, , &quot;Key not found&quot;
-End If
-
-If IsObject(m_Values(index)) Then
-Set Item = m_Values(index)
-Else
-Item = m_Values(index)
-End If
+    Dim index As Long
+    index = FindKey(key)
+    If index &lt; 0 Then
+        Err.Raise 5, , &quot;Key not found&quot;
+    End If
+    If IsObject(m_Values(index)) Then
+        Set Item = m_Values(index)
+    Else
+        Item = m_Values(index)
+    End If
 End Function
-
 Public Function Exists(key As String) As Boolean
-Exists = (FindKey(key) &gt;= 0)
+    Exists = (FindKey(key) &gt;= 0)
 End Function
-
 Private Function FindKey(key As String) As Long
-Dim i As Long
-
-For i = 0 To m_Count - 1
-If StrComp(m_Keys(i), key, vbTextCompare) = 0 Then
-FindKey = i
-Exit Function
-End If
-Next i
-
-FindKey = -1
+    Dim i As Long
+    For i = 0 To m_Count - 1
+        If StrComp(m_Keys(i), key, vbTextCompare) = 0 Then
+            FindKey = i
+            Exit Function
+        End If
+    Next i
+    FindKey = -1
 End Function
-
 Public Property Get Count() As Long
-Count = m_Count
+    Count = m_Count
 End Property</code></pre>
 <h3 id="example-3-string-matcher-module">Example 3: String Matcher Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: StringMatcher
 &#x27; Advanced string matching and searching utilities
 Option Explicit
-
 Public Function FindAllMatches(arr() As String, searchValue As String, _
-caseInsensitive As Boolean) As Long()
-Dim matches() As Long
-Dim matchCount As Long
-Dim i As Long
-Dim compareMode As VbCompareMethod
-
-compareMode = IIf(caseInsensitive, vbTextCompare, vbBinaryCompare)
-matchCount = 0
-ReDim matches(0 To UBound(arr) - LBound(arr))
-
-For i = LBound(arr) To UBound(arr)
-If StrComp(arr(i), searchValue, compareMode) = 0 Then
-matches(matchCount) = i
-matchCount = matchCount + 1
-End If
-Next i
-
-&#x27; Resize to actual count
-If matchCount &gt; 0 Then
-ReDim Preserve matches(0 To matchCount - 1)
-Else
-ReDim matches(0 To -1)  &#x27; Empty array
-End If
-
-FindAllMatches = matches
+                               caseInsensitive As Boolean) As Long()
+    Dim matches() As Long
+    Dim matchCount As Long
+    Dim i As Long
+    Dim compareMode As VbCompareMethod
+    compareMode = IIf(caseInsensitive, vbTextCompare, vbBinaryCompare)
+    matchCount = 0
+    ReDim matches(0 To UBound(arr) - LBound(arr))
+    For i = LBound(arr) To UBound(arr)
+        If StrComp(arr(i), searchValue, compareMode) = 0 Then
+            matches(matchCount) = i
+            matchCount = matchCount + 1
+        End If
+    Next i
+    &#x27; Resize to actual count
+    If matchCount &gt; 0 Then
+        ReDim Preserve matches(0 To matchCount - 1)
+    Else
+        ReDim matches(0 To -1)  &#x27; Empty array
+    End If
+    FindAllMatches = matches
 End Function
-
 Public Function GetUniqueValues(arr() As String, caseInsensitive As Boolean) As String()
-Dim unique() As String
-Dim uniqueCount As Long
-Dim i As Long
-Dim j As Long
-Dim found As Boolean
-Dim compareMode As VbCompareMethod
-
-compareMode = IIf(caseInsensitive, vbTextCompare, vbBinaryCompare)
-uniqueCount = 0
-ReDim unique(0 To UBound(arr) - LBound(arr))
-
-For i = LBound(arr) To UBound(arr)
-found = False
-For j = 0 To uniqueCount - 1
-If StrComp(arr(i), unique(j), compareMode) = 0 Then
-found = True
-Exit For
-End If
-Next j
-
-If Not found Then
-unique(uniqueCount) = arr(i)
-uniqueCount = uniqueCount + 1
-End If
-Next i
-
-&#x27; Resize to actual count
-If uniqueCount &gt; 0 Then
-ReDim Preserve unique(0 To uniqueCount - 1)
-Else
-ReDim unique(0 To -1)
-End If
-
-GetUniqueValues = unique
+    Dim unique() As String
+    Dim uniqueCount As Long
+    Dim i As Long
+    Dim j As Long
+    Dim found As Boolean
+    Dim compareMode As VbCompareMethod
+    compareMode = IIf(caseInsensitive, vbTextCompare, vbBinaryCompare)
+    uniqueCount = 0
+    ReDim unique(0 To UBound(arr) - LBound(arr))
+    For i = LBound(arr) To UBound(arr)
+        found = False
+        For j = 0 To uniqueCount - 1
+            If StrComp(arr(i), unique(j), compareMode) = 0 Then
+                found = True
+                Exit For
+            End If
+        Next j
+        If Not found Then
+            unique(uniqueCount) = arr(i)
+            uniqueCount = uniqueCount + 1
+        End If
+    Next i
+    &#x27; Resize to actual count
+    If uniqueCount &gt; 0 Then
+        ReDim Preserve unique(0 To uniqueCount - 1)
+    Else
+        ReDim unique(0 To -1)
+    End If
+    GetUniqueValues = unique
 End Function
-
 Public Function CompareArrays(arr1() As String, arr2() As String, _
-caseInsensitive As Boolean) As Boolean
-Dim i As Long
-Dim compareMode As VbCompareMethod
-
-&#x27; Check bounds
-If UBound(arr1) - LBound(arr1) &lt;&gt; UBound(arr2) - LBound(arr2) Then
-CompareArrays = False
-Exit Function
-End If
-
-compareMode = IIf(caseInsensitive, vbTextCompare, vbBinaryCompare)
-
-&#x27; Compare elements
-For i = 0 To UBound(arr1) - LBound(arr1)
-If StrComp(arr1(LBound(arr1) + i), arr2(LBound(arr2) + i), compareMode) &lt;&gt; 0 Then
-CompareArrays = False
-Exit Function
-End If
-Next i
-
-CompareArrays = True
+                              caseInsensitive As Boolean) As Boolean
+    Dim i As Long
+    Dim compareMode As VbCompareMethod
+    &#x27; Check bounds
+    If UBound(arr1) - LBound(arr1) &lt;&gt; UBound(arr2) - LBound(arr2) Then
+        CompareArrays = False
+        Exit Function
+    End If
+    compareMode = IIf(caseInsensitive, vbTextCompare, vbBinaryCompare)
+    &#x27; Compare elements
+    For i = 0 To UBound(arr1) - LBound(arr1)
+        If StrComp(arr1(LBound(arr1) + i), arr2(LBound(arr2) + i), compareMode) &lt;&gt; 0 Then
+            CompareArrays = False
+            Exit Function
+        End If
+    Next i
+    CompareArrays = True
 End Function
-
 Public Function CountOccurrences(arr() As String, searchValue As String, _
-caseInsensitive As Boolean) As Long
-Dim i As Long
-Dim count As Long
-Dim compareMode As VbCompareMethod
-
-compareMode = IIf(caseInsensitive, vbTextCompare, vbBinaryCompare)
-count = 0
-
-For i = LBound(arr) To UBound(arr)
-If StrComp(arr(i), searchValue, compareMode) = 0 Then
-count = count + 1
-End If
-Next i
-
-CountOccurrences = count
+                                 caseInsensitive As Boolean) As Long
+    Dim i As Long
+    Dim count As Long
+    Dim compareMode As VbCompareMethod
+    compareMode = IIf(caseInsensitive, vbTextCompare, vbBinaryCompare)
+    count = 0
+    For i = LBound(arr) To UBound(arr)
+        If StrComp(arr(i), searchValue, compareMode) = 0 Then
+            count = count + 1
+        End If
+    Next i
+    CountOccurrences = count
 End Function</code></pre>
 <h3 id="example-4-validation-helper-class">Example 4: Validation Helper Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: StringValidator
 &#x27; Provides string validation with comparison options
 Option Explicit
-
 Private m_ValidValues As Collection
 Private m_CaseInsensitive As Boolean
-
 Public Sub Initialize(caseInsensitive As Boolean)
-Set m_ValidValues = New Collection
-m_CaseInsensitive = caseInsensitive
+    Set m_ValidValues = New Collection
+    m_CaseInsensitive = caseInsensitive
 End Sub
-
 Public Sub AddValidValue(value As String)
-&#x27; Check for duplicates
-If Not IsValid(value) Then
-m_ValidValues.Add value
-End If
+    &#x27; Check for duplicates
+    If Not IsValid(value) Then
+        m_ValidValues.Add value
+    End If
 End Sub
-
 Public Function IsValid(value As String) As Boolean
-Dim item As Variant
-Dim compareMode As VbCompareMethod
-
-compareMode = IIf(m_CaseInsensitive, vbTextCompare, vbBinaryCompare)
-
-For Each item In m_ValidValues
-If StrComp(CStr(item), value, compareMode) = 0 Then
-IsValid = True
-Exit Function
-End If
-Next item
-
-IsValid = False
+    Dim item As Variant
+    Dim compareMode As VbCompareMethod
+    compareMode = IIf(m_CaseInsensitive, vbTextCompare, vbBinaryCompare)
+    For Each item In m_ValidValues
+        If StrComp(CStr(item), value, compareMode) = 0 Then
+            IsValid = True
+            Exit Function
+        End If
+    Next item
+    IsValid = False
 End Function
-
 Public Function GetClosestMatch(value As String) As String
-Dim item As Variant
-Dim minDistance As Long
-Dim distance As Long
-Dim closest As String
-
-minDistance = 999999
-
-For Each item In m_ValidValues
-distance = GetEditDistance(value, CStr(item))
-If distance &lt; minDistance Then
-minDistance = distance
-closest = CStr(item)
-End If
-Next item
-
-GetClosestMatch = closest
+    Dim item As Variant
+    Dim minDistance As Long
+    Dim distance As Long
+    Dim closest As String
+    minDistance = 999999
+    For Each item In m_ValidValues
+        distance = GetEditDistance(value, CStr(item))
+        If distance &lt; minDistance Then
+            minDistance = distance
+            closest = CStr(item)
+        End If
+    Next item
+    GetClosestMatch = closest
 End Function
-
 Private Function GetEditDistance(str1 As String, str2 As String) As Long
-&#x27; Simple implementation - just return length difference
-GetEditDistance = Abs(Len(str1) - Len(str2))
+    &#x27; Simple implementation - just return length difference
+    GetEditDistance = Abs(Len(str1) - Len(str2))
 End Function
-
 Public Sub Clear()
-Set m_ValidValues = New Collection
+    Set m_ValidValues = New Collection
 End Sub
-
 Public Property Get Count() As Long
-Count = m_ValidValues.Count
+    Count = m_ValidValues.Count
 End Property</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>StrComp</code> function does not raise errors under normal circumstances. However:</p>
-<ul>
-<li>Returns <code>Null</code> if either string argument is <code>Null</code> (not an error)</li>
-<li><strong>Error 13 (Type mismatch)</strong>: If arguments cannot be converted to strings</li>
-<li><strong>Error 5 (Invalid procedure call)</strong>: If <code>compare</code> argument is not 0, 1, or 2</li>
-</ul>
+<p>The <code>StrComp</code> function does not raise errors under normal circumstances. However:
+- Returns <code>Null</code> if either string argument is <code>Null</code> (not an error)
+- <strong>Error 13 (Type mismatch)</strong>: If arguments cannot be converted to strings
+- <strong>Error 5 (Invalid procedure call)</strong>: If <code>compare</code> argument is not 0, 1, or 2</p>
 <h2 id="performance-notes">Performance Notes</h2>
 <ul>
 <li><strong>Binary comparison</strong> is faster than text comparison</li>
@@ -722,26 +621,106 @@ End Property</code></pre>
 <td>No</td>
 <td>False if Null</td>
 </tr>
+<tr>
+<td>## Platform Notes</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in VB6, VBA, and <code>VBScript</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Behavior consistent across platforms</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>vbDatabaseCompare</code> only meaningful in Microsoft Access</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Unicode comparison works correctly with international characters</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Option Compare affects default behavior differently in VBA vs VB6</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No support for locale-specific collation beyond text/binary</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot specify custom comparison rules</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>vbDatabaseCompare</code> mode rarely useful outside Access</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Null handling returns Null rather than error (can be unexpected)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No indication of <em>where</em> strings differ, only that they do</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot compare string arrays directly (must loop)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No natural sort support (e.g., "file2.txt" vs "file10.txt")</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-notes">Platform Notes</h2>
-<ul>
-<li>Available in VB6, VBA, and <code>VBScript</code></li>
-<li>Behavior consistent across platforms</li>
-<li><code>vbDatabaseCompare</code> only meaningful in Microsoft Access</li>
-<li>Unicode comparison works correctly with international characters</li>
-<li>Option Compare affects default behavior differently in VBA vs VB6</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>No support for locale-specific collation beyond text/binary</li>
-<li>Cannot specify custom comparison rules</li>
-<li><code>vbDatabaseCompare</code> mode rarely useful outside Access</li>
-<li>Null handling returns Null rather than error (can be unexpected)</li>
-<li>No indication of <em>where</em> strings differ, only that they do</li>
-<li>Cannot compare string arrays directly (must loop)</li>
-<li>No natural sort support (e.g., "file2.txt" vs "file10.txt")</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

@@ -52,12 +52,12 @@
 <pre><code class="language-text">RGB = red + (green * 256) + (blue * 65536)</code></pre>
 <p>The return value is a Long integer in BGR (Blue-Green-Red) byte order, which is the standard format for Windows color values.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>RGB</code> function creates custom color values by combining red, green, and blue components. This is the primary way to specify colors programmatically in VB6 beyond the predefined color constants.</p>
-<p>Each color component must be in the range 0-255:
+<p>The <code>RGB</code> function creates custom color values by combining red, green, and blue components. This is the primary way to specify colors programmatically in VB6 beyond the predefined color constants.
+Each color component must be in the range 0-255:
 - 0 represents no intensity (color is off)
 - 255 represents maximum intensity (color is fully on)
-- Values outside this range are automatically adjusted to fit within 0-255</p>
-<p><strong>Important Notes</strong>:
+- Values outside this range are automatically adjusted to fit within 0-255
+<strong>Important Notes</strong>:
 - The return value uses BGR byte order (not RGB order) for Windows compatibility
 - RGB(0, 0, 0) = Black (0x000000)
 - RGB(255, 255, 255) = White (0xFFFFFF)
@@ -65,8 +65,8 @@
 - RGB(0, 255, 0) = Green (0x00FF00)
 - RGB(0, 0, 255) = Blue (0xFF0000 in BGR format)
 - Values greater than 255 are treated as 255 (saturated)
-- Negative values are treated as 0</p>
-<p><strong>Color Mixing</strong>:
+- Negative values are treated as 0
+<strong>Color Mixing</strong>:
 - RGB(255, 0, 0) = Pure Red
 - RGB(0, 255, 0) = Pure Green
 - RGB(0, 0, 255) = Pure Blue
@@ -89,21 +89,17 @@
 <h3 id="example-1-primary-colors">Example 1: Primary Colors</h3>
 <pre><code class="language-vbnet">&#x27; Set form background to pure red
 Form1.BackColor = RGB(255, 0, 0)
-
 &#x27; Set label to pure green
 Label1.ForeColor = RGB(0, 255, 0)
-
 &#x27; Set button to pure blue
 Command1.BackColor = RGB(0, 0, 255)</code></pre>
 <h3 id="example-2-custom-colors">Example 2: Custom Colors</h3>
 <pre><code class="language-vbnet">&#x27; Create a nice orange color
 Dim orange As Long
 orange = RGB(255, 165, 0)
-
 &#x27; Create a purple color
 Dim purple As Long
 purple = RGB(128, 0, 128)
-
 &#x27; Create a brown color
 Dim brown As Long
 brown = RGB(165, 42, 42)</code></pre>
@@ -112,7 +108,6 @@ brown = RGB(165, 42, 42)</code></pre>
 Dim lightGray As Long
 Dim mediumGray As Long
 Dim darkGray As Long
-
 lightGray = RGB(211, 211, 211)
 mediumGray = RGB(128, 128, 128)
 darkGray = RGB(64, 64, 64)</code></pre>
@@ -120,562 +115,471 @@ darkGray = RGB(64, 64, 64)</code></pre>
 <pre><code class="language-vbnet">&#x27; Color-code values based on magnitude
 Dim value As Double
 Dim cellColor As Long
-
 If value &gt; 100 Then
-cellColor = RGB(255, 0, 0)      &#x27; Red for high values
+    cellColor = RGB(255, 0, 0)      &#x27; Red for high values
 ElseIf value &gt; 50 Then
-cellColor = RGB(255, 255, 0)    &#x27; Yellow for medium values
+    cellColor = RGB(255, 255, 0)    &#x27; Yellow for medium values
 Else
-cellColor = RGB(0, 255, 0)      &#x27; Green for low values
+    cellColor = RGB(0, 255, 0)      &#x27; Green for low values
 End If</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-creategradient">Pattern 1: <code>CreateGradient</code></h3>
 <pre><code class="language-vbnet">Function CreateGradient(startColor As Long, endColor As Long, _
-steps As Integer, stepNum As Integer) As Long
-&#x27; Create a color between startColor and endColor
-Dim startR As Integer, startG As Integer, startB As Integer
-Dim endR As Integer, endG As Integer, endB As Integer
-Dim r As Integer, g As Integer, b As Integer
-Dim ratio As Double
-
-&#x27; Extract RGB components from start color
-startR = startColor And &amp;HFF
-startG = (startColor \ 256) And &amp;HFF
-startB = (startColor \ 65536) And &amp;HFF
-
-&#x27; Extract RGB components from end color
-endR = endColor And &amp;HFF
-endG = (endColor \ 256) And &amp;HFF
-endB = (endColor \ 65536) And &amp;HFF
-
-&#x27; Calculate interpolation ratio
-ratio = stepNum / steps
-
-&#x27; Interpolate each component
-r = startR + ((endR - startR) * ratio)
-g = startG + ((endG - startG) * ratio)
-b = startB + ((endB - startB) * ratio)
-
-CreateGradient = RGB(r, g, b)
+                       steps As Integer, stepNum As Integer) As Long
+    &#x27; Create a color between startColor and endColor
+    Dim startR As Integer, startG As Integer, startB As Integer
+    Dim endR As Integer, endG As Integer, endB As Integer
+    Dim r As Integer, g As Integer, b As Integer
+    Dim ratio As Double
+    &#x27; Extract RGB components from start color
+    startR = startColor And &amp;HFF
+    startG = (startColor \ 256) And &amp;HFF
+    startB = (startColor \ 65536) And &amp;HFF
+    &#x27; Extract RGB components from end color
+    endR = endColor And &amp;HFF
+    endG = (endColor \ 256) And &amp;HFF
+    endB = (endColor \ 65536) And &amp;HFF
+    &#x27; Calculate interpolation ratio
+    ratio = stepNum / steps
+    &#x27; Interpolate each component
+    r = startR + ((endR - startR) * ratio)
+    g = startG + ((endG - startG) * ratio)
+    b = startB + ((endB - startB) * ratio)
+    CreateGradient = RGB(r, g, b)
 End Function</code></pre>
 <h3 id="pattern-2-extractcolorcomponents">Pattern 2: <code>ExtractColorComponents</code></h3>
 <pre><code class="language-vbnet">Sub ExtractRGB(color As Long, red As Integer, green As Integer, blue As Integer)
-&#x27; Extract individual RGB components from a color value
-red = color And &amp;HFF
-green = (color \ 256) And &amp;HFF
-blue = (color \ 65536) And &amp;HFF
+    &#x27; Extract individual RGB components from a color value
+    red = color And &amp;HFF
+    green = (color \ 256) And &amp;HFF
+    blue = (color \ 65536) And &amp;HFF
 End Sub</code></pre>
 <h3 id="pattern-3-lightencolor">Pattern 3: <code>LightenColor</code></h3>
 <pre><code class="language-vbnet">Function LightenColor(color As Long, percent As Double) As Long
-&#x27; Lighten a color by a percentage (0-100)
-Dim r As Integer, g As Integer, b As Integer
-
-r = color And &amp;HFF
-g = (color \ 256) And &amp;HFF
-b = (color \ 65536) And &amp;HFF
-
-&#x27; Increase each component toward 255
-r = r + ((255 - r) * percent / 100)
-g = g + ((255 - g) * percent / 100)
-b = b + ((255 - b) * percent / 100)
-
-LightenColor = RGB(r, g, b)
+    &#x27; Lighten a color by a percentage (0-100)
+    Dim r As Integer, g As Integer, b As Integer
+    r = color And &amp;HFF
+    g = (color \ 256) And &amp;HFF
+    b = (color \ 65536) And &amp;HFF
+    &#x27; Increase each component toward 255
+    r = r + ((255 - r) * percent / 100)
+    g = g + ((255 - g) * percent / 100)
+    b = b + ((255 - b) * percent / 100)
+    LightenColor = RGB(r, g, b)
 End Function</code></pre>
 <h3 id="pattern-4-darkencolor">Pattern 4: <code>DarkenColor</code></h3>
 <pre><code class="language-vbnet">Function DarkenColor(color As Long, percent As Double) As Long
-&#x27; Darken a color by a percentage (0-100)
-Dim r As Integer, g As Integer, b As Integer
-
-r = color And &amp;HFF
-g = (color \ 256) And &amp;HFF
-b = (color \ 65536) And &amp;HFF
-
-&#x27; Decrease each component toward 0
-r = r - (r * percent / 100)
-g = g - (g * percent / 100)
-b = b - (b * percent / 100)
-
-DarkenColor = RGB(r, g, b)
+    &#x27; Darken a color by a percentage (0-100)
+    Dim r As Integer, g As Integer, b As Integer
+    r = color And &amp;HFF
+    g = (color \ 256) And &amp;HFF
+    b = (color \ 65536) And &amp;HFF
+    &#x27; Decrease each component toward 0
+    r = r - (r * percent / 100)
+    g = g - (g * percent / 100)
+    b = b - (b * percent / 100)
+    DarkenColor = RGB(r, g, b)
 End Function</code></pre>
 <h3 id="pattern-5-blendcolors">Pattern 5: <code>BlendColors</code></h3>
 <pre><code class="language-vbnet">Function BlendColors(color1 As Long, color2 As Long, _
-Optional ratio As Double = 0.5) As Long
-&#x27; Blend two colors together (ratio 0.0 = color1, 1.0 = color2)
-Dim r1 As Integer, g1 As Integer, b1 As Integer
-Dim r2 As Integer, g2 As Integer, b2 As Integer
-Dim r As Integer, g As Integer, b As Integer
-
-&#x27; Extract components
-r1 = color1 And &amp;HFF
-g1 = (color1 \ 256) And &amp;HFF
-b1 = (color1 \ 65536) And &amp;HFF
-
-r2 = color2 And &amp;HFF
-g2 = (color2 \ 256) And &amp;HFF
-b2 = (color2 \ 65536) And &amp;HFF
-
-&#x27; Blend
-r = r1 + ((r2 - r1) * ratio)
-g = g1 + ((g2 - g1) * ratio)
-b = b1 + ((b2 - b1) * ratio)
-
-BlendColors = RGB(r, g, b)
+                    Optional ratio As Double = 0.5) As Long
+    &#x27; Blend two colors together (ratio 0.0 = color1, 1.0 = color2)
+    Dim r1 As Integer, g1 As Integer, b1 As Integer
+    Dim r2 As Integer, g2 As Integer, b2 As Integer
+    Dim r As Integer, g As Integer, b As Integer
+    &#x27; Extract components
+    r1 = color1 And &amp;HFF
+    g1 = (color1 \ 256) And &amp;HFF
+    b1 = (color1 \ 65536) And &amp;HFF
+    r2 = color2 And &amp;HFF
+    g2 = (color2 \ 256) And &amp;HFF
+    b2 = (color2 \ 65536) And &amp;HFF
+    &#x27; Blend
+    r = r1 + ((r2 - r1) * ratio)
+    g = g1 + ((g2 - g1) * ratio)
+    b = b1 + ((b2 - b1) * ratio)
+    BlendColors = RGB(r, g, b)
 End Function</code></pre>
 <h3 id="pattern-6-colorfromhex">Pattern 6: <code>ColorFromHex</code></h3>
 <pre><code class="language-vbnet">Function ColorFromHex(hexColor As String) As Long
-&#x27; Convert hex string like &quot;#FF0000&quot; to RGB color
-Dim r As Integer, g As Integer, b As Integer
-
-&#x27; Remove # if present
-If Left(hexColor, 1) = &quot;#&quot; Then
-hexColor = Mid(hexColor, 2)
-End If
-
-&#x27; Extract components (assumes format RRGGBB)
-r = Val(&quot;&amp;H&quot; &amp; Mid(hexColor, 1, 2))
-g = Val(&quot;&amp;H&quot; &amp; Mid(hexColor, 3, 2))
-b = Val(&quot;&amp;H&quot; &amp; Mid(hexColor, 5, 2))
-
-ColorFromHex = RGB(r, g, b)
+    &#x27; Convert hex string like &quot;#FF0000&quot; to RGB color
+    Dim r As Integer, g As Integer, b As Integer
+    &#x27; Remove # if present
+    If Left(hexColor, 1) = &quot;#&quot; Then
+        hexColor = Mid(hexColor, 2)
+    End If
+    &#x27; Extract components (assumes format RRGGBB)
+    r = Val(&quot;&amp;H&quot; &amp; Mid(hexColor, 1, 2))
+    g = Val(&quot;&amp;H&quot; &amp; Mid(hexColor, 3, 2))
+    b = Val(&quot;&amp;H&quot; &amp; Mid(hexColor, 5, 2))
+    ColorFromHex = RGB(r, g, b)
 End Function</code></pre>
 <h3 id="pattern-7-colortohex">Pattern 7: <code>ColorToHex</code></h3>
 <pre><code class="language-vbnet">Function ColorToHex(color As Long) As String
-&#x27; Convert RGB color to hex string
-Dim r As Integer, g As Integer, b As Integer
-
-r = color And &amp;HFF
-g = (color \ 256) And &amp;HFF
-b = (color \ 65536) And &amp;HFF
-
-ColorToHex = &quot;#&quot; &amp; _
-Right(&quot;0&quot; &amp; Hex(r), 2) &amp; _
-Right(&quot;0&quot; &amp; Hex(g), 2) &amp; _
-Right(&quot;0&quot; &amp; Hex(b), 2)
+    &#x27; Convert RGB color to hex string
+    Dim r As Integer, g As Integer, b As Integer
+    r = color And &amp;HFF
+    g = (color \ 256) And &amp;HFF
+    b = (color \ 65536) And &amp;HFF
+    ColorToHex = &quot;#&quot; &amp; _
+                 Right(&quot;0&quot; &amp; Hex(r), 2) &amp; _
+                 Right(&quot;0&quot; &amp; Hex(g), 2) &amp; _
+                 Right(&quot;0&quot; &amp; Hex(b), 2)
 End Function</code></pre>
 <h3 id="pattern-8-getcontrastcolor">Pattern 8: <code>GetContrastColor</code></h3>
 <pre><code class="language-vbnet">Function GetContrastColor(bgColor As Long) As Long
-&#x27; Return black or white for best contrast
-Dim r As Integer, g As Integer, b As Integer
-Dim luminance As Double
-
-r = bgColor And &amp;HFF
-g = (bgColor \ 256) And &amp;HFF
-b = (bgColor \ 65536) And &amp;HFF
-
-&#x27; Calculate perceived luminance
-luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
-
-If luminance &gt; 0.5 Then
-GetContrastColor = RGB(0, 0, 0)      &#x27; Black
-Else
-GetContrastColor = RGB(255, 255, 255) &#x27; White
-End If
+    &#x27; Return black or white for best contrast
+    Dim r As Integer, g As Integer, b As Integer
+    Dim luminance As Double
+    r = bgColor And &amp;HFF
+    g = (bgColor \ 256) And &amp;HFF
+    b = (bgColor \ 65536) And &amp;HFF
+    &#x27; Calculate perceived luminance
+    luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+    If luminance &gt; 0.5 Then
+        GetContrastColor = RGB(0, 0, 0)      &#x27; Black
+    Else
+        GetContrastColor = RGB(255, 255, 255) &#x27; White
+    End If
 End Function</code></pre>
 <h3 id="pattern-9-temperaturetocolor">Pattern 9: <code>TemperatureToColor</code></h3>
 <pre><code class="language-vbnet">Function TemperatureToColor(temp As Double, minTemp As Double, _
-maxTemp As Double) As Long
-&#x27; Map temperature to color (blue = cold, red = hot)
-Dim ratio As Double
-Dim r As Integer, g As Integer, b As Integer
-
-&#x27; Normalize temperature to 0-1 range
-ratio = (temp - minTemp) / (maxTemp - minTemp)
-If ratio &lt; 0 Then ratio = 0
-If ratio &gt; 1 Then ratio = 1
-
-If ratio &lt; 0.5 Then
-&#x27; Blue to cyan to green
-r = 0
-g = ratio * 2 * 255
-b = 255 - (ratio * 2 * 255)
-Else
-&#x27; Green to yellow to red
-r = (ratio - 0.5) * 2 * 255
-g = 255 - ((ratio - 0.5) * 2 * 255)
-b = 0
-End If
-
-TemperatureToColor = RGB(r, g, b)
+                           maxTemp As Double) As Long
+    &#x27; Map temperature to color (blue = cold, red = hot)
+    Dim ratio As Double
+    Dim r As Integer, g As Integer, b As Integer
+    &#x27; Normalize temperature to 0-1 range
+    ratio = (temp - minTemp) / (maxTemp - minTemp)
+    If ratio &lt; 0 Then ratio = 0
+    If ratio &gt; 1 Then ratio = 1
+    If ratio &lt; 0.5 Then
+        &#x27; Blue to cyan to green
+        r = 0
+        g = ratio * 2 * 255
+        b = 255 - (ratio * 2 * 255)
+    Else
+        &#x27; Green to yellow to red
+        r = (ratio - 0.5) * 2 * 255
+        g = 255 - ((ratio - 0.5) * 2 * 255)
+        b = 0
+    End If
+    TemperatureToColor = RGB(r, g, b)
 End Function</code></pre>
 <h3 id="pattern-10-invertcolor">Pattern 10: <code>InvertColor</code></h3>
 <pre><code class="language-vbnet">Function InvertColor(color As Long) As Long
-&#x27; Invert a color (negative)
-Dim r As Integer, g As Integer, b As Integer
-
-r = color And &amp;HFF
-g = (color \ 256) And &amp;HFF
-b = (color \ 65536) And &amp;HFF
-
-InvertColor = RGB(255 - r, 255 - g, 255 - b)
+    &#x27; Invert a color (negative)
+    Dim r As Integer, g As Integer, b As Integer
+    r = color And &amp;HFF
+    g = (color \ 256) And &amp;HFF
+    b = (color \ 65536) And &amp;HFF
+    InvertColor = RGB(255 - r, 255 - g, 255 - b)
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-color-palette-manager">Example 1: Color Palette Manager</h3>
 <pre><code class="language-vbnet">&#x27; Comprehensive color palette management system
 Class ColorPalette
-Private m_colors() As Long
-Private m_colorNames() As String
-Private m_count As Integer
-
-Public Sub Initialize()
-m_count = 0
-ReDim m_colors(0 To 99)
-ReDim m_colorNames(0 To 99)
-LoadDefaultColors
-End Sub
-
-Private Sub LoadDefaultColors()
-AddColor &quot;Red&quot;, RGB(255, 0, 0)
-AddColor &quot;Green&quot;, RGB(0, 255, 0)
-AddColor &quot;Blue&quot;, RGB(0, 0, 255)
-AddColor &quot;Yellow&quot;, RGB(255, 255, 0)
-AddColor &quot;Magenta&quot;, RGB(255, 0, 255)
-AddColor &quot;Cyan&quot;, RGB(0, 255, 255)
-AddColor &quot;White&quot;, RGB(255, 255, 255)
-AddColor &quot;Black&quot;, RGB(0, 0, 0)
-AddColor &quot;Gray&quot;, RGB(128, 128, 128)
-AddColor &quot;Orange&quot;, RGB(255, 165, 0)
-AddColor &quot;Purple&quot;, RGB(128, 0, 128)
-AddColor &quot;Brown&quot;, RGB(165, 42, 42)
-End Sub
-
-Public Sub AddColor(name As String, color As Long)
-If m_count &gt; UBound(m_colors) Then
-ReDim Preserve m_colors(0 To UBound(m_colors) + 50)
-ReDim Preserve m_colorNames(0 To UBound(m_colorNames) + 50)
-End If
-
-m_colorNames(m_count) = name
-m_colors(m_count) = color
-m_count = m_count + 1
-End Sub
-
-Public Function GetColor(name As String) As Long
-Dim i As Integer
-
-For i = 0 To m_count - 1
-If UCase(m_colorNames(i)) = UCase(name) Then
-GetColor = m_colors(i)
-Exit Function
-End If
-Next i
-
-GetColor = RGB(0, 0, 0)  &#x27; Default to black
-End Function
-
-Public Function CreateGradientPalette(startColor As Long, endColor As Long, _
-steps As Integer) As Long()
-Dim palette() As Long
-Dim i As Integer
-Dim r1 As Integer, g1 As Integer, b1 As Integer
-Dim r2 As Integer, g2 As Integer, b2 As Integer
-Dim r As Integer, g As Integer, b As Integer
-Dim ratio As Double
-
-ReDim palette(0 To steps - 1)
-
-&#x27; Extract components
-r1 = startColor And &amp;HFF
-g1 = (startColor \ 256) And &amp;HFF
-b1 = (startColor \ 65536) And &amp;HFF
-
-r2 = endColor And &amp;HFF
-g2 = (endColor \ 256) And &amp;HFF
-b2 = (endColor \ 65536) And &amp;HFF
-
-For i = 0 To steps - 1
-ratio = i / (steps - 1)
-
-r = r1 + ((r2 - r1) * ratio)
-g = g1 + ((g2 - g1) * ratio)
-b = b1 + ((b2 - b1) * ratio)
-
-palette(i) = RGB(r, g, b)
-Next i
-
-CreateGradientPalette = palette
-End Function
-
-Public Function GetColorCount() As Integer
-GetColorCount = m_count
-End Function
-
-Public Function GetColorByIndex(index As Integer) As Long
-If index &gt;= 0 And index &lt; m_count Then
-GetColorByIndex = m_colors(index)
-Else
-GetColorByIndex = RGB(0, 0, 0)
-End If
-End Function
-
-Public Function GetNameByIndex(index As Integer) As String
-If index &gt;= 0 And index &lt; m_count Then
-GetNameByIndex = m_colorNames(index)
-Else
-GetNameByIndex = &quot;&quot;
-End If
-End Function
+    Private m_colors() As Long
+    Private m_colorNames() As String
+    Private m_count As Integer
+    Public Sub Initialize()
+        m_count = 0
+        ReDim m_colors(0 To 99)
+        ReDim m_colorNames(0 To 99)
+        LoadDefaultColors
+    End Sub
+    Private Sub LoadDefaultColors()
+        AddColor &quot;Red&quot;, RGB(255, 0, 0)
+        AddColor &quot;Green&quot;, RGB(0, 255, 0)
+        AddColor &quot;Blue&quot;, RGB(0, 0, 255)
+        AddColor &quot;Yellow&quot;, RGB(255, 255, 0)
+        AddColor &quot;Magenta&quot;, RGB(255, 0, 255)
+        AddColor &quot;Cyan&quot;, RGB(0, 255, 255)
+        AddColor &quot;White&quot;, RGB(255, 255, 255)
+        AddColor &quot;Black&quot;, RGB(0, 0, 0)
+        AddColor &quot;Gray&quot;, RGB(128, 128, 128)
+        AddColor &quot;Orange&quot;, RGB(255, 165, 0)
+        AddColor &quot;Purple&quot;, RGB(128, 0, 128)
+        AddColor &quot;Brown&quot;, RGB(165, 42, 42)
+    End Sub
+    Public Sub AddColor(name As String, color As Long)
+        If m_count &gt; UBound(m_colors) Then
+            ReDim Preserve m_colors(0 To UBound(m_colors) + 50)
+            ReDim Preserve m_colorNames(0 To UBound(m_colorNames) + 50)
+        End If
+        m_colorNames(m_count) = name
+        m_colors(m_count) = color
+        m_count = m_count + 1
+    End Sub
+    Public Function GetColor(name As String) As Long
+        Dim i As Integer
+        For i = 0 To m_count - 1
+            If UCase(m_colorNames(i)) = UCase(name) Then
+                GetColor = m_colors(i)
+                Exit Function
+            End If
+        Next i
+        GetColor = RGB(0, 0, 0)  &#x27; Default to black
+    End Function
+    Public Function CreateGradientPalette(startColor As Long, endColor As Long, _
+                                         steps As Integer) As Long()
+        Dim palette() As Long
+        Dim i As Integer
+        Dim r1 As Integer, g1 As Integer, b1 As Integer
+        Dim r2 As Integer, g2 As Integer, b2 As Integer
+        Dim r As Integer, g As Integer, b As Integer
+        Dim ratio As Double
+        ReDim palette(0 To steps - 1)
+        &#x27; Extract components
+        r1 = startColor And &amp;HFF
+        g1 = (startColor \ 256) And &amp;HFF
+        b1 = (startColor \ 65536) And &amp;HFF
+        r2 = endColor And &amp;HFF
+        g2 = (endColor \ 256) And &amp;HFF
+        b2 = (endColor \ 65536) And &amp;HFF
+        For i = 0 To steps - 1
+            ratio = i / (steps - 1)
+            r = r1 + ((r2 - r1) * ratio)
+            g = g1 + ((g2 - g1) * ratio)
+            b = b1 + ((b2 - b1) * ratio)
+            palette(i) = RGB(r, g, b)
+        Next i
+        CreateGradientPalette = palette
+    End Function
+    Public Function GetColorCount() As Integer
+        GetColorCount = m_count
+    End Function
+    Public Function GetColorByIndex(index As Integer) As Long
+        If index &gt;= 0 And index &lt; m_count Then
+            GetColorByIndex = m_colors(index)
+        Else
+            GetColorByIndex = RGB(0, 0, 0)
+        End If
+    End Function
+    Public Function GetNameByIndex(index As Integer) As String
+        If index &gt;= 0 And index &lt; m_count Then
+            GetNameByIndex = m_colorNames(index)
+        Else
+            GetNameByIndex = &quot;&quot;
+        End If
+    End Function
 End Class</code></pre>
 <h3 id="example-2-heat-map-generator">Example 2: Heat Map Generator</h3>
 <pre><code class="language-vbnet">&#x27; Generate heat map colors for data visualization
 Module HeatMapColors
-Public Function GetHeatMapColor(value As Double, minValue As Double, _
-maxValue As Double) As Long
-&#x27; Returns color from blue (cold) to red (hot)
-Dim ratio As Double
-Dim r As Integer, g As Integer, b As Integer
-
-&#x27; Normalize value to 0-1 range
-If maxValue = minValue Then
-ratio = 0.5
-Else
-ratio = (value - minValue) / (maxValue - minValue)
-End If
-
-&#x27; Clamp ratio to 0-1
-If ratio &lt; 0 Then ratio = 0
-If ratio &gt; 1 Then ratio = 1
-
-&#x27; Calculate color based on ratio
-If ratio &lt; 0.25 Then
-&#x27; Blue to cyan
-r = 0
-g = ratio * 4 * 255
-b = 255
-ElseIf ratio &lt; 0.5 Then
-&#x27; Cyan to green
-r = 0
-g = 255
-b = 255 - ((ratio - 0.25) * 4 * 255)
-ElseIf ratio &lt; 0.75 Then
-&#x27; Green to yellow
-r = (ratio - 0.5) * 4 * 255
-g = 255
-b = 0
-Else
-&#x27; Yellow to red
-r = 255
-g = 255 - ((ratio - 0.75) * 4 * 255)
-b = 0
-End If
-
-GetHeatMapColor = RGB(r, g, b)
-End Function
-
-Public Sub ApplyHeatMapToRange(dataRange() As Double, controls() As Control)
-Dim i As Integer
-Dim minVal As Double, maxVal As Double
-
-&#x27; Find min and max values
-minVal = dataRange(LBound(dataRange))
-maxVal = dataRange(LBound(dataRange))
-
-For i = LBound(dataRange) To UBound(dataRange)
-If dataRange(i) &lt; minVal Then minVal = dataRange(i)
-If dataRange(i) &gt; maxVal Then maxVal = dataRange(i)
-Next i
-
-&#x27; Apply colors
-For i = LBound(dataRange) To UBound(dataRange)
-controls(i).BackColor = GetHeatMapColor(dataRange(i), minVal, maxVal)
-controls(i).ForeColor = GetContrastColor(controls(i).BackColor)
-Next i
-End Sub
-
-Private Function GetContrastColor(bgColor As Long) As Long
-Dim r As Integer, g As Integer, b As Integer
-Dim luminance As Double
-
-r = bgColor And &amp;HFF
-g = (bgColor \ 256) And &amp;HFF
-b = (bgColor \ 65536) And &amp;HFF
-
-luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
-
-If luminance &gt; 0.5 Then
-GetContrastColor = RGB(0, 0, 0)
-Else
-GetContrastColor = RGB(255, 255, 255)
-End If
-End Function
+    Public Function GetHeatMapColor(value As Double, minValue As Double, _
+                                   maxValue As Double) As Long
+        &#x27; Returns color from blue (cold) to red (hot)
+        Dim ratio As Double
+        Dim r As Integer, g As Integer, b As Integer
+        &#x27; Normalize value to 0-1 range
+        If maxValue = minValue Then
+            ratio = 0.5
+        Else
+            ratio = (value - minValue) / (maxValue - minValue)
+        End If
+        &#x27; Clamp ratio to 0-1
+        If ratio &lt; 0 Then ratio = 0
+        If ratio &gt; 1 Then ratio = 1
+        &#x27; Calculate color based on ratio
+        If ratio &lt; 0.25 Then
+            &#x27; Blue to cyan
+            r = 0
+            g = ratio * 4 * 255
+            b = 255
+        ElseIf ratio &lt; 0.5 Then
+            &#x27; Cyan to green
+            r = 0
+            g = 255
+            b = 255 - ((ratio - 0.25) * 4 * 255)
+        ElseIf ratio &lt; 0.75 Then
+            &#x27; Green to yellow
+            r = (ratio - 0.5) * 4 * 255
+            g = 255
+            b = 0
+        Else
+            &#x27; Yellow to red
+            r = 255
+            g = 255 - ((ratio - 0.75) * 4 * 255)
+            b = 0
+        End If
+        GetHeatMapColor = RGB(r, g, b)
+    End Function
+    Public Sub ApplyHeatMapToRange(dataRange() As Double, controls() As Control)
+        Dim i As Integer
+        Dim minVal As Double, maxVal As Double
+        &#x27; Find min and max values
+        minVal = dataRange(LBound(dataRange))
+        maxVal = dataRange(LBound(dataRange))
+        For i = LBound(dataRange) To UBound(dataRange)
+            If dataRange(i) &lt; minVal Then minVal = dataRange(i)
+            If dataRange(i) &gt; maxVal Then maxVal = dataRange(i)
+        Next i
+        &#x27; Apply colors
+        For i = LBound(dataRange) To UBound(dataRange)
+            controls(i).BackColor = GetHeatMapColor(dataRange(i), minVal, maxVal)
+            controls(i).ForeColor = GetContrastColor(controls(i).BackColor)
+        Next i
+    End Sub
+    Private Function GetContrastColor(bgColor As Long) As Long
+        Dim r As Integer, g As Integer, b As Integer
+        Dim luminance As Double
+        r = bgColor And &amp;HFF
+        g = (bgColor \ 256) And &amp;HFF
+        b = (bgColor \ 65536) And &amp;HFF
+        luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+        If luminance &gt; 0.5 Then
+            GetContrastColor = RGB(0, 0, 0)
+        Else
+            GetContrastColor = RGB(255, 255, 255)
+        End If
+    End Function
 End Module</code></pre>
 <h3 id="example-3-theme-manager">Example 3: Theme Manager</h3>
 <pre><code class="language-vbnet">&#x27; Application theme management with color schemes
 Class ThemeManager
-Private Type ColorScheme
-Background As Long
-Foreground As Long
-Accent As Long
-Highlight As Long
-Border As Long
-End Type
-
-Private m_currentTheme As ColorScheme
-Private m_themeName As String
-
-Public Sub SetLightTheme()
-m_themeName = &quot;Light&quot;
-With m_currentTheme
-.Background = RGB(255, 255, 255)    &#x27; White
-.Foreground = RGB(0, 0, 0)          &#x27; Black
-.Accent = RGB(0, 120, 215)          &#x27; Blue
-.Highlight = RGB(255, 255, 0)       &#x27; Yellow
-.Border = RGB(192, 192, 192)        &#x27; Light Gray
-End With
-End Sub
-
-Public Sub SetDarkTheme()
-m_themeName = &quot;Dark&quot;
-With m_currentTheme
-.Background = RGB(32, 32, 32)       &#x27; Dark Gray
-.Foreground = RGB(255, 255, 255)    &#x27; White
-.Accent = RGB(0, 120, 215)          &#x27; Blue
-.Highlight = RGB(255, 200, 0)       &#x27; Gold
-.Border = RGB(64, 64, 64)           &#x27; Medium Gray
-End With
-End Sub
-
-Public Sub SetCustomTheme(bg As Long, fg As Long, accent As Long, _
-highlight As Long, border As Long)
-m_themeName = &quot;Custom&quot;
-With m_currentTheme
-.Background = bg
-.Foreground = fg
-.Accent = accent
-.Highlight = highlight
-.Border = border
-End With
-End Sub
-
-Public Sub ApplyToForm(frm As Form)
-Dim ctrl As Control
-
-frm.BackColor = m_currentTheme.Background
-frm.ForeColor = m_currentTheme.Foreground
-
-For Each ctrl In frm.Controls
-ApplyToControl ctrl
-Next ctrl
-End Sub
-
-Private Sub ApplyToControl(ctrl As Control)
-On Error Resume Next
-
-&#x27; Apply based on control type
-Select Case TypeName(ctrl)
-Case &quot;TextBox&quot;
-ctrl.BackColor = m_currentTheme.Background
-ctrl.ForeColor = m_currentTheme.Foreground
-
-Case &quot;CommandButton&quot;
-ctrl.BackColor = m_currentTheme.Accent
-ctrl.ForeColor = RGB(255, 255, 255)
-
-Case &quot;Label&quot;
-ctrl.BackColor = m_currentTheme.Background
-ctrl.ForeColor = m_currentTheme.Foreground
-
-Case &quot;ListBox&quot;, &quot;ComboBox&quot;
-ctrl.BackColor = m_currentTheme.Background
-ctrl.ForeColor = m_currentTheme.Foreground
-End Select
-
-On Error GoTo 0
-End Sub
-
-Public Function GetBackgroundColor() As Long
-GetBackgroundColor = m_currentTheme.Background
-End Function
-
-Public Function GetForegroundColor() As Long
-GetForegroundColor = m_currentTheme.Foreground
-End Function
-
-Public Function GetAccentColor() As Long
-GetAccentColor = m_currentTheme.Accent
-End Function
-
-Public Function GetThemeName() As String
-GetThemeName = m_themeName
-End Function
+    Private Type ColorScheme
+        Background As Long
+        Foreground As Long
+        Accent As Long
+        Highlight As Long
+        Border As Long
+    End Type
+    Private m_currentTheme As ColorScheme
+    Private m_themeName As String
+    Public Sub SetLightTheme()
+        m_themeName = &quot;Light&quot;
+        With m_currentTheme
+            .Background = RGB(255, 255, 255)    &#x27; White
+            .Foreground = RGB(0, 0, 0)          &#x27; Black
+            .Accent = RGB(0, 120, 215)          &#x27; Blue
+            .Highlight = RGB(255, 255, 0)       &#x27; Yellow
+            .Border = RGB(192, 192, 192)        &#x27; Light Gray
+        End With
+    End Sub
+    Public Sub SetDarkTheme()
+        m_themeName = &quot;Dark&quot;
+        With m_currentTheme
+            .Background = RGB(32, 32, 32)       &#x27; Dark Gray
+            .Foreground = RGB(255, 255, 255)    &#x27; White
+            .Accent = RGB(0, 120, 215)          &#x27; Blue
+            .Highlight = RGB(255, 200, 0)       &#x27; Gold
+            .Border = RGB(64, 64, 64)           &#x27; Medium Gray
+        End With
+    End Sub
+    Public Sub SetCustomTheme(bg As Long, fg As Long, accent As Long, _
+                             highlight As Long, border As Long)
+        m_themeName = &quot;Custom&quot;
+        With m_currentTheme
+            .Background = bg
+            .Foreground = fg
+            .Accent = accent
+            .Highlight = highlight
+            .Border = border
+        End With
+    End Sub
+    Public Sub ApplyToForm(frm As Form)
+        Dim ctrl As Control
+        frm.BackColor = m_currentTheme.Background
+        frm.ForeColor = m_currentTheme.Foreground
+        For Each ctrl In frm.Controls
+            ApplyToControl ctrl
+        Next ctrl
+    End Sub
+    Private Sub ApplyToControl(ctrl As Control)
+        On Error Resume Next
+        &#x27; Apply based on control type
+        Select Case TypeName(ctrl)
+            Case &quot;TextBox&quot;
+                ctrl.BackColor = m_currentTheme.Background
+                ctrl.ForeColor = m_currentTheme.Foreground
+            Case &quot;CommandButton&quot;
+                ctrl.BackColor = m_currentTheme.Accent
+                ctrl.ForeColor = RGB(255, 255, 255)
+            Case &quot;Label&quot;
+                ctrl.BackColor = m_currentTheme.Background
+                ctrl.ForeColor = m_currentTheme.Foreground
+            Case &quot;ListBox&quot;, &quot;ComboBox&quot;
+                ctrl.BackColor = m_currentTheme.Background
+                ctrl.ForeColor = m_currentTheme.Foreground
+        End Select
+        On Error GoTo 0
+    End Sub
+    Public Function GetBackgroundColor() As Long
+        GetBackgroundColor = m_currentTheme.Background
+    End Function
+    Public Function GetForegroundColor() As Long
+        GetForegroundColor = m_currentTheme.Foreground
+    End Function
+    Public Function GetAccentColor() As Long
+        GetAccentColor = m_currentTheme.Accent
+    End Function
+    Public Function GetThemeName() As String
+        GetThemeName = m_themeName
+    End Function
 End Class</code></pre>
 <h3 id="example-4-chart-color-generator">Example 4: Chart Color Generator</h3>
 <pre><code class="language-vbnet">&#x27; Generate distinct colors for charts and graphs
 Class ChartColorGenerator
-Private m_baseHue As Integer
-Private m_colorIndex As Integer
-
-Public Sub Initialize(Optional startHue As Integer = 0)
-m_baseHue = startHue
-m_colorIndex = 0
-End Sub
-
-Public Function GetNextColor() As Long
-Dim hue As Integer
-Dim r As Integer, g As Integer, b As Integer
-
-&#x27; Use golden angle for good color distribution
-hue = (m_baseHue + (m_colorIndex * 137)) Mod 360
-m_colorIndex = m_colorIndex + 1
-
-GetNextColor = HSVToRGB(hue, 0.7, 0.9)
-End Function
-
-Private Function HSVToRGB(h As Double, s As Double, v As Double) As Long
-&#x27; Convert HSV to RGB
-Dim r As Double, g As Double, b As Double
-Dim i As Integer
-Dim f As Double, p As Double, q As Double, t As Double
-
-If s = 0 Then
-r = v: g = v: b = v
-Else
-h = h / 60
-i = Int(h)
-f = h - i
-p = v * (1 - s)
-q = v * (1 - s * f)
-t = v * (1 - s * (1 - f))
-
-Select Case i
-Case 0: r = v: g = t: b = p
-Case 1: r = q: g = v: b = p
-Case 2: r = p: g = v: b = t
-Case 3: r = p: g = q: b = v
-Case 4: r = t: g = p: b = v
-Case Else: r = v: g = p: b = q
-End Select
-End If
-
-HSVToRGB = RGB(r * 255, g * 255, b * 255)
-End Function
-
-Public Sub Reset()
-m_colorIndex = 0
-End Sub
-
-Public Function GetColorArray(count As Integer) As Long()
-Dim colors() As Long
-Dim i As Integer
-
-ReDim colors(0 To count - 1)
-
-Reset
-For i = 0 To count - 1
-colors(i) = GetNextColor()
-Next i
-
-GetColorArray = colors
-End Function
+    Private m_baseHue As Integer
+    Private m_colorIndex As Integer
+    Public Sub Initialize(Optional startHue As Integer = 0)
+        m_baseHue = startHue
+        m_colorIndex = 0
+    End Sub
+    Public Function GetNextColor() As Long
+        Dim hue As Integer
+        Dim r As Integer, g As Integer, b As Integer
+        &#x27; Use golden angle for good color distribution
+        hue = (m_baseHue + (m_colorIndex * 137)) Mod 360
+        m_colorIndex = m_colorIndex + 1
+        GetNextColor = HSVToRGB(hue, 0.7, 0.9)
+    End Function
+    Private Function HSVToRGB(h As Double, s As Double, v As Double) As Long
+        &#x27; Convert HSV to RGB
+        Dim r As Double, g As Double, b As Double
+        Dim i As Integer
+        Dim f As Double, p As Double, q As Double, t As Double
+        If s = 0 Then
+            r = v: g = v: b = v
+        Else
+            h = h / 60
+            i = Int(h)
+            f = h - i
+            p = v * (1 - s)
+            q = v * (1 - s * f)
+            t = v * (1 - s * (1 - f))
+            Select Case i
+                Case 0: r = v: g = t: b = p
+                Case 1: r = q: g = v: b = p
+                Case 2: r = p: g = v: b = t
+                Case 3: r = p: g = q: b = v
+                Case 4: r = t: g = p: b = v
+                Case Else: r = v: g = p: b = q
+            End Select
+        End If
+        HSVToRGB = RGB(r * 255, g * 255, b * 255)
+    End Function
+    Public Sub Reset()
+        m_colorIndex = 0
+    End Sub
+    Public Function GetColorArray(count As Integer) As Long()
+        Dim colors() As Long
+        Dim i As Integer
+        ReDim colors(0 To count - 1)
+        Reset
+        For i = 0 To count - 1
+            colors(i) = GetNextColor()
+        Next i
+        GetColorArray = colors
+    End Function
 End Class</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>RGB</code> function automatically handles out-of-range values:</p>
-<ul>
-<li>Values greater than 255 are treated as 255 (saturated)</li>
-<li>Negative values are treated as 0</li>
-<li>Non-integer values are rounded to integers</li>
-<li>No error is raised for out-of-range values</li>
-</ul>
-<p>The function is very robust and rarely requires error handling:</p>
+<p>The <code>RGB</code> function automatically handles out-of-range values:
+- Values greater than 255 are treated as 255 (saturated)
+- Negative values are treated as 0
+- Non-integer values are rounded to integers
+- No error is raised for out-of-range values
+The function is very robust and rarely requires error handling:</p>
 <pre><code class="language-vbnet">&#x27; RGB automatically clamps values to valid range
 Dim color As Long
 color = RGB(300, -50, 150)  &#x27; Treated as RGB(255, 0, 150)</code></pre>
@@ -734,32 +638,116 @@ color = RGB(300, -50, 150)  &#x27; Treated as RGB(255, 0, 150)</code></pre>
 <td>Picture object</td>
 <td>Complex graphics, images</td>
 </tr>
+<tr>
+<td>## Platform and Version Notes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in all versions of VB6 and VBA</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Behavior consistent across all Windows platforms</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns BGR byte order (standard for Windows)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Color values are compatible with Windows API functions</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Maximum value is &amp;HFFFFFF (16,777,215 colors)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Limited to 24-bit color (16.7 million colors)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No alpha channel support (transparency)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Automatic clamping may mask input errors</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- BGR byte order can be confusing when extracting components</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No built-in color space conversions (HSV, HSL, etc.)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No color validation or named color lookup</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Related Functions</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>QBColor</code>: Returns RGB value for <code>QBasic</code> color number (0-15)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Predefined color constants: <code>vbBlack</code>, <code>vbRed</code>, <code>vbGreen</code>, <code>vbBlue</code>, <code>vbWhite</code>, etc.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>LoadPicture</code>: Loads images with full color support</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Point</code>: Returns the RGB color of a specified point on a form or picture box</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
-<ul>
-<li>Available in all versions of VB6 and VBA</li>
-<li>Behavior consistent across all Windows platforms</li>
-<li>Returns BGR byte order (standard for Windows)</li>
-<li>Color values are compatible with Windows API functions</li>
-<li>Maximum value is &amp;HFFFFFF (16,777,215 colors)</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Limited to 24-bit color (16.7 million colors)</li>
-<li>No alpha channel support (transparency)</li>
-<li>Automatic clamping may mask input errors</li>
-<li>BGR byte order can be confusing when extracting components</li>
-<li>No built-in color space conversions (HSV, HSL, etc.)</li>
-<li>No color validation or named color lookup</li>
-</ul>
-<h2 id="related-functions">Related Functions</h2>
-<ul>
-<li><code>QBColor</code>: Returns RGB value for <code>QBasic</code> color number (0-15)</li>
-<li>Predefined color constants: <code>vbBlack</code>, <code>vbRed</code>, <code>vbGreen</code>, <code>vbBlue</code>, <code>vbWhite</code>, etc.</li>
-<li><code>LoadPicture</code>: Loads images with full color support</li>
-<li><code>Point</code>: Returns the RGB color of a specified point on a form or picture box</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

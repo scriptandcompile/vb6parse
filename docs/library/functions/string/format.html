@@ -54,20 +54,18 @@
 <h2 id="remarks">Remarks</h2>
 <p>The <code>Format</code> function is one of VB6's most versatile functions for converting values to
 formatted strings. It supports numeric formatting, date/time formatting, and string formatting
-with extensive control over output appearance.</p>
-<p><strong>Important Characteristics:</strong></p>
-<ul>
-<li>Supports named formats (e.g., "General Number", "Currency", "Short Date")</li>
-<li>Supports user-defined format strings with placeholders</li>
-<li>Numeric formats: 0, #, ., ,, %, E, etc.</li>
-<li>Date/time formats: d, m, y, h, n, s, etc.</li>
-<li>String formats: @, &amp;, &lt;, &gt;, !</li>
-<li>Returns empty string if expression is Null</li>
-<li>Locale-aware (respects regional settings)</li>
-<li>Can create custom formats with multiple sections</li>
-<li>Supports scientific notation</li>
-<li>Handles positive, negative, zero, and null values separately</li>
-</ul>
+with extensive control over output appearance.
+<strong>Important Characteristics:</strong>
+- Supports named formats (e.g., "General Number", "Currency", "Short Date")
+- Supports user-defined format strings with placeholders
+- Numeric formats: 0, #, ., ,, %, E, etc.
+- Date/time formats: d, m, y, h, n, s, etc.
+- String formats: @, &amp;, &lt;, &gt;, !
+- Returns empty string if expression is Null
+- Locale-aware (respects regional settings)
+- Can create custom formats with multiple sections
+- Supports scientific notation
+- Handles positive, negative, zero, and null values separately</p>
 <h2 id="named-formats">Named Formats</h2>
 <h3 id="numeric-named-formats">Numeric Named Formats</h3>
 <ul>
@@ -104,7 +102,6 @@ with extensive control over output appearance.</p>
 <h3 id="basic-numeric-formatting">Basic Numeric Formatting</h3>
 <pre><code class="language-vbnet">Dim value As Double
 value = 1234.567
-
 &#x27; Named formats
 Debug.Print Format(value, &quot;General Number&quot;)  &#x27; 1234.567
 Debug.Print Format(value, &quot;Currency&quot;)        &#x27; $1,234.57
@@ -112,7 +109,6 @@ Debug.Print Format(value, &quot;Fixed&quot;)           &#x27; 1234.57
 Debug.Print Format(value, &quot;Standard&quot;)        &#x27; 1,234.57
 Debug.Print Format(value, &quot;Percent&quot;)         &#x27; 123456.70%
 Debug.Print Format(value, &quot;Scientific&quot;)      &#x27; 1.23E+03
-
 &#x27; Custom formats
 Debug.Print Format(value, &quot;0.00&quot;)            &#x27; 1234.57
 Debug.Print Format(value, &quot;#,##0.00&quot;)        &#x27; 1,234.57
@@ -120,14 +116,12 @@ Debug.Print Format(value, &quot;000000.00&quot;)       &#x27; 001234.57</code></
 <h3 id="datetime-formatting">Date/Time Formatting</h3>
 <pre><code class="language-vbnet">Dim dt As Date
 dt = #1/15/2025 3:45:30 PM#
-
 &#x27; Named formats
 Debug.Print Format(dt, &quot;General Date&quot;)       &#x27; 1/15/2025 3:45:30 PM
 Debug.Print Format(dt, &quot;Long Date&quot;)          &#x27; Wednesday, January 15, 2025
 Debug.Print Format(dt, &quot;Short Date&quot;)         &#x27; 1/15/2025
 Debug.Print Format(dt, &quot;Long Time&quot;)          &#x27; 3:45:30 PM
 Debug.Print Format(dt, &quot;Short Time&quot;)         &#x27; 15:45
-
 &#x27; Custom formats
 Debug.Print Format(dt, &quot;yyyy-mm-dd&quot;)         &#x27; 2025-01-15
 Debug.Print Format(dt, &quot;dd/mm/yyyy&quot;)         &#x27; 15/01/2025
@@ -136,148 +130,133 @@ Debug.Print Format(dt, &quot;dddd, mmmm d, yyyy&quot;) &#x27; Wednesday, January
 <h3 id="string-formatting">String Formatting</h3>
 <pre><code class="language-vbnet">Dim text As String
 text = &quot;hello&quot;
-
 Debug.Print Format(text, &quot;&gt;&quot;)                &#x27; HELLO (uppercase)
 Debug.Print Format(text, &quot;&lt;&quot;)                &#x27; hello (lowercase)
 Debug.Print Format(text, &quot;@@@@@@@@@@&quot;)       &#x27; 00000hello (right-aligned)</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="format-currency-with-symbol">Format Currency with Symbol</h3>
 <pre><code class="language-vbnet">Function FormatCurrency(amount As Double) As String
-FormatCurrency = Format(amount, &quot;$#,##0.00&quot;)
+    FormatCurrency = Format(amount, &quot;$#,##0.00&quot;)
 End Function
-
 &#x27; Usage
 Debug.Print FormatCurrency(1234.56)  &#x27; $1,234.56
 Debug.Print FormatCurrency(-500)     &#x27; $-500.00</code></pre>
 <h3 id="zero-pad-numbers">Zero-Pad Numbers</h3>
 <pre><code class="language-vbnet">Function PadWithZeros(num As Long, totalDigits As Integer) As String
-Dim formatStr As String
-formatStr = String(totalDigits, &quot;0&quot;)
-PadWithZeros = Format(num, formatStr)
+    Dim formatStr As String
+    formatStr = String(totalDigits, &quot;0&quot;)
+    PadWithZeros = Format(num, formatStr)
 End Function
-
 &#x27; Usage
 Debug.Print PadWithZeros(42, 6)      &#x27; 000042
 Debug.Print PadWithZeros(7, 3)       &#x27; 007</code></pre>
 <h3 id="format-file-sizes">Format File Sizes</h3>
 <pre><code class="language-vbnet">Function FormatFileSize(bytes As Long) As String
-Const KB = 1024
-Const MB = 1048576
-Const GB = 1073741824
-
-If bytes &gt;= GB Then
-FormatFileSize = Format(bytes / GB, &quot;0.00&quot;) &amp; &quot; GB&quot;
-ElseIf bytes &gt;= MB Then
-FormatFileSize = Format(bytes / MB, &quot;0.00&quot;) &amp; &quot; MB&quot;
-ElseIf bytes &gt;= KB Then
-FormatFileSize = Format(bytes / KB, &quot;0.00&quot;) &amp; &quot; KB&quot;
-Else
-FormatFileSize = Format(bytes, &quot;#,##0&quot;) &amp; &quot; bytes&quot;
-End If
+    Const KB = 1024
+    Const MB = 1048576
+    Const GB = 1073741824
+    If bytes &gt;= GB Then
+        FormatFileSize = Format(bytes / GB, &quot;0.00&quot;) &amp; &quot; GB&quot;
+    ElseIf bytes &gt;= MB Then
+        FormatFileSize = Format(bytes / MB, &quot;0.00&quot;) &amp; &quot; MB&quot;
+    ElseIf bytes &gt;= KB Then
+        FormatFileSize = Format(bytes / KB, &quot;0.00&quot;) &amp; &quot; KB&quot;
+    Else
+        FormatFileSize = Format(bytes, &quot;#,##0&quot;) &amp; &quot; bytes&quot;
+    End If
 End Function</code></pre>
 <h3 id="format-phone-numbers">Format Phone Numbers</h3>
 <pre><code class="language-vbnet">Function FormatPhoneNumber(phoneNum As String) As String
-&#x27; Remove non-numeric characters
-Dim cleaned As String
-Dim i As Long
-
-For i = 1 To Len(phoneNum)
-If IsNumeric(Mid(phoneNum, i, 1)) Then
-cleaned = cleaned &amp; Mid(phoneNum, i, 1)
-End If
-Next i
-
-&#x27; Format as (XXX) XXX-XXXX
-If Len(cleaned) = 10 Then
-FormatPhoneNumber = &quot;(&quot; &amp; Left(cleaned, 3) &amp; &quot;) &quot; &amp; _
-Mid(cleaned, 4, 3) &amp; &quot;-&quot; &amp; _
-Right(cleaned, 4)
-Else
-FormatPhoneNumber = phoneNum
-End If
+    &#x27; Remove non-numeric characters
+    Dim cleaned As String
+    Dim i As Long
+    For i = 1 To Len(phoneNum)
+        If IsNumeric(Mid(phoneNum, i, 1)) Then
+            cleaned = cleaned &amp; Mid(phoneNum, i, 1)
+        End If
+    Next i
+    &#x27; Format as (XXX) XXX-XXXX
+    If Len(cleaned) = 10 Then
+        FormatPhoneNumber = &quot;(&quot; &amp; Left(cleaned, 3) &amp; &quot;) &quot; &amp; _
+                            Mid(cleaned, 4, 3) &amp; &quot;-&quot; &amp; _
+                            Right(cleaned, 4)
+    Else
+        FormatPhoneNumber = phoneNum
+    End If
 End Function</code></pre>
 <h3 id="custom-date-display">Custom Date Display</h3>
 <pre><code class="language-vbnet">Function FormatDateFriendly(dt As Date) As String
-Dim daysDiff As Long
-daysDiff = DateDiff(&quot;d&quot;, dt, Date)
-
-Select Case daysDiff
-Case 0
-FormatDateFriendly = &quot;Today at &quot; &amp; Format(dt, &quot;h:nn AM/PM&quot;)
-Case 1
-FormatDateFriendly = &quot;Yesterday at &quot; &amp; Format(dt, &quot;h:nn AM/PM&quot;)
-Case 2 To 6
-FormatDateFriendly = Format(dt, &quot;dddd&quot;) &amp; &quot; at &quot; &amp; _
-Format(dt, &quot;h:nn AM/PM&quot;)
-Case Else
-FormatDateFriendly = Format(dt, &quot;mmmm d, yyyy&quot;)
-End Select
+    Dim daysDiff As Long
+    daysDiff = DateDiff(&quot;d&quot;, dt, Date)
+    Select Case daysDiff
+        Case 0
+            FormatDateFriendly = &quot;Today at &quot; &amp; Format(dt, &quot;h:nn AM/PM&quot;)
+        Case 1
+            FormatDateFriendly = &quot;Yesterday at &quot; &amp; Format(dt, &quot;h:nn AM/PM&quot;)
+        Case 2 To 6
+            FormatDateFriendly = Format(dt, &quot;dddd&quot;) &amp; &quot; at &quot; &amp; _
+                                 Format(dt, &quot;h:nn AM/PM&quot;)
+        Case Else
+            FormatDateFriendly = Format(dt, &quot;mmmm d, yyyy&quot;)
+    End Select
 End Function</code></pre>
 <h3 id="format-percentages">Format Percentages</h3>
 <pre><code class="language-vbnet">Function FormatPercent(value As Double, decimals As Integer) As String
-Dim formatStr As String
-formatStr = &quot;0.&quot; &amp; String(decimals, &quot;0&quot;) &amp; &quot;%&quot;
-FormatPercent = Format(value, formatStr)
+    Dim formatStr As String
+    formatStr = &quot;0.&quot; &amp; String(decimals, &quot;0&quot;) &amp; &quot;%&quot;
+    FormatPercent = Format(value, formatStr)
 End Function
-
 &#x27; Usage
 Debug.Print FormatPercent(0.1234, 2)   &#x27; 12.34%
 Debug.Print FormatPercent(0.5, 0)      &#x27; 50%</code></pre>
 <h3 id="format-decimal-places">Format Decimal Places</h3>
 <pre><code class="language-vbnet">Function FormatDecimal(value As Double, places As Integer) As String
-Dim formatStr As String
-If places = 0 Then
-formatStr = &quot;0&quot;
-Else
-formatStr = &quot;0.&quot; &amp; String(places, &quot;0&quot;)
-End If
-FormatDecimal = Format(value, formatStr)
+    Dim formatStr As String
+    If places = 0 Then
+        formatStr = &quot;0&quot;
+    Else
+        formatStr = &quot;0.&quot; &amp; String(places, &quot;0&quot;)
+    End If
+    FormatDecimal = Format(value, formatStr)
 End Function
-
 &#x27; Usage
 Debug.Print FormatDecimal(3.14159, 2)  &#x27; 3.14
 Debug.Print FormatDecimal(100.7, 0)    &#x27; 101</code></pre>
 <h3 id="align-text-in-reports">Align Text in Reports</h3>
 <pre><code class="language-vbnet">Sub PrintReport()
-Debug.Print &quot;Name&quot;, &quot;Amount&quot;
-Debug.Print String(40, &quot;-&quot;)
-
-Debug.Print &quot;Item 1&quot;, Format(1234.56, &quot;$#,##0.00&quot;)
-Debug.Print &quot;Item 2&quot;, Format(78.9, &quot;$#,##0.00&quot;)
-Debug.Print &quot;Item 3&quot;, Format(10000, &quot;$#,##0.00&quot;)
+    Debug.Print &quot;Name&quot;, &quot;Amount&quot;
+    Debug.Print String(40, &quot;-&quot;)
+    Debug.Print &quot;Item 1&quot;, Format(1234.56, &quot;$#,##0.00&quot;)
+    Debug.Print &quot;Item 2&quot;, Format(78.9, &quot;$#,##0.00&quot;)
+    Debug.Print &quot;Item 3&quot;, Format(10000, &quot;$#,##0.00&quot;)
 End Sub</code></pre>
 <h3 id="format-elapsed-time">Format Elapsed Time</h3>
 <pre><code class="language-vbnet">Function FormatElapsedTime(seconds As Long) As String
-Dim hours As Long
-Dim minutes As Long
-Dim secs As Long
-
-hours = seconds \ 3600
-minutes = (seconds Mod 3600) \ 60
-secs = seconds Mod 60
-
-FormatElapsedTime = Format(hours, &quot;00&quot;) &amp; &quot;:&quot; &amp; _
-Format(minutes, &quot;00&quot;) &amp; &quot;:&quot; &amp; _
-Format(secs, &quot;00&quot;)
+    Dim hours As Long
+    Dim minutes As Long
+    Dim secs As Long
+    hours = seconds \ 3600
+    minutes = (seconds Mod 3600) \ 60
+    secs = seconds Mod 60
+    FormatElapsedTime = Format(hours, &quot;00&quot;) &amp; &quot;:&quot; &amp; _
+                        Format(minutes, &quot;00&quot;) &amp; &quot;:&quot; &amp; _
+                        Format(secs, &quot;00&quot;)
 End Function
-
 &#x27; Usage
 Debug.Print FormatElapsedTime(3661)    &#x27; 01:01:01</code></pre>
 <h3 id="scientific-notation">Scientific Notation</h3>
 <pre><code class="language-vbnet">Function FormatScientific(value As Double, decimals As Integer) As String
-Dim formatStr As String
-formatStr = &quot;0.&quot; &amp; String(decimals, &quot;0&quot;) &amp; &quot;E+00&quot;
-FormatScientific = Format(value, formatStr)
+    Dim formatStr As String
+    formatStr = &quot;0.&quot; &amp; String(decimals, &quot;0&quot;) &amp; &quot;E+00&quot;
+    FormatScientific = Format(value, formatStr)
 End Function
-
 &#x27; Usage
 Debug.Print FormatScientific(1234567, 2)  &#x27; 1.23E+06</code></pre>
 <h3 id="conditional-formatting">Conditional Formatting</h3>
 <pre><code class="language-vbnet">Function FormatNumber(value As Double) As String
-&#x27; Format: positive;negative;zero;null
-FormatNumber = Format(value, &quot;$#,##0.00;($#,##0.00);-;N/A&quot;)
+    &#x27; Format: positive;negative;zero;null
+    FormatNumber = Format(value, &quot;$#,##0.00;($#,##0.00);-;N/A&quot;)
 End Function
-
 &#x27; Usage
 Debug.Print FormatNumber(1234.5)    &#x27; $1,234.50
 Debug.Print FormatNumber(-500)      &#x27; ($500.00)
@@ -286,145 +265,133 @@ Debug.Print FormatNumber(0)         &#x27; -</code></pre>
 <h3 id="multi-section-format-strings">Multi-Section Format Strings</h3>
 <pre><code class="language-vbnet">&#x27; Format: positive;negative;zero;null
 Function FormatWithSigns(value As Variant) As String
-If IsNull(value) Then
-FormatWithSigns = &quot;N/A&quot;
-Else
-FormatWithSigns = Format(value, &quot;+#,##0.00;-#,##0.00;Zero&quot;)
-End If
+    If IsNull(value) Then
+        FormatWithSigns = &quot;N/A&quot;
+    Else
+        FormatWithSigns = Format(value, &quot;+#,##0.00;-#,##0.00;Zero&quot;)
+    End If
 End Function
-
 &#x27; Color-coded text (for display in rich text)
 Function FormatColorCoded(value As Double) As String
-&#x27; Positive=green, Negative=red, Zero=black
-If value &gt; 0 Then
-FormatColorCoded = &quot;[Green]&quot; &amp; Format(value, &quot;$#,##0.00&quot;)
-ElseIf value &lt; 0 Then
-FormatColorCoded = &quot;[Red]&quot; &amp; Format(value, &quot;($#,##0.00)&quot;)
-Else
-FormatColorCoded = &quot;[Black]$0.00&quot;
-End If
+    &#x27; Positive=green, Negative=red, Zero=black
+    If value &gt; 0 Then
+        FormatColorCoded = &quot;[Green]&quot; &amp; Format(value, &quot;$#,##0.00&quot;)
+    ElseIf value &lt; 0 Then
+        FormatColorCoded = &quot;[Red]&quot; &amp; Format(value, &quot;($#,##0.00)&quot;)
+    Else
+        FormatColorCoded = &quot;[Black]$0.00&quot;
+    End If
 End Function</code></pre>
 <h3 id="invoice-number-formatting">Invoice Number Formatting</h3>
 <pre><code class="language-vbnet">Function FormatInvoiceNumber(invoiceNum As Long, prefix As String) As String
-FormatInvoiceNumber = prefix &amp; &quot;-&quot; &amp; Format(invoiceNum, &quot;000000&quot;)
+    FormatInvoiceNumber = prefix &amp; &quot;-&quot; &amp; Format(invoiceNum, &quot;000000&quot;)
 End Function
-
 &#x27; Usage
 Debug.Print FormatInvoiceNumber(123, &quot;INV&quot;)    &#x27; INV-000123
 Debug.Print FormatInvoiceNumber(45678, &quot;PO&quot;)   &#x27; PO-045678</code></pre>
 <h3 id="custom-number-format-builder">Custom Number Format Builder</h3>
 <pre><code class="language-vbnet">Function BuildNumberFormat(decimals As Integer, _
-Optional useSeparator As Boolean = True, _
-Optional prefix As String = &quot;&quot;, _
-Optional suffix As String = &quot;&quot;) As String
-Dim formatStr As String
-
-&#x27; Build integer part
-If useSeparator Then
-formatStr = &quot;#,##0&quot;
-Else
-formatStr = &quot;0&quot;
-End If
-
-&#x27; Add decimal part
-If decimals &gt; 0 Then
-formatStr = formatStr &amp; &quot;.&quot; &amp; String(decimals, &quot;0&quot;)
-End If
-
-&#x27; Add prefix/suffix
-formatStr = prefix &amp; formatStr &amp; suffix
-
-BuildNumberFormat = formatStr
+                           Optional useSeparator As Boolean = True, _
+                           Optional prefix As String = &quot;&quot;, _
+                           Optional suffix As String = &quot;&quot;) As String
+    Dim formatStr As String
+    &#x27; Build integer part
+    If useSeparator Then
+        formatStr = &quot;#,##0&quot;
+    Else
+        formatStr = &quot;0&quot;
+    End If
+    &#x27; Add decimal part
+    If decimals &gt; 0 Then
+        formatStr = formatStr &amp; &quot;.&quot; &amp; String(decimals, &quot;0&quot;)
+    End If
+    &#x27; Add prefix/suffix
+    formatStr = prefix &amp; formatStr &amp; suffix
+    BuildNumberFormat = formatStr
 End Function
-
 &#x27; Usage
 Debug.Print Format(1234.5, BuildNumberFormat(2, True, &quot;$&quot;, &quot;&quot;))  &#x27; $1,234.50</code></pre>
 <h3 id="format-for-sql-queries">Format for SQL Queries</h3>
 <pre><code class="language-vbnet">Function FormatForSQL(value As Variant) As String
-Select Case VarType(value)
-Case vbString
-&#x27; Escape single quotes
-FormatForSQL = &quot;&#x27;&quot; &amp; Replace(CStr(value), &quot;&#x27;&quot;, &quot;&#x27;&#x27;&quot;) &amp; &quot;&#x27;&quot;
-Case vbDate
-&#x27; Format as ISO date
-FormatForSQL = &quot;&#x27;&quot; &amp; Format(value, &quot;yyyy-mm-dd hh:nn:ss&quot;) &amp; &quot;&#x27;&quot;
-Case vbNull
-FormatForSQL = &quot;NULL&quot;
-Case vbBoolean
-If CBool(value) Then
-FormatForSQL = &quot;1&quot;
-Else
-FormatForSQL = &quot;0&quot;
-End If
-Case Else
-FormatForSQL = CStr(value)
-End Select
+    Select Case VarType(value)
+        Case vbString
+            &#x27; Escape single quotes
+            FormatForSQL = &quot;&#x27;&quot; &amp; Replace(CStr(value), &quot;&#x27;&quot;, &quot;&#x27;&#x27;&quot;) &amp; &quot;&#x27;&quot;
+        Case vbDate
+            &#x27; Format as ISO date
+            FormatForSQL = &quot;&#x27;&quot; &amp; Format(value, &quot;yyyy-mm-dd hh:nn:ss&quot;) &amp; &quot;&#x27;&quot;
+        Case vbNull
+            FormatForSQL = &quot;NULL&quot;
+        Case vbBoolean
+            If CBool(value) Then
+                FormatForSQL = &quot;1&quot;
+            Else
+                FormatForSQL = &quot;0&quot;
+            End If
+        Case Else
+            FormatForSQL = CStr(value)
+    End Select
 End Function</code></pre>
 <h3 id="dynamic-column-width-formatting">Dynamic Column Width Formatting</h3>
 <pre><code class="language-vbnet">Function FormatColumn(value As Variant, width As Integer, _
-Optional align As String = &quot;left&quot;) As String
-Dim formatted As String
-formatted = CStr(value)
-
-If Len(formatted) &gt; width Then
-formatted = Left(formatted, width - 3) &amp; &quot;...&quot;
-Else
-Select Case LCase(align)
-Case &quot;right&quot;
-formatted = Space(width - Len(formatted)) &amp; formatted
-Case &quot;center&quot;
-Dim leftPad As Integer
-leftPad = (width - Len(formatted)) \ 2
-formatted = Space(leftPad) &amp; formatted &amp; _
-Space(width - Len(formatted) - leftPad)
-Case Else  &#x27; left
-formatted = formatted &amp; Space(width - Len(formatted))
-End Select
-End If
-
-FormatColumn = formatted
+                      Optional align As String = &quot;left&quot;) As String
+    Dim formatted As String
+    formatted = CStr(value)
+    If Len(formatted) &gt; width Then
+        formatted = Left(formatted, width - 3) &amp; &quot;...&quot;
+    Else
+        Select Case LCase(align)
+            Case &quot;right&quot;
+                formatted = Space(width - Len(formatted)) &amp; formatted
+            Case &quot;center&quot;
+                Dim leftPad As Integer
+                leftPad = (width - Len(formatted)) \ 2
+                formatted = Space(leftPad) &amp; formatted &amp; _
+                            Space(width - Len(formatted) - leftPad)
+            Case Else  &#x27; left
+                formatted = formatted &amp; Space(width - Len(formatted))
+        End Select
+    End If
+    FormatColumn = formatted
 End Function</code></pre>
 <h3 id="localized-datetime-formatting">Localized Date/Time Formatting</h3>
 <pre><code class="language-vbnet">Function FormatLocalizedDate(dt As Date, style As String) As String
-&#x27; Uses system locale settings
-Select Case LCase(style)
-Case &quot;short&quot;
-FormatLocalizedDate = Format(dt, &quot;Short Date&quot;)
-Case &quot;long&quot;
-FormatLocalizedDate = Format(dt, &quot;Long Date&quot;)
-Case &quot;iso&quot;
-FormatLocalizedDate = Format(dt, &quot;yyyy-mm-dd&quot;)
-Case &quot;filename&quot;
-&#x27; Safe for filenames
-FormatLocalizedDate = Format(dt, &quot;yyyy-mm-dd_hhnnss&quot;)
-Case Else
-FormatLocalizedDate = Format(dt, &quot;General Date&quot;)
-End Select
+    &#x27; Uses system locale settings
+    Select Case LCase(style)
+        Case &quot;short&quot;
+            FormatLocalizedDate = Format(dt, &quot;Short Date&quot;)
+        Case &quot;long&quot;
+            FormatLocalizedDate = Format(dt, &quot;Long Date&quot;)
+        Case &quot;iso&quot;
+            FormatLocalizedDate = Format(dt, &quot;yyyy-mm-dd&quot;)
+        Case &quot;filename&quot;
+            &#x27; Safe for filenames
+            FormatLocalizedDate = Format(dt, &quot;yyyy-mm-dd_hhnnss&quot;)
+        Case Else
+            FormatLocalizedDate = Format(dt, &quot;General Date&quot;)
+    End Select
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeFormat(value As Variant, formatStr As String) As String
-On Error GoTo ErrorHandler
-
-If IsNull(value) Then
-SafeFormat = &quot;&quot;
-Else
-SafeFormat = Format(value, formatStr)
-End If
-
-Exit Function
-
+    On Error GoTo ErrorHandler
+    If IsNull(value) Then
+        SafeFormat = &quot;&quot;
+    Else
+        SafeFormat = Format(value, formatStr)
+    End If
+    Exit Function
 ErrorHandler:
-Select Case Err.Number
-Case 13  &#x27; Type mismatch
-Debug.Print &quot;Format error: Invalid data type for format string&quot;
-SafeFormat = CStr(value)
-Case 5   &#x27; Invalid procedure call
-Debug.Print &quot;Format error: Invalid format string&quot;
-SafeFormat = CStr(value)
-Case Else
-Debug.Print &quot;Format error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Err.Description
-SafeFormat = &quot;&quot;
-End Select
+    Select Case Err.Number
+        Case 13  &#x27; Type mismatch
+            Debug.Print &quot;Format error: Invalid data type for format string&quot;
+            SafeFormat = CStr(value)
+        Case 5   &#x27; Invalid procedure call
+            Debug.Print &quot;Format error: Invalid format string&quot;
+            SafeFormat = CStr(value)
+        Case Else
+            Debug.Print &quot;Format error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Err.Description
+            SafeFormat = &quot;&quot;
+    End Select
 End Function</code></pre>
 <h3 id="common-errors">Common Errors</h3>
 <ul>
@@ -445,39 +412,34 @@ End Function</code></pre>
 <h3 id="use-named-formats-when-possible">Use Named Formats When Possible</h3>
 <pre><code class="language-vbnet">&#x27; Good - Clear and locale-aware
 formatted = Format(amount, &quot;Currency&quot;)
-
 &#x27; Less portable - Hard-coded currency symbol
 formatted = Format(amount, &quot;$#,##0.00&quot;)</code></pre>
 <h3 id="store-format-strings-as-constants">Store Format Strings as Constants</h3>
 <pre><code class="language-vbnet">Const FMT_CURRENCY = &quot;$#,##0.00&quot;
 Const FMT_PERCENT = &quot;0.00%&quot;
 Const FMT_DATE_ISO = &quot;yyyy-mm-dd&quot;
-
 formatted = Format(value, FMT_CURRENCY)</code></pre>
 <h3 id="handle-null-values">Handle Null Values</h3>
 <pre><code class="language-vbnet">&#x27; Good - Check for Null
 If Not IsNull(value) Then
-formatted = Format(value, &quot;0.00&quot;)
+    formatted = Format(value, &quot;0.00&quot;)
 Else
-formatted = &quot;N/A&quot;
+    formatted = &quot;N/A&quot;
 End If</code></pre>
 <h2 id="comparison-with-other-functions">Comparison with Other Functions</h2>
 <h3 id="format-vs-formatnumber"><code>Format</code> vs <code>FormatNumber</code></h3>
 <pre><code class="language-vbnet">&#x27; Format - More flexible, custom formats
 result = Format(1234.567, &quot;#,##0.00&quot;)
-
 &#x27; FormatNumber - Simpler, fewer options
 result = FormatNumber(1234.567, 2)</code></pre>
 <h3 id="format-vs-formatcurrency"><code>Format</code> vs <code>FormatCurrency</code></h3>
 <pre><code class="language-vbnet">&#x27; Format - Custom currency format
 result = Format(1234.56, &quot;$#,##0.00&quot;)
-
 &#x27; FormatCurrency - Uses system locale
 result = FormatCurrency(1234.56)</code></pre>
 <h3 id="format-vs-formatdatetime"><code>Format</code> vs <code>FormatDateTime</code></h3>
 <pre><code class="language-vbnet">&#x27; Format - Custom date format
 result = Format(Now, &quot;yyyy-mm-dd hh:nn:ss&quot;)
-
 &#x27; FormatDateTime - Named formats only
 result = FormatDateTime(Now, vbShortDate)</code></pre>
 <h2 id="limitations">Limitations</h2>

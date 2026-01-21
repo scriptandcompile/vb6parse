@@ -46,7 +46,7 @@ The dollar sign suffix (<code>$</code>) explicitly indicates that this function 
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><strong><code>charcode</code></strong>: Required. <code>Long</code> value that identifies a character in the ANSI character set.
-Valid values are 0-255. For values outside this range, an error occurs.</li>
+  Valid values are 0-255. For values outside this range, an error occurs.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>String</code> containing the single byte character corresponding to the specified ANSI code.
@@ -55,7 +55,7 @@ character from the ANSI character set.</p>
 <h2 id="remarks">Remarks</h2>
 <ul>
 <li>The <code>ChrB$</code> function combines the behavior of <code>ChrB</code> (byte character) with the <code>$</code> suffix
-(explicit <code>String</code> return type).</li>
+  (explicit <code>String</code> return type).</li>
 <li>Valid range: 0-255 (Error 5 "Invalid procedure call or argument" for values outside range).</li>
 <li><code>ChrB$(0)</code> returns a null character.</li>
 <li><code>ChrB$(13)</code> returns carriage return (<code>vbCr</code>).</li>
@@ -132,19 +132,62 @@ character from the ANSI character set.</p>
 <td>-</td>
 <td>Lowercase a</td>
 </tr>
+<tr>
+<td>## Typical Uses</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1. <strong>Building ANSI strings</strong> - Construct strings from byte values</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2. <strong>Line breaks</strong> - Insert carriage returns and line feeds</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3. <strong>Special characters</strong> - Add tabs, quotes, and other special characters</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4. <strong>Byte-level operations</strong> - Work with binary data or legacy file formats</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>5. <strong>ANSI text generation</strong> - Create strings for systems expecting ANSI encoding</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>6. <strong>Legacy protocol support</strong> - Work with older communication protocols</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>7. <strong>Control characters</strong> - Generate non-printable control characters</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Basic Examples</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="typical-uses">Typical Uses</h2>
-<ol>
-<li><strong>Building ANSI strings</strong> - Construct strings from byte values</li>
-<li><strong>Line breaks</strong> - Insert carriage returns and line feeds</li>
-<li><strong>Special characters</strong> - Add tabs, quotes, and other special characters</li>
-<li><strong>Byte-level operations</strong> - Work with binary data or legacy file formats</li>
-<li><strong>ANSI text generation</strong> - Create strings for systems expecting ANSI encoding</li>
-<li><strong>Legacy protocol support</strong> - Work with older communication protocols</li>
-<li><strong>Control characters</strong> - Generate non-printable control characters</li>
-</ol>
-<h2 id="basic-examples">Basic Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Get character from code
 Dim ch As String
 ch = ChrB$(65)  &#x27; Returns &quot;A&quot;</code></pre>
@@ -160,81 +203,81 @@ msg = &quot;Line 1&quot; &amp; ChrB$(13) &amp; ChrB$(10) &amp; &quot;Line 2&quot
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="multi-line-strings">Multi-line Strings</h3>
 <pre><code class="language-vbnet">Function CreateMultiLine() As String
-Dim result As String
-result = &quot;First Line&quot; &amp; ChrB$(13) &amp; ChrB$(10)
-result = result &amp; &quot;Second Line&quot; &amp; ChrB$(13) &amp; ChrB$(10)
-result = result &amp; &quot;Third Line&quot;
-CreateMultiLine = result
+    Dim result As String
+    result = &quot;First Line&quot; &amp; ChrB$(13) &amp; ChrB$(10)
+    result = result &amp; &quot;Second Line&quot; &amp; ChrB$(13) &amp; ChrB$(10)
+    result = result &amp; &quot;Third Line&quot;
+    CreateMultiLine = result
 End Function</code></pre>
 <h3 id="tab-separated-values">Tab-Separated Values</h3>
 <pre><code class="language-vbnet">Function CreateTSV(col1 As String, col2 As String, col3 As String) As String
-CreateTSV = col1 &amp; ChrB$(9) &amp; col2 &amp; ChrB$(9) &amp; col3
+    CreateTSV = col1 &amp; ChrB$(9) &amp; col2 &amp; ChrB$(9) &amp; col3
 End Function</code></pre>
 <h3 id="build-string-from-byte-array">Build String from Byte Array</h3>
 <pre><code class="language-vbnet">Function BytesToString(bytes() As Byte) As String
-Dim i As Integer
-Dim result As String
-For i = LBound(bytes) To UBound(bytes)
-result = result &amp; ChrB$(bytes(i))
-Next i
-BytesToString = result
+    Dim i As Integer
+    Dim result As String
+    For i = LBound(bytes) To UBound(bytes)
+        result = result &amp; ChrB$(bytes(i))
+    Next i
+    BytesToString = result
 End Function</code></pre>
 <h3 id="quote-in-string">Quote in String</h3>
 <pre><code class="language-vbnet">Function AddQuotes(text As String) As String
-AddQuotes = ChrB$(34) &amp; text &amp; ChrB$(34)
+    AddQuotes = ChrB$(34) &amp; text &amp; ChrB$(34)
 End Function</code></pre>
 <h3 id="null-terminated-string">Null-Terminated String</h3>
 <pre><code class="language-vbnet">Function CreateNullTerminated(text As String) As String
-CreateNullTerminated = text &amp; ChrB$(0)
+    CreateNullTerminated = text &amp; ChrB$(0)
 End Function</code></pre>
 <h3 id="ansi-protocol-message">ANSI Protocol Message</h3>
 <pre><code class="language-vbnet">Function CreateProtocolMessage(msgType As Byte, data As String) As String
-Dim msg As String
-&#x27; SOH (Start of Header)
-msg = ChrB$(1)
-&#x27; Message type
-msg = msg &amp; ChrB$(msgType)
-&#x27; STX (Start of Text)
-msg = msg &amp; ChrB$(2)
-&#x27; Payload
-msg = msg &amp; data
-&#x27; ETX (End of Text)
-msg = msg &amp; ChrB$(3)
-CreateProtocolMessage = msg
+    Dim msg As String
+    &#x27; SOH (Start of Header)
+    msg = ChrB$(1)
+    &#x27; Message type
+    msg = msg &amp; ChrB$(msgType)
+    &#x27; STX (Start of Text)
+    msg = msg &amp; ChrB$(2)
+    &#x27; Payload
+    msg = msg &amp; data
+    &#x27; ETX (End of Text)
+    msg = msg &amp; ChrB$(3)
+    CreateProtocolMessage = msg
 End Function</code></pre>
 <h3 id="generate-alphabet">Generate Alphabet</h3>
 <pre><code class="language-vbnet">Function GenerateAlphabet() As String
-Dim i As Integer
-Dim result As String
-For i = 65 To 90
-result = result &amp; ChrB$(i)
-Next i
-GenerateAlphabet = result  &#x27; Returns &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;
+    Dim i As Integer
+    Dim result As String
+    For i = 65 To 90
+        result = result &amp; ChrB$(i)
+    Next i
+    GenerateAlphabet = result  &#x27; Returns &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;
 End Function</code></pre>
 <h3 id="csv-field-with-quotes">CSV Field with Quotes</h3>
 <pre><code class="language-vbnet">Function QuoteCSVField(field As String) As String
-Dim quoted As String
-&#x27; Replace &quot; with &quot;&quot;
-quoted = Replace(field, ChrB$(34), ChrB$(34) &amp; ChrB$(34))
-QuoteCSVField = ChrB$(34) &amp; quoted &amp; ChrB$(34)
+    Dim quoted As String
+    &#x27; Replace &quot; with &quot;&quot;
+    quoted = Replace(field, ChrB$(34), ChrB$(34) &amp; ChrB$(34))
+    QuoteCSVField = ChrB$(34) &amp; quoted &amp; ChrB$(34)
 End Function</code></pre>
 <h3 id="password-mask">Password Mask</h3>
 <pre><code class="language-vbnet">Function MaskPassword(length As Integer) As String
-Dim i As Integer
-Dim result As String
-For i = 1 To length
-result = result &amp; ChrB$(42)  &#x27; Asterisk
-Next i
-MaskPassword = result
+    Dim i As Integer
+    Dim result As String
+    For i = 1 To length
+        result = result &amp; ChrB$(42)  &#x27; Asterisk
+    Next i
+    MaskPassword = result
 End Function</code></pre>
 <h3 id="character-range">Character Range</h3>
 <pre><code class="language-vbnet">Function GetPrintableChars() As String
-Dim i As Integer
-Dim result As String
-For i = 32 To 126
-result = result &amp; ChrB$(i)
-Next i
-GetPrintableChars = result
+    Dim i As Integer
+    Dim result As String
+    For i = 32 To 126
+        result = result &amp; ChrB$(i)
+    Next i
+    GetPrintableChars = result
 End Function</code></pre>
 <h2 id="related-functions">Related Functions</h2>
 <ul>
@@ -246,12 +289,12 @@ End Function</code></pre>
 </ul>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeChrB(code As Long) As String
-On Error Resume Next
-SafeChrB = ChrB$(code)
-If Err.Number &lt;&gt; 0 Then
-SafeChrB = &quot;&quot;
-Err.Clear
-End If
+    On Error Resume Next
+    SafeChrB = ChrB$(code)
+    If Err.Number &lt;&gt; 0 Then
+        SafeChrB = &quot;&quot;
+        Err.Clear
+    End If
 End Function</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>

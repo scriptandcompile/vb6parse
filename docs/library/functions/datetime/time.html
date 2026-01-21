@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p>VB6 <code>Time</code> Function</p>
-<p>The <code>Time</code> function returns a Variant (Date) indicating the current system time.</p>
+            <p>VB6 <code>Time</code> Function
+The <code>Time</code> function returns a Variant (Date) indicating the current system time.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">Time()</code></pre>
 <p>or</p>
@@ -48,19 +48,17 @@
 <h2 id="returns">Returns</h2>
 <p>Returns a <code>Variant</code> of subtype <code>Date</code> containing the current system time. The date portion is set to zero (December 30, 1899).</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>Time</code> function retrieves the current system time:</p>
-<ul>
-<li><strong>No arguments</strong>: Called without parentheses or with empty parentheses</li>
-<li><strong>Date portion</strong>: Always returns date as zero (12/30/1899)</li>
-<li><strong>Time precision</strong>: Returns time to the nearest second (no milliseconds)</li>
-<li><strong>System dependent</strong>: Returns time from system clock</li>
-<li><strong>Time vs Time$</strong>: <code>Time</code> returns Variant (Date), <code>Time$</code> returns String in format "HH:MM:SS"</li>
-<li><strong>Now function</strong>: Use <code>Now()</code> to get current date and time together</li>
-<li><strong>Date function</strong>: Use <code>Date()</code> to get current date only</li>
-<li><strong>Timer function</strong>: Use <code>Timer</code> for elapsed time measurements (returns seconds since midnight)</li>
-<li><strong>Setting time</strong>: Use <code>Time</code> statement (not function) to set system time</li>
-<li><strong>24-hour format</strong>: Internal representation is 24-hour, but display depends on system settings</li>
-</ul>
+<p>The <code>Time</code> function retrieves the current system time:
+- <strong>No arguments</strong>: Called without parentheses or with empty parentheses
+- <strong>Date portion</strong>: Always returns date as zero (12/30/1899)
+- <strong>Time precision</strong>: Returns time to the nearest second (no milliseconds)
+- <strong>System dependent</strong>: Returns time from system clock
+- <strong>Time vs Time$</strong>: <code>Time</code> returns Variant (Date), <code>Time$</code> returns String in format "HH:MM:SS"
+- <strong>Now function</strong>: Use <code>Now()</code> to get current date and time together
+- <strong>Date function</strong>: Use <code>Date()</code> to get current date only
+- <strong>Timer function</strong>: Use <code>Timer</code> for elapsed time measurements (returns seconds since midnight)
+- <strong>Setting time</strong>: Use <code>Time</code> statement (not function) to set system time
+- <strong>24-hour format</strong>: Internal representation is 24-hour, but display depends on system settings</p>
 <h3 id="time-vs-related-functions">Time vs Related Functions</h3>
 <ul>
 <li><code>Time</code> - Returns current time only (date portion is zero)</li>
@@ -77,7 +75,6 @@ currentSecond = Second(Time)  &#x27; 0-59</code></pre>
 <h3 id="time-arithmetic">Time Arithmetic</h3>
 <pre><code class="language-vbnet">&#x27; Add 1 hour to current time
 newTime = Time + TimeSerial(1, 0, 0)
-
 &#x27; Add 30 minutes to current time
 newTime = DateAdd(&quot;n&quot;, 30, Time)</code></pre>
 <h2 id="typical-uses">Typical Uses</h2>
@@ -94,369 +91,311 @@ newTime = DateAdd(&quot;n&quot;, 30, Time)</code></pre>
 <h2 id="basic-examples">Basic Examples</h2>
 <h3 id="example-1-display-current-time">Example 1: Display Current Time</h3>
 <pre><code class="language-vbnet">Sub ShowCurrentTime()
-MsgBox &quot;Current time is: &quot; &amp; Time
+    MsgBox &quot;Current time is: &quot; &amp; Time
 End Sub</code></pre>
 <h3 id="example-2-log-event-time">Example 2: Log Event Time</h3>
 <pre><code class="language-vbnet">Sub LogEvent(eventName As String)
-Dim logEntry As String
-logEntry = Time &amp; &quot; - &quot; &amp; eventName
-Debug.Print logEntry
+    Dim logEntry As String
+    logEntry = Time &amp; &quot; - &quot; &amp; eventName
+    Debug.Print logEntry
 End Sub</code></pre>
 <h3 id="example-3-check-business-hours">Example 3: Check Business Hours</h3>
 <pre><code class="language-vbnet">Function IsBusinessHours() As Boolean
-Dim currentHour As Integer
-currentHour = Hour(Time)
-IsBusinessHours = (currentHour &gt;= 9 And currentHour &lt; 17)
+    Dim currentHour As Integer
+    currentHour = Hour(Time)
+    IsBusinessHours = (currentHour &gt;= 9 And currentHour &lt; 17)
 End Function</code></pre>
 <h3 id="example-4-format-time-display">Example 4: Format Time Display</h3>
 <pre><code class="language-vbnet">Function GetFormattedTime() As String
-GetFormattedTime = Format$(Time, &quot;hh:mm:ss AM/PM&quot;)
+    GetFormattedTime = Format$(Time, &quot;hh:mm:ss AM/PM&quot;)
 End Function</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-get-current-hour">Pattern 1: Get Current Hour</h3>
 <pre><code class="language-vbnet">Function GetCurrentHour() As Integer
-GetCurrentHour = Hour(Time)
+    GetCurrentHour = Hour(Time)
 End Function</code></pre>
 <h3 id="pattern-2-time-based-greeting">Pattern 2: Time-based Greeting</h3>
 <pre><code class="language-vbnet">Function GetGreeting() As String
-Dim currentHour As Integer
-currentHour = Hour(Time)
-
-Select Case currentHour
-Case 0 To 11
-GetGreeting = &quot;Good morning&quot;
-Case 12 To 17
-GetGreeting = &quot;Good afternoon&quot;
-Case Else
-GetGreeting = &quot;Good evening&quot;
-End Select
+    Dim currentHour As Integer
+    currentHour = Hour(Time)
+    Select Case currentHour
+        Case 0 To 11
+            GetGreeting = &quot;Good morning&quot;
+        Case 12 To 17
+            GetGreeting = &quot;Good afternoon&quot;
+        Case Else
+            GetGreeting = &quot;Good evening&quot;
+    End Select
 End Function</code></pre>
 <h3 id="pattern-3-create-timestamp">Pattern 3: Create Timestamp</h3>
 <pre><code class="language-vbnet">Function CreateTimestamp() As String
-CreateTimestamp = Format$(Date, &quot;yyyy-mm-dd&quot;) &amp; &quot; &quot; &amp; Format$(Time, &quot;hh:nn:ss&quot;)
+    CreateTimestamp = Format$(Date, &quot;yyyy-mm-dd&quot;) &amp; &quot; &quot; &amp; Format$(Time, &quot;hh:nn:ss&quot;)
 End Function</code></pre>
 <h3 id="pattern-4-check-time-window">Pattern 4: Check Time Window</h3>
 <pre><code class="language-vbnet">Function IsWithinTimeWindow(startTime As Date, endTime As Date) As Boolean
-Dim currentTime As Date
-currentTime = Time
-IsWithinTimeWindow = (currentTime &gt;= startTime And currentTime &lt;= endTime)
+    Dim currentTime As Date
+    currentTime = Time
+    IsWithinTimeWindow = (currentTime &gt;= startTime And currentTime &lt;= endTime)
 End Function</code></pre>
 <h3 id="pattern-5-add-time-duration">Pattern 5: Add Time Duration</h3>
 <pre><code class="language-vbnet">Function AddMinutes(minutes As Integer) As Date
-AddMinutes = DateAdd(&quot;n&quot;, minutes, Time)
+    AddMinutes = DateAdd(&quot;n&quot;, minutes, Time)
 End Function</code></pre>
 <h3 id="pattern-6-time-until-target">Pattern 6: Time Until Target</h3>
 <pre><code class="language-vbnet">Function MinutesUntil(targetTime As Date) As Long
-MinutesUntil = DateDiff(&quot;n&quot;, Time, targetTime)
+    MinutesUntil = DateDiff(&quot;n&quot;, Time, targetTime)
 End Function</code></pre>
 <h3 id="pattern-7-round-time-to-nearest-interval">Pattern 7: Round Time to Nearest Interval</h3>
 <pre><code class="language-vbnet">Function RoundToNearest15Minutes() As Date
-Dim currentTime As Date
-Dim minutes As Integer
-
-currentTime = Time
-minutes = Minute(currentTime)
-minutes = ((minutes + 7) \ 15) * 15
-
-RoundToNearest15Minutes = TimeSerial(Hour(currentTime), minutes, 0)
+    Dim currentTime As Date
+    Dim minutes As Integer
+    currentTime = Time
+    minutes = Minute(currentTime)
+    minutes = ((minutes + 7) \ 15) * 15
+    RoundToNearest15Minutes = TimeSerial(Hour(currentTime), minutes, 0)
 End Function</code></pre>
 <h3 id="pattern-8-compare-times">Pattern 8: Compare Times</h3>
 <pre><code class="language-vbnet">Function IsTimeBefore(compareTime As Date) As Boolean
-IsTimeBefore = (Time &lt; compareTime)
+    IsTimeBefore = (Time &lt; compareTime)
 End Function</code></pre>
 <h3 id="pattern-9-get-time-string">Pattern 9: Get Time String</h3>
 <pre><code class="language-vbnet">Function GetTimeString() As String
-GetTimeString = Format$(Time, &quot;hh:mm:ss&quot;)
+    GetTimeString = Format$(Time, &quot;hh:mm:ss&quot;)
 End Function</code></pre>
 <h3 id="pattern-10-calculate-elapsed-time">Pattern 10: Calculate Elapsed Time</h3>
 <pre><code class="language-vbnet">Function GetElapsedMinutes(startTime As Date) As Long
-GetElapsedMinutes = DateDiff(&quot;n&quot;, startTime, Time)
+    GetElapsedMinutes = DateDiff(&quot;n&quot;, startTime, Time)
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-time-tracker-class">Example 1: Time Tracker Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: TimeTracker
 &#x27; Tracks operation start/end times and durations
 Option Explicit
-
 Private m_StartTime As Date
 Private m_EndTime As Date
 Private m_IsRunning As Boolean
-
 Public Sub StartTracking()
-m_StartTime = Time
-m_IsRunning = True
+    m_StartTime = Time
+    m_IsRunning = True
 End Sub
-
 Public Sub StopTracking()
-If Not m_IsRunning Then
-Err.Raise 5, , &quot;Tracking not started&quot;
-End If
-
-m_EndTime = Time
-m_IsRunning = False
+    If Not m_IsRunning Then
+        Err.Raise 5, , &quot;Tracking not started&quot;
+    End If
+    m_EndTime = Time
+    m_IsRunning = False
 End Sub
-
 Public Function GetElapsedMinutes() As Long
-If m_IsRunning Then
-GetElapsedMinutes = DateDiff(&quot;n&quot;, m_StartTime, Time)
-Else
-GetElapsedMinutes = DateDiff(&quot;n&quot;, m_StartTime, m_EndTime)
-End If
+    If m_IsRunning Then
+        GetElapsedMinutes = DateDiff(&quot;n&quot;, m_StartTime, Time)
+    Else
+        GetElapsedMinutes = DateDiff(&quot;n&quot;, m_StartTime, m_EndTime)
+    End If
 End Function
-
 Public Function GetElapsedSeconds() As Long
-If m_IsRunning Then
-GetElapsedSeconds = DateDiff(&quot;s&quot;, m_StartTime, Time)
-Else
-GetElapsedSeconds = DateDiff(&quot;s&quot;, m_StartTime, m_EndTime)
-End If
+    If m_IsRunning Then
+        GetElapsedSeconds = DateDiff(&quot;s&quot;, m_StartTime, Time)
+    Else
+        GetElapsedSeconds = DateDiff(&quot;s&quot;, m_StartTime, m_EndTime)
+    End If
 End Function
-
 Public Function GetFormattedDuration() As String
-Dim totalSeconds As Long
-Dim hours As Long
-Dim minutes As Long
-Dim seconds As Long
-
-totalSeconds = GetElapsedSeconds()
-hours = totalSeconds \ 3600
-minutes = (totalSeconds Mod 3600) \ 60
-seconds = totalSeconds Mod 60
-
-GetFormattedDuration = Format$(hours, &quot;00&quot;) &amp; &quot;:&quot; &amp; _
-Format$(minutes, &quot;00&quot;) &amp; &quot;:&quot; &amp; _
-Format$(seconds, &quot;00&quot;)
+    Dim totalSeconds As Long
+    Dim hours As Long
+    Dim minutes As Long
+    Dim seconds As Long
+    totalSeconds = GetElapsedSeconds()
+    hours = totalSeconds \ 3600
+    minutes = (totalSeconds Mod 3600) \ 60
+    seconds = totalSeconds Mod 60
+    GetFormattedDuration = Format$(hours, &quot;00&quot;) &amp; &quot;:&quot; &amp; _
+                          Format$(minutes, &quot;00&quot;) &amp; &quot;:&quot; &amp; _
+                          Format$(seconds, &quot;00&quot;)
 End Function
-
 Public Property Get IsRunning() As Boolean
-IsRunning = m_IsRunning
+    IsRunning = m_IsRunning
 End Property</code></pre>
 <h3 id="example-2-schedule-manager-module">Example 2: Schedule Manager Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: ScheduleManager
 &#x27; Manages time-based scheduling and windows
 Option Explicit
-
 Public Function IsWithinSchedule(scheduleStart As Date, scheduleEnd As Date) As Boolean
-Dim currentTime As Date
-currentTime = Time
-
-&#x27; Handle overnight schedules (e.g., 10 PM to 6 AM)
-If scheduleStart &gt; scheduleEnd Then
-IsWithinSchedule = (currentTime &gt;= scheduleStart Or currentTime &lt;= scheduleEnd)
-Else
-IsWithinSchedule = (currentTime &gt;= scheduleStart And currentTime &lt;= scheduleEnd)
-End If
+    Dim currentTime As Date
+    currentTime = Time
+    &#x27; Handle overnight schedules (e.g., 10 PM to 6 AM)
+    If scheduleStart &gt; scheduleEnd Then
+        IsWithinSchedule = (currentTime &gt;= scheduleStart Or currentTime &lt;= scheduleEnd)
+    Else
+        IsWithinSchedule = (currentTime &gt;= scheduleStart And currentTime &lt;= scheduleEnd)
+    End If
 End Function
-
 Public Function GetNextScheduledTime(targetTime As Date) As Date
-Dim currentTime As Date
-currentTime = Time
-
-If currentTime &lt; targetTime Then
-&#x27; Target time is later today
-GetNextScheduledTime = Date + targetTime
-Else
-&#x27; Target time is tomorrow
-GetNextScheduledTime = Date + 1 + targetTime
-End If
+    Dim currentTime As Date
+    currentTime = Time
+    If currentTime &lt; targetTime Then
+        &#x27; Target time is later today
+        GetNextScheduledTime = Date + targetTime
+    Else
+        &#x27; Target time is tomorrow
+        GetNextScheduledTime = Date + 1 + targetTime
+    End If
 End Function
-
 Public Function MinutesUntilSchedule(scheduleTime As Date) As Long
-Dim currentTime As Date
-Dim targetDateTime As Date
-
-currentTime = Time
-
-If currentTime &lt; scheduleTime Then
-&#x27; Later today
-targetDateTime = Date + scheduleTime
-Else
-&#x27; Tomorrow
-targetDateTime = Date + 1 + scheduleTime
-End If
-
-MinutesUntilSchedule = DateDiff(&quot;n&quot;, Now, targetDateTime)
+    Dim currentTime As Date
+    Dim targetDateTime As Date
+    currentTime = Time
+    If currentTime &lt; scheduleTime Then
+        &#x27; Later today
+        targetDateTime = Date + scheduleTime
+    Else
+        &#x27; Tomorrow
+        targetDateTime = Date + 1 + scheduleTime
+    End If
+    MinutesUntilSchedule = DateDiff(&quot;n&quot;, Now, targetDateTime)
 End Function
-
 Public Function FormatTimeRemaining(targetTime As Date) As String
-Dim minutesLeft As Long
-Dim hours As Long
-Dim minutes As Long
-
-minutesLeft = MinutesUntilSchedule(targetTime)
-
-If minutesLeft &lt; 0 Then
-FormatTimeRemaining = &quot;Overdue&quot;
-Exit Function
-End If
-
-hours = minutesLeft \ 60
-minutes = minutesLeft Mod 60
-
-If hours &gt; 0 Then
-FormatTimeRemaining = hours &amp; &quot;h &quot; &amp; minutes &amp; &quot;m remaining&quot;
-Else
-FormatTimeRemaining = minutes &amp; &quot;m remaining&quot;
-End If
+    Dim minutesLeft As Long
+    Dim hours As Long
+    Dim minutes As Long
+    minutesLeft = MinutesUntilSchedule(targetTime)
+    If minutesLeft &lt; 0 Then
+        FormatTimeRemaining = &quot;Overdue&quot;
+        Exit Function
+    End If
+    hours = minutesLeft \ 60
+    minutes = minutesLeft Mod 60
+    If hours &gt; 0 Then
+        FormatTimeRemaining = hours &amp; &quot;h &quot; &amp; minutes &amp; &quot;m remaining&quot;
+    Else
+        FormatTimeRemaining = minutes &amp; &quot;m remaining&quot;
+    End If
 End Function</code></pre>
 <h3 id="example-3-time-logger-class">Example 3: Time Logger Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: TimeLogger
 &#x27; Logs timestamped events
 Option Explicit
-
 Private m_LogEntries As Collection
-
 Private Sub Class_Initialize()
-Set m_LogEntries = New Collection
+    Set m_LogEntries = New Collection
 End Sub
-
 Public Sub LogEvent(eventDescription As String)
-Dim logEntry As String
-logEntry = Format$(Time, &quot;hh:mm:ss&quot;) &amp; &quot; - &quot; &amp; eventDescription
-m_LogEntries.Add logEntry
+    Dim logEntry As String
+    logEntry = Format$(Time, &quot;hh:mm:ss&quot;) &amp; &quot; - &quot; &amp; eventDescription
+    m_LogEntries.Add logEntry
 End Sub
-
 Public Sub LogEventWithDetails(eventName As String, details As String)
-Dim logEntry As String
-logEntry = Format$(Time, &quot;hh:mm:ss&quot;) &amp; &quot; - &quot; &amp; eventName &amp; &quot;: &quot; &amp; details
-m_LogEntries.Add logEntry
+    Dim logEntry As String
+    logEntry = Format$(Time, &quot;hh:mm:ss&quot;) &amp; &quot; - &quot; &amp; eventName &amp; &quot;: &quot; &amp; details
+    m_LogEntries.Add logEntry
 End Sub
-
 Public Function GetLogEntries() As String
-Dim result As String
-Dim entry As Variant
-
-result = &quot;Event Log:&quot; &amp; vbCrLf
-result = result &amp; String$(50, &quot;=&quot;) &amp; vbCrLf
-
-For Each entry In m_LogEntries
-result = result &amp; entry &amp; vbCrLf
-Next entry
-
-GetLogEntries = result
+    Dim result As String
+    Dim entry As Variant
+    result = &quot;Event Log:&quot; &amp; vbCrLf
+    result = result &amp; String$(50, &quot;=&quot;) &amp; vbCrLf
+    For Each entry In m_LogEntries
+        result = result &amp; entry &amp; vbCrLf
+    Next entry
+    GetLogEntries = result
 End Function
-
 Public Sub ClearLog()
-Set m_LogEntries = New Collection
+    Set m_LogEntries = New Collection
 End Sub
-
 Public Property Get EntryCount() As Long
-EntryCount = m_LogEntries.Count
+    EntryCount = m_LogEntries.Count
 End Property
-
 Public Function ExportToFile(filename As String) As Boolean
-On Error GoTo ErrorHandler
-
-Dim fileNum As Integer
-Dim entry As Variant
-
-fileNum = FreeFile
-Open filename For Output As #fileNum
-
-Print #fileNum, &quot;Event Log - &quot; &amp; Format$(Date, &quot;yyyy-mm-dd&quot;)
-Print #fileNum, String$(50, &quot;=&quot;)
-
-For Each entry In m_LogEntries
-Print #fileNum, entry
-Next entry
-
-Close #fileNum
-ExportToFile = True
-Exit Function
-
+    On Error GoTo ErrorHandler
+    Dim fileNum As Integer
+    Dim entry As Variant
+    fileNum = FreeFile
+    Open filename For Output As #fileNum
+    Print #fileNum, &quot;Event Log - &quot; &amp; Format$(Date, &quot;yyyy-mm-dd&quot;)
+    Print #fileNum, String$(50, &quot;=&quot;)
+    For Each entry In m_LogEntries
+        Print #fileNum, entry
+    Next entry
+    Close #fileNum
+    ExportToFile = True
+    Exit Function
 ErrorHandler:
-ExportToFile = False
-If fileNum &gt; 0 Then Close #fileNum
+    ExportToFile = False
+    If fileNum &gt; 0 Then Close #fileNum
 End Function</code></pre>
 <h3 id="example-4-business-hours-validator-module">Example 4: Business Hours Validator Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: BusinessHoursValidator
 &#x27; Validates and manages business hours
 Option Explicit
-
 Private m_BusinessStart As Date
 Private m_BusinessEnd As Date
 Private m_LunchStart As Date
 Private m_LunchEnd As Date
-
 Public Sub Initialize(businessStart As Date, businessEnd As Date, _
-Optional lunchStart As Variant, Optional lunchEnd As Variant)
-m_BusinessStart = businessStart
-m_BusinessEnd = businessEnd
-
-If Not IsMissing(lunchStart) Then m_LunchStart = lunchStart
-If Not IsMissing(lunchEnd) Then m_LunchEnd = lunchEnd
+                     Optional lunchStart As Variant, Optional lunchEnd As Variant)
+    m_BusinessStart = businessStart
+    m_BusinessEnd = businessEnd
+    If Not IsMissing(lunchStart) Then m_LunchStart = lunchStart
+    If Not IsMissing(lunchEnd) Then m_LunchEnd = lunchEnd
 End Sub
-
 Public Function IsBusinessHours() As Boolean
-Dim currentTime As Date
-currentTime = Time
-
-&#x27; Check if within business hours
-If currentTime &lt; m_BusinessStart Or currentTime &gt;= m_BusinessEnd Then
-IsBusinessHours = False
-Exit Function
-End If
-
-&#x27; Check if during lunch (if configured)
-If m_LunchStart &gt; 0 And m_LunchEnd &gt; 0 Then
-If currentTime &gt;= m_LunchStart And currentTime &lt; m_LunchEnd Then
-IsBusinessHours = False
-Exit Function
-End If
-End If
-
-IsBusinessHours = True
+    Dim currentTime As Date
+    currentTime = Time
+    &#x27; Check if within business hours
+    If currentTime &lt; m_BusinessStart Or currentTime &gt;= m_BusinessEnd Then
+        IsBusinessHours = False
+        Exit Function
+    End If
+    &#x27; Check if during lunch (if configured)
+    If m_LunchStart &gt; 0 And m_LunchEnd &gt; 0 Then
+        If currentTime &gt;= m_LunchStart And currentTime &lt; m_LunchEnd Then
+            IsBusinessHours = False
+            Exit Function
+        End If
+    End If
+    IsBusinessHours = True
 End Function
-
 Public Function GetBusinessHoursStatus() As String
-Dim currentTime As Date
-currentTime = Time
-
-If currentTime &lt; m_BusinessStart Then
-GetBusinessHoursStatus = &quot;Before business hours (opens at &quot; &amp; _
-Format$(m_BusinessStart, &quot;h:mm AM/PM&quot;) &amp; &quot;)&quot;
-ElseIf currentTime &gt;= m_BusinessEnd Then
-GetBusinessHoursStatus = &quot;After business hours (closed at &quot; &amp; _
-Format$(m_BusinessEnd, &quot;h:mm AM/PM&quot;) &amp; &quot;)&quot;
-ElseIf m_LunchStart &gt; 0 And currentTime &gt;= m_LunchStart And currentTime &lt; m_LunchEnd Then
-GetBusinessHoursStatus = &quot;Lunch break (returns at &quot; &amp; _
-Format$(m_LunchEnd, &quot;h:mm AM/PM&quot;) &amp; &quot;)&quot;
-Else
-GetBusinessHoursStatus = &quot;Open for business&quot;
-End If
+    Dim currentTime As Date
+    currentTime = Time
+    If currentTime &lt; m_BusinessStart Then
+        GetBusinessHoursStatus = &quot;Before business hours (opens at &quot; &amp; _
+                                Format$(m_BusinessStart, &quot;h:mm AM/PM&quot;) &amp; &quot;)&quot;
+    ElseIf currentTime &gt;= m_BusinessEnd Then
+        GetBusinessHoursStatus = &quot;After business hours (closed at &quot; &amp; _
+                                Format$(m_BusinessEnd, &quot;h:mm AM/PM&quot;) &amp; &quot;)&quot;
+    ElseIf m_LunchStart &gt; 0 And currentTime &gt;= m_LunchStart And currentTime &lt; m_LunchEnd Then
+        GetBusinessHoursStatus = &quot;Lunch break (returns at &quot; &amp; _
+                                Format$(m_LunchEnd, &quot;h:mm AM/PM&quot;) &amp; &quot;)&quot;
+    Else
+        GetBusinessHoursStatus = &quot;Open for business&quot;
+    End If
 End Function
-
 Public Function MinutesUntilOpen() As Long
-Dim currentTime As Date
-currentTime = Time
-
-If currentTime &lt; m_BusinessStart Then
-MinutesUntilOpen = DateDiff(&quot;n&quot;, currentTime, m_BusinessStart)
-Else
-&#x27; Next business day
-Dim nextOpen As Date
-nextOpen = DateAdd(&quot;d&quot;, 1, Date) + m_BusinessStart
-MinutesUntilOpen = DateDiff(&quot;n&quot;, Now, nextOpen)
-End If
+    Dim currentTime As Date
+    currentTime = Time
+    If currentTime &lt; m_BusinessStart Then
+        MinutesUntilOpen = DateDiff(&quot;n&quot;, currentTime, m_BusinessStart)
+    Else
+        &#x27; Next business day
+        Dim nextOpen As Date
+        nextOpen = DateAdd(&quot;d&quot;, 1, Date) + m_BusinessStart
+        MinutesUntilOpen = DateDiff(&quot;n&quot;, Now, nextOpen)
+    End If
 End Function
-
 Public Function MinutesUntilClose() As Long
-Dim currentTime As Date
-currentTime = Time
-
-If currentTime &gt;= m_BusinessEnd Then
-MinutesUntilClose = 0
-Else
-MinutesUntilClose = DateDiff(&quot;n&quot;, currentTime, m_BusinessEnd)
-End If
+    Dim currentTime As Date
+    currentTime = Time
+    If currentTime &gt;= m_BusinessEnd Then
+        MinutesUntilClose = 0
+    Else
+        MinutesUntilClose = DateDiff(&quot;n&quot;, currentTime, m_BusinessEnd)
+    End If
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>Time</code> function typically does not raise errors under normal circumstances:</p>
-<ul>
-<li><strong>No parameters</strong>: Cannot have parameter errors</li>
-<li><strong>System dependent</strong>: Relies on system clock being set correctly</li>
-<li><strong>Always succeeds</strong>: Returns current time from system</li>
-</ul>
+<p>The <code>Time</code> function typically does not raise errors under normal circumstances:
+- <strong>No parameters</strong>: Cannot have parameter errors
+- <strong>System dependent</strong>: Relies on system clock being set correctly
+- <strong>Always succeeds</strong>: Returns current time from system</p>
 <h2 id="performance-notes">Performance Notes</h2>
 <ul>
 <li>Very fast operation - direct system call</li>
@@ -525,27 +464,113 @@ End Function</code></pre>
 <td>Yes</td>
 <td>1 second</td>
 </tr>
+<tr>
+<td>## Platform Notes</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in VB6, VBA, and <code>VBScript</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Consistent behavior across platforms</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns time based on system clock</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Time format display depends on regional settings</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Internal representation is numeric (fraction of a day)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Date portion always 12/30/1899 (zero date)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No millisecond precision (use Timer for better precision)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot get time from different time zone</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No built-in UTC time support</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot specify which clock source to use</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Display format depends on system locale settings</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot return time as numeric value directly (use <code>CDbl</code> or cast)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No built-in support for daylight saving time handling</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-notes">Platform Notes</h2>
-<ul>
-<li>Available in VB6, VBA, and <code>VBScript</code></li>
-<li>Consistent behavior across platforms</li>
-<li>Returns time based on system clock</li>
-<li>Time format display depends on regional settings</li>
-<li>Internal representation is numeric (fraction of a day)</li>
-<li>Date portion always 12/30/1899 (zero date)</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>No millisecond precision (use Timer for better precision)</li>
-<li>Cannot get time from different time zone</li>
-<li>No built-in UTC time support</li>
-<li>Cannot specify which clock source to use</li>
-<li>Display format depends on system locale settings</li>
-<li>Cannot return time as numeric value directly (use <code>CDbl</code> or cast)</li>
-<li>No built-in support for daylight saving time handling</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

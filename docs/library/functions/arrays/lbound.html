@@ -58,14 +58,12 @@
 <li>Dynamic arrays preserve their lower bound across <code>ReDim</code> operations.</li>
 </ul>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>LBound</code> function is essential for array processing:</p>
-<ul>
-<li>Returns the lower bound (minimum index) of an array dimension</li>
-<li>Counterpart to <code>UBound</code> (which returns upper bound)</li>
-<li>Critical for correctly iterating through arrays</li>
-<li>Default lower bound is 0 (unless <code>Option Base 1</code>)</li>
-<li>Can specify explicit lower bounds:</li>
-</ul>
+<p>The <code>LBound</code> function is essential for array processing:
+- Returns the lower bound (minimum index) of an array dimension
+- Counterpart to <code>UBound</code> (which returns upper bound)
+- Critical for correctly iterating through arrays
+- Default lower bound is 0 (unless <code>Option Base 1</code>)
+- Can specify explicit lower bounds:</p>
 <pre><code class="language-vbnet">Dim arr(5 To 10) &#x27;LBound = 5</code></pre>
 <ul>
 <li>Works with multi-dimensional arrays using dimension parameter</li>
@@ -80,7 +78,6 @@
 <li>Common in For loops:</li>
 </ul>
 <pre><code class="language-vbnet">For i = LBound(arr) To UBound(arr)
-
 Next</code></pre>
 <h3 id="common-errors">Common Errors</h3>
 <ul>
@@ -97,14 +94,14 @@ Next</code></pre>
 <h3 id="performance-optimization">Performance Optimization</h3>
 <h4 id="less-efficient-calls-lbound-every-iteration">Less efficient - Calls <code>LBound</code> Every Iteration</h4>
 <pre><code class="language-vbnet">For i = LBound(arr) To UBound(arr)
-&#x27; process arr(i)
+    &#x27; process arr(i)
 Next i</code></pre>
 <h4 id="more-efficient-for-very-large-loops">More efficient for very large loops</h4>
 <pre><code class="language-vbnet">Dim lb As Long, ub As Long
 lb = LBound(arr)
 ub = UBound(arr)
 For i = lb To ub
-&#x27; process arr(i)
+    &#x27; process arr(i)
 Next i</code></pre>
 <h2 id="typical-uses">Typical Uses</h2>
 <ul>
@@ -194,10 +191,20 @@ Next i</code></pre>
 <td>N/A</td>
 <td>Dynamic array sizing</td>
 </tr>
+<tr>
+<td>## <code>LBound</code> and <code>Option Base</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>### Option Base 0 (default)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="lbound-and-option-base"><code>LBound</code> and <code>Option Base</code></h2>
-<h3 id="option-base-0-default">Option Base 0 (default)</h3>
 <pre><code class="language-vbnet">Dim arr1(5) As Integer
 Debug.Print LBound(arr1)         &#x27; 0
 Debug.Print UBound(arr1)         &#x27; 5</code></pre>
@@ -213,18 +220,16 @@ Debug.Print UBound(arr3)         &#x27; 20</code></pre>
 <h3 id="array-size-calculation">Array Size Calculation</h3>
 <pre><code class="language-vbnet">&#x27; Correct way to get array size
 Function GetArraySize(arr As Variant) As Long
-If Not IsArray(arr) Then
-GetArraySize = 0
-Else
-GetArraySize = UBound(arr) - LBound(arr) + 1
-End If
+    If Not IsArray(arr) Then
+        GetArraySize = 0
+    Else
+        GetArraySize = UBound(arr) - LBound(arr) + 1
+    End If
 End Function
-
 &#x27; Examples
 Dim a(0 To 10) As Integer       &#x27; Size = 11
 Dim b(1 To 10) As Integer       &#x27; Size = 10
 Dim c(5 To 15) As Integer       &#x27; Size = 11
-
 Debug.Print GetArraySize(a)     &#x27; 11
 Debug.Print GetArraySize(b)     &#x27; 10
 Debug.Print GetArraySize(c)     &#x27; 11</code></pre>
@@ -232,388 +237,321 @@ Debug.Print GetArraySize(c)     &#x27; 11</code></pre>
 <h3 id="example-1-basic-array-iteration">Example 1: Basic Array Iteration</h3>
 <pre><code class="language-vbnet">Dim arr(5) As Integer
 Dim i As Long
-
 For i = LBound(arr) To UBound(arr)
-arr(i) = i * 2
+    arr(i) = i * 2
 Next i</code></pre>
 <h3 id="example-2-explicit-lower-bound">Example 2: Explicit Lower Bound</h3>
 <pre><code class="language-vbnet">Dim months(1 To 12) As String
-
 Debug.Print LBound(months)           &#x27; 1
 Debug.Print UBound(months)           &#x27; 12</code></pre>
 <h3 id="example-3-multi-dimensional-array">Example 3: Multi-Dimensional Array</h3>
 <pre><code class="language-vbnet">Dim grid(1 To 10, 1 To 20) As Integer
-
 Debug.Print LBound(grid, 1)          &#x27; 1 - first dimension
 Debug.Print LBound(grid, 2)          &#x27; 1 - second dimension
 Debug.Print LBound(grid)             &#x27; 1 - defaults to first dimension</code></pre>
 <h3 id="example-4-calculate-array-size">Example 4: Calculate Array Size</h3>
 <pre><code class="language-vbnet">Dim values(10 To 50) As Double
 Dim size As Long
-
 size = UBound(values) - LBound(values) + 1
 Debug.Print size                     &#x27; 41 elements</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-safe-array-iteration">Pattern 1: Safe Array Iteration</h3>
 <pre><code class="language-vbnet">Sub ProcessArray(arr As Variant)
-Dim i As Long
-
-If Not IsArray(arr) Then Exit Sub
-
-For i = LBound(arr) To UBound(arr)
-Debug.Print arr(i)
-Next i
+    Dim i As Long
+    If Not IsArray(arr) Then Exit Sub
+    For i = LBound(arr) To UBound(arr)
+        Debug.Print arr(i)
+    Next i
 End Sub</code></pre>
 <h3 id="pattern-2-array-size-function">Pattern 2: Array Size Function</h3>
 <pre><code class="language-vbnet">Function ArraySize(arr As Variant, Optional dimension As Long = 1) As Long
-If Not IsArray(arr) Then
-ArraySize = 0
-Else
-ArraySize = UBound(arr, dimension) - LBound(arr, dimension) + 1
-End If
+    If Not IsArray(arr) Then
+        ArraySize = 0
+    Else
+        ArraySize = UBound(arr, dimension) - LBound(arr, dimension) + 1
+    End If
 End Function</code></pre>
 <h3 id="pattern-3-copy-array-with-correct-bounds">Pattern 3: Copy Array With Correct Bounds</h3>
 <pre><code class="language-vbnet">Function CopyArray(source As Variant) As Variant
-Dim dest As Variant
-Dim i As Long
-
-If Not IsArray(source) Then Exit Function
-
-ReDim dest(LBound(source) To UBound(source))
-For i = LBound(source) To UBound(source)
-If IsObject(source(i)) Then
-Set dest(i) = source(i)
-Else
-dest(i) = source(i)
-End If
-Next i
-
-CopyArray = dest
+    Dim dest As Variant
+    Dim i As Long
+    If Not IsArray(source) Then Exit Function
+    ReDim dest(LBound(source) To UBound(source))
+    For i = LBound(source) To UBound(source)
+        If IsObject(source(i)) Then
+            Set dest(i) = source(i)
+        Else
+            dest(i) = source(i)
+        End If
+    Next i
+    CopyArray = dest
 End Function</code></pre>
 <h3 id="pattern-4-check-if-array-is-empty">Pattern 4: Check If Array Is Empty</h3>
 <pre><code class="language-vbnet">Function IsArrayEmpty(arr As Variant) As Boolean
-On Error Resume Next
-IsArrayEmpty = (UBound(arr) &lt; LBound(arr))
-If Err.Number &lt;&gt; 0 Then IsArrayEmpty = True
-On Error GoTo 0
+    On Error Resume Next
+    IsArrayEmpty = (UBound(arr) &lt; LBound(arr))
+    If Err.Number &lt;&gt; 0 Then IsArrayEmpty = True
+    On Error GoTo 0
 End Function</code></pre>
 <h3 id="pattern-5-array-contains-value">Pattern 5: Array Contains Value</h3>
 <pre><code class="language-vbnet">Function ArrayContains(arr As Variant, value As Variant) As Boolean
-Dim i As Long
-
-If Not IsArray(arr) Then Exit Function
-
-For i = LBound(arr) To UBound(arr)
-If arr(i) = value Then
-ArrayContains = True
-Exit Function
-End If
-Next i
-
-ArrayContains = False
+    Dim i As Long
+    If Not IsArray(arr) Then Exit Function
+    For i = LBound(arr) To UBound(arr)
+        If arr(i) = value Then
+            ArrayContains = True
+            Exit Function
+        End If
+    Next i
+    ArrayContains = False
 End Function</code></pre>
 <h3 id="pattern-6-find-element-index">Pattern 6: Find Element Index</h3>
 <pre><code class="language-vbnet">Function FindInArray(arr As Variant, value As Variant) As Long
-Dim i As Long
-
-FindInArray = -1  &#x27; Not found
-If Not IsArray(arr) Then Exit Function
-
-For i = LBound(arr) To UBound(arr)
-If arr(i) = value Then
-FindInArray = i
-Exit Function
-End If
-Next i
+    Dim i As Long
+    FindInArray = -1  &#x27; Not found
+    If Not IsArray(arr) Then Exit Function
+    For i = LBound(arr) To UBound(arr)
+        If arr(i) = value Then
+            FindInArray = i
+            Exit Function
+        End If
+    Next i
 End Function</code></pre>
 <h3 id="pattern-7-reverse-array-in-place">Pattern 7: Reverse Array In Place</h3>
 <pre><code class="language-vbnet">Sub ReverseArray(arr As Variant)
-Dim i As Long
-Dim j As Long
-Dim temp As Variant
-
-If Not IsArray(arr) Then Exit Sub
-
-i = LBound(arr)
-j = UBound(arr)
-
-Do While i &lt; j
-temp = arr(i)
-arr(i) = arr(j)
-arr(j) = temp
-i = i + 1
-j = j - 1
-Loop
+    Dim i As Long
+    Dim j As Long
+    Dim temp As Variant
+    If Not IsArray(arr) Then Exit Sub
+    i = LBound(arr)
+    j = UBound(arr)
+    Do While i &lt; j
+        temp = arr(i)
+        arr(i) = arr(j)
+        arr(j) = temp
+        i = i + 1
+        j = j - 1
+    Loop
 End Sub</code></pre>
 <h3 id="pattern-8-slice-array">Pattern 8: Slice Array</h3>
 <pre><code class="language-vbnet">Function SliceArray(arr As Variant, startIndex As Long, endIndex As Long) As Variant
-Dim result() As Variant
-Dim i As Long
-Dim j As Long
-
-If Not IsArray(arr) Then Exit Function
-If startIndex &lt; LBound(arr) Or endIndex &gt; UBound(arr) Then Exit Function
-
-ReDim result(0 To endIndex - startIndex)
-j = 0
-For i = startIndex To endIndex
-result(j) = arr(i)
-j = j + 1
-Next i
-
-SliceArray = result
+    Dim result() As Variant
+    Dim i As Long
+    Dim j As Long
+    If Not IsArray(arr) Then Exit Function
+    If startIndex &lt; LBound(arr) Or endIndex &gt; UBound(arr) Then Exit Function
+    ReDim result(0 To endIndex - startIndex)
+    j = 0
+    For i = startIndex To endIndex
+        result(j) = arr(i)
+        j = j + 1
+    Next i
+    SliceArray = result
 End Function</code></pre>
 <h3 id="pattern-9-fill-array-with-value">Pattern 9: Fill Array With Value</h3>
 <pre><code class="language-vbnet">Sub FillArray(arr As Variant, value As Variant)
-Dim i As Long
-
-If Not IsArray(arr) Then Exit Sub
-
-For i = LBound(arr) To UBound(arr)
-If IsObject(value) Then
-Set arr(i) = value
-Else
-arr(i) = value
-End If
-Next i
+    Dim i As Long
+    If Not IsArray(arr) Then Exit Sub
+    For i = LBound(arr) To UBound(arr)
+        If IsObject(value) Then
+            Set arr(i) = value
+        Else
+            arr(i) = value
+        End If
+    Next i
 End Sub</code></pre>
 <h3 id="pattern-10-multi-dimensional-array-iteration">Pattern 10: Multi-Dimensional Array Iteration</h3>
 <pre><code class="language-vbnet">Sub ProcessGrid(grid As Variant)
-Dim i As Long, j As Long
-
-If Not IsArray(grid) Then Exit Sub
-
-For i = LBound(grid, 1) To UBound(grid, 1)
-For j = LBound(grid, 2) To UBound(grid, 2)
-Debug.Print grid(i, j)
-Next j
-Next i
+    Dim i As Long, j As Long
+    If Not IsArray(grid) Then Exit Sub
+    For i = LBound(grid, 1) To UBound(grid, 1)
+        For j = LBound(grid, 2) To UBound(grid, 2)
+            Debug.Print grid(i, j)
+        Next j
+    Next i
 End Sub</code></pre>
 <h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
 <h3 id="example-1-generic-array-utilities-class">Example 1: Generic Array Utilities Class</h3>
 <pre><code class="language-vbnet">Public Class ArrayUtils
-Public Function GetSize(arr As Variant, Optional dimension As Long = 1) As Long
-On Error GoTo ErrorHandler
-
-If Not IsArray(arr) Then
-GetSize = 0
-Else
-GetSize = UBound(arr, dimension) - LBound(arr, dimension) + 1
-End If
-Exit Function
-
-ErrorHandler:
-GetSize = 0
-End Function
-
-Public Function Clone(source As Variant) As Variant
-Dim dest As Variant
-Dim i As Long
-
-If Not IsArray(source) Then Exit Function
-
-ReDim dest(LBound(source) To UBound(source))
-For i = LBound(source) To UBound(source)
-If IsObject(source(i)) Then
-Set dest(i) = source(i)
-Else
-dest(i) = source(i)
-End If
-Next i
-
-Clone = dest
-End Function
-
-Public Function IndexOf(arr As Variant, value As Variant) As Long
-Dim i As Long
-
-IndexOf = -1
-If Not IsArray(arr) Then Exit Function
-
-For i = LBound(arr) To UBound(arr)
-If arr(i) = value Then
-IndexOf = i
-Exit Function
-End If
-Next i
-End Function
-
-Public Function Reverse(arr As Variant) As Variant
-Dim result As Variant
-Dim i As Long
-Dim j As Long
-
-If Not IsArray(arr) Then Exit Function
-
-ReDim result(LBound(arr) To UBound(arr))
-j = UBound(arr)
-For i = LBound(arr) To UBound(arr)
-result(j) = arr(i)
-j = j - 1
-Next i
-
-Reverse = result
-End Function
+    Public Function GetSize(arr As Variant, Optional dimension As Long = 1) As Long
+        On Error GoTo ErrorHandler
+        If Not IsArray(arr) Then
+            GetSize = 0
+        Else
+            GetSize = UBound(arr, dimension) - LBound(arr, dimension) + 1
+        End If
+        Exit Function
+    ErrorHandler:
+        GetSize = 0
+    End Function
+    Public Function Clone(source As Variant) As Variant
+        Dim dest As Variant
+        Dim i As Long
+        If Not IsArray(source) Then Exit Function
+        ReDim dest(LBound(source) To UBound(source))
+        For i = LBound(source) To UBound(source)
+            If IsObject(source(i)) Then
+                Set dest(i) = source(i)
+            Else
+                dest(i) = source(i)
+            End If
+        Next i
+        Clone = dest
+    End Function
+    Public Function IndexOf(arr As Variant, value As Variant) As Long
+        Dim i As Long
+        IndexOf = -1
+        If Not IsArray(arr) Then Exit Function
+        For i = LBound(arr) To UBound(arr)
+            If arr(i) = value Then
+                IndexOf = i
+                Exit Function
+            End If
+        Next i
+    End Function
+    Public Function Reverse(arr As Variant) As Variant
+        Dim result As Variant
+        Dim i As Long
+        Dim j As Long
+        If Not IsArray(arr) Then Exit Function
+        ReDim result(LBound(arr) To UBound(arr))
+        j = UBound(arr)
+        For i = LBound(arr) To UBound(arr)
+            result(j) = arr(i)
+            j = j - 1
+        Next i
+        Reverse = result
+    End Function
 End Class</code></pre>
 <h3 id="example-2-safe-array-accessor-with-bounds-checking">Example 2: Safe array accessor with bounds checking</h3>
 <pre><code class="language-vbnet">Public Class SafeArray
-Private m_data As Variant
-
-Public Sub Initialize(size As Long, Optional lowerBound As Long = 0)
-ReDim m_data(lowerBound To lowerBound + size - 1)
-End Sub
-
-Public Property Get Item(index As Long) As Variant
-If index &lt; LBound(m_data) Or index &gt; UBound(m_data) Then
-Err.Raise 9, &quot;SafeArray&quot;, &quot;Index out of bounds: &quot; &amp; index &amp; _
-&quot; (valid range: &quot; &amp; LBound(m_data) &amp; &quot; to &quot; &amp; UBound(m_data) &amp; &quot;)&quot;
-End If
-
-If IsObject(m_data(index)) Then
-Set Item = m_data(index)
-Else
-Item = m_data(index)
-End If
-End Property
-
-Public Property Let Item(index As Long, value As Variant)
-If index &lt; LBound(m_data) Or index &gt; UBound(m_data) Then
-Err.Raise 9, &quot;SafeArray&quot;, &quot;Index out of bounds&quot;
-End If
-
-If IsObject(value) Then
-Set m_data(index) = value
-Else
-m_data(index) = value
-End If
-End Property
-
-Public Property Get LowerBound() As Long
-LowerBound = LBound(m_data)
-End Property
-
-Public Property Get UpperBound() As Long
-UpperBound = UBound(m_data)
-End Property
-
-Public Property Get Count() As Long
-Count = UBound(m_data) - LBound(m_data) + 1
-End Property
+    Private m_data As Variant
+    Public Sub Initialize(size As Long, Optional lowerBound As Long = 0)
+        ReDim m_data(lowerBound To lowerBound + size - 1)
+    End Sub
+    Public Property Get Item(index As Long) As Variant
+        If index &lt; LBound(m_data) Or index &gt; UBound(m_data) Then
+            Err.Raise 9, &quot;SafeArray&quot;, &quot;Index out of bounds: &quot; &amp; index &amp; _
+                      &quot; (valid range: &quot; &amp; LBound(m_data) &amp; &quot; to &quot; &amp; UBound(m_data) &amp; &quot;)&quot;
+        End If
+        If IsObject(m_data(index)) Then
+            Set Item = m_data(index)
+        Else
+            Item = m_data(index)
+        End If
+    End Property
+    Public Property Let Item(index As Long, value As Variant)
+        If index &lt; LBound(m_data) Or index &gt; UBound(m_data) Then
+            Err.Raise 9, &quot;SafeArray&quot;, &quot;Index out of bounds&quot;
+        End If
+        If IsObject(value) Then
+            Set m_data(index) = value
+        Else
+            m_data(index) = value
+        End If
+    End Property
+    Public Property Get LowerBound() As Long
+        LowerBound = LBound(m_data)
+    End Property
+    Public Property Get UpperBound() As Long
+        UpperBound = UBound(m_data)
+    End Property
+    Public Property Get Count() As Long
+        Count = UBound(m_data) - LBound(m_data) + 1
+    End Property
 End Class</code></pre>
 <h3 id="example-3-matrix-operations-helper">Example 3: Matrix Operations Helper</h3>
 <pre><code class="language-vbnet">Public Class MatrixHelper
-Public Function GetRowCount(matrix As Variant) As Long
-If Not IsArray(matrix) Then
-GetRowCount = 0
-Else
-GetRowCount = UBound(matrix, 1) - LBound(matrix, 1) + 1
-End If
-End Function
-
-Public Function GetColumnCount(matrix As Variant) As Long
-If Not IsArray(matrix) Then
-GetColumnCount = 0
-Else
-GetColumnCount = UBound(matrix, 2) - LBound(matrix, 2) + 1
-End If
-End Function
-
-Public Function GetRow(matrix As Variant, rowIndex As Long) As Variant
-Dim result() As Variant
-Dim j As Long
-Dim k As Long
-
-If Not IsArray(matrix) Then Exit Function
-
-ReDim result(LBound(matrix, 2) To UBound(matrix, 2))
-For j = LBound(matrix, 2) To UBound(matrix, 2)
-result(j) = matrix(rowIndex, j)
-Next j
-
-GetRow = result
-End Function
-
-Public Function GetColumn(matrix As Variant, colIndex As Long) As Variant
-Dim result() As Variant
-Dim i As Long
-
-If Not IsArray(matrix) Then Exit Function
-
-ReDim result(LBound(matrix, 1) To UBound(matrix, 1))
-For i = LBound(matrix, 1) To UBound(matrix, 1)
-result(i) = matrix(i, colIndex)
-Next i
-
-GetColumn = result
-End Function
-
-Public Sub Fill(matrix As Variant, value As Variant)
-Dim i As Long, j As Long
-
-If Not IsArray(matrix) Then Exit Sub
-
-For i = LBound(matrix, 1) To UBound(matrix, 1)
-For j = LBound(matrix, 2) To UBound(matrix, 2)
-matrix(i, j) = value
-Next j
-Next i
-End Sub
+    Public Function GetRowCount(matrix As Variant) As Long
+        If Not IsArray(matrix) Then
+            GetRowCount = 0
+        Else
+            GetRowCount = UBound(matrix, 1) - LBound(matrix, 1) + 1
+        End If
+    End Function
+    Public Function GetColumnCount(matrix As Variant) As Long
+        If Not IsArray(matrix) Then
+            GetColumnCount = 0
+        Else
+            GetColumnCount = UBound(matrix, 2) - LBound(matrix, 2) + 1
+        End If
+    End Function
+    Public Function GetRow(matrix As Variant, rowIndex As Long) As Variant
+        Dim result() As Variant
+        Dim j As Long
+        Dim k As Long
+        If Not IsArray(matrix) Then Exit Function
+        ReDim result(LBound(matrix, 2) To UBound(matrix, 2))
+        For j = LBound(matrix, 2) To UBound(matrix, 2)
+            result(j) = matrix(rowIndex, j)
+        Next j
+        GetRow = result
+    End Function
+    Public Function GetColumn(matrix As Variant, colIndex As Long) As Variant
+        Dim result() As Variant
+        Dim i As Long
+        If Not IsArray(matrix) Then Exit Function
+        ReDim result(LBound(matrix, 1) To UBound(matrix, 1))
+        For i = LBound(matrix, 1) To UBound(matrix, 1)
+            result(i) = matrix(i, colIndex)
+        Next i
+        GetColumn = result
+    End Function
+    Public Sub Fill(matrix As Variant, value As Variant)
+        Dim i As Long, j As Long
+        If Not IsArray(matrix) Then Exit Sub
+        For i = LBound(matrix, 1) To UBound(matrix, 1)
+            For j = LBound(matrix, 2) To UBound(matrix, 2)
+                matrix(i, j) = value
+            Next j
+        Next i
+    End Sub
 End Class</code></pre>
 <h3 id="example-4-dynamic-array-manager">Example 4: Dynamic Array Manager</h3>
 <pre><code class="language-vbnet">Public Class DynamicArray
-Private m_data() As Variant
-Private m_count As Long
-Private m_lowerBound As Long
-
-Private Sub Class_Initialize()
-m_count = 0
-m_lowerBound = 0
-ReDim m_data(m_lowerBound To m_lowerBound + 9)  &#x27; Initial capacity of 10
-End Sub
-
-Public Sub Add(value As Variant)
-If m_count &gt; UBound(m_data) - LBound(m_data) Then
-&#x27; Resize array (double capacity)
-ReDim Preserve m_data(LBound(m_data) To UBound(m_data) * 2 + 1)
-End If
-
-If IsObject(value) Then
-Set m_data(LBound(m_data) + m_count) = value
-Else
-m_data(LBound(m_data) + m_count) = value
-End If
-
-m_count = m_count + 1
-End Sub
-
-Public Function ToArray() As Variant
-Dim result() As Variant
-Dim i As Long
-
-If m_count = 0 Then
-ToArray = Array()
-Exit Function
-End If
-
-ReDim result(m_lowerBound To m_lowerBound + m_count - 1)
-For i = 0 To m_count - 1
-If IsObject(m_data(LBound(m_data) + i)) Then
-Set result(m_lowerBound + i) = m_data(LBound(m_data) + i)
-Else
-result(m_lowerBound + i) = m_data(LBound(m_data) + i)
-End If
-Next i
-
-ToArray = result
-End Function
-
-Public Property Get Count() As Long
-Count = m_count
-End Property
-
-Public Property Get Capacity() As Long
-Capacity = UBound(m_data) - LBound(m_data) + 1
-End Property
+    Private m_data() As Variant
+    Private m_count As Long
+    Private m_lowerBound As Long
+    Private Sub Class_Initialize()
+        m_count = 0
+        m_lowerBound = 0
+        ReDim m_data(m_lowerBound To m_lowerBound + 9)  &#x27; Initial capacity of 10
+    End Sub
+    Public Sub Add(value As Variant)
+        If m_count &gt; UBound(m_data) - LBound(m_data) Then
+            &#x27; Resize array (double capacity)
+            ReDim Preserve m_data(LBound(m_data) To UBound(m_data) * 2 + 1)
+        End If
+        If IsObject(value) Then
+            Set m_data(LBound(m_data) + m_count) = value
+        Else
+            m_data(LBound(m_data) + m_count) = value
+        End If
+        m_count = m_count + 1
+    End Sub
+    Public Function ToArray() As Variant
+        Dim result() As Variant
+        Dim i As Long
+        If m_count = 0 Then
+            ToArray = Array()
+            Exit Function
+        End If
+        ReDim result(m_lowerBound To m_lowerBound + m_count - 1)
+        For i = 0 To m_count - 1
+            If IsObject(m_data(LBound(m_data) + i)) Then
+                Set result(m_lowerBound + i) = m_data(LBound(m_data) + i)
+            Else
+                result(m_lowerBound + i) = m_data(LBound(m_data) + i)
+            End If
+        Next i
+        ToArray = result
+    End Function
+    Public Property Get Count() As Long
+        Count = m_count
+    End Property
+    Public Property Get Capacity() As Long
+        Capacity = UBound(m_data) - LBound(m_data) + 1
+    End Property
 End Class</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <p><code>LBound</code> can raise errors in specific cases:</p>
@@ -625,12 +563,12 @@ Dim dynArr() As String
 &#x27; Debug.Print LBound(dynArr)  &#x27; Error 9 - not dimensioned yet</code></pre>
 <pre><code class="language-vbnet">&#x27; Safe pattern with error handling
 Function GetLowerBound(arr As Variant, Optional dimension As Long = 1) As Long
-On Error Resume Next
-GetLowerBound = LBound(arr, dimension)
-If Err.Number &lt;&gt; 0 Then
-GetLowerBound = -1  &#x27; Indicate error
-End If
-On Error GoTo 0
+    On Error Resume Next
+    GetLowerBound = LBound(arr, dimension)
+    If Err.Number &lt;&gt; 0 Then
+        GetLowerBound = -1  &#x27; Indicate error
+    End If
+    On Error GoTo 0
 End Function</code></pre>
         </article>
         

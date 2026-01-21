@@ -53,40 +53,20 @@
 - Extracting file extensions
 - Getting the last N characters of a string
 - Parsing fixed-width data from the right
-- Removing prefixes or extracting suffixes</p>
-<p><strong>Important Notes</strong>:
+- Removing prefixes or extracting suffixes
+<strong>Important Notes</strong>:
 - If <code>length</code> is 0, an empty string ("") is returned
 - If <code>length</code> &gt;= Len(string), the entire string is returned
 - If <code>string</code> is Null, Right returns Null
 - If <code>length</code> is negative, a runtime error occurs (Error 5: Invalid procedure call or argument)
-- The function is 1-based (counts from position 1, not 0)</p>
-<p><strong>Behavior with Different Length Values</strong>:</p>
-<table>
-<thead>
-<tr>
-<th>Length Value</th>
-<th>Result</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>Empty string ("")</td>
-</tr>
-<tr>
-<td>1 to Len(string)</td>
-<td>Rightmost N characters</td>
-</tr>
-<tr>
-<td>&gt; Len(string)</td>
-<td>Entire string</td>
-</tr>
-<tr>
-<td>Negative</td>
-<td>Runtime error (Error 5)</td>
-</tr>
-</tbody>
-</table>
+- The function is 1-based (counts from position 1, not 0)
+<strong>Behavior with Different Length Values</strong>:
+| Length Value | Result |
+|--------------|--------|
+| 0 | Empty string ("") |
+| 1 to Len(string) | Rightmost N characters |
+| &gt; Len(string) | Entire string |
+| Negative | Runtime error (Error 5) |</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>File Extensions</strong>: Extract file extension from filename</li>
@@ -102,535 +82,447 @@
 <h3 id="example-1-extract-file-extension">Example 1: Extract File Extension</h3>
 <pre><code class="language-vbnet">Dim filename As String
 Dim extension As String
-
 filename = &quot;document.txt&quot;
 extension = Right(filename, 4)  &#x27; Returns &quot;.txt&quot;</code></pre>
 <h3 id="example-2-get-last-n-characters">Example 2: Get Last N Characters</h3>
 <pre><code class="language-vbnet">Dim accountNumber As String
 Dim lastFour As String
-
 accountNumber = &quot;1234567890&quot;
 lastFour = Right(accountNumber, 4)  &#x27; Returns &quot;7890&quot;</code></pre>
 <h3 id="example-3-check-string-ending">Example 3: Check String Ending</h3>
 <pre><code class="language-vbnet">Dim filename As String
-
 filename = &quot;report.pdf&quot;
 If Right(filename, 4) = &quot;.pdf&quot; Then
-MsgBox &quot;This is a PDF file&quot;
+    MsgBox &quot;This is a PDF file&quot;
 End If</code></pre>
 <h3 id="example-4-extract-from-fixed-width-data">Example 4: Extract from Fixed-Width Data</h3>
 <pre><code class="language-vbnet">Dim record As String
 Dim zipCode As String
-
 record = &quot;John Doe          New York     10001&quot;
 zipCode = Right(record, 5)  &#x27; Returns &quot;10001&quot;</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-getfileextension">Pattern 1: <code>GetFileExtension</code></h3>
 <pre><code class="language-vbnet">Function GetFileExtension(filename As String) As String
-&#x27; Extract file extension including the dot
-Dim dotPos As Integer
-
-dotPos = InStrRev(filename, &quot;.&quot;)
-
-If dotPos &gt; 0 Then
-GetFileExtension = Right(filename, Len(filename) - dotPos + 1)
-Else
-GetFileExtension = &quot;&quot;
-End If
+    &#x27; Extract file extension including the dot
+    Dim dotPos As Integer
+    dotPos = InStrRev(filename, &quot;.&quot;)
+    If dotPos &gt; 0 Then
+        GetFileExtension = Right(filename, Len(filename) - dotPos + 1)
+    Else
+        GetFileExtension = &quot;&quot;
+    End If
 End Function</code></pre>
 <h3 id="pattern-2-getlastnchars">Pattern 2: <code>GetLastNChars</code></h3>
 <pre><code class="language-vbnet">Function GetLastNChars(text As String, n As Long) As String
-&#x27; Safely get last N characters (won&#x27;t error if string is too short)
-If n &lt;= 0 Then
-GetLastNChars = &quot;&quot;
-ElseIf n &gt;= Len(text) Then
-GetLastNChars = text
-Else
-GetLastNChars = Right(text, n)
-End If
+    &#x27; Safely get last N characters (won&#x27;t error if string is too short)
+    If n &lt;= 0 Then
+        GetLastNChars = &quot;&quot;
+    ElseIf n &gt;= Len(text) Then
+        GetLastNChars = text
+    Else
+        GetLastNChars = Right(text, n)
+    End If
 End Function</code></pre>
 <h3 id="pattern-3-endswithstring">Pattern 3: <code>EndsWithString</code></h3>
 <pre><code class="language-vbnet">Function EndsWithString(text As String, suffix As String, _
-Optional caseSensitive As Boolean = True) As Boolean
-&#x27; Check if string ends with a specific suffix
-Dim textEnd As String
-Dim suffixLen As Long
-
-suffixLen = Len(suffix)
-
-If suffixLen &gt; Len(text) Then
-EndsWithString = False
-Exit Function
-End If
-
-textEnd = Right(text, suffixLen)
-
-If caseSensitive Then
-EndsWithString = (textEnd = suffix)
-Else
-EndsWithString = (UCase(textEnd) = UCase(suffix))
-End If
+                       Optional caseSensitive As Boolean = True) As Boolean
+    &#x27; Check if string ends with a specific suffix
+    Dim textEnd As String
+    Dim suffixLen As Long
+    suffixLen = Len(suffix)
+    If suffixLen &gt; Len(text) Then
+        EndsWithString = False
+        Exit Function
+    End If
+    textEnd = Right(text, suffixLen)
+    If caseSensitive Then
+        EndsWithString = (textEnd = suffix)
+    Else
+        EndsWithString = (UCase(textEnd) = UCase(suffix))
+    End If
 End Function</code></pre>
 <h3 id="pattern-4-removeprefix">Pattern 4: <code>RemovePrefix</code></h3>
 <pre><code class="language-vbnet">Function RemovePrefix(text As String, prefixLen As Long) As String
-&#x27; Remove prefix by keeping rightmost characters
-If prefixLen &gt;= Len(text) Then
-RemovePrefix = &quot;&quot;
-Else
-RemovePrefix = Right(text, Len(text) - prefixLen)
-End If
+    &#x27; Remove prefix by keeping rightmost characters
+    If prefixLen &gt;= Len(text) Then
+        RemovePrefix = &quot;&quot;
+    Else
+        RemovePrefix = Right(text, Len(text) - prefixLen)
+    End If
 End Function</code></pre>
 <h3 id="pattern-5-padlefttolength">Pattern 5: <code>PadLeftToLength</code></h3>
 <pre><code class="language-vbnet">Function PadLeftToLength(text As String, totalLength As Long, _
-Optional padChar As String = &quot; &quot;) As String
-&#x27; Pad string on the left to reach desired length
-Dim currentLen As Long
-Dim padding As String
-
-currentLen = Len(text)
-
-If currentLen &gt;= totalLength Then
-PadLeftToLength = Right(text, totalLength)
-Else
-padding = String(totalLength - currentLen, padChar)
-PadLeftToLength = padding &amp; text
-End If
+                        Optional padChar As String = &quot; &quot;) As String
+    &#x27; Pad string on the left to reach desired length
+    Dim currentLen As Long
+    Dim padding As String
+    currentLen = Len(text)
+    If currentLen &gt;= totalLength Then
+        PadLeftToLength = Right(text, totalLength)
+    Else
+        padding = String(totalLength - currentLen, padChar)
+        PadLeftToLength = padding &amp; text
+    End If
 End Function</code></pre>
 <h3 id="pattern-6-getfilenamefrompath">Pattern 6: <code>GetFilenameFromPath</code></h3>
 <pre><code class="language-vbnet">Function GetFilenameFromPath(fullPath As String) As String
-&#x27; Extract filename from full path
-Dim slashPos As Integer
-
-slashPos = InStrRev(fullPath, &quot;\&quot;)
-
-If slashPos &gt; 0 Then
-GetFilenameFromPath = Right(fullPath, Len(fullPath) - slashPos)
-Else
-GetFilenameFromPath = fullPath
-End If
+    &#x27; Extract filename from full path
+    Dim slashPos As Integer
+    slashPos = InStrRev(fullPath, &quot;\&quot;)
+    If slashPos &gt; 0 Then
+        GetFilenameFromPath = Right(fullPath, Len(fullPath) - slashPos)
+    Else
+        GetFilenameFromPath = fullPath
+    End If
 End Function</code></pre>
 <h3 id="pattern-7-truncateleft">Pattern 7: <code>TruncateLeft</code></h3>
 <pre><code class="language-vbnet">Function TruncateLeft(text As String, maxLength As Long, _
-Optional ellipsis As String = &quot;...&quot;) As String
-&#x27; Truncate from left, keeping rightmost characters
-Dim textLen As Long
-
-textLen = Len(text)
-
-If textLen &lt;= maxLength Then
-TruncateLeft = text
-Else
-TruncateLeft = ellipsis &amp; Right(text, maxLength - Len(ellipsis))
-End If
+                     Optional ellipsis As String = &quot;...&quot;) As String
+    &#x27; Truncate from left, keeping rightmost characters
+    Dim textLen As Long
+    textLen = Len(text)
+    If textLen &lt;= maxLength Then
+        TruncateLeft = text
+    Else
+        TruncateLeft = ellipsis &amp; Right(text, maxLength - Len(ellipsis))
+    End If
 End Function</code></pre>
 <h3 id="pattern-8-formataccountnumber">Pattern 8: <code>FormatAccountNumber</code></h3>
 <pre><code class="language-vbnet">Function FormatAccountNumber(accountNum As String) As String
-&#x27; Format account number showing only last 4 digits
-Dim lastFour As String
-
-If Len(accountNum) &gt; 4 Then
-lastFour = Right(accountNum, 4)
-FormatAccountNumber = &quot;****&quot; &amp; lastFour
-Else
-FormatAccountNumber = accountNum
-End If
+    &#x27; Format account number showing only last 4 digits
+    Dim lastFour As String
+    If Len(accountNum) &gt; 4 Then
+        lastFour = Right(accountNum, 4)
+        FormatAccountNumber = &quot;****&quot; &amp; lastFour
+    Else
+        FormatAccountNumber = accountNum
+    End If
 End Function</code></pre>
 <h3 id="pattern-9-extractdomainextension">Pattern 9: <code>ExtractDomainExtension</code></h3>
 <pre><code class="language-vbnet">Function ExtractDomainExtension(url As String) As String
-&#x27; Extract domain extension (.com, .org, etc.)
-Dim dotPos As Integer
-
-&#x27; Find last dot
-dotPos = InStrRev(url, &quot;.&quot;)
-
-If dotPos &gt; 0 Then
-ExtractDomainExtension = Right(url, Len(url) - dotPos + 1)
-Else
-ExtractDomainExtension = &quot;&quot;
-End If
+    &#x27; Extract domain extension (.com, .org, etc.)
+    Dim dotPos As Integer
+    &#x27; Find last dot
+    dotPos = InStrRev(url, &quot;.&quot;)
+    If dotPos &gt; 0 Then
+        ExtractDomainExtension = Right(url, Len(url) - dotPos + 1)
+    Else
+        ExtractDomainExtension = &quot;&quot;
+    End If
 End Function</code></pre>
 <h3 id="pattern-10-gettrailingdigits">Pattern 10: <code>GetTrailingDigits</code></h3>
 <pre><code class="language-vbnet">Function GetTrailingDigits(text As String) As String
-&#x27; Extract trailing numeric characters
-Dim i As Integer
-Dim digitCount As Integer
-
-digitCount = 0
-
-For i = Len(text) To 1 Step -1
-If IsNumeric(Mid(text, i, 1)) Then
-digitCount = digitCount + 1
-Else
-Exit For
-End If
-Next i
-
-If digitCount &gt; 0 Then
-GetTrailingDigits = Right(text, digitCount)
-Else
-GetTrailingDigits = &quot;&quot;
-End If
+    &#x27; Extract trailing numeric characters
+    Dim i As Integer
+    Dim digitCount As Integer
+    digitCount = 0
+    For i = Len(text) To 1 Step -1
+        If IsNumeric(Mid(text, i, 1)) Then
+            digitCount = digitCount + 1
+        Else
+            Exit For
+        End If
+    Next i
+    If digitCount &gt; 0 Then
+        GetTrailingDigits = Right(text, digitCount)
+    Else
+        GetTrailingDigits = &quot;&quot;
+    End If
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-file-extension-validator">Example 1: File Extension Validator</h3>
 <pre><code class="language-vbnet">&#x27; Comprehensive file extension validation and management
 Class FileExtensionValidator
-Private m_validExtensions As Collection
-
-Public Sub Initialize()
-Set m_validExtensions = New Collection
-End Sub
-
-Public Sub AddValidExtension(extension As String)
-Dim ext As String
-
-&#x27; Normalize extension (add dot if missing)
-If Left(extension, 1) &lt;&gt; &quot;.&quot; Then
-ext = &quot;.&quot; &amp; extension
-Else
-ext = extension
-End If
-
-On Error Resume Next
-m_validExtensions.Add ext, UCase(ext)
-On Error GoTo 0
-End Sub
-
-Public Function IsValidFile(filename As String) As Boolean
-Dim ext As String
-Dim dotPos As Integer
-
-dotPos = InStrRev(filename, &quot;.&quot;)
-
-If dotPos = 0 Then
-IsValidFile = False
-Exit Function
-End If
-
-ext = Right(filename, Len(filename) - dotPos + 1)
-
-On Error Resume Next
-Dim temp As String
-temp = m_validExtensions(UCase(ext))
-IsValidFile = (Err.Number = 0)
-On Error GoTo 0
-End Function
-
-Public Function GetExtension(filename As String) As String
-Dim dotPos As Integer
-
-dotPos = InStrRev(filename, &quot;.&quot;)
-
-If dotPos &gt; 0 Then
-GetExtension = Right(filename, Len(filename) - dotPos + 1)
-Else
-GetExtension = &quot;&quot;
-End If
-End Function
-
-Public Function ChangeExtension(filename As String, newExt As String) As String
-Dim dotPos As Integer
-Dim baseName As String
-Dim ext As String
-
-dotPos = InStrRev(filename, &quot;.&quot;)
-
-If dotPos &gt; 0 Then
-baseName = Left(filename, dotPos - 1)
-Else
-baseName = filename
-End If
-
-&#x27; Normalize new extension
-If Left(newExt, 1) &lt;&gt; &quot;.&quot; Then
-ext = &quot;.&quot; &amp; newExt
-Else
-ext = newExt
-End If
-
-ChangeExtension = baseName &amp; ext
-End Function
-
-Public Function GetValidExtensions() As String
-Dim ext As Variant
-Dim result As String
-
-result = &quot;&quot;
-
-For Each ext In m_validExtensions
-If result &lt;&gt; &quot;&quot; Then result = result &amp; &quot;, &quot;
-result = result &amp; ext
-Next ext
-
-GetValidExtensions = result
-End Function
+    Private m_validExtensions As Collection
+    Public Sub Initialize()
+        Set m_validExtensions = New Collection
+    End Sub
+    Public Sub AddValidExtension(extension As String)
+        Dim ext As String
+        &#x27; Normalize extension (add dot if missing)
+        If Left(extension, 1) &lt;&gt; &quot;.&quot; Then
+            ext = &quot;.&quot; &amp; extension
+        Else
+            ext = extension
+        End If
+        On Error Resume Next
+        m_validExtensions.Add ext, UCase(ext)
+        On Error GoTo 0
+    End Sub
+    Public Function IsValidFile(filename As String) As Boolean
+        Dim ext As String
+        Dim dotPos As Integer
+        dotPos = InStrRev(filename, &quot;.&quot;)
+        If dotPos = 0 Then
+            IsValidFile = False
+            Exit Function
+        End If
+        ext = Right(filename, Len(filename) - dotPos + 1)
+        On Error Resume Next
+        Dim temp As String
+        temp = m_validExtensions(UCase(ext))
+        IsValidFile = (Err.Number = 0)
+        On Error GoTo 0
+    End Function
+    Public Function GetExtension(filename As String) As String
+        Dim dotPos As Integer
+        dotPos = InStrRev(filename, &quot;.&quot;)
+        If dotPos &gt; 0 Then
+            GetExtension = Right(filename, Len(filename) - dotPos + 1)
+        Else
+            GetExtension = &quot;&quot;
+        End If
+    End Function
+    Public Function ChangeExtension(filename As String, newExt As String) As String
+        Dim dotPos As Integer
+        Dim baseName As String
+        Dim ext As String
+        dotPos = InStrRev(filename, &quot;.&quot;)
+        If dotPos &gt; 0 Then
+            baseName = Left(filename, dotPos - 1)
+        Else
+            baseName = filename
+        End If
+        &#x27; Normalize new extension
+        If Left(newExt, 1) &lt;&gt; &quot;.&quot; Then
+            ext = &quot;.&quot; &amp; newExt
+        Else
+            ext = newExt
+        End If
+        ChangeExtension = baseName &amp; ext
+    End Function
+    Public Function GetValidExtensions() As String
+        Dim ext As Variant
+        Dim result As String
+        result = &quot;&quot;
+        For Each ext In m_validExtensions
+            If result &lt;&gt; &quot;&quot; Then result = result &amp; &quot;, &quot;
+            result = result &amp; ext
+        Next ext
+        GetValidExtensions = result
+    End Function
 End Class</code></pre>
 <h3 id="example-2-path-parser-module">Example 2: Path Parser Module</h3>
 <pre><code class="language-vbnet">&#x27; Parse and manipulate file paths
 Module PathParser
-Public Function GetFilename(fullPath As String) As String
-&#x27; Extract filename from full path
-Dim slashPos As Integer
-
-slashPos = InStrRev(fullPath, &quot;\&quot;)
-
-If slashPos &gt; 0 Then
-GetFilename = Right(fullPath, Len(fullPath) - slashPos)
-Else
-GetFilename = fullPath
-End If
-End Function
-
-Public Function GetDirectory(fullPath As String) As String
-&#x27; Extract directory from full path
-Dim slashPos As Integer
-
-slashPos = InStrRev(fullPath, &quot;\&quot;)
-
-If slashPos &gt; 0 Then
-GetDirectory = Left(fullPath, slashPos - 1)
-Else
-GetDirectory = &quot;&quot;
-End If
-End Function
-
-Public Function GetFilenameWithoutExtension(fullPath As String) As String
-&#x27; Get filename without extension
-Dim filename As String
-Dim dotPos As Integer
-
-filename = GetFilename(fullPath)
-dotPos = InStrRev(filename, &quot;.&quot;)
-
-If dotPos &gt; 0 Then
-GetFilenameWithoutExtension = Left(filename, dotPos - 1)
-Else
-GetFilenameWithoutExtension = filename
-End If
-End Function
-
-Public Function GetExtension(fullPath As String) As String
-&#x27; Get file extension including dot
-Dim filename As String
-Dim dotPos As Integer
-
-filename = GetFilename(fullPath)
-dotPos = InStrRev(filename, &quot;.&quot;)
-
-If dotPos &gt; 0 Then
-GetExtension = Right(filename, Len(filename) - dotPos + 1)
-Else
-GetExtension = &quot;&quot;
-End If
-End Function
-
-Public Function CombinePath(directory As String, filename As String) As String
-&#x27; Combine directory and filename
-If Right(directory, 1) = &quot;\&quot; Then
-CombinePath = directory &amp; filename
-Else
-CombinePath = directory &amp; &quot;\&quot; &amp; filename
-End If
-End Function
-
-Public Function GetParentDirectory(fullPath As String) As String
-&#x27; Get parent directory
-Dim dir As String
-Dim slashPos As Integer
-
-dir = GetDirectory(fullPath)
-slashPos = InStrRev(dir, &quot;\&quot;)
-
-If slashPos &gt; 0 Then
-GetParentDirectory = Left(dir, slashPos - 1)
-Else
-GetParentDirectory = &quot;&quot;
-End If
-End Function
+    Public Function GetFilename(fullPath As String) As String
+        &#x27; Extract filename from full path
+        Dim slashPos As Integer
+        slashPos = InStrRev(fullPath, &quot;\&quot;)
+        If slashPos &gt; 0 Then
+            GetFilename = Right(fullPath, Len(fullPath) - slashPos)
+        Else
+            GetFilename = fullPath
+        End If
+    End Function
+    Public Function GetDirectory(fullPath As String) As String
+        &#x27; Extract directory from full path
+        Dim slashPos As Integer
+        slashPos = InStrRev(fullPath, &quot;\&quot;)
+        If slashPos &gt; 0 Then
+            GetDirectory = Left(fullPath, slashPos - 1)
+        Else
+            GetDirectory = &quot;&quot;
+        End If
+    End Function
+    Public Function GetFilenameWithoutExtension(fullPath As String) As String
+        &#x27; Get filename without extension
+        Dim filename As String
+        Dim dotPos As Integer
+        filename = GetFilename(fullPath)
+        dotPos = InStrRev(filename, &quot;.&quot;)
+        If dotPos &gt; 0 Then
+            GetFilenameWithoutExtension = Left(filename, dotPos - 1)
+        Else
+            GetFilenameWithoutExtension = filename
+        End If
+    End Function
+    Public Function GetExtension(fullPath As String) As String
+        &#x27; Get file extension including dot
+        Dim filename As String
+        Dim dotPos As Integer
+        filename = GetFilename(fullPath)
+        dotPos = InStrRev(filename, &quot;.&quot;)
+        If dotPos &gt; 0 Then
+            GetExtension = Right(filename, Len(filename) - dotPos + 1)
+        Else
+            GetExtension = &quot;&quot;
+        End If
+    End Function
+    Public Function CombinePath(directory As String, filename As String) As String
+        &#x27; Combine directory and filename
+        If Right(directory, 1) = &quot;\&quot; Then
+            CombinePath = directory &amp; filename
+        Else
+            CombinePath = directory &amp; &quot;\&quot; &amp; filename
+        End If
+    End Function
+    Public Function GetParentDirectory(fullPath As String) As String
+        &#x27; Get parent directory
+        Dim dir As String
+        Dim slashPos As Integer
+        dir = GetDirectory(fullPath)
+        slashPos = InStrRev(dir, &quot;\&quot;)
+        If slashPos &gt; 0 Then
+            GetParentDirectory = Left(dir, slashPos - 1)
+        Else
+            GetParentDirectory = &quot;&quot;
+        End If
+    End Function
 End Module</code></pre>
 <h3 id="example-3-string-suffix-matcher">Example 3: String Suffix Matcher</h3>
 <pre><code class="language-vbnet">&#x27; Match and validate string suffixes
 Class StringSuffixMatcher
-Private m_caseSensitive As Boolean
-
-Public Sub Initialize(Optional caseSensitive As Boolean = True)
-m_caseSensitive = caseSensitive
-End Sub
-
-Public Function EndsWith(text As String, suffix As String) As Boolean
-&#x27; Check if string ends with suffix
-Dim textEnd As String
-Dim suffixLen As Long
-
-suffixLen = Len(suffix)
-
-If suffixLen &gt; Len(text) Then
-EndsWith = False
-Exit Function
-End If
-
-textEnd = Right(text, suffixLen)
-
-If m_caseSensitive Then
-EndsWith = (textEnd = suffix)
-Else
-EndsWith = (UCase(textEnd) = UCase(suffix))
-End If
-End Function
-
-Public Function EndsWithAny(text As String, suffixes() As String) As Boolean
-&#x27; Check if string ends with any of the provided suffixes
-Dim i As Integer
-
-For i = LBound(suffixes) To UBound(suffixes)
-If EndsWith(text, suffixes(i)) Then
-EndsWithAny = True
-Exit Function
-End If
-Next i
-
-EndsWithAny = False
-End Function
-
-Public Function RemoveSuffix(text As String, suffix As String) As String
-&#x27; Remove suffix if present
-If EndsWith(text, suffix) Then
-RemoveSuffix = Left(text, Len(text) - Len(suffix))
-Else
-RemoveSuffix = text
-End If
-End Function
-
-Public Function GetMatchingSuffix(text As String, suffixes() As String) As String
-&#x27; Return the matching suffix, or empty string
-Dim i As Integer
-
-For i = LBound(suffixes) To UBound(suffixes)
-If EndsWith(text, suffixes(i)) Then
-GetMatchingSuffix = suffixes(i)
-Exit Function
-End If
-Next i
-
-GetMatchingSuffix = &quot;&quot;
-End Function
-
-Public Function ReplaceSuffix(text As String, oldSuffix As String, _
-newSuffix As String) As String
-&#x27; Replace suffix if present
-If EndsWith(text, oldSuffix) Then
-ReplaceSuffix = Left(text, Len(text) - Len(oldSuffix)) &amp; newSuffix
-Else
-ReplaceSuffix = text
-End If
-End Function
+    Private m_caseSensitive As Boolean
+    Public Sub Initialize(Optional caseSensitive As Boolean = True)
+        m_caseSensitive = caseSensitive
+    End Sub
+    Public Function EndsWith(text As String, suffix As String) As Boolean
+        &#x27; Check if string ends with suffix
+        Dim textEnd As String
+        Dim suffixLen As Long
+        suffixLen = Len(suffix)
+        If suffixLen &gt; Len(text) Then
+            EndsWith = False
+            Exit Function
+        End If
+        textEnd = Right(text, suffixLen)
+        If m_caseSensitive Then
+            EndsWith = (textEnd = suffix)
+        Else
+            EndsWith = (UCase(textEnd) = UCase(suffix))
+        End If
+    End Function
+    Public Function EndsWithAny(text As String, suffixes() As String) As Boolean
+        &#x27; Check if string ends with any of the provided suffixes
+        Dim i As Integer
+        For i = LBound(suffixes) To UBound(suffixes)
+            If EndsWith(text, suffixes(i)) Then
+                EndsWithAny = True
+                Exit Function
+            End If
+        Next i
+        EndsWithAny = False
+    End Function
+    Public Function RemoveSuffix(text As String, suffix As String) As String
+        &#x27; Remove suffix if present
+        If EndsWith(text, suffix) Then
+            RemoveSuffix = Left(text, Len(text) - Len(suffix))
+        Else
+            RemoveSuffix = text
+        End If
+    End Function
+    Public Function GetMatchingSuffix(text As String, suffixes() As String) As String
+        &#x27; Return the matching suffix, or empty string
+        Dim i As Integer
+        For i = LBound(suffixes) To UBound(suffixes)
+            If EndsWith(text, suffixes(i)) Then
+                GetMatchingSuffix = suffixes(i)
+                Exit Function
+            End If
+        Next i
+        GetMatchingSuffix = &quot;&quot;
+    End Function
+    Public Function ReplaceSuffix(text As String, oldSuffix As String, _
+                                 newSuffix As String) As String
+        &#x27; Replace suffix if present
+        If EndsWith(text, oldSuffix) Then
+            ReplaceSuffix = Left(text, Len(text) - Len(oldSuffix)) &amp; newSuffix
+        Else
+            ReplaceSuffix = text
+        End If
+    End Function
 End Class</code></pre>
 <h3 id="example-4-account-number-formatter">Example 4: Account Number Formatter</h3>
 <pre><code class="language-vbnet">&#x27; Format and mask account numbers securely
 Class AccountNumberFormatter
-Private m_maskChar As String
-Private m_visibleDigits As Integer
-
-Public Sub Initialize(Optional maskChar As String = &quot;*&quot;, _
-Optional visibleDigits As Integer = 4)
-m_maskChar = maskChar
-m_visibleDigits = visibleDigits
-End Sub
-
-Public Function FormatAccountNumber(accountNum As String) As String
-&#x27; Format account number showing only last N digits
-Dim lastDigits As String
-Dim maskedLength As Integer
-
-If Len(accountNum) &lt;= m_visibleDigits Then
-FormatAccountNumber = accountNum
-Exit Function
-End If
-
-lastDigits = Right(accountNum, m_visibleDigits)
-maskedLength = Len(accountNum) - m_visibleDigits
-
-FormatAccountNumber = String(maskedLength, m_maskChar) &amp; lastDigits
-End Function
-
-Public Function FormatWithSpaces(accountNum As String, _
-Optional groupSize As Integer = 4) As String
-&#x27; Format with spaces every N characters
-Dim formatted As String
-Dim i As Integer
-Dim maskedNum As String
-
-maskedNum = FormatAccountNumber(accountNum)
-formatted = &quot;&quot;
-
-For i = 1 To Len(maskedNum) Step groupSize
-If i &gt; 1 Then formatted = formatted &amp; &quot; &quot;
-formatted = formatted &amp; Mid(maskedNum, i, groupSize)
-Next i
-
-FormatWithSpaces = formatted
-End Function
-
-Public Function GetLastDigits(accountNum As String) As String
-&#x27; Get only the visible digits
-If Len(accountNum) &lt;= m_visibleDigits Then
-GetLastDigits = accountNum
-Else
-GetLastDigits = Right(accountNum, m_visibleDigits)
-End If
-End Function
-
-Public Function ValidateAccountNumber(accountNum As String, _
-minLength As Integer, _
-maxLength As Integer) As Boolean
-&#x27; Validate account number length
-Dim numLen As Integer
-
-numLen = Len(accountNum)
-ValidateAccountNumber = (numLen &gt;= minLength And numLen &lt;= maxLength)
-End Function
-
-Public Sub SetMaskChar(maskChar As String)
-m_maskChar = maskChar
-End Sub
-
-Public Sub SetVisibleDigits(visibleDigits As Integer)
-m_visibleDigits = visibleDigits
-End Sub
+    Private m_maskChar As String
+    Private m_visibleDigits As Integer
+    Public Sub Initialize(Optional maskChar As String = &quot;*&quot;, _
+                         Optional visibleDigits As Integer = 4)
+        m_maskChar = maskChar
+        m_visibleDigits = visibleDigits
+    End Sub
+    Public Function FormatAccountNumber(accountNum As String) As String
+        &#x27; Format account number showing only last N digits
+        Dim lastDigits As String
+        Dim maskedLength As Integer
+        If Len(accountNum) &lt;= m_visibleDigits Then
+            FormatAccountNumber = accountNum
+            Exit Function
+        End If
+        lastDigits = Right(accountNum, m_visibleDigits)
+        maskedLength = Len(accountNum) - m_visibleDigits
+        FormatAccountNumber = String(maskedLength, m_maskChar) &amp; lastDigits
+    End Function
+    Public Function FormatWithSpaces(accountNum As String, _
+                                    Optional groupSize As Integer = 4) As String
+        &#x27; Format with spaces every N characters
+        Dim formatted As String
+        Dim i As Integer
+        Dim maskedNum As String
+        maskedNum = FormatAccountNumber(accountNum)
+        formatted = &quot;&quot;
+        For i = 1 To Len(maskedNum) Step groupSize
+            If i &gt; 1 Then formatted = formatted &amp; &quot; &quot;
+            formatted = formatted &amp; Mid(maskedNum, i, groupSize)
+        Next i
+        FormatWithSpaces = formatted
+    End Function
+    Public Function GetLastDigits(accountNum As String) As String
+        &#x27; Get only the visible digits
+        If Len(accountNum) &lt;= m_visibleDigits Then
+            GetLastDigits = accountNum
+        Else
+            GetLastDigits = Right(accountNum, m_visibleDigits)
+        End If
+    End Function
+    Public Function ValidateAccountNumber(accountNum As String, _
+                                         minLength As Integer, _
+                                         maxLength As Integer) As Boolean
+        &#x27; Validate account number length
+        Dim numLen As Integer
+        numLen = Len(accountNum)
+        ValidateAccountNumber = (numLen &gt;= minLength And numLen &lt;= maxLength)
+    End Function
+    Public Sub SetMaskChar(maskChar As String)
+        m_maskChar = maskChar
+    End Sub
+    Public Sub SetVisibleDigits(visibleDigits As Integer)
+        m_visibleDigits = visibleDigits
+    End Sub
 End Class</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>Right</code> function generates runtime errors in specific situations:</p>
-<p><strong>Error 5: Invalid procedure call or argument</strong>
-- Occurs when <code>length</code> parameter is negative</p>
-<p><strong>Error 94: Invalid use of Null</strong>
-- Occurs when <code>string</code> parameter is Null</p>
-<p>Example error handling:</p>
+<p>The <code>Right</code> function generates runtime errors in specific situations:
+<strong>Error 5: Invalid procedure call or argument</strong>
+- Occurs when <code>length</code> parameter is negative
+<strong>Error 94: Invalid use of Null</strong>
+- Occurs when <code>string</code> parameter is Null
+Example error handling:</p>
 <pre><code class="language-vbnet">On Error Resume Next
 result = Right(userInput, charCount)
 If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Error extracting characters: &quot; &amp; Err.Description
-result = &quot;&quot;
+    MsgBox &quot;Error extracting characters: &quot; &amp; Err.Description
+    result = &quot;&quot;
 End If
 On Error GoTo 0</code></pre>
 <p>Best practice for safe usage:</p>
 <pre><code class="language-vbnet">Function SafeRight(text As String, length As Long) As String
-If IsNull(text) Then
-SafeRight = &quot;&quot;
-Exit Function
-End If
-
-If length &lt; 0 Then
-SafeRight = &quot;&quot;
-Exit Function
-End If
-
-If length = 0 Then
-SafeRight = &quot;&quot;
-ElseIf length &gt;= Len(text) Then
-SafeRight = text
-Else
-SafeRight = Right(text, length)
-End If
+    If IsNull(text) Then
+        SafeRight = &quot;&quot;
+        Exit Function
+    End If
+    If length &lt; 0 Then
+        SafeRight = &quot;&quot;
+        Exit Function
+    End If
+    If length = 0 Then
+        SafeRight = &quot;&quot;
+    ElseIf length &gt;= Len(text) Then
+        SafeRight = text
+    Else
+        SafeRight = Right(text, length)
+    End If
 End Function</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
@@ -700,33 +592,122 @@ End Function</code></pre>
 <td><code>(string)</code></td>
 <td>Remove trailing whitespace</td>
 </tr>
+<tr>
+<td>## Platform and Version Notes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in all versions of VB6 and VBA</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Behavior consistent across all platforms</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- In VB.NET, replaced by String.Substring or string slicing</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>RightB</code> and <code>RightB</code>$ variants exist for byte data</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Right$ returns String type, Right returns Variant</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot use negative length to count from a different position</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No built-in way to extract "all but first N" characters (use Len arithmetic)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Raises error on negative length instead of returning empty string</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No case-insensitive comparison built-in</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No Unicode-aware variant (uses ANSI/DBCS)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Related Functions</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Left</code>: Returns characters from the left side of a string</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Mid</code>: Returns characters from any position in a string</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>InStrRev</code>: Finds position of substring searching from right to left</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Len</code>: Returns the length of a string</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>RTrim</code>: Removes trailing spaces from a string</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>InStr</code>: Finds position of substring searching from left to right</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
-<ul>
-<li>Available in all versions of VB6 and VBA</li>
-<li>Behavior consistent across all platforms</li>
-<li>In VB.NET, replaced by String.Substring or string slicing</li>
-<li><code>RightB</code> and <code>RightB</code>$ variants exist for byte data</li>
-<li>Right$ returns String type, Right returns Variant</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Cannot use negative length to count from a different position</li>
-<li>No built-in way to extract "all but first N" characters (use Len arithmetic)</li>
-<li>Raises error on negative length instead of returning empty string</li>
-<li>No case-insensitive comparison built-in</li>
-<li>No Unicode-aware variant (uses ANSI/DBCS)</li>
-</ul>
-<h2 id="related-functions">Related Functions</h2>
-<ul>
-<li><code>Left</code>: Returns characters from the left side of a string</li>
-<li><code>Mid</code>: Returns characters from any position in a string</li>
-<li><code>InStrRev</code>: Finds position of substring searching from right to left</li>
-<li><code>Len</code>: Returns the length of a string</li>
-<li><code>RTrim</code>: Removes trailing spaces from a string</li>
-<li><code>InStr</code>: Finds position of substring searching from left to right</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

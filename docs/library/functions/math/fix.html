@@ -52,20 +52,18 @@
 - If number is Null: Returns Null
 - Return type matches the input type (Integer, Long, Single, Double, Currency, Decimal)</p>
 <h2 id="remarks">Remarks</h2>
-<p>The Fix function truncates toward zero:</p>
-<ul>
-<li>Removes the fractional part of a number</li>
-<li>Always truncates toward zero (removes decimal without rounding)</li>
-<li>For positive numbers, behaves like <code>Int</code> (same result)</li>
-<li>For negative numbers, different from <code>Int</code> (<code>Int</code> rounds down, <code>Fix</code> truncates)</li>
-<li><code>Fix</code>(-8.4) returns -8, <code>Int</code>(-8.4) returns -9</li>
-<li><code>Fix</code>(8.4) returns 8, <code>Int</code>(8.4) returns 8</li>
-<li>Does not round to nearest integer (use <code>Round</code> for rounding)</li>
-<li>The return type preserves the input numeric type</li>
-<li>More intuitive for most developers (truncation toward zero)</li>
-<li>Commonly used when you want to discard fractional parts</li>
-<li>For financial calculations, consider using <code>Round</code> or <code>CCur</code> instead</li>
-</ul>
+<p>The Fix function truncates toward zero:
+- Removes the fractional part of a number
+- Always truncates toward zero (removes decimal without rounding)
+- For positive numbers, behaves like <code>Int</code> (same result)
+- For negative numbers, different from <code>Int</code> (<code>Int</code> rounds down, <code>Fix</code> truncates)
+- <code>Fix</code>(-8.4) returns -8, <code>Int</code>(-8.4) returns -9
+- <code>Fix</code>(8.4) returns 8, <code>Int</code>(8.4) returns 8
+- Does not round to nearest integer (use <code>Round</code> for rounding)
+- The return type preserves the input numeric type
+- More intuitive for most developers (truncation toward zero)
+- Commonly used when you want to discard fractional parts
+- For financial calculations, consider using <code>Round</code> or <code>CCur</code> instead</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Truncate Decimals</strong>: Remove fractional part without rounding</li>
@@ -82,19 +80,16 @@
 Dim result As Integer
 result = Fix(8.7)
 Debug.Print result  &#x27; Prints: 8
-
 &#x27; Example 2: Truncate negative number
 Dim result As Integer
 result = Fix(-8.7)
 Debug.Print result  &#x27; Prints: -8 (truncates toward zero, not down)
-
 &#x27; Example 3: Remove cents from currency
 Dim price As Currency
 Dim dollars As Currency
 price = 19.99
 dollars = Fix(price)
 Debug.Print dollars  &#x27; Prints: 19
-
 &#x27; Example 4: Ensure integer for array index
 Dim index As Long
 Dim ratio As Double
@@ -104,195 +99,157 @@ value = items(index)</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Truncate toward zero
 Function Truncate(value As Double) As Long
-Truncate = Fix(value)
+    Truncate = Fix(value)
 End Function
-
 &#x27; Pattern 2: Get whole dollars from currency
 Function GetWholeDollars(amount As Currency) As Long
-GetWholeDollars = Fix(amount)
+    GetWholeDollars = Fix(amount)
 End Function
-
 &#x27; Pattern 3: Get cents from currency
 Function GetCents(amount As Currency) As Long
-Dim wholeDollars As Currency
-wholeDollars = Fix(amount)
-GetCents = Fix((amount - wholeDollars) * 100)
+    Dim wholeDollars As Currency
+    wholeDollars = Fix(amount)
+    GetCents = Fix((amount - wholeDollars) * 100)
 End Function
-
 &#x27; Pattern 4: Split number into whole and fractional parts
 Sub SplitNumber(value As Double, ByRef wholePart As Long, ByRef fractionalPart As Double)
-wholePart = Fix(value)
-fractionalPart = value - wholePart
+    wholePart = Fix(value)
+    fractionalPart = value - wholePart
 End Sub
-
 &#x27; Pattern 5: Ensure positive truncation
 Function TruncatePositive(value As Double) As Long
-&#x27; Fix truncates toward zero
-&#x27; For negative values, this gives different result than Int
-TruncatePositive = Fix(Abs(value)) * Sgn(value)
+    &#x27; Fix truncates toward zero
+    &#x27; For negative values, this gives different result than Int
+    TruncatePositive = Fix(Abs(value)) * Sgn(value)
 End Function
-
 &#x27; Pattern 6: Convert to integer without rounding
 Function ToIntegerNoRound(value As Double) As Long
-ToIntegerNoRound = Fix(value)
+    ToIntegerNoRound = Fix(value)
 End Function
-
 &#x27; Pattern 7: Remove decimal places for display
 Function FormatWholeNumber(value As Double) As String
-FormatWholeNumber = CStr(Fix(value))
+    FormatWholeNumber = CStr(Fix(value))
 End Function
-
 &#x27; Pattern 8: Calculate whole units
 Function GetWholeUnits(quantity As Double) As Long
-GetWholeUnits = Fix(quantity)
+    GetWholeUnits = Fix(quantity)
 End Function
-
 &#x27; Pattern 9: Truncate time to hours
 Function GetWholeHours(timeValue As Double) As Long
-Dim hours As Double
-hours = timeValue * 24  &#x27; Convert days to hours
-GetWholeHours = Fix(hours)
+    Dim hours As Double
+    hours = timeValue * 24  &#x27; Convert days to hours
+    GetWholeHours = Fix(hours)
 End Function
-
 &#x27; Pattern 10: Floor for positive, ceiling for negative
 Function TruncateTowardZero(value As Double) As Long
-&#x27; Fix already does this
-TruncateTowardZero = Fix(value)
+    &#x27; Fix already does this
+    TruncateTowardZero = Fix(value)
 End Function</code></pre>
 <h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Currency formatter class
 Public Class CurrencyFormatter
-Public Function FormatAsDollarsAndCents(amount As Currency) As String
-Dim dollars As Long
-Dim cents As Long
-
-dollars = Fix(amount)
-cents = Fix(Abs((amount - dollars) * 100))
-
-FormatAsDollarsAndCents = &quot;$&quot; &amp; dollars &amp; &quot;.&quot; &amp; _
-Format$(cents, &quot;00&quot;)
-End Function
-
-Public Function GetDollarPart(amount As Currency) As Long
-GetDollarPart = Fix(amount)
-End Function
-
-Public Function GetCentPart(amount As Currency) As Long
-Dim dollars As Currency
-dollars = Fix(amount)
-GetCentPart = Fix(Abs((amount - dollars) * 100))
-End Function
-
-Public Function RoundToDollars(amount As Currency) As Currency
-RoundToDollars = Fix(amount)
-End Function
+    Public Function FormatAsDollarsAndCents(amount As Currency) As String
+        Dim dollars As Long
+        Dim cents As Long
+        dollars = Fix(amount)
+        cents = Fix(Abs((amount - dollars) * 100))
+        FormatAsDollarsAndCents = &quot;$&quot; &amp; dollars &amp; &quot;.&quot; &amp; _
+                                  Format$(cents, &quot;00&quot;)
+    End Function
+    Public Function GetDollarPart(amount As Currency) As Long
+        GetDollarPart = Fix(amount)
+    End Function
+    Public Function GetCentPart(amount As Currency) As Long
+        Dim dollars As Currency
+        dollars = Fix(amount)
+        GetCentPart = Fix(Abs((amount - dollars) * 100))
+    End Function
+    Public Function RoundToDollars(amount As Currency) As Currency
+        RoundToDollars = Fix(amount)
+    End Function
 End Class
-
 &#x27; Example 2: Number splitter utility
 Public Class NumberSplitter
-Private m_wholePart As Long
-Private m_fractionalPart As Double
-
-Public Sub Split(value As Double)
-m_wholePart = Fix(value)
-m_fractionalPart = value - m_wholePart
-End Sub
-
-Public Property Get WholePart() As Long
-WholePart = m_wholePart
-End Property
-
-Public Property Get FractionalPart() As Double
-FractionalPart = m_fractionalPart
-End Property
-
-Public Property Get HasFraction() As Boolean
-HasFraction = (m_fractionalPart &lt;&gt; 0)
-End Property
-
-Public Function Reconstruct() As Double
-Reconstruct = m_wholePart + m_fractionalPart
-End Function
+    Private m_wholePart As Long
+    Private m_fractionalPart As Double
+    Public Sub Split(value As Double)
+        m_wholePart = Fix(value)
+        m_fractionalPart = value - m_wholePart
+    End Sub
+    Public Property Get WholePart() As Long
+        WholePart = m_wholePart
+    End Property
+    Public Property Get FractionalPart() As Double
+        FractionalPart = m_fractionalPart
+    End Property
+    Public Property Get HasFraction() As Boolean
+        HasFraction = (m_fractionalPart &lt;&gt; 0)
+    End Property
+    Public Function Reconstruct() As Double
+        Reconstruct = m_wholePart + m_fractionalPart
+    End Function
 End Class
-
 &#x27; Example 3: Data truncator for normalization
 Public Class DataTruncator
-Public Function TruncateArray(values() As Double) As Long()
-Dim result() As Long
-Dim i As Long
-
-ReDim result(LBound(values) To UBound(values))
-
-For i = LBound(values) To UBound(values)
-result(i) = Fix(values(i))
-Next i
-
-TruncateArray = result
-End Function
-
-Public Function TruncateToInteger(value As Double) As Long
-TruncateToInteger = Fix(value)
-End Function
-
-Public Function TruncateCollection(values As Collection) As Collection
-Dim result As New Collection
-Dim value As Variant
-
-For Each value In values
-If IsNumeric(value) Then
-result.Add Fix(CDbl(value))
-Else
-result.Add value
-End If
-Next value
-
-Set TruncateCollection = result
-End Function
+    Public Function TruncateArray(values() As Double) As Long()
+        Dim result() As Long
+        Dim i As Long
+        ReDim result(LBound(values) To UBound(values))
+        For i = LBound(values) To UBound(values)
+            result(i) = Fix(values(i))
+        Next i
+        TruncateArray = result
+    End Function
+    Public Function TruncateToInteger(value As Double) As Long
+        TruncateToInteger = Fix(value)
+    End Function
+    Public Function TruncateCollection(values As Collection) As Collection
+        Dim result As New Collection
+        Dim value As Variant
+        For Each value In values
+            If IsNumeric(value) Then
+                result.Add Fix(CDbl(value))
+            Else
+                result.Add value
+            End If
+        Next value
+        Set TruncateCollection = result
+    End Function
 End Class
-
 &#x27; Example 4: Coordinate truncator
 Public Class CoordinateTruncator
-Public Sub TruncatePoint(x As Double, y As Double, _
-ByRef truncX As Long, ByRef truncY As Long)
-truncX = Fix(x)
-truncY = Fix(y)
-End Sub
-
-Public Function TruncateRectangle(left As Double, top As Double, _
-right As Double, bottom As Double) As Variant
-Dim coords(0 To 3) As Long
-
-coords(0) = Fix(left)
-coords(1) = Fix(top)
-coords(2) = Fix(right)
-coords(3) = Fix(bottom)
-
-TruncateRectangle = coords
-End Function
-
-Public Function GetPixelCoordinate(value As Double) As Long
-GetPixelCoordinate = Fix(value)
-End Function
+    Public Sub TruncatePoint(x As Double, y As Double, _
+                            ByRef truncX As Long, ByRef truncY As Long)
+        truncX = Fix(x)
+        truncY = Fix(y)
+    End Sub
+    Public Function TruncateRectangle(left As Double, top As Double, _
+                                      right As Double, bottom As Double) As Variant
+        Dim coords(0 To 3) As Long
+        coords(0) = Fix(left)
+        coords(1) = Fix(top)
+        coords(2) = Fix(right)
+        coords(3) = Fix(bottom)
+        TruncateRectangle = coords
+    End Function
+    Public Function GetPixelCoordinate(value As Double) As Long
+        GetPixelCoordinate = Fix(value)
+    End Function
 End Class</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The Fix function can raise errors or return Null:</p>
-<ul>
-<li><strong>Type Mismatch (Error 13)</strong>: If number is not a numeric expression</li>
-<li><strong>Invalid use of Null (Error 94)</strong>: If number is Null and result is assigned to non-Variant</li>
-<li><strong>Overflow (Error 6)</strong>: If result exceeds the range of the target data type</li>
-</ul>
+<p>The Fix function can raise errors or return Null:
+- <strong>Type Mismatch (Error 13)</strong>: If number is not a numeric expression
+- <strong>Invalid use of Null (Error 94)</strong>: If number is Null and result is assigned to non-Variant
+- <strong>Overflow (Error 6)</strong>: If result exceeds the range of the target data type</p>
 <pre><code class="language-vbnet">On Error GoTo ErrorHandler
 Dim result As Long
 Dim value As Double
-
 value = -12.75
 result = Fix(value)
-
 Debug.Print &quot;Truncated value: &quot; &amp; result  &#x27; Prints: -12
 Exit Sub
-
 ErrorHandler:
-MsgBox &quot;Error in Fix: &quot; &amp; Err.Description, vbCritical</code></pre>
+    MsgBox &quot;Error in Fix: &quot; &amp; Err.Description, vbCritical</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
 <li><strong>Fast Operation</strong>: Fix is a very fast built-in function</li>
@@ -364,32 +321,116 @@ MsgBox &quot;Error in Fix: &quot; &amp; Err.Description, vbCritical</code></pre>
 <td></td>
 <td></td>
 </tr>
+<tr>
+<td>- Available in all VB6 versions</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Consistent behavior across platforms</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Return type matches input numeric type</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Truncates toward zero (like C/C++/Java integer truncation)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- More intuitive than Int for most developers from other languages</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Does not round to nearest (use <code>Round</code> for that)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Behavior with negative numbers differs from <code>Int</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Return type depends on input type (can cause overflow)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot specify decimal places (always removes all decimals)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No control over rounding direction (always toward zero)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Related Functions</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Int</code>: Returns <code>Integer</code> portion, rounding down (floor)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Round</code>: Rounds to nearest integer or specified decimal places</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>CInt</code>: Converts to <code>Integer</code> with rounding</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>CLng</code>: Converts to <code>Long</code> with rounding</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Abs</code>: Absolute value (often used with <code>Fix</code>)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Sgn</code>: Sign of number (often used with <code>Fix</code>)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<ul>
-<li>Available in all VB6 versions</li>
-<li>Consistent behavior across platforms</li>
-<li>Return type matches input numeric type</li>
-<li>Truncates toward zero (like C/C++/Java integer truncation)</li>
-<li>More intuitive than Int for most developers from other languages</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Does not round to nearest (use <code>Round</code> for that)</li>
-<li>Behavior with negative numbers differs from <code>Int</code></li>
-<li>Return type depends on input type (can cause overflow)</li>
-<li>Cannot specify decimal places (always removes all decimals)</li>
-<li>No control over rounding direction (always toward zero)</li>
-</ul>
-<h2 id="related-functions">Related Functions</h2>
-<ul>
-<li><code>Int</code>: Returns <code>Integer</code> portion, rounding down (floor)</li>
-<li><code>Round</code>: Rounds to nearest integer or specified decimal places</li>
-<li><code>CInt</code>: Converts to <code>Integer</code> with rounding</li>
-<li><code>CLng</code>: Converts to <code>Long</code> with rounding</li>
-<li><code>Abs</code>: Absolute value (often used with <code>Fix</code>)</li>
-<li><code>Sgn</code>: Sign of number (often used with <code>Fix</code>)</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

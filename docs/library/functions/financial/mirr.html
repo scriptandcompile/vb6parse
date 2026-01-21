@@ -45,10 +45,10 @@ cash flows (payments and receipts).</p>
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><strong><code>values()</code></strong> (Required) - Array of Double specifying cash flow values. The array must contain
-at least one negative value (payment) and one positive value (receipt).</li>
+  at least one negative value (payment) and one positive value (receipt).</li>
 <li><strong><code>finance_rate</code></strong> (Required) - Double specifying the interest rate paid as the cost of financing.</li>
 <li><strong><code>reinvest_rate</code></strong> (Required) - Double specifying the interest rate received on gains from cash
-reinvestment.</li>
+  reinvestment.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <strong>Variant (Double)</strong> representing the modified internal rate of return, expressed as
@@ -57,8 +57,8 @@ a decimal per period. For example, 0.1 represents 10%.</p>
 <p>The Modified Internal Rate of Return (MIRR) is a variation of the internal rate of return (IRR)
 that addresses some of IRR's limitations. Unlike IRR, MIRR assumes:
 - Negative cash flows (investments) are financed at the <code>finance_rate</code>
-- Positive cash flows (returns) are reinvested at the <code>reinvest_rate</code></p>
-<p>This makes MIRR more realistic than IRR for most real-world investment scenarios where the
+- Positive cash flows (returns) are reinvested at the <code>reinvest_rate</code>
+This makes MIRR more realistic than IRR for most real-world investment scenarios where the
 cost of capital and reinvestment rate differ.</p>
 <h3 id="key-characteristics">Key Characteristics:</h3>
 <ul>
@@ -104,11 +104,9 @@ cashFlows(1) = 30000    &#x27; Year 1 return
 cashFlows(2) = 35000    &#x27; Year 2 return
 cashFlows(3) = 40000    &#x27; Year 3 return
 cashFlows(4) = 25000    &#x27; Year 4 return
-
 Dim financeRate As Double
 Dim reinvestRate As Double
 Dim result As Double
-
 financeRate = 0.08   &#x27; 8% cost of capital
 reinvestRate = 0.05  &#x27; 5% reinvestment rate
 result = MIRR(cashFlows(), financeRate, reinvestRate)
@@ -116,313 +114,261 @@ result = MIRR(cashFlows(), financeRate, reinvestRate)
 <pre><code class="language-vbnet">&#x27; Example 2: Real estate investment
 Dim propertyFlows(9) As Double
 Dim i As Integer
-
 propertyFlows(0) = -500000  &#x27; Purchase price
 For i = 1 To 8
-propertyFlows(i) = 50000  &#x27; Annual rental income
+    propertyFlows(i) = 50000  &#x27; Annual rental income
 Next i
 propertyFlows(9) = 600000   &#x27; Sale price in year 9
-
 Dim mortgageRate As Double
 Dim marketRate As Double
-
 mortgageRate = 0.06   &#x27; 6% mortgage cost
 marketRate = 0.04     &#x27; 4% market return
-
 If MIRR(propertyFlows(), mortgageRate, marketRate) &gt; mortgageRate Then
-MsgBox &quot;Property investment beats financing cost&quot;
+    MsgBox &quot;Property investment beats financing cost&quot;
 End If</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 3: Monthly cash flows (convert to annual)
 Dim monthlyCashFlows(11) As Double
 monthlyCashFlows(0) = -10000
 &#x27; ... populate remaining months
-
 Dim monthlyFinanceRate As Double
 Dim monthlyReinvestRate As Double
-
 monthlyFinanceRate = 0.08 / 12    &#x27; Annual rate / 12
 monthlyReinvestRate = 0.05 / 12   &#x27; Annual rate / 12
-
 Dim monthlyReturn As Double
 Dim annualReturn As Double
-
 monthlyReturn = MIRR(monthlyCashFlows(), monthlyFinanceRate, monthlyReinvestRate)
 annualReturn = (1 + monthlyReturn) ^ 12 - 1  &#x27; Convert to annual</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 4: Comparing two projects
 Dim projectA(3) As Double
 Dim projectB(3) As Double
-
 projectA(0) = -50000: projectA(1) = 20000
 projectA(2) = 25000: projectA(3) = 30000
-
 projectB(0) = -50000: projectB(1) = 15000
 projectB(2) = 20000: projectB(3) = 40000
-
 Dim costOfCapital As Double
 Dim reinvestmentRate As Double
-
 costOfCapital = 0.1
 reinvestmentRate = 0.06
-
 Dim mirrA As Double, mirrB As Double
 mirrA = MIRR(projectA(), costOfCapital, reinvestmentRate)
 mirrB = MIRR(projectB(), costOfCapital, reinvestmentRate)
-
 If mirrA &gt; mirrB Then
-Debug.Print &quot;Project A has better MIRR&quot;
+    Debug.Print &quot;Project A has better MIRR&quot;
 Else
-Debug.Print &quot;Project B has better MIRR&quot;
+    Debug.Print &quot;Project B has better MIRR&quot;
 End If</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Safe MIRR calculation with validation
 Function SafeMIRR(cashFlows() As Double, finRate As Double, _
-reinvRate As Double) As Variant
-Dim hasPositive As Boolean
-Dim hasNegative As Boolean
-Dim i As Integer
-
-&#x27; Validate array has both positive and negative values
-For i = LBound(cashFlows) To UBound(cashFlows)
-If cashFlows(i) &gt; 0 Then hasPositive = True
-If cashFlows(i) &lt; 0 Then hasNegative = True
-Next i
-
-If Not hasPositive Or Not hasNegative Then
-SafeMIRR = Null
-Exit Function
-End If
-
-On Error Resume Next
-SafeMIRR = MIRR(cashFlows(), finRate, reinvRate)
-If Err.Number &lt;&gt; 0 Then
-SafeMIRR = Null
-End If
-On Error GoTo 0
+                  reinvRate As Double) As Variant
+    Dim hasPositive As Boolean
+    Dim hasNegative As Boolean
+    Dim i As Integer
+    &#x27; Validate array has both positive and negative values
+    For i = LBound(cashFlows) To UBound(cashFlows)
+        If cashFlows(i) &gt; 0 Then hasPositive = True
+        If cashFlows(i) &lt; 0 Then hasNegative = True
+    Next i
+    If Not hasPositive Or Not hasNegative Then
+        SafeMIRR = Null
+        Exit Function
+    End If
+    On Error Resume Next
+    SafeMIRR = MIRR(cashFlows(), finRate, reinvRate)
+    If Err.Number &lt;&gt; 0 Then
+        SafeMIRR = Null
+    End If
+    On Error GoTo 0
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 2: Convert MIRR to annualized percentage
 Function AnnualizedMIRR(cashFlows() As Double, finRate As Double, _
-reinvRate As Double, periodsPerYear As Integer) As Double
-Dim periodMIRR As Double
-periodMIRR = MIRR(cashFlows(), finRate, reinvRate)
-
-&#x27; Convert to effective annual rate
-AnnualizedMIRR = ((1 + periodMIRR) ^ periodsPerYear - 1) * 100
+                        reinvRate As Double, periodsPerYear As Integer) As Double
+    Dim periodMIRR As Double
+    periodMIRR = MIRR(cashFlows(), finRate, reinvRate)
+    &#x27; Convert to effective annual rate
+    AnnualizedMIRR = ((1 + periodMIRR) ^ periodsPerYear - 1) * 100
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 3: MIRR-based investment decision
 Function ShouldInvest(cashFlows() As Double, finRate As Double, _
-reinvRate As Double, hurdle As Double) As Boolean
-Dim projectMIRR As Double
-projectMIRR = MIRR(cashFlows(), finRate, reinvRate)
-ShouldInvest = (projectMIRR &gt;= hurdle)
+                      reinvRate As Double, hurdle As Double) As Boolean
+    Dim projectMIRR As Double
+    projectMIRR = MIRR(cashFlows(), finRate, reinvRate)
+    ShouldInvest = (projectMIRR &gt;= hurdle)
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 4: Sensitivity analysis on rates
 Sub AnalyzeMIRRSensitivity(cashFlows() As Double)
-Dim finRate As Double
-Dim reinvRate As Double
-Dim result As Double
-
-Debug.Print &quot;Finance Rate&quot;, &quot;Reinvest Rate&quot;, &quot;MIRR&quot;
-
-For finRate = 0.05 To 0.15 Step 0.01
-For reinvRate = 0.03 To 0.1 Step 0.01
-result = MIRR(cashFlows(), finRate, reinvRate)
-Debug.Print Format(finRate, &quot;0.00%&quot;), _
-Format(reinvRate, &quot;0.00%&quot;), _
-Format(result, &quot;0.00%&quot;)
-Next reinvRate
-Next finRate
+    Dim finRate As Double
+    Dim reinvRate As Double
+    Dim result As Double
+    Debug.Print &quot;Finance Rate&quot;, &quot;Reinvest Rate&quot;, &quot;MIRR&quot;
+    For finRate = 0.05 To 0.15 Step 0.01
+        For reinvRate = 0.03 To 0.1 Step 0.01
+            result = MIRR(cashFlows(), finRate, reinvRate)
+            Debug.Print Format(finRate, &quot;0.00%&quot;), _
+                       Format(reinvRate, &quot;0.00%&quot;), _
+                       Format(result, &quot;0.00%&quot;)
+        Next reinvRate
+    Next finRate
 End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 5: Break-even analysis
 Function BreakEvenFinanceRate(cashFlows() As Double, _
-targetMIRR As Double, _
-reinvRate As Double) As Double
-Dim lowRate As Double, highRate As Double
-Dim midRate As Double, testMIRR As Double
-Dim tolerance As Double
-
-lowRate = 0
-highRate = 1
-tolerance = 0.0001
-
-&#x27; Binary search for break-even rate
-Do While (highRate - lowRate) &gt; tolerance
-midRate = (lowRate + highRate) / 2
-testMIRR = MIRR(cashFlows(), midRate, reinvRate)
-
-If testMIRR &gt; targetMIRR Then
-lowRate = midRate
-Else
-highRate = midRate
-End If
-Loop
-
-BreakEvenFinanceRate = midRate
+                              targetMIRR As Double, _
+                              reinvRate As Double) As Double
+    Dim lowRate As Double, highRate As Double
+    Dim midRate As Double, testMIRR As Double
+    Dim tolerance As Double
+    lowRate = 0
+    highRate = 1
+    tolerance = 0.0001
+    &#x27; Binary search for break-even rate
+    Do While (highRate - lowRate) &gt; tolerance
+        midRate = (lowRate + highRate) / 2
+        testMIRR = MIRR(cashFlows(), midRate, reinvRate)
+        If testMIRR &gt; targetMIRR Then
+            lowRate = midRate
+        Else
+            highRate = midRate
+        End If
+    Loop
+    BreakEvenFinanceRate = midRate
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 6: Compare MIRR to IRR
 Sub CompareMIRRtoIRR(cashFlows() As Double, finRate As Double, reinvRate As Double)
-Dim irrValue As Double
-Dim mirrValue As Double
-
-irrValue = IRR(cashFlows())
-mirrValue = MIRR(cashFlows(), finRate, reinvRate)
-
-Debug.Print &quot;IRR: &quot; &amp; Format(irrValue * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
-Debug.Print &quot;MIRR: &quot; &amp; Format(mirrValue * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
-Debug.Print &quot;Difference: &quot; &amp; Format((irrValue - mirrValue) * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+    Dim irrValue As Double
+    Dim mirrValue As Double
+    irrValue = IRR(cashFlows())
+    mirrValue = MIRR(cashFlows(), finRate, reinvRate)
+    Debug.Print &quot;IRR: &quot; &amp; Format(irrValue * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+    Debug.Print &quot;MIRR: &quot; &amp; Format(mirrValue * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+    Debug.Print &quot;Difference: &quot; &amp; Format((irrValue - mirrValue) * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
 End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 7: Multi-year project evaluation
 Function EvaluateMultiYearProject(initialInvestment As Double, _
-annualReturns() As Double, _
-salvageValue As Double, _
-finRate As Double, _
-reinvRate As Double) As String
-Dim cashFlows() As Double
-Dim i As Integer
-Dim years As Integer
-
-years = UBound(annualReturns) - LBound(annualReturns) + 1
-ReDim cashFlows(0 To years)
-
-cashFlows(0) = -initialInvestment
-For i = LBound(annualReturns) To UBound(annualReturns)
-cashFlows(i - LBound(annualReturns) + 1) = annualReturns(i)
-Next i
-cashFlows(years) = cashFlows(years) + salvageValue
-
-Dim projectMIRR As Double
-projectMIRR = MIRR(cashFlows(), finRate, reinvRate)
-
-EvaluateMultiYearProject = &quot;Project MIRR: &quot; &amp; _
-Format(projectMIRR * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+                                  annualReturns() As Double, _
+                                  salvageValue As Double, _
+                                  finRate As Double, _
+                                  reinvRate As Double) As String
+    Dim cashFlows() As Double
+    Dim i As Integer
+    Dim years As Integer
+    years = UBound(annualReturns) - LBound(annualReturns) + 1
+    ReDim cashFlows(0 To years)
+    cashFlows(0) = -initialInvestment
+    For i = LBound(annualReturns) To UBound(annualReturns)
+        cashFlows(i - LBound(annualReturns) + 1) = annualReturns(i)
+    Next i
+    cashFlows(years) = cashFlows(years) + salvageValue
+    Dim projectMIRR As Double
+    projectMIRR = MIRR(cashFlows(), finRate, reinvRate)
+    EvaluateMultiYearProject = &quot;Project MIRR: &quot; &amp; _
+        Format(projectMIRR * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 8: Ranking multiple investments
 Type Investment
-Name As String
-CashFlows() As Double
-MIRR As Double
+    Name As String
+    CashFlows() As Double
+    MIRR As Double
 End Type
-
 Function RankInvestments(investments() As Investment, _
-finRate As Double, _
-reinvRate As Double) As Investment()
-Dim i As Integer, j As Integer
-Dim temp As Investment
-
-&#x27; Calculate MIRR for each investment
-For i = LBound(investments) To UBound(investments)
-investments(i).MIRR = MIRR(investments(i).CashFlows(), finRate, reinvRate)
-Next i
-
-&#x27; Bubble sort by MIRR (descending)
-For i = LBound(investments) To UBound(investments) - 1
-For j = i + 1 To UBound(investments)
-If investments(j).MIRR &gt; investments(i).MIRR Then
-temp = investments(i)
-investments(i) = investments(j)
-investments(j) = temp
-End If
-Next j
-Next i
-
-RankInvestments = investments
+                        finRate As Double, _
+                        reinvRate As Double) As Investment()
+    Dim i As Integer, j As Integer
+    Dim temp As Investment
+    &#x27; Calculate MIRR for each investment
+    For i = LBound(investments) To UBound(investments)
+        investments(i).MIRR = MIRR(investments(i).CashFlows(), finRate, reinvRate)
+    Next i
+    &#x27; Bubble sort by MIRR (descending)
+    For i = LBound(investments) To UBound(investments) - 1
+        For j = i + 1 To UBound(investments)
+            If investments(j).MIRR &gt; investments(i).MIRR Then
+                temp = investments(i)
+                investments(i) = investments(j)
+                investments(j) = temp
+            End If
+        Next j
+    Next i
+    RankInvestments = investments
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 9: Net Present Value equivalent using MIRR
 Function MIRRtoNPV(initialInvestment As Double, mirrRate As Double, _
-periods As Integer) As Double
-&#x27; Convert MIRR back to equivalent NPV
-&#x27; Useful for comparing MIRR-based and NPV-based analyses
-MIRRtoNPV = initialInvestment * ((1 + mirrRate) ^ periods)
+                   periods As Integer) As Double
+    &#x27; Convert MIRR back to equivalent NPV
+    &#x27; Useful for comparing MIRR-based and NPV-based analyses
+    MIRRtoNPV = initialInvestment * ((1 + mirrRate) ^ periods)
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 10: Quarterly to annual MIRR conversion
 Function QuarterlyToAnnualMIRR(quarterlyCashFlows() As Double, _
-quarterlyFinRate As Double, _
-quarterlyReinvRate As Double) As Double
-Dim quarterlyMIRR As Double
-
-quarterlyMIRR = MIRR(quarterlyCashFlows(), quarterlyFinRate, quarterlyReinvRate)
-
-&#x27; Convert quarterly rate to effective annual rate
-QuarterlyToAnnualMIRR = (1 + quarterlyMIRR) ^ 4 - 1
+                               quarterlyFinRate As Double, _
+                               quarterlyReinvRate As Double) As Double
+    Dim quarterlyMIRR As Double
+    quarterlyMIRR = MIRR(quarterlyCashFlows(), quarterlyFinRate, quarterlyReinvRate)
+    &#x27; Convert quarterly rate to effective annual rate
+    QuarterlyToAnnualMIRR = (1 + quarterlyMIRR) ^ 4 - 1
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-investment-analysis-class">Example 1: Investment Analysis Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: InvestmentAnalyzer
 &#x27; Provides comprehensive investment analysis using MIRR
-
 Option Explicit
-
 Private m_cashFlows() As Double
 Private m_financeRate As Double
 Private m_reinvestRate As Double
 Private m_periods As Integer
-
 Public Sub Initialize(cashFlows() As Double, finRate As Double, reinvRate As Double)
-Dim i As Integer
-m_periods = UBound(cashFlows) - LBound(cashFlows) + 1
-ReDim m_cashFlows(0 To m_periods - 1)
-
-For i = 0 To m_periods - 1
-m_cashFlows(i) = cashFlows(LBound(cashFlows) + i)
-Next i
-
-m_financeRate = finRate
-m_reinvestRate = reinvRate
+    Dim i As Integer
+    m_periods = UBound(cashFlows) - LBound(cashFlows) + 1
+    ReDim m_cashFlows(0 To m_periods - 1)
+    For i = 0 To m_periods - 1
+        m_cashFlows(i) = cashFlows(LBound(cashFlows) + i)
+    Next i
+    m_financeRate = finRate
+    m_reinvestRate = reinvRate
 End Sub
-
 Public Function GetMIRR() As Double
-GetMIRR = MIRR(m_cashFlows(), m_financeRate, m_reinvestRate)
+    GetMIRR = MIRR(m_cashFlows(), m_financeRate, m_reinvestRate)
 End Function
-
 Public Function GetIRR() As Double
-GetIRR = IRR(m_cashFlows())
+    GetIRR = IRR(m_cashFlows())
 End Function
-
 Public Function GetNPV(discountRate As Double) As Double
-GetNPV = NPV(discountRate, m_cashFlows())
+    GetNPV = NPV(discountRate, m_cashFlows())
 End Function
-
 Public Function GetPaybackPeriod() As Integer
-Dim cumulative As Double
-Dim i As Integer
-
-cumulative = 0
-For i = 0 To m_periods - 1
-cumulative = cumulative + m_cashFlows(i)
-If cumulative &gt;= 0 Then
-GetPaybackPeriod = i + 1
-Exit Function
-End If
-Next i
-
-GetPaybackPeriod = -1 &#x27; Never pays back
+    Dim cumulative As Double
+    Dim i As Integer
+    cumulative = 0
+    For i = 0 To m_periods - 1
+        cumulative = cumulative + m_cashFlows(i)
+        If cumulative &gt;= 0 Then
+            GetPaybackPeriod = i + 1
+            Exit Function
+        End If
+    Next i
+    GetPaybackPeriod = -1 &#x27; Never pays back
 End Function
-
 Public Function GenerateReport() As String
-Dim report As String
-report = &quot;Investment Analysis Report&quot; &amp; vbCrLf
-report = report &amp; String(40, &quot;-&quot;) &amp; vbCrLf
-report = report &amp; &quot;Periods: &quot; &amp; m_periods &amp; vbCrLf
-report = report &amp; &quot;Finance Rate: &quot; &amp; Format(m_financeRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-report = report &amp; &quot;Reinvest Rate: &quot; &amp; Format(m_reinvestRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-report = report &amp; vbCrLf
-report = report &amp; &quot;MIRR: &quot; &amp; Format(GetMIRR() * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-report = report &amp; &quot;IRR: &quot; &amp; Format(GetIRR() * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-report = report &amp; &quot;NPV @ Finance Rate: &quot; &amp; _
-Format(GetNPV(m_financeRate), &quot;$#,##0.00&quot;) &amp; vbCrLf
-report = report &amp; &quot;Payback Period: &quot; &amp; GetPaybackPeriod() &amp; &quot; periods&quot; &amp; vbCrLf
-
-GenerateReport = report
+    Dim report As String
+    report = &quot;Investment Analysis Report&quot; &amp; vbCrLf
+    report = report &amp; String(40, &quot;-&quot;) &amp; vbCrLf
+    report = report &amp; &quot;Periods: &quot; &amp; m_periods &amp; vbCrLf
+    report = report &amp; &quot;Finance Rate: &quot; &amp; Format(m_financeRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+    report = report &amp; &quot;Reinvest Rate: &quot; &amp; Format(m_reinvestRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+    report = report &amp; vbCrLf
+    report = report &amp; &quot;MIRR: &quot; &amp; Format(GetMIRR() * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+    report = report &amp; &quot;IRR: &quot; &amp; Format(GetIRR() * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+    report = report &amp; &quot;NPV @ Finance Rate: &quot; &amp; _
+        Format(GetNPV(m_financeRate), &quot;$#,##0.00&quot;) &amp; vbCrLf
+    report = report &amp; &quot;Payback Period: &quot; &amp; GetPaybackPeriod() &amp; &quot; periods&quot; &amp; vbCrLf
+    GenerateReport = report
 End Function
-
 Public Function IsViable(hurdleRate As Double) As Boolean
-IsViable = (GetMIRR() &gt;= hurdleRate)
+    IsViable = (GetMIRR() &gt;= hurdleRate)
 End Function</code></pre>
 <h3 id="example-2-real-estate-investment-calculator">Example 2: Real Estate Investment Calculator</h3>
 <pre><code class="language-vbnet">&#x27; Class: RealEstateInvestment
 &#x27; Specialized calculator for real estate MIRR analysis
-
 Option Explicit
-
 Private m_purchasePrice As Double
 Private m_downPayment As Double
 Private m_annualRent As Double
@@ -430,213 +376,177 @@ Private m_holdingPeriod As Integer
 Private m_appreciationRate As Double
 Private m_mortgageRate As Double
 Private m_reinvestmentRate As Double
-
 Public Sub ConfigureInvestment(purchasePrice As Double, downPayment As Double, _
-annualRent As Double, holdingYears As Integer, _
-appreciation As Double)
-m_purchasePrice = purchasePrice
-m_downPayment = downPayment
-m_annualRent = annualRent
-m_holdingPeriod = holdingYears
-m_appreciationRate = appreciation
+                               annualRent As Double, holdingYears As Integer, _
+                               appreciation As Double)
+    m_purchasePrice = purchasePrice
+    m_downPayment = downPayment
+    m_annualRent = annualRent
+    m_holdingPeriod = holdingYears
+    m_appreciationRate = appreciation
 End Sub
-
 Public Sub ConfigureRates(mortgageRate As Double, reinvestmentRate As Double)
-m_mortgageRate = mortgageRate
-m_reinvestmentRate = reinvestmentRate
+    m_mortgageRate = mortgageRate
+    m_reinvestmentRate = reinvestmentRate
 End Sub
-
 Public Function CalculateMIRR() As Double
-Dim cashFlows() As Double
-Dim i As Integer
-Dim salePrice As Double
-
-ReDim cashFlows(0 To m_holdingPeriod)
-
-&#x27; Initial investment (down payment)
-cashFlows(0) = -m_downPayment
-
-&#x27; Annual rental income
-For i = 1 To m_holdingPeriod - 1
-cashFlows(i) = m_annualRent
-Next i
-
-&#x27; Final year: rent + sale proceeds
-salePrice = m_purchasePrice * ((1 + m_appreciationRate) ^ m_holdingPeriod)
-cashFlows(m_holdingPeriod) = m_annualRent + (salePrice - (m_purchasePrice - m_downPayment))
-
-CalculateMIRR = MIRR(cashFlows(), m_mortgageRate, m_reinvestmentRate)
+    Dim cashFlows() As Double
+    Dim i As Integer
+    Dim salePrice As Double
+    ReDim cashFlows(0 To m_holdingPeriod)
+    &#x27; Initial investment (down payment)
+    cashFlows(0) = -m_downPayment
+    &#x27; Annual rental income
+    For i = 1 To m_holdingPeriod - 1
+        cashFlows(i) = m_annualRent
+    Next i
+    &#x27; Final year: rent + sale proceeds
+    salePrice = m_purchasePrice * ((1 + m_appreciationRate) ^ m_holdingPeriod)
+    cashFlows(m_holdingPeriod) = m_annualRent + (salePrice - (m_purchasePrice - m_downPayment))
+    CalculateMIRR = MIRR(cashFlows(), m_mortgageRate, m_reinvestmentRate)
 End Function
-
 Public Function GetAnnualizedReturn() As String
-Dim mirrValue As Double
-mirrValue = CalculateMIRR()
-GetAnnualizedReturn = Format(mirrValue * 100, &quot;0.00&quot;) &amp; &quot;% per year&quot;
+    Dim mirrValue As Double
+    mirrValue = CalculateMIRR()
+    GetAnnualizedReturn = Format(mirrValue * 100, &quot;0.00&quot;) &amp; &quot;% per year&quot;
 End Function
-
 Public Function CompareToStocks(stockMarketReturn As Double) As String
-Dim propertyReturn As Double
-propertyReturn = CalculateMIRR()
-
-If propertyReturn &gt; stockMarketReturn Then
-CompareToStocks = &quot;Property investment outperforms stocks by &quot; &amp; _
-Format((propertyReturn - stockMarketReturn) * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
-Else
-CompareToStocks = &quot;Stocks outperform property by &quot; &amp; _
-Format((stockMarketReturn - propertyReturn) * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
-End If
+    Dim propertyReturn As Double
+    propertyReturn = CalculateMIRR()
+    If propertyReturn &gt; stockMarketReturn Then
+        CompareToStocks = &quot;Property investment outperforms stocks by &quot; &amp; _
+            Format((propertyReturn - stockMarketReturn) * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+    Else
+        CompareToStocks = &quot;Stocks outperform property by &quot; &amp; _
+            Format((stockMarketReturn - propertyReturn) * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+    End If
 End Function</code></pre>
 <h3 id="example-3-project-portfolio-optimizer">Example 3: Project Portfolio Optimizer</h3>
 <pre><code class="language-vbnet">&#x27; Module: PortfolioOptimizer
 &#x27; Selects optimal mix of projects given budget constraint
-
 Option Explicit
-
 Type Project
-ID As String
-Name As String
-InitialCost As Double
-CashFlows() As Double
-MIRR As Double
-Selected As Boolean
+    ID As String
+    Name As String
+    InitialCost As Double
+    CashFlows() As Double
+    MIRR As Double
+    Selected As Boolean
 End Type
-
 Function OptimizePortfolio(projects() As Project, budget As Double, _
-finRate As Double, reinvRate As Double) As Project()
-Dim i As Integer, j As Integer
-Dim totalCost As Double
-Dim temp As Project
-
-&#x27; Calculate MIRR for each project
-For i = LBound(projects) To UBound(projects)
-projects(i).MIRR = MIRR(projects(i).CashFlows(), finRate, reinvRate)
-projects(i).Selected = False
-Next i
-
-&#x27; Sort by MIRR descending (greedy approach)
-For i = LBound(projects) To UBound(projects) - 1
-For j = i + 1 To UBound(projects)
-If projects(j).MIRR &gt; projects(i).MIRR Then
-temp = projects(i)
-projects(i) = projects(j)
-projects(j) = temp
-End If
-Next j
-Next i
-
-&#x27; Select projects until budget exhausted
-totalCost = 0
-For i = LBound(projects) To UBound(projects)
-If totalCost + projects(i).InitialCost &lt;= budget Then
-projects(i).Selected = True
-totalCost = totalCost + projects(i).InitialCost
-End If
-Next i
-
-OptimizePortfolio = projects
+                          finRate As Double, reinvRate As Double) As Project()
+    Dim i As Integer, j As Integer
+    Dim totalCost As Double
+    Dim temp As Project
+    &#x27; Calculate MIRR for each project
+    For i = LBound(projects) To UBound(projects)
+        projects(i).MIRR = MIRR(projects(i).CashFlows(), finRate, reinvRate)
+        projects(i).Selected = False
+    Next i
+    &#x27; Sort by MIRR descending (greedy approach)
+    For i = LBound(projects) To UBound(projects) - 1
+        For j = i + 1 To UBound(projects)
+            If projects(j).MIRR &gt; projects(i).MIRR Then
+                temp = projects(i)
+                projects(i) = projects(j)
+                projects(j) = temp
+            End If
+        Next j
+    Next i
+    &#x27; Select projects until budget exhausted
+    totalCost = 0
+    For i = LBound(projects) To UBound(projects)
+        If totalCost + projects(i).InitialCost &lt;= budget Then
+            projects(i).Selected = True
+            totalCost = totalCost + projects(i).InitialCost
+        End If
+    Next i
+    OptimizePortfolio = projects
 End Function
-
 Function GetPortfolioMIRR(projects() As Project) As Double
-Dim combinedFlows() As Double
-Dim maxPeriods As Integer
-Dim i As Integer, p As Integer
-
-&#x27; Find maximum periods across all selected projects
-For i = LBound(projects) To UBound(projects)
-If projects(i).Selected Then
-If UBound(projects(i).CashFlows) &gt; maxPeriods Then
-maxPeriods = UBound(projects(i).CashFlows)
-End If
-End If
-Next i
-
-ReDim combinedFlows(0 To maxPeriods)
-
-&#x27; Combine cash flows from all selected projects
-For i = LBound(projects) To UBound(projects)
-If projects(i).Selected Then
-For p = 0 To UBound(projects(i).CashFlows)
-combinedFlows(p) = combinedFlows(p) + projects(i).CashFlows(p)
-Next p
-End If
-Next i
-
-GetPortfolioMIRR = MIRR(combinedFlows(), 0.08, 0.05) &#x27; Example rates
+    Dim combinedFlows() As Double
+    Dim maxPeriods As Integer
+    Dim i As Integer, p As Integer
+    &#x27; Find maximum periods across all selected projects
+    For i = LBound(projects) To UBound(projects)
+        If projects(i).Selected Then
+            If UBound(projects(i).CashFlows) &gt; maxPeriods Then
+                maxPeriods = UBound(projects(i).CashFlows)
+            End If
+        End If
+    Next i
+    ReDim combinedFlows(0 To maxPeriods)
+    &#x27; Combine cash flows from all selected projects
+    For i = LBound(projects) To UBound(projects)
+        If projects(i).Selected Then
+            For p = 0 To UBound(projects(i).CashFlows)
+                combinedFlows(p) = combinedFlows(p) + projects(i).CashFlows(p)
+            Next p
+        End If
+    Next i
+    GetPortfolioMIRR = MIRR(combinedFlows(), 0.08, 0.05) &#x27; Example rates
 End Function</code></pre>
 <h3 id="example-4-monte-carlo-simulation-with-mirr">Example 4: Monte Carlo Simulation with MIRR</h3>
 <pre><code class="language-vbnet">&#x27; Module: MIRRSimulation
 &#x27; Performs Monte Carlo simulation on MIRR with uncertain cash flows
-
 Option Explicit
-
 Function SimulateMIRR(baseCashFlows() As Double, volatility As Double, _
-finRate As Double, reinvRate As Double, _
-simulations As Long) As Double()
-Dim results() As Double
-Dim sim As Long, i As Integer
-Dim simulatedFlows() As Double
-Dim periods As Integer
-
-periods = UBound(baseCashFlows) - LBound(baseCashFlows) + 1
-ReDim results(1 To simulations)
-ReDim simulatedFlows(0 To periods - 1)
-
-Randomize Timer
-
-For sim = 1 To simulations
-&#x27; Generate random cash flows based on volatility
-For i = 0 To periods - 1
-Dim randomFactor As Double
-randomFactor = 1 + (Rnd() - 0.5) * 2 * volatility
-simulatedFlows(i) = baseCashFlows(i) * randomFactor
-Next i
-
-On Error Resume Next
-results(sim) = MIRR(simulatedFlows(), finRate, reinvRate)
-If Err.Number &lt;&gt; 0 Then
-results(sim) = 0 &#x27; Invalid scenario
-End If
-On Error GoTo 0
-Next sim
-
-SimulateMIRR = results
+                      finRate As Double, reinvRate As Double, _
+                      simulations As Long) As Double()
+    Dim results() As Double
+    Dim sim As Long, i As Integer
+    Dim simulatedFlows() As Double
+    Dim periods As Integer
+    periods = UBound(baseCashFlows) - LBound(baseCashFlows) + 1
+    ReDim results(1 To simulations)
+    ReDim simulatedFlows(0 To periods - 1)
+    Randomize Timer
+    For sim = 1 To simulations
+        &#x27; Generate random cash flows based on volatility
+        For i = 0 To periods - 1
+            Dim randomFactor As Double
+            randomFactor = 1 + (Rnd() - 0.5) * 2 * volatility
+            simulatedFlows(i) = baseCashFlows(i) * randomFactor
+        Next i
+        On Error Resume Next
+        results(sim) = MIRR(simulatedFlows(), finRate, reinvRate)
+        If Err.Number &lt;&gt; 0 Then
+            results(sim) = 0 &#x27; Invalid scenario
+        End If
+        On Error GoTo 0
+    Next sim
+    SimulateMIRR = results
 End Function
-
 Function AnalyzeSimulationResults(results() As Double) As String
-Dim i As Long
-Dim sum As Double, sumSq As Double
-Dim mean As Double, stdDev As Double
-Dim count As Long
-
-count = UBound(results) - LBound(results) + 1
-
-For i = LBound(results) To UBound(results)
-sum = sum + results(i)
-sumSq = sumSq + results(i) ^ 2
-Next i
-
-mean = sum / count
-stdDev = Sqr((sumSq / count) - (mean ^ 2))
-
-Dim report As String
-report = &quot;Monte Carlo MIRR Analysis&quot; &amp; vbCrLf
-report = report &amp; &quot;Simulations: &quot; &amp; count &amp; vbCrLf
-report = report &amp; &quot;Mean MIRR: &quot; &amp; Format(mean * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-report = report &amp; &quot;Std Dev: &quot; &amp; Format(stdDev * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-report = report &amp; &quot;95% Confidence Interval: &quot; &amp; _
-Format((mean - 1.96 * stdDev) * 100, &quot;0.00&quot;) &amp; &quot;% to &quot; &amp; _
-Format((mean + 1.96 * stdDev) * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-
-AnalyzeSimulationResults = report
+    Dim i As Long
+    Dim sum As Double, sumSq As Double
+    Dim mean As Double, stdDev As Double
+    Dim count As Long
+    count = UBound(results) - LBound(results) + 1
+    For i = LBound(results) To UBound(results)
+        sum = sum + results(i)
+        sumSq = sumSq + results(i) ^ 2
+    Next i
+    mean = sum / count
+    stdDev = Sqr((sumSq / count) - (mean ^ 2))
+    Dim report As String
+    report = &quot;Monte Carlo MIRR Analysis&quot; &amp; vbCrLf
+    report = report &amp; &quot;Simulations: &quot; &amp; count &amp; vbCrLf
+    report = report &amp; &quot;Mean MIRR: &quot; &amp; Format(mean * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+    report = report &amp; &quot;Std Dev: &quot; &amp; Format(stdDev * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+    report = report &amp; &quot;95% Confidence Interval: &quot; &amp; _
+        Format((mean - 1.96 * stdDev) * 100, &quot;0.00&quot;) &amp; &quot;% to &quot; &amp; _
+        Format((mean + 1.96 * stdDev) * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+    AnalyzeSimulationResults = report
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">On Error Resume Next
 result = MIRR(cashFlows(), finRate, reinvRate)
 If Err.Number = 5 Then
-MsgBox &quot;Invalid procedure call - check that cash flows &quot; &amp; _
-&quot;contain both positive and negative values&quot;
+    MsgBox &quot;Invalid procedure call - check that cash flows &quot; &amp; _
+           &quot;contain both positive and negative values&quot;
 ElseIf Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Error calculating MIRR: &quot; &amp; Err.Description
+    MsgBox &quot;Error calculating MIRR: &quot; &amp; Err.Description
 End If
 On Error GoTo 0</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
@@ -695,40 +605,138 @@ On Error GoTo 0</code></pre>
 <td>Interest rate for annuity</td>
 <td>For regular payments only; MIRR handles irregular cash flows</td>
 </tr>
+<tr>
+<td>## Platform Notes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in VBA (Excel, Access, etc.)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Not available in <code>VBScript</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Part of VBA Financial functions library</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Requires at least one positive and one negative value in the array</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Arrays can be 0-based or 1-based (function handles both)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Requires at least one positive and one negative cash flow value</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- All cash flows must occur at regular intervals</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Does not account for irregular timing between cash flows (see XIRR for that)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Result is sensitive to both <code>finance_rate</code> and <code>reinvest_rate</code> assumptions</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot handle multiple sign changes as robustly as some other methods</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- First cash flow is assumed to occur at end of first period (not time zero)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Related Functions</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>IRR</strong> - Calculate internal rate of return (assumes reinvestment at IRR)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>NPV</strong> - Calculate net present value using discount rate</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>PV</strong> - Calculate present value of an investment</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>FV</strong> - Calculate future value of an investment</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Rate</strong> - Calculate interest rate for an annuity</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Pmt</strong> - Calculate payment for a loan/annuity</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>XIRR</strong> - IRR for irregular cash flow timing (Excel only)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>XNPV</strong> - NPV for irregular cash flow timing (Excel only)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## VB6 Parser Notes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>MIRR is parsed as a regular function call (<code>CallExpression</code>). This module exists primarily</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>for documentation purposes to provide comprehensive reference material for VB6 developers</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>working with financial calculations involving modified internal rate of return analysis.</td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-notes">Platform Notes</h2>
-<ul>
-<li>Available in VBA (Excel, Access, etc.)</li>
-<li>Not available in <code>VBScript</code></li>
-<li>Part of VBA Financial functions library</li>
-<li>Requires at least one positive and one negative value in the array</li>
-<li>Arrays can be 0-based or 1-based (function handles both)</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Requires at least one positive and one negative cash flow value</li>
-<li>All cash flows must occur at regular intervals</li>
-<li>Does not account for irregular timing between cash flows (see XIRR for that)</li>
-<li>Result is sensitive to both <code>finance_rate</code> and <code>reinvest_rate</code> assumptions</li>
-<li>Cannot handle multiple sign changes as robustly as some other methods</li>
-<li>First cash flow is assumed to occur at end of first period (not time zero)</li>
-</ul>
-<h2 id="related-functions">Related Functions</h2>
-<ul>
-<li><strong>IRR</strong> - Calculate internal rate of return (assumes reinvestment at IRR)</li>
-<li><strong>NPV</strong> - Calculate net present value using discount rate</li>
-<li><strong>PV</strong> - Calculate present value of an investment</li>
-<li><strong>FV</strong> - Calculate future value of an investment</li>
-<li><strong>Rate</strong> - Calculate interest rate for an annuity</li>
-<li><strong>Pmt</strong> - Calculate payment for a loan/annuity</li>
-<li><strong>XIRR</strong> - IRR for irregular cash flow timing (Excel only)</li>
-<li><strong>XNPV</strong> - NPV for irregular cash flow timing (Excel only)</li>
-</ul>
-<h2 id="vb6-parser-notes">VB6 Parser Notes</h2>
-<p>MIRR is parsed as a regular function call (<code>CallExpression</code>). This module exists primarily
-for documentation purposes to provide comprehensive reference material for VB6 developers
-working with financial calculations involving modified internal rate of return analysis.</p>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

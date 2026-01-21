@@ -58,520 +58,456 @@
 - May raise error 32813 if resource not found
 - Data is returned exactly as stored in .res file</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>LoadResData</code> function loads custom binary data from resources:</p>
-<ul>
-<li>Loads custom data from compiled resource (.res) files</li>
-<li>Resource file must be linked to project at compile time</li>
-<li>Returns data as Byte array (<code>Variant</code>/<code>Byte()</code>)</li>
-<li>Used for custom binary resources (not bitmaps/icons/strings)</li>
-<li>For images, use <code>LoadResPicture</code> instead</li>
-<li>For strings, use <code>LoadResString</code> instead</li>
-<li>Resource files created with Resource Editor or RC.EXE</li>
-<li>Index can be numeric ID or string name</li>
-<li>Format must be custom type (not 1=Cursor, 2=Bitmap, 3=Icon, etc.)</li>
-<li>Useful for embedding files (sounds, data, etc.)</li>
-<li>Data embedded in compiled EXE (no external files needed)</li>
-<li>More secure than external files (can't be easily modified)</li>
-<li>Faster access than loading from disk</li>
-<li>Resource file added via Project &gt; Add File or in .vbp</li>
-<li>Only one resource file per project</li>
-<li>Changes to .res file require recompile</li>
-<li>Error 32813: "Resource not found" if ID/format don't match</li>
-<li>Error 48: "Error loading from file" if resource file corrupt</li>
-</ul>
+<p>The <code>LoadResData</code> function loads custom binary data from resources:
+- Loads custom data from compiled resource (.res) files
+- Resource file must be linked to project at compile time
+- Returns data as Byte array (<code>Variant</code>/<code>Byte()</code>)
+- Used for custom binary resources (not bitmaps/icons/strings)
+- For images, use <code>LoadResPicture</code> instead
+- For strings, use <code>LoadResString</code> instead
+- Resource files created with Resource Editor or RC.EXE
+- Index can be numeric ID or string name
+- Format must be custom type (not 1=Cursor, 2=Bitmap, 3=Icon, etc.)
+- Useful for embedding files (sounds, data, etc.)
+- Data embedded in compiled EXE (no external files needed)
+- More secure than external files (can't be easily modified)
+- Faster access than loading from disk
+- Resource file added via Project &gt; Add File or in .vbp
+- Only one resource file per project
+- Changes to .res file require recompile
+- Error 32813: "Resource not found" if ID/format don't match
+- Error 48: "Error loading from file" if resource file corrupt</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Load Binary Data</strong></li>
 </ol>
-<pre><code class="language-vbnet">Dim data() As Byte
-data = LoadResData(101, 256) &#x27; Custom format 256</code></pre>
-<ol>
-<li><strong>Load Sound File</strong></li>
-</ol>
-<pre><code class="language-vbnet">Dim wavData() As Byte
-wavData = LoadResData(&quot;STARTUP_SOUND&quot;, 257)</code></pre>
-<ol>
-<li><strong>Load Configuration Data</strong></li>
-</ol>
-<pre><code class="language-vbnet">Dim configData() As Byte
-configData = LoadResData(&quot;CONFIG&quot;, 300)</code></pre>
-<ol>
-<li><strong>Load Binary Template</strong></li>
-</ol>
-<pre><code class="language-vbnet">Dim template() As Byte
-template = LoadResData(1001, 400)</code></pre>
-<ol>
-<li><strong>Load Custom File Type</strong></li>
-</ol>
-<pre><code class="language-vbnet">Dim xmlData() As Byte
-xmlData = LoadResData(&quot;SCHEMA&quot;, 500)</code></pre>
-<ol>
-<li><strong>Load Multiple Resources</strong></li>
-</ol>
-<pre><code class="language-vbnet">For i = 1 To 5
-data = LoadResData(i, 256)
-ProcessData data
-Next i</code></pre>
-<ol>
-<li><strong>Load Named Resource</strong></li>
-</ol>
-<pre><code class="language-vbnet">Dim helpData() As Byte
-helpData = LoadResData(&quot;HELP_FILE&quot;, 600)</code></pre>
-<ol>
-<li><strong>Conditional Loading</strong></li>
-</ol>
-<pre><code class="language-vbnet">If useCustomTheme Then
-themeData = LoadResData(&quot;DARK_THEME&quot;, 700)
-End If</code></pre>
-<h2 id="basic-examples">Basic Examples</h2>
-<h3 id="example-1-loading-and-using-binary-data">Example 1: Loading and Using Binary Data</h3>
-<pre><code class="language-vbnet">&#x27; Load binary data from resource
+<pre><code class="language-vbnet">   Dim data() As Byte
+   data = LoadResData(101, 256) &#x27; Custom format 256
+   ```
+2. **Load Sound File**
+   ```vb
+   Dim wavData() As Byte
+   wavData = LoadResData(&quot;STARTUP_SOUND&quot;, 257)
+   ```
+3. **Load Configuration Data**
+   ```vb
+   Dim configData() As Byte
+   configData = LoadResData(&quot;CONFIG&quot;, 300)
+   ```
+4. **Load Binary Template**
+   ```vb
+   Dim template() As Byte
+   template = LoadResData(1001, 400)
+   ```
+5. **Load Custom File Type**
+   ```vb
+   Dim xmlData() As Byte
+   xmlData = LoadResData(&quot;SCHEMA&quot;, 500)
+   ```
+6. **Load Multiple Resources**
+   ```vb
+   For i = 1 To 5
+       data = LoadResData(i, 256)
+       ProcessData data
+   Next i
+   ```
+7. **Load Named Resource**
+   ```vb
+   Dim helpData() As Byte
+   helpData = LoadResData(&quot;HELP_FILE&quot;, 600)
+   ```
+8. **Conditional Loading**
+   ```vb
+   If useCustomTheme Then
+       themeData = LoadResData(&quot;DARK_THEME&quot;, 700)
+   End If
+   ```
+## Basic Examples
+### Example 1: Loading and Using Binary Data</code></pre>
+<p>vb
+' Load binary data from resource
 Dim resourceData() As Byte
 resourceData = LoadResData(101, 256)
-
-&#x27; Use the data
+' Use the data
 Dim fileNum As Integer
 fileNum = FreeFile
-Open &quot;C:\output.dat&quot; For Binary As #fileNum
+Open "C:\output.dat" For Binary As #fileNum
 Put #fileNum, , resourceData
-Close #fileNum</code></pre>
-<h3 id="example-2-loading-sound-data">Example 2: Loading Sound Data</h3>
-<pre><code class="language-vbnet">&#x27; Load WAV file from resources
+Close #fileNum</p>
+<pre><code>### Example 2: Loading Sound Data</code></pre>
+<p>vb
+' Load WAV file from resources
 Dim wavData() As Byte
-wavData = LoadResData(&quot;BEEP&quot;, 257)
-
-&#x27; Play using Windows API
-Call sndPlaySound(wavData(0), SND_ASYNC Or SND_MEMORY)</code></pre>
-<h3 id="example-3-error-handling">Example 3: Error Handling</h3>
-<pre><code class="language-vbnet">On Error Resume Next
+wavData = LoadResData("BEEP", 257)
+' Play using Windows API
+Call sndPlaySound(wavData(0), SND_ASYNC Or SND_MEMORY)</p>
+<pre><code>### Example 3: Error Handling</code></pre>
+<p>vb
+On Error Resume Next
 Dim data() As Byte
 data = LoadResData(999, 256)
 If Err.Number = 32813 Then
-MsgBox &quot;Resource not found!&quot;, vbCritical
-Err.Clear
+    MsgBox "Resource not found!", vbCritical
+    Err.Clear
 ElseIf Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Error loading resource: &quot; &amp; Err.Description, vbCritical
-Err.Clear
-End If</code></pre>
-<h3 id="example-4-converting-to-string">Example 4: Converting to String</h3>
-<pre><code class="language-vbnet">&#x27; Load text data stored as binary
+    MsgBox "Error loading resource: " &amp; Err.Description, vbCritical
+    Err.Clear
+End If</p>
+<pre><code>### Example 4: Converting to String</code></pre>
+<p>vb
+' Load text data stored as binary
 Dim textData() As Byte
-textData = LoadResData(&quot;README&quot;, 300)
-
-&#x27; Convert byte array to string
+textData = LoadResData("README", 300)
+' Convert byte array to string
 Dim content As String
 content = StrConv(textData, vbUnicode)
-MsgBox content</code></pre>
-<h2 id="common-patterns">Common Patterns</h2>
-<h3 id="pattern-1-safeloadresdata">Pattern 1: <code>SafeLoadResData</code></h3>
-<pre><code class="language-vbnet">Function SafeLoadResData(ByVal resID As Variant, _
-ByVal resFormat As Integer, _
-ByRef outData() As Byte) As Boolean
-On Error Resume Next
-outData = LoadResData(resID, resFormat)
-SafeLoadResData = (Err.Number = 0)
-Err.Clear
-End Function</code></pre>
-<h3 id="pattern-2-loadresdatatofile">Pattern 2: <code>LoadResDataToFile</code></h3>
-<pre><code class="language-vbnet">Sub LoadResDataToFile(ByVal resID As Variant, _
-ByVal resFormat As Integer, _
-ByVal filename As String)
-Dim data() As Byte
-Dim fileNum As Integer
-
-data = LoadResData(resID, resFormat)
-
-fileNum = FreeFile
-Open filename For Binary As #fileNum
-Put #fileNum, , data
-Close #fileNum
-End Sub</code></pre>
-<h3 id="pattern-3-getresdatasize">Pattern 3: <code>GetResDataSize</code></h3>
-<pre><code class="language-vbnet">Function GetResDataSize(ByVal resID As Variant, _
-ByVal resFormat As Integer) As Long
-On Error Resume Next
-Dim data() As Byte
-data = LoadResData(resID, resFormat)
-
-If Err.Number = 0 Then
-GetResDataSize = UBound(data) + 1
-Else
-GetResDataSize = 0
-End If
-End Function</code></pre>
-<h3 id="pattern-4-loadresdataasstring">Pattern 4: <code>LoadResDataAsString</code></h3>
-<pre><code class="language-vbnet">Function LoadResDataAsString(ByVal resID As Variant, _
-ByVal resFormat As Integer) As String
-Dim data() As Byte
-data = LoadResData(resID, resFormat)
-LoadResDataAsString = StrConv(data, vbUnicode)
-End Function</code></pre>
-<h3 id="pattern-5-resdataexists">Pattern 5: <code>ResDataExists</code></h3>
-<pre><code class="language-vbnet">Function ResDataExists(ByVal resID As Variant, _
-ByVal resFormat As Integer) As Boolean
-On Error Resume Next
-Dim data() As Byte
-data = LoadResData(resID, resFormat)
-ResDataExists = (Err.Number = 0)
-Err.Clear
-End Function</code></pre>
-<h3 id="pattern-6-loadmultipleresources">Pattern 6: <code>LoadMultipleResources</code></h3>
-<pre><code class="language-vbnet">Function LoadMultipleResources(startID As Integer, _
-endID As Integer, _
-resFormat As Integer) As Collection
-Dim col As New Collection
-Dim i As Integer
-Dim data() As Byte
-
-On Error Resume Next
-For i = startID To endID
-data = LoadResData(i, resFormat)
-If Err.Number = 0 Then
-col.Add data
-End If
-Err.Clear
-Next i
-
-Set LoadMultipleResources = col
-End Function</code></pre>
-<h3 id="pattern-7-compareresdata">Pattern 7: <code>CompareResData</code></h3>
-<pre><code class="language-vbnet">Function CompareResData(ByVal resID1 As Variant, _
-ByVal resID2 As Variant, _
-ByVal resFormat As Integer) As Boolean
-Dim data1() As Byte, data2() As Byte
-Dim i As Long
-
-data1 = LoadResData(resID1, resFormat)
-data2 = LoadResData(resID2, resFormat)
-
-If UBound(data1) &lt;&gt; UBound(data2) Then
-CompareResData = False
-Exit Function
-End If
-
-For i = 0 To UBound(data1)
-If data1(i) &lt;&gt; data2(i) Then
-CompareResData = False
-Exit Function
-End If
-Next i
-
-CompareResData = True
-End Function</code></pre>
-<h3 id="pattern-8-copyresdatatoarray">Pattern 8: <code>CopyResDataToArray</code></h3>
-<pre><code class="language-vbnet">Sub CopyResDataToArray(ByVal resID As Variant, _
-ByVal resFormat As Integer, _
-ByRef targetArray() As Byte)
-Dim source() As Byte
-Dim i As Long
-
-source = LoadResData(resID, resFormat)
-ReDim targetArray(LBound(source) To UBound(source))
-
-For i = LBound(source) To UBound(source)
-targetArray(i) = source(i)
-Next i
-End Sub</code></pre>
-<h3 id="pattern-9-loadresdatawithfallback">Pattern 9: <code>LoadResDataWithFallback</code></h3>
-<pre><code class="language-vbnet">Function LoadResDataWithFallback(ByVal primaryID As Variant, _
-ByVal fallbackID As Variant, _
-ByVal resFormat As Integer) As Byte()
-On Error Resume Next
-
-LoadResDataWithFallback = LoadResData(primaryID, resFormat)
-If Err.Number &lt;&gt; 0 Then
-Err.Clear
-LoadResDataWithFallback = LoadResData(fallbackID, resFormat)
-End If
-End Function</code></pre>
-<h3 id="pattern-10-cachedresdataloader">Pattern 10: <code>CachedResDataLoader</code></h3>
-<pre><code class="language-vbnet">Dim resCache As New Collection
-
+MsgBox content</p>
+<pre><code>## Common Patterns
+### Pattern 1: `SafeLoadResData`</code></pre>
+<p>vb
+Function SafeLoadResData(ByVal resID As Variant, _
+                         ByVal resFormat As Integer, _
+                         ByRef outData() As Byte) As Boolean
+    On Error Resume Next
+    outData = LoadResData(resID, resFormat)
+    SafeLoadResData = (Err.Number = 0)
+    Err.Clear
+End Function</p>
+<pre><code>### Pattern 2: `LoadResDataToFile`</code></pre>
+<p>vb
+Sub LoadResDataToFile(ByVal resID As Variant, _
+                      ByVal resFormat As Integer, _
+                      ByVal filename As String)
+    Dim data() As Byte
+    Dim fileNum As Integer
+    data = LoadResData(resID, resFormat)
+    fileNum = FreeFile
+    Open filename For Binary As #fileNum
+    Put #fileNum, , data
+    Close #fileNum
+End Sub</p>
+<pre><code>### Pattern 3: `GetResDataSize`</code></pre>
+<p>vb
+Function GetResDataSize(ByVal resID As Variant, _
+                        ByVal resFormat As Integer) As Long
+    On Error Resume Next
+    Dim data() As Byte
+    data = LoadResData(resID, resFormat)
+    If Err.Number = 0 Then
+        GetResDataSize = UBound(data) + 1
+    Else
+        GetResDataSize = 0
+    End If
+End Function</p>
+<pre><code>### Pattern 4: `LoadResDataAsString`</code></pre>
+<p>vb
+Function LoadResDataAsString(ByVal resID As Variant, _
+                             ByVal resFormat As Integer) As String
+    Dim data() As Byte
+    data = LoadResData(resID, resFormat)
+    LoadResDataAsString = StrConv(data, vbUnicode)
+End Function</p>
+<pre><code>### Pattern 5: `ResDataExists`</code></pre>
+<p>vb
+Function ResDataExists(ByVal resID As Variant, _
+                       ByVal resFormat As Integer) As Boolean
+    On Error Resume Next
+    Dim data() As Byte
+    data = LoadResData(resID, resFormat)
+    ResDataExists = (Err.Number = 0)
+    Err.Clear
+End Function</p>
+<pre><code>### Pattern 6: `LoadMultipleResources`</code></pre>
+<p>vb
+Function LoadMultipleResources(startID As Integer, _
+                               endID As Integer, _
+                               resFormat As Integer) As Collection
+    Dim col As New Collection
+    Dim i As Integer
+    Dim data() As Byte
+    On Error Resume Next
+    For i = startID To endID
+        data = LoadResData(i, resFormat)
+        If Err.Number = 0 Then
+            col.Add data
+        End If
+        Err.Clear
+    Next i
+    Set LoadMultipleResources = col
+End Function</p>
+<pre><code>### Pattern 7: `CompareResData`</code></pre>
+<p>vb
+Function CompareResData(ByVal resID1 As Variant, _
+                        ByVal resID2 As Variant, _
+                        ByVal resFormat As Integer) As Boolean
+    Dim data1() As Byte, data2() As Byte
+    Dim i As Long
+    data1 = LoadResData(resID1, resFormat)
+    data2 = LoadResData(resID2, resFormat)
+    If UBound(data1) &lt;&gt; UBound(data2) Then
+        CompareResData = False
+        Exit Function
+    End If
+    For i = 0 To UBound(data1)
+        If data1(i) &lt;&gt; data2(i) Then
+            CompareResData = False
+            Exit Function
+        End If
+    Next i
+    CompareResData = True
+End Function</p>
+<pre><code>### Pattern 8: `CopyResDataToArray`</code></pre>
+<p>vb
+Sub CopyResDataToArray(ByVal resID As Variant, _
+                       ByVal resFormat As Integer, _
+                       ByRef targetArray() As Byte)
+    Dim source() As Byte
+    Dim i As Long
+    source = LoadResData(resID, resFormat)
+    ReDim targetArray(LBound(source) To UBound(source))
+    For i = LBound(source) To UBound(source)
+        targetArray(i) = source(i)
+    Next i
+End Sub</p>
+<pre><code>### Pattern 9: `LoadResDataWithFallback`</code></pre>
+<p>vb
+Function LoadResDataWithFallback(ByVal primaryID As Variant, _
+                                 ByVal fallbackID As Variant, _
+                                 ByVal resFormat As Integer) As Byte()
+    On Error Resume Next
+    LoadResDataWithFallback = LoadResData(primaryID, resFormat)
+    If Err.Number &lt;&gt; 0 Then
+        Err.Clear
+        LoadResDataWithFallback = LoadResData(fallbackID, resFormat)
+    End If
+End Function</p>
+<pre><code>### Pattern 10: `CachedResDataLoader`</code></pre>
+<p>vb
+Dim resCache As New Collection
 Function LoadResDataCached(ByVal resID As Variant, _
-ByVal resFormat As Integer) As Byte()
-Dim key As String
-On Error Resume Next
-
-key = CStr(resID) &amp; &quot;_&quot; &amp; CStr(resFormat)
-
-&#x27; Try cache first
-LoadResDataCached = resCache(key)
-If Err.Number &lt;&gt; 0 Then
-&#x27; Not in cache, load and cache it
-Err.Clear
-LoadResDataCached = LoadResData(resID, resFormat)
-resCache.Add LoadResDataCached, key
-End If
-End Function</code></pre>
-<h2 id="advanced-examples">Advanced Examples</h2>
-<h3 id="example-1-resource-manager-class">Example 1: Resource Manager Class</h3>
-<pre><code class="language-vbnet">&#x27; Class: ResourceManager
+                           ByVal resFormat As Integer) As Byte()
+    Dim key As String
+    On Error Resume Next
+    key = CStr(resID) &amp; "_" &amp; CStr(resFormat)
+    ' Try cache first
+    LoadResDataCached = resCache(key)
+    If Err.Number &lt;&gt; 0 Then
+        ' Not in cache, load and cache it
+        Err.Clear
+        LoadResDataCached = LoadResData(resID, resFormat)
+        resCache.Add LoadResDataCached, key
+    End If
+End Function</p>
+<pre><code>## Advanced Examples
+### Example 1: Resource Manager Class</code></pre>
+<p>vb
+' Class: ResourceManager
 Private m_cache As Collection
-
 Private Sub Class_Initialize()
-Set m_cache = New Collection
+    Set m_cache = New Collection
 End Sub
-
 Public Function LoadData(ByVal resID As Variant, _
-ByVal resFormat As Integer) As Byte()
-Dim key As String
-On Error Resume Next
-
-key = CStr(resID) &amp; &quot;_&quot; &amp; CStr(resFormat)
-LoadData = m_cache(key)
-
-If Err.Number &lt;&gt; 0 Then
-Err.Clear
-LoadData = LoadResData(resID, resFormat)
-If Err.Number = 0 Then
-m_cache.Add LoadData, key
-Else
-Err.Raise vbObjectError + 1000, &quot;ResourceManager&quot;, _
-&quot;Failed to load resource&quot;
-End If
-End If
+                         ByVal resFormat As Integer) As Byte()
+    Dim key As String
+    On Error Resume Next
+    key = CStr(resID) &amp; "_" &amp; CStr(resFormat)
+    LoadData = m_cache(key)
+    If Err.Number &lt;&gt; 0 Then
+        Err.Clear
+        LoadData = LoadResData(resID, resFormat)
+        If Err.Number = 0 Then
+            m_cache.Add LoadData, key
+        Else
+            Err.Raise vbObjectError + 1000, "ResourceManager", _
+                      "Failed to load resource"
+        End If
+    End If
 End Function
-
 Public Function GetAsString(ByVal resID As Variant, _
-ByVal resFormat As Integer) As String
-Dim data() As Byte
-data = LoadData(resID, resFormat)
-GetAsString = StrConv(data, vbUnicode)
+                            ByVal resFormat As Integer) As String
+    Dim data() As Byte
+    data = LoadData(resID, resFormat)
+    GetAsString = StrConv(data, vbUnicode)
 End Function
-
 Public Sub SaveToFile(ByVal resID As Variant, _
-ByVal resFormat As Integer, _
-ByVal filename As String)
-Dim data() As Byte
-Dim fileNum As Integer
-
-data = LoadData(resID, resFormat)
-fileNum = FreeFile
-Open filename For Binary As #fileNum
-Put #fileNum, , data
-Close #fileNum
+                      ByVal resFormat As Integer, _
+                      ByVal filename As String)
+    Dim data() As Byte
+    Dim fileNum As Integer
+    data = LoadData(resID, resFormat)
+    fileNum = FreeFile
+    Open filename For Binary As #fileNum
+    Put #fileNum, , data
+    Close #fileNum
 End Sub
-
 Public Sub ClearCache()
-Set m_cache = New Collection
+    Set m_cache = New Collection
 End Sub
-
 Private Sub Class_Terminate()
-Set m_cache = Nothing
-End Sub</code></pre>
-<h3 id="example-2-sound-player-with-resources">Example 2: Sound Player with Resources</h3>
-<pre><code class="language-vbnet">&#x27; Module with API declarations
-Private Declare Function sndPlaySound Lib &quot;winmm.dll&quot; Alias &quot;sndPlaySoundA&quot; ( _
-lpszSoundName As Any, ByVal uFlags As Long) As Long
-
+    Set m_cache = Nothing
+End Sub</p>
+<pre><code>### Example 2: Sound Player with Resources</code></pre>
+<p>vb
+' Module with API declarations
+Private Declare Function sndPlaySound Lib "winmm.dll" Alias "sndPlaySoundA" ( _
+    lpszSoundName As Any, ByVal uFlags As Long) As Long
 Private Const SND_ASYNC = &amp;H1
 Private Const SND_MEMORY = &amp;H4
-
-&#x27; Sound resource IDs
+' Sound resource IDs
 Private Const RES_SOUND_BEEP = 101
 Private Const RES_SOUND_CLICK = 102
 Private Const RES_SOUND_ERROR = 103
 Private Const RES_FORMAT_WAVE = 257
-
 Public Sub PlayResourceSound(ByVal soundID As Integer)
-Dim soundData() As Byte
-On Error Resume Next
-
-soundData = LoadResData(soundID, RES_FORMAT_WAVE)
-If Err.Number = 0 Then
-Call sndPlaySound(soundData(0), SND_ASYNC Or SND_MEMORY)
-Else
-Debug.Print &quot;Sound not found: &quot; &amp; soundID
-End If
+    Dim soundData() As Byte
+    On Error Resume Next
+    soundData = LoadResData(soundID, RES_FORMAT_WAVE)
+    If Err.Number = 0 Then
+        Call sndPlaySound(soundData(0), SND_ASYNC Or SND_MEMORY)
+    Else
+        Debug.Print "Sound not found: " &amp; soundID
+    End If
 End Sub
-
 Public Sub PlayBeep()
-PlayResourceSound RES_SOUND_BEEP
+    PlayResourceSound RES_SOUND_BEEP
 End Sub
-
 Public Sub PlayClick()
-PlayResourceSound RES_SOUND_CLICK
+    PlayResourceSound RES_SOUND_CLICK
 End Sub
-
 Public Sub PlayError()
-PlayResourceSound RES_SOUND_ERROR
-End Sub</code></pre>
-<h3 id="example-3-configuration-manager">Example 3: Configuration Manager</h3>
-<pre><code class="language-vbnet">&#x27; Class: ConfigManager
+    PlayResourceSound RES_SOUND_ERROR
+End Sub</p>
+<pre><code>### Example 3: Configuration Manager</code></pre>
+<p>vb
+' Class: ConfigManager
 Private m_config As String
-
 Public Sub LoadConfig()
-Dim configData() As Byte
-On Error Resume Next
-
-&#x27; Try to load from resource
-configData = LoadResData(&quot;CONFIG&quot;, 300)
-If Err.Number = 0 Then
-m_config = StrConv(configData, vbUnicode)
-Else
-&#x27; Use default config
-m_config = GetDefaultConfig()
-End If
-Err.Clear
+    Dim configData() As Byte
+    On Error Resume Next
+    ' Try to load from resource
+    configData = LoadResData("CONFIG", 300)
+    If Err.Number = 0 Then
+        m_config = StrConv(configData, vbUnicode)
+    Else
+        ' Use default config
+        m_config = GetDefaultConfig()
+    End If
+    Err.Clear
 End Sub
-
 Public Function GetSetting(ByVal key As String) As String
-Dim lines() As String
-Dim i As Long
-Dim pos As Long
-
-lines = Split(m_config, vbCrLf)
-For i = 0 To UBound(lines)
-If Left(lines(i), Len(key) + 1) = key &amp; &quot;=&quot; Then
-GetSetting = Mid(lines(i), Len(key) + 2)
-Exit Function
-End If
-Next i
+    Dim lines() As String
+    Dim i As Long
+    Dim pos As Long
+    lines = Split(m_config, vbCrLf)
+    For i = 0 To UBound(lines)
+        If Left(lines(i), Len(key) + 1) = key &amp; "=" Then
+            GetSetting = Mid(lines(i), Len(key) + 2)
+            Exit Function
+        End If
+    Next i
 End Function
-
 Private Function GetDefaultConfig() As String
-GetDefaultConfig = &quot;Version=1.0&quot; &amp; vbCrLf &amp; _
-&quot;Language=English&quot; &amp; vbCrLf &amp; _
-&quot;Theme=Default&quot;
-End Function</code></pre>
-<h3 id="example-4-template-engine">Example 4: Template Engine</h3>
-<pre><code class="language-vbnet">&#x27; Class: TemplateEngine
+    GetDefaultConfig = "Version=1.0" &amp; vbCrLf &amp; _
+                      "Language=English" &amp; vbCrLf &amp; _
+                      "Theme=Default"
+End Function</p>
+<pre><code>### Example 4: Template Engine</code></pre>
+<p>vb
+' Class: TemplateEngine
 Private Const RES_FORMAT_TEMPLATE = 400
-
 Public Function ProcessTemplate(ByVal templateID As Variant, _
-ParamArray values()) As String
-Dim template As String
-Dim data() As Byte
-Dim i As Long
-Dim result As String
-
-&#x27; Load template from resources
-data = LoadResData(templateID, RES_FORMAT_TEMPLATE)
-template = StrConv(data, vbUnicode)
-
-result = template
-
-&#x27; Replace placeholders with values
-For i = LBound(values) To UBound(values)
-result = Replace(result, &quot;{&quot; &amp; i &amp; &quot;}&quot;, CStr(values(i)))
-Next i
-
-ProcessTemplate = result
+                                 ParamArray values()) As String
+    Dim template As String
+    Dim data() As Byte
+    Dim i As Long
+    Dim result As String
+    ' Load template from resources
+    data = LoadResData(templateID, RES_FORMAT_TEMPLATE)
+    template = StrConv(data, vbUnicode)
+    result = template
+    ' Replace placeholders with values
+    For i = LBound(values) To UBound(values)
+        result = Replace(result, "{" &amp; i &amp; "}", CStr(values(i)))
+    Next i
+    ProcessTemplate = result
 End Function
-
 Public Function LoadTemplate(ByVal templateID As Variant) As String
-Dim data() As Byte
-data = LoadResData(templateID, RES_FORMAT_TEMPLATE)
-LoadTemplate = StrConv(data, vbUnicode)
+    Dim data() As Byte
+    data = LoadResData(templateID, RES_FORMAT_TEMPLATE)
+    LoadTemplate = StrConv(data, vbUnicode)
 End Function
-
 Public Function HasTemplate(ByVal templateID As Variant) As Boolean
-On Error Resume Next
-Dim data() As Byte
-data = LoadResData(templateID, RES_FORMAT_TEMPLATE)
-HasTemplate = (Err.Number = 0)
-Err.Clear
-End Function</code></pre>
-<h2 id="error-handling">Error Handling</h2>
-<pre><code class="language-vbnet">&#x27; Error 32813: Resource not found
+    On Error Resume Next
+    Dim data() As Byte
+    data = LoadResData(templateID, RES_FORMAT_TEMPLATE)
+    HasTemplate = (Err.Number = 0)
+    Err.Clear
+End Function</p>
+<pre><code>## Error Handling</code></pre>
+<p>vb
+' Error 32813: Resource not found
 On Error Resume Next
 data = LoadResData(999, 256)
 If Err.Number = 32813 Then
-MsgBox &quot;Resource ID 999 not found!&quot;
+    MsgBox "Resource ID 999 not found!"
 End If
-
-&#x27; Error 48: Error loading from file
+' Error 48: Error loading from file
 data = LoadResData(101, 256)
 If Err.Number = 48 Then
-MsgBox &quot;Resource file is corrupt or missing!&quot;
+    MsgBox "Resource file is corrupt or missing!"
 End If
-
-&#x27; Safe loading with error handling
+' Safe loading with error handling
 Function TryLoadResData(ByVal resID As Variant, _
-ByVal resFormat As Integer, _
-ByRef outData() As Byte) As Boolean
-On Error Resume Next
-outData = LoadResData(resID, resFormat)
-TryLoadResData = (Err.Number = 0)
-If Err.Number &lt;&gt; 0 Then
-Debug.Print &quot;Error loading resource: &quot; &amp; Err.Description
-End If
-Err.Clear
-End Function</code></pre>
-<h2 id="performance-considerations">Performance Considerations</h2>
-<ul>
-<li><strong>Fast Access</strong>: Resources are embedded in EXE (very fast loading)</li>
-<li><strong>Memory Overhead</strong>: Data loaded into memory when accessed</li>
-<li><strong>No Caching</strong>: Each call loads fresh copy (implement caching if needed)</li>
-<li><strong>Compile Time</strong>: Large resources increase EXE size and compile time</li>
-<li><strong>One Resource File</strong>: Only one .res file per project (combine all resources)</li>
-<li><strong>Array Copy</strong>: Returns copy of data (not reference)</li>
-</ul>
-<h2 id="best-practices">Best Practices</h2>
-<ol>
-<li><strong>Always handle errors</strong> - resource might not exist</li>
-<li><strong>Use constants</strong> for resource IDs and formats</li>
-<li><strong>Cache frequently used data</strong> to avoid repeated loading</li>
-<li><strong>Use meaningful names</strong> for string-based resource IDs</li>
-<li><strong>Document resource IDs</strong> in code or separate file</li>
-<li><strong>Keep resources organized</strong> by format number</li>
-<li><strong>Test resource loading</strong> during development</li>
-<li><strong>Validate data size</strong> after loading if needed</li>
-<li><strong>Consider memory usage</strong> for large resources</li>
-<li><strong>Use appropriate formats</strong> - <code>LoadResPicture</code> for images, <code>LoadResString</code> for text</li>
-</ol>
-<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
-<table>
-<thead>
-<tr>
-<th>Function</th>
-<th>Purpose</th>
-<th>Return Type</th>
-<th>Data Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong><code>LoadResData</code></strong></td>
-<td>Load custom binary data</td>
-<td>Byte array</td>
-<td>Any binary data</td>
-</tr>
-<tr>
-<td><strong><code>LoadResPicture</code></strong></td>
-<td>Load image from resources</td>
-<td><code>StdPicture</code></td>
-<td>BMP, ICO, CUR</td>
-</tr>
-<tr>
-<td><strong><code>LoadResString</code></strong></td>
-<td>Load string from resources</td>
-<td>String</td>
-<td>Text strings</td>
-</tr>
-<tr>
-<td><strong><code>LoadPicture</code></strong></td>
-<td>Load image from file</td>
-<td><code>StdPicture</code></td>
-<td>External file</td>
-</tr>
-</tbody>
-</table>
-<h2 id="loadresdata-vs-loadrespicture-vs-loadresstring"><code>LoadResData</code> vs <code>LoadResPicture</code> vs <code>LoadResString</code></h2>
-<pre><code class="language-vbnet">&#x27; LoadResData - custom binary data
+                        ByVal resFormat As Integer, _
+                        ByRef outData() As Byte) As Boolean
+    On Error Resume Next
+    outData = LoadResData(resID, resFormat)
+    TryLoadResData = (Err.Number = 0)
+    If Err.Number &lt;&gt; 0 Then
+        Debug.Print "Error loading resource: " &amp; Err.Description
+    End If
+    Err.Clear
+End Function</p>
+<pre><code>## Performance Considerations
+- **Fast Access**: Resources are embedded in EXE (very fast loading)
+- **Memory Overhead**: Data loaded into memory when accessed
+- **No Caching**: Each call loads fresh copy (implement caching if needed)
+- **Compile Time**: Large resources increase EXE size and compile time
+- **One Resource File**: Only one .res file per project (combine all resources)
+- **Array Copy**: Returns copy of data (not reference)
+## Best Practices
+1. **Always handle errors** - resource might not exist
+2. **Use constants** for resource IDs and formats
+3. **Cache frequently used data** to avoid repeated loading
+4. **Use meaningful names** for string-based resource IDs
+5. **Document resource IDs** in code or separate file
+6. **Keep resources organized** by format number
+7. **Test resource loading** during development
+8. **Validate data size** after loading if needed
+9. **Consider memory usage** for large resources
+10. **Use appropriate formats** - `LoadResPicture` for images, `LoadResString` for text
+## Comparison with Related Functions
+| Function | Purpose | Return Type | Data Type |
+|----------|---------|-------------|-----------|
+| **`LoadResData`** | Load custom binary data | Byte array | Any binary data |
+| **`LoadResPicture`** | Load image from resources | `StdPicture` | BMP, ICO, CUR |
+| **`LoadResString`** | Load string from resources | String | Text strings |
+| **`LoadPicture`** | Load image from file | `StdPicture` | External file |
+## `LoadResData` vs `LoadResPicture` vs `LoadResString`</code></pre>
+<p>vb
+' LoadResData - custom binary data
 Dim binData() As Byte
 binData = LoadResData(101, 256)
-
-&#x27; LoadResPicture - images
+' LoadResPicture - images
 Picture1.Picture = LoadResPicture(101, vbResBitmap)
-
-&#x27; LoadResString - strings
+' LoadResString - strings
 Dim msg As String
-msg = LoadResString(101)</code></pre>
-<p><strong>When to use each:</strong>
-- <strong><code>LoadResData</code></strong>: Custom binary files, sound files, configuration data
-- <strong><code>LoadResPicture</code></strong>: Images (bitmaps, icons, cursors)
-- <strong><code>LoadResString</code></strong>: Localized text strings</p>
+msg = LoadResString(101)
+<code>``
+**When to use each:**
+- **</code>LoadResData<code>**: Custom binary files, sound files, configuration data
+- **</code>LoadResPicture<code>**: Images (bitmaps, icons, cursors)
+- **</code>LoadResString`**: Localized text strings</p>
 <h2 id="platform-notes">Platform Notes</h2>
 <ul>
 <li>Available in VB6 (not in early VB versions)</li>

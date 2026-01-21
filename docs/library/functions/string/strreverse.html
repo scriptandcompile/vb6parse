@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p>VB6 <code>StrReverse</code> Function</p>
-<p>The <code>StrReverse</code> function returns a string in which the character order of a specified string is reversed.</p>
+            <p>VB6 <code>StrReverse</code> Function
+The <code>StrReverse</code> function returns a string in which the character order of a specified string is reversed.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">StrReverse(expression)</code></pre>
 <h2 id="parameters">Parameters</h2>
@@ -48,17 +48,15 @@
 <h2 id="returns">Returns</h2>
 <p>Returns a <code>String</code> with the characters in reverse order.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>StrReverse</code> function reverses the order of characters in a string:</p>
-<ul>
-<li><strong>Character-by-character reversal</strong>: Reverses individual characters, not words</li>
-<li><strong>Unicode support</strong>: Works correctly with Unicode characters</li>
-<li><strong>Empty string handling</strong>: Returns empty string if input is empty</li>
-<li><strong>Null handling</strong>: Returns <code>Null</code> if <code>expression</code> is <code>Null</code></li>
-<li><strong>Preserves spaces</strong>: Spaces are treated like any other character and reversed</li>
-<li><strong>Case preserved</strong>: Original case of characters is maintained</li>
-<li><strong>Single pass</strong>: Efficient single-pass algorithm</li>
-<li><strong>VB6/VBA only</strong>: Available in VB6 and VBA, not in <code>VBScript</code></li>
-</ul>
+<p>The <code>StrReverse</code> function reverses the order of characters in a string:
+- <strong>Character-by-character reversal</strong>: Reverses individual characters, not words
+- <strong>Unicode support</strong>: Works correctly with Unicode characters
+- <strong>Empty string handling</strong>: Returns empty string if input is empty
+- <strong>Null handling</strong>: Returns <code>Null</code> if <code>expression</code> is <code>Null</code>
+- <strong>Preserves spaces</strong>: Spaces are treated like any other character and reversed
+- <strong>Case preserved</strong>: Original case of characters is maintained
+- <strong>Single pass</strong>: Efficient single-pass algorithm
+- <strong>VB6/VBA only</strong>: Available in VB6 and VBA, not in <code>VBScript</code></p>
 <h3 id="common-use-cases">Common Use Cases</h3>
 <ul>
 <li>Reversing strings for display or analysis</li>
@@ -72,10 +70,9 @@
 <p><code>StrReverse</code> is more efficient than manually reversing with loops:</p>
 <pre><code class="language-vbnet">&#x27; Using StrReverse (preferred)
 reversed = StrReverse(original)
-
 &#x27; Manual reversal (slower)
 For i = Len(original) To 1 Step -1
-reversed = reversed &amp; Mid$(original, i, 1)
+    reversed = reversed &amp; Mid$(original, i, 1)
 Next i</code></pre>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
@@ -92,474 +89,392 @@ Next i</code></pre>
 <h3 id="example-1-basic-string-reversal">Example 1: Basic String Reversal</h3>
 <pre><code class="language-vbnet">Dim original As String
 Dim reversed As String
-
 original = &quot;Hello&quot;
 reversed = StrReverse(original)  &#x27; &quot;olleH&quot;
-
 original = &quot;VB6&quot;
 reversed = StrReverse(original)  &#x27; &quot;6BV&quot;
-
 original = &quot;12345&quot;
 reversed = StrReverse(original)  &#x27; &quot;54321&quot;</code></pre>
 <h3 id="example-2-palindrome-check">Example 2: Palindrome Check</h3>
 <pre><code class="language-vbnet">Function IsPalindrome(text As String) As Boolean
-Dim normalized As String
-
-&#x27; Remove spaces and convert to lowercase for comparison
-normalized = Replace(LCase$(text), &quot; &quot;, &quot;&quot;)
-
-&#x27; Compare with reversed version
-IsPalindrome = (normalized = StrReverse(normalized))
+    Dim normalized As String
+    &#x27; Remove spaces and convert to lowercase for comparison
+    normalized = Replace(LCase$(text), &quot; &quot;, &quot;&quot;)
+    &#x27; Compare with reversed version
+    IsPalindrome = (normalized = StrReverse(normalized))
 End Function
-
 &#x27; Examples:
 &#x27; IsPalindrome(&quot;racecar&quot;) = True
 &#x27; IsPalindrome(&quot;A man a plan a canal Panama&quot;) = True (after normalization)
 &#x27; IsPalindrome(&quot;hello&quot;) = False</code></pre>
 <h3 id="example-3-reverse-words-in-sentence">Example 3: Reverse Words in Sentence</h3>
 <pre><code class="language-vbnet">Function ReverseWords(sentence As String) As String
-Dim words() As String
-Dim i As Integer
-Dim result As String
-
-words = Split(sentence, &quot; &quot;)
-
-result = &quot;&quot;
-For i = UBound(words) To LBound(words) Step -1
-If i &lt; UBound(words) Then result = result &amp; &quot; &quot;
-result = result &amp; words(i)
-Next i
-
-ReverseWords = result
+    Dim words() As String
+    Dim i As Integer
+    Dim result As String
+    words = Split(sentence, &quot; &quot;)
+    result = &quot;&quot;
+    For i = UBound(words) To LBound(words) Step -1
+        If i &lt; UBound(words) Then result = result &amp; &quot; &quot;
+        result = result &amp; words(i)
+    Next i
+    ReverseWords = result
 End Function
-
 &#x27; Example: &quot;Hello World&quot; becomes &quot;World Hello&quot;</code></pre>
 <h3 id="example-4-simple-obfuscation">Example 4: Simple Obfuscation</h3>
 <pre><code class="language-vbnet">Function ObfuscateString(text As String) As String
-&#x27; Simple, non-secure obfuscation
-ObfuscateString = StrReverse(text)
+    &#x27; Simple, non-secure obfuscation
+    ObfuscateString = StrReverse(text)
 End Function
-
 Function DeobfuscateString(text As String) As String
-&#x27; Reverse the obfuscation
-DeobfuscateString = StrReverse(text)
+    &#x27; Reverse the obfuscation
+    DeobfuscateString = StrReverse(text)
 End Function</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-check-palindrome-case-insensitive">Pattern 1: Check Palindrome (Case-Insensitive)</h3>
 <pre><code class="language-vbnet">Function IsPalindromeIgnoreCase(text As String) As Boolean
-Dim lower As String
-lower = LCase$(text)
-IsPalindromeIgnoreCase = (lower = StrReverse(lower))
+    Dim lower As String
+    lower = LCase$(text)
+    IsPalindromeIgnoreCase = (lower = StrReverse(lower))
 End Function</code></pre>
 <h3 id="pattern-2-reverse-each-word">Pattern 2: Reverse Each Word</h3>
 <pre><code class="language-vbnet">Function ReverseEachWord(sentence As String) As String
-Dim words() As String
-Dim i As Integer
-
-words = Split(sentence, &quot; &quot;)
-For i = LBound(words) To UBound(words)
-words(i) = StrReverse(words(i))
-Next i
-
-ReverseEachWord = Join(words, &quot; &quot;)
+    Dim words() As String
+    Dim i As Integer
+    words = Split(sentence, &quot; &quot;)
+    For i = LBound(words) To UBound(words)
+        words(i) = StrReverse(words(i))
+    Next i
+    ReverseEachWord = Join(words, &quot; &quot;)
 End Function</code></pre>
 <h3 id="pattern-3-get-last-n-characters-efficiently">Pattern 3: Get Last N Characters Efficiently</h3>
 <pre><code class="language-vbnet">Function GetLastNChars(text As String, n As Integer) As String
-Dim reversed As String
-reversed = StrReverse(text)
-GetLastNChars = StrReverse(Left$(reversed, n))
+    Dim reversed As String
+    reversed = StrReverse(text)
+    GetLastNChars = StrReverse(Left$(reversed, n))
 End Function</code></pre>
 <h3 id="pattern-4-check-if-strings-are-reverses">Pattern 4: Check If Strings Are Reverses</h3>
 <pre><code class="language-vbnet">Function AreReverses(str1 As String, str2 As String) As Boolean
-AreReverses = (str1 = StrReverse(str2))
+    AreReverses = (str1 = StrReverse(str2))
 End Function</code></pre>
 <h3 id="pattern-5-reverse-file-extension">Pattern 5: Reverse File Extension</h3>
 <pre><code class="language-vbnet">Function ReverseExtension(filename As String) As String
-Dim dotPos As Integer
-Dim name As String
-Dim ext As String
-
-dotPos = InStrRev(filename, &quot;.&quot;)
-If dotPos &gt; 0 Then
-name = Left$(filename, dotPos - 1)
-ext = Mid$(filename, dotPos + 1)
-ReverseExtension = name &amp; &quot;.&quot; &amp; StrReverse(ext)
-Else
-ReverseExtension = filename
-End If
+    Dim dotPos As Integer
+    Dim name As String
+    Dim ext As String
+    dotPos = InStrRev(filename, &quot;.&quot;)
+    If dotPos &gt; 0 Then
+        name = Left$(filename, dotPos - 1)
+        ext = Mid$(filename, dotPos + 1)
+        ReverseExtension = name &amp; &quot;.&quot; &amp; StrReverse(ext)
+    Else
+        ReverseExtension = filename
+    End If
 End Function</code></pre>
 <h3 id="pattern-6-mirror-text-display">Pattern 6: Mirror Text Display</h3>
 <pre><code class="language-vbnet">Function CreateMirrorText(text As String) As String
-CreateMirrorText = text &amp; &quot; | &quot; &amp; StrReverse(text)
+    CreateMirrorText = text &amp; &quot; | &quot; &amp; StrReverse(text)
 End Function</code></pre>
 <h3 id="pattern-7-reverse-and-uppercase">Pattern 7: Reverse and Uppercase</h3>
 <pre><code class="language-vbnet">Function ReverseAndUpper(text As String) As String
-ReverseAndUpper = UCase$(StrReverse(text))
+    ReverseAndUpper = UCase$(StrReverse(text))
 End Function</code></pre>
 <h3 id="pattern-8-find-reverse-match-in-array">Pattern 8: Find Reverse Match in Array</h3>
 <pre><code class="language-vbnet">Function FindReverseMatch(arr() As String, searchValue As String) As Integer
-Dim i As Integer
-Dim reversed As String
-
-reversed = StrReverse(searchValue)
-
-For i = LBound(arr) To UBound(arr)
-If arr(i) = reversed Then
-FindReverseMatch = i
-Exit Function
-End If
-Next i
-
-FindReverseMatch = -1
+    Dim i As Integer
+    Dim reversed As String
+    reversed = StrReverse(searchValue)
+    For i = LBound(arr) To UBound(arr)
+        If arr(i) = reversed Then
+            FindReverseMatch = i
+            Exit Function
+        End If
+    Next i
+    FindReverseMatch = -1
 End Function</code></pre>
 <h3 id="pattern-9-reverse-between-delimiters">Pattern 9: Reverse Between Delimiters</h3>
 <pre><code class="language-vbnet">Function ReverseBetween(text As String, startDelim As String, endDelim As String) As String
-Dim startPos As Integer
-Dim endPos As Integer
-Dim middle As String
-
-startPos = InStr(text, startDelim)
-endPos = InStr(startPos + Len(startDelim), text, endDelim)
-
-If startPos &gt; 0 And endPos &gt; startPos Then
-middle = Mid$(text, startPos + Len(startDelim), endPos - startPos - Len(startDelim))
-ReverseBetween = Left$(text, startPos + Len(startDelim) - 1) &amp; _
-StrReverse(middle) &amp; _
-Mid$(text, endPos)
-Else
-ReverseBetween = text
-End If
+    Dim startPos As Integer
+    Dim endPos As Integer
+    Dim middle As String
+    startPos = InStr(text, startDelim)
+    endPos = InStr(startPos + Len(startDelim), text, endDelim)
+    If startPos &gt; 0 And endPos &gt; startPos Then
+        middle = Mid$(text, startPos + Len(startDelim), endPos - startPos - Len(startDelim))
+        ReverseBetween = Left$(text, startPos + Len(startDelim) - 1) &amp; _
+                        StrReverse(middle) &amp; _
+                        Mid$(text, endPos)
+    Else
+        ReverseBetween = text
+    End If
 End Function</code></pre>
 <h3 id="pattern-10-alternate-characters-reversed">Pattern 10: Alternate Characters Reversed</h3>
 <pre><code class="language-vbnet">Function AlternateReverse(text As String) As String
-Dim i As Integer
-Dim result As String
-Dim reversed As String
-
-reversed = StrReverse(text)
-result = &quot;&quot;
-
-For i = 1 To Len(text)
-If i Mod 2 = 1 Then
-result = result &amp; Mid$(text, i, 1)
-Else
-result = result &amp; Mid$(reversed, i, 1)
-End If
-Next i
-
-AlternateReverse = result
+    Dim i As Integer
+    Dim result As String
+    Dim reversed As String
+    reversed = StrReverse(text)
+    result = &quot;&quot;
+    For i = 1 To Len(text)
+        If i Mod 2 = 1 Then
+            result = result &amp; Mid$(text, i, 1)
+        Else
+            result = result &amp; Mid$(reversed, i, 1)
+        End If
+    Next i
+    AlternateReverse = result
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-palindrome-checker-class">Example 1: Palindrome Checker Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: PalindromeChecker
 &#x27; Checks various types of palindromes
 Option Explicit
-
 Private m_IgnoreCase As Boolean
 Private m_IgnoreSpaces As Boolean
 Private m_IgnorePunctuation As Boolean
-
 Public Sub Initialize(Optional ignoreCase As Boolean = True, _
-Optional ignoreSpaces As Boolean = True, _
-Optional ignorePunctuation As Boolean = False)
-m_IgnoreCase = ignoreCase
-m_IgnoreSpaces = ignoreSpaces
-m_IgnorePunctuation = ignorePunctuation
+                      Optional ignoreSpaces As Boolean = True, _
+                      Optional ignorePunctuation As Boolean = False)
+    m_IgnoreCase = ignoreCase
+    m_IgnoreSpaces = ignoreSpaces
+    m_IgnorePunctuation = ignorePunctuation
 End Sub
-
 Public Function IsPalindrome(text As String) As Boolean
-Dim normalized As String
-normalized = NormalizeText(text)
-IsPalindrome = (normalized = StrReverse(normalized))
+    Dim normalized As String
+    normalized = NormalizeText(text)
+    IsPalindrome = (normalized = StrReverse(normalized))
 End Function
-
 Public Function GetLongestPalindromeSubstring(text As String) As String
-Dim i As Integer
-Dim j As Integer
-Dim substring As String
-Dim longest As String
-
-longest = &quot;&quot;
-
-For i = 1 To Len(text)
-For j = i To Len(text)
-substring = Mid$(text, i, j - i + 1)
-If IsPalindrome(substring) And Len(substring) &gt; Len(longest) Then
-longest = substring
-End If
-Next j
-Next i
-
-GetLongestPalindromeSubstring = longest
+    Dim i As Integer
+    Dim j As Integer
+    Dim substring As String
+    Dim longest As String
+    longest = &quot;&quot;
+    For i = 1 To Len(text)
+        For j = i To Len(text)
+            substring = Mid$(text, i, j - i + 1)
+            If IsPalindrome(substring) And Len(substring) &gt; Len(longest) Then
+                longest = substring
+            End If
+        Next j
+    Next i
+    GetLongestPalindromeSubstring = longest
 End Function
-
 Private Function NormalizeText(text As String) As String
-Dim result As String
-result = text
-
-If m_IgnoreCase Then
-result = LCase$(result)
-End If
-
-If m_IgnoreSpaces Then
-result = Replace(result, &quot; &quot;, &quot;&quot;)
-End If
-
-If m_IgnorePunctuation Then
-result = RemovePunctuation(result)
-End If
-
-NormalizeText = result
+    Dim result As String
+    result = text
+    If m_IgnoreCase Then
+        result = LCase$(result)
+    End If
+    If m_IgnoreSpaces Then
+        result = Replace(result, &quot; &quot;, &quot;&quot;)
+    End If
+    If m_IgnorePunctuation Then
+        result = RemovePunctuation(result)
+    End If
+    NormalizeText = result
 End Function
-
 Private Function RemovePunctuation(text As String) As String
-Dim i As Integer
-Dim char As String
-Dim result As String
-
-result = &quot;&quot;
-For i = 1 To Len(text)
-char = Mid$(text, i, 1)
-If (char &gt;= &quot;A&quot; And char &lt;= &quot;Z&quot;) Or (char &gt;= &quot;a&quot; And char &lt;= &quot;z&quot;) Or _
-(char &gt;= &quot;0&quot; And char &lt;= &quot;9&quot;) Then
-result = result &amp; char
-End If
-Next i
-
-RemovePunctuation = result
+    Dim i As Integer
+    Dim char As String
+    Dim result As String
+    result = &quot;&quot;
+    For i = 1 To Len(text)
+        char = Mid$(text, i, 1)
+        If (char &gt;= &quot;A&quot; And char &lt;= &quot;Z&quot;) Or (char &gt;= &quot;a&quot; And char &lt;= &quot;z&quot;) Or _
+           (char &gt;= &quot;0&quot; And char &lt;= &quot;9&quot;) Then
+            result = result &amp; char
+        End If
+    Next i
+    RemovePunctuation = result
 End Function</code></pre>
 <h3 id="example-2-string-reversal-utilities">Example 2: String Reversal Utilities</h3>
 <pre><code class="language-vbnet">&#x27; Module: StringReversalUtils
 &#x27; Utilities for reversing strings in various ways
 Option Explicit
-
 Public Function ReverseString(text As String) As String
-ReverseString = StrReverse(text)
+    ReverseString = StrReverse(text)
 End Function
-
 Public Function ReverseWords(sentence As String) As String
-Dim words() As String
-Dim i As Integer
-Dim result As String
-
-words = Split(sentence, &quot; &quot;)
-result = &quot;&quot;
-
-For i = UBound(words) To LBound(words) Step -1
-If Len(result) &gt; 0 Then result = result &amp; &quot; &quot;
-result = result &amp; words(i)
-Next i
-
-ReverseWords = result
+    Dim words() As String
+    Dim i As Integer
+    Dim result As String
+    words = Split(sentence, &quot; &quot;)
+    result = &quot;&quot;
+    For i = UBound(words) To LBound(words) Step -1
+        If Len(result) &gt; 0 Then result = result &amp; &quot; &quot;
+        result = result &amp; words(i)
+    Next i
+    ReverseWords = result
 End Function
-
 Public Function ReverseEachWord(sentence As String) As String
-Dim words() As String
-Dim i As Integer
-
-words = Split(sentence, &quot; &quot;)
-For i = LBound(words) To UBound(words)
-words(i) = StrReverse(words(i))
-Next i
-
-ReverseEachWord = Join(words, &quot; &quot;)
+    Dim words() As String
+    Dim i As Integer
+    words = Split(sentence, &quot; &quot;)
+    For i = LBound(words) To UBound(words)
+        words(i) = StrReverse(words(i))
+    Next i
+    ReverseEachWord = Join(words, &quot; &quot;)
 End Function
-
 Public Function ReverseLines(text As String) As String
-Dim lines() As String
-Dim i As Integer
-Dim result As String
-
-lines = Split(text, vbCrLf)
-result = &quot;&quot;
-
-For i = UBound(lines) To LBound(lines) Step -1
-If Len(result) &gt; 0 Then result = result &amp; vbCrLf
-result = result &amp; lines(i)
-Next i
-
-ReverseLines = result
+    Dim lines() As String
+    Dim i As Integer
+    Dim result As String
+    lines = Split(text, vbCrLf)
+    result = &quot;&quot;
+    For i = UBound(lines) To LBound(lines) Step -1
+        If Len(result) &gt; 0 Then result = result &amp; vbCrLf
+        result = result &amp; lines(i)
+    Next i
+    ReverseLines = result
 End Function
-
 Public Function ReverseArray(arr() As String) As String()
-Dim result() As String
-Dim i As Integer
-Dim j As Integer
-
-ReDim result(LBound(arr) To UBound(arr))
-j = LBound(arr)
-
-For i = UBound(arr) To LBound(arr) Step -1
-result(j) = arr(i)
-j = j + 1
-Next i
-
-ReverseArray = result
+    Dim result() As String
+    Dim i As Integer
+    Dim j As Integer
+    ReDim result(LBound(arr) To UBound(arr))
+    j = LBound(arr)
+    For i = UBound(arr) To LBound(arr) Step -1
+        result(j) = arr(i)
+        j = j + 1
+    Next i
+    ReverseArray = result
 End Function</code></pre>
 <h3 id="example-3-text-transformer-class">Example 3: Text Transformer Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: TextTransformer
 &#x27; Performs various text transformations including reversal
 Option Explicit
-
 Public Function Transform(text As String, transformType As String) As String
-Select Case UCase$(transformType)
-Case &quot;REVERSE&quot;
-Transform = StrReverse(text)
-Case &quot;REVERSE_WORDS&quot;
-Transform = ReverseWords(text)
-Case &quot;REVERSE_EACH_WORD&quot;
-Transform = ReverseEachWord(text)
-Case &quot;MIRROR&quot;
-Transform = text &amp; &quot; &quot; &amp; StrReverse(text)
-Case &quot;PALINDROME&quot;
-Transform = text &amp; StrReverse(text)
-Case Else
-Transform = text
-End Select
+    Select Case UCase$(transformType)
+        Case &quot;REVERSE&quot;
+            Transform = StrReverse(text)
+        Case &quot;REVERSE_WORDS&quot;
+            Transform = ReverseWords(text)
+        Case &quot;REVERSE_EACH_WORD&quot;
+            Transform = ReverseEachWord(text)
+        Case &quot;MIRROR&quot;
+            Transform = text &amp; &quot; &quot; &amp; StrReverse(text)
+        Case &quot;PALINDROME&quot;
+            Transform = text &amp; StrReverse(text)
+        Case Else
+            Transform = text
+    End Select
 End Function
-
 Private Function ReverseWords(sentence As String) As String
-Dim words() As String
-Dim i As Integer
-Dim result As String
-
-words = Split(sentence, &quot; &quot;)
-result = &quot;&quot;
-
-For i = UBound(words) To LBound(words) Step -1
-If Len(result) &gt; 0 Then result = result &amp; &quot; &quot;
-result = result &amp; words(i)
-Next i
-
-ReverseWords = result
+    Dim words() As String
+    Dim i As Integer
+    Dim result As String
+    words = Split(sentence, &quot; &quot;)
+    result = &quot;&quot;
+    For i = UBound(words) To LBound(words) Step -1
+        If Len(result) &gt; 0 Then result = result &amp; &quot; &quot;
+        result = result &amp; words(i)
+    Next i
+    ReverseWords = result
 End Function
-
 Private Function ReverseEachWord(sentence As String) As String
-Dim words() As String
-Dim i As Integer
-
-words = Split(sentence, &quot; &quot;)
-For i = LBound(words) To UBound(words)
-words(i) = StrReverse(words(i))
-Next i
-
-ReverseEachWord = Join(words, &quot; &quot;)
+    Dim words() As String
+    Dim i As Integer
+    words = Split(sentence, &quot; &quot;)
+    For i = LBound(words) To UBound(words)
+        words(i) = StrReverse(words(i))
+    Next i
+    ReverseEachWord = Join(words, &quot; &quot;)
 End Function
-
 Public Function CreatePalindrome(text As String) As String
-CreatePalindrome = text &amp; StrReverse(text)
+    CreatePalindrome = text &amp; StrReverse(text)
 End Function
-
 Public Function IsPalindrome(text As String) As Boolean
-IsPalindrome = (text = StrReverse(text))
+    IsPalindrome = (text = StrReverse(text))
 End Function</code></pre>
 <h3 id="example-4-string-analyzer-module">Example 4: String Analyzer Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: StringAnalyzer
 &#x27; Analyzes strings using reversal techniques
 Option Explicit
-
 Public Function ContainsPalindrome(text As String, minLength As Integer) As Boolean
-Dim i As Integer
-Dim j As Integer
-Dim substring As String
-
-For i = 1 To Len(text) - minLength + 1
-For j = minLength To Len(text) - i + 1
-substring = Mid$(text, i, j)
-If substring = StrReverse(substring) Then
-ContainsPalindrome = True
-Exit Function
-End If
-Next j
-Next i
-
-ContainsPalindrome = False
+    Dim i As Integer
+    Dim j As Integer
+    Dim substring As String
+    For i = 1 To Len(text) - minLength + 1
+        For j = minLength To Len(text) - i + 1
+            substring = Mid$(text, i, j)
+            If substring = StrReverse(substring) Then
+                ContainsPalindrome = True
+                Exit Function
+            End If
+        Next j
+    Next i
+    ContainsPalindrome = False
 End Function
-
 Public Function FindAllPalindromes(text As String, minLength As Integer) As Collection
-Dim palindromes As New Collection
-Dim i As Integer
-Dim j As Integer
-Dim substring As String
-
-For i = 1 To Len(text)
-For j = minLength To Len(text) - i + 1
-substring = Mid$(text, i, j)
-If substring = StrReverse(substring) Then
-On Error Resume Next
-palindromes.Add substring, substring
-On Error GoTo 0
-End If
-Next j
-Next i
-
-Set FindAllPalindromes = palindromes
+    Dim palindromes As New Collection
+    Dim i As Integer
+    Dim j As Integer
+    Dim substring As String
+    For i = 1 To Len(text)
+        For j = minLength To Len(text) - i + 1
+            substring = Mid$(text, i, j)
+            If substring = StrReverse(substring) Then
+                On Error Resume Next
+                palindromes.Add substring, substring
+                On Error GoTo 0
+            End If
+        Next j
+    Next i
+    Set FindAllPalindromes = palindromes
 End Function
-
 Public Function GetSymmetryScore(text As String) As Double
-&#x27; Calculate how symmetric a string is (0-100%)
-Dim matches As Integer
-Dim i As Integer
-Dim len As Integer
-
-len = Len(text)
-If len = 0 Then
-GetSymmetryScore = 0
-Exit Function
-End If
-
-matches = 0
-For i = 1 To len \ 2
-If Mid$(text, i, 1) = Mid$(text, len - i + 1, 1) Then
-matches = matches + 1
-End If
-Next i
-
-GetSymmetryScore = (matches / (len \ 2)) * 100
+    &#x27; Calculate how symmetric a string is (0-100%)
+    Dim matches As Integer
+    Dim i As Integer
+    Dim len As Integer
+    len = Len(text)
+    If len = 0 Then
+        GetSymmetryScore = 0
+        Exit Function
+    End If
+    matches = 0
+    For i = 1 To len \ 2
+        If Mid$(text, i, 1) = Mid$(text, len - i + 1, 1) Then
+            matches = matches + 1
+        End If
+    Next i
+    GetSymmetryScore = (matches / (len \ 2)) * 100
 End Function
-
 Public Function IsAnagram(str1 As String, str2 As String) As Boolean
-&#x27; Not directly using StrReverse, but useful utility
-Dim sorted1 As String
-Dim sorted2 As String
-
-sorted1 = SortString(LCase$(str1))
-sorted2 = SortString(LCase$(str2))
-
-IsAnagram = (sorted1 = sorted2)
+    &#x27; Not directly using StrReverse, but useful utility
+    Dim sorted1 As String
+    Dim sorted2 As String
+    sorted1 = SortString(LCase$(str1))
+    sorted2 = SortString(LCase$(str2))
+    IsAnagram = (sorted1 = sorted2)
 End Function
-
 Private Function SortString(text As String) As String
-&#x27; Simple bubble sort for demonstration
-Dim chars() As String
-Dim i As Integer
-Dim j As Integer
-Dim temp As String
-
-ReDim chars(1 To Len(text))
-For i = 1 To Len(text)
-chars(i) = Mid$(text, i, 1)
-Next i
-
-For i = 1 To UBound(chars) - 1
-For j = i + 1 To UBound(chars)
-If chars(i) &gt; chars(j) Then
-temp = chars(i)
-chars(i) = chars(j)
-chars(j) = temp
-End If
-Next j
-Next i
-
-SortString = Join(chars, &quot;&quot;)
+    &#x27; Simple bubble sort for demonstration
+    Dim chars() As String
+    Dim i As Integer
+    Dim j As Integer
+    Dim temp As String
+    ReDim chars(1 To Len(text))
+    For i = 1 To Len(text)
+        chars(i) = Mid$(text, i, 1)
+    Next i
+    For i = 1 To UBound(chars) - 1
+        For j = i + 1 To UBound(chars)
+            If chars(i) &gt; chars(j) Then
+                temp = chars(i)
+                chars(i) = chars(j)
+                chars(j) = temp
+            End If
+        Next j
+    Next i
+    SortString = Join(chars, &quot;&quot;)
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>StrReverse</code> function typically does not raise errors under normal circumstances:</p>
-<ul>
-<li>Returns empty string if input is empty string</li>
-<li>Returns <code>Null</code> if input is <code>Null</code> (not an error)</li>
-<li><strong>Error 13 (Type mismatch)</strong>: If <code>expression</code> cannot be converted to a string</li>
-</ul>
+<p>The <code>StrReverse</code> function typically does not raise errors under normal circumstances:
+- Returns empty string if input is empty string
+- Returns <code>Null</code> if input is <code>Null</code> (not an error)
+- <strong>Error 13 (Type mismatch)</strong>: If <code>expression</code> cannot be converted to a string</p>
 <h2 id="performance-notes">Performance Notes</h2>
 <ul>
 <li>Very fast and efficient (optimized native function)</li>
@@ -610,25 +525,86 @@ End Function</code></pre>
 <td>Very slow</td>
 <td>Poor</td>
 </tr>
+<tr>
+<td>## Platform Notes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in VB6 and VBA</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Not available in <code>VBScript</code></strong> (must implement manually)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Works correctly with Unicode characters</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Behavior consistent across VB6 and VBA</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No locale-specific behavior</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot reverse only part of a string (use <code>Mid$</code> to extract first)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot reverse words rather than characters (use Split/Join)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Not available in <code>VBScript</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns <code>Null</code> for <code>Null</code> input (may be unexpected)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No option to reverse specific character ranges</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot specify custom reversal rules</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-notes">Platform Notes</h2>
-<ul>
-<li>Available in VB6 and VBA</li>
-<li><strong>Not available in <code>VBScript</code></strong> (must implement manually)</li>
-<li>Works correctly with Unicode characters</li>
-<li>Behavior consistent across VB6 and VBA</li>
-<li>No locale-specific behavior</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Cannot reverse only part of a string (use <code>Mid$</code> to extract first)</li>
-<li>Cannot reverse words rather than characters (use Split/Join)</li>
-<li>Not available in <code>VBScript</code></li>
-<li>Returns <code>Null</code> for <code>Null</code> input (may be unexpected)</li>
-<li>No option to reverse specific character ranges</li>
-<li>Cannot specify custom reversal rules</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

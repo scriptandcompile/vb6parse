@@ -37,31 +37,29 @@
     <main class="container">
         
         <article class="library-item">
-            <p>VB6 <code>Switch</code> Function</p>
-<p>The <code>Switch</code> function evaluates a list of expressions and returns a value or expression associated with the first expression that is True.</p>
+            <p>VB6 <code>Switch</code> Function
+The <code>Switch</code> function evaluates a list of expressions and returns a value or expression associated with the first expression that is True.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">Switch(expr1, value1[, expr2, value2 ... [, expr_n, value_n]])</code></pre>
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><code>expr1, expr2, ..., expr_n</code>: Required. Variant expressions to be evaluated.</li>
-<li><code>value1, value2, ..., value_n</code>: Required. Values or expressions to be returned. If the associated <code>expr</code> is True, <code>Switch</code> returns the corresponding value.</li>
+<li><code>value1, value2, ..., value_n</code>: Required. Values or expressions to be returned. If the associated <code>expr</code> is True, <code>Switch</code> returns the corresponding value.
+The argument list consists of pairs of expressions and values. The expressions are evaluated from left to right, and the value associated with the first expression to evaluate to True is returned. If the pairs aren't properly matched, a run-time error occurs.</li>
 </ul>
-<p>The argument list consists of pairs of expressions and values. The expressions are evaluated from left to right, and the value associated with the first expression to evaluate to True is returned. If the pairs aren't properly matched, a run-time error occurs.</p>
 <h2 id="returns">Returns</h2>
 <p>Returns a <code>Variant</code> containing the value associated with the first True expression. If no expression is True, <code>Switch</code> returns <code>Null</code>.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>Switch</code> function provides a flexible way to select from multiple alternatives:</p>
-<ul>
-<li><strong>Left-to-right evaluation</strong>: Expressions are evaluated in order until one is True</li>
-<li><strong>Short-circuit evaluation</strong>: Once a True expression is found, remaining expressions are not evaluated</li>
-<li><strong>Null return</strong>: If no expression evaluates to True, returns Null</li>
-<li><strong>Pairs required</strong>: Arguments must come in pairs (expression, value). Odd number of arguments causes Error 450</li>
-<li><strong>Value can be expression</strong>: The value part can be a literal, variable, or expression</li>
-<li><strong>All values evaluated</strong>: Unlike expressions, all values in the argument list may be evaluated (implementation-dependent)</li>
-<li><strong>Type flexibility</strong>: Can return different types for different cases (returns Variant)</li>
-<li><strong>Compare with Select Case</strong>: Switch is an expression (returns value), Select Case is a statement</li>
-<li><strong>Compare with <code>IIf</code></strong>: Switch handles multiple conditions, <code>IIf</code> handles only two branches</li>
-</ul>
+<p>The <code>Switch</code> function provides a flexible way to select from multiple alternatives:
+- <strong>Left-to-right evaluation</strong>: Expressions are evaluated in order until one is True
+- <strong>Short-circuit evaluation</strong>: Once a True expression is found, remaining expressions are not evaluated
+- <strong>Null return</strong>: If no expression evaluates to True, returns Null
+- <strong>Pairs required</strong>: Arguments must come in pairs (expression, value). Odd number of arguments causes Error 450
+- <strong>Value can be expression</strong>: The value part can be a literal, variable, or expression
+- <strong>All values evaluated</strong>: Unlike expressions, all values in the argument list may be evaluated (implementation-dependent)
+- <strong>Type flexibility</strong>: Can return different types for different cases (returns Variant)
+- <strong>Compare with Select Case</strong>: Switch is an expression (returns value), Select Case is a statement
+- <strong>Compare with <code>IIf</code></strong>: Switch handles multiple conditions, <code>IIf</code> handles only two branches</p>
 <h3 id="evaluation-behavior">Evaluation Behavior</h3>
 <ul>
 <li>Expressions are evaluated left to right</li>
@@ -91,333 +89,301 @@
 <h3 id="example-1-simple-value-selection">Example 1: Simple Value Selection</h3>
 <pre><code class="language-vbnet">Dim result As Variant
 Dim score As Integer
-
 score = 85
-
 result = Switch(score &gt;= 90, &quot;A&quot;, _
-score &gt;= 80, &quot;B&quot;, _
-score &gt;= 70, &quot;C&quot;, _
-score &gt;= 60, &quot;D&quot;, _
-True, &quot;F&quot;)  &#x27; Default case
-
+                score &gt;= 80, &quot;B&quot;, _
+                score &gt;= 70, &quot;C&quot;, _
+                score &gt;= 60, &quot;D&quot;, _
+                True, &quot;F&quot;)  &#x27; Default case
 &#x27; result = &quot;B&quot;</code></pre>
 <h3 id="example-2-status-messages">Example 2: Status Messages</h3>
 <pre><code class="language-vbnet">Function GetStatusMessage(status As Integer) As String
-GetStatusMessage = Switch( _
-status = 0, &quot;Idle&quot;, _
-status = 1, &quot;Processing&quot;, _
-status = 2, &quot;Complete&quot;, _
-status = 3, &quot;Error&quot;, _
-True, &quot;Unknown&quot;)
+    GetStatusMessage = Switch( _
+        status = 0, &quot;Idle&quot;, _
+        status = 1, &quot;Processing&quot;, _
+        status = 2, &quot;Complete&quot;, _
+        status = 3, &quot;Error&quot;, _
+        True, &quot;Unknown&quot;)
 End Function</code></pre>
 <h3 id="example-3-range-based-categorization">Example 3: Range-Based Categorization</h3>
 <pre><code class="language-vbnet">Function CategorizeAge(age As Integer) As String
-CategorizeAge = Switch( _
-age &lt; 13, &quot;Child&quot;, _
-age &lt; 20, &quot;Teenager&quot;, _
-age &lt; 65, &quot;Adult&quot;, _
-True, &quot;Senior&quot;)
+    CategorizeAge = Switch( _
+        age &lt; 13, &quot;Child&quot;, _
+        age &lt; 20, &quot;Teenager&quot;, _
+        age &lt; 65, &quot;Adult&quot;, _
+        True, &quot;Senior&quot;)
 End Function</code></pre>
 <h3 id="example-4-multiple-condition-checks">Example 4: Multiple Condition Checks</h3>
 <pre><code class="language-vbnet">Dim priority As String
 Dim isUrgent As Boolean
 Dim isImportant As Boolean
 Dim hasDeadline As Boolean
-
 priority = Switch( _
-isUrgent And isImportant, &quot;Critical&quot;, _
-isUrgent, &quot;High&quot;, _
-isImportant, &quot;Medium&quot;, _
-hasDeadline, &quot;Low&quot;, _
-True, &quot;Backlog&quot;)</code></pre>
+    isUrgent And isImportant, &quot;Critical&quot;, _
+    isUrgent, &quot;High&quot;, _
+    isImportant, &quot;Medium&quot;, _
+    hasDeadline, &quot;Low&quot;, _
+    True, &quot;Backlog&quot;)</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-grade-assignment">Pattern 1: Grade Assignment</h3>
 <pre><code class="language-vbnet">Function GetLetterGrade(score As Double) As String
-GetLetterGrade = Switch( _
-score &gt;= 90, &quot;A&quot;, _
-score &gt;= 80, &quot;B&quot;, _
-score &gt;= 70, &quot;C&quot;, _
-score &gt;= 60, &quot;D&quot;, _
-True, &quot;F&quot;)
+    GetLetterGrade = Switch( _
+        score &gt;= 90, &quot;A&quot;, _
+        score &gt;= 80, &quot;B&quot;, _
+        score &gt;= 70, &quot;C&quot;, _
+        score &gt;= 60, &quot;D&quot;, _
+        True, &quot;F&quot;)
 End Function</code></pre>
 <h3 id="pattern-2-day-of-week-name">Pattern 2: Day of Week Name</h3>
 <pre><code class="language-vbnet">Function GetDayName(dayNum As Integer) As String
-GetDayName = Switch( _
-dayNum = 1, &quot;Sunday&quot;, _
-dayNum = 2, &quot;Monday&quot;, _
-dayNum = 3, &quot;Tuesday&quot;, _
-dayNum = 4, &quot;Wednesday&quot;, _
-dayNum = 5, &quot;Thursday&quot;, _
-dayNum = 6, &quot;Friday&quot;, _
-dayNum = 7, &quot;Saturday&quot;, _
-True, &quot;Invalid&quot;)
+    GetDayName = Switch( _
+        dayNum = 1, &quot;Sunday&quot;, _
+        dayNum = 2, &quot;Monday&quot;, _
+        dayNum = 3, &quot;Tuesday&quot;, _
+        dayNum = 4, &quot;Wednesday&quot;, _
+        dayNum = 5, &quot;Thursday&quot;, _
+        dayNum = 6, &quot;Friday&quot;, _
+        dayNum = 7, &quot;Saturday&quot;, _
+        True, &quot;Invalid&quot;)
 End Function</code></pre>
 <h3 id="pattern-3-conditional-formatting">Pattern 3: Conditional Formatting</h3>
 <pre><code class="language-vbnet">Function GetColorCode(value As Double, threshold1 As Double, threshold2 As Double) As Long
-GetColorCode = Switch( _
-value &lt; threshold1, vbRed, _
-value &lt; threshold2, vbYellow, _
-True, vbGreen)
+    GetColorCode = Switch( _
+        value &lt; threshold1, vbRed, _
+        value &lt; threshold2, vbYellow, _
+        True, vbGreen)
 End Function</code></pre>
 <h3 id="pattern-4-fee-calculation">Pattern 4: Fee Calculation</h3>
 <pre><code class="language-vbnet">Function CalculateShippingFee(weight As Double) As Currency
-CalculateShippingFee = Switch( _
-weight &lt;= 1, 5.99, _
-weight &lt;= 5, 9.99, _
-weight &lt;= 10, 14.99, _
-weight &lt;= 20, 24.99, _
-True, 39.99)
+    CalculateShippingFee = Switch( _
+        weight &lt;= 1, 5.99, _
+        weight &lt;= 5, 9.99, _
+        weight &lt;= 10, 14.99, _
+        weight &lt;= 20, 24.99, _
+        True, 39.99)
 End Function</code></pre>
 <h3 id="pattern-5-error-level-description">Pattern 5: Error Level Description</h3>
 <pre><code class="language-vbnet">Function GetErrorDescription(errorLevel As Integer) As String
-GetErrorDescription = Switch( _
-errorLevel = 0, &quot;No error&quot;, _
-errorLevel = 1, &quot;Warning&quot;, _
-errorLevel = 2, &quot;Error&quot;, _
-errorLevel = 3, &quot;Critical error&quot;, _
-errorLevel = 4, &quot;Fatal error&quot;, _
-True, &quot;Unknown error level&quot;)
+    GetErrorDescription = Switch( _
+        errorLevel = 0, &quot;No error&quot;, _
+        errorLevel = 1, &quot;Warning&quot;, _
+        errorLevel = 2, &quot;Error&quot;, _
+        errorLevel = 3, &quot;Critical error&quot;, _
+        errorLevel = 4, &quot;Fatal error&quot;, _
+        True, &quot;Unknown error level&quot;)
 End Function</code></pre>
 <h3 id="pattern-6-conditional-default-value">Pattern 6: Conditional Default Value</h3>
 <pre><code class="language-vbnet">Function GetConfigValue(key As String, userValue As Variant, defaultValue As Variant) As Variant
-GetConfigValue = Switch( _
-Not IsNull(userValue), userValue, _
-True, defaultValue)
+    GetConfigValue = Switch( _
+        Not IsNull(userValue), userValue, _
+        True, defaultValue)
 End Function</code></pre>
 <h3 id="pattern-7-multi-field-validation">Pattern 7: Multi-Field Validation</h3>
 <pre><code class="language-vbnet">Function ValidateRecord(name As String, age As Integer, email As String) As String
-ValidateRecord = Switch( _
-Len(name) = 0, &quot;Name is required&quot;, _
-age &lt; 0 Or age &gt; 120, &quot;Invalid age&quot;, _
-InStr(email, &quot;@&quot;) = 0, &quot;Invalid email&quot;, _
-True, &quot;Valid&quot;)
+    ValidateRecord = Switch( _
+        Len(name) = 0, &quot;Name is required&quot;, _
+        age &lt; 0 Or age &gt; 120, &quot;Invalid age&quot;, _
+        InStr(email, &quot;@&quot;) = 0, &quot;Invalid email&quot;, _
+        True, &quot;Valid&quot;)
 End Function</code></pre>
 <h3 id="pattern-8-price-tier-selection">Pattern 8: Price Tier Selection</h3>
 <pre><code class="language-vbnet">Function GetPriceTier(quantity As Integer) As String
-GetPriceTier = Switch( _
-quantity &gt;= 1000, &quot;Enterprise&quot;, _
-quantity &gt;= 100, &quot;Business&quot;, _
-quantity &gt;= 10, &quot;Professional&quot;, _
-True, &quot;Individual&quot;)
+    GetPriceTier = Switch( _
+        quantity &gt;= 1000, &quot;Enterprise&quot;, _
+        quantity &gt;= 100, &quot;Business&quot;, _
+        quantity &gt;= 10, &quot;Professional&quot;, _
+        True, &quot;Individual&quot;)
 End Function</code></pre>
 <h3 id="pattern-9-file-type-detection">Pattern 9: File Type Detection</h3>
 <pre><code class="language-vbnet">Function GetFileType(extension As String) As String
-Dim ext As String
-ext = LCase$(extension)
-
-GetFileType = Switch( _
-ext = &quot;txt&quot; Or ext = &quot;log&quot;, &quot;Text&quot;, _
-ext = &quot;doc&quot; Or ext = &quot;docx&quot;, &quot;Word&quot;, _
-ext = &quot;xls&quot; Or ext = &quot;xlsx&quot;, &quot;Excel&quot;, _
-ext = &quot;jpg&quot; Or ext = &quot;png&quot; Or ext = &quot;gif&quot;, &quot;Image&quot;, _
-True, &quot;Unknown&quot;)
+    Dim ext As String
+    ext = LCase$(extension)
+    GetFileType = Switch( _
+        ext = &quot;txt&quot; Or ext = &quot;log&quot;, &quot;Text&quot;, _
+        ext = &quot;doc&quot; Or ext = &quot;docx&quot;, &quot;Word&quot;, _
+        ext = &quot;xls&quot; Or ext = &quot;xlsx&quot;, &quot;Excel&quot;, _
+        ext = &quot;jpg&quot; Or ext = &quot;png&quot; Or ext = &quot;gif&quot;, &quot;Image&quot;, _
+        True, &quot;Unknown&quot;)
 End Function</code></pre>
 <h3 id="pattern-10-temperature-category">Pattern 10: Temperature Category</h3>
 <pre><code class="language-vbnet">Function DescribeTemperature(tempF As Double) As String
-DescribeTemperature = Switch( _
-tempF &lt; 32, &quot;Freezing&quot;, _
-tempF &lt; 50, &quot;Cold&quot;, _
-tempF &lt; 70, &quot;Cool&quot;, _
-tempF &lt; 85, &quot;Comfortable&quot;, _
-tempF &lt; 100, &quot;Hot&quot;, _
-True, &quot;Very Hot&quot;)
+    DescribeTemperature = Switch( _
+        tempF &lt; 32, &quot;Freezing&quot;, _
+        tempF &lt; 50, &quot;Cold&quot;, _
+        tempF &lt; 70, &quot;Cool&quot;, _
+        tempF &lt; 85, &quot;Comfortable&quot;, _
+        tempF &lt; 100, &quot;Hot&quot;, _
+        True, &quot;Very Hot&quot;)
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-dynamic-selector-class">Example 1: Dynamic Selector Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: DynamicSelector
 &#x27; Provides advanced selection logic using Switch
 Option Explicit
-
 Private m_Criteria As Collection
-
 Public Sub Initialize()
-Set m_Criteria = New Collection
+    Set m_Criteria = New Collection
 End Sub
-
 Public Sub AddCriteria(expression As Boolean, value As Variant)
-Dim pair As New Collection
-pair.Add expression
-pair.Add value
-m_Criteria.Add pair
+    Dim pair As New Collection
+    pair.Add expression
+    pair.Add value
+    m_Criteria.Add pair
 End Sub
-
 Public Function Evaluate() As Variant
-Dim item As Variant
-Dim expr As Boolean
-Dim value As Variant
-
-For Each item In m_Criteria
-expr = item(1)
-If expr Then
-If IsObject(item(2)) Then
-Set Evaluate = item(2)
-Else
-Evaluate = item(2)
-End If
-Exit Function
-End If
-Next item
-
-Evaluate = Null
+    Dim item As Variant
+    Dim expr As Boolean
+    Dim value As Variant
+    For Each item In m_Criteria
+        expr = item(1)
+        If expr Then
+            If IsObject(item(2)) Then
+                Set Evaluate = item(2)
+            Else
+                Evaluate = item(2)
+            End If
+            Exit Function
+        End If
+    Next item
+    Evaluate = Null
 End Function
-
 Public Function EvaluateWithDefault(defaultValue As Variant) As Variant
-EvaluateWithDefault = Switch( _
-Not IsNull(Evaluate()), Evaluate(), _
-True, defaultValue)
+    EvaluateWithDefault = Switch( _
+        Not IsNull(Evaluate()), Evaluate(), _
+        True, defaultValue)
 End Function</code></pre>
 <h3 id="example-2-conditional-formatter-module">Example 2: Conditional Formatter Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: ConditionalFormatter
 &#x27; Formats values based on multiple conditions
 Option Explicit
-
 Public Function FormatCurrency(amount As Currency, showSymbol As Boolean) As String
-Dim formatted As String
-
-formatted = Switch( _
-amount &lt; 0, &quot;(&quot; &amp; Format$(Abs(amount), &quot;#,##0.00&quot;) &amp; &quot;)&quot;, _
-amount = 0, &quot;0.00&quot;, _
-True, Format$(amount, &quot;#,##0.00&quot;))
-
-If showSymbol Then
-FormatCurrency = &quot;$&quot; &amp; formatted
-Else
-FormatCurrency = formatted
-End If
+    Dim formatted As String
+    formatted = Switch( _
+        amount &lt; 0, &quot;(&quot; &amp; Format$(Abs(amount), &quot;#,##0.00&quot;) &amp; &quot;)&quot;, _
+        amount = 0, &quot;0.00&quot;, _
+        True, Format$(amount, &quot;#,##0.00&quot;))
+    If showSymbol Then
+        FormatCurrency = &quot;$&quot; &amp; formatted
+    Else
+        FormatCurrency = formatted
+    End If
 End Function
-
 Public Function FormatPercentage(value As Double, decimals As Integer) As String
-Dim format As String
-
-format = Switch( _
-decimals = 0, &quot;0%&quot;, _
-decimals = 1, &quot;0.0%&quot;, _
-decimals = 2, &quot;0.00%&quot;, _
-True, &quot;0.00%&quot;)
-
-FormatPercentage = Format$(value * 100, format)
+    Dim format As String
+    format = Switch( _
+        decimals = 0, &quot;0%&quot;, _
+        decimals = 1, &quot;0.0%&quot;, _
+        decimals = 2, &quot;0.00%&quot;, _
+        True, &quot;0.00%&quot;)
+    FormatPercentage = Format$(value * 100, format)
 End Function
-
 Public Function FormatFileSize(bytes As Long) As String
-FormatFileSize = Switch( _
-bytes &lt; 1024, bytes &amp; &quot; B&quot;, _
-bytes &lt; 1048576, Format$(bytes / 1024, &quot;0.0&quot;) &amp; &quot; KB&quot;, _
-bytes &lt; 1073741824, Format$(bytes / 1048576, &quot;0.0&quot;) &amp; &quot; MB&quot;, _
-True, Format$(bytes / 1073741824, &quot;0.0&quot;) &amp; &quot; GB&quot;)
+    FormatFileSize = Switch( _
+        bytes &lt; 1024, bytes &amp; &quot; B&quot;, _
+        bytes &lt; 1048576, Format$(bytes / 1024, &quot;0.0&quot;) &amp; &quot; KB&quot;, _
+        bytes &lt; 1073741824, Format$(bytes / 1048576, &quot;0.0&quot;) &amp; &quot; MB&quot;, _
+        True, Format$(bytes / 1073741824, &quot;0.0&quot;) &amp; &quot; GB&quot;)
 End Function
-
 Public Function GetStatusColor(status As String) As Long
-GetStatusColor = Switch( _
-status = &quot;Active&quot;, vbGreen, _
-status = &quot;Pending&quot;, vbYellow, _
-status = &quot;Inactive&quot;, vbGray, _
-status = &quot;Error&quot;, vbRed, _
-True, vbBlack)
+    GetStatusColor = Switch( _
+        status = &quot;Active&quot;, vbGreen, _
+        status = &quot;Pending&quot;, vbYellow, _
+        status = &quot;Inactive&quot;, vbGray, _
+        status = &quot;Error&quot;, vbRed, _
+        True, vbBlack)
 End Function</code></pre>
 <h3 id="example-3-business-rules-engine">Example 3: Business Rules Engine</h3>
 <pre><code class="language-vbnet">&#x27; Class: BusinessRulesEngine
 &#x27; Evaluates business rules using Switch
 Option Explicit
-
 Public Function CalculateDiscount(customerType As String, orderAmount As Currency, _
-quantity As Integer) As Double
-&#x27; Return discount percentage
-CalculateDiscount = Switch( _
-customerType = &quot;VIP&quot; And orderAmount &gt; 1000, 0.2, _
-customerType = &quot;VIP&quot;, 0.15, _
-orderAmount &gt; 5000, 0.15, _
-orderAmount &gt; 1000, 0.1, _
-quantity &gt; 100, 0.1, _
-quantity &gt; 50, 0.05, _
-True, 0)
+                                  quantity As Integer) As Double
+    &#x27; Return discount percentage
+    CalculateDiscount = Switch( _
+        customerType = &quot;VIP&quot; And orderAmount &gt; 1000, 0.2, _
+        customerType = &quot;VIP&quot;, 0.15, _
+        orderAmount &gt; 5000, 0.15, _
+        orderAmount &gt; 1000, 0.1, _
+        quantity &gt; 100, 0.1, _
+        quantity &gt; 50, 0.05, _
+        True, 0)
 End Function
-
 Public Function DetermineShippingMethod(weight As Double, destination As String, _
-isExpress As Boolean) As String
-DetermineShippingMethod = Switch( _
-isExpress And weight &lt; 5, &quot;Express Air&quot;, _
-isExpress, &quot;Express Ground&quot;, _
-destination = &quot;International&quot;, &quot;International Standard&quot;, _
-weight &gt; 50, &quot;Freight&quot;, _
-weight &gt; 10, &quot;Ground&quot;, _
-True, &quot;Standard Mail&quot;)
+                                        isExpress As Boolean) As String
+    DetermineShippingMethod = Switch( _
+        isExpress And weight &lt; 5, &quot;Express Air&quot;, _
+        isExpress, &quot;Express Ground&quot;, _
+        destination = &quot;International&quot;, &quot;International Standard&quot;, _
+        weight &gt; 50, &quot;Freight&quot;, _
+        weight &gt; 10, &quot;Ground&quot;, _
+        True, &quot;Standard Mail&quot;)
 End Function
-
 Public Function CalculateTax(amount As Currency, state As String, _
-category As String) As Currency
-Dim taxRate As Double
-
-taxRate = Switch( _
-state = &quot;CA&quot; And category = &quot;Food&quot;, 0, _
-state = &quot;CA&quot;, 0.0725, _
-state = &quot;NY&quot;, 0.08, _
-state = &quot;TX&quot;, 0.0625, _
-state = &quot;FL&quot;, 0.06, _
-True, 0.05)
-
-CalculateTax = amount * taxRate
+                             category As String) As Currency
+    Dim taxRate As Double
+    taxRate = Switch( _
+        state = &quot;CA&quot; And category = &quot;Food&quot;, 0, _
+        state = &quot;CA&quot;, 0.0725, _
+        state = &quot;NY&quot;, 0.08, _
+        state = &quot;TX&quot;, 0.0625, _
+        state = &quot;FL&quot;, 0.06, _
+        True, 0.05)
+    CalculateTax = amount * taxRate
 End Function
-
 Public Function ApprovalRequired(amount As Currency, department As String, _
-requestor As String) As Boolean
-ApprovalRequired = Switch( _
-amount &gt; 10000, True, _
-amount &gt; 5000 And department &lt;&gt; &quot;Finance&quot;, True, _
-amount &gt; 1000 And requestor = &quot;Junior&quot;, True, _
-True, False)
+                                 requestor As String) As Boolean
+    ApprovalRequired = Switch( _
+        amount &gt; 10000, True, _
+        amount &gt; 5000 And department &lt;&gt; &quot;Finance&quot;, True, _
+        amount &gt; 1000 And requestor = &quot;Junior&quot;, True, _
+        True, False)
 End Function</code></pre>
 <h3 id="example-4-data-categorizer-module">Example 4: Data Categorizer Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: DataCategorizer
 &#x27; Categorizes data based on complex rules
 Option Explicit
-
 Public Function CategorizeCustomer(totalPurchases As Currency, _
-yearsMember As Integer, _
-lastPurchaseDays As Integer) As String
-CategorizeCustomer = Switch( _
-totalPurchases &gt; 10000 And yearsMember &gt; 5, &quot;Platinum&quot;, _
-totalPurchases &gt; 5000 And yearsMember &gt; 3, &quot;Gold&quot;, _
-totalPurchases &gt; 1000 Or yearsMember &gt; 2, &quot;Silver&quot;, _
-lastPurchaseDays &lt; 90, &quot;Active&quot;, _
-lastPurchaseDays &lt; 365, &quot;Inactive&quot;, _
-True, &quot;Dormant&quot;)
+                                   yearsMember As Integer, _
+                                   lastPurchaseDays As Integer) As String
+    CategorizeCustomer = Switch( _
+        totalPurchases &gt; 10000 And yearsMember &gt; 5, &quot;Platinum&quot;, _
+        totalPurchases &gt; 5000 And yearsMember &gt; 3, &quot;Gold&quot;, _
+        totalPurchases &gt; 1000 Or yearsMember &gt; 2, &quot;Silver&quot;, _
+        lastPurchaseDays &lt; 90, &quot;Active&quot;, _
+        lastPurchaseDays &lt; 365, &quot;Inactive&quot;, _
+        True, &quot;Dormant&quot;)
 End Function
-
 Public Function AssignPriority(severity As Integer, impact As Integer, _
-urgency As Integer) As String
-AssignPriority = Switch( _
-severity = 1 And impact = 1, &quot;P1 - Critical&quot;, _
-severity &lt;= 2 And impact &lt;= 2 And urgency = 1, &quot;P2 - High&quot;, _
-severity &lt;= 3 Or impact &lt;= 3, &quot;P3 - Medium&quot;, _
-urgency &lt;= 3, &quot;P4 - Low&quot;, _
-True, &quot;P5 - Backlog&quot;)
+                               urgency As Integer) As String
+    AssignPriority = Switch( _
+        severity = 1 And impact = 1, &quot;P1 - Critical&quot;, _
+        severity &lt;= 2 And impact &lt;= 2 And urgency = 1, &quot;P2 - High&quot;, _
+        severity &lt;= 3 Or impact &lt;= 3, &quot;P3 - Medium&quot;, _
+        urgency &lt;= 3, &quot;P4 - Low&quot;, _
+        True, &quot;P5 - Backlog&quot;)
 End Function
-
 Public Function DetermineRiskLevel(score As Integer, volatility As Double, _
-exposure As Currency) As String
-DetermineRiskLevel = Switch( _
-score &lt; 300 Or exposure &gt; 1000000, &quot;High Risk&quot;, _
-score &lt; 500 Or volatility &gt; 0.3, &quot;Medium Risk&quot;, _
-score &lt; 700 And volatility &gt; 0.15, &quot;Low-Medium Risk&quot;, _
-True, &quot;Low Risk&quot;)
+                                   exposure As Currency) As String
+    DetermineRiskLevel = Switch( _
+        score &lt; 300 Or exposure &gt; 1000000, &quot;High Risk&quot;, _
+        score &lt; 500 Or volatility &gt; 0.3, &quot;Medium Risk&quot;, _
+        score &lt; 700 And volatility &gt; 0.15, &quot;Low-Medium Risk&quot;, _
+        True, &quot;Low Risk&quot;)
 End Function
-
 Public Function GetAgeGroup(age As Integer) As String
-GetAgeGroup = Switch( _
-age &lt; 2, &quot;Infant&quot;, _
-age &lt; 13, &quot;Child&quot;, _
-age &lt; 20, &quot;Teenager&quot;, _
-age &lt; 40, &quot;Young Adult&quot;, _
-age &lt; 65, &quot;Adult&quot;, _
-True, &quot;Senior&quot;)
+    GetAgeGroup = Switch( _
+        age &lt; 2, &quot;Infant&quot;, _
+        age &lt; 13, &quot;Child&quot;, _
+        age &lt; 20, &quot;Teenager&quot;, _
+        age &lt; 40, &quot;Young Adult&quot;, _
+        age &lt; 65, &quot;Adult&quot;, _
+        True, &quot;Senior&quot;)
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>Switch</code> function can raise the following errors:</p>
-<ul>
-<li><strong>Error 450 (Wrong number of arguments or invalid property assignment)</strong>: If arguments are not provided in pairs (odd number of arguments)</li>
-<li><strong>Error 13 (Type mismatch)</strong>: If expressions cannot be evaluated as Boolean</li>
-<li><strong>Error 94 (Invalid use of Null)</strong>: In some contexts when returned Null is used without checking</li>
-</ul>
+<p>The <code>Switch</code> function can raise the following errors:
+- <strong>Error 450 (Wrong number of arguments or invalid property assignment)</strong>: If arguments are not provided in pairs (odd number of arguments)
+- <strong>Error 13 (Type mismatch)</strong>: If expressions cannot be evaluated as Boolean
+- <strong>Error 94 (Invalid use of Null)</strong>: In some contexts when returned Null is used without checking</p>
 <h2 id="performance-notes">Performance Notes</h2>
 <ul>
 <li>Evaluates expressions left to right until True is found (short-circuit)</li>
@@ -479,26 +445,106 @@ End Function</code></pre>
 <td>No (use with function)</td>
 <td>Yes</td>
 </tr>
+<tr>
+<td>## Platform Notes</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in VB6, VBA, and <code>VBScript</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Behavior consistent across platforms</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Return type is always Variant</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Arguments must come in pairs (expression, value)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Null return when no condition is True (not an error)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Must have even number of arguments (pairs)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot execute statements (only return values)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns Variant (must convert if specific type needed)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- All value expressions may be evaluated (cannot assume short-circuit for values)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Less readable than Select Case for complex branching</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No fall-through behavior like some languages' switch statements</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot use ranges directly (must use comparison expressions)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-notes">Platform Notes</h2>
-<ul>
-<li>Available in VB6, VBA, and <code>VBScript</code></li>
-<li>Behavior consistent across platforms</li>
-<li>Return type is always Variant</li>
-<li>Arguments must come in pairs (expression, value)</li>
-<li>Null return when no condition is True (not an error)</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Must have even number of arguments (pairs)</li>
-<li>Cannot execute statements (only return values)</li>
-<li>Returns Variant (must convert if specific type needed)</li>
-<li>All value expressions may be evaluated (cannot assume short-circuit for values)</li>
-<li>Less readable than Select Case for complex branching</li>
-<li>No fall-through behavior like some languages' switch statements</li>
-<li>Cannot use ranges directly (must use comparison expressions)</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

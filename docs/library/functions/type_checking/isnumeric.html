@@ -58,23 +58,21 @@
 - Recognizes hexadecimal (&amp;H) and octal (&amp;O) notation
 - Recognizes currency symbols in some locales</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>IsNumeric</code> function is used to determine whether an expression can be converted to a number:</p>
-<ul>
-<li>Validates input before numeric conversion</li>
-<li>Prevents Type Mismatch errors from <code>CInt</code>, <code>CLng</code>, <code>CDbl</code>, etc.</li>
-<li>Recognizes various numeric formats (<code>Integer</code>, <code>Decimal</code>, and scientific notation)</li>
-<li>Locale-dependent for currency and decimal separators</li>
-<li><code>Date</code>/<code>Time</code> values return <code>True</code> (internally stored as <code>Double</code>)</li>
-<li><code>Boolean</code> values return <code>True</code> (<code>True</code> = -1, <code>False</code> = 0)</li>
-<li>Returns <code>False</code> for <code>Null</code> and <code>Empty</code></li>
-<li>Hexadecimal literals (&amp;H10) return <code>True</code></li>
-<li>Octal literals (&amp;O77) return <code>True</code></li>
-<li>Leading/trailing spaces are ignored</li>
-<li>Common in data validation and input processing</li>
-<li>Use before converting strings to numbers</li>
-<li>Cannot distinguish between integer and floating-point capable strings</li>
-<li><code>VarType</code> and <code>TypeName</code> provide more detailed type information</li>
-</ul>
+<p>The <code>IsNumeric</code> function is used to determine whether an expression can be converted to a number:
+- Validates input before numeric conversion
+- Prevents Type Mismatch errors from <code>CInt</code>, <code>CLng</code>, <code>CDbl</code>, etc.
+- Recognizes various numeric formats (<code>Integer</code>, <code>Decimal</code>, and scientific notation)
+- Locale-dependent for currency and decimal separators
+- <code>Date</code>/<code>Time</code> values return <code>True</code> (internally stored as <code>Double</code>)
+- <code>Boolean</code> values return <code>True</code> (<code>True</code> = -1, <code>False</code> = 0)
+- Returns <code>False</code> for <code>Null</code> and <code>Empty</code>
+- Hexadecimal literals (&amp;H10) return <code>True</code>
+- Octal literals (&amp;O77) return <code>True</code>
+- Leading/trailing spaces are ignored
+- Common in data validation and input processing
+- Use before converting strings to numbers
+- Cannot distinguish between integer and floating-point capable strings
+- <code>VarType</code> and <code>TypeName</code> provide more detailed type information</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Input Validation</strong>: Verify user input is numeric before conversion</li>
@@ -89,16 +87,12 @@
 <h2 id="basic-usage-examples">Basic Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Basic numeric validation
 Dim value As Variant
-
 value = 123
 Debug.Print IsNumeric(value)       &#x27; True
-
 value = &quot;456&quot;
 Debug.Print IsNumeric(value)       &#x27; True - numeric string
-
 value = &quot;abc&quot;
 Debug.Print IsNumeric(value)       &#x27; False - non-numeric string
-
 &#x27; Example 2: Various data types
 Debug.Print IsNumeric(123)         &#x27; True - Integer
 Debug.Print IsNumeric(45.67)       &#x27; True - Double
@@ -115,448 +109,373 @@ Debug.Print IsNumeric(Empty)       &#x27; False - Empty
 Debug.Print IsNumeric(&quot;&quot;)          &#x27; False - empty string
 Debug.Print IsNumeric(&quot;&amp;H10&quot;)      &#x27; True - hexadecimal
 Debug.Print IsNumeric(&quot;&amp;O77&quot;)      &#x27; True - octal
-
 &#x27; Example 3: Input validation
 Sub ProcessInput()
-Dim userInput As String
-Dim numValue As Double
-
-userInput = InputBox(&quot;Enter a number:&quot;)
-
-If IsNumeric(userInput) Then
-numValue = CDbl(userInput)
-MsgBox &quot;You entered: &quot; &amp; numValue
-Else
-MsgBox &quot;Invalid number. Please enter a numeric value.&quot;, vbExclamation
-End If
+    Dim userInput As String
+    Dim numValue As Double
+    userInput = InputBox(&quot;Enter a number:&quot;)
+    If IsNumeric(userInput) Then
+        numValue = CDbl(userInput)
+        MsgBox &quot;You entered: &quot; &amp; numValue
+    Else
+        MsgBox &quot;Invalid number. Please enter a numeric value.&quot;, vbExclamation
+    End If
 End Sub
-
 &#x27; Example 4: Filter numeric values from array
 Function GetNumericValues(data As Variant) As Variant
-Dim result() As Variant
-Dim count As Long
-Dim i As Long
-
-If Not IsArray(data) Then
-GetNumericValues = Array()
-Exit Function
-End If
-
-ReDim result(LBound(data) To UBound(data))
-count = LBound(data) - 1
-
-For i = LBound(data) To UBound(data)
-If IsNumeric(data(i)) Then
-count = count + 1
-result(count) = data(i)
-End If
-Next i
-
-If count &gt;= LBound(result) Then
-ReDim Preserve result(LBound(result) To count)
-GetNumericValues = result
-Else
-GetNumericValues = Array()
-End If
+    Dim result() As Variant
+    Dim count As Long
+    Dim i As Long
+    If Not IsArray(data) Then
+        GetNumericValues = Array()
+        Exit Function
+    End If
+    ReDim result(LBound(data) To UBound(data))
+    count = LBound(data) - 1
+    For i = LBound(data) To UBound(data)
+        If IsNumeric(data(i)) Then
+            count = count + 1
+            result(count) = data(i)
+        End If
+    Next i
+    If count &gt;= LBound(result) Then
+        ReDim Preserve result(LBound(result) To count)
+        GetNumericValues = result
+    Else
+        GetNumericValues = Array()
+    End If
 End Function</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Safe numeric conversion
 Function SafeCDbl(value As Variant) As Variant
-If IsNumeric(value) Then
-SafeCDbl = CDbl(value)
-Else
-SafeCDbl = Null
-End If
+    If IsNumeric(value) Then
+        SafeCDbl = CDbl(value)
+    Else
+        SafeCDbl = Null
+    End If
 End Function
-
 &#x27; Pattern 2: Numeric with default value
 Function ToNumber(value As Variant, Optional defaultValue As Double = 0) As Double
-If IsNumeric(value) Then
-ToNumber = CDbl(value)
-Else
-ToNumber = defaultValue
-End If
+    If IsNumeric(value) Then
+        ToNumber = CDbl(value)
+    Else
+        ToNumber = defaultValue
+    End If
 End Function
-
 &#x27; Pattern 3: Validate all values are numeric
 Function AllNumeric(ParamArray values() As Variant) As Boolean
-Dim i As Long
-
-For i = LBound(values) To UBound(values)
-If Not IsNumeric(values(i)) Then
-AllNumeric = False
-Exit Function
-End If
-Next i
-
-AllNumeric = True
+    Dim i As Long
+    For i = LBound(values) To UBound(values)
+        If Not IsNumeric(values(i)) Then
+            AllNumeric = False
+            Exit Function
+        End If
+    Next i
+    AllNumeric = True
 End Function
-
 &#x27; Pattern 4: Count numeric values
 Function CountNumeric(arr As Variant) As Long
-Dim count As Long
-Dim i As Long
-
-If Not IsArray(arr) Then
-CountNumeric = 0
-Exit Function
-End If
-
-count = 0
-For i = LBound(arr) To UBound(arr)
-If IsNumeric(arr(i)) Then
-count = count + 1
-End If
-Next i
-
-CountNumeric = count
+    Dim count As Long
+    Dim i As Long
+    If Not IsArray(arr) Then
+        CountNumeric = 0
+        Exit Function
+    End If
+    count = 0
+    For i = LBound(arr) To UBound(arr)
+        If IsNumeric(arr(i)) Then
+            count = count + 1
+        End If
+    Next i
+    CountNumeric = count
 End Function
-
 &#x27; Pattern 5: Validate textbox input
 Function ValidateNumericTextBox(txt As TextBox) As Boolean
-If Trim$(txt.Text) = &quot;&quot; Then
-MsgBox &quot;Please enter a value&quot;, vbExclamation
-ValidateNumericTextBox = False
-ElseIf Not IsNumeric(txt.Text) Then
-MsgBox &quot;Please enter a valid number&quot;, vbExclamation
-txt.SetFocus
-ValidateNumericTextBox = False
-Else
-ValidateNumericTextBox = True
-End If
+    If Trim$(txt.Text) = &quot;&quot; Then
+        MsgBox &quot;Please enter a value&quot;, vbExclamation
+        ValidateNumericTextBox = False
+    ElseIf Not IsNumeric(txt.Text) Then
+        MsgBox &quot;Please enter a valid number&quot;, vbExclamation
+        txt.SetFocus
+        ValidateNumericTextBox = False
+    Else
+        ValidateNumericTextBox = True
+    End If
 End Function
-
 &#x27; Pattern 6: Sum only numeric values
 Function SumNumeric(values As Variant) As Double
-Dim total As Double
-Dim i As Long
-
-If Not IsArray(values) Then
-SumNumeric = 0
-Exit Function
-End If
-
-total = 0
-For i = LBound(values) To UBound(values)
-If IsNumeric(values(i)) Then
-total = total + CDbl(values(i))
-End If
-Next i
-
-SumNumeric = total
+    Dim total As Double
+    Dim i As Long
+    If Not IsArray(values) Then
+        SumNumeric = 0
+        Exit Function
+    End If
+    total = 0
+    For i = LBound(values) To UBound(values)
+        If IsNumeric(values(i)) Then
+            total = total + CDbl(values(i))
+        End If
+    Next i
+    SumNumeric = total
 End Function
-
 &#x27; Pattern 7: Parse numeric value with error info
 Function TryParseNumber(text As String, ByRef result As Double) As Boolean
-If IsNumeric(text) Then
-result = CDbl(text)
-TryParseNumber = True
-Else
-result = 0
-TryParseNumber = False
-End If
+    If IsNumeric(text) Then
+        result = CDbl(text)
+        TryParseNumber = True
+    Else
+        result = 0
+        TryParseNumber = False
+    End If
 End Function
-
 &#x27; Pattern 8: Validate range of values
 Function ValidateNumericRange(value As Variant, minVal As Double, maxVal As Double) As Boolean
-If Not IsNumeric(value) Then
-ValidateNumericRange = False
-Exit Function
-End If
-
-Dim numVal As Double
-numVal = CDbl(value)
-
-ValidateNumericRange = (numVal &gt;= minVal And numVal &lt;= maxVal)
+    If Not IsNumeric(value) Then
+        ValidateNumericRange = False
+        Exit Function
+    End If
+    Dim numVal As Double
+    numVal = CDbl(value)
+    ValidateNumericRange = (numVal &gt;= minVal And numVal &lt;= maxVal)
 End Function
-
 &#x27; Pattern 9: Extract numbers from mixed array
 Function ExtractNumbers(data As Variant) As Variant
-Dim numbers() As Double
-Dim count As Long
-Dim i As Long
-
-If Not IsArray(data) Then
-ExtractNumbers = Array()
-Exit Function
-End If
-
-ReDim numbers(LBound(data) To UBound(data))
-count = -1
-
-For i = LBound(data) To UBound(data)
-If IsNumeric(data(i)) Then
-count = count + 1
-numbers(count) = CDbl(data(i))
-End If
-Next i
-
-If count &gt;= 0 Then
-ReDim Preserve numbers(0 To count)
-ExtractNumbers = numbers
-Else
-ExtractNumbers = Array()
-End If
+    Dim numbers() As Double
+    Dim count As Long
+    Dim i As Long
+    If Not IsArray(data) Then
+        ExtractNumbers = Array()
+        Exit Function
+    End If
+    ReDim numbers(LBound(data) To UBound(data))
+    count = -1
+    For i = LBound(data) To UBound(data)
+        If IsNumeric(data(i)) Then
+            count = count + 1
+            numbers(count) = CDbl(data(i))
+        End If
+    Next i
+    If count &gt;= 0 Then
+        ReDim Preserve numbers(0 To count)
+        ExtractNumbers = numbers
+    Else
+        ExtractNumbers = Array()
+    End If
 End Function
-
 &#x27; Pattern 10: Database field validation
 Function ValidateNumericField(rs As Recordset, fieldName As String) As Boolean
-If IsNull(rs.Fields(fieldName).Value) Then
-ValidateNumericField = False
-ElseIf IsNumeric(rs.Fields(fieldName).Value) Then
-ValidateNumericField = True
-Else
-ValidateNumericField = False
-End If
+    If IsNull(rs.Fields(fieldName).Value) Then
+        ValidateNumericField = False
+    ElseIf IsNumeric(rs.Fields(fieldName).Value) Then
+        ValidateNumericField = True
+    Else
+        ValidateNumericField = False
+    End If
 End Function</code></pre>
 <h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Comprehensive form validator
 Public Class FormValidator
-Private m_errors As Collection
-
-Private Sub Class_Initialize()
-Set m_errors = New Collection
-End Sub
-
-Public Function ValidateForm(frm As Form) As Boolean
-Dim ctrl As Control
-
-m_errors.Clear
-
-For Each ctrl In frm.Controls
-If TypeOf ctrl Is TextBox Then
-If ctrl.Tag &lt;&gt; &quot;&quot; Then
-ValidateControl ctrl
-End If
-End If
-Next ctrl
-
-ValidateForm = (m_errors.Count = 0)
-End Function
-
-Private Sub ValidateControl(ctrl As Control)
-Dim tags As Variant
-Dim i As Long
-
-tags = Split(ctrl.Tag, &quot;,&quot;)
-
-For i = LBound(tags) To UBound(tags)
-Select Case Trim$(tags(i))
-Case &quot;required&quot;
-If Trim$(ctrl.Text) = &quot;&quot; Then
-m_errors.Add ctrl.Name &amp; &quot;: Field is required&quot;
-End If
-
-Case &quot;numeric&quot;
-If Trim$(ctrl.Text) &lt;&gt; &quot;&quot; Then
-If Not IsNumeric(ctrl.Text) Then
-m_errors.Add ctrl.Name &amp; &quot;: Must be a number&quot;
-End If
-End If
-
-Case &quot;positive&quot;
-If IsNumeric(ctrl.Text) Then
-If CDbl(ctrl.Text) &lt;= 0 Then
-m_errors.Add ctrl.Name &amp; &quot;: Must be positive&quot;
-End If
-End If
-
-Case &quot;integer&quot;
-If IsNumeric(ctrl.Text) Then
-If CDbl(ctrl.Text) &lt;&gt; CLng(ctrl.Text) Then
-m_errors.Add ctrl.Name &amp; &quot;: Must be an integer&quot;
-End If
-End If
-End Select
-Next i
-End Sub
-
-Public Function GetErrors() As Collection
-Set GetErrors = m_errors
-End Function
+    Private m_errors As Collection
+    Private Sub Class_Initialize()
+        Set m_errors = New Collection
+    End Sub
+    Public Function ValidateForm(frm As Form) As Boolean
+        Dim ctrl As Control
+        m_errors.Clear
+        For Each ctrl In frm.Controls
+            If TypeOf ctrl Is TextBox Then
+                If ctrl.Tag &lt;&gt; &quot;&quot; Then
+                    ValidateControl ctrl
+                End If
+            End If
+        Next ctrl
+        ValidateForm = (m_errors.Count = 0)
+    End Function
+    Private Sub ValidateControl(ctrl As Control)
+        Dim tags As Variant
+        Dim i As Long
+        tags = Split(ctrl.Tag, &quot;,&quot;)
+        For i = LBound(tags) To UBound(tags)
+            Select Case Trim$(tags(i))
+                Case &quot;required&quot;
+                    If Trim$(ctrl.Text) = &quot;&quot; Then
+                        m_errors.Add ctrl.Name &amp; &quot;: Field is required&quot;
+                    End If
+                Case &quot;numeric&quot;
+                    If Trim$(ctrl.Text) &lt;&gt; &quot;&quot; Then
+                        If Not IsNumeric(ctrl.Text) Then
+                            m_errors.Add ctrl.Name &amp; &quot;: Must be a number&quot;
+                        End If
+                    End If
+                Case &quot;positive&quot;
+                    If IsNumeric(ctrl.Text) Then
+                        If CDbl(ctrl.Text) &lt;= 0 Then
+                            m_errors.Add ctrl.Name &amp; &quot;: Must be positive&quot;
+                        End If
+                    End If
+                Case &quot;integer&quot;
+                    If IsNumeric(ctrl.Text) Then
+                        If CDbl(ctrl.Text) &lt;&gt; CLng(ctrl.Text) Then
+                            m_errors.Add ctrl.Name &amp; &quot;: Must be an integer&quot;
+                        End If
+                    End If
+            End Select
+        Next i
+    End Sub
+    Public Function GetErrors() As Collection
+        Set GetErrors = m_errors
+    End Function
 End Class
-
 &#x27; Example 2: CSV parser with type detection
 Public Class CSVParser
-Public Function ParseLine(line As String) As Variant
-Dim fields() As Variant
-Dim parts As Variant
-Dim i As Long
-
-parts = Split(line, &quot;,&quot;)
-ReDim fields(LBound(parts) To UBound(parts))
-
-For i = LBound(parts) To UBound(parts)
-fields(i) = ConvertField(Trim$(parts(i)))
-Next i
-
-ParseLine = fields
-End Function
-
-Private Function ConvertField(value As String) As Variant
-&#x27; Auto-convert to appropriate type
-If value = &quot;&quot; Then
-ConvertField = Empty
-ElseIf UCase$(value) = &quot;NULL&quot; Then
-ConvertField = Null
-ElseIf IsNumeric(value) Then
-&#x27; Determine if integer or floating point
-If InStr(value, &quot;.&quot;) &gt; 0 Or InStr(value, &quot;E&quot;) &gt; 0 Then
-ConvertField = CDbl(value)
-Else
-ConvertField = CLng(value)
-End If
-ElseIf IsDate(value) Then
-ConvertField = CDate(value)
-Else
-ConvertField = value  &#x27; Keep as string
-End If
-End Function
+    Public Function ParseLine(line As String) As Variant
+        Dim fields() As Variant
+        Dim parts As Variant
+        Dim i As Long
+        parts = Split(line, &quot;,&quot;)
+        ReDim fields(LBound(parts) To UBound(parts))
+        For i = LBound(parts) To UBound(parts)
+            fields(i) = ConvertField(Trim$(parts(i)))
+        Next i
+        ParseLine = fields
+    End Function
+    Private Function ConvertField(value As String) As Variant
+        &#x27; Auto-convert to appropriate type
+        If value = &quot;&quot; Then
+            ConvertField = Empty
+        ElseIf UCase$(value) = &quot;NULL&quot; Then
+            ConvertField = Null
+        ElseIf IsNumeric(value) Then
+            &#x27; Determine if integer or floating point
+            If InStr(value, &quot;.&quot;) &gt; 0 Or InStr(value, &quot;E&quot;) &gt; 0 Then
+                ConvertField = CDbl(value)
+            Else
+                ConvertField = CLng(value)
+            End If
+        ElseIf IsDate(value) Then
+            ConvertField = CDate(value)
+        Else
+            ConvertField = value  &#x27; Keep as string
+        End If
+    End Function
 End Class
-
 &#x27; Example 3: Data statistics calculator
 Public Class DataStatistics
-Public Function Calculate(data As Variant) As Dictionary
-Dim stats As Dictionary
-Dim numbers() As Double
-Dim count As Long
-Dim i As Long
-Dim total As Double
-Dim mean As Double
-Dim variance As Double
-
-Set stats = CreateObject(&quot;Scripting.Dictionary&quot;)
-
-If Not IsArray(data) Then
-stats(&quot;error&quot;) = &quot;Not an array&quot;
-Set Calculate = stats
-Exit Function
-End If
-
-&#x27; Extract numeric values
-ReDim numbers(LBound(data) To UBound(data))
-count = -1
-
-For i = LBound(data) To UBound(data)
-If IsNumeric(data(i)) Then
-count = count + 1
-numbers(count) = CDbl(data(i))
-End If
-Next i
-
-If count &lt; 0 Then
-stats(&quot;error&quot;) = &quot;No numeric values found&quot;
-Set Calculate = stats
-Exit Function
-End If
-
-ReDim Preserve numbers(0 To count)
-
-&#x27; Calculate statistics
-total = 0
-For i = 0 To count
-total = total + numbers(i)
-Next i
-
-mean = total / (count + 1)
-
-variance = 0
-For i = 0 To count
-variance = variance + (numbers(i) - mean) ^ 2
-Next i
-variance = variance / (count + 1)
-
-stats(&quot;count&quot;) = count + 1
-stats(&quot;sum&quot;) = total
-stats(&quot;mean&quot;) = mean
-stats(&quot;variance&quot;) = variance
-stats(&quot;stddev&quot;) = Sqr(variance)
-stats(&quot;min&quot;) = MinValue(numbers)
-stats(&quot;max&quot;) = MaxValue(numbers)
-
-Set Calculate = stats
-End Function
-
-Private Function MinValue(arr() As Double) As Double
-Dim min As Double
-Dim i As Long
-
-min = arr(0)
-For i = 1 To UBound(arr)
-If arr(i) &lt; min Then min = arr(i)
-Next i
-
-MinValue = min
-End Function
-
-Private Function MaxValue(arr() As Double) As Double
-Dim max As Double
-Dim i As Long
-
-max = arr(0)
-For i = 1 To UBound(arr)
-If arr(i) &gt; max Then max = arr(i)
-Next i
-
-MaxValue = max
-End Function
+    Public Function Calculate(data As Variant) As Dictionary
+        Dim stats As Dictionary
+        Dim numbers() As Double
+        Dim count As Long
+        Dim i As Long
+        Dim total As Double
+        Dim mean As Double
+        Dim variance As Double
+        Set stats = CreateObject(&quot;Scripting.Dictionary&quot;)
+        If Not IsArray(data) Then
+            stats(&quot;error&quot;) = &quot;Not an array&quot;
+            Set Calculate = stats
+            Exit Function
+        End If
+        &#x27; Extract numeric values
+        ReDim numbers(LBound(data) To UBound(data))
+        count = -1
+        For i = LBound(data) To UBound(data)
+            If IsNumeric(data(i)) Then
+                count = count + 1
+                numbers(count) = CDbl(data(i))
+            End If
+        Next i
+        If count &lt; 0 Then
+            stats(&quot;error&quot;) = &quot;No numeric values found&quot;
+            Set Calculate = stats
+            Exit Function
+        End If
+        ReDim Preserve numbers(0 To count)
+        &#x27; Calculate statistics
+        total = 0
+        For i = 0 To count
+            total = total + numbers(i)
+        Next i
+        mean = total / (count + 1)
+        variance = 0
+        For i = 0 To count
+            variance = variance + (numbers(i) - mean) ^ 2
+        Next i
+        variance = variance / (count + 1)
+        stats(&quot;count&quot;) = count + 1
+        stats(&quot;sum&quot;) = total
+        stats(&quot;mean&quot;) = mean
+        stats(&quot;variance&quot;) = variance
+        stats(&quot;stddev&quot;) = Sqr(variance)
+        stats(&quot;min&quot;) = MinValue(numbers)
+        stats(&quot;max&quot;) = MaxValue(numbers)
+        Set Calculate = stats
+    End Function
+    Private Function MinValue(arr() As Double) As Double
+        Dim min As Double
+        Dim i As Long
+        min = arr(0)
+        For i = 1 To UBound(arr)
+            If arr(i) &lt; min Then min = arr(i)
+        Next i
+        MinValue = min
+    End Function
+    Private Function MaxValue(arr() As Double) As Double
+        Dim max As Double
+        Dim i As Long
+        max = arr(0)
+        For i = 1 To UBound(arr)
+            If arr(i) &gt; max Then max = arr(i)
+        Next i
+        MaxValue = max
+    End Function
 End Class
-
 &#x27; Example 4: Smart input parser
 Public Class SmartParser
-Public Function Parse(input As String) As Variant
-Dim trimmed As String
-
-trimmed = Trim$(input)
-
-If trimmed = &quot;&quot; Then
-Parse = Empty
-Exit Function
-End If
-
-&#x27; Try to parse as number
-If IsNumeric(trimmed) Then
-Parse = ParseAsNumber(trimmed)
-Exit Function
-End If
-
-&#x27; Try to parse as date
-If IsDate(trimmed) Then
-Parse = CDate(trimmed)
-Exit Function
-End If
-
-&#x27; Try to parse as boolean
-Select Case UCase$(trimmed)
-Case &quot;TRUE&quot;, &quot;YES&quot;, &quot;Y&quot;, &quot;1&quot;
-Parse = True
-Exit Function
-Case &quot;FALSE&quot;, &quot;NO&quot;, &quot;N&quot;, &quot;0&quot;
-Parse = False
-Exit Function
-End Select
-
-&#x27; Return as string
-Parse = trimmed
-End Function
-
-Private Function ParseAsNumber(value As String) As Variant
-&#x27; Determine best numeric type
-If InStr(value, &quot;.&quot;) &gt; 0 Or InStr(value, &quot;E&quot;) &gt; 0 Or InStr(value, &quot;e&quot;) &gt; 0 Then
-ParseAsNumber = CDbl(value)
-Else
-Dim numVal As Double
-numVal = CDbl(value)
-
-If numVal &gt;= -32768 And numVal &lt;= 32767 And numVal = CLng(numVal) Then
-ParseAsNumber = CInt(numVal)
-ElseIf numVal &gt;= -2147483648# And numVal &lt;= 2147483647# And numVal = CLng(numVal) Then
-ParseAsNumber = CLng(numVal)
-Else
-ParseAsNumber = numVal
-End If
-End If
-End Function
+    Public Function Parse(input As String) As Variant
+        Dim trimmed As String
+        trimmed = Trim$(input)
+        If trimmed = &quot;&quot; Then
+            Parse = Empty
+            Exit Function
+        End If
+        &#x27; Try to parse as number
+        If IsNumeric(trimmed) Then
+            Parse = ParseAsNumber(trimmed)
+            Exit Function
+        End If
+        &#x27; Try to parse as date
+        If IsDate(trimmed) Then
+            Parse = CDate(trimmed)
+            Exit Function
+        End If
+        &#x27; Try to parse as boolean
+        Select Case UCase$(trimmed)
+            Case &quot;TRUE&quot;, &quot;YES&quot;, &quot;Y&quot;, &quot;1&quot;
+                Parse = True
+                Exit Function
+            Case &quot;FALSE&quot;, &quot;NO&quot;, &quot;N&quot;, &quot;0&quot;
+                Parse = False
+                Exit Function
+        End Select
+        &#x27; Return as string
+        Parse = trimmed
+    End Function
+    Private Function ParseAsNumber(value As String) As Variant
+        &#x27; Determine best numeric type
+        If InStr(value, &quot;.&quot;) &gt; 0 Or InStr(value, &quot;E&quot;) &gt; 0 Or InStr(value, &quot;e&quot;) &gt; 0 Then
+            ParseAsNumber = CDbl(value)
+        Else
+            Dim numVal As Double
+            numVal = CDbl(value)
+            If numVal &gt;= -32768 And numVal &lt;= 32767 And numVal = CLng(numVal) Then
+                ParseAsNumber = CInt(numVal)
+            ElseIf numVal &gt;= -2147483648# And numVal &lt;= 2147483647# And numVal = CLng(numVal) Then
+                ParseAsNumber = CLng(numVal)
+            Else
+                ParseAsNumber = numVal
+            End If
+        End If
+    End Function
 End Class</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <p>The <code>IsNumeric</code> function itself does not raise errors:</p>
@@ -566,15 +485,13 @@ Debug.Print IsNumeric(&quot;456&quot;)         &#x27; True
 Debug.Print IsNumeric(&quot;abc&quot;)         &#x27; False
 Debug.Print IsNumeric(Null)          &#x27; False
 Debug.Print IsNumeric(Empty)         &#x27; False
-
 &#x27; Common pattern: validate before conversion
 Dim text As String
 text = &quot;123abc&quot;
-
 If IsNumeric(text) Then
-value = CDbl(text)  &#x27; Safe conversion
+    value = CDbl(text)  &#x27; Safe conversion
 Else
-MsgBox &quot;&#x27;&quot; &amp; text &amp; &quot;&#x27; is not a valid number&quot;, vbExclamation
+    MsgBox &quot;&#x27;&quot; &amp; text &amp; &quot;&#x27; is not a valid number&quot;, vbExclamation
 End If</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
@@ -647,23 +564,24 @@ End If</code></pre>
 <td><code>Double</code></td>
 <td>Convert string to number (partial)</td>
 </tr>
+<tr>
+<td>## <code>IsNumeric</code> vs <code>Val</code> Function</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="isnumeric-vs-val-function"><code>IsNumeric</code> vs <code>Val</code> Function</h2>
 <pre><code class="language-vbnet">Dim text As String
-
 text = &quot;123&quot;
 Debug.Print IsNumeric(text)    &#x27; True
 Debug.Print Val(text)          &#x27; 123
-
 text = &quot;123abc&quot;
 Debug.Print IsNumeric(text)    &#x27; False - not fully numeric
 Debug.Print Val(text)          &#x27; 123 - extracts leading numbers
-
 text = &quot;abc123&quot;
 Debug.Print IsNumeric(text)    &#x27; False
 Debug.Print Val(text)          &#x27; 0 - no leading numbers
-
 &#x27; IsNumeric is stricter - entire expression must be numeric
 &#x27; Val extracts numeric portion from beginning of string</code></pre>
 <h2 id="platform-and-version-notes">Platform and Version Notes</h2>

@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p><code>GetAllSettings</code> Function</p>
-<p>Returns a list of key settings and their respective values (originally created with <code>SaveSetting</code>) from an application's entry in the Windows registry.</p>
+            <p><code>GetAllSettings</code> Function
+Returns a list of key settings and their respective values (originally created with <code>SaveSetting</code>) from an application's entry in the Windows registry.</p>
 <h1 id="syntax">Syntax</h1>
 <pre><code class="language-vbnet">GetAllSettings(appname, section)</code></pre>
 <h1 id="parameters">Parameters</h1>
@@ -72,299 +72,250 @@
 <pre><code class="language-vbnet">&#x27; Retrieve all settings for a section
 Dim allSettings As Variant
 Dim i As Long
-
 allSettings = GetAllSettings(&quot;MyApp&quot;, &quot;Preferences&quot;)
-
 If IsEmpty(allSettings) Then
-Debug.Print &quot;No settings found&quot;
+    Debug.Print &quot;No settings found&quot;
 Else
-For i = LBound(allSettings, 1) To UBound(allSettings, 1)
-Debug.Print allSettings(i, 0) &amp; &quot; = &quot; &amp; allSettings(i, 1)
-Next i
+    For i = LBound(allSettings, 1) To UBound(allSettings, 1)
+        Debug.Print allSettings(i, 0) &amp; &quot; = &quot; &amp; allSettings(i, 1)
+    Next i
 End If
-
 &#x27; Check if settings exist
 Dim settings As Variant
 settings = GetAllSettings(&quot;MyApp&quot;, &quot;WindowPosition&quot;)
-
 If Not IsEmpty(settings) Then
-&#x27; Settings exist, process them
-MsgBox &quot;Found &quot; &amp; (UBound(settings, 1) + 1) &amp; &quot; settings&quot;
+    &#x27; Settings exist, process them
+    MsgBox &quot;Found &quot; &amp; (UBound(settings, 1) + 1) &amp; &quot; settings&quot;
 End If
-
 &#x27; Load and apply settings
 Dim appSettings As Variant
 appSettings = GetAllSettings(&quot;MyApp&quot;, &quot;Options&quot;)
-
 If Not IsEmpty(appSettings) Then
-Dim j As Long
-For j = 0 To UBound(appSettings, 1)
-Select Case appSettings(j, 0)
-Case &quot;Theme&quot;
-ApplyTheme appSettings(j, 1)
-Case &quot;Language&quot;
-SetLanguage appSettings(j, 1)
-End Select
-Next j
+    Dim j As Long
+    For j = 0 To UBound(appSettings, 1)
+        Select Case appSettings(j, 0)
+            Case &quot;Theme&quot;
+                ApplyTheme appSettings(j, 1)
+            Case &quot;Language&quot;
+                SetLanguage appSettings(j, 1)
+        End Select
+    Next j
 End If</code></pre>
 <h1 id="common-patterns">Common Patterns</h1>
 <h2 id="1-load-all-application-settings">1. Load All Application Settings</h2>
 <pre><code class="language-vbnet">Sub LoadApplicationSettings()
-Dim settings As Variant
-Dim i As Long
-
-settings = GetAllSettings(&quot;MyApp&quot;, &quot;General&quot;)
-
-If IsEmpty(settings) Then
-&#x27; No settings found, use defaults
-SetDefaultSettings
-Else
-For i = LBound(settings, 1) To UBound(settings, 1)
-ProcessSetting settings(i, 0), settings(i, 1)
-Next i
-End If
+    Dim settings As Variant
+    Dim i As Long
+    settings = GetAllSettings(&quot;MyApp&quot;, &quot;General&quot;)
+    If IsEmpty(settings) Then
+        &#x27; No settings found, use defaults
+        SetDefaultSettings
+    Else
+        For i = LBound(settings, 1) To UBound(settings, 1)
+            ProcessSetting settings(i, 0), settings(i, 1)
+        Next i
+    End If
 End Sub
-
 Sub ProcessSetting(keyName As String, value As String)
-Select Case keyName
-Case &quot;AutoSave&quot;
-chkAutoSave.Value = IIf(value = &quot;True&quot;, 1, 0)
-Case &quot;SaveInterval&quot;
-txtInterval.Text = value
-Case &quot;BackupEnabled&quot;
-chkBackup.Value = IIf(value = &quot;True&quot;, 1, 0)
-End Select
+    Select Case keyName
+        Case &quot;AutoSave&quot;
+            chkAutoSave.Value = IIf(value = &quot;True&quot;, 1, 0)
+        Case &quot;SaveInterval&quot;
+            txtInterval.Text = value
+        Case &quot;BackupEnabled&quot;
+            chkBackup.Value = IIf(value = &quot;True&quot;, 1, 0)
+    End Select
 End Sub</code></pre>
 <h2 id="2-restore-window-position">2. Restore Window Position</h2>
 <pre><code class="language-vbnet">Sub RestoreWindowPosition(formName As Form)
-Dim settings As Variant
-Dim i As Long
-
-settings = GetAllSettings(App.Title, &quot;WindowPos&quot;)
-
-If Not IsEmpty(settings) Then
-For i = LBound(settings, 1) To UBound(settings, 1)
-Select Case settings(i, 0)
-Case &quot;Left&quot;
-formName.Left = CLng(settings(i, 1))
-Case &quot;Top&quot;
-formName.Top = CLng(settings(i, 1))
-Case &quot;Width&quot;
-formName.Width = CLng(settings(i, 1))
-Case &quot;Height&quot;
-formName.Height = CLng(settings(i, 1))
-Case &quot;WindowState&quot;
-formName.WindowState = CInt(settings(i, 1))
-End Select
-Next i
-End If
+    Dim settings As Variant
+    Dim i As Long
+    settings = GetAllSettings(App.Title, &quot;WindowPos&quot;)
+    If Not IsEmpty(settings) Then
+        For i = LBound(settings, 1) To UBound(settings, 1)
+            Select Case settings(i, 0)
+                Case &quot;Left&quot;
+                    formName.Left = CLng(settings(i, 1))
+                Case &quot;Top&quot;
+                    formName.Top = CLng(settings(i, 1))
+                Case &quot;Width&quot;
+                    formName.Width = CLng(settings(i, 1))
+                Case &quot;Height&quot;
+                    formName.Height = CLng(settings(i, 1))
+                Case &quot;WindowState&quot;
+                    formName.WindowState = CInt(settings(i, 1))
+            End Select
+        Next i
+    End If
 End Sub</code></pre>
 <h2 id="3-load-user-preferences">3. Load User Preferences</h2>
 <pre><code class="language-vbnet">Function LoadUserPreferences() As Collection
-Dim settings As Variant
-Dim prefs As New Collection
-Dim i As Long
-
-settings = GetAllSettings(App.Title, &quot;UserPreferences&quot;)
-
-If Not IsEmpty(settings) Then
-For i = LBound(settings, 1) To UBound(settings, 1)
-prefs.Add settings(i, 1), settings(i, 0)
-Next i
-End If
-
-Set LoadUserPreferences = prefs
+    Dim settings As Variant
+    Dim prefs As New Collection
+    Dim i As Long
+    settings = GetAllSettings(App.Title, &quot;UserPreferences&quot;)
+    If Not IsEmpty(settings) Then
+        For i = LBound(settings, 1) To UBound(settings, 1)
+            prefs.Add settings(i, 1), settings(i, 0)
+        Next i
+    End If
+    Set LoadUserPreferences = prefs
 End Function
-
 &#x27; Usage
 Sub ApplyUserPreferences()
-Dim prefs As Collection
-Set prefs = LoadUserPreferences()
-
-If prefs.Count &gt; 0 Then
-On Error Resume Next
-txtFontSize.Text = prefs(&quot;FontSize&quot;)
-cboTheme.Text = prefs(&quot;Theme&quot;)
-chkShowToolbar.Value = IIf(prefs(&quot;ShowToolbar&quot;) = &quot;True&quot;, 1, 0)
-On Error GoTo 0
-End If
+    Dim prefs As Collection
+    Set prefs = LoadUserPreferences()
+    If prefs.Count &gt; 0 Then
+        On Error Resume Next
+        txtFontSize.Text = prefs(&quot;FontSize&quot;)
+        cboTheme.Text = prefs(&quot;Theme&quot;)
+        chkShowToolbar.Value = IIf(prefs(&quot;ShowToolbar&quot;) = &quot;True&quot;, 1, 0)
+        On Error GoTo 0
+    End If
 End Sub</code></pre>
 <h2 id="4-export-settings-to-file">4. Export Settings to File</h2>
 <pre><code class="language-vbnet">Sub ExportSettingsToFile(filename As String)
-Dim settings As Variant
-Dim fileNum As Integer
-Dim i As Long
-
-settings = GetAllSettings(App.Title, &quot;Settings&quot;)
-
-If IsEmpty(settings) Then
-MsgBox &quot;No settings to export&quot;
-Exit Sub
-End If
-
-fileNum = FreeFile
-Open filename For Output As #fileNum
-
-Print #fileNum, &quot;[Settings]&quot;
-
-For i = LBound(settings, 1) To UBound(settings, 1)
-Print #fileNum, settings(i, 0) &amp; &quot;=&quot; &amp; settings(i, 1)
-Next i
-
-Close #fileNum
-MsgBox &quot;Settings exported successfully&quot;
+    Dim settings As Variant
+    Dim fileNum As Integer
+    Dim i As Long
+    settings = GetAllSettings(App.Title, &quot;Settings&quot;)
+    If IsEmpty(settings) Then
+        MsgBox &quot;No settings to export&quot;
+        Exit Sub
+    End If
+    fileNum = FreeFile
+    Open filename For Output As #fileNum
+    Print #fileNum, &quot;[Settings]&quot;
+    For i = LBound(settings, 1) To UBound(settings, 1)
+        Print #fileNum, settings(i, 0) &amp; &quot;=&quot; &amp; settings(i, 1)
+    Next i
+    Close #fileNum
+    MsgBox &quot;Settings exported successfully&quot;
 End Sub</code></pre>
 <h2 id="5-display-settings-in-listbox">5. Display Settings in <code>ListBox</code></h2>
 <pre><code class="language-vbnet">Sub PopulateSettingsList(lst As ListBox)
-Dim settings As Variant
-Dim i As Long
-
-lst.Clear
-settings = GetAllSettings(App.Title, &quot;Configuration&quot;)
-
-If IsEmpty(settings) Then
-lst.AddItem &quot;(No settings found)&quot;
-Else
-For i = LBound(settings, 1) To UBound(settings, 1)
-lst.AddItem settings(i, 0) &amp; &quot; = &quot; &amp; settings(i, 1)
-Next i
-End If
+    Dim settings As Variant
+    Dim i As Long
+    lst.Clear
+    settings = GetAllSettings(App.Title, &quot;Configuration&quot;)
+    If IsEmpty(settings) Then
+        lst.AddItem &quot;(No settings found)&quot;
+    Else
+        For i = LBound(settings, 1) To UBound(settings, 1)
+            lst.AddItem settings(i, 0) &amp; &quot; = &quot; &amp; settings(i, 1)
+        Next i
+    End If
 End Sub</code></pre>
 <h2 id="6-validate-settings">6. Validate Settings</h2>
 <pre><code class="language-vbnet">Function ValidateSettings(appName As String, section As String) As Boolean
-Dim settings As Variant
-Dim i As Long
-Dim isValid As Boolean
-
-settings = GetAllSettings(appName, section)
-
-If IsEmpty(settings) Then
-ValidateSettings = False
-Exit Function
-End If
-
-isValid = True
-
-For i = LBound(settings, 1) To UBound(settings, 1)
-&#x27; Validate each setting
-If Not IsValidSetting(settings(i, 0), settings(i, 1)) Then
-Debug.Print &quot;Invalid setting: &quot; &amp; settings(i, 0)
-isValid = False
-End If
-Next i
-
-ValidateSettings = isValid
+    Dim settings As Variant
+    Dim i As Long
+    Dim isValid As Boolean
+    settings = GetAllSettings(appName, section)
+    If IsEmpty(settings) Then
+        ValidateSettings = False
+        Exit Function
+    End If
+    isValid = True
+    For i = LBound(settings, 1) To UBound(settings, 1)
+        &#x27; Validate each setting
+        If Not IsValidSetting(settings(i, 0), settings(i, 1)) Then
+            Debug.Print &quot;Invalid setting: &quot; &amp; settings(i, 0)
+            isValid = False
+        End If
+    Next i
+    ValidateSettings = isValid
 End Function
-
 Function IsValidSetting(keyName As String, value As String) As Boolean
-&#x27; Implement validation logic
-IsValidSetting = True
-
-Select Case keyName
-Case &quot;Port&quot;
-IsValidSetting = IsNumeric(value) And CLng(value) &gt; 0 And CLng(value) &lt; 65536
-Case &quot;Timeout&quot;
-IsValidSetting = IsNumeric(value) And CLng(value) &gt; 0
-Case &quot;Enabled&quot;
-IsValidSetting = (value = &quot;True&quot; Or value = &quot;False&quot;)
-End Select
+    &#x27; Implement validation logic
+    IsValidSetting = True
+    Select Case keyName
+        Case &quot;Port&quot;
+            IsValidSetting = IsNumeric(value) And CLng(value) &gt; 0 And CLng(value) &lt; 65536
+        Case &quot;Timeout&quot;
+            IsValidSetting = IsNumeric(value) And CLng(value) &gt; 0
+        Case &quot;Enabled&quot;
+            IsValidSetting = (value = &quot;True&quot; Or value = &quot;False&quot;)
+    End Select
 End Function</code></pre>
 <h2 id="7-compare-settings-between-sections">7. Compare Settings Between Sections</h2>
 <pre><code class="language-vbnet">Sub CompareSettings(section1 As String, section2 As String)
-Dim settings1 As Variant
-Dim settings2 As Variant
-Dim i As Long
-
-settings1 = GetAllSettings(App.Title, section1)
-settings2 = GetAllSettings(App.Title, section2)
-
-Debug.Print &quot;Comparing &quot; &amp; section1 &amp; &quot; vs &quot; &amp; section2
-Debug.Print String(50, &quot;=&quot;)
-
-If IsEmpty(settings1) Then
-Debug.Print section1 &amp; &quot; has no settings&quot;
-ElseIf IsEmpty(settings2) Then
-Debug.Print section2 &amp; &quot; has no settings&quot;
-Else
-For i = LBound(settings1, 1) To UBound(settings1, 1)
-Debug.Print section1 &amp; &quot;.&quot; &amp; settings1(i, 0) &amp; &quot; = &quot; &amp; settings1(i, 1)
-Next i
-
-Debug.Print &quot;&quot;
-
-For i = LBound(settings2, 1) To UBound(settings2, 1)
-Debug.Print section2 &amp; &quot;.&quot; &amp; settings2(i, 0) &amp; &quot; = &quot; &amp; settings2(i, 1)
-Next i
-End If
+    Dim settings1 As Variant
+    Dim settings2 As Variant
+    Dim i As Long
+    settings1 = GetAllSettings(App.Title, section1)
+    settings2 = GetAllSettings(App.Title, section2)
+    Debug.Print &quot;Comparing &quot; &amp; section1 &amp; &quot; vs &quot; &amp; section2
+    Debug.Print String(50, &quot;=&quot;)
+    If IsEmpty(settings1) Then
+        Debug.Print section1 &amp; &quot; has no settings&quot;
+    ElseIf IsEmpty(settings2) Then
+        Debug.Print section2 &amp; &quot; has no settings&quot;
+    Else
+        For i = LBound(settings1, 1) To UBound(settings1, 1)
+            Debug.Print section1 &amp; &quot;.&quot; &amp; settings1(i, 0) &amp; &quot; = &quot; &amp; settings1(i, 1)
+        Next i
+        Debug.Print &quot;&quot;
+        For i = LBound(settings2, 1) To UBound(settings2, 1)
+            Debug.Print section2 &amp; &quot;.&quot; &amp; settings2(i, 0) &amp; &quot; = &quot; &amp; settings2(i, 1)
+        Next i
+    End If
 End Sub</code></pre>
 <h2 id="8-migrate-settings-to-new-version">8. Migrate Settings to New Version</h2>
 <pre><code class="language-vbnet">Sub MigrateSettings(oldSection As String, newSection As String)
-Dim settings As Variant
-Dim i As Long
-
-&#x27; Get all settings from old section
-settings = GetAllSettings(App.Title, oldSection)
-
-If IsEmpty(settings) Then
-Debug.Print &quot;No settings to migrate&quot;
-Exit Sub
-End If
-
-&#x27; Save to new section
-For i = LBound(settings, 1) To UBound(settings, 1)
-SaveSetting App.Title, newSection, settings(i, 0), settings(i, 1)
-Next i
-
-Debug.Print &quot;Migrated &quot; &amp; (UBound(settings, 1) + 1) &amp; &quot; settings&quot;
+    Dim settings As Variant
+    Dim i As Long
+    &#x27; Get all settings from old section
+    settings = GetAllSettings(App.Title, oldSection)
+    If IsEmpty(settings) Then
+        Debug.Print &quot;No settings to migrate&quot;
+        Exit Sub
+    End If
+    &#x27; Save to new section
+    For i = LBound(settings, 1) To UBound(settings, 1)
+        SaveSetting App.Title, newSection, settings(i, 0), settings(i, 1)
+    Next i
+    Debug.Print &quot;Migrated &quot; &amp; (UBound(settings, 1) + 1) &amp; &quot; settings&quot;
 End Sub</code></pre>
 <h2 id="9-create-settings-dictionary">9. Create Settings Dictionary</h2>
 <pre><code class="language-vbnet">Function GetSettingsDictionary() As Object
-Dim settings As Variant
-Dim dict As Object
-Dim i As Long
-
-Set dict = CreateObject(&quot;Scripting.Dictionary&quot;)
-settings = GetAllSettings(App.Title, &quot;Config&quot;)
-
-If Not IsEmpty(settings) Then
-For i = LBound(settings, 1) To UBound(settings, 1)
-dict.Add settings(i, 0), settings(i, 1)
-Next i
-End If
-
-Set GetSettingsDictionary = dict
+    Dim settings As Variant
+    Dim dict As Object
+    Dim i As Long
+    Set dict = CreateObject(&quot;Scripting.Dictionary&quot;)
+    settings = GetAllSettings(App.Title, &quot;Config&quot;)
+    If Not IsEmpty(settings) Then
+        For i = LBound(settings, 1) To UBound(settings, 1)
+            dict.Add settings(i, 0), settings(i, 1)
+        Next i
+    End If
+    Set GetSettingsDictionary = dict
 End Function
-
 &#x27; Usage
 Sub UseSettingsDictionary()
-Dim settings As Object
-Set settings = GetSettingsDictionary()
-
-If settings.Exists(&quot;ServerURL&quot;) Then
-Debug.Print &quot;Server: &quot; &amp; settings(&quot;ServerURL&quot;)
-End If
+    Dim settings As Object
+    Set settings = GetSettingsDictionary()
+    If settings.Exists(&quot;ServerURL&quot;) Then
+        Debug.Print &quot;Server: &quot; &amp; settings(&quot;ServerURL&quot;)
+    End If
 End Sub</code></pre>
 <h2 id="10-bulk-settings-editor">10. Bulk Settings Editor</h2>
 <pre><code class="language-vbnet">Sub EditAllSettings(appName As String, section As String)
-Dim settings As Variant
-Dim i As Long
-Dim newValue As String
-
-settings = GetAllSettings(appName, section)
-
-If IsEmpty(settings) Then
-MsgBox &quot;No settings found&quot;
-Exit Sub
-End If
-
-For i = LBound(settings, 1) To UBound(settings, 1)
-newValue = InputBox(&quot;Enter new value for: &quot; &amp; settings(i, 0), _
-&quot;Edit Setting&quot;, settings(i, 1))
-
-If newValue &lt;&gt; &quot;&quot; Then
-SaveSetting appName, section, settings(i, 0), newValue
-End If
-Next i
+    Dim settings As Variant
+    Dim i As Long
+    Dim newValue As String
+    settings = GetAllSettings(appName, section)
+    If IsEmpty(settings) Then
+        MsgBox &quot;No settings found&quot;
+        Exit Sub
+    End If
+    For i = LBound(settings, 1) To UBound(settings, 1)
+        newValue = InputBox(&quot;Enter new value for: &quot; &amp; settings(i, 0), _
+                           &quot;Edit Setting&quot;, settings(i, 1))
+        If newValue &lt;&gt; &quot;&quot; Then
+            SaveSetting appName, section, settings(i, 0), newValue
+        End If
+    Next i
 End Sub</code></pre>
 <h1 id="advanced-usage">Advanced Usage</h1>
 <h2 id="1-settings-manager-class">1. Settings Manager Class</h2>
@@ -372,298 +323,242 @@ End Sub</code></pre>
 Private m_AppName As String
 Private m_Section As String
 Private m_Settings As Variant
-
 Public Sub Initialize(appName As String, section As String)
-m_AppName = appName
-m_Section = section
-RefreshSettings
+    m_AppName = appName
+    m_Section = section
+    RefreshSettings
 End Sub
-
 Public Sub RefreshSettings()
-m_Settings = GetAllSettings(m_AppName, m_Section)
+    m_Settings = GetAllSettings(m_AppName, m_Section)
 End Sub
-
 Public Function GetValue(keyName As String, _
-Optional defaultValue As String = &quot;&quot;) As String
-Dim i As Long
-
-If IsEmpty(m_Settings) Then
-GetValue = defaultValue
-Exit Function
-End If
-
-For i = LBound(m_Settings, 1) To UBound(m_Settings, 1)
-If m_Settings(i, 0) = keyName Then
-GetValue = m_Settings(i, 1)
-Exit Function
-End If
-Next i
-
-GetValue = defaultValue
+                         Optional defaultValue As String = &quot;&quot;) As String
+    Dim i As Long
+    If IsEmpty(m_Settings) Then
+        GetValue = defaultValue
+        Exit Function
+    End If
+    For i = LBound(m_Settings, 1) To UBound(m_Settings, 1)
+        If m_Settings(i, 0) = keyName Then
+            GetValue = m_Settings(i, 1)
+            Exit Function
+        End If
+    Next i
+    GetValue = defaultValue
 End Function
-
 Public Function SettingExists(keyName As String) As Boolean
-Dim i As Long
-
-If IsEmpty(m_Settings) Then
-SettingExists = False
-Exit Function
-End If
-
-For i = LBound(m_Settings, 1) To UBound(m_Settings, 1)
-If m_Settings(i, 0) = keyName Then
-SettingExists = True
-Exit Function
-End If
-Next i
-
-SettingExists = False
+    Dim i As Long
+    If IsEmpty(m_Settings) Then
+        SettingExists = False
+        Exit Function
+    End If
+    For i = LBound(m_Settings, 1) To UBound(m_Settings, 1)
+        If m_Settings(i, 0) = keyName Then
+            SettingExists = True
+            Exit Function
+        End If
+    Next i
+    SettingExists = False
 End Function
-
 Public Property Get SettingCount() As Long
-If IsEmpty(m_Settings) Then
-SettingCount = 0
-Else
-SettingCount = UBound(m_Settings, 1) + 1
-End If
+    If IsEmpty(m_Settings) Then
+        SettingCount = 0
+    Else
+        SettingCount = UBound(m_Settings, 1) + 1
+    End If
 End Property</code></pre>
 <h2 id="2-settings-backup-and-restore">2. Settings Backup and Restore</h2>
 <pre><code class="language-vbnet">Type SettingsBackup
-AppName As String
-Section As String
-Settings As Variant
-BackupDate As Date
+    AppName As String
+    Section As String
+    Settings As Variant
+    BackupDate As Date
 End Type
-
 Function BackupSettings(appName As String, section As String) As SettingsBackup
-Dim backup As SettingsBackup
-
-backup.AppName = appName
-backup.Section = section
-backup.Settings = GetAllSettings(appName, section)
-backup.BackupDate = Now
-
-BackupSettings = backup
+    Dim backup As SettingsBackup
+    backup.AppName = appName
+    backup.Section = section
+    backup.Settings = GetAllSettings(appName, section)
+    backup.BackupDate = Now
+    BackupSettings = backup
 End Function
-
 Sub RestoreSettings(backup As SettingsBackup)
-Dim i As Long
-
-If IsEmpty(backup.Settings) Then
-MsgBox &quot;No settings to restore&quot;
-Exit Sub
-End If
-
-&#x27; Clear existing settings first
-DeleteSetting backup.AppName, backup.Section
-
-&#x27; Restore backed up settings
-For i = LBound(backup.Settings, 1) To UBound(backup.Settings, 1)
-SaveSetting backup.AppName, backup.Section, _
-backup.Settings(i, 0), backup.Settings(i, 1)
-Next i
-
-MsgBox &quot;Settings restored from &quot; &amp; Format(backup.BackupDate, &quot;yyyy-mm-dd hh:nn:ss&quot;)
+    Dim i As Long
+    If IsEmpty(backup.Settings) Then
+        MsgBox &quot;No settings to restore&quot;
+        Exit Sub
+    End If
+    &#x27; Clear existing settings first
+    DeleteSetting backup.AppName, backup.Section
+    &#x27; Restore backed up settings
+    For i = LBound(backup.Settings, 1) To UBound(backup.Settings, 1)
+        SaveSetting backup.AppName, backup.Section, _
+                   backup.Settings(i, 0), backup.Settings(i, 1)
+    Next i
+    MsgBox &quot;Settings restored from &quot; &amp; Format(backup.BackupDate, &quot;yyyy-mm-dd hh:nn:ss&quot;)
 End Sub</code></pre>
 <h2 id="3-settings-encryptiondecryption">3. Settings Encryption/Decryption</h2>
 <pre><code class="language-vbnet">Function GetEncryptedSettings(appName As String, section As String, _
-password As String) As Variant
-Dim settings As Variant
-Dim decrypted() As String
-Dim i As Long
-
-settings = GetAllSettings(appName, section)
-
-If IsEmpty(settings) Then
-GetEncryptedSettings = Empty
-Exit Function
-End If
-
-ReDim decrypted(LBound(settings, 1) To UBound(settings, 1), 0 To 1)
-
-For i = LBound(settings, 1) To UBound(settings, 1)
-decrypted(i, 0) = settings(i, 0)
-decrypted(i, 1) = DecryptString(settings(i, 1), password)
-Next i
-
-GetEncryptedSettings = decrypted
+                              password As String) As Variant
+    Dim settings As Variant
+    Dim decrypted() As String
+    Dim i As Long
+    settings = GetAllSettings(appName, section)
+    If IsEmpty(settings) Then
+        GetEncryptedSettings = Empty
+        Exit Function
+    End If
+    ReDim decrypted(LBound(settings, 1) To UBound(settings, 1), 0 To 1)
+    For i = LBound(settings, 1) To UBound(settings, 1)
+        decrypted(i, 0) = settings(i, 0)
+        decrypted(i, 1) = DecryptString(settings(i, 1), password)
+    Next i
+    GetEncryptedSettings = decrypted
 End Function
-
 Function DecryptString(encrypted As String, password As String) As String
-&#x27; Simple XOR encryption for demonstration
-Dim i As Long
-Dim result As String
-Dim keyChar As Integer
-
-result = &quot;&quot;
-
-For i = 1 To Len(encrypted)
-keyChar = Asc(Mid(password, ((i - 1) Mod Len(password)) + 1, 1))
-result = result &amp; Chr(Asc(Mid(encrypted, i, 1)) Xor keyChar)
-Next i
-
-DecryptString = result
+    &#x27; Simple XOR encryption for demonstration
+    Dim i As Long
+    Dim result As String
+    Dim keyChar As Integer
+    result = &quot;&quot;
+    For i = 1 To Len(encrypted)
+        keyChar = Asc(Mid(password, ((i - 1) Mod Len(password)) + 1, 1))
+        result = result &amp; Chr(Asc(Mid(encrypted, i, 1)) Xor keyChar)
+    Next i
+    DecryptString = result
 End Function</code></pre>
 <h2 id="4-multi-section-settings-loader">4. Multi-Section Settings Loader</h2>
 <pre><code class="language-vbnet">Function LoadMultipleSections(appName As String, _
-sections() As String) As Collection
-Dim allSettings As New Collection
-Dim i As Long
-Dim sectionSettings As Variant
-
-For i = LBound(sections) To UBound(sections)
-sectionSettings = GetAllSettings(appName, sections(i))
-
-If Not IsEmpty(sectionSettings) Then
-allSettings.Add sectionSettings, sections(i)
-End If
-Next i
-
-Set LoadMultipleSections = allSettings
+                              sections() As String) As Collection
+    Dim allSettings As New Collection
+    Dim i As Long
+    Dim sectionSettings As Variant
+    For i = LBound(sections) To UBound(sections)
+        sectionSettings = GetAllSettings(appName, sections(i))
+        If Not IsEmpty(sectionSettings) Then
+            allSettings.Add sectionSettings, sections(i)
+        End If
+    Next i
+    Set LoadMultipleSections = allSettings
 End Function
-
 &#x27; Usage
 Sub LoadAllAppSettings()
-Dim sections() As String
-Dim allSettings As Collection
-Dim section As Variant
-
-sections = Split(&quot;General,Display,Network,Security&quot;, &quot;,&quot;)
-Set allSettings = LoadMultipleSections(App.Title, sections)
-
-For Each section In allSettings
-Debug.Print &quot;Section has &quot; &amp; (UBound(section, 1) + 1) &amp; &quot; settings&quot;
-Next
+    Dim sections() As String
+    Dim allSettings As Collection
+    Dim section As Variant
+    sections = Split(&quot;General,Display,Network,Security&quot;, &quot;,&quot;)
+    Set allSettings = LoadMultipleSections(App.Title, sections)
+    For Each section In allSettings
+        Debug.Print &quot;Section has &quot; &amp; (UBound(section, 1) + 1) &amp; &quot; settings&quot;
+    Next
 End Sub</code></pre>
 <h2 id="5-settings-change-detection">5. Settings Change Detection</h2>
 <pre><code class="language-vbnet">Type SettingsSnapshot
-Settings As Variant
-Timestamp As Date
+    Settings As Variant
+    Timestamp As Date
 End Type
-
 Private m_LastSnapshot As SettingsSnapshot
-
 Function TakeSnapshot(appName As String, section As String) As SettingsSnapshot
-Dim snapshot As SettingsSnapshot
-
-snapshot.Settings = GetAllSettings(appName, section)
-snapshot.Timestamp = Now
-
-TakeSnapshot = snapshot
+    Dim snapshot As SettingsSnapshot
+    snapshot.Settings = GetAllSettings(appName, section)
+    snapshot.Timestamp = Now
+    TakeSnapshot = snapshot
 End Function
-
 Function DetectChanges(appName As String, section As String) As Boolean
-Dim currentSettings As Variant
-Dim i As Long
-Dim changed As Boolean
-
-currentSettings = GetAllSettings(appName, section)
-
-&#x27; Check if both are empty
-If IsEmpty(m_LastSnapshot.Settings) And IsEmpty(currentSettings) Then
-DetectChanges = False
-Exit Function
-End If
-
-&#x27; Check if one is empty
-If IsEmpty(m_LastSnapshot.Settings) Or IsEmpty(currentSettings) Then
-DetectChanges = True
-Exit Function
-End If
-
-&#x27; Check if different sizes
-If UBound(m_LastSnapshot.Settings, 1) &lt;&gt; UBound(currentSettings, 1) Then
-DetectChanges = True
-Exit Function
-End If
-
-&#x27; Compare values
-changed = False
-For i = LBound(currentSettings, 1) To UBound(currentSettings, 1)
-If currentSettings(i, 0) &lt;&gt; m_LastSnapshot.Settings(i, 0) Or _
-currentSettings(i, 1) &lt;&gt; m_LastSnapshot.Settings(i, 1) Then
-changed = True
-Exit For
-End If
-Next i
-
-DetectChanges = changed
+    Dim currentSettings As Variant
+    Dim i As Long
+    Dim changed As Boolean
+    currentSettings = GetAllSettings(appName, section)
+    &#x27; Check if both are empty
+    If IsEmpty(m_LastSnapshot.Settings) And IsEmpty(currentSettings) Then
+        DetectChanges = False
+        Exit Function
+    End If
+    &#x27; Check if one is empty
+    If IsEmpty(m_LastSnapshot.Settings) Or IsEmpty(currentSettings) Then
+        DetectChanges = True
+        Exit Function
+    End If
+    &#x27; Check if different sizes
+    If UBound(m_LastSnapshot.Settings, 1) &lt;&gt; UBound(currentSettings, 1) Then
+        DetectChanges = True
+        Exit Function
+    End If
+    &#x27; Compare values
+    changed = False
+    For i = LBound(currentSettings, 1) To UBound(currentSettings, 1)
+        If currentSettings(i, 0) &lt;&gt; m_LastSnapshot.Settings(i, 0) Or _
+           currentSettings(i, 1) &lt;&gt; m_LastSnapshot.Settings(i, 1) Then
+            changed = True
+            Exit For
+        End If
+    Next i
+    DetectChanges = changed
 End Function</code></pre>
 <h2 id="6-settings-validation-framework">6. Settings Validation Framework</h2>
 <pre><code class="language-vbnet">Type ValidationRule
-KeyName As String
-DataType As String  &#x27; &quot;String&quot;, &quot;Integer&quot;, &quot;Boolean&quot;, &quot;Date&quot;
-MinValue As Variant
-MaxValue As Variant
-Required As Boolean
+    KeyName As String
+    DataType As String  &#x27; &quot;String&quot;, &quot;Integer&quot;, &quot;Boolean&quot;, &quot;Date&quot;
+    MinValue As Variant
+    MaxValue As Variant
+    Required As Boolean
 End Type
-
 Function ValidateAllSettings(appName As String, section As String, _
-rules() As ValidationRule) As Collection
-Dim settings As Variant
-Dim errors As New Collection
-Dim i As Long, j As Long
-Dim found As Boolean
-Dim settingValue As String
-
-settings = GetAllSettings(appName, section)
-
-&#x27; Check each rule
-For i = LBound(rules) To UBound(rules)
-found = False
-
-If Not IsEmpty(settings) Then
-For j = LBound(settings, 1) To UBound(settings, 1)
-If settings(j, 0) = rules(i).KeyName Then
-found = True
-settingValue = settings(j, 1)
-
-&#x27; Validate data type and range
-If Not ValidateValue(settingValue, rules(i)) Then
-errors.Add &quot;Invalid value for &quot; &amp; rules(i).KeyName
-End If
-Exit For
-End If
-Next j
-End If
-
-If Not found And rules(i).Required Then
-errors.Add &quot;Missing required setting: &quot; &amp; rules(i).KeyName
-End If
-Next i
-
-Set ValidateAllSettings = errors
+                             rules() As ValidationRule) As Collection
+    Dim settings As Variant
+    Dim errors As New Collection
+    Dim i As Long, j As Long
+    Dim found As Boolean
+    Dim settingValue As String
+    settings = GetAllSettings(appName, section)
+    &#x27; Check each rule
+    For i = LBound(rules) To UBound(rules)
+        found = False
+        If Not IsEmpty(settings) Then
+            For j = LBound(settings, 1) To UBound(settings, 1)
+                If settings(j, 0) = rules(i).KeyName Then
+                    found = True
+                    settingValue = settings(j, 1)
+                    &#x27; Validate data type and range
+                    If Not ValidateValue(settingValue, rules(i)) Then
+                        errors.Add &quot;Invalid value for &quot; &amp; rules(i).KeyName
+                    End If
+                    Exit For
+                End If
+            Next j
+        End If
+        If Not found And rules(i).Required Then
+            errors.Add &quot;Missing required setting: &quot; &amp; rules(i).KeyName
+        End If
+    Next i
+    Set ValidateAllSettings = errors
 End Function
-
 Function ValidateValue(value As String, rule As ValidationRule) As Boolean
-Select Case rule.DataType
-Case &quot;Integer&quot;
-If Not IsNumeric(value) Then
-ValidateValue = False
-Else
-Dim intVal As Long
-intVal = CLng(value)
-ValidateValue = (intVal &gt;= rule.MinValue And intVal &lt;= rule.MaxValue)
-End If
-Case &quot;Boolean&quot;
-ValidateValue = (value = &quot;True&quot; Or value = &quot;False&quot;)
-Case Else
-ValidateValue = True
-End Select
+    Select Case rule.DataType
+        Case &quot;Integer&quot;
+            If Not IsNumeric(value) Then
+                ValidateValue = False
+            Else
+                Dim intVal As Long
+                intVal = CLng(value)
+                ValidateValue = (intVal &gt;= rule.MinValue And intVal &lt;= rule.MaxValue)
+            End If
+        Case &quot;Boolean&quot;
+            ValidateValue = (value = &quot;True&quot; Or value = &quot;False&quot;)
+        Case Else
+            ValidateValue = True
+    End Select
 End Function</code></pre>
 <h1 id="error-handling">Error Handling</h1>
 <pre><code class="language-vbnet">Function SafeGetAllSettings(appName As String, section As String) As Variant
-On Error GoTo ErrorHandler
-
-Dim settings As Variant
-settings = GetAllSettings(appName, section)
-
-SafeGetAllSettings = settings
-Exit Function
-
+    On Error GoTo ErrorHandler
+    Dim settings As Variant
+    settings = GetAllSettings(appName, section)
+    SafeGetAllSettings = settings
+    Exit Function
 ErrorHandler:
-Debug.Print &quot;Error retrieving settings: &quot; &amp; Err.Description
-SafeGetAllSettings = Empty
+    Debug.Print &quot;Error retrieving settings: &quot; &amp; Err.Description
+    SafeGetAllSettings = Empty
 End Function</code></pre>
 <p>Common issues:
 - <strong>Empty return value</strong>: Section or application does not exist in registry
@@ -692,14 +587,12 @@ End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; GetAllSettings - Retrieve all settings at once
 Dim allSettings As Variant
 allSettings = GetAllSettings(&quot;MyApp&quot;, &quot;Config&quot;)
-
 &#x27; GetSetting - Retrieve one setting at a time
 Dim value As String
 value = GetSetting(&quot;MyApp&quot;, &quot;Config&quot;, &quot;Theme&quot;, &quot;Default&quot;)</code></pre>
 <h2 id="getallsettings-vs-file-based-storage"><code>GetAllSettings</code> vs File-Based Storage</h2>
 <pre><code class="language-vbnet">&#x27; GetAllSettings - Windows registry
 settings = GetAllSettings(App.Title, &quot;Settings&quot;)
-
 &#x27; File-based - INI file or XML (more portable)
 &#x27; Requires custom parsing code</code></pre>
 <h1 id="limitations">Limitations</h1>

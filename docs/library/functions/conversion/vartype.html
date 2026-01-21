@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p>VB6 <code>VarType</code> Function</p>
-<p>The <code>VarType</code> function returns an integer constant indicating the subtype of a Variant variable or expression.</p>
+            <p>VB6 <code>VarType</code> Function
+The <code>VarType</code> function returns an integer constant indicating the subtype of a Variant variable or expression.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">VarType(varname)</code></pre>
 <h2 id="parameters">Parameters</h2>
@@ -103,69 +103,69 @@ Debug.Print VarType(v) &#x27; 2 (vbInteger)</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-check-for-array">Pattern 1: Check for array</h3>
 <pre><code class="language-vbnet">If VarType(var) And vbArray Then
-Debug.Print &quot;It&#x27;s an array!&quot;
+    Debug.Print &quot;It&#x27;s an array!&quot;
 End If</code></pre>
 <h3 id="pattern-2-check-for-string">Pattern 2: Check for string</h3>
 <pre><code class="language-vbnet">If VarType(x) = vbString Then
-&#x27; Handle string
+    &#x27; Handle string
 End If</code></pre>
 <h3 id="pattern-3-handle-variant-types">Pattern 3: Handle Variant types</h3>
 <pre><code class="language-vbnet">If VarType(v) = vbInteger Then
-&#x27; Handle integer
+    &#x27; Handle integer
 End If</code></pre>
 <h3 id="pattern-4-log-variable-types">Pattern 4: Log variable types</h3>
 <pre><code class="language-vbnet">Debug.Print &quot;VarType: &quot; &amp; VarType(x)</code></pre>
 <h3 id="pattern-5-validate-argument-type">Pattern 5: Validate argument type</h3>
 <pre><code class="language-vbnet">Sub Foo(arg As Variant)
-If VarType(arg) &lt;&gt; vbString Then Err.Raise 5
+    If VarType(arg) &lt;&gt; vbString Then Err.Raise 5
 End Sub</code></pre>
 <h3 id="pattern-6-reflection-like-usage">Pattern 6: Reflection-like usage</h3>
 <pre><code class="language-vbnet">Dim t As Integer
 t = VarType(obj)
 If t = vbObject Then
-&#x27; Do something
+    &#x27; Do something
 End If</code></pre>
 <h3 id="pattern-7-handle-null-and-empty">Pattern 7: Handle Null and Empty</h3>
 <pre><code class="language-vbnet">If VarType(v) = vbNull Then
-&#x27; Handle Null
+    &#x27; Handle Null
 ElseIf VarType(v) = vbEmpty Then
-&#x27; Handle Empty
+    &#x27; Handle Empty
 End If</code></pre>
 <h3 id="pattern-8-array-type-detection">Pattern 8: Array type detection</h3>
 <pre><code class="language-vbnet">If (VarType(arr) And vbArray) Then
-Debug.Print &quot;Array base type: &quot; &amp; (VarType(arr) - vbArray)
+    Debug.Print &quot;Array base type: &quot; &amp; (VarType(arr) - vbArray)
 End If</code></pre>
 <h3 id="pattern-9-user-defined-type">Pattern 9: User-defined type</h3>
 <pre><code class="language-vbnet">Type MyType
-x As Integer
+    x As Integer
 End Type
 Dim t As MyType
 Debug.Print VarType(t) &#x27; 36 (vbUserDefinedType)</code></pre>
 <h3 id="pattern-10-class-type-detection">Pattern 10: Class type detection</h3>
 <pre><code class="language-vbnet">If VarType(obj) = vbObject Then
-&#x27; Handle object
+    &#x27; Handle object
 End If</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-type-checking-in-generic-function">Example 1: Type checking in generic function</h3>
 <pre><code class="language-vbnet">Function IsString(val As Variant) As Boolean
-IsString = (VarType(val) = vbString)
+    IsString = (VarType(val) = vbString)
 End Function</code></pre>
 <h3 id="example-2-logging-all-argument-types">Example 2: Logging all argument types</h3>
 <pre><code class="language-vbnet">Sub LogTypes(ParamArray args() As Variant)
-Dim i As Integer
-For i = LBound(args) To UBound(args)
-Debug.Print &quot;Arg &quot; &amp; i &amp; &quot;: &quot; &amp; VarType(args(i))
-Next i
+    Dim i As Integer
+    For i = LBound(args) To UBound(args)
+        Debug.Print &quot;Arg &quot; &amp; i &amp; &quot;: &quot; &amp; VarType(args(i))
+    Next i
 End Sub</code></pre>
 <h3 id="example-3-reflection-for-class-methods">Example 3: Reflection for class methods</h3>
 <pre><code class="language-vbnet">If VarType(obj) = vbObject Then
-obj.SpecialMethod
+    obj.SpecialMethod
 End If</code></pre>
 <h3 id="example-4-variant-array-detection">Example 4: Variant array detection</h3>
 <pre><code class="language-vbnet">Dim v As Variant
 v = Array(1, 2, 3)
 If (VarType(v) And vbArray) Then
-Debug.Print &quot;Variant array&quot;
+    Debug.Print &quot;Variant array&quot;
 End If</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <ul>
@@ -227,22 +227,68 @@ End If</code></pre>
 <td>variable</td>
 <td>Boolean</td>
 </tr>
+<tr>
+<td>## Platform Notes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in VB6, VBA, <code>VBScript</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Consistent across platforms</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns type constants in English</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns only type constant as integer</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Not locale-sensitive</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns vbUnknown (0) for unsupported types</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Not for compile-time type checking</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- May return user-defined type/class constants</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-notes">Platform Notes</h2>
-<ul>
-<li>Available in VB6, VBA, <code>VBScript</code></li>
-<li>Consistent across platforms</li>
-<li>Returns type constants in English</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Returns only type constant as integer</li>
-<li>Not locale-sensitive</li>
-<li>Returns vbUnknown (0) for unsupported types</li>
-<li>Not for compile-time type checking</li>
-<li>May return user-defined type/class constants</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

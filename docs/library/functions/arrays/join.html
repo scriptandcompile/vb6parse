@@ -49,34 +49,30 @@
 <li>If empty string (""), items are concatenated with no separator</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
-<p>Returns a <code>String</code></p>
-<ul>
-<li><code>String</code> containing all elements of the array joined by the delimiter</li>
-<li><code>Empty</code> string ("") if array has zero length</li>
-<li>Returns <code>Null</code> if <code>sourcearray</code> is <code>Null</code></li>
-<li>Each array element is converted to <code>String</code> before joining</li>
-<li>Non-string elements are automatically converted using <code>Str</code>/<code>CStr</code></li>
-<li><code>Empty</code> array elements become empty strings in result</li>
-<li>Trailing / leading spaces in delimiter are preserved</li>
-</ul>
+<p>Returns a <code>String</code>
+- <code>String</code> containing all elements of the array joined by the delimiter
+- <code>Empty</code> string ("") if array has zero length
+- Returns <code>Null</code> if <code>sourcearray</code> is <code>Null</code>
+- Each array element is converted to <code>String</code> before joining
+- Non-string elements are automatically converted using <code>Str</code>/<code>CStr</code>
+- <code>Empty</code> array elements become empty strings in result
+- Trailing / leading spaces in delimiter are preserved</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>Join</code> function is the inverse of the <code>Split</code> function:</p>
-<ul>
-<li>Combines array elements into a single string</li>
-<li>Only works with one-dimensional arrays</li>
-<li>Array elements are converted to strings automatically</li>
-<li>Default delimiter is a space (" ")</li>
-<li><code>Empty</code> string delimiter concatenates without separators</li>
-<li><code>Null</code> array returns <code>Null</code> (not an error)</li>
-<li>Empty array (zero length) returns empty string</li>
-<li>Preserves empty array elements as empty strings</li>
-<li>Very efficient for building strings from multiple parts</li>
-<li>Much faster than repeated string concatenation in loops</li>
-<li>Available in VB6 and VBA (added in VB6/Office 2000)</li>
-<li>Common in text processing and file generation</li>
-<li>Works with <code>Variant</code> arrays containing mixed types</li>
-<li>Does not add delimiter after last element</li>
-</ul>
+<p>The <code>Join</code> function is the inverse of the <code>Split</code> function:
+- Combines array elements into a single string
+- Only works with one-dimensional arrays
+- Array elements are converted to strings automatically
+- Default delimiter is a space (" ")
+- <code>Empty</code> string delimiter concatenates without separators
+- <code>Null</code> array returns <code>Null</code> (not an error)
+- Empty array (zero length) returns empty string
+- Preserves empty array elements as empty strings
+- Very efficient for building strings from multiple parts
+- Much faster than repeated string concatenation in loops
+- Available in VB6 and VBA (added in VB6/Office 2000)
+- Common in text processing and file generation
+- Works with <code>Variant</code> arrays containing mixed types
+- Does not add delimiter after last element</p>
 <h3 id="common-errors">Common Errors</h3>
 <ul>
 <li><strong>Error 13</strong> (Type Mismatch): <code>sourcearray</code> is a multi-dimensional array.</li>
@@ -92,9 +88,8 @@
 <pre><code class="language-vbnet">&#x27; SLOW: Repeated concatenation
 Dim result As String
 For i = 0 To 999
-result = result &amp; arr(i) &amp; &quot;,&quot;
+    result = result &amp; arr(i) &amp; &quot;,&quot;
 Next i
-
 &#x27; FAST: Using Join
 result = Join(arr, &quot;,&quot;)</code></pre>
 <h2 id="typical-uses">Typical Uses</h2>
@@ -140,7 +135,6 @@ result = Join(arr, &quot;,&quot;)</code></pre>
 words(0) = &quot;Hello&quot;
 words(1) = &quot;Visual&quot;
 words(2) = &quot;Basic&quot;
-
 Debug.Print Join(words)              &#x27; &quot;Hello Visual Basic&quot;</code></pre>
 <h3 id="join-with-custom-delimiter">Join With Custom Delimiter</h3>
 <pre><code class="language-vbnet">&#x27; Example 2: Join with custom delimiter
@@ -149,7 +143,6 @@ values(0) = &quot;apple&quot;
 values(1) = &quot;banana&quot;
 values(2) = &quot;cherry&quot;
 values(3) = &quot;date&quot;
-
 Debug.Print Join(values, &quot;, &quot;)       &#x27; &quot;apple, banana, cherry, date&quot;
 Debug.Print Join(values, &quot; | &quot;)      &#x27; &quot;apple | banana | cherry | date&quot;
 Debug.Print Join(values, &quot;&quot;)         &#x27; &quot;applebananacherrydate&quot;</code></pre>
@@ -158,7 +151,6 @@ Debug.Print Join(values, &quot;&quot;)         &#x27; &quot;applebananacherrydat
 fields(0) = &quot;John Doe&quot;
 fields(1) = &quot;Engineer&quot;
 fields(2) = &quot;50000&quot;
-
 Dim csvLine As String
 csvLine = Join(fields, &quot;,&quot;)
 Debug.Print csvLine                  &#x27; &quot;John Doe,Engineer,50000&quot;</code></pre>
@@ -166,7 +158,6 @@ Debug.Print csvLine                  &#x27; &quot;John Doe,Engineer,50000&quot;<
 <pre><code class="language-vbnet">Dim original As String
 Dim parts() As String
 Dim rebuilt As String
-
 original = &quot;one-two-three-four&quot;
 parts = Split(original, &quot;-&quot;)
 rebuilt = Join(parts, &quot; &quot;)
@@ -174,362 +165,303 @@ Debug.Print rebuilt                  &#x27; &quot;one two three four&quot;</code
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-build-csv-row">Pattern 1: Build CSV Row</h3>
 <pre><code class="language-vbnet">Function BuildCSVRow(fields As Variant) As String
-BuildCSVRow = Join(fields, &quot;,&quot;)
+    BuildCSVRow = Join(fields, &quot;,&quot;)
 End Function</code></pre>
 <h3 id="pattern-2-join-with-line-breaks">Pattern 2: Join With Line Breaks</h3>
 <pre><code class="language-vbnet">Function JoinLines(lines As Variant) As String
-JoinLines = Join(lines, vbCrLf)
+    JoinLines = Join(lines, vbCrLf)
 End Function</code></pre>
 <h3 id="pattern-3-build-path-from-components">Pattern 3: Build Path From Components</h3>
 <pre><code class="language-vbnet">Function BuildPath(ParamArray parts() As Variant) As String
-Dim arr() As String
-Dim i As Long
-
-ReDim arr(LBound(parts) To UBound(parts))
-For i = LBound(parts) To UBound(parts)
-arr(i) = CStr(parts(i))
-Next i
-
-BuildPath = Join(arr, &quot;\&quot;)
+    Dim arr() As String
+    Dim i As Long
+    ReDim arr(LBound(parts) To UBound(parts))
+    For i = LBound(parts) To UBound(parts)
+        arr(i) = CStr(parts(i))
+    Next i
+    BuildPath = Join(arr, &quot;\&quot;)
 End Function</code></pre>
 <h3 id="pattern-4-create-comma-separated-list">Pattern 4: Create Comma-Separated List</h3>
 <pre><code class="language-vbnet">Function ToCommaSeparated(items As Variant) As String
-If IsArray(items) Then
-ToCommaSeparated = Join(items, &quot;, &quot;)
-Else
-ToCommaSeparated = CStr(items)
-End If
+    If IsArray(items) Then
+        ToCommaSeparated = Join(items, &quot;, &quot;)
+    Else
+        ToCommaSeparated = CStr(items)
+    End If
 End Function</code></pre>
 <h3 id="pattern-5-build-sql-in-clause">Pattern 5: Build SQL IN Clause</h3>
 <pre><code class="language-vbnet">Function BuildInClause(values As Variant) As String
-Dim i As Long
-Dim quoted() As String
-
-If Not IsArray(values) Then Exit Function
-
-ReDim quoted(LBound(values) To UBound(values))
-For i = LBound(values) To UBound(values)
-quoted(i) = &quot;&#x27;&quot; &amp; Replace(CStr(values(i)), &quot;&#x27;&quot;, &quot;&#x27;&#x27;&quot;) &amp; &quot;&#x27;&quot;
-Next i
-
-BuildInClause = Join(quoted, &quot;, &quot;)
+    Dim i As Long
+    Dim quoted() As String
+    If Not IsArray(values) Then Exit Function
+    ReDim quoted(LBound(values) To UBound(values))
+    For i = LBound(values) To UBound(values)
+        quoted(i) = &quot;&#x27;&quot; &amp; Replace(CStr(values(i)), &quot;&#x27;&quot;, &quot;&#x27;&#x27;&quot;) &amp; &quot;&#x27;&quot;
+    Next i
+    BuildInClause = Join(quoted, &quot;, &quot;)
 End Function</code></pre>
 <h3 id="pattern-6-join-non-empty-values-only">Pattern 6: Join Non-Empty Values Only</h3>
 <pre><code class="language-vbnet">Function JoinNonEmpty(arr As Variant, delimiter As String) As String
-Dim result As Collection
-Dim i As Long
-Dim temp() As String
-Dim count As Long
-
-If Not IsArray(arr) Then Exit Function
-
-Set result = New Collection
-For i = LBound(arr) To UBound(arr)
-If Len(arr(i)) &gt; 0 Then
-result.Add CStr(arr(i))
-End If
-Next i
-
-If result.Count = 0 Then
-JoinNonEmpty = &quot;&quot;
-Exit Function
-End If
-
-ReDim temp(0 To result.Count - 1)
-For i = 1 To result.Count
-temp(i - 1) = result(i)
-Next i
-
-JoinNonEmpty = Join(temp, delimiter)
+    Dim result As Collection
+    Dim i As Long
+    Dim temp() As String
+    Dim count As Long
+    If Not IsArray(arr) Then Exit Function
+    Set result = New Collection
+    For i = LBound(arr) To UBound(arr)
+        If Len(arr(i)) &gt; 0 Then
+            result.Add CStr(arr(i))
+        End If
+    Next i
+    If result.Count = 0 Then
+        JoinNonEmpty = &quot;&quot;
+        Exit Function
+    End If
+    ReDim temp(0 To result.Count - 1)
+    For i = 1 To result.Count
+        temp(i - 1) = result(i)
+    Next i
+    JoinNonEmpty = Join(temp, delimiter)
 End Function</code></pre>
 <h3 id="pattern-7-format-array-for-display">Pattern 7: Format Array For Display</h3>
 <pre><code class="language-vbnet">Function FormatArray(arr As Variant) As String
-If Not IsArray(arr) Then
-FormatArray = CStr(arr)
-Else
-FormatArray = &quot;[&quot; &amp; Join(arr, &quot;, &quot;) &amp; &quot;]&quot;
-End If
+    If Not IsArray(arr) Then
+        FormatArray = CStr(arr)
+    Else
+        FormatArray = &quot;[&quot; &amp; Join(arr, &quot;, &quot;) &amp; &quot;]&quot;
+    End If
 End Function</code></pre>
 <h3 id="pattern-8-build-where-clause">Pattern 8: Build WHERE Clause</h3>
 <pre><code class="language-vbnet">Function BuildWhereClause(conditions As Variant) As String
-If Not IsArray(conditions) Then Exit Function
-
-If UBound(conditions) &lt; LBound(conditions) Then
-BuildWhereClause = &quot;&quot;
-Else
-BuildWhereClause = Join(conditions, &quot; AND &quot;)
-End If
+    If Not IsArray(conditions) Then Exit Function
+    If UBound(conditions) &lt; LBound(conditions) Then
+        BuildWhereClause = &quot;&quot;
+    Else
+        BuildWhereClause = Join(conditions, &quot; AND &quot;)
+    End If
 End Function</code></pre>
 <h3 id="pattern-9-create-delimited-string-with-quotes">Pattern 9: Create Delimited String With Quotes</h3>
 <pre><code class="language-vbnet">Function JoinQuoted(items As Variant, delimiter As String) As String
-Dim i As Long
-Dim quoted() As String
-
-If Not IsArray(items) Then Exit Function
-
-ReDim quoted(LBound(items) To UBound(items))
-For i = LBound(items) To UBound(items)
-quoted(i) = Chr(34) &amp; items(i) &amp; Chr(34)  &#x27; Chr(34) = &quot;
-Next i
-
-JoinQuoted = Join(quoted, delimiter)
+    Dim i As Long
+    Dim quoted() As String
+    If Not IsArray(items) Then Exit Function
+    ReDim quoted(LBound(items) To UBound(items))
+    For i = LBound(items) To UBound(items)
+        quoted(i) = Chr(34) &amp; items(i) &amp; Chr(34)  &#x27; Chr(34) = &quot;
+    Next i
+    JoinQuoted = Join(quoted, delimiter)
 End Function</code></pre>
 <h3 id="pattern-10-reverse-of-split-for-round-trip">Pattern 10: Reverse of Split for Round-Trip</h3>
 <pre><code class="language-vbnet">Function ReverseTransform(text As String) As String
-Dim parts() As String
-Dim i As Long
-
-parts = Split(text, &quot; &quot;)
-
-&#x27; Reverse array
-For i = LBound(parts) To (UBound(parts) - LBound(parts)) \ 2 + LBound(parts)
-Dim temp As String
-temp = parts(i)
-parts(i) = parts(UBound(parts) - (i - LBound(parts)))
-parts(UBound(parts) - (i - LBound(parts))) = temp
-Next i
-
-ReverseTransform = Join(parts, &quot; &quot;)
+    Dim parts() As String
+    Dim i As Long
+    parts = Split(text, &quot; &quot;)
+    &#x27; Reverse array
+    For i = LBound(parts) To (UBound(parts) - LBound(parts)) \ 2 + LBound(parts)
+        Dim temp As String
+        temp = parts(i)
+        parts(i) = parts(UBound(parts) - (i - LBound(parts)))
+        parts(UBound(parts) - (i - LBound(parts))) = temp
+    Next i
+    ReverseTransform = Join(parts, &quot; &quot;)
 End Function</code></pre>
 <h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
 <h3 id="example-1-csv-builder-with-proper-escaping">Example 1: CSV Builder with proper escaping</h3>
 <pre><code class="language-vbnet">Public Class CSVBuilder
-Private m_rows As Collection
-
-Private Sub Class_Initialize()
-Set m_rows = New Collection
-End Sub
-
-Public Sub AddRow(ParamArray values() As Variant)
-Dim i As Long
-Dim fields() As String
-
-ReDim fields(LBound(values) To UBound(values))
-For i = LBound(values) To UBound(values)
-fields(i) = EscapeCSV(CStr(values(i)))
-Next i
-
-m_rows.Add Join(fields, &quot;,&quot;)
-End Sub
-
-Private Function EscapeCSV(value As String) As String
-If InStr(value, &quot;,&quot;) &gt; 0 Or InStr(value, Chr(34)) &gt; 0 Or _
-InStr(value, vbCrLf) &gt; 0 Then
-&#x27; Need to quote and escape
-EscapeCSV = Chr(34) &amp; Replace(value, Chr(34), Chr(34) &amp; Chr(34)) &amp; Chr(34)
-Else
-EscapeCSV = value
-End If
-End Function
-
-Public Function GetCSV() As String
-Dim i As Long
-Dim lines() As String
-
-If m_rows.Count = 0 Then
-GetCSV = &quot;&quot;
-Exit Function
-End If
-
-ReDim lines(0 To m_rows.Count - 1)
-For i = 1 To m_rows.Count
-lines(i - 1) = m_rows(i)
-Next i
-
-GetCSV = Join(lines, vbCrLf)
-End Function
-
-Public Sub Clear()
-Set m_rows = New Collection
-End Sub
+    Private m_rows As Collection
+    Private Sub Class_Initialize()
+        Set m_rows = New Collection
+    End Sub
+    Public Sub AddRow(ParamArray values() As Variant)
+        Dim i As Long
+        Dim fields() As String
+        ReDim fields(LBound(values) To UBound(values))
+        For i = LBound(values) To UBound(values)
+            fields(i) = EscapeCSV(CStr(values(i)))
+        Next i
+        m_rows.Add Join(fields, &quot;,&quot;)
+    End Sub
+    Private Function EscapeCSV(value As String) As String
+        If InStr(value, &quot;,&quot;) &gt; 0 Or InStr(value, Chr(34)) &gt; 0 Or _
+           InStr(value, vbCrLf) &gt; 0 Then
+            &#x27; Need to quote and escape
+            EscapeCSV = Chr(34) &amp; Replace(value, Chr(34), Chr(34) &amp; Chr(34)) &amp; Chr(34)
+        Else
+            EscapeCSV = value
+        End If
+    End Function
+    Public Function GetCSV() As String
+        Dim i As Long
+        Dim lines() As String
+        If m_rows.Count = 0 Then
+            GetCSV = &quot;&quot;
+            Exit Function
+        End If
+        ReDim lines(0 To m_rows.Count - 1)
+        For i = 1 To m_rows.Count
+            lines(i - 1) = m_rows(i)
+        Next i
+        GetCSV = Join(lines, vbCrLf)
+    End Function
+    Public Sub Clear()
+        Set m_rows = New Collection
+    End Sub
 End Class</code></pre>
 <h3 id="example-2-string-builder-for-efficient-concatenation">Example 2: String Builder For Efficient Concatenation</h3>
 <pre><code class="language-vbnet">Public Class StringBuilder
-Private m_parts As Collection
-Private m_delimiter As String
-
-Private Sub Class_Initialize()
-Set m_parts = New Collection
-m_delimiter = &quot;&quot;
-End Sub
-
-Public Property Let Delimiter(value As String)
-m_delimiter = value
-End Property
-
-Public Sub Append(text As String)
-m_parts.Add text
-End Sub
-
-Public Sub AppendLine(text As String)
-m_parts.Add text &amp; vbCrLf
-End Sub
-
-Public Function ToString() As String
-Dim i As Long
-Dim arr() As String
-
-If m_parts.Count = 0 Then
-ToString = &quot;&quot;
-Exit Function
-End If
-
-ReDim arr(0 To m_parts.Count - 1)
-For i = 1 To m_parts.Count
-arr(i - 1) = m_parts(i)
-Next i
-
-ToString = Join(arr, m_delimiter)
-End Function
-
-Public Sub Clear()
-Set m_parts = New Collection
-End Sub
-
-Public Function Length() As Long
-Length = Len(ToString())
-End Function
+    Private m_parts As Collection
+    Private m_delimiter As String
+    Private Sub Class_Initialize()
+        Set m_parts = New Collection
+        m_delimiter = &quot;&quot;
+    End Sub
+    Public Property Let Delimiter(value As String)
+        m_delimiter = value
+    End Property
+    Public Sub Append(text As String)
+        m_parts.Add text
+    End Sub
+    Public Sub AppendLine(text As String)
+        m_parts.Add text &amp; vbCrLf
+    End Sub
+    Public Function ToString() As String
+        Dim i As Long
+        Dim arr() As String
+        If m_parts.Count = 0 Then
+            ToString = &quot;&quot;
+            Exit Function
+        End If
+        ReDim arr(0 To m_parts.Count - 1)
+        For i = 1 To m_parts.Count
+            arr(i - 1) = m_parts(i)
+        Next i
+        ToString = Join(arr, m_delimiter)
+    End Function
+    Public Sub Clear()
+        Set m_parts = New Collection
+    End Sub
+    Public Function Length() As Long
+        Length = Len(ToString())
+    End Function
 End Class</code></pre>
 <h3 id="example-3-query-builder-using-join">Example 3: Query Builder Using Join</h3>
 <pre><code class="language-vbnet">Public Class QueryBuilder
-Private m_select As Collection
-Private m_from As String
-Private m_where As Collection
-Private m_orderBy As Collection
-
-Private Sub Class_Initialize()
-Set m_select = New Collection
-Set m_where = New Collection
-Set m_orderBy = New Collection
-End Sub
-
-Public Sub AddField(fieldName As String)
-m_select.Add fieldName
-End Sub
-
-Public Sub SetTable(tableName As String)
-m_from = tableName
-End Sub
-
-Public Sub AddCondition(condition As String)
-m_where.Add condition
-End Sub
-
-Public Sub AddOrderBy(fieldName As String)
-m_orderBy.Add fieldName
-End Sub
-
-Public Function BuildSQL() As String
-Dim sql As String
-Dim fields() As String
-Dim conditions() As String
-Dim orderFields() As String
-Dim i As Long
-
-&#x27; SELECT clause
-If m_select.Count = 0 Then
-sql = &quot;SELECT *&quot;
-Else
-ReDim fields(0 To m_select.Count - 1)
-For i = 1 To m_select.Count
-fields(i - 1) = m_select(i)
-Next i
-sql = &quot;SELECT &quot; &amp; Join(fields, &quot;, &quot;)
-End If
-
-&#x27; FROM clause
-If m_from &lt;&gt; &quot;&quot; Then
-sql = sql &amp; &quot; FROM &quot; &amp; m_from
-End If
-
-&#x27; WHERE clause
-If m_where.Count &gt; 0 Then
-ReDim conditions(0 To m_where.Count - 1)
-For i = 1 To m_where.Count
-conditions(i - 1) = m_where(i)
-Next i
-sql = sql &amp; &quot; WHERE &quot; &amp; Join(conditions, &quot; AND &quot;)
-End If
-
-&#x27; ORDER BY clause
-If m_orderBy.Count &gt; 0 Then
-ReDim orderFields(0 To m_orderBy.Count - 1)
-For i = 1 To m_orderBy.Count
-orderFields(i - 1) = m_orderBy(i)
-Next i
-sql = sql &amp; &quot; ORDER BY &quot; &amp; Join(orderFields, &quot;, &quot;)
-End If
-
-BuildSQL = sql
-End Function
-
-Public Sub Clear()
-Set m_select = New Collection
-m_from = &quot;&quot;
-Set m_where = New Collection
-Set m_orderBy = New Collection
-End Sub
+    Private m_select As Collection
+    Private m_from As String
+    Private m_where As Collection
+    Private m_orderBy As Collection
+    Private Sub Class_Initialize()
+        Set m_select = New Collection
+        Set m_where = New Collection
+        Set m_orderBy = New Collection
+    End Sub
+    Public Sub AddField(fieldName As String)
+        m_select.Add fieldName
+    End Sub
+    Public Sub SetTable(tableName As String)
+        m_from = tableName
+    End Sub
+    Public Sub AddCondition(condition As String)
+        m_where.Add condition
+    End Sub
+    Public Sub AddOrderBy(fieldName As String)
+        m_orderBy.Add fieldName
+    End Sub
+    Public Function BuildSQL() As String
+        Dim sql As String
+        Dim fields() As String
+        Dim conditions() As String
+        Dim orderFields() As String
+        Dim i As Long
+        &#x27; SELECT clause
+        If m_select.Count = 0 Then
+            sql = &quot;SELECT *&quot;
+        Else
+            ReDim fields(0 To m_select.Count - 1)
+            For i = 1 To m_select.Count
+                fields(i - 1) = m_select(i)
+            Next i
+            sql = &quot;SELECT &quot; &amp; Join(fields, &quot;, &quot;)
+        End If
+        &#x27; FROM clause
+        If m_from &lt;&gt; &quot;&quot; Then
+            sql = sql &amp; &quot; FROM &quot; &amp; m_from
+        End If
+        &#x27; WHERE clause
+        If m_where.Count &gt; 0 Then
+            ReDim conditions(0 To m_where.Count - 1)
+            For i = 1 To m_where.Count
+                conditions(i - 1) = m_where(i)
+            Next i
+            sql = sql &amp; &quot; WHERE &quot; &amp; Join(conditions, &quot; AND &quot;)
+        End If
+        &#x27; ORDER BY clause
+        If m_orderBy.Count &gt; 0 Then
+            ReDim orderFields(0 To m_orderBy.Count - 1)
+            For i = 1 To m_orderBy.Count
+                orderFields(i - 1) = m_orderBy(i)
+            Next i
+            sql = sql &amp; &quot; ORDER BY &quot; &amp; Join(orderFields, &quot;, &quot;)
+        End If
+        BuildSQL = sql
+    End Function
+    Public Sub Clear()
+        Set m_select = New Collection
+        m_from = &quot;&quot;
+        Set m_where = New Collection
+        Set m_orderBy = New Collection
+    End Sub
 End Class</code></pre>
 <h3 id="example-4-report-formatter">Example 4: Report Formatter</h3>
 <pre><code class="language-vbnet">Public Class ReportFormatter
-Public Function FormatTable(data As Variant, headers As Variant, _
-Optional delimiter As String = &quot; | &quot;) As String
-Dim lines As Collection
-Dim i As Long, j As Long
-Dim row() As String
-Dim allLines() As String
-
-Set lines = New Collection
-
-&#x27; Add header
-If IsArray(headers) Then
-lines.Add Join(headers, delimiter)
-
-&#x27; Add separator
-ReDim row(LBound(headers) To UBound(headers))
-For j = LBound(headers) To UBound(headers)
-row(j) = String(Len(headers(j)), &quot;-&quot;)
-Next j
-lines.Add Join(row, delimiter)
-End If
-
-&#x27; Add data rows
-If IsArray(data) Then
-For i = LBound(data) To UBound(data)
-If IsArray(data(i)) Then
-lines.Add Join(data(i), delimiter)
-Else
-lines.Add CStr(data(i))
-End If
-Next i
-End If
-
-&#x27; Convert collection to array and join
-ReDim allLines(0 To lines.Count - 1)
-For i = 1 To lines.Count
-allLines(i - 1) = lines(i)
-Next i
-
-FormatTable = Join(allLines, vbCrLf)
-End Function
-
-Public Function FormatList(items As Variant, _
-Optional prefix As String = &quot;- &quot;) As String
-Dim i As Long
-Dim lines() As String
-
-If Not IsArray(items) Then
-FormatList = prefix &amp; CStr(items)
-Exit Function
-End If
-
-ReDim lines(LBound(items) To UBound(items))
-For i = LBound(items) To UBound(items)
-lines(i) = prefix &amp; CStr(items(i))
-Next i
-
-FormatList = Join(lines, vbCrLf)
-End Function
+    Public Function FormatTable(data As Variant, headers As Variant, _
+                                 Optional delimiter As String = &quot; | &quot;) As String
+        Dim lines As Collection
+        Dim i As Long, j As Long
+        Dim row() As String
+        Dim allLines() As String
+        Set lines = New Collection
+        &#x27; Add header
+        If IsArray(headers) Then
+            lines.Add Join(headers, delimiter)
+            &#x27; Add separator
+            ReDim row(LBound(headers) To UBound(headers))
+            For j = LBound(headers) To UBound(headers)
+                row(j) = String(Len(headers(j)), &quot;-&quot;)
+            Next j
+            lines.Add Join(row, delimiter)
+        End If
+        &#x27; Add data rows
+        If IsArray(data) Then
+            For i = LBound(data) To UBound(data)
+                If IsArray(data(i)) Then
+                    lines.Add Join(data(i), delimiter)
+                Else
+                    lines.Add CStr(data(i))
+                End If
+            Next i
+        End If
+        &#x27; Convert collection to array and join
+        ReDim allLines(0 To lines.Count - 1)
+        For i = 1 To lines.Count
+            allLines(i - 1) = lines(i)
+        Next i
+        FormatTable = Join(allLines, vbCrLf)
+    End Function
+    Public Function FormatList(items As Variant, _
+                               Optional prefix As String = &quot;- &quot;) As String
+        Dim i As Long
+        Dim lines() As String
+        If Not IsArray(items) Then
+            FormatList = prefix &amp; CStr(items)
+            Exit Function
+        End If
+        ReDim lines(LBound(items) To UBound(items))
+        For i = LBound(items) To UBound(items)
+            lines(i) = prefix &amp; CStr(items(i))
+        Next i
+        FormatList = Join(lines, vbCrLf)
+    End Function
 End Class</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <p>Join handles several special cases:</p>
@@ -602,31 +534,30 @@ Debug.Print Join(mixed, &quot;-&quot;)  &#x27; &quot;123-text-True&quot;</code><
 <td><code>Array</code></td>
 <td><code>Long</code></td>
 </tr>
+<tr>
+<td>## Join vs String Concatenation</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="join-vs-string-concatenation">Join vs String Concatenation</h2>
 <pre><code class="language-vbnet">Dim arr(2) As String
 arr(0) = &quot;A&quot;
 arr(1) = &quot;B&quot;
 arr(2) = &quot;C&quot;
-
 &#x27; Using Join (FAST)
 result = Join(arr, &quot;,&quot;)              &#x27; &quot;A,B,C&quot;
-
 &#x27; Using concatenation (SLOW)
 result = arr(0) &amp; &quot;,&quot; &amp; arr(1) &amp; &quot;,&quot; &amp; arr(2)  &#x27; &quot;A,B,C&quot;
-
 &#x27; For large arrays, Join is dramatically faster</code></pre>
 <h2 id="join-and-split-round-trip">Join and Split Round-Trip</h2>
 <pre><code class="language-vbnet">&#x27; Original string
 original = &quot;apple,banana,cherry&quot;
-
 &#x27; Split into array
 parts = Split(original, &quot;,&quot;)         &#x27; [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;]
-
 &#x27; Join back to string
 rebuilt = Join(parts, &quot;,&quot;)           &#x27; &quot;apple,banana,cherry&quot;
-
 Debug.Print original = rebuilt       &#x27; True - perfect round-trip</code></pre>
         </article>
         

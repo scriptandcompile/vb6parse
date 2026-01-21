@@ -58,22 +58,20 @@
 - Returns Null if string argument is Null
 - Always returns String type (Left$ variant returns String, not Variant)</p>
 <h2 id="remarks">Remarks</h2>
-<p>The Left function extracts characters from the beginning of a string:</p>
-<ul>
-<li>Returns leftmost characters up to specified length</li>
-<li>Complements Right function (which returns rightmost characters)</li>
-<li>Works with Mid function for complete substring extraction</li>
-<li>Zero-based extraction: Left("ABC", 2) returns "AB"</li>
-<li>Safe with lengths exceeding string length (returns full string)</li>
-<li>Null propagates through the function</li>
-<li>Negative length raises Error 5 (Invalid procedure call or argument)</li>
-<li>Common for extracting prefixes, file names, codes, etc.</li>
-<li>More efficient than Mid(string, 1, length) for left extraction</li>
-<li>Left$ variant returns String type (not Variant) for slight performance gain</li>
-<li>Cannot extract from right side (use Right for that)</li>
-<li>Cannot skip characters (use Mid for that)</li>
-<li>Does not modify original string (strings are immutable)</li>
-</ul>
+<p>The Left function extracts characters from the beginning of a string:
+- Returns leftmost characters up to specified length
+- Complements Right function (which returns rightmost characters)
+- Works with Mid function for complete substring extraction
+- Zero-based extraction: Left("ABC", 2) returns "AB"
+- Safe with lengths exceeding string length (returns full string)
+- Null propagates through the function
+- Negative length raises Error 5 (Invalid procedure call or argument)
+- Common for extracting prefixes, file names, codes, etc.
+- More efficient than Mid(string, 1, length) for left extraction
+- Left$ variant returns String type (not Variant) for slight performance gain
+- Cannot extract from right side (use Right for that)
+- Cannot skip characters (use Mid for that)
+- Does not modify original string (strings are immutable)</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Extract Prefix</strong>: Get first N characters of string</li>
@@ -89,395 +87,330 @@
 <pre><code class="language-vbnet">&#x27; Example 1: Basic left extraction
 Dim text As String
 text = &quot;Hello World&quot;
-
 Debug.Print Left(text, 5)            &#x27; &quot;Hello&quot;
 Debug.Print Left(text, 3)            &#x27; &quot;Hel&quot;
 Debug.Print Left(text, 1)            &#x27; &quot;H&quot;
-
 &#x27; Example 2: Length exceeds string length
 Debug.Print Left(&quot;ABC&quot;, 10)          &#x27; &quot;ABC&quot; - entire string
 Debug.Print Left(&quot;Test&quot;, 4)          &#x27; &quot;Test&quot; - exact length
-
 &#x27; Example 3: Zero length
 Debug.Print Left(&quot;Hello&quot;, 0)         &#x27; &quot;&quot; - empty string
-
 &#x27; Example 4: Extract file extension check
 Dim fileName As String
 fileName = &quot;C:\Data\file.txt&quot;
-
 If Left(fileName, 3) = &quot;C:\&quot; Then
-Debug.Print &quot;File on C: drive&quot;
+    Debug.Print &quot;File on C: drive&quot;
 End If</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Extract first N characters
 Function GetPrefix(text As String, length As Long) As String
-If length &lt;= 0 Then
-GetPrefix = &quot;&quot;
-Else
-GetPrefix = Left(text, length)
-End If
+    If length &lt;= 0 Then
+        GetPrefix = &quot;&quot;
+    Else
+        GetPrefix = Left(text, length)
+    End If
 End Function
-
 &#x27; Pattern 2: Truncate with ellipsis
 Function Truncate(text As String, maxLength As Long) As String
-If Len(text) &lt;= maxLength Then
-Truncate = text
-Else
-Truncate = Left(text, maxLength - 3) &amp; &quot;...&quot;
-End If
+    If Len(text) &lt;= maxLength Then
+        Truncate = text
+    Else
+        Truncate = Left(text, maxLength - 3) &amp; &quot;...&quot;
+    End If
 End Function
-
 &#x27; Pattern 3: Check if string starts with prefix
 Function StartsWith(text As String, prefix As String) As Boolean
-StartsWith = (Left(text, Len(prefix)) = prefix)
+    StartsWith = (Left(text, Len(prefix)) = prefix)
 End Function
-
 &#x27; Pattern 4: Extract first word
 Function GetFirstWord(text As String) As String
-Dim spacePos As Long
-
-spacePos = InStr(text, &quot; &quot;)
-If spacePos &gt; 0 Then
-GetFirstWord = Left(text, spacePos - 1)
-Else
-GetFirstWord = text
-End If
+    Dim spacePos As Long
+    spacePos = InStr(text, &quot; &quot;)
+    If spacePos &gt; 0 Then
+        GetFirstWord = Left(text, spacePos - 1)
+    Else
+        GetFirstWord = text
+    End If
 End Function
-
 &#x27; Pattern 5: Extract initials
 Function GetInitials(fullName As String) As String
-Dim parts() As String
-Dim i As Long
-Dim initials As String
-
-parts = Split(Trim(fullName), &quot; &quot;)
-initials = &quot;&quot;
-
-For i = LBound(parts) To UBound(parts)
-If Len(parts(i)) &gt; 0 Then
-initials = initials &amp; UCase(Left(parts(i), 1))
-End If
-Next i
-
-GetInitials = initials
+    Dim parts() As String
+    Dim i As Long
+    Dim initials As String
+    parts = Split(Trim(fullName), &quot; &quot;)
+    initials = &quot;&quot;
+    For i = LBound(parts) To UBound(parts)
+        If Len(parts(i)) &gt; 0 Then
+            initials = initials &amp; UCase(Left(parts(i), 1))
+        End If
+    Next i
+    GetInitials = initials
 End Function
-
 &#x27; Pattern 6: Safe Left with Null check
 Function SafeLeft(value As Variant, length As Long) As String
-If IsNull(value) Then
-SafeLeft = &quot;&quot;
-Else
-SafeLeft = Left(value, length)
-End If
+    If IsNull(value) Then
+        SafeLeft = &quot;&quot;
+    Else
+        SafeLeft = Left(value, length)
+    End If
 End Function
-
 &#x27; Pattern 7: Extract drive letter
 Function GetDriveLetter(path As String) As String
-If Len(path) &gt;= 2 And Mid(path, 2, 1) = &quot;:&quot; Then
-GetDriveLetter = Left(path, 2)
-Else
-GetDriveLetter = &quot;&quot;
-End If
+    If Len(path) &gt;= 2 And Mid(path, 2, 1) = &quot;:&quot; Then
+        GetDriveLetter = Left(path, 2)
+    Else
+        GetDriveLetter = &quot;&quot;
+    End If
 End Function
-
 &#x27; Pattern 8: Pad left to fixed width
 Function PadLeft(text As String, width As Long, Optional padChar As String = &quot; &quot;) As String
-If Len(text) &gt;= width Then
-PadLeft = Left(text, width)
-Else
-PadLeft = String(width - Len(text), padChar) &amp; text
-End If
+    If Len(text) &gt;= width Then
+        PadLeft = Left(text, width)
+    Else
+        PadLeft = String(width - Len(text), padChar) &amp; text
+    End If
 End Function
-
 &#x27; Pattern 9: Extract area code from phone
 Function GetAreaCode(phone As String) As String
-Dim digitsOnly As String
-Dim i As Long
-Dim char As String
-
-&#x27; Extract digits only
-digitsOnly = &quot;&quot;
-For i = 1 To Len(phone)
-char = Mid(phone, i, 1)
-If char &gt;= &quot;0&quot; And char &lt;= &quot;9&quot; Then
-digitsOnly = digitsOnly &amp; char
-End If
-Next i
-
-&#x27; Get first 3 digits as area code
-If Len(digitsOnly) &gt;= 3 Then
-GetAreaCode = Left(digitsOnly, 3)
-Else
-GetAreaCode = &quot;&quot;
-End If
+    Dim digitsOnly As String
+    Dim i As Long
+    Dim char As String
+    &#x27; Extract digits only
+    digitsOnly = &quot;&quot;
+    For i = 1 To Len(phone)
+        char = Mid(phone, i, 1)
+        If char &gt;= &quot;0&quot; And char &lt;= &quot;9&quot; Then
+            digitsOnly = digitsOnly &amp; char
+        End If
+    Next i
+    &#x27; Get first 3 digits as area code
+    If Len(digitsOnly) &gt;= 3 Then
+        GetAreaCode = Left(digitsOnly, 3)
+    Else
+        GetAreaCode = &quot;&quot;
+    End If
 End Function
-
 &#x27; Pattern 10: Create abbreviation
 Function Abbreviate(text As String, maxLength As Long) As String
-If Len(text) &lt;= maxLength Then
-Abbreviate = text
-Else
-&#x27; Take first letter of each word
-Dim words() As String
-Dim i As Long
-Dim abbr As String
-
-words = Split(text, &quot; &quot;)
-abbr = &quot;&quot;
-
-For i = LBound(words) To UBound(words)
-If Len(words(i)) &gt; 0 Then
-abbr = abbr &amp; UCase(Left(words(i), 1))
-If Len(abbr) &gt;= maxLength Then Exit For
-End If
-Next i
-
-Abbreviate = abbr
-End If
+    If Len(text) &lt;= maxLength Then
+        Abbreviate = text
+    Else
+        &#x27; Take first letter of each word
+        Dim words() As String
+        Dim i As Long
+        Dim abbr As String
+        words = Split(text, &quot; &quot;)
+        abbr = &quot;&quot;
+        For i = LBound(words) To UBound(words)
+            If Len(words(i)) &gt; 0 Then
+                abbr = abbr &amp; UCase(Left(words(i), 1))
+                If Len(abbr) &gt;= maxLength Then Exit For
+            End If
+        Next i
+        Abbreviate = abbr
+    End If
 End Function</code></pre>
 <h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Fixed-width file parser
 Public Class FixedWidthParser
-Private m_fieldLengths() As Long
-
-Public Sub SetFieldLengths(ParamArray lengths() As Variant)
-Dim i As Long
-ReDim m_fieldLengths(LBound(lengths) To UBound(lengths))
-For i = LBound(lengths) To UBound(lengths)
-m_fieldLengths(i) = CLng(lengths(i))
-Next i
-End Sub
-
-Public Function ParseLine(line As String) As Variant
-Dim fields() As String
-Dim i As Long
-Dim pos As Long
-
-ReDim fields(LBound(m_fieldLengths) To UBound(m_fieldLengths))
-pos = 1
-
-For i = LBound(m_fieldLengths) To UBound(m_fieldLengths)
-If pos &lt;= Len(line) Then
-fields(i) = Trim(Mid(line, pos, m_fieldLengths(i)))
-Else
-fields(i) = &quot;&quot;
-End If
-pos = pos + m_fieldLengths(i)
-Next i
-
-ParseLine = fields
-End Function
-
-Public Function GetField(line As String, fieldIndex As Long) As String
-Dim pos As Long
-Dim i As Long
-
-pos = 1
-For i = LBound(m_fieldLengths) To fieldIndex - 1
-pos = pos + m_fieldLengths(i)
-Next i
-
-If pos &lt;= Len(line) Then
-GetField = Trim(Mid(line, pos, m_fieldLengths(fieldIndex)))
-Else
-GetField = &quot;&quot;
-End If
-End Function
+    Private m_fieldLengths() As Long
+    Public Sub SetFieldLengths(ParamArray lengths() As Variant)
+        Dim i As Long
+        ReDim m_fieldLengths(LBound(lengths) To UBound(lengths))
+        For i = LBound(lengths) To UBound(lengths)
+            m_fieldLengths(i) = CLng(lengths(i))
+        Next i
+    End Sub
+    Public Function ParseLine(line As String) As Variant
+        Dim fields() As String
+        Dim i As Long
+        Dim pos As Long
+        ReDim fields(LBound(m_fieldLengths) To UBound(m_fieldLengths))
+        pos = 1
+        For i = LBound(m_fieldLengths) To UBound(m_fieldLengths)
+            If pos &lt;= Len(line) Then
+                fields(i) = Trim(Mid(line, pos, m_fieldLengths(i)))
+            Else
+                fields(i) = &quot;&quot;
+            End If
+            pos = pos + m_fieldLengths(i)
+        Next i
+        ParseLine = fields
+    End Function
+    Public Function GetField(line As String, fieldIndex As Long) As String
+        Dim pos As Long
+        Dim i As Long
+        pos = 1
+        For i = LBound(m_fieldLengths) To fieldIndex - 1
+            pos = pos + m_fieldLengths(i)
+        Next i
+        If pos &lt;= Len(line) Then
+            GetField = Trim(Mid(line, pos, m_fieldLengths(fieldIndex)))
+        Else
+            GetField = &quot;&quot;
+        End If
+    End Function
 End Class
-
 &#x27; Example 2: Text preview/truncation utility
 Public Class TextPreview
-Public Function CreatePreview(text As String, maxLength As Long, _
-Optional ellipsis As String = &quot;...&quot;) As String
-If Len(text) &lt;= maxLength Then
-CreatePreview = text
-Exit Function
-End If
-
-&#x27; Try to break at word boundary
-Dim truncated As String
-Dim lastSpace As Long
-
-truncated = Left(text, maxLength - Len(ellipsis))
-lastSpace = InStrRev(truncated, &quot; &quot;)
-
-If lastSpace &gt; maxLength \ 2 Then
-&#x27; Break at word if space found in second half
-CreatePreview = Left(truncated, lastSpace - 1) &amp; ellipsis
-Else
-&#x27; Break at character
-CreatePreview = truncated &amp; ellipsis
-End If
-End Function
-
-Public Function WordWrap(text As String, lineWidth As Long) As String
-Dim result As String
-Dim remaining As String
-Dim line As String
-Dim spacePos As Long
-
-result = &quot;&quot;
-remaining = text
-
-Do While Len(remaining) &gt; lineWidth
-&#x27; Try to break at word
-line = Left(remaining, lineWidth)
-spacePos = InStrRev(line, &quot; &quot;)
-
-If spacePos &gt; 0 Then
-result = result &amp; Left(line, spacePos - 1) &amp; vbCrLf
-remaining = Mid(remaining, spacePos + 1)
-Else
-result = result &amp; line &amp; vbCrLf
-remaining = Mid(remaining, lineWidth + 1)
-End If
-Loop
-
-result = result &amp; remaining
-WordWrap = result
-End Function
+    Public Function CreatePreview(text As String, maxLength As Long, _
+                                  Optional ellipsis As String = &quot;...&quot;) As String
+        If Len(text) &lt;= maxLength Then
+            CreatePreview = text
+            Exit Function
+        End If
+        &#x27; Try to break at word boundary
+        Dim truncated As String
+        Dim lastSpace As Long
+        truncated = Left(text, maxLength - Len(ellipsis))
+        lastSpace = InStrRev(truncated, &quot; &quot;)
+        If lastSpace &gt; maxLength \ 2 Then
+            &#x27; Break at word if space found in second half
+            CreatePreview = Left(truncated, lastSpace - 1) &amp; ellipsis
+        Else
+            &#x27; Break at character
+            CreatePreview = truncated &amp; ellipsis
+        End If
+    End Function
+    Public Function WordWrap(text As String, lineWidth As Long) As String
+        Dim result As String
+        Dim remaining As String
+        Dim line As String
+        Dim spacePos As Long
+        result = &quot;&quot;
+        remaining = text
+        Do While Len(remaining) &gt; lineWidth
+            &#x27; Try to break at word
+            line = Left(remaining, lineWidth)
+            spacePos = InStrRev(line, &quot; &quot;)
+            If spacePos &gt; 0 Then
+                result = result &amp; Left(line, spacePos - 1) &amp; vbCrLf
+                remaining = Mid(remaining, spacePos + 1)
+            Else
+                result = result &amp; line &amp; vbCrLf
+                remaining = Mid(remaining, lineWidth + 1)
+            End If
+        Loop
+        result = result &amp; remaining
+        WordWrap = result
+    End Function
 End Class
-
 &#x27; Example 3: Code prefix analyzer
 Public Class CodeAnalyzer
-Private m_prefixes As Collection
-
-Private Sub Class_Initialize()
-Set m_prefixes = New Collection
-End Sub
-
-Public Sub RegisterPrefix(prefix As String, description As String)
-m_prefixes.Add Array(prefix, description), prefix
-End Sub
-
-Public Function GetCodeType(code As String) As String
-Dim i As Long
-Dim prefix As Variant
-Dim info As Variant
-
-For i = 1 To m_prefixes.Count
-info = m_prefixes(i)
-prefix = info(0)
-
-If Left(code, Len(prefix)) = prefix Then
-GetCodeType = info(1)
-Exit Function
-End If
-Next i
-
-GetCodeType = &quot;Unknown&quot;
-End Function
-
-Public Function ExtractPrefix(code As String, prefixLength As Long) As String
-ExtractPrefix = Left(code, prefixLength)
-End Function
-
-Public Function StripPrefix(code As String, prefixLength As Long) As String
-If Len(code) &gt; prefixLength Then
-StripPrefix = Mid(code, prefixLength + 1)
-Else
-StripPrefix = &quot;&quot;
-End If
-End Function
+    Private m_prefixes As Collection
+    Private Sub Class_Initialize()
+        Set m_prefixes = New Collection
+    End Sub
+    Public Sub RegisterPrefix(prefix As String, description As String)
+        m_prefixes.Add Array(prefix, description), prefix
+    End Sub
+    Public Function GetCodeType(code As String) As String
+        Dim i As Long
+        Dim prefix As Variant
+        Dim info As Variant
+        For i = 1 To m_prefixes.Count
+            info = m_prefixes(i)
+            prefix = info(0)
+            If Left(code, Len(prefix)) = prefix Then
+                GetCodeType = info(1)
+                Exit Function
+            End If
+        Next i
+        GetCodeType = &quot;Unknown&quot;
+    End Function
+    Public Function ExtractPrefix(code As String, prefixLength As Long) As String
+        ExtractPrefix = Left(code, prefixLength)
+    End Function
+    Public Function StripPrefix(code As String, prefixLength As Long) As String
+        If Len(code) &gt; prefixLength Then
+            StripPrefix = Mid(code, prefixLength + 1)
+        Else
+            StripPrefix = &quot;&quot;
+        End If
+    End Function
 End Class
-
 &#x27; Example 4: String comparison helper
 Public Class StringComparer
-Public Function StartsWith(text As String, prefix As String, _
-Optional ignoreCase As Boolean = False) As Boolean
-Dim textPrefix As String
-Dim comparePrefix As String
-
-If Len(prefix) = 0 Then
-StartsWith = True
-Exit Function
-End If
-
-If Len(text) &lt; Len(prefix) Then
-StartsWith = False
-Exit Function
-End If
-
-textPrefix = Left(text, Len(prefix))
-
-If ignoreCase Then
-StartsWith = (LCase(textPrefix) = LCase(prefix))
-Else
-StartsWith = (textPrefix = prefix)
-End If
-End Function
-
-Public Function GetCommonPrefix(str1 As String, str2 As String) As String
-Dim i As Long
-Dim minLen As Long
-
-minLen = IIf(Len(str1) &lt; Len(str2), Len(str1), Len(str2))
-
-For i = 1 To minLen
-If Left(str1, i) &lt;&gt; Left(str2, i) Then
-If i = 1 Then
-GetCommonPrefix = &quot;&quot;
-Else
-GetCommonPrefix = Left(str1, i - 1)
-End If
-Exit Function
-End If
-Next i
-
-GetCommonPrefix = Left(str1, minLen)
-End Function
-
-Public Function RemovePrefix(text As String, prefix As String, _
-Optional ignoreCase As Boolean = False) As String
-If StartsWith(text, prefix, ignoreCase) Then
-RemovePrefix = Mid(text, Len(prefix) + 1)
-Else
-RemovePrefix = text
-End If
-End Function
+    Public Function StartsWith(text As String, prefix As String, _
+                               Optional ignoreCase As Boolean = False) As Boolean
+        Dim textPrefix As String
+        Dim comparePrefix As String
+        If Len(prefix) = 0 Then
+            StartsWith = True
+            Exit Function
+        End If
+        If Len(text) &lt; Len(prefix) Then
+            StartsWith = False
+            Exit Function
+        End If
+        textPrefix = Left(text, Len(prefix))
+        If ignoreCase Then
+            StartsWith = (LCase(textPrefix) = LCase(prefix))
+        Else
+            StartsWith = (textPrefix = prefix)
+        End If
+    End Function
+    Public Function GetCommonPrefix(str1 As String, str2 As String) As String
+        Dim i As Long
+        Dim minLen As Long
+        minLen = IIf(Len(str1) &lt; Len(str2), Len(str1), Len(str2))
+        For i = 1 To minLen
+            If Left(str1, i) &lt;&gt; Left(str2, i) Then
+                If i = 1 Then
+                    GetCommonPrefix = &quot;&quot;
+                Else
+                    GetCommonPrefix = Left(str1, i - 1)
+                End If
+                Exit Function
+            End If
+        Next i
+        GetCommonPrefix = Left(str1, minLen)
+    End Function
+    Public Function RemovePrefix(text As String, prefix As String, _
+                                 Optional ignoreCase As Boolean = False) As String
+        If StartsWith(text, prefix, ignoreCase) Then
+            RemovePrefix = Mid(text, Len(prefix) + 1)
+        Else
+            RemovePrefix = text
+        End If
+    End Function
 End Class</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <p>Left handles several special cases:</p>
 <pre><code class="language-vbnet">&#x27; Empty string
 Debug.Print Left(&quot;&quot;, 5)              &#x27; &quot;&quot; - empty string
-
 &#x27; Zero length
 Debug.Print Left(&quot;Hello&quot;, 0)         &#x27; &quot;&quot; - empty string
-
 &#x27; Length exceeds string
 Debug.Print Left(&quot;Hi&quot;, 10)           &#x27; &quot;Hi&quot; - entire string
-
 &#x27; Null propagates
 Dim value As Variant
 value = Null
 Debug.Print IsNull(Left(value, 3))   &#x27; True
-
 &#x27; Negative length causes error
 &#x27; Debug.Print Left(&quot;Test&quot;, -1)       &#x27; Error 5: Invalid procedure call
-
 &#x27; Safe pattern with error handling
 Function SafeLeft(text As Variant, length As Long) As String
-On Error Resume Next
-If IsNull(text) Then
-SafeLeft = &quot;&quot;
-ElseIf length &lt; 0 Then
-SafeLeft = &quot;&quot;
-Else
-SafeLeft = Left(text, length)
-End If
-On Error GoTo 0
+    On Error Resume Next
+    If IsNull(text) Then
+        SafeLeft = &quot;&quot;
+    ElseIf length &lt; 0 Then
+        SafeLeft = &quot;&quot;
+    Else
+        SafeLeft = Left(text, length)
+    End If
+    On Error GoTo 0
 End Function</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
 <li><strong>Fast Operation</strong>: Left is a very fast intrinsic function</li>
 <li><strong>String Creation</strong>: Creates new string (strings are immutable)</li>
 <li><strong>Left$ Variant</strong>: Use Left$ for String return type (slightly faster)</li>
-<li><strong>Repeated Calls</strong>: Cache result if using same substring multiple times</li>
+<li><strong>Repeated Calls</strong>: Cache result if using same substring multiple times
+Performance tips:</li>
 </ul>
-<p>Performance tips:</p>
 <pre><code class="language-vbnet">&#x27; Efficient for single use
 If Left(fileName, 2) = &quot;C:&quot; Then
-
 &#x27; Cache if used multiple times
 Dim prefix As String
 prefix = Left(code, 3)
@@ -544,28 +477,21 @@ If prefix = &quot;ABC&quot; Or prefix = &quot;DEF&quot; Then</code></pre>
 </table>
 <pre><code class="language-vbnet">Dim text As String
 text = &quot;Hello World&quot;
-
 &#x27; Left - simpler for leftmost characters
 Debug.Print Left(text, 5)            &#x27; &quot;Hello&quot;
-
 &#x27; Mid - equivalent but more verbose
 Debug.Print Mid(text, 1, 5)          &#x27; &quot;Hello&quot;
-
 &#x27; Use Left for clarity when extracting from start
 &#x27; Use Mid when start position is not 1</code></pre>
 <h2 id="left-right-and-mid-together">Left, Right, and Mid Together</h2>
 <pre><code class="language-vbnet">Dim text As String
 text = &quot;ABCDEFGH&quot;
-
 &#x27; Left - first 3 characters
 Debug.Print Left(text, 3)            &#x27; &quot;ABC&quot;
-
 &#x27; Right - last 3 characters
 Debug.Print Right(text, 3)           &#x27; &quot;FGH&quot;
-
 &#x27; Mid - middle characters
 Debug.Print Mid(text, 3, 4)          &#x27; &quot;CDEF&quot;
-
 &#x27; Combine for complex extraction
 Dim part As String
 part = Left(Right(text, 5), 2)       &#x27; &quot;DE&quot;</code></pre>

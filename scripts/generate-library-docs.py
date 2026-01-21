@@ -82,10 +82,10 @@ def extract_module_docs(file_path: Path) -> Optional[str]:
         stripped = line.strip()
         
         # Check for module doc comment
-        if stripped.startswith('//!'):
+        if stripped.startswith('//! '):
             in_module_doc = True
-            # Remove //! prefix and optional space
-            content = stripped[3:].lstrip()
+            # Remove //!  prefix, but not leading whitespace which might be important in code blocks.
+            content = stripped[4:]
             doc_lines.append(content)
         elif in_module_doc:
             # Stop at first non-doc line after docs started

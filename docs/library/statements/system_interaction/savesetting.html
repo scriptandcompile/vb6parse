@@ -51,7 +51,7 @@
 <h2 id="remarks">Remarks</h2>
 <ul>
 <li><strong>Registry Location</strong>: On Windows, <code>SaveSetting</code> writes to the registry under the path:
-<code>HKEY_CURRENT_USER\Software\VB and VBA Program Settings\appname\section\key</code></li>
+  <code>HKEY_CURRENT_USER\Software\VB and VBA Program Settings\appname\section\key</code></li>
 <li><strong>String Values</strong>: The setting argument is always stored as a string value in the registry.</li>
 <li><strong>Creating Entries</strong>: If the specified key setting doesn't exist, <code>SaveSetting</code> creates it.</li>
 <li><strong>Creating Sections</strong>: If the specified section doesn't exist, <code>SaveSetting</code> creates it.</li>
@@ -72,10 +72,10 @@ SaveSetting &quot;MyApp&quot;, &quot;Preferences&quot;, &quot;FontName&quot;, &q
 SaveSetting &quot;MyApp&quot;, &quot;Preferences&quot;, &quot;FontSize&quot;, 12</code></pre>
 <h3 id="save-form-position-on-close">Save Form Position on Close</h3>
 <pre><code class="language-vbnet">Private Sub Form_Unload(Cancel As Integer)
-SaveSetting App.Title, &quot;Position&quot;, &quot;Left&quot;, Me.Left
-SaveSetting App.Title, &quot;Position&quot;, &quot;Top&quot;, Me.Top
-SaveSetting App.Title, &quot;Position&quot;, &quot;Width&quot;, Me.Width
-SaveSetting App.Title, &quot;Position&quot;, &quot;Height&quot;, Me.Height
+    SaveSetting App.Title, &quot;Position&quot;, &quot;Left&quot;, Me.Left
+    SaveSetting App.Title, &quot;Position&quot;, &quot;Top&quot;, Me.Top
+    SaveSetting App.Title, &quot;Position&quot;, &quot;Width&quot;, Me.Width
+    SaveSetting App.Title, &quot;Position&quot;, &quot;Height&quot;, Me.Height
 End Sub</code></pre>
 <h3 id="save-boolean-settings">Save Boolean Settings</h3>
 <pre><code class="language-vbnet">&#x27; Save a boolean as a string
@@ -86,12 +86,11 @@ userName = txtUserName.Text
 SaveSetting &quot;MyApp&quot;, &quot;User&quot;, &quot;LastUser&quot;, userName</code></pre>
 <h3 id="save-multiple-related-settings">Save Multiple Related Settings</h3>
 <pre><code class="language-vbnet">Sub SaveWindowSettings()
-Dim appName As String
-appName = App.Title
-
-SaveSetting appName, &quot;Window&quot;, &quot;Maximized&quot;, Me.WindowState = vbMaximized
-SaveSetting appName, &quot;Window&quot;, &quot;Visible&quot;, Me.Visible
-SaveSetting appName, &quot;Window&quot;, &quot;Caption&quot;, Me.Caption
+    Dim appName As String
+    appName = App.Title
+    SaveSetting appName, &quot;Window&quot;, &quot;Maximized&quot;, Me.WindowState = vbMaximized
+    SaveSetting appName, &quot;Window&quot;, &quot;Visible&quot;, Me.Visible
+    SaveSetting appName, &quot;Window&quot;, &quot;Caption&quot;, Me.Caption
 End Sub</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="using-apptitle-for-application-name">Using App.Title for Application Name</h3>

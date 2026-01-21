@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p>VB6 <code>Str</code> Function</p>
-<p>The <code>Str</code> function converts a number to a string representation.</p>
+            <p>VB6 <code>Str</code> Function
+The <code>Str</code> function converts a number to a string representation.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">Str(number)</code></pre>
 <h2 id="parameters">Parameters</h2>
@@ -49,17 +49,15 @@
 <p>Returns a <code>String</code> representing the numeric value. Positive numbers include a leading space for the sign position,
 negative numbers include a leading minus sign.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>Str</code> function converts numeric values to their string representation:</p>
-<ul>
-<li><strong>Always includes sign position</strong>: Positive numbers have a leading space, negative numbers have a leading minus sign (<code>-</code>)</li>
-<li><strong>No thousands separators</strong>: Returns plain numeric string without commas or other formatting</li>
-<li><strong>Scientific notation</strong>: Very large or very small numbers may use scientific notation (e.g., "1.23E+10")</li>
-<li><strong>Decimal point</strong>: Uses period (<code>.</code>) as decimal separator, regardless of locale settings</li>
-<li><strong>Boolean conversion</strong>: <code>True</code> becomes <code>"-1"</code>, <code>False</code> becomes <code>" 0"</code></li>
-<li><strong>Null handling</strong>: If <code>number</code> is <code>Null</code>, returns <code>Null</code> (not empty string)</li>
-<li><strong>Variant support</strong>: Accepts Variant containing numeric values</li>
-<li><strong>No currency symbol</strong>: Currency values converted without <code>$</code> or other symbols</li>
-</ul>
+<p>The <code>Str</code> function converts numeric values to their string representation:
+- <strong>Always includes sign position</strong>: Positive numbers have a leading space, negative numbers have a leading minus sign (<code>-</code>)
+- <strong>No thousands separators</strong>: Returns plain numeric string without commas or other formatting
+- <strong>Scientific notation</strong>: Very large or very small numbers may use scientific notation (e.g., "1.23E+10")
+- <strong>Decimal point</strong>: Uses period (<code>.</code>) as decimal separator, regardless of locale settings
+- <strong>Boolean conversion</strong>: <code>True</code> becomes <code>"-1"</code>, <code>False</code> becomes <code>" 0"</code>
+- <strong>Null handling</strong>: If <code>number</code> is <code>Null</code>, returns <code>Null</code> (not empty string)
+- <strong>Variant support</strong>: Accepts Variant containing numeric values
+- <strong>No currency symbol</strong>: Currency values converted without <code>$</code> or other symbols</p>
 <h3 id="comparison-with-other-functions">Comparison with Other Functions</h3>
 <ul>
 <li><strong>Str vs <code>CStr</code></strong>: <code>Str</code> adds leading space for positive numbers, <code>CStr</code> does not</li>
@@ -89,416 +87,347 @@ result = Str(3.14159)  &#x27; Returns &quot; 3.14159&quot;</code></pre>
 <pre><code class="language-vbnet">Dim numStr As String
 Dim value As Long
 value = 100
-
 &#x27; With leading space
 numStr = Str(value)           &#x27; &quot; 100&quot;
-
 &#x27; Without leading space
 numStr = LTrim$(Str(value))   &#x27; &quot;100&quot;
-
 &#x27; Or use CStr instead
 numStr = CStr(value)          &#x27; &quot;100&quot;</code></pre>
 <h3 id="example-3-string-concatenation">Example 3: String Concatenation</h3>
 <pre><code class="language-vbnet">Dim message As String
 Dim count As Integer
 Dim total As Double
-
 count = 5
 total = 123.45
-
 message = &quot;Count:&quot; &amp; Str(count) &amp; &quot;, Total:&quot; &amp; Str(total)
 &#x27; Result: &quot;Count: 5, Total: 123.45&quot; (spaces from Str included)
-
 message = &quot;Count:&quot; &amp; LTrim$(Str(count)) &amp; &quot;, Total:&quot; &amp; LTrim$(Str(total))
 &#x27; Result: &quot;Count:5, Total:123.45&quot; (no extra spaces)</code></pre>
 <h3 id="example-4-boolean-conversion">Example 4: Boolean Conversion</h3>
 <pre><code class="language-vbnet">Dim result As String
 Dim flag As Boolean
-
 flag = True
 result = Str(flag)   &#x27; Returns &quot;-1&quot;
-
 flag = False
 result = Str(flag)   &#x27; Returns &quot; 0&quot;</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-build-display-string">Pattern 1: Build Display String</h3>
 <pre><code class="language-vbnet">Function BuildSummary(items As Integer, amount As Currency) As String
-&#x27; Build summary string with numbers
-BuildSummary = &quot;Items:&quot; &amp; LTrim$(Str(items)) &amp; _
-&quot; Amount: $&quot; &amp; LTrim$(Str(amount))
+    &#x27; Build summary string with numbers
+    BuildSummary = &quot;Items:&quot; &amp; LTrim$(Str(items)) &amp; _
+                   &quot; Amount: $&quot; &amp; LTrim$(Str(amount))
 End Function</code></pre>
 <h3 id="pattern-2-write-to-file">Pattern 2: Write to File</h3>
 <pre><code class="language-vbnet">Sub WriteDataToFile(filename As String, values() As Double)
-Dim fileNum As Integer
-Dim i As Integer
-
-fileNum = FreeFile
-Open filename For Output As #fileNum
-
-For i = LBound(values) To UBound(values)
-Print #fileNum, LTrim$(Str(values(i)))
-Next i
-
-Close #fileNum
+    Dim fileNum As Integer
+    Dim i As Integer
+    fileNum = FreeFile
+    Open filename For Output As #fileNum
+    For i = LBound(values) To UBound(values)
+        Print #fileNum, LTrim$(Str(values(i)))
+    Next i
+    Close #fileNum
 End Sub</code></pre>
 <h3 id="pattern-3-debug-output">Pattern 3: Debug Output</h3>
 <pre><code class="language-vbnet">Sub DebugPrintValues(x As Double, y As Double, z As Double)
-Debug.Print &quot;X=&quot; &amp; LTrim$(Str(x)) &amp; _
-&quot; Y=&quot; &amp; LTrim$(Str(y)) &amp; _
-&quot; Z=&quot; &amp; LTrim$(Str(z))
+    Debug.Print &quot;X=&quot; &amp; LTrim$(Str(x)) &amp; _
+                &quot; Y=&quot; &amp; LTrim$(Str(y)) &amp; _
+                &quot; Z=&quot; &amp; LTrim$(Str(z))
 End Sub</code></pre>
 <h3 id="pattern-4-array-to-string">Pattern 4: Array to String</h3>
 <pre><code class="language-vbnet">Function ArrayToString(arr() As Integer) As String
-Dim i As Integer
-Dim result As String
-
-result = &quot;&quot;
-For i = LBound(arr) To UBound(arr)
-If i &gt; LBound(arr) Then result = result &amp; &quot;,&quot;
-result = result &amp; LTrim$(Str(arr(i)))
-Next i
-
-ArrayToString = result
+    Dim i As Integer
+    Dim result As String
+    result = &quot;&quot;
+    For i = LBound(arr) To UBound(arr)
+        If i &gt; LBound(arr) Then result = result &amp; &quot;,&quot;
+        result = result &amp; LTrim$(Str(arr(i)))
+    Next i
+    ArrayToString = result
 End Function</code></pre>
 <h3 id="pattern-5-aligned-column-output">Pattern 5: Aligned Column Output</h3>
 <pre><code class="language-vbnet">Sub PrintAlignedNumbers(values() As Long)
-Dim i As Integer
-Dim numStr As String
-
-For i = LBound(values) To UBound(values)
-numStr = Str(values(i))  &#x27; Keep leading space/sign
-Debug.Print Right$(Space(10) &amp; numStr, 10)  &#x27; Right-align
-Next i
+    Dim i As Integer
+    Dim numStr As String
+    For i = LBound(values) To UBound(values)
+        numStr = Str(values(i))  &#x27; Keep leading space/sign
+        Debug.Print Right$(Space(10) &amp; numStr, 10)  &#x27; Right-align
+    Next i
 End Sub</code></pre>
 <h3 id="pattern-6-safe-null-handling">Pattern 6: Safe Null Handling</h3>
 <pre><code class="language-vbnet">Function SafeStr(value As Variant) As String
-&#x27; Handle potential Null values
-If IsNull(value) Then
-SafeStr = &quot;&quot;
-ElseIf IsNumeric(value) Then
-SafeStr = LTrim$(Str(value))
-Else
-SafeStr = CStr(value)
-End If
+    &#x27; Handle potential Null values
+    If IsNull(value) Then
+        SafeStr = &quot;&quot;
+    ElseIf IsNumeric(value) Then
+        SafeStr = LTrim$(Str(value))
+    Else
+        SafeStr = CStr(value)
+    End If
 End Function</code></pre>
 <h3 id="pattern-7-build-csv-line">Pattern 7: Build CSV Line</h3>
 <pre><code class="language-vbnet">Function BuildCSVLine(id As Long, quantity As Integer, price As Currency) As String
-&#x27; Build comma-separated values
-BuildCSVLine = LTrim$(Str(id)) &amp; &quot;,&quot; &amp; _
-LTrim$(Str(quantity)) &amp; &quot;,&quot; &amp; _
-LTrim$(Str(price))
+    &#x27; Build comma-separated values
+    BuildCSVLine = LTrim$(Str(id)) &amp; &quot;,&quot; &amp; _
+                   LTrim$(Str(quantity)) &amp; &quot;,&quot; &amp; _
+                   LTrim$(Str(price))
 End Function</code></pre>
 <h3 id="pattern-8-number-to-padded-string">Pattern 8: Number to Padded String</h3>
 <pre><code class="language-vbnet">Function NumberToPaddedString(value As Long, width As Integer) As String
-Dim numStr As String
-numStr = LTrim$(Str(value))
-NumberToPaddedString = Right$(String$(width, &quot;0&quot;) &amp; numStr, width)
+    Dim numStr As String
+    numStr = LTrim$(Str(value))
+    NumberToPaddedString = Right$(String$(width, &quot;0&quot;) &amp; numStr, width)
 End Function</code></pre>
 <h3 id="pattern-9-sign-aware-display">Pattern 9: Sign-Aware Display</h3>
 <pre><code class="language-vbnet">Function DisplayWithSign(value As Double) As String
-Dim numStr As String
-numStr = Str(value)  &#x27; Keep sign/space
-
-If Left$(numStr, 1) = &quot; &quot; Then
-DisplayWithSign = &quot;+&quot; &amp; LTrim$(numStr)
-Else
-DisplayWithSign = numStr  &#x27; Already has minus sign
-End If
+    Dim numStr As String
+    numStr = Str(value)  &#x27; Keep sign/space
+    If Left$(numStr, 1) = &quot; &quot; Then
+        DisplayWithSign = &quot;+&quot; &amp; LTrim$(numStr)
+    Else
+        DisplayWithSign = numStr  &#x27; Already has minus sign
+    End If
 End Function</code></pre>
 <h3 id="pattern-10-concatenate-multiple-values">Pattern 10: Concatenate Multiple Values</h3>
 <pre><code class="language-vbnet">Function ConcatenateValues(ParamArray values() As Variant) As String
-Dim i As Integer
-Dim result As String
-
-result = &quot;&quot;
-For i = LBound(values) To UBound(values)
-If i &gt; LBound(values) Then result = result &amp; &quot; &quot;
-result = result &amp; LTrim$(Str(values(i)))
-Next i
-
-ConcatenateValues = result
+    Dim i As Integer
+    Dim result As String
+    result = &quot;&quot;
+    For i = LBound(values) To UBound(values)
+        If i &gt; LBound(values) Then result = result &amp; &quot; &quot;
+        result = result &amp; LTrim$(Str(values(i)))
+    Next i
+    ConcatenateValues = result
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-data-export-utility">Example 1: Data Export Utility</h3>
 <pre><code class="language-vbnet">&#x27; Class: DataExporter
 &#x27; Exports numeric data to various text formats
 Option Explicit
-
 Private m_Delimiter As String
 Private m_IncludeHeader As Boolean
 Private m_TrimSpaces As Boolean
-
 Public Sub Initialize(delimiter As String, includeHeader As Boolean, trimSpaces As Boolean)
-m_Delimiter = delimiter
-m_IncludeHeader = includeHeader
-m_TrimSpaces = trimSpaces
+    m_Delimiter = delimiter
+    m_IncludeHeader = includeHeader
+    m_TrimSpaces = trimSpaces
 End Sub
-
 Public Sub ExportToFile(filename As String, data() As Double, headers() As String)
-Dim fileNum As Integer
-Dim i As Integer
-Dim j As Integer
-Dim line As String
-
-fileNum = FreeFile
-Open filename For Output As #fileNum
-
-&#x27; Write header if requested
-If m_IncludeHeader Then
-line = Join(headers, m_Delimiter)
-Print #fileNum, line
-End If
-
-&#x27; Write data rows
-For i = LBound(data, 1) To UBound(data, 1)
-line = &quot;&quot;
-For j = LBound(data, 2) To UBound(data, 2)
-If j &gt; LBound(data, 2) Then line = line &amp; m_Delimiter
-If m_TrimSpaces Then
-line = line &amp; LTrim$(Str(data(i, j)))
-Else
-line = line &amp; Str(data(i, j))
-End If
-Next j
-Print #fileNum, line
-Next i
-
-Close #fileNum
+    Dim fileNum As Integer
+    Dim i As Integer
+    Dim j As Integer
+    Dim line As String
+    fileNum = FreeFile
+    Open filename For Output As #fileNum
+    &#x27; Write header if requested
+    If m_IncludeHeader Then
+        line = Join(headers, m_Delimiter)
+        Print #fileNum, line
+    End If
+    &#x27; Write data rows
+    For i = LBound(data, 1) To UBound(data, 1)
+        line = &quot;&quot;
+        For j = LBound(data, 2) To UBound(data, 2)
+            If j &gt; LBound(data, 2) Then line = line &amp; m_Delimiter
+            If m_TrimSpaces Then
+                line = line &amp; LTrim$(Str(data(i, j)))
+            Else
+                line = line &amp; Str(data(i, j))
+            End If
+        Next j
+        Print #fileNum, line
+    Next i
+    Close #fileNum
 End Sub
-
 Public Function ConvertRowToString(values() As Variant) As String
-Dim i As Integer
-Dim result As String
-
-result = &quot;&quot;
-For i = LBound(values) To UBound(values)
-If i &gt; LBound(values) Then result = result &amp; m_Delimiter
-
-If IsNumeric(values(i)) Then
-If m_TrimSpaces Then
-result = result &amp; LTrim$(Str(values(i)))
-Else
-result = result &amp; Str(values(i))
-End If
-Else
-result = result &amp; CStr(values(i))
-End If
-Next i
-
-ConvertRowToString = result
+    Dim i As Integer
+    Dim result As String
+    result = &quot;&quot;
+    For i = LBound(values) To UBound(values)
+        If i &gt; LBound(values) Then result = result &amp; m_Delimiter
+        If IsNumeric(values(i)) Then
+            If m_TrimSpaces Then
+                result = result &amp; LTrim$(Str(values(i)))
+            Else
+                result = result &amp; Str(values(i))
+            End If
+        Else
+            result = result &amp; CStr(values(i))
+        End If
+    Next i
+    ConvertRowToString = result
 End Function</code></pre>
 <h3 id="example-2-number-formatter-module">Example 2: Number Formatter Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: NumberFormatter
 &#x27; Utilities for converting numbers to formatted strings
 Option Explicit
-
 Public Function ToStringWithoutSpace(value As Variant) As String
-&#x27; Convert number to string without leading space
-If IsNull(value) Then
-ToStringWithoutSpace = &quot;&quot;
-ElseIf IsNumeric(value) Then
-ToStringWithoutSpace = LTrim$(Str(value))
-Else
-ToStringWithoutSpace = CStr(value)
-End If
+    &#x27; Convert number to string without leading space
+    If IsNull(value) Then
+        ToStringWithoutSpace = &quot;&quot;
+    ElseIf IsNumeric(value) Then
+        ToStringWithoutSpace = LTrim$(Str(value))
+    Else
+        ToStringWithoutSpace = CStr(value)
+    End If
 End Function
-
 Public Function ToFixedWidth(value As Double, width As Integer) As String
-&#x27; Convert number to fixed-width string, right-aligned
-Dim numStr As String
-numStr = Str(value)  &#x27; Keep sign position
-
-If Len(numStr) &gt;= width Then
-ToFixedWidth = numStr
-Else
-ToFixedWidth = Space(width - Len(numStr)) &amp; numStr
-End If
+    &#x27; Convert number to fixed-width string, right-aligned
+    Dim numStr As String
+    numStr = Str(value)  &#x27; Keep sign position
+    If Len(numStr) &gt;= width Then
+        ToFixedWidth = numStr
+    Else
+        ToFixedWidth = Space(width - Len(numStr)) &amp; numStr
+    End If
 End Function
-
 Public Function ToScientific(value As Double, decimals As Integer) As String
-&#x27; Convert to scientific notation manually
-Dim exponent As Integer
-Dim mantissa As Double
-Dim absValue As Double
-
-If value = 0 Then
-ToScientific = &quot;0.0E+00&quot;
-Exit Function
-End If
-
-absValue = Abs(value)
-exponent = Int(Log(absValue) / Log(10))
-mantissa = value / (10 ^ exponent)
-
-ToScientific = LTrim$(Str(Round(mantissa, decimals))) &amp; &quot;E&quot; &amp; _
-IIf(exponent &gt;= 0, &quot;+&quot;, &quot;&quot;) &amp; LTrim$(Str(exponent))
+    &#x27; Convert to scientific notation manually
+    Dim exponent As Integer
+    Dim mantissa As Double
+    Dim absValue As Double
+    If value = 0 Then
+        ToScientific = &quot;0.0E+00&quot;
+        Exit Function
+    End If
+    absValue = Abs(value)
+    exponent = Int(Log(absValue) / Log(10))
+    mantissa = value / (10 ^ exponent)
+    ToScientific = LTrim$(Str(Round(mantissa, decimals))) &amp; &quot;E&quot; &amp; _
+                   IIf(exponent &gt;= 0, &quot;+&quot;, &quot;&quot;) &amp; LTrim$(Str(exponent))
 End Function
-
 Public Function PadInteger(value As Long, width As Integer) As String
-&#x27; Pad integer with leading zeros
-Dim numStr As String
-numStr = LTrim$(Str(value))
-
-If Len(numStr) &gt;= width Then
-PadInteger = numStr
-Else
-PadInteger = String$(width - Len(numStr), &quot;0&quot;) &amp; numStr
-End If
+    &#x27; Pad integer with leading zeros
+    Dim numStr As String
+    numStr = LTrim$(Str(value))
+    If Len(numStr) &gt;= width Then
+        PadInteger = numStr
+    Else
+        PadInteger = String$(width - Len(numStr), &quot;0&quot;) &amp; numStr
+    End If
 End Function</code></pre>
 <h3 id="example-3-report-builder-class">Example 3: Report Builder Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: ReportBuilder
 &#x27; Builds formatted text reports with numeric data
 Option Explicit
-
 Private m_Lines As Collection
 Private m_ColumnWidths() As Integer
 Private m_ColumnCount As Integer
-
 Public Sub Initialize(columnCount As Integer)
-Set m_Lines = New Collection
-m_ColumnCount = columnCount
-ReDim m_ColumnWidths(1 To columnCount)
-
-&#x27; Default column widths
-Dim i As Integer
-For i = 1 To columnCount
-m_ColumnWidths(i) = 10
-Next i
+    Set m_Lines = New Collection
+    m_ColumnCount = columnCount
+    ReDim m_ColumnWidths(1 To columnCount)
+    &#x27; Default column widths
+    Dim i As Integer
+    For i = 1 To columnCount
+        m_ColumnWidths(i) = 10
+    Next i
 End Sub
-
 Public Sub SetColumnWidth(column As Integer, width As Integer)
-If column &gt;= 1 And column &lt;= m_ColumnCount Then
-m_ColumnWidths(column) = width
-End If
+    If column &gt;= 1 And column &lt;= m_ColumnCount Then
+        m_ColumnWidths(column) = width
+    End If
 End Sub
-
 Public Sub AddRow(ParamArray values() As Variant)
-Dim i As Integer
-Dim line As String
-Dim cell As String
-Dim colNum As Integer
-
-line = &quot;&quot;
-For i = LBound(values) To UBound(values)
-colNum = i + 1
-If colNum &gt; m_ColumnCount Then Exit For
-
-&#x27; Convert value to string
-If IsNumeric(values(i)) Then
-cell = Str(values(i))  &#x27; Keep sign position for alignment
-Else
-cell = CStr(values(i))
-End If
-
-&#x27; Pad to column width
-If Len(cell) &lt; m_ColumnWidths(colNum) Then
-cell = Space(m_ColumnWidths(colNum) - Len(cell)) &amp; cell
-End If
-
-line = line &amp; cell
-Next i
-
-m_Lines.Add line
+    Dim i As Integer
+    Dim line As String
+    Dim cell As String
+    Dim colNum As Integer
+    line = &quot;&quot;
+    For i = LBound(values) To UBound(values)
+        colNum = i + 1
+        If colNum &gt; m_ColumnCount Then Exit For
+        &#x27; Convert value to string
+        If IsNumeric(values(i)) Then
+            cell = Str(values(i))  &#x27; Keep sign position for alignment
+        Else
+            cell = CStr(values(i))
+        End If
+        &#x27; Pad to column width
+        If Len(cell) &lt; m_ColumnWidths(colNum) Then
+            cell = Space(m_ColumnWidths(colNum) - Len(cell)) &amp; cell
+        End If
+        line = line &amp; cell
+    Next i
+    m_Lines.Add line
 End Sub
-
 Public Function GetReport() As String
-Dim i As Integer
-Dim result As String
-
-result = &quot;&quot;
-For i = 1 To m_Lines.Count
-result = result &amp; m_Lines(i) &amp; vbCrLf
-Next i
-
-GetReport = result
+    Dim i As Integer
+    Dim result As String
+    result = &quot;&quot;
+    For i = 1 To m_Lines.Count
+        result = result &amp; m_Lines(i) &amp; vbCrLf
+    Next i
+    GetReport = result
 End Function
-
 Public Sub Clear()
-Set m_Lines = New Collection
+    Set m_Lines = New Collection
 End Sub</code></pre>
 <h3 id="example-4-string-builder-for-numbers">Example 4: String Builder for Numbers</h3>
 <pre><code class="language-vbnet">&#x27; Module: NumericStringBuilder
 &#x27; Build strings from numeric arrays and collections
 Option Explicit
-
 Public Function JoinNumbers(numbers() As Double, delimiter As String, trimSpaces As Boolean) As String
-Dim i As Integer
-Dim result As String
-Dim numStr As String
-
-result = &quot;&quot;
-For i = LBound(numbers) To UBound(numbers)
-If i &gt; LBound(numbers) Then result = result &amp; delimiter
-
-numStr = Str(numbers(i))
-If trimSpaces Then numStr = LTrim$(numStr)
-
-result = result &amp; numStr
-Next i
-
-JoinNumbers = result
+    Dim i As Integer
+    Dim result As String
+    Dim numStr As String
+    result = &quot;&quot;
+    For i = LBound(numbers) To UBound(numbers)
+        If i &gt; LBound(numbers) Then result = result &amp; delimiter
+        numStr = Str(numbers(i))
+        If trimSpaces Then numStr = LTrim$(numStr)
+        result = result &amp; numStr
+    Next i
+    JoinNumbers = result
 End Function
-
 Public Function CreateTable(data() As Variant, rowCount As Integer, colCount As Integer) As String
-Dim i As Integer
-Dim j As Integer
-Dim result As String
-Dim row As String
-
-result = &quot;&quot;
-For i = 1 To rowCount
-row = &quot;&quot;
-For j = 1 To colCount
-If j &gt; 1 Then row = row &amp; vbTab
-
-If IsNumeric(data(i, j)) Then
-row = row &amp; LTrim$(Str(data(i, j)))
-Else
-row = row &amp; CStr(data(i, j))
-End If
-Next j
-result = result &amp; row &amp; vbCrLf
-Next i
-
-CreateTable = result
+    Dim i As Integer
+    Dim j As Integer
+    Dim result As String
+    Dim row As String
+    result = &quot;&quot;
+    For i = 1 To rowCount
+        row = &quot;&quot;
+        For j = 1 To colCount
+            If j &gt; 1 Then row = row &amp; vbTab
+            If IsNumeric(data(i, j)) Then
+                row = row &amp; LTrim$(Str(data(i, j)))
+            Else
+                row = row &amp; CStr(data(i, j))
+            End If
+        Next j
+        result = result &amp; row &amp; vbCrLf
+    Next i
+    CreateTable = result
 End Function
-
 Public Function FormatNumberList(numbers As Collection, prefix As String, suffix As String) As String
-Dim item As Variant
-Dim result As String
-Dim first As Boolean
-
-first = True
-result = &quot;&quot;
-
-For Each item In numbers
-If Not first Then result = result &amp; &quot;, &quot;
-result = result &amp; prefix &amp; LTrim$(Str(item)) &amp; suffix
-first = False
-Next item
-
-FormatNumberList = result
+    Dim item As Variant
+    Dim result As String
+    Dim first As Boolean
+    first = True
+    result = &quot;&quot;
+    For Each item In numbers
+        If Not first Then result = result &amp; &quot;, &quot;
+        result = result &amp; prefix &amp; LTrim$(Str(item)) &amp; suffix
+        first = False
+    Next item
+    FormatNumberList = result
 End Function
-
 Public Function CreateSummaryLine(label As String, value As Double, width As Integer) As String
-Dim numStr As String
-Dim padding As Integer
-
-numStr = LTrim$(Str(value))
-padding = width - Len(label) - Len(numStr)
-
-If padding &gt; 0 Then
-CreateSummaryLine = label &amp; Space(padding) &amp; numStr
-Else
-CreateSummaryLine = label &amp; &quot; &quot; &amp; numStr
-End If
+    Dim numStr As String
+    Dim padding As Integer
+    numStr = LTrim$(Str(value))
+    padding = width - Len(label) - Len(numStr)
+    If padding &gt; 0 Then
+        CreateSummaryLine = label &amp; Space(padding) &amp; numStr
+    Else
+        CreateSummaryLine = label &amp; &quot; &quot; &amp; numStr
+    End If
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>Str</code> function can raise the following errors:</p>
-<ul>
-<li><strong>Error 13 (Type mismatch)</strong>: If <code>number</code> cannot be converted to a numeric value</li>
-<li><strong>Error 94 (Invalid use of Null)</strong>: In some contexts when passing Null without proper handling</li>
-</ul>
+<p>The <code>Str</code> function can raise the following errors:
+- <strong>Error 13 (Type mismatch)</strong>: If <code>number</code> cannot be converted to a numeric value
+- <strong>Error 94 (Invalid use of Null)</strong>: In some contexts when passing Null without proper handling</p>
 <h2 id="performance-notes">Performance Notes</h2>
 <ul>
 <li>Very fast for basic numeric types (Integer, Long, Single, Double)</li>
@@ -567,27 +496,113 @@ End Function</code></pre>
 <td>Removes</td>
 <td>None</td>
 </tr>
+<tr>
+<td>## Platform Notes</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in VB6, VBA, and <code>VBScript</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Behavior consistent across all platforms</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Uses period (<code>.</code>) as decimal separator regardless of locale</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Scientific notation format is standard across platforms</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No localization or culture-specific formatting applied</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Always includes leading space for positive numbers (often unwanted)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No formatting options (thousands separators, decimal places, etc.)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot specify decimal precision</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot control scientific notation threshold</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No currency symbol support</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Null input can cause errors if not handled</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No culture-aware formatting</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Return value length is unpredictable (depends on number magnitude)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-notes">Platform Notes</h2>
-<ul>
-<li>Available in VB6, VBA, and <code>VBScript</code></li>
-<li>Behavior consistent across all platforms</li>
-<li>Uses period (<code>.</code>) as decimal separator regardless of locale</li>
-<li>Scientific notation format is standard across platforms</li>
-<li>No localization or culture-specific formatting applied</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Always includes leading space for positive numbers (often unwanted)</li>
-<li>No formatting options (thousands separators, decimal places, etc.)</li>
-<li>Cannot specify decimal precision</li>
-<li>Cannot control scientific notation threshold</li>
-<li>No currency symbol support</li>
-<li>Null input can cause errors if not handled</li>
-<li>No culture-aware formatting</li>
-<li>Return value length is unpredictable (depends on number magnitude)</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

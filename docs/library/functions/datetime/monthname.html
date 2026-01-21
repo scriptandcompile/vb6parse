@@ -108,388 +108,318 @@ formattedDate = MonthName(Month(d)) &amp; &quot; &quot; &amp; Day(d) &amp; &quot
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Safe month name with validation
 Function SafeMonthName(monthNumber As Integer, _
-Optional abbreviate As Boolean = False) As String
-If monthNumber &lt; 1 Or monthNumber &gt; 12 Then
-SafeMonthName = &quot;&quot;
-Else
-SafeMonthName = MonthName(monthNumber, abbreviate)
-End If
+                       Optional abbreviate As Boolean = False) As String
+    If monthNumber &lt; 1 Or monthNumber &gt; 12 Then
+        SafeMonthName = &quot;&quot;
+    Else
+        SafeMonthName = MonthName(monthNumber, abbreviate)
+    End If
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 2: Populate month combo box
 Sub PopulateMonthCombo(cbo As ComboBox, Optional abbreviate As Boolean = False)
-Dim i As Integer
-cbo.Clear
-For i = 1 To 12
-cbo.AddItem MonthName(i, abbreviate)
-Next i
+    Dim i As Integer
+    cbo.Clear
+    For i = 1 To 12
+        cbo.AddItem MonthName(i, abbreviate)
+    Next i
 End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 3: Get month name from date
 Function GetMonthNameFromDate(dateValue As Date, _
-Optional abbreviate As Boolean = False) As String
-GetMonthNameFromDate = MonthName(Month(dateValue), abbreviate)
+                              Optional abbreviate As Boolean = False) As String
+    GetMonthNameFromDate = MonthName(Month(dateValue), abbreviate)
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 4: Format date range with month names
 Function FormatDateRange(startDate As Date, endDate As Date) As String
-Dim startMonth As String
-Dim endMonth As String
-
-startMonth = MonthName(Month(startDate), True)
-endMonth = MonthName(Month(endDate), True)
-
-FormatDateRange = startMonth &amp; &quot; &quot; &amp; Day(startDate) &amp; &quot; - &quot; &amp; _
-endMonth &amp; &quot; &quot; &amp; Day(endDate) &amp; &quot;, &quot; &amp; Year(endDate)
+    Dim startMonth As String
+    Dim endMonth As String
+    startMonth = MonthName(Month(startDate), True)
+    endMonth = MonthName(Month(endDate), True)
+    FormatDateRange = startMonth &amp; &quot; &quot; &amp; Day(startDate) &amp; &quot; - &quot; &amp; _
+                      endMonth &amp; &quot; &quot; &amp; Day(endDate) &amp; &quot;, &quot; &amp; Year(endDate)
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 5: Create month-based filename
 Function GetMonthlyFileName(fileDate As Date, fileType As String) As String
-Dim monthAbbrev As String
-monthAbbrev = MonthName(Month(fileDate), True)
-GetMonthlyFileName = fileType &amp; &quot;_&quot; &amp; Year(fileDate) &amp; &quot;_&quot; &amp; monthAbbrev &amp; &quot;.dat&quot;
+    Dim monthAbbrev As String
+    monthAbbrev = MonthName(Month(fileDate), True)
+    GetMonthlyFileName = fileType &amp; &quot;_&quot; &amp; Year(fileDate) &amp; &quot;_&quot; &amp; monthAbbrev &amp; &quot;.dat&quot;
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 6: Build month selection array
 Function GetMonthArray(fullNames As Boolean) As String()
-Dim months() As String
-Dim i As Integer
-
-ReDim months(1 To 12)
-For i = 1 To 12
-months(i) = MonthName(i, Not fullNames)
-Next i
-
-GetMonthArray = months
+    Dim months() As String
+    Dim i As Integer
+    ReDim months(1 To 12)
+    For i = 1 To 12
+        months(i) = MonthName(i, Not fullNames)
+    Next i
+    GetMonthArray = months
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 7: Format month/year string
 Function FormatMonthYear(dateValue As Date, abbreviate As Boolean) As String
-FormatMonthYear = MonthName(Month(dateValue), abbreviate) &amp; &quot; &quot; &amp; Year(dateValue)
+    FormatMonthYear = MonthName(Month(dateValue), abbreviate) &amp; &quot; &quot; &amp; Year(dateValue)
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 8: Get fiscal month name
 Function GetFiscalMonthName(fiscalMonth As Integer, abbreviate As Boolean) As String
-&#x27; Fiscal month 1 might be October (calendar month 10)
-Dim calendarMonth As Integer
-Dim fiscalStartMonth As Integer
-
-fiscalStartMonth = 10 &#x27; October
-calendarMonth = fiscalMonth + fiscalStartMonth - 1
-
-If calendarMonth &gt; 12 Then
-calendarMonth = calendarMonth - 12
-End If
-
-GetFiscalMonthName = MonthName(calendarMonth, abbreviate)
+    &#x27; Fiscal month 1 might be October (calendar month 10)
+    Dim calendarMonth As Integer
+    Dim fiscalStartMonth As Integer
+    fiscalStartMonth = 10 &#x27; October
+    calendarMonth = fiscalMonth + fiscalStartMonth - 1
+    If calendarMonth &gt; 12 Then
+        calendarMonth = calendarMonth - 12
+    End If
+    GetFiscalMonthName = MonthName(calendarMonth, abbreviate)
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 9: Create report header
 Function CreateMonthlyReportHeader(reportDate As Date) As String
-Dim header As String
-header = &quot;Monthly Report - &quot; &amp; MonthName(Month(reportDate)) &amp; &quot; &quot; &amp; Year(reportDate)
-CreateMonthlyReportHeader = header
+    Dim header As String
+    header = &quot;Monthly Report - &quot; &amp; MonthName(Month(reportDate)) &amp; &quot; &quot; &amp; Year(reportDate)
+    CreateMonthlyReportHeader = header
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 10: Compare month names
 Function IsSameMonth(date1 As Date, date2 As Date) As Boolean
-IsSameMonth = (MonthName(Month(date1)) = MonthName(Month(date2))) And _
-(Year(date1) = Year(date2))
+    IsSameMonth = (MonthName(Month(date1)) = MonthName(Month(date2))) And _
+                  (Year(date1) = Year(date2))
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-calendar-generator">Example 1: Calendar Generator</h3>
 <pre><code class="language-vbnet">&#x27; Class: CalendarGenerator
 &#x27; Generates formatted calendar displays
-
 Option Explicit
-
 Private m_year As Integer
 Private m_month As Integer
 Private m_firstDayOfWeek As VbDayOfWeek
-
 Public Sub Initialize(calYear As Integer, calMonth As Integer)
-m_year = calYear
-m_month = calMonth
-m_firstDayOfWeek = vbSunday
+    m_year = calYear
+    m_month = calMonth
+    m_firstDayOfWeek = vbSunday
 End Sub
-
 Public Function GetMonthHeader(abbreviate As Boolean) As String
-GetMonthHeader = MonthName(m_month, abbreviate) &amp; &quot; &quot; &amp; m_year
+    GetMonthHeader = MonthName(m_month, abbreviate) &amp; &quot; &quot; &amp; m_year
 End Function
-
 Public Function GenerateCalendar() As String
-Dim calendar As String
-Dim firstDay As Date
-Dim lastDay As Date
-Dim currentDay As Date
-Dim dayOfWeek As Integer
-Dim weekRow As String
-Dim dayCount As Integer
-
-&#x27; Create header
-calendar = String(28, &quot; &quot;) &amp; GetMonthHeader(False) &amp; vbCrLf
-calendar = calendar &amp; &quot;Su  Mo  Tu  We  Th  Fr  Sa&quot; &amp; vbCrLf
-
-&#x27; Get first and last day of month
-firstDay = DateSerial(m_year, m_month, 1)
-lastDay = DateSerial(m_year, m_month + 1, 0)
-
-&#x27; Start with padding for first week
-dayOfWeek = Weekday(firstDay, m_firstDayOfWeek)
-weekRow = String((dayOfWeek - 1) * 4, &quot; &quot;)
-
-&#x27; Fill in days
-currentDay = firstDay
-Do While currentDay &lt;= lastDay
-weekRow = weekRow &amp; Format(Day(currentDay), &quot;00&quot;) &amp; &quot;  &quot;
-dayOfWeek = dayOfWeek + 1
-
-If dayOfWeek &gt; 7 Then
-calendar = calendar &amp; weekRow &amp; vbCrLf
-weekRow = &quot;&quot;
-dayOfWeek = 1
-End If
-
-currentDay = DateAdd(&quot;d&quot;, 1, currentDay)
-Loop
-
-If Len(weekRow) &gt; 0 Then
-calendar = calendar &amp; weekRow &amp; vbCrLf
-End If
-
-GenerateCalendar = calendar
+    Dim calendar As String
+    Dim firstDay As Date
+    Dim lastDay As Date
+    Dim currentDay As Date
+    Dim dayOfWeek As Integer
+    Dim weekRow As String
+    Dim dayCount As Integer
+    &#x27; Create header
+    calendar = String(28, &quot; &quot;) &amp; GetMonthHeader(False) &amp; vbCrLf
+    calendar = calendar &amp; &quot;Su  Mo  Tu  We  Th  Fr  Sa&quot; &amp; vbCrLf
+    &#x27; Get first and last day of month
+    firstDay = DateSerial(m_year, m_month, 1)
+    lastDay = DateSerial(m_year, m_month + 1, 0)
+    &#x27; Start with padding for first week
+    dayOfWeek = Weekday(firstDay, m_firstDayOfWeek)
+    weekRow = String((dayOfWeek - 1) * 4, &quot; &quot;)
+    &#x27; Fill in days
+    currentDay = firstDay
+    Do While currentDay &lt;= lastDay
+        weekRow = weekRow &amp; Format(Day(currentDay), &quot;00&quot;) &amp; &quot;  &quot;
+        dayOfWeek = dayOfWeek + 1
+        If dayOfWeek &gt; 7 Then
+            calendar = calendar &amp; weekRow &amp; vbCrLf
+            weekRow = &quot;&quot;
+            dayOfWeek = 1
+        End If
+        currentDay = DateAdd(&quot;d&quot;, 1, currentDay)
+    Loop
+    If Len(weekRow) &gt; 0 Then
+        calendar = calendar &amp; weekRow &amp; vbCrLf
+    End If
+    GenerateCalendar = calendar
 End Function
-
 Public Function GetAllMonthsForYear(abbreviate As Boolean) As String()
-Dim months() As String
-Dim i As Integer
-
-ReDim months(1 To 12)
-For i = 1 To 12
-months(i) = MonthName(i, abbreviate)
-Next i
-
-GetAllMonthsForYear = months
+    Dim months() As String
+    Dim i As Integer
+    ReDim months(1 To 12)
+    For i = 1 To 12
+        months(i) = MonthName(i, abbreviate)
+    Next i
+    GetAllMonthsForYear = months
 End Function</code></pre>
 <h3 id="example-2-report-generator-with-month-names">Example 2: Report Generator with Month Names</h3>
 <pre><code class="language-vbnet">&#x27; Class: MonthlyReportFormatter
 &#x27; Formats reports with localized month names
-
 Option Explicit
-
 Private m_useAbbreviations As Boolean
 Private m_reportData As Collection
-
 Public Sub Initialize(useAbbrev As Boolean)
-m_useAbbreviations = useAbbrev
-Set m_reportData = New Collection
+    m_useAbbreviations = useAbbrev
+    Set m_reportData = New Collection
 End Sub
-
 Public Sub AddMonthData(monthNum As Integer, dataValue As Double)
-Dim entry As String
-entry = MonthName(monthNum, m_useAbbreviations) &amp; &quot;:&quot; &amp; dataValue
-m_reportData.Add entry
+    Dim entry As String
+    entry = MonthName(monthNum, m_useAbbreviations) &amp; &quot;:&quot; &amp; dataValue
+    m_reportData.Add entry
 End Sub
-
 Public Function GenerateReport() As String
-Dim report As String
-Dim item As Variant
-Dim i As Integer
-
-report = &quot;Monthly Summary Report&quot; &amp; vbCrLf
-report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
-
-For Each item In m_reportData
-report = report &amp; item &amp; vbCrLf
-Next item
-
-GenerateReport = report
+    Dim report As String
+    Dim item As Variant
+    Dim i As Integer
+    report = &quot;Monthly Summary Report&quot; &amp; vbCrLf
+    report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+    For Each item In m_reportData
+        report = report &amp; item &amp; vbCrLf
+    Next item
+    GenerateReport = report
 End Function
-
 Public Function FormatDateWithMonth(dateValue As Date) As String
-FormatDateWithMonth = MonthName(Month(dateValue), m_useAbbreviations) &amp; _
-&quot; &quot; &amp; Day(dateValue) &amp; &quot;, &quot; &amp; Year(dateValue)
+    FormatDateWithMonth = MonthName(Month(dateValue), m_useAbbreviations) &amp; _
+                         &quot; &quot; &amp; Day(dateValue) &amp; &quot;, &quot; &amp; Year(dateValue)
 End Function
-
 Public Function GetQuarterMonths(quarter As Integer) As String
-Dim months As String
-Dim startMonth As Integer
-Dim i As Integer
-
-startMonth = ((quarter - 1) * 3) + 1
-
-For i = 0 To 2
-If i &gt; 0 Then months = months &amp; &quot;, &quot;
-months = months &amp; MonthName(startMonth + i, m_useAbbreviations)
-Next i
-
-GetQuarterMonths = months
+    Dim months As String
+    Dim startMonth As Integer
+    Dim i As Integer
+    startMonth = ((quarter - 1) * 3) + 1
+    For i = 0 To 2
+        If i &gt; 0 Then months = months &amp; &quot;, &quot;
+        months = months &amp; MonthName(startMonth + i, m_useAbbreviations)
+    Next i
+    GetQuarterMonths = months
 End Function</code></pre>
 <h3 id="example-3-internationalized-date-formatter">Example 3: Internationalized Date Formatter</h3>
 <pre><code class="language-vbnet">&#x27; Module: InternationalDateFormatter
 &#x27; Provides locale-aware date formatting using MonthName
-
 Option Explicit
-
 Public Enum DateFormat
-dfLong = 0          &#x27; &quot;January 15, 2025&quot;
-dfMedium = 1        &#x27; &quot;Jan 15, 2025&quot;
-dfShort = 2         &#x27; &quot;01/15/2025&quot;
-dfMonthYear = 3     &#x27; &quot;January 2025&quot;
-dfMonthYearShort = 4 &#x27; &quot;Jan 2025&quot;
+    dfLong = 0          &#x27; &quot;January 15, 2025&quot;
+    dfMedium = 1        &#x27; &quot;Jan 15, 2025&quot;
+    dfShort = 2         &#x27; &quot;01/15/2025&quot;
+    dfMonthYear = 3     &#x27; &quot;January 2025&quot;
+    dfMonthYearShort = 4 &#x27; &quot;Jan 2025&quot;
 End Enum
-
 Public Function FormatDate(dateValue As Date, formatType As DateFormat) As String
-Select Case formatType
-Case dfLong
-FormatDate = MonthName(Month(dateValue)) &amp; &quot; &quot; &amp; _
-Day(dateValue) &amp; &quot;, &quot; &amp; Year(dateValue)
-
-Case dfMedium
-FormatDate = MonthName(Month(dateValue), True) &amp; &quot; &quot; &amp; _
-Day(dateValue) &amp; &quot;, &quot; &amp; Year(dateValue)
-
-Case dfShort
-FormatDate = Format(dateValue, &quot;mm/dd/yyyy&quot;)
-
-Case dfMonthYear
-FormatDate = MonthName(Month(dateValue)) &amp; &quot; &quot; &amp; Year(dateValue)
-
-Case dfMonthYearShort
-FormatDate = MonthName(Month(dateValue), True) &amp; &quot; &quot; &amp; Year(dateValue)
-End Select
+    Select Case formatType
+        Case dfLong
+            FormatDate = MonthName(Month(dateValue)) &amp; &quot; &quot; &amp; _
+                        Day(dateValue) &amp; &quot;, &quot; &amp; Year(dateValue)
+        Case dfMedium
+            FormatDate = MonthName(Month(dateValue), True) &amp; &quot; &quot; &amp; _
+                        Day(dateValue) &amp; &quot;, &quot; &amp; Year(dateValue)
+        Case dfShort
+            FormatDate = Format(dateValue, &quot;mm/dd/yyyy&quot;)
+        Case dfMonthYear
+            FormatDate = MonthName(Month(dateValue)) &amp; &quot; &quot; &amp; Year(dateValue)
+        Case dfMonthYearShort
+            FormatDate = MonthName(Month(dateValue), True) &amp; &quot; &quot; &amp; Year(dateValue)
+    End Select
 End Function
-
 Public Function FormatDateRange(startDate As Date, endDate As Date, _
-abbreviate As Boolean) As String
-Dim result As String
-
-If Year(startDate) = Year(endDate) Then
-If Month(startDate) = Month(endDate) Then
-&#x27; Same month and year
-result = MonthName(Month(startDate), abbreviate) &amp; &quot; &quot; &amp; _
-Day(startDate) &amp; &quot;-&quot; &amp; Day(endDate) &amp; &quot;, &quot; &amp; Year(startDate)
-Else
-&#x27; Different months, same year
-result = MonthName(Month(startDate), abbreviate) &amp; &quot; &quot; &amp; Day(startDate) &amp; &quot; - &quot; &amp; _
-MonthName(Month(endDate), abbreviate) &amp; &quot; &quot; &amp; Day(endDate) &amp; &quot;, &quot; &amp; _
-Year(endDate)
-End If
-Else
-&#x27; Different years
-result = MonthName(Month(startDate), abbreviate) &amp; &quot; &quot; &amp; Day(startDate) &amp; &quot;, &quot; &amp; _
-Year(startDate) &amp; &quot; - &quot; &amp; _
-MonthName(Month(endDate), abbreviate) &amp; &quot; &quot; &amp; Day(endDate) &amp; &quot;, &quot; &amp; _
-Year(endDate)
-End If
-
-FormatDateRange = result
+                               abbreviate As Boolean) As String
+    Dim result As String
+    If Year(startDate) = Year(endDate) Then
+        If Month(startDate) = Month(endDate) Then
+            &#x27; Same month and year
+            result = MonthName(Month(startDate), abbreviate) &amp; &quot; &quot; &amp; _
+                    Day(startDate) &amp; &quot;-&quot; &amp; Day(endDate) &amp; &quot;, &quot; &amp; Year(startDate)
+        Else
+            &#x27; Different months, same year
+            result = MonthName(Month(startDate), abbreviate) &amp; &quot; &quot; &amp; Day(startDate) &amp; &quot; - &quot; &amp; _
+                    MonthName(Month(endDate), abbreviate) &amp; &quot; &quot; &amp; Day(endDate) &amp; &quot;, &quot; &amp; _
+                    Year(endDate)
+        End If
+    Else
+        &#x27; Different years
+        result = MonthName(Month(startDate), abbreviate) &amp; &quot; &quot; &amp; Day(startDate) &amp; &quot;, &quot; &amp; _
+                Year(startDate) &amp; &quot; - &quot; &amp; _
+                MonthName(Month(endDate), abbreviate) &amp; &quot; &quot; &amp; Day(endDate) &amp; &quot;, &quot; &amp; _
+                Year(endDate)
+    End If
+    FormatDateRange = result
 End Function
-
 Public Function GetMonthNames(abbreviate As Boolean) As String()
-Dim months(1 To 12) As String
-Dim i As Integer
-
-For i = 1 To 12
-months(i) = MonthName(i, abbreviate)
-Next i
-
-GetMonthNames = months
+    Dim months(1 To 12) As String
+    Dim i As Integer
+    For i = 1 To 12
+        months(i) = MonthName(i, abbreviate)
+    Next i
+    GetMonthNames = months
 End Function
-
 Public Function ParseMonthName(monthString As String) As Integer
-Dim i As Integer
-
-&#x27; Try full names first
-For i = 1 To 12
-If UCase(MonthName(i)) = UCase(monthString) Then
-ParseMonthName = i
-Exit Function
-End If
-Next i
-
-&#x27; Try abbreviated names
-For i = 1 To 12
-If UCase(MonthName(i, True)) = UCase(monthString) Then
-ParseMonthName = i
-Exit Function
-End If
-Next i
-
-ParseMonthName = 0 &#x27; Not found
+    Dim i As Integer
+    &#x27; Try full names first
+    For i = 1 To 12
+        If UCase(MonthName(i)) = UCase(monthString) Then
+            ParseMonthName = i
+            Exit Function
+        End If
+    Next i
+    &#x27; Try abbreviated names
+    For i = 1 To 12
+        If UCase(MonthName(i, True)) = UCase(monthString) Then
+            ParseMonthName = i
+            Exit Function
+        End If
+    Next i
+    ParseMonthName = 0 &#x27; Not found
 End Function</code></pre>
 <h3 id="example-4-chart-label-generator">Example 4: Chart Label Generator</h3>
 <pre><code class="language-vbnet">&#x27; Class: ChartLabelGenerator
 &#x27; Generates chart labels with month names
-
 Option Explicit
-
 Private m_startMonth As Integer
 Private m_monthCount As Integer
 Private m_abbreviate As Boolean
-
 Public Sub Initialize(startMonth As Integer, monthCount As Integer, _
-abbreviate As Boolean)
-If startMonth &lt; 1 Or startMonth &gt; 12 Then
-Err.Raise 5, &quot;ChartLabelGenerator&quot;, &quot;Invalid start month&quot;
-End If
-
-m_startMonth = startMonth
-m_monthCount = monthCount
-m_abbreviate = abbreviate
+                      abbreviate As Boolean)
+    If startMonth &lt; 1 Or startMonth &gt; 12 Then
+        Err.Raise 5, &quot;ChartLabelGenerator&quot;, &quot;Invalid start month&quot;
+    End If
+    m_startMonth = startMonth
+    m_monthCount = monthCount
+    m_abbreviate = abbreviate
 End Sub
-
 Public Function GetLabels() As String()
-Dim labels() As String
-Dim i As Integer
-Dim currentMonth As Integer
-
-ReDim labels(0 To m_monthCount - 1)
-
-For i = 0 To m_monthCount - 1
-currentMonth = m_startMonth + i
-
-&#x27; Wrap around if exceeds 12
-If currentMonth &gt; 12 Then
-currentMonth = currentMonth - 12
-End If
-
-labels(i) = MonthName(currentMonth, m_abbreviate)
-Next i
-
-GetLabels = labels
+    Dim labels() As String
+    Dim i As Integer
+    Dim currentMonth As Integer
+    ReDim labels(0 To m_monthCount - 1)
+    For i = 0 To m_monthCount - 1
+        currentMonth = m_startMonth + i
+        &#x27; Wrap around if exceeds 12
+        If currentMonth &gt; 12 Then
+            currentMonth = currentMonth - 12
+        End If
+        labels(i) = MonthName(currentMonth, m_abbreviate)
+    Next i
+    GetLabels = labels
 End Function
-
 Public Function GetLabelWithYear(monthNum As Integer, yearNum As Integer) As String
-GetLabelWithYear = MonthName(monthNum, m_abbreviate) &amp; &quot; &#x27;&quot; &amp; _
-Right(CStr(yearNum), 2)
+    GetLabelWithYear = MonthName(monthNum, m_abbreviate) &amp; &quot; &#x27;&quot; &amp; _
+                       Right(CStr(yearNum), 2)
 End Function
-
 Public Function GetQuarterLabel(quarter As Integer, yearNum As Integer) As String
-Dim firstMonth As Integer
-firstMonth = ((quarter - 1) * 3) + 1
-
-GetQuarterLabel = &quot;Q&quot; &amp; quarter &amp; &quot; (&quot; &amp; _
-MonthName(firstMonth, True) &amp; &quot;-&quot; &amp; _
-MonthName(firstMonth + 2, True) &amp; &quot; &quot; &amp; _
-yearNum &amp; &quot;)&quot;
+    Dim firstMonth As Integer
+    firstMonth = ((quarter - 1) * 3) + 1
+    GetQuarterLabel = &quot;Q&quot; &amp; quarter &amp; &quot; (&quot; &amp; _
+                     MonthName(firstMonth, True) &amp; &quot;-&quot; &amp; _
+                     MonthName(firstMonth + 2, True) &amp; &quot; &quot; &amp; _
+                     yearNum &amp; &quot;)&quot;
 End Function
-
 Public Function GetYearLabels(abbreviate As Boolean) As String()
-Dim labels(1 To 12) As String
-Dim i As Integer
-
-For i = 1 To 12
-labels(i) = MonthName(i, abbreviate)
-Next i
-
-GetYearLabels = labels
+    Dim labels(1 To 12) As String
+    Dim i As Integer
+    For i = 1 To 12
+        labels(i) = MonthName(i, abbreviate)
+    Next i
+    GetYearLabels = labels
 End Function
-
 Public Function FormatMultiYearLabel(monthNum As Integer, _
-startYear As Integer, _
-endYear As Integer) As String
-FormatMultiYearLabel = MonthName(monthNum, m_abbreviate) &amp; &quot; &quot; &amp; _
-startYear &amp; &quot;-&quot; &amp; endYear
+                                    startYear As Integer, _
+                                    endYear As Integer) As String
+    FormatMultiYearLabel = MonthName(monthNum, m_abbreviate) &amp; &quot; &quot; &amp; _
+                          startYear &amp; &quot;-&quot; &amp; endYear
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">On Error Resume Next
 monthName = MonthName(monthNum)
 If Err.Number = 5 Then
-MsgBox &quot;Invalid month number. Must be between 1 and 12.&quot;
+    MsgBox &quot;Invalid month number. Must be between 1 and 12.&quot;
 ElseIf Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Error getting month name: &quot; &amp; Err.Description
+    MsgBox &quot;Error getting month name: &quot; &amp; Err.Description
 End If
 On Error GoTo 0</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
@@ -544,48 +474,178 @@ On Error GoTo 0</code></pre>
 <td>Returns number, not name</td>
 <td>Need to convert to name separately</td>
 </tr>
+<tr>
+<td>## Localization Notes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>The <code>MonthName</code> function returns month names based on the system's regional settings:</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>English (US)</strong>: "January", "February", etc. / "Jan", "Feb", etc.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Spanish</strong>: "enero", "febrero", etc. / "ene", "feb", etc.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>French</strong>: "janvier", "février", etc. / "janv", "févr", etc.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>German</strong>: "Januar", "Februar", etc. / "Jan", "Feb", etc.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Japanese</strong>: "1月", "2月", etc.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- And many more locales...</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Platform Notes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in VBA (Excel, Access, Word, etc.)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in VB6</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Not available in <code>VBScript</code></strong> (<code>VBScript</code> lacks this function)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns String type</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Consistent across all VBA platforms</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Uses Control Panel regional settings</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- First introduced in VB6 and VBA 6.0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Month parameter must be 1-12 (no 0 or 13+)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Error 5 if month is out of valid range</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns names based on system locale only (cannot specify locale)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Abbreviated length varies by locale (usually 3 chars, but not always)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Not available in <code>VBScript</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot customize the returned names</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Related Functions</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Month</strong> - Returns the month number (1-12) from a date</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong><code>WeekdayName</code></strong> - Returns the name of the weekday (similar function for days)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Format</strong> - Can format dates with month names using format strings</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong><code>DatePart</code></strong> - Returns various parts of a date (including month number)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Year</strong> - Returns the year component of a date</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Day</strong> - Returns the day component of a date</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## VB6 Parser Notes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>MonthName</code> is parsed as a regular function call (<code>CallExpression</code>). This module exists primarily</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>for documentation purposes to provide comprehensive reference material for VB6 developers</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>working with date formatting and display operations requiring localized month names.</td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="localization-notes">Localization Notes</h2>
-<p>The <code>MonthName</code> function returns month names based on the system's regional settings:
-- <strong>English (US)</strong>: "January", "February", etc. / "Jan", "Feb", etc.
-- <strong>Spanish</strong>: "enero", "febrero", etc. / "ene", "feb", etc.
-- <strong>French</strong>: "janvier", "février", etc. / "janv", "févr", etc.
-- <strong>German</strong>: "Januar", "Februar", etc. / "Jan", "Feb", etc.
-- <strong>Japanese</strong>: "1月", "2月", etc.
-- And many more locales...</p>
-<h2 id="platform-notes">Platform Notes</h2>
-<ul>
-<li>Available in VBA (Excel, Access, Word, etc.)</li>
-<li>Available in VB6</li>
-<li><strong>Not available in <code>VBScript</code></strong> (<code>VBScript</code> lacks this function)</li>
-<li>Returns String type</li>
-<li>Consistent across all VBA platforms</li>
-<li>Uses Control Panel regional settings</li>
-<li>First introduced in VB6 and VBA 6.0</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Month parameter must be 1-12 (no 0 or 13+)</li>
-<li>Error 5 if month is out of valid range</li>
-<li>Returns names based on system locale only (cannot specify locale)</li>
-<li>Abbreviated length varies by locale (usually 3 chars, but not always)</li>
-<li>Not available in <code>VBScript</code></li>
-<li>Cannot customize the returned names</li>
-</ul>
-<h2 id="related-functions">Related Functions</h2>
-<ul>
-<li><strong>Month</strong> - Returns the month number (1-12) from a date</li>
-<li><strong><code>WeekdayName</code></strong> - Returns the name of the weekday (similar function for days)</li>
-<li><strong>Format</strong> - Can format dates with month names using format strings</li>
-<li><strong><code>DatePart</code></strong> - Returns various parts of a date (including month number)</li>
-<li><strong>Year</strong> - Returns the year component of a date</li>
-<li><strong>Day</strong> - Returns the day component of a date</li>
-</ul>
-<h2 id="vb6-parser-notes">VB6 Parser Notes</h2>
-<p><code>MonthName</code> is parsed as a regular function call (<code>CallExpression</code>). This module exists primarily
-for documentation purposes to provide comprehensive reference material for VB6 developers
-working with date formatting and display operations requiring localized month names.</p>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

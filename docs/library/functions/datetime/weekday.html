@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p>VB6 <code>Weekday</code> Function</p>
-<p>The <code>Weekday</code> function returns a Variant (Integer) specifying a whole number representing the day of the week.</p>
+            <p>VB6 <code>Weekday</code> Function
+The <code>Weekday</code> function returns a Variant (Integer) specifying a whole number representing the day of the week.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">Weekday(date[, firstdayofweek])</code></pre>
 <h2 id="parameters">Parameters</h2>
@@ -63,17 +63,15 @@
 - When <code>firstdayofweek</code> is <code>vbMonday</code>: 1=Monday, 2=Tuesday, 3=Wednesday, 4=Thursday, 5=Friday, 6=Saturday, 7=Sunday
 - The numbering adjusts based on which day is specified as the first day of the week</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>Weekday</code> function determines which day of the week a date falls on:</p>
-<ul>
-<li><strong>Return value range</strong>: Always 1-7, where 1 represents the first day of the week</li>
-<li><strong>Default first day</strong>: Sunday (vbSunday = 1) if not specified</li>
-<li><strong>Null handling</strong>: Returns Null if date contains Null</li>
-<li><strong>Date parsing</strong>: Accepts various date formats (strings, numbers, Date types)</li>
-<li><strong>Zero-based alternative</strong>: Use <code>(Weekday(date) - 1)</code> for 0-6 range if needed</li>
-<li><strong>System setting</strong>: vbUseSystem (0) uses Windows regional settings</li>
-<li><strong>International support</strong>: firstdayofweek allows cultural calendar preferences</li>
-<li><strong>Combine with <code>DateSerial</code></strong>: Calculate specific weekdays</li>
-</ul>
+<p>The <code>Weekday</code> function determines which day of the week a date falls on:
+- <strong>Return value range</strong>: Always 1-7, where 1 represents the first day of the week
+- <strong>Default first day</strong>: Sunday (vbSunday = 1) if not specified
+- <strong>Null handling</strong>: Returns Null if date contains Null
+- <strong>Date parsing</strong>: Accepts various date formats (strings, numbers, Date types)
+- <strong>Zero-based alternative</strong>: Use <code>(Weekday(date) - 1)</code> for 0-6 range if needed
+- <strong>System setting</strong>: vbUseSystem (0) uses Windows regional settings
+- <strong>International support</strong>: firstdayofweek allows cultural calendar preferences
+- <strong>Combine with <code>DateSerial</code></strong>: Calculate specific weekdays</p>
 <h3 id="understanding-return-values">Understanding Return Values</h3>
 <p>The return value changes based on <code>firstdayofweek</code>:
 - With <code>vbSunday</code> (default): Sunday=1, Monday=2, ..., Saturday=7
@@ -101,429 +99,361 @@
 <h2 id="basic-examples">Basic Examples</h2>
 <h3 id="example-1-check-if-date-is-weekend">Example 1: Check if Date is Weekend</h3>
 <pre><code class="language-vbnet">Function IsWeekend(checkDate As Date) As Boolean
-Dim dayNum As Integer
-dayNum = Weekday(checkDate)
-IsWeekend = (dayNum = vbSaturday Or dayNum = vbSunday)
+    Dim dayNum As Integer
+    dayNum = Weekday(checkDate)
+    IsWeekend = (dayNum = vbSaturday Or dayNum = vbSunday)
 End Function
-
 &#x27; Usage:
 If IsWeekend(Date) Then
-MsgBox &quot;It&#x27;s the weekend!&quot;
+    MsgBox &quot;It&#x27;s the weekend!&quot;
 End If</code></pre>
 <h3 id="example-2-get-day-name">Example 2: Get Day Name</h3>
 <pre><code class="language-vbnet">Function GetDayName(checkDate As Date) As String
-Select Case Weekday(checkDate)
-Case vbSunday
-GetDayName = &quot;Sunday&quot;
-Case vbMonday
-GetDayName = &quot;Monday&quot;
-Case vbTuesday
-GetDayName = &quot;Tuesday&quot;
-Case vbWednesday
-GetDayName = &quot;Wednesday&quot;
-Case vbThursday
-GetDayName = &quot;Thursday&quot;
-Case vbFriday
-GetDayName = &quot;Friday&quot;
-Case vbSaturday
-GetDayName = &quot;Saturday&quot;
-End Select
+    Select Case Weekday(checkDate)
+        Case vbSunday
+            GetDayName = &quot;Sunday&quot;
+        Case vbMonday
+            GetDayName = &quot;Monday&quot;
+        Case vbTuesday
+            GetDayName = &quot;Tuesday&quot;
+        Case vbWednesday
+            GetDayName = &quot;Wednesday&quot;
+        Case vbThursday
+            GetDayName = &quot;Thursday&quot;
+        Case vbFriday
+            GetDayName = &quot;Friday&quot;
+        Case vbSaturday
+            GetDayName = &quot;Saturday&quot;
+    End Select
 End Function</code></pre>
 <h3 id="example-3-find-next-monday">Example 3: Find Next Monday</h3>
 <pre><code class="language-vbnet">Function GetNextMonday(fromDate As Date) As Date
-Dim daysToAdd As Integer
-Dim currentDay As Integer
-
-currentDay = Weekday(fromDate)
-
-If currentDay = vbMonday Then
-daysToAdd = 7 &#x27; Next Monday is 7 days away
-ElseIf currentDay &lt; vbMonday Then
-daysToAdd = vbMonday - currentDay
-Else
-daysToAdd = 7 - (currentDay - vbMonday)
-End If
-
-GetNextMonday = fromDate + daysToAdd
+    Dim daysToAdd As Integer
+    Dim currentDay As Integer
+    currentDay = Weekday(fromDate)
+    If currentDay = vbMonday Then
+        daysToAdd = 7 &#x27; Next Monday is 7 days away
+    ElseIf currentDay &lt; vbMonday Then
+        daysToAdd = vbMonday - currentDay
+    Else
+        daysToAdd = 7 - (currentDay - vbMonday)
+    End If
+    GetNextMonday = fromDate + daysToAdd
 End Function</code></pre>
 <h3 id="example-4-count-weekdays-in-month">Example 4: Count Weekdays in Month</h3>
 <pre><code class="language-vbnet">Function CountWeekdaysInMonth(year As Integer, month As Integer) As Integer
-Dim currentDate As Date
-Dim lastDay As Integer
-Dim day As Integer
-Dim count As Integer
-
-lastDay = Day(DateSerial(year, month + 1, 0))
-count = 0
-
-For day = 1 To lastDay
-currentDate = DateSerial(year, month, day)
-If Weekday(currentDate) &gt;= vbMonday And Weekday(currentDate) &lt;= vbFriday Then
-count = count + 1
-End If
-Next day
-
-CountWeekdaysInMonth = count
+    Dim currentDate As Date
+    Dim lastDay As Integer
+    Dim day As Integer
+    Dim count As Integer
+    lastDay = Day(DateSerial(year, month + 1, 0))
+    count = 0
+    For day = 1 To lastDay
+        currentDate = DateSerial(year, month, day)
+        If Weekday(currentDate) &gt;= vbMonday And Weekday(currentDate) &lt;= vbFriday Then
+            count = count + 1
+        End If
+    Next day
+    CountWeekdaysInMonth = count
 End Function</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-is-business-day">Pattern 1: Is Business Day</h3>
 <pre><code class="language-vbnet">Function IsBusinessDay(checkDate As Date) As Boolean
-Dim dayNum As Integer
-dayNum = Weekday(checkDate)
-IsBusinessDay = (dayNum &gt;= vbMonday And dayNum &lt;= vbFriday)
+    Dim dayNum As Integer
+    dayNum = Weekday(checkDate)
+    IsBusinessDay = (dayNum &gt;= vbMonday And dayNum &lt;= vbFriday)
 End Function</code></pre>
 <h3 id="pattern-2-get-week-start-monday">Pattern 2: Get Week Start (Monday)</h3>
 <pre><code class="language-vbnet">Function GetWeekStart(anyDate As Date) As Date
-Dim dayNum As Integer
-dayNum = Weekday(anyDate, vbMonday)
-GetWeekStart = anyDate - (dayNum - 1)
+    Dim dayNum As Integer
+    dayNum = Weekday(anyDate, vbMonday)
+    GetWeekStart = anyDate - (dayNum - 1)
 End Function</code></pre>
 <h3 id="pattern-3-get-week-end-sunday">Pattern 3: Get Week End (Sunday)</h3>
 <pre><code class="language-vbnet">Function GetWeekEnd(anyDate As Date) As Date
-Dim dayNum As Integer
-dayNum = Weekday(anyDate, vbMonday)
-GetWeekEnd = anyDate + (7 - dayNum)
+    Dim dayNum As Integer
+    dayNum = Weekday(anyDate, vbMonday)
+    GetWeekEnd = anyDate + (7 - dayNum)
 End Function</code></pre>
 <h3 id="pattern-4-days-until-specific-weekday">Pattern 4: Days Until Specific Weekday</h3>
 <pre><code class="language-vbnet">Function DaysUntilWeekday(fromDate As Date, targetDay As Integer) As Integer
-Dim currentDay As Integer
-currentDay = Weekday(fromDate)
-
-If targetDay &gt;= currentDay Then
-DaysUntilWeekday = targetDay - currentDay
-Else
-DaysUntilWeekday = 7 - (currentDay - targetDay)
-End If
+    Dim currentDay As Integer
+    currentDay = Weekday(fromDate)
+    If targetDay &gt;= currentDay Then
+        DaysUntilWeekday = targetDay - currentDay
+    Else
+        DaysUntilWeekday = 7 - (currentDay - targetDay)
+    End If
 End Function</code></pre>
 <h3 id="pattern-5-is-specific-day">Pattern 5: Is Specific Day</h3>
 <pre><code class="language-vbnet">Function IsMonday(checkDate As Date) As Boolean
-IsMonday = (Weekday(checkDate) = vbMonday)
+    IsMonday = (Weekday(checkDate) = vbMonday)
 End Function
-
 Function IsFriday(checkDate As Date) As Boolean
-IsFriday = (Weekday(checkDate) = vbFriday)
+    IsFriday = (Weekday(checkDate) = vbFriday)
 End Function</code></pre>
 <h3 id="pattern-6-add-business-days">Pattern 6: Add Business Days</h3>
 <pre><code class="language-vbnet">Function AddBusinessDays(startDate As Date, daysToAdd As Integer) As Date
-Dim currentDate As Date
-Dim daysAdded As Integer
-
-currentDate = startDate
-daysAdded = 0
-
-Do While daysAdded &lt; daysToAdd
-currentDate = currentDate + 1
-If Weekday(currentDate) &gt;= vbMonday And Weekday(currentDate) &lt;= vbFriday Then
-daysAdded = daysAdded + 1
-End If
-Loop
-
-AddBusinessDays = currentDate
+    Dim currentDate As Date
+    Dim daysAdded As Integer
+    currentDate = startDate
+    daysAdded = 0
+    Do While daysAdded &lt; daysToAdd
+        currentDate = currentDate + 1
+        If Weekday(currentDate) &gt;= vbMonday And Weekday(currentDate) &lt;= vbFriday Then
+            daysAdded = daysAdded + 1
+        End If
+    Loop
+    AddBusinessDays = currentDate
 End Function</code></pre>
 <h3 id="pattern-7-group-by-day-of-week">Pattern 7: Group by Day of Week</h3>
 <pre><code class="language-vbnet">Function GetDayOfWeekGroup(checkDate As Date) As String
-Select Case Weekday(checkDate)
-Case vbMonday, vbWednesday, vbFriday
-GetDayOfWeekGroup = &quot;MWF&quot;
-Case vbTuesday, vbThursday
-GetDayOfWeekGroup = &quot;TTh&quot;
-Case vbSaturday, vbSunday
-GetDayOfWeekGroup = &quot;Weekend&quot;
-End Select
+    Select Case Weekday(checkDate)
+        Case vbMonday, vbWednesday, vbFriday
+            GetDayOfWeekGroup = &quot;MWF&quot;
+        Case vbTuesday, vbThursday
+            GetDayOfWeekGroup = &quot;TTh&quot;
+        Case vbSaturday, vbSunday
+            GetDayOfWeekGroup = &quot;Weekend&quot;
+    End Select
 End Function</code></pre>
 <h3 id="pattern-8-calculate-days-in-same-week">Pattern 8: Calculate Days in Same Week</h3>
 <pre><code class="language-vbnet">Function AreSameWeek(date1 As Date, date2 As Date) As Boolean
-Dim week1Start As Date
-Dim week2Start As Date
-
-week1Start = date1 - (Weekday(date1, vbMonday) - 1)
-week2Start = date2 - (Weekday(date2, vbMonday) - 1)
-
-AreSameWeek = (week1Start = week2Start)
+    Dim week1Start As Date
+    Dim week2Start As Date
+    week1Start = date1 - (Weekday(date1, vbMonday) - 1)
+    week2Start = date2 - (Weekday(date2, vbMonday) - 1)
+    AreSameWeek = (week1Start = week2Start)
 End Function</code></pre>
 <h3 id="pattern-9-next-occurrence-of-weekday">Pattern 9: Next Occurrence of Weekday</h3>
 <pre><code class="language-vbnet">Function NextOccurrenceOf(targetDay As Integer, Optional fromDate As Date) As Date
-Dim startDate As Date
-Dim daysToAdd As Integer
-
-If fromDate = 0 Then startDate = Date Else startDate = fromDate
-
-daysToAdd = DaysUntilWeekday(startDate, targetDay)
-If daysToAdd = 0 Then daysToAdd = 7 &#x27; Next occurrence
-
-NextOccurrenceOf = startDate + daysToAdd
+    Dim startDate As Date
+    Dim daysToAdd As Integer
+    If fromDate = 0 Then startDate = Date Else startDate = fromDate
+    daysToAdd = DaysUntilWeekday(startDate, targetDay)
+    If daysToAdd = 0 Then daysToAdd = 7 &#x27; Next occurrence
+    NextOccurrenceOf = startDate + daysToAdd
 End Function</code></pre>
 <h3 id="pattern-10-weekend-days-in-range">Pattern 10: Weekend Days in Range</h3>
 <pre><code class="language-vbnet">Function CountWeekendDays(startDate As Date, endDate As Date) As Integer
-Dim currentDate As Date
-Dim count As Integer
-
-count = 0
-currentDate = startDate
-
-Do While currentDate &lt;= endDate
-If Weekday(currentDate) = vbSaturday Or Weekday(currentDate) = vbSunday Then
-count = count + 1
-End If
-currentDate = currentDate + 1
-Loop
-
-CountWeekendDays = count
+    Dim currentDate As Date
+    Dim count As Integer
+    count = 0
+    currentDate = startDate
+    Do While currentDate &lt;= endDate
+        If Weekday(currentDate) = vbSaturday Or Weekday(currentDate) = vbSunday Then
+            count = count + 1
+        End If
+        currentDate = currentDate + 1
+    Loop
+    CountWeekendDays = count
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-business-day-calculator-class">Example 1: Business Day Calculator Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: BusinessDayCalculator
 &#x27; Calculates business days excluding weekends and holidays
 Option Explicit
-
 Private m_Holidays() As Date
 Private m_HolidayCount As Integer
-
 Public Sub Initialize()
-m_HolidayCount = 0
-ReDim m_Holidays(0 To 9)
+    m_HolidayCount = 0
+    ReDim m_Holidays(0 To 9)
 End Sub
-
 Public Sub AddHoliday(holidayDate As Date)
-If m_HolidayCount &gt; UBound(m_Holidays) Then
-ReDim Preserve m_Holidays(0 To UBound(m_Holidays) * 2)
-End If
-
-m_Holidays(m_HolidayCount) = holidayDate
-m_HolidayCount = m_HolidayCount + 1
+    If m_HolidayCount &gt; UBound(m_Holidays) Then
+        ReDim Preserve m_Holidays(0 To UBound(m_Holidays) * 2)
+    End If
+    m_Holidays(m_HolidayCount) = holidayDate
+    m_HolidayCount = m_HolidayCount + 1
 End Sub
-
 Public Function IsBusinessDay(checkDate As Date) As Boolean
-Dim i As Integer
-
-&#x27; Check if weekend
-If Weekday(checkDate) = vbSaturday Or Weekday(checkDate) = vbSunday Then
-IsBusinessDay = False
-Exit Function
-End If
-
-&#x27; Check if holiday
-For i = 0 To m_HolidayCount - 1
-If Int(m_Holidays(i)) = Int(checkDate) Then
-IsBusinessDay = False
-Exit Function
-End If
-Next i
-
-IsBusinessDay = True
+    Dim i As Integer
+    &#x27; Check if weekend
+    If Weekday(checkDate) = vbSaturday Or Weekday(checkDate) = vbSunday Then
+        IsBusinessDay = False
+        Exit Function
+    End If
+    &#x27; Check if holiday
+    For i = 0 To m_HolidayCount - 1
+        If Int(m_Holidays(i)) = Int(checkDate) Then
+            IsBusinessDay = False
+            Exit Function
+        End If
+    Next i
+    IsBusinessDay = True
 End Function
-
 Public Function CountBusinessDays(startDate As Date, endDate As Date) As Integer
-Dim currentDate As Date
-Dim count As Integer
-
-count = 0
-currentDate = startDate
-
-Do While currentDate &lt;= endDate
-If IsBusinessDay(currentDate) Then
-count = count + 1
-End If
-currentDate = currentDate + 1
-Loop
-
-CountBusinessDays = count
+    Dim currentDate As Date
+    Dim count As Integer
+    count = 0
+    currentDate = startDate
+    Do While currentDate &lt;= endDate
+        If IsBusinessDay(currentDate) Then
+            count = count + 1
+        End If
+        currentDate = currentDate + 1
+    Loop
+    CountBusinessDays = count
 End Function
-
 Public Function AddBusinessDays(startDate As Date, daysToAdd As Integer) As Date
-Dim currentDate As Date
-Dim daysAdded As Integer
-
-currentDate = startDate
-daysAdded = 0
-
-Do While daysAdded &lt; daysToAdd
-currentDate = currentDate + 1
-If IsBusinessDay(currentDate) Then
-daysAdded = daysAdded + 1
-End If
-Loop
-
-AddBusinessDays = currentDate
+    Dim currentDate As Date
+    Dim daysAdded As Integer
+    currentDate = startDate
+    daysAdded = 0
+    Do While daysAdded &lt; daysToAdd
+        currentDate = currentDate + 1
+        If IsBusinessDay(currentDate) Then
+            daysAdded = daysAdded + 1
+        End If
+    Loop
+    AddBusinessDays = currentDate
 End Function</code></pre>
 <h3 id="example-2-week-navigator-module">Example 2: Week Navigator Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: WeekNavigator
 &#x27; Navigate by weeks with different starting days
 Option Explicit
-
 Public Function GetWeekStart(anyDate As Date, _
-Optional firstDayOfWeek As VbDayOfWeek = vbMonday) As Date
-Dim dayNum As Integer
-dayNum = Weekday(anyDate, firstDayOfWeek)
-GetWeekStart = anyDate - (dayNum - 1)
+                            Optional firstDayOfWeek As VbDayOfWeek = vbMonday) As Date
+    Dim dayNum As Integer
+    dayNum = Weekday(anyDate, firstDayOfWeek)
+    GetWeekStart = anyDate - (dayNum - 1)
 End Function
-
 Public Function GetWeekEnd(anyDate As Date, _
-Optional firstDayOfWeek As VbDayOfWeek = vbMonday) As Date
-Dim dayNum As Integer
-dayNum = Weekday(anyDate, firstDayOfWeek)
-GetWeekEnd = anyDate + (7 - dayNum)
+                          Optional firstDayOfWeek As VbDayOfWeek = vbMonday) As Date
+    Dim dayNum As Integer
+    dayNum = Weekday(anyDate, firstDayOfWeek)
+    GetWeekEnd = anyDate + (7 - dayNum)
 End Function
-
 Public Function GetPreviousWeekStart(anyDate As Date, _
-Optional firstDayOfWeek As VbDayOfWeek = vbMonday) As Date
-GetPreviousWeekStart = GetWeekStart(anyDate - 7, firstDayOfWeek)
+                                    Optional firstDayOfWeek As VbDayOfWeek = vbMonday) As Date
+    GetPreviousWeekStart = GetWeekStart(anyDate - 7, firstDayOfWeek)
 End Function
-
 Public Function GetNextWeekStart(anyDate As Date, _
-Optional firstDayOfWeek As VbDayOfWeek = vbMonday) As Date
-GetNextWeekStart = GetWeekStart(anyDate + 7, firstDayOfWeek)
+                                Optional firstDayOfWeek As VbDayOfWeek = vbMonday) As Date
+    GetNextWeekStart = GetWeekStart(anyDate + 7, firstDayOfWeek)
 End Function
-
 Public Function GetDaysInWeek(weekStartDate As Date, _
-Optional firstDayOfWeek As VbDayOfWeek = vbMonday) As Date()
-Dim days(0 To 6) As Date
-Dim i As Integer
-Dim startDate As Date
-
-startDate = GetWeekStart(weekStartDate, firstDayOfWeek)
-
-For i = 0 To 6
-days(i) = startDate + i
-Next i
-
-GetDaysInWeek = days
+                             Optional firstDayOfWeek As VbDayOfWeek = vbMonday) As Date()
+    Dim days(0 To 6) As Date
+    Dim i As Integer
+    Dim startDate As Date
+    startDate = GetWeekStart(weekStartDate, firstDayOfWeek)
+    For i = 0 To 6
+        days(i) = startDate + i
+    Next i
+    GetDaysInWeek = days
 End Function</code></pre>
 <h3 id="example-3-schedule-analyzer-class">Example 3: Schedule Analyzer Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: ScheduleAnalyzer
 &#x27; Analyzes date schedules and patterns
 Option Explicit
-
 Public Function GetDayDistribution(dates() As Date) As Variant
-Dim distribution(1 To 7) As Integer
-Dim i As Long
-Dim dayNum As Integer
-
-For i = LBound(dates) To UBound(dates)
-dayNum = Weekday(dates(i))
-distribution(dayNum) = distribution(dayNum) + 1
-Next i
-
-GetDayDistribution = distribution
+    Dim distribution(1 To 7) As Integer
+    Dim i As Long
+    Dim dayNum As Integer
+    For i = LBound(dates) To UBound(dates)
+        dayNum = Weekday(dates(i))
+        distribution(dayNum) = distribution(dayNum) + 1
+    Next i
+    GetDayDistribution = distribution
 End Function
-
 Public Function GetMostCommonDay(dates() As Date) As Integer
-Dim distribution As Variant
-Dim maxCount As Integer
-Dim mostCommonDay As Integer
-Dim i As Integer
-
-distribution = GetDayDistribution(dates)
-maxCount = 0
-mostCommonDay = vbSunday
-
-For i = 1 To 7
-If distribution(i) &gt; maxCount Then
-maxCount = distribution(i)
-mostCommonDay = i
-End If
-Next i
-
-GetMostCommonDay = mostCommonDay
+    Dim distribution As Variant
+    Dim maxCount As Integer
+    Dim mostCommonDay As Integer
+    Dim i As Integer
+    distribution = GetDayDistribution(dates)
+    maxCount = 0
+    mostCommonDay = vbSunday
+    For i = 1 To 7
+        If distribution(i) &gt; maxCount Then
+            maxCount = distribution(i)
+            mostCommonDay = i
+        End If
+    Next i
+    GetMostCommonDay = mostCommonDay
 End Function
-
 Public Function FilterByWeekday(dates() As Date, targetDay As Integer) As Date()
-Dim result() As Date
-Dim count As Long
-Dim i As Long
-
-count = 0
-For i = LBound(dates) To UBound(dates)
-If Weekday(dates(i)) = targetDay Then
-ReDim Preserve result(0 To count)
-result(count) = dates(i)
-count = count + 1
-End If
-Next i
-
-FilterByWeekday = result
+    Dim result() As Date
+    Dim count As Long
+    Dim i As Long
+    count = 0
+    For i = LBound(dates) To UBound(dates)
+        If Weekday(dates(i)) = targetDay Then
+            ReDim Preserve result(0 To count)
+            result(count) = dates(i)
+            count = count + 1
+        End If
+    Next i
+    FilterByWeekday = result
 End Function
-
 Public Function IsRecurringPattern(dates() As Date, dayOfWeek As Integer) As Boolean
-Dim i As Long
-
-IsRecurringPattern = True
-For i = LBound(dates) To UBound(dates)
-If Weekday(dates(i)) &lt;&gt; dayOfWeek Then
-IsRecurringPattern = False
-Exit Function
-End If
-Next i
+    Dim i As Long
+    IsRecurringPattern = True
+    For i = LBound(dates) To UBound(dates)
+        If Weekday(dates(i)) &lt;&gt; dayOfWeek Then
+            IsRecurringPattern = False
+            Exit Function
+        End If
+    Next i
 End Function</code></pre>
 <h3 id="example-4-calendar-generator-module">Example 4: Calendar Generator Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: CalendarGenerator
 &#x27; Generates calendar grids and displays
 Option Explicit
-
 Public Function GenerateMonthCalendar(year As Integer, month As Integer, _
-Optional firstDayOfWeek As VbDayOfWeek = vbSunday) As Variant
-Dim calendar(0 To 5, 0 To 6) As Variant
-Dim firstDay As Date
-Dim lastDay As Date
-Dim currentDate As Date
-Dim row As Integer
-Dim col As Integer
-Dim dayNum As Integer
-
-firstDay = DateSerial(year, month, 1)
-lastDay = DateSerial(year, month + 1, 0)
-
-&#x27; Initialize calendar with empty values
-For row = 0 To 5
-For col = 0 To 6
-calendar(row, col) = &quot;&quot;
-Next col
-Next row
-
-&#x27; Fill in the days
-currentDate = firstDay
-Do While currentDate &lt;= lastDay
-dayNum = Weekday(currentDate, firstDayOfWeek) - 1
-row = (Day(currentDate) + Weekday(firstDay, firstDayOfWeek) - 2) \ 7
-col = dayNum
-calendar(row, col) = Day(currentDate)
-currentDate = currentDate + 1
-Loop
-
-GenerateMonthCalendar = calendar
+                                     Optional firstDayOfWeek As VbDayOfWeek = vbSunday) As Variant
+    Dim calendar(0 To 5, 0 To 6) As Variant
+    Dim firstDay As Date
+    Dim lastDay As Date
+    Dim currentDate As Date
+    Dim row As Integer
+    Dim col As Integer
+    Dim dayNum As Integer
+    firstDay = DateSerial(year, month, 1)
+    lastDay = DateSerial(year, month + 1, 0)
+    &#x27; Initialize calendar with empty values
+    For row = 0 To 5
+        For col = 0 To 6
+            calendar(row, col) = &quot;&quot;
+        Next col
+    Next row
+    &#x27; Fill in the days
+    currentDate = firstDay
+    Do While currentDate &lt;= lastDay
+        dayNum = Weekday(currentDate, firstDayOfWeek) - 1
+        row = (Day(currentDate) + Weekday(firstDay, firstDayOfWeek) - 2) \ 7
+        col = dayNum
+        calendar(row, col) = Day(currentDate)
+        currentDate = currentDate + 1
+    Loop
+    GenerateMonthCalendar = calendar
 End Function
-
 Public Function GetWeekNumbers(year As Integer, month As Integer) As Integer()
-Dim firstDay As Date
-Dim lastDay As Date
-Dim currentDate As Date
-Dim weekNums() As Integer
-Dim count As Integer
-
-firstDay = DateSerial(year, month, 1)
-lastDay = DateSerial(year, month + 1, 0)
-
-count = 0
-currentDate = firstDay
-
-Do While currentDate &lt;= lastDay
-If Weekday(currentDate, vbMonday) = 1 Then
-ReDim Preserve weekNums(0 To count)
-weekNums(count) = DatePart(&quot;ww&quot;, currentDate, vbMonday, vbFirstFourDays)
-count = count + 1
-End If
-currentDate = currentDate + 1
-Loop
-
-GetWeekNumbers = weekNums
+    Dim firstDay As Date
+    Dim lastDay As Date
+    Dim currentDate As Date
+    Dim weekNums() As Integer
+    Dim count As Integer
+    firstDay = DateSerial(year, month, 1)
+    lastDay = DateSerial(year, month + 1, 0)
+    count = 0
+    currentDate = firstDay
+    Do While currentDate &lt;= lastDay
+        If Weekday(currentDate, vbMonday) = 1 Then
+            ReDim Preserve weekNums(0 To count)
+            weekNums(count) = DatePart(&quot;ww&quot;, currentDate, vbMonday, vbFirstFourDays)
+            count = count + 1
+        End If
+        currentDate = currentDate + 1
+    Loop
+    GetWeekNumbers = weekNums
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>Weekday</code> function can raise the following errors:</p>
-<ul>
-<li><strong>Error 13 (Type mismatch)</strong>: If date argument cannot be interpreted as a date</li>
-<li><strong>Error 5 (Invalid procedure call or argument)</strong>: If firstdayofweek is not between 0 and 7</li>
-<li><strong>Error 6 (Overflow)</strong>: If date value is too large or too small</li>
-</ul>
+<p>The <code>Weekday</code> function can raise the following errors:
+- <strong>Error 13 (Type mismatch)</strong>: If date argument cannot be interpreted as a date
+- <strong>Error 5 (Invalid procedure call or argument)</strong>: If firstdayofweek is not between 0 and 7
+- <strong>Error 6 (Overflow)</strong>: If date value is too large or too small</p>
 <h2 id="performance-notes">Performance Notes</h2>
 <ul>
 <li>Very fast operation - direct calculation from date value</li>
@@ -580,25 +510,86 @@ End Function</code></pre>
 <td>Variant</td>
 <td>More general, includes "w" for weekday</td>
 </tr>
+<tr>
+<td>## Platform Notes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in VB6, VBA, and <code>VBScript</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Behavior consistent across platforms</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns Integer (can be stored in Integer or Long)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- System locale affects vbUseSystem behavior</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Date range: January 1, 100 to December 31, 9999</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot directly return day name (use <code>WeekdayName</code> for that)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Return value always 1-7 (no zero-based option)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot specify custom week numbering systems</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Does not account for holidays or business days</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No built-in ISO 8601 week numbering (use DatePart("ww", ...) for that)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot calculate week of year (use <code>DatePart</code> for that)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-notes">Platform Notes</h2>
-<ul>
-<li>Available in VB6, VBA, and <code>VBScript</code></li>
-<li>Behavior consistent across platforms</li>
-<li>Returns Integer (can be stored in Integer or Long)</li>
-<li>System locale affects vbUseSystem behavior</li>
-<li>Date range: January 1, 100 to December 31, 9999</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Cannot directly return day name (use <code>WeekdayName</code> for that)</li>
-<li>Return value always 1-7 (no zero-based option)</li>
-<li>Cannot specify custom week numbering systems</li>
-<li>Does not account for holidays or business days</li>
-<li>No built-in ISO 8601 week numbering (use DatePart("ww", ...) for that)</li>
-<li>Cannot calculate week of year (use <code>DatePart</code> for that)</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

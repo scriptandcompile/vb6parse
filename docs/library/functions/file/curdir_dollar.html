@@ -46,9 +46,9 @@ The dollar sign suffix (<code>$</code>) explicitly indicates that this function 
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><strong><code>drive</code></strong>: Optional. <code>String</code> expression that specifies an existing drive. If no drive is
-specified or if drive is a zero-length string (""), <code>CurDir$</code> returns the path for the
-current drive. The drive parameter can be just the drive letter (e.g., "C") or include
-a colon (e.g., "C:").</li>
+  specified or if drive is a zero-length string (""), <code>CurDir$</code> returns the path for the
+  current drive. The drive parameter can be just the drive letter (e.g., "C") or include
+  a colon (e.g., "C:").</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>String</code> containing the current directory path for the specified drive. The returned
@@ -92,182 +92,151 @@ Dim cDrive As String
 cDrive = CurDir$(&quot;C&quot;)</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 3: Check if in expected directory
 If CurDir$() = &quot;C:\MyApp&quot; Then
-MsgBox &quot;In correct directory&quot;
+    MsgBox &quot;In correct directory&quot;
 End If</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 4: Display current directory
 MsgBox &quot;Current directory: &quot; &amp; CurDir$()</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="save-and-restore-directory">Save and Restore Directory</h3>
 <pre><code class="language-vbnet">Sub ProcessInDifferentDirectory(targetDir As String)
-Dim savedDir As String
-
-&#x27; Save current directory
-savedDir = CurDir$()
-
-On Error GoTo ErrorHandler
-
-&#x27; Change to target directory
-ChDir targetDir
-
-&#x27; Do work in target directory
-ProcessFiles
-
-&#x27; Restore original directory
-ChDir savedDir
-Exit Sub
-
+    Dim savedDir As String
+    &#x27; Save current directory
+    savedDir = CurDir$()
+    On Error GoTo ErrorHandler
+    &#x27; Change to target directory
+    ChDir targetDir
+    &#x27; Do work in target directory
+    ProcessFiles
+    &#x27; Restore original directory
+    ChDir savedDir
+    Exit Sub
 ErrorHandler:
-&#x27; Always restore directory even on error
-ChDir savedDir
-Err.Raise Err.Number, , Err.Description
+    &#x27; Always restore directory even on error
+    ChDir savedDir
+    Err.Raise Err.Number, , Err.Description
 End Sub</code></pre>
 <h3 id="building-full-path-from-relative-path">Building Full Path from Relative Path</h3>
 <pre><code class="language-vbnet">Function GetFullPath(relativePath As String) As String
-Dim currentDir As String
-currentDir = CurDir$()
-
-&#x27; Check if current dir already ends with backslash
-If Right$(currentDir, 1) = &quot;\&quot; Then
-GetFullPath = currentDir &amp; relativePath
-Else
-GetFullPath = currentDir &amp; &quot;\&quot; &amp; relativePath
-End If
+    Dim currentDir As String
+    currentDir = CurDir$()
+    &#x27; Check if current dir already ends with backslash
+    If Right$(currentDir, 1) = &quot;\&quot; Then
+        GetFullPath = currentDir &amp; relativePath
+    Else
+        GetFullPath = currentDir &amp; &quot;\&quot; &amp; relativePath
+    End If
 End Function</code></pre>
 <h3 id="ensuring-correct-working-directory">Ensuring Correct Working Directory</h3>
 <pre><code class="language-vbnet">Sub EnsureWorkingDirectory(expectedDir As String)
-Dim currentDir As String
-currentDir = CurDir$()
-
-If UCase$(currentDir) &lt;&gt; UCase$(expectedDir) Then
-ChDir expectedDir
-End If
+    Dim currentDir As String
+    currentDir = CurDir$()
+    If UCase$(currentDir) &lt;&gt; UCase$(expectedDir) Then
+        ChDir expectedDir
+    End If
 End Sub</code></pre>
 <h3 id="multi-drive-directory-tracking">Multi-Drive Directory Tracking</h3>
 <pre><code class="language-vbnet">Function GetAllDriveDirs() As Collection
-Dim drives() As String
-Dim result As New Collection
-Dim i As Integer
-
-drives = Array(&quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;)
-
-For i = LBound(drives) To UBound(drives)
-On Error Resume Next
-result.Add CurDir$(drives(i)), drives(i)
-On Error GoTo 0
-Next i
-
-Set GetAllDriveDirs = result
+    Dim drives() As String
+    Dim result As New Collection
+    Dim i As Integer
+    drives = Array(&quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;)
+    For i = LBound(drives) To UBound(drives)
+        On Error Resume Next
+        result.Add CurDir$(drives(i)), drives(i)
+        On Error GoTo 0
+    Next i
+    Set GetAllDriveDirs = result
 End Function</code></pre>
 <h3 id="path-validation">Path Validation</h3>
 <pre><code class="language-vbnet">Function IsValidDirectory(dirPath As String) As Boolean
-Dim savedDir As String
-Dim result As Boolean
-
-savedDir = CurDir$()
-result = False
-
-On Error Resume Next
-ChDir dirPath
-If Err.Number = 0 Then
-result = True
-ChDir savedDir
-End If
-On Error GoTo 0
-
-IsValidDirectory = result
+    Dim savedDir As String
+    Dim result As Boolean
+    savedDir = CurDir$()
+    result = False
+    On Error Resume Next
+    ChDir dirPath
+    If Err.Number = 0 Then
+        result = True
+        ChDir savedDir
+    End If
+    On Error GoTo 0
+    IsValidDirectory = result
 End Function</code></pre>
 <h3 id="log-file-path-construction">Log File Path Construction</h3>
 <pre><code class="language-vbnet">Function GetLogFilePath() As String
-Dim logDir As String
-Dim logFile As String
-
-logDir = CurDir$()
-logFile = &quot;application_&quot; &amp; Format$(Now, &quot;yyyymmdd&quot;) &amp; &quot;.log&quot;
-
-If Right$(logDir, 1) = &quot;\&quot; Then
-GetLogFilePath = logDir &amp; logFile
-Else
-GetLogFilePath = logDir &amp; &quot;\&quot; &amp; logFile
-End If
+    Dim logDir As String
+    Dim logFile As String
+    logDir = CurDir$()
+    logFile = &quot;application_&quot; &amp; Format$(Now, &quot;yyyymmdd&quot;) &amp; &quot;.log&quot;
+    If Right$(logDir, 1) = &quot;\&quot; Then
+        GetLogFilePath = logDir &amp; logFile
+    Else
+        GetLogFilePath = logDir &amp; &quot;\&quot; &amp; logFile
+    End If
 End Function</code></pre>
 <h3 id="working-directory-report">Working Directory Report</h3>
 <pre><code class="language-vbnet">Sub ReportCurrentDirectories()
-Dim report As String
-
-report = &quot;Current Directory: &quot; &amp; CurDir$() &amp; vbCrLf
-
-On Error Resume Next
-report = report &amp; &quot;C: Drive: &quot; &amp; CurDir$(&quot;C&quot;) &amp; vbCrLf
-report = report &amp; &quot;D: Drive: &quot; &amp; CurDir$(&quot;D&quot;) &amp; vbCrLf
-On Error GoTo 0
-
-MsgBox report, vbInformation, &quot;Directory Report&quot;
+    Dim report As String
+    report = &quot;Current Directory: &quot; &amp; CurDir$() &amp; vbCrLf
+    On Error Resume Next
+    report = report &amp; &quot;C: Drive: &quot; &amp; CurDir$(&quot;C&quot;) &amp; vbCrLf
+    report = report &amp; &quot;D: Drive: &quot; &amp; CurDir$(&quot;D&quot;) &amp; vbCrLf
+    On Error GoTo 0
+    MsgBox report, vbInformation, &quot;Directory Report&quot;
 End Sub</code></pre>
 <h3 id="relative-file-search">Relative File Search</h3>
 <pre><code class="language-vbnet">Function FindFileInCurrentDir(filename As String) As String
-Dim fullPath As String
-Dim currentDir As String
-
-currentDir = CurDir$()
-
-If Right$(currentDir, 1) = &quot;\&quot; Then
-fullPath = currentDir &amp; filename
-Else
-fullPath = currentDir &amp; &quot;\&quot; &amp; filename
-End If
-
-If Dir$(fullPath) &lt;&gt; &quot;&quot; Then
-FindFileInCurrentDir = fullPath
-Else
-FindFileInCurrentDir = &quot;&quot;
-End If
+    Dim fullPath As String
+    Dim currentDir As String
+    currentDir = CurDir$()
+    If Right$(currentDir, 1) = &quot;\&quot; Then
+        fullPath = currentDir &amp; filename
+    Else
+        fullPath = currentDir &amp; &quot;\&quot; &amp; filename
+    End If
+    If Dir$(fullPath) &lt;&gt; &quot;&quot; Then
+        FindFileInCurrentDir = fullPath
+    Else
+        FindFileInCurrentDir = &quot;&quot;
+    End If
 End Function</code></pre>
 <h3 id="directory-depth-calculator">Directory Depth Calculator</h3>
 <pre><code class="language-vbnet">Function GetDirectoryDepth() As Integer
-Dim path As String
-Dim depth As Integer
-Dim i As Integer
-
-path = CurDir$()
-depth = 0
-
-For i = 1 To Len(path)
-If Mid$(path, i, 1) = &quot;\&quot; Then
-depth = depth + 1
-End If
-Next i
-
-GetDirectoryDepth = depth - 1  &#x27; Subtract 1 for root backslash
+    Dim path As String
+    Dim depth As Integer
+    Dim i As Integer
+    path = CurDir$()
+    depth = 0
+    For i = 1 To Len(path)
+        If Mid$(path, i, 1) = &quot;\&quot; Then
+            depth = depth + 1
+        End If
+    Next i
+    GetDirectoryDepth = depth - 1  &#x27; Subtract 1 for root backslash
 End Function</code></pre>
 <h3 id="safe-directory-operation-wrapper">Safe Directory Operation Wrapper</h3>
 <pre><code class="language-vbnet">Function ExecuteInDirectory(dirPath As String, operation As String) As Boolean
-Dim savedDir As String
-Dim success As Boolean
-
-savedDir = CurDir$()
-success = False
-
-On Error GoTo ErrorHandler
-
-&#x27; Change to target directory
-ChDir dirPath
-
-&#x27; Execute operation based on parameter
-Select Case operation
-Case &quot;CLEANUP&quot;
-DeleteTempFiles
-Case &quot;BACKUP&quot;
-BackupFiles
-Case &quot;SCAN&quot;
-ScanFiles
-End Select
-
-success = True
-
+    Dim savedDir As String
+    Dim success As Boolean
+    savedDir = CurDir$()
+    success = False
+    On Error GoTo ErrorHandler
+    &#x27; Change to target directory
+    ChDir dirPath
+    &#x27; Execute operation based on parameter
+    Select Case operation
+        Case &quot;CLEANUP&quot;
+            DeleteTempFiles
+        Case &quot;BACKUP&quot;
+            BackupFiles
+        Case &quot;SCAN&quot;
+            ScanFiles
+    End Select
+    success = True
 ErrorHandler:
-&#x27; Always restore directory
-ChDir savedDir
-ExecuteInDirectory = success
+    &#x27; Always restore directory
+    ChDir savedDir
+    ExecuteInDirectory = success
 End Function</code></pre>
 <h2 id="related-functions">Related Functions</h2>
 <ul>

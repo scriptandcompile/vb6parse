@@ -100,7 +100,6 @@ Dim balance As Double
 Dim monthlyPayment As Double
 Dim apr As Double
 Dim payoffMonths As Double
-
 balance = 5000
 monthlyPayment = -100
 apr = 0.1899 &#x27; 18.99% APR
@@ -111,7 +110,6 @@ Dim monthlyDeposit As Double
 Dim retirementGoal As Double
 Dim annualReturn As Double
 Dim yearsNeeded As Double
-
 monthlyDeposit = -500
 retirementGoal = 1000000
 annualReturn = 0.07
@@ -120,529 +118,441 @@ yearsNeeded = NPer(annualReturn / 12, monthlyDeposit, 0, retirementGoal) / 12
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Loan payoff calculator
 Function CalculatePayoffMonths(loanAmount As Double, _
-monthlyPayment As Double, _
-apr As Double) As Double
-Dim monthlyRate As Double
-monthlyRate = apr / 12
-CalculatePayoffMonths = NPer(monthlyRate, -monthlyPayment, loanAmount)
+                               monthlyPayment As Double, _
+                               apr As Double) As Double
+    Dim monthlyRate As Double
+    monthlyRate = apr / 12
+    CalculatePayoffMonths = NPer(monthlyRate, -monthlyPayment, loanAmount)
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 2: Savings goal timeline
 Function YearsToReachGoal(monthlyDeposit As Double, _
-currentBalance As Double, _
-targetAmount As Double, _
-annualReturn As Double) As Double
-Dim months As Double
-months = NPer(annualReturn / 12, -monthlyDeposit, -currentBalance, targetAmount)
-YearsToReachGoal = months / 12
+                         currentBalance As Double, _
+                         targetAmount As Double, _
+                         annualReturn As Double) As Double
+    Dim months As Double
+    months = NPer(annualReturn / 12, -monthlyDeposit, -currentBalance, targetAmount)
+    YearsToReachGoal = months / 12
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 3: Compare payment scenarios
 Sub ComparePaymentScenarios(balance As Double, apr As Double)
-Dim payment As Double
-Dim months As Double
-Dim i As Integer
-
-For i = 1 To 5
-payment = balance * 0.02 * i &#x27; 2%, 4%, 6%, 8%, 10% of balance
-months = NPer(apr / 12, -payment, balance)
-Debug.Print &quot;Payment: $&quot; &amp; Format(payment, &quot;0.00&quot;) &amp; _
-&quot; - Months: &quot; &amp; Format(months, &quot;0.0&quot;)
-Next i
+    Dim payment As Double
+    Dim months As Double
+    Dim i As Integer
+    For i = 1 To 5
+        payment = balance * 0.02 * i &#x27; 2%, 4%, 6%, 8%, 10% of balance
+        months = NPer(apr / 12, -payment, balance)
+        Debug.Print &quot;Payment: $&quot; &amp; Format(payment, &quot;0.00&quot;) &amp; _
+                    &quot; - Months: &quot; &amp; Format(months, &quot;0.0&quot;)
+    Next i
 End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 4: Interest rate impact on duration
 Function CalculateRateImpact(loanAmount As Double, _
-monthlyPayment As Double) As String
-Dim result As String
-Dim rate As Double
-Dim months As Double
-
-result = &quot;Interest Rate Impact:&quot; &amp; vbCrLf
-
-For rate = 0.03 To 0.15 Step 0.02
-months = NPer(rate / 12, -monthlyPayment, loanAmount)
-result = result &amp; Format(rate * 100, &quot;0.0&quot;) &amp; &quot;% APR: &quot; &amp; _
-Format(months, &quot;0.0&quot;) &amp; &quot; months&quot; &amp; vbCrLf
-Next rate
-
-CalculateRateImpact = result
+                            monthlyPayment As Double) As String
+    Dim result As String
+    Dim rate As Double
+    Dim months As Double
+    result = &quot;Interest Rate Impact:&quot; &amp; vbCrLf
+    For rate = 0.03 To 0.15 Step 0.02
+        months = NPer(rate / 12, -monthlyPayment, loanAmount)
+        result = result &amp; Format(rate * 100, &quot;0.0&quot;) &amp; &quot;% APR: &quot; &amp; _
+                 Format(months, &quot;0.0&quot;) &amp; &quot; months&quot; &amp; vbCrLf
+    Next rate
+    CalculateRateImpact = result
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 5: Minimum payment warning
 Function IsMinimumPaymentTooLow(balance As Double, _
-payment As Double, _
-apr As Double) As Boolean
-Dim months As Double
-Dim maxYears As Double
-
-maxYears = 10
-months = NPer(apr / 12, -payment, balance)
-
-IsMinimumPaymentTooLow = (months &gt; maxYears * 12)
+                                payment As Double, _
+                                apr As Double) As Boolean
+    Dim months As Double
+    Dim maxYears As Double
+    maxYears = 10
+    months = NPer(apr / 12, -payment, balance)
+    IsMinimumPaymentTooLow = (months &gt; maxYears * 12)
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 6: Early payoff calculation
 Function MonthsSavedByExtraPayment(balance As Double, _
-regularPayment As Double, _
-extraPayment As Double, _
-apr As Double) As Double
-Dim regularMonths As Double
-Dim acceleratedMonths As Double
-
-regularMonths = NPer(apr / 12, -regularPayment, balance)
-acceleratedMonths = NPer(apr / 12, -(regularPayment + extraPayment), balance)
-
-MonthsSavedByExtraPayment = regularMonths - acceleratedMonths
+                                   regularPayment As Double, _
+                                   extraPayment As Double, _
+                                   apr As Double) As Double
+    Dim regularMonths As Double
+    Dim acceleratedMonths As Double
+    regularMonths = NPer(apr / 12, -regularPayment, balance)
+    acceleratedMonths = NPer(apr / 12, -(regularPayment + extraPayment), balance)
+    MonthsSavedByExtraPayment = regularMonths - acceleratedMonths
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 7: Formatted duration display
 Function FormatPayoffTime(months As Double) As String
-Dim years As Long
-Dim remainingMonths As Long
-
-years = Int(months / 12)
-remainingMonths = Int(months Mod 12)
-
-If years &gt; 0 Then
-FormatPayoffTime = years &amp; &quot; year&quot;
-If years &gt; 1 Then FormatPayoffTime = FormatPayoffTime &amp; &quot;s&quot;
-If remainingMonths &gt; 0 Then
-FormatPayoffTime = FormatPayoffTime &amp; &quot;, &quot; &amp; remainingMonths &amp; &quot; month&quot;
-If remainingMonths &gt; 1 Then FormatPayoffTime = FormatPayoffTime &amp; &quot;s&quot;
-End If
-Else
-FormatPayoffTime = remainingMonths &amp; &quot; month&quot;
-If remainingMonths &lt;&gt; 1 Then FormatPayoffTime = FormatPayoffTime &amp; &quot;s&quot;
-End If
+    Dim years As Long
+    Dim remainingMonths As Long
+    years = Int(months / 12)
+    remainingMonths = Int(months Mod 12)
+    If years &gt; 0 Then
+        FormatPayoffTime = years &amp; &quot; year&quot;
+        If years &gt; 1 Then FormatPayoffTime = FormatPayoffTime &amp; &quot;s&quot;
+        If remainingMonths &gt; 0 Then
+            FormatPayoffTime = FormatPayoffTime &amp; &quot;, &quot; &amp; remainingMonths &amp; &quot; month&quot;
+            If remainingMonths &gt; 1 Then FormatPayoffTime = FormatPayoffTime &amp; &quot;s&quot;
+        End If
+    Else
+        FormatPayoffTime = remainingMonths &amp; &quot; month&quot;
+        If remainingMonths &lt;&gt; 1 Then FormatPayoffTime = FormatPayoffTime &amp; &quot;s&quot;
+    End If
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 8: College savings timeline
 Function CalculateCollegeSavingsTime(currentAge As Integer, _
-currentSavings As Double, _
-monthlyDeposit As Double, _
-collegeGoal As Double, _
-annualReturn As Double) As Double
-Dim months As Double
-Dim yearsUntilCollege As Integer
-
-months = NPer(annualReturn / 12, -monthlyDeposit, -currentSavings, collegeGoal)
-yearsUntilCollege = 18 - currentAge
-
-CalculateCollegeSavingsTime = months / 12
+                                     currentSavings As Double, _
+                                     monthlyDeposit As Double, _
+                                     collegeGoal As Double, _
+                                     annualReturn As Double) As Double
+    Dim months As Double
+    Dim yearsUntilCollege As Integer
+    months = NPer(annualReturn / 12, -monthlyDeposit, -currentSavings, collegeGoal)
+    yearsUntilCollege = 18 - currentAge
+    CalculateCollegeSavingsTime = months / 12
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 9: Debt consolidation comparison
 Function CompareConsolidation(debt1 As Double, rate1 As Double, pmt1 As Double, _
-debt2 As Double, rate2 As Double, pmt2 As Double, _
-consolidatedRate As Double) As String
-Dim currentMonths As Double
-Dim consolidatedMonths As Double
-Dim totalDebt As Double
-Dim totalPayment As Double
-Dim result As String
-
-&#x27; Calculate current payoff time
-currentMonths = Application.Max( _
-NPer(rate1 / 12, -pmt1, debt1), _
-NPer(rate2 / 12, -pmt2, debt2))
-
-&#x27; Calculate consolidated payoff time
-totalDebt = debt1 + debt2
-totalPayment = pmt1 + pmt2
-consolidatedMonths = NPer(consolidatedRate / 12, -totalPayment, totalDebt)
-
-result = &quot;Current: &quot; &amp; Format(currentMonths, &quot;0.0&quot;) &amp; &quot; months&quot; &amp; vbCrLf
-result = result &amp; &quot;Consolidated: &quot; &amp; Format(consolidatedMonths, &quot;0.0&quot;) &amp; &quot; months&quot; &amp; vbCrLf
-result = result &amp; &quot;Savings: &quot; &amp; Format(currentMonths - consolidatedMonths, &quot;0.0&quot;) &amp; &quot; months&quot;
-
-CompareConsolidation = result
+                             debt2 As Double, rate2 As Double, pmt2 As Double, _
+                             consolidatedRate As Double) As String
+    Dim currentMonths As Double
+    Dim consolidatedMonths As Double
+    Dim totalDebt As Double
+    Dim totalPayment As Double
+    Dim result As String
+    &#x27; Calculate current payoff time
+    currentMonths = Application.Max( _
+        NPer(rate1 / 12, -pmt1, debt1), _
+        NPer(rate2 / 12, -pmt2, debt2))
+    &#x27; Calculate consolidated payoff time
+    totalDebt = debt1 + debt2
+    totalPayment = pmt1 + pmt2
+    consolidatedMonths = NPer(consolidatedRate / 12, -totalPayment, totalDebt)
+    result = &quot;Current: &quot; &amp; Format(currentMonths, &quot;0.0&quot;) &amp; &quot; months&quot; &amp; vbCrLf
+    result = result &amp; &quot;Consolidated: &quot; &amp; Format(consolidatedMonths, &quot;0.0&quot;) &amp; &quot; months&quot; &amp; vbCrLf
+    result = result &amp; &quot;Savings: &quot; &amp; Format(currentMonths - consolidatedMonths, &quot;0.0&quot;) &amp; &quot; months&quot;
+    CompareConsolidation = result
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 10: Payment sufficiency check
 Function IsPaymentSufficient(balance As Double, _
-payment As Double, _
-apr As Double) As Boolean
-Dim monthlyInterest As Double
-
-&#x27; Check if payment exceeds monthly interest
-monthlyInterest = balance * (apr / 12)
-
-If payment &lt;= monthlyInterest Then
-IsPaymentSufficient = False &#x27; Will never pay off
-Else
-On Error Resume Next
-Dim periods As Double
-periods = NPer(apr / 12, -payment, balance)
-IsPaymentSufficient = (Err.Number = 0)
-On Error GoTo 0
-End If
+                            payment As Double, _
+                            apr As Double) As Boolean
+    Dim monthlyInterest As Double
+    &#x27; Check if payment exceeds monthly interest
+    monthlyInterest = balance * (apr / 12)
+    If payment &lt;= monthlyInterest Then
+        IsPaymentSufficient = False &#x27; Will never pay off
+    Else
+        On Error Resume Next
+        Dim periods As Double
+        periods = NPer(apr / 12, -payment, balance)
+        IsPaymentSufficient = (Err.Number = 0)
+        On Error GoTo 0
+    End If
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-loan-analyzer-class">Example 1: Loan Analyzer Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: LoanAnalyzer
 &#x27; Comprehensive loan analysis with payoff scenarios
-
 Option Explicit
-
 Private m_principal As Double
 Private m_apr As Double
 Private m_monthlyPayment As Double
-
 Public Sub Initialize(principal As Double, apr As Double, monthlyPayment As Double)
-m_principal = principal
-m_apr = apr
-m_monthlyPayment = monthlyPayment
+    m_principal = principal
+    m_apr = apr
+    m_monthlyPayment = monthlyPayment
 End Sub
-
 Public Function GetPayoffMonths() As Double
-GetPayoffMonths = NPer(m_apr / 12, -m_monthlyPayment, m_principal)
+    GetPayoffMonths = NPer(m_apr / 12, -m_monthlyPayment, m_principal)
 End Function
-
 Public Function GetPayoffYears() As Double
-GetPayoffYears = GetPayoffMonths() / 12
+    GetPayoffYears = GetPayoffMonths() / 12
 End Function
-
 Public Function GetTotalInterest() As Double
-Dim months As Double
-Dim totalPaid As Double
-
-months = GetPayoffMonths()
-totalPaid = m_monthlyPayment * months
-GetTotalInterest = totalPaid - m_principal
+    Dim months As Double
+    Dim totalPaid As Double
+    months = GetPayoffMonths()
+    totalPaid = m_monthlyPayment * months
+    GetTotalInterest = totalPaid - m_principal
 End Function
-
 Public Function GetPayoffDate() As Date
-Dim months As Double
-months = GetPayoffMonths()
-GetPayoffDate = DateAdd(&quot;m&quot;, Int(months), Date)
+    Dim months As Double
+    months = GetPayoffMonths()
+    GetPayoffDate = DateAdd(&quot;m&quot;, Int(months), Date)
 End Function
-
 Public Function AnalyzeExtraPayment(extraMonthly As Double) As String
-Dim baseMonths As Double
-Dim acceleratedMonths As Double
-Dim monthsSaved As Double
-Dim interestSaved As Double
-Dim result As String
-
-baseMonths = NPer(m_apr / 12, -m_monthlyPayment, m_principal)
-acceleratedMonths = NPer(m_apr / 12, -(m_monthlyPayment + extraMonthly), m_principal)
-
-monthsSaved = baseMonths - acceleratedMonths
-interestSaved = (m_monthlyPayment * baseMonths - m_principal) - _
-((m_monthlyPayment + extraMonthly) * acceleratedMonths - m_principal)
-
-result = &quot;Extra Payment Analysis:&quot; &amp; vbCrLf
-result = result &amp; &quot;Extra payment: $&quot; &amp; Format(extraMonthly, &quot;#,##0.00&quot;) &amp; vbCrLf
-result = result &amp; &quot;Time saved: &quot; &amp; Format(monthsSaved, &quot;0.0&quot;) &amp; &quot; months&quot; &amp; vbCrLf
-result = result &amp; &quot;Interest saved: $&quot; &amp; Format(interestSaved, &quot;#,##0.00&quot;)
-
-AnalyzeExtraPayment = result
+    Dim baseMonths As Double
+    Dim acceleratedMonths As Double
+    Dim monthsSaved As Double
+    Dim interestSaved As Double
+    Dim result As String
+    baseMonths = NPer(m_apr / 12, -m_monthlyPayment, m_principal)
+    acceleratedMonths = NPer(m_apr / 12, -(m_monthlyPayment + extraMonthly), m_principal)
+    monthsSaved = baseMonths - acceleratedMonths
+    interestSaved = (m_monthlyPayment * baseMonths - m_principal) - _
+                    ((m_monthlyPayment + extraMonthly) * acceleratedMonths - m_principal)
+    result = &quot;Extra Payment Analysis:&quot; &amp; vbCrLf
+    result = result &amp; &quot;Extra payment: $&quot; &amp; Format(extraMonthly, &quot;#,##0.00&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Time saved: &quot; &amp; Format(monthsSaved, &quot;0.0&quot;) &amp; &quot; months&quot; &amp; vbCrLf
+    result = result &amp; &quot;Interest saved: $&quot; &amp; Format(interestSaved, &quot;#,##0.00&quot;)
+    AnalyzeExtraPayment = result
 End Function
-
 Public Function GenerateAmortizationSummary() As String
-Dim summary As String
-Dim months As Double
-Dim totalPaid As Double
-Dim totalInterest As Double
-
-months = GetPayoffMonths()
-totalPaid = m_monthlyPayment * months
-totalInterest = totalPaid - m_principal
-
-summary = &quot;Loan Amortization Summary&quot; &amp; vbCrLf
-summary = summary &amp; String(50, &quot;-&quot;) &amp; vbCrLf
-summary = summary &amp; &quot;Principal: $&quot; &amp; Format(m_principal, &quot;#,##0.00&quot;) &amp; vbCrLf
-summary = summary &amp; &quot;APR: &quot; &amp; Format(m_apr * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-summary = summary &amp; &quot;Monthly Payment: $&quot; &amp; Format(m_monthlyPayment, &quot;#,##0.00&quot;) &amp; vbCrLf
-summary = summary &amp; &quot;Payoff Time: &quot; &amp; Format(months, &quot;0.0&quot;) &amp; &quot; months (&quot; &amp; _
-Format(months / 12, &quot;0.0&quot;) &amp; &quot; years)&quot; &amp; vbCrLf
-summary = summary &amp; &quot;Total Paid: $&quot; &amp; Format(totalPaid, &quot;#,##0.00&quot;) &amp; vbCrLf
-summary = summary &amp; &quot;Total Interest: $&quot; &amp; Format(totalInterest, &quot;#,##0.00&quot;) &amp; vbCrLf
-summary = summary &amp; &quot;Payoff Date: &quot; &amp; Format(GetPayoffDate(), &quot;mmm dd, yyyy&quot;)
-
-GenerateAmortizationSummary = summary
+    Dim summary As String
+    Dim months As Double
+    Dim totalPaid As Double
+    Dim totalInterest As Double
+    months = GetPayoffMonths()
+    totalPaid = m_monthlyPayment * months
+    totalInterest = totalPaid - m_principal
+    summary = &quot;Loan Amortization Summary&quot; &amp; vbCrLf
+    summary = summary &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+    summary = summary &amp; &quot;Principal: $&quot; &amp; Format(m_principal, &quot;#,##0.00&quot;) &amp; vbCrLf
+    summary = summary &amp; &quot;APR: &quot; &amp; Format(m_apr * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+    summary = summary &amp; &quot;Monthly Payment: $&quot; &amp; Format(m_monthlyPayment, &quot;#,##0.00&quot;) &amp; vbCrLf
+    summary = summary &amp; &quot;Payoff Time: &quot; &amp; Format(months, &quot;0.0&quot;) &amp; &quot; months (&quot; &amp; _
+                       Format(months / 12, &quot;0.0&quot;) &amp; &quot; years)&quot; &amp; vbCrLf
+    summary = summary &amp; &quot;Total Paid: $&quot; &amp; Format(totalPaid, &quot;#,##0.00&quot;) &amp; vbCrLf
+    summary = summary &amp; &quot;Total Interest: $&quot; &amp; Format(totalInterest, &quot;#,##0.00&quot;) &amp; vbCrLf
+    summary = summary &amp; &quot;Payoff Date: &quot; &amp; Format(GetPayoffDate(), &quot;mmm dd, yyyy&quot;)
+    GenerateAmortizationSummary = summary
 End Function</code></pre>
 <h3 id="example-2-retirement-planner-class">Example 2: Retirement Planner Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: RetirementPlanner
 &#x27; Plans retirement savings timeline and scenarios
-
 Option Explicit
-
 Private m_currentAge As Integer
 Private m_retirementAge As Integer
 Private m_currentSavings As Double
 Private m_monthlyContribution As Double
 Private m_expectedReturn As Double
 Private m_retirementGoal As Double
-
 Public Sub Initialize(currentAge As Integer, _
-retirementAge As Integer, _
-currentSavings As Double, _
-monthlyContribution As Double, _
-expectedReturn As Double, _
-retirementGoal As Double)
-m_currentAge = currentAge
-m_retirementAge = retirementAge
-m_currentSavings = currentSavings
-m_monthlyContribution = monthlyContribution
-m_expectedReturn = expectedReturn
-m_retirementGoal = retirementGoal
+                     retirementAge As Integer, _
+                     currentSavings As Double, _
+                     monthlyContribution As Double, _
+                     expectedReturn As Double, _
+                     retirementGoal As Double)
+    m_currentAge = currentAge
+    m_retirementAge = retirementAge
+    m_currentSavings = currentSavings
+    m_monthlyContribution = monthlyContribution
+    m_expectedReturn = expectedReturn
+    m_retirementGoal = retirementGoal
 End Sub
-
 Public Function GetYearsToGoal() As Double
-Dim months As Double
-months = NPer(m_expectedReturn / 12, -m_monthlyContribution, -m_currentSavings, m_retirementGoal)
-GetYearsToGoal = months / 12
+    Dim months As Double
+    months = NPer(m_expectedReturn / 12, -m_monthlyContribution, -m_currentSavings, m_retirementGoal)
+    GetYearsToGoal = months / 12
 End Function
-
 Public Function WillReachGoal() As Boolean
-Dim yearsNeeded As Double
-Dim yearsAvailable As Integer
-
-yearsNeeded = GetYearsToGoal()
-yearsAvailable = m_retirementAge - m_currentAge
-
-WillReachGoal = (yearsNeeded &lt;= yearsAvailable)
+    Dim yearsNeeded As Double
+    Dim yearsAvailable As Integer
+    yearsNeeded = GetYearsToGoal()
+    yearsAvailable = m_retirementAge - m_currentAge
+    WillReachGoal = (yearsNeeded &lt;= yearsAvailable)
 End Function
-
 Public Function GetRequiredMonthlyContribution() As Double
-Dim monthsAvailable As Long
-monthsAvailable = (m_retirementAge - m_currentAge) * 12
-
-GetRequiredMonthlyContribution = -PMT(m_expectedReturn / 12, _
-monthsAvailable, _
--m_currentSavings, _
-m_retirementGoal)
+    Dim monthsAvailable As Long
+    monthsAvailable = (m_retirementAge - m_currentAge) * 12
+    GetRequiredMonthlyContribution = -PMT(m_expectedReturn / 12, _
+                                         monthsAvailable, _
+                                         -m_currentSavings, _
+                                         m_retirementGoal)
 End Function
-
 Public Function GenerateScenarioAnalysis() As String
-Dim result As String
-Dim yearsNeeded As Double
-Dim yearsAvailable As Integer
-Dim shortfall As Double
-
-yearsNeeded = GetYearsToGoal()
-yearsAvailable = m_retirementAge - m_currentAge
-
-result = &quot;Retirement Scenario Analysis&quot; &amp; vbCrLf
-result = result &amp; String(50, &quot;-&quot;) &amp; vbCrLf
-result = result &amp; &quot;Current Age: &quot; &amp; m_currentAge &amp; vbCrLf
-result = result &amp; &quot;Retirement Age: &quot; &amp; m_retirementAge &amp; vbCrLf
-result = result &amp; &quot;Years Available: &quot; &amp; yearsAvailable &amp; vbCrLf
-result = result &amp; &quot;Current Savings: $&quot; &amp; Format(m_currentSavings, &quot;#,##0.00&quot;) &amp; vbCrLf
-result = result &amp; &quot;Monthly Contribution: $&quot; &amp; Format(m_monthlyContribution, &quot;#,##0.00&quot;) &amp; vbCrLf
-result = result &amp; &quot;Expected Return: &quot; &amp; Format(m_expectedReturn * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-result = result &amp; &quot;Retirement Goal: $&quot; &amp; Format(m_retirementGoal, &quot;#,##0.00&quot;) &amp; vbCrLf
-result = result &amp; vbCrLf
-result = result &amp; &quot;Years Needed: &quot; &amp; Format(yearsNeeded, &quot;0.0&quot;) &amp; vbCrLf
-
-If WillReachGoal() Then
-result = result &amp; &quot;Status: On track! &quot; &amp; Format(yearsAvailable - yearsNeeded, &quot;0.0&quot;) &amp; _
-&quot; years ahead of schedule.&quot;
-Else
-shortfall = yearsNeeded - yearsAvailable
-result = result &amp; &quot;Status: Behind schedule by &quot; &amp; Format(shortfall, &quot;0.0&quot;) &amp; &quot; years.&quot; &amp; vbCrLf
-result = result &amp; &quot;Required Monthly: $&quot; &amp; _
-Format(GetRequiredMonthlyContribution(), &quot;#,##0.00&quot;)
-End If
-
-GenerateScenarioAnalysis = result
+    Dim result As String
+    Dim yearsNeeded As Double
+    Dim yearsAvailable As Integer
+    Dim shortfall As Double
+    yearsNeeded = GetYearsToGoal()
+    yearsAvailable = m_retirementAge - m_currentAge
+    result = &quot;Retirement Scenario Analysis&quot; &amp; vbCrLf
+    result = result &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Current Age: &quot; &amp; m_currentAge &amp; vbCrLf
+    result = result &amp; &quot;Retirement Age: &quot; &amp; m_retirementAge &amp; vbCrLf
+    result = result &amp; &quot;Years Available: &quot; &amp; yearsAvailable &amp; vbCrLf
+    result = result &amp; &quot;Current Savings: $&quot; &amp; Format(m_currentSavings, &quot;#,##0.00&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Monthly Contribution: $&quot; &amp; Format(m_monthlyContribution, &quot;#,##0.00&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Expected Return: &quot; &amp; Format(m_expectedReturn * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+    result = result &amp; &quot;Retirement Goal: $&quot; &amp; Format(m_retirementGoal, &quot;#,##0.00&quot;) &amp; vbCrLf
+    result = result &amp; vbCrLf
+    result = result &amp; &quot;Years Needed: &quot; &amp; Format(yearsNeeded, &quot;0.0&quot;) &amp; vbCrLf
+    If WillReachGoal() Then
+        result = result &amp; &quot;Status: On track! &quot; &amp; Format(yearsAvailable - yearsNeeded, &quot;0.0&quot;) &amp; _
+                 &quot; years ahead of schedule.&quot;
+    Else
+        shortfall = yearsNeeded - yearsAvailable
+        result = result &amp; &quot;Status: Behind schedule by &quot; &amp; Format(shortfall, &quot;0.0&quot;) &amp; &quot; years.&quot; &amp; vbCrLf
+        result = result &amp; &quot;Required Monthly: $&quot; &amp; _
+                 Format(GetRequiredMonthlyContribution(), &quot;#,##0.00&quot;)
+    End If
+    GenerateScenarioAnalysis = result
 End Function</code></pre>
 <h3 id="example-3-debt-payoff-optimizer-module">Example 3: Debt Payoff Optimizer Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: DebtPayoffOptimizer
 &#x27; Optimizes debt payoff strategies
-
 Option Explicit
-
 Private Type DebtInfo
-name As String
-balance As Double
-apr As Double
-minimumPayment As Double
-payoffMonths As Double
+    name As String
+    balance As Double
+    apr As Double
+    minimumPayment As Double
+    payoffMonths As Double
 End Type
-
 Public Function AnalyzeSnowballMethod(debts() As DebtInfo, _
-extraPayment As Double) As String
-Dim i As Integer
-Dim result As String
-Dim totalMonths As Double
-
-&#x27; Sort debts by balance (smallest first)
-SortDebtsByBalance debts
-
-result = &quot;Debt Snowball Method Analysis&quot; &amp; vbCrLf
-result = result &amp; String(60, &quot;-&quot;) &amp; vbCrLf
-
-totalMonths = 0
-
-For i = LBound(debts) To UBound(debts)
-If i = LBound(debts) Then
-debts(i).payoffMonths = NPer(debts(i).apr / 12, _
--(debts(i).minimumPayment + extraPayment), _
-debts(i).balance)
-Else
-&#x27; Add freed-up payment from previous debt
-Dim availablePayment As Double
-availablePayment = debts(i).minimumPayment + extraPayment
-
-For j = LBound(debts) To i - 1
-availablePayment = availablePayment + debts(j).minimumPayment
-Next j
-
-debts(i).payoffMonths = totalMonths + _
-NPer(debts(i).apr / 12, -availablePayment, debts(i).balance)
-End If
-
-totalMonths = debts(i).payoffMonths
-
-result = result &amp; debts(i).name &amp; &quot;: &quot; &amp; _
-Format(debts(i).payoffMonths, &quot;0.0&quot;) &amp; &quot; months&quot; &amp; vbCrLf
-Next i
-
-result = result &amp; vbCrLf &amp; &quot;Total Time: &quot; &amp; Format(totalMonths, &quot;0.0&quot;) &amp; &quot; months&quot;
-
-AnalyzeSnowballMethod = result
+                                      extraPayment As Double) As String
+    Dim i As Integer
+    Dim result As String
+    Dim totalMonths As Double
+    &#x27; Sort debts by balance (smallest first)
+    SortDebtsByBalance debts
+    result = &quot;Debt Snowball Method Analysis&quot; &amp; vbCrLf
+    result = result &amp; String(60, &quot;-&quot;) &amp; vbCrLf
+    totalMonths = 0
+    For i = LBound(debts) To UBound(debts)
+        If i = LBound(debts) Then
+            debts(i).payoffMonths = NPer(debts(i).apr / 12, _
+                                         -(debts(i).minimumPayment + extraPayment), _
+                                         debts(i).balance)
+        Else
+            &#x27; Add freed-up payment from previous debt
+            Dim availablePayment As Double
+            availablePayment = debts(i).minimumPayment + extraPayment
+            For j = LBound(debts) To i - 1
+                availablePayment = availablePayment + debts(j).minimumPayment
+            Next j
+            debts(i).payoffMonths = totalMonths + _
+                NPer(debts(i).apr / 12, -availablePayment, debts(i).balance)
+        End If
+        totalMonths = debts(i).payoffMonths
+        result = result &amp; debts(i).name &amp; &quot;: &quot; &amp; _
+                 Format(debts(i).payoffMonths, &quot;0.0&quot;) &amp; &quot; months&quot; &amp; vbCrLf
+    Next i
+    result = result &amp; vbCrLf &amp; &quot;Total Time: &quot; &amp; Format(totalMonths, &quot;0.0&quot;) &amp; &quot; months&quot;
+    AnalyzeSnowballMethod = result
 End Function
-
 Public Function AnalyzeAvalancheMethod(debts() As DebtInfo, _
-extraPayment As Double) As String
-&#x27; Sort debts by APR (highest first)
-SortDebtsByRate debts
-
-&#x27; Use same logic as snowball but with different sort
-AnalyzeAvalancheMethod = AnalyzeSnowballMethod(debts, extraPayment)
+                                       extraPayment As Double) As String
+    &#x27; Sort debts by APR (highest first)
+    SortDebtsByRate debts
+    &#x27; Use same logic as snowball but with different sort
+    AnalyzeAvalancheMethod = AnalyzeSnowballMethod(debts, extraPayment)
 End Function
-
 Private Sub SortDebtsByBalance(debts() As DebtInfo)
-&#x27; Simple bubble sort
-Dim i As Integer, j As Integer
-Dim temp As DebtInfo
-
-For i = LBound(debts) To UBound(debts) - 1
-For j = i + 1 To UBound(debts)
-If debts(i).balance &gt; debts(j).balance Then
-temp = debts(i)
-debts(i) = debts(j)
-debts(j) = temp
-End If
-Next j
-Next i
+    &#x27; Simple bubble sort
+    Dim i As Integer, j As Integer
+    Dim temp As DebtInfo
+    For i = LBound(debts) To UBound(debts) - 1
+        For j = i + 1 To UBound(debts)
+            If debts(i).balance &gt; debts(j).balance Then
+                temp = debts(i)
+                debts(i) = debts(j)
+                debts(j) = temp
+            End If
+        Next j
+    Next i
 End Sub
-
 Private Sub SortDebtsByRate(debts() As DebtInfo)
-&#x27; Simple bubble sort
-Dim i As Integer, j As Integer
-Dim temp As DebtInfo
-
-For i = LBound(debts) To UBound(debts) - 1
-For j = i + 1 To UBound(debts)
-If debts(i).apr &lt; debts(j).apr Then
-temp = debts(i)
-debts(i) = debts(j)
-debts(j) = temp
-End If
-Next j
-Next i
+    &#x27; Simple bubble sort
+    Dim i As Integer, j As Integer
+    Dim temp As DebtInfo
+    For i = LBound(debts) To UBound(debts) - 1
+        For j = i + 1 To UBound(debts)
+            If debts(i).apr &lt; debts(j).apr Then
+                temp = debts(i)
+                debts(i) = debts(j)
+                debts(j) = temp
+            End If
+        Next j
+    Next i
 End Sub</code></pre>
 <h3 id="example-4-financial-goal-tracker">Example 4: Financial Goal Tracker</h3>
 <pre><code class="language-vbnet">&#x27; Class: FinancialGoalTracker
 &#x27; Tracks progress toward multiple financial goals
-
 Option Explicit
-
 Private Type Goal
-name As String
-targetAmount As Double
-currentAmount As Double
-monthlyDeposit As Double
-expectedReturn As Double
-targetDate As Date
-isOnTrack As Boolean
-monthsNeeded As Double
+    name As String
+    targetAmount As Double
+    currentAmount As Double
+    monthlyDeposit As Double
+    expectedReturn As Double
+    targetDate As Date
+    isOnTrack As Boolean
+    monthsNeeded As Double
 End Type
-
 Private m_goals As Collection
-
 Private Sub Class_Initialize()
-Set m_goals = New Collection
+    Set m_goals = New Collection
 End Sub
-
 Public Sub AddGoal(name As String, _
-targetAmount As Double, _
-currentAmount As Double, _
-monthlyDeposit As Double, _
-expectedReturn As Double, _
-targetDate As Date)
-Dim goal As Goal
-
-goal.name = name
-goal.targetAmount = targetAmount
-goal.currentAmount = currentAmount
-goal.monthlyDeposit = monthlyDeposit
-goal.expectedReturn = expectedReturn
-goal.targetDate = targetDate
-
-&#x27; Calculate if on track
-goal.monthsNeeded = NPer(expectedReturn / 12, -monthlyDeposit, -currentAmount, targetAmount)
-
-Dim monthsAvailable As Long
-monthsAvailable = DateDiff(&quot;m&quot;, Date, targetDate)
-goal.isOnTrack = (goal.monthsNeeded &lt;= monthsAvailable)
-
-m_goals.Add goal, name
+                  targetAmount As Double, _
+                  currentAmount As Double, _
+                  monthlyDeposit As Double, _
+                  expectedReturn As Double, _
+                  targetDate As Date)
+    Dim goal As Goal
+    goal.name = name
+    goal.targetAmount = targetAmount
+    goal.currentAmount = currentAmount
+    goal.monthlyDeposit = monthlyDeposit
+    goal.expectedReturn = expectedReturn
+    goal.targetDate = targetDate
+    &#x27; Calculate if on track
+    goal.monthsNeeded = NPer(expectedReturn / 12, -monthlyDeposit, -currentAmount, targetAmount)
+    Dim monthsAvailable As Long
+    monthsAvailable = DateDiff(&quot;m&quot;, Date, targetDate)
+    goal.isOnTrack = (goal.monthsNeeded &lt;= monthsAvailable)
+    m_goals.Add goal, name
 End Sub
-
 Public Function GetGoalStatus(goalName As String) As String
-Dim goal As Goal
-Dim monthsAvailable As Long
-Dim result As String
-
-On Error Resume Next
-goal = m_goals(goalName)
-
-If Err.Number &lt;&gt; 0 Then
-GetGoalStatus = &quot;Goal not found&quot;
-Exit Function
-End If
-On Error GoTo 0
-
-monthsAvailable = DateDiff(&quot;m&quot;, Date, goal.targetDate)
-
-result = &quot;Goal: &quot; &amp; goal.name &amp; vbCrLf
-result = result &amp; &quot;Target: $&quot; &amp; Format(goal.targetAmount, &quot;#,##0.00&quot;) &amp; vbCrLf
-result = result &amp; &quot;Current: $&quot; &amp; Format(goal.currentAmount, &quot;#,##0.00&quot;) &amp; vbCrLf
-result = result &amp; &quot;Months Available: &quot; &amp; monthsAvailable &amp; vbCrLf
-result = result &amp; &quot;Months Needed: &quot; &amp; Format(goal.monthsNeeded, &quot;0.0&quot;) &amp; vbCrLf
-
-If goal.isOnTrack Then
-result = result &amp; &quot;Status: On track!&quot;
-Else
-Dim requiredMonthly As Double
-requiredMonthly = -PMT(goal.expectedReturn / 12, monthsAvailable, _
--goal.currentAmount, goal.targetAmount)
-result = result &amp; &quot;Status: Behind - Need $&quot; &amp; _
-Format(requiredMonthly, &quot;#,##0.00&quot;) &amp; &quot;/month&quot;
-End If
-
-GetGoalStatus = result
+    Dim goal As Goal
+    Dim monthsAvailable As Long
+    Dim result As String
+    On Error Resume Next
+    goal = m_goals(goalName)
+    If Err.Number &lt;&gt; 0 Then
+        GetGoalStatus = &quot;Goal not found&quot;
+        Exit Function
+    End If
+    On Error GoTo 0
+    monthsAvailable = DateDiff(&quot;m&quot;, Date, goal.targetDate)
+    result = &quot;Goal: &quot; &amp; goal.name &amp; vbCrLf
+    result = result &amp; &quot;Target: $&quot; &amp; Format(goal.targetAmount, &quot;#,##0.00&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Current: $&quot; &amp; Format(goal.currentAmount, &quot;#,##0.00&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Months Available: &quot; &amp; monthsAvailable &amp; vbCrLf
+    result = result &amp; &quot;Months Needed: &quot; &amp; Format(goal.monthsNeeded, &quot;0.0&quot;) &amp; vbCrLf
+    If goal.isOnTrack Then
+        result = result &amp; &quot;Status: On track!&quot;
+    Else
+        Dim requiredMonthly As Double
+        requiredMonthly = -PMT(goal.expectedReturn / 12, monthsAvailable, _
+                              -goal.currentAmount, goal.targetAmount)
+        result = result &amp; &quot;Status: Behind - Need $&quot; &amp; _
+                 Format(requiredMonthly, &quot;#,##0.00&quot;) &amp; &quot;/month&quot;
+    End If
+    GetGoalStatus = result
 End Function
-
 Public Function GenerateAllGoalsReport() As String
-Dim report As String
-Dim goal As Goal
-Dim i As Long
-
-report = &quot;Financial Goals Progress Report&quot; &amp; vbCrLf
-report = report &amp; String(60, &quot;=&quot;) &amp; vbCrLf &amp; vbCrLf
-
-For i = 1 To m_goals.Count
-goal = m_goals(i)
-report = report &amp; GetGoalStatus(goal.name) &amp; vbCrLf &amp; vbCrLf
-Next i
-
-GenerateAllGoalsReport = report
+    Dim report As String
+    Dim goal As Goal
+    Dim i As Long
+    report = &quot;Financial Goals Progress Report&quot; &amp; vbCrLf
+    report = report &amp; String(60, &quot;=&quot;) &amp; vbCrLf &amp; vbCrLf
+    For i = 1 To m_goals.Count
+        goal = m_goals(i)
+        report = report &amp; GetGoalStatus(goal.name) &amp; vbCrLf &amp; vbCrLf
+    Next i
+    GenerateAllGoalsReport = report
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">On Error Resume Next
 Dim periods As Double
 periods = NPer(rate, pmt, pv, fv, type)
 If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Error calculating periods: &quot; &amp; Err.Description &amp; vbCrLf &amp; _
-&quot;This may occur if payment is too small to ever pay off the balance.&quot;
-&#x27; Payment must exceed interest to avoid infinite periods
+    MsgBox &quot;Error calculating periods: &quot; &amp; Err.Description &amp; vbCrLf &amp; _
+           &quot;This may occur if payment is too small to ever pay off the balance.&quot;
+    &#x27; Payment must exceed interest to avoid infinite periods
 End If
 On Error GoTo 0</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
@@ -701,41 +611,143 @@ On Error GoTo 0</code></pre>
 <td>Interest rate</td>
 <td>Periods, payment, present value, future value</td>
 </tr>
+<tr>
+<td>## Platform Notes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in VBA (Excel, Access, Word, etc.)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in VB6</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Not available in <code>VBScript</code></strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Uses iterative algorithm to solve</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Consistent with Excel's NPER function</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Part of VBA financial functions library</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Assumes constant payment amounts</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Assumes constant interest rate</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Payment must exceed periodic interest or will fail/return error</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Does not account for fees, taxes, or insurance</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot handle irregular payment schedules</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Type parameter limited to 0 or 1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- May return fractional periods</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Related Functions</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>PMT</strong> - Calculates payment amount for a loan</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>PV</strong> - Calculates present value of an investment</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>FV</strong> - Calculates future value of an investment</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Rate</strong> - Calculates interest rate per period</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong><code>IPmt</code></strong> - Calculates interest payment for a specific period</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong><code>PPmt</code></strong> - Calculates principal payment for a specific period</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## VB6 Parser Notes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>NPer</code> is parsed as a regular function call (<code>CallExpression</code>). This module exists primarily</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>for documentation purposes to provide comprehensive reference material for VB6 developers</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>working with financial calculations, loan analysis, investment planning, and time-value-of-money</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>operations.</td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-notes">Platform Notes</h2>
-<ul>
-<li>Available in VBA (Excel, Access, Word, etc.)</li>
-<li>Available in VB6</li>
-<li><strong>Not available in <code>VBScript</code></strong></li>
-<li>Uses iterative algorithm to solve</li>
-<li>Consistent with Excel's NPER function</li>
-<li>Part of VBA financial functions library</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Assumes constant payment amounts</li>
-<li>Assumes constant interest rate</li>
-<li>Payment must exceed periodic interest or will fail/return error</li>
-<li>Does not account for fees, taxes, or insurance</li>
-<li>Cannot handle irregular payment schedules</li>
-<li>Type parameter limited to 0 or 1</li>
-<li>May return fractional periods</li>
-</ul>
-<h2 id="related-functions">Related Functions</h2>
-<ul>
-<li><strong>PMT</strong> - Calculates payment amount for a loan</li>
-<li><strong>PV</strong> - Calculates present value of an investment</li>
-<li><strong>FV</strong> - Calculates future value of an investment</li>
-<li><strong>Rate</strong> - Calculates interest rate per period</li>
-<li><strong><code>IPmt</code></strong> - Calculates interest payment for a specific period</li>
-<li><strong><code>PPmt</code></strong> - Calculates principal payment for a specific period</li>
-</ul>
-<h2 id="vb6-parser-notes">VB6 Parser Notes</h2>
-<p><code>NPer</code> is parsed as a regular function call (<code>CallExpression</code>). This module exists primarily
-for documentation purposes to provide comprehensive reference material for VB6 developers
-working with financial calculations, loan analysis, investment planning, and time-value-of-money
-operations.</p>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

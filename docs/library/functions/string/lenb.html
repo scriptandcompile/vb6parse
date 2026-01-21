@@ -66,13 +66,11 @@ For single-byte character sets, they are identical. For Unicode (VB6's default s
 <pre><code class="language-vbnet">&#x27; Get byte length of a string
 Dim size As Long
 size = LenB(&quot;Hello&quot;)  &#x27; Returns 10 (5 characters * 2 bytes each in Unicode)
-
 &#x27; Compare with character length
 Dim charLen As Long
 Dim byteLen As Long
 charLen = Len(&quot;Test&quot;)   &#x27; Returns 4
 byteLen = LenB(&quot;Test&quot;)  &#x27; Returns 8 (Unicode)
-
 &#x27; Check memory size
 Dim buffer As String
 buffer = Space$(100)

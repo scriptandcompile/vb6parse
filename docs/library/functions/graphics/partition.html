@@ -56,15 +56,15 @@
 <h2 id="remarks">Remarks</h2>
 <p>The <code>Partition</code> function divides a range of numbers into smaller intervals and returns a string
 describing which interval contains a given number. This is particularly useful for creating
-frequency distributions, histograms, and grouping data into bins.</p>
-<p>The function creates ranges starting at <code>start</code> and ending at <code>stop</code>, with each range having
+frequency distributions, histograms, and grouping data into bins.
+The function creates ranges starting at <code>start</code> and ending at <code>stop</code>, with each range having
 a width of <code>interval</code>. The returned string always has the same width for both the lower and
 upper boundaries, padded with leading spaces as needed. This ensures consistent formatting
-when building reports or tables.</p>
-<p>For example, if <code>start</code> is 0, <code>stop</code> is 100, and <code>interval</code> is 10, the function creates
+when building reports or tables.
+For example, if <code>start</code> is 0, <code>stop</code> is 100, and <code>interval</code> is 10, the function creates
 ranges: 0:9, 10:19, 20:29, etc., plus special ranges for values below 0 (":–1") and
-above 100 ("101:").</p>
-<p>The width of each number in the returned string is calculated based on the number of digits
+above 100 ("101:").
+The width of each number in the returned string is calculated based on the number of digits
 in <code>stop</code> plus 1. This ensures all ranges align properly in columnar displays.</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
@@ -89,25 +89,21 @@ Dim values(100) As Integer
 Dim frequency As Collection
 Dim i As Integer
 Dim range As String
-
 Set frequency = New Collection
-
 &#x27; Populate with sample data
 For i = 0 To 100
-values(i) = Int(Rnd * 100)
+    values(i) = Int(Rnd * 100)
 Next i
-
 &#x27; Count frequencies
 For i = 0 To 100
-range = Partition(values(i), 0, 99, 10)
-&#x27; Increment count for this range
+    range = Partition(values(i), 0, 99, 10)
+    &#x27; Increment count for this range
 Next i</code></pre>
 <h3 id="example-3-age-grouping">Example 3: Age Grouping</h3>
 <pre><code class="language-vbnet">Function GetAgeGroup(age As Integer) As String
-&#x27; Group ages into decades
-GetAgeGroup = Partition(age, 0, 100, 10)
+    &#x27; Group ages into decades
+    GetAgeGroup = Partition(age, 0, 100, 10)
 End Function
-
 &#x27; Usage
 Debug.Print GetAgeGroup(25)    &#x27; Returns &quot; 20: 29&quot;
 Debug.Print GetAgeGroup(5)     &#x27; Returns &quot;  0:  9&quot;</code></pre>
@@ -118,658 +114,560 @@ range = Partition(150, 0, 100, 10)   &#x27; Returns &quot;101:   &quot; (above s
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-buildfrequencytable">Pattern 1: <code>BuildFrequencyTable</code></h3>
 <pre><code class="language-vbnet">Function BuildFrequencyTable(values() As Integer, start As Long, _
-stop As Long, interval As Long) As Collection
-Dim i As Integer
-Dim range As String
-Dim count As Long
-Dim freq As Collection
-
-Set freq = New Collection
-
-&#x27; Initialize all ranges to 0
-For i = start To stop Step interval
-range = Partition(i, start, stop, interval)
-On Error Resume Next
-freq.Add 0, range
-On Error GoTo 0
-Next i
-
-&#x27; Count occurrences
-For i = LBound(values) To UBound(values)
-range = Partition(values(i), start, stop, interval)
-On Error Resume Next
-count = freq(range)
-freq.Remove range
-freq.Add count + 1, range
-On Error GoTo 0
-Next i
-
-Set BuildFrequencyTable = freq
+                             stop As Long, interval As Long) As Collection
+    Dim i As Integer
+    Dim range As String
+    Dim count As Long
+    Dim freq As Collection
+    Set freq = New Collection
+    &#x27; Initialize all ranges to 0
+    For i = start To stop Step interval
+        range = Partition(i, start, stop, interval)
+        On Error Resume Next
+        freq.Add 0, range
+        On Error GoTo 0
+    Next i
+    &#x27; Count occurrences
+    For i = LBound(values) To UBound(values)
+        range = Partition(values(i), start, stop, interval)
+        On Error Resume Next
+        count = freq(range)
+        freq.Remove range
+        freq.Add count + 1, range
+        On Error GoTo 0
+    Next i
+    Set BuildFrequencyTable = freq
 End Function</code></pre>
 <h3 id="pattern-2-generatehistogram">Pattern 2: <code>GenerateHistogram</code></h3>
 <pre><code class="language-vbnet">Sub GenerateHistogram(values() As Integer, start As Long, _
-stop As Long, interval As Long)
-Dim i As Integer
-Dim range As String
-Dim counts As Object
-Dim currentRange As String
-
-Set counts = CreateObject(&quot;Scripting.Dictionary&quot;)
-
-&#x27; Count frequencies
-For i = LBound(values) To UBound(values)
-range = Partition(values(i), start, stop, interval)
-If Not counts.Exists(range) Then
-counts.Add range, 0
-End If
-counts(range) = counts(range) + 1
-Next i
-
-&#x27; Display histogram
-Debug.Print &quot;Range&quot;, &quot;Count&quot;, &quot;Chart&quot;
-Debug.Print String(50, &quot;-&quot;)
-For Each currentRange In counts.Keys
-Debug.Print currentRange, counts(currentRange), _
-String(counts(currentRange), &quot;*&quot;)
-Next currentRange
+                      stop As Long, interval As Long)
+    Dim i As Integer
+    Dim range As String
+    Dim counts As Object
+    Dim currentRange As String
+    Set counts = CreateObject(&quot;Scripting.Dictionary&quot;)
+    &#x27; Count frequencies
+    For i = LBound(values) To UBound(values)
+        range = Partition(values(i), start, stop, interval)
+        If Not counts.Exists(range) Then
+            counts.Add range, 0
+        End If
+        counts(range) = counts(range) + 1
+    Next i
+    &#x27; Display histogram
+    Debug.Print &quot;Range&quot;, &quot;Count&quot;, &quot;Chart&quot;
+    Debug.Print String(50, &quot;-&quot;)
+    For Each currentRange In counts.Keys
+        Debug.Print currentRange, counts(currentRange), _
+                    String(counts(currentRange), &quot;*&quot;)
+    Next currentRange
 End Sub</code></pre>
 <h3 id="pattern-3-classifyvalue">Pattern 3: <code>ClassifyValue</code></h3>
 <pre><code class="language-vbnet">Function ClassifyValue(value As Long, start As Long, _
-stop As Long, interval As Long) As String
-Dim range As String
-range = Partition(value, start, stop, interval)
-
-If InStr(range, &quot;:&quot;) = 1 Then
-ClassifyValue = &quot;Below Range&quot;
-ElseIf Right(range, 1) = &quot;:&quot; Then
-ClassifyValue = &quot;Above Range&quot;
-Else
-ClassifyValue = &quot;In Range: &quot; &amp; Trim(range)
-End If
+                       stop As Long, interval As Long) As String
+    Dim range As String
+    range = Partition(value, start, stop, interval)
+    If InStr(range, &quot;:&quot;) = 1 Then
+        ClassifyValue = &quot;Below Range&quot;
+    ElseIf Right(range, 1) = &quot;:&quot; Then
+        ClassifyValue = &quot;Above Range&quot;
+    Else
+        ClassifyValue = &quot;In Range: &quot; &amp; Trim(range)
+    End If
 End Function</code></pre>
 <h3 id="pattern-4-getrangeboundaries">Pattern 4: <code>GetRangeBoundaries</code></h3>
 <pre><code class="language-vbnet">Sub GetRangeBoundaries(partitionStr As String, _
-ByRef lower As Long, ByRef upper As Long)
-Dim parts() As String
-parts = Split(partitionStr, &quot;:&quot;)
-
-If UBound(parts) = 1 Then
-On Error Resume Next
-lower = CLng(Trim(parts(0)))
-upper = CLng(Trim(parts(1)))
-On Error GoTo 0
-End If
+                       ByRef lower As Long, ByRef upper As Long)
+    Dim parts() As String
+    parts = Split(partitionStr, &quot;:&quot;)
+    If UBound(parts) = 1 Then
+        On Error Resume Next
+        lower = CLng(Trim(parts(0)))
+        upper = CLng(Trim(parts(1)))
+        On Error GoTo 0
+    End If
 End Sub
 &#x27; Usage: GetRangeBoundaries(&quot; 20: 29&quot;, lower, upper)  &#x27; lower=20, upper=29</code></pre>
 <h3 id="pattern-5-analyzedatadistribution">Pattern 5: <code>AnalyzeDataDistribution</code></h3>
 <pre><code class="language-vbnet">Function AnalyzeDataDistribution(data() As Variant) As String
-Dim minVal As Long, maxVal As Long
-Dim i As Long
-Dim report As String
-Dim range As String
-Dim counts As Object
-
-&#x27; Find min and max
-minVal = data(LBound(data))
-maxVal = data(LBound(data))
-For i = LBound(data) + 1 To UBound(data)
-If data(i) &lt; minVal Then minVal = data(i)
-If data(i) &gt; maxVal Then maxVal = data(i)
-Next i
-
-&#x27; Build frequency table
-Set counts = CreateObject(&quot;Scripting.Dictionary&quot;)
-For i = LBound(data) To UBound(data)
-range = Partition(data(i), minVal, maxVal, (maxVal - minVal) \ 10)
-If Not counts.Exists(range) Then counts.Add range, 0
-counts(range) = counts(range) + 1
-Next i
-
-&#x27; Build report
-report = &quot;Data Distribution:&quot; &amp; vbCrLf
-For Each range In counts.Keys
-report = report &amp; range &amp; &quot;: &quot; &amp; counts(range) &amp; vbCrLf
-Next range
-
-AnalyzeDataDistribution = report
+    Dim minVal As Long, maxVal As Long
+    Dim i As Long
+    Dim report As String
+    Dim range As String
+    Dim counts As Object
+    &#x27; Find min and max
+    minVal = data(LBound(data))
+    maxVal = data(LBound(data))
+    For i = LBound(data) + 1 To UBound(data)
+        If data(i) &lt; minVal Then minVal = data(i)
+        If data(i) &gt; maxVal Then maxVal = data(i)
+    Next i
+    &#x27; Build frequency table
+    Set counts = CreateObject(&quot;Scripting.Dictionary&quot;)
+    For i = LBound(data) To UBound(data)
+        range = Partition(data(i), minVal, maxVal, (maxVal - minVal) \ 10)
+        If Not counts.Exists(range) Then counts.Add range, 0
+        counts(range) = counts(range) + 1
+    Next i
+    &#x27; Build report
+    report = &quot;Data Distribution:&quot; &amp; vbCrLf
+    For Each range In counts.Keys
+        report = report &amp; range &amp; &quot;: &quot; &amp; counts(range) &amp; vbCrLf
+    Next range
+    AnalyzeDataDistribution = report
 End Function</code></pre>
 <h3 id="pattern-6-validatepartitionparameters">Pattern 6: <code>ValidatePartitionParameters</code></h3>
 <pre><code class="language-vbnet">Function ValidatePartitionParameters(start As Long, stop As Long, _
-interval As Long) As Boolean
-ValidatePartitionParameters = False
-
-If start &lt; 0 Then
-MsgBox &quot;Start must be &gt;= 0&quot;
-Exit Function
-End If
-
-If stop &lt;= start Then
-MsgBox &quot;Stop must be &gt; start&quot;
-Exit Function
-End If
-
-If interval &lt; 1 Then
-MsgBox &quot;Interval must be &gt;= 1&quot;
-Exit Function
-End If
-
-ValidatePartitionParameters = True
+                                     interval As Long) As Boolean
+    ValidatePartitionParameters = False
+    If start &lt; 0 Then
+        MsgBox &quot;Start must be &gt;= 0&quot;
+        Exit Function
+    End If
+    If stop &lt;= start Then
+        MsgBox &quot;Stop must be &gt; start&quot;
+        Exit Function
+    End If
+    If interval &lt; 1 Then
+        MsgBox &quot;Interval must be &gt;= 1&quot;
+        Exit Function
+    End If
+    ValidatePartitionParameters = True
 End Function</code></pre>
 <h3 id="pattern-7-createrangelabels">Pattern 7: <code>CreateRangeLabels</code></h3>
 <pre><code class="language-vbnet">Function CreateRangeLabels(start As Long, stop As Long, _
-interval As Long) As String()
-Dim labels() As String
-Dim count As Long
-Dim i As Long
-Dim index As Long
-
-count = (stop - start) \ interval + 3  &#x27; +3 for below, above, and safety
-ReDim labels(0 To count)
-
-index = 0
-For i = start To stop Step interval
-labels(index) = Partition(i, start, stop, interval)
-index = index + 1
-Next i
-
-ReDim Preserve labels(0 To index - 1)
-CreateRangeLabels = labels
+                           interval As Long) As String()
+    Dim labels() As String
+    Dim count As Long
+    Dim i As Long
+    Dim index As Long
+    count = (stop - start) \ interval + 3  &#x27; +3 for below, above, and safety
+    ReDim labels(0 To count)
+    index = 0
+    For i = start To stop Step interval
+        labels(index) = Partition(i, start, stop, interval)
+        index = index + 1
+    Next i
+    ReDim Preserve labels(0 To index - 1)
+    CreateRangeLabels = labels
 End Function</code></pre>
 <h3 id="pattern-8-countinrange">Pattern 8: <code>CountInRange</code></h3>
 <pre><code class="language-vbnet">Function CountInRange(values() As Variant, targetRange As String, _
-start As Long, stop As Long, interval As Long) As Long
-Dim i As Long
-Dim count As Long
-
-count = 0
-For i = LBound(values) To UBound(values)
-If Partition(values(i), start, stop, interval) = targetRange Then
-count = count + 1
-End If
-Next i
-
-CountInRange = count
+                      start As Long, stop As Long, interval As Long) As Long
+    Dim i As Long
+    Dim count As Long
+    count = 0
+    For i = LBound(values) To UBound(values)
+        If Partition(values(i), start, stop, interval) = targetRange Then
+            count = count + 1
+        End If
+    Next i
+    CountInRange = count
 End Function</code></pre>
 <h3 id="pattern-9-getrangemidpoint">Pattern 9: <code>GetRangeMidpoint</code></h3>
 <pre><code class="language-vbnet">Function GetRangeMidpoint(partitionStr As String) As Double
-Dim lower As Long, upper As Long
-Dim parts() As String
-
-parts = Split(partitionStr, &quot;:&quot;)
-If UBound(parts) = 1 Then
-On Error Resume Next
-lower = CLng(Trim(parts(0)))
-upper = CLng(Trim(parts(1)))
-If Err.Number = 0 Then
-GetRangeMidpoint = (lower + upper) / 2
-End If
-On Error GoTo 0
-End If
+    Dim lower As Long, upper As Long
+    Dim parts() As String
+    parts = Split(partitionStr, &quot;:&quot;)
+    If UBound(parts) = 1 Then
+        On Error Resume Next
+        lower = CLng(Trim(parts(0)))
+        upper = CLng(Trim(parts(1)))
+        If Err.Number = 0 Then
+            GetRangeMidpoint = (lower + upper) / 2
+        End If
+        On Error GoTo 0
+    End If
 End Function</code></pre>
 <h3 id="pattern-10-groupbyrange">Pattern 10: <code>GroupByRange</code></h3>
 <pre><code class="language-vbnet">Function GroupByRange(values() As Variant, start As Long, _
-stop As Long, interval As Long) As Object
-Dim groups As Object
-Dim i As Long
-Dim range As String
-Dim groupItems As Collection
-
-Set groups = CreateObject(&quot;Scripting.Dictionary&quot;)
-
-For i = LBound(values) To UBound(values)
-range = Partition(values(i), start, stop, interval)
-
-If Not groups.Exists(range) Then
-Set groupItems = New Collection
-groups.Add range, groupItems
-End If
-
-groups(range).Add values(i)
-Next i
-
-Set GroupByRange = groups
+                      stop As Long, interval As Long) As Object
+    Dim groups As Object
+    Dim i As Long
+    Dim range As String
+    Dim groupItems As Collection
+    Set groups = CreateObject(&quot;Scripting.Dictionary&quot;)
+    For i = LBound(values) To UBound(values)
+        range = Partition(values(i), start, stop, interval)
+        If Not groups.Exists(range) Then
+            Set groupItems = New Collection
+            groups.Add range, groupItems
+        End If
+        groups(range).Add values(i)
+    Next i
+    Set GroupByRange = groups
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-statistical-analysis-tool">Example 1: Statistical Analysis Tool</h3>
 <pre><code class="language-vbnet">&#x27; Comprehensive statistical analysis using Partition
 Class StatisticalAnalyzer
-Private m_data() As Double
-Private m_binCount As Long
-Private m_minValue As Double
-Private m_maxValue As Double
-
-Public Sub LoadData(data() As Double)
-Dim i As Long
-ReDim m_data(LBound(data) To UBound(data))
-
-m_minValue = data(LBound(data))
-m_maxValue = data(LBound(data))
-
-For i = LBound(data) To UBound(data)
-m_data(i) = data(i)
-If data(i) &lt; m_minValue Then m_minValue = data(i)
-If data(i) &gt; m_maxValue Then m_maxValue = data(i)
-Next i
-End Sub
-
-Public Property Let BinCount(value As Long)
-If value &gt; 0 Then m_binCount = value
-End Property
-
-Public Function GetFrequencyDistribution() As Object
-Dim freq As Object
-Dim i As Long
-Dim interval As Long
-Dim range As String
-Dim start As Long, stop As Long
-
-Set freq = CreateObject(&quot;Scripting.Dictionary&quot;)
-
-start = Int(m_minValue)
-stop = Int(m_maxValue)
-interval = (stop - start) \ m_binCount
-If interval &lt; 1 Then interval = 1
-
-For i = LBound(m_data) To UBound(m_data)
-range = Partition(Int(m_data(i)), start, stop, interval)
-If Not freq.Exists(range) Then
-freq.Add range, 0
-End If
-freq(range) = freq(range) + 1
-Next i
-
-Set GetFrequencyDistribution = freq
-End Function
-
-Public Function GetHistogramData() As Object
-Dim histogram As Object
-Dim freq As Object
-Dim range As Variant
-Dim item As Object
-
-Set freq = GetFrequencyDistribution()
-Set histogram = CreateObject(&quot;Scripting.Dictionary&quot;)
-
-For Each range In freq.Keys
-Set item = CreateObject(&quot;Scripting.Dictionary&quot;)
-item.Add &quot;Range&quot;, range
-item.Add &quot;Count&quot;, freq(range)
-item.Add &quot;Percentage&quot;, (freq(range) / UBound(m_data)) * 100
-histogram.Add range, item
-Next range
-
-Set GetHistogramData = histogram
-End Function
-
-Public Function GenerateReport() As String
-Dim report As String
-Dim histogram As Object
-Dim range As Variant
-Dim maxCount As Long
-Dim barWidth As Long
-
-Set histogram = GetHistogramData()
-
-&#x27; Find max count for scaling
-maxCount = 0
-For Each range In histogram.Keys
-If histogram(range)(&quot;Count&quot;) &gt; maxCount Then
-maxCount = histogram(range)(&quot;Count&quot;)
-End If
-Next range
-
-report = &quot;Frequency Distribution Report&quot; &amp; vbCrLf
-report = report &amp; String(60, &quot;=&quot;) &amp; vbCrLf
-report = report &amp; &quot;Data Points: &quot; &amp; UBound(m_data) + 1 &amp; vbCrLf
-report = report &amp; &quot;Min Value: &quot; &amp; m_minValue &amp; vbCrLf
-report = report &amp; &quot;Max Value: &quot; &amp; m_maxValue &amp; vbCrLf
-report = report &amp; String(60, &quot;-&quot;) &amp; vbCrLf
-report = report &amp; &quot;Range          Count    Pct    Chart&quot; &amp; vbCrLf
-report = report &amp; String(60, &quot;-&quot;) &amp; vbCrLf
-
-For Each range In histogram.Keys
-barWidth = Int((histogram(range)(&quot;Count&quot;) / maxCount) * 30)
-report = report &amp; range &amp; &quot;  &quot; &amp; _
-Format(histogram(range)(&quot;Count&quot;), &quot;0000&quot;) &amp; &quot;  &quot; &amp; _
-Format(histogram(range)(&quot;Percentage&quot;), &quot;00.0&quot;) &amp; &quot;%  &quot; &amp; _
-String(barWidth, &quot;#&quot;) &amp; vbCrLf
-Next range
-
-GenerateReport = report
-End Function
-
-Public Function GetModeRange() As String
-&#x27; Find the range with the highest frequency
-Dim freq As Object
-Dim range As Variant
-Dim maxCount As Long
-Dim modeRange As String
-
-Set freq = GetFrequencyDistribution()
-maxCount = 0
-
-For Each range In freq.Keys
-If freq(range) &gt; maxCount Then
-maxCount = freq(range)
-modeRange = range
-End If
-Next range
-
-GetModeRange = modeRange
-End Function
+    Private m_data() As Double
+    Private m_binCount As Long
+    Private m_minValue As Double
+    Private m_maxValue As Double
+    Public Sub LoadData(data() As Double)
+        Dim i As Long
+        ReDim m_data(LBound(data) To UBound(data))
+        m_minValue = data(LBound(data))
+        m_maxValue = data(LBound(data))
+        For i = LBound(data) To UBound(data)
+            m_data(i) = data(i)
+            If data(i) &lt; m_minValue Then m_minValue = data(i)
+            If data(i) &gt; m_maxValue Then m_maxValue = data(i)
+        Next i
+    End Sub
+    Public Property Let BinCount(value As Long)
+        If value &gt; 0 Then m_binCount = value
+    End Property
+    Public Function GetFrequencyDistribution() As Object
+        Dim freq As Object
+        Dim i As Long
+        Dim interval As Long
+        Dim range As String
+        Dim start As Long, stop As Long
+        Set freq = CreateObject(&quot;Scripting.Dictionary&quot;)
+        start = Int(m_minValue)
+        stop = Int(m_maxValue)
+        interval = (stop - start) \ m_binCount
+        If interval &lt; 1 Then interval = 1
+        For i = LBound(m_data) To UBound(m_data)
+            range = Partition(Int(m_data(i)), start, stop, interval)
+            If Not freq.Exists(range) Then
+                freq.Add range, 0
+            End If
+            freq(range) = freq(range) + 1
+        Next i
+        Set GetFrequencyDistribution = freq
+    End Function
+    Public Function GetHistogramData() As Object
+        Dim histogram As Object
+        Dim freq As Object
+        Dim range As Variant
+        Dim item As Object
+        Set freq = GetFrequencyDistribution()
+        Set histogram = CreateObject(&quot;Scripting.Dictionary&quot;)
+        For Each range In freq.Keys
+            Set item = CreateObject(&quot;Scripting.Dictionary&quot;)
+            item.Add &quot;Range&quot;, range
+            item.Add &quot;Count&quot;, freq(range)
+            item.Add &quot;Percentage&quot;, (freq(range) / UBound(m_data)) * 100
+            histogram.Add range, item
+        Next range
+        Set GetHistogramData = histogram
+    End Function
+    Public Function GenerateReport() As String
+        Dim report As String
+        Dim histogram As Object
+        Dim range As Variant
+        Dim maxCount As Long
+        Dim barWidth As Long
+        Set histogram = GetHistogramData()
+        &#x27; Find max count for scaling
+        maxCount = 0
+        For Each range In histogram.Keys
+            If histogram(range)(&quot;Count&quot;) &gt; maxCount Then
+                maxCount = histogram(range)(&quot;Count&quot;)
+            End If
+        Next range
+        report = &quot;Frequency Distribution Report&quot; &amp; vbCrLf
+        report = report &amp; String(60, &quot;=&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Data Points: &quot; &amp; UBound(m_data) + 1 &amp; vbCrLf
+        report = report &amp; &quot;Min Value: &quot; &amp; m_minValue &amp; vbCrLf
+        report = report &amp; &quot;Max Value: &quot; &amp; m_maxValue &amp; vbCrLf
+        report = report &amp; String(60, &quot;-&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Range          Count    Pct    Chart&quot; &amp; vbCrLf
+        report = report &amp; String(60, &quot;-&quot;) &amp; vbCrLf
+        For Each range In histogram.Keys
+            barWidth = Int((histogram(range)(&quot;Count&quot;) / maxCount) * 30)
+            report = report &amp; range &amp; &quot;  &quot; &amp; _
+                     Format(histogram(range)(&quot;Count&quot;), &quot;0000&quot;) &amp; &quot;  &quot; &amp; _
+                     Format(histogram(range)(&quot;Percentage&quot;), &quot;00.0&quot;) &amp; &quot;%  &quot; &amp; _
+                     String(barWidth, &quot;#&quot;) &amp; vbCrLf
+        Next range
+        GenerateReport = report
+    End Function
+    Public Function GetModeRange() As String
+        &#x27; Find the range with the highest frequency
+        Dim freq As Object
+        Dim range As Variant
+        Dim maxCount As Long
+        Dim modeRange As String
+        Set freq = GetFrequencyDistribution()
+        maxCount = 0
+        For Each range In freq.Keys
+            If freq(range) &gt; maxCount Then
+                maxCount = freq(range)
+                modeRange = range
+            End If
+        Next range
+        GetModeRange = modeRange
+    End Function
 End Class</code></pre>
 <h3 id="example-2-sales-performance-analyzer">Example 2: Sales Performance Analyzer</h3>
 <pre><code class="language-vbnet">&#x27; Analyze sales performance by grouping into performance bands
 Module SalesAnalyzer
-Private Type SalesRecord
-SalesPerson As String
-Amount As Currency
-Date As Date
-End Type
-
-Public Function AnalyzeSalesPerformance(sales() As SalesRecord) As String
-Dim i As Long
-Dim minSale As Currency, maxSale As Currency
-Dim interval As Currency
-Dim performanceBands As Object
-Dim range As String
-Dim report As String
-Dim totalSales As Long
-
-&#x27; Find range
-minSale = sales(LBound(sales)).Amount
-maxSale = sales(LBound(sales)).Amount
-For i = LBound(sales) To UBound(sales)
-If sales(i).Amount &lt; minSale Then minSale = sales(i).Amount
-If sales(i).Amount &gt; maxSale Then maxSale = sales(i).Amount
-Next i
-
-&#x27; Create 5 performance bands
-interval = Int((maxSale - minSale) / 5)
-If interval &lt; 1 Then interval = 1
-
-Set performanceBands = CreateObject(&quot;Scripting.Dictionary&quot;)
-
-&#x27; Categorize sales
-totalSales = UBound(sales) - LBound(sales) + 1
-For i = LBound(sales) To UBound(sales)
-range = Partition(Int(sales(i).Amount), Int(minSale), _
-Int(maxSale), interval)
-If Not performanceBands.Exists(range) Then
-performanceBands.Add range, 0
-End If
-performanceBands(range) = performanceBands(range) + 1
-Next i
-
-&#x27; Generate report
-report = &quot;Sales Performance Analysis&quot; &amp; vbCrLf
-report = report &amp; String(50, &quot;=&quot;) &amp; vbCrLf
-report = report &amp; &quot;Total Sales: &quot; &amp; totalSales &amp; vbCrLf
-report = report &amp; &quot;Range: $&quot; &amp; Format(minSale, &quot;#,##0&quot;) &amp; _
-&quot; - $&quot; &amp; Format(maxSale, &quot;#,##0&quot;) &amp; vbCrLf
-report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
-
-For Each range In performanceBands.Keys
-report = report &amp; &quot;Range &quot; &amp; range &amp; &quot;: &quot; &amp; _
-performanceBands(range) &amp; &quot; sales (&quot; &amp; _
-Format((performanceBands(range) / totalSales) * 100, &quot;0.0&quot;) &amp; _
-&quot;%)&quot; &amp; vbCrLf
-Next range
-
-AnalyzeSalesPerformance = report
-End Function
-
-Public Function GetPerformanceLevel(amount As Currency, _
-minAmount As Currency, _
-maxAmount As Currency) As String
-Dim range As String
-Dim interval As Currency
-
-interval = (maxAmount - minAmount) / 5
-range = Partition(Int(amount), Int(minAmount), Int(maxAmount), Int(interval))
-
-&#x27; Convert to performance labels
-Dim parts() As String
-Dim lowerBound As Long
-parts = Split(range, &quot;:&quot;)
-
-On Error Resume Next
-lowerBound = CLng(Trim(parts(0)))
-On Error GoTo 0
-
-If lowerBound &lt;= minAmount + interval Then
-GetPerformanceLevel = &quot;Needs Improvement&quot;
-ElseIf lowerBound &lt;= minAmount + interval * 2 Then
-GetPerformanceLevel = &quot;Below Average&quot;
-ElseIf lowerBound &lt;= minAmount + interval * 3 Then
-GetPerformanceLevel = &quot;Average&quot;
-ElseIf lowerBound &lt;= minAmount + interval * 4 Then
-GetPerformanceLevel = &quot;Above Average&quot;
-Else
-GetPerformanceLevel = &quot;Excellent&quot;
-End If
-End Function
+    Private Type SalesRecord
+        SalesPerson As String
+        Amount As Currency
+        Date As Date
+    End Type
+    Public Function AnalyzeSalesPerformance(sales() As SalesRecord) As String
+        Dim i As Long
+        Dim minSale As Currency, maxSale As Currency
+        Dim interval As Currency
+        Dim performanceBands As Object
+        Dim range As String
+        Dim report As String
+        Dim totalSales As Long
+        &#x27; Find range
+        minSale = sales(LBound(sales)).Amount
+        maxSale = sales(LBound(sales)).Amount
+        For i = LBound(sales) To UBound(sales)
+            If sales(i).Amount &lt; minSale Then minSale = sales(i).Amount
+            If sales(i).Amount &gt; maxSale Then maxSale = sales(i).Amount
+        Next i
+        &#x27; Create 5 performance bands
+        interval = Int((maxSale - minSale) / 5)
+        If interval &lt; 1 Then interval = 1
+        Set performanceBands = CreateObject(&quot;Scripting.Dictionary&quot;)
+        &#x27; Categorize sales
+        totalSales = UBound(sales) - LBound(sales) + 1
+        For i = LBound(sales) To UBound(sales)
+            range = Partition(Int(sales(i).Amount), Int(minSale), _
+                             Int(maxSale), interval)
+            If Not performanceBands.Exists(range) Then
+                performanceBands.Add range, 0
+            End If
+            performanceBands(range) = performanceBands(range) + 1
+        Next i
+        &#x27; Generate report
+        report = &quot;Sales Performance Analysis&quot; &amp; vbCrLf
+        report = report &amp; String(50, &quot;=&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Total Sales: &quot; &amp; totalSales &amp; vbCrLf
+        report = report &amp; &quot;Range: $&quot; &amp; Format(minSale, &quot;#,##0&quot;) &amp; _
+                 &quot; - $&quot; &amp; Format(maxSale, &quot;#,##0&quot;) &amp; vbCrLf
+        report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+        For Each range In performanceBands.Keys
+            report = report &amp; &quot;Range &quot; &amp; range &amp; &quot;: &quot; &amp; _
+                     performanceBands(range) &amp; &quot; sales (&quot; &amp; _
+                     Format((performanceBands(range) / totalSales) * 100, &quot;0.0&quot;) &amp; _
+                     &quot;%)&quot; &amp; vbCrLf
+        Next range
+        AnalyzeSalesPerformance = report
+    End Function
+    Public Function GetPerformanceLevel(amount As Currency, _
+                                        minAmount As Currency, _
+                                        maxAmount As Currency) As String
+        Dim range As String
+        Dim interval As Currency
+        interval = (maxAmount - minAmount) / 5
+        range = Partition(Int(amount), Int(minAmount), Int(maxAmount), Int(interval))
+        &#x27; Convert to performance labels
+        Dim parts() As String
+        Dim lowerBound As Long
+        parts = Split(range, &quot;:&quot;)
+        On Error Resume Next
+        lowerBound = CLng(Trim(parts(0)))
+        On Error GoTo 0
+        If lowerBound &lt;= minAmount + interval Then
+            GetPerformanceLevel = &quot;Needs Improvement&quot;
+        ElseIf lowerBound &lt;= minAmount + interval * 2 Then
+            GetPerformanceLevel = &quot;Below Average&quot;
+        ElseIf lowerBound &lt;= minAmount + interval * 3 Then
+            GetPerformanceLevel = &quot;Average&quot;
+        ElseIf lowerBound &lt;= minAmount + interval * 4 Then
+            GetPerformanceLevel = &quot;Above Average&quot;
+        Else
+            GetPerformanceLevel = &quot;Excellent&quot;
+        End If
+    End Function
 End Module</code></pre>
 <h3 id="example-3-age-demographics-tool">Example 3: Age Demographics Tool</h3>
 <pre><code class="language-vbnet">&#x27; Tool for analyzing age demographics with Partition
 Class AgeDemographicsAnalyzer
-Private m_ages() As Integer
-Private m_ageGroupSize As Integer
-
-Public Sub Initialize(ages() As Integer, groupSize As Integer)
-Dim i As Long
-ReDim m_ages(LBound(ages) To UBound(ages))
-For i = LBound(ages) To UBound(ages)
-m_ages(i) = ages(i)
-Next i
-m_ageGroupSize = groupSize
-End Sub
-
-Public Function GetAgeDistribution() As Object
-Dim dist As Object
-Dim i As Long
-Dim range As String
-
-Set dist = CreateObject(&quot;Scripting.Dictionary&quot;)
-
-For i = LBound(m_ages) To UBound(m_ages)
-range = Partition(m_ages(i), 0, 120, m_ageGroupSize)
-If Not dist.Exists(range) Then
-dist.Add range, 0
-End If
-dist(range) = dist(range) + 1
-Next i
-
-Set GetAgeDistribution = dist
-End Function
-
-Public Function GetAgeGroupName(age As Integer) As String
-Dim range As String
-range = Partition(age, 0, 120, m_ageGroupSize)
-
-Select Case m_ageGroupSize
-Case 10
-&#x27; Decades
-If InStr(range, &quot; 0:&quot;) &gt; 0 Then
-GetAgeGroupName = &quot;Children (0-9)&quot;
-ElseIf InStr(range, &quot;10:&quot;) &gt; 0 Then
-GetAgeGroupName = &quot;Teens (10-19)&quot;
-ElseIf InStr(range, &quot;20:&quot;) &gt; 0 Then
-GetAgeGroupName = &quot;Twenties (20-29)&quot;
-ElseIf InStr(range, &quot;30:&quot;) &gt; 0 Then
-GetAgeGroupName = &quot;Thirties (30-39)&quot;
-ElseIf InStr(range, &quot;40:&quot;) &gt; 0 Then
-GetAgeGroupName = &quot;Forties (40-49)&quot;
-ElseIf InStr(range, &quot;50:&quot;) &gt; 0 Then
-GetAgeGroupName = &quot;Fifties (50-59)&quot;
-ElseIf InStr(range, &quot;60:&quot;) &gt; 0 Then
-GetAgeGroupName = &quot;Sixties (60-69)&quot;
-Else
-GetAgeGroupName = &quot;70+&quot;
-End If
-Case Else
-GetAgeGroupName = Trim(range)
-End Select
-End Function
-
-Public Function GenerateDemographicsReport() As String
-Dim report As String
-Dim dist As Object
-Dim range As Variant
-Dim total As Long
-
-Set dist = GetAgeDistribution()
-total = UBound(m_ages) - LBound(m_ages) + 1
-
-report = &quot;Age Demographics Report&quot; &amp; vbCrLf
-report = report &amp; String(50, &quot;=&quot;) &amp; vbCrLf
-report = report &amp; &quot;Total Population: &quot; &amp; total &amp; vbCrLf
-report = report &amp; &quot;Age Group Size: &quot; &amp; m_ageGroupSize &amp; &quot; years&quot; &amp; vbCrLf
-report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
-report = report &amp; &quot;Age Range      Count    Percentage&quot; &amp; vbCrLf
-report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
-
-For Each range In dist.Keys
-report = report &amp; range &amp; &quot;  &quot; &amp; _
-Format(dist(range), &quot;0000&quot;) &amp; &quot;    &quot; &amp; _
-Format((dist(range) / total) * 100, &quot;00.0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-Next range
-
-GenerateDemographicsReport = report
-End Function
-
-Public Function GetMedianAgeRange() As String
-&#x27; Find the range containing the median age
-Dim sortedAges() As Integer
-Dim i As Long
-Dim medianAge As Integer
-
-&#x27; Copy and sort ages
-ReDim sortedAges(LBound(m_ages) To UBound(m_ages))
-For i = LBound(m_ages) To UBound(m_ages)
-sortedAges(i) = m_ages(i)
-Next i
-
-&#x27; Simple bubble sort (for demonstration)
-Dim temp As Integer, j As Long
-For i = LBound(sortedAges) To UBound(sortedAges) - 1
-For j = i + 1 To UBound(sortedAges)
-If sortedAges(i) &gt; sortedAges(j) Then
-temp = sortedAges(i)
-sortedAges(i) = sortedAges(j)
-sortedAges(j) = temp
-End If
-Next j
-Next i
-
-&#x27; Get median
-medianAge = sortedAges((LBound(sortedAges) + UBound(sortedAges)) \ 2)
-
-GetMedianAgeRange = Partition(medianAge, 0, 120, m_ageGroupSize)
-End Function
+    Private m_ages() As Integer
+    Private m_ageGroupSize As Integer
+    Public Sub Initialize(ages() As Integer, groupSize As Integer)
+        Dim i As Long
+        ReDim m_ages(LBound(ages) To UBound(ages))
+        For i = LBound(ages) To UBound(ages)
+            m_ages(i) = ages(i)
+        Next i
+        m_ageGroupSize = groupSize
+    End Sub
+    Public Function GetAgeDistribution() As Object
+        Dim dist As Object
+        Dim i As Long
+        Dim range As String
+        Set dist = CreateObject(&quot;Scripting.Dictionary&quot;)
+        For i = LBound(m_ages) To UBound(m_ages)
+            range = Partition(m_ages(i), 0, 120, m_ageGroupSize)
+            If Not dist.Exists(range) Then
+                dist.Add range, 0
+            End If
+            dist(range) = dist(range) + 1
+        Next i
+        Set GetAgeDistribution = dist
+    End Function
+    Public Function GetAgeGroupName(age As Integer) As String
+        Dim range As String
+        range = Partition(age, 0, 120, m_ageGroupSize)
+        Select Case m_ageGroupSize
+            Case 10
+                &#x27; Decades
+                If InStr(range, &quot; 0:&quot;) &gt; 0 Then
+                    GetAgeGroupName = &quot;Children (0-9)&quot;
+                ElseIf InStr(range, &quot;10:&quot;) &gt; 0 Then
+                    GetAgeGroupName = &quot;Teens (10-19)&quot;
+                ElseIf InStr(range, &quot;20:&quot;) &gt; 0 Then
+                    GetAgeGroupName = &quot;Twenties (20-29)&quot;
+                ElseIf InStr(range, &quot;30:&quot;) &gt; 0 Then
+                    GetAgeGroupName = &quot;Thirties (30-39)&quot;
+                ElseIf InStr(range, &quot;40:&quot;) &gt; 0 Then
+                    GetAgeGroupName = &quot;Forties (40-49)&quot;
+                ElseIf InStr(range, &quot;50:&quot;) &gt; 0 Then
+                    GetAgeGroupName = &quot;Fifties (50-59)&quot;
+                ElseIf InStr(range, &quot;60:&quot;) &gt; 0 Then
+                    GetAgeGroupName = &quot;Sixties (60-69)&quot;
+                Else
+                    GetAgeGroupName = &quot;70+&quot;
+                End If
+            Case Else
+                GetAgeGroupName = Trim(range)
+        End Select
+    End Function
+    Public Function GenerateDemographicsReport() As String
+        Dim report As String
+        Dim dist As Object
+        Dim range As Variant
+        Dim total As Long
+        Set dist = GetAgeDistribution()
+        total = UBound(m_ages) - LBound(m_ages) + 1
+        report = &quot;Age Demographics Report&quot; &amp; vbCrLf
+        report = report &amp; String(50, &quot;=&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Total Population: &quot; &amp; total &amp; vbCrLf
+        report = report &amp; &quot;Age Group Size: &quot; &amp; m_ageGroupSize &amp; &quot; years&quot; &amp; vbCrLf
+        report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Age Range      Count    Percentage&quot; &amp; vbCrLf
+        report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+        For Each range In dist.Keys
+            report = report &amp; range &amp; &quot;  &quot; &amp; _
+                     Format(dist(range), &quot;0000&quot;) &amp; &quot;    &quot; &amp; _
+                     Format((dist(range) / total) * 100, &quot;00.0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+        Next range
+        GenerateDemographicsReport = report
+    End Function
+    Public Function GetMedianAgeRange() As String
+        &#x27; Find the range containing the median age
+        Dim sortedAges() As Integer
+        Dim i As Long
+        Dim medianAge As Integer
+        &#x27; Copy and sort ages
+        ReDim sortedAges(LBound(m_ages) To UBound(m_ages))
+        For i = LBound(m_ages) To UBound(m_ages)
+            sortedAges(i) = m_ages(i)
+        Next i
+        &#x27; Simple bubble sort (for demonstration)
+        Dim temp As Integer, j As Long
+        For i = LBound(sortedAges) To UBound(sortedAges) - 1
+            For j = i + 1 To UBound(sortedAges)
+                If sortedAges(i) &gt; sortedAges(j) Then
+                    temp = sortedAges(i)
+                    sortedAges(i) = sortedAges(j)
+                    sortedAges(j) = temp
+                End If
+            Next j
+        Next i
+        &#x27; Get median
+        medianAge = sortedAges((LBound(sortedAges) + UBound(sortedAges)) \ 2)
+        GetMedianAgeRange = Partition(medianAge, 0, 120, m_ageGroupSize)
+    End Function
 End Class</code></pre>
 <h3 id="example-4-test-score-grading-system">Example 4: Test Score Grading System</h3>
 <pre><code class="language-vbnet">&#x27; Automatic grading system using Partition
 Module GradingSystem
-Public Function GetLetterGrade(score As Integer) As String
-Dim range As String
-
-&#x27; Use Partition to determine grade range (0-100, intervals of 10)
-range = Partition(score, 0, 100, 10)
-
-&#x27; Convert range to letter grade
-If score &gt;= 90 Then
-GetLetterGrade = &quot;A&quot;
-ElseIf score &gt;= 80 Then
-GetLetterGrade = &quot;B&quot;
-ElseIf score &gt;= 70 Then
-GetLetterGrade = &quot;C&quot;
-ElseIf score &gt;= 60 Then
-GetLetterGrade = &quot;D&quot;
-Else
-GetLetterGrade = &quot;F&quot;
-End If
-End Function
-
-Public Function AnalyzeClassScores(scores() As Integer) As String
-Dim gradeDistribution As Object
-Dim i As Long
-Dim range As String
-Dim report As String
-Dim total As Long
-
-Set gradeDistribution = CreateObject(&quot;Scripting.Dictionary&quot;)
-total = UBound(scores) - LBound(scores) + 1
-
-&#x27; Count scores in each range
-For i = LBound(scores) To UBound(scores)
-range = Partition(scores(i), 0, 100, 10)
-If Not gradeDistribution.Exists(range) Then
-gradeDistribution.Add range, 0
-End If
-gradeDistribution(range) = gradeDistribution(range) + 1
-Next i
-
-&#x27; Build report
-report = &quot;Class Score Distribution&quot; &amp; vbCrLf
-report = report &amp; String(40, &quot;=&quot;) &amp; vbCrLf
-report = report &amp; &quot;Total Students: &quot; &amp; total &amp; vbCrLf
-report = report &amp; String(40, &quot;-&quot;) &amp; vbCrLf
-
-For Each range In gradeDistribution.Keys
-report = report &amp; range &amp; &quot;: &quot; &amp; gradeDistribution(range) &amp; _
-&quot; (&quot; &amp; Format((gradeDistribution(range) / total) * 100, &quot;0.0&quot;) &amp; _
-&quot;%)&quot; &amp; vbCrLf
-Next range
-
-AnalyzeClassScores = report
-End Function
-
-Public Function GetClassStatistics(scores() As Integer) As Object
-Dim stats As Object
-Dim dist As Object
-Dim i As Long
-Dim range As String
-Dim sum As Long
-Dim passingCount As Long
-
-Set stats = CreateObject(&quot;Scripting.Dictionary&quot;)
-Set dist = CreateObject(&quot;Scripting.Dictionary&quot;)
-
-sum = 0
-passingCount = 0
-
-For i = LBound(scores) To UBound(scores)
-sum = sum + scores(i)
-If scores(i) &gt;= 60 Then passingCount = passingCount + 1
-
-range = Partition(scores(i), 0, 100, 10)
-If Not dist.Exists(range) Then dist.Add range, 0
-dist(range) = dist(range) + 1
-Next i
-
-stats.Add &quot;Average&quot;, sum / (UBound(scores) - LBound(scores) + 1)
-stats.Add &quot;PassingRate&quot;, (passingCount / (UBound(scores) - LBound(scores) + 1)) * 100
-stats.Add &quot;Distribution&quot;, dist
-
-Set GetClassStatistics = stats
-End Function
+    Public Function GetLetterGrade(score As Integer) As String
+        Dim range As String
+        &#x27; Use Partition to determine grade range (0-100, intervals of 10)
+        range = Partition(score, 0, 100, 10)
+        &#x27; Convert range to letter grade
+        If score &gt;= 90 Then
+            GetLetterGrade = &quot;A&quot;
+        ElseIf score &gt;= 80 Then
+            GetLetterGrade = &quot;B&quot;
+        ElseIf score &gt;= 70 Then
+            GetLetterGrade = &quot;C&quot;
+        ElseIf score &gt;= 60 Then
+            GetLetterGrade = &quot;D&quot;
+        Else
+            GetLetterGrade = &quot;F&quot;
+        End If
+    End Function
+    Public Function AnalyzeClassScores(scores() As Integer) As String
+        Dim gradeDistribution As Object
+        Dim i As Long
+        Dim range As String
+        Dim report As String
+        Dim total As Long
+        Set gradeDistribution = CreateObject(&quot;Scripting.Dictionary&quot;)
+        total = UBound(scores) - LBound(scores) + 1
+        &#x27; Count scores in each range
+        For i = LBound(scores) To UBound(scores)
+            range = Partition(scores(i), 0, 100, 10)
+            If Not gradeDistribution.Exists(range) Then
+                gradeDistribution.Add range, 0
+            End If
+            gradeDistribution(range) = gradeDistribution(range) + 1
+        Next i
+        &#x27; Build report
+        report = &quot;Class Score Distribution&quot; &amp; vbCrLf
+        report = report &amp; String(40, &quot;=&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Total Students: &quot; &amp; total &amp; vbCrLf
+        report = report &amp; String(40, &quot;-&quot;) &amp; vbCrLf
+        For Each range In gradeDistribution.Keys
+            report = report &amp; range &amp; &quot;: &quot; &amp; gradeDistribution(range) &amp; _
+                     &quot; (&quot; &amp; Format((gradeDistribution(range) / total) * 100, &quot;0.0&quot;) &amp; _
+                     &quot;%)&quot; &amp; vbCrLf
+        Next range
+        AnalyzeClassScores = report
+    End Function
+    Public Function GetClassStatistics(scores() As Integer) As Object
+        Dim stats As Object
+        Dim dist As Object
+        Dim i As Long
+        Dim range As String
+        Dim sum As Long
+        Dim passingCount As Long
+        Set stats = CreateObject(&quot;Scripting.Dictionary&quot;)
+        Set dist = CreateObject(&quot;Scripting.Dictionary&quot;)
+        sum = 0
+        passingCount = 0
+        For i = LBound(scores) To UBound(scores)
+            sum = sum + scores(i)
+            If scores(i) &gt;= 60 Then passingCount = passingCount + 1
+            range = Partition(scores(i), 0, 100, 10)
+            If Not dist.Exists(range) Then dist.Add range, 0
+            dist(range) = dist(range) + 1
+        Next i
+        stats.Add &quot;Average&quot;, sum / (UBound(scores) - LBound(scores) + 1)
+        stats.Add &quot;PassingRate&quot;, (passingCount / (UBound(scores) - LBound(scores) + 1)) * 100
+        stats.Add &quot;Distribution&quot;, dist
+        Set GetClassStatistics = stats
+    End Function
 End Module</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>Partition</code> function can raise errors in the following situations:</p>
-<ul>
-<li><strong>Invalid Procedure Call (Error 5)</strong>: When:</li>
-<li><code>start</code> is less than 0</li>
-<li><code>stop</code> is less than or equal to <code>start</code></li>
-<li><code>interval</code> is less than 1</li>
-<li><strong>Type Mismatch (Error 13)</strong>: When arguments cannot be converted to whole numbers</li>
-<li><strong>Overflow (Error 6)</strong>: When calculated values exceed data type limits</li>
-</ul>
-<p>Always validate parameters before calling <code>Partition</code>:</p>
+<p>The <code>Partition</code> function can raise errors in the following situations:
+- <strong>Invalid Procedure Call (Error 5)</strong>: When:
+  - <code>start</code> is less than 0
+  - <code>stop</code> is less than or equal to <code>start</code>
+  - <code>interval</code> is less than 1
+- <strong>Type Mismatch (Error 13)</strong>: When arguments cannot be converted to whole numbers
+- <strong>Overflow (Error 6)</strong>: When calculated values exceed data type limits
+Always validate parameters before calling <code>Partition</code>:</p>
 <pre><code class="language-vbnet">If start &gt;= 0 And stop &gt; start And interval &gt;= 1 Then
-range = Partition(value, start, stop, interval)
+    range = Partition(value, start, stop, interval)
 Else
-MsgBox &quot;Invalid partition parameters&quot;
+    MsgBox &quot;Invalid partition parameters&quot;
 End If</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
@@ -833,34 +731,128 @@ End If</code></pre>
 <td>N/A (statement)</td>
 <td>Complex conditional logic</td>
 </tr>
+<tr>
+<td>## Platform and Version Notes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in VBA and VB6</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Behavior is consistent across Windows platforms</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- The returned string format is fixed and cannot be customized</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- All parameters must be whole numbers (fractional parts are truncated)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Maximum values limited by Long data type (approximately ±2 billion)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Only works with whole numbers; fractional values are truncated</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot customize the output format (padding, separators, etc.)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Parameters must fit in Long data type range</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No built-in frequency counting; must implement separately</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- String result requires parsing to extract numeric boundaries</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot specify custom labels for ranges</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- All ranges must have equal intervals (except first/last special cases)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Related Functions</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Switch</code>: Evaluates a list of expressions and returns associated value</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Choose</code>: Returns a value from a list based on position</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>IIf</code>: Returns one of two values based on a condition</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Format</code>: Formats values as strings with custom patterns</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>InStr</code>: Searches for substring within a string (useful for parsing Partition results)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
-<ul>
-<li>Available in VBA and VB6</li>
-<li>Behavior is consistent across Windows platforms</li>
-<li>The returned string format is fixed and cannot be customized</li>
-<li>All parameters must be whole numbers (fractional parts are truncated)</li>
-<li>Maximum values limited by Long data type (approximately ±2 billion)</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Only works with whole numbers; fractional values are truncated</li>
-<li>Cannot customize the output format (padding, separators, etc.)</li>
-<li>Parameters must fit in Long data type range</li>
-<li>No built-in frequency counting; must implement separately</li>
-<li>String result requires parsing to extract numeric boundaries</li>
-<li>Cannot specify custom labels for ranges</li>
-<li>All ranges must have equal intervals (except first/last special cases)</li>
-</ul>
-<h2 id="related-functions">Related Functions</h2>
-<ul>
-<li><code>Switch</code>: Evaluates a list of expressions and returns associated value</li>
-<li><code>Choose</code>: Returns a value from a list based on position</li>
-<li><code>IIf</code>: Returns one of two values based on a condition</li>
-<li><code>Format</code>: Formats values as strings with custom patterns</li>
-<li><code>InStr</code>: Searches for substring within a string (useful for parsing Partition results)</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

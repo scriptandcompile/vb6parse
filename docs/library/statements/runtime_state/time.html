@@ -87,26 +87,26 @@ Time = newTime</code></pre>
 <pre><code class="language-vbnet">Dim userTime As String
 userTime = InputBox(&quot;Enter new time (HH:MM:SS):&quot;)
 If IsDate(userTime) Then
-Time = userTime
+    Time = userTime
 Else
-MsgBox &quot;Invalid time format&quot;
+    MsgBox &quot;Invalid time format&quot;
 End If</code></pre>
 <h3 id="set-time-with-error-handling">Set Time with Error Handling</h3>
 <pre><code class="language-vbnet">On Error Resume Next
 Time = &quot;10:30:00&quot;
 If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Failed to set time: &quot; &amp; Err.Description
+    MsgBox &quot;Failed to set time: &quot; &amp; Err.Description
 End If
 On Error GoTo 0</code></pre>
 <h3 id="set-time-using-now-function">Set Time Using Now Function</h3>
 <pre><code class="language-vbnet">Time = Now  &#x27; Sets time to current time (redundant but valid)</code></pre>
 <h3 id="set-time-in-sub">Set Time in Sub</h3>
 <pre><code class="language-vbnet">Sub SetApplicationTime()
-Time = &quot;08:00:00&quot;  &#x27; Set to 8 AM
+    Time = &quot;08:00:00&quot;  &#x27; Set to 8 AM
 End Sub</code></pre>
 <h3 id="set-time-conditionally">Set Time Conditionally</h3>
 <pre><code class="language-vbnet">If Hour(Time) &gt; 17 Then
-Time = &quot;08:00:00&quot;  &#x27; Reset to morning
+    Time = &quot;08:00:00&quot;  &#x27; Reset to morning
 End If</code></pre>
 <h3 id="set-time-using-timeserial">Set Time Using <code>TimeSerial</code></h3>
 <pre><code class="language-vbnet">Time = TimeSerial(14, 30, 0)  &#x27; 2:30 PM</code></pre>
@@ -122,7 +122,7 @@ Time = &quot;23:59:59&quot;  &#x27; One second before midnight
 TestMidnightRollover</code></pre>
 <h3 id="set-time-in-class-module">Set Time in Class Module</h3>
 <pre><code class="language-vbnet">Private Sub Class_Initialize()
-Time = &quot;12:00:00&quot;  &#x27; Reset to noon on initialization
+    Time = &quot;12:00:00&quot;  &#x27; Reset to noon on initialization
 End Sub</code></pre>
 <h3 id="set-time-using-format">Set Time Using Format</h3>
 <pre><code class="language-vbnet">Dim timeStr As String
@@ -130,24 +130,21 @@ timeStr = Format(Now, &quot;hh:mm:ss&quot;)
 Time = timeStr</code></pre>
 <h3 id="set-time-in-loop">Set Time in Loop</h3>
 <pre><code class="language-vbnet">For i = 0 To 23
-Time = TimeSerial(i, 0, 0)
-ProcessHourlyTask
+    Time = TimeSerial(i, 0, 0)
+    ProcessHourlyTask
 Next i</code></pre>
 <h3 id="set-time-with-validation">Set Time with Validation</h3>
 <pre><code class="language-vbnet">Function SetSystemTime(newTime As String) As Boolean
-On Error GoTo ErrorHandler
-
-If IsDate(newTime) Then
-Time = newTime
-SetSystemTime = True
-Else
-SetSystemTime = False
-End If
-
-Exit Function
-
+    On Error GoTo ErrorHandler
+    If IsDate(newTime) Then
+        Time = newTime
+        SetSystemTime = True
+    Else
+        SetSystemTime = False
+    End If
+    Exit Function
 ErrorHandler:
-SetSystemTime = False
+    SetSystemTime = False
 End Function</code></pre>
 <h2 id="important-notes">Important Notes</h2>
 <ul>

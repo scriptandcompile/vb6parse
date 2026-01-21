@@ -65,19 +65,17 @@
 - If string2 is found within string1: Returns position where match begins
 - If start &gt; Len(string2): Returns 0</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>InStr</code> function is used for string searching:</p>
-<ul>
-<li>Returns the character position of the first occurrence (1-based indexing)</li>
-<li>Search is case-sensitive by default (<code>vbBinaryCompare</code>)</li>
-<li>Use <code>vbTextCompare</code> for case-insensitive searching</li>
-<li>Start position is 1-based (first character is position 1, not 0)</li>
-<li>To find all occurrences, call <code>InStr</code> repeatedly with updated start position</li>
-<li><code>InStrRev</code> searches from the end of the string backward</li>
-<li>The compare parameter affects performance (binary is faster than text)</li>
-<li>Commonly used with <code>Mid</code>, <code>Left</code>, and <code>Right</code> functions for string parsing</li>
-<li>Returns 0 if substring not found (test with &gt; 0 for found)</li>
-<li><code>Option Compare</code> setting affects default comparison when compare is omitted</li>
-</ul>
+<p>The <code>InStr</code> function is used for string searching:
+- Returns the character position of the first occurrence (1-based indexing)
+- Search is case-sensitive by default (<code>vbBinaryCompare</code>)
+- Use <code>vbTextCompare</code> for case-insensitive searching
+- Start position is 1-based (first character is position 1, not 0)
+- To find all occurrences, call <code>InStr</code> repeatedly with updated start position
+- <code>InStrRev</code> searches from the end of the string backward
+- The compare parameter affects performance (binary is faster than text)
+- Commonly used with <code>Mid</code>, <code>Left</code>, and <code>Right</code> functions for string parsing
+- Returns 0 if substring not found (test with &gt; 0 for found)
+- <code>Option Compare</code> setting affects default comparison when compare is omitted</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>String Searching</strong>: Find if a substring exists in a string</li>
@@ -94,379 +92,310 @@
 Dim pos As Long
 pos = InStr(&quot;Hello World&quot;, &quot;World&quot;)
 Debug.Print pos  &#x27; Prints: 7
-
 &#x27; Example 2: Case-insensitive search
 Dim pos As Long
 pos = InStr(1, &quot;Hello World&quot;, &quot;world&quot;, vbTextCompare)
 Debug.Print pos  &#x27; Prints: 7
-
 &#x27; Example 3: Search from specific position
 Dim text As String
 Dim pos As Long
 text = &quot;apple,banana,apple,orange&quot;
 pos = InStr(7, text, &quot;apple&quot;)
 Debug.Print pos  &#x27; Prints: 14 (second apple)
-
 &#x27; Example 4: Check if substring exists
 If InStr(&quot;user@example.com&quot;, &quot;@&quot;) &gt; 0 Then
-Debug.Print &quot;Valid email format&quot;
+    Debug.Print &quot;Valid email format&quot;
 End If</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Find all occurrences
 Sub FindAllOccurrences(text As String, searchText As String)
-Dim pos As Long
-Dim startPos As Long
-
-startPos = 1
-Do
-pos = InStr(startPos, text, searchText)
-If pos = 0 Then Exit Do
-
-Debug.Print &quot;Found at position: &quot; &amp; pos
-startPos = pos + Len(searchText)
-Loop
+    Dim pos As Long
+    Dim startPos As Long
+    startPos = 1
+    Do
+        pos = InStr(startPos, text, searchText)
+        If pos = 0 Then Exit Do
+        Debug.Print &quot;Found at position: &quot; &amp; pos
+        startPos = pos + Len(searchText)
+    Loop
 End Sub
-
 &#x27; Pattern 2: Extract substring before delimiter
 Function GetBeforeDelimiter(text As String, delimiter As String) As String
-Dim pos As Long
-
-pos = InStr(text, delimiter)
-If pos &gt; 0 Then
-GetBeforeDelimiter = Left$(text, pos - 1)
-Else
-GetBeforeDelimiter = text
-End If
+    Dim pos As Long
+    pos = InStr(text, delimiter)
+    If pos &gt; 0 Then
+        GetBeforeDelimiter = Left$(text, pos - 1)
+    Else
+        GetBeforeDelimiter = text
+    End If
 End Function
-
 &#x27; Pattern 3: Extract substring after delimiter
 Function GetAfterDelimiter(text As String, delimiter As String) As String
-Dim pos As Long
-
-pos = InStr(text, delimiter)
-If pos &gt; 0 Then
-GetAfterDelimiter = Mid$(text, pos + Len(delimiter))
-Else
-GetAfterDelimiter = &quot;&quot;
-End If
+    Dim pos As Long
+    pos = InStr(text, delimiter)
+    If pos &gt; 0 Then
+        GetAfterDelimiter = Mid$(text, pos + Len(delimiter))
+    Else
+        GetAfterDelimiter = &quot;&quot;
+    End If
 End Function
-
 &#x27; Pattern 4: Split string manually
 Function SplitString(text As String, delimiter As String) As Collection
-Dim result As New Collection
-Dim pos As Long
-Dim startPos As Long
-Dim part As String
-
-startPos = 1
-Do
-pos = InStr(startPos, text, delimiter)
-If pos = 0 Then
-&#x27; Add remaining text
-result.Add Mid$(text, startPos)
-Exit Do
-End If
-
-part = Mid$(text, startPos, pos - startPos)
-result.Add part
-startPos = pos + Len(delimiter)
-Loop
-
-Set SplitString = result
+    Dim result As New Collection
+    Dim pos As Long
+    Dim startPos As Long
+    Dim part As String
+    startPos = 1
+    Do
+        pos = InStr(startPos, text, delimiter)
+        If pos = 0 Then
+            &#x27; Add remaining text
+            result.Add Mid$(text, startPos)
+            Exit Do
+        End If
+        part = Mid$(text, startPos, pos - startPos)
+        result.Add part
+        startPos = pos + Len(delimiter)
+    Loop
+    Set SplitString = result
 End Function
-
 &#x27; Pattern 5: Check for multiple possible substrings
 Function ContainsAny(text As String, ParamArray searches() As Variant) As Boolean
-Dim i As Long
-
-For i = LBound(searches) To UBound(searches)
-If InStr(1, text, CStr(searches(i)), vbTextCompare) &gt; 0 Then
-ContainsAny = True
-Exit Function
-End If
-Next i
-
-ContainsAny = False
+    Dim i As Long
+    For i = LBound(searches) To UBound(searches)
+        If InStr(1, text, CStr(searches(i)), vbTextCompare) &gt; 0 Then
+            ContainsAny = True
+            Exit Function
+        End If
+    Next i
+    ContainsAny = False
 End Function
-
 &#x27; Pattern 6: Count occurrences
 Function CountOccurrences(text As String, searchText As String) As Long
-Dim count As Long
-Dim pos As Long
-Dim startPos As Long
-
-count = 0
-startPos = 1
-
-Do
-pos = InStr(startPos, text, searchText)
-If pos = 0 Then Exit Do
-
-count = count + 1
-startPos = pos + Len(searchText)
-Loop
-
-CountOccurrences = count
+    Dim count As Long
+    Dim pos As Long
+    Dim startPos As Long
+    count = 0
+    startPos = 1
+    Do
+        pos = InStr(startPos, text, searchText)
+        If pos = 0 Then Exit Do
+        count = count + 1
+        startPos = pos + Len(searchText)
+    Loop
+    CountOccurrences = count
 End Function
-
 &#x27; Pattern 7: Replace first occurrence
 Function ReplaceFirst(text As String, findText As String, replaceText As String) As String
-Dim pos As Long
-
-pos = InStr(text, findText)
-If pos &gt; 0 Then
-ReplaceFirst = Left$(text, pos - 1) &amp; replaceText &amp; _
-Mid$(text, pos + Len(findText))
-Else
-ReplaceFirst = text
-End If
+    Dim pos As Long
+    pos = InStr(text, findText)
+    If pos &gt; 0 Then
+        ReplaceFirst = Left$(text, pos - 1) &amp; replaceText &amp; _
+                       Mid$(text, pos + Len(findText))
+    Else
+        ReplaceFirst = text
+    End If
 End Function
-
 &#x27; Pattern 8: Extract file extension
 Function GetFileExtension(fileName As String) As String
-Dim pos As Long
-
-pos = InStr(fileName, &quot;.&quot;)
-If pos &gt; 0 Then
-&#x27; Find last dot
-Do While InStr(pos + 1, fileName, &quot;.&quot;) &gt; 0
-pos = InStr(pos + 1, fileName, &quot;.&quot;)
-Loop
-GetFileExtension = Mid$(fileName, pos)
-Else
-GetFileExtension = &quot;&quot;
-End If
+    Dim pos As Long
+    pos = InStr(fileName, &quot;.&quot;)
+    If pos &gt; 0 Then
+        &#x27; Find last dot
+        Do While InStr(pos + 1, fileName, &quot;.&quot;) &gt; 0
+            pos = InStr(pos + 1, fileName, &quot;.&quot;)
+        Loop
+        GetFileExtension = Mid$(fileName, pos)
+    Else
+        GetFileExtension = &quot;&quot;
+    End If
 End Function
-
 &#x27; Pattern 9: Validate email format
 Function IsValidEmail(email As String) As Boolean
-Dim atPos As Long
-Dim dotPos As Long
-
-email = Trim$(email)
-
-&#x27; Check for @ symbol
-atPos = InStr(email, &quot;@&quot;)
-If atPos &lt;= 1 Then
-IsValidEmail = False
-Exit Function
-End If
-
-&#x27; Check for dot after @
-dotPos = InStr(atPos + 2, email, &quot;.&quot;)
-If dotPos = 0 Or dotPos = Len(email) Then
-IsValidEmail = False
-Exit Function
-End If
-
-IsValidEmail = True
+    Dim atPos As Long
+    Dim dotPos As Long
+    email = Trim$(email)
+    &#x27; Check for @ symbol
+    atPos = InStr(email, &quot;@&quot;)
+    If atPos &lt;= 1 Then
+        IsValidEmail = False
+        Exit Function
+    End If
+    &#x27; Check for dot after @
+    dotPos = InStr(atPos + 2, email, &quot;.&quot;)
+    If dotPos = 0 Or dotPos = Len(email) Then
+        IsValidEmail = False
+        Exit Function
+    End If
+    IsValidEmail = True
 End Function
-
 &#x27; Pattern 10: Extract domain from URL
 Function GetDomain(url As String) As String
-Dim startPos As Long
-Dim endPos As Long
-
-&#x27; Find start after ://
-startPos = InStr(url, &quot;://&quot;)
-If startPos &gt; 0 Then
-startPos = startPos + 3
-Else
-startPos = 1
-End If
-
-&#x27; Find end at next /
-endPos = InStr(startPos, url, &quot;/&quot;)
-If endPos &gt; 0 Then
-GetDomain = Mid$(url, startPos, endPos - startPos)
-Else
-GetDomain = Mid$(url, startPos)
-End If
+    Dim startPos As Long
+    Dim endPos As Long
+    &#x27; Find start after ://
+    startPos = InStr(url, &quot;://&quot;)
+    If startPos &gt; 0 Then
+        startPos = startPos + 3
+    Else
+        startPos = 1
+    End If
+    &#x27; Find end at next /
+    endPos = InStr(startPos, url, &quot;/&quot;)
+    If endPos &gt; 0 Then
+        GetDomain = Mid$(url, startPos, endPos - startPos)
+    Else
+        GetDomain = Mid$(url, startPos)
+    End If
 End Function</code></pre>
 <h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Advanced string parser class
 Public Class StringParser
-Private m_text As String
-Private m_position As Long
-
-Public Sub Initialize(text As String)
-m_text = text
-m_position = 1
-End Sub
-
-Public Function FindNext(searchText As String, Optional caseSensitive As Boolean = True) As Long
-Dim pos As Long
-Dim compareMode As VbCompareMethod
-
-compareMode = IIf(caseSensitive, vbBinaryCompare, vbTextCompare)
-pos = InStr(m_position, m_text, searchText, compareMode)
-
-If pos &gt; 0 Then
-m_position = pos + Len(searchText)
-End If
-
-FindNext = pos
-End Function
-
-Public Function ExtractBetween(startDelim As String, endDelim As String) As String
-Dim startPos As Long
-Dim endPos As Long
-
-startPos = InStr(m_position, m_text, startDelim)
-If startPos = 0 Then
-ExtractBetween = &quot;&quot;
-Exit Function
-End If
-
-startPos = startPos + Len(startDelim)
-endPos = InStr(startPos, m_text, endDelim)
-
-If endPos &gt; 0 Then
-ExtractBetween = Mid$(m_text, startPos, endPos - startPos)
-m_position = endPos + Len(endDelim)
-Else
-ExtractBetween = &quot;&quot;
-End If
-End Function
-
-Public Sub Reset()
-m_position = 1
-End Sub
-
-Public Property Get Position() As Long
-Position = m_position
-End Property
-
-Public Property Get RemainingText() As String
-RemainingText = Mid$(m_text, m_position)
-End Property
+    Private m_text As String
+    Private m_position As Long
+    Public Sub Initialize(text As String)
+        m_text = text
+        m_position = 1
+    End Sub
+    Public Function FindNext(searchText As String, Optional caseSensitive As Boolean = True) As Long
+        Dim pos As Long
+        Dim compareMode As VbCompareMethod
+        compareMode = IIf(caseSensitive, vbBinaryCompare, vbTextCompare)
+        pos = InStr(m_position, m_text, searchText, compareMode)
+        If pos &gt; 0 Then
+            m_position = pos + Len(searchText)
+        End If
+        FindNext = pos
+    End Function
+    Public Function ExtractBetween(startDelim As String, endDelim As String) As String
+        Dim startPos As Long
+        Dim endPos As Long
+        startPos = InStr(m_position, m_text, startDelim)
+        If startPos = 0 Then
+            ExtractBetween = &quot;&quot;
+            Exit Function
+        End If
+        startPos = startPos + Len(startDelim)
+        endPos = InStr(startPos, m_text, endDelim)
+        If endPos &gt; 0 Then
+            ExtractBetween = Mid$(m_text, startPos, endPos - startPos)
+            m_position = endPos + Len(endDelim)
+        Else
+            ExtractBetween = &quot;&quot;
+        End If
+    End Function
+    Public Sub Reset()
+        m_position = 1
+    End Sub
+    Public Property Get Position() As Long
+        Position = m_position
+    End Property
+    Public Property Get RemainingText() As String
+        RemainingText = Mid$(m_text, m_position)
+    End Property
 End Class
-
 &#x27; Example 2: Path manipulation utilities
 Function GetFileName(fullPath As String) As String
-Dim pos As Long
-Dim lastSlash As Long
-
-&#x27; Find last backslash or forward slash
-lastSlash = 0
-pos = 1
-
-Do
-pos = InStr(pos, fullPath, &quot;\&quot;)
-If pos = 0 Then Exit Do
-lastSlash = pos
-pos = pos + 1
-Loop
-
-&#x27; Check for forward slash if no backslash found
-If lastSlash = 0 Then
-pos = 1
-Do
-pos = InStr(pos, fullPath, &quot;/&quot;)
-If pos = 0 Then Exit Do
-lastSlash = pos
-pos = pos + 1
-Loop
-End If
-
-If lastSlash &gt; 0 Then
-GetFileName = Mid$(fullPath, lastSlash + 1)
-Else
-GetFileName = fullPath
-End If
+    Dim pos As Long
+    Dim lastSlash As Long
+    &#x27; Find last backslash or forward slash
+    lastSlash = 0
+    pos = 1
+    Do
+        pos = InStr(pos, fullPath, &quot;\&quot;)
+        If pos = 0 Then Exit Do
+        lastSlash = pos
+        pos = pos + 1
+    Loop
+    &#x27; Check for forward slash if no backslash found
+    If lastSlash = 0 Then
+        pos = 1
+        Do
+            pos = InStr(pos, fullPath, &quot;/&quot;)
+            If pos = 0 Then Exit Do
+            lastSlash = pos
+            pos = pos + 1
+        Loop
+    End If
+    If lastSlash &gt; 0 Then
+        GetFileName = Mid$(fullPath, lastSlash + 1)
+    Else
+        GetFileName = fullPath
+    End If
 End Function
-
 &#x27; Example 3: CSV parser
 Function ParseCSVLine(csvLine As String) As Collection
-Dim result As New Collection
-Dim pos As Long
-Dim startPos As Long
-Dim inQuotes As Boolean
-Dim char As String
-Dim field As String
-Dim i As Long
-
-startPos = 1
-inQuotes = False
-
-For i = 1 To Len(csvLine)
-char = Mid$(csvLine, i, 1)
-
-If char = &quot;&quot;&quot;&quot; Then
-inQuotes = Not inQuotes
-ElseIf char = &quot;,&quot; And Not inQuotes Then
-field = Mid$(csvLine, startPos, i - startPos)
-result.Add Trim$(field)
-startPos = i + 1
-End If
-Next i
-
-&#x27; Add last field
-field = Mid$(csvLine, startPos)
-result.Add Trim$(field)
-
-Set ParseCSVLine = result
+    Dim result As New Collection
+    Dim pos As Long
+    Dim startPos As Long
+    Dim inQuotes As Boolean
+    Dim char As String
+    Dim field As String
+    Dim i As Long
+    startPos = 1
+    inQuotes = False
+    For i = 1 To Len(csvLine)
+        char = Mid$(csvLine, i, 1)
+        If char = &quot;&quot;&quot;&quot; Then
+            inQuotes = Not inQuotes
+        ElseIf char = &quot;,&quot; And Not inQuotes Then
+            field = Mid$(csvLine, startPos, i - startPos)
+            result.Add Trim$(field)
+            startPos = i + 1
+        End If
+    Next i
+    &#x27; Add last field
+    field = Mid$(csvLine, startPos)
+    result.Add Trim$(field)
+    Set ParseCSVLine = result
 End Function
-
 &#x27; Example 4: Template processor
 Function ProcessTemplate(template As String, values As Collection) As String
-Dim result As String
-Dim startPos As Long
-Dim endPos As Long
-Dim placeholder As String
-Dim value As String
-Dim i As Long
-
-result = template
-
-&#x27; Find all {placeholders}
-startPos = 1
-Do
-startPos = InStr(startPos, result, &quot;{&quot;)
-If startPos = 0 Then Exit Do
-
-endPos = InStr(startPos, result, &quot;}&quot;)
-If endPos = 0 Then Exit Do
-
-placeholder = Mid$(result, startPos, endPos - startPos + 1)
-
-&#x27; Look up value (simplified)
-For i = 1 To values.Count Step 2
-If &quot;{&quot; &amp; values(i) &amp; &quot;}&quot; = placeholder Then
-value = values(i + 1)
-result = Left$(result, startPos - 1) &amp; value &amp; Mid$(result, endPos + 1)
-Exit For
-End If
-Next i
-
-startPos = startPos + Len(value)
-Loop
-
-ProcessTemplate = result
+    Dim result As String
+    Dim startPos As Long
+    Dim endPos As Long
+    Dim placeholder As String
+    Dim value As String
+    Dim i As Long
+    result = template
+    &#x27; Find all {placeholders}
+    startPos = 1
+    Do
+        startPos = InStr(startPos, result, &quot;{&quot;)
+        If startPos = 0 Then Exit Do
+        endPos = InStr(startPos, result, &quot;}&quot;)
+        If endPos = 0 Then Exit Do
+        placeholder = Mid$(result, startPos, endPos - startPos + 1)
+        &#x27; Look up value (simplified)
+        For i = 1 To values.Count Step 2
+            If &quot;{&quot; &amp; values(i) &amp; &quot;}&quot; = placeholder Then
+                value = values(i + 1)
+                result = Left$(result, startPos - 1) &amp; value &amp; Mid$(result, endPos + 1)
+                Exit For
+            End If
+        Next i
+        startPos = startPos + Len(value)
+    Loop
+    ProcessTemplate = result
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>InStr</code> function can raise errors or return Null:</p>
-<ul>
-<li><strong>Type Mismatch (Error 13)</strong>: If arguments are not string-compatible or numeric where expected</li>
-<li><strong>Invalid use of Null (Error 94)</strong>: If string1 or string2 is Null and result is assigned to non-Variant</li>
-<li><strong>Invalid procedure call (Error 5)</strong>: If start &lt; 1</li>
-</ul>
+<p>The <code>InStr</code> function can raise errors or return Null:
+- <strong>Type Mismatch (Error 13)</strong>: If arguments are not string-compatible or numeric where expected
+- <strong>Invalid use of Null (Error 94)</strong>: If string1 or string2 is Null and result is assigned to non-Variant
+- <strong>Invalid procedure call (Error 5)</strong>: If start &lt; 1</p>
 <pre><code class="language-vbnet">On Error GoTo ErrorHandler
 Dim pos As Long
 Dim text As String
-
 text = &quot;Hello World&quot;
 pos = InStr(1, text, &quot;World&quot;)
-
 If pos &gt; 0 Then
-Debug.Print &quot;Found at position: &quot; &amp; pos
+    Debug.Print &quot;Found at position: &quot; &amp; pos
 Else
-Debug.Print &quot;Not found&quot;
+    Debug.Print &quot;Not found&quot;
 End If
 Exit Sub
-
 ErrorHandler:
-MsgBox &quot;Error in InStr: &quot; &amp; Err.Description, vbCritical</code></pre>
+    MsgBox &quot;Error in InStr: &quot; &amp; Err.Description, vbCritical</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
 <li><strong>Binary vs Text Compare</strong>: Binary comparison (vbBinaryCompare) is faster than text comparison</li>
@@ -520,35 +449,113 @@ MsgBox &quot;Error in InStr: &quot; &amp; Err.Description, vbCritical</code></pr
 <td>Find and replace</td>
 <td>N/A</td>
 </tr>
+<tr>
+<td>## Platform and Version Notes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in all VB6 versions</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns <code>Long</code> (32-bit integer), not <code>Integer</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- 1-based indexing (first character is position 1)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Maximum string length is approximately 2GB</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Compare parameter affects locale-sensitive comparisons</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Option Compare</code> statement affects default comparison when compare parameter omitted</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Finds only first occurrence (use loop for all occurrences)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No built-in regex or wildcard support</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Case-insensitive search (<code>vbTextCompare</code>) is slower</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot search for multiple substrings in single call</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No built-in way to get all positions at once</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Performance can degrade with very long strings</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Related Functions</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>InStrRev</code>: Search from end of string backward</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Mid</code>, <code>Left</code>, <code>Right</code>: Extract substrings</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Replace</code>: Find and replace text</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Split</code>: Split string into array</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>Like</code>: Pattern matching with wildcards</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>StrComp</code>: Compare two strings</td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
-<ul>
-<li>Available in all VB6 versions</li>
-<li>Returns <code>Long</code> (32-bit integer), not <code>Integer</code></li>
-<li>1-based indexing (first character is position 1)</li>
-<li>Maximum string length is approximately 2GB</li>
-<li>Compare parameter affects locale-sensitive comparisons</li>
-<li><code>Option Compare</code> statement affects default comparison when compare parameter omitted</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Finds only first occurrence (use loop for all occurrences)</li>
-<li>No built-in regex or wildcard support</li>
-<li>Case-insensitive search (<code>vbTextCompare</code>) is slower</li>
-<li>Cannot search for multiple substrings in single call</li>
-<li>No built-in way to get all positions at once</li>
-<li>Performance can degrade with very long strings</li>
-</ul>
-<h2 id="related-functions">Related Functions</h2>
-<ul>
-<li><code>InStrRev</code>: Search from end of string backward</li>
-<li><code>Mid</code>, <code>Left</code>, <code>Right</code>: Extract substrings</li>
-<li><code>Replace</code>: Find and replace text</li>
-<li><code>Split</code>: Split string into array</li>
-<li><code>Like</code>: Pattern matching with wildcards</li>
-<li><code>StrComp</code>: Compare two strings</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

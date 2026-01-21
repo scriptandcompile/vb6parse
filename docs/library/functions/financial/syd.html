@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p>VB6 <code>SYD</code> Function</p>
-<p>The <code>SYD</code> function returns a Double specifying the sum-of-years digits depreciation of an asset for a specified period.</p>
+            <p>VB6 <code>SYD</code> Function
+The <code>SYD</code> function returns a Double specifying the sum-of-years digits depreciation of an asset for a specified period.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">SYD(cost, salvage, life, period)</code></pre>
 <h2 id="parameters">Parameters</h2>
@@ -46,23 +46,21 @@
 <li><code>cost</code>: Required. Double specifying initial cost of the asset.</li>
 <li><code>salvage</code>: Required. Double specifying value of the asset at the end of its useful life.</li>
 <li><code>life</code>: Required. Double specifying length of the useful life of the asset.</li>
-<li><code>period</code>: Required. Double specifying period for which asset depreciation is calculated.</li>
+<li><code>period</code>: Required. Double specifying period for which asset depreciation is calculated.
+All arguments must be positive numbers. The <code>period</code> argument must be in the same units as the <code>life</code> argument.</li>
 </ul>
-<p>All arguments must be positive numbers. The <code>period</code> argument must be in the same units as the <code>life</code> argument.</p>
 <h2 id="returns">Returns</h2>
 <p>Returns a <code>Double</code> specifying the depreciation of an asset for a specific period when using the sum-of-years digits method.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>SYD</code> function calculates depreciation using the sum-of-years digits method:</p>
-<ul>
-<li><strong>Accelerated depreciation</strong>: More depreciation in early years, less in later years</li>
-<li><strong>Sum-of-years calculation</strong>: For life of 5 years, sum = 5+4+3+2+1 = 15</li>
-<li><strong>Period weighting</strong>: Year 1 uses 5/15, Year 2 uses 4/15, etc.</li>
-<li><strong>Formula</strong>: <code>SYD = ((cost - salvage) * (life - period + 1) * 2) / (life * (life + 1))</code></li>
-<li><strong>Depreciable base</strong>: <code>cost - salvage</code> (total amount to depreciate)</li>
-<li><strong>Declining fraction</strong>: Remaining life / sum-of-years digits</li>
-<li><strong>Period must be valid</strong>: Must be between 1 and <code>life</code> (inclusive)</li>
-<li><strong>Consistent units</strong>: <code>period</code> and <code>life</code> must use same time units (years, months, etc.)</li>
-</ul>
+<p>The <code>SYD</code> function calculates depreciation using the sum-of-years digits method:
+- <strong>Accelerated depreciation</strong>: More depreciation in early years, less in later years
+- <strong>Sum-of-years calculation</strong>: For life of 5 years, sum = 5+4+3+2+1 = 15
+- <strong>Period weighting</strong>: Year 1 uses 5/15, Year 2 uses 4/15, etc.
+- <strong>Formula</strong>: <code>SYD = ((cost - salvage) * (life - period + 1) * 2) / (life * (life + 1))</code>
+- <strong>Depreciable base</strong>: <code>cost - salvage</code> (total amount to depreciate)
+- <strong>Declining fraction</strong>: Remaining life / sum-of-years digits
+- <strong>Period must be valid</strong>: Must be between 1 and <code>life</code> (inclusive)
+- <strong>Consistent units</strong>: <code>period</code> and <code>life</code> must use same time units (years, months, etc.)</p>
 <h3 id="sum-of-years-digits-method">Sum-of-Years Digits Method</h3>
 <p>The sum-of-years digits (SYD) method is an accelerated depreciation technique:
 1. Calculate the sum of all years: <code>sum = life * (life + 1) / 2</code>
@@ -104,494 +102,406 @@ Dim cost As Double
 Dim salvage As Double
 Dim life As Double
 Dim year As Double
-
 cost = 10000      &#x27; Initial cost
 salvage = 1000    &#x27; Salvage value
 life = 5          &#x27; 5-year life
 year = 1          &#x27; First year
-
 depreciation = SYD(cost, salvage, life, year)
 &#x27; depreciation = 3000 (5/15 of 9000)</code></pre>
 <h3 id="example-2-complete-depreciation-schedule">Example 2: Complete Depreciation Schedule</h3>
 <pre><code class="language-vbnet">Sub ShowDepreciationSchedule()
-Dim cost As Double
-Dim salvage As Double
-Dim life As Integer
-Dim year As Integer
-Dim depreciation As Double
-Dim totalDep As Double
-
-cost = 50000
-salvage = 5000
-life = 10
-totalDep = 0
-
-For year = 1 To life
-depreciation = SYD(cost, salvage, life, year)
-totalDep = totalDep + depreciation
-Debug.Print &quot;Year &quot; &amp; year &amp; &quot;: $&quot; &amp; Format$(depreciation, &quot;#,##0.00&quot;)
-Next year
-
-Debug.Print &quot;Total Depreciation: $&quot; &amp; Format$(totalDep, &quot;#,##0.00&quot;)
+    Dim cost As Double
+    Dim salvage As Double
+    Dim life As Integer
+    Dim year As Integer
+    Dim depreciation As Double
+    Dim totalDep As Double
+    cost = 50000
+    salvage = 5000
+    life = 10
+    totalDep = 0
+    For year = 1 To life
+        depreciation = SYD(cost, salvage, life, year)
+        totalDep = totalDep + depreciation
+        Debug.Print &quot;Year &quot; &amp; year &amp; &quot;: $&quot; &amp; Format$(depreciation, &quot;#,##0.00&quot;)
+    Next year
+    Debug.Print &quot;Total Depreciation: $&quot; &amp; Format$(totalDep, &quot;#,##0.00&quot;)
 End Sub</code></pre>
 <h3 id="example-3-monthly-depreciation">Example 3: Monthly Depreciation</h3>
 <pre><code class="language-vbnet">Function CalculateMonthlyDepreciation(cost As Double, salvage As Double, _
-lifeYears As Integer, month As Integer) As Double
-Dim lifeMonths As Integer
-lifeMonths = lifeYears * 12
-
-&#x27; Calculate depreciation for the specific month
-CalculateMonthlyDepreciation = SYD(cost, salvage, lifeMonths, month)
+                                      lifeYears As Integer, month As Integer) As Double
+    Dim lifeMonths As Integer
+    lifeMonths = lifeYears * 12
+    &#x27; Calculate depreciation for the specific month
+    CalculateMonthlyDepreciation = SYD(cost, salvage, lifeMonths, month)
 End Function</code></pre>
 <h3 id="example-4-book-value-calculation">Example 4: Book Value Calculation</h3>
 <pre><code class="language-vbnet">Function CalculateBookValue(cost As Double, salvage As Double, _
-life As Integer, currentPeriod As Integer) As Double
-Dim period As Integer
-Dim totalDepreciation As Double
-
-totalDepreciation = 0
-For period = 1 To currentPeriod
-totalDepreciation = totalDepreciation + SYD(cost, salvage, life, period)
-Next period
-
-CalculateBookValue = cost - totalDepreciation
+                           life As Integer, currentPeriod As Integer) As Double
+    Dim period As Integer
+    Dim totalDepreciation As Double
+    totalDepreciation = 0
+    For period = 1 To currentPeriod
+        totalDepreciation = totalDepreciation + SYD(cost, salvage, life, period)
+    Next period
+    CalculateBookValue = cost - totalDepreciation
 End Function</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-depreciation-schedule-generator">Pattern 1: Depreciation Schedule Generator</h3>
 <pre><code class="language-vbnet">Function GenerateDepreciationSchedule(cost As Double, salvage As Double, _
-life As Integer) As Variant
-Dim schedule() As Double
-Dim period As Integer
-
-ReDim schedule(1 To life)
-
-For period = 1 To life
-schedule(period) = SYD(cost, salvage, life, period)
-Next period
-
-GenerateDepreciationSchedule = schedule
+                                      life As Integer) As Variant
+    Dim schedule() As Double
+    Dim period As Integer
+    ReDim schedule(1 To life)
+    For period = 1 To life
+        schedule(period) = SYD(cost, salvage, life, period)
+    Next period
+    GenerateDepreciationSchedule = schedule
 End Function</code></pre>
 <h3 id="pattern-2-partial-year-depreciation">Pattern 2: Partial Year Depreciation</h3>
 <pre><code class="language-vbnet">Function CalculatePartialYearDepreciation(cost As Double, salvage As Double, _
-life As Integer, year As Integer, _
-monthsInYear As Integer) As Double
-Dim fullYearDep As Double
-
-fullYearDep = SYD(cost, salvage, life, year)
-CalculatePartialYearDepreciation = fullYearDep * (monthsInYear / 12)
+                                         life As Integer, year As Integer, _
+                                         monthsInYear As Integer) As Double
+    Dim fullYearDep As Double
+    fullYearDep = SYD(cost, salvage, life, year)
+    CalculatePartialYearDepreciation = fullYearDep * (monthsInYear / 12)
 End Function</code></pre>
 <h3 id="pattern-3-remaining-depreciable-amount">Pattern 3: Remaining Depreciable Amount</h3>
 <pre><code class="language-vbnet">Function GetRemainingDepreciation(cost As Double, salvage As Double, _
-life As Integer, currentPeriod As Integer) As Double
-Dim period As Integer
-Dim accumulatedDep As Double
-
-accumulatedDep = 0
-For period = 1 To currentPeriod
-accumulatedDep = accumulatedDep + SYD(cost, salvage, life, period)
-Next period
-
-GetRemainingDepreciation = (cost - salvage) - accumulatedDep
+                                  life As Integer, currentPeriod As Integer) As Double
+    Dim period As Integer
+    Dim accumulatedDep As Double
+    accumulatedDep = 0
+    For period = 1 To currentPeriod
+        accumulatedDep = accumulatedDep + SYD(cost, salvage, life, period)
+    Next period
+    GetRemainingDepreciation = (cost - salvage) - accumulatedDep
 End Function</code></pre>
 <h3 id="pattern-4-compare-depreciation-methods">Pattern 4: Compare Depreciation Methods</h3>
 <pre><code class="language-vbnet">Sub CompareDepreciationMethods(cost As Double, salvage As Double, life As Integer)
-Dim period As Integer
-Dim sydDep As Double
-Dim slnDep As Double
-Dim ddbDep As Double
-
-Debug.Print &quot;Period&quot;, &quot;SYD&quot;, &quot;SLN&quot;, &quot;DDB&quot;
-
-For period = 1 To life
-sydDep = SYD(cost, salvage, life, period)
-slnDep = SLN(cost, salvage, life)
-ddbDep = DDB(cost, salvage, life, period)
-
-Debug.Print period, Format$(sydDep, &quot;#,##0.00&quot;), _
-Format$(slnDep, &quot;#,##0.00&quot;), _
-Format$(ddbDep, &quot;#,##0.00&quot;)
-Next period
+    Dim period As Integer
+    Dim sydDep As Double
+    Dim slnDep As Double
+    Dim ddbDep As Double
+    Debug.Print &quot;Period&quot;, &quot;SYD&quot;, &quot;SLN&quot;, &quot;DDB&quot;
+    For period = 1 To life
+        sydDep = SYD(cost, salvage, life, period)
+        slnDep = SLN(cost, salvage, life)
+        ddbDep = DDB(cost, salvage, life, period)
+        Debug.Print period, Format$(sydDep, &quot;#,##0.00&quot;), _
+                    Format$(slnDep, &quot;#,##0.00&quot;), _
+                    Format$(ddbDep, &quot;#,##0.00&quot;)
+    Next period
 End Sub</code></pre>
 <h3 id="pattern-5-quarterly-depreciation">Pattern 5: Quarterly Depreciation</h3>
 <pre><code class="language-vbnet">Function GetQuarterlyDepreciation(cost As Double, salvage As Double, _
-lifeYears As Integer, quarter As Integer) As Double
-Dim lifeQuarters As Integer
-lifeQuarters = lifeYears * 4
-
-GetQuarterlyDepreciation = SYD(cost, salvage, lifeQuarters, quarter)
+                                 lifeYears As Integer, quarter As Integer) As Double
+    Dim lifeQuarters As Integer
+    lifeQuarters = lifeYears * 4
+    GetQuarterlyDepreciation = SYD(cost, salvage, lifeQuarters, quarter)
 End Function</code></pre>
 <h3 id="pattern-6-accumulated-depreciation">Pattern 6: Accumulated Depreciation</h3>
 <pre><code class="language-vbnet">Function GetAccumulatedDepreciation(cost As Double, salvage As Double, _
-life As Integer, throughPeriod As Integer) As Double
-Dim period As Integer
-Dim total As Double
-
-total = 0
-For period = 1 To throughPeriod
-total = total + SYD(cost, salvage, life, period)
-Next period
-
-GetAccumulatedDepreciation = total
+                                   life As Integer, throughPeriod As Integer) As Double
+    Dim period As Integer
+    Dim total As Double
+    total = 0
+    For period = 1 To throughPeriod
+        total = total + SYD(cost, salvage, life, period)
+    Next period
+    GetAccumulatedDepreciation = total
 End Function</code></pre>
 <h3 id="pattern-7-depreciation-percentage">Pattern 7: Depreciation Percentage</h3>
 <pre><code class="language-vbnet">Function GetDepreciationPercentage(cost As Double, salvage As Double, _
-life As Integer, period As Integer) As Double
-Dim depreciableBase As Double
-Dim periodDep As Double
-
-depreciableBase = cost - salvage
-periodDep = SYD(cost, salvage, life, period)
-
-If depreciableBase &gt; 0 Then
-GetDepreciationPercentage = (periodDep / depreciableBase) * 100
-Else
-GetDepreciationPercentage = 0
-End If
+                                  life As Integer, period As Integer) As Double
+    Dim depreciableBase As Double
+    Dim periodDep As Double
+    depreciableBase = cost - salvage
+    periodDep = SYD(cost, salvage, life, period)
+    If depreciableBase &gt; 0 Then
+        GetDepreciationPercentage = (periodDep / depreciableBase) * 100
+    Else
+        GetDepreciationPercentage = 0
+    End If
 End Function</code></pre>
 <h3 id="pattern-8-multi-asset-depreciation">Pattern 8: Multi-Asset Depreciation</h3>
 <pre><code class="language-vbnet">Function CalculateTotalDepreciation(costs() As Double, salvages() As Double, _
-lives() As Integer, period As Integer) As Double
-Dim i As Integer
-Dim total As Double
-
-total = 0
-For i = LBound(costs) To UBound(costs)
-total = total + SYD(costs(i), salvages(i), lives(i), period)
-Next i
-
-CalculateTotalDepreciation = total
+                                   lives() As Integer, period As Integer) As Double
+    Dim i As Integer
+    Dim total As Double
+    total = 0
+    For i = LBound(costs) To UBound(costs)
+        total = total + SYD(costs(i), salvages(i), lives(i), period)
+    Next i
+    CalculateTotalDepreciation = total
 End Function</code></pre>
 <h3 id="pattern-9-validate-depreciation-parameters">Pattern 9: Validate Depreciation Parameters</h3>
 <pre><code class="language-vbnet">Function ValidateDepreciationParams(cost As Double, salvage As Double, _
-life As Double, period As Double) As Boolean
-ValidateDepreciationParams = (cost &gt; 0) And (salvage &gt;= 0) And _
-(life &gt; 0) And (period &gt; 0) And _
-(period &lt;= life) And (cost &gt; salvage)
+                                   life As Double, period As Double) As Boolean
+    ValidateDepreciationParams = (cost &gt; 0) And (salvage &gt;= 0) And _
+                                 (life &gt; 0) And (period &gt; 0) And _
+                                 (period &lt;= life) And (cost &gt; salvage)
 End Function</code></pre>
 <h3 id="pattern-10-format-depreciation-report">Pattern 10: Format Depreciation Report</h3>
 <pre><code class="language-vbnet">Function FormatDepreciationLine(period As Integer, cost As Double, _
-salvage As Double, life As Integer) As String
-Dim depreciation As Double
-Dim accumulated As Double
-Dim bookValue As Double
-Dim i As Integer
-
-depreciation = SYD(cost, salvage, life, period)
-
-accumulated = 0
-For i = 1 To period
-accumulated = accumulated + SYD(cost, salvage, life, i)
-Next i
-
-bookValue = cost - accumulated
-
-FormatDepreciationLine = Format$(period, &quot;0&quot;) &amp; vbTab &amp; _
-Format$(depreciation, &quot;#,##0.00&quot;) &amp; vbTab &amp; _
-Format$(accumulated, &quot;#,##0.00&quot;) &amp; vbTab &amp; _
-Format$(bookValue, &quot;#,##0.00&quot;)
+                               salvage As Double, life As Integer) As String
+    Dim depreciation As Double
+    Dim accumulated As Double
+    Dim bookValue As Double
+    Dim i As Integer
+    depreciation = SYD(cost, salvage, life, period)
+    accumulated = 0
+    For i = 1 To period
+        accumulated = accumulated + SYD(cost, salvage, life, i)
+    Next i
+    bookValue = cost - accumulated
+    FormatDepreciationLine = Format$(period, &quot;0&quot;) &amp; vbTab &amp; _
+                            Format$(depreciation, &quot;#,##0.00&quot;) &amp; vbTab &amp; _
+                            Format$(accumulated, &quot;#,##0.00&quot;) &amp; vbTab &amp; _
+                            Format$(bookValue, &quot;#,##0.00&quot;)
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-asset-depreciation-manager-class">Example 1: Asset Depreciation Manager Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: AssetDepreciationManager
 &#x27; Manages depreciation calculations for assets using SYD method
 Option Explicit
-
 Private m_Cost As Double
 Private m_Salvage As Double
 Private m_Life As Integer
 Private m_CurrentPeriod As Integer
-
 Public Sub Initialize(cost As Double, salvage As Double, life As Integer)
-If cost &lt;= salvage Then
-Err.Raise 5, , &quot;Cost must be greater than salvage value&quot;
-End If
-If life &lt;= 0 Then
-Err.Raise 5, , &quot;Life must be greater than zero&quot;
-End If
-
-m_Cost = cost
-m_Salvage = salvage
-m_Life = life
-m_CurrentPeriod = 0
+    If cost &lt;= salvage Then
+        Err.Raise 5, , &quot;Cost must be greater than salvage value&quot;
+    End If
+    If life &lt;= 0 Then
+        Err.Raise 5, , &quot;Life must be greater than zero&quot;
+    End If
+    m_Cost = cost
+    m_Salvage = salvage
+    m_Life = life
+    m_CurrentPeriod = 0
 End Sub
-
 Public Function GetDepreciation(period As Integer) As Double
-If period &lt; 1 Or period &gt; m_Life Then
-Err.Raise 5, , &quot;Period must be between 1 and &quot; &amp; m_Life
-End If
-
-GetDepreciation = SYD(m_Cost, m_Salvage, m_Life, period)
+    If period &lt; 1 Or period &gt; m_Life Then
+        Err.Raise 5, , &quot;Period must be between 1 and &quot; &amp; m_Life
+    End If
+    GetDepreciation = SYD(m_Cost, m_Salvage, m_Life, period)
 End Function
-
 Public Function GetAccumulatedDepreciation(throughPeriod As Integer) As Double
-Dim period As Integer
-Dim total As Double
-
-total = 0
-For period = 1 To throughPeriod
-total = total + GetDepreciation(period)
-Next period
-
-GetAccumulatedDepreciation = total
+    Dim period As Integer
+    Dim total As Double
+    total = 0
+    For period = 1 To throughPeriod
+        total = total + GetDepreciation(period)
+    Next period
+    GetAccumulatedDepreciation = total
 End Function
-
 Public Function GetBookValue(atPeriod As Integer) As Double
-GetBookValue = m_Cost - GetAccumulatedDepreciation(atPeriod)
+    GetBookValue = m_Cost - GetAccumulatedDepreciation(atPeriod)
 End Function
-
 Public Function GetDepreciationSchedule() As Variant
-Dim schedule() As Variant
-Dim period As Integer
-Dim accumulated As Double
-
-ReDim schedule(0 To m_Life, 0 To 3) &#x27; Period, Depreciation, Accumulated, Book Value
-
-schedule(0, 0) = &quot;Period&quot;
-schedule(0, 1) = &quot;Depreciation&quot;
-schedule(0, 2) = &quot;Accumulated&quot;
-schedule(0, 3) = &quot;Book Value&quot;
-
-accumulated = 0
-For period = 1 To m_Life
-Dim dep As Double
-dep = GetDepreciation(period)
-accumulated = accumulated + dep
-
-schedule(period, 0) = period
-schedule(period, 1) = dep
-schedule(period, 2) = accumulated
-schedule(period, 3) = m_Cost - accumulated
-Next period
-
-GetDepreciationSchedule = schedule
+    Dim schedule() As Variant
+    Dim period As Integer
+    Dim accumulated As Double
+    ReDim schedule(0 To m_Life, 0 To 3) &#x27; Period, Depreciation, Accumulated, Book Value
+    schedule(0, 0) = &quot;Period&quot;
+    schedule(0, 1) = &quot;Depreciation&quot;
+    schedule(0, 2) = &quot;Accumulated&quot;
+    schedule(0, 3) = &quot;Book Value&quot;
+    accumulated = 0
+    For period = 1 To m_Life
+        Dim dep As Double
+        dep = GetDepreciation(period)
+        accumulated = accumulated + dep
+        schedule(period, 0) = period
+        schedule(period, 1) = dep
+        schedule(period, 2) = accumulated
+        schedule(period, 3) = m_Cost - accumulated
+    Next period
+    GetDepreciationSchedule = schedule
 End Function
-
 Public Property Get Cost() As Double
-Cost = m_Cost
+    Cost = m_Cost
 End Property
-
 Public Property Get SalvageValue() As Double
-SalvageValue = m_Salvage
+    SalvageValue = m_Salvage
 End Property
-
 Public Property Get UsefulLife() As Integer
-UsefulLife = m_Life
+    UsefulLife = m_Life
 End Property</code></pre>
 <h3 id="example-2-depreciation-calculator-module">Example 2: Depreciation Calculator Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: DepreciationCalculator
 &#x27; Provides comprehensive depreciation calculation utilities
 Option Explicit
-
 Public Function CalculateFullSchedule(cost As Double, salvage As Double, _
-life As Integer) As String
-Dim period As Integer
-Dim output As String
-Dim depreciation As Double
-Dim accumulated As Double
-Dim bookValue As Double
-
-output = &quot;Period&quot; &amp; vbTab &amp; &quot;Depreciation&quot; &amp; vbTab &amp; _
-&quot;Accumulated&quot; &amp; vbTab &amp; &quot;Book Value&quot; &amp; vbCrLf
-output = output &amp; String(60, &quot;-&quot;) &amp; vbCrLf
-
-accumulated = 0
-For period = 1 To life
-depreciation = SYD(cost, salvage, life, period)
-accumulated = accumulated + depreciation
-bookValue = cost - accumulated
-
-output = output &amp; period &amp; vbTab &amp; _
-Format$(depreciation, &quot;$#,##0.00&quot;) &amp; vbTab &amp; _
-Format$(accumulated, &quot;$#,##0.00&quot;) &amp; vbTab &amp; _
-Format$(bookValue, &quot;$#,##0.00&quot;) &amp; vbCrLf
-Next period
-
-CalculateFullSchedule = output
+                                     life As Integer) As String
+    Dim period As Integer
+    Dim output As String
+    Dim depreciation As Double
+    Dim accumulated As Double
+    Dim bookValue As Double
+    output = &quot;Period&quot; &amp; vbTab &amp; &quot;Depreciation&quot; &amp; vbTab &amp; _
+             &quot;Accumulated&quot; &amp; vbTab &amp; &quot;Book Value&quot; &amp; vbCrLf
+    output = output &amp; String(60, &quot;-&quot;) &amp; vbCrLf
+    accumulated = 0
+    For period = 1 To life
+        depreciation = SYD(cost, salvage, life, period)
+        accumulated = accumulated + depreciation
+        bookValue = cost - accumulated
+        output = output &amp; period &amp; vbTab &amp; _
+                 Format$(depreciation, &quot;$#,##0.00&quot;) &amp; vbTab &amp; _
+                 Format$(accumulated, &quot;$#,##0.00&quot;) &amp; vbTab &amp; _
+                 Format$(bookValue, &quot;$#,##0.00&quot;) &amp; vbCrLf
+    Next period
+    CalculateFullSchedule = output
 End Function
-
 Public Function CompareToStraightLine(cost As Double, salvage As Double, _
-life As Integer, period As Integer) As Double
-Dim sydDep As Double
-Dim slnDep As Double
-
-sydDep = SYD(cost, salvage, life, period)
-slnDep = SLN(cost, salvage, life)
-
-CompareToStraightLine = sydDep - slnDep
+                                     life As Integer, period As Integer) As Double
+    Dim sydDep As Double
+    Dim slnDep As Double
+    sydDep = SYD(cost, salvage, life, period)
+    slnDep = SLN(cost, salvage, life)
+    CompareToStraightLine = sydDep - slnDep
 End Function
-
 Public Function CalculateFirstYearDepreciation(cost As Double, salvage As Double, _
-life As Integer, _
-purchaseMonth As Integer) As Double
-Dim monthsInFirstYear As Integer
-Dim fullYearDep As Double
-
-monthsInFirstYear = 13 - purchaseMonth
-fullYearDep = SYD(cost, salvage, life, 1)
-
-CalculateFirstYearDepreciation = fullYearDep * (monthsInFirstYear / 12)
+                                              life As Integer, _
+                                              purchaseMonth As Integer) As Double
+    Dim monthsInFirstYear As Integer
+    Dim fullYearDep As Double
+    monthsInFirstYear = 13 - purchaseMonth
+    fullYearDep = SYD(cost, salvage, life, 1)
+    CalculateFirstYearDepreciation = fullYearDep * (monthsInFirstYear / 12)
 End Function
-
 Public Function GetDepreciationRate(life As Integer, period As Integer) As Double
-Dim sumOfYears As Integer
-Dim remainingLife As Integer
-
-sumOfYears = life * (life + 1) / 2
-remainingLife = life - period + 1
-
-GetDepreciationRate = remainingLife / sumOfYears
+    Dim sumOfYears As Integer
+    Dim remainingLife As Integer
+    sumOfYears = life * (life + 1) / 2
+    remainingLife = life - period + 1
+    GetDepreciationRate = remainingLife / sumOfYears
 End Function</code></pre>
 <h3 id="example-3-multi-asset-tracker-class">Example 3: Multi-Asset Tracker Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: MultiAssetTracker
 &#x27; Tracks depreciation for multiple assets
 Option Explicit
-
 Private Type AssetInfo
-Name As String
-Cost As Double
-Salvage As Double
-Life As Integer
-PurchaseDate As Date
+    Name As String
+    Cost As Double
+    Salvage As Double
+    Life As Integer
+    PurchaseDate As Date
 End Type
-
 Private m_Assets() As AssetInfo
 Private m_AssetCount As Integer
-
 Public Sub Initialize()
-m_AssetCount = 0
-ReDim m_Assets(0 To 9)
+    m_AssetCount = 0
+    ReDim m_Assets(0 To 9)
 End Sub
-
 Public Sub AddAsset(name As String, cost As Double, salvage As Double, _
-life As Integer, purchaseDate As Date)
-If m_AssetCount &gt;= UBound(m_Assets) Then
-ReDim Preserve m_Assets(0 To UBound(m_Assets) * 2)
-End If
-
-With m_Assets(m_AssetCount)
-.Name = name
-.Cost = cost
-.Salvage = salvage
-.Life = life
-.PurchaseDate = purchaseDate
-End With
-
-m_AssetCount = m_AssetCount + 1
+                   life As Integer, purchaseDate As Date)
+    If m_AssetCount &gt;= UBound(m_Assets) Then
+        ReDim Preserve m_Assets(0 To UBound(m_Assets) * 2)
+    End If
+    With m_Assets(m_AssetCount)
+        .Name = name
+        .Cost = cost
+        .Salvage = salvage
+        .Life = life
+        .PurchaseDate = purchaseDate
+    End With
+    m_AssetCount = m_AssetCount + 1
 End Sub
-
 Public Function GetTotalDepreciation(forYear As Integer) As Double
-Dim i As Integer
-Dim total As Double
-Dim period As Integer
-
-total = 0
-For i = 0 To m_AssetCount - 1
-period = forYear - Year(m_Assets(i).PurchaseDate) + 1
-If period &gt;= 1 And period &lt;= m_Assets(i).Life Then
-total = total + SYD(m_Assets(i).Cost, m_Assets(i).Salvage, _
-m_Assets(i).Life, period)
-End If
-Next i
-
-GetTotalDepreciation = total
+    Dim i As Integer
+    Dim total As Double
+    Dim period As Integer
+    total = 0
+    For i = 0 To m_AssetCount - 1
+        period = forYear - Year(m_Assets(i).PurchaseDate) + 1
+        If period &gt;= 1 And period &lt;= m_Assets(i).Life Then
+            total = total + SYD(m_Assets(i).Cost, m_Assets(i).Salvage, _
+                               m_Assets(i).Life, period)
+        End If
+    Next i
+    GetTotalDepreciation = total
 End Function
-
 Public Function GetAssetDepreciation(assetIndex As Integer, period As Integer) As Double
-If assetIndex &lt; 0 Or assetIndex &gt;= m_AssetCount Then
-Err.Raise 9, , &quot;Invalid asset index&quot;
-End If
-
-With m_Assets(assetIndex)
-If period &lt; 1 Or period &gt; .Life Then
-GetAssetDepreciation = 0
-Else
-GetAssetDepreciation = SYD(.Cost, .Salvage, .Life, period)
-End If
-End With
+    If assetIndex &lt; 0 Or assetIndex &gt;= m_AssetCount Then
+        Err.Raise 9, , &quot;Invalid asset index&quot;
+    End If
+    With m_Assets(assetIndex)
+        If period &lt; 1 Or period &gt; .Life Then
+            GetAssetDepreciation = 0
+        Else
+            GetAssetDepreciation = SYD(.Cost, .Salvage, .Life, period)
+        End If
+    End With
 End Function
-
 Public Property Get AssetCount() As Integer
-AssetCount = m_AssetCount
+    AssetCount = m_AssetCount
 End Property</code></pre>
 <h3 id="example-4-tax-depreciation-reporter">Example 4: Tax Depreciation Reporter</h3>
 <pre><code class="language-vbnet">&#x27; Module: TaxDepreciationReporter
 &#x27; Generates tax depreciation reports using SYD method
 Option Explicit
-
 Public Function GenerateTaxReport(assetName As String, cost As Double, _
-salvage As Double, life As Integer, _
-taxYear As Integer) As String
-Dim report As String
-Dim currentYear As Integer
-Dim depreciation As Double
-Dim accumulated As Double
-
-report = &quot;Tax Depreciation Report - &quot; &amp; assetName &amp; vbCrLf
-report = report &amp; &quot;Method: Sum-of-Years Digits (SYD)&quot; &amp; vbCrLf
-report = report &amp; &quot;Cost: &quot; &amp; Format$(cost, &quot;$#,##0.00&quot;) &amp; vbCrLf
-report = report &amp; &quot;Salvage: &quot; &amp; Format$(salvage, &quot;$#,##0.00&quot;) &amp; vbCrLf
-report = report &amp; &quot;Life: &quot; &amp; life &amp; &quot; years&quot; &amp; vbCrLf &amp; vbCrLf
-
-accumulated = 0
-For currentYear = 1 To taxYear
-depreciation = SYD(cost, salvage, life, currentYear)
-accumulated = accumulated + depreciation
-Next currentYear
-
-report = report &amp; &quot;Depreciation for Year &quot; &amp; taxYear &amp; &quot;: &quot; &amp; _
-Format$(SYD(cost, salvage, life, taxYear), &quot;$#,##0.00&quot;) &amp; vbCrLf
-report = report &amp; &quot;Accumulated Depreciation: &quot; &amp; _
-Format$(accumulated, &quot;$#,##0.00&quot;) &amp; vbCrLf
-report = report &amp; &quot;Book Value: &quot; &amp; _
-Format$(cost - accumulated, &quot;$#,##0.00&quot;) &amp; vbCrLf
-
-GenerateTaxReport = report
+                                 salvage As Double, life As Integer, _
+                                 taxYear As Integer) As String
+    Dim report As String
+    Dim currentYear As Integer
+    Dim depreciation As Double
+    Dim accumulated As Double
+    report = &quot;Tax Depreciation Report - &quot; &amp; assetName &amp; vbCrLf
+    report = report &amp; &quot;Method: Sum-of-Years Digits (SYD)&quot; &amp; vbCrLf
+    report = report &amp; &quot;Cost: &quot; &amp; Format$(cost, &quot;$#,##0.00&quot;) &amp; vbCrLf
+    report = report &amp; &quot;Salvage: &quot; &amp; Format$(salvage, &quot;$#,##0.00&quot;) &amp; vbCrLf
+    report = report &amp; &quot;Life: &quot; &amp; life &amp; &quot; years&quot; &amp; vbCrLf &amp; vbCrLf
+    accumulated = 0
+    For currentYear = 1 To taxYear
+        depreciation = SYD(cost, salvage, life, currentYear)
+        accumulated = accumulated + depreciation
+    Next currentYear
+    report = report &amp; &quot;Depreciation for Year &quot; &amp; taxYear &amp; &quot;: &quot; &amp; _
+             Format$(SYD(cost, salvage, life, taxYear), &quot;$#,##0.00&quot;) &amp; vbCrLf
+    report = report &amp; &quot;Accumulated Depreciation: &quot; &amp; _
+             Format$(accumulated, &quot;$#,##0.00&quot;) &amp; vbCrLf
+    report = report &amp; &quot;Book Value: &quot; &amp; _
+             Format$(cost - accumulated, &quot;$#,##0.00&quot;) &amp; vbCrLf
+    GenerateTaxReport = report
 End Function
-
 Public Function ExportToCSV(cost As Double, salvage As Double, life As Integer) As String
-Dim csv As String
-Dim period As Integer
-Dim depreciation As Double
-Dim accumulated As Double
-
-csv = &quot;Period,Depreciation,Accumulated,Book Value&quot; &amp; vbCrLf
-
-accumulated = 0
-For period = 1 To life
-depreciation = SYD(cost, salvage, life, period)
-accumulated = accumulated + depreciation
-
-csv = csv &amp; period &amp; &quot;,&quot; &amp; _
-Round(depreciation, 2) &amp; &quot;,&quot; &amp; _
-Round(accumulated, 2) &amp; &quot;,&quot; &amp; _
-Round(cost - accumulated, 2) &amp; vbCrLf
-Next period
-
-ExportToCSV = csv
+    Dim csv As String
+    Dim period As Integer
+    Dim depreciation As Double
+    Dim accumulated As Double
+    csv = &quot;Period,Depreciation,Accumulated,Book Value&quot; &amp; vbCrLf
+    accumulated = 0
+    For period = 1 To life
+        depreciation = SYD(cost, salvage, life, period)
+        accumulated = accumulated + depreciation
+        csv = csv &amp; period &amp; &quot;,&quot; &amp; _
+              Round(depreciation, 2) &amp; &quot;,&quot; &amp; _
+              Round(accumulated, 2) &amp; &quot;,&quot; &amp; _
+              Round(cost - accumulated, 2) &amp; vbCrLf
+    Next period
+    ExportToCSV = csv
 End Function
-
 Public Function CalculateTaxSavings(cost As Double, salvage As Double, _
-life As Integer, taxRate As Double) As Variant
-Dim period As Integer
-Dim savings() As Double
-Dim depreciation As Double
-
-ReDim savings(1 To life)
-
-For period = 1 To life
-depreciation = SYD(cost, salvage, life, period)
-savings(period) = depreciation * taxRate
-Next period
-
-CalculateTaxSavings = savings
+                                   life As Integer, taxRate As Double) As Variant
+    Dim period As Integer
+    Dim savings() As Double
+    Dim depreciation As Double
+    ReDim savings(1 To life)
+    For period = 1 To life
+        depreciation = SYD(cost, salvage, life, period)
+        savings(period) = depreciation * taxRate
+    Next period
+    CalculateTaxSavings = savings
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>SYD</code> function can raise the following errors:</p>
-<ul>
-<li><strong>Error 5 (Invalid procedure call or argument)</strong>: If any argument is negative, or if <code>period &gt; life</code>, or if <code>cost &lt;= salvage</code></li>
-<li><strong>Error 11 (Division by zero)</strong>: If <code>life = 0</code></li>
-<li><strong>Error 13 (Type mismatch)</strong>: If arguments are not numeric</li>
-</ul>
+<p>The <code>SYD</code> function can raise the following errors:
+- <strong>Error 5 (Invalid procedure call or argument)</strong>: If any argument is negative, or if <code>period &gt; life</code>, or if <code>cost &lt;= salvage</code>
+- <strong>Error 11 (Division by zero)</strong>: If <code>life = 0</code>
+- <strong>Error 13 (Type mismatch)</strong>: If arguments are not numeric</p>
 <h2 id="performance-notes">Performance Notes</h2>
 <ul>
 <li>Very fast calculation using direct formula</li>
@@ -646,26 +556,106 @@ End Function</code></pre>
 <td>Equal</td>
 <td>(Cost-Salvage)/Life</td>
 </tr>
+<tr>
+<td>## Platform Notes</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in VB6 and VBA</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Not available in <code>VBScript</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns Double precision floating-point</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Part of the Financial functions library</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Requires all arguments to be positive (except salvage can be zero)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot handle negative values for cost, salvage, or life</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Period must be between 1 and life (inclusive)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Does not handle mid-period conventions automatically</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No built-in support for asset disposals or write-offs</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Salvage value must be less than cost</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- No automatic switching to straight-line method</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Does not account for bonus depreciation or special tax rules</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-notes">Platform Notes</h2>
-<ul>
-<li>Available in VB6 and VBA</li>
-<li>Not available in <code>VBScript</code></li>
-<li>Returns Double precision floating-point</li>
-<li>Part of the Financial functions library</li>
-<li>Requires all arguments to be positive (except salvage can be zero)</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Cannot handle negative values for cost, salvage, or life</li>
-<li>Period must be between 1 and life (inclusive)</li>
-<li>Does not handle mid-period conventions automatically</li>
-<li>No built-in support for asset disposals or write-offs</li>
-<li>Salvage value must be less than cost</li>
-<li>No automatic switching to straight-line method</li>
-<li>Does not account for bonus depreciation or special tax rules</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

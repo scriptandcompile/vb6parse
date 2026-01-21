@@ -49,7 +49,7 @@ the double-declining balance method or some other method you specify.</p>
 <li><strong>life</strong>: Required. Double specifying length of useful life of the asset.</li>
 <li><strong>period</strong>: Required. Double specifying period for which asset depreciation is calculated.</li>
 <li><strong>factor</strong>: Optional. Variant specifying rate at which the balance declines. If omitted,
-2 (double-declining method) is assumed.</li>
+  2 (double-declining method) is assumed.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a Double representing the depreciation amount for the specified period. The return
@@ -57,22 +57,19 @@ value uses the same time units as the life parameter.</p>
 <h2 id="remarks">Remarks</h2>
 <p>The <code>DDB</code> function calculates depreciation using the double-declining balance method,
 which computes depreciation at an accelerated rate. Depreciation is highest in the first
-period and decreases in successive periods.</p>
-<p><strong>Important Characteristics:</strong></p>
-<ul>
-<li>Uses accelerated depreciation (more in early periods)</li>
-<li>Default factor is 2.0 (double-declining balance)</li>
-<li>Factor of 1.5 gives 150% declining balance</li>
-<li>All arguments must be positive numbers</li>
-<li>The life and period arguments must use the same units (years, months, etc.)</li>
-<li>Depreciation never reduces asset value below salvage value</li>
-<li>More accurate than straight-line for assets that lose value quickly</li>
-<li>Commonly used for tax purposes and financial reporting</li>
-</ul>
+period and decreases in successive periods.
+<strong>Important Characteristics:</strong>
+- Uses accelerated depreciation (more in early periods)
+- Default factor is 2.0 (double-declining balance)
+- Factor of 1.5 gives 150% declining balance
+- All arguments must be positive numbers
+- The life and period arguments must use the same units (years, months, etc.)
+- Depreciation never reduces asset value below salvage value
+- More accurate than straight-line for assets that lose value quickly
+- Commonly used for tax purposes and financial reporting</p>
 <h2 id="formula">Formula</h2>
 <p>The double-declining balance method uses:</p>
 <pre><code class="language-text">Depreciation = (Book Value - Salvage) × (Factor / Life)
-
 Where:
 - Book Value = Cost - Accumulated Depreciation from prior periods
 - Factor = Declining balance rate (default 2.0)
@@ -85,15 +82,12 @@ Dim cost As Double
 Dim salvage As Double
 Dim life As Double
 Dim depreciation As Double
-
 cost = 10000      &#x27; $10,000 initial cost
 salvage = 1000    &#x27; $1,000 salvage value
 life = 5          &#x27; 5 year useful life
-
 &#x27; First year depreciation (double-declining)
 depreciation = DDB(cost, salvage, life, 1)
 &#x27; Returns 4000 (40% of 10000)
-
 &#x27; Second year depreciation
 depreciation = DDB(cost, salvage, life, 2)
 &#x27; Returns 2400 (40% of 6000)</code></pre>
@@ -102,319 +96,274 @@ depreciation = DDB(cost, salvage, life, 2)
 Dim depreciation As Double
 depreciation = DDB(10000, 1000, 5, 1, 1.5)
 &#x27; Uses 30% rate instead of 40%
-
 &#x27; Straight-line equivalent (factor = 1)
 depreciation = DDB(10000, 1000, 5, 1, 1)</code></pre>
 <h3 id="complete-depreciation-schedule">Complete Depreciation Schedule</h3>
 <pre><code class="language-vbnet">Sub ShowDepreciationSchedule()
-Dim cost As Double
-Dim salvage As Double
-Dim life As Double
-Dim period As Integer
-Dim depreciation As Double
-
-cost = 10000
-salvage = 1000
-life = 5
-
-Debug.Print &quot;Year&quot;, &quot;Depreciation&quot;, &quot;Book Value&quot;
-
-For period = 1 To life
-depreciation = DDB(cost, salvage, life, period)
-Debug.Print period, Format(depreciation, &quot;Currency&quot;), _
-Format(cost - TotalDepreciation(period), &quot;Currency&quot;)
-Next period
+    Dim cost As Double
+    Dim salvage As Double
+    Dim life As Double
+    Dim period As Integer
+    Dim depreciation As Double
+    cost = 10000
+    salvage = 1000
+    life = 5
+    Debug.Print &quot;Year&quot;, &quot;Depreciation&quot;, &quot;Book Value&quot;
+    For period = 1 To life
+        depreciation = DDB(cost, salvage, life, period)
+        Debug.Print period, Format(depreciation, &quot;Currency&quot;), _
+                    Format(cost - TotalDepreciation(period), &quot;Currency&quot;)
+    Next period
 End Sub</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="calculate-total-accumulated-depreciation">Calculate Total Accumulated Depreciation</h3>
 <pre><code class="language-vbnet">Function AccumulatedDepreciation(cost As Double, salvage As Double, _
-life As Double, currentPeriod As Integer) As Double
-Dim total As Double
-Dim i As Integer
-
-total = 0
-For i = 1 To currentPeriod
-total = total + DDB(cost, salvage, life, i)
-Next i
-
-AccumulatedDepreciation = total
+                                 life As Double, currentPeriod As Integer) As Double
+    Dim total As Double
+    Dim i As Integer
+    total = 0
+    For i = 1 To currentPeriod
+        total = total + DDB(cost, salvage, life, i)
+    Next i
+    AccumulatedDepreciation = total
 End Function</code></pre>
 <h3 id="calculate-current-book-value">Calculate Current Book Value</h3>
 <pre><code class="language-vbnet">Function BookValue(cost As Double, salvage As Double, _
-life As Double, currentPeriod As Integer) As Double
-Dim accumulated As Double
-accumulated = AccumulatedDepreciation(cost, salvage, life, currentPeriod)
-BookValue = cost - accumulated
+                   life As Double, currentPeriod As Integer) As Double
+    Dim accumulated As Double
+    accumulated = AccumulatedDepreciation(cost, salvage, life, currentPeriod)
+    BookValue = cost - accumulated
 End Function</code></pre>
 <h3 id="compare-depreciation-methods">Compare Depreciation Methods</h3>
 <pre><code class="language-vbnet">Sub CompareDepreciationMethods(cost As Double, salvage As Double, life As Double)
-Dim period As Integer
-Dim ddbDepr As Double
-Dim slnDepr As Double
-
-Debug.Print &quot;Period&quot;, &quot;DDB&quot;, &quot;SLN&quot;
-
-For period = 1 To life
-ddbDepr = DDB(cost, salvage, life, period)
-slnDepr = SLN(cost, salvage, life)
-
-Debug.Print period, Format(ddbDepr, &quot;Currency&quot;), _
-Format(slnDepr, &quot;Currency&quot;)
-Next period
+    Dim period As Integer
+    Dim ddbDepr As Double
+    Dim slnDepr As Double
+    Debug.Print &quot;Period&quot;, &quot;DDB&quot;, &quot;SLN&quot;
+    For period = 1 To life
+        ddbDepr = DDB(cost, salvage, life, period)
+        slnDepr = SLN(cost, salvage, life)
+        Debug.Print period, Format(ddbDepr, &quot;Currency&quot;), _
+                    Format(slnDepr, &quot;Currency&quot;)
+    Next period
 End Sub</code></pre>
 <h3 id="monthly-depreciation">Monthly Depreciation</h3>
 <pre><code class="language-vbnet">Function MonthlyDDB(cost As Double, salvage As Double, _
-lifeYears As Double, month As Integer) As Double
-&#x27; Calculate depreciation by month instead of year
-Dim lifeMonths As Double
-lifeMonths = lifeYears * 12
-MonthlyDDB = DDB(cost, salvage, lifeMonths, month)
+                    lifeYears As Double, month As Integer) As Double
+    &#x27; Calculate depreciation by month instead of year
+    Dim lifeMonths As Double
+    lifeMonths = lifeYears * 12
+    MonthlyDDB = DDB(cost, salvage, lifeMonths, month)
 End Function</code></pre>
 <h3 id="partial-year-depreciation">Partial Year Depreciation</h3>
 <pre><code class="language-vbnet">Function PartialYearDDB(cost As Double, salvage As Double, life As Double, _
-year As Integer, monthsInFirstYear As Integer) As Double
-&#x27; Handle assets purchased mid-year
-If year = 1 Then
-PartialYearDDB = DDB(cost, salvage, life, 1) * (monthsInFirstYear / 12)
-Else
-Dim priorYearPartial As Double
-Dim currentYearPartial As Double
-
-priorYearPartial = DDB(cost, salvage, life, year - 1) * _
-((12 - monthsInFirstYear) / 12)
-currentYearPartial = DDB(cost, salvage, life, year) * _
-(monthsInFirstYear / 12)
-
-PartialYearDDB = priorYearPartial + currentYearPartial
-End If
+                        year As Integer, monthsInFirstYear As Integer) As Double
+    &#x27; Handle assets purchased mid-year
+    If year = 1 Then
+        PartialYearDDB = DDB(cost, salvage, life, 1) * (monthsInFirstYear / 12)
+    Else
+        Dim priorYearPartial As Double
+        Dim currentYearPartial As Double
+        priorYearPartial = DDB(cost, salvage, life, year - 1) * _
+                          ((12 - monthsInFirstYear) / 12)
+        currentYearPartial = DDB(cost, salvage, life, year) * _
+                            (monthsInFirstYear / 12)
+        PartialYearDDB = priorYearPartial + currentYearPartial
+    End If
 End Function</code></pre>
 <h3 id="depreciation-rate-calculation">Depreciation Rate Calculation</h3>
 <pre><code class="language-vbnet">Function DepreciationRate(life As Double, Optional factor As Double = 2) As Double
-&#x27; Calculate the depreciation rate percentage
-DepreciationRate = (factor / life) * 100
+    &#x27; Calculate the depreciation rate percentage
+    DepreciationRate = (factor / life) * 100
 End Function
-
 &#x27; Usage
 rate = DepreciationRate(5)      &#x27; Returns 40% for 5-year DDB
 rate = DepreciationRate(5, 1.5) &#x27; Returns 30% for 5-year 150% DB</code></pre>
 <h3 id="asset-register-with-ddb">Asset Register with DDB</h3>
 <pre><code class="language-vbnet">Type Asset
-Description As String
-Cost As Double
-Salvage As Double
-Life As Double
-PurchaseDate As Date
+    Description As String
+    Cost As Double
+    Salvage As Double
+    Life As Double
+    PurchaseDate As Date
 End Type
-
 Function CalculateAssetDepreciation(asset As Asset, currentYear As Integer) As Double
-Dim yearsOwned As Integer
-yearsOwned = Year(Date) - Year(asset.PurchaseDate)
-
-If yearsOwned &gt;= currentYear And currentYear &lt;= asset.Life Then
-CalculateAssetDepreciation = DDB(asset.Cost, asset.Salvage, _
-asset.Life, currentYear)
-Else
-CalculateAssetDepreciation = 0
-End If
+    Dim yearsOwned As Integer
+    yearsOwned = Year(Date) - Year(asset.PurchaseDate)
+    If yearsOwned &gt;= currentYear And currentYear &lt;= asset.Life Then
+        CalculateAssetDepreciation = DDB(asset.Cost, asset.Salvage, _
+                                        asset.Life, currentYear)
+    Else
+        CalculateAssetDepreciation = 0
+    End If
 End Function</code></pre>
 <h3 id="switch-to-straight-line-detection">Switch to Straight-Line Detection</h3>
 <pre><code class="language-vbnet">Function ShouldSwitchToSLN(cost As Double, salvage As Double, _
-life As Double, period As Integer) As Boolean
-&#x27; Determine if switching to SLN would give higher depreciation
-Dim ddbAmount As Double
-Dim slnAmount As Double
-Dim bookValue As Double
-Dim remainingLife As Double
-
-ddbAmount = DDB(cost, salvage, life, period)
-bookValue = BookValue(cost, salvage, life, period - 1)
-remainingLife = life - period + 1
-slnAmount = (bookValue - salvage) / remainingLife
-
-ShouldSwitchToSLN = (slnAmount &gt; ddbAmount)
+                           life As Double, period As Integer) As Boolean
+    &#x27; Determine if switching to SLN would give higher depreciation
+    Dim ddbAmount As Double
+    Dim slnAmount As Double
+    Dim bookValue As Double
+    Dim remainingLife As Double
+    ddbAmount = DDB(cost, salvage, life, period)
+    bookValue = BookValue(cost, salvage, life, period - 1)
+    remainingLife = life - period + 1
+    slnAmount = (bookValue - salvage) / remainingLife
+    ShouldSwitchToSLN = (slnAmount &gt; ddbAmount)
 End Function</code></pre>
 <h3 id="tax-depreciation-calculator">Tax Depreciation Calculator</h3>
 <pre><code class="language-vbnet">Function TaxDepreciation(cost As Double, salvage As Double, _
-life As Double, taxYear As Integer, _
-Optional method As String = &quot;DDB&quot;) As Double
-Select Case UCase(method)
-Case &quot;DDB&quot;
-TaxDepreciation = DDB(cost, salvage, life, taxYear)
-Case &quot;150DB&quot;
-TaxDepreciation = DDB(cost, salvage, life, taxYear, 1.5)
-Case &quot;SLN&quot;
-TaxDepreciation = SLN(cost, salvage, life)
-Case Else
-TaxDepreciation = 0
-End Select
+                        life As Double, taxYear As Integer, _
+                        Optional method As String = &quot;DDB&quot;) As Double
+    Select Case UCase(method)
+        Case &quot;DDB&quot;
+            TaxDepreciation = DDB(cost, salvage, life, taxYear)
+        Case &quot;150DB&quot;
+            TaxDepreciation = DDB(cost, salvage, life, taxYear, 1.5)
+        Case &quot;SLN&quot;
+            TaxDepreciation = SLN(cost, salvage, life)
+        Case Else
+            TaxDepreciation = 0
+    End Select
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="depreciation-schedule-generator">Depreciation Schedule Generator</h3>
 <pre><code class="language-vbnet">Function GenerateDepreciationSchedule(cost As Double, salvage As Double, _
-life As Double) As Variant
-&#x27; Returns 2D array: Period, Depreciation, Accumulated, Book Value
-Dim schedule() As Variant
-Dim period As Integer
-Dim depreciation As Double
-Dim accumulated As Double
-
-ReDim schedule(1 To life, 1 To 4)
-accumulated = 0
-
-For period = 1 To life
-depreciation = DDB(cost, salvage, life, period)
-accumulated = accumulated + depreciation
-
-schedule(period, 1) = period
-schedule(period, 2) = depreciation
-schedule(period, 3) = accumulated
-schedule(period, 4) = cost - accumulated
-Next period
-
-GenerateDepreciationSchedule = schedule
+                                     life As Double) As Variant
+    &#x27; Returns 2D array: Period, Depreciation, Accumulated, Book Value
+    Dim schedule() As Variant
+    Dim period As Integer
+    Dim depreciation As Double
+    Dim accumulated As Double
+    ReDim schedule(1 To life, 1 To 4)
+    accumulated = 0
+    For period = 1 To life
+        depreciation = DDB(cost, salvage, life, period)
+        accumulated = accumulated + depreciation
+        schedule(period, 1) = period
+        schedule(period, 2) = depreciation
+        schedule(period, 3) = accumulated
+        schedule(period, 4) = cost - accumulated
+    Next period
+    GenerateDepreciationSchedule = schedule
 End Function</code></pre>
 <h3 id="hybrid-depreciation-method">Hybrid Depreciation Method</h3>
 <pre><code class="language-vbnet">Function HybridDepreciation(cost As Double, salvage As Double, _
-life As Double, period As Integer) As Double
-&#x27; Use DDB but switch to SLN when SLN gives higher amount
-Dim ddbAmount As Double
-Dim slnAmount As Double
-Dim bookValue As Double
-Dim remainingLife As Double
-
-ddbAmount = DDB(cost, salvage, life, period)
-
-If period &gt; 1 Then
-bookValue = BookValue(cost, salvage, life, period - 1)
-remainingLife = life - period + 1
-slnAmount = (bookValue - salvage) / remainingLife
-
-HybridDepreciation = Application.Max(ddbAmount, slnAmount)
-Else
-HybridDepreciation = ddbAmount
-End If
+                           life As Double, period As Integer) As Double
+    &#x27; Use DDB but switch to SLN when SLN gives higher amount
+    Dim ddbAmount As Double
+    Dim slnAmount As Double
+    Dim bookValue As Double
+    Dim remainingLife As Double
+    ddbAmount = DDB(cost, salvage, life, period)
+    If period &gt; 1 Then
+        bookValue = BookValue(cost, salvage, life, period - 1)
+        remainingLife = life - period + 1
+        slnAmount = (bookValue - salvage) / remainingLife
+        HybridDepreciation = Application.Max(ddbAmount, slnAmount)
+    Else
+        HybridDepreciation = ddbAmount
+    End If
 End Function</code></pre>
 <h3 id="multi-asset-depreciation-report">Multi-Asset Depreciation Report</h3>
 <pre><code class="language-vbnet">Sub GenerateDepreciationReport(assets() As Asset, fiscalYear As Integer)
-Dim i As Integer
-Dim totalDepreciation As Double
-Dim assetDepreciation As Double
-
-totalDepreciation = 0
-
-Debug.Print &quot;Asset&quot;, &quot;Cost&quot;, &quot;Life&quot;, &quot;Year&quot;, &quot;Depreciation&quot;
-
-For i = LBound(assets) To UBound(assets)
-Dim yearsSincePurchase As Integer
-yearsSincePurchase = fiscalYear - Year(assets(i).PurchaseDate) + 1
-
-If yearsSincePurchase &gt; 0 And yearsSincePurchase &lt;= assets(i).Life Then
-assetDepreciation = DDB(assets(i).Cost, assets(i).Salvage, _
-assets(i).Life, yearsSincePurchase)
-
-Debug.Print assets(i).Description, _
-Format(assets(i).Cost, &quot;Currency&quot;), _
-assets(i).Life, _
-yearsSincePurchase, _
-Format(assetDepreciation, &quot;Currency&quot;)
-
-totalDepreciation = totalDepreciation + assetDepreciation
-End If
-Next i
-
-Debug.Print &quot;Total Depreciation:&quot;, Format(totalDepreciation, &quot;Currency&quot;)
+    Dim i As Integer
+    Dim totalDepreciation As Double
+    Dim assetDepreciation As Double
+    totalDepreciation = 0
+    Debug.Print &quot;Asset&quot;, &quot;Cost&quot;, &quot;Life&quot;, &quot;Year&quot;, &quot;Depreciation&quot;
+    For i = LBound(assets) To UBound(assets)
+        Dim yearsSincePurchase As Integer
+        yearsSincePurchase = fiscalYear - Year(assets(i).PurchaseDate) + 1
+        If yearsSincePurchase &gt; 0 And yearsSincePurchase &lt;= assets(i).Life Then
+            assetDepreciation = DDB(assets(i).Cost, assets(i).Salvage, _
+                                   assets(i).Life, yearsSincePurchase)
+            Debug.Print assets(i).Description, _
+                       Format(assets(i).Cost, &quot;Currency&quot;), _
+                       assets(i).Life, _
+                       yearsSincePurchase, _
+                       Format(assetDepreciation, &quot;Currency&quot;)
+            totalDepreciation = totalDepreciation + assetDepreciation
+        End If
+    Next i
+    Debug.Print &quot;Total Depreciation:&quot;, Format(totalDepreciation, &quot;Currency&quot;)
 End Sub</code></pre>
 <h3 id="optimal-method-selector">Optimal Method Selector</h3>
 <pre><code class="language-vbnet">Function OptimalDepreciationMethod(cost As Double, salvage As Double, _
-life As Double, period As Integer, _
-taxRate As Double) As String
-&#x27; Determine which method gives best tax benefit
-Dim ddbAmount As Double
-Dim slnAmount As Double
-Dim ddbTaxSavings As Double
-Dim slnTaxSavings As Double
-
-ddbAmount = DDB(cost, salvage, life, period)
-slnAmount = SLN(cost, salvage, life)
-
-ddbTaxSavings = ddbAmount * taxRate
-slnTaxSavings = slnAmount * taxRate
-
-If ddbTaxSavings &gt; slnTaxSavings Then
-OptimalDepreciationMethod = &quot;DDB&quot;
-Else
-OptimalDepreciationMethod = &quot;SLN&quot;
-End If
+                                  life As Double, period As Integer, _
+                                  taxRate As Double) As String
+    &#x27; Determine which method gives best tax benefit
+    Dim ddbAmount As Double
+    Dim slnAmount As Double
+    Dim ddbTaxSavings As Double
+    Dim slnTaxSavings As Double
+    ddbAmount = DDB(cost, salvage, life, period)
+    slnAmount = SLN(cost, salvage, life)
+    ddbTaxSavings = ddbAmount * taxRate
+    slnTaxSavings = slnAmount * taxRate
+    If ddbTaxSavings &gt; slnTaxSavings Then
+        OptimalDepreciationMethod = &quot;DDB&quot;
+    Else
+        OptimalDepreciationMethod = &quot;SLN&quot;
+    End If
 End Function</code></pre>
 <h3 id="financial-statement-generator">Financial Statement Generator</h3>
 <pre><code class="language-vbnet">Sub GenerateDepreciationFootnote(cost As Double, salvage As Double, _
-life As Double, currentYear As Integer)
-Dim schedule As Variant
-Dim i As Integer
-
-Debug.Print &quot;Depreciation is calculated using the double-declining balance method:&quot;
-Debug.Print &quot;Asset cost: &quot; &amp; Format(cost, &quot;Currency&quot;)
-Debug.Print &quot;Salvage value: &quot; &amp; Format(salvage, &quot;Currency&quot;)
-Debug.Print &quot;Useful life: &quot; &amp; life &amp; &quot; years&quot;
-Debug.Print
-Debug.Print &quot;Year&quot;, &quot;Depreciation&quot;, &quot;Net Book Value&quot;
-
-For i = 1 To currentYear
-Dim depr As Double
-Dim bookVal As Double
-
-depr = DDB(cost, salvage, life, i)
-bookVal = BookValue(cost, salvage, life, i)
-
-Debug.Print i, Format(depr, &quot;Currency&quot;), Format(bookVal, &quot;Currency&quot;)
-Next i
+                                life As Double, currentYear As Integer)
+    Dim schedule As Variant
+    Dim i As Integer
+    Debug.Print &quot;Depreciation is calculated using the double-declining balance method:&quot;
+    Debug.Print &quot;Asset cost: &quot; &amp; Format(cost, &quot;Currency&quot;)
+    Debug.Print &quot;Salvage value: &quot; &amp; Format(salvage, &quot;Currency&quot;)
+    Debug.Print &quot;Useful life: &quot; &amp; life &amp; &quot; years&quot;
+    Debug.Print
+    Debug.Print &quot;Year&quot;, &quot;Depreciation&quot;, &quot;Net Book Value&quot;
+    For i = 1 To currentYear
+        Dim depr As Double
+        Dim bookVal As Double
+        depr = DDB(cost, salvage, life, i)
+        bookVal = BookValue(cost, salvage, life, i)
+        Debug.Print i, Format(depr, &quot;Currency&quot;), Format(bookVal, &quot;Currency&quot;)
+    Next i
 End Sub</code></pre>
 <h3 id="macrs-alternative-comparison">MACRS Alternative Comparison</h3>
 <pre><code class="language-vbnet">Function CompareDDBToMARS(cost As Double, life As Double) As Variant
-&#x27; Compare DDB to MACRS (Modified Accelerated Cost Recovery System)
-&#x27; This is simplified; actual MACRS uses specific tables
-Dim comparison() As Variant
-Dim period As Integer
-Dim ddbTotal As Double
-Dim salvage As Double
-
-salvage = 0 &#x27; MACRS assumes zero salvage
-ReDim comparison(1 To life, 1 To 3)
-
-For period = 1 To life
-comparison(period, 1) = period
-comparison(period, 2) = DDB(cost, salvage, life, period)
-comparison(period, 3) = BookValue(cost, salvage, life, period)
-Next period
-
-CompareDDBToMARS = comparison
+    &#x27; Compare DDB to MACRS (Modified Accelerated Cost Recovery System)
+    &#x27; This is simplified; actual MACRS uses specific tables
+    Dim comparison() As Variant
+    Dim period As Integer
+    Dim ddbTotal As Double
+    Dim salvage As Double
+    salvage = 0 &#x27; MACRS assumes zero salvage
+    ReDim comparison(1 To life, 1 To 3)
+    For period = 1 To life
+        comparison(period, 1) = period
+        comparison(period, 2) = DDB(cost, salvage, life, period)
+        comparison(period, 3) = BookValue(cost, salvage, life, period)
+    Next period
+    CompareDDBToMARS = comparison
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeDDB(cost As Double, salvage As Double, life As Double, _
-period As Integer, Optional factor As Double = 2) As Variant
-On Error GoTo ErrorHandler
-
-&#x27; Validate inputs
-If cost &lt; 0 Or salvage &lt; 0 Or life &lt;= 0 Or period &lt;= 0 Then
-SafeDDB = CVErr(xlErrNum)
-Exit Function
-End If
-
-If salvage &gt;= cost Then
-SafeDDB = 0
-Exit Function
-End If
-
-If period &gt; life Then
-SafeDDB = 0
-Exit Function
-End If
-
-SafeDDB = DDB(cost, salvage, life, period, factor)
-Exit Function
-
+                 period As Integer, Optional factor As Double = 2) As Variant
+    On Error GoTo ErrorHandler
+    &#x27; Validate inputs
+    If cost &lt; 0 Or salvage &lt; 0 Or life &lt;= 0 Or period &lt;= 0 Then
+        SafeDDB = CVErr(xlErrNum)
+        Exit Function
+    End If
+    If salvage &gt;= cost Then
+        SafeDDB = 0
+        Exit Function
+    End If
+    If period &gt; life Then
+        SafeDDB = 0
+        Exit Function
+    End If
+    SafeDDB = DDB(cost, salvage, life, period, factor)
+    Exit Function
 ErrorHandler:
-SafeDDB = CVErr(xlErrValue)
+    SafeDDB = CVErr(xlErrValue)
 End Function</code></pre>
 <h3 id="common-errors">Common Errors</h3>
 <ul>
@@ -434,27 +383,24 @@ End Function</code></pre>
 <h3 id="validate-parameters">Validate Parameters</h3>
 <pre><code class="language-vbnet">&#x27; Good - Validate before calculation
 If cost &gt; 0 And salvage &gt;= 0 And salvage &lt; cost And life &gt; 0 Then
-depreciation = DDB(cost, salvage, life, period)
+    depreciation = DDB(cost, salvage, life, period)
 End If
-
 &#x27; Avoid - May cause runtime error
 depreciation = DDB(cost, salvage, life, period)</code></pre>
 <h3 id="use-consistent-time-units">Use Consistent Time Units</h3>
 <pre><code class="language-vbnet">&#x27; Good - Both in years
 depreciation = DDB(10000, 1000, 5, 2)
-
 &#x27; Good - Both in months
 depreciation = DDB(10000, 1000, 60, 24)
-
 &#x27; Avoid - Mixing units
 depreciation = DDB(10000, 1000, 5, 24)  &#x27; Mixing years and months</code></pre>
 <h3 id="consider-switching-methods">Consider Switching Methods</h3>
 <pre><code class="language-vbnet">&#x27; Many businesses switch from DDB to SLN mid-life
 &#x27; to maximize depreciation deductions
 If ShouldSwitchToSLN(cost, salvage, life, period) Then
-depreciation = CalculateSLNForRemaining(cost, salvage, life, period)
+    depreciation = CalculateSLNForRemaining(cost, salvage, life, period)
 Else
-depreciation = DDB(cost, salvage, life, period)
+    depreciation = DDB(cost, salvage, life, period)
 End If</code></pre>
 <h3 id="document-depreciation-assumptions">Document Depreciation Assumptions</h3>
 <pre><code class="language-vbnet">&#x27; Good - Document method and assumptions
@@ -465,22 +411,18 @@ depreciation = DDB(cost, cost * 0.1, 5, currentYear)</code></pre>
 <h3 id="ddb-vs-sln">DDB vs SLN</h3>
 <pre><code class="language-vbnet">&#x27; DDB - Accelerated depreciation (higher early, lower later)
 depr = DDB(10000, 1000, 5, 1)  &#x27; Returns 4000
-
 &#x27; SLN - Straight-line (same every year)
 depr = SLN(10000, 1000, 5)     &#x27; Returns 1800</code></pre>
 <h3 id="ddb-vs-syd">DDB vs SYD</h3>
 <pre><code class="language-vbnet">&#x27; DDB - Double-declining balance
 depr = DDB(10000, 1000, 5, 1)  &#x27; Returns 4000
-
 &#x27; SYD - Sum-of-years digits (also accelerated)
 depr = SYD(10000, 1000, 5, 1)  &#x27; Returns 3000</code></pre>
 <h3 id="ddb-with-different-factors">DDB with Different Factors</h3>
 <pre><code class="language-vbnet">&#x27; Double-declining (200%)
 depr = DDB(10000, 1000, 5, 1, 2)    &#x27; Returns 4000 (40% rate)
-
 &#x27; 150% declining balance
 depr = DDB(10000, 1000, 5, 1, 1.5)  &#x27; Returns 3000 (30% rate)
-
 &#x27; Straight-line equivalent
 depr = DDB(10000, 1000, 5, 1, 1)    &#x27; Returns 1800 (20% rate)</code></pre>
 <h2 id="limitations">Limitations</h2>

@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p>VB6 <code>Error$</code> Function</p>
-<p>The <code>Error$</code> function returns the error message string corresponding to a given error number.</p>
+            <p>VB6 <code>Error$</code> Function
+The <code>Error$</code> function returns the error message string corresponding to a given error number.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">Error$([errornumber])</code></pre>
 <h2 id="parameters">Parameters</h2>
@@ -82,7 +82,7 @@ MsgBox Error$()</code></pre>
 &#x27; code
 Exit Sub
 ErrHandler:
-MsgBox &quot;Error: &quot; &amp; Error$()</code></pre>
+    MsgBox &quot;Error: &quot; &amp; Error$()</code></pre>
 <h3 id="example-4-log-error-message">Example 4: Log error message</h3>
 <pre><code class="language-vbnet">Debug.Print &quot;Error occurred: &quot; &amp; Error$()</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
@@ -92,7 +92,7 @@ MsgBox &quot;Error: &quot; &amp; Error$()</code></pre>
 <pre><code class="language-vbnet">Debug.Print &quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Error$()</code></pre>
 <h3 id="pattern-3-custom-error-message">Pattern 3: Custom error message</h3>
 <pre><code class="language-vbnet">If Err.Number &lt;&gt; 0 Then
-msg = &quot;Operation failed: &quot; &amp; Error$()
+    msg = &quot;Operation failed: &quot; &amp; Error$()
 End If</code></pre>
 <h3 id="pattern-4-get-specific-error-text">Pattern 4: Get specific error text</h3>
 <pre><code class="language-vbnet">errMsg = Error$(53) &#x27; &quot;File not found&quot;</code></pre>
@@ -101,63 +101,63 @@ End If</code></pre>
 &#x27; code
 Exit Sub
 ErrHandler:
-Open &quot;errors.log&quot; For Append As #1
-Print #1, Now &amp; &quot;: &quot; &amp; Error$()
-Close #1</code></pre>
+    Open &quot;errors.log&quot; For Append As #1
+    Print #1, Now &amp; &quot;: &quot; &amp; Error$()
+    Close #1</code></pre>
 <h3 id="pattern-6-compare-error-messages">Pattern 6: Compare error messages</h3>
 <pre><code class="language-vbnet">If Error$() = Error$(11) Then
-&#x27; Handle division by zero
+    &#x27; Handle division by zero
 End If</code></pre>
 <h3 id="pattern-7-build-error-report">Pattern 7: Build error report</h3>
 <pre><code class="language-vbnet">report = &quot;Error Number: &quot; &amp; Err.Number &amp; vbCrLf
 report = report &amp; &quot;Description: &quot; &amp; Error$() &amp; vbCrLf</code></pre>
 <h3 id="pattern-8-test-error-messages">Pattern 8: Test error messages</h3>
 <pre><code class="language-vbnet">For i = 1 To 100
-Debug.Print i &amp; &quot;: &quot; &amp; Error$(i)
+    Debug.Print i &amp; &quot;: &quot; &amp; Error$(i)
 Next i</code></pre>
 <h3 id="pattern-9-user-friendly-error-dialog">Pattern 9: User-friendly error dialog</h3>
 <pre><code class="language-vbnet">MsgBox &quot;Sorry, an error occurred:&quot; &amp; vbCrLf &amp; Error$(), vbExclamation</code></pre>
 <h3 id="pattern-10-conditional-error-handling">Pattern 10: Conditional error handling</h3>
 <pre><code class="language-vbnet">If InStr(Error$(), &quot;File&quot;) &gt; 0 Then
-&#x27; Handle file-related errors
+    &#x27; Handle file-related errors
 End If</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-comprehensive-error-logger">Example 1: Comprehensive error logger</h3>
 <pre><code class="language-vbnet">Sub LogError()
-Dim msg As String
-msg = &quot;Error &quot; &amp; Err.Number &amp; &quot; at &quot; &amp; Now &amp; vbCrLf
-msg = msg &amp; &quot;Description: &quot; &amp; Error$() &amp; vbCrLf
-msg = msg &amp; &quot;Source: &quot; &amp; Err.Source &amp; vbCrLf
-Debug.Print msg
+    Dim msg As String
+    msg = &quot;Error &quot; &amp; Err.Number &amp; &quot; at &quot; &amp; Now &amp; vbCrLf
+    msg = msg &amp; &quot;Description: &quot; &amp; Error$() &amp; vbCrLf
+    msg = msg &amp; &quot;Source: &quot; &amp; Err.Source &amp; vbCrLf
+    Debug.Print msg
 End Sub</code></pre>
 <h3 id="example-2-error-message-translator">Example 2: Error message translator</h3>
 <pre><code class="language-vbnet">Function GetFriendlyError() As String
-Select Case Err.Number
-Case 11
-GetFriendlyError = &quot;Cannot divide by zero&quot;
-Case 53
-GetFriendlyError = &quot;The file was not found&quot;
-Case Else
-GetFriendlyError = Error$()
-End Select
+    Select Case Err.Number
+        Case 11
+            GetFriendlyError = &quot;Cannot divide by zero&quot;
+        Case 53
+            GetFriendlyError = &quot;The file was not found&quot;
+        Case Else
+            GetFriendlyError = Error$()
+    End Select
 End Function</code></pre>
 <h3 id="example-3-error-documentation-generator">Example 3: Error documentation generator</h3>
 <pre><code class="language-vbnet">Sub DocumentErrors()
-Dim i As Integer
-Open &quot;errors.txt&quot; For Output As #1
-For i = 1 To 1000
-If Error$(i) &lt;&gt; &quot;&quot; Then
-Print #1, i &amp; vbTab &amp; Error$(i)
-End If
-Next i
-Close #1
+    Dim i As Integer
+    Open &quot;errors.txt&quot; For Output As #1
+    For i = 1 To 1000
+        If Error$(i) &lt;&gt; &quot;&quot; Then
+            Print #1, i &amp; vbTab &amp; Error$(i)
+        End If
+    Next i
+    Close #1
 End Sub</code></pre>
 <h3 id="example-4-error-testing-utility">Example 4: Error testing utility</h3>
 <pre><code class="language-vbnet">Function TestError(errNum As Integer) As String
-On Error Resume Next
-Err.Raise errNum
-TestError = Error$()
-Err.Clear
+    On Error Resume Next
+    Err.Raise errNum
+    TestError = Error$()
+    Err.Clear
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <ul>
@@ -215,23 +215,63 @@ End Function</code></pre>
 <td>Current error number</td>
 <td><code>Long</code></td>
 </tr>
+<tr>
+<td>## Platform Notes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Available in VB6 and VBA.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Error messages are in English by default.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Some error messages may be locale-specific.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>VBScript</code> uses <code>Err.Description</code> instead.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## Limitations</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Returns English messages (may not be localized).</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Cannot customize built-in error messages.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Limited to VB6's predefined error numbers.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Does not provide error source or context.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- Message text may change between VB versions.</td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="platform-notes">Platform Notes</h2>
-<ul>
-<li>Available in VB6 and VBA.</li>
-<li>Error messages are in English by default.</li>
-<li>Some error messages may be locale-specific.</li>
-<li><code>VBScript</code> uses <code>Err.Description</code> instead.</li>
-</ul>
-<h2 id="limitations">Limitations</h2>
-<ul>
-<li>Returns English messages (may not be localized).</li>
-<li>Cannot customize built-in error messages.</li>
-<li>Limited to VB6's predefined error numbers.</li>
-<li>Does not provide error source or context.</li>
-<li>Message text may change between VB versions.</li>
-</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
