@@ -500,152 +500,38 @@ End If</code></pre>
 <td>Long (bytes)</td>
 <td>File must be closed</td>
 </tr>
-<tr>
-<td>## Platform Considerations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VB6, VBA (all versions)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- 1-based positioning (unlike many other languages)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Maximum file size limited by Long data type (2GB)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- For files &gt; 2GB, position may overflow</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Random access mode returns record numbers</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- All other modes return byte positions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot handle files larger than 2GB (Long overflow)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- File must be open before calling Seek</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns position for next operation (not last operation)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- For Random access, assumes fixed-length records</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No support for 64-bit file positions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot determine position in closed files</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Seek</code> (Statement): Set the position for next read/write operation</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>LOF</code>: Get the length of an open file in bytes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>EOF</code>: Determine if end of file has been reached</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Loc</code>: Get the current read/write position (similar to Seek function)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Get</code>: Read data from file (advances position)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Put</code>: Write data to file (advances position)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Open</code>: Open file for I/O operations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Close</code>: Close an open file</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>FreeFile</code>: Get next available file number</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-considerations">Platform Considerations</h2>
+<ul>
+<li>Available in VB6, VBA (all versions)</li>
+<li>1-based positioning (unlike many other languages)</li>
+<li>Maximum file size limited by Long data type (2GB)</li>
+<li>For files &gt; 2GB, position may overflow</li>
+<li>Random access mode returns record numbers</li>
+<li>All other modes return byte positions</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot handle files larger than 2GB (Long overflow)</li>
+<li>File must be open before calling Seek</li>
+<li>Returns position for next operation (not last operation)</li>
+<li>For Random access, assumes fixed-length records</li>
+<li>No support for 64-bit file positions</li>
+<li>Cannot determine position in closed files</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Seek</code> (Statement): Set the position for next read/write operation</li>
+<li><code>LOF</code>: Get the length of an open file in bytes</li>
+<li><code>EOF</code>: Determine if end of file has been reached</li>
+<li><code>Loc</code>: Get the current read/write position (similar to Seek function)</li>
+<li><code>Get</code>: Read data from file (advances position)</li>
+<li><code>Put</code>: Write data to file (advances position)</li>
+<li><code>Open</code>: Open file for I/O operations</li>
+<li><code>Close</code>: Close an open file</li>
+<li><code>FreeFile</code>: Get next available file number</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

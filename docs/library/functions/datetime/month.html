@@ -571,182 +571,43 @@ On Error GoTo 0</code></pre>
 <td>String</td>
 <td>Get month name (not number)</td>
 </tr>
-<tr>
-<td>## Platform Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VBA (Excel, Access, Word, etc.)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VB6</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in <code>VBScript</code></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns Integer type (not Long)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Consistent across all VB6/VBA platforms</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Uses system's regional settings for date interpretation (when parsing strings)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot extract month from time-only values (use Date data type)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns Null if input is Null (not an error)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Type mismatch error if input cannot be interpreted as a date</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Always returns 1-12, no support for zero-based indexing</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Does not provide month name (use <code>MonthName()</code> or <code>Format()</code> for that)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Time component is ignored (only date portion matters)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Year</strong> - Returns the year component of a date (1-9999)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Day</strong> - Returns the day component of a date (1-31)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Weekday</strong> - Returns the day of the week (1-7)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Hour</strong> - Returns the hour component of a time (0-23)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Minute</strong> - Returns the minute component of a time (0-59)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Second</strong> - Returns the second component of a time (0-59)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong><code>DatePart</code></strong> - Returns a specified part of a date (flexible)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong><code>DateSerial</code></strong> - Creates a date from year, month, and day components</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong><code>MonthName</code></strong> - Returns the name of the month as a string</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Format</strong> - Formats a date with custom patterns including month</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## VB6 Parser Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Month is parsed as a regular function call (<code>CallExpression</code>). This module exists primarily</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>for documentation purposes to provide comprehensive reference material for VB6 developers</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>working with date calculations and month extraction operations.</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in VBA (Excel, Access, Word, etc.)</li>
+<li>Available in VB6</li>
+<li>Available in <code>VBScript</code></li>
+<li>Returns Integer type (not Long)</li>
+<li>Consistent across all VB6/VBA platforms</li>
+<li>Uses system's regional settings for date interpretation (when parsing strings)</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot extract month from time-only values (use Date data type)</li>
+<li>Returns Null if input is Null (not an error)</li>
+<li>Type mismatch error if input cannot be interpreted as a date</li>
+<li>Always returns 1-12, no support for zero-based indexing</li>
+<li>Does not provide month name (use <code>MonthName()</code> or <code>Format()</code> for that)</li>
+<li>Time component is ignored (only date portion matters)</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><strong>Year</strong> - Returns the year component of a date (1-9999)</li>
+<li><strong>Day</strong> - Returns the day component of a date (1-31)</li>
+<li><strong>Weekday</strong> - Returns the day of the week (1-7)</li>
+<li><strong>Hour</strong> - Returns the hour component of a time (0-23)</li>
+<li><strong>Minute</strong> - Returns the minute component of a time (0-59)</li>
+<li><strong>Second</strong> - Returns the second component of a time (0-59)</li>
+<li><strong><code>DatePart</code></strong> - Returns a specified part of a date (flexible)</li>
+<li><strong><code>DateSerial</code></strong> - Creates a date from year, month, and day components</li>
+<li><strong><code>MonthName</code></strong> - Returns the name of the month as a string</li>
+<li><strong>Format</strong> - Formats a date with custom patterns including month</li>
+</ul>
+<h2 id="vb6-parser-notes">VB6 Parser Notes</h2>
+<p>Month is parsed as a regular function call (<code>CallExpression</code>). This module exists primarily
+for documentation purposes to provide comprehensive reference material for VB6 developers
+working with date calculations and month extraction operations.</p>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

@@ -533,127 +533,29 @@ End Sub</code></pre>
 <td>0-49.7 days</td>
 <td>Uptime timing</td>
 </tr>
-<tr>
-<td>## Platform Notes</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VB6, VBA, and <code>VBScript</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Precision varies by Windows version</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Windows 95/98/ME: ~55ms resolution</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Windows NT/2000/XP+: ~10-15ms resolution</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns fractional seconds (not milliseconds)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Resets at midnight (00:00:00)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Based on system timer tick</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Resets to 0 at midnight (requires handling)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Not suitable for measurements exceeding 24 hours</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Limited precision (10-55ms, not microseconds)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No timezone awareness</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot measure absolute time, only relative</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Precision varies between systems</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Not monotonic (can jump backwards at midnight)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in high-resolution timer (use <code>QueryPerformanceCounter</code> API)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in VB6, VBA, and <code>VBScript</code></li>
+<li>Precision varies by Windows version</li>
+<li>Windows 95/98/ME: ~55ms resolution</li>
+<li>Windows NT/2000/XP+: ~10-15ms resolution</li>
+<li>Returns fractional seconds (not milliseconds)</li>
+<li>Resets at midnight (00:00:00)</li>
+<li>Based on system timer tick</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Resets to 0 at midnight (requires handling)</li>
+<li>Not suitable for measurements exceeding 24 hours</li>
+<li>Limited precision (10-55ms, not microseconds)</li>
+<li>No timezone awareness</li>
+<li>Cannot measure absolute time, only relative</li>
+<li>Precision varies between systems</li>
+<li>Not monotonic (can jump backwards at midnight)</li>
+<li>No built-in high-resolution timer (use <code>QueryPerformanceCounter</code> API)</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

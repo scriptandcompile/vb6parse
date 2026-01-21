@@ -181,18 +181,17 @@ End If</code></pre>
 <td>Wine/Linux</td>
 <td>May return different variables, case sensitivity differs</td>
 </tr>
+</tbody>
+</table>
+<h2 id="common-environment-variables">Common Environment Variables</h2>
+<table>
+<thead>
 <tr>
-<td>## Common Environment Variables</td>
-<td></td>
+<th>Variable</th>
+<th>Description</th>
 </tr>
-<tr>
-<td>Variable</td>
-<td>Description</td>
-</tr>
-<tr>
-<td>----------</td>
-<td>-------------</td>
-</tr>
+</thead>
+<tbody>
 <tr>
 <td><code>PATH</code></td>
 <td>System search path for executables</td>
@@ -233,60 +232,25 @@ End If</code></pre>
 <td><code>HOMEPATH</code></td>
 <td>User's home directory path</td>
 </tr>
-<tr>
-<td>## Common Pitfalls</td>
-<td></td>
-</tr>
-<tr>
-<td>- Not checking for empty string return values</td>
-<td></td>
-</tr>
-<tr>
-<td>- Assuming environment variable names are case-insensitive on all platforms</td>
-<td></td>
-</tr>
-<tr>
-<td>- Using numeric index without checking for empty string to detect end</td>
-<td></td>
-</tr>
-<tr>
-<td>- Creating paths with double backslashes when concatenating</td>
-<td></td>
-</tr>
-<tr>
-<td>- Assuming all common variables exist on all systems</td>
-<td></td>
-</tr>
-<tr>
-<td>- Not handling missing required environment variables gracefully</td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot be used to set environment variables (use Windows API)</td>
-<td></td>
-</tr>
-<tr>
-<td>- Environment changes don't persist beyond process lifetime</td>
-<td></td>
-</tr>
-<tr>
-<td>- Limited to current process's environment space</td>
-<td></td>
-</tr>
-<tr>
-<td>- Some variables may be protected or unavailable depending on permissions</td>
-<td></td>
-</tr>
-<tr>
-<td>- Variable availability differs between operating systems</td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<ul>
+<li>Not checking for empty string return values</li>
+<li>Assuming environment variable names are case-insensitive on all platforms</li>
+<li>Using numeric index without checking for empty string to detect end</li>
+<li>Creating paths with double backslashes when concatenating</li>
+<li>Assuming all common variables exist on all systems</li>
+<li>Not handling missing required environment variables gracefully</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot be used to set environment variables (use Windows API)</li>
+<li>Environment changes don't persist beyond process lifetime</li>
+<li>Limited to current process's environment space</li>
+<li>Some variables may be protected or unavailable depending on permissions</li>
+<li>Variable availability differs between operating systems</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

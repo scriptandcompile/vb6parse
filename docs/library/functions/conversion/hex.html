@@ -310,103 +310,33 @@ On Error GoTo 0</code></pre>
 <td>Hexadecimal string to Long</td>
 <td>CLng("&amp;HFF") → 255</td>
 </tr>
-<tr>
-<td>## Platform and Version Notes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in all VB6 versions</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Behavior consistent across Windows platforms</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Integer size (2 bytes) and Long size (4 bytes) are fixed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Two's complement representation for negative numbers is standard</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot directly convert Currency or Decimal types (convert to Long first)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in support for padding with leading zeros (use Right$ or Format$)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns uppercase letters only (A-F, not a-f)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No control over prefix inclusion (always excludes "&amp;H")</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Maximum value is Long range (−2,147,483,648 to 2,147,483,647)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Fractional parts are rounded, not truncated</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Oct</code>: Returns a String representing the octal value of a number</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Str</code>: Returns a String representation of a number</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Format</code>: Returns a Variant (String) formatted according to instructions</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>CLng</code>: Converts an expression to a Long</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>CInt</code>: Converts an expression to an Integer</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Val</code>: Returns the numbers contained in a string as a numeric value</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all VB6 versions</li>
+<li>Behavior consistent across Windows platforms</li>
+<li>Integer size (2 bytes) and Long size (4 bytes) are fixed</li>
+<li>Two's complement representation for negative numbers is standard</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot directly convert Currency or Decimal types (convert to Long first)</li>
+<li>No built-in support for padding with leading zeros (use Right$ or Format$)</li>
+<li>Returns uppercase letters only (A-F, not a-f)</li>
+<li>No control over prefix inclusion (always excludes "&amp;H")</li>
+<li>Maximum value is Long range (−2,147,483,648 to 2,147,483,647)</li>
+<li>Fractional parts are rounded, not truncated</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Oct</code>: Returns a String representing the octal value of a number</li>
+<li><code>Str</code>: Returns a String representation of a number</li>
+<li><code>Format</code>: Returns a Variant (String) formatted according to instructions</li>
+<li><code>CLng</code>: Converts an expression to a Long</li>
+<li><code>CInt</code>: Converts an expression to an Integer</li>
+<li><code>Val</code>: Returns the numbers contained in a string as a numeric value</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

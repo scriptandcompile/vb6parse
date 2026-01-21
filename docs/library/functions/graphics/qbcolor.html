@@ -49,26 +49,116 @@
 <p>Returns a <code>Long</code> representing the RGB color code that corresponds to the specified <code>QBasic</code> color number. The returned value can be used with Visual Basic's color properties.</p>
 <h2 id="remarks">Remarks</h2>
 <p>The <code>QBColor</code> function provides backward compatibility with <code>QBasic</code> and <code>QuickBASIC</code> programs by converting the 16-color palette used in DOS applications to RGB values usable in Windows applications.
-The color argument must be an integer from 0 to 15. Each number corresponds to a specific color from the classic DOS/QBasic palette:
-| Number | Color Name      | RGB Value      | Hex       |
-|--------|----------------|----------------|-----------|
-| 0      | Black          | RGB(0,0,0)     | &amp;H000000  |
-| 1      | Blue           | RGB(0,0,128)   | &amp;H800000  |
-| 2      | Green          | RGB(0,128,0)   | &amp;H008000  |
-| 3      | Cyan           | RGB(0,128,128) | &amp;H808000  |
-| 4      | Red            | RGB(128,0,0)   | &amp;H000080  |
-| 5      | Magenta        | RGB(128,0,128) | &amp;H800080  |
-| 6      | Yellow         | RGB(128,128,0) | &amp;H008080  |
-| 7      | White          | RGB(192,192,192)| &amp;HC0C0C0 |
-| 8      | Gray           | RGB(128,128,128)| &amp;H808080 |
-| 9      | Light Blue     | RGB(0,0,255)   | &amp;HFF0000  |
-| 10     | Light Green    | RGB(0,255,0)   | &amp;H00FF00  |
-| 11     | Light Cyan     | RGB(0,255,255) | &amp;HFFFF00  |
-| 12     | Light Red      | RGB(255,0,0)   | &amp;H0000FF  |
-| 13     | Light Magenta  | RGB(255,0,255) | &amp;HFF00FF  |
-| 14     | Light Yellow   | RGB(255,255,0) | &amp;H00FFFF  |
-| 15     | Bright White   | RGB(255,255,255)| &amp;HFFFFFF |
-<strong>Important Notes</strong>:
+The color argument must be an integer from 0 to 15. Each number corresponds to a specific color from the classic DOS/QBasic palette:</p>
+<table>
+<thead>
+<tr>
+<th>Number</th>
+<th>Color Name</th>
+<th>RGB Value</th>
+<th>Hex</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Black</td>
+<td>RGB(0,0,0)</td>
+<td>&amp;H000000</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Blue</td>
+<td>RGB(0,0,128)</td>
+<td>&amp;H800000</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Green</td>
+<td>RGB(0,128,0)</td>
+<td>&amp;H008000</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Cyan</td>
+<td>RGB(0,128,128)</td>
+<td>&amp;H808000</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Red</td>
+<td>RGB(128,0,0)</td>
+<td>&amp;H000080</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Magenta</td>
+<td>RGB(128,0,128)</td>
+<td>&amp;H800080</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Yellow</td>
+<td>RGB(128,128,0)</td>
+<td>&amp;H008080</td>
+</tr>
+<tr>
+<td>7</td>
+<td>White</td>
+<td>RGB(192,192,192)</td>
+<td>&amp;HC0C0C0</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Gray</td>
+<td>RGB(128,128,128)</td>
+<td>&amp;H808080</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Light Blue</td>
+<td>RGB(0,0,255)</td>
+<td>&amp;HFF0000</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Light Green</td>
+<td>RGB(0,255,0)</td>
+<td>&amp;H00FF00</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Light Cyan</td>
+<td>RGB(0,255,255)</td>
+<td>&amp;HFFFF00</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Light Red</td>
+<td>RGB(255,0,0)</td>
+<td>&amp;H0000FF</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Light Magenta</td>
+<td>RGB(255,0,255)</td>
+<td>&amp;HFF00FF</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Light Yellow</td>
+<td>RGB(255,255,0)</td>
+<td>&amp;H00FFFF</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Bright White</td>
+<td>RGB(255,255,255)</td>
+<td>&amp;HFFFFFF</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Important Notes</strong>:
 - Colors 0-7 are the standard intensity colors
 - Colors 8-15 are the high intensity (bright) versions
 - The RGB values use BGR byte order when stored as Long values
@@ -632,116 +722,32 @@ End Function</code></pre>
 <td>Picture object</td>
 <td>Complex graphics, photos</td>
 </tr>
-<tr>
-<td>## Platform and Version Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VB6 and all versions of VBA</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Behavior is consistent across all Windows platforms</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns BGR byte order (Blue-Green-Red) as is standard for Windows</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Color values are identical to <code>QBasic</code> and <code>QuickBASIC</code></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Not available in VB.NET (use System.Drawing.Color instead)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Limited to 16 predefined colors only</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot create custom colors (use RGB function instead)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Color numbers must be exactly 0-15 (no wrapping or modulo)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Colors may not display identically on all monitors</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- High-intensity colors (8-15) may appear less distinct on some displays</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Not suitable for professional graphics requiring precise color control</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>RGB</code>: Creates custom RGB color values</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Hex</code>: Converts numbers to hexadecimal strings</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>LoadPicture</code>: Loads images with full color support</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Color constants: <code>vbBlack</code>, <code>vbRed</code>, <code>vbGreen</code>, <code>vbBlue</code>, etc.</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in VB6 and all versions of VBA</li>
+<li>Behavior is consistent across all Windows platforms</li>
+<li>Returns BGR byte order (Blue-Green-Red) as is standard for Windows</li>
+<li>Color values are identical to <code>QBasic</code> and <code>QuickBASIC</code></li>
+<li>Not available in VB.NET (use System.Drawing.Color instead)</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Limited to 16 predefined colors only</li>
+<li>Cannot create custom colors (use RGB function instead)</li>
+<li>Color numbers must be exactly 0-15 (no wrapping or modulo)</li>
+<li>Colors may not display identically on all monitors</li>
+<li>High-intensity colors (8-15) may appear less distinct on some displays</li>
+<li>Not suitable for professional graphics requiring precise color control</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>RGB</code>: Creates custom RGB color values</li>
+<li><code>Hex</code>: Converts numbers to hexadecimal strings</li>
+<li><code>LoadPicture</code>: Loads images with full color support</li>
+<li>Color constants: <code>vbBlack</code>, <code>vbRed</code>, <code>vbGreen</code>, <code>vbBlue</code>, etc.</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

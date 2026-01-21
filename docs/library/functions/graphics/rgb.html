@@ -638,116 +638,32 @@ color = RGB(300, -50, 150)  &#x27; Treated as RGB(255, 0, 150)</code></pre>
 <td>Picture object</td>
 <td>Complex graphics, images</td>
 </tr>
-<tr>
-<td>## Platform and Version Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in all versions of VB6 and VBA</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Behavior consistent across all Windows platforms</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns BGR byte order (standard for Windows)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Color values are compatible with Windows API functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Maximum value is &amp;HFFFFFF (16,777,215 colors)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Limited to 24-bit color (16.7 million colors)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No alpha channel support (transparency)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Automatic clamping may mask input errors</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- BGR byte order can be confusing when extracting components</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in color space conversions (HSV, HSL, etc.)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No color validation or named color lookup</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>QBColor</code>: Returns RGB value for <code>QBasic</code> color number (0-15)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Predefined color constants: <code>vbBlack</code>, <code>vbRed</code>, <code>vbGreen</code>, <code>vbBlue</code>, <code>vbWhite</code>, etc.</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>LoadPicture</code>: Loads images with full color support</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Point</code>: Returns the RGB color of a specified point on a form or picture box</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all versions of VB6 and VBA</li>
+<li>Behavior consistent across all Windows platforms</li>
+<li>Returns BGR byte order (standard for Windows)</li>
+<li>Color values are compatible with Windows API functions</li>
+<li>Maximum value is &amp;HFFFFFF (16,777,215 colors)</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Limited to 24-bit color (16.7 million colors)</li>
+<li>No alpha channel support (transparency)</li>
+<li>Automatic clamping may mask input errors</li>
+<li>BGR byte order can be confusing when extracting components</li>
+<li>No built-in color space conversions (HSV, HSL, etc.)</li>
+<li>No color validation or named color lookup</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>QBColor</code>: Returns RGB value for <code>QBasic</code> color number (0-15)</li>
+<li>Predefined color constants: <code>vbBlack</code>, <code>vbRed</code>, <code>vbGreen</code>, <code>vbBlue</code>, <code>vbWhite</code>, etc.</li>
+<li><code>LoadPicture</code>: Loads images with full color support</li>
+<li><code>Point</code>: Returns the RGB color of a specified point on a form or picture box</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

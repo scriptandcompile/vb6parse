@@ -237,76 +237,29 @@ lowerName = Format$(&quot;JOHN DOE&quot;, &quot;&lt;&quot;)      &#x27; &quot;jo
 <td>First Week of Year</td>
 <td>Can be overridden with parameter</td>
 </tr>
-<tr>
-<td>## Common Pitfalls</td>
-<td></td>
-</tr>
-<tr>
-<td>- Using <code>m</code> for minutes instead of <code>n</code> (m means month)</td>
-<td></td>
-</tr>
-<tr>
-<td>- Forgetting that <code>Format$</code> always returns a string</td>
-<td></td>
-</tr>
-<tr>
-<td>- Not escaping literal characters in format strings</td>
-<td></td>
-</tr>
-<tr>
-<td>- Assuming <code>#</code> and <code>0</code> behave the same (they don't)</td>
-<td></td>
-</tr>
-<tr>
-<td>- Using comma as decimal separator in code (always use period)</td>
-<td></td>
-</tr>
-<tr>
-<td>- Not handling empty strings or null values</td>
-<td></td>
-</tr>
-<tr>
-<td>- Forgetting that format strings are case-sensitive</td>
-<td></td>
-</tr>
-<tr>
-<td>- Using named formats that don't exist (causes error)</td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot create truly custom named formats</td>
-<td></td>
-</tr>
-<tr>
-<td>- Limited control over locale-specific formatting</td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in format for ISO 8601 dates (must use <code>yyyy-mm-ddThh:nn:ss</code>)</td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot format arrays or objects directly</td>
-<td></td>
-</tr>
-<tr>
-<td>- Some format combinations may produce unexpected results</td>
-<td></td>
-</tr>
-<tr>
-<td>- Maximum string length limitations apply to output</td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot use for binary or hexadecimal display (use <code>Hex$</code> or <code>Oct$</code>)</td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<ul>
+<li>Using <code>m</code> for minutes instead of <code>n</code> (m means month)</li>
+<li>Forgetting that <code>Format$</code> always returns a string</li>
+<li>Not escaping literal characters in format strings</li>
+<li>Assuming <code>#</code> and <code>0</code> behave the same (they don't)</li>
+<li>Using comma as decimal separator in code (always use period)</li>
+<li>Not handling empty strings or null values</li>
+<li>Forgetting that format strings are case-sensitive</li>
+<li>Using named formats that don't exist (causes error)</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot create truly custom named formats</li>
+<li>Limited control over locale-specific formatting</li>
+<li>No built-in format for ISO 8601 dates (must use <code>yyyy-mm-ddThh:nn:ss</code>)</li>
+<li>Cannot format arrays or objects directly</li>
+<li>Some format combinations may produce unexpected results</li>
+<li>Maximum string length limitations apply to output</li>
+<li>Cannot use for binary or hexadecimal display (use <code>Hex$</code> or <code>Oct$</code>)</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

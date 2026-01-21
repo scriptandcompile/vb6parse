@@ -488,122 +488,33 @@ End If</code></pre>
 <td>≥ 0</td>
 <td>Square root</td>
 </tr>
-<tr>
-<td>## Platform Considerations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VB6, VBA (all versions)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Uses system math library</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Precision depends on Double data type (IEEE 754)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Results consistent across Windows versions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Very small return values near multiples of π due to floating-point precision</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Input must be in radians (no built-in degree support)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Floating-point precision limits (≈15-17 decimal digits)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Sin(π) returns very small number, not exactly 0</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Large angle values may accumulate rounding errors</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No complex number support</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No automatic angle normalization</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Cos</code>: Returns the cosine of an angle in radians</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Tan</code>: Returns the tangent of an angle in radians</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Atn</code>: Returns the arctangent of a number in radians</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Sqr</code>: Returns the square root (used in inverse sine calculations)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Abs</code>: Returns absolute value (useful for angle normalization)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-considerations">Platform Considerations</h2>
+<ul>
+<li>Available in VB6, VBA (all versions)</li>
+<li>Uses system math library</li>
+<li>Precision depends on Double data type (IEEE 754)</li>
+<li>Results consistent across Windows versions</li>
+<li>Very small return values near multiples of π due to floating-point precision</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Input must be in radians (no built-in degree support)</li>
+<li>Floating-point precision limits (≈15-17 decimal digits)</li>
+<li>Sin(π) returns very small number, not exactly 0</li>
+<li>Large angle values may accumulate rounding errors</li>
+<li>No complex number support</li>
+<li>No automatic angle normalization</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Cos</code>: Returns the cosine of an angle in radians</li>
+<li><code>Tan</code>: Returns the tangent of an angle in radians</li>
+<li><code>Atn</code>: Returns the arctangent of a number in radians</li>
+<li><code>Sqr</code>: Returns the square root (used in inverse sine calculations)</li>
+<li><code>Abs</code>: Returns absolute value (useful for angle normalization)</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

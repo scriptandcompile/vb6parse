@@ -647,143 +647,41 @@ On Error GoTo 0</code></pre>
 <td>Future value</td>
 <td>Calculates future amount, not present</td>
 </tr>
-<tr>
-<td>## Platform Notes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VBA (Excel, Access, Word, etc.)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VB6</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Not available in <code>VBScript</code></strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Equivalent to Excel's NPV function</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Part of VBA financial functions library</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Requires array parameter (not <code>ParamArray</code>)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Assumes equally spaced time periods</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cash flows occur at end of each period</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Does NOT include initial investment in values array</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot handle irregular time periods (use XNPV in Excel for that)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Assumes constant discount rate</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Does not account for taxes directly</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Requires at least one positive and one negative value</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>IRR</strong> - Finds internal rate of return (discount rate where NPV = 0)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>MIRR</strong> - Modified internal rate of return</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>PV</strong> - Present value of annuity or lump sum</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>FV</strong> - Future value of investment</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>PMT</strong> - Payment amount for loan/investment</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Rate</strong> - Interest rate per period</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## VB6 Parser Notes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>NPV is parsed as a regular function call (<code>CallExpression</code>). This module exists primarily</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>for documentation purposes to provide comprehensive reference material for VB6 developers</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>working with financial analysis, investment evaluation, capital budgeting, and discounted</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>cash flow calculations.</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in VBA (Excel, Access, Word, etc.)</li>
+<li>Available in VB6</li>
+<li><strong>Not available in <code>VBScript</code></strong></li>
+<li>Equivalent to Excel's NPV function</li>
+<li>Part of VBA financial functions library</li>
+<li>Requires array parameter (not <code>ParamArray</code>)</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Assumes equally spaced time periods</li>
+<li>Cash flows occur at end of each period</li>
+<li>Does NOT include initial investment in values array</li>
+<li>Cannot handle irregular time periods (use XNPV in Excel for that)</li>
+<li>Assumes constant discount rate</li>
+<li>Does not account for taxes directly</li>
+<li>Requires at least one positive and one negative value</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><strong>IRR</strong> - Finds internal rate of return (discount rate where NPV = 0)</li>
+<li><strong>MIRR</strong> - Modified internal rate of return</li>
+<li><strong>PV</strong> - Present value of annuity or lump sum</li>
+<li><strong>FV</strong> - Future value of investment</li>
+<li><strong>PMT</strong> - Payment amount for loan/investment</li>
+<li><strong>Rate</strong> - Interest rate per period</li>
+</ul>
+<h2 id="vb6-parser-notes">VB6 Parser Notes</h2>
+<p>NPV is parsed as a regular function call (<code>CallExpression</code>). This module exists primarily
+for documentation purposes to provide comprehensive reference material for VB6 developers
+working with financial analysis, investment evaluation, capital budgeting, and discounted
+cash flow calculations.</p>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

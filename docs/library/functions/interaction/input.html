@@ -434,118 +434,36 @@ ErrorHandler:
 <td>Check end of file</td>
 <td><code>If EOF(1) Then...</code></td>
 </tr>
-<tr>
-<td>## Platform and Version Notes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in all VB6 versions</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Consistent behavior across Windows platforms</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Maximum string length limitations apply (approximately 2GB in VB6)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- File must be opened before using Input function</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- The # symbol before filenumber is optional</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot be used with files opened in <code>Output</code> or <code>Append</code> mode</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Reading very large files into single string may cause memory issues</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in Unicode support (use <code>ADODB.Stream</code> for Unicode)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>String</code> concatenation for large files can be slow</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Limited to approximately 2GB string size on 32-bit systems</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in compression or encoding support</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Input #</code>: Statement for reading delimited data from files</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Line Input #</code>: Statement for reading complete lines</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Get</code>: Statement for reading binary data into variables</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>LOF</code>: Returns the size of an open file in bytes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>EOF</code>: Returns <code>True</code> if at end of file</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Seek</code>: Function/statement for getting/setting file position</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Open</code>: Statement for opening files</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Close</code>: Statement for closing files</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all VB6 versions</li>
+<li>Consistent behavior across Windows platforms</li>
+<li>Maximum string length limitations apply (approximately 2GB in VB6)</li>
+<li>File must be opened before using Input function</li>
+<li>The # symbol before filenumber is optional</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot be used with files opened in <code>Output</code> or <code>Append</code> mode</li>
+<li>Reading very large files into single string may cause memory issues</li>
+<li>No built-in Unicode support (use <code>ADODB.Stream</code> for Unicode)</li>
+<li><code>String</code> concatenation for large files can be slow</li>
+<li>Limited to approximately 2GB string size on 32-bit systems</li>
+<li>No built-in compression or encoding support</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Input #</code>: Statement for reading delimited data from files</li>
+<li><code>Line Input #</code>: Statement for reading complete lines</li>
+<li><code>Get</code>: Statement for reading binary data into variables</li>
+<li><code>LOF</code>: Returns the size of an open file in bytes</li>
+<li><code>EOF</code>: Returns <code>True</code> if at end of file</li>
+<li><code>Seek</code>: Function/statement for getting/setting file position</li>
+<li><code>Open</code>: Statement for opening files</li>
+<li><code>Close</code>: Statement for closing files</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

@@ -124,6 +124,16 @@
 //! - `Array`: Create Variant array
 //! - `Split`: Create array from delimited string
 //!
+//! ## Comparison With Related Functions
+//!
+//! | Function | Purpose | Returns | Use Case |
+//! |----------|---------|---------|----------|
+//! | `LBound` | Get lower bound | `Long` | Minimum valid index |
+//! | `UBound` | Get upper bound | `Long` | Maximum valid index |
+//! | `IsArray` | Check if array | `Boolean` | Validate array type |
+//! | `Array` | Create array | `Variant` | Initialize arrays |
+//! | `ReDim` | Resize array | N/A | Dynamic array sizing |
+//!
 //! ## Best Practices
 //!
 //! - **Always Use `LBound`**: Don't assume arrays start at 0
@@ -134,16 +144,6 @@
 //! - **Generic Code**: Write functions that work with any array bounds
 //! - **Validate Bounds**: Check if indices are within `LBound` to `UBound` range
 //! - **Document Assumptions**: Note expected array bounds in comments
-//!
-//! ## Comparison with Related Functions
-//!
-//! | Function | Purpose | Returns | Use Case |
-//! |----------|---------|---------|----------|
-//! | `LBound` | Get lower bound | `Long` | Minimum valid index |
-//! | `UBound` | Get upper bound | `Long` | Maximum valid index |
-//! | `IsArray` | Check if array | `Boolean` | Validate array type |
-//! | `Array` | Create array | `Variant` | Initialize arrays |
-//! | `ReDim` | Resize array | N/A | Dynamic array sizing |
 //!
 //! ## `LBound` and `Option Base`
 //!

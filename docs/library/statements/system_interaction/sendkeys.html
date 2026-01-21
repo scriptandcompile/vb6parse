@@ -149,18 +149,17 @@
 <td>F1-F16</td>
 <td>{F1} through {F16}</td>
 </tr>
+</tbody>
+</table>
+<h2 id="modifier-keys">Modifier Keys</h2>
+<table>
+<thead>
 <tr>
-<td>## Modifier Keys</td>
-<td></td>
+<th>Key</th>
+<th>Code</th>
 </tr>
-<tr>
-<td>Key</td>
-<td>Code</td>
-</tr>
-<tr>
-<td>-----</td>
-<td>------</td>
-</tr>
+</thead>
+<tbody>
 <tr>
 <td>SHIFT</td>
 <td>+ (plus sign)</td>
@@ -173,48 +172,18 @@
 <td>ALT</td>
 <td>% (percent sign)</td>
 </tr>
-<tr>
-<td>To specify modifier keys with regular keys, enclose the regular keys in parentheses:</td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>"+{F1}"</code> sends SHIFT+F1</td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>"^(ec)"</code> sends CTRL+E followed by CTRL+C</td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>"%(FA)"</code> sends ALT+F followed by ALT+A</td>
-<td></td>
-</tr>
-<tr>
-<td>## Repeating Keys</td>
-<td></td>
-</tr>
-<tr>
-<td>To repeat a key, use the format <code>{key number}</code>:</td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>"{RIGHT 10}"</code> sends RIGHT arrow 10 times</td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>"{TAB 5}"</code> sends TAB 5 times</td>
-<td></td>
-</tr>
-<tr>
-<td>## Examples</td>
-<td></td>
-</tr>
-<tr>
-<td>### Send Simple Text</td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<p>To specify modifier keys with regular keys, enclose the regular keys in parentheses:
+- <code>"+{F1}"</code> sends SHIFT+F1
+- <code>"^(ec)"</code> sends CTRL+E followed by CTRL+C
+- <code>"%(FA)"</code> sends ALT+F followed by ALT+A</p>
+<h2 id="repeating-keys">Repeating Keys</h2>
+<p>To repeat a key, use the format <code>{key number}</code>:
+- <code>"{RIGHT 10}"</code> sends RIGHT arrow 10 times
+- <code>"{TAB 5}"</code> sends TAB 5 times</p>
+<h2 id="examples">Examples</h2>
+<h3 id="send-simple-text">Send Simple Text</h3>
 <pre><code class="language-vbnet">SendKeys &quot;Hello World&quot;</code></pre>
 <h3 id="send-text-with-enter-key">Send Text with Enter Key</h3>
 <pre><code class="language-vbnet">SendKeys &quot;Username{TAB}Password{ENTER}&quot;</code></pre>

@@ -731,128 +731,34 @@ End If</code></pre>
 <td>N/A (statement)</td>
 <td>Complex conditional logic</td>
 </tr>
-<tr>
-<td>## Platform and Version Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VBA and VB6</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Behavior is consistent across Windows platforms</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- The returned string format is fixed and cannot be customized</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- All parameters must be whole numbers (fractional parts are truncated)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Maximum values limited by Long data type (approximately ±2 billion)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Only works with whole numbers; fractional values are truncated</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot customize the output format (padding, separators, etc.)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Parameters must fit in Long data type range</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in frequency counting; must implement separately</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- String result requires parsing to extract numeric boundaries</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot specify custom labels for ranges</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- All ranges must have equal intervals (except first/last special cases)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Switch</code>: Evaluates a list of expressions and returns associated value</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Choose</code>: Returns a value from a list based on position</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>IIf</code>: Returns one of two values based on a condition</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Format</code>: Formats values as strings with custom patterns</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>InStr</code>: Searches for substring within a string (useful for parsing Partition results)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in VBA and VB6</li>
+<li>Behavior is consistent across Windows platforms</li>
+<li>The returned string format is fixed and cannot be customized</li>
+<li>All parameters must be whole numbers (fractional parts are truncated)</li>
+<li>Maximum values limited by Long data type (approximately ±2 billion)</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Only works with whole numbers; fractional values are truncated</li>
+<li>Cannot customize the output format (padding, separators, etc.)</li>
+<li>Parameters must fit in Long data type range</li>
+<li>No built-in frequency counting; must implement separately</li>
+<li>String result requires parsing to extract numeric boundaries</li>
+<li>Cannot specify custom labels for ranges</li>
+<li>All ranges must have equal intervals (except first/last special cases)</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Switch</code>: Evaluates a list of expressions and returns associated value</li>
+<li><code>Choose</code>: Returns a value from a list based on position</li>
+<li><code>IIf</code>: Returns one of two values based on a condition</li>
+<li><code>Format</code>: Formats values as strings with custom patterns</li>
+<li><code>InStr</code>: Searches for substring within a string (useful for parsing Partition results)</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

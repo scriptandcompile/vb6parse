@@ -510,110 +510,29 @@ End Function</code></pre>
 <td>String</td>
 <td>Yes</td>
 </tr>
-<tr>
-<td>## Platform Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VB6 and VBA</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Not available in <code>VBScript</code></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>vbWide</code>/<code>vbNarrow</code> primarily for Asian language environments</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>vbKatakana</code>/<code>vbHiragana</code> only meaningful for Japanese text</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Unicode conversion uses UTF-16LE (Windows default)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Proper case rules may vary by locale</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- LCID parameter rarely used (defaults to system locale)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Proper case doesn't handle special cases (O'Brien, <code>McDonald</code>, etc.)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot specify custom word delimiters for proper case</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Unicode conversion always uses UTF-16LE (cannot specify encoding)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No direct support for other Unicode formats (UTF-8, UTF-32)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Wide/Narrow conversion limited to DBCS environments</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot combine incompatible conversions (e.g., <code>vbUpperCase + vbLowerCase</code>)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No validation of byte array format when using <code>vbFromUnicode</code></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- LCID parameter has limited practical use</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in VB6 and VBA</li>
+<li>Not available in <code>VBScript</code></li>
+<li><code>vbWide</code>/<code>vbNarrow</code> primarily for Asian language environments</li>
+<li><code>vbKatakana</code>/<code>vbHiragana</code> only meaningful for Japanese text</li>
+<li>Unicode conversion uses UTF-16LE (Windows default)</li>
+<li>Proper case rules may vary by locale</li>
+<li>LCID parameter rarely used (defaults to system locale)</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Proper case doesn't handle special cases (O'Brien, <code>McDonald</code>, etc.)</li>
+<li>Cannot specify custom word delimiters for proper case</li>
+<li>Unicode conversion always uses UTF-16LE (cannot specify encoding)</li>
+<li>No direct support for other Unicode formats (UTF-8, UTF-32)</li>
+<li>Wide/Narrow conversion limited to DBCS environments</li>
+<li>Cannot combine incompatible conversions (e.g., <code>vbUpperCase + vbLowerCase</code>)</li>
+<li>No validation of byte array format when using <code>vbFromUnicode</code></li>
+<li>LCID parameter has limited practical use</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

@@ -40,11 +40,22 @@
             <p>VB6 Error statement syntax:
 - Error errornumber
 Generates a run-time error; can be used instead of the Err.Raise method.
-The Error statement syntax has this part:
-| Part          | Description |
-|---------------|-------------|
-| errornumber   | Required. Any valid error number. |
-Remarks:
+The Error statement syntax has this part:</p>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>errornumber</td>
+<td>Required. Any valid error number.</td>
+</tr>
+</tbody>
+</table>
+<p>Remarks:
 - The Error statement is supported for backward compatibility.
 - In new code, use the Err object's Raise method to generate run-time errors.
 - If errornumber is defined, the Error statement calls the error handler after the properties

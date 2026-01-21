@@ -197,98 +197,30 @@ Loop</code></pre>
 <td>N/A</td>
 <td><code>LeftB$</code> treats data as raw bytes</td>
 </tr>
-<tr>
-<td>## Common Pitfalls</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Using <code>LeftB$</code> on DBCS strings without checking character boundaries</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Confusing byte length (<code>LenB</code>) with character length (<code>Len</code>)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Assuming one byte equals one character in all locales</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Not handling <code>Null</code> string values (causes runtime error)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Passing negative length values (causes runtime error)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Using <code>LeftB$</code> for text processing (use <code>Left$</code> instead)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Forgetting that VB6 strings are internally Unicode</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Splitting surrogate pairs in Unicode environments</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Using with text functions instead of byte functions</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot specify starting byte position (use <code>MidB$</code> instead)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- May corrupt DBCS characters if not used carefully</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns <code>Null</code> if the string argument is <code>Null</code></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Length parameter cannot be <code>Null</code></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Not suitable for modern Unicode string processing</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Limited to VB6's internal string representation</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- May produce unexpected results with emoji or complex Unicode</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<ul>
+<li>Using <code>LeftB$</code> on DBCS strings without checking character boundaries</li>
+<li>Confusing byte length (<code>LenB</code>) with character length (<code>Len</code>)</li>
+<li>Assuming one byte equals one character in all locales</li>
+<li>Not handling <code>Null</code> string values (causes runtime error)</li>
+<li>Passing negative length values (causes runtime error)</li>
+<li>Using <code>LeftB$</code> for text processing (use <code>Left$</code> instead)</li>
+<li>Forgetting that VB6 strings are internally Unicode</li>
+<li>Splitting surrogate pairs in Unicode environments</li>
+<li>Using with text functions instead of byte functions</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot specify starting byte position (use <code>MidB$</code> instead)</li>
+<li>May corrupt DBCS characters if not used carefully</li>
+<li>Returns <code>Null</code> if the string argument is <code>Null</code></li>
+<li>Length parameter cannot be <code>Null</code></li>
+<li>Not suitable for modern Unicode string processing</li>
+<li>Limited to VB6's internal string representation</li>
+<li>May produce unexpected results with emoji or complex Unicode</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

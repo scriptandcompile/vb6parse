@@ -598,176 +598,42 @@ On Error GoTo 0</code></pre>
 <td>Yes (as Single)</td>
 <td>High-precision timing</td>
 </tr>
-<tr>
-<td>## Platform Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VBA (Excel, Access, Word, etc.)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VB6</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in <code>VBScript</code></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Uses Windows system clock</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Subject to system time zone settings</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Affected by daylight saving time changes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No parameters required (parameterless function)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns local time, not UTC</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns local time only (no UTC option)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Precision limited to seconds (no milliseconds)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Subject to system clock changes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Date range: January 1, 100 to December 31, 9999</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Can be affected by daylight saving time transitions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in time zone conversion</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Depends on accurate system clock</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Date</strong> - Returns current date (time = midnight)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Time</strong> - Returns current time (date = 12/30/1899)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Timer</strong> - Returns seconds since midnight (for precision timing)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong><code>DateAdd</code></strong> - Adds time intervals to dates</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong><code>DateDiff</code></strong> - Calculates difference between dates</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Format</strong> - Formats date/time for display</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## VB6 Parser Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Now is a parameterless function that is parsed as a <code>CallExpression</code>. This module exists primarily</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>for documentation purposes to provide comprehensive reference material for VB6 developers working</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>with date and time operations, timestamps, logging, and time-based calculations.</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in VBA (Excel, Access, Word, etc.)</li>
+<li>Available in VB6</li>
+<li>Available in <code>VBScript</code></li>
+<li>Uses Windows system clock</li>
+<li>Subject to system time zone settings</li>
+<li>Affected by daylight saving time changes</li>
+<li>No parameters required (parameterless function)</li>
+<li>Returns local time, not UTC</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Returns local time only (no UTC option)</li>
+<li>Precision limited to seconds (no milliseconds)</li>
+<li>Subject to system clock changes</li>
+<li>Date range: January 1, 100 to December 31, 9999</li>
+<li>Can be affected by daylight saving time transitions</li>
+<li>No built-in time zone conversion</li>
+<li>Depends on accurate system clock</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><strong>Date</strong> - Returns current date (time = midnight)</li>
+<li><strong>Time</strong> - Returns current time (date = 12/30/1899)</li>
+<li><strong>Timer</strong> - Returns seconds since midnight (for precision timing)</li>
+<li><strong><code>DateAdd</code></strong> - Adds time intervals to dates</li>
+<li><strong><code>DateDiff</code></strong> - Calculates difference between dates</li>
+<li><strong>Format</strong> - Formats date/time for display</li>
+</ul>
+<h2 id="vb6-parser-notes">VB6 Parser Notes</h2>
+<p>Now is a parameterless function that is parsed as a <code>CallExpression</code>. This module exists primarily
+for documentation purposes to provide comprehensive reference material for VB6 developers working
+with date and time operations, timestamps, logging, and time-based calculations.</p>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

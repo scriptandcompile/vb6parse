@@ -227,39 +227,36 @@ def markdown_to_html(md_content: str) -> str:
         HTML string
     """
     import html as html_module
-    
-    # Pre-process fenced code blocks to add language classes for highlight.js
-    # We need to protect them from markdown processing by replacing them with placeholders
+
+    # --- Code block extraction ---
     code_blocks = []
-    
     def save_code_block(match):
         lang = match.group(1).strip() if match.group(1) else ''
         code = match.group(2)
-        
-        # Map VB6/VB to vbnet for highlight.js
         if lang in ('vb', 'vb6'):
             lang = 'vbnet'
-        
-        # Escape HTML in code (preserving whitespace and indentation)
         escaped_code = html_module.escape(code)
-        
-        # Generate HTML with language class if specified
         if lang:
             html_code = f'<pre><code class="language-{lang}">{escaped_code}</code></pre>'
         else:
             html_code = f'<pre><code>{escaped_code}</code></pre>'
-        
-        # Save code block and return placeholder that won't be touched by markdown
-        # Add newlines around placeholder to ensure it's treated as a block element
         placeholder = f'\n\nXOXOCODEBLOCKXOXO{len(code_blocks)}XOXOENDXOXO\n\n'
         code_blocks.append(html_code)
         return placeholder
-    
-    # Match fenced code blocks: ```lang\ncode\n```
-    # This preserves all whitespace and indentation in the code
-    pattern = r'```(\w*)\n(.*?)\n```'
-    md_content = re.sub(pattern, save_code_block, md_content, flags=re.DOTALL)
-    
+    md_content = re.sub(r'```(\w*)\n(.*?)\n```', save_code_block, md_content, flags=re.DOTALL)
+
+    # --- Table extraction ---
+    # Markdown tables: lines with | and at least one header separator (| ---)
+    # We'll extract blocks of lines that look like tables, separated by empty lines
+    table_blocks = []
+    table_pattern = re.compile(r'((?:^[|].*\n)+^[| ]*[-:]+[-| :]*\n(?:^[|].*\n)+)', re.MULTILINE)
+    def save_table_block(match):
+        table_md = match.group(1)
+        placeholder = f'\n\nXOXOTABLEBLOCKXOXO{len(table_blocks)}XOXOENDXOXO\n\n'
+        table_blocks.append(table_md)
+        return placeholder
+    md_content = table_pattern.sub(save_table_block, md_content)
+
     # Convert remaining markdown
     md = markdown.Markdown(
         extensions=[
@@ -267,16 +264,23 @@ def markdown_to_html(md_content: str) -> str:
             'toc'
         ]
     )
-    
     html_output = md.convert(md_content)
-    
-    # Restore code blocks - they might be wrapped in <p> tags, so remove those
+
+    # Restore table blocks (convert to HTML using markdown, then insert)
+    for i, table_md in enumerate(table_blocks):
+        placeholder = f'XOXOTABLEBLOCKXOXO{i}XOXOENDXOXO'
+        # Convert table markdown to HTML only (no toc)
+        table_html = markdown.markdown(table_md, extensions=['tables'])
+        # Remove wrapping <p> tags if present
+        html_output = html_output.replace(f'<p>{placeholder}</p>', table_html)
+        html_output = html_output.replace(placeholder, table_html)
+
+    # Restore code blocks
     for i, code_block in enumerate(code_blocks):
         placeholder = f'XOXOCODEBLOCKXOXO{i}XOXOENDXOXO'
-        # Remove wrapping <p> tags if present
         html_output = html_output.replace(f'<p>{placeholder}</p>', code_block)
         html_output = html_output.replace(placeholder, code_block)
-    
+
     return html_output
 
 

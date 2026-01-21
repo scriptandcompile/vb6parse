@@ -611,143 +611,41 @@ On Error GoTo 0</code></pre>
 <td>Interest rate</td>
 <td>Periods, payment, present value, future value</td>
 </tr>
-<tr>
-<td>## Platform Notes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VBA (Excel, Access, Word, etc.)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VB6</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Not available in <code>VBScript</code></strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Uses iterative algorithm to solve</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Consistent with Excel's NPER function</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Part of VBA financial functions library</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Assumes constant payment amounts</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Assumes constant interest rate</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Payment must exceed periodic interest or will fail/return error</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Does not account for fees, taxes, or insurance</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot handle irregular payment schedules</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Type parameter limited to 0 or 1</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- May return fractional periods</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>PMT</strong> - Calculates payment amount for a loan</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>PV</strong> - Calculates present value of an investment</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>FV</strong> - Calculates future value of an investment</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Rate</strong> - Calculates interest rate per period</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong><code>IPmt</code></strong> - Calculates interest payment for a specific period</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong><code>PPmt</code></strong> - Calculates principal payment for a specific period</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## VB6 Parser Notes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>NPer</code> is parsed as a regular function call (<code>CallExpression</code>). This module exists primarily</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>for documentation purposes to provide comprehensive reference material for VB6 developers</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>working with financial calculations, loan analysis, investment planning, and time-value-of-money</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>operations.</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in VBA (Excel, Access, Word, etc.)</li>
+<li>Available in VB6</li>
+<li><strong>Not available in <code>VBScript</code></strong></li>
+<li>Uses iterative algorithm to solve</li>
+<li>Consistent with Excel's NPER function</li>
+<li>Part of VBA financial functions library</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Assumes constant payment amounts</li>
+<li>Assumes constant interest rate</li>
+<li>Payment must exceed periodic interest or will fail/return error</li>
+<li>Does not account for fees, taxes, or insurance</li>
+<li>Cannot handle irregular payment schedules</li>
+<li>Type parameter limited to 0 or 1</li>
+<li>May return fractional periods</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><strong>PMT</strong> - Calculates payment amount for a loan</li>
+<li><strong>PV</strong> - Calculates present value of an investment</li>
+<li><strong>FV</strong> - Calculates future value of an investment</li>
+<li><strong>Rate</strong> - Calculates interest rate per period</li>
+<li><strong><code>IPmt</code></strong> - Calculates interest payment for a specific period</li>
+<li><strong><code>PPmt</code></strong> - Calculates principal payment for a specific period</li>
+</ul>
+<h2 id="vb6-parser-notes">VB6 Parser Notes</h2>
+<p><code>NPer</code> is parsed as a regular function call (<code>CallExpression</code>). This module exists primarily
+for documentation purposes to provide comprehensive reference material for VB6 developers
+working with financial calculations, loan analysis, investment planning, and time-value-of-money
+operations.</p>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

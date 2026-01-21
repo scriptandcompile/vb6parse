@@ -60,13 +60,33 @@
 - If <code>string</code> is Null, Right returns Null
 - If <code>length</code> is negative, a runtime error occurs (Error 5: Invalid procedure call or argument)
 - The function is 1-based (counts from position 1, not 0)
-<strong>Behavior with Different Length Values</strong>:
-| Length Value | Result |
-|--------------|--------|
-| 0 | Empty string ("") |
-| 1 to Len(string) | Rightmost N characters |
-| &gt; Len(string) | Entire string |
-| Negative | Runtime error (Error 5) |</p>
+<strong>Behavior with Different Length Values</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Length Value</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Empty string ("")</td>
+</tr>
+<tr>
+<td>1 to Len(string)</td>
+<td>Rightmost N characters</td>
+</tr>
+<tr>
+<td>&gt; Len(string)</td>
+<td>Entire string</td>
+</tr>
+<tr>
+<td>Negative</td>
+<td>Runtime error (Error 5)</td>
+</tr>
+</tbody>
+</table>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>File Extensions</strong>: Extract file extension from filename</li>
@@ -592,122 +612,33 @@ End Function</code></pre>
 <td><code>(string)</code></td>
 <td>Remove trailing whitespace</td>
 </tr>
-<tr>
-<td>## Platform and Version Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in all versions of VB6 and VBA</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Behavior consistent across all platforms</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- In VB.NET, replaced by String.Substring or string slicing</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>RightB</code> and <code>RightB</code>$ variants exist for byte data</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Right$ returns String type, Right returns Variant</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot use negative length to count from a different position</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in way to extract "all but first N" characters (use Len arithmetic)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Raises error on negative length instead of returning empty string</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No case-insensitive comparison built-in</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No Unicode-aware variant (uses ANSI/DBCS)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Left</code>: Returns characters from the left side of a string</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Mid</code>: Returns characters from any position in a string</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>InStrRev</code>: Finds position of substring searching from right to left</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Len</code>: Returns the length of a string</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>RTrim</code>: Removes trailing spaces from a string</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>InStr</code>: Finds position of substring searching from left to right</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all versions of VB6 and VBA</li>
+<li>Behavior consistent across all platforms</li>
+<li>In VB.NET, replaced by String.Substring or string slicing</li>
+<li><code>RightB</code> and <code>RightB</code>$ variants exist for byte data</li>
+<li>Right$ returns String type, Right returns Variant</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot use negative length to count from a different position</li>
+<li>No built-in way to extract "all but first N" characters (use Len arithmetic)</li>
+<li>Raises error on negative length instead of returning empty string</li>
+<li>No case-insensitive comparison built-in</li>
+<li>No Unicode-aware variant (uses ANSI/DBCS)</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Left</code>: Returns characters from the left side of a string</li>
+<li><code>Mid</code>: Returns characters from any position in a string</li>
+<li><code>InStrRev</code>: Finds position of substring searching from right to left</li>
+<li><code>Len</code>: Returns the length of a string</li>
+<li><code>RTrim</code>: Removes trailing spaces from a string</li>
+<li><code>InStr</code>: Finds position of substring searching from left to right</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

@@ -332,92 +332,26 @@ End Function</code></pre>
 <td>expression</td>
 <td>Date</td>
 </tr>
-<tr>
-<td>## Platform Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VB6, VBA, and <code>VBScript</code></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Consistent behavior across platforms</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Locale-aware parsing</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Date portion always zero (12/30/1899)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Compatible with all date/time functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Only parses up to seconds (no milliseconds)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Locale-dependent parsing (may fail on some formats)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot parse date and time together (use <code>CDate</code> for full datetime)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No timezone support</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No daylight saving time handling</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns only time portion (date is zero)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Error on invalid input (not Null)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in VB6, VBA, and <code>VBScript</code></li>
+<li>Consistent behavior across platforms</li>
+<li>Locale-aware parsing</li>
+<li>Date portion always zero (12/30/1899)</li>
+<li>Compatible with all date/time functions</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Only parses up to seconds (no milliseconds)</li>
+<li>Locale-dependent parsing (may fail on some formats)</li>
+<li>Cannot parse date and time together (use <code>CDate</code> for full datetime)</li>
+<li>No timezone support</li>
+<li>No daylight saving time handling</li>
+<li>Returns only time portion (date is zero)</li>
+<li>Error on invalid input (not Null)</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

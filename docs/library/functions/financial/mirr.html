@@ -605,138 +605,40 @@ On Error GoTo 0</code></pre>
 <td>Interest rate for annuity</td>
 <td>For regular payments only; MIRR handles irregular cash flows</td>
 </tr>
-<tr>
-<td>## Platform Notes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VBA (Excel, Access, etc.)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Not available in <code>VBScript</code></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Part of VBA Financial functions library</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Requires at least one positive and one negative value in the array</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Arrays can be 0-based or 1-based (function handles both)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Requires at least one positive and one negative cash flow value</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- All cash flows must occur at regular intervals</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Does not account for irregular timing between cash flows (see XIRR for that)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Result is sensitive to both <code>finance_rate</code> and <code>reinvest_rate</code> assumptions</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot handle multiple sign changes as robustly as some other methods</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- First cash flow is assumed to occur at end of first period (not time zero)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>IRR</strong> - Calculate internal rate of return (assumes reinvestment at IRR)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>NPV</strong> - Calculate net present value using discount rate</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>PV</strong> - Calculate present value of an investment</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>FV</strong> - Calculate future value of an investment</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Rate</strong> - Calculate interest rate for an annuity</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Pmt</strong> - Calculate payment for a loan/annuity</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>XIRR</strong> - IRR for irregular cash flow timing (Excel only)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>XNPV</strong> - NPV for irregular cash flow timing (Excel only)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## VB6 Parser Notes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>MIRR is parsed as a regular function call (<code>CallExpression</code>). This module exists primarily</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>for documentation purposes to provide comprehensive reference material for VB6 developers</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>working with financial calculations involving modified internal rate of return analysis.</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in VBA (Excel, Access, etc.)</li>
+<li>Not available in <code>VBScript</code></li>
+<li>Part of VBA Financial functions library</li>
+<li>Requires at least one positive and one negative value in the array</li>
+<li>Arrays can be 0-based or 1-based (function handles both)</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Requires at least one positive and one negative cash flow value</li>
+<li>All cash flows must occur at regular intervals</li>
+<li>Does not account for irregular timing between cash flows (see XIRR for that)</li>
+<li>Result is sensitive to both <code>finance_rate</code> and <code>reinvest_rate</code> assumptions</li>
+<li>Cannot handle multiple sign changes as robustly as some other methods</li>
+<li>First cash flow is assumed to occur at end of first period (not time zero)</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><strong>IRR</strong> - Calculate internal rate of return (assumes reinvestment at IRR)</li>
+<li><strong>NPV</strong> - Calculate net present value using discount rate</li>
+<li><strong>PV</strong> - Calculate present value of an investment</li>
+<li><strong>FV</strong> - Calculate future value of an investment</li>
+<li><strong>Rate</strong> - Calculate interest rate for an annuity</li>
+<li><strong>Pmt</strong> - Calculate payment for a loan/annuity</li>
+<li><strong>XIRR</strong> - IRR for irregular cash flow timing (Excel only)</li>
+<li><strong>XNPV</strong> - NPV for irregular cash flow timing (Excel only)</li>
+</ul>
+<h2 id="vb6-parser-notes">VB6 Parser Notes</h2>
+<p>MIRR is parsed as a regular function call (<code>CallExpression</code>). This module exists primarily
+for documentation purposes to provide comprehensive reference material for VB6 developers
+working with financial calculations involving modified internal rate of return analysis.</p>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

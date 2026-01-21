@@ -395,103 +395,33 @@ ErrorHandler:
 <td>Integer division</td>
 <td>-87 \ 10 = -8</td>
 </tr>
-<tr>
-<td>## Platform and Version Notes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in all VB6 versions</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Consistent behavior across platforms</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Return type matches input numeric type</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Different from many languages <code>int()</code> which truncates toward zero</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Equivalent to <code>Math.floor()</code> in many other languages</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Does not round to nearest (use Round for that)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Behavior with negative numbers can be unexpected (use Fix for truncation)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Return type depends on input type (can cause overflow)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot specify decimal places (always removes all decimals)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No control over rounding direction (always down)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Fix</code>: Returns integer portion, truncating toward zero</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Round</code>: Rounds to nearest integer or specified decimal places</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>CInt</code>: Converts to Integer with rounding</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>CLng</code>: Converts to Long with rounding</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Rnd</code>: Random number generator (often used with Int)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>\</code>: Integer division operator</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all VB6 versions</li>
+<li>Consistent behavior across platforms</li>
+<li>Return type matches input numeric type</li>
+<li>Different from many languages <code>int()</code> which truncates toward zero</li>
+<li>Equivalent to <code>Math.floor()</code> in many other languages</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Does not round to nearest (use Round for that)</li>
+<li>Behavior with negative numbers can be unexpected (use Fix for truncation)</li>
+<li>Return type depends on input type (can cause overflow)</li>
+<li>Cannot specify decimal places (always removes all decimals)</li>
+<li>No control over rounding direction (always down)</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Fix</code>: Returns integer portion, truncating toward zero</li>
+<li><code>Round</code>: Rounds to nearest integer or specified decimal places</li>
+<li><code>CInt</code>: Converts to Integer with rounding</li>
+<li><code>CLng</code>: Converts to Long with rounding</li>
+<li><code>Rnd</code>: Random number generator (often used with Int)</li>
+<li><code>\</code>: Integer division operator</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

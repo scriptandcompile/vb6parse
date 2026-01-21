@@ -53,19 +53,57 @@
   See <code>FirstWeekOfYear</code> Constants.</li>
 </ul>
 <h2 id="interval-settings">Interval Settings</h2>
-<p>The <code>interval</code> parameter can have the following values:
-| Setting | Description |
-|---------|-------------|
-| "yyyy" | Year |
-| "q" | Quarter |
-| "m" | Month |
-| "y" | Day of year |
-| "d" | Day |
-| "w" | Weekday |
-| "ww" | Week of year |
-| "h" | Hour |
-| "n" | Minute |
-| "s" | Second |</p>
+<p>The <code>interval</code> parameter can have the following values:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"yyyy"</td>
+<td>Year</td>
+</tr>
+<tr>
+<td>"q"</td>
+<td>Quarter</td>
+</tr>
+<tr>
+<td>"m"</td>
+<td>Month</td>
+</tr>
+<tr>
+<td>"y"</td>
+<td>Day of year</td>
+</tr>
+<tr>
+<td>"d"</td>
+<td>Day</td>
+</tr>
+<tr>
+<td>"w"</td>
+<td>Weekday</td>
+</tr>
+<tr>
+<td>"ww"</td>
+<td>Week of year</td>
+</tr>
+<tr>
+<td>"h"</td>
+<td>Hour</td>
+</tr>
+<tr>
+<td>"n"</td>
+<td>Minute</td>
+</tr>
+<tr>
+<td>"s"</td>
+<td>Second</td>
+</tr>
+</tbody>
+</table>
 <h2 id="firstdayofweek-constants"><code>FirstDayOfWeek</code> Constants</h2>
 <table>
 <thead>
@@ -116,21 +154,18 @@
 <td>7</td>
 <td>Saturday</td>
 </tr>
+</tbody>
+</table>
+<h2 id="firstweekofyear-constants"><code>FirstWeekOfYear</code> Constants</h2>
+<table>
+<thead>
 <tr>
-<td>## <code>FirstWeekOfYear</code> Constants</td>
-<td></td>
-<td></td>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
 </tr>
-<tr>
-<td>Constant</td>
-<td>Value</td>
-<td>Description</td>
-</tr>
-<tr>
-<td>----------</td>
-<td>-------</td>
-<td>-------------</td>
-</tr>
+</thead>
+<tbody>
 <tr>
 <td>vbUseSystem</td>
 <td>0</td>
@@ -151,108 +186,28 @@
 <td>3</td>
 <td>Start with first full week of the year</td>
 </tr>
-<tr>
-<td>## Return Value</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Returns a <code>Long</code> integer representing the number of intervals between the two dates.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>The result is positive if date2 is later than date1, negative if date2 is earlier than date1,</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>and zero if they are equal.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Remarks</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>The <code>DateDiff</code> function is used to calculate the difference between two dates in the</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>specified time interval. The function counts the number of interval boundaries crossed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>between the two dates.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>Important Characteristics:</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns positive number if date2 &gt; date1 (future date)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns negative number if date2 &lt; date1 (past date)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns zero if date2 = date1 (same date/time)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Counts interval boundaries, not elapsed time</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- For "yyyy", crossing from Dec 31 to Jan 1 counts as 1 year</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- For "m", crossing from Jan 31 to Feb 1 counts as 1 month</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- For "ww", counts week boundaries (Sunday to Sunday by default)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Day of year ("y") is equivalent to day ("d")</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Weekday ("w") is equivalent to day ("d")</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Boundary Counting vs Elapsed Time</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>DateDiff</code> counts boundaries crossed, not elapsed time:</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>Long</code> integer representing the number of intervals between the two dates.
+The result is positive if date2 is later than date1, negative if date2 is earlier than date1,
+and zero if they are equal.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>DateDiff</code> function is used to calculate the difference between two dates in the
+specified time interval. The function counts the number of interval boundaries crossed
+between the two dates.
+<strong>Important Characteristics:</strong>
+- Returns positive number if date2 &gt; date1 (future date)
+- Returns negative number if date2 &lt; date1 (past date)
+- Returns zero if date2 = date1 (same date/time)
+- Counts interval boundaries, not elapsed time
+- For "yyyy", crossing from Dec 31 to Jan 1 counts as 1 year
+- For "m", crossing from Jan 31 to Feb 1 counts as 1 month
+- For "ww", counts week boundaries (Sunday to Sunday by default)
+- Day of year ("y") is equivalent to day ("d")
+- Weekday ("w") is equivalent to day ("d")</p>
+<h2 id="boundary-counting-vs-elapsed-time">Boundary Counting vs Elapsed Time</h2>
+<p><code>DateDiff</code> counts boundaries crossed, not elapsed time:</p>
 <pre><code class="language-vbnet">&#x27; Year example
 DateDiff(&quot;yyyy&quot;, #12/31/2024#, #1/1/2025#)  &#x27; Returns 1 (crossed 1 year boundary)
 &#x27; But only 1 day elapsed!

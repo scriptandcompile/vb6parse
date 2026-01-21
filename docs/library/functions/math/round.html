@@ -62,13 +62,38 @@
 - Round(3.5) = 4 (rounds to even)
 - Round(4.5) = 4 (rounds to even)
 - Round(5.5) = 6 (rounds to even)
-<strong>Rounding Behavior by numdecimalplaces</strong>:
-| numdecimalplaces | Effect | Example |
-|------------------|--------|---------|
-| Omitted | Round to integer | Round(2.7) = 3 |
-| 0 | Round to integer | Round(2.7, 0) = 3 |
-| Positive (e.g., 2) | Round to N decimals | Round(2.748, 2) = 2.75 |
-| Negative (e.g., -1) | Round to left of decimal | Round(2748, -1) = 2750 |</p>
+<strong>Rounding Behavior by numdecimalplaces</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>numdecimalplaces</th>
+<th>Effect</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Omitted</td>
+<td>Round to integer</td>
+<td>Round(2.7) = 3</td>
+</tr>
+<tr>
+<td>0</td>
+<td>Round to integer</td>
+<td>Round(2.7, 0) = 3</td>
+</tr>
+<tr>
+<td>Positive (e.g., 2)</td>
+<td>Round to N decimals</td>
+<td>Round(2.748, 2) = 2.75</td>
+</tr>
+<tr>
+<td>Negative (e.g., -1)</td>
+<td>Round to left of decimal</td>
+<td>Round(2748, -1) = 2750</td>
+</tr>
+</tbody>
+</table>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Financial Calculations</strong>: Round currency values to 2 decimal places</li>
@@ -567,122 +592,33 @@ On Error GoTo 0</code></pre>
 <td>Can specify decimals</td>
 <td>Display formatting</td>
 </tr>
-<tr>
-<td>## Platform and Version Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VB6 and VBA (added in VB6/Office 2000)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Uses banker's rounding (IEEE 754 standard)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Not available in earlier VB versions (use Int or Fix instead)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- In VB.NET, replaced by Math.Round with <code>MidpointRounding</code> enum</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Behavior differs from Excel's ROUND function (which uses "round half up")</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Banker's rounding may be unexpected for users familiar with traditional rounding</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot choose rounding mode (always banker's rounding)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Limited precision for very large decimal place values</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Rounding errors can accumulate in iterative calculations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Different from Excel ROUND function behavior</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in round-up or round-down functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Int</code>: Returns the integer portion of a number (truncates toward zero)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Fix</code>: Returns the integer portion of a number (truncates toward zero)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>CInt</code>: Converts expression to Integer with rounding</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>CLng</code>: Converts expression to Long with rounding</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Format</code>: Formats number with specified decimal places</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in VB6 and VBA (added in VB6/Office 2000)</li>
+<li>Uses banker's rounding (IEEE 754 standard)</li>
+<li>Not available in earlier VB versions (use Int or Fix instead)</li>
+<li>In VB.NET, replaced by Math.Round with <code>MidpointRounding</code> enum</li>
+<li>Behavior differs from Excel's ROUND function (which uses "round half up")</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Banker's rounding may be unexpected for users familiar with traditional rounding</li>
+<li>Cannot choose rounding mode (always banker's rounding)</li>
+<li>Limited precision for very large decimal place values</li>
+<li>Rounding errors can accumulate in iterative calculations</li>
+<li>Different from Excel ROUND function behavior</li>
+<li>No built-in round-up or round-down functions</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Int</code>: Returns the integer portion of a number (truncates toward zero)</li>
+<li><code>Fix</code>: Returns the integer portion of a number (truncates toward zero)</li>
+<li><code>CInt</code>: Converts expression to Integer with rounding</li>
+<li><code>CLng</code>: Converts expression to Long with rounding</li>
+<li><code>Format</code>: Formats number with specified decimal places</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
