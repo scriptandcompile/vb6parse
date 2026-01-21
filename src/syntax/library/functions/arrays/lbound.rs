@@ -77,7 +77,7 @@
 //! Next i
 //! ```
 //!
-//! #### More efficient for very large loops
+//! #### More Efficient For Very Large Loops
 //!
 //! ```vb6
 //! Dim lb As Long, ub As Long
