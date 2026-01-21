@@ -1,4 +1,4 @@
-//! ## Join Function
+//! ## `Join` Function
 //!
 //! Returns a string created by joining a number of substrings contained in an array.
 //!

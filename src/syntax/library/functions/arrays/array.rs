@@ -1,4 +1,4 @@
-//! ## Array Function
+//! ## `Array` Function
 //!
 //! Returns a `Variant` containing an array formed from the comma-delimited arg list of values
 //! passed into the function.
