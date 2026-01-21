@@ -46,17 +46,58 @@ Returns an Integer representing the attributes of a file, directory, or folder.<
 <li><code>pathname</code> - Required. String expression that specifies a file name. May include directory or folder, and drive.</li>
 </ul>
 <h1 id="return-value">Return Value</h1>
-<p>Returns an Integer representing the sum of the following attribute values:
-| Constant | Value | Description |
-|----------|-------|-------------|
-| vbNormal | 0 | Normal (no attributes set) |
-| vbReadOnly | 1 | Read-only |
-| vbHidden | 2 | Hidden |
-| vbSystem | 4 | System file |
-| vbVolume | 8 | Volume label |
-| vbDirectory | 16 | Directory or folder |
-| vbArchive | 32 | File has changed since last backup |
-| vbAlias | 64 | Specified file name is an alias (Macintosh only) |</p>
+<p>Returns an Integer representing the sum of the following attribute values:</p>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vbNormal</td>
+<td>0</td>
+<td>Normal (no attributes set)</td>
+</tr>
+<tr>
+<td>vbReadOnly</td>
+<td>1</td>
+<td>Read-only</td>
+</tr>
+<tr>
+<td>vbHidden</td>
+<td>2</td>
+<td>Hidden</td>
+</tr>
+<tr>
+<td>vbSystem</td>
+<td>4</td>
+<td>System file</td>
+</tr>
+<tr>
+<td>vbVolume</td>
+<td>8</td>
+<td>Volume label</td>
+</tr>
+<tr>
+<td>vbDirectory</td>
+<td>16</td>
+<td>Directory or folder</td>
+</tr>
+<tr>
+<td>vbArchive</td>
+<td>32</td>
+<td>File has changed since last backup</td>
+</tr>
+<tr>
+<td>vbAlias</td>
+<td>64</td>
+<td>Specified file name is an alias (Macintosh only)</td>
+</tr>
+</tbody>
+</table>
 <h1 id="remarks">Remarks</h1>
 <ul>
 <li>Use the And operator to test for a specific attribute.</li>

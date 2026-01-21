@@ -78,188 +78,46 @@
 <td>8</td>
 <td>A reference to an object is being set</td>
 </tr>
-<tr>
-<td>## Return Value</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Returns a <code>Variant</code> containing the result of the called property or method. For <code>VbLet</code> and <code>VbSet</code>,</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>the return value is not meaningful.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Remarks</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>The <code>CallByName</code> function allows you to execute object members by name at run time, providing</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>a form of late binding. This is particularly useful for:</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Creating generic routines that work with multiple object types</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Implementing dynamic property access based on user input</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Building reflection-like functionality in VB6</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Simplifying repetitive property access code</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>### Important Notes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>1. <strong>Late Binding</strong>: <code>CallByName</code> always uses late binding, even if the object variable is early bound</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>2. <strong>Performance</strong>: Slower than direct method/property calls due to name lookup overhead</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>3. <strong>Case Insensitive</strong>: The <code>procname</code> parameter is case-insensitive</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>4. <strong>Error Handling</strong>: Raises run-time error if the member doesn't exist</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>5. <strong>Type Safety</strong>: No compile-time checking of member existence or argument types</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>### Call Type Details</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong><code>VbMethod</code> (1)</strong>:</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Calls a Sub or Function</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns the function's return value (or Empty for Subs)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Passes arguments in the args array</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong><code>VbGet</code> (2)</strong>:</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Retrieves a property value or field value</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Can be used with property procedures (Property Get) or public fields</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- For parameterized properties, pass indices in args array</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong><code>VbLet</code> (4)</strong>:</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Sets a <code>property</code> value or field value</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- For simple data types (numbers, strings, etc.)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- The new value must be the last element in the args array</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- For parameterized properties, indices come before the value</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong><code>VbSet</code> (8)</strong>:</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Sets an object reference property</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Similar to <code>VbLet</code> but for object references</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Used when you would normally use the Set keyword</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Examples</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>### Basic Method Call</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>Variant</code> containing the result of the called property or method. For <code>VbLet</code> and <code>VbSet</code>,
+the return value is not meaningful.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>CallByName</code> function allows you to execute object members by name at run time, providing
+a form of late binding. This is particularly useful for:
+- Creating generic routines that work with multiple object types
+- Implementing dynamic property access based on user input
+- Building reflection-like functionality in VB6
+- Simplifying repetitive property access code</p>
+<h3 id="important-notes">Important Notes</h3>
+<ol>
+<li><strong>Late Binding</strong>: <code>CallByName</code> always uses late binding, even if the object variable is early bound</li>
+<li><strong>Performance</strong>: Slower than direct method/property calls due to name lookup overhead</li>
+<li><strong>Case Insensitive</strong>: The <code>procname</code> parameter is case-insensitive</li>
+<li><strong>Error Handling</strong>: Raises run-time error if the member doesn't exist</li>
+<li><strong>Type Safety</strong>: No compile-time checking of member existence or argument types</li>
+</ol>
+<h3 id="call-type-details">Call Type Details</h3>
+<p><strong><code>VbMethod</code> (1)</strong>:
+- Calls a Sub or Function
+- Returns the function's return value (or Empty for Subs)
+- Passes arguments in the args array
+<strong><code>VbGet</code> (2)</strong>:
+- Retrieves a property value or field value
+- Can be used with property procedures (Property Get) or public fields
+- For parameterized properties, pass indices in args array
+<strong><code>VbLet</code> (4)</strong>:
+- Sets a <code>property</code> value or field value
+- For simple data types (numbers, strings, etc.)
+- The new value must be the last element in the args array
+- For parameterized properties, indices come before the value
+<strong><code>VbSet</code> (8)</strong>:
+- Sets an object reference property
+- Similar to <code>VbLet</code> but for object references
+- Used when you would normally use the Set keyword</p>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-method-call">Basic Method Call</h3>
 <pre><code class="language-vbnet">Dim obj As Object
 Set obj = CreateObject(&quot;Scripting.FileSystemObject&quot;)
 &#x27; Call the GetFolder method

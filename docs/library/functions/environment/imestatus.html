@@ -44,20 +44,73 @@
 <h2 id="parameters">Parameters</h2>
 <p>None</p>
 <h2 id="return-value">Return Value</h2>
-<p>Returns an <code>Integer</code> representing the current <code>IME</code> mode:
-| Constant | Value | Description |
-|----------|-------|-------------|
-| vbIMENoOp | 0 | No <code>IME</code> installed or <code>IME</code> is disabled |
-| vbIMEOn | 1 | <code>IME</code> is on (active) |
-| vbIMEOff | 2 | <code>IME</code> is off (inactive) |
-| vbIMEDisable | 3 | <code>IME</code> is disabled |
-| vbIMEHiragana | 4 | Double-byte Hiragana mode |
-| vbIMEKatakanHalf | 5 | Single-byte Katakana mode |
-| vbIMEKatakanaFull | 6 | Double-byte Katakana mode |
-| vbIMEAlphaHalf | 7 | Single-byte Alphanumeric mode |
-| vbIMEAlphaFull | 8 | Double-byte Alphanumeric mode |
-| vbIMEHangulHalf | 9 | Single-byte Hangul mode |
-| vbIMEHangulFull | 10 | Double-byte Hangul mode |</p>
+<p>Returns an <code>Integer</code> representing the current <code>IME</code> mode:</p>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vbIMENoOp</td>
+<td>0</td>
+<td>No <code>IME</code> installed or <code>IME</code> is disabled</td>
+</tr>
+<tr>
+<td>vbIMEOn</td>
+<td>1</td>
+<td><code>IME</code> is on (active)</td>
+</tr>
+<tr>
+<td>vbIMEOff</td>
+<td>2</td>
+<td><code>IME</code> is off (inactive)</td>
+</tr>
+<tr>
+<td>vbIMEDisable</td>
+<td>3</td>
+<td><code>IME</code> is disabled</td>
+</tr>
+<tr>
+<td>vbIMEHiragana</td>
+<td>4</td>
+<td>Double-byte Hiragana mode</td>
+</tr>
+<tr>
+<td>vbIMEKatakanHalf</td>
+<td>5</td>
+<td>Single-byte Katakana mode</td>
+</tr>
+<tr>
+<td>vbIMEKatakanaFull</td>
+<td>6</td>
+<td>Double-byte Katakana mode</td>
+</tr>
+<tr>
+<td>vbIMEAlphaHalf</td>
+<td>7</td>
+<td>Single-byte Alphanumeric mode</td>
+</tr>
+<tr>
+<td>vbIMEAlphaFull</td>
+<td>8</td>
+<td>Double-byte Alphanumeric mode</td>
+</tr>
+<tr>
+<td>vbIMEHangulHalf</td>
+<td>9</td>
+<td>Single-byte Hangul mode</td>
+</tr>
+<tr>
+<td>vbIMEHangulFull</td>
+<td>10</td>
+<td>Double-byte Hangul mode</td>
+</tr>
+</tbody>
+</table>
 <h2 id="remarks">Remarks</h2>
 <p>The <code>IMEStatus</code> function provides information about the <code>Input Method Editor</code>:
 - Returns the current state of the <code>IME</code> for the active window

@@ -81,68 +81,22 @@
 <td>32</td>
 <td>File has changed since last backup</td>
 </tr>
-<tr>
-<td>## Remarks</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Combining Attributes</strong>: You can combine attributes by adding their values together (e.g., <code>vbReadOnly + vbHidden = 3</code>).</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>File Must Exist</strong>: A run-time error occurs if the file specified by pathname doesn't exist.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Pathname Validation</strong>: Pathname can be a fully qualified path or a relative path. Wildcard characters (* and ?) are not supported.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Cannot Set Directory Attribute</strong>: You cannot use <code>SetAttr</code> to set the directory (vbDirectory = 16) attribute. Use <code>MkDir</code> and <code>RmDir</code> instead.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Volume Label</strong>: You cannot use <code>SetAttr</code> to set the volume label (vbVolume = 8) attribute.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Read-Only Directories</strong>: <code>SetAttr</code> cannot change the read-only status of a directory; it only works with files.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Error Handling</strong>: Use error handling to trap potential errors like file not found, permission denied, or invalid attributes.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong><code>GetAttr</code> Function</strong>: Use <code>GetAttr</code> to retrieve current file attributes before modifying them with <code>SetAttr</code>.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Clearing Attributes</strong>: To clear an attribute, set the file to vbNormal (0) or use a combination that excludes the unwanted attribute.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Examples</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>### Set File to Read-Only</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li><strong>Combining Attributes</strong>: You can combine attributes by adding their values together (e.g., <code>vbReadOnly + vbHidden = 3</code>).</li>
+<li><strong>File Must Exist</strong>: A run-time error occurs if the file specified by pathname doesn't exist.</li>
+<li><strong>Pathname Validation</strong>: Pathname can be a fully qualified path or a relative path. Wildcard characters (* and ?) are not supported.</li>
+<li><strong>Cannot Set Directory Attribute</strong>: You cannot use <code>SetAttr</code> to set the directory (vbDirectory = 16) attribute. Use <code>MkDir</code> and <code>RmDir</code> instead.</li>
+<li><strong>Volume Label</strong>: You cannot use <code>SetAttr</code> to set the volume label (vbVolume = 8) attribute.</li>
+<li><strong>Read-Only Directories</strong>: <code>SetAttr</code> cannot change the read-only status of a directory; it only works with files.</li>
+<li><strong>Error Handling</strong>: Use error handling to trap potential errors like file not found, permission denied, or invalid attributes.</li>
+<li><strong><code>GetAttr</code> Function</strong>: Use <code>GetAttr</code> to retrieve current file attributes before modifying them with <code>SetAttr</code>.</li>
+<li><strong>Clearing Attributes</strong>: To clear an attribute, set the file to vbNormal (0) or use a combination that excludes the unwanted attribute.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<h3 id="set-file-to-read-only">Set File to Read-Only</h3>
 <pre><code class="language-vbnet">SetAttr &quot;C:\MyFile.txt&quot;, vbReadOnly</code></pre>
 <h3 id="set-file-to-hidden">Set File to Hidden</h3>
 <pre><code class="language-vbnet">SetAttr &quot;C:\Data\Secret.dat&quot;, vbHidden</code></pre>

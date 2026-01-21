@@ -543,122 +543,33 @@ ErrorHandler:
 <td><code>Currency</code> amount</td>
 <td>Simple annuity future value</td>
 </tr>
-<tr>
-<td>## Platform and Version Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in all VB6 versions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Part of VBA financial functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Uses <code>Double</code> precision</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Consistent with Excel's <code>IRR</code> function</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Maximum 20 iterations for convergence</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Assumes cash flows occur at regular intervals</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- May fail to converge for certain cash flow patterns</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Assumes reinvestment at the <code>IRR</code> rate (use <code>MIRR</code> for different assumption)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot handle irregular time periods between cash flows (use <code>XIRR</code> in Excel for that)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Multiple <code>IRR</code>s possible for some cash flow patterns (multiple sign changes)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Does not account for risk differences between projects</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>MIRR</code>: Modified internal rate of return with reinvestment rate</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>NPV</code>: Net present value</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>PV</code>: Present value</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>FV</code>: Future value</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Rate</code>: Interest rate per period</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all VB6 versions</li>
+<li>Part of VBA financial functions</li>
+<li>Uses <code>Double</code> precision</li>
+<li>Consistent with Excel's <code>IRR</code> function</li>
+<li>Maximum 20 iterations for convergence</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Assumes cash flows occur at regular intervals</li>
+<li>May fail to converge for certain cash flow patterns</li>
+<li>Assumes reinvestment at the <code>IRR</code> rate (use <code>MIRR</code> for different assumption)</li>
+<li>Cannot handle irregular time periods between cash flows (use <code>XIRR</code> in Excel for that)</li>
+<li>Multiple <code>IRR</code>s possible for some cash flow patterns (multiple sign changes)</li>
+<li>Does not account for risk differences between projects</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>MIRR</code>: Modified internal rate of return with reinvestment rate</li>
+<li><code>NPV</code>: Net present value</li>
+<li><code>PV</code>: Present value</li>
+<li><code>FV</code>: Future value</li>
+<li><code>Rate</code>: Interest rate per period</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

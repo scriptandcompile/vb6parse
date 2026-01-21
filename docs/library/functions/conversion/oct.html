@@ -581,122 +581,33 @@ On Error GoTo 0</code></pre>
 <td>String (custom format)</td>
 <td>Complex number formatting with patterns</td>
 </tr>
-<tr>
-<td>## Platform and Version Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in all versions of VBA and VB6</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Behavior is consistent across Windows platforms</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- The maximum length of the returned string depends on the data type of the input</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- For Long values: up to 11 octal digits (for negative numbers)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- For Integer values: up to 6 octal digits (for negative numbers)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Only converts to octal (base-8); no support for arbitrary bases</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot convert octal strings back to decimal (use <code>CLng("&amp;O" &amp; octStr)</code> instead)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Negative numbers use two's complement, which may be confusing</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in padding or formatting options</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Does not validate that the result is a "valid" octal in a specific context</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Hex</code>: Convert number to hexadecimal string</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Str</code>: Convert number to decimal string</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>CStr</code>: Convert value to string</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Format</code>: Format number with custom patterns</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>CLng</code>: Convert string (including "&amp;O" prefix) to Long</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Val</code>: Parse numeric string to number</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all versions of VBA and VB6</li>
+<li>Behavior is consistent across Windows platforms</li>
+<li>The maximum length of the returned string depends on the data type of the input</li>
+<li>For Long values: up to 11 octal digits (for negative numbers)</li>
+<li>For Integer values: up to 6 octal digits (for negative numbers)</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Only converts to octal (base-8); no support for arbitrary bases</li>
+<li>Cannot convert octal strings back to decimal (use <code>CLng("&amp;O" &amp; octStr)</code> instead)</li>
+<li>Negative numbers use two's complement, which may be confusing</li>
+<li>No built-in padding or formatting options</li>
+<li>Does not validate that the result is a "valid" octal in a specific context</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Hex</code>: Convert number to hexadecimal string</li>
+<li><code>Str</code>: Convert number to decimal string</li>
+<li><code>CStr</code>: Convert value to string</li>
+<li><code>Format</code>: Format number with custom patterns</li>
+<li><code>CLng</code>: Convert string (including "&amp;O" prefix) to Long</li>
+<li><code>Val</code>: Parse numeric string to number</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

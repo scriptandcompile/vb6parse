@@ -540,128 +540,34 @@ On Error GoTo 0</code></pre>
 <td>Variant</td>
 <td>Flexible date/time extraction</td>
 </tr>
-<tr>
-<td>## Platform and Version Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in all versions of VB6 and VBA</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Behavior consistent across all platforms</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- In VB.NET, replaced by DateTime.Second property</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns Integer type (not Long)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Always returns 0-59 range</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No millisecond precision</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot distinguish leap seconds</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Range limited to 0-59 (no support for values outside this range)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Date portion of Date/Time value is ignored</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot be used as <code>LValue</code> (cannot assign to Second)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Minute</code>: Returns the minute of the hour (0-59)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Hour</code>: Returns the hour of the day (0-23)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Now</code>: Returns the current system date and time</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Time</code>: Returns the current system time</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>TimeSerial</code>: Returns a Date value for a specific time</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>DatePart</code>: Returns a specified part of a given date</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Timer</code>: Returns seconds since midnight as Single</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all versions of VB6 and VBA</li>
+<li>Behavior consistent across all platforms</li>
+<li>In VB.NET, replaced by DateTime.Second property</li>
+<li>Returns Integer type (not Long)</li>
+<li>Always returns 0-59 range</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>No millisecond precision</li>
+<li>Cannot distinguish leap seconds</li>
+<li>Range limited to 0-59 (no support for values outside this range)</li>
+<li>Date portion of Date/Time value is ignored</li>
+<li>Cannot be used as <code>LValue</code> (cannot assign to Second)</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Minute</code>: Returns the minute of the hour (0-59)</li>
+<li><code>Hour</code>: Returns the hour of the day (0-23)</li>
+<li><code>Now</code>: Returns the current system date and time</li>
+<li><code>Time</code>: Returns the current system time</li>
+<li><code>TimeSerial</code>: Returns a Date value for a specific time</li>
+<li><code>DatePart</code>: Returns a specified part of a given date</li>
+<li><code>Timer</code>: Returns seconds since midnight as Single</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

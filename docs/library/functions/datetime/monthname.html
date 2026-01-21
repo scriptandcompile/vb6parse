@@ -474,178 +474,48 @@ On Error GoTo 0</code></pre>
 <td>Returns number, not name</td>
 <td>Need to convert to name separately</td>
 </tr>
-<tr>
-<td>## Localization Notes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>The <code>MonthName</code> function returns month names based on the system's regional settings:</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>English (US)</strong>: "January", "February", etc. / "Jan", "Feb", etc.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Spanish</strong>: "enero", "febrero", etc. / "ene", "feb", etc.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>French</strong>: "janvier", "février", etc. / "janv", "févr", etc.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>German</strong>: "Januar", "Februar", etc. / "Jan", "Feb", etc.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Japanese</strong>: "1月", "2月", etc.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- And many more locales...</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Platform Notes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VBA (Excel, Access, Word, etc.)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VB6</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Not available in <code>VBScript</code></strong> (<code>VBScript</code> lacks this function)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns String type</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Consistent across all VBA platforms</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Uses Control Panel regional settings</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- First introduced in VB6 and VBA 6.0</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Month parameter must be 1-12 (no 0 or 13+)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Error 5 if month is out of valid range</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns names based on system locale only (cannot specify locale)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Abbreviated length varies by locale (usually 3 chars, but not always)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Not available in <code>VBScript</code></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot customize the returned names</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Month</strong> - Returns the month number (1-12) from a date</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong><code>WeekdayName</code></strong> - Returns the name of the weekday (similar function for days)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Format</strong> - Can format dates with month names using format strings</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong><code>DatePart</code></strong> - Returns various parts of a date (including month number)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Year</strong> - Returns the year component of a date</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Day</strong> - Returns the day component of a date</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## VB6 Parser Notes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>MonthName</code> is parsed as a regular function call (<code>CallExpression</code>). This module exists primarily</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>for documentation purposes to provide comprehensive reference material for VB6 developers</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>working with date formatting and display operations requiring localized month names.</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="localization-notes">Localization Notes</h2>
+<p>The <code>MonthName</code> function returns month names based on the system's regional settings:
+- <strong>English (US)</strong>: "January", "February", etc. / "Jan", "Feb", etc.
+- <strong>Spanish</strong>: "enero", "febrero", etc. / "ene", "feb", etc.
+- <strong>French</strong>: "janvier", "février", etc. / "janv", "févr", etc.
+- <strong>German</strong>: "Januar", "Februar", etc. / "Jan", "Feb", etc.
+- <strong>Japanese</strong>: "1月", "2月", etc.
+- And many more locales...</p>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in VBA (Excel, Access, Word, etc.)</li>
+<li>Available in VB6</li>
+<li><strong>Not available in <code>VBScript</code></strong> (<code>VBScript</code> lacks this function)</li>
+<li>Returns String type</li>
+<li>Consistent across all VBA platforms</li>
+<li>Uses Control Panel regional settings</li>
+<li>First introduced in VB6 and VBA 6.0</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Month parameter must be 1-12 (no 0 or 13+)</li>
+<li>Error 5 if month is out of valid range</li>
+<li>Returns names based on system locale only (cannot specify locale)</li>
+<li>Abbreviated length varies by locale (usually 3 chars, but not always)</li>
+<li>Not available in <code>VBScript</code></li>
+<li>Cannot customize the returned names</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><strong>Month</strong> - Returns the month number (1-12) from a date</li>
+<li><strong><code>WeekdayName</code></strong> - Returns the name of the weekday (similar function for days)</li>
+<li><strong>Format</strong> - Can format dates with month names using format strings</li>
+<li><strong><code>DatePart</code></strong> - Returns various parts of a date (including month number)</li>
+<li><strong>Year</strong> - Returns the year component of a date</li>
+<li><strong>Day</strong> - Returns the day component of a date</li>
+</ul>
+<h2 id="vb6-parser-notes">VB6 Parser Notes</h2>
+<p><code>MonthName</code> is parsed as a regular function call (<code>CallExpression</code>). This module exists primarily
+for documentation purposes to provide comprehensive reference material for VB6 developers
+working with date formatting and display operations requiring localized month names.</p>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

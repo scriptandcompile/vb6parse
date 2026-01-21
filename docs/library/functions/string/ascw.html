@@ -340,206 +340,45 @@ End Function</code></pre>
 <td>Unicode (inverse)</td>
 <td>Convert code to character</td>
 </tr>
-<tr>
-<td>## Unicode Ranges Reference</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Common Unicode ranges that can be detected with <code>AscW</code>:</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Basic Latin (ASCII)</strong>: 0-127</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Latin-1 Supplement</strong>: 128-255</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Latin Extended-A</strong>: 256-383</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Greek and Coptic</strong>: 880-1023</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Cyrillic</strong>: 1024-1279</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Hebrew</strong>: 1424-1535</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Arabic</strong>: 1536-1791</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Devanagari</strong>: 2304-2431</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Thai</strong>: 3584-3711</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Tibetan</strong>: 3840-4095</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>CJK Unified Ideographs</strong>: 19968-40959</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Hangul Syllables</strong>: 44032-55203</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Currency Symbols</strong>: 8352-8399</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Mathematical Operators</strong>: 8704-8959</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Arrows</strong>: 8592-8703</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Box Drawing</strong>: 9472-9599</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Emoticons</strong>: 9728-9983</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Platform Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- VB6 uses UTF-16 internally on Windows NT-based systems for Unicode support</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- On Windows 95/98/ME, Unicode support is limited and may not work correctly</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Modern Windows systems (XP and later) have full Unicode support</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>AscW</code> returns consistent values across different code pages</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- For maximum compatibility, test on target platforms with actual Unicode data</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>AscW</code> only returns code points in the Basic Multilingual Plane (0-65535)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Characters outside the BMP require surrogate pairs and special handling</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Combining characters are treated as separate code points</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Some characters may display differently depending on available fonts</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Grapheme clusters (like emoji with modifiers) are not handled as single units</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Runtime error occurs with empty strings</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in normalization (characters with multiple representations)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="unicode-ranges-reference">Unicode Ranges Reference</h2>
+<p>Common Unicode ranges that can be detected with <code>AscW</code>:
+- <strong>Basic Latin (ASCII)</strong>: 0-127
+- <strong>Latin-1 Supplement</strong>: 128-255
+- <strong>Latin Extended-A</strong>: 256-383
+- <strong>Greek and Coptic</strong>: 880-1023
+- <strong>Cyrillic</strong>: 1024-1279
+- <strong>Hebrew</strong>: 1424-1535
+- <strong>Arabic</strong>: 1536-1791
+- <strong>Devanagari</strong>: 2304-2431
+- <strong>Thai</strong>: 3584-3711
+- <strong>Tibetan</strong>: 3840-4095
+- <strong>CJK Unified Ideographs</strong>: 19968-40959
+- <strong>Hangul Syllables</strong>: 44032-55203
+- <strong>Currency Symbols</strong>: 8352-8399
+- <strong>Mathematical Operators</strong>: 8704-8959
+- <strong>Arrows</strong>: 8592-8703
+- <strong>Box Drawing</strong>: 9472-9599
+- <strong>Emoticons</strong>: 9728-9983</p>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>VB6 uses UTF-16 internally on Windows NT-based systems for Unicode support</li>
+<li>On Windows 95/98/ME, Unicode support is limited and may not work correctly</li>
+<li>Modern Windows systems (XP and later) have full Unicode support</li>
+<li><code>AscW</code> returns consistent values across different code pages</li>
+<li>For maximum compatibility, test on target platforms with actual Unicode data</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><code>AscW</code> only returns code points in the Basic Multilingual Plane (0-65535)</li>
+<li>Characters outside the BMP require surrogate pairs and special handling</li>
+<li>Combining characters are treated as separate code points</li>
+<li>Some characters may display differently depending on available fonts</li>
+<li>Grapheme clusters (like emoji with modifiers) are not handled as single units</li>
+<li>Runtime error occurs with empty strings</li>
+<li>No built-in normalization (characters with multiple representations)</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

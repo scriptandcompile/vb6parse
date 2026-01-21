@@ -593,122 +593,33 @@ End If</code></pre>
 <td>String</td>
 <td>String</td>
 </tr>
-<tr>
-<td>## Platform Considerations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VB6, VBA (Office 2000+)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Not available in VBA prior to Office 2000</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns Variant array (can assign to String array)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Zero-based array (unlike many VB arrays which are 1-based)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Consistent behavior across platforms</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns zero-based array (may be unexpected in VB6)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Delimiter must be exact match (no regex)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Single delimiter only (can't split on multiple different delimiters)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in trim of results</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Empty elements included when multiple consecutive delimiters present</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in handling of quoted fields (CSV with commas in quotes)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Maximum array size limited by memory</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Join</code>: Combines array elements into a string with delimiter</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Filter</code>: Returns a subset of array based on filter criteria</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>InStr</code>: Finds position of substring (useful before Split)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Replace</code>: Replaces occurrences of substring</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-considerations">Platform Considerations</h2>
+<ul>
+<li>Available in VB6, VBA (Office 2000+)</li>
+<li>Not available in VBA prior to Office 2000</li>
+<li>Returns Variant array (can assign to String array)</li>
+<li>Zero-based array (unlike many VB arrays which are 1-based)</li>
+<li>Consistent behavior across platforms</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Returns zero-based array (may be unexpected in VB6)</li>
+<li>Delimiter must be exact match (no regex)</li>
+<li>Single delimiter only (can't split on multiple different delimiters)</li>
+<li>No built-in trim of results</li>
+<li>Empty elements included when multiple consecutive delimiters present</li>
+<li>No built-in handling of quoted fields (CSV with commas in quotes)</li>
+<li>Maximum array size limited by memory</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Join</code>: Combines array elements into a string with delimiter</li>
+<li><code>Filter</code>: Returns a subset of array based on filter criteria</li>
+<li><code>InStr</code>: Finds position of substring (useful before Split)</li>
+<li><code>Replace</code>: Replaces occurrences of substring</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

@@ -565,134 +565,35 @@ On Error GoTo 0</code></pre>
 <td>Double (rate per period)</td>
 <td>Finding effective rate</td>
 </tr>
-<tr>
-<td>## Platform and Version Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in all versions of VBA and VB6</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Behavior is consistent across Windows platforms</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Uses standard present value formulas from financial mathematics</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- For zero interest rates, PV is simply pmt * nper + fv</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Maximum precision limited by Double data type</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Assumes constant interest rate over entire period</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Assumes equal payment amounts (standard annuity)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Does not account for taxes, fees, or transaction costs</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot handle variable rate scenarios without recalculation</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Does not consider payment frequency other than what you specify</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Sign convention can be confusing (negative for outflows)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>FV</code>: Returns the future value of an investment</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Pmt</code>: Returns the periodic payment for an annuity</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>PPmt</code>: Returns the principal payment for a specific period</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>IPmt</code>: Returns the interest payment for a specific period</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>NPer</code>: Returns the number of periods for an investment</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Rate</code>: Returns the interest rate per period</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>NPV</code>: Returns the net present value with irregular cash flows</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all versions of VBA and VB6</li>
+<li>Behavior is consistent across Windows platforms</li>
+<li>Uses standard present value formulas from financial mathematics</li>
+<li>For zero interest rates, PV is simply pmt * nper + fv</li>
+<li>Maximum precision limited by Double data type</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Assumes constant interest rate over entire period</li>
+<li>Assumes equal payment amounts (standard annuity)</li>
+<li>Does not account for taxes, fees, or transaction costs</li>
+<li>Cannot handle variable rate scenarios without recalculation</li>
+<li>Does not consider payment frequency other than what you specify</li>
+<li>Sign convention can be confusing (negative for outflows)</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>FV</code>: Returns the future value of an investment</li>
+<li><code>Pmt</code>: Returns the periodic payment for an annuity</li>
+<li><code>PPmt</code>: Returns the principal payment for a specific period</li>
+<li><code>IPmt</code>: Returns the interest payment for a specific period</li>
+<li><code>NPer</code>: Returns the number of periods for an investment</li>
+<li><code>Rate</code>: Returns the interest rate per period</li>
+<li><code>NPV</code>: Returns the net present value with irregular cash flows</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

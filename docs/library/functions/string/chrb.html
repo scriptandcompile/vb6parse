@@ -267,146 +267,37 @@ End Function</code></pre>
 <td><code>Integer</code></td>
 <td>Get ANSI code from character</td>
 </tr>
-<tr>
-<td>## Platform Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>ChrB</code> behavior is consistent across Windows platforms.</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Extended ANSI characters (128-255) may vary by system code page.</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- In VB6, strings are internally Unicode but <code>ChrB</code> returns ANSI byte values.</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>ChrB</code> is primarily for backward compatibility with older code.</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Common Character Codes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- 0: Null character</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- 7: Bell/beep</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- 8: Backspace</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- 9: Tab</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- 10: Line feed (LF)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- 13: Carriage return (CR)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- 32: Space</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- 34: Double quote</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- 39: Single quote/apostrophe</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- 65-90: Uppercase A-Z</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- 97-122: Lowercase a-z</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- 48-57: Digits 0-9</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Only supports ANSI character codes (0-255).</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot represent Unicode characters beyond the ANSI range.</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Code page dependent for values 128-255.</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Runtime error if charcode is outside valid range.</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li><code>ChrB</code> behavior is consistent across Windows platforms.</li>
+<li>Extended ANSI characters (128-255) may vary by system code page.</li>
+<li>In VB6, strings are internally Unicode but <code>ChrB</code> returns ANSI byte values.</li>
+<li><code>ChrB</code> is primarily for backward compatibility with older code.</li>
+</ul>
+<h2 id="common-character-codes">Common Character Codes</h2>
+<ul>
+<li>0: Null character</li>
+<li>7: Bell/beep</li>
+<li>8: Backspace</li>
+<li>9: Tab</li>
+<li>10: Line feed (LF)</li>
+<li>13: Carriage return (CR)</li>
+<li>32: Space</li>
+<li>34: Double quote</li>
+<li>39: Single quote/apostrophe</li>
+<li>65-90: Uppercase A-Z</li>
+<li>97-122: Lowercase a-z</li>
+<li>48-57: Digits 0-9</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Only supports ANSI character codes (0-255).</li>
+<li>Cannot represent Unicode characters beyond the ANSI range.</li>
+<li>Code page dependent for values 128-255.</li>
+<li>Runtime error if charcode is outside valid range.</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

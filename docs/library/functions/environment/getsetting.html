@@ -288,98 +288,32 @@ On Error GoTo 0</code></pre>
 <td>Delete registry key/section</td>
 <td>N/A (statement)</td>
 </tr>
-<tr>
-<td>## Platform Compatibility</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Windows</strong>: Full support, uses <code>HKEY_CURRENT_USER</code> registry hive</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Other Platforms</strong>: May use alternative storage mechanisms or be unsupported</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Registry Location</strong>: <code>HKEY_CURRENT_USER\Software\VB and VBA Program Settings\appname\section\key</code></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Only accesses <code>HKEY_CURRENT_USER</code> hive (use Windows API for other hives)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns <code>String</code> type only (requires conversion for other types)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No direct way to check if a key exists (use unique default value trick)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Limited to VB's registry structure (use Windows API for custom locations)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No support for <code>REG_BINARY</code> or other complex registry types</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Settings are user-specific, not machine-wide</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>GetAllSettings</code>: Returns all key settings and their values from a registry section</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>SaveSetting</code>: Saves or creates an application entry in the Windows registry</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>DeleteSetting</code>: Deletes a section or key setting from the Windows registry</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Environ</code>: Returns the string associated with an environment variable</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Command</code>: Returns the argument portion of the command line</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>App.Path</code>: Returns the path where the application executable is located</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-compatibility">Platform Compatibility</h2>
+<ul>
+<li><strong>Windows</strong>: Full support, uses <code>HKEY_CURRENT_USER</code> registry hive</li>
+<li><strong>Other Platforms</strong>: May use alternative storage mechanisms or be unsupported</li>
+<li><strong>Registry Location</strong>: <code>HKEY_CURRENT_USER\Software\VB and VBA Program Settings\appname\section\key</code></li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Only accesses <code>HKEY_CURRENT_USER</code> hive (use Windows API for other hives)</li>
+<li>Returns <code>String</code> type only (requires conversion for other types)</li>
+<li>No direct way to check if a key exists (use unique default value trick)</li>
+<li>Limited to VB's registry structure (use Windows API for custom locations)</li>
+<li>No support for <code>REG_BINARY</code> or other complex registry types</li>
+<li>Settings are user-specific, not machine-wide</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>GetAllSettings</code>: Returns all key settings and their values from a registry section</li>
+<li><code>SaveSetting</code>: Saves or creates an application entry in the Windows registry</li>
+<li><code>DeleteSetting</code>: Deletes a section or key setting from the Windows registry</li>
+<li><code>Environ</code>: Returns the string associated with an environment variable</li>
+<li><code>Command</code>: Returns the argument portion of the command line</li>
+<li><code>App.Path</code>: Returns the path where the application executable is located</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

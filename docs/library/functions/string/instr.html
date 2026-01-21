@@ -449,113 +449,35 @@ ErrorHandler:
 <td>Find and replace</td>
 <td>N/A</td>
 </tr>
-<tr>
-<td>## Platform and Version Notes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in all VB6 versions</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns <code>Long</code> (32-bit integer), not <code>Integer</code></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- 1-based indexing (first character is position 1)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Maximum string length is approximately 2GB</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Compare parameter affects locale-sensitive comparisons</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Option Compare</code> statement affects default comparison when compare parameter omitted</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Finds only first occurrence (use loop for all occurrences)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in regex or wildcard support</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Case-insensitive search (<code>vbTextCompare</code>) is slower</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot search for multiple substrings in single call</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in way to get all positions at once</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Performance can degrade with very long strings</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>InStrRev</code>: Search from end of string backward</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Mid</code>, <code>Left</code>, <code>Right</code>: Extract substrings</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Replace</code>: Find and replace text</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Split</code>: Split string into array</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Like</code>: Pattern matching with wildcards</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>StrComp</code>: Compare two strings</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all VB6 versions</li>
+<li>Returns <code>Long</code> (32-bit integer), not <code>Integer</code></li>
+<li>1-based indexing (first character is position 1)</li>
+<li>Maximum string length is approximately 2GB</li>
+<li>Compare parameter affects locale-sensitive comparisons</li>
+<li><code>Option Compare</code> statement affects default comparison when compare parameter omitted</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Finds only first occurrence (use loop for all occurrences)</li>
+<li>No built-in regex or wildcard support</li>
+<li>Case-insensitive search (<code>vbTextCompare</code>) is slower</li>
+<li>Cannot search for multiple substrings in single call</li>
+<li>No built-in way to get all positions at once</li>
+<li>Performance can degrade with very long strings</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>InStrRev</code>: Search from end of string backward</li>
+<li><code>Mid</code>, <code>Left</code>, <code>Right</code>: Extract substrings</li>
+<li><code>Replace</code>: Find and replace text</li>
+<li><code>Split</code>: Split string into array</li>
+<li><code>Like</code>: Pattern matching with wildcards</li>
+<li><code>StrComp</code>: Compare two strings</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

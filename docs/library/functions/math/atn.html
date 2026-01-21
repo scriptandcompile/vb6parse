@@ -281,176 +281,75 @@ End Function</code></pre>
 <td>∞</td>
 <td>π/2 (limit)</td>
 </tr>
+</tbody>
+</table>
+<h2 id="type-conversion">Type Conversion</h2>
+<table>
+<thead>
 <tr>
-<td>## Type Conversion</td>
-<td></td>
-<td></td>
-<td></td>
+<th>Input Type</th>
+<th>Converted To</th>
+<th>Example</th>
 </tr>
-<tr>
-<td>Input Type</td>
-<td>Converted To</td>
-<td>Example</td>
-<td></td>
-</tr>
-<tr>
-<td>------------</td>
-<td>--------------</td>
-<td>---------</td>
-<td></td>
-</tr>
+</thead>
+<tbody>
 <tr>
 <td><code>Integer</code></td>
 <td><code>Double</code></td>
 <td>Atn(1) → Atn(1.0)</td>
-<td></td>
 </tr>
 <tr>
 <td><code>Long</code></td>
 <td><code>Double</code></td>
 <td>Atn(10&amp;) → Atn(10.0)</td>
-<td></td>
 </tr>
 <tr>
 <td><code>Single</code></td>
 <td><code>Double</code></td>
 <td>Atn(1.5!) → Atn(1.5)</td>
-<td></td>
 </tr>
 <tr>
 <td><code>Double</code></td>
 <td><code>Double</code></td>
 <td>Atn(1.5#) → 1.5</td>
-<td></td>
 </tr>
 <tr>
 <td><code>Currency</code></td>
 <td><code>Double</code></td>
 <td>Atn(100@) → Atn(100.0)</td>
-<td></td>
 </tr>
 <tr>
 <td><code>Variant</code></td>
 <td><code>Double</code></td>
 <td>Depends on content</td>
-<td></td>
-</tr>
-<tr>
-<td>## Error Conditions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Type Mismatch</strong>: If the argument cannot be converted to a numeric value</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>No overflow</strong>: Unlike some functions, <code>Atn</code> cannot overflow as it's bounded to ±π/2</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Tan</code>: Returns the tangent of an angle (inverse of <code>Atn</code>)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Sin</code>: Returns the sine of an angle</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Cos</code>: Returns the cosine of an angle</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Sqr</code>: Returns the square root (used with <code>Atn</code> to calculate other inverse trig functions)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Abs</code>: Returns absolute value (useful in angle calculations)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Performance Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Atn</code> is a fast intrinsic function</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Implemented using CPU floating-point instructions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No significant performance difference between <code>Integer</code>, <code>Long</code>, or <code>Double</code> arguments</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- For repeated π calculations, cache the value of 4 * <code>Atn</code>(1) rather than recalculating</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Parsing Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>The <code>Atn</code> function is not a reserved keyword in VB6. It is parsed as a regular</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>function call (<code>CallExpression</code>). This module exists primarily for documentation</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>purposes and to provide a comprehensive test suite that validates the parser</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>correctly handles <code>Atn</code> function calls in various contexts.</td>
-<td></td>
-<td></td>
-<td></td>
 </tr>
 </tbody>
 </table>
+<h2 id="error-conditions">Error Conditions</h2>
+<ul>
+<li><strong>Type Mismatch</strong>: If the argument cannot be converted to a numeric value</li>
+<li><strong>No overflow</strong>: Unlike some functions, <code>Atn</code> cannot overflow as it's bounded to ±π/2</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Tan</code>: Returns the tangent of an angle (inverse of <code>Atn</code>)</li>
+<li><code>Sin</code>: Returns the sine of an angle</li>
+<li><code>Cos</code>: Returns the cosine of an angle</li>
+<li><code>Sqr</code>: Returns the square root (used with <code>Atn</code> to calculate other inverse trig functions)</li>
+<li><code>Abs</code>: Returns absolute value (useful in angle calculations)</li>
+</ul>
+<h2 id="performance-notes">Performance Notes</h2>
+<ul>
+<li><code>Atn</code> is a fast intrinsic function</li>
+<li>Implemented using CPU floating-point instructions</li>
+<li>No significant performance difference between <code>Integer</code>, <code>Long</code>, or <code>Double</code> arguments</li>
+<li>For repeated π calculations, cache the value of 4 * <code>Atn</code>(1) rather than recalculating</li>
+</ul>
+<h2 id="parsing-notes">Parsing Notes</h2>
+<p>The <code>Atn</code> function is not a reserved keyword in VB6. It is parsed as a regular
+function call (<code>CallExpression</code>). This module exists primarily for documentation
+purposes and to provide a comprehensive test suite that validates the parser
+correctly handles <code>Atn</code> function calls in various contexts.</p>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

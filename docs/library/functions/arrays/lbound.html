@@ -139,18 +139,7 @@ Next i</code></pre>
 <li><code>Array</code>: Create Variant array</li>
 <li><code>Split</code>: Create array from delimited string</li>
 </ul>
-<h2 id="best-practices">Best Practices</h2>
-<ul>
-<li><strong>Always Use <code>LBound</code></strong>: Don't assume arrays start at 0</li>
-<li><strong>Dimension Parameter</strong>: Specify dimension for multi-dimensional arrays</li>
-<li><strong>Error Handling</strong>: Handle undimensioned dynamic arrays</li>
-<li><strong>Array Size</strong>: Use <code>UBound - LBound + 1</code> for element count</li>
-<li><strong>Cache Values</strong>: Store <code>LBound</code>/<code>UBound</code> in variables for repeated use</li>
-<li><strong>Generic Code</strong>: Write functions that work with any array bounds</li>
-<li><strong>Validate Bounds</strong>: Check if indices are within <code>LBound</code> to <code>UBound</code> range</li>
-<li><strong>Document Assumptions</strong>: Note expected array bounds in comments</li>
-</ul>
-<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
+<h2 id="comparison-with-related-functions">Comparison With Related Functions</h2>
 <table>
 <thead>
 <tr>
@@ -191,20 +180,21 @@ Next i</code></pre>
 <td>N/A</td>
 <td>Dynamic array sizing</td>
 </tr>
-<tr>
-<td>## <code>LBound</code> and <code>Option Base</code></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>### Option Base 0 (default)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="best-practices">Best Practices</h2>
+<ul>
+<li><strong>Always Use <code>LBound</code></strong>: Don't assume arrays start at 0</li>
+<li><strong>Dimension Parameter</strong>: Specify dimension for multi-dimensional arrays</li>
+<li><strong>Error Handling</strong>: Handle undimensioned dynamic arrays</li>
+<li><strong>Array Size</strong>: Use <code>UBound - LBound + 1</code> for element count</li>
+<li><strong>Cache Values</strong>: Store <code>LBound</code>/<code>UBound</code> in variables for repeated use</li>
+<li><strong>Generic Code</strong>: Write functions that work with any array bounds</li>
+<li><strong>Validate Bounds</strong>: Check if indices are within <code>LBound</code> to <code>UBound</code> range</li>
+<li><strong>Document Assumptions</strong>: Note expected array bounds in comments</li>
+</ul>
+<h2 id="lbound-and-option-base"><code>LBound</code> and <code>Option Base</code></h2>
+<h3 id="option-base-0-default">Option Base 0 (default)</h3>
 <pre><code class="language-vbnet">Dim arr1(5) As Integer
 Debug.Print LBound(arr1)         &#x27; 0
 Debug.Print UBound(arr1)         &#x27; 5</code></pre>

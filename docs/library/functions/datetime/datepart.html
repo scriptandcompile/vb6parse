@@ -53,19 +53,68 @@
   See <code>FirstWeekOfYear</code> Constants.</li>
 </ul>
 <h2 id="interval-settings">Interval Settings</h2>
-<p>The <code>interval</code> parameter can have the following values:
-| Setting | Description | Return Range |
-|---------|-------------|--------------|
-| "yyyy" | Year | 100-9999 |
-| "q" | Quarter | 1-4 |
-| "m" | Month | 1-12 |
-| "y" | Day of year | 1-366 |
-| "d" | Day | 1-31 |
-| "w" | Weekday | 1-7 (Sunday=1) |
-| "ww" | Week of year | 1-53 |
-| "h" | Hour | 0-23 |
-| "n" | Minute | 0-59 |
-| "s" | Second | 0-59 |</p>
+<p>The <code>interval</code> parameter can have the following values:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Description</th>
+<th>Return Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"yyyy"</td>
+<td>Year</td>
+<td>100-9999</td>
+</tr>
+<tr>
+<td>"q"</td>
+<td>Quarter</td>
+<td>1-4</td>
+</tr>
+<tr>
+<td>"m"</td>
+<td>Month</td>
+<td>1-12</td>
+</tr>
+<tr>
+<td>"y"</td>
+<td>Day of year</td>
+<td>1-366</td>
+</tr>
+<tr>
+<td>"d"</td>
+<td>Day</td>
+<td>1-31</td>
+</tr>
+<tr>
+<td>"w"</td>
+<td>Weekday</td>
+<td>1-7 (Sunday=1)</td>
+</tr>
+<tr>
+<td>"ww"</td>
+<td>Week of year</td>
+<td>1-53</td>
+</tr>
+<tr>
+<td>"h"</td>
+<td>Hour</td>
+<td>0-23</td>
+</tr>
+<tr>
+<td>"n"</td>
+<td>Minute</td>
+<td>0-59</td>
+</tr>
+<tr>
+<td>"s"</td>
+<td>Second</td>
+<td>0-59</td>
+</tr>
+</tbody>
+</table>
 <h2 id="firstdayofweek-constants"><code>FirstDayOfWeek</code> Constants</h2>
 <table>
 <thead>
@@ -116,21 +165,18 @@
 <td>7</td>
 <td>Saturday</td>
 </tr>
+</tbody>
+</table>
+<h2 id="firstweekofyear-constants"><code>FirstWeekOfYear</code> Constants</h2>
+<table>
+<thead>
 <tr>
-<td>## <code>FirstWeekOfYear</code> Constants</td>
-<td></td>
-<td></td>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
 </tr>
-<tr>
-<td>Constant</td>
-<td>Value</td>
-<td>Description</td>
-</tr>
-<tr>
-<td>----------</td>
-<td>-------</td>
-<td>-------------</td>
-</tr>
+</thead>
+<tbody>
 <tr>
 <td>vbUseSystem</td>
 <td>0</td>
@@ -151,128 +197,32 @@
 <td>3</td>
 <td>Start with first full week of the year</td>
 </tr>
-<tr>
-<td>## Return Value</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Returns an <code>Integer</code> representing the specified part of the date. Returns <code>Null</code> if the date is <code>Null</code>.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Remarks</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>The <code>DatePart</code> function is used to extract a specific component from a date value.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>It's particularly useful for date-based calculations, filtering, and grouping operations.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>Important Characteristics:</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- More flexible than <code>Year()</code>, <code>Month()</code>, or <code>Day()</code> functions.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Can extract quarter, week, and day of year.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Weekday numbering depends on <code>firstdayofweek</code> parameter.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Week numbering depends on <code>firstweekofyear</code> parameter.</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Hours use 24-hour format (0-23).</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Sunday is 1 by default for weekday ("w").</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Compatible with SQL Server's <code>DATEPART</code> function</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Equivalent Simple Functions</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Some intervals have equivalent dedicated functions:</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>DatePart("yyyy", date)</code> = <code>Year(date)</code></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>DatePart("m", date)</code> = <code>Month(date)</code></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>DatePart("d", date)</code> = <code>Day(date)</code></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>DatePart("w", date)</code> = <code>Weekday(date)</code></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>DatePart("h", date)</code> = <code>Hour(date)</code></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>DatePart("n", date)</code> = <code>Minute(date)</code></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>DatePart("s", date)</code> = <code>Second(date)</code></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Examples</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>### Basic Usage</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="return-value">Return Value</h2>
+<p>Returns an <code>Integer</code> representing the specified part of the date. Returns <code>Null</code> if the date is <code>Null</code>.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>DatePart</code> function is used to extract a specific component from a date value.
+It's particularly useful for date-based calculations, filtering, and grouping operations.
+<strong>Important Characteristics:</strong>
+- More flexible than <code>Year()</code>, <code>Month()</code>, or <code>Day()</code> functions.
+- Can extract quarter, week, and day of year.
+- Weekday numbering depends on <code>firstdayofweek</code> parameter.
+- Week numbering depends on <code>firstweekofyear</code> parameter.
+- Hours use 24-hour format (0-23).
+- Sunday is 1 by default for weekday ("w").
+- Compatible with SQL Server's <code>DATEPART</code> function</p>
+<h2 id="equivalent-simple-functions">Equivalent Simple Functions</h2>
+<p>Some intervals have equivalent dedicated functions:
+- <code>DatePart("yyyy", date)</code> = <code>Year(date)</code>
+- <code>DatePart("m", date)</code> = <code>Month(date)</code>
+- <code>DatePart("d", date)</code> = <code>Day(date)</code>
+- <code>DatePart("w", date)</code> = <code>Weekday(date)</code>
+- <code>DatePart("h", date)</code> = <code>Hour(date)</code>
+- <code>DatePart("n", date)</code> = <code>Minute(date)</code>
+- <code>DatePart("s", date)</code> = <code>Second(date)</code></p>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-usage">Basic Usage</h3>
 <pre><code class="language-vbnet">Dim testDate As Date
 testDate = #3/15/2025 14:30:45#
 &#x27; Extract various parts

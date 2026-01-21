@@ -469,134 +469,35 @@ ErrorHandler:
 <td>N/A</td>
 <td>N/A</td>
 </tr>
-<tr>
-<td>## Platform and Version Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VB6 and VBA (not in earlier VB versions)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns <code>Long</code> (32-bit integer), not <code>Integer</code></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- 1-based indexing (first character is position 1)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Position returned is from the start of string, not from the end</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Default start is -1 (search from end)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Parameter order differs from <code>InStr</code> (strings first, then start)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Maximum string length is approximately 2GB</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Finds only one occurrence (the last one)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in regex or wildcard support</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Case-insensitive search (<code>vbTextCompare</code>) is slower</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Different parameter order than <code>InStr</code> can cause confusion</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot search for multiple substrings in single call</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Performance can degrade with very long strings</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>InStr</code>: Search from beginning of string</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Mid</code>, <code>Left</code>, <code>Right</code>: Extract substrings</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Replace</code>: Find and replace text</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Split</code>: Split string into array</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>StrReverse</code>: Reverse a string</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in VB6 and VBA (not in earlier VB versions)</li>
+<li>Returns <code>Long</code> (32-bit integer), not <code>Integer</code></li>
+<li>1-based indexing (first character is position 1)</li>
+<li>Position returned is from the start of string, not from the end</li>
+<li>Default start is -1 (search from end)</li>
+<li>Parameter order differs from <code>InStr</code> (strings first, then start)</li>
+<li>Maximum string length is approximately 2GB</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Finds only one occurrence (the last one)</li>
+<li>No built-in regex or wildcard support</li>
+<li>Case-insensitive search (<code>vbTextCompare</code>) is slower</li>
+<li>Different parameter order than <code>InStr</code> can cause confusion</li>
+<li>Cannot search for multiple substrings in single call</li>
+<li>Performance can degrade with very long strings</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>InStr</code>: Search from beginning of string</li>
+<li><code>Mid</code>, <code>Left</code>, <code>Right</code>: Extract substrings</li>
+<li><code>Replace</code>: Find and replace text</li>
+<li><code>Split</code>: Split string into array</li>
+<li><code>StrReverse</code>: Reverse a string</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

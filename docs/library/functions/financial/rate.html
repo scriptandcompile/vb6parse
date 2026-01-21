@@ -622,134 +622,35 @@ On Error GoTo 0</code></pre>
 <td>Double (rate)</td>
 <td>Find rate from irregular cash flows</td>
 </tr>
-<tr>
-<td>## Platform and Version Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in all versions of VBA and VB6</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Uses iterative algorithm that may not always converge</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Maximum 20 iterations before failure</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Results may vary slightly between platforms due to floating-point precision</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Default guess of 0.1 (10%) works well for most common scenarios</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- May fail to converge for some parameter combinations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Limited to 20 iterations maximum</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot handle multiple solutions (returns first solution found)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Sensitive to initial guess value</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- May return unrealistic rates if inputs are invalid</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot handle variable rate scenarios</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Assumes constant periodic payments</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Pmt</code>: Returns the periodic payment for an annuity</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>PV</code>: Returns the present value of an annuity</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>FV</code>: Returns the future value of an annuity</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>NPer</code>: Returns the number of periods for an annuity</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>IRR</code>: Returns internal rate of return for irregular cash flows</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>MIRR</code>: Returns modified internal rate of return</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all versions of VBA and VB6</li>
+<li>Uses iterative algorithm that may not always converge</li>
+<li>Maximum 20 iterations before failure</li>
+<li>Results may vary slightly between platforms due to floating-point precision</li>
+<li>Default guess of 0.1 (10%) works well for most common scenarios</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>May fail to converge for some parameter combinations</li>
+<li>Limited to 20 iterations maximum</li>
+<li>Cannot handle multiple solutions (returns first solution found)</li>
+<li>Sensitive to initial guess value</li>
+<li>May return unrealistic rates if inputs are invalid</li>
+<li>Cannot handle variable rate scenarios</li>
+<li>Assumes constant periodic payments</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Pmt</code>: Returns the periodic payment for an annuity</li>
+<li><code>PV</code>: Returns the present value of an annuity</li>
+<li><code>FV</code>: Returns the future value of an annuity</li>
+<li><code>NPer</code>: Returns the number of periods for an annuity</li>
+<li><code>IRR</code>: Returns internal rate of return for irregular cash flows</li>
+<li><code>MIRR</code>: Returns modified internal rate of return</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

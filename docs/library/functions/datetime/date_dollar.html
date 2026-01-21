@@ -198,14 +198,43 @@ End Sub</code></pre>
 <li>For high-frequency logging, consider caching the date string</li>
 </ul>
 <h2 id="locale-considerations">Locale Considerations</h2>
-<p>The format of <code>Date$</code> varies by system locale:
-| Locale | Example Format | Sample Output |
-|--------|----------------|---------------|
-| US (English) | mm/dd/yyyy | "12/25/2025" |
-| UK (English) | dd/mm/yyyy | "25/12/2025" |
-| Germany | dd.mm.yyyy | "25.12.2025" |
-| Japan | yyyy/mm/dd | "2025/12/25" |
-| France | dd/mm/yyyy | "25/12/2025" |</p>
+<p>The format of <code>Date$</code> varies by system locale:</p>
+<table>
+<thead>
+<tr>
+<th>Locale</th>
+<th>Example Format</th>
+<th>Sample Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>US (English)</td>
+<td>mm/dd/yyyy</td>
+<td>"12/25/2025"</td>
+</tr>
+<tr>
+<td>UK (English)</td>
+<td>dd/mm/yyyy</td>
+<td>"25/12/2025"</td>
+</tr>
+<tr>
+<td>Germany</td>
+<td>dd.mm.yyyy</td>
+<td>"25.12.2025"</td>
+</tr>
+<tr>
+<td>Japan</td>
+<td>yyyy/mm/dd</td>
+<td>"2025/12/25"</td>
+</tr>
+<tr>
+<td>France</td>
+<td>dd/mm/yyyy</td>
+<td>"25/12/2025"</td>
+</tr>
+</tbody>
+</table>
 <h2 id="common-pitfalls">Common Pitfalls</h2>
 <ol>
 <li><strong>String Comparison</strong>: Comparing <code>Date$</code> strings directly is locale-dependent and unreliable

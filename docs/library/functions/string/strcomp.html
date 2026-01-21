@@ -621,106 +621,26 @@ End Property</code></pre>
 <td>No</td>
 <td>False if Null</td>
 </tr>
-<tr>
-<td>## Platform Notes</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VB6, VBA, and <code>VBScript</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Behavior consistent across platforms</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>vbDatabaseCompare</code> only meaningful in Microsoft Access</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Unicode comparison works correctly with international characters</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Option Compare affects default behavior differently in VBA vs VB6</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No support for locale-specific collation beyond text/binary</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot specify custom comparison rules</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>vbDatabaseCompare</code> mode rarely useful outside Access</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Null handling returns Null rather than error (can be unexpected)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No indication of <em>where</em> strings differ, only that they do</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot compare string arrays directly (must loop)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No natural sort support (e.g., "file2.txt" vs "file10.txt")</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in VB6, VBA, and <code>VBScript</code></li>
+<li>Behavior consistent across platforms</li>
+<li><code>vbDatabaseCompare</code> only meaningful in Microsoft Access</li>
+<li>Unicode comparison works correctly with international characters</li>
+<li>Option Compare affects default behavior differently in VBA vs VB6</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>No support for locale-specific collation beyond text/binary</li>
+<li>Cannot specify custom comparison rules</li>
+<li><code>vbDatabaseCompare</code> mode rarely useful outside Access</li>
+<li>Null handling returns Null rather than error (can be unexpected)</li>
+<li>No indication of <em>where</em> strings differ, only that they do</li>
+<li>Cannot compare string arrays directly (must loop)</li>
+<li>No natural sort support (e.g., "file2.txt" vs "file10.txt")</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

@@ -324,152 +324,36 @@ End Function</code></pre>
 <td>ANSI (inverse)</td>
 <td>Convert byte to character</td>
 </tr>
-<tr>
-<td>## Common Byte Values Reference</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Some commonly used byte values with <code>AscB</code>:</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>0</strong>: Null character (NUL)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>9</strong>: Tab (HT)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>10</strong>: Line feed (LF)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>13</strong>: Carriage return (CR)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>32</strong>: Space</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>48-57</strong>: Digits '0'-'9'</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>65-90</strong>: Uppercase letters 'A'-'Z'</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>97-122</strong>: Lowercase letters 'a'-'z'</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>127</strong>: Delete (DEL)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>128-255</strong>: Extended ANSI (varies by code page)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Platform Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- On Windows systems, <code>AscB</code> uses the system's ANSI code page (e.g., Windows-1252)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Different code pages may interpret bytes 128-255 differently</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- For portable code, stick to ASCII range (0-127) when possible</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- On older systems (Windows 95/98/ME), ANSI encoding is the native string format</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- On modern Windows (NT-based), strings are Unicode internally but <code>AscB</code> still returns ANSI bytes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns only the first byte, not the full character in multi-byte encodings</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot handle Unicode characters outside the ANSI range (0-255) properly</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Runtime error occurs with empty strings</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Code page dependent for extended ANSI characters (128-255)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Not suitable for Unicode text processing (use <code>AscW</code> instead)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="common-byte-values-reference">Common Byte Values Reference</h2>
+<p>Some commonly used byte values with <code>AscB</code>:
+- <strong>0</strong>: Null character (NUL)
+- <strong>9</strong>: Tab (HT)
+- <strong>10</strong>: Line feed (LF)
+- <strong>13</strong>: Carriage return (CR)
+- <strong>32</strong>: Space
+- <strong>48-57</strong>: Digits '0'-'9'
+- <strong>65-90</strong>: Uppercase letters 'A'-'Z'
+- <strong>97-122</strong>: Lowercase letters 'a'-'z'
+- <strong>127</strong>: Delete (DEL)
+- <strong>128-255</strong>: Extended ANSI (varies by code page)</p>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>On Windows systems, <code>AscB</code> uses the system's ANSI code page (e.g., Windows-1252)</li>
+<li>Different code pages may interpret bytes 128-255 differently</li>
+<li>For portable code, stick to ASCII range (0-127) when possible</li>
+<li>On older systems (Windows 95/98/ME), ANSI encoding is the native string format</li>
+<li>On modern Windows (NT-based), strings are Unicode internally but <code>AscB</code> still returns ANSI bytes</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Returns only the first byte, not the full character in multi-byte encodings</li>
+<li>Cannot handle Unicode characters outside the ANSI range (0-255) properly</li>
+<li>Runtime error occurs with empty strings</li>
+<li>Code page dependent for extended ANSI characters (128-255)</li>
+<li>Not suitable for Unicode text processing (use <code>AscW</code> instead)</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

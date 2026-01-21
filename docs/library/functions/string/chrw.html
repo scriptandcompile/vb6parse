@@ -247,164 +247,38 @@ End Function</code></pre>
 <td>Returns 0-65535</td>
 <td>Get Unicode code from character</td>
 </tr>
-<tr>
-<td>## Unicode Ranges Reference</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Some common Unicode ranges that work with <code>ChrW</code>:</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Basic Latin</strong>: 0-127 (ASCII)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Latin-1 Supplement</strong>: 128-255</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Greek and Coptic</strong>: 880-1023</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Cyrillic</strong>: 1024-1279</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Hebrew</strong>: 1424-1535</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Arabic</strong>: 1536-1791</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>CJK Unified Ideographs</strong>: 19968-40959</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Hangul Syllables</strong>: 44032-55203</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Currency Symbols</strong>: 8352-8399</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Mathematical Operators</strong>: 8704-8959</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Arrows</strong>: 8592-8703</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>Box Drawing</strong>: 9472-9599</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Platform Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- VB6 supports Unicode through <code>ChrW</code> but stores strings internally in the system's native format</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- On Windows NT-based systems, strings are stored as Unicode (UTF-16)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- On Windows 95/98/ME, strings use ANSI encoding, which may cause issues with characters outside the current code page</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- When running on older systems, test thoroughly with non-ASCII characters</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Modern Windows systems (XP and later) handle Unicode properly</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>ChrW</code> only supports the Basic Multilingual Plane (BMP), code points 0-65535</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Characters outside the BMP (like some emoji) require surrogate pairs in VB6</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Surrogate pairs are complex and require combining two <code>ChrW</code> calls</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Not all fonts support all Unicode characters; display depends on available fonts</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Some Unicode features like combining characters may not render correctly in all VB6 controls</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="unicode-ranges-reference">Unicode Ranges Reference</h2>
+<p>Some common Unicode ranges that work with <code>ChrW</code>:
+- <strong>Basic Latin</strong>: 0-127 (ASCII)
+- <strong>Latin-1 Supplement</strong>: 128-255
+- <strong>Greek and Coptic</strong>: 880-1023
+- <strong>Cyrillic</strong>: 1024-1279
+- <strong>Hebrew</strong>: 1424-1535
+- <strong>Arabic</strong>: 1536-1791
+- <strong>CJK Unified Ideographs</strong>: 19968-40959
+- <strong>Hangul Syllables</strong>: 44032-55203
+- <strong>Currency Symbols</strong>: 8352-8399
+- <strong>Mathematical Operators</strong>: 8704-8959
+- <strong>Arrows</strong>: 8592-8703
+- <strong>Box Drawing</strong>: 9472-9599</p>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>VB6 supports Unicode through <code>ChrW</code> but stores strings internally in the system's native format</li>
+<li>On Windows NT-based systems, strings are stored as Unicode (UTF-16)</li>
+<li>On Windows 95/98/ME, strings use ANSI encoding, which may cause issues with characters outside the current code page</li>
+<li>When running on older systems, test thoroughly with non-ASCII characters</li>
+<li>Modern Windows systems (XP and later) handle Unicode properly</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><code>ChrW</code> only supports the Basic Multilingual Plane (BMP), code points 0-65535</li>
+<li>Characters outside the BMP (like some emoji) require surrogate pairs in VB6</li>
+<li>Surrogate pairs are complex and require combining two <code>ChrW</code> calls</li>
+<li>Not all fonts support all Unicode characters; display depends on available fonts</li>
+<li>Some Unicode features like combining characters may not render correctly in all VB6 controls</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

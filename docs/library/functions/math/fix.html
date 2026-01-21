@@ -315,122 +315,33 @@ ErrorHandler:
 <td>N/A</td>
 <td><code>Integer</code> division operator</td>
 </tr>
-<tr>
-<td>## Platform and Version Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in all VB6 versions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Consistent behavior across platforms</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Return type matches input numeric type</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Truncates toward zero (like C/C++/Java integer truncation)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- More intuitive than Int for most developers from other languages</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Does not round to nearest (use <code>Round</code> for that)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Behavior with negative numbers differs from <code>Int</code></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Return type depends on input type (can cause overflow)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot specify decimal places (always removes all decimals)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No control over rounding direction (always toward zero)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Int</code>: Returns <code>Integer</code> portion, rounding down (floor)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Round</code>: Rounds to nearest integer or specified decimal places</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>CInt</code>: Converts to <code>Integer</code> with rounding</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>CLng</code>: Converts to <code>Long</code> with rounding</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Abs</code>: Absolute value (often used with <code>Fix</code>)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Sgn</code>: Sign of number (often used with <code>Fix</code>)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all VB6 versions</li>
+<li>Consistent behavior across platforms</li>
+<li>Return type matches input numeric type</li>
+<li>Truncates toward zero (like C/C++/Java integer truncation)</li>
+<li>More intuitive than Int for most developers from other languages</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Does not round to nearest (use <code>Round</code> for that)</li>
+<li>Behavior with negative numbers differs from <code>Int</code></li>
+<li>Return type depends on input type (can cause overflow)</li>
+<li>Cannot specify decimal places (always removes all decimals)</li>
+<li>No control over rounding direction (always toward zero)</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Int</code>: Returns <code>Integer</code> portion, rounding down (floor)</li>
+<li><code>Round</code>: Rounds to nearest integer or specified decimal places</li>
+<li><code>CInt</code>: Converts to <code>Integer</code> with rounding</li>
+<li><code>CLng</code>: Converts to <code>Long</code> with rounding</li>
+<li><code>Abs</code>: Absolute value (often used with <code>Fix</code>)</li>
+<li><code>Sgn</code>: Sign of number (often used with <code>Fix</code>)</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

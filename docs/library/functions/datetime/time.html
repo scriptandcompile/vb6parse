@@ -464,113 +464,27 @@ End Function</code></pre>
 <td>Yes</td>
 <td>1 second</td>
 </tr>
-<tr>
-<td>## Platform Notes</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VB6, VBA, and <code>VBScript</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Consistent behavior across platforms</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns time based on system clock</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Time format display depends on regional settings</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Internal representation is numeric (fraction of a day)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Date portion always 12/30/1899 (zero date)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No millisecond precision (use Timer for better precision)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot get time from different time zone</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in UTC time support</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot specify which clock source to use</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Display format depends on system locale settings</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot return time as numeric value directly (use <code>CDbl</code> or cast)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in support for daylight saving time handling</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in VB6, VBA, and <code>VBScript</code></li>
+<li>Consistent behavior across platforms</li>
+<li>Returns time based on system clock</li>
+<li>Time format display depends on regional settings</li>
+<li>Internal representation is numeric (fraction of a day)</li>
+<li>Date portion always 12/30/1899 (zero date)</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>No millisecond precision (use Timer for better precision)</li>
+<li>Cannot get time from different time zone</li>
+<li>No built-in UTC time support</li>
+<li>Cannot specify which clock source to use</li>
+<li>Display format depends on system locale settings</li>
+<li>Cannot return time as numeric value directly (use <code>CDbl</code> or cast)</li>
+<li>No built-in support for daylight saving time handling</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

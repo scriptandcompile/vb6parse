@@ -487,92 +487,26 @@ End Function</code></pre>
 <td><code>String$(5, 42)</code></td>
 <td><code>"*****"</code></td>
 </tr>
-<tr>
-<td>## Platform Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in VB6 and VBA</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Not available in <code>VBScript</code> (use custom function instead)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>String$</code> variant returns String type directly (slightly faster)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Behavior consistent across all platforms</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Character codes follow ANSI/ASCII standard (0-255)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Maximum string length limited by available memory</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot create strings with multiple different repeating characters in one call</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Character code must be 0-255 (no Unicode character codes)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- If <code>character</code> is a string, only first character is used (no validation of length)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Very large <code>number</code> values can cause out-of-memory errors</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in way to create alternating patterns</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot specify different characters at different positions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in VB6 and VBA</li>
+<li>Not available in <code>VBScript</code> (use custom function instead)</li>
+<li><code>String$</code> variant returns String type directly (slightly faster)</li>
+<li>Behavior consistent across all platforms</li>
+<li>Character codes follow ANSI/ASCII standard (0-255)</li>
+<li>Maximum string length limited by available memory</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot create strings with multiple different repeating characters in one call</li>
+<li>Character code must be 0-255 (no Unicode character codes)</li>
+<li>If <code>character</code> is a string, only first character is used (no validation of length)</li>
+<li>Very large <code>number</code> values can cause out-of-memory errors</li>
+<li>No built-in way to create alternating patterns</li>
+<li>Cannot specify different characters at different positions</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

@@ -176,68 +176,27 @@ End If</code></pre>
 <td>Negative</td>
 <td>Runtime error (Invalid procedure call or argument)</td>
 </tr>
-<tr>
-<td>## Common Pitfalls</td>
-<td></td>
-</tr>
-<tr>
-<td>- Passing negative length values (causes runtime error)</td>
-<td></td>
-</tr>
-<tr>
-<td>- Assuming <code>Left$</code> will throw an error if length exceeds string length (it doesn't)</td>
-<td></td>
-</tr>
-<tr>
-<td>- Not handling <code>Null</code> strings (causes runtime error)</td>
-<td></td>
-</tr>
-<tr>
-<td>- Confusing zero-based vs one-based indexing (VB6 strings are 1-based)</td>
-<td></td>
-</tr>
-<tr>
-<td>- Using <code>Left$</code> on binary data (use <code>LeftB$</code> instead)</td>
-<td></td>
-</tr>
-<tr>
-<td>- Forgetting that the length parameter is character count, not position</td>
-<td></td>
-</tr>
-<tr>
-<td>- Not trimming strings before extraction (may get unwanted spaces)</td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot extract from right side (use <code>Right$</code> instead)</td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot specify starting position (use <code>Mid$</code> instead)</td>
-<td></td>
-</tr>
-<tr>
-<td>- Does not work with byte arrays directly</td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in support for Unicode surrogate pairs</td>
-<td></td>
-</tr>
-<tr>
-<td>- Length parameter cannot be an expression that evaluates to <code>Null</code></td>
-<td></td>
-</tr>
-<tr>
-<td>- Returns <code>Null</code> if the string argument is <code>Null</code></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<ul>
+<li>Passing negative length values (causes runtime error)</li>
+<li>Assuming <code>Left$</code> will throw an error if length exceeds string length (it doesn't)</li>
+<li>Not handling <code>Null</code> strings (causes runtime error)</li>
+<li>Confusing zero-based vs one-based indexing (VB6 strings are 1-based)</li>
+<li>Using <code>Left$</code> on binary data (use <code>LeftB$</code> instead)</li>
+<li>Forgetting that the length parameter is character count, not position</li>
+<li>Not trimming strings before extraction (may get unwanted spaces)</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot extract from right side (use <code>Right$</code> instead)</li>
+<li>Cannot specify starting position (use <code>Mid$</code> instead)</li>
+<li>Does not work with byte arrays directly</li>
+<li>No built-in support for Unicode surrogate pairs</li>
+<li>Length parameter cannot be an expression that evaluates to <code>Null</code></li>
+<li>Returns <code>Null</code> if the string argument is <code>Null</code></li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

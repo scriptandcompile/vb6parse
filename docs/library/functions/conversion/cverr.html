@@ -87,60 +87,66 @@ functions or assigned to <code>Variant</code> variables. This is particularly us
 <td>2007-2042</td>
 <td>Excel error values (when used in Excel automation)</td>
 </tr>
+</tbody>
+</table>
+<h2 id="excel-error-constants">Excel Error Constants</h2>
+<p>When creating functions for Excel, these error values are commonly used:</p>
+<table>
+<thead>
 <tr>
-<td>## Excel Error Constants</td>
-<td></td>
+<th>Constant</th>
+<th>Value</th>
+<th>Excel Display</th>
+<th>Meaning</th>
 </tr>
-<tr>
-<td>When creating functions for Excel, these error values are commonly used:</td>
-<td></td>
-</tr>
-<tr>
-<td>Constant</td>
-<td>Value</td>
-</tr>
-<tr>
-<td>----------</td>
-<td>-------</td>
-</tr>
+</thead>
+<tbody>
 <tr>
 <td>xlErrDiv0</td>
 <td>2007</td>
+<td>#DIV/0!</td>
+<td>Division by zero</td>
 </tr>
 <tr>
 <td>xlErrNA</td>
 <td>2042</td>
+<td>#N/A</td>
+<td>Value not available</td>
 </tr>
 <tr>
 <td>xlErrName</td>
 <td>2029</td>
+<td>#NAME?</td>
+<td>Invalid name</td>
 </tr>
 <tr>
 <td>xlErrNull</td>
 <td>2000</td>
+<td>#NULL!</td>
+<td>Null intersection</td>
 </tr>
 <tr>
 <td>xlErrNum</td>
 <td>2036</td>
+<td>#NUM!</td>
+<td>Invalid number</td>
 </tr>
 <tr>
 <td>xlErrRef</td>
 <td>2023</td>
+<td>#REF!</td>
+<td>Invalid reference</td>
 </tr>
 <tr>
 <td>xlErrValue</td>
 <td>2015</td>
-</tr>
-<tr>
-<td>## Examples</td>
-<td></td>
-</tr>
-<tr>
-<td>### Basic Usage</td>
-<td></td>
+<td>#VALUE!</td>
+<td>Wrong type</td>
 </tr>
 </tbody>
 </table>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-usage">Basic Usage</h3>
 <pre><code class="language-vbnet">&#x27; Create an error value
 Dim result As Variant
 result = CVErr(2042)  &#x27; Create #N/A error

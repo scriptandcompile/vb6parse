@@ -47,13 +47,33 @@
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>Single</code> value greater than or equal to 0 and less than 1.
-The behavior depends on the <code>number</code> argument:
-| Number Value | Result |
-|--------------|--------|
-| &lt; 0 | Same number every time, using <code>number</code> as the seed |
-| &gt; 0 | Next random number in sequence |
-| = 0 | Most recently generated number |
-| Omitted | Next random number in sequence |</p>
+The behavior depends on the <code>number</code> argument:</p>
+<table>
+<thead>
+<tr>
+<th>Number Value</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt; 0</td>
+<td>Same number every time, using <code>number</code> as the seed</td>
+</tr>
+<tr>
+<td>&gt; 0</td>
+<td>Next random number in sequence</td>
+</tr>
+<tr>
+<td>= 0</td>
+<td>Most recently generated number</td>
+</tr>
+<tr>
+<td>Omitted</td>
+<td>Next random number in sequence</td>
+</tr>
+</tbody>
+</table>
 <h2 id="remarks">Remarks</h2>
 <p>The <code>Rnd</code> function returns a pseudo-random number from a deterministic sequence. It is used for generating random values in games, simulations, testing, and sampling.
 Each new number is the product of the previous number times a constant (a) plus another constant (c).
@@ -574,116 +594,32 @@ On Error GoTo 0
 <td>Single</td>
 <td>Often used with Randomize</td>
 </tr>
-<tr>
-<td>## Platform and Version Notes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Available in all versions of VB6 and VBA</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Uses linear congruential generator (LCG) algorithm</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Not cryptographically secure</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Sequence repeats after approximately 16 million numbers</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- In VB.NET, replaced by <code>System.Random</code> class</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Randomize</code> uses <code>Timer</code> function by default if no seed provided</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Limitations</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Not cryptographically secure (predictable sequence)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Limited period (sequence repeats after ~16M values)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- No built-in support for other distributions (normal, exponential, etc.)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Cannot generate random integers directly (requires Int/Floor conversion)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Thread safety not guaranteed in multi-threaded scenarios</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- Quality lower than modern RNGs (Mersenne Twister, etc.)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>## Related Functions</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Randomize</code>: Initializes the random number generator with a seed</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Int</code>: Returns the integer portion of a number (used to convert Rnd to integer range)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <code>Timer</code>: Returns seconds since midnight (often used with Randomize)</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all versions of VB6 and VBA</li>
+<li>Uses linear congruential generator (LCG) algorithm</li>
+<li>Not cryptographically secure</li>
+<li>Sequence repeats after approximately 16 million numbers</li>
+<li>In VB.NET, replaced by <code>System.Random</code> class</li>
+<li><code>Randomize</code> uses <code>Timer</code> function by default if no seed provided</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Not cryptographically secure (predictable sequence)</li>
+<li>Limited period (sequence repeats after ~16M values)</li>
+<li>No built-in support for other distributions (normal, exponential, etc.)</li>
+<li>Cannot generate random integers directly (requires Int/Floor conversion)</li>
+<li>Thread safety not guaranteed in multi-threaded scenarios</li>
+<li>Quality lower than modern RNGs (Mersenne Twister, etc.)</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Randomize</code>: Initializes the random number generator with a seed</li>
+<li><code>Int</code>: Returns the integer portion of a number (used to convert Rnd to integer range)</li>
+<li><code>Timer</code>: Returns seconds since midnight (often used with Randomize)</li>
+</ul>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
