@@ -1,19 +1,20 @@
-//! # Split Function
+//! ## `Split` Function
 //!
 //! Returns a zero-based, one-dimensional array containing a specified number of substrings.
 //!
 //! ## Syntax
 //!
-//! ```vb
+//! ```text
 //! Split(expression[, delimiter[, limit[, compare]]])
 //! ```
 //!
 //! ## Parameters
 //!
-//! - `expression` - Required. String expression containing substrings and delimiters.
-//! - `delimiter` - Optional. String character used to identify substring limits. If omitted, the space character (" ") is assumed to be the delimiter.
-//! - `limit` - Optional. Number of substrings to be returned; -1 indicates that all substrings are returned.
-//! - `compare` - Optional. Numeric value indicating the kind of comparison to use when evaluating substrings. See Settings section for values.
+//! - **expression** (Required): `String` expression containing substrings and delimiters
+//! - **delimiter** (Optional): `String` character used to identify substring limits
+//!   - If omitted, the space character (" ") is assumed
+//! - **limit** (Optional): Number of substrings to be returned; `-1` returns all substrings
+//! - **compare** (Optional): Numeric value indicating comparison type (see Compare Settings)
 //!
 //! ## Compare Settings
 //!
@@ -23,44 +24,113 @@
 //!
 //! ## Return Value
 //!
-//! Returns a Variant containing a one-dimensional array of strings. The array is zero-based.
+//! - Returns a `Variant` containing a one-dimensional array of strings (zero-based)
+//! - If `expression` is a zero-length string (""), returns an empty array
+//! - If `delimiter` is a zero-length string or not found, returns a single-element array containing the entire expression
 //!
 //! ## Remarks
 //!
-//! The Split function breaks a string into substrings at the specified delimiter and returns them as an array. This is the opposite of the Join function, which combines array elements into a single string.
+//! The `Split` function breaks a string into substrings at the specified delimiter and returns them as an array. This is the opposite of the `Join` function, which combines array elements into a single string.
 //!
-//! Key characteristics:
 //! - Returns a zero-based array (first element is index 0)
 //! - If expression is a zero-length string (""), Split returns an empty array
 //! - If delimiter is a zero-length string, a single-element array containing the entire expression is returned
 //! - If delimiter is not found, a single-element array containing the entire expression is returned
 //! - Delimiter characters are not included in the returned substrings
-//! - If limit is provided and is less than the number of substrings, the last element contains the remainder of the string (including delimiters)
+//! - If `limit` is provided and is less than the number of substrings, the last element contains the remainder of the string (including delimiters)
 //! - Multiple consecutive delimiters create empty string elements in the array
-//!
-//! The Split function is commonly used for:
-//! - Parsing delimited data (CSV, TSV, pipe-delimited)
-//! - Extracting words from sentences
-//! - Processing configuration files
-//! - Parsing command-line arguments
-//! - Breaking up formatted strings
-//! - Converting strings to arrays for processing
 //!
 //! ## Typical Uses
 //!
-//! 1. **Parse CSV Data**: Split comma-separated values
-//! 2. **Extract Words**: Split sentence into individual words
-//! 3. **Process Lines**: Split multiline text into lines
-//! 4. **Parse Paths**: Split file paths into components
-//! 5. **Extract Parameters**: Parse parameter strings
-//! 6. **Data Import**: Process delimited import files
-//! 7. **String Tokenization**: Break strings into tokens
-//! 8. **Configuration Parsing**: Parse config file entries
+//! - **Parse CSV Data**: Split comma-separated values
+//! - **Extract Words**: Split sentence into individual words
+//! - **Process Lines**: Split multiline text into lines
+//! - **Parse Paths**: Split file paths into components
+//! - **Extract Parameters**: Parse parameter strings
+//! - **Data Import**: Process delimited import files
+//! - **String Tokenization**: Break strings into tokens
+//! * **Configuration Parsing**: Parse config file entries
+//!
+//! ## Common Errors
+//!
+//! The Split function itself doesn't typically generate errors with valid inputs, but related operations can:
+//!
+//! - **Error 13** (Type mismatch): If expression is not a string
+//! - **Error 5** (Invalid procedure call): If limit is negative (other than -1)
+//! - **Error 9** (Subscript out of range): When accessing array elements beyond bounds
+//!
+//! ### Always validate inputs and array bounds:
+//!
+//! ```vb6
+//! On Error Resume Next
+//! Dim parts() As String
+//! parts = Split(text, ",")
+//! If Err.Number <> 0 Then
+//!     MsgBox "Error splitting text: " & Err.Description
+//! End If
+//! ```
+//!
+//! ## Performance Considerations
+//!
+//! - Split is very efficient for moderate-sized strings
+//! - For very large strings (>1MB), consider processing in chunks
+//! - Avoid repeated Split calls in tight loops if possible
+//! - Consider caching Split results if reused multiple times
+//! - For complex parsing, Split may be slower than manual parsing
+//!
+//! ## Best Practices
+//!
+//! - **Check Array Bounds**: Always verify `UBound` before accessing elements
+//! - **Handle Empty Results**: Check if array has elements before processing
+//! - **Trim Whitespace**: Use Trim on results to remove unwanted spaces
+//! - **Validate Delimiter**: Ensure delimiter is appropriate for data
+//! - **Use Limit**: Limit number of splits when only need first few elements
+//! - **Handle Edge Cases**: Test with empty strings, missing delimiters
+//! - **Consider Alternatives**: For complex parsing, use dedicated parser
+//! - **Document Expected Format**: Comment the expected delimited format
+//! - **Filter Empty Elements**: Remove empty strings when caused by multiple delimiters
+//! - **Combine with Join**: Use Join to reconstruct modified arrays
+//!
+//! ## Comparison with Related Functions
+//!
+//! | Function | Purpose | Input | Output |
+//! |----------|---------|-------|--------|
+//! | Split | String to array | String | Array of strings |
+//! | Join | Array to string | Array | String |
+//! | Filter | Filter array | Array | Filtered array |
+//! | Replace | Replace text | String | String |
+//!
+//! ## Platform Considerations
+//!
+//! - Available in VB6, VBA (Office 2000+)
+//! - Not available in VBA prior to Office 2000
+//! - Returns Variant array (can assign to String array)
+//! - Zero-based array (unlike many VB arrays which are 1-based)
+//! - Consistent behavior across platforms
+//!
+//! ## Limitations
+//!
+//! - Returns zero-based array (may be unexpected in VB6)
+//! - Delimiter must be exact match (no regex)
+//! - Single delimiter only (can't split on multiple different delimiters)
+//! - No built-in trim of results
+//! - Empty elements included when multiple consecutive delimiters present
+//! - No built-in handling of quoted fields (CSV with commas in quotes)
+//! - Maximum array size limited by memory
+//!
+//! ## Related Functions
+//!
+//! - `Join`: Combines array elements into a string with delimiter
+//! - `Filter`: Returns a subset of array based on filter criteria
+//! - `InStr`: Finds position of substring (useful before Split)
+//! - `Replace`: Replaces occurrences of substring
+//!
 //!
 //! ## Basic Examples
 //!
-//! ```vb
-//! ' Example 1: Split comma-separated values
+//! ### Example 1: Split Comma-Separated Values
+//!
+//! ```vb6
 //! Dim text As String
 //! Dim parts() As String
 //! text = "apple,banana,orange"
@@ -70,8 +140,9 @@
 //! ' parts(2) = "orange"
 //! ```
 //!
-//! ```vb
-//! ' Example 2: Split sentence into words (default space delimiter)
+//! ### Example 2: Split Sentence Into Words (Default Space Delimiter)
+//!
+//! ```vb6
 //! Dim sentence As String
 //! Dim words() As String
 //! sentence = "The quick brown fox"
@@ -82,8 +153,9 @@
 //! ' words(3) = "fox"
 //! ```
 //!
-//! ```vb
-//! ' Example 3: Split with limit
+//! ### Example 3: Split With Limit
+//!
+//! ```vb6
 //! Dim data As String
 //! Dim items() As String
 //! data = "one,two,three,four,five"
@@ -93,8 +165,9 @@
 //! ' items(2) = "three,four,five" (remainder)
 //! ```
 //!
-//! ```vb
-//! ' Example 4: Split multiline text
+//! ### Example 4: Split Multiline Text
+//!
+//! ```vb6
 //! Dim text As String
 //! Dim lines() As String
 //! text = "Line 1" & vbCrLf & "Line 2" & vbCrLf & "Line 3"
@@ -106,18 +179,18 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: `ParseCSVLine`
-//! Parse a CSV line handling quotes
-//! ```vb
+//! ### Pattern 1: Parse a CSV line handling quotes
+//!
+//! ```vb6
 //! Function ParseCSVLine(line As String) As String()
 //!     ' Simple CSV parsing (doesn't handle quotes)
 //!     ParseCSVLine = Split(line, ",")
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: `GetWords`
-//! Extract words from text, handling multiple spaces
-//! ```vb
+//! ### Pattern 2: Extract Words From Text, Handling Multiple Spaces
+//!
+//! ```vb6
 //! Function GetWords(text As String) As String()
 //!     Dim words() As String
 //!     Dim result() As String
@@ -147,9 +220,9 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 3: `SplitPath`
-//! Split file path into components
-//! ```vb
+//! ### Pattern 3: Split File Path Into Components
+//!
+//! ```vb6
 //! Function SplitPath(filePath As String) As String()
 //!     Dim delimiter As String
 //!     
@@ -164,9 +237,9 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: `ParseKeyValue`
-//! Parse key=value pairs
-//! ```vb
+//! ### Pattern 4: Parse Key=Value Pairs
+//!
+//! ```vb6
 //! Sub ParseKeyValue(kvPair As String, key As String, value As String)
 //!     Dim parts() As String
 //!     parts = Split(kvPair, "=", 2)
@@ -182,9 +255,9 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 5: `SplitLines`
-//! Split text into lines, handling different line endings
-//! ```vb
+//! ### Pattern 5: Split Text Into Lines, Handling Different Line Endings
+//!
+//! ```vb6
 //! Function SplitLines(text As String) As String()
 //!     Dim normalized As String
 //!     
@@ -196,9 +269,9 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 6: `ParseDelimitedData`
-//! Parse delimited data with custom delimiter
-//! ```vb
+//! ### Pattern 6: Parse Delimited Data With Custom Delimiter
+//!
+//! ```vb6
 //! Function ParseDelimitedData(data As String, delimiter As String) As Variant
 //!     Dim lines() As String
 //!     Dim result() As Variant
@@ -215,9 +288,9 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: `ExtractFields`
-//! Extract specific fields from delimited string
-//! ```vb
+//! ### Pattern 7: Extract Specific Fields From Delimited String
+//!
+//! ```vb6
 //! Function ExtractField(delimitedString As String, _
 //!                       delimiter As String, _
 //!                       fieldIndex As Integer) As String
@@ -232,9 +305,9 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: `CountTokens`
-//! Count number of tokens in string
-//! ```vb
+//! ### Pattern 8: Count Number Of Tokens In String
+//!
+//! ```vb6
 //! Function CountTokens(text As String, delimiter As String) As Integer
 //!     Dim tokens() As String
 //!     tokens = Split(text, delimiter)
@@ -242,9 +315,9 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: `ReverseArray`
-//! Split and reverse the order
-//! ```vb
+//! ### Pattern 9: Split And Reverse The Order
+//!
+//! ```vb6
 //! Function ReverseSplit(text As String, delimiter As String) As String()
 //!     Dim parts() As String
 //!     Dim result() As String
@@ -263,9 +336,9 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: `FilterEmptyElements`
-//! Split and remove empty elements
-//! ```vb
+//! ### Pattern 10: Split And Remove Empty Elements
+//!
+//! ```vb6
 //! Function SplitNonEmpty(text As String, delimiter As String) As String()
 //!     Dim parts() As String
 //!     Dim result() As String
@@ -299,9 +372,9 @@
 //!
 //! ## Advanced Usage
 //!
-//! ### Example 1: `CSVParser` Class
-//! Parse CSV data with Split
-//! ```vb
+//! ### Example 1: Parse CSV Data With Split
+//!
+//! ```vb6
 //! ' Class: CSVParser
 //! Private m_data() As Variant
 //! Private m_rowCount As Integer
@@ -377,9 +450,9 @@
 //! End Function
 //! ```
 //!
-//! ### Example 2: `ConfigFileParser` Module
-//! Parse configuration files
-//! ```vb
+//! ### Example 2: Parse Configuration Files
+//!
+//! ```vb6
 //! ' Module: ConfigFileParser
 //! Private m_settings As Object  ' Scripting.Dictionary
 //!
@@ -444,9 +517,9 @@
 //! End Function
 //! ```
 //!
-//! ### Example 3: `TextProcessor` Class
-//! Process text with various split operations
-//! ```vb
+//! ### Example 3: Process Text With Various Split Operations
+//!
+//! ```vb6
 //! ' Class: TextProcessor
 //!
 //! Public Function GetParagraphs(text As String) As String()
@@ -534,9 +607,9 @@
 //! End Function
 //! ```
 //!
-//! ### Example 4: `DataImporter` Module
-//! Import delimited data files
-//! ```vb
+//! ### Example 4: Import Delimited Data Files
+//!
+//! ```vb6
 //! ' Module: DataImporter
 //!
 //! Public Function ImportDelimitedFile(filePath As String, _
@@ -631,79 +704,7 @@
 //! End Function
 //! ```
 //!
-//! ## Error Handling
-//!
-//! The Split function itself doesn't typically generate errors with valid inputs, but related operations can:
-//!
-//! - **Error 13** (Type mismatch): If expression is not a string
-//! - **Error 5** (Invalid procedure call): If limit is negative (other than -1)
-//! - **Error 9** (Subscript out of range): When accessing array elements beyond bounds
-//!
-//! Always validate inputs and array bounds:
-//! ```vb
-//! On Error Resume Next
-//! Dim parts() As String
-//! parts = Split(text, ",")
-//! If Err.Number <> 0 Then
-//!     MsgBox "Error splitting text: " & Err.Description
-//! End If
-//! ```
-//!
-//! ## Performance Considerations
-//!
-//! - Split is very efficient for moderate-sized strings
-//! - For very large strings (>1MB), consider processing in chunks
-//! - Avoid repeated Split calls in tight loops if possible
-//! - Consider caching Split results if reused multiple times
-//! - For complex parsing, Split may be slower than manual parsing
-//!
-//! ## Best Practices
-//!
-//! 1. **Check Array Bounds**: Always verify `UBound` before accessing elements
-//! 2. **Handle Empty Results**: Check if array has elements before processing
-//! 3. **Trim Whitespace**: Use Trim on results to remove unwanted spaces
-//! 4. **Validate Delimiter**: Ensure delimiter is appropriate for data
-//! 5. **Use Limit**: Limit number of splits when only need first few elements
-//! 6. **Handle Edge Cases**: Test with empty strings, missing delimiters
-//! 7. **Consider Alternatives**: For complex parsing, use dedicated parser
-//! 8. **Document Expected Format**: Comment the expected delimited format
-//! 9. **Filter Empty Elements**: Remove empty strings when caused by multiple delimiters
-//! 10. **Combine with Join**: Use Join to reconstruct modified arrays
-//!
-//! ## Comparison with Related Functions
-//!
-//! | Function | Purpose | Input | Output |
-//! |----------|---------|-------|--------|
-//! | Split | String to array | String | Array of strings |
-//! | Join | Array to string | Array | String |
-//! | Filter | Filter array | Array | Filtered array |
-//! | Replace | Replace text | String | String |
-//!
-//! ## Platform Considerations
-//!
-//! - Available in VB6, VBA (Office 2000+)
-//! - Not available in VBA prior to Office 2000
-//! - Returns Variant array (can assign to String array)
-//! - Zero-based array (unlike many VB arrays which are 1-based)
-//! - Consistent behavior across platforms
-//!
-//! ## Limitations
-//!
-//! - Returns zero-based array (may be unexpected in VB6)
-//! - Delimiter must be exact match (no regex)
-//! - Single delimiter only (can't split on multiple different delimiters)
-//! - No built-in trim of results
-//! - Empty elements included when multiple consecutive delimiters present
-//! - No built-in handling of quoted fields (CSV with commas in quotes)
-//! - Maximum array size limited by memory
-//!
-//! ## Related Functions
-//!
-//! - `Join`: Combines array elements into a string with delimiter
-//! - `Filter`: Returns a subset of array based on filter criteria
-//! - `InStr`: Finds position of substring (useful before Split)
-//! - `Replace`: Replaces occurrences of substring
-//!
+
 #[cfg(test)]
 mod tests {
     use crate::*;

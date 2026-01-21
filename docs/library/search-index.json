@@ -32,7 +32,7 @@
     "type": "function",
     "category": "Arrays",
     "url": "functions/arrays/split.html",
-    "description": "Split Function Returns a zero-based, one-dimensional array containing a specified number of substrings. Syntax vb Split(expression, delimiter, limit, compare) Parameters - expression - Required. Strin"
+    "description": "Split Function Returns a zero-based, one-dimensional array containing a specified number of substrings. Syntax text Split(expression, delimiter, limit, compare) Parameters - expression (Required): Str"
   },
   {
     "name": "ubound",
