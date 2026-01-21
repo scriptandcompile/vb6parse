@@ -11,7 +11,7 @@
 //! ## Parameters
 //!
 //! - **arrayname** (Required): Name of the array variable
-//! - *dimension** (Optional): `Integer` specifying which dimension's lower bound to return
+//! - **dimension** (Optional): `Integer` specifying which dimension's lower bound to return
 //!   - If omitted, defaults to 1 (first dimension)
 //!   - Must be between 1 and the number of dimensions in the array
 //!
