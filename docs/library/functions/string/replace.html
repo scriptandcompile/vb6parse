@@ -114,9 +114,9 @@
 </tbody>
 </table>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>Replace</code> function returns a string with substitutions made. Unlike the <code>Replace</code> method of regular expressions, this function performs simple string substitution without pattern matching.</p>
-<p>The return value of the <code>Replace</code> function is a string that begins at the position specified by <code>start</code>, with substitutions made, and concludes at the end of the <code>expression</code> string. It is not a copy of the original string from start to finish.</p>
-<p><strong>Important Notes</strong>:
+<p>The <code>Replace</code> function returns a string with substitutions made. Unlike the <code>Replace</code> method of regular expressions, this function performs simple string substitution without pattern matching.
+The return value of the <code>Replace</code> function is a string that begins at the position specified by <code>start</code>, with substitutions made, and concludes at the end of the <code>expression</code> string. It is not a copy of the original string from start to finish.
+<strong>Important Notes</strong>:
 - If <code>start</code> is specified, the return value starts from that position, not from position 1
 - The original string before <code>start</code> position is not included in the result
 - Use <code>count</code> parameter to limit the number of replacements
@@ -154,449 +154,366 @@ result = Replace(&quot;one, two, three, four&quot;, &quot;, &quot;, &quot; | &qu
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-removeallspaces">Pattern 1: <code>RemoveAllSpaces</code></h3>
 <pre><code class="language-vbnet">Function RemoveAllSpaces(text As String) As String
-RemoveAllSpaces = Replace(text, &quot; &quot;, &quot;&quot;)
+    RemoveAllSpaces = Replace(text, &quot; &quot;, &quot;&quot;)
 End Function</code></pre>
 <h3 id="pattern-2-normalizewhitespace">Pattern 2: <code>NormalizeWhitespace</code></h3>
 <pre><code class="language-vbnet">Function NormalizeWhitespace(text As String) As String
-Dim result As String
-result = text
-
-&#x27; Replace tabs with spaces
-result = Replace(result, vbTab, &quot; &quot;)
-
-&#x27; Replace multiple spaces with single space
-Do While InStr(result, &quot;  &quot;) &gt; 0
-result = Replace(result, &quot;  &quot;, &quot; &quot;)
-Loop
-
-NormalizeWhitespace = Trim(result)
+    Dim result As String
+    result = text
+    &#x27; Replace tabs with spaces
+    result = Replace(result, vbTab, &quot; &quot;)
+    &#x27; Replace multiple spaces with single space
+    Do While InStr(result, &quot;  &quot;) &gt; 0
+        result = Replace(result, &quot;  &quot;, &quot; &quot;)
+    Loop
+    NormalizeWhitespace = Trim(result)
 End Function</code></pre>
 <h3 id="pattern-3-escapesqlstring">Pattern 3: <code>EscapeSQLString</code></h3>
 <pre><code class="language-vbnet">Function EscapeSQLString(text As String) As String
-&#x27; Escape single quotes for SQL
-EscapeSQLString = Replace(text, &quot;&#x27;&quot;, &quot;&#x27;&#x27;&quot;)
+    &#x27; Escape single quotes for SQL
+    EscapeSQLString = Replace(text, &quot;&#x27;&quot;, &quot;&#x27;&#x27;&quot;)
 End Function</code></pre>
 <h3 id="pattern-4-replacemultiple">Pattern 4: <code>ReplaceMultiple</code></h3>
 <pre><code class="language-vbnet">Function ReplaceMultiple(text As String, findList() As String, _
-replaceList() As String) As String
-Dim i As Integer
-Dim result As String
-
-result = text
-
-For i = LBound(findList) To UBound(findList)
-result = Replace(result, findList(i), replaceList(i))
-Next i
-
-ReplaceMultiple = result
+                         replaceList() As String) As String
+    Dim i As Integer
+    Dim result As String
+    result = text
+    For i = LBound(findList) To UBound(findList)
+        result = Replace(result, findList(i), replaceList(i))
+    Next i
+    ReplaceMultiple = result
 End Function</code></pre>
 <h3 id="pattern-5-replacecaseinsensitive">Pattern 5: <code>ReplaceCaseInsensitive</code></h3>
 <pre><code class="language-vbnet">Function ReplaceCaseInsensitive(text As String, find As String, _
-replaceWith As String) As String
-ReplaceCaseInsensitive = Replace(text, find, replaceWith, 1, -1, vbTextCompare)
+                               replaceWith As String) As String
+    ReplaceCaseInsensitive = Replace(text, find, replaceWith, 1, -1, vbTextCompare)
 End Function</code></pre>
 <h3 id="pattern-6-replacespecialchars">Pattern 6: <code>ReplaceSpecialChars</code></h3>
 <pre><code class="language-vbnet">Function ReplaceSpecialChars(text As String, replacement As String) As String
-Dim result As String
-Dim specialChars As String
-Dim i As Integer
-
-result = text
-specialChars = &quot;!@#$%^&amp;*()[]{}|;:,.&lt;&gt;?/&quot;
-
-For i = 1 To Len(specialChars)
-result = Replace(result, Mid(specialChars, i, 1), replacement)
-Next i
-
-ReplaceSpecialChars = result
+    Dim result As String
+    Dim specialChars As String
+    Dim i As Integer
+    result = text
+    specialChars = &quot;!@#$%^&amp;*()[]{}|;:,.&lt;&gt;?/&quot;
+    For i = 1 To Len(specialChars)
+        result = Replace(result, Mid(specialChars, i, 1), replacement)
+    Next i
+    ReplaceSpecialChars = result
 End Function</code></pre>
 <h3 id="pattern-7-sanitizefilename">Pattern 7: <code>SanitizeFilename</code></h3>
 <pre><code class="language-vbnet">Function SanitizeFilename(filename As String) As String
-Dim result As String
-Dim invalidChars As String
-Dim i As Integer
-
-result = filename
-invalidChars = &quot;\/:*?&quot;&quot;&lt;&gt;|&quot;
-
-For i = 1 To Len(invalidChars)
-result = Replace(result, Mid(invalidChars, i, 1), &quot;_&quot;)
-Next i
-
-SanitizeFilename = result
+    Dim result As String
+    Dim invalidChars As String
+    Dim i As Integer
+    result = filename
+    invalidChars = &quot;\/:*?&quot;&quot;&lt;&gt;|&quot;
+    For i = 1 To Len(invalidChars)
+        result = Replace(result, Mid(invalidChars, i, 1), &quot;_&quot;)
+    Next i
+    SanitizeFilename = result
 End Function</code></pre>
 <h3 id="pattern-8-convertlineendings">Pattern 8: <code>ConvertLineEndings</code></h3>
 <pre><code class="language-vbnet">Function ConvertLineEndings(text As String, newEnding As String) As String
-Dim result As String
-
-result = text
-
-&#x27; Normalize to LF first
-result = Replace(result, vbCrLf, vbLf)
-result = Replace(result, vbCr, vbLf)
-
-&#x27; Convert to desired ending
-If newEnding &lt;&gt; vbLf Then
-result = Replace(result, vbLf, newEnding)
-End If
-
-ConvertLineEndings = result
+    Dim result As String
+    result = text
+    &#x27; Normalize to LF first
+    result = Replace(result, vbCrLf, vbLf)
+    result = Replace(result, vbCr, vbLf)
+    &#x27; Convert to desired ending
+    If newEnding &lt;&gt; vbLf Then
+        result = Replace(result, vbLf, newEnding)
+    End If
+    ConvertLineEndings = result
 End Function</code></pre>
 <h3 id="pattern-9-replacewithcounter">Pattern 9: <code>ReplaceWithCounter</code></h3>
 <pre><code class="language-vbnet">Function CountReplacements(text As String, find As String) As Long
-&#x27; Count how many times find appears in text
-Dim original As String
-Dim replaced As String
-
-If Len(find) = 0 Then
-CountReplacements = 0
-Exit Function
-End If
-
-original = text
-replaced = Replace(original, find, &quot;&quot;)
-
-CountReplacements = (Len(original) - Len(replaced)) / Len(find)
+    &#x27; Count how many times find appears in text
+    Dim original As String
+    Dim replaced As String
+    If Len(find) = 0 Then
+        CountReplacements = 0
+        Exit Function
+    End If
+    original = text
+    replaced = Replace(original, find, &quot;&quot;)
+    CountReplacements = (Len(original) - Len(replaced)) / Len(find)
 End Function</code></pre>
 <h3 id="pattern-10-templatereplace">Pattern 10: <code>TemplateReplace</code></h3>
 <pre><code class="language-vbnet">Function ProcessTemplate(template As String, replacements As Collection) As String
-&#x27; Replace {key} placeholders with values from collection
-Dim result As String
-Dim key As Variant
-Dim placeholder As String
-
-result = template
-
-For Each key In replacements
-placeholder = &quot;{&quot; &amp; key &amp; &quot;}&quot;
-result = Replace(result, placeholder, CStr(replacements(key)))
-Next key
-
-ProcessTemplate = result
+    &#x27; Replace {key} placeholders with values from collection
+    Dim result As String
+    Dim key As Variant
+    Dim placeholder As String
+    result = template
+    For Each key In replacements
+        placeholder = &quot;{&quot; &amp; key &amp; &quot;}&quot;
+        result = Replace(result, placeholder, CStr(replacements(key)))
+    Next key
+    ProcessTemplate = result
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-text-sanitizer-with-multiple-rules">Example 1: Text Sanitizer with Multiple Rules</h3>
 <pre><code class="language-vbnet">&#x27; Advanced text sanitization with configurable rules
 Class TextSanitizer
-Private Type ReplacementRule
-Find As String
-ReplaceWith As String
-CaseSensitive As Boolean
-MaxReplacements As Long
-End Type
-
-Private m_rules() As ReplacementRule
-Private m_ruleCount As Integer
-
-Public Sub Initialize()
-m_ruleCount = 0
-ReDim m_rules(0 To 9)
-End Sub
-
-Public Sub AddRule(find As String, replaceWith As String, _
-Optional caseSensitive As Boolean = True, _
-Optional maxReplacements As Long = -1)
-If m_ruleCount &gt; UBound(m_rules) Then
-ReDim Preserve m_rules(0 To UBound(m_rules) + 10)
-End If
-
-With m_rules(m_ruleCount)
-.Find = find
-.ReplaceWith = replaceWith
-.CaseSensitive = caseSensitive
-.MaxReplacements = maxReplacements
-End With
-
-m_ruleCount = m_ruleCount + 1
-End Sub
-
-Public Function Sanitize(text As String) As String
-Dim result As String
-Dim i As Integer
-Dim compareMode As Integer
-
-result = text
-
-For i = 0 To m_ruleCount - 1
-With m_rules(i)
-If .CaseSensitive Then
-compareMode = vbBinaryCompare
-Else
-compareMode = vbTextCompare
-End If
-
-result = Replace(result, .Find, .ReplaceWith, 1, .MaxReplacements, compareMode)
-End With
-Next i
-
-Sanitize = result
-End Function
-
-Public Sub ClearRules()
-m_ruleCount = 0
-End Sub
-
-Public Function GetRuleCount() As Integer
-GetRuleCount = m_ruleCount
-End Function
+    Private Type ReplacementRule
+        Find As String
+        ReplaceWith As String
+        CaseSensitive As Boolean
+        MaxReplacements As Long
+    End Type
+    Private m_rules() As ReplacementRule
+    Private m_ruleCount As Integer
+    Public Sub Initialize()
+        m_ruleCount = 0
+        ReDim m_rules(0 To 9)
+    End Sub
+    Public Sub AddRule(find As String, replaceWith As String, _
+                      Optional caseSensitive As Boolean = True, _
+                      Optional maxReplacements As Long = -1)
+        If m_ruleCount &gt; UBound(m_rules) Then
+            ReDim Preserve m_rules(0 To UBound(m_rules) + 10)
+        End If
+        With m_rules(m_ruleCount)
+            .Find = find
+            .ReplaceWith = replaceWith
+            .CaseSensitive = caseSensitive
+            .MaxReplacements = maxReplacements
+        End With
+        m_ruleCount = m_ruleCount + 1
+    End Sub
+    Public Function Sanitize(text As String) As String
+        Dim result As String
+        Dim i As Integer
+        Dim compareMode As Integer
+        result = text
+        For i = 0 To m_ruleCount - 1
+            With m_rules(i)
+                If .CaseSensitive Then
+                    compareMode = vbBinaryCompare
+                Else
+                    compareMode = vbTextCompare
+                End If
+                result = Replace(result, .Find, .ReplaceWith, 1, .MaxReplacements, compareMode)
+            End With
+        Next i
+        Sanitize = result
+    End Function
+    Public Sub ClearRules()
+        m_ruleCount = 0
+    End Sub
+    Public Function GetRuleCount() As Integer
+        GetRuleCount = m_ruleCount
+    End Function
 End Class</code></pre>
 <h3 id="example-2-string-template-engine">Example 2: String Template Engine</h3>
 <pre><code class="language-vbnet">&#x27; Simple template engine with variable replacement
 Module TemplateEngine
-Public Function ProcessTemplate(template As String, _
-variables As Scripting.Dictionary) As String
-Dim result As String
-Dim key As Variant
-Dim placeholder As String
-Dim value As String
-
-result = template
-
-&#x27; Replace {variable} placeholders
-For Each key In variables.Keys
-placeholder = &quot;{&quot; &amp; CStr(key) &amp; &quot;}&quot;
-value = CStr(variables(key))
-result = Replace(result, placeholder, value)
-Next key
-
-ProcessTemplate = result
-End Function
-
-Public Function ProcessConditional(template As String, condition As Boolean, _
-trueValue As String, falseValue As String) As String
-Dim result As String
-
-result = template
-
-If condition Then
-result = Replace(result, &quot;{if}&quot;, trueValue)
-result = Replace(result, &quot;{else}&quot;, &quot;&quot;)
-Else
-result = Replace(result, &quot;{if}&quot;, &quot;&quot;)
-result = Replace(result, &quot;{else}&quot;, falseValue)
-End If
-
-ProcessConditional = result
-End Function
-
-Public Function ProcessLoop(template As String, items() As String) As String
-Dim result As String
-Dim itemText As String
-Dim i As Integer
-
-&#x27; Extract the loop template
-Dim loopStart As Long
-Dim loopEnd As Long
-Dim loopTemplate As String
-
-loopStart = InStr(template, &quot;{loop}&quot;)
-loopEnd = InStr(template, &quot;{/loop}&quot;)
-
-If loopStart = 0 Or loopEnd = 0 Then
-ProcessLoop = template
-Exit Function
-End If
-
-loopTemplate = Mid(template, loopStart + 6, loopEnd - loopStart - 6)
-
-itemText = &quot;&quot;
-For i = LBound(items) To UBound(items)
-itemText = itemText &amp; Replace(loopTemplate, &quot;{item}&quot;, items(i))
-Next i
-
-result = Left(template, loopStart - 1) &amp; itemText &amp; Mid(template, loopEnd + 7)
-
-ProcessLoop = result
-End Function
+    Public Function ProcessTemplate(template As String, _
+                                   variables As Scripting.Dictionary) As String
+        Dim result As String
+        Dim key As Variant
+        Dim placeholder As String
+        Dim value As String
+        result = template
+        &#x27; Replace {variable} placeholders
+        For Each key In variables.Keys
+            placeholder = &quot;{&quot; &amp; CStr(key) &amp; &quot;}&quot;
+            value = CStr(variables(key))
+            result = Replace(result, placeholder, value)
+        Next key
+        ProcessTemplate = result
+    End Function
+    Public Function ProcessConditional(template As String, condition As Boolean, _
+                                      trueValue As String, falseValue As String) As String
+        Dim result As String
+        result = template
+        If condition Then
+            result = Replace(result, &quot;{if}&quot;, trueValue)
+            result = Replace(result, &quot;{else}&quot;, &quot;&quot;)
+        Else
+            result = Replace(result, &quot;{if}&quot;, &quot;&quot;)
+            result = Replace(result, &quot;{else}&quot;, falseValue)
+        End If
+        ProcessConditional = result
+    End Function
+    Public Function ProcessLoop(template As String, items() As String) As String
+        Dim result As String
+        Dim itemText As String
+        Dim i As Integer
+        &#x27; Extract the loop template
+        Dim loopStart As Long
+        Dim loopEnd As Long
+        Dim loopTemplate As String
+        loopStart = InStr(template, &quot;{loop}&quot;)
+        loopEnd = InStr(template, &quot;{/loop}&quot;)
+        If loopStart = 0 Or loopEnd = 0 Then
+            ProcessLoop = template
+            Exit Function
+        End If
+        loopTemplate = Mid(template, loopStart + 6, loopEnd - loopStart - 6)
+        itemText = &quot;&quot;
+        For i = LBound(items) To UBound(items)
+            itemText = itemText &amp; Replace(loopTemplate, &quot;{item}&quot;, items(i))
+        Next i
+        result = Left(template, loopStart - 1) &amp; itemText &amp; Mid(template, loopEnd + 7)
+        ProcessLoop = result
+    End Function
 End Module</code></pre>
 <h3 id="example-3-csvtsv-converter">Example 3: CSV/TSV Converter</h3>
 <pre><code class="language-vbnet">&#x27; Convert between CSV and TSV formats
 Class DelimiterConverter
-Private m_sourceDelimiter As String
-Private m_targetDelimiter As String
-Private m_textQualifier As String
-
-Public Sub Initialize(sourceDelim As String, targetDelim As String, _
-Optional textQual As String = &quot;&quot;&quot;&quot;)
-m_sourceDelimiter = sourceDelim
-m_targetDelimiter = targetDelim
-m_textQualifier = textQual
-End Sub
-
-Public Function Convert(data As String) As String
-Dim result As String
-Dim inQuotes As Boolean
-Dim i As Long
-Dim ch As String
-
-result = &quot;&quot;
-inQuotes = False
-
-For i = 1 To Len(data)
-ch = Mid(data, i, 1)
-
-If ch = m_textQualifier Then
-inQuotes = Not inQuotes
-result = result &amp; ch
-ElseIf ch = m_sourceDelimiter And Not inQuotes Then
-result = result &amp; m_targetDelimiter
-Else
-result = result &amp; ch
-End If
-Next i
-
-Convert = result
-End Function
-
-Public Function ConvertSimple(data As String) As String
-&#x27; Simple conversion without quote handling
-ConvertSimple = Replace(data, m_sourceDelimiter, m_targetDelimiter)
-End Function
-
-Public Function EscapeField(field As String) As String
-&#x27; Escape field for CSV/TSV
-Dim needsQuotes As Boolean
-Dim result As String
-
-result = field
-
-&#x27; Check if field needs quoting
-needsQuotes = (InStr(field, m_sourceDelimiter) &gt; 0) Or _
-(InStr(field, m_textQualifier) &gt; 0) Or _
-(InStr(field, vbCrLf) &gt; 0)
-
-If needsQuotes Then
-&#x27; Escape existing quotes
-result = Replace(result, m_textQualifier, m_textQualifier &amp; m_textQualifier)
-result = m_textQualifier &amp; result &amp; m_textQualifier
-End If
-
-EscapeField = result
-End Function
+    Private m_sourceDelimiter As String
+    Private m_targetDelimiter As String
+    Private m_textQualifier As String
+    Public Sub Initialize(sourceDelim As String, targetDelim As String, _
+                         Optional textQual As String = &quot;&quot;&quot;&quot;)
+        m_sourceDelimiter = sourceDelim
+        m_targetDelimiter = targetDelim
+        m_textQualifier = textQual
+    End Sub
+    Public Function Convert(data As String) As String
+        Dim result As String
+        Dim inQuotes As Boolean
+        Dim i As Long
+        Dim ch As String
+        result = &quot;&quot;
+        inQuotes = False
+        For i = 1 To Len(data)
+            ch = Mid(data, i, 1)
+            If ch = m_textQualifier Then
+                inQuotes = Not inQuotes
+                result = result &amp; ch
+            ElseIf ch = m_sourceDelimiter And Not inQuotes Then
+                result = result &amp; m_targetDelimiter
+            Else
+                result = result &amp; ch
+            End If
+        Next i
+        Convert = result
+    End Function
+    Public Function ConvertSimple(data As String) As String
+        &#x27; Simple conversion without quote handling
+        ConvertSimple = Replace(data, m_sourceDelimiter, m_targetDelimiter)
+    End Function
+    Public Function EscapeField(field As String) As String
+        &#x27; Escape field for CSV/TSV
+        Dim needsQuotes As Boolean
+        Dim result As String
+        result = field
+        &#x27; Check if field needs quoting
+        needsQuotes = (InStr(field, m_sourceDelimiter) &gt; 0) Or _
+                     (InStr(field, m_textQualifier) &gt; 0) Or _
+                     (InStr(field, vbCrLf) &gt; 0)
+        If needsQuotes Then
+            &#x27; Escape existing quotes
+            result = Replace(result, m_textQualifier, m_textQualifier &amp; m_textQualifier)
+            result = m_textQualifier &amp; result &amp; m_textQualifier
+        End If
+        EscapeField = result
+    End Function
 End Class</code></pre>
 <h3 id="example-4-smart-string-replacer">Example 4: Smart String Replacer</h3>
 <pre><code class="language-vbnet">&#x27; Advanced string replacement with history and undo
 Class SmartReplacer
-Private m_originalText As String
-Private m_currentText As String
-Private m_history() As String
-Private m_historyCount As Integer
-
-Public Sub Initialize(text As String)
-m_originalText = text
-m_currentText = text
-m_historyCount = 0
-ReDim m_history(0 To 99)
-AddToHistory text
-End Sub
-
-Public Function ReplaceText(find As String, replaceWith As String, _
-Optional caseSensitive As Boolean = True, _
-Optional maxCount As Long = -1) As String
-Dim compareMode As Integer
-
-If caseSensitive Then
-compareMode = vbBinaryCompare
-Else
-compareMode = vbTextCompare
-End If
-
-m_currentText = Replace(m_currentText, find, replaceWith, 1, maxCount, compareMode)
-AddToHistory m_currentText
-
-ReplaceText = m_currentText
-End Function
-
-Public Function ReplaceFromStart(find As String, replaceWith As String, _
-startPos As Long) As String
-&#x27; Replace starting from a specific position
-Dim beforeStart As String
-Dim afterStart As String
-
-If startPos &lt; 1 Then startPos = 1
-If startPos &gt; Len(m_currentText) Then
-ReplaceFromStart = m_currentText
-Exit Function
-End If
-
-beforeStart = Left(m_currentText, startPos - 1)
-afterStart = Replace(Mid(m_currentText, startPos), find, replaceWith)
-
-m_currentText = beforeStart &amp; afterStart
-AddToHistory m_currentText
-
-ReplaceFromStart = m_currentText
-End Function
-
-Public Function GetCurrent() As String
-GetCurrent = m_currentText
-End Function
-
-Public Function Undo() As String
-If m_historyCount &gt; 1 Then
-m_historyCount = m_historyCount - 1
-m_currentText = m_history(m_historyCount - 1)
-End If
-
-Undo = m_currentText
-End Function
-
-Public Function Reset() As String
-m_currentText = m_originalText
-m_historyCount = 0
-ReDim m_history(0 To 99)
-AddToHistory m_currentText
-
-Reset = m_currentText
-End Function
-
-Public Function GetReplacementCount(find As String) As Long
-Dim withFind As Long
-Dim withoutFind As Long
-
-If Len(find) = 0 Then
-GetReplacementCount = 0
-Exit Function
-End If
-
-withFind = Len(m_currentText)
-withoutFind = Len(Replace(m_currentText, find, &quot;&quot;))
-
-GetReplacementCount = (withFind - withoutFind) / Len(find)
-End Function
-
-Private Sub AddToHistory(text As String)
-If m_historyCount &gt; UBound(m_history) Then
-&#x27; Shift history
-Dim i As Integer
-For i = 0 To UBound(m_history) - 1
-m_history(i) = m_history(i + 1)
-Next i
-m_history(UBound(m_history)) = text
-Else
-m_history(m_historyCount) = text
-m_historyCount = m_historyCount + 1
-End If
-End Sub
+    Private m_originalText As String
+    Private m_currentText As String
+    Private m_history() As String
+    Private m_historyCount As Integer
+    Public Sub Initialize(text As String)
+        m_originalText = text
+        m_currentText = text
+        m_historyCount = 0
+        ReDim m_history(0 To 99)
+        AddToHistory text
+    End Sub
+    Public Function ReplaceText(find As String, replaceWith As String, _
+                               Optional caseSensitive As Boolean = True, _
+                               Optional maxCount As Long = -1) As String
+        Dim compareMode As Integer
+        If caseSensitive Then
+            compareMode = vbBinaryCompare
+        Else
+            compareMode = vbTextCompare
+        End If
+        m_currentText = Replace(m_currentText, find, replaceWith, 1, maxCount, compareMode)
+        AddToHistory m_currentText
+        ReplaceText = m_currentText
+    End Function
+    Public Function ReplaceFromStart(find As String, replaceWith As String, _
+                                    startPos As Long) As String
+        &#x27; Replace starting from a specific position
+        Dim beforeStart As String
+        Dim afterStart As String
+        If startPos &lt; 1 Then startPos = 1
+        If startPos &gt; Len(m_currentText) Then
+            ReplaceFromStart = m_currentText
+            Exit Function
+        End If
+        beforeStart = Left(m_currentText, startPos - 1)
+        afterStart = Replace(Mid(m_currentText, startPos), find, replaceWith)
+        m_currentText = beforeStart &amp; afterStart
+        AddToHistory m_currentText
+        ReplaceFromStart = m_currentText
+    End Function
+    Public Function GetCurrent() As String
+        GetCurrent = m_currentText
+    End Function
+    Public Function Undo() As String
+        If m_historyCount &gt; 1 Then
+            m_historyCount = m_historyCount - 1
+            m_currentText = m_history(m_historyCount - 1)
+        End If
+        Undo = m_currentText
+    End Function
+    Public Function Reset() As String
+        m_currentText = m_originalText
+        m_historyCount = 0
+        ReDim m_history(0 To 99)
+        AddToHistory m_currentText
+        Reset = m_currentText
+    End Function
+    Public Function GetReplacementCount(find As String) As Long
+        Dim withFind As Long
+        Dim withoutFind As Long
+        If Len(find) = 0 Then
+            GetReplacementCount = 0
+            Exit Function
+        End If
+        withFind = Len(m_currentText)
+        withoutFind = Len(Replace(m_currentText, find, &quot;&quot;))
+        GetReplacementCount = (withFind - withoutFind) / Len(find)
+    End Function
+    Private Sub AddToHistory(text As String)
+        If m_historyCount &gt; UBound(m_history) Then
+            &#x27; Shift history
+            Dim i As Integer
+            For i = 0 To UBound(m_history) - 1
+                m_history(i) = m_history(i + 1)
+            Next i
+            m_history(UBound(m_history)) = text
+        Else
+            m_history(m_historyCount) = text
+            m_historyCount = m_historyCount + 1
+        End If
+    End Sub
 End Class</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>Replace</code> function can raise errors in the following situations:</p>
-<ul>
-<li><strong>Invalid Procedure Call (Error 5)</strong>: When:</li>
-<li><code>start</code> parameter is less than 1</li>
-<li><code>count</code> parameter is less than -1</li>
-<li><strong>Type Mismatch (Error 13)</strong>: When parameters cannot be converted to appropriate types</li>
-<li><strong>Invalid Use of Null (Error 94)</strong>: When <code>expression</code> is Null</li>
-</ul>
-<p>Always validate inputs when necessary:</p>
+<p>The <code>Replace</code> function can raise errors in the following situations:
+- <strong>Invalid Procedure Call (Error 5)</strong>: When:
+  - <code>start</code> parameter is less than 1
+  - <code>count</code> parameter is less than -1
+- <strong>Type Mismatch (Error 13)</strong>: When parameters cannot be converted to appropriate types
+- <strong>Invalid Use of Null (Error 94)</strong>: When <code>expression</code> is Null
+Always validate inputs when necessary:</p>
 <pre><code class="language-vbnet">Function SafeReplace(text As String, find As String, replaceWith As String) As String
-On Error Resume Next
-SafeReplace = Replace(text, find, replaceWith)
-If Err.Number &lt;&gt; 0 Then
-SafeReplace = text  &#x27; Return original on error
-Err.Clear
-End If
-On Error GoTo 0
+    On Error Resume Next
+    SafeReplace = Replace(text, find, replaceWith)
+    If Err.Number &lt;&gt; 0 Then
+        SafeReplace = text  &#x27; Return original on error
+        Err.Clear
+    End If
+    On Error GoTo 0
 End Function</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>

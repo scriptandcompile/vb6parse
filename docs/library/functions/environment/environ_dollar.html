@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="environ-function"><code>Environ$</code> Function</h1>
+            <h1 id="environ-function">Environ$ Function</h1>
 <p>Returns the string value associated with an environment variable.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">Environ$(envstring)
@@ -50,9 +50,9 @@ Environ$(number)</code></pre>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>String</code> containing the text assigned to the specified environment variable. If the environment variable doesn't exist, returns an empty string.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>Environ$</code> function returns the string assigned to the specified environment variable from the operating system's environment-string table. This function cannot be used on the left side of an assignment statement.</p>
-<p>When using a numeric argument, <code>Environ$</code> returns the string that occupies that numeric position in the environment table. In this case, <code>Environ$</code> returns all the text including the equal sign (=). If there's no environment string at the specified position, <code>Environ$</code> returns a zero-length string.</p>
-<p>When using a string argument, if the environment variable doesn't exist, a zero-length string is returned.</p>
+<p>The <code>Environ$</code> function returns the string assigned to the specified environment variable from the operating system's environment-string table. This function cannot be used on the left side of an assignment statement.
+When using a numeric argument, <code>Environ$</code> returns the string that occupies that numeric position in the environment table. In this case, <code>Environ$</code> returns all the text including the equal sign (=). If there's no environment string at the specified position, <code>Environ$</code> returns a zero-length string.
+When using a string argument, if the environment variable doesn't exist, a zero-length string is returned.</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <h3 id="example-1-getting-system-path">Example 1: Getting System Path</h3>
 <pre><code class="language-vbnet">Dim systemPath As String
@@ -68,16 +68,16 @@ userName = Environ$(&quot;USERNAME&quot;)</code></pre>
 Dim envVar As String
 i = 1
 Do
-envVar = Environ$(i)
-If envVar &lt;&gt; &quot;&quot; Then Debug.Print envVar
-i = i + 1
+    envVar = Environ$(i)
+    If envVar &lt;&gt; &quot;&quot; Then Debug.Print envVar
+    i = i + 1
 Loop While envVar &lt;&gt; &quot;&quot;</code></pre>
 <h2 id="common-usage-patterns">Common Usage Patterns</h2>
 <h3 id="getting-application-data-path">Getting Application Data Path</h3>
 <pre><code class="language-vbnet">Dim appDataPath As String
 appDataPath = Environ$(&quot;APPDATA&quot;)
 If appDataPath &lt;&gt; &quot;&quot; Then
-appDataPath = appDataPath &amp; &quot;\MyApp\&quot;
+    appDataPath = appDataPath &amp; &quot;\MyApp\&quot;
 End If</code></pre>
 <h3 id="getting-user-profile-directory">Getting User Profile Directory</h3>
 <pre><code class="language-vbnet">Dim userProfile As String
@@ -87,7 +87,7 @@ configFile = userProfile &amp; &quot;\config.ini&quot;</code></pre>
 <pre><code class="language-vbnet">Dim devMode As Boolean
 devMode = (Environ$(&quot;DEV_MODE&quot;) = &quot;1&quot;)
 If devMode Then
-Debug.Print &quot;Running in development mode&quot;
+    Debug.Print &quot;Running in development mode&quot;
 End If</code></pre>
 <h3 id="building-full-path-with-temp-directory">Building Full Path with Temp Directory</h3>
 <pre><code class="language-vbnet">Dim tempFile As String
@@ -101,16 +101,16 @@ logPath = systemDrive &amp; &quot;\Logs\app.log&quot;</code></pre>
 <pre><code class="language-vbnet">Dim idx As Integer
 Dim envEntry As String
 For idx = 1 To 255
-envEntry = Environ$(idx)
-If envEntry = &quot;&quot; Then Exit For
-List1.AddItem envEntry
+    envEntry = Environ$(idx)
+    If envEntry = &quot;&quot; Then Exit For
+    List1.AddItem envEntry
 Next idx</code></pre>
 <h3 id="cross-platform-path-separator">Cross-Platform Path Separator</h3>
 <pre><code class="language-vbnet">Dim pathSep As String
 If Environ$(&quot;OS&quot;) Like &quot;Windows*&quot; Then
-pathSep = &quot;\&quot;
+    pathSep = &quot;\&quot;
 Else
-pathSep = &quot;/&quot;
+    pathSep = &quot;/&quot;
 End If</code></pre>
 <h3 id="getting-computer-name">Getting Computer Name</h3>
 <pre><code class="language-vbnet">Dim computerName As String
@@ -126,7 +126,7 @@ Close #1</code></pre>
 <pre><code class="language-vbnet">Dim dbServer As String
 dbServer = Environ$(&quot;DB_SERVER&quot;)
 If dbServer = &quot;&quot; Then
-dbServer = &quot;localhost&quot;  &#x27; Default value
+    dbServer = &quot;localhost&quot;  &#x27; Default value
 End If</code></pre>
 <h2 id="related-functions">Related Functions</h2>
 <ul>

@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="lenb-function"><code>LenB</code> Function</h1>
+            <h1 id="lenb-function">LenB Function</h1>
 <p>The <code>LenB</code> function returns a <code>Long</code> containing the number of bytes used to represent a string in memory.
 This function operates on byte count rather than character count, which is important when working with
 ANSI strings, DBCS (Double-Byte Character Set), or when you need to know the actual memory footprint of a string.</p>
@@ -66,13 +66,11 @@ For single-byte character sets, they are identical. For Unicode (VB6's default s
 <pre><code class="language-vbnet">&#x27; Get byte length of a string
 Dim size As Long
 size = LenB(&quot;Hello&quot;)  &#x27; Returns 10 (5 characters * 2 bytes each in Unicode)
-
 &#x27; Compare with character length
 Dim charLen As Long
 Dim byteLen As Long
 charLen = Len(&quot;Test&quot;)   &#x27; Returns 4
 byteLen = LenB(&quot;Test&quot;)  &#x27; Returns 8 (Unicode)
-
 &#x27; Check memory size
 Dim buffer As String
 buffer = Space$(100)

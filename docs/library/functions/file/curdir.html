@@ -37,40 +37,36 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="curdir-function"><code>CurDir</code> Function</h1>
+            <h1 id="curdir-function">CurDir Function</h1>
 <p>Returns a <code>String</code> representing the current path for the specified drive or the default drive.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">CurDir[(drive)]</code></pre>
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><strong><code>drive</code></strong>: Optional. <code>String</code> expression that specifies an existing drive. If no drive is
-specified or if drive is a zero-length string (""), <code>CurDir</code> returns the path for the
-current drive. The drive parameter can be just the drive letter (e.g., "C") or include
-a colon (e.g., "C:").</li>
+  specified or if drive is a zero-length string (""), <code>CurDir</code> returns the path for the
+  current drive. The drive parameter can be just the drive letter (e.g., "C") or include
+  a colon (e.g., "C:").</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>String</code> containing the current directory path for the specified drive. The returned
 path does not include a trailing backslash unless the current directory is the root directory.</p>
 <h2 id="remarks">Remarks</h2>
 <p>The <code>CurDir</code> function returns the current working directory for a specified drive. This is
-useful for:</p>
-<ul>
-<li>Determining the current directory before changing it</li>
-<li>Building relative file paths</li>
-<li>Saving and restoring directory context</li>
-<li>File path validation</li>
-<li>Log file location determination</li>
-</ul>
-<p><strong>Important Characteristics:</strong></p>
-<ul>
-<li>Without arguments, returns current directory of current drive</li>
-<li>With drive specified, returns current directory of that drive</li>
-<li>Does not include trailing backslash (except for root directory)</li>
-<li>Drive parameter is case-insensitive</li>
-<li>Each drive maintains its own current directory</li>
-<li>On Windows, returns full path (e.g., "C:\Windows\System32")</li>
-<li>Root directory returns drive with backslash (e.g., "C:\")</li>
-</ul>
+useful for:
+- Determining the current directory before changing it
+- Building relative file paths
+- Saving and restoring directory context
+- File path validation
+- Log file location determination
+<strong>Important Characteristics:</strong>
+- Without arguments, returns current directory of current drive
+- With drive specified, returns current directory of that drive
+- Does not include trailing backslash (except for root directory)
+- Drive parameter is case-insensitive
+- Each drive maintains its own current directory
+- On Windows, returns full path (e.g., "C:\Windows\System32")
+- Root directory returns drive with backslash (e.g., "C:\")</p>
 <h2 id="drive-specification">Drive Specification</h2>
 <p>The drive parameter can be specified in several ways:
 - <code>CurDir()</code> - Current drive
@@ -83,83 +79,71 @@ useful for:</p>
 <pre><code class="language-vbnet">&#x27; Get current directory of current drive
 Dim currentDir As String
 currentDir = CurDir()  &#x27; Returns something like &quot;C:\Users\Username\Documents&quot;
-
 &#x27; Get current directory of specific drive
 Dim cDrive As String
 cDrive = CurDir(&quot;C&quot;)  &#x27; Returns current directory on C: drive
-
 Dim dDrive As String
 dDrive = CurDir(&quot;D:&quot;)  &#x27; Returns current directory on D: drive</code></pre>
 <h3 id="save-and-restore-directory">Save and Restore Directory</h3>
 <pre><code class="language-vbnet">Sub ProcessInDifferentDirectory(targetDir As String)
-Dim savedDir As String
-
-&#x27; Save current directory
-savedDir = CurDir()
-
-&#x27; Change to target directory
-ChDir targetDir
-
-&#x27; Do work in target directory
-ProcessFiles
-
-&#x27; Restore original directory
-ChDir savedDir
+    Dim savedDir As String
+    &#x27; Save current directory
+    savedDir = CurDir()
+    &#x27; Change to target directory
+    ChDir targetDir
+    &#x27; Do work in target directory
+    ProcessFiles
+    &#x27; Restore original directory
+    ChDir savedDir
 End Sub</code></pre>
 <h3 id="building-relative-paths">Building Relative Paths</h3>
 <pre><code class="language-vbnet">Function GetFullPath(relativePath As String) As String
-&#x27; Combine current directory with relative path
-If Right(CurDir(), 1) = &quot;\&quot; Then
-GetFullPath = CurDir() &amp; relativePath
-Else
-GetFullPath = CurDir() &amp; &quot;\&quot; &amp; relativePath
-End If
+    &#x27; Combine current directory with relative path
+    If Right(CurDir(), 1) = &quot;\&quot; Then
+        GetFullPath = CurDir() &amp; relativePath
+    Else
+        GetFullPath = CurDir() &amp; &quot;\&quot; &amp; relativePath
+    End If
 End Function</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="check-if-at-root-directory">Check if at Root Directory</h3>
 <pre><code class="language-vbnet">Function IsRootDirectory() As Boolean
-Dim currentPath As String
-currentPath = CurDir()
-
-&#x27; Root directory ends with backslash (e.g., &quot;C:\&quot;)
-IsRootDirectory = (Len(currentPath) = 3 And Right(currentPath, 1) = &quot;\&quot;)
+    Dim currentPath As String
+    currentPath = CurDir()
+    &#x27; Root directory ends with backslash (e.g., &quot;C:\&quot;)
+    IsRootDirectory = (Len(currentPath) = 3 And Right(currentPath, 1) = &quot;\&quot;)
 End Function</code></pre>
 <h3 id="get-current-drive-letter">Get Current Drive Letter</h3>
 <pre><code class="language-vbnet">Function GetCurrentDrive() As String
-Dim currentPath As String
-currentPath = CurDir()
-
-&#x27; Extract drive letter (first character)
-GetCurrentDrive = Left(currentPath, 1)
+    Dim currentPath As String
+    currentPath = CurDir()
+    &#x27; Extract drive letter (first character)
+    GetCurrentDrive = Left(currentPath, 1)
 End Function</code></pre>
 <h3 id="ensure-trailing-backslash">Ensure Trailing Backslash</h3>
 <pre><code class="language-vbnet">Function EnsureTrailingBackslash(path As String) As String
-If Right(path, 1) &lt;&gt; &quot;\&quot; Then
-EnsureTrailingBackslash = path &amp; &quot;\&quot;
-Else
-EnsureTrailingBackslash = path
-End If
+    If Right(path, 1) &lt;&gt; &quot;\&quot; Then
+        EnsureTrailingBackslash = path &amp; &quot;\&quot;
+    Else
+        EnsureTrailingBackslash = path
+    End If
 End Function
-
 &#x27; Usage
 Dim dirPath As String
 dirPath = EnsureTrailingBackslash(CurDir())</code></pre>
 <h3 id="directory-context-manager">Directory Context Manager</h3>
 <pre><code class="language-vbnet">Type DirectoryContext
-SavedDirectory As String
+    SavedDirectory As String
 End Type
-
 Function PushDirectory(newDir As String) As DirectoryContext
-Dim ctx As DirectoryContext
-ctx.SavedDirectory = CurDir()
-ChDir newDir
-PushDirectory = ctx
+    Dim ctx As DirectoryContext
+    ctx.SavedDirectory = CurDir()
+    ChDir newDir
+    PushDirectory = ctx
 End Function
-
 Sub PopDirectory(ctx As DirectoryContext)
-ChDir ctx.SavedDirectory
+    ChDir ctx.SavedDirectory
 End Sub
-
 &#x27; Usage
 Dim ctx As DirectoryContext
 ctx = PushDirectory(&quot;C:\Temp&quot;)
@@ -167,186 +151,150 @@ ctx = PushDirectory(&quot;C:\Temp&quot;)
 PopDirectory ctx</code></pre>
 <h3 id="multi-drive-path-tracking">Multi-Drive Path Tracking</h3>
 <pre><code class="language-vbnet">Function GetAllDrivePaths() As Collection
-Dim paths As New Collection
-Dim drives() As String
-Dim i As Integer
-
-drives = Array(&quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;)
-
-On Error Resume Next
-For i = LBound(drives) To UBound(drives)
-paths.Add CurDir(drives(i)), drives(i)
-Next i
-On Error GoTo 0
-
-Set GetAllDrivePaths = paths
+    Dim paths As New Collection
+    Dim drives() As String
+    Dim i As Integer
+    drives = Array(&quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;)
+    On Error Resume Next
+    For i = LBound(drives) To UBound(drives)
+        paths.Add CurDir(drives(i)), drives(i)
+    Next i
+    On Error GoTo 0
+    Set GetAllDrivePaths = paths
 End Function</code></pre>
 <h3 id="log-file-in-current-directory">Log File in Current Directory</h3>
 <pre><code class="language-vbnet">Function GetLogFilePath() As String
-Dim currentDir As String
-Dim logFile As String
-
-currentDir = CurDir()
-logFile = &quot;application.log&quot;
-
-If Right(currentDir, 1) = &quot;\&quot; Then
-GetLogFilePath = currentDir &amp; logFile
-Else
-GetLogFilePath = currentDir &amp; &quot;\&quot; &amp; logFile
-End If
+    Dim currentDir As String
+    Dim logFile As String
+    currentDir = CurDir()
+    logFile = &quot;application.log&quot;
+    If Right(currentDir, 1) = &quot;\&quot; Then
+        GetLogFilePath = currentDir &amp; logFile
+    Else
+        GetLogFilePath = currentDir &amp; &quot;\&quot; &amp; logFile
+    End If
 End Function</code></pre>
 <h3 id="temporary-directory-operations">Temporary Directory Operations</h3>
 <pre><code class="language-vbnet">Sub ProcessInTempDirectory()
-Dim originalDir As String
-Dim tempDir As String
-
-originalDir = CurDir()
-tempDir = Environ(&quot;TEMP&quot;)
-
-On Error GoTo Cleanup
-
-ChDir tempDir
-
-&#x27; Process files in temp directory
-ProcessTempFiles
-
+    Dim originalDir As String
+    Dim tempDir As String
+    originalDir = CurDir()
+    tempDir = Environ(&quot;TEMP&quot;)
+    On Error GoTo Cleanup
+    ChDir tempDir
+    &#x27; Process files in temp directory
+    ProcessTempFiles
 Cleanup:
-ChDir originalDir
+    ChDir originalDir
 End Sub</code></pre>
 <h3 id="validate-relative-path">Validate Relative Path</h3>
 <pre><code class="language-vbnet">Function IsRelativePath(path As String) As Boolean
-&#x27; Check if path is relative (doesn&#x27;t start with drive letter)
-IsRelativePath = (InStr(path, &quot;:&quot;) = 0)
+    &#x27; Check if path is relative (doesn&#x27;t start with drive letter)
+    IsRelativePath = (InStr(path, &quot;:&quot;) = 0)
 End Function
-
 Function ResolveRelativePath(relativePath As String) As String
-If IsRelativePath(relativePath) Then
-ResolveRelativePath = CurDir() &amp; &quot;\&quot; &amp; relativePath
-Else
-ResolveRelativePath = relativePath
-End If
+    If IsRelativePath(relativePath) Then
+        ResolveRelativePath = CurDir() &amp; &quot;\&quot; &amp; relativePath
+    Else
+        ResolveRelativePath = relativePath
+    End If
 End Function</code></pre>
 <h3 id="directory-breadcrumb-trail">Directory Breadcrumb Trail</h3>
 <pre><code class="language-vbnet">Function GetDirectoryParts() As String()
-Dim currentDir As String
-Dim parts() As String
-
-currentDir = CurDir()
-
-&#x27; Remove drive letter and colon
-If InStr(currentDir, &quot;:&quot;) &gt; 0 Then
-currentDir = Mid(currentDir, 3)
-End If
-
-&#x27; Remove leading backslash
-If Left(currentDir, 1) = &quot;\&quot; Then
-currentDir = Mid(currentDir, 2)
-End If
-
-&#x27; Split by backslash
-If Len(currentDir) &gt; 0 Then
-parts = Split(currentDir, &quot;\&quot;)
-End If
-
-GetDirectoryParts = parts
+    Dim currentDir As String
+    Dim parts() As String
+    currentDir = CurDir()
+    &#x27; Remove drive letter and colon
+    If InStr(currentDir, &quot;:&quot;) &gt; 0 Then
+        currentDir = Mid(currentDir, 3)
+    End If
+    &#x27; Remove leading backslash
+    If Left(currentDir, 1) = &quot;\&quot; Then
+        currentDir = Mid(currentDir, 2)
+    End If
+    &#x27; Split by backslash
+    If Len(currentDir) &gt; 0 Then
+        parts = Split(currentDir, &quot;\&quot;)
+    End If
+    GetDirectoryParts = parts
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="cross-drive-file-operations">Cross-Drive File Operations</h3>
 <pre><code class="language-vbnet">Sub CopyFileToAnotherDrive(sourceFile As String, targetDrive As String)
-Dim sourceDrive As String
-Dim targetPath As String
-
-&#x27; Get current directory on target drive
-On Error Resume Next
-targetPath = CurDir(targetDrive)
-
-If Err.Number = 0 Then
-&#x27; Build target file path
-If Right(targetPath, 1) &lt;&gt; &quot;\&quot; Then
-targetPath = targetPath &amp; &quot;\&quot;
-End If
-
-FileCopy sourceFile, targetPath &amp; Dir(sourceFile)
-End If
+    Dim sourceDrive As String
+    Dim targetPath As String
+    &#x27; Get current directory on target drive
+    On Error Resume Next
+    targetPath = CurDir(targetDrive)
+    If Err.Number = 0 Then
+        &#x27; Build target file path
+        If Right(targetPath, 1) &lt;&gt; &quot;\&quot; Then
+            targetPath = targetPath &amp; &quot;\&quot;
+        End If
+        FileCopy sourceFile, targetPath &amp; Dir(sourceFile)
+    End If
 End Sub</code></pre>
 <h3 id="directory-stack-implementation">Directory Stack Implementation</h3>
 <pre><code class="language-vbnet">Private dirStack As Collection
-
 Sub InitDirectoryStack()
-Set dirStack = New Collection
+    Set dirStack = New Collection
 End Sub
-
 Sub PushDir(Optional newDir As String)
-If dirStack Is Nothing Then InitDirectoryStack
-
-&#x27; Save current directory
-dirStack.Add CurDir()
-
-&#x27; Change to new directory if specified
-If Len(newDir) &gt; 0 Then
-ChDir newDir
-End If
+    If dirStack Is Nothing Then InitDirectoryStack
+    &#x27; Save current directory
+    dirStack.Add CurDir()
+    &#x27; Change to new directory if specified
+    If Len(newDir) &gt; 0 Then
+        ChDir newDir
+    End If
 End Sub
-
 Sub PopDir()
-If dirStack Is Nothing Then Exit Sub
-If dirStack.Count = 0 Then Exit Sub
-
-&#x27; Restore previous directory
-ChDir dirStack(dirStack.Count)
-dirStack.Remove dirStack.Count
+    If dirStack Is Nothing Then Exit Sub
+    If dirStack.Count = 0 Then Exit Sub
+    &#x27; Restore previous directory
+    ChDir dirStack(dirStack.Count)
+    dirStack.Remove dirStack.Count
 End Sub</code></pre>
 <h3 id="smart-path-concatenation">Smart Path Concatenation</h3>
 <pre><code class="language-vbnet">Function CombinePaths(ParamArray paths() As Variant) As String
-Dim result As String
-Dim i As Integer
-Dim part As String
-
-If UBound(paths) &lt; LBound(paths) Then
-&#x27; No paths provided, return current directory
-CombinePaths = CurDir()
-Exit Function
-End If
-
-result = CStr(paths(LBound(paths)))
-
-For i = LBound(paths) + 1 To UBound(paths)
-part = CStr(paths(i))
-
-&#x27; Remove leading backslash from part
-If Left(part, 1) = &quot;\&quot; Then part = Mid(part, 2)
-
-&#x27; Add backslash if needed
-If Right(result, 1) &lt;&gt; &quot;\&quot; Then result = result &amp; &quot;\&quot;
-
-result = result &amp; part
-Next i
-
-CombinePaths = result
+    Dim result As String
+    Dim i As Integer
+    Dim part As String
+    If UBound(paths) &lt; LBound(paths) Then
+        &#x27; No paths provided, return current directory
+        CombinePaths = CurDir()
+        Exit Function
+    End If
+    result = CStr(paths(LBound(paths)))
+    For i = LBound(paths) + 1 To UBound(paths)
+        part = CStr(paths(i))
+        &#x27; Remove leading backslash from part
+        If Left(part, 1) = &quot;\&quot; Then part = Mid(part, 2)
+        &#x27; Add backslash if needed
+        If Right(result, 1) &lt;&gt; &quot;\&quot; Then result = result &amp; &quot;\&quot;
+        result = result &amp; part
+    Next i
+    CombinePaths = result
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function GetCurrentDirectorySafe(Optional drive As String = &quot;&quot;) As String
-On Error GoTo ErrorHandler
-
-If Len(drive) = 0 Then
-GetCurrentDirectorySafe = CurDir()
-Else
-GetCurrentDirectorySafe = CurDir(drive)
-End If
-
-Exit Function
-
+    On Error GoTo ErrorHandler
+    If Len(drive) = 0 Then
+        GetCurrentDirectorySafe = CurDir()
+    Else
+        GetCurrentDirectorySafe = CurDir(drive)
+    End If
+    Exit Function
 ErrorHandler:
-Select Case Err.Number
-Case 68  &#x27; Device unavailable
-MsgBox &quot;Drive &quot; &amp; drive &amp; &quot; is not available.&quot;, vbExclamation
-Case 71  &#x27; Disk not ready
-MsgBox &quot;Drive &quot; &amp; drive &amp; &quot; is not ready.&quot;, vbExclamation
-Case Else
-MsgBox &quot;Error getting current directory: &quot; &amp; Err.Description, vbCritical
-End Select
-
-GetCurrentDirectorySafe = &quot;&quot;
+    Select Case Err.Number
+        Case 68  &#x27; Device unavailable
+            MsgBox &quot;Drive &quot; &amp; drive &amp; &quot; is not available.&quot;, vbExclamation
+        Case 71  &#x27; Disk not ready
+            MsgBox &quot;Drive &quot; &amp; drive &amp; &quot; is not ready.&quot;, vbExclamation
+        Case Else
+            MsgBox &quot;Error getting current directory: &quot; &amp; Err.Description, vbCritical
+    End Select
+    GetCurrentDirectorySafe = &quot;&quot;
 End Function</code></pre>
 <h3 id="common-errors">Common Errors</h3>
 <ul>
@@ -364,31 +312,27 @@ End Function</code></pre>
 <h2 id="best-practices">Best Practices</h2>
 <h3 id="always-restore-directory">Always Restore Directory</h3>
 <pre><code class="language-vbnet">Sub SafeDirectoryOperation()
-Dim savedDir As String
-savedDir = CurDir()
-
-On Error GoTo Cleanup
-
-&#x27; Change directory and do work
-ChDir &quot;C:\Temp&quot;
-ProcessFiles
-
+    Dim savedDir As String
+    savedDir = CurDir()
+    On Error GoTo Cleanup
+    &#x27; Change directory and do work
+    ChDir &quot;C:\Temp&quot;
+    ProcessFiles
 Cleanup:
-ChDir savedDir
+    ChDir savedDir
 End Sub</code></pre>
 <h3 id="use-absolute-paths-when-possible">Use Absolute Paths When Possible</h3>
 <pre><code class="language-vbnet">&#x27; Instead of relying on current directory:
 Open &quot;data.txt&quot; For Input As #1  &#x27; Depends on CurDir
-
 &#x27; Use absolute paths:
 Open &quot;C:\MyApp\Data\data.txt&quot; For Input As #1  &#x27; Explicit path</code></pre>
 <h3 id="validate-drive-before-use">Validate Drive Before Use</h3>
 <pre><code class="language-vbnet">Function IsDriveAvailable(drive As String) As Boolean
-On Error Resume Next
-Dim test As String
-test = CurDir(drive)
-IsDriveAvailable = (Err.Number = 0)
-On Error GoTo 0
+    On Error Resume Next
+    Dim test As String
+    test = CurDir(drive)
+    IsDriveAvailable = (Err.Number = 0)
+    On Error GoTo 0
 End Function</code></pre>
 <h2 id="platform-considerations">Platform Considerations</h2>
 <ul>

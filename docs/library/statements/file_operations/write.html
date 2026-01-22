@@ -45,24 +45,24 @@
 <ul>
 <li><strong>filenumber</strong>: Required. Any valid file number.</li>
 <li><strong>outputlist</strong>: Optional. One or more comma-delimited numeric expressions or string expressions
-to write to a file.</li>
+  to write to a file.</li>
 </ul>
 <h2 id="remarks">Remarks</h2>
 <ul>
 <li><strong>Data Formatting</strong>: Data written with Write # is usually read from a file with Input #.</li>
 <li><strong>Delimiters</strong>: The Write # statement inserts commas between items and quotation marks around
-strings as they are written to the file. You don't have to put explicit delimiters in the list.</li>
+  strings as they are written to the file. You don't have to put explicit delimiters in the list.</li>
 <li><strong>Universal Data</strong>: Write # writes data in a universal format that can be read by Input # regardless
-of the locale settings.</li>
+  of the locale settings.</li>
 <li><strong>Numeric Data</strong>: Numeric data is written with a period (.) as the decimal separator.</li>
 <li><strong>Boolean Values</strong>: Boolean data is written as #TRUE# or #FALSE#.</li>
 <li><strong>Date Values</strong>: Date data is written using the universal date format: #yyyy-mm-dd hh:mm:ss#</li>
 <li><strong>Empty Values</strong>: If outputlist data is Empty, nothing is written. However, if outputlist data is
-Null, #NULL# is written.</li>
+  Null, #NULL# is written.</li>
 <li><strong>Error Data</strong>: Error values are written as #ERROR errorcode#. The number sign (#) ensures the keyword
-is not confused with a variable name.</li>
+  is not confused with a variable name.</li>
 <li><strong>Comparison with Print #</strong>: Unlike Print #, Write # inserts commas between items and quotes around
-strings automatically.</li>
+  strings automatically.</li>
 </ul>
 <h2 id="examples">Examples</h2>
 <h3 id="write-simple-data">Write Simple Data</h3>
@@ -73,7 +73,7 @@ Close #1
 <h3 id="write-multiple-lines">Write Multiple Lines</h3>
 <pre><code class="language-vbnet">Open &quot;data.txt&quot; For Output As #1
 For i = 1 To 10
-Write #1, i, i * i, i * i * i
+    Write #1, i, i * i, i * i * i
 Next i
 Close #1</code></pre>
 <h3 id="write-mixed-data-types">Write Mixed Data Types</h3>
@@ -99,50 +99,43 @@ Close #1
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="export-data-to-csv-like-format">Export Data to CSV-like Format</h3>
 <pre><code class="language-vbnet">Sub ExportData()
-Open &quot;export.txt&quot; For Output As #1
-
-&#x27; Write header
-Write #1, &quot;Name&quot;, &quot;Age&quot;, &quot;City&quot;
-
-&#x27; Write data rows
-For i = 0 To UBound(employees)
-Write #1, employees(i).Name, employees(i).Age, employees(i).City
-Next i
-
-Close #1
+    Open &quot;export.txt&quot; For Output As #1
+    &#x27; Write header
+    Write #1, &quot;Name&quot;, &quot;Age&quot;, &quot;City&quot;
+    &#x27; Write data rows
+    For i = 0 To UBound(employees)
+        Write #1, employees(i).Name, employees(i).Age, employees(i).City
+    Next i
+    Close #1
 End Sub</code></pre>
 <h3 id="write-database-records">Write Database Records</h3>
 <pre><code class="language-vbnet">Sub SaveRecords()
-Open &quot;records.dat&quot; For Output As #1
-
-Do Until rs.EOF
-Write #1, rs!ID, rs!Name, rs!Date, rs!Active
-rs.MoveNext
-Loop
-
-Close #1
+    Open &quot;records.dat&quot; For Output As #1
+    Do Until rs.EOF
+        Write #1, rs!ID, rs!Name, rs!Date, rs!Active
+        rs.MoveNext
+    Loop
+    Close #1
 End Sub</code></pre>
 <h3 id="write-configuration-data">Write Configuration Data</h3>
 <pre><code class="language-vbnet">Sub SaveConfig()
-Open &quot;config.dat&quot; For Output As #1
-Write #1, appName, version, lastRun, isRegistered
-Close #1
+    Open &quot;config.dat&quot; For Output As #1
+    Write #1, appName, version, lastRun, isRegistered
+    Close #1
 End Sub</code></pre>
 <h3 id="write-array-data">Write Array Data</h3>
 <pre><code class="language-vbnet">Sub WriteArray()
-Open &quot;array.dat&quot; For Output As #1
-
-For i = LBound(data) To UBound(data)
-Write #1, data(i)
-Next i
-
-Close #1
+    Open &quot;array.dat&quot; For Output As #1
+    For i = LBound(data) To UBound(data)
+        Write #1, data(i)
+    Next i
+    Close #1
 End Sub</code></pre>
 <h3 id="append-data-to-existing-file">Append Data to Existing File</h3>
 <pre><code class="language-vbnet">Sub AppendRecord()
-Open &quot;log.txt&quot; For Append As #1
-Write #1, Now(), userName, action, details
-Close #1
+    Open &quot;log.txt&quot; For Append As #1
+    Write #1, Now(), userName, action, details
+    Close #1
 End Sub</code></pre>
         </article>
         

@@ -58,613 +58,524 @@
 - Internal spaces between words are preserved
 - Equivalent to LTrim(RTrim(string))</p>
 <h2 id="remarks">Remarks</h2>
-<p>The Trim function removes both leading and trailing spaces:</p>
-<ul>
-<li>Removes only space characters (ASCII 32) from both ends</li>
-<li>Does not remove tabs (Chr(9)), line feeds (Chr(10)), or carriage returns (Chr(13))</li>
-<li>Does not remove non-breaking spaces or other Unicode whitespace</li>
-<li>Internal spaces between words are preserved</li>
-<li>Most commonly used string trimming function</li>
-<li>Equivalent to calling LTrim(RTrim(string))</li>
-<li>More efficient than using <code>LTrim</code> and <code>RTrim</code> separately</li>
-<li>Null input returns Null (propagates Null)</li>
-<li>Empty string input returns empty string</li>
-<li>String of only spaces returns empty string</li>
-<li>Does not modify the original string (returns new string)</li>
-<li>Can be used with Variant variables</li>
-<li>Essential for data validation and formatting</li>
-<li>Used to normalize user input</li>
-<li>Common in database operations</li>
-<li>Standard practice before comparing strings</li>
-<li>Required for cleaning imported data</li>
-<li>Part of the VB6 string manipulation library</li>
-<li>Available in all VB versions</li>
-<li>Related to <code>LTrim</code> (removes leading only) and <code>RTrim</code> (removes trailing only)</li>
-</ul>
+<p>The Trim function removes both leading and trailing spaces:
+- Removes only space characters (ASCII 32) from both ends
+- Does not remove tabs (Chr(9)), line feeds (Chr(10)), or carriage returns (Chr(13))
+- Does not remove non-breaking spaces or other Unicode whitespace
+- Internal spaces between words are preserved
+- Most commonly used string trimming function
+- Equivalent to calling LTrim(RTrim(string))
+- More efficient than using <code>LTrim</code> and <code>RTrim</code> separately
+- Null input returns Null (propagates Null)
+- Empty string input returns empty string
+- String of only spaces returns empty string
+- Does not modify the original string (returns new string)
+- Can be used with Variant variables
+- Essential for data validation and formatting
+- Used to normalize user input
+- Common in database operations
+- Standard practice before comparing strings
+- Required for cleaning imported data
+- Part of the VB6 string manipulation library
+- Available in all VB versions
+- Related to <code>LTrim</code> (removes leading only) and <code>RTrim</code> (removes trailing only)</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Clean User Input</strong></li>
 </ol>
-<pre><code class="language-vbnet">userName = Trim(txtUsername.Text)</code></pre>
-<ol>
-<li><strong>Validate Input</strong></li>
-</ol>
-<pre><code class="language-vbnet">If Trim(txtEmail.Text) = &quot;&quot; Then
-MsgBox &quot;Email required&quot;
-End If</code></pre>
-<ol>
-<li><strong>Compare Strings</strong></li>
-</ol>
-<pre><code class="language-vbnet">If Trim(input) = Trim(expected) Then
-result = &quot;Match&quot;
-End If</code></pre>
-<ol>
-<li><strong>Database Fields</strong></li>
-</ol>
-<pre><code class="language-vbnet">customerName = Trim(rs(&quot;CustomerName&quot;))</code></pre>
-<ol>
-<li><strong>Split Data</strong></li>
-</ol>
-<pre><code class="language-vbnet">parts = Split(Trim(line), &quot;,&quot;)</code></pre>
-<ol>
-<li><strong>Clean Array</strong></li>
-</ol>
-<pre><code class="language-vbnet">For i = 0 To UBound(items)
-items(i) = Trim(items(i))
-Next i</code></pre>
-<ol>
-<li><strong>Form Validation</strong></li>
-</ol>
-<pre><code class="language-vbnet">If Len(Trim(txtPassword.Text)) &lt; 8 Then
-MsgBox &quot;Password too short&quot;
-End If</code></pre>
-<ol>
-<li><strong>Process CSV</strong></li>
-</ol>
-<pre><code class="language-vbnet">fields = Split(line, &quot;,&quot;)
-firstName = Trim(fields(0))
-lastName = Trim(fields(1))</code></pre>
-<h2 id="basic-examples">Basic Examples</h2>
-<h3 id="example-1-basic-usage">Example 1: Basic Usage</h3>
-<pre><code class="language-vbnet">Dim result As String
-
-result = Trim(&quot;   Hello   &quot;)        &#x27; Returns &quot;Hello&quot;
-result = Trim(&quot;   Hello World   &quot;)  &#x27; Returns &quot;Hello World&quot;
-result = Trim(&quot;NoSpaces&quot;)           &#x27; Returns &quot;NoSpaces&quot;
-result = Trim(&quot;     &quot;)              &#x27; Returns &quot;&quot;
-result = Trim(&quot;&quot;)                   &#x27; Returns &quot;&quot;</code></pre>
-<h3 id="example-2-form-validation">Example 2: Form Validation</h3>
-<pre><code class="language-vbnet">Private Sub cmdSubmit_Click()
-Dim userName As String
-Dim password As String
-
-&#x27; Clean inputs
-userName = Trim(txtUsername.Text)
-password = Trim(txtPassword.Text)
-
-&#x27; Validate
-If userName = &quot;&quot; Then
-MsgBox &quot;Username is required&quot;, vbExclamation
-txtUsername.SetFocus
-Exit Sub
-End If
-
-If password = &quot;&quot; Then
-MsgBox &quot;Password is required&quot;, vbExclamation
-txtPassword.SetFocus
-Exit Sub
-End If
-
-If Len(password) &lt; 8 Then
-MsgBox &quot;Password must be at least 8 characters&quot;, vbExclamation
-txtPassword.SetFocus
-Exit Sub
-End If
-
-&#x27; Process login
-ProcessLogin userName, password
-End Sub</code></pre>
-<h3 id="example-3-csv-processing">Example 3: CSV Processing</h3>
-<pre><code class="language-vbnet">Sub ProcessCSVFile(ByVal filename As String)
-Dim fileNum As Integer
-Dim line As String
-Dim fields() As String
-Dim i As Integer
-
-fileNum = FreeFile
-Open filename For Input As #fileNum
-
-Do While Not EOF(fileNum)
-Line Input #fileNum, line
-
-&#x27; Split and trim each field
-fields = Split(line, &quot;,&quot;)
-For i = 0 To UBound(fields)
-fields(i) = Trim(fields(i))
-Next i
-
-&#x27; Process the cleaned fields
-If UBound(fields) &gt;= 2 Then
-Debug.Print &quot;Name: &quot; &amp; fields(0) &amp; &quot;, &quot; &amp; fields(1)
-Debug.Print &quot;Age: &quot; &amp; fields(2)
-End If
-Loop
-
-Close #fileNum
-End Sub</code></pre>
-<h3 id="example-4-database-operations">Example 4: Database Operations</h3>
-<pre><code class="language-vbnet">Sub LoadCustomers()
-Dim rs As ADODB.Recordset
-Dim customerName As String
-
-Set rs = New ADODB.Recordset
-rs.Open &quot;SELECT * FROM Customers&quot;, conn
-
-Do While Not rs.EOF
-&#x27; Trim database fields (may have padding)
-customerName = Trim(rs(&quot;CustomerName&quot;) &amp; &quot;&quot;)
-
-If customerName &lt;&gt; &quot;&quot; Then
-lstCustomers.AddItem customerName
-End If
-
-rs.MoveNext
-Loop
-
-rs.Close
-Set rs = Nothing
-End Sub</code></pre>
-<h2 id="common-patterns">Common Patterns</h2>
-<h3 id="pattern-1-isblank">Pattern 1: <code>IsBlank</code></h3>
-<pre><code class="language-vbnet">Function IsBlank(ByVal text As String) As Boolean
-IsBlank = (Trim(text) = &quot;&quot;)
-End Function</code></pre>
-<h3 id="pattern-2-safetrim-handle-null">Pattern 2: <code>SafeTrim</code> (handle Null)</h3>
-<pre><code class="language-vbnet">Function SafeTrim(ByVal text As Variant) As String
-If IsNull(text) Then
-SafeTrim = &quot;&quot;
-Else
-SafeTrim = Trim(CStr(text))
-End If
-End Function</code></pre>
-<h3 id="pattern-3-trimandupper">Pattern 3: <code>TrimAndUpper</code></h3>
-<pre><code class="language-vbnet">Function TrimAndUpper(ByVal text As String) As String
-TrimAndUpper = UCase(Trim(text))
-End Function</code></pre>
-<h3 id="pattern-4-validaterequired">Pattern 4: <code>ValidateRequired</code></h3>
-<pre><code class="language-vbnet">Function ValidateRequired(ByVal value As String, _
-ByVal fieldName As String) As Boolean
-If Trim(value) = &quot;&quot; Then
-MsgBox fieldName &amp; &quot; is required&quot;, vbExclamation
-ValidateRequired = False
-Else
-ValidateRequired = True
-End If
-End Function</code></pre>
-<h3 id="pattern-5-trimarray">Pattern 5: <code>TrimArray</code></h3>
-<pre><code class="language-vbnet">Sub TrimArray(arr() As String)
-Dim i As Integer
-For i = LBound(arr) To UBound(arr)
-arr(i) = Trim(arr(i))
-Next i
-End Sub</code></pre>
-<h3 id="pattern-6-compareignorespaces">Pattern 6: <code>CompareIgnoreSpaces</code></h3>
-<pre><code class="language-vbnet">Function CompareIgnoreSpaces(ByVal str1 As String, _
-ByVal str2 As String) As Boolean
-CompareIgnoreSpaces = (Trim(str1) = Trim(str2))
-End Function</code></pre>
-<h3 id="pattern-7-trimallcontrols">Pattern 7: <code>TrimAllControls</code></h3>
-<pre><code class="language-vbnet">Sub TrimAllControls(ByVal frm As Form)
-Dim ctrl As Control
-
-For Each ctrl In frm.Controls
-If TypeOf ctrl Is TextBox Then
-ctrl.Text = Trim(ctrl.Text)
-ElseIf TypeOf ctrl Is ComboBox Then
-ctrl.Text = Trim(ctrl.Text)
-End If
-Next ctrl
-End Sub</code></pre>
-<h3 id="pattern-8-getcleanvalue">Pattern 8: <code>GetCleanValue</code></h3>
-<pre><code class="language-vbnet">Function GetCleanValue(ByVal ctrl As Control) As String
-If TypeOf ctrl Is TextBox Or TypeOf ctrl Is ComboBox Then
-GetCleanValue = Trim(ctrl.Text)
-Else
-GetCleanValue = &quot;&quot;
-End If
-End Function</code></pre>
-<h3 id="pattern-9-splitandtrim">Pattern 9: <code>SplitAndTrim</code></h3>
-<pre><code class="language-vbnet">Function SplitAndTrim(ByVal text As String, _
-ByVal delimiter As String) As String()
-Dim parts() As String
-Dim i As Integer
-
-parts = Split(text, delimiter)
-For i = 0 To UBound(parts)
-parts(i) = Trim(parts(i))
-Next i
-
-SplitAndTrim = parts
-End Function</code></pre>
-<h3 id="pattern-10-defaultifblank">Pattern 10: <code>DefaultIfBlank</code></h3>
-<pre><code class="language-vbnet">Function DefaultIfBlank(ByVal value As String, _
-ByVal defaultValue As String) As String
-If Trim(value) = &quot;&quot; Then
-DefaultIfBlank = defaultValue
-Else
-DefaultIfBlank = Trim(value)
-End If
-End Function</code></pre>
-<h2 id="advanced-examples">Advanced Examples</h2>
-<h3 id="example-1-form-validator-class">Example 1: Form Validator Class</h3>
-<pre><code class="language-vbnet">&#x27; Class: FormValidator
+<pre><code class="language-vbnet">   userName = Trim(txtUsername.Text)
+   ```
+2. **Validate Input**
+   ```vb
+   If Trim(txtEmail.Text) = &quot;&quot; Then
+       MsgBox &quot;Email required&quot;
+   End If
+   ```
+3. **Compare Strings**
+   ```vb
+   If Trim(input) = Trim(expected) Then
+       result = &quot;Match&quot;
+   End If
+   ```
+4. **Database Fields**
+   ```vb
+   customerName = Trim(rs(&quot;CustomerName&quot;))
+   ```
+5. **Split Data**
+   ```vb
+   parts = Split(Trim(line), &quot;,&quot;)
+   ```
+6. **Clean Array**
+   ```vb
+   For i = 0 To UBound(items)
+       items(i) = Trim(items(i))
+   Next i
+   ```
+7. **Form Validation**
+   ```vb
+   If Len(Trim(txtPassword.Text)) &lt; 8 Then
+       MsgBox &quot;Password too short&quot;
+   End If
+   ```
+8. **Process CSV**
+   ```vb
+   fields = Split(line, &quot;,&quot;)
+   firstName = Trim(fields(0))
+   lastName = Trim(fields(1))
+   ```
+## Basic Examples
+### Example 1: Basic Usage</code></pre>
+<p>vb
+Dim result As String
+result = Trim("   Hello   ")        ' Returns "Hello"
+result = Trim("   Hello World   ")  ' Returns "Hello World"
+result = Trim("NoSpaces")           ' Returns "NoSpaces"
+result = Trim("     ")              ' Returns ""
+result = Trim("")                   ' Returns ""</p>
+<pre><code>### Example 2: Form Validation</code></pre>
+<p>vb
+Private Sub cmdSubmit_Click()
+    Dim userName As String
+    Dim password As String
+    ' Clean inputs
+    userName = Trim(txtUsername.Text)
+    password = Trim(txtPassword.Text)
+    ' Validate
+    If userName = "" Then
+        MsgBox "Username is required", vbExclamation
+        txtUsername.SetFocus
+        Exit Sub
+    End If
+    If password = "" Then
+        MsgBox "Password is required", vbExclamation
+        txtPassword.SetFocus
+        Exit Sub
+    End If
+    If Len(password) &lt; 8 Then
+        MsgBox "Password must be at least 8 characters", vbExclamation
+        txtPassword.SetFocus
+        Exit Sub
+    End If
+    ' Process login
+    ProcessLogin userName, password
+End Sub</p>
+<pre><code>### Example 3: CSV Processing</code></pre>
+<p>vb
+Sub ProcessCSVFile(ByVal filename As String)
+    Dim fileNum As Integer
+    Dim line As String
+    Dim fields() As String
+    Dim i As Integer
+    fileNum = FreeFile
+    Open filename For Input As #fileNum
+    Do While Not EOF(fileNum)
+        Line Input #fileNum, line
+        ' Split and trim each field
+        fields = Split(line, ",")
+        For i = 0 To UBound(fields)
+            fields(i) = Trim(fields(i))
+        Next i
+        ' Process the cleaned fields
+        If UBound(fields) &gt;= 2 Then
+            Debug.Print "Name: " &amp; fields(0) &amp; ", " &amp; fields(1)
+            Debug.Print "Age: " &amp; fields(2)
+        End If
+    Loop
+    Close #fileNum
+End Sub</p>
+<pre><code>### Example 4: Database Operations</code></pre>
+<p>vb
+Sub LoadCustomers()
+    Dim rs As ADODB.Recordset
+    Dim customerName As String
+    Set rs = New ADODB.Recordset
+    rs.Open "SELECT * FROM Customers", conn
+    Do While Not rs.EOF
+        ' Trim database fields (may have padding)
+        customerName = Trim(rs("CustomerName") &amp; "")
+        If customerName &lt;&gt; "" Then
+            lstCustomers.AddItem customerName
+        End If
+        rs.MoveNext
+    Loop
+    rs.Close
+    Set rs = Nothing
+End Sub</p>
+<pre><code>## Common Patterns
+### Pattern 1: `IsBlank`</code></pre>
+<p>vb
+Function IsBlank(ByVal text As String) As Boolean
+    IsBlank = (Trim(text) = "")
+End Function</p>
+<pre><code>### Pattern 2: `SafeTrim` (handle Null)</code></pre>
+<p>vb
+Function SafeTrim(ByVal text As Variant) As String
+    If IsNull(text) Then
+        SafeTrim = ""
+    Else
+        SafeTrim = Trim(CStr(text))
+    End If
+End Function</p>
+<pre><code>### Pattern 3: `TrimAndUpper`</code></pre>
+<p>vb
+Function TrimAndUpper(ByVal text As String) As String
+    TrimAndUpper = UCase(Trim(text))
+End Function</p>
+<pre><code>### Pattern 4: `ValidateRequired`</code></pre>
+<p>vb
+Function ValidateRequired(ByVal value As String, _
+                         ByVal fieldName As String) As Boolean
+    If Trim(value) = "" Then
+        MsgBox fieldName &amp; " is required", vbExclamation
+        ValidateRequired = False
+    Else
+        ValidateRequired = True
+    End If
+End Function</p>
+<pre><code>### Pattern 5: `TrimArray`</code></pre>
+<p>vb
+Sub TrimArray(arr() As String)
+    Dim i As Integer
+    For i = LBound(arr) To UBound(arr)
+        arr(i) = Trim(arr(i))
+    Next i
+End Sub</p>
+<pre><code>### Pattern 6: `CompareIgnoreSpaces`</code></pre>
+<p>vb
+Function CompareIgnoreSpaces(ByVal str1 As String, _
+                            ByVal str2 As String) As Boolean
+    CompareIgnoreSpaces = (Trim(str1) = Trim(str2))
+End Function</p>
+<pre><code>### Pattern 7: `TrimAllControls`</code></pre>
+<p>vb
+Sub TrimAllControls(ByVal frm As Form)
+    Dim ctrl As Control
+    For Each ctrl In frm.Controls
+        If TypeOf ctrl Is TextBox Then
+            ctrl.Text = Trim(ctrl.Text)
+        ElseIf TypeOf ctrl Is ComboBox Then
+            ctrl.Text = Trim(ctrl.Text)
+        End If
+    Next ctrl
+End Sub</p>
+<pre><code>### Pattern 8: `GetCleanValue`</code></pre>
+<p>vb
+Function GetCleanValue(ByVal ctrl As Control) As String
+    If TypeOf ctrl Is TextBox Or TypeOf ctrl Is ComboBox Then
+        GetCleanValue = Trim(ctrl.Text)
+    Else
+        GetCleanValue = ""
+    End If
+End Function</p>
+<pre><code>### Pattern 9: `SplitAndTrim`</code></pre>
+<p>vb
+Function SplitAndTrim(ByVal text As String, _
+                      ByVal delimiter As String) As String()
+    Dim parts() As String
+    Dim i As Integer
+    parts = Split(text, delimiter)
+    For i = 0 To UBound(parts)
+        parts(i) = Trim(parts(i))
+    Next i
+    SplitAndTrim = parts
+End Function</p>
+<pre><code>### Pattern 10: `DefaultIfBlank`</code></pre>
+<p>vb
+Function DefaultIfBlank(ByVal value As String, _
+                        ByVal defaultValue As String) As String
+    If Trim(value) = "" Then
+        DefaultIfBlank = defaultValue
+    Else
+        DefaultIfBlank = Trim(value)
+    End If
+End Function</p>
+<pre><code>## Advanced Examples
+### Example 1: Form Validator Class</code></pre>
+<p>vb
+' Class: FormValidator
 Private m_form As Form
 Private m_errors As Collection
-
 Public Sub AttachForm(ByVal frm As Form)
-Set m_form = frm
+    Set m_form = frm
 End Sub
-
 Public Function Validate() As Boolean
-Set m_errors = New Collection
-
-Dim ctrl As Control
-For Each ctrl In m_form.Controls
-If TypeOf ctrl Is TextBox Then
-ValidateTextBox ctrl
-End If
-Next ctrl
-
-Validate = (m_errors.Count = 0)
+    Set m_errors = New Collection
+    Dim ctrl As Control
+    For Each ctrl In m_form.Controls
+        If TypeOf ctrl Is TextBox Then
+            ValidateTextBox ctrl
+        End If
+    Next ctrl
+    Validate = (m_errors.Count = 0)
 End Function
-
 Private Sub ValidateTextBox(ByVal txt As TextBox)
-Dim value As String
-value = Trim(txt.Text)
-
-&#x27; Check required
-If txt.Tag Like &quot;*Required*&quot; Then
-If value = &quot;&quot; Then
-m_errors.Add &quot;Field &#x27;&quot; &amp; txt.Name &amp; &quot;&#x27; is required&quot;
-Exit Sub
-End If
-End If
-
-&#x27; Check minimum length
-If txt.Tag Like &quot;*MinLen:*&quot; Then
-Dim minLen As Integer
-minLen = ExtractNumber(txt.Tag, &quot;MinLen:&quot;)
-
-If Len(value) &lt; minLen Then
-m_errors.Add &quot;Field &#x27;&quot; &amp; txt.Name &amp; &quot;&#x27; must be at least &quot; &amp; _
-minLen &amp; &quot; characters&quot;
-End If
-End If
-
-&#x27; Check email format
-If txt.Tag Like &quot;*Email*&quot; Then
-If value &lt;&gt; &quot;&quot; And InStr(value, &quot;@&quot;) = 0 Then
-m_errors.Add &quot;Field &#x27;&quot; &amp; txt.Name &amp; &quot;&#x27; must be a valid email&quot;
-End If
-End If
+    Dim value As String
+    value = Trim(txt.Text)
+    ' Check required
+    If txt.Tag Like "<em>Required</em>" Then
+        If value = "" Then
+            m_errors.Add "Field '" &amp; txt.Name &amp; "' is required"
+            Exit Sub
+        End If
+    End If
+    ' Check minimum length
+    If txt.Tag Like "<em>MinLen:</em>" Then
+        Dim minLen As Integer
+        minLen = ExtractNumber(txt.Tag, "MinLen:")
+        If Len(value) &lt; minLen Then
+            m_errors.Add "Field '" &amp; txt.Name &amp; "' must be at least " &amp; _
+                        minLen &amp; " characters"
+        End If
+    End If
+    ' Check email format
+    If txt.Tag Like "<em>Email</em>" Then
+        If value &lt;&gt; "" And InStr(value, "@") = 0 Then
+            m_errors.Add "Field '" &amp; txt.Name &amp; "' must be a valid email"
+        End If
+    End If
 End Sub
-
 Public Property Get Errors() As Collection
-Set Errors = m_errors
+    Set Errors = m_errors
 End Property
-
 Public Sub ShowErrors()
-Dim msg As String
-Dim err As Variant
-
-For Each err In m_errors
-msg = msg &amp; err &amp; vbCrLf
-Next err
-
-If msg &lt;&gt; &quot;&quot; Then
-MsgBox msg, vbExclamation, &quot;Validation Errors&quot;
-End If
-End Sub</code></pre>
-<h3 id="example-2-data-cleaner-class">Example 2: Data Cleaner Class</h3>
-<pre><code class="language-vbnet">&#x27; Class: DataCleaner
+    Dim msg As String
+    Dim err As Variant
+    For Each err In m_errors
+        msg = msg &amp; err &amp; vbCrLf
+    Next err
+    If msg &lt;&gt; "" Then
+        MsgBox msg, vbExclamation, "Validation Errors"
+    End If
+End Sub</p>
+<pre><code>### Example 2: Data Cleaner Class</code></pre>
+<p>vb
+' Class: DataCleaner
 Private m_trimSpaces As Boolean
 Private m_removeLineBreaks As Boolean
 Private m_collapseSpaces As Boolean
-
 Private Sub Class_Initialize()
-m_trimSpaces = True
-m_removeLineBreaks = False
-m_collapseSpaces = False
+    m_trimSpaces = True
+    m_removeLineBreaks = False
+    m_collapseSpaces = False
 End Sub
-
 Public Property Let TrimSpaces(ByVal value As Boolean)
-m_trimSpaces = value
+    m_trimSpaces = value
 End Property
-
 Public Property Let RemoveLineBreaks(ByVal value As Boolean)
-m_removeLineBreaks = value
+    m_removeLineBreaks = value
 End Property
-
 Public Property Let CollapseSpaces(ByVal value As Boolean)
-m_collapseSpaces = value
+    m_collapseSpaces = value
 End Property
-
 Public Function CleanString(ByVal text As String) As String
-Dim result As String
-result = text
-
-&#x27; Remove line breaks if requested
-If m_removeLineBreaks Then
-result = Replace(result, vbCrLf, &quot; &quot;)
-result = Replace(result, vbCr, &quot; &quot;)
-result = Replace(result, vbLf, &quot; &quot;)
-End If
-
-&#x27; Collapse multiple spaces if requested
-If m_collapseSpaces Then
-Do While InStr(result, &quot;  &quot;) &gt; 0
-result = Replace(result, &quot;  &quot;, &quot; &quot;)
-Loop
-End If
-
-&#x27; Trim spaces if requested
-If m_trimSpaces Then
-result = Trim(result)
-End If
-
-CleanString = result
+    Dim result As String
+    result = text
+    ' Remove line breaks if requested
+    If m_removeLineBreaks Then
+        result = Replace(result, vbCrLf, " ")
+        result = Replace(result, vbCr, " ")
+        result = Replace(result, vbLf, " ")
+    End If
+    ' Collapse multiple spaces if requested
+    If m_collapseSpaces Then
+        Do While InStr(result, "  ") &gt; 0
+            result = Replace(result, "  ", " ")
+        Loop
+    End If
+    ' Trim spaces if requested
+    If m_trimSpaces Then
+        result = Trim(result)
+    End If
+    CleanString = result
 End Function
-
 Public Function CleanArray(arr() As String) As String()
-Dim result() As String
-Dim i As Integer
-
-ReDim result(LBound(arr) To UBound(arr))
-
-For i = LBound(arr) To UBound(arr)
-result(i) = CleanString(arr(i))
-Next i
-
-CleanArray = result
-End Function</code></pre>
-<h3 id="example-3-csv-parser">Example 3: CSV Parser</h3>
-<pre><code class="language-vbnet">&#x27; Class: CSVParser
+    Dim result() As String
+    Dim i As Integer
+    ReDim result(LBound(arr) To UBound(arr))
+    For i = LBound(arr) To UBound(arr)
+        result(i) = CleanString(arr(i))
+    Next i
+    CleanArray = result
+End Function</p>
+<pre><code>### Example 3: CSV Parser</code></pre>
+<p>vb
+' Class: CSVParser
 Private m_rows As Collection
-
 Public Sub ParseFile(ByVal filename As String)
-Dim fileNum As Integer
-Dim line As String
-
-Set m_rows = New Collection
-
-fileNum = FreeFile
-Open filename For Input As #fileNum
-
-Do While Not EOF(fileNum)
-Line Input #fileNum, line
-
-If Trim(line) &lt;&gt; &quot;&quot; Then
-m_rows.Add ParseLine(line)
-End If
-Loop
-
-Close #fileNum
+    Dim fileNum As Integer
+    Dim line As String
+    Set m_rows = New Collection
+    fileNum = FreeFile
+    Open filename For Input As #fileNum
+    Do While Not EOF(fileNum)
+        Line Input #fileNum, line
+        If Trim(line) &lt;&gt; "" Then
+            m_rows.Add ParseLine(line)
+        End If
+    Loop
+    Close #fileNum
 End Sub
-
 Private Function ParseLine(ByVal line As String) As Collection
-Dim fields As Collection
-Dim parts() As String
-Dim i As Integer
-Dim field As String
-
-Set fields = New Collection
-parts = Split(line, &quot;,&quot;)
-
-For i = 0 To UBound(parts)
-field = Trim(parts(i))
-
-&#x27; Remove quotes if present
-If Left(field, 1) = &quot;&quot;&quot;&quot; And Right(field, 1) = &quot;&quot;&quot;&quot; Then
-field = Mid(field, 2, Len(field) - 2)
-End If
-
-fields.Add field
-Next i
-
-Set ParseLine = fields
+    Dim fields As Collection
+    Dim parts() As String
+    Dim i As Integer
+    Dim field As String
+    Set fields = New Collection
+    parts = Split(line, ",")
+    For i = 0 To UBound(parts)
+        field = Trim(parts(i))
+        ' Remove quotes if present
+        If Left(field, 1) = """" And Right(field, 1) = """" Then
+            field = Mid(field, 2, Len(field) - 2)
+        End If
+        fields.Add field
+    Next i
+    Set ParseLine = fields
 End Function
-
 Public Property Get RowCount() As Long
-RowCount = m_rows.Count
+    RowCount = m_rows.Count
 End Property
-
 Public Function GetRow(ByVal index As Long) As Collection
-Set GetRow = m_rows(index)
+    Set GetRow = m_rows(index)
 End Function
-
 Public Function GetField(ByVal row As Long, _
-ByVal col As Long) As String
-Dim rowData As Collection
-Set rowData = m_rows(row)
-GetField = rowData(col)
-End Function</code></pre>
-<h3 id="example-4-string-utilities-module">Example 4: String Utilities Module</h3>
-<pre><code class="language-vbnet">&#x27; Module: StringUtils
-
+                         ByVal col As Long) As String
+    Dim rowData As Collection
+    Set rowData = m_rows(row)
+    GetField = rowData(col)
+End Function</p>
+<pre><code>### Example 4: String Utilities Module</code></pre>
+<p>vb
+' Module: StringUtils
 Public Function IsNullOrWhitespace(ByVal text As Variant) As Boolean
-If IsNull(text) Then
-IsNullOrWhitespace = True
-ElseIf VarType(text) = vbString Then
-IsNullOrWhitespace = (Trim(text) = &quot;&quot;)
-Else
-IsNullOrWhitespace = False
-End If
+    If IsNull(text) Then
+        IsNullOrWhitespace = True
+    ElseIf VarType(text) = vbString Then
+        IsNullOrWhitespace = (Trim(text) = "")
+    Else
+        IsNullOrWhitespace = False
+    End If
 End Function
-
 Public Function CoalesceString(ParamArray values() As Variant) As String
-Dim i As Integer
-Dim value As String
-
-For i = LBound(values) To UBound(values)
-If Not IsNull(values(i)) Then
-value = Trim(CStr(values(i)))
-If value &lt;&gt; &quot;&quot; Then
-CoalesceString = value
-Exit Function
-End If
-End If
-Next i
-
-CoalesceString = &quot;&quot;
+    Dim i As Integer
+    Dim value As String
+    For i = LBound(values) To UBound(values)
+        If Not IsNull(values(i)) Then
+            value = Trim(CStr(values(i)))
+            If value &lt;&gt; "" Then
+                CoalesceString = value
+                Exit Function
+            End If
+        End If
+    Next i
+    CoalesceString = ""
 End Function
-
 Public Function JoinTrimmed(arr() As String, _
-ByVal delimiter As String) As String
-Dim result As String
-Dim i As Integer
-Dim value As String
-
-For i = LBound(arr) To UBound(arr)
-value = Trim(arr(i))
-If value &lt;&gt; &quot;&quot; Then
-If result &lt;&gt; &quot;&quot; Then
-result = result &amp; delimiter
-End If
-result = result &amp; value
-End If
-Next i
-
-JoinTrimmed = result
+                           ByVal delimiter As String) As String
+    Dim result As String
+    Dim i As Integer
+    Dim value As String
+    For i = LBound(arr) To UBound(arr)
+        value = Trim(arr(i))
+        If value &lt;&gt; "" Then
+            If result &lt;&gt; "" Then
+                result = result &amp; delimiter
+            End If
+            result = result &amp; value
+        End If
+    Next i
+    JoinTrimmed = result
 End Function
-
 Public Function NormalizeWhitespace(ByVal text As String) As String
-Dim result As String
-
-&#x27; Replace all whitespace with single space
-result = text
-result = Replace(result, vbTab, &quot; &quot;)
-result = Replace(result, vbCrLf, &quot; &quot;)
-result = Replace(result, vbCr, &quot; &quot;)
-result = Replace(result, vbLf, &quot; &quot;)
-
-&#x27; Collapse multiple spaces
-Do While InStr(result, &quot;  &quot;) &gt; 0
-result = Replace(result, &quot;  &quot;, &quot; &quot;)
-Loop
-
-&#x27; Trim
-NormalizeWhitespace = Trim(result)
+    Dim result As String
+    ' Replace all whitespace with single space
+    result = text
+    result = Replace(result, vbTab, " ")
+    result = Replace(result, vbCrLf, " ")
+    result = Replace(result, vbCr, " ")
+    result = Replace(result, vbLf, " ")
+    ' Collapse multiple spaces
+    Do While InStr(result, "  ") &gt; 0
+        result = Replace(result, "  ", " ")
+    Loop
+    ' Trim
+    NormalizeWhitespace = Trim(result)
 End Function
-
 Public Function TruncateWithEllipsis(ByVal text As String, _
-ByVal maxLength As Integer) As String
-text = Trim(text)
-
-If Len(text) &lt;= maxLength Then
-TruncateWithEllipsis = text
-Else
-TruncateWithEllipsis = Left(text, maxLength - 3) &amp; &quot;...&quot;
-End If
-End Function</code></pre>
-<h2 id="error-handling">Error Handling</h2>
-<pre><code class="language-vbnet">&#x27; Trim handles Null gracefully
+                                     ByVal maxLength As Integer) As String
+    text = Trim(text)
+    If Len(text) &lt;= maxLength Then
+        TruncateWithEllipsis = text
+    Else
+        TruncateWithEllipsis = Left(text, maxLength - 3) &amp; "..."
+    End If
+End Function</p>
+<pre><code>## Error Handling</code></pre>
+<p>vb
+' Trim handles Null gracefully
 Dim result As Variant
-result = Trim(Null)  &#x27; Returns Null
-
-&#x27; Safe trimming with Null check
+result = Trim(Null)  ' Returns Null
+' Safe trimming with Null check
 Function SafeTrim(ByVal value As Variant) As String
-If IsNull(value) Then
-SafeTrim = &quot;&quot;
-Else
-SafeTrim = Trim(CStr(value))
-End If
-End Function</code></pre>
-<h2 id="performance-considerations">Performance Considerations</h2>
-<ul>
-<li><strong>Fast Operation</strong>: String trimming is highly optimized</li>
-<li><strong>Creates New String</strong>: Does not modify original (immutable)</li>
-<li><strong>More Efficient</strong>: Using <code>Trim()</code> is faster than LTrim(RTrim())</li>
-<li><strong>Cache Results</strong>: Don't call repeatedly in tight loops</li>
-</ul>
-<h2 id="best-practices">Best Practices</h2>
-<ol>
-<li><strong>Always trim user input</strong> - Before validation or storage</li>
-<li><strong>Trim before comparison</strong> - Ensure consistent string matching</li>
-<li><strong>Use with database fields</strong> - Clean data from external sources</li>
-<li><strong>Validate after trimming</strong> - Check if empty after removing spaces</li>
-<li><strong>Combine with other operations</strong> - Trim then convert case, etc.</li>
-<li><strong>Cache trimmed values</strong> - Don't call repeatedly</li>
-<li><strong>Handle Null gracefully</strong> - Use <code>SafeTrim</code> for Variant types</li>
-<li><strong>Document expectations</strong> - Clarify if other whitespace should be removed</li>
-<li><strong>Standardize input early</strong> - Trim at entry point</li>
-<li><strong>Test edge cases</strong> - Empty strings, all spaces, Null values</li>
-</ol>
-<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
-<table>
-<thead>
-<tr>
-<th>Function</th>
-<th>Removes Leading</th>
-<th>Removes Trailing</th>
-<th>Removes Both</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Trim</strong></td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong><code>LTrim</code></strong></td>
-<td>Yes</td>
-<td>No</td>
-<td>No</td>
-</tr>
-<tr>
-<td><strong><code>RTrim</code></strong></td>
-<td>No</td>
-<td>Yes</td>
-<td>No</td>
-</tr>
-</tbody>
-</table>
-<h2 id="trim-vs-ltrim-vs-rtrim">Trim vs <code>LTrim</code> vs <code>RTrim</code></h2>
-<pre><code class="language-vbnet">Dim text As String
-text = &quot;   Hello World   &quot;
-
-&#x27; Trim - removes both leading and trailing
-Debug.Print &quot;[&quot; &amp; Trim(text) &amp; &quot;]&quot;       &#x27; [Hello World]
-
-&#x27; LTrim - removes leading spaces only
-Debug.Print &quot;[&quot; &amp; LTrim(text) &amp; &quot;]&quot;      &#x27; [Hello World   ]
-
-&#x27; RTrim - removes trailing spaces only
-Debug.Print &quot;[&quot; &amp; RTrim(text) &amp; &quot;]&quot;      &#x27; [   Hello World]
-
-&#x27; Trim is equivalent to LTrim(RTrim())
-Debug.Print &quot;[&quot; &amp; LTrim(RTrim(text)) &amp; &quot;]&quot;  &#x27; [Hello World]</code></pre>
-<h2 id="whitespace-characters">Whitespace Characters</h2>
-<pre><code class="language-vbnet">&#x27; Trim only removes space (ASCII 32)
+    If IsNull(value) Then
+        SafeTrim = ""
+    Else
+        SafeTrim = Trim(CStr(value))
+    End If
+End Function</p>
+<pre><code>## Performance Considerations
+- **Fast Operation**: String trimming is highly optimized
+- **Creates New String**: Does not modify original (immutable)
+- **More Efficient**: Using `Trim()` is faster than LTrim(RTrim())
+- **Cache Results**: Don&#x27;t call repeatedly in tight loops
+## Best Practices
+1. **Always trim user input** - Before validation or storage
+2. **Trim before comparison** - Ensure consistent string matching
+3. **Use with database fields** - Clean data from external sources
+4. **Validate after trimming** - Check if empty after removing spaces
+5. **Combine with other operations** - Trim then convert case, etc.
+6. **Cache trimmed values** - Don&#x27;t call repeatedly
+7. **Handle Null gracefully** - Use `SafeTrim` for Variant types
+8. **Document expectations** - Clarify if other whitespace should be removed
+9. **Standardize input early** - Trim at entry point
+10. **Test edge cases** - Empty strings, all spaces, Null values
+## Comparison with Related Functions
+| Function | Removes Leading | Removes Trailing | Removes Both |
+|----------|----------------|------------------|--------------|
+| **Trim** | Yes | Yes | Yes |
+| **`LTrim`** | Yes | No | No |
+| **`RTrim`** | No | Yes | No |
+## Trim vs `LTrim` vs `RTrim`</code></pre>
+<p>vb
 Dim text As String
-
-text = &quot;   Hello   &quot;     &#x27; Spaces - REMOVED
-text = Chr(9) &amp; &quot;Hello&quot; &amp; Chr(9)  &#x27; Tabs - NOT REMOVED
-text = Chr(10) &amp; &quot;Hello&quot; &amp; Chr(10) &#x27; Line feeds - NOT REMOVED
-text = Chr(13) &amp; &quot;Hello&quot; &amp; Chr(13) &#x27; CR - NOT REMOVED
-
-&#x27; To remove all whitespace:
+text = "   Hello World   "
+' Trim - removes both leading and trailing
+Debug.Print "[" &amp; Trim(text) &amp; "]"       ' [Hello World]
+' LTrim - removes leading spaces only
+Debug.Print "[" &amp; LTrim(text) &amp; "]"      ' [Hello World   ]
+' RTrim - removes trailing spaces only
+Debug.Print "[" &amp; RTrim(text) &amp; "]"      ' [   Hello World]
+' Trim is equivalent to LTrim(RTrim())
+Debug.Print "[" &amp; LTrim(RTrim(text)) &amp; "]"  ' [Hello World]</p>
+<pre><code>## Whitespace Characters</code></pre>
+<p>vb
+' Trim only removes space (ASCII 32)
+Dim text As String
+text = "   Hello   "     ' Spaces - REMOVED
+text = Chr(9) &amp; "Hello" &amp; Chr(9)  ' Tabs - NOT REMOVED
+text = Chr(10) &amp; "Hello" &amp; Chr(10) ' Line feeds - NOT REMOVED
+text = Chr(13) &amp; "Hello" &amp; Chr(13) ' CR - NOT REMOVED
+' To remove all whitespace:
 Function TrimAllWhitespace(ByVal text As String) As String
-&#x27; Remove line breaks
-text = Replace(text, vbCrLf, &quot;&quot;)
-text = Replace(text, vbCr, &quot;&quot;)
-text = Replace(text, vbLf, &quot;&quot;)
-text = Replace(text, vbTab, &quot;&quot;)
-
-&#x27; Trim spaces
-TrimAllWhitespace = Trim(text)
-End Function</code></pre>
+    ' Remove line breaks
+    text = Replace(text, vbCrLf, "")
+    text = Replace(text, vbCr, "")
+    text = Replace(text, vbLf, "")
+    text = Replace(text, vbTab, "")
+    ' Trim spaces
+    TrimAllWhitespace = Trim(text)
+End Function
+```</p>
 <h2 id="platform-notes">Platform Notes</h2>
 <ul>
 <li>Available in all VB6 versions</li>

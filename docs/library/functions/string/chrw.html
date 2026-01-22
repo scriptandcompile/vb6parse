@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="chrw-function"><code>ChrW</code> Function</h1>
+            <h1 id="chrw-function">ChrW Function</h1>
 <p>Returns a <code>String</code> containing the Unicode character associated with the specified character code.
 The "W" suffix indicates this is the wide (Unicode) version of the <code>Chr</code> function.</p>
 <h2 id="syntax">Syntax</h2>
@@ -45,7 +45,7 @@ The "W" suffix indicates this is the wide (Unicode) version of the <code>Chr</co
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><strong>charcode</strong>: Required. <code>Long</code>. A numeric expression that identifies a Unicode character.
-Valid values are -32768 to 65535. However, values -32768 to -1 are treated as 65536 + value.</li>
+  Valid values are -32768 to 65535. However, values -32768 to -1 are treated as 65536 + value.</li>
 </ul>
 <h2 id="returns">Returns</h2>
 <p>Returns a <code>String</code> containing a single Unicode character corresponding to the specified code.</p>
@@ -126,85 +126,74 @@ combined = &quot;e&quot; &amp; ChrW(769)  &#x27; Combining acute accent</code></
 <h2 id="advanced-examples">Advanced Examples</h2>
 <h3 id="building-multilingual-text">Building Multilingual Text</h3>
 <pre><code class="language-vbnet">Function GetGreeting(language As String) As String
-Select Case language
-Case &quot;chinese&quot;
-GetGreeting = ChrW(20320) &amp; ChrW(22909)  &#x27; &quot;你好&quot;
-Case &quot;japanese&quot;
-GetGreeting = ChrW(12371) &amp; ChrW(12435) &amp; ChrW(12395) &amp; ChrW(12385) &amp; ChrW(12399)  &#x27; &quot;こんにちは&quot;
-Case &quot;korean&quot;
-GetGreeting = ChrW(50504) &amp; ChrW(45397) &amp; ChrW(54616) &amp; ChrW(49464) &amp; ChrW(50836)  &#x27; &quot;안녕하세요&quot;
-Case &quot;russian&quot;
-GetGreeting = ChrW(1055) &amp; ChrW(1088) &amp; ChrW(1080) &amp; ChrW(1074) &amp; ChrW(1077) &amp; ChrW(1090)  &#x27; &quot;Привет&quot;
-Case Else
-GetGreeting = &quot;Hello&quot;
-End Select
+    Select Case language
+        Case &quot;chinese&quot;
+            GetGreeting = ChrW(20320) &amp; ChrW(22909)  &#x27; &quot;你好&quot;
+        Case &quot;japanese&quot;
+            GetGreeting = ChrW(12371) &amp; ChrW(12435) &amp; ChrW(12395) &amp; ChrW(12385) &amp; ChrW(12399)  &#x27; &quot;こんにちは&quot;
+        Case &quot;korean&quot;
+            GetGreeting = ChrW(50504) &amp; ChrW(45397) &amp; ChrW(54616) &amp; ChrW(49464) &amp; ChrW(50836)  &#x27; &quot;안녕하세요&quot;
+        Case &quot;russian&quot;
+            GetGreeting = ChrW(1055) &amp; ChrW(1088) &amp; ChrW(1080) &amp; ChrW(1074) &amp; ChrW(1077) &amp; ChrW(1090)  &#x27; &quot;Привет&quot;
+        Case Else
+            GetGreeting = &quot;Hello&quot;
+    End Select
 End Function</code></pre>
 <h3 id="html-entity-decoder">HTML Entity Decoder</h3>
 <pre><code class="language-vbnet">Function DecodeNumericEntity(entity As String) As String
-&#x27; Decode &amp;#nnnn; or &amp;#xhhhh; entities
-Dim code As Long
-
-If InStr(entity, &quot;&amp;#x&quot;) &gt; 0 Then
-&#x27; Hexadecimal entity
-code = CLng(&quot;&amp;H&quot; &amp; Mid(entity, 4, Len(entity) - 4))
-ElseIf InStr(entity, &quot;&amp;#&quot;) &gt; 0 Then
-&#x27; Decimal entity
-code = CLng(Mid(entity, 3, Len(entity) - 3))
-End If
-
-If code &gt;= 0 And code &lt;= 65535 Then
-DecodeNumericEntity = ChrW(code)
-End If
+    &#x27; Decode &amp;#nnnn; or &amp;#xhhhh; entities
+    Dim code As Long
+    If InStr(entity, &quot;&amp;#x&quot;) &gt; 0 Then
+        &#x27; Hexadecimal entity
+        code = CLng(&quot;&amp;H&quot; &amp; Mid(entity, 4, Len(entity) - 4))
+    ElseIf InStr(entity, &quot;&amp;#&quot;) &gt; 0 Then
+        &#x27; Decimal entity
+        code = CLng(Mid(entity, 3, Len(entity) - 3))
+    End If
+    If code &gt;= 0 And code &lt;= 65535 Then
+        DecodeNumericEntity = ChrW(code)
+    End If
 End Function</code></pre>
 <h3 id="unicode-range-validator">Unicode Range Validator</h3>
 <pre><code class="language-vbnet">Function IsInUnicodeRange(char As String, rangeStart As Long, rangeEnd As Long) As Boolean
-If Len(char) = 0 Then Exit Function
-
-Dim code As Long
-code = AscW(char)
-
-IsInUnicodeRange = (code &gt;= rangeStart And code &lt;= rangeEnd)
+    If Len(char) = 0 Then Exit Function
+    Dim code As Long
+    code = AscW(char)
+    IsInUnicodeRange = (code &gt;= rangeStart And code &lt;= rangeEnd)
 End Function
-
 &#x27; Example usage:
 &#x27; If IsInUnicodeRange(char, 0x4E00, 0x9FFF) Then
 &#x27;     Debug.Print &quot;CJK Unified Ideograph&quot;
 &#x27; End If</code></pre>
 <h3 id="unicode-text-file-writer">Unicode Text File Writer</h3>
 <pre><code class="language-vbnet">Sub WriteUnicodeFile(filename As String, text As String)
-Dim fso As Object, stream As Object
-Set fso = CreateObject(&quot;Scripting.FileSystemObject&quot;)
-Set stream = CreateObject(&quot;ADODB.Stream&quot;)
-
-stream.Type = 2  &#x27; Text
-stream.Charset = &quot;UTF-8&quot;
-stream.Open
-
-&#x27; Add BOM for UTF-8
-stream.WriteText ChrW(65279)  &#x27; UTF-8 BOM
-stream.WriteText text
-
-stream.SaveToFile filename, 2
-stream.Close
+    Dim fso As Object, stream As Object
+    Set fso = CreateObject(&quot;Scripting.FileSystemObject&quot;)
+    Set stream = CreateObject(&quot;ADODB.Stream&quot;)
+    stream.Type = 2  &#x27; Text
+    stream.Charset = &quot;UTF-8&quot;
+    stream.Open
+    &#x27; Add BOM for UTF-8
+    stream.WriteText ChrW(65279)  &#x27; UTF-8 BOM
+    stream.WriteText text
+    stream.SaveToFile filename, 2
+    stream.Close
 End Sub</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeChrW(charcode As Long) As String
-On Error GoTo ErrorHandler
-
-&#x27; Normalize negative values
-If charcode &lt; 0 Then
-charcode = 65536 + charcode
-End If
-
-If charcode &gt;= 0 And charcode &lt;= 65535 Then
-SafeChrW = ChrW(charcode)
-Else
-SafeChrW = &quot;?&quot;  &#x27; Replacement character for invalid codes
-End If
-Exit Function
-
+    On Error GoTo ErrorHandler
+    &#x27; Normalize negative values
+    If charcode &lt; 0 Then
+        charcode = 65536 + charcode
+    End If
+    If charcode &gt;= 0 And charcode &lt;= 65535 Then
+        SafeChrW = ChrW(charcode)
+    Else
+        SafeChrW = &quot;?&quot;  &#x27; Replacement character for invalid codes
+    End If
+    Exit Function
 ErrorHandler:
-SafeChrW = &quot;?&quot;
+    SafeChrW = &quot;?&quot;
 End Function</code></pre>
 <h2 id="performance-notes">Performance Notes</h2>
 <ul>
@@ -261,21 +250,19 @@ End Function</code></pre>
 </tbody>
 </table>
 <h2 id="unicode-ranges-reference">Unicode Ranges Reference</h2>
-<p>Some common Unicode ranges that work with <code>ChrW</code>:</p>
-<ul>
-<li><strong>Basic Latin</strong>: 0-127 (ASCII)</li>
-<li><strong>Latin-1 Supplement</strong>: 128-255</li>
-<li><strong>Greek and Coptic</strong>: 880-1023</li>
-<li><strong>Cyrillic</strong>: 1024-1279</li>
-<li><strong>Hebrew</strong>: 1424-1535</li>
-<li><strong>Arabic</strong>: 1536-1791</li>
-<li><strong>CJK Unified Ideographs</strong>: 19968-40959</li>
-<li><strong>Hangul Syllables</strong>: 44032-55203</li>
-<li><strong>Currency Symbols</strong>: 8352-8399</li>
-<li><strong>Mathematical Operators</strong>: 8704-8959</li>
-<li><strong>Arrows</strong>: 8592-8703</li>
-<li><strong>Box Drawing</strong>: 9472-9599</li>
-</ul>
+<p>Some common Unicode ranges that work with <code>ChrW</code>:
+- <strong>Basic Latin</strong>: 0-127 (ASCII)
+- <strong>Latin-1 Supplement</strong>: 128-255
+- <strong>Greek and Coptic</strong>: 880-1023
+- <strong>Cyrillic</strong>: 1024-1279
+- <strong>Hebrew</strong>: 1424-1535
+- <strong>Arabic</strong>: 1536-1791
+- <strong>CJK Unified Ideographs</strong>: 19968-40959
+- <strong>Hangul Syllables</strong>: 44032-55203
+- <strong>Currency Symbols</strong>: 8352-8399
+- <strong>Mathematical Operators</strong>: 8704-8959
+- <strong>Arrows</strong>: 8592-8703
+- <strong>Box Drawing</strong>: 9472-9599</p>
 <h2 id="platform-notes">Platform Notes</h2>
 <ul>
 <li>VB6 supports Unicode through <code>ChrW</code> but stores strings internally in the system's native format</li>

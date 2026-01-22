@@ -4,35 +4,35 @@
     "type": "function",
     "category": "Arrays",
     "url": "functions/arrays/array.html",
-    "description": "Array Function Returns a Variant containing an array. Syntax vb Array(arglist) Parts - arglist: Required. A comma-delimited list of values that are assigned to the elements of the array contained with"
+    "description": "Array Function Returns a Variant containing an array formed from the comma-delimited arg list of values passed into the function. Syntax text Array(arglist) Parameters - arglist: Required. A comma-del"
   },
   {
     "name": "filter",
     "type": "function",
     "category": "Arrays",
     "url": "functions/arrays/filter.html",
-    "description": "Filter Function Returns a zero-based array containing a subset of a string array based on specified filter criteria. Syntax vb Filter(sourcearray, match, include, compare) Parameters - sourcearray: Re"
+    "description": "Filter Function Returns a zero-based array containing a subset of a string array based on specified filter criteria. Syntax text Filter(sourcearray, match, include, compare) Parameters - sourcearray: "
   },
   {
     "name": "join",
     "type": "function",
     "category": "Arrays",
     "url": "functions/arrays/join.html",
-    "description": "Join Function Returns a string created by joining a number of substrings contained in an array. Syntax vb Join(sourcearray, delimiter) Parameters - sourcearray (Required): One-dimensional array contai"
+    "description": "Join Function Returns a string created by joining a number of substrings contained in an array. Syntax text Join(sourcearray, delimiter) Parameters - sourcearray (Required): One-dimensional array cont"
   },
   {
     "name": "lbound",
     "type": "function",
     "category": "Arrays",
     "url": "functions/arrays/lbound.html",
-    "description": "LBound Function Returns a Long containing the smallest available subscript for the indicated dimension of an array. Syntax vb LBound(arrayname, dimension) Parameters - arrayname (Required): Name of th"
+    "description": "LBound Function Returns a Long containing the smallest available subscript for the indicated dimension of an array. Syntax text LBound(arrayname, dimension) Parameters - arrayname (Required): Name of "
   },
   {
     "name": "split",
     "type": "function",
     "category": "Arrays",
     "url": "functions/arrays/split.html",
-    "description": "Split Function Returns a zero-based, one-dimensional array containing a specified number of substrings. Syntax vb Split(expression, delimiter, limit, compare) Parameters - expression - Required. Strin"
+    "description": "Split Function Returns a zero-based, one-dimensional array containing a specified number of substrings. Syntax text Split(expression, delimiter, limit, compare) Parameters - expression (Required): Str"
   },
   {
     "name": "ubound",

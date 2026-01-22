@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="loadrespicture-function"><code>LoadResPicture</code> Function</h1>
+            <h1 id="loadrespicture-function">LoadResPicture Function</h1>
 <p>Returns a picture object (<code>StdPicture</code>) containing an image from a resource (.res) file.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">LoadResPicture(index, format)</code></pre>
@@ -59,576 +59,504 @@
 - Returns Nothing if resource not found (some VB versions)
 - May raise error 32813 if resource not found</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>LoadResPicture</code> function loads images from embedded resources:</p>
-<ul>
-<li>Loads images from compiled resource (.res) files</li>
-<li>Resource file must be linked to project at compile time</li>
-<li>Supports BMP, ICO, and CUR formats only</li>
-<li>Does NOT support JPG, GIF, or PNG</li>
-<li>Returns <code>StdPicture</code> object implementing <code>IPicture</code></li>
-<li>Alternative to <code>LoadPicture</code> for embedded images</li>
-<li>No external files needed at runtime</li>
-<li>Faster than loading from disk</li>
-<li>More secure (can't be modified by users)</li>
-<li>Resources embedded in compiled EXE/DLL</li>
-<li>Only one resource file per project</li>
-<li>Resource file added via Project &gt; Add File</li>
-<li>Resource files created with Resource Editor or RC.EXE</li>
-<li>Index can be numeric ID or string name</li>
-<li>Format constants: vbResBitmap, vbResIcon, vbResCursor</li>
-<li>Error 32813: "Resource not found" if ID/format don't match</li>
-<li>Error 48: "Error loading from file" if resource file corrupt</li>
-<li>Pictures are not cached (loaded each time)</li>
-<li>Set object = Nothing to release memory</li>
-<li>Common in <code>Form_Load</code> for initial graphics</li>
-<li>Used with Image, <code>PictureBox</code>, and Form.Picture</li>
-<li>Preferred for distribution (no external image files)</li>
-</ul>
+<p>The <code>LoadResPicture</code> function loads images from embedded resources:
+- Loads images from compiled resource (.res) files
+- Resource file must be linked to project at compile time
+- Supports BMP, ICO, and CUR formats only
+- Does NOT support JPG, GIF, or PNG
+- Returns <code>StdPicture</code> object implementing <code>IPicture</code>
+- Alternative to <code>LoadPicture</code> for embedded images
+- No external files needed at runtime
+- Faster than loading from disk
+- More secure (can't be modified by users)
+- Resources embedded in compiled EXE/DLL
+- Only one resource file per project
+- Resource file added via Project &gt; Add File
+- Resource files created with Resource Editor or RC.EXE
+- Index can be numeric ID or string name
+- Format constants: vbResBitmap, vbResIcon, vbResCursor
+- Error 32813: "Resource not found" if ID/format don't match
+- Error 48: "Error loading from file" if resource file corrupt
+- Pictures are not cached (loaded each time)
+- Set object = Nothing to release memory
+- Common in <code>Form_Load</code> for initial graphics
+- Used with Image, <code>PictureBox</code>, and Form.Picture
+- Preferred for distribution (no external image files)</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Load Bitmap to <code>PictureBox</code></strong></li>
 </ol>
-<pre><code class="language-vbnet">Picture1.Picture = LoadResPicture(101, vbResBitmap)</code></pre>
-<ol>
-<li><strong>Load Icon to Image Control</strong></li>
-</ol>
-<pre><code class="language-vbnet">Image1.Picture = LoadResPicture(102, vbResIcon)</code></pre>
-<ol>
-<li><strong>Load Form Background</strong></li>
-</ol>
-<pre><code class="language-vbnet">Me.Picture = LoadResPicture(&quot;BACKGROUND&quot;, vbResBitmap)</code></pre>
-<ol>
-<li><strong>Load Cursor</strong></li>
-</ol>
-<pre><code class="language-vbnet">Me.MousePointer = vbCustom
-Me.MouseIcon = LoadResPicture(103, vbResCursor)</code></pre>
-<ol>
-<li><strong>Load Named Resource</strong></li>
-</ol>
-<pre><code class="language-vbnet">imgLogo.Picture = LoadResPicture(&quot;LOGO&quot;, vbResBitmap)</code></pre>
-<ol>
-<li><strong>Conditional Image Loading</strong></li>
-</ol>
-<pre><code class="language-vbnet">If mode = &quot;dark&quot; Then
-Picture1.Picture = LoadResPicture(201, vbResBitmap)
-Else
+<pre><code class="language-vbnet">   Picture1.Picture = LoadResPicture(101, vbResBitmap)
+   ```
+2. **Load Icon to Image Control**
+   ```vb
+   Image1.Picture = LoadResPicture(102, vbResIcon)
+   ```
+3. **Load Form Background**
+   ```vb
+   Me.Picture = LoadResPicture(&quot;BACKGROUND&quot;, vbResBitmap)
+   ```
+4. **Load Cursor**
+   ```vb
+   Me.MousePointer = vbCustom
+   Me.MouseIcon = LoadResPicture(103, vbResCursor)
+   ```
+5. **Load Named Resource**
+   ```vb
+   imgLogo.Picture = LoadResPicture(&quot;LOGO&quot;, vbResBitmap)
+   ```
+6. **Conditional Image Loading**
+   ```vb
+   If mode = &quot;dark&quot; Then
+       Picture1.Picture = LoadResPicture(201, vbResBitmap)
+   Else
+       Picture1.Picture = LoadResPicture(101, vbResBitmap)
+   End If
+   ```
+7. **Button Icons**
+   ```vb
+   cmdSave.Picture = LoadResPicture(104, vbResIcon)
+   ```
+8. **Multiple Images in Loop**
+   ```vb
+   For i = 1 To 5
+       imgArray(i).Picture = LoadResPicture(100 + i, vbResBitmap)
+   Next i
+   ```
+## Basic Examples
+### Example 1: Basic Picture Loading</code></pre>
+<p>vb
+' Load bitmap from resources
 Picture1.Picture = LoadResPicture(101, vbResBitmap)
-End If</code></pre>
-<ol>
-<li><strong>Button Icons</strong></li>
-</ol>
-<pre><code class="language-vbnet">cmdSave.Picture = LoadResPicture(104, vbResIcon)</code></pre>
-<ol>
-<li><strong>Multiple Images in Loop</strong></li>
-</ol>
-<pre><code class="language-vbnet">For i = 1 To 5
-imgArray(i).Picture = LoadResPicture(100 + i, vbResBitmap)
-Next i</code></pre>
-<h2 id="basic-examples">Basic Examples</h2>
-<h3 id="example-1-basic-picture-loading">Example 1: Basic Picture Loading</h3>
-<pre><code class="language-vbnet">&#x27; Load bitmap from resources
-Picture1.Picture = LoadResPicture(101, vbResBitmap)
-
-&#x27; Load icon
+' Load icon
 Image1.Picture = LoadResPicture(102, vbResIcon)
-
-&#x27; Load using string name
-Picture2.Picture = LoadResPicture(&quot;SPLASH&quot;, vbResBitmap)</code></pre>
-<h3 id="example-2-form-initialization">Example 2: Form Initialization</h3>
-<pre><code class="language-vbnet">Private Sub Form_Load()
-&#x27; Load form background
-Me.Picture = LoadResPicture(101, vbResBitmap)
-
-&#x27; Load toolbar icons
-cmdNew.Picture = LoadResPicture(201, vbResIcon)
-cmdOpen.Picture = LoadResPicture(202, vbResIcon)
-cmdSave.Picture = LoadResPicture(203, vbResIcon)
-End Sub</code></pre>
-<h3 id="example-3-error-handling">Example 3: Error Handling</h3>
-<pre><code class="language-vbnet">On Error Resume Next
+' Load using string name
+Picture2.Picture = LoadResPicture("SPLASH", vbResBitmap)</p>
+<pre><code>### Example 2: Form Initialization</code></pre>
+<p>vb
+Private Sub Form_Load()
+    ' Load form background
+    Me.Picture = LoadResPicture(101, vbResBitmap)
+    ' Load toolbar icons
+    cmdNew.Picture = LoadResPicture(201, vbResIcon)
+    cmdOpen.Picture = LoadResPicture(202, vbResIcon)
+    cmdSave.Picture = LoadResPicture(203, vbResIcon)
+End Sub</p>
+<pre><code>### Example 3: Error Handling</code></pre>
+<p>vb
+On Error Resume Next
 Picture1.Picture = LoadResPicture(999, vbResBitmap)
 If Err.Number = 32813 Then
-MsgBox &quot;Resource not found!&quot;, vbCritical
-Err.Clear
+    MsgBox "Resource not found!", vbCritical
+    Err.Clear
 ElseIf Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Error loading resource: &quot; &amp; Err.Description, vbCritical
-Err.Clear
-End If</code></pre>
-<h3 id="example-4-dynamic-loading">Example 4: Dynamic Loading</h3>
-<pre><code class="language-vbnet">Dim imageID As Integer
+    MsgBox "Error loading resource: " &amp; Err.Description, vbCritical
+    Err.Clear
+End If</p>
+<pre><code>### Example 4: Dynamic Loading</code></pre>
+<p>vb
+Dim imageID As Integer
 imageID = 101 + selectedIndex
-Picture1.Picture = LoadResPicture(imageID, vbResBitmap)</code></pre>
-<h2 id="common-patterns">Common Patterns</h2>
-<h3 id="pattern-1-safeloadrespicture">Pattern 1: <code>SafeLoadResPicture</code></h3>
-<pre><code class="language-vbnet">Function SafeLoadResPicture(ByVal resID As Variant, _
-ByVal resFormat As Integer, _
-ByVal ctrl As Object) As Boolean
-On Error Resume Next
-Set ctrl.Picture = LoadResPicture(resID, resFormat)
-SafeLoadResPicture = (Err.Number = 0)
-Err.Clear
-End Function</code></pre>
-<h3 id="pattern-2-preloadresourcepictures">Pattern 2: <code>PreloadResourcePictures</code></h3>
-<pre><code class="language-vbnet">Dim preloadedPics() As StdPicture
-
+Picture1.Picture = LoadResPicture(imageID, vbResBitmap)</p>
+<pre><code>## Common Patterns
+### Pattern 1: `SafeLoadResPicture`</code></pre>
+<p>vb
+Function SafeLoadResPicture(ByVal resID As Variant, _
+                            ByVal resFormat As Integer, _
+                            ByVal ctrl As Object) As Boolean
+    On Error Resume Next
+    Set ctrl.Picture = LoadResPicture(resID, resFormat)
+    SafeLoadResPicture = (Err.Number = 0)
+    Err.Clear
+End Function</p>
+<pre><code>### Pattern 2: `PreloadResourcePictures`</code></pre>
+<p>vb
+Dim preloadedPics() As StdPicture
 Sub PreloadResourcePictures()
-Dim i As Long
-ReDim preloadedPics(1 To 5)
-
-For i = 1 To 5
-Set preloadedPics(i) = LoadResPicture(100 + i, vbResBitmap)
-Next i
+    Dim i As Long
+    ReDim preloadedPics(1 To 5)
+    For i = 1 To 5
+        Set preloadedPics(i) = LoadResPicture(100 + i, vbResBitmap)
+    Next i
 End Sub
-
 Sub ShowPreloadedImage(ByVal index As Long)
-If index &gt;= 1 And index &lt;= UBound(preloadedPics) Then
-Set Picture1.Picture = preloadedPics(index)
-End If
-End Sub</code></pre>
-<h3 id="pattern-3-loadrespicturewithdefault">Pattern 3: <code>LoadResPictureWithDefault</code></h3>
-<pre><code class="language-vbnet">Function LoadResPictureWithDefault(ByVal resID As Variant, _
-ByVal resFormat As Integer, _
-ByVal defaultID As Variant) As StdPicture
-On Error Resume Next
-
-Set LoadResPictureWithDefault = LoadResPicture(resID, resFormat)
-If Err.Number &lt;&gt; 0 Then
-Err.Clear
-Set LoadResPictureWithDefault = LoadResPicture(defaultID, resFormat)
-End If
-End Function</code></pre>
-<h3 id="pattern-4-loadresbyname">Pattern 4: <code>LoadResByName</code></h3>
-<pre><code class="language-vbnet">Function LoadResByName(ByVal resName As String, _
-ByVal resFormat As Integer) As StdPicture
-On Error Resume Next
-Set LoadResByName = LoadResPicture(resName, resFormat)
-
-If Err.Number &lt;&gt; 0 Then
-Debug.Print &quot;Failed to load resource: &quot; &amp; resName
-Set LoadResByName = Nothing
-Err.Clear
-End If
-End Function</code></pre>
-<h3 id="pattern-5-togglerespicture">Pattern 5: <code>ToggleResPicture</code></h3>
-<pre><code class="language-vbnet">Dim currentState As Boolean
-
+    If index &gt;= 1 And index &lt;= UBound(preloadedPics) Then
+        Set Picture1.Picture = preloadedPics(index)
+    End If
+End Sub</p>
+<pre><code>### Pattern 3: `LoadResPictureWithDefault`</code></pre>
+<p>vb
+Function LoadResPictureWithDefault(ByVal resID As Variant, _
+                                   ByVal resFormat As Integer, _
+                                   ByVal defaultID As Variant) As StdPicture
+    On Error Resume Next
+    Set LoadResPictureWithDefault = LoadResPicture(resID, resFormat)
+    If Err.Number &lt;&gt; 0 Then
+        Err.Clear
+        Set LoadResPictureWithDefault = LoadResPicture(defaultID, resFormat)
+    End If
+End Function</p>
+<pre><code>### Pattern 4: `LoadResByName`</code></pre>
+<p>vb
+Function LoadResByName(ByVal resName As String, _
+                       ByVal resFormat As Integer) As StdPicture
+    On Error Resume Next
+    Set LoadResByName = LoadResPicture(resName, resFormat)
+    If Err.Number &lt;&gt; 0 Then
+        Debug.Print "Failed to load resource: " &amp; resName
+        Set LoadResByName = Nothing
+        Err.Clear
+    End If
+End Function</p>
+<pre><code>### Pattern 5: `ToggleResPicture`</code></pre>
+<p>vb
+Dim currentState As Boolean
 Sub ToggleResPicture()
-If currentState Then
-Picture1.Picture = LoadResPicture(101, vbResBitmap)
-Else
-Picture1.Picture = LoadResPicture(102, vbResBitmap)
-End If
-currentState = Not currentState
-End Sub</code></pre>
-<h3 id="pattern-6-loadthemeresources">Pattern 6: <code>LoadThemeResources</code></h3>
-<pre><code class="language-vbnet">Enum ThemeType
-tmLight = 0
-tmDark = 1
+    If currentState Then
+        Picture1.Picture = LoadResPicture(101, vbResBitmap)
+    Else
+        Picture1.Picture = LoadResPicture(102, vbResBitmap)
+    End If
+    currentState = Not currentState
+End Sub</p>
+<pre><code>### Pattern 6: `LoadThemeResources`</code></pre>
+<p>vb
+Enum ThemeType
+    tmLight = 0
+    tmDark = 1
 End Enum
-
 Sub LoadThemeResources(theme As ThemeType)
-Dim baseID As Integer
-baseID = IIf(theme = tmDark, 200, 100)
-
-Me.Picture = LoadResPicture(baseID + 1, vbResBitmap)
-Picture1.Picture = LoadResPicture(baseID + 2, vbResBitmap)
-Picture2.Picture = LoadResPicture(baseID + 3, vbResBitmap)
-End Sub</code></pre>
-<h3 id="pattern-7-resexists">Pattern 7: <code>ResExists</code></h3>
-<pre><code class="language-vbnet">Function ResExists(ByVal resID As Variant, _
-ByVal resFormat As Integer) As Boolean
-On Error Resume Next
-Dim pic As StdPicture
-Set pic = LoadResPicture(resID, resFormat)
-ResExists = (Err.Number = 0)
-Set pic = Nothing
-Err.Clear
-End Function</code></pre>
-<h3 id="pattern-8-loadallresourceicons">Pattern 8: <code>LoadAllResourceIcons</code></h3>
-<pre><code class="language-vbnet">Function LoadAllResourceIcons(startID As Integer, _
-endID As Integer) As Collection
-Dim col As New Collection
-Dim i As Integer
-Dim pic As StdPicture
-
-On Error Resume Next
-For i = startID To endID
-Set pic = LoadResPicture(i, vbResIcon)
-If Err.Number = 0 Then
-col.Add pic
-End If
-Err.Clear
-Next i
-
-Set LoadAllResourceIcons = col
-End Function</code></pre>
-<h3 id="pattern-9-setbuttonicon">Pattern 9: <code>SetButtonIcon</code></h3>
-<pre><code class="language-vbnet">Sub SetButtonIcon(btn As CommandButton, _
-ByVal iconID As Integer, _
-ByVal enabled As Boolean)
-On Error Resume Next
-
-If enabled Then
-Set btn.Picture = LoadResPicture(iconID, vbResIcon)
-Else
-Set btn.Picture = LoadResPicture(iconID + 100, vbResIcon)
-End If
-
-btn.enabled = enabled
-End Sub</code></pre>
-<h3 id="pattern-10-loadresourcearray">Pattern 10: <code>LoadResourceArray</code></h3>
-<pre><code class="language-vbnet">Sub LoadResourceArray(ByRef picArray() As StdPicture, _
-ByVal startID As Integer, _
-ByVal count As Integer, _
-ByVal resFormat As Integer)
-Dim i As Integer
-ReDim picArray(1 To count)
-
-On Error Resume Next
-For i = 1 To count
-Set picArray(i) = LoadResPicture(startID + i - 1, resFormat)
-If Err.Number &lt;&gt; 0 Then
-Debug.Print &quot;Failed to load resource: &quot; &amp; (startID + i - 1)
-Err.Clear
-End If
-Next i
-End Sub</code></pre>
-<h2 id="advanced-examples">Advanced Examples</h2>
-<h3 id="example-1-resource-picture-manager">Example 1: Resource Picture Manager</h3>
-<pre><code class="language-vbnet">&#x27; Class: ResPictureManager
+    Dim baseID As Integer
+    baseID = IIf(theme = tmDark, 200, 100)
+    Me.Picture = LoadResPicture(baseID + 1, vbResBitmap)
+    Picture1.Picture = LoadResPicture(baseID + 2, vbResBitmap)
+    Picture2.Picture = LoadResPicture(baseID + 3, vbResBitmap)
+End Sub</p>
+<pre><code>### Pattern 7: `ResExists`</code></pre>
+<p>vb
+Function ResExists(ByVal resID As Variant, _
+                   ByVal resFormat As Integer) As Boolean
+    On Error Resume Next
+    Dim pic As StdPicture
+    Set pic = LoadResPicture(resID, resFormat)
+    ResExists = (Err.Number = 0)
+    Set pic = Nothing
+    Err.Clear
+End Function</p>
+<pre><code>### Pattern 8: `LoadAllResourceIcons`</code></pre>
+<p>vb
+Function LoadAllResourceIcons(startID As Integer, _
+                              endID As Integer) As Collection
+    Dim col As New Collection
+    Dim i As Integer
+    Dim pic As StdPicture
+    On Error Resume Next
+    For i = startID To endID
+        Set pic = LoadResPicture(i, vbResIcon)
+        If Err.Number = 0 Then
+            col.Add pic
+        End If
+        Err.Clear
+    Next i
+    Set LoadAllResourceIcons = col
+End Function</p>
+<pre><code>### Pattern 9: `SetButtonIcon`</code></pre>
+<p>vb
+Sub SetButtonIcon(btn As CommandButton, _
+                  ByVal iconID As Integer, _
+                  ByVal enabled As Boolean)
+    On Error Resume Next
+    If enabled Then
+        Set btn.Picture = LoadResPicture(iconID, vbResIcon)
+    Else
+        Set btn.Picture = LoadResPicture(iconID + 100, vbResIcon)
+    End If
+    btn.enabled = enabled
+End Sub</p>
+<pre><code>### Pattern 10: `LoadResourceArray`</code></pre>
+<p>vb
+Sub LoadResourceArray(ByRef picArray() As StdPicture, _
+                      ByVal startID As Integer, _
+                      ByVal count As Integer, _
+                      ByVal resFormat As Integer)
+    Dim i As Integer
+    ReDim picArray(1 To count)
+    On Error Resume Next
+    For i = 1 To count
+        Set picArray(i) = LoadResPicture(startID + i - 1, resFormat)
+        If Err.Number &lt;&gt; 0 Then
+            Debug.Print "Failed to load resource: " &amp; (startID + i - 1)
+            Err.Clear
+        End If
+    Next i
+End Sub</p>
+<pre><code>## Advanced Examples
+### Example 1: Resource Picture Manager</code></pre>
+<p>vb
+' Class: ResPictureManager
 Private m_cache As Collection
-
 Private Sub Class_Initialize()
-Set m_cache = New Collection
+    Set m_cache = New Collection
 End Sub
-
 Public Function LoadPicture(ByVal resID As Variant, _
-ByVal resFormat As Integer) As StdPicture
-Dim key As String
-On Error Resume Next
-
-key = CStr(resID) &amp; &quot;_&quot; &amp; CStr(resFormat)
-Set LoadPicture = m_cache(key)
-
-If Err.Number &lt;&gt; 0 Then
-Err.Clear
-Set LoadPicture = LoadResPicture(resID, resFormat)
-If Err.Number = 0 Then
-m_cache.Add LoadPicture, key
-Else
-Err.Raise vbObjectError + 1000, &quot;ResPictureManager&quot;, _
-&quot;Failed to load resource&quot;
-End If
-End If
+                            ByVal resFormat As Integer) As StdPicture
+    Dim key As String
+    On Error Resume Next
+    key = CStr(resID) &amp; "_" &amp; CStr(resFormat)
+    Set LoadPicture = m_cache(key)
+    If Err.Number &lt;&gt; 0 Then
+        Err.Clear
+        Set LoadPicture = LoadResPicture(resID, resFormat)
+        If Err.Number = 0 Then
+            m_cache.Add LoadPicture, key
+        Else
+            Err.Raise vbObjectError + 1000, "ResPictureManager", _
+                      "Failed to load resource"
+        End If
+    End If
 End Function
-
 Public Sub AssignToControl(ByVal ctrl As Object, _
-ByVal resID As Variant, _
-ByVal resFormat As Integer)
-Set ctrl.Picture = LoadPicture(resID, resFormat)
+                           ByVal resID As Variant, _
+                           ByVal resFormat As Integer)
+    Set ctrl.Picture = LoadPicture(resID, resFormat)
 End Sub
-
 Public Sub ClearCache()
-Dim i As Long
-For i = m_cache.Count To 1 Step -1
-m_cache.Remove i
-Next i
+    Dim i As Long
+    For i = m_cache.Count To 1 Step -1
+        m_cache.Remove i
+    Next i
 End Sub
-
 Public Property Get CacheSize() As Long
-CacheSize = m_cache.Count
+    CacheSize = m_cache.Count
 End Property
-
 Private Sub Class_Terminate()
-ClearCache
-Set m_cache = Nothing
-End Sub</code></pre>
-<h3 id="example-2-image-gallery-from-resources">Example 2: Image Gallery from Resources</h3>
-<pre><code class="language-vbnet">&#x27; Form with Picture1, Timer1, cmdNext, cmdPrev, lblInfo
+    ClearCache
+    Set m_cache = Nothing
+End Sub</p>
+<pre><code>### Example 2: Image Gallery from Resources</code></pre>
+<p>vb
+' Form with Picture1, Timer1, cmdNext, cmdPrev, lblInfo
 Private Const BASE_IMAGE_ID = 1001
 Private Const IMAGE_COUNT = 10
 Private currentIndex As Long
-
 Private Sub Form_Load()
-currentIndex = 0
-ShowCurrentImage
-Timer1.Interval = 5000 &#x27; 5 seconds
-Timer1.Enabled = True
+    currentIndex = 0
+    ShowCurrentImage
+    Timer1.Interval = 5000 ' 5 seconds
+    Timer1.Enabled = True
 End Sub
-
 Private Sub ShowCurrentImage()
-Dim imageID As Integer
-On Error Resume Next
-
-imageID = BASE_IMAGE_ID + currentIndex
-Set Picture1.Picture = LoadResPicture(imageID, vbResBitmap)
-
-If Err.Number &lt;&gt; 0 Then
-Picture1.Cls
-Picture1.Print &quot;Image not found&quot;
-Else
-lblInfo.Caption = &quot;Image &quot; &amp; (currentIndex + 1) &amp; &quot; of &quot; &amp; IMAGE_COUNT
-End If
-Err.Clear
+    Dim imageID As Integer
+    On Error Resume Next
+    imageID = BASE_IMAGE_ID + currentIndex
+    Set Picture1.Picture = LoadResPicture(imageID, vbResBitmap)
+    If Err.Number &lt;&gt; 0 Then
+        Picture1.Cls
+        Picture1.Print "Image not found"
+    Else
+        lblInfo.Caption = "Image " &amp; (currentIndex + 1) &amp; " of " &amp; IMAGE_COUNT
+    End If
+    Err.Clear
 End Sub
-
 Private Sub Timer1_Timer()
-NextImage
+    NextImage
 End Sub
-
 Private Sub cmdNext_Click()
-NextImage
+    NextImage
 End Sub
-
 Private Sub cmdPrev_Click()
-PrevImage
+    PrevImage
 End Sub
-
 Private Sub NextImage()
-currentIndex = (currentIndex + 1) Mod IMAGE_COUNT
-ShowCurrentImage
+    currentIndex = (currentIndex + 1) Mod IMAGE_COUNT
+    ShowCurrentImage
 End Sub
-
 Private Sub PrevImage()
-currentIndex = (currentIndex - 1 + IMAGE_COUNT) Mod IMAGE_COUNT
-ShowCurrentImage
-End Sub</code></pre>
-<h3 id="example-3-toolbar-with-resource-icons">Example 3: Toolbar with Resource Icons</h3>
-<pre><code class="language-vbnet">&#x27; Form with toolbar buttons array: cmdTool(0 to 9)
+    currentIndex = (currentIndex - 1 + IMAGE_COUNT) Mod IMAGE_COUNT
+    ShowCurrentImage
+End Sub</p>
+<pre><code>### Example 3: Toolbar with Resource Icons</code></pre>
+<p>vb
+' Form with toolbar buttons array: cmdTool(0 to 9)
 Private Type ToolButton
-caption As String
-iconID As Integer
-enabled As Boolean
-tooltip As String
+    caption As String
+    iconID As Integer
+    enabled As Boolean
+    tooltip As String
 End Type
-
 Private toolConfig() As ToolButton
-
 Private Sub Form_Load()
-InitializeToolbar
-ApplyToolbarConfig
+    InitializeToolbar
+    ApplyToolbarConfig
 End Sub
-
 Private Sub InitializeToolbar()
-ReDim toolConfig(0 To 9)
-
-With toolConfig(0)
-.caption = &quot;New&quot;
-.iconID = 201
-.enabled = True
-.tooltip = &quot;Create new document&quot;
-End With
-
-With toolConfig(1)
-.caption = &quot;Open&quot;
-.iconID = 202
-.enabled = True
-.tooltip = &quot;Open existing document&quot;
-End With
-
-With toolConfig(2)
-.caption = &quot;Save&quot;
-.iconID = 203
-.enabled = False
-.tooltip = &quot;Save current document&quot;
-End With
-
-&#x27; ... more buttons
+    ReDim toolConfig(0 To 9)
+    With toolConfig(0)
+        .caption = "New"
+        .iconID = 201
+        .enabled = True
+        .tooltip = "Create new document"
+    End With
+    With toolConfig(1)
+        .caption = "Open"
+        .iconID = 202
+        .enabled = True
+        .tooltip = "Open existing document"
+    End With
+    With toolConfig(2)
+        .caption = "Save"
+        .iconID = 203
+        .enabled = False
+        .tooltip = "Save current document"
+    End With
+    ' ... more buttons
 End Sub
-
 Private Sub ApplyToolbarConfig()
-Dim i As Long
-On Error Resume Next
-
-For i = 0 To UBound(toolConfig)
-With cmdTool(i)
-.caption = toolConfig(i).caption
-.enabled = toolConfig(i).enabled
-.ToolTipText = toolConfig(i).tooltip
-
-Set .Picture = LoadResPicture(toolConfig(i).iconID, vbResIcon)
-If Err.Number &lt;&gt; 0 Then
-Debug.Print &quot;Failed to load icon: &quot; &amp; toolConfig(i).iconID
-Err.Clear
-End If
-End With
-Next i
+    Dim i As Long
+    On Error Resume Next
+    For i = 0 To UBound(toolConfig)
+        With cmdTool(i)
+            .caption = toolConfig(i).caption
+            .enabled = toolConfig(i).enabled
+            .ToolTipText = toolConfig(i).tooltip
+            Set .Picture = LoadResPicture(toolConfig(i).iconID, vbResIcon)
+            If Err.Number &lt;&gt; 0 Then
+                Debug.Print "Failed to load icon: " &amp; toolConfig(i).iconID
+                Err.Clear
+            End If
+        End With
+    Next i
 End Sub
-
 Public Sub EnableTool(ByVal index As Long)
-If index &gt;= 0 And index &lt;= UBound(toolConfig) Then
-toolConfig(index).enabled = True
-cmdTool(index).enabled = True
-End If
+    If index &gt;= 0 And index &lt;= UBound(toolConfig) Then
+        toolConfig(index).enabled = True
+        cmdTool(index).enabled = True
+    End If
 End Sub
-
 Public Sub DisableTool(ByVal index As Long)
-If index &gt;= 0 And index &lt;= UBound(toolConfig) Then
-toolConfig(index).enabled = False
-cmdTool(index).enabled = False
-End If
-End Sub</code></pre>
-<h3 id="example-4-multi-state-indicator">Example 4: Multi-State Indicator</h3>
-<pre><code class="language-vbnet">&#x27; Form with imgStatus (Image control)
+    If index &gt;= 0 And index &lt;= UBound(toolConfig) Then
+        toolConfig(index).enabled = False
+        cmdTool(index).enabled = False
+    End If
+End Sub</p>
+<pre><code>### Example 4: Multi-State Indicator</code></pre>
+<p>vb
+' Form with imgStatus (Image control)
 Public Enum StatusState
-stIdle = 0
-stProcessing = 1
-stSuccess = 2
-stWarning = 3
-stError = 4
+    stIdle = 0
+    stProcessing = 1
+    stSuccess = 2
+    stWarning = 3
+    stError = 4
 End Enum
-
 Private Const RES_STATUS_IDLE = 301
 Private Const RES_STATUS_PROCESSING = 302
 Private Const RES_STATUS_SUCCESS = 303
 Private Const RES_STATUS_WARNING = 304
 Private Const RES_STATUS_ERROR = 305
-
 Private statusIcons() As StdPicture
 Private currentStatus As StatusState
-
 Private Sub Form_Load()
-LoadStatusIcons
-SetStatus stIdle
+    LoadStatusIcons
+    SetStatus stIdle
 End Sub
-
 Private Sub LoadStatusIcons()
-ReDim statusIcons(0 To 4)
-
-On Error Resume Next
-Set statusIcons(stIdle) = LoadResPicture(RES_STATUS_IDLE, vbResIcon)
-Set statusIcons(stProcessing) = LoadResPicture(RES_STATUS_PROCESSING, vbResIcon)
-Set statusIcons(stSuccess) = LoadResPicture(RES_STATUS_SUCCESS, vbResIcon)
-Set statusIcons(stWarning) = LoadResPicture(RES_STATUS_WARNING, vbResIcon)
-Set statusIcons(stError) = LoadResPicture(RES_STATUS_ERROR, vbResIcon)
-
-If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Warning: Some status icons could not be loaded&quot;, vbExclamation
-Err.Clear
-End If
+    ReDim statusIcons(0 To 4)
+    On Error Resume Next
+    Set statusIcons(stIdle) = LoadResPicture(RES_STATUS_IDLE, vbResIcon)
+    Set statusIcons(stProcessing) = LoadResPicture(RES_STATUS_PROCESSING, vbResIcon)
+    Set statusIcons(stSuccess) = LoadResPicture(RES_STATUS_SUCCESS, vbResIcon)
+    Set statusIcons(stWarning) = LoadResPicture(RES_STATUS_WARNING, vbResIcon)
+    Set statusIcons(stError) = LoadResPicture(RES_STATUS_ERROR, vbResIcon)
+    If Err.Number &lt;&gt; 0 Then
+        MsgBox "Warning: Some status icons could not be loaded", vbExclamation
+        Err.Clear
+    End If
 End Sub
-
 Public Sub SetStatus(ByVal newStatus As StatusState)
-currentStatus = newStatus
-
-If newStatus &gt;= 0 And newStatus &lt;= UBound(statusIcons) Then
-If Not statusIcons(newStatus) Is Nothing Then
-Set imgStatus.Picture = statusIcons(newStatus)
-End If
-End If
+    currentStatus = newStatus
+    If newStatus &gt;= 0 And newStatus &lt;= UBound(statusIcons) Then
+        If Not statusIcons(newStatus) Is Nothing Then
+            Set imgStatus.Picture = statusIcons(newStatus)
+        End If
+    End If
 End Sub
-
 Public Function GetStatus() As StatusState
-GetStatus = currentStatus
+    GetStatus = currentStatus
 End Function
-
 Private Sub Form_Unload(Cancel As Integer)
-Dim i As Long
-For i = 0 To UBound(statusIcons)
-Set statusIcons(i) = Nothing
-Next i
-End Sub</code></pre>
-<h2 id="error-handling">Error Handling</h2>
-<pre><code class="language-vbnet">&#x27; Error 32813: Resource not found
+    Dim i As Long
+    For i = 0 To UBound(statusIcons)
+        Set statusIcons(i) = Nothing
+    Next i
+End Sub</p>
+<pre><code>## Error Handling</code></pre>
+<p>vb
+' Error 32813: Resource not found
 On Error Resume Next
 Set pic = LoadResPicture(999, vbResBitmap)
 If Err.Number = 32813 Then
-MsgBox &quot;Resource not found!&quot;
+    MsgBox "Resource not found!"
 End If
-
-&#x27; Error 48: Error loading from file
+' Error 48: Error loading from file
 Set pic = LoadResPicture(101, vbResBitmap)
 If Err.Number = 48 Then
-MsgBox &quot;Resource file is corrupt or missing!&quot;
+    MsgBox "Resource file is corrupt or missing!"
 End If
-
-&#x27; Safe loading pattern
+' Safe loading pattern
 Function TryLoadResPicture(ByVal resID As Variant, _
-ByVal resFormat As Integer, _
-ByRef pic As StdPicture) As Boolean
-On Error Resume Next
-Set pic = LoadResPicture(resID, resFormat)
-TryLoadResPicture = (Err.Number = 0)
-Err.Clear
-End Function</code></pre>
-<h2 id="performance-considerations">Performance Considerations</h2>
-<ul>
-<li><strong>Fast Loading</strong>: Resources embedded in EXE (very fast access)</li>
-<li><strong>No File I/O</strong>: No disk access required</li>
-<li><strong>Memory Usage</strong>: Pictures consume memory until released</li>
-<li><strong>No Caching</strong>: Each call loads fresh copy (implement caching if needed)</li>
-<li><strong>Preloading</strong>: Load frequently used images once at startup</li>
-<li><strong>EXE Size</strong>: Large images increase executable size</li>
-</ul>
-<h2 id="best-practices">Best Practices</h2>
-<ol>
-<li><strong>Always handle errors</strong> - resource might not exist</li>
-<li><strong>Use constants</strong> for resource IDs for maintainability</li>
-<li><strong>Preload frequently used images</strong> for better performance</li>
-<li><strong>Release memory</strong> by setting picture objects to Nothing when done</li>
-<li><strong>Use meaningful names</strong> for string-based resource IDs</li>
-<li><strong>Test all resources</strong> during development</li>
-<li><strong>Document resource IDs</strong> in code or separate file</li>
-<li><strong>Use Resource Editor</strong> to manage resources efficiently</li>
-<li><strong>Consider image size</strong> - large bitmaps increase EXE size</li>
-<li><strong>Cache in Collection</strong> for images used multiple times</li>
-</ol>
-<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
-<table>
-<thead>
-<tr>
-<th>Function</th>
-<th>Purpose</th>
-<th>Source</th>
-<th>External Files</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong><code>LoadResPicture</code></strong></td>
-<td>Load from resources</td>
-<td>Embedded .res</td>
-<td>No</td>
-</tr>
-<tr>
-<td><strong><code>LoadPicture</code></strong></td>
-<td>Load from file</td>
-<td>External file</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong><code>LoadResData</code></strong></td>
-<td>Load binary data</td>
-<td>Embedded .res</td>
-<td>No</td>
-</tr>
-<tr>
-<td><strong><code>LoadResString</code></strong></td>
-<td>Load string</td>
-<td>Embedded .res</td>
-<td>No</td>
-</tr>
-</tbody>
-</table>
-<h2 id="loadrespicture-vs-loadpicture"><code>LoadResPicture</code> vs <code>LoadPicture</code></h2>
-<pre><code class="language-vbnet">&#x27; LoadResPicture - from embedded resources
+                           ByVal resFormat As Integer, _
+                           ByRef pic As StdPicture) As Boolean
+    On Error Resume Next
+    Set pic = LoadResPicture(resID, resFormat)
+    TryLoadResPicture = (Err.Number = 0)
+    Err.Clear
+End Function</p>
+<pre><code>## Performance Considerations
+- **Fast Loading**: Resources embedded in EXE (very fast access)
+- **No File I/O**: No disk access required
+- **Memory Usage**: Pictures consume memory until released
+- **No Caching**: Each call loads fresh copy (implement caching if needed)
+- **Preloading**: Load frequently used images once at startup
+- **EXE Size**: Large images increase executable size
+## Best Practices
+1. **Always handle errors** - resource might not exist
+2. **Use constants** for resource IDs for maintainability
+3. **Preload frequently used images** for better performance
+4. **Release memory** by setting picture objects to Nothing when done
+5. **Use meaningful names** for string-based resource IDs
+6. **Test all resources** during development
+7. **Document resource IDs** in code or separate file
+8. **Use Resource Editor** to manage resources efficiently
+9. **Consider image size** - large bitmaps increase EXE size
+10. **Cache in Collection** for images used multiple times
+## Comparison with Related Functions
+| Function | Purpose | Source | External Files |
+|----------|---------|--------|----------------|
+| **`LoadResPicture`** | Load from resources | Embedded .res | No |
+| **`LoadPicture`** | Load from file | External file | Yes |
+| **`LoadResData`** | Load binary data | Embedded .res | No |
+| **`LoadResString`** | Load string | Embedded .res | No |
+## `LoadResPicture` vs `LoadPicture`</code></pre>
+<p>vb
+' LoadResPicture - from embedded resources
 Picture1.Picture = LoadResPicture(101, vbResBitmap)
-
-&#x27; LoadPicture - from external file
-Picture1.Picture = LoadPicture(&quot;C:\Images\logo.bmp&quot;)</code></pre>
-<p><strong>When to use each:</strong>
-- <strong><code>LoadResPicture</code></strong>: Distribution (no external files), static images, faster loading
-- <strong><code>LoadPicture</code></strong>: Dynamic images, user-selected files, easier updates</p>
-<h2 id="resource-format-constants">Resource Format Constants</h2>
-<pre><code class="language-vbnet">&#x27; Format constants
-Const vbResBitmap = 0  &#x27; Bitmap (.bmp)
-Const vbResIcon = 1    &#x27; Icon (.ico)
-Const vbResCursor = 2  &#x27; Cursor (.cur)
-
-&#x27; Usage
+' LoadPicture - from external file
+Picture1.Picture = LoadPicture("C:\Images\logo.bmp")</p>
+<pre><code>**When to use each:**
+- **`LoadResPicture`**: Distribution (no external files), static images, faster loading
+- **`LoadPicture`**: Dynamic images, user-selected files, easier updates
+## Resource Format Constants</code></pre>
+<p>vb
+' Format constants
+Const vbResBitmap = 0  ' Bitmap (.bmp)
+Const vbResIcon = 1    ' Icon (.ico)
+Const vbResCursor = 2  ' Cursor (.cur)
+' Usage
 Picture1.Picture = LoadResPicture(101, vbResBitmap)
 Image1.Picture = LoadResPicture(102, vbResIcon)
-Me.MouseIcon = LoadResPicture(103, vbResCursor)</code></pre>
+Me.MouseIcon = LoadResPicture(103, vbResCursor)
+```</p>
 <h2 id="platform-notes">Platform Notes</h2>
 <ul>
 <li>Available in VB6 (not in early VB versions)</li>

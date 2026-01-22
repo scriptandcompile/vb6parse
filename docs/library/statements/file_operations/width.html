@@ -45,19 +45,19 @@
 <ul>
 <li><strong>filenumber</strong>: Required. Any valid file number.</li>
 <li><strong>width</strong>: Required. Numeric expression in the range 0–255, inclusive, that indicates how
-many characters appear on a line before a new line is started. If width equals 0, there is
-no limit to the length of a line. The default value for width is 0.</li>
+  many characters appear on a line before a new line is started. If width equals 0, there is
+  no limit to the length of a line. The default value for width is 0.</li>
 </ul>
 <h2 id="remarks">Remarks</h2>
 <ul>
 <li><strong>Output Formatting</strong>: The Width # statement is used with the Print # or Write # statements
-to control output formatting to files.</li>
+  to control output formatting to files.</li>
 <li><strong>Line Length Control</strong>: For files opened for sequential output, if the width of a line of
-output exceeds the value specified for width, a new line is automatically started.</li>
+  output exceeds the value specified for width, a new line is automatically started.</li>
 <li><strong>No Effect on Input</strong>: The Width # statement has no effect on files opened for input or
-binary access.</li>
+  binary access.</li>
 <li><strong>Zero Width</strong>: Setting width to 0 means there is no line length limit, allowing continuous
-output without automatic line breaks.</li>
+  output without automatic line breaks.</li>
 <li><strong>Maximum Width</strong>: The maximum width value is 255 characters.</li>
 </ul>
 <h2 id="examples">Examples</h2>
@@ -90,25 +90,21 @@ Close #1</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="report-generation-with-fixed-width">Report Generation with Fixed Width</h3>
 <pre><code class="language-vbnet">Sub GenerateReport()
-Open &quot;report.txt&quot; For Output As #1
-Width #1, 80
-
-Print #1, &quot;Annual Sales Report&quot;
-Print #1, String$(80, &quot;=&quot;)
-&#x27; ... report content ...
-
-Close #1
+    Open &quot;report.txt&quot; For Output As #1
+    Width #1, 80
+    Print #1, &quot;Annual Sales Report&quot;
+    Print #1, String$(80, &quot;=&quot;)
+    &#x27; ... report content ...
+    Close #1
 End Sub</code></pre>
 <h3 id="csv-export-no-width-limit">CSV Export (No Width Limit)</h3>
 <pre><code class="language-vbnet">Sub ExportCSV()
-Open &quot;export.csv&quot; For Output As #1
-Width #1, 0  &#x27; Allow unlimited line length
-
-For i = 1 To RecordCount
-Print #1, BuildCSVLine(i)
-Next i
-
-Close #1
+    Open &quot;export.csv&quot; For Output As #1
+    Width #1, 0  &#x27; Allow unlimited line length
+    For i = 1 To RecordCount
+        Print #1, BuildCSVLine(i)
+    Next i
+    Close #1
 End Sub</code></pre>
 <h3 id="console-style-output">Console-Style Output</h3>
 <pre><code class="language-vbnet">Open &quot;console.log&quot; For Output As #1

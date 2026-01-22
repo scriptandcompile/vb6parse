@@ -14,7 +14,7 @@ Bytes/String/File → SourceFile → SourceStream → TokenStream → CST → Ob
 1. **I/O Layer** (`io/`): Character decoding and stream access (SourceFile, SourceStream)
 2. **Lexer Layer** (`lexer/`): Tokenization with keyword lookup tables (phf-based), creates TokenStream
 4. **Parser Layer** (`parsers/`): CST construction from tokens, wraps rowan's red-green tree
-5. **VB6 Language Layer** (`files/`): High-level file format parsers (ProjectFile, ClassFile, ModuleFile, FormFile, FormResource)
+5. **VB6 Language Layer** (`files/`): High-level file format parsers (ProjectFile, ClassFile, ModuleFile, FormFile, FormResource) and language-level objects like Color and Control's
 
 ## Error Handling Pattern
 
@@ -27,7 +27,7 @@ All parsers return `ParseResult<'a, T, E>` which contains both:
 - `failures()` or `into_failures()` - Get error list
 - `unpack()` - Consume and get `(Option<T>, Vec<ErrorDetails>)`
 - `has_failures()` - Check if any errors occurred
-- `ok_or_errors()` - Convert to `Result<T, Vec<ErrorDetails>>`
+- `ok_or_errors()` - Convert to `Result<T, Vec<ErrorDetails>>` and returns `T` if available or `Vec<ErrorDetails>` otherwise.
 
 Always check for failures after parsing by unpacking and handling the results.
 
@@ -49,7 +49,7 @@ for failure in failures {
 
 - **Snapshot testing**: Uses `insta` for all integration tests. Run `cargo insta test` and `cargo insta review` to update snapshots
 - **Test data**: Lives in `tests/data/` and includes git submodules of real VB6 projects. Run `git submodule update --init --recursive` before testing
-- **Test coverage**: 5,467 library tests + 83 documentation tests + 31 integration tests
+- **Test coverage**: 5,000+ library tests, 80+ documentation tests, and 30+ integration tests.
 - **Benchmarking**: Uses criterion. Benchmarks in `benches/` use `include_bytes!()` to embed test files at compile time
 - **Fuzz testing**: Comprehensive coverage-guided fuzzing with cargo-fuzz and libFuzzer. 9 fuzz targets covering all layers
 - **Pattern**: Tests call `SourceFile::decode_with_replacement()` → `TypeFile::parse()` → `insta::assert_yaml_snapshot!()`
@@ -82,6 +82,11 @@ The CST preserves all tokens (whitespace, comments). Navigate via `CstNode`:
 5. **Token vs Text**: Prefer reading from tokens in `TokenStream` for parsing logic. Use `CstNode::text()` only when exact source text is needed (e.g., for error messages or snapshots). Do not mix raw string operations with token-based parsing.
 6. **VB6 Library**: 160+ built-in functions organized in 14 categories (array, conversion, datetime, file_system, financial, formatting, interaction, inspection, math, string, etc.). 42 statements in 9 categories (control_flow, declarations, error_handling, file_operations, objects, etc.).
 
+## Module documentation template for /src/syntax/library/functions/* and /src/syntax/library/statements/*
+
+module-documentation-template.md in the .github folder contains clear guidelines for documenting the library/functions which are turned into
+VB6 library documentation.
+
 ## Build & Run
 
 - `cargo test` - Run tests (requires submodules: `git submodule update --init --recursive`)
@@ -104,7 +109,7 @@ The CST preserves all tokens (whitespace, comments). Navigate via `CstNode`:
 
 ## Current Limitations
 
-- Form resource (`.frx`) loading doesn't fully map binary blobs to all control properties yet
+- Form resource (`.frx`) loading doesn't provide type specific accessors yet.
 - CST exists but AST (Abstract Syntax Tree) is not yet implemented
 - Focus is on "predominantly english" source code due to encoding detection limitations
 - Not optimized for real-time highlighting or LSP (focus is on offline analysis)

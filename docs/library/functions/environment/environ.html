@@ -44,10 +44,10 @@
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><strong>envstring</strong>: Optional (if number provided). String expression containing the name of an
-environment variable.</li>
+  environment variable.</li>
 <li><strong>number</strong>: Optional (if envstring provided). Numeric expression corresponding to the
-numeric order of an environment string in the environment-string table. The number argument
-can be any numeric expression, but is rounded to a whole number before it is evaluated.</li>
+  numeric order of an environment string in the environment-string table. The number argument
+  can be any numeric expression, but is rounded to a whole number before it is evaluated.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a String containing the value assigned to envstring or the environment variable at
@@ -56,20 +56,18 @@ no environment string at position number.</p>
 <h2 id="remarks">Remarks</h2>
 <p>The <code>Environ</code> function retrieves values from the operating system's environment variables.
 Environment variables are system-level or user-level settings that provide information about
-the operating system environment.</p>
-<p><strong>Important Characteristics:</strong></p>
-<ul>
-<li>Reads environment variables from the operating system</li>
-<li>Can access by name (string) or position (number)</li>
-<li>Case-insensitive on Windows</li>
-<li>Returns empty string if variable not found</li>
-<li>Position-based access starts at 1 (not 0)</li>
-<li>Number of environment variables varies by system</li>
-<li>Environment changes during execution are not reflected</li>
-<li>Snapshot taken at application start</li>
-<li>Cannot modify environment variables (read-only)</li>
-<li>Different users may have different environment variables</li>
-</ul>
+the operating system environment.
+<strong>Important Characteristics:</strong>
+- Reads environment variables from the operating system
+- Can access by name (string) or position (number)
+- Case-insensitive on Windows
+- Returns empty string if variable not found
+- Position-based access starts at 1 (not 0)
+- Number of environment variables varies by system
+- Environment changes during execution are not reflected
+- Snapshot taken at application start
+- Cannot modify environment variables (read-only)
+- Different users may have different environment variables</p>
 <h2 id="common-environment-variables">Common Environment Variables</h2>
 <p><strong>Windows:</strong>
 - <code>PATH</code> - Executable search path
@@ -92,375 +90,309 @@ the operating system environment.</p>
 Dim userName As String
 userName = Environ(&quot;USERNAME&quot;)
 MsgBox &quot;Current user: &quot; &amp; userName
-
 &#x27; Get temp directory
 Dim tempDir As String
 tempDir = Environ(&quot;TEMP&quot;)
-
 &#x27; Get by position
 Dim firstEnvVar As String
 firstEnvVar = Environ(1)</code></pre>
 <h3 id="check-if-variable-exists">Check if Variable Exists</h3>
 <pre><code class="language-vbnet">Function EnvironVarExists(varName As String) As Boolean
-EnvironVarExists = (Len(Environ(varName)) &gt; 0)
+    EnvironVarExists = (Len(Environ(varName)) &gt; 0)
 End Function
-
 &#x27; Usage
 If EnvironVarExists(&quot;JAVA_HOME&quot;) Then
-MsgBox &quot;Java is configured&quot;
+    MsgBox &quot;Java is configured&quot;
 Else
-MsgBox &quot;Java not found&quot;
+    MsgBox &quot;Java not found&quot;
 End If</code></pre>
 <h3 id="build-file-paths">Build File Paths</h3>
 <pre><code class="language-vbnet">Function GetTempFilePath(fileName As String) As String
-Dim tempDir As String
-tempDir = Environ(&quot;TEMP&quot;)
-
-If Right(tempDir, 1) &lt;&gt; &quot;\&quot; Then
-tempDir = tempDir &amp; &quot;\&quot;
-End If
-
-GetTempFilePath = tempDir &amp; fileName
+    Dim tempDir As String
+    tempDir = Environ(&quot;TEMP&quot;)
+    If Right(tempDir, 1) &lt;&gt; &quot;\&quot; Then
+        tempDir = tempDir &amp; &quot;\&quot;
+    End If
+    GetTempFilePath = tempDir &amp; fileName
 End Function</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="get-user-directories">Get User Directories</h3>
 <pre><code class="language-vbnet">Function GetUserProfile() As String
-GetUserProfile = Environ(&quot;USERPROFILE&quot;)
+    GetUserProfile = Environ(&quot;USERPROFILE&quot;)
 End Function
-
 Function GetAppDataPath() As String
-GetAppDataPath = Environ(&quot;APPDATA&quot;)
+    GetAppDataPath = Environ(&quot;APPDATA&quot;)
 End Function
-
 Function GetDesktopPath() As String
-GetDesktopPath = Environ(&quot;USERPROFILE&quot;) &amp; &quot;\Desktop&quot;
+    GetDesktopPath = Environ(&quot;USERPROFILE&quot;) &amp; &quot;\Desktop&quot;
 End Function
-
 Function GetMyDocuments() As String
-GetMyDocuments = Environ(&quot;USERPROFILE&quot;) &amp; &quot;\Documents&quot;
+    GetMyDocuments = Environ(&quot;USERPROFILE&quot;) &amp; &quot;\Documents&quot;
 End Function</code></pre>
 <h3 id="system-information">System Information</h3>
 <pre><code class="language-vbnet">Function GetComputerName() As String
-GetComputerName = Environ(&quot;COMPUTERNAME&quot;)
+    GetComputerName = Environ(&quot;COMPUTERNAME&quot;)
 End Function
-
 Function GetProcessorCount() As Integer
-Dim procCount As String
-procCount = Environ(&quot;NUMBER_OF_PROCESSORS&quot;)
-
-If IsNumeric(procCount) Then
-GetProcessorCount = CInt(procCount)
-Else
-GetProcessorCount = 1
-End If
+    Dim procCount As String
+    procCount = Environ(&quot;NUMBER_OF_PROCESSORS&quot;)
+    If IsNumeric(procCount) Then
+        GetProcessorCount = CInt(procCount)
+    Else
+        GetProcessorCount = 1
+    End If
 End Function
-
 Function GetSystemArchitecture() As String
-GetSystemArchitecture = Environ(&quot;PROCESSOR_ARCHITECTURE&quot;)
+    GetSystemArchitecture = Environ(&quot;PROCESSOR_ARCHITECTURE&quot;)
 End Function</code></pre>
 <h3 id="list-all-environment-variables">List All Environment Variables</h3>
 <pre><code class="language-vbnet">Sub ListAllEnvironmentVariables()
-Dim i As Integer
-Dim envVar As String
-
-i = 1
-Do
-envVar = Environ(i)
-If envVar = &quot;&quot; Then Exit Do
-
-Debug.Print i &amp; &quot;: &quot; &amp; envVar
-i = i + 1
-Loop
+    Dim i As Integer
+    Dim envVar As String
+    i = 1
+    Do
+        envVar = Environ(i)
+        If envVar = &quot;&quot; Then Exit Do
+        Debug.Print i &amp; &quot;: &quot; &amp; envVar
+        i = i + 1
+    Loop
 End Sub</code></pre>
 <h3 id="parse-environment-variable">Parse Environment Variable</h3>
 <pre><code class="language-vbnet">Function GetEnvironVarName(envString As String) As String
-Dim equalPos As Integer
-equalPos = InStr(envString, &quot;=&quot;)
-
-If equalPos &gt; 0 Then
-GetEnvironVarName = Left(envString, equalPos - 1)
-Else
-GetEnvironVarName = &quot;&quot;
-End If
+    Dim equalPos As Integer
+    equalPos = InStr(envString, &quot;=&quot;)
+    If equalPos &gt; 0 Then
+        GetEnvironVarName = Left(envString, equalPos - 1)
+    Else
+        GetEnvironVarName = &quot;&quot;
+    End If
 End Function
-
 Function GetEnvironVarValue(envString As String) As String
-Dim equalPos As Integer
-equalPos = InStr(envString, &quot;=&quot;)
-
-If equalPos &gt; 0 Then
-GetEnvironVarValue = Mid(envString, equalPos + 1)
-Else
-GetEnvironVarValue = &quot;&quot;
-End If
+    Dim equalPos As Integer
+    equalPos = InStr(envString, &quot;=&quot;)
+    If equalPos &gt; 0 Then
+        GetEnvironVarValue = Mid(envString, equalPos + 1)
+    Else
+        GetEnvironVarValue = &quot;&quot;
+    End If
 End Function</code></pre>
 <h3 id="safe-path-construction">Safe Path Construction</h3>
 <pre><code class="language-vbnet">Function BuildSafePath(envVar As String, subPath As String) As String
-Dim basePath As String
-basePath = Environ(envVar)
-
-If basePath = &quot;&quot; Then
-BuildSafePath = &quot;&quot;
-Exit Function
-End If
-
-&#x27; Ensure path ends with backslash
-If Right(basePath, 1) &lt;&gt; &quot;\&quot; Then
-basePath = basePath &amp; &quot;\&quot;
-End If
-
-&#x27; Remove leading backslash from subPath if present
-If Left(subPath, 1) = &quot;\&quot; Then
-subPath = Mid(subPath, 2)
-End If
-
-BuildSafePath = basePath &amp; subPath
+    Dim basePath As String
+    basePath = Environ(envVar)
+    If basePath = &quot;&quot; Then
+        BuildSafePath = &quot;&quot;
+        Exit Function
+    End If
+    &#x27; Ensure path ends with backslash
+    If Right(basePath, 1) &lt;&gt; &quot;\&quot; Then
+        basePath = basePath &amp; &quot;\&quot;
+    End If
+    &#x27; Remove leading backslash from subPath if present
+    If Left(subPath, 1) = &quot;\&quot; Then
+        subPath = Mid(subPath, 2)
+    End If
+    BuildSafePath = basePath &amp; subPath
 End Function</code></pre>
 <h3 id="configuration-file-paths">Configuration File Paths</h3>
 <pre><code class="language-vbnet">Function GetConfigFilePath(appName As String, fileName As String) As String
-Dim appDataPath As String
-Dim configDir As String
-
-appDataPath = Environ(&quot;APPDATA&quot;)
-configDir = appDataPath &amp; &quot;\&quot; &amp; appName
-
-&#x27; Create directory if it doesn&#x27;t exist
-If Dir(configDir, vbDirectory) = &quot;&quot; Then
-MkDir configDir
-End If
-
-GetConfigFilePath = configDir &amp; &quot;\&quot; &amp; fileName
+    Dim appDataPath As String
+    Dim configDir As String
+    appDataPath = Environ(&quot;APPDATA&quot;)
+    configDir = appDataPath &amp; &quot;\&quot; &amp; appName
+    &#x27; Create directory if it doesn&#x27;t exist
+    If Dir(configDir, vbDirectory) = &quot;&quot; Then
+        MkDir configDir
+    End If
+    GetConfigFilePath = configDir &amp; &quot;\&quot; &amp; fileName
 End Function</code></pre>
 <h3 id="search-path-variable">Search PATH Variable</h3>
 <pre><code class="language-vbnet">Function FindInPath(executable As String) As String
-Dim pathVar As String
-Dim paths() As String
-Dim i As Integer
-Dim testPath As String
-
-pathVar = Environ(&quot;PATH&quot;)
-paths = Split(pathVar, &quot;;&quot;)
-
-For i = LBound(paths) To UBound(paths)
-testPath = paths(i) &amp; &quot;\&quot; &amp; executable
-If Dir(testPath) &lt;&gt; &quot;&quot; Then
-FindInPath = testPath
-Exit Function
-End If
-Next i
-
-FindInPath = &quot;&quot;
+    Dim pathVar As String
+    Dim paths() As String
+    Dim i As Integer
+    Dim testPath As String
+    pathVar = Environ(&quot;PATH&quot;)
+    paths = Split(pathVar, &quot;;&quot;)
+    For i = LBound(paths) To UBound(paths)
+        testPath = paths(i) &amp; &quot;\&quot; &amp; executable
+        If Dir(testPath) &lt;&gt; &quot;&quot; Then
+            FindInPath = testPath
+            Exit Function
+        End If
+    Next i
+    FindInPath = &quot;&quot;
 End Function</code></pre>
 <h3 id="check-operating-system">Check Operating System</h3>
 <pre><code class="language-vbnet">Function IsWindows() As Boolean
-Dim osVar As String
-osVar = UCase(Environ(&quot;OS&quot;))
-IsWindows = (InStr(osVar, &quot;WINDOWS&quot;) &gt; 0)
+    Dim osVar As String
+    osVar = UCase(Environ(&quot;OS&quot;))
+    IsWindows = (InStr(osVar, &quot;WINDOWS&quot;) &gt; 0)
 End Function
-
 Function GetWindowsDirectory() As String
-GetWindowsDirectory = Environ(&quot;WINDIR&quot;)
+    GetWindowsDirectory = Environ(&quot;WINDIR&quot;)
 End Function
-
 Function GetSystemRoot() As String
-GetSystemRoot = Environ(&quot;SYSTEMROOT&quot;)
+    GetSystemRoot = Environ(&quot;SYSTEMROOT&quot;)
 End Function</code></pre>
 <h3 id="program-files-paths">Program Files Paths</h3>
 <pre><code class="language-vbnet">Function GetProgramFilesPath() As String
-GetProgramFilesPath = Environ(&quot;PROGRAMFILES&quot;)
+    GetProgramFilesPath = Environ(&quot;PROGRAMFILES&quot;)
 End Function
-
 Function GetProgramFilesX86Path() As String
-GetProgramFilesX86Path = Environ(&quot;PROGRAMFILES(X86)&quot;)
+    GetProgramFilesX86Path = Environ(&quot;PROGRAMFILES(X86)&quot;)
 End Function
-
 Function FindProgramPath(programName As String) As String
-Dim progFiles As String
-Dim testPath As String
-
-&#x27; Check Program Files
-progFiles = Environ(&quot;PROGRAMFILES&quot;)
-testPath = progFiles &amp; &quot;\&quot; &amp; programName
-If Dir(testPath, vbDirectory) &lt;&gt; &quot;&quot; Then
-FindProgramPath = testPath
-Exit Function
-End If
-
-&#x27; Check Program Files (x86)
-progFiles = Environ(&quot;PROGRAMFILES(X86)&quot;)
-If progFiles &lt;&gt; &quot;&quot; Then
-testPath = progFiles &amp; &quot;\&quot; &amp; programName
-If Dir(testPath, vbDirectory) &lt;&gt; &quot;&quot; Then
-FindProgramPath = testPath
-Exit Function
-End If
-End If
-
-FindProgramPath = &quot;&quot;
+    Dim progFiles As String
+    Dim testPath As String
+    &#x27; Check Program Files
+    progFiles = Environ(&quot;PROGRAMFILES&quot;)
+    testPath = progFiles &amp; &quot;\&quot; &amp; programName
+    If Dir(testPath, vbDirectory) &lt;&gt; &quot;&quot; Then
+        FindProgramPath = testPath
+        Exit Function
+    End If
+    &#x27; Check Program Files (x86)
+    progFiles = Environ(&quot;PROGRAMFILES(X86)&quot;)
+    If progFiles &lt;&gt; &quot;&quot; Then
+        testPath = progFiles &amp; &quot;\&quot; &amp; programName
+        If Dir(testPath, vbDirectory) &lt;&gt; &quot;&quot; Then
+            FindProgramPath = testPath
+            Exit Function
+        End If
+    End If
+    FindProgramPath = &quot;&quot;
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="environment-variable-dictionary">Environment Variable Dictionary</h3>
 <pre><code class="language-vbnet">Function GetEnvironmentDictionary() As Collection
-Dim dict As New Collection
-Dim i As Integer
-Dim envVar As String
-Dim varName As String
-Dim varValue As String
-Dim equalPos As Integer
-
-i = 1
-Do
-envVar = Environ(i)
-If envVar = &quot;&quot; Then Exit Do
-
-equalPos = InStr(envVar, &quot;=&quot;)
-If equalPos &gt; 0 Then
-varName = Left(envVar, equalPos - 1)
-varValue = Mid(envVar, equalPos + 1)
-
-On Error Resume Next
-dict.Add varValue, UCase(varName)
-On Error GoTo 0
-End If
-
-i = i + 1
-Loop
-
-Set GetEnvironmentDictionary = dict
+    Dim dict As New Collection
+    Dim i As Integer
+    Dim envVar As String
+    Dim varName As String
+    Dim varValue As String
+    Dim equalPos As Integer
+    i = 1
+    Do
+        envVar = Environ(i)
+        If envVar = &quot;&quot; Then Exit Do
+        equalPos = InStr(envVar, &quot;=&quot;)
+        If equalPos &gt; 0 Then
+            varName = Left(envVar, equalPos - 1)
+            varValue = Mid(envVar, equalPos + 1)
+            On Error Resume Next
+            dict.Add varValue, UCase(varName)
+            On Error GoTo 0
+        End If
+        i = i + 1
+    Loop
+    Set GetEnvironmentDictionary = dict
 End Function</code></pre>
 <h3 id="expand-environment-variables-in-string">Expand Environment Variables in String</h3>
 <pre><code class="language-vbnet">Function ExpandEnvironmentString(inputString As String) As String
-Dim result As String
-Dim startPos As Integer
-Dim endPos As Integer
-Dim varName As String
-Dim varValue As String
-
-result = inputString
-
-&#x27; Find %VAR% patterns
-Do
-startPos = InStr(result, &quot;%&quot;)
-If startPos = 0 Then Exit Do
-
-endPos = InStr(startPos + 1, result, &quot;%&quot;)
-If endPos = 0 Then Exit Do
-
-varName = Mid(result, startPos + 1, endPos - startPos - 1)
-varValue = Environ(varName)
-
-result = Left(result, startPos - 1) &amp; varValue &amp; Mid(result, endPos + 1)
-Loop
-
-ExpandEnvironmentString = result
+    Dim result As String
+    Dim startPos As Integer
+    Dim endPos As Integer
+    Dim varName As String
+    Dim varValue As String
+    result = inputString
+    &#x27; Find %VAR% patterns
+    Do
+        startPos = InStr(result, &quot;%&quot;)
+        If startPos = 0 Then Exit Do
+        endPos = InStr(startPos + 1, result, &quot;%&quot;)
+        If endPos = 0 Then Exit Do
+        varName = Mid(result, startPos + 1, endPos - startPos - 1)
+        varValue = Environ(varName)
+        result = Left(result, startPos - 1) &amp; varValue &amp; Mid(result, endPos + 1)
+    Loop
+    ExpandEnvironmentString = result
 End Function
-
 &#x27; Usage
 expandedPath = ExpandEnvironmentString(&quot;%TEMP%\myfile.txt&quot;)</code></pre>
 <h3 id="create-application-log-file">Create Application Log File</h3>
 <pre><code class="language-vbnet">Function CreateLogFile(appName As String) As String
-Dim logDir As String
-Dim logFile As String
-Dim dateStamp As String
-
-logDir = Environ(&quot;TEMP&quot;) &amp; &quot;\Logs&quot;
-
-&#x27; Create logs directory
-If Dir(logDir, vbDirectory) = &quot;&quot; Then
-MkDir logDir
-End If
-
-dateStamp = Format(Date, &quot;yyyy-mm-dd&quot;)
-logFile = logDir &amp; &quot;\&quot; &amp; appName &amp; &quot;_&quot; &amp; dateStamp &amp; &quot;.log&quot;
-
-CreateLogFile = logFile
+    Dim logDir As String
+    Dim logFile As String
+    Dim dateStamp As String
+    logDir = Environ(&quot;TEMP&quot;) &amp; &quot;\Logs&quot;
+    &#x27; Create logs directory
+    If Dir(logDir, vbDirectory) = &quot;&quot; Then
+        MkDir logDir
+    End If
+    dateStamp = Format(Date, &quot;yyyy-mm-dd&quot;)
+    logFile = logDir &amp; &quot;\&quot; &amp; appName &amp; &quot;_&quot; &amp; dateStamp &amp; &quot;.log&quot;
+    CreateLogFile = logFile
 End Function</code></pre>
 <h3 id="check-development-environment">Check Development Environment</h3>
 <pre><code class="language-vbnet">Function IsDevelopmentEnvironment() As Boolean
-&#x27; Check for common development environment variables
-IsDevelopmentEnvironment = (Len(Environ(&quot;VSCODE_PID&quot;)) &gt; 0) Or _
-(Len(Environ(&quot;TERM_PROGRAM&quot;)) &gt; 0) Or _
-(Len(Environ(&quot;VSAPPIDDIR&quot;)) &gt; 0)
+    &#x27; Check for common development environment variables
+    IsDevelopmentEnvironment = (Len(Environ(&quot;VSCODE_PID&quot;)) &gt; 0) Or _
+                              (Len(Environ(&quot;TERM_PROGRAM&quot;)) &gt; 0) Or _
+                              (Len(Environ(&quot;VSAPPIDDIR&quot;)) &gt; 0)
 End Function
-
 Function GetJavaHome() As String
-GetJavaHome = Environ(&quot;JAVA_HOME&quot;)
+    GetJavaHome = Environ(&quot;JAVA_HOME&quot;)
 End Function
-
 Function GetPythonPath() As String
-GetPythonPath = Environ(&quot;PYTHONPATH&quot;)
+    GetPythonPath = Environ(&quot;PYTHONPATH&quot;)
 End Function</code></pre>
 <h3 id="build-connection-string">Build Connection String</h3>
 <pre><code class="language-vbnet">Function BuildConnectionString() As String
-Dim server As String
-Dim database As String
-
-server = Environ(&quot;DB_SERVER&quot;)
-database = Environ(&quot;DB_NAME&quot;)
-
-If server = &quot;&quot; Then server = &quot;localhost&quot;
-If database = &quot;&quot; Then database = &quot;default&quot;
-
-BuildConnectionString = &quot;Server=&quot; &amp; server &amp; &quot;;Database=&quot; &amp; database
+    Dim server As String
+    Dim database As String
+    server = Environ(&quot;DB_SERVER&quot;)
+    database = Environ(&quot;DB_NAME&quot;)
+    If server = &quot;&quot; Then server = &quot;localhost&quot;
+    If database = &quot;&quot; Then database = &quot;default&quot;
+    BuildConnectionString = &quot;Server=&quot; &amp; server &amp; &quot;;Database=&quot; &amp; database
 End Function</code></pre>
 <h3 id="export-environment-to-file">Export Environment to File</h3>
 <pre><code class="language-vbnet">Sub ExportEnvironmentToFile(filePath As String)
-Dim fileNum As Integer
-Dim i As Integer
-Dim envVar As String
-
-fileNum = FreeFile
-Open filePath For Output As #fileNum
-
-Print #fileNum, &quot;Environment Variables&quot;
-Print #fileNum, &quot;Generated: &quot; &amp; Now
-Print #fileNum, String(80, &quot;-&quot;)
-
-i = 1
-Do
-envVar = Environ(i)
-If envVar = &quot;&quot; Then Exit Do
-
-Print #fileNum, envVar
-i = i + 1
-Loop
-
-Close #fileNum
+    Dim fileNum As Integer
+    Dim i As Integer
+    Dim envVar As String
+    fileNum = FreeFile
+    Open filePath For Output As #fileNum
+    Print #fileNum, &quot;Environment Variables&quot;
+    Print #fileNum, &quot;Generated: &quot; &amp; Now
+    Print #fileNum, String(80, &quot;-&quot;)
+    i = 1
+    Do
+        envVar = Environ(i)
+        If envVar = &quot;&quot; Then Exit Do
+        Print #fileNum, envVar
+        i = i + 1
+    Loop
+    Close #fileNum
 End Sub</code></pre>
 <h3 id="portable-path-builder">Portable Path Builder</h3>
 <pre><code class="language-vbnet">Function GetPortableAppPath(relativePath As String) As String
-Dim basePath As String
-
-&#x27; Try to get from environment first
-basePath = Environ(&quot;APP_BASE_PATH&quot;)
-
-&#x27; Fall back to current directory
-If basePath = &quot;&quot; Then
-basePath = App.Path
-End If
-
-If Right(basePath, 1) &lt;&gt; &quot;\&quot; Then
-basePath = basePath &amp; &quot;\&quot;
-End If
-
-GetPortableAppPath = basePath &amp; relativePath
+    Dim basePath As String
+    &#x27; Try to get from environment first
+    basePath = Environ(&quot;APP_BASE_PATH&quot;)
+    &#x27; Fall back to current directory
+    If basePath = &quot;&quot; Then
+        basePath = App.Path
+    End If
+    If Right(basePath, 1) &lt;&gt; &quot;\&quot; Then
+        basePath = basePath &amp; &quot;\&quot;
+    End If
+    GetPortableAppPath = basePath &amp; relativePath
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeEnviron(varName As String, Optional defaultValue As String = &quot;&quot;) As String
-On Error Resume Next
-SafeEnviron = Environ(varName)
-
-If Err.Number &lt;&gt; 0 Or SafeEnviron = &quot;&quot; Then
-SafeEnviron = defaultValue
-End If
+    On Error Resume Next
+    SafeEnviron = Environ(varName)
+    If Err.Number &lt;&gt; 0 Or SafeEnviron = &quot;&quot; Then
+        SafeEnviron = defaultValue
+    End If
 End Function
-
 Function GetEnvironWithFallback(preferredVar As String, fallbackVar As String) As String
-GetEnvironWithFallback = Environ(preferredVar)
-
-If GetEnvironWithFallback = &quot;&quot; Then
-GetEnvironWithFallback = Environ(fallbackVar)
-End If
+    GetEnvironWithFallback = Environ(preferredVar)
+    If GetEnvironWithFallback = &quot;&quot; Then
+        GetEnvironWithFallback = Environ(fallbackVar)
+    End If
 End Function</code></pre>
 <h3 id="common-errors">Common Errors</h3>
 <ul>
@@ -480,23 +412,21 @@ End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Good - Check before using
 tempDir = Environ(&quot;TEMP&quot;)
 If tempDir = &quot;&quot; Then
-tempDir = &quot;C:\Temp&quot;  &#x27; Fallback
+    tempDir = &quot;C:\Temp&quot;  &#x27; Fallback
 End If
-
 &#x27; Avoid - Assuming variable exists
 tempDir = Environ(&quot;TEMP&quot;)  &#x27; May be empty!</code></pre>
 <h3 id="use-constants-for-variable-names">Use Constants for Variable Names</h3>
 <pre><code class="language-vbnet">&#x27; Good - Constants for maintainability
 Const ENV_TEMP = &quot;TEMP&quot;
 Const ENV_USERNAME = &quot;USERNAME&quot;
-
 tempDir = Environ(ENV_TEMP)
 userName = Environ(ENV_USERNAME)</code></pre>
 <h3 id="provide-defaults">Provide Defaults</h3>
 <pre><code class="language-vbnet">Function GetTempDir() As String
-GetTempDir = Environ(&quot;TEMP&quot;)
-If GetTempDir = &quot;&quot; Then GetTempDir = Environ(&quot;TMP&quot;)
-If GetTempDir = &quot;&quot; Then GetTempDir = &quot;C:\Temp&quot;
+    GetTempDir = Environ(&quot;TEMP&quot;)
+    If GetTempDir = &quot;&quot; Then GetTempDir = Environ(&quot;TMP&quot;)
+    If GetTempDir = &quot;&quot; Then GetTempDir = &quot;C:\Temp&quot;
 End Function</code></pre>
 <h3 id="case-insensitive-on-windows">Case Insensitive on Windows</h3>
 <pre><code class="language-vbnet">&#x27; All equivalent on Windows
@@ -507,13 +437,11 @@ userName = Environ(&quot;UserName&quot;)</code></pre>
 <h3 id="environ-vs-registry">Environ vs Registry</h3>
 <pre><code class="language-vbnet">&#x27; Environ - Quick, read-only access to environment
 tempDir = Environ(&quot;TEMP&quot;)
-
 &#x27; Registry - More control, can read/write, more complex
 &#x27; (Requires Windows API or Registry object)</code></pre>
 <h3 id="environ-vs-command-line">Environ vs Command Line</h3>
 <pre><code class="language-vbnet">&#x27; Environ - Environment variables
 userName = Environ(&quot;USERNAME&quot;)
-
 &#x27; Command - Command line arguments
 args = Command()</code></pre>
 <h2 id="limitations">Limitations</h2>

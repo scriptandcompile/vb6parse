@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="mid-function"><code>Mid$</code> Function</h1>
+            <h1 id="mid-function">Mid$ Function</h1>
 <p>The <code>Mid$</code> function returns a <code>String</code> containing a specified number of characters from a string.
 The dollar sign suffix (<code>$</code>) indicates that this function always returns a <code>String</code> type, never a <code>Variant</code>.</p>
 <h2 id="syntax">Syntax</h2>
@@ -65,10 +65,8 @@ as it avoids the overhead of the <code>Variant</code> type.</p>
 <pre><code class="language-vbnet">&#x27; Extract 3 characters starting at position 2
 Dim result As String
 result = Mid$(&quot;Hello World&quot;, 2, 3)  &#x27; Returns &quot;ell&quot;
-
 &#x27; Extract from position 7 to the end
 result = Mid$(&quot;Hello World&quot;, 7)  &#x27; Returns &quot;World&quot;
-
 &#x27; Start position beyond string length
 result = Mid$(&quot;Hi&quot;, 10)  &#x27; Returns &quot;&quot;</code></pre>
         </article>
