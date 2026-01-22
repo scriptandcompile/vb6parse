@@ -82,6 +82,11 @@ The CST preserves all tokens (whitespace, comments). Navigate via `CstNode`:
 5. **Token vs Text**: Prefer reading from tokens in `TokenStream` for parsing logic. Use `CstNode::text()` only when exact source text is needed (e.g., for error messages or snapshots). Do not mix raw string operations with token-based parsing.
 6. **VB6 Library**: 160+ built-in functions organized in 14 categories (array, conversion, datetime, file_system, financial, formatting, interaction, inspection, math, string, etc.). 42 statements in 9 categories (control_flow, declarations, error_handling, file_operations, objects, etc.).
 
+## Module documentation template for /src/syntax/library/functions/* and /src/syntax/library/statements/*
+
+module-documentation-template.md in the .github folder contains clear guidelines for documenting the library/functions which are turned into
+VB6 library documentation.
+
 ## Build & Run
 
 - `cargo test` - Run tests (requires submodules: `git submodule update --init --recursive`)
