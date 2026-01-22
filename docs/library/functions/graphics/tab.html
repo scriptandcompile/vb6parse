@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p>VB6 <code>Tab</code> Function</p>
-<p>The <code>Tab</code> function is used in Print statements to position output at a specific column number.</p>
+            <p>VB6 Tab Function
+The <code>Tab</code> function is used in Print statements to position output at a specific column number.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">Tab([column])</code></pre>
 <h2 id="parameters">Parameters</h2>
@@ -83,7 +83,7 @@
 <pre><code class="language-vbnet">Print Tab(1); &quot;ID&quot;; Tab(10); &quot;Name&quot;; Tab(30); &quot;Score&quot;</code></pre>
 <h3 id="pattern-2-print-data-rows">Pattern 2: Print data rows</h3>
 <pre><code class="language-vbnet">For i = 1 To 10
-Print Tab(1); i; Tab(10); names(i); Tab(30); scores(i)
+    Print Tab(1); i; Tab(10); names(i); Tab(30); scores(i)
 Next i</code></pre>
 <h3 id="pattern-3-print-with-spc">Pattern 3: Print with Spc</h3>
 <pre><code class="language-vbnet">Print Tab(10); Spc(5); &quot;Data&quot;</code></pre>
@@ -106,15 +106,15 @@ Print Tab(col); &quot;Text&quot;</code></pre>
 <h3 id="example-1-print-formatted-report">Example 1: Print formatted report</h3>
 <pre><code class="language-vbnet">Print Tab(1); &quot;Header1&quot;; Tab(20); &quot;Header2&quot;
 For i = 1 To 5
-Print Tab(1); data1(i); Tab(20); data2(i)
+    Print Tab(1); data1(i); Tab(20); data2(i)
 Next i</code></pre>
 <h3 id="example-2-print-to-file-with-dynamic-columns">Example 2: Print to file with dynamic columns</h3>
 <pre><code class="language-vbnet">For i = 1 To 3
-Print #1, Tab(i * 10); &quot;Col&quot; &amp; i
+    Print #1, Tab(i * 10); &quot;Col&quot; &amp; i
 Next i</code></pre>
 <h3 id="example-3-print-with-omitted-column-in-loop">Example 3: Print with omitted column in loop</h3>
 <pre><code class="language-vbnet">For i = 1 To 3
-Print Tab; &quot;Row&quot; &amp; i
+    Print Tab; &quot;Row&quot; &amp; i
 Next i</code></pre>
 <h3 id="example-4-print-with-tab-and-spc-for-alignment">Example 4: Print with Tab and Spc for alignment</h3>
 <pre><code class="language-vbnet">Print Tab(10); Spc(2); &quot;Aligned&quot;</code></pre>

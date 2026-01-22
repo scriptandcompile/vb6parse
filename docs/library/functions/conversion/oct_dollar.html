@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="oct-function"><code>Oct$</code> Function</h1>
+            <h1 id="oct-function">Oct$ Function</h1>
 <p>The <code>Oct$</code> function in Visual Basic 6 returns a string representing the octal (base-8) value
 of a number. The function name stands for "Octal String".</p>
 <h2 id="syntax">Syntax</h2>
@@ -45,7 +45,7 @@ of a number. The function name stands for "Octal String".</p>
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><code>number</code> - Required. Any valid numeric expression. If <code>number</code> is not a whole number, it is
-rounded to the nearest whole number before being evaluated.</li>
+  rounded to the nearest whole number before being evaluated.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>String</code> representing the octal value of the number. The returned string contains
@@ -75,10 +75,9 @@ octStr = Oct$(511) &#x27; Returns &quot;777&quot;</code></pre>
 octStr = Oct$(-1)  &#x27; Returns &quot;177777&quot; (Integer range, two&#x27;s complement)</code></pre>
 <h3 id="3-file-permission-representation">3. File Permission Representation</h3>
 <pre><code class="language-vbnet">Function FormatPermissions(permissions As Integer) As String
-&#x27; Unix-style file permissions (e.g., 755, 644)
-FormatPermissions = Oct$(permissions)
+    &#x27; Unix-style file permissions (e.g., 755, 644)
+    FormatPermissions = Oct$(permissions)
 End Function
-
 Dim perms As String
 perms = FormatPermissions(&amp;H1ED)  &#x27; Returns &quot;755&quot;</code></pre>
 <h3 id="4-bit-mask-display">4. Bit Mask Display</h3>
@@ -94,18 +93,17 @@ component = (colorValue And &amp;HFF)
 Debug.Print Oct$(component)  &#x27; Shows octal representation</code></pre>
 <h3 id="6-data-structure-field-values">6. Data Structure Field Values</h3>
 <pre><code class="language-vbnet">Type SystemFlags
-ReadWrite As Integer
-Execute As Integer
+    ReadWrite As Integer
+    Execute As Integer
 End Type
-
 Dim sysFlags As SystemFlags
 sysFlags.ReadWrite = &amp;O644  &#x27; Octal literal
 Debug.Print &quot;RW: &quot; &amp; Oct$(sysFlags.ReadWrite)</code></pre>
 <h3 id="7-debugging-bit-patterns">7. Debugging Bit Patterns</h3>
 <pre><code class="language-vbnet">Sub ShowBitPattern(value As Integer)
-Debug.Print &quot;Decimal: &quot; &amp; value
-Debug.Print &quot;Octal: &quot; &amp; Oct$(value)
-Debug.Print &quot;Hex: &quot; &amp; Hex$(value)
+    Debug.Print &quot;Decimal: &quot; &amp; value
+    Debug.Print &quot;Octal: &quot; &amp; Oct$(value)
+    Debug.Print &quot;Hex: &quot; &amp; Hex$(value)
 End Sub</code></pre>
 <h3 id="8-network-protocol-values">8. Network Protocol Values</h3>
 <pre><code class="language-vbnet">Dim socketMode As Integer
@@ -113,15 +111,15 @@ socketMode = &amp;O666  &#x27; Read/write for all
 Debug.Print &quot;Mode: &quot; &amp; Oct$(socketMode)</code></pre>
 <h3 id="9-conversion-table-generation">9. Conversion Table Generation</h3>
 <pre><code class="language-vbnet">Sub GenerateOctalTable()
-Dim i As Integer
-For i = 0 To 64
-Debug.Print i &amp; &quot; = &quot; &amp; Oct$(i)
-Next i
+    Dim i As Integer
+    For i = 0 To 64
+        Debug.Print i &amp; &quot; = &quot; &amp; Oct$(i)
+    Next i
 End Sub</code></pre>
 <h3 id="10-configuration-value-formatting">10. Configuration Value Formatting</h3>
 <pre><code class="language-vbnet">Function SaveConfigValue(value As Integer) As String
-&#x27; Store configuration as octal string
-SaveConfigValue = &quot;CONFIG=&quot; &amp; Oct$(value)
+    &#x27; Store configuration as octal string
+    SaveConfigValue = &quot;CONFIG=&quot; &amp; Oct$(value)
 End Function</code></pre>
 <h2 id="related-functions">Related Functions</h2>
 <ul>
@@ -144,7 +142,6 @@ End Function</code></pre>
 <h3 id="formatting-output">Formatting Output</h3>
 <pre><code class="language-vbnet">&#x27; Add prefix for clarity
 Debug.Print &quot;Octal: &amp;O&quot; &amp; Oct$(value)
-
 &#x27; Pad with leading zeros
 Debug.Print Right$(&quot;000&quot; &amp; Oct$(value), 3)</code></pre>
 <h3 id="type-safety">Type Safety</h3>
@@ -167,12 +164,12 @@ Debug.Print Oct$(octValue)  &#x27; Returns &quot;777&quot;</code></pre>
 <h3 id="1-no-direct-reverse-function">1. No Direct Reverse Function</h3>
 <p>VB6's <code>Val()</code> function does not parse octal strings. You need a custom function:</p>
 <pre><code class="language-vbnet">Function OctVal(octStr As String) As Long
-Dim i As Integer
-Dim result As Long
-For i = 1 To Len(octStr)
-result = result * 8 + Val(Mid$(octStr, i, 1))
-Next i
-OctVal = result
+    Dim i As Integer
+    Dim result As Long
+    For i = 1 To Len(octStr)
+        result = result * 8 + Val(Mid$(octStr, i, 1))
+    Next i
+    OctVal = result
 End Function</code></pre>
 <h3 id="2-twos-complement-representation">2. Two's Complement Representation</h3>
 <p>Negative numbers produce two's complement octal strings:</p>

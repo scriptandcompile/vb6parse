@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p>VB6 <code>TimeSerial</code> Function</p>
-<p>The <code>TimeSerial</code> function returns a Variant (Date) containing the time for a specific hour, minute, and second.</p>
+            <p>VB6 TimeSerial Function
+The <code>TimeSerial</code> function returns a Variant (Date) containing the time for a specific hour, minute, and second.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">TimeSerial(hour, minute, second)</code></pre>
 <h2 id="parameters">Parameters</h2>
@@ -50,18 +50,16 @@
 <h2 id="returns">Returns</h2>
 <p>Returns a <code>Variant</code> of subtype <code>Date</code> containing a time value. The date portion is set to zero (December 30, 1899).</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>TimeSerial</code> function creates time values from component parts:</p>
-<ul>
-<li><strong>24-hour format</strong>: Hour parameter uses 24-hour format (0-23)</li>
-<li><strong>Normalization</strong>: Values outside normal ranges are automatically adjusted</li>
-<li><strong>Date portion</strong>: Always returns zero date (12/30/1899)</li>
-<li><strong>Overflow handling</strong>: Excess values roll over (e.g., 90 seconds = 1 minute 30 seconds)</li>
-<li><strong>Negative values</strong>: Can use negative values to subtract time</li>
-<li><strong>Calculation flexibility</strong>: Can use expressions for any parameter</li>
-<li><strong>Time arithmetic</strong>: Ideal for adding/subtracting time intervals</li>
-<li><strong>Companion to <code>DateSerial</code></strong>: <code>TimeSerial</code> for time, <code>DateSerial</code> for dates</li>
-<li><strong>Type returned</strong>: Returns Variant (Date), not a numeric type</li>
-</ul>
+<p>The <code>TimeSerial</code> function creates time values from component parts:
+- <strong>24-hour format</strong>: Hour parameter uses 24-hour format (0-23)
+- <strong>Normalization</strong>: Values outside normal ranges are automatically adjusted
+- <strong>Date portion</strong>: Always returns zero date (12/30/1899)
+- <strong>Overflow handling</strong>: Excess values roll over (e.g., 90 seconds = 1 minute 30 seconds)
+- <strong>Negative values</strong>: Can use negative values to subtract time
+- <strong>Calculation flexibility</strong>: Can use expressions for any parameter
+- <strong>Time arithmetic</strong>: Ideal for adding/subtracting time intervals
+- <strong>Companion to <code>DateSerial</code></strong>: <code>TimeSerial</code> for time, <code>DateSerial</code> for dates
+- <strong>Type returned</strong>: Returns Variant (Date), not a numeric type</p>
 <h3 id="normalization-examples">Normalization Examples</h3>
 <pre><code class="language-vbnet">&#x27; These all produce valid times through normalization:
 TimeSerial(0, 0, 90)      &#x27; = 00:01:30 (90 seconds = 1 min 30 sec)
@@ -72,22 +70,17 @@ TimeSerial(12, 30, -60)   &#x27; = 12:29:00 (subtract 60 seconds)</code></pre>
 <h3 id="time-arithmetic">Time Arithmetic</h3>
 <pre><code class="language-vbnet">&#x27; Add 2 hours to current time
 newTime = Time + TimeSerial(2, 0, 0)
-
 &#x27; Subtract 30 minutes
 newTime = Time + TimeSerial(0, -30, 0)
-
 &#x27; Add 1 hour 15 minutes
 newTime = Time + TimeSerial(1, 15, 0)</code></pre>
 <h3 id="creating-specific-times">Creating Specific Times</h3>
 <pre><code class="language-vbnet">&#x27; 8:30 AM
 morning = TimeSerial(8, 30, 0)
-
 &#x27; Noon
 noon = TimeSerial(12, 0, 0)
-
 &#x27; 11:59:59 PM
 lastSecond = TimeSerial(23, 59, 59)
-
 &#x27; Midnight
 midnight = TimeSerial(0, 0, 0)</code></pre>
 <h2 id="typical-uses">Typical Uses</h2>
@@ -104,325 +97,271 @@ midnight = TimeSerial(0, 0, 0)</code></pre>
 <h2 id="basic-examples">Basic Examples</h2>
 <h3 id="example-1-create-specific-time">Example 1: Create Specific Time</h3>
 <pre><code class="language-vbnet">Sub CreateTime()
-Dim businessOpen As Date
-businessOpen = TimeSerial(9, 0, 0)  &#x27; 9:00 AM
-MsgBox &quot;Opens at: &quot; &amp; Format$(businessOpen, &quot;hh:mm AM/PM&quot;)
+    Dim businessOpen As Date
+    businessOpen = TimeSerial(9, 0, 0)  &#x27; 9:00 AM
+    MsgBox &quot;Opens at: &quot; &amp; Format$(businessOpen, &quot;hh:mm AM/PM&quot;)
 End Sub</code></pre>
 <h3 id="example-2-add-time-to-current-time">Example 2: Add Time to Current Time</h3>
 <pre><code class="language-vbnet">Function AddHours(hours As Integer) As Date
-AddHours = Time + TimeSerial(hours, 0, 0)
+    AddHours = Time + TimeSerial(hours, 0, 0)
 End Function</code></pre>
 <h3 id="example-3-calculate-time-difference">Example 3: Calculate Time Difference</h3>
 <pre><code class="language-vbnet">Function GetTimeDuration(hours As Integer, minutes As Integer) As Date
-GetTimeDuration = TimeSerial(hours, minutes, 0)
+    GetTimeDuration = TimeSerial(hours, minutes, 0)
 End Function</code></pre>
 <h3 id="example-4-check-if-time-is-between-range">Example 4: Check If Time Is Between Range</h3>
 <pre><code class="language-vbnet">Function IsInTimeRange(checkTime As Date, startHour As Integer, endHour As Integer) As Boolean
-Dim startTime As Date
-Dim endTime As Date
-
-startTime = TimeSerial(startHour, 0, 0)
-endTime = TimeSerial(endHour, 0, 0)
-
-IsInTimeRange = (checkTime &gt;= startTime And checkTime &lt; endTime)
+    Dim startTime As Date
+    Dim endTime As Date
+    startTime = TimeSerial(startHour, 0, 0)
+    endTime = TimeSerial(endHour, 0, 0)
+    IsInTimeRange = (checkTime &gt;= startTime And checkTime &lt; endTime)
 End Function</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-add-minutes-to-time">Pattern 1: Add Minutes to Time</h3>
 <pre><code class="language-vbnet">Function AddMinutes(baseTime As Date, minutes As Integer) As Date
-AddMinutes = baseTime + TimeSerial(0, minutes, 0)
+    AddMinutes = baseTime + TimeSerial(0, minutes, 0)
 End Function</code></pre>
 <h3 id="pattern-2-add-seconds-to-time">Pattern 2: Add Seconds to Time</h3>
 <pre><code class="language-vbnet">Function AddSeconds(baseTime As Date, seconds As Integer) As Date
-AddSeconds = baseTime + TimeSerial(0, 0, seconds)
+    AddSeconds = baseTime + TimeSerial(0, 0, seconds)
 End Function</code></pre>
 <h3 id="pattern-3-create-time-from-total-seconds">Pattern 3: Create Time from Total Seconds</h3>
 <pre><code class="language-vbnet">Function SecondsToTime(totalSeconds As Long) As Date
-Dim hours As Long
-Dim minutes As Long
-Dim seconds As Long
-
-hours = totalSeconds \ 3600
-minutes = (totalSeconds Mod 3600) \ 60
-seconds = totalSeconds Mod 60
-
-SecondsToTime = TimeSerial(hours, minutes, seconds)
+    Dim hours As Long
+    Dim minutes As Long
+    Dim seconds As Long
+    hours = totalSeconds \ 3600
+    minutes = (totalSeconds Mod 3600) \ 60
+    seconds = totalSeconds Mod 60
+    SecondsToTime = TimeSerial(hours, minutes, seconds)
 End Function</code></pre>
 <h3 id="pattern-4-round-time-to-nearest-interval">Pattern 4: Round Time to Nearest Interval</h3>
 <pre><code class="language-vbnet">Function RoundToNearestMinutes(t As Date, intervalMinutes As Integer) As Date
-Dim totalMinutes As Long
-Dim roundedMinutes As Long
-
-totalMinutes = Hour(t) * 60 + Minute(t)
-roundedMinutes = ((totalMinutes + intervalMinutes \ 2) \ intervalMinutes) * intervalMinutes
-
-RoundToNearestMinutes = TimeSerial(roundedMinutes \ 60, roundedMinutes Mod 60, 0)
+    Dim totalMinutes As Long
+    Dim roundedMinutes As Long
+    totalMinutes = Hour(t) * 60 + Minute(t)
+    roundedMinutes = ((totalMinutes + intervalMinutes \ 2) \ intervalMinutes) * intervalMinutes
+    RoundToNearestMinutes = TimeSerial(roundedMinutes \ 60, roundedMinutes Mod 60, 0)
 End Function</code></pre>
 <h3 id="pattern-5-calculate-elapsed-time">Pattern 5: Calculate Elapsed Time</h3>
 <pre><code class="language-vbnet">Function CalculateElapsedTime(startTime As Date, endTime As Date) As Date
-Dim diffSeconds As Long
-
-diffSeconds = DateDiff(&quot;s&quot;, startTime, endTime)
-CalculateElapsedTime = TimeSerial(0, 0, diffSeconds)
+    Dim diffSeconds As Long
+    diffSeconds = DateDiff(&quot;s&quot;, startTime, endTime)
+    CalculateElapsedTime = TimeSerial(0, 0, diffSeconds)
 End Function</code></pre>
 <h3 id="pattern-6-get-noon-time">Pattern 6: Get Noon Time</h3>
 <pre><code class="language-vbnet">Function GetNoon() As Date
-GetNoon = TimeSerial(12, 0, 0)
+    GetNoon = TimeSerial(12, 0, 0)
 End Function</code></pre>
 <h3 id="pattern-7-get-midnight-time">Pattern 7: Get Midnight Time</h3>
 <pre><code class="language-vbnet">Function GetMidnight() As Date
-GetMidnight = TimeSerial(0, 0, 0)
+    GetMidnight = TimeSerial(0, 0, 0)
 End Function</code></pre>
 <h3 id="pattern-8-create-business-hours-range">Pattern 8: Create Business Hours Range</h3>
 <pre><code class="language-vbnet">Sub GetBusinessHours(ByRef openTime As Date, ByRef closeTime As Date)
-openTime = TimeSerial(9, 0, 0)    &#x27; 9 AM
-closeTime = TimeSerial(17, 0, 0)  &#x27; 5 PM
+    openTime = TimeSerial(9, 0, 0)    &#x27; 9 AM
+    closeTime = TimeSerial(17, 0, 0)  &#x27; 5 PM
 End Sub</code></pre>
 <h3 id="pattern-9-add-time-duration">Pattern 9: Add Time Duration</h3>
 <pre><code class="language-vbnet">Function AddDuration(baseTime As Date, hours As Integer, minutes As Integer, seconds As Integer) As Date
-AddDuration = baseTime + TimeSerial(hours, minutes, seconds)
+    AddDuration = baseTime + TimeSerial(hours, minutes, seconds)
 End Function</code></pre>
 <h3 id="pattern-10-normalize-time-components">Pattern 10: Normalize Time Components</h3>
 <pre><code class="language-vbnet">Function NormalizeTime(hours As Integer, minutes As Integer, seconds As Integer) As Date
-NormalizeTime = TimeSerial(hours, minutes, seconds)
+    NormalizeTime = TimeSerial(hours, minutes, seconds)
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-time-calculator-class">Example 1: Time Calculator Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: TimeCalculator
 &#x27; Performs various time calculations and manipulations
 Option Explicit
-
 Public Function AddTime(baseTime As Date, hours As Integer, minutes As Integer, seconds As Integer) As Date
-AddTime = baseTime + TimeSerial(hours, minutes, seconds)
+    AddTime = baseTime + TimeSerial(hours, minutes, seconds)
 End Function
-
 Public Function SubtractTime(baseTime As Date, hours As Integer, minutes As Integer, seconds As Integer) As Date
-SubtractTime = baseTime + TimeSerial(-hours, -minutes, -seconds)
+    SubtractTime = baseTime + TimeSerial(-hours, -minutes, -seconds)
 End Function
-
 Public Function GetTimeBetween(startTime As Date, endTime As Date) As Date
-Dim diffSeconds As Long
-Dim hours As Long
-Dim minutes As Long
-Dim seconds As Long
-
-diffSeconds = DateDiff(&quot;s&quot;, startTime, endTime)
-
-hours = diffSeconds \ 3600
-minutes = (diffSeconds Mod 3600) \ 60
-seconds = diffSeconds Mod 60
-
-GetTimeBetween = TimeSerial(hours, minutes, seconds)
+    Dim diffSeconds As Long
+    Dim hours As Long
+    Dim minutes As Long
+    Dim seconds As Long
+    diffSeconds = DateDiff(&quot;s&quot;, startTime, endTime)
+    hours = diffSeconds \ 3600
+    minutes = (diffSeconds Mod 3600) \ 60
+    seconds = diffSeconds Mod 60
+    GetTimeBetween = TimeSerial(hours, minutes, seconds)
 End Function
-
 Public Function RoundToQuarterHour(t As Date) As Date
-Dim totalMinutes As Long
-Dim roundedMinutes As Long
-
-totalMinutes = Hour(t) * 60 + Minute(t)
-roundedMinutes = ((totalMinutes + 7) \ 15) * 15
-
-RoundToQuarterHour = TimeSerial(roundedMinutes \ 60, roundedMinutes Mod 60, 0)
+    Dim totalMinutes As Long
+    Dim roundedMinutes As Long
+    totalMinutes = Hour(t) * 60 + Minute(t)
+    roundedMinutes = ((totalMinutes + 7) \ 15) * 15
+    RoundToQuarterHour = TimeSerial(roundedMinutes \ 60, roundedMinutes Mod 60, 0)
 End Function
-
 Public Function TruncateToMinute(t As Date) As Date
-TruncateToMinute = TimeSerial(Hour(t), Minute(t), 0)
+    TruncateToMinute = TimeSerial(Hour(t), Minute(t), 0)
 End Function
-
 Public Function TruncateToHour(t As Date) As Date
-TruncateToHour = TimeSerial(Hour(t), 0, 0)
+    TruncateToHour = TimeSerial(Hour(t), 0, 0)
 End Function
-
 Public Function CreateTimeFromSeconds(totalSeconds As Long) As Date
-CreateTimeFromSeconds = TimeSerial(0, 0, totalSeconds)
+    CreateTimeFromSeconds = TimeSerial(0, 0, totalSeconds)
 End Function
-
 Public Function CreateTimeFromMinutes(totalMinutes As Long) As Date
-CreateTimeFromMinutes = TimeSerial(0, totalMinutes, 0)
+    CreateTimeFromMinutes = TimeSerial(0, totalMinutes, 0)
 End Function</code></pre>
 <h3 id="example-2-schedule-manager-module">Example 2: Schedule Manager Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: ScheduleManager
 &#x27; Manages schedules and time-based operations
 Option Explicit
-
 Private Type ScheduleEntry
-Name As String
-StartTime As Date
-EndTime As Date
-Active As Boolean
+    Name As String
+    StartTime As Date
+    EndTime As Date
+    Active As Boolean
 End Type
-
 Private m_Schedules() As ScheduleEntry
 Private m_ScheduleCount As Long
-
 Public Sub AddSchedule(name As String, startHour As Integer, startMinute As Integer, _
-endHour As Integer, endMinute As Integer)
-ReDim Preserve m_Schedules(m_ScheduleCount)
-
-m_Schedules(m_ScheduleCount).Name = name
-m_Schedules(m_ScheduleCount).StartTime = TimeSerial(startHour, startMinute, 0)
-m_Schedules(m_ScheduleCount).EndTime = TimeSerial(endHour, endMinute, 0)
-m_Schedules(m_ScheduleCount).Active = True
-
-m_ScheduleCount = m_ScheduleCount + 1
+                      endHour As Integer, endMinute As Integer)
+    ReDim Preserve m_Schedules(m_ScheduleCount)
+    m_Schedules(m_ScheduleCount).Name = name
+    m_Schedules(m_ScheduleCount).StartTime = TimeSerial(startHour, startMinute, 0)
+    m_Schedules(m_ScheduleCount).EndTime = TimeSerial(endHour, endMinute, 0)
+    m_Schedules(m_ScheduleCount).Active = True
+    m_ScheduleCount = m_ScheduleCount + 1
 End Sub
-
 Public Function IsScheduleActive(name As String) As Boolean
-Dim i As Long
-Dim currentTime As Date
-
-currentTime = Time
-
-For i = 0 To m_ScheduleCount - 1
-If m_Schedules(i).Name = name And m_Schedules(i).Active Then
-If m_Schedules(i).StartTime &lt;= m_Schedules(i).EndTime Then
-&#x27; Normal schedule (same day)
-IsScheduleActive = (currentTime &gt;= m_Schedules(i).StartTime And _
-currentTime &lt; m_Schedules(i).EndTime)
-Else
-&#x27; Overnight schedule
-IsScheduleActive = (currentTime &gt;= m_Schedules(i).StartTime Or _
-currentTime &lt; m_Schedules(i).EndTime)
-End If
-Exit Function
-End If
-Next i
-
-IsScheduleActive = False
+    Dim i As Long
+    Dim currentTime As Date
+    currentTime = Time
+    For i = 0 To m_ScheduleCount - 1
+        If m_Schedules(i).Name = name And m_Schedules(i).Active Then
+            If m_Schedules(i).StartTime &lt;= m_Schedules(i).EndTime Then
+                &#x27; Normal schedule (same day)
+                IsScheduleActive = (currentTime &gt;= m_Schedules(i).StartTime And _
+                                  currentTime &lt; m_Schedules(i).EndTime)
+            Else
+                &#x27; Overnight schedule
+                IsScheduleActive = (currentTime &gt;= m_Schedules(i).StartTime Or _
+                                  currentTime &lt; m_Schedules(i).EndTime)
+            End If
+            Exit Function
+        End If
+    Next i
+    IsScheduleActive = False
 End Function
-
 Public Function GetScheduleDuration(name As String) As Date
-Dim i As Long
-Dim diffSeconds As Long
-
-For i = 0 To m_ScheduleCount - 1
-If m_Schedules(i).Name = name Then
-diffSeconds = DateDiff(&quot;s&quot;, m_Schedules(i).StartTime, m_Schedules(i).EndTime)
-If diffSeconds &lt; 0 Then diffSeconds = diffSeconds + 86400  &#x27; Add 24 hours
-GetScheduleDuration = TimeSerial(0, 0, diffSeconds)
-Exit Function
-End If
-Next i
-
-GetScheduleDuration = TimeSerial(0, 0, 0)
+    Dim i As Long
+    Dim diffSeconds As Long
+    For i = 0 To m_ScheduleCount - 1
+        If m_Schedules(i).Name = name Then
+            diffSeconds = DateDiff(&quot;s&quot;, m_Schedules(i).StartTime, m_Schedules(i).EndTime)
+            If diffSeconds &lt; 0 Then diffSeconds = diffSeconds + 86400  &#x27; Add 24 hours
+            GetScheduleDuration = TimeSerial(0, 0, diffSeconds)
+            Exit Function
+        End If
+    Next i
+    GetScheduleDuration = TimeSerial(0, 0, 0)
 End Function</code></pre>
 <h3 id="example-3-time-range-validator-class">Example 3: Time Range Validator Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: TimeRangeValidator
 &#x27; Validates times against allowed ranges
 Option Explicit
-
 Private m_AllowedStart As Date
 Private m_AllowedEnd As Date
 Private m_AllowOvernight As Boolean
-
 Public Sub SetAllowedRange(startHour As Integer, startMinute As Integer, _
-endHour As Integer, endMinute As Integer)
-m_AllowedStart = TimeSerial(startHour, startMinute, 0)
-m_AllowedEnd = TimeSerial(endHour, endMinute, 0)
-m_AllowOvernight = (m_AllowedStart &gt; m_AllowedEnd)
+                          endHour As Integer, endMinute As Integer)
+    m_AllowedStart = TimeSerial(startHour, startMinute, 0)
+    m_AllowedEnd = TimeSerial(endHour, endMinute, 0)
+    m_AllowOvernight = (m_AllowedStart &gt; m_AllowedEnd)
 End Sub
-
 Public Function IsTimeAllowed(checkTime As Date) As Boolean
-If m_AllowOvernight Then
-&#x27; Overnight range (e.g., 10 PM to 6 AM)
-IsTimeAllowed = (checkTime &gt;= m_AllowedStart Or checkTime &lt; m_AllowedEnd)
-Else
-&#x27; Normal range (e.g., 9 AM to 5 PM)
-IsTimeAllowed = (checkTime &gt;= m_AllowedStart And checkTime &lt; m_AllowedEnd)
-End If
+    If m_AllowOvernight Then
+        &#x27; Overnight range (e.g., 10 PM to 6 AM)
+        IsTimeAllowed = (checkTime &gt;= m_AllowedStart Or checkTime &lt; m_AllowedEnd)
+    Else
+        &#x27; Normal range (e.g., 9 AM to 5 PM)
+        IsTimeAllowed = (checkTime &gt;= m_AllowedStart And checkTime &lt; m_AllowedEnd)
+    End If
 End Function
-
 Public Function GetNextAllowedTime(fromTime As Date) As Date
-If IsTimeAllowed(fromTime) Then
-GetNextAllowedTime = fromTime
-Else
-&#x27; Return start of next allowed window
-If fromTime &lt; m_AllowedStart Then
-GetNextAllowedTime = m_AllowedStart
-Else
-&#x27; Must wait until tomorrow&#x27;s start time
-GetNextAllowedTime = DateAdd(&quot;d&quot;, 1, Date) + m_AllowedStart
-End If
-End If
+    If IsTimeAllowed(fromTime) Then
+        GetNextAllowedTime = fromTime
+    Else
+        &#x27; Return start of next allowed window
+        If fromTime &lt; m_AllowedStart Then
+            GetNextAllowedTime = m_AllowedStart
+        Else
+            &#x27; Must wait until tomorrow&#x27;s start time
+            GetNextAllowedTime = DateAdd(&quot;d&quot;, 1, Date) + m_AllowedStart
+        End If
+    End If
 End Function
-
 Public Function GetTimeUntilAllowed(fromTime As Date) As Date
-Dim nextAllowed As Date
-Dim diffSeconds As Long
-
-nextAllowed = GetNextAllowedTime(fromTime)
-diffSeconds = DateDiff(&quot;s&quot;, fromTime, nextAllowed)
-
-GetTimeUntilAllowed = TimeSerial(0, 0, diffSeconds)
+    Dim nextAllowed As Date
+    Dim diffSeconds As Long
+    nextAllowed = GetNextAllowedTime(fromTime)
+    diffSeconds = DateDiff(&quot;s&quot;, fromTime, nextAllowed)
+    GetTimeUntilAllowed = TimeSerial(0, 0, diffSeconds)
 End Function</code></pre>
 <h3 id="example-4-time-interval-generator-module">Example 4: Time Interval Generator Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: TimeIntervalGenerator
 &#x27; Generates time intervals for scheduling
 Option Explicit
-
 Public Function GenerateTimeIntervals(startHour As Integer, endHour As Integer, _
-intervalMinutes As Integer) As Collection
-Dim intervals As New Collection
-Dim currentTime As Date
-Dim endTime As Date
-
-currentTime = TimeSerial(startHour, 0, 0)
-endTime = TimeSerial(endHour, 0, 0)
-
-Do While currentTime &lt; endTime
-intervals.Add currentTime
-currentTime = currentTime + TimeSerial(0, intervalMinutes, 0)
-Loop
-
-Set GenerateTimeIntervals = intervals
+                                     intervalMinutes As Integer) As Collection
+    Dim intervals As New Collection
+    Dim currentTime As Date
+    Dim endTime As Date
+    currentTime = TimeSerial(startHour, 0, 0)
+    endTime = TimeSerial(endHour, 0, 0)
+    Do While currentTime &lt; endTime
+        intervals.Add currentTime
+        currentTime = currentTime + TimeSerial(0, intervalMinutes, 0)
+    Loop
+    Set GenerateTimeIntervals = intervals
 End Function
-
 Public Function GenerateWorkDaySchedule(startHour As Integer, endHour As Integer, _
-taskDurationMinutes As Integer) As Variant
-Dim schedule() As Date
-Dim currentTime As Date
-Dim endTime As Date
-Dim index As Long
-Dim maxSlots As Long
-
-currentTime = TimeSerial(startHour, 0, 0)
-endTime = TimeSerial(endHour, 0, 0)
-
-maxSlots = DateDiff(&quot;n&quot;, currentTime, endTime) \ taskDurationMinutes
-ReDim schedule(maxSlots - 1)
-
-index = 0
-Do While currentTime &lt; endTime And index &lt; maxSlots
-schedule(index) = currentTime
-currentTime = currentTime + TimeSerial(0, taskDurationMinutes, 0)
-index = index + 1
-Loop
-
-GenerateWorkDaySchedule = schedule
+                                       taskDurationMinutes As Integer) As Variant
+    Dim schedule() As Date
+    Dim currentTime As Date
+    Dim endTime As Date
+    Dim index As Long
+    Dim maxSlots As Long
+    currentTime = TimeSerial(startHour, 0, 0)
+    endTime = TimeSerial(endHour, 0, 0)
+    maxSlots = DateDiff(&quot;n&quot;, currentTime, endTime) \ taskDurationMinutes
+    ReDim schedule(maxSlots - 1)
+    index = 0
+    Do While currentTime &lt; endTime And index &lt; maxSlots
+        schedule(index) = currentTime
+        currentTime = currentTime + TimeSerial(0, taskDurationMinutes, 0)
+        index = index + 1
+    Loop
+    GenerateWorkDaySchedule = schedule
 End Function
-
 Public Function CreateAppointmentSlots(startHour As Integer, endHour As Integer, _
-slotDuration As Integer, breakDuration As Integer) As Collection
-Dim slots As New Collection
-Dim currentTime As Date
-Dim endTime As Date
-
-currentTime = TimeSerial(startHour, 0, 0)
-endTime = TimeSerial(endHour, 0, 0)
-
-Do While currentTime + TimeSerial(0, slotDuration, 0) &lt;= endTime
-slots.Add currentTime
-currentTime = currentTime + TimeSerial(0, slotDuration + breakDuration, 0)
-Loop
-
-Set CreateAppointmentSlots = slots
+                                      slotDuration As Integer, breakDuration As Integer) As Collection
+    Dim slots As New Collection
+    Dim currentTime As Date
+    Dim endTime As Date
+    currentTime = TimeSerial(startHour, 0, 0)
+    endTime = TimeSerial(endHour, 0, 0)
+    Do While currentTime + TimeSerial(0, slotDuration, 0) &lt;= endTime
+        slots.Add currentTime
+        currentTime = currentTime + TimeSerial(0, slotDuration + breakDuration, 0)
+    Loop
+    Set CreateAppointmentSlots = slots
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>TimeSerial</code> function can raise the following errors:</p>
-<ul>
-<li><strong>Error 5 (Invalid procedure call)</strong>: If parameters result in invalid time after normalization</li>
-<li><strong>Error 13 (Type mismatch)</strong>: If non-numeric arguments provided</li>
-<li><strong>Error 6 (Overflow)</strong>: If extreme values cause numeric overflow</li>
-</ul>
+<p>The <code>TimeSerial</code> function can raise the following errors:
+- <strong>Error 5 (Invalid procedure call)</strong>: If parameters result in invalid time after normalization
+- <strong>Error 13 (Type mismatch)</strong>: If non-numeric arguments provided
+- <strong>Error 6 (Overflow)</strong>: If extreme values cause numeric overflow</p>
 <h2 id="performance-notes">Performance Notes</h2>
 <ul>
 <li>Fast operation - simple calculation</li>

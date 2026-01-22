@@ -37,13 +37,13 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="mkdir-statement"><code>MkDir</code> Statement</h1>
+            <h1 id="mkdir-statement">MkDir Statement</h1>
 <p>Creates a new directory or folder.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">MkDir path</code></pre>
 <ul>
 <li><code>path</code>: Required. String expression that identifies the directory or folder to be created. May include drive.
-If no drive is specified, <code>MkDir</code> creates the new directory or folder on the current drive.</li>
+  If no drive is specified, <code>MkDir</code> creates the new directory or folder on the current drive.</li>
 </ul>
 <h2 id="remarks">Remarks</h2>
 <ul>
@@ -57,18 +57,14 @@ If no drive is specified, <code>MkDir</code> creates the new directory or folder
 <h2 id="examples">Examples</h2>
 <pre><code class="language-vbnet">&#x27; Create a directory in the current directory
 MkDir &quot;MyNewFolder&quot;
-
 &#x27; Create a directory with full path
 MkDir &quot;C:\Program Files\MyApp&quot;
-
 &#x27; Create a directory on another drive
 MkDir &quot;D:\Data\Reports&quot;
-
 &#x27; Create nested directories (parent must exist first)
 MkDir &quot;C:\Temp&quot;
 MkDir &quot;C:\Temp\Logs&quot;
 MkDir &quot;C:\Temp\Logs\Archive&quot;
-
 &#x27; Create directory on network drive
 MkDir &quot;\\Server\Share\NewFolder&quot;</code></pre>
 <h2 id="reference">Reference</h2>

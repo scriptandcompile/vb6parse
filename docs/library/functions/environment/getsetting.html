@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="getsetting-function"><code>GetSetting</code> Function</h1>
+            <h1 id="getsetting-function">GetSetting Function</h1>
 <p>Returns a registry key setting value from the Windows registry.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">GetSetting(appname, section, key[, default])</code></pre>
@@ -51,16 +51,14 @@
 <h2 id="return-value">Return Value</h2>
 <p>Returns a String containing the value of the specified registry key. If the key doesn't exist and no default is provided, returns an empty string.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>GetSetting</code> function retrieves settings from the Windows registry that were previously saved using the <code>SaveSetting</code> statement. The settings are stored in the application's subkey under:</p>
-<p><code>HKEY_CURRENT_USER\Software\VB and VBA Program Settings\appname\section</code></p>
-<ul>
-<li>If the registry key doesn't exist, <code>GetSetting</code> returns the default value (or "" if no default specified)</li>
-<li><code>GetSetting</code> only works with the <code>HKEY_CURRENT_USER</code> registry hive</li>
-<li>For more advanced registry access, use Windows API functions like <code>RegOpenKeyEx</code> and <code>RegQueryValueEx</code></li>
-<li>The <code>appname</code>, <code>section</code>, and <code>key</code> parameters are case-insensitive</li>
-<li><code>GetSetting</code> is designed to work with <code>SaveSetting</code>, <code>DeleteSetting</code>, and <code>GetAllSettings</code></li>
-<li>On non-Windows platforms, behavior may vary or be unsupported</li>
-</ul>
+<p>The <code>GetSetting</code> function retrieves settings from the Windows registry that were previously saved using the <code>SaveSetting</code> statement. The settings are stored in the application's subkey under:
+<code>HKEY_CURRENT_USER\Software\VB and VBA Program Settings\appname\section</code>
+- If the registry key doesn't exist, <code>GetSetting</code> returns the default value (or "" if no default specified)
+- <code>GetSetting</code> only works with the <code>HKEY_CURRENT_USER</code> registry hive
+- For more advanced registry access, use Windows API functions like <code>RegOpenKeyEx</code> and <code>RegQueryValueEx</code>
+- The <code>appname</code>, <code>section</code>, and <code>key</code> parameters are case-insensitive
+- <code>GetSetting</code> is designed to work with <code>SaveSetting</code>, <code>DeleteSetting</code>, and <code>GetAllSettings</code>
+- On non-Windows platforms, behavior may vary or be unsupported</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Application Configuration</strong>: Retrieve user preferences and application settings</li>
@@ -74,208 +72,173 @@
 <pre><code class="language-vbnet">&#x27; Example 1: Get a simple setting with default
 Dim userName As String
 userName = GetSetting(&quot;MyApp&quot;, &quot;User&quot;, &quot;Name&quot;, &quot;Guest&quot;)
-
 &#x27; Example 2: Get window position
 Dim formLeft As String
 formLeft = GetSetting(&quot;MyApp&quot;, &quot;Window&quot;, &quot;Left&quot;, &quot;0&quot;)
-
 &#x27; Example 3: Get setting without default
 Dim lastFile As String
 lastFile = GetSetting(&quot;MyApp&quot;, &quot;Recent&quot;, &quot;File1&quot;)
-
 &#x27; Example 4: Get database connection
 Dim connString As String
 connString = GetSetting(&quot;MyApp&quot;, &quot;Database&quot;, &quot;ConnectionString&quot;, &quot;&quot;)</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Load form position and size
 Private Sub Form_Load()
-Me.Left = CLng(GetSetting(&quot;MyApp&quot;, &quot;MainForm&quot;, &quot;Left&quot;, &quot;0&quot;))
-Me.Top = CLng(GetSetting(&quot;MyApp&quot;, &quot;MainForm&quot;, &quot;Top&quot;, &quot;0&quot;))
-Me.Width = CLng(GetSetting(&quot;MyApp&quot;, &quot;MainForm&quot;, &quot;Width&quot;, &quot;6000&quot;))
-Me.Height = CLng(GetSetting(&quot;MyApp&quot;, &quot;MainForm&quot;, &quot;Height&quot;, &quot;4500&quot;))
+    Me.Left = CLng(GetSetting(&quot;MyApp&quot;, &quot;MainForm&quot;, &quot;Left&quot;, &quot;0&quot;))
+    Me.Top = CLng(GetSetting(&quot;MyApp&quot;, &quot;MainForm&quot;, &quot;Top&quot;, &quot;0&quot;))
+    Me.Width = CLng(GetSetting(&quot;MyApp&quot;, &quot;MainForm&quot;, &quot;Width&quot;, &quot;6000&quot;))
+    Me.Height = CLng(GetSetting(&quot;MyApp&quot;, &quot;MainForm&quot;, &quot;Height&quot;, &quot;4500&quot;))
 End Sub
-
 &#x27; Pattern 2: Check if setting exists
 Function SettingExists(app As String, section As String, key As String) As Boolean
-Dim marker As String
-marker = String$(10, &quot;X&quot;)
-SettingExists = (GetSetting(app, section, key, marker) &lt;&gt; marker)
+    Dim marker As String
+    marker = String$(10, &quot;X&quot;)
+    SettingExists = (GetSetting(app, section, key, marker) &lt;&gt; marker)
 End Function
-
 &#x27; Pattern 3: Get with type conversion
 Dim showTips As Boolean
 showTips = CBool(GetSetting(&quot;MyApp&quot;, &quot;Options&quot;, &quot;ShowTips&quot;, &quot;True&quot;))
-
 &#x27; Pattern 4: Get recent file list
 Dim i As Integer
 Dim recentFiles() As String
 ReDim recentFiles(1 To 10)
 For i = 1 To 10
-recentFiles(i) = GetSetting(&quot;MyApp&quot;, &quot;Recent&quot;, &quot;File&quot; &amp; i, &quot;&quot;)
-If recentFiles(i) = &quot;&quot; Then Exit For
+    recentFiles(i) = GetSetting(&quot;MyApp&quot;, &quot;Recent&quot;, &quot;File&quot; &amp; i, &quot;&quot;)
+    If recentFiles(i) = &quot;&quot; Then Exit For
 Next i
-
 &#x27; Pattern 5: Get connection info
 Dim server As String, database As String
 server = GetSetting(&quot;MyApp&quot;, &quot;Database&quot;, &quot;Server&quot;, &quot;localhost&quot;)
 database = GetSetting(&quot;MyApp&quot;, &quot;Database&quot;, &quot;Name&quot;, &quot;MyDB&quot;)
-
 &#x27; Pattern 6: Get user preference with validation
 Dim fontSize As Integer
 fontSize = CInt(GetSetting(&quot;MyApp&quot;, &quot;UI&quot;, &quot;FontSize&quot;, &quot;10&quot;))
 If fontSize &lt; 8 Or fontSize &gt; 72 Then fontSize = 10
-
 &#x27; Pattern 7: Get setting in With block
 With Form1
-.BackColor = CLng(GetSetting(&quot;MyApp&quot;, &quot;Colors&quot;, &quot;Background&quot;, &quot;16777215&quot;))
+    .BackColor = CLng(GetSetting(&quot;MyApp&quot;, &quot;Colors&quot;, &quot;Background&quot;, &quot;16777215&quot;))
 End With
-
 &#x27; Pattern 8: Conditional loading
 If GetSetting(&quot;MyApp&quot;, &quot;Options&quot;, &quot;AutoSave&quot;, &quot;False&quot;) = &quot;True&quot; Then
-EnableAutoSave
+    EnableAutoSave
 End If
-
 &#x27; Pattern 9: Get multiple related settings
 Dim smtp As String, port As String, useTLS As String
 smtp = GetSetting(&quot;MyApp&quot;, &quot;Email&quot;, &quot;SMTPServer&quot;, &quot;smtp.gmail.com&quot;)
 port = GetSetting(&quot;MyApp&quot;, &quot;Email&quot;, &quot;Port&quot;, &quot;587&quot;)
 useTLS = GetSetting(&quot;MyApp&quot;, &quot;Email&quot;, &quot;UseTLS&quot;, &quot;True&quot;)
-
 &#x27; Pattern 10: Safe retrieval with error handling
 On Error Resume Next
 Dim value As String
 value = GetSetting(&quot;MyApp&quot;, &quot;Config&quot;, &quot;Setting&quot;, &quot;DefaultValue&quot;)
 If Err.Number &lt;&gt; 0 Then
-value = &quot;DefaultValue&quot;
-Err.Clear
+    value = &quot;DefaultValue&quot;
+    Err.Clear
 End If
 On Error GoTo 0</code></pre>
 <h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Settings manager class
 Public Class AppSettings
-Private Const APP_NAME As String = &quot;MyApplication&quot;
-
-Public Function GetStringSetting(section As String, key As String, _
-Optional defaultValue As String = &quot;&quot;) As String
-GetStringSetting = GetSetting(APP_NAME, section, key, defaultValue)
-End Function
-
-Public Function GetIntegerSetting(section As String, key As String, _
-Optional defaultValue As Integer = 0) As Integer
-Dim value As String
-value = GetSetting(APP_NAME, section, key, CStr(defaultValue))
-On Error Resume Next
-GetIntegerSetting = CInt(value)
-If Err.Number &lt;&gt; 0 Then GetIntegerSetting = defaultValue
-End Function
-
-Public Function GetBooleanSetting(section As String, key As String, _
-Optional defaultValue As Boolean = False) As Boolean
-Dim value As String
-value = GetSetting(APP_NAME, section, key, CStr(defaultValue))
-GetBooleanSetting = CBool(value)
-End Function
+    Private Const APP_NAME As String = &quot;MyApplication&quot;
+    Public Function GetStringSetting(section As String, key As String, _
+                                     Optional defaultValue As String = &quot;&quot;) As String
+        GetStringSetting = GetSetting(APP_NAME, section, key, defaultValue)
+    End Function
+    Public Function GetIntegerSetting(section As String, key As String, _
+                                      Optional defaultValue As Integer = 0) As Integer
+        Dim value As String
+        value = GetSetting(APP_NAME, section, key, CStr(defaultValue))
+        On Error Resume Next
+        GetIntegerSetting = CInt(value)
+        If Err.Number &lt;&gt; 0 Then GetIntegerSetting = defaultValue
+    End Function
+    Public Function GetBooleanSetting(section As String, key As String, _
+                                      Optional defaultValue As Boolean = False) As Boolean
+        Dim value As String
+        value = GetSetting(APP_NAME, section, key, CStr(defaultValue))
+        GetBooleanSetting = CBool(value)
+    End Function
 End Class
-
 &#x27; Example 2: Application configuration loader
 Private Sub LoadApplicationConfig()
-Dim config As New Collection
-
-config.Add GetSetting(&quot;MyApp&quot;, &quot;Paths&quot;, &quot;Data&quot;, App.Path &amp; &quot;\Data&quot;), &quot;DataPath&quot;
-config.Add GetSetting(&quot;MyApp&quot;, &quot;Paths&quot;, &quot;Export&quot;, App.Path &amp; &quot;\Export&quot;), &quot;ExportPath&quot;
-config.Add GetSetting(&quot;MyApp&quot;, &quot;Paths&quot;, &quot;Temp&quot;, Environ$(&quot;TEMP&quot;)), &quot;TempPath&quot;
-
-config.Add GetSetting(&quot;MyApp&quot;, &quot;Database&quot;, &quot;Server&quot;, &quot;localhost&quot;), &quot;DBServer&quot;
-config.Add GetSetting(&quot;MyApp&quot;, &quot;Database&quot;, &quot;Name&quot;, &quot;AppDB&quot;), &quot;DBName&quot;
-
-config.Add GetSetting(&quot;MyApp&quot;, &quot;Options&quot;, &quot;AutoBackup&quot;, &quot;True&quot;), &quot;AutoBackup&quot;
-config.Add GetSetting(&quot;MyApp&quot;, &quot;Options&quot;, &quot;BackupInterval&quot;, &quot;60&quot;), &quot;BackupInterval&quot;
-
-Set g_AppConfig = config
+    Dim config As New Collection
+    config.Add GetSetting(&quot;MyApp&quot;, &quot;Paths&quot;, &quot;Data&quot;, App.Path &amp; &quot;\Data&quot;), &quot;DataPath&quot;
+    config.Add GetSetting(&quot;MyApp&quot;, &quot;Paths&quot;, &quot;Export&quot;, App.Path &amp; &quot;\Export&quot;), &quot;ExportPath&quot;
+    config.Add GetSetting(&quot;MyApp&quot;, &quot;Paths&quot;, &quot;Temp&quot;, Environ$(&quot;TEMP&quot;)), &quot;TempPath&quot;
+    config.Add GetSetting(&quot;MyApp&quot;, &quot;Database&quot;, &quot;Server&quot;, &quot;localhost&quot;), &quot;DBServer&quot;
+    config.Add GetSetting(&quot;MyApp&quot;, &quot;Database&quot;, &quot;Name&quot;, &quot;AppDB&quot;), &quot;DBName&quot;
+    config.Add GetSetting(&quot;MyApp&quot;, &quot;Options&quot;, &quot;AutoBackup&quot;, &quot;True&quot;), &quot;AutoBackup&quot;
+    config.Add GetSetting(&quot;MyApp&quot;, &quot;Options&quot;, &quot;BackupInterval&quot;, &quot;60&quot;), &quot;BackupInterval&quot;
+    Set g_AppConfig = config
 End Sub
-
 &#x27; Example 3: Multi-user profile system
 Public Function LoadUserProfile(userName As String) As UserProfile
-Dim profile As New UserProfile
-Dim section As String
-
-section = &quot;User_&quot; &amp; userName
-
-With profile
-.FullName = GetSetting(&quot;MyApp&quot;, section, &quot;FullName&quot;, userName)
-.Email = GetSetting(&quot;MyApp&quot;, section, &quot;Email&quot;, &quot;&quot;)
-.Role = GetSetting(&quot;MyApp&quot;, section, &quot;Role&quot;, &quot;User&quot;)
-.Theme = GetSetting(&quot;MyApp&quot;, section, &quot;Theme&quot;, &quot;Default&quot;)
-.Language = GetSetting(&quot;MyApp&quot;, section, &quot;Language&quot;, &quot;en-US&quot;)
-.LastLogin = GetSetting(&quot;MyApp&quot;, section, &quot;LastLogin&quot;, &quot;&quot;)
-End With
-
-LoadUserProfile = profile
+    Dim profile As New UserProfile
+    Dim section As String
+    section = &quot;User_&quot; &amp; userName
+    With profile
+        .FullName = GetSetting(&quot;MyApp&quot;, section, &quot;FullName&quot;, userName)
+        .Email = GetSetting(&quot;MyApp&quot;, section, &quot;Email&quot;, &quot;&quot;)
+        .Role = GetSetting(&quot;MyApp&quot;, section, &quot;Role&quot;, &quot;User&quot;)
+        .Theme = GetSetting(&quot;MyApp&quot;, section, &quot;Theme&quot;, &quot;Default&quot;)
+        .Language = GetSetting(&quot;MyApp&quot;, section, &quot;Language&quot;, &quot;en-US&quot;)
+        .LastLogin = GetSetting(&quot;MyApp&quot;, section, &quot;LastLogin&quot;, &quot;&quot;)
+    End With
+    LoadUserProfile = profile
 End Function
-
 &#x27; Example 4: MRU (Most Recently Used) manager
 Public Class MRUManager
-Private Const MAX_MRU As Integer = 10
-Private Const APP_NAME As String = &quot;MyApp&quot;
-Private Const SECTION As String = &quot;MRU&quot;
-
-Public Function GetMRUList() As Collection
-Dim mruList As New Collection
-Dim i As Integer
-Dim item As String
-
-For i = 1 To MAX_MRU
-item = GetSetting(APP_NAME, SECTION, &quot;Item&quot; &amp; i, &quot;&quot;)
-If Len(item) &gt; 0 Then
-mruList.Add item
-Else
-Exit For
-End If
-Next i
-
-Set GetMRUList = mruList
-End Function
-
-Public Sub AddMRUItem(filePath As String)
-Dim mruList As Collection
-Dim i As Integer
-Dim item As String
-
-Set mruList = GetMRUList()
-
-&#x27; Remove if already exists
-For i = 1 To mruList.Count
-If StrComp(mruList(i), filePath, vbTextCompare) = 0 Then
-mruList.Remove i
-Exit For
-End If
-Next i
-
-&#x27; Add to top
-mruList.Add filePath, , 1
-
-&#x27; Save back
-For i = 1 To mruList.Count
-If i &gt; MAX_MRU Then Exit For
-SaveSetting APP_NAME, SECTION, &quot;Item&quot; &amp; i, mruList(i)
-Next i
-End Sub
+    Private Const MAX_MRU As Integer = 10
+    Private Const APP_NAME As String = &quot;MyApp&quot;
+    Private Const SECTION As String = &quot;MRU&quot;
+    Public Function GetMRUList() As Collection
+        Dim mruList As New Collection
+        Dim i As Integer
+        Dim item As String
+        For i = 1 To MAX_MRU
+            item = GetSetting(APP_NAME, SECTION, &quot;Item&quot; &amp; i, &quot;&quot;)
+            If Len(item) &gt; 0 Then
+                mruList.Add item
+            Else
+                Exit For
+            End If
+        Next i
+        Set GetMRUList = mruList
+    End Function
+    Public Sub AddMRUItem(filePath As String)
+        Dim mruList As Collection
+        Dim i As Integer
+        Dim item As String
+        Set mruList = GetMRUList()
+        &#x27; Remove if already exists
+        For i = 1 To mruList.Count
+            If StrComp(mruList(i), filePath, vbTextCompare) = 0 Then
+                mruList.Remove i
+                Exit For
+            End If
+        Next i
+        &#x27; Add to top
+        mruList.Add filePath, , 1
+        &#x27; Save back
+        For i = 1 To mruList.Count
+            If i &gt; MAX_MRU Then Exit For
+            SaveSetting APP_NAME, SECTION, &quot;Item&quot; &amp; i, mruList(i)
+        Next i
+    End Sub
 End Class</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p><code>GetSetting</code> generally doesn't raise errors, but returns the default value if the setting doesn't exist:</p>
-<ul>
-<li><strong>No Error</strong>: If the registry key doesn't exist, returns default (or "" if no default)</li>
-<li><strong>No Error</strong>: If appname, section, or key is empty, returns default value</li>
-<li><strong>Type Mismatch</strong>: Can occur when converting returned String to another type (e.g., <code>CInt</code>)</li>
-<li><strong>Registry Access</strong>: On systems where registry access is restricted, may return defaults</li>
-</ul>
+<p><code>GetSetting</code> generally doesn't raise errors, but returns the default value if the setting doesn't exist:
+- <strong>No Error</strong>: If the registry key doesn't exist, returns default (or "" if no default)
+- <strong>No Error</strong>: If appname, section, or key is empty, returns default value
+- <strong>Type Mismatch</strong>: Can occur when converting returned String to another type (e.g., <code>CInt</code>)
+- <strong>Registry Access</strong>: On systems where registry access is restricted, may return defaults</p>
 <pre><code class="language-vbnet">&#x27; Safe retrieval with type conversion
 On Error Resume Next
 Dim timeout As Integer
 timeout = CInt(GetSetting(&quot;MyApp&quot;, &quot;Network&quot;, &quot;Timeout&quot;, &quot;30&quot;))
 If Err.Number &lt;&gt; 0 Then
-timeout = 30
-Err.Clear
+    timeout = 30
+    Err.Clear
 End If
 On Error GoTo 0</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>

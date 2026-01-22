@@ -37,16 +37,17 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="split-function">Split Function</h1>
+            <h2 id="split-function">Split Function</h2>
 <p>Returns a zero-based, one-dimensional array containing a specified number of substrings.</p>
 <h2 id="syntax">Syntax</h2>
-<pre><code class="language-vbnet">Split(expression[, delimiter[, limit[, compare]]])</code></pre>
+<pre><code class="language-text">Split(expression[, delimiter[, limit[, compare]]])</code></pre>
 <h2 id="parameters">Parameters</h2>
 <ul>
-<li><code>expression</code> - Required. String expression containing substrings and delimiters.</li>
-<li><code>delimiter</code> - Optional. String character used to identify substring limits. If omitted, the space character (" ") is assumed to be the delimiter.</li>
-<li><code>limit</code> - Optional. Number of substrings to be returned; -1 indicates that all substrings are returned.</li>
-<li><code>compare</code> - Optional. Numeric value indicating the kind of comparison to use when evaluating substrings. See Settings section for values.</li>
+<li><strong>expression</strong> (Required): <code>String</code> expression containing substrings and delimiters</li>
+<li><strong>delimiter</strong> (Optional): <code>String</code> character used to identify substring limits</li>
+<li>If omitted, the space character (" ") is assumed</li>
+<li><strong>limit</strong> (Optional): Number of substrings to be returned; <code>-1</code> returns all substrings</li>
+<li><strong>compare</strong> (Optional): Numeric value indicating comparison type (see Compare Settings)</li>
 </ul>
 <h2 id="compare-settings">Compare Settings</h2>
 <ul>
@@ -55,26 +56,22 @@
 <li><code>vbDatabaseCompare</code> (2): Perform a comparison based on information in your database</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
-<p>Returns a Variant containing a one-dimensional array of strings. The array is zero-based.</p>
+<ul>
+<li>Returns a <code>Variant</code> containing a one-dimensional array of strings (zero-based)</li>
+<li>If <code>expression</code> is a zero-length string (""), returns an empty array</li>
+<li>If <code>delimiter</code> is a zero-length string or not found, returns a single-element array containing the entire expression</li>
+</ul>
 <h2 id="remarks">Remarks</h2>
-<p>The Split function breaks a string into substrings at the specified delimiter and returns them as an array. This is the opposite of the Join function, which combines array elements into a single string.</p>
-<p>Key characteristics:
+<p>The <code>Split</code> function breaks a string into substrings at the specified delimiter and returns them as an array. This is the opposite of the <code>Join</code> function, which combines array elements into a single string.
 - Returns a zero-based array (first element is index 0)
 - If expression is a zero-length string (""), Split returns an empty array
 - If delimiter is a zero-length string, a single-element array containing the entire expression is returned
 - If delimiter is not found, a single-element array containing the entire expression is returned
 - Delimiter characters are not included in the returned substrings
-- If limit is provided and is less than the number of substrings, the last element contains the remainder of the string (including delimiters)
+- If <code>limit</code> is provided and is less than the number of substrings, the last element contains the remainder of the string (including delimiters)
 - Multiple consecutive delimiters create empty string elements in the array</p>
-<p>The Split function is commonly used for:
-- Parsing delimited data (CSV, TSV, pipe-delimited)
-- Extracting words from sentences
-- Processing configuration files
-- Parsing command-line arguments
-- Breaking up formatted strings
-- Converting strings to arrays for processing</p>
 <h2 id="typical-uses">Typical Uses</h2>
-<ol>
+<ul>
 <li><strong>Parse CSV Data</strong>: Split comma-separated values</li>
 <li><strong>Extract Words</strong>: Split sentence into individual words</li>
 <li><strong>Process Lines</strong>: Split multiline text into lines</li>
@@ -83,537 +80,18 @@
 <li><strong>Data Import</strong>: Process delimited import files</li>
 <li><strong>String Tokenization</strong>: Break strings into tokens</li>
 <li><strong>Configuration Parsing</strong>: Parse config file entries</li>
-</ol>
-<h2 id="basic-examples">Basic Examples</h2>
-<pre><code class="language-vbnet">&#x27; Example 1: Split comma-separated values
-Dim text As String
-Dim parts() As String
-text = &quot;apple,banana,orange&quot;
-parts = Split(text, &quot;,&quot;)
-&#x27; parts(0) = &quot;apple&quot;
-&#x27; parts(1) = &quot;banana&quot;
-&#x27; parts(2) = &quot;orange&quot;</code></pre>
-<pre><code class="language-vbnet">&#x27; Example 2: Split sentence into words (default space delimiter)
-Dim sentence As String
-Dim words() As String
-sentence = &quot;The quick brown fox&quot;
-words = Split(sentence)
-&#x27; words(0) = &quot;The&quot;
-&#x27; words(1) = &quot;quick&quot;
-&#x27; words(2) = &quot;brown&quot;
-&#x27; words(3) = &quot;fox&quot;</code></pre>
-<pre><code class="language-vbnet">&#x27; Example 3: Split with limit
-Dim data As String
-Dim items() As String
-data = &quot;one,two,three,four,five&quot;
-items = Split(data, &quot;,&quot;, 3)
-&#x27; items(0) = &quot;one&quot;
-&#x27; items(1) = &quot;two&quot;
-&#x27; items(2) = &quot;three,four,five&quot; (remainder)</code></pre>
-<pre><code class="language-vbnet">&#x27; Example 4: Split multiline text
-Dim text As String
-Dim lines() As String
-text = &quot;Line 1&quot; &amp; vbCrLf &amp; &quot;Line 2&quot; &amp; vbCrLf &amp; &quot;Line 3&quot;
-lines = Split(text, vbCrLf)
-&#x27; lines(0) = &quot;Line 1&quot;
-&#x27; lines(1) = &quot;Line 2&quot;
-&#x27; lines(2) = &quot;Line 3&quot;</code></pre>
-<h2 id="common-patterns">Common Patterns</h2>
-<h3 id="pattern-1-parsecsvline">Pattern 1: <code>ParseCSVLine</code></h3>
-<p>Parse a CSV line handling quotes</p>
-<pre><code class="language-vbnet">Function ParseCSVLine(line As String) As String()
-&#x27; Simple CSV parsing (doesn&#x27;t handle quotes)
-ParseCSVLine = Split(line, &quot;,&quot;)
-End Function</code></pre>
-<h3 id="pattern-2-getwords">Pattern 2: <code>GetWords</code></h3>
-<p>Extract words from text, handling multiple spaces</p>
-<pre><code class="language-vbnet">Function GetWords(text As String) As String()
-Dim words() As String
-Dim result() As String
-Dim i As Integer
-Dim count As Integer
-
-words = Split(Trim(text), &quot; &quot;)
-
-&#x27; Filter out empty strings from multiple spaces
-count = 0
-For i = LBound(words) To UBound(words)
-If Len(words(i)) &gt; 0 Then
-count = count + 1
-End If
-Next i
-
-ReDim result(0 To count - 1)
-count = 0
-For i = LBound(words) To UBound(words)
-If Len(words(i)) &gt; 0 Then
-result(count) = words(i)
-count = count + 1
-End If
-Next i
-
-GetWords = result
-End Function</code></pre>
-<h3 id="pattern-3-splitpath">Pattern 3: <code>SplitPath</code></h3>
-<p>Split file path into components</p>
-<pre><code class="language-vbnet">Function SplitPath(filePath As String) As String()
-Dim delimiter As String
-
-&#x27; Handle both Windows and Unix paths
-If InStr(filePath, &quot;\&quot;) &gt; 0 Then
-delimiter = &quot;\&quot;
-Else
-delimiter = &quot;/&quot;
-End If
-
-SplitPath = Split(filePath, delimiter)
-End Function</code></pre>
-<h3 id="pattern-4-parsekeyvalue">Pattern 4: <code>ParseKeyValue</code></h3>
-<p>Parse key=value pairs</p>
-<pre><code class="language-vbnet">Sub ParseKeyValue(kvPair As String, key As String, value As String)
-Dim parts() As String
-parts = Split(kvPair, &quot;=&quot;, 2)
-
-If UBound(parts) &gt;= 0 Then
-key = Trim(parts(0))
-If UBound(parts) &gt;= 1 Then
-value = Trim(parts(1))
-Else
-value = &quot;&quot;
-End If
-End If
-End Sub</code></pre>
-<h3 id="pattern-5-splitlines">Pattern 5: <code>SplitLines</code></h3>
-<p>Split text into lines, handling different line endings</p>
-<pre><code class="language-vbnet">Function SplitLines(text As String) As String()
-Dim normalized As String
-
-&#x27; Normalize line endings to vbCrLf
-normalized = Replace(text, vbCr &amp; vbLf, vbLf)
-normalized = Replace(normalized, vbCr, vbLf)
-
-SplitLines = Split(normalized, vbLf)
-End Function</code></pre>
-<h3 id="pattern-6-parsedelimiteddata">Pattern 6: <code>ParseDelimitedData</code></h3>
-<p>Parse delimited data with custom delimiter</p>
-<pre><code class="language-vbnet">Function ParseDelimitedData(data As String, delimiter As String) As Variant
-Dim lines() As String
-Dim result() As Variant
-Dim i As Integer
-
-lines = Split(data, vbCrLf)
-ReDim result(0 To UBound(lines))
-
-For i = LBound(lines) To UBound(lines)
-result(i) = Split(lines(i), delimiter)
-Next i
-
-ParseDelimitedData = result
-End Function</code></pre>
-<h3 id="pattern-7-extractfields">Pattern 7: <code>ExtractFields</code></h3>
-<p>Extract specific fields from delimited string</p>
-<pre><code class="language-vbnet">Function ExtractField(delimitedString As String, _
-delimiter As String, _
-fieldIndex As Integer) As String
-Dim fields() As String
-fields = Split(delimitedString, delimiter)
-
-If fieldIndex &gt;= LBound(fields) And fieldIndex &lt;= UBound(fields) Then
-ExtractField = fields(fieldIndex)
-Else
-ExtractField = &quot;&quot;
-End If
-End Function</code></pre>
-<h3 id="pattern-8-counttokens">Pattern 8: <code>CountTokens</code></h3>
-<p>Count number of tokens in string</p>
-<pre><code class="language-vbnet">Function CountTokens(text As String, delimiter As String) As Integer
-Dim tokens() As String
-tokens = Split(text, delimiter)
-CountTokens = UBound(tokens) - LBound(tokens) + 1
-End Function</code></pre>
-<h3 id="pattern-9-reversearray">Pattern 9: <code>ReverseArray</code></h3>
-<p>Split and reverse the order</p>
-<pre><code class="language-vbnet">Function ReverseSplit(text As String, delimiter As String) As String()
-Dim parts() As String
-Dim result() As String
-Dim i As Integer
-Dim count As Integer
-
-parts = Split(text, delimiter)
-count = UBound(parts) - LBound(parts)
-ReDim result(0 To count)
-
-For i = 0 To count
-result(i) = parts(count - i)
-Next i
-
-ReverseSplit = result
-End Function</code></pre>
-<h3 id="pattern-10-filteremptyelements">Pattern 10: <code>FilterEmptyElements</code></h3>
-<p>Split and remove empty elements</p>
-<pre><code class="language-vbnet">Function SplitNonEmpty(text As String, delimiter As String) As String()
-Dim parts() As String
-Dim result() As String
-Dim i As Integer
-Dim count As Integer
-
-parts = Split(text, delimiter)
-
-&#x27; Count non-empty elements
-count = 0
-For i = LBound(parts) To UBound(parts)
-If Len(parts(i)) &gt; 0 Then count = count + 1
-Next i
-
-If count = 0 Then
-ReDim result(0 To -1)  &#x27; Empty array
-Else
-ReDim result(0 To count - 1)
-count = 0
-For i = LBound(parts) To UBound(parts)
-If Len(parts(i)) &gt; 0 Then
-result(count) = parts(i)
-count = count + 1
-End If
-Next i
-End If
-
-SplitNonEmpty = result
-End Function</code></pre>
-<h2 id="advanced-usage">Advanced Usage</h2>
-<h3 id="example-1-csvparser-class">Example 1: <code>CSVParser</code> Class</h3>
-<p>Parse CSV data with Split</p>
-<pre><code class="language-vbnet">&#x27; Class: CSVParser
-Private m_data() As Variant
-Private m_rowCount As Integer
-Private m_columnCount As Integer
-
-Public Sub LoadCSV(csvText As String, Optional hasHeader As Boolean = True)
-Dim lines() As String
-Dim i As Integer
-Dim startRow As Integer
-
-&#x27; Split into lines
-lines = Split(csvText, vbCrLf)
-
-If hasHeader Then
-startRow = 1
-m_rowCount = UBound(lines) - LBound(lines)
-Else
-startRow = 0
-m_rowCount = UBound(lines) - LBound(lines) + 1
-End If
-
-&#x27; Get column count from first data row
-If UBound(lines) &gt;= startRow Then
-Dim firstRow() As String
-firstRow = Split(lines(startRow), &quot;,&quot;)
-m_columnCount = UBound(firstRow) - LBound(firstRow) + 1
-End If
-
-&#x27; Parse data
-ReDim m_data(1 To m_rowCount, 1 To m_columnCount)
-
-For i = startRow To UBound(lines)
-Dim fields() As String
-Dim j As Integer
-fields = Split(lines(i), &quot;,&quot;)
-
-For j = LBound(fields) To UBound(fields)
-If j - LBound(fields) + 1 &lt;= m_columnCount Then
-m_data(i - startRow + 1, j - LBound(fields) + 1) = fields(j)
-End If
-Next j
-Next i
-End Sub
-
-Public Function GetValue(row As Integer, col As Integer) As String
-If row &gt;= 1 And row &lt;= m_rowCount And _
-col &gt;= 1 And col &lt;= m_columnCount Then
-GetValue = m_data(row, col)
-Else
-GetValue = &quot;&quot;
-End If
-End Function
-
-Public Property Get RowCount() As Integer
-RowCount = m_rowCount
-End Property
-
-Public Property Get ColumnCount() As Integer
-ColumnCount = m_columnCount
-End Property
-
-Public Function GetRow(row As Integer) As Variant
-Dim result() As String
-Dim i As Integer
-
-If row &gt;= 1 And row &lt;= m_rowCount Then
-ReDim result(1 To m_columnCount)
-For i = 1 To m_columnCount
-result(i) = m_data(row, i)
-Next i
-GetRow = result
-End If
-End Function</code></pre>
-<h3 id="example-2-configfileparser-module">Example 2: <code>ConfigFileParser</code> Module</h3>
-<p>Parse configuration files</p>
-<pre><code class="language-vbnet">&#x27; Module: ConfigFileParser
-Private m_settings As Object  &#x27; Scripting.Dictionary
-
-Public Sub LoadConfig(configText As String)
-Dim lines() As String
-Dim i As Integer
-
-Set m_settings = CreateObject(&quot;Scripting.Dictionary&quot;)
-m_settings.CompareMode = vbTextCompare
-
-lines = Split(configText, vbCrLf)
-
-For i = LBound(lines) To UBound(lines)
-Dim line As String
-line = Trim(lines(i))
-
-&#x27; Skip empty lines and comments
-If Len(line) &gt; 0 And Left(line, 1) &lt;&gt; &quot;#&quot; And Left(line, 1) &lt;&gt; &quot;;&quot; Then
-Dim parts() As String
-parts = Split(line, &quot;=&quot;, 2)
-
-If UBound(parts) &gt;= 1 Then
-Dim key As String
-Dim value As String
-key = Trim(parts(0))
-value = Trim(parts(1))
-
-m_settings(key) = value
-End If
-End If
-Next i
-End Sub
-
-Public Function GetSetting(key As String, Optional defaultValue As String = &quot;&quot;) As String
-If m_settings.Exists(key) Then
-GetSetting = m_settings(key)
-Else
-GetSetting = defaultValue
-End If
-End Function
-
-Public Function GetSettingAsInteger(key As String, Optional defaultValue As Integer = 0) As Integer
-If m_settings.Exists(key) Then
-If IsNumeric(m_settings(key)) Then
-GetSettingAsInteger = CInt(m_settings(key))
-Else
-GetSettingAsInteger = defaultValue
-End If
-Else
-GetSettingAsInteger = defaultValue
-End If
-End Function
-
-Public Function GetSettingList(key As String, delimiter As String) As String()
-If m_settings.Exists(key) Then
-GetSettingList = Split(m_settings(key), delimiter)
-Else
-Dim empty() As String
-ReDim empty(0 To -1)
-GetSettingList = empty
-End If
-End Function</code></pre>
-<h3 id="example-3-textprocessor-class">Example 3: <code>TextProcessor</code> Class</h3>
-<p>Process text with various split operations</p>
-<pre><code class="language-vbnet">&#x27; Class: TextProcessor
-
-Public Function GetParagraphs(text As String) As String()
-&#x27; Split by double line breaks
-Dim normalized As String
-normalized = Replace(text, vbCrLf &amp; vbCrLf, vbLf &amp; vbLf)
-normalized = Replace(normalized, vbCr, vbLf)
-GetParagraphs = Split(normalized, vbLf &amp; vbLf)
-End Function
-
-Public Function GetSentences(text As String) As String()
-Dim temp As String
-Dim i As Integer
-
-&#x27; Simple sentence splitting (doesn&#x27;t handle abbreviations)
-temp = Replace(text, &quot;. &quot;, &quot;.|&quot;)
-temp = Replace(temp, &quot;! &quot;, &quot;!|&quot;)
-temp = Replace(temp, &quot;? &quot;, &quot;?|&quot;)
-
-GetSentences = Split(temp, &quot;|&quot;)
-End Function
-
-Public Function GetWords(text As String) As String()
-Dim cleaned As String
-Dim i As Integer
-
-cleaned = text
-&#x27; Remove punctuation
-cleaned = Replace(cleaned, &quot;.&quot;, &quot; &quot;)
-cleaned = Replace(cleaned, &quot;,&quot;, &quot; &quot;)
-cleaned = Replace(cleaned, &quot;!&quot;, &quot; &quot;)
-cleaned = Replace(cleaned, &quot;?&quot;, &quot; &quot;)
-cleaned = Replace(cleaned, &quot;;&quot;, &quot; &quot;)
-cleaned = Replace(cleaned, &quot;:&quot;, &quot; &quot;)
-
-GetWords = Split(Trim(cleaned), &quot; &quot;)
-End Function
-
-Public Function CountWords(text As String) As Integer
-Dim words() As String
-Dim count As Integer
-Dim i As Integer
-
-words = GetWords(text)
-count = 0
-
-For i = LBound(words) To UBound(words)
-If Len(Trim(words(i))) &gt; 0 Then
-count = count + 1
-End If
-Next i
-
-CountWords = count
-End Function
-
-Public Function GetUniqueWords(text As String) As String()
-Dim words() As String
-Dim dict As Object
-Dim i As Integer
-Dim result() As String
-Dim count As Integer
-
-Set dict = CreateObject(&quot;Scripting.Dictionary&quot;)
-dict.CompareMode = vbTextCompare
-
-words = GetWords(text)
-
-For i = LBound(words) To UBound(words)
-Dim word As String
-word = Trim(words(i))
-If Len(word) &gt; 0 Then
-dict(word) = True
-End If
-Next i
-
-ReDim result(0 To dict.Count - 1)
-Dim keys As Variant
-keys = dict.keys
-
-For i = 0 To dict.Count - 1
-result(i) = keys(i)
-Next i
-
-GetUniqueWords = result
-End Function</code></pre>
-<h3 id="example-4-dataimporter-module">Example 4: <code>DataImporter</code> Module</h3>
-<p>Import delimited data files</p>
-<pre><code class="language-vbnet">&#x27; Module: DataImporter
-
-Public Function ImportDelimitedFile(filePath As String, _
-delimiter As String, _
-Optional hasHeader As Boolean = True) As Variant
-Dim fileNum As Integer
-Dim fileContent As String
-Dim lines() As String
-Dim result() As Variant
-Dim i As Integer
-Dim startRow As Integer
-
-&#x27; Read file
-fileNum = FreeFile
-Open filePath For Input As #fileNum
-fileContent = Input(LOF(fileNum), #fileNum)
-Close #fileNum
-
-&#x27; Split into lines
-lines = Split(fileContent, vbCrLf)
-
-If hasHeader Then
-startRow = 1
-Else
-startRow = 0
-End If
-
-&#x27; Parse each line
-ReDim result(startRow To UBound(lines))
-
-For i = startRow To UBound(lines)
-result(i) = Split(lines(i), delimiter)
-Next i
-
-ImportDelimitedFile = result
-End Function
-
-Public Function GetColumnFromData(data As Variant, columnIndex As Integer) As String()
-Dim result() As String
-Dim i As Integer
-Dim rowCount As Integer
-
-rowCount = UBound(data) - LBound(data) + 1
-ReDim result(0 To rowCount - 1)
-
-For i = LBound(data) To UBound(data)
-Dim row() As String
-row = data(i)
-
-If columnIndex &gt;= LBound(row) And columnIndex &lt;= UBound(row) Then
-result(i - LBound(data)) = row(columnIndex)
-Else
-result(i - LBound(data)) = &quot;&quot;
-End If
-Next i
-
-GetColumnFromData = result
-End Function
-
-Public Function FilterRows(data As Variant, columnIndex As Integer, _
-filterValue As String) As Variant
-Dim result() As Variant
-Dim count As Integer
-Dim i As Integer
-
-&#x27; Count matching rows
-count = 0
-For i = LBound(data) To UBound(data)
-Dim row() As String
-row = data(i)
-If columnIndex &gt;= LBound(row) And columnIndex &lt;= UBound(row) Then
-If row(columnIndex) = filterValue Then
-count = count + 1
-End If
-End If
-Next i
-
-&#x27; Build result
-ReDim result(0 To count - 1)
-count = 0
-For i = LBound(data) To UBound(data)
-row = data(i)
-If columnIndex &gt;= LBound(row) And columnIndex &lt;= UBound(row) Then
-If row(columnIndex) = filterValue Then
-result(count) = row
-count = count + 1
-End If
-End If
-Next i
-
-FilterRows = result
-End Function</code></pre>
-<h2 id="error-handling">Error Handling</h2>
-<p>The Split function itself doesn't typically generate errors with valid inputs, but related operations can:</p>
-<ul>
-<li><strong>Error 13</strong> (Type mismatch): If expression is not a string</li>
-<li><strong>Error 5</strong> (Invalid procedure call): If limit is negative (other than -1)</li>
-<li><strong>Error 9</strong> (Subscript out of range): When accessing array elements beyond bounds</li>
 </ul>
-<p>Always validate inputs and array bounds:</p>
+<h2 id="common-errors">Common Errors</h2>
+<p>The Split function itself doesn't typically generate errors with valid inputs, but related operations can:
+- <strong>Error 13</strong> (Type mismatch): If expression is not a string
+- <strong>Error 5</strong> (Invalid procedure call): If limit is negative (other than -1)
+- <strong>Error 9</strong> (Subscript out of range): When accessing array elements beyond bounds</p>
+<h3 id="always-validate-inputs-and-array-bounds">Always validate inputs and array bounds:</h3>
 <pre><code class="language-vbnet">On Error Resume Next
 Dim parts() As String
 parts = Split(text, &quot;,&quot;)
 If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Error splitting text: &quot; &amp; Err.Description
+    MsgBox &quot;Error splitting text: &quot; &amp; Err.Description
 End If</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
@@ -624,7 +102,7 @@ End If</code></pre>
 <li>For complex parsing, Split may be slower than manual parsing</li>
 </ul>
 <h2 id="best-practices">Best Practices</h2>
-<ol>
+<ul>
 <li><strong>Check Array Bounds</strong>: Always verify <code>UBound</code> before accessing elements</li>
 <li><strong>Handle Empty Results</strong>: Check if array has elements before processing</li>
 <li><strong>Trim Whitespace</strong>: Use Trim on results to remove unwanted spaces</li>
@@ -635,7 +113,7 @@ End If</code></pre>
 <li><strong>Document Expected Format</strong>: Comment the expected delimited format</li>
 <li><strong>Filter Empty Elements</strong>: Remove empty strings when caused by multiple delimiters</li>
 <li><strong>Combine with Join</strong>: Use Join to reconstruct modified arrays</li>
-</ol>
+</ul>
 <h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
 <table>
 <thead>
@@ -698,6 +176,433 @@ End If</code></pre>
 <li><code>InStr</code>: Finds position of substring (useful before Split)</li>
 <li><code>Replace</code>: Replaces occurrences of substring</li>
 </ul>
+<h2 id="basic-examples">Basic Examples</h2>
+<h3 id="example-1-split-comma-separated-values">Example 1: Split Comma-Separated Values</h3>
+<pre><code class="language-vbnet">Dim text As String
+Dim parts() As String
+text = &quot;apple,banana,orange&quot;
+parts = Split(text, &quot;,&quot;)
+&#x27; parts(0) = &quot;apple&quot;
+&#x27; parts(1) = &quot;banana&quot;
+&#x27; parts(2) = &quot;orange&quot;</code></pre>
+<h3 id="example-2-split-sentence-into-words-default-space-delimiter">Example 2: Split Sentence Into Words (Default Space Delimiter)</h3>
+<pre><code class="language-vbnet">Dim sentence As String
+Dim words() As String
+sentence = &quot;The quick brown fox&quot;
+words = Split(sentence)
+&#x27; words(0) = &quot;The&quot;
+&#x27; words(1) = &quot;quick&quot;
+&#x27; words(2) = &quot;brown&quot;
+&#x27; words(3) = &quot;fox&quot;</code></pre>
+<h3 id="example-3-split-with-limit">Example 3: Split With Limit</h3>
+<pre><code class="language-vbnet">Dim data As String
+Dim items() As String
+data = &quot;one,two,three,four,five&quot;
+items = Split(data, &quot;,&quot;, 3)
+&#x27; items(0) = &quot;one&quot;
+&#x27; items(1) = &quot;two&quot;
+&#x27; items(2) = &quot;three,four,five&quot; (remainder)</code></pre>
+<h3 id="example-4-split-multiline-text">Example 4: Split Multiline Text</h3>
+<pre><code class="language-vbnet">Dim text As String
+Dim lines() As String
+text = &quot;Line 1&quot; &amp; vbCrLf &amp; &quot;Line 2&quot; &amp; vbCrLf &amp; &quot;Line 3&quot;
+lines = Split(text, vbCrLf)
+&#x27; lines(0) = &quot;Line 1&quot;
+&#x27; lines(1) = &quot;Line 2&quot;
+&#x27; lines(2) = &quot;Line 3&quot;</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="pattern-1-parse-a-csv-line-handling-quotes">Pattern 1: Parse a CSV line handling quotes</h3>
+<pre><code class="language-vbnet">Function ParseCSVLine(line As String) As String()
+    &#x27; Simple CSV parsing (doesn&#x27;t handle quotes)
+    ParseCSVLine = Split(line, &quot;,&quot;)
+End Function</code></pre>
+<h3 id="pattern-2-extract-words-from-text-handling-multiple-spaces">Pattern 2: Extract Words From Text, Handling Multiple Spaces</h3>
+<pre><code class="language-vbnet">Function GetWords(text As String) As String()
+    Dim words() As String
+    Dim result() As String
+    Dim i As Integer
+    Dim count As Integer
+    words = Split(Trim(text), &quot; &quot;)
+    &#x27; Filter out empty strings from multiple spaces
+    count = 0
+    For i = LBound(words) To UBound(words)
+        If Len(words(i)) &gt; 0 Then
+            count = count + 1
+        End If
+    Next i
+    ReDim result(0 To count - 1)
+    count = 0
+    For i = LBound(words) To UBound(words)
+        If Len(words(i)) &gt; 0 Then
+            result(count) = words(i)
+            count = count + 1
+        End If
+    Next i
+    GetWords = result
+End Function</code></pre>
+<h3 id="pattern-3-split-file-path-into-components">Pattern 3: Split File Path Into Components</h3>
+<pre><code class="language-vbnet">Function SplitPath(filePath As String) As String()
+    Dim delimiter As String
+    &#x27; Handle both Windows and Unix paths
+    If InStr(filePath, &quot;\&quot;) &gt; 0 Then
+        delimiter = &quot;\&quot;
+    Else
+        delimiter = &quot;/&quot;
+    End If
+    SplitPath = Split(filePath, delimiter)
+End Function</code></pre>
+<h3 id="pattern-4-parse-keyvalue-pairs">Pattern 4: Parse Key=Value Pairs</h3>
+<pre><code class="language-vbnet">Sub ParseKeyValue(kvPair As String, key As String, value As String)
+    Dim parts() As String
+    parts = Split(kvPair, &quot;=&quot;, 2)
+    If UBound(parts) &gt;= 0 Then
+        key = Trim(parts(0))
+        If UBound(parts) &gt;= 1 Then
+            value = Trim(parts(1))
+        Else
+            value = &quot;&quot;
+        End If
+    End If
+End Sub</code></pre>
+<h3 id="pattern-5-split-text-into-lines-handling-different-line-endings">Pattern 5: Split Text Into Lines, Handling Different Line Endings</h3>
+<pre><code class="language-vbnet">Function SplitLines(text As String) As String()
+    Dim normalized As String
+    &#x27; Normalize line endings to vbCrLf
+    normalized = Replace(text, vbCr &amp; vbLf, vbLf)
+    normalized = Replace(normalized, vbCr, vbLf)
+    SplitLines = Split(normalized, vbLf)
+End Function</code></pre>
+<h3 id="pattern-6-parse-delimited-data-with-custom-delimiter">Pattern 6: Parse Delimited Data With Custom Delimiter</h3>
+<pre><code class="language-vbnet">Function ParseDelimitedData(data As String, delimiter As String) As Variant
+    Dim lines() As String
+    Dim result() As Variant
+    Dim i As Integer
+    lines = Split(data, vbCrLf)
+    ReDim result(0 To UBound(lines))
+    For i = LBound(lines) To UBound(lines)
+        result(i) = Split(lines(i), delimiter)
+    Next i
+    ParseDelimitedData = result
+End Function</code></pre>
+<h3 id="pattern-7-extract-specific-fields-from-delimited-string">Pattern 7: Extract Specific Fields From Delimited String</h3>
+<pre><code class="language-vbnet">Function ExtractField(delimitedString As String, _
+                      delimiter As String, _
+                      fieldIndex As Integer) As String
+    Dim fields() As String
+    fields = Split(delimitedString, delimiter)
+    If fieldIndex &gt;= LBound(fields) And fieldIndex &lt;= UBound(fields) Then
+        ExtractField = fields(fieldIndex)
+    Else
+        ExtractField = &quot;&quot;
+    End If
+End Function</code></pre>
+<h3 id="pattern-8-count-number-of-tokens-in-string">Pattern 8: Count Number Of Tokens In String</h3>
+<pre><code class="language-vbnet">Function CountTokens(text As String, delimiter As String) As Integer
+    Dim tokens() As String
+    tokens = Split(text, delimiter)
+    CountTokens = UBound(tokens) - LBound(tokens) + 1
+End Function</code></pre>
+<h3 id="pattern-9-split-and-reverse-the-order">Pattern 9: Split And Reverse The Order</h3>
+<pre><code class="language-vbnet">Function ReverseSplit(text As String, delimiter As String) As String()
+    Dim parts() As String
+    Dim result() As String
+    Dim i As Integer
+    Dim count As Integer
+    parts = Split(text, delimiter)
+    count = UBound(parts) - LBound(parts)
+    ReDim result(0 To count)
+    For i = 0 To count
+        result(i) = parts(count - i)
+    Next i
+    ReverseSplit = result
+End Function</code></pre>
+<h3 id="pattern-10-split-and-remove-empty-elements">Pattern 10: Split And Remove Empty Elements</h3>
+<pre><code class="language-vbnet">Function SplitNonEmpty(text As String, delimiter As String) As String()
+    Dim parts() As String
+    Dim result() As String
+    Dim i As Integer
+    Dim count As Integer
+    parts = Split(text, delimiter)
+    &#x27; Count non-empty elements
+    count = 0
+    For i = LBound(parts) To UBound(parts)
+        If Len(parts(i)) &gt; 0 Then count = count + 1
+    Next i
+    If count = 0 Then
+        ReDim result(0 To -1)  &#x27; Empty array
+    Else
+        ReDim result(0 To count - 1)
+        count = 0
+        For i = LBound(parts) To UBound(parts)
+            If Len(parts(i)) &gt; 0 Then
+                result(count) = parts(i)
+                count = count + 1
+            End If
+        Next i
+    End If
+    SplitNonEmpty = result
+End Function</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="example-1-parse-csv-data-with-split">Example 1: Parse CSV Data With Split</h3>
+<pre><code class="language-vbnet">&#x27; Class: CSVParser
+Private m_data() As Variant
+Private m_rowCount As Integer
+Private m_columnCount As Integer
+Public Sub LoadCSV(csvText As String, Optional hasHeader As Boolean = True)
+    Dim lines() As String
+    Dim i As Integer
+    Dim startRow As Integer
+    &#x27; Split into lines
+    lines = Split(csvText, vbCrLf)
+    If hasHeader Then
+        startRow = 1
+        m_rowCount = UBound(lines) - LBound(lines)
+    Else
+        startRow = 0
+        m_rowCount = UBound(lines) - LBound(lines) + 1
+    End If
+    &#x27; Get column count from first data row
+    If UBound(lines) &gt;= startRow Then
+        Dim firstRow() As String
+        firstRow = Split(lines(startRow), &quot;,&quot;)
+        m_columnCount = UBound(firstRow) - LBound(firstRow) + 1
+    End If
+    &#x27; Parse data
+    ReDim m_data(1 To m_rowCount, 1 To m_columnCount)
+    For i = startRow To UBound(lines)
+        Dim fields() As String
+        Dim j As Integer
+        fields = Split(lines(i), &quot;,&quot;)
+        For j = LBound(fields) To UBound(fields)
+            If j - LBound(fields) + 1 &lt;= m_columnCount Then
+                m_data(i - startRow + 1, j - LBound(fields) + 1) = fields(j)
+            End If
+        Next j
+    Next i
+End Sub
+Public Function GetValue(row As Integer, col As Integer) As String
+    If row &gt;= 1 And row &lt;= m_rowCount And _
+       col &gt;= 1 And col &lt;= m_columnCount Then
+        GetValue = m_data(row, col)
+    Else
+        GetValue = &quot;&quot;
+    End If
+End Function
+Public Property Get RowCount() As Integer
+    RowCount = m_rowCount
+End Property
+Public Property Get ColumnCount() As Integer
+    ColumnCount = m_columnCount
+End Property
+Public Function GetRow(row As Integer) As Variant
+    Dim result() As String
+    Dim i As Integer
+    If row &gt;= 1 And row &lt;= m_rowCount Then
+        ReDim result(1 To m_columnCount)
+        For i = 1 To m_columnCount
+            result(i) = m_data(row, i)
+        Next i
+        GetRow = result
+    End If
+End Function</code></pre>
+<h3 id="example-2-parse-configuration-files">Example 2: Parse Configuration Files</h3>
+<pre><code class="language-vbnet">&#x27; Module: ConfigFileParser
+Private m_settings As Object  &#x27; Scripting.Dictionary
+Public Sub LoadConfig(configText As String)
+    Dim lines() As String
+    Dim i As Integer
+    Set m_settings = CreateObject(&quot;Scripting.Dictionary&quot;)
+    m_settings.CompareMode = vbTextCompare
+    lines = Split(configText, vbCrLf)
+    For i = LBound(lines) To UBound(lines)
+        Dim line As String
+        line = Trim(lines(i))
+        &#x27; Skip empty lines and comments
+        If Len(line) &gt; 0 And Left(line, 1) &lt;&gt; &quot;#&quot; And Left(line, 1) &lt;&gt; &quot;;&quot; Then
+            Dim parts() As String
+            parts = Split(line, &quot;=&quot;, 2)
+            If UBound(parts) &gt;= 1 Then
+                Dim key As String
+                Dim value As String
+                key = Trim(parts(0))
+                value = Trim(parts(1))
+                m_settings(key) = value
+            End If
+        End If
+    Next i
+End Sub
+Public Function GetSetting(key As String, Optional defaultValue As String = &quot;&quot;) As String
+    If m_settings.Exists(key) Then
+        GetSetting = m_settings(key)
+    Else
+        GetSetting = defaultValue
+    End If
+End Function
+Public Function GetSettingAsInteger(key As String, Optional defaultValue As Integer = 0) As Integer
+    If m_settings.Exists(key) Then
+        If IsNumeric(m_settings(key)) Then
+            GetSettingAsInteger = CInt(m_settings(key))
+        Else
+            GetSettingAsInteger = defaultValue
+        End If
+    Else
+        GetSettingAsInteger = defaultValue
+    End If
+End Function
+Public Function GetSettingList(key As String, delimiter As String) As String()
+    If m_settings.Exists(key) Then
+        GetSettingList = Split(m_settings(key), delimiter)
+    Else
+        Dim empty() As String
+        ReDim empty(0 To -1)
+        GetSettingList = empty
+    End If
+End Function</code></pre>
+<h3 id="example-3-process-text-with-various-split-operations">Example 3: Process Text With Various Split Operations</h3>
+<pre><code class="language-vbnet">&#x27; Class: TextProcessor
+Public Function GetParagraphs(text As String) As String()
+    &#x27; Split by double line breaks
+    Dim normalized As String
+    normalized = Replace(text, vbCrLf &amp; vbCrLf, vbLf &amp; vbLf)
+    normalized = Replace(normalized, vbCr, vbLf)
+    GetParagraphs = Split(normalized, vbLf &amp; vbLf)
+End Function
+Public Function GetSentences(text As String) As String()
+    Dim temp As String
+    Dim i As Integer
+    &#x27; Simple sentence splitting (doesn&#x27;t handle abbreviations)
+    temp = Replace(text, &quot;. &quot;, &quot;.|&quot;)
+    temp = Replace(temp, &quot;! &quot;, &quot;!|&quot;)
+    temp = Replace(temp, &quot;? &quot;, &quot;?|&quot;)
+    GetSentences = Split(temp, &quot;|&quot;)
+End Function
+Public Function GetWords(text As String) As String()
+    Dim cleaned As String
+    Dim i As Integer
+    cleaned = text
+    &#x27; Remove punctuation
+    cleaned = Replace(cleaned, &quot;.&quot;, &quot; &quot;)
+    cleaned = Replace(cleaned, &quot;,&quot;, &quot; &quot;)
+    cleaned = Replace(cleaned, &quot;!&quot;, &quot; &quot;)
+    cleaned = Replace(cleaned, &quot;?&quot;, &quot; &quot;)
+    cleaned = Replace(cleaned, &quot;;&quot;, &quot; &quot;)
+    cleaned = Replace(cleaned, &quot;:&quot;, &quot; &quot;)
+    GetWords = Split(Trim(cleaned), &quot; &quot;)
+End Function
+Public Function CountWords(text As String) As Integer
+    Dim words() As String
+    Dim count As Integer
+    Dim i As Integer
+    words = GetWords(text)
+    count = 0
+    For i = LBound(words) To UBound(words)
+        If Len(Trim(words(i))) &gt; 0 Then
+            count = count + 1
+        End If
+    Next i
+    CountWords = count
+End Function
+Public Function GetUniqueWords(text As String) As String()
+    Dim words() As String
+    Dim dict As Object
+    Dim i As Integer
+    Dim result() As String
+    Dim count As Integer
+    Set dict = CreateObject(&quot;Scripting.Dictionary&quot;)
+    dict.CompareMode = vbTextCompare
+    words = GetWords(text)
+    For i = LBound(words) To UBound(words)
+        Dim word As String
+        word = Trim(words(i))
+        If Len(word) &gt; 0 Then
+            dict(word) = True
+        End If
+    Next i
+    ReDim result(0 To dict.Count - 1)
+    Dim keys As Variant
+    keys = dict.keys
+    For i = 0 To dict.Count - 1
+        result(i) = keys(i)
+    Next i
+    GetUniqueWords = result
+End Function</code></pre>
+<h3 id="example-4-import-delimited-data-files">Example 4: Import Delimited Data Files</h3>
+<pre><code class="language-vbnet">&#x27; Module: DataImporter
+Public Function ImportDelimitedFile(filePath As String, _
+                                    delimiter As String, _
+                                    Optional hasHeader As Boolean = True) As Variant
+    Dim fileNum As Integer
+    Dim fileContent As String
+    Dim lines() As String
+    Dim result() As Variant
+    Dim i As Integer
+    Dim startRow As Integer
+    &#x27; Read file
+    fileNum = FreeFile
+    Open filePath For Input As #fileNum
+    fileContent = Input(LOF(fileNum), #fileNum)
+    Close #fileNum
+    &#x27; Split into lines
+    lines = Split(fileContent, vbCrLf)
+    If hasHeader Then
+        startRow = 1
+    Else
+        startRow = 0
+    End If
+    &#x27; Parse each line
+    ReDim result(startRow To UBound(lines))
+    For i = startRow To UBound(lines)
+        result(i) = Split(lines(i), delimiter)
+    Next i
+    ImportDelimitedFile = result
+End Function
+Public Function GetColumnFromData(data As Variant, columnIndex As Integer) As String()
+    Dim result() As String
+    Dim i As Integer
+    Dim rowCount As Integer
+    rowCount = UBound(data) - LBound(data) + 1
+    ReDim result(0 To rowCount - 1)
+    For i = LBound(data) To UBound(data)
+        Dim row() As String
+        row = data(i)
+        If columnIndex &gt;= LBound(row) And columnIndex &lt;= UBound(row) Then
+            result(i - LBound(data)) = row(columnIndex)
+        Else
+            result(i - LBound(data)) = &quot;&quot;
+        End If
+    Next i
+    GetColumnFromData = result
+End Function
+Public Function FilterRows(data As Variant, columnIndex As Integer, _
+                           filterValue As String) As Variant
+    Dim result() As Variant
+    Dim count As Integer
+    Dim i As Integer
+    &#x27; Count matching rows
+    count = 0
+    For i = LBound(data) To UBound(data)
+        Dim row() As String
+        row = data(i)
+        If columnIndex &gt;= LBound(row) And columnIndex &lt;= UBound(row) Then
+            If row(columnIndex) = filterValue Then
+                count = count + 1
+            End If
+        End If
+    Next i
+    &#x27; Build result
+    ReDim result(0 To count - 1)
+    count = 0
+    For i = LBound(data) To UBound(data)
+        row = data(i)
+        If columnIndex &gt;= LBound(row) And columnIndex &lt;= UBound(row) Then
+            If row(columnIndex) = filterValue Then
+                result(count) = row
+                count = count + 1
+            End If
+        End If
+    Next i
+    FilterRows = result
+End Function</code></pre>
         </article>
         
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">

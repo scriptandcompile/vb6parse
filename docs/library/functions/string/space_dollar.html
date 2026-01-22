@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="space-function"><code>Space$</code> Function</h1>
+            <h1 id="space-function">Space$ Function</h1>
 <p>The <code>Space$</code> function in Visual Basic 6 returns a string consisting of the specified number
 of space characters (ASCII 32). The dollar sign (<code>$</code>) suffix indicates that this function
 always returns a <code>String</code> type, never a <code>Variant</code>.</p>
@@ -46,7 +46,7 @@ always returns a <code>String</code> type, never a <code>Variant</code>.</p>
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><code>number</code> - Required. Long integer indicating the number of spaces to include in the string.
-Must be between 0 and approximately 2 billion (2,147,483,647).</li>
+  Must be between 0 and approximately 2 billion (2,147,483,647).</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>String</code> containing <code>number</code> space characters.</p>
@@ -68,88 +68,81 @@ Must be between 0 and approximately 2 billion (2,147,483,647).</li>
 <h2 id="common-usage-patterns">Common Usage Patterns</h2>
 <h3 id="1-padding-strings">1. Padding Strings</h3>
 <pre><code class="language-vbnet">Function PadRight(text As String, width As Integer) As String
-If Len(text) &gt;= width Then
-PadRight = text
-Else
-PadRight = text &amp; Space$(width - Len(text))
-End If
+    If Len(text) &gt;= width Then
+        PadRight = text
+    Else
+        PadRight = text &amp; Space$(width - Len(text))
+    End If
 End Function
-
 Dim padded As String
 padded = PadRight(&quot;Hello&quot;, 10)  &#x27; &quot;Hello     &quot;</code></pre>
 <h3 id="2-creating-fixed-width-fields">2. Creating Fixed-Width Fields</h3>
 <pre><code class="language-vbnet">Function FormatField(value As String, fieldWidth As Integer) As String
-Dim temp As String
-temp = value &amp; Space$(fieldWidth)
-FormatField = Left$(temp, fieldWidth)
+    Dim temp As String
+    temp = value &amp; Space$(fieldWidth)
+    FormatField = Left$(temp, fieldWidth)
 End Function
-
 Dim field As String
 field = FormatField(&quot;Name&quot;, 20)  &#x27; &quot;Name                &quot;</code></pre>
 <h3 id="3-indentation">3. Indentation</h3>
 <pre><code class="language-vbnet">Function IndentText(text As String, level As Integer) As String
-IndentText = Space$(level * 4) &amp; text
+    IndentText = Space$(level * 4) &amp; text
 End Function
-
 Debug.Print IndentText(&quot;Nested Item&quot;, 2)  &#x27; &quot;        Nested Item&quot;</code></pre>
 <h3 id="4-column-alignment-in-reports">4. Column Alignment in Reports</h3>
 <pre><code class="language-vbnet">Sub PrintReport()
-Dim col1 As String, col2 As String, col3 As String
-col1 = &quot;Name&quot;
-col2 = &quot;Age&quot;
-col3 = &quot;City&quot;
-Debug.Print col1 &amp; Space$(15) &amp; col2 &amp; Space$(10) &amp; col3
+    Dim col1 As String, col2 As String, col3 As String
+    col1 = &quot;Name&quot;
+    col2 = &quot;Age&quot;
+    col3 = &quot;City&quot;
+    Debug.Print col1 &amp; Space$(15) &amp; col2 &amp; Space$(10) &amp; col3
 End Sub</code></pre>
 <h3 id="5-creating-separator-lines">5. Creating Separator Lines</h3>
 <pre><code class="language-vbnet">Function CreateSeparator(width As Integer, char As String) As String
-&#x27; Create base with spaces then replace
-CreateSeparator = String$(width, char)
+    &#x27; Create base with spaces then replace
+    CreateSeparator = String$(width, char)
 End Function
-
 &#x27; Or use spaces for visual separation
 Debug.Print &quot;Header&quot; &amp; Space$(10) &amp; &quot;Value&quot;</code></pre>
 <h3 id="6-text-centering">6. Text Centering</h3>
 <pre><code class="language-vbnet">Function CenterText(text As String, width As Integer) As String
-Dim padding As Integer
-If Len(text) &gt;= width Then
-CenterText = Left$(text, width)
-Else
-padding = (width - Len(text)) \ 2
-CenterText = Space$(padding) &amp; text &amp; Space$(width - Len(text) - padding)
-End If
+    Dim padding As Integer
+    If Len(text) &gt;= width Then
+        CenterText = Left$(text, width)
+    Else
+        padding = (width - Len(text)) \ 2
+        CenterText = Space$(padding) &amp; text &amp; Space$(width - Len(text) - padding)
+    End If
 End Function
-
 Dim centered As String
 centered = CenterText(&quot;Title&quot;, 20)</code></pre>
 <h3 id="7-creating-empty-buffers">7. Creating Empty Buffers</h3>
 <pre><code class="language-vbnet">Function CreateBuffer(size As Integer) As String
-CreateBuffer = Space$(size)
+    CreateBuffer = Space$(size)
 End Function
-
 Dim buffer As String
 buffer = CreateBuffer(100)  &#x27; 100-character buffer</code></pre>
 <h3 id="8-formatting-tables">8. Formatting Tables</h3>
 <pre><code class="language-vbnet">Sub PrintTableRow(col1 As String, col2 As String, col3 As String)
-Dim row As String
-row = Left$(col1 &amp; Space$(20), 20) &amp; _
-Left$(col2 &amp; Space$(15), 15) &amp; _
-Left$(col3 &amp; Space$(10), 10)
-Debug.Print row
+    Dim row As String
+    row = Left$(col1 &amp; Space$(20), 20) &amp; _
+          Left$(col2 &amp; Space$(15), 15) &amp; _
+          Left$(col3 &amp; Space$(10), 10)
+    Debug.Print row
 End Sub</code></pre>
 <h3 id="9-creating-blank-lines">9. Creating Blank Lines</h3>
 <pre><code class="language-vbnet">Sub AddVerticalSpace(lines As Integer)
-Dim i As Integer
-For i = 1 To lines
-Debug.Print Space$(0)  &#x27; Or just Debug.Print
-Next i
+    Dim i As Integer
+    For i = 1 To lines
+        Debug.Print Space$(0)  &#x27; Or just Debug.Print
+    Next i
 End Sub</code></pre>
 <h3 id="10-formatting-currency-values">10. Formatting Currency Values</h3>
 <pre><code class="language-vbnet">Function FormatAmount(amount As Currency) As String
-Dim amountStr As String
-amountStr = Format$(amount, &quot;#,##0.00&quot;)
-FormatAmount = Space$(15 - Len(amountStr)) &amp; amountStr
+    Dim amountStr As String
+    amountStr = Format$(amount, &quot;#,##0.00&quot;)
+    FormatAmount = Space$(15 - Len(amountStr)) &amp; amountStr
 End Function
-
 Debug.Print FormatAmount(1234.56)  &#x27; Right-aligned in 15 chars</code></pre>
 <h2 id="related-functions">Related Functions</h2>
 <ul>
@@ -168,37 +161,34 @@ Debug.Print FormatAmount(1234.56)  &#x27; Right-aligned in 15 chars</code></pre>
 <pre><code class="language-vbnet">&#x27; Use Space$ for creating spaces specifically
 Dim spaces As String
 spaces = Space$(10)  &#x27; Clear intent
-
 &#x27; Use String$ for other repeated characters
 Dim dashes As String
 dashes = String$(10, &quot;-&quot;)  &#x27; More flexible
-
 &#x27; Note: Space$(10) is equivalent to String$(10, &quot; &quot;)</code></pre>
 <h3 id="prefer-constants-for-fixed-padding">Prefer Constants for Fixed Padding</h3>
 <pre><code class="language-vbnet">&#x27; Less efficient: creating spaces repeatedly
 For i = 1 To 1000
-Debug.Print &quot;Item&quot; &amp; Space$(10) &amp; values(i)
+    Debug.Print &quot;Item&quot; &amp; Space$(10) &amp; values(i)
 Next i
-
 &#x27; More efficient: create once
 Const PADDING As String = &quot;          &quot;  &#x27; 10 spaces
 For i = 1 To 1000
-Debug.Print &quot;Item&quot; &amp; PADDING &amp; values(i)
+    Debug.Print &quot;Item&quot; &amp; PADDING &amp; values(i)
 Next i</code></pre>
 <h3 id="validate-negative-values">Validate Negative Values</h3>
 <pre><code class="language-vbnet">Function SafeSpace(count As Integer) As String
-If count &lt; 0 Then
-SafeSpace = &quot;&quot;
-Else
-SafeSpace = Space$(count)
-End If
+    If count &lt; 0 Then
+        SafeSpace = &quot;&quot;
+    Else
+        SafeSpace = Space$(count)
+    End If
 End Function</code></pre>
 <h3 id="combine-with-left-or-right-for-fixed-width">Combine with <code>Left$</code> or <code>Right$</code> for Fixed Width</h3>
 <pre><code class="language-vbnet">&#x27; Ensure exact width regardless of input length
 Function FixedWidth(text As String, width As Integer) As String
-Dim temp As String
-temp = text &amp; Space$(width)
-FixedWidth = Left$(temp, width)
+    Dim temp As String
+    temp = text &amp; Space$(width)
+    FixedWidth = Left$(temp, width)
 End Function</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
@@ -209,55 +199,48 @@ End Function</code></pre>
 </ul>
 <pre><code class="language-vbnet">&#x27; Inefficient: creating space string in loop
 For i = 1 To 10000
-output = output &amp; Space$(5) &amp; data(i)
+    output = output &amp; Space$(5) &amp; data(i)
 Next i
-
 &#x27; More efficient: create once
 Dim spacer As String
 spacer = Space$(5)
 For i = 1 To 10000
-output = output &amp; spacer &amp; data(i)
+    output = output &amp; spacer &amp; data(i)
 Next i
-
 &#x27; Even better: use array and Join
 Dim parts() As String
 ReDim parts(1 To 10000)
 For i = 1 To 10000
-parts(i) = spacer &amp; data(i)
+    parts(i) = spacer &amp; data(i)
 Next i
 output = Join(parts, &quot;&quot;)</code></pre>
 <h2 id="common-pitfalls">Common Pitfalls</h2>
 <h3 id="1-negative-values-cause-errors">1. Negative Values Cause Errors</h3>
 <pre><code class="language-vbnet">&#x27; Runtime error: Invalid procedure call or argument
 result = Space$(-5)  &#x27; ERROR!
-
 &#x27; Always validate
 If count &gt;= 0 Then
-result = Space$(count)
+    result = Space$(count)
 Else
-result = &quot;&quot;
+    result = &quot;&quot;
 End If</code></pre>
 <h3 id="2-confusion-with-spc-function">2. Confusion with <code>Spc()</code> Function</h3>
 <pre><code class="language-vbnet">&#x27; Space$ returns a string
 Dim s As String
 s = Space$(5)  &#x27; Returns &quot;     &quot; (5 spaces)
-
 &#x27; Spc is used in Print statements only
 Debug.Print &quot;A&quot;; Spc(5); &quot;B&quot;  &#x27; Prints &quot;A     B&quot;
-
 &#x27; Cannot assign Spc to variable
 s = Spc(5)  &#x27; ERROR!</code></pre>
 <h3 id="3-memory-issues-with-large-values">3. Memory Issues with Large Values</h3>
 <pre><code class="language-vbnet">&#x27; Be careful with very large values
 Dim huge As String
 huge = Space$(10000000)  &#x27; 10 million spaces = ~20 MB
-
 &#x27; Consider if you really need that many spaces
 &#x27; Often there are better alternatives</code></pre>
 <h3 id="4-not-accounting-for-existing-length">4. Not Accounting for Existing Length</h3>
 <pre><code class="language-vbnet">&#x27; Wrong: may create string longer than desired width
 result = text &amp; Space$(width)
-
 &#x27; Correct: ensure exact width
 temp = text &amp; Space$(width)
 result = Left$(temp, width)</code></pre>
@@ -265,14 +248,12 @@ result = Left$(temp, width)</code></pre>
 <pre><code class="language-vbnet">&#x27; Wrong: Space$ only creates spaces
 underline = Space$(20)  &#x27; Trying to create underline
 &#x27; This creates &quot;                    &quot;, not &quot;____________________&quot;
-
 &#x27; Correct: use String$ for other characters
 underline = String$(20, &quot;_&quot;)</code></pre>
 <h3 id="6-floating-point-rounding">6. Floating Point Rounding</h3>
 <pre><code class="language-vbnet">Debug.Print Space$(5.4)   &#x27; Creates 5 spaces (rounds down)
 Debug.Print Space$(5.6)   &#x27; Creates 6 spaces (rounds up)
 Debug.Print Space$(5.5)   &#x27; Creates 6 spaces (banker&#x27;s rounding)
-
 &#x27; Be explicit with integer conversion if needed
 Dim count As Integer
 count = Int(5.7)  &#x27; Force truncation
@@ -280,40 +261,35 @@ result = Space$(count)</code></pre>
 <h2 id="practical-examples">Practical Examples</h2>
 <h3 id="creating-fixed-width-reports">Creating Fixed-Width Reports</h3>
 <pre><code class="language-vbnet">Sub PrintInvoice()
-Dim header As String
-Dim separator As String
-
-&#x27; Create header with aligned columns
-header = Left$(&quot;Item&quot; &amp; Space$(30), 30) &amp; _
-Left$(&quot;Qty&quot; &amp; Space$(10), 10) &amp; _
-Left$(&quot;Price&quot; &amp; Space$(15), 15)
-
-separator = String$(55, &quot;-&quot;)
-
-Debug.Print header
-Debug.Print separator
-Debug.Print Left$(&quot;Widget&quot; &amp; Space$(30), 30) &amp; _
-Right$(Space$(10) &amp; &quot;5&quot;, 10) &amp; _
-Right$(Space$(15) &amp; &quot;$10.00&quot;, 15)
+    Dim header As String
+    Dim separator As String
+    &#x27; Create header with aligned columns
+    header = Left$(&quot;Item&quot; &amp; Space$(30), 30) &amp; _
+             Left$(&quot;Qty&quot; &amp; Space$(10), 10) &amp; _
+             Left$(&quot;Price&quot; &amp; Space$(15), 15)
+    separator = String$(55, &quot;-&quot;)
+    Debug.Print header
+    Debug.Print separator
+    Debug.Print Left$(&quot;Widget&quot; &amp; Space$(30), 30) &amp; _
+                Right$(Space$(10) &amp; &quot;5&quot;, 10) &amp; _
+                Right$(Space$(15) &amp; &quot;$10.00&quot;, 15)
 End Sub</code></pre>
 <h3 id="building-hierarchical-output">Building Hierarchical Output</h3>
 <pre><code class="language-vbnet">Sub PrintTree(text As String, level As Integer)
-Debug.Print Space$(level * 2) &amp; &quot;- &quot; &amp; text
+    Debug.Print Space$(level * 2) &amp; &quot;- &quot; &amp; text
 End Sub
-
 PrintTree(&quot;Root&quot;, 0)
 PrintTree(&quot;Child 1&quot;, 1)
 PrintTree(&quot;Grandchild&quot;, 2)
 PrintTree(&quot;Child 2&quot;, 1)</code></pre>
 <h3 id="formatting-data-for-fixed-width-files">Formatting Data for Fixed-Width Files</h3>
 <pre><code class="language-vbnet">Function FormatRecord(name As String, age As Integer, city As String) As String
-Dim record As String
-record = Left$(name &amp; Space$(25), 25) &amp; _
-Right$(Space$(3) &amp; CStr(age), 3) &amp; _
-Left$(city &amp; Space$(20), 20)
-FormatRecord = record
+    Dim record As String
+    record = Left$(name &amp; Space$(25), 25) &amp; _
+             Right$(Space$(3) &amp; CStr(age), 3) &amp; _
+             Left$(city &amp; Space$(20), 20)
+    FormatRecord = record
 End Function
-
 &#x27; Writes: &quot;John Doe              25New York            &quot;
 Print #1, FormatRecord(&quot;John Doe&quot;, 25, &quot;New York&quot;)</code></pre>
 <h2 id="limitations">Limitations</h2>

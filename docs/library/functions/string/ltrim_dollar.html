@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="ltrim-function"><code>LTrim$</code> Function</h1>
+            <h1 id="ltrim-function">LTrim$ Function</h1>
 <p>Returns a <code>String</code> containing a copy of a specified string with leading spaces removed.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">LTrim$(string)</code></pre>
@@ -48,9 +48,9 @@
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>String</code> with all leading (left-side) spaces removed. If the string contains only spaces, returns an empty string. Trailing spaces and spaces within the string are preserved.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>LTrim$</code> function removes leading space characters (ASCII 32) from a string. It's commonly used to clean up user input, process fixed-width data, or normalize strings for comparison.</p>
-<p>Only the space character (ASCII 32) is removed. Other whitespace characters like tabs, newlines, or non-breaking spaces are not affected by <code>LTrim$</code>.</p>
-<p><code>LTrim$</code> is the string-specific version that always returns a <code>String</code>. The <code>LTrim</code> function returns a <code>Variant</code>.</p>
+<p>The <code>LTrim$</code> function removes leading space characters (ASCII 32) from a string. It's commonly used to clean up user input, process fixed-width data, or normalize strings for comparison.
+Only the space character (ASCII 32) is removed. Other whitespace characters like tabs, newlines, or non-breaking spaces are not affected by <code>LTrim$</code>.
+<code>LTrim$</code> is the string-specific version that always returns a <code>String</code>. The <code>LTrim</code> function returns a <code>Variant</code>.</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <h3 id="example-1-cleaning-user-input">Example 1: Cleaning User Input</h3>
 <pre><code class="language-vbnet">Dim userInput As String
@@ -62,7 +62,7 @@ record = &quot;     12345&quot;
 id = LTrim$(record)  &#x27; &quot;12345&quot;</code></pre>
 <h3 id="example-3-normalizing-comparison">Example 3: Normalizing Comparison</h3>
 <pre><code class="language-vbnet">If LTrim$(text1) = LTrim$(text2) Then
-Debug.Print &quot;Match (ignoring leading spaces)&quot;
+    Debug.Print &quot;Match (ignoring leading spaces)&quot;
 End If</code></pre>
 <h3 id="example-4-parsing-indented-text">Example 4: Parsing Indented Text</h3>
 <pre><code class="language-vbnet">Dim line As String
@@ -73,13 +73,13 @@ code = LTrim$(line)  &#x27; &quot;Code line&quot;</code></pre>
 <pre><code class="language-vbnet">Dim name As String
 name = txtName.Text
 If LTrim$(name) = &quot;&quot; Then
-MsgBox &quot;Name cannot be empty or spaces only&quot;
+    MsgBox &quot;Name cannot be empty or spaces only&quot;
 End If</code></pre>
 <h3 id="processing-csv-fields">Processing CSV Fields</h3>
 <pre><code class="language-vbnet">Dim fields() As String
 fields = Split(csvLine, &quot;,&quot;)
 For i = 0 To UBound(fields)
-fields(i) = LTrim$(fields(i))
+    fields(i) = LTrim$(fields(i))
 Next i</code></pre>
 <h3 id="reading-indented-configuration">Reading Indented Configuration</h3>
 <pre><code class="language-vbnet">Dim configLine As String
@@ -101,18 +101,18 @@ amount = LTrim$(formatted)  &#x27; &quot;$1,234.56&quot;</code></pre>
 <pre><code class="language-vbnet">Dim line As String
 Open &quot;data.txt&quot; For Input As #1
 Do Until EOF(1)
-Line Input #1, line
-line = LTrim$(line)
-If Left$(line, 1) &lt;&gt; &quot;#&quot; Then
-processLine line
-End If
+    Line Input #1, line
+    line = LTrim$(line)
+    If Left$(line, 1) &lt;&gt; &quot;#&quot; Then
+        processLine line
+    End If
 Loop
 Close #1</code></pre>
 <h3 id="normalizing-string-arrays">Normalizing String Arrays</h3>
 <pre><code class="language-vbnet">Dim items() As String
 items = Split(data, vbCrLf)
 For i = 0 To UBound(items)
-items(i) = LTrim$(items(i))
+    items(i) = LTrim$(items(i))
 Next i</code></pre>
 <h3 id="removing-padding-from-fixed-fields">Removing Padding from Fixed Fields</h3>
 <pre><code class="language-vbnet">Dim fixedRecord As String

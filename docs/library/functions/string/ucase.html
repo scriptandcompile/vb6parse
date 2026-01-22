@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p>VB6 <code>UCase</code> Function</p>
-<p>The <code>UCase</code> function returns a String that has been converted to uppercase.</p>
+            <p>VB6 UCase Function
+The <code>UCase</code> function returns a String that has been converted to uppercase.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">UCase(string)</code></pre>
 <h2 id="parameters">Parameters</h2>
@@ -48,17 +48,15 @@
 <h2 id="returns">Returns</h2>
 <p>Returns a <code>Variant (String)</code> containing the specified string converted to uppercase. Only lowercase letters are converted to uppercase; all uppercase letters and non-letter characters remain unchanged.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>UCase</code> function converts lowercase letters to uppercase:</p>
-<ul>
-<li><strong>Case conversion</strong>: Converts a-z to A-Z</li>
-<li><strong>Non-letters unchanged</strong>: Numbers, punctuation, spaces, and symbols are not affected</li>
-<li><strong>Null handling</strong>: Returns Null if the argument is Null</li>
-<li><strong>Empty string</strong>: Returns empty string if argument is empty</li>
-<li><strong>Locale-aware</strong>: Conversion respects current locale settings for international characters</li>
-<li><strong>Unicode support</strong>: Handles Unicode characters according to locale</li>
-<li><strong>Already uppercase</strong>: Characters already uppercase are unchanged</li>
-<li><strong>String variant</strong>: <code>UCase</code>$ variant returns String instead of Variant</li>
-</ul>
+<p>The <code>UCase</code> function converts lowercase letters to uppercase:
+- <strong>Case conversion</strong>: Converts a-z to A-Z
+- <strong>Non-letters unchanged</strong>: Numbers, punctuation, spaces, and symbols are not affected
+- <strong>Null handling</strong>: Returns Null if the argument is Null
+- <strong>Empty string</strong>: Returns empty string if argument is empty
+- <strong>Locale-aware</strong>: Conversion respects current locale settings for international characters
+- <strong>Unicode support</strong>: Handles Unicode characters according to locale
+- <strong>Already uppercase</strong>: Characters already uppercase are unchanged
+- <strong>String variant</strong>: <code>UCase</code>$ variant returns String instead of Variant</p>
 <h3 id="ucase-vs-ucase"><code>UCase</code> vs <code>UCase</code>$</h3>
 <ul>
 <li><code>UCase</code>: Returns Variant (String) - can handle and return Null</li>
@@ -86,348 +84,298 @@
 <h2 id="basic-examples">Basic Examples</h2>
 <h3 id="example-1-simple-conversion">Example 1: Simple Conversion</h3>
 <pre><code class="language-vbnet">Dim result As String
-
 result = UCase(&quot;Hello World&quot;)
 &#x27; result = &quot;HELLO WORLD&quot;
-
 result = UCase(&quot;abc123xyz&quot;)
 &#x27; result = &quot;ABC123XYZ&quot;
-
 result = UCase(&quot;ALREADY UPPERCASE&quot;)
 &#x27; result = &quot;ALREADY UPPERCASE&quot;</code></pre>
 <h3 id="example-2-case-insensitive-comparison">Example 2: Case-Insensitive Comparison</h3>
 <pre><code class="language-vbnet">Function EqualsIgnoreCase(str1 As String, str2 As String) As Boolean
-EqualsIgnoreCase = (UCase$(str1) = UCase$(str2))
+    EqualsIgnoreCase = (UCase$(str1) = UCase$(str2))
 End Function
-
 &#x27; Usage:
 If EqualsIgnoreCase(userInput, &quot;YES&quot;) Then
-ProcessConfirmation
+    ProcessConfirmation
 End If</code></pre>
 <h3 id="example-3-normalize-user-input">Example 3: Normalize User Input</h3>
 <pre><code class="language-vbnet">Sub ProcessCommand(command As String)
-Select Case UCase$(Trim$(command))
-Case &quot;SAVE&quot;
-SaveData
-Case &quot;LOAD&quot;
-LoadData
-Case &quot;EXIT&quot;
-CloseApplication
-Case Else
-MsgBox &quot;Unknown command&quot;
-End Select
+    Select Case UCase$(Trim$(command))
+        Case &quot;SAVE&quot;
+            SaveData
+        Case &quot;LOAD&quot;
+            LoadData
+        Case &quot;EXIT&quot;
+            CloseApplication
+        Case Else
+            MsgBox &quot;Unknown command&quot;
+    End Select
 End Sub</code></pre>
 <h3 id="example-4-file-extension-check">Example 4: File Extension Check</h3>
 <pre><code class="language-vbnet">Function IsImageFile(fileName As String) As Boolean
-Dim ext As String
-ext = UCase$(Right$(fileName, 4))
-
-IsImageFile = (ext = &quot;.JPG&quot; Or ext = &quot;.PNG&quot; Or ext = &quot;.GIF&quot; Or ext = &quot;.BMP&quot;)
+    Dim ext As String
+    ext = UCase$(Right$(fileName, 4))
+    IsImageFile = (ext = &quot;.JPG&quot; Or ext = &quot;.PNG&quot; Or ext = &quot;.GIF&quot; Or ext = &quot;.BMP&quot;)
 End Function</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-case-insensitive-string-comparison">Pattern 1: Case-Insensitive String Comparison</h3>
 <pre><code class="language-vbnet">Function CompareIgnoreCase(str1 As String, str2 As String) As Boolean
-CompareIgnoreCase = (UCase$(str1) = UCase$(str2))
+    CompareIgnoreCase = (UCase$(str1) = UCase$(str2))
 End Function</code></pre>
 <h3 id="pattern-2-normalize-database-input">Pattern 2: Normalize Database Input</h3>
 <pre><code class="language-vbnet">Function NormalizeForDatabase(value As String) As String
-NormalizeForDatabase = UCase$(Trim$(value))
+    NormalizeForDatabase = UCase$(Trim$(value))
 End Function</code></pre>
 <h3 id="pattern-3-case-insensitive-contains">Pattern 3: Case-Insensitive Contains</h3>
 <pre><code class="language-vbnet">Function ContainsIgnoreCase(source As String, searchTerm As String) As Boolean
-ContainsIgnoreCase = (InStr(UCase$(source), UCase$(searchTerm)) &gt; 0)
+    ContainsIgnoreCase = (InStr(UCase$(source), UCase$(searchTerm)) &gt; 0)
 End Function</code></pre>
 <h3 id="pattern-4-validate-yesno-response">Pattern 4: Validate Yes/No Response</h3>
 <pre><code class="language-vbnet">Function IsYesResponse(response As String) As Boolean
-Dim normalized As String
-normalized = UCase$(Trim$(response))
-IsYesResponse = (normalized = &quot;Y&quot; Or normalized = &quot;YES&quot;)
+    Dim normalized As String
+    normalized = UCase$(Trim$(response))
+    IsYesResponse = (normalized = &quot;Y&quot; Or normalized = &quot;YES&quot;)
 End Function</code></pre>
 <h3 id="pattern-5-case-insensitive-startswith">Pattern 5: Case-Insensitive <code>StartsWith</code></h3>
 <pre><code class="language-vbnet">Function StartsWithIgnoreCase(str As String, prefix As String) As Boolean
-StartsWithIgnoreCase = (UCase$(Left$(str, Len(prefix))) = UCase$(prefix))
+    StartsWithIgnoreCase = (UCase$(Left$(str, Len(prefix))) = UCase$(prefix))
 End Function</code></pre>
 <h3 id="pattern-6-format-heading-text">Pattern 6: Format Heading Text</h3>
 <pre><code class="language-vbnet">Function FormatHeading(text As String) As String
-FormatHeading = UCase$(text)
+    FormatHeading = UCase$(text)
 End Function</code></pre>
 <h3 id="pattern-7-normalize-array-elements">Pattern 7: Normalize Array Elements</h3>
 <pre><code class="language-vbnet">Sub NormalizeArray(arr() As String)
-Dim i As Long
-For i = LBound(arr) To UBound(arr)
-arr(i) = UCase$(arr(i))
-Next i
+    Dim i As Long
+    For i = LBound(arr) To UBound(arr)
+        arr(i) = UCase$(arr(i))
+    Next i
 End Sub</code></pre>
 <h3 id="pattern-8-case-insensitive-search-in-array">Pattern 8: Case-Insensitive Search in Array</h3>
 <pre><code class="language-vbnet">Function FindInArray(arr() As String, searchValue As String) As Long
-Dim i As Long
-Dim searchUpper As String
-
-searchUpper = UCase$(searchValue)
-
-For i = LBound(arr) To UBound(arr)
-If UCase$(arr(i)) = searchUpper Then
-FindInArray = i
-Exit Function
-End If
-Next i
-
-FindInArray = -1 &#x27; Not found
+    Dim i As Long
+    Dim searchUpper As String
+    searchUpper = UCase$(searchValue)
+    For i = LBound(arr) To UBound(arr)
+        If UCase$(arr(i)) = searchUpper Then
+            FindInArray = i
+            Exit Function
+        End If
+    Next i
+    FindInArray = -1 &#x27; Not found
 End Function</code></pre>
 <h3 id="pattern-9-create-acronym">Pattern 9: Create Acronym</h3>
 <pre><code class="language-vbnet">Function CreateAcronym(phrase As String) As String
-Dim words() As String
-Dim i As Integer
-Dim result As String
-
-words = Split(phrase, &quot; &quot;)
-result = &quot;&quot;
-
-For i = LBound(words) To UBound(words)
-If Len(words(i)) &gt; 0 Then
-result = result &amp; UCase$(Left$(words(i), 1))
-End If
-Next i
-
-CreateAcronym = result
+    Dim words() As String
+    Dim i As Integer
+    Dim result As String
+    words = Split(phrase, &quot; &quot;)
+    result = &quot;&quot;
+    For i = LBound(words) To UBound(words)
+        If Len(words(i)) &gt; 0 Then
+            result = result &amp; UCase$(Left$(words(i), 1))
+        End If
+    Next i
+    CreateAcronym = result
 End Function</code></pre>
 <h3 id="pattern-10-safe-null-handling-comparison">Pattern 10: Safe Null-Handling Comparison</h3>
 <pre><code class="language-vbnet">Function SafeCompareIgnoreCase(str1 As Variant, str2 As Variant) As Boolean
-If IsNull(str1) Or IsNull(str2) Then
-SafeCompareIgnoreCase = False
-Else
-SafeCompareIgnoreCase = (UCase(str1) = UCase(str2))
-End If
+    If IsNull(str1) Or IsNull(str2) Then
+        SafeCompareIgnoreCase = False
+    Else
+        SafeCompareIgnoreCase = (UCase(str1) = UCase(str2))
+    End If
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-case-insensitive-dictionary-class">Example 1: Case-Insensitive Dictionary Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: CaseInsensitiveDictionary
 &#x27; Dictionary with case-insensitive key lookup
 Option Explicit
-
 Private m_Items As Collection
-
 Private Sub Class_Initialize()
-Set m_Items = New Collection
+    Set m_Items = New Collection
 End Sub
-
 Public Sub Add(key As String, value As Variant)
-On Error Resume Next
-
-If IsObject(value) Then
-m_Items.Add value, UCase$(key)
-Else
-m_Items.Add value, UCase$(key)
-End If
-
-If Err.Number &lt;&gt; 0 Then
-Err.Raise 457, , &quot;Key already exists: &quot; &amp; key
-End If
+    On Error Resume Next
+    If IsObject(value) Then
+        m_Items.Add value, UCase$(key)
+    Else
+        m_Items.Add value, UCase$(key)
+    End If
+    If Err.Number &lt;&gt; 0 Then
+        Err.Raise 457, , &quot;Key already exists: &quot; &amp; key
+    End If
 End Sub
-
 Public Function Item(key As String) As Variant
-On Error Resume Next
-
-If IsObject(m_Items(UCase$(key))) Then
-Set Item = m_Items(UCase$(key))
-Else
-Item = m_Items(UCase$(key))
-End If
-
-If Err.Number &lt;&gt; 0 Then
-Err.Raise 5, , &quot;Key not found: &quot; &amp; key
-End If
+    On Error Resume Next
+    If IsObject(m_Items(UCase$(key))) Then
+        Set Item = m_Items(UCase$(key))
+    Else
+        Item = m_Items(UCase$(key))
+    End If
+    If Err.Number &lt;&gt; 0 Then
+        Err.Raise 5, , &quot;Key not found: &quot; &amp; key
+    End If
 End Function
-
 Public Function Exists(key As String) As Boolean
-On Error Resume Next
-Dim test As Variant
-test = m_Items(UCase$(key))
-Exists = (Err.Number = 0)
+    On Error Resume Next
+    Dim test As Variant
+    test = m_Items(UCase$(key))
+    Exists = (Err.Number = 0)
 End Function
-
 Public Sub Remove(key As String)
-On Error Resume Next
-m_Items.Remove UCase$(key)
-If Err.Number &lt;&gt; 0 Then
-Err.Raise 5, , &quot;Key not found: &quot; &amp; key
-End If
+    On Error Resume Next
+    m_Items.Remove UCase$(key)
+    If Err.Number &lt;&gt; 0 Then
+        Err.Raise 5, , &quot;Key not found: &quot; &amp; key
+    End If
 End Sub
-
 Public Property Get Count() As Long
-Count = m_Items.Count
+    Count = m_Items.Count
 End Property</code></pre>
 <h3 id="example-2-string-comparison-utilities-module">Example 2: String Comparison Utilities Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: StringComparisonUtils
 &#x27; Case-insensitive string comparison utilities
 Option Explicit
-
 Public Function EqualsIgnoreCase(str1 As String, str2 As String) As Boolean
-EqualsIgnoreCase = (UCase$(str1) = UCase$(str2))
+    EqualsIgnoreCase = (UCase$(str1) = UCase$(str2))
 End Function
-
 Public Function StartsWithIgnoreCase(str As String, prefix As String) As Boolean
-If Len(prefix) &gt; Len(str) Then
-StartsWithIgnoreCase = False
-Else
-StartsWithIgnoreCase = (UCase$(Left$(str, Len(prefix))) = UCase$(prefix))
-End If
+    If Len(prefix) &gt; Len(str) Then
+        StartsWithIgnoreCase = False
+    Else
+        StartsWithIgnoreCase = (UCase$(Left$(str, Len(prefix))) = UCase$(prefix))
+    End If
 End Function
-
 Public Function EndsWithIgnoreCase(str As String, suffix As String) As Boolean
-If Len(suffix) &gt; Len(str) Then
-EndsWithIgnoreCase = False
-Else
-EndsWithIgnoreCase = (UCase$(Right$(str, Len(suffix))) = UCase$(suffix))
-End If
+    If Len(suffix) &gt; Len(str) Then
+        EndsWithIgnoreCase = False
+    Else
+        EndsWithIgnoreCase = (UCase$(Right$(str, Len(suffix))) = UCase$(suffix))
+    End If
 End Function
-
 Public Function ContainsIgnoreCase(source As String, searchTerm As String) As Boolean
-ContainsIgnoreCase = (InStr(1, source, searchTerm, vbTextCompare) &gt; 0)
+    ContainsIgnoreCase = (InStr(1, source, searchTerm, vbTextCompare) &gt; 0)
 End Function
-
 Public Function IndexOfIgnoreCase(source As String, searchTerm As String, _
-Optional startPos As Long = 1) As Long
-IndexOfIgnoreCase = InStr(startPos, source, searchTerm, vbTextCompare)
+                                 Optional startPos As Long = 1) As Long
+    IndexOfIgnoreCase = InStr(startPos, source, searchTerm, vbTextCompare)
 End Function
-
 Public Function ReplaceIgnoreCase(source As String, findText As String, _
-replaceText As String) As String
-ReplaceIgnoreCase = Replace(source, findText, replaceText, 1, -1, vbTextCompare)
+                                 replaceText As String) As String
+    ReplaceIgnoreCase = Replace(source, findText, replaceText, 1, -1, vbTextCompare)
 End Function
-
 Public Function CompareIgnoreCase(str1 As String, str2 As String) As Integer
-If UCase$(str1) &lt; UCase$(str2) Then
-CompareIgnoreCase = -1
-ElseIf UCase$(str1) &gt; UCase$(str2) Then
-CompareIgnoreCase = 1
-Else
-CompareIgnoreCase = 0
-End If
+    If UCase$(str1) &lt; UCase$(str2) Then
+        CompareIgnoreCase = -1
+    ElseIf UCase$(str1) &gt; UCase$(str2) Then
+        CompareIgnoreCase = 1
+    Else
+        CompareIgnoreCase = 0
+    End If
 End Function</code></pre>
 <h3 id="example-3-text-normalizer-class">Example 3: Text Normalizer Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: TextNormalizer
 &#x27; Normalizes text for consistent processing
 Option Explicit
-
 Public Enum NormalizationMode
-nmUpperCase = 0
-nmLowerCase = 1
-nmTrimmed = 2
-nmUpperCaseTrimmed = 3
-nmLowerCaseTrimmed = 4
+    nmUpperCase = 0
+    nmLowerCase = 1
+    nmTrimmed = 2
+    nmUpperCaseTrimmed = 3
+    nmLowerCaseTrimmed = 4
 End Enum
-
 Public Function Normalize(text As String, mode As NormalizationMode) As String
-Select Case mode
-Case nmUpperCase
-Normalize = UCase$(text)
-Case nmLowerCase
-Normalize = LCase$(text)
-Case nmTrimmed
-Normalize = Trim$(text)
-Case nmUpperCaseTrimmed
-Normalize = UCase$(Trim$(text))
-Case nmLowerCaseTrimmed
-Normalize = LCase$(Trim$(text))
-Case Else
-Normalize = text
-End Select
+    Select Case mode
+        Case nmUpperCase
+            Normalize = UCase$(text)
+        Case nmLowerCase
+            Normalize = LCase$(text)
+        Case nmTrimmed
+            Normalize = Trim$(text)
+        Case nmUpperCaseTrimmed
+            Normalize = UCase$(Trim$(text))
+        Case nmLowerCaseTrimmed
+            Normalize = LCase$(Trim$(text))
+        Case Else
+            Normalize = text
+    End Select
 End Function
-
 Public Function NormalizeArray(arr() As String, mode As NormalizationMode) As String()
-Dim result() As String
-Dim i As Long
-
-ReDim result(LBound(arr) To UBound(arr))
-
-For i = LBound(arr) To UBound(arr)
-result(i) = Normalize(arr(i), mode)
-Next i
-
-NormalizeArray = result
+    Dim result() As String
+    Dim i As Long
+    ReDim result(LBound(arr) To UBound(arr))
+    For i = LBound(arr) To UBound(arr)
+        result(i) = Normalize(arr(i), mode)
+    Next i
+    NormalizeArray = result
 End Function
-
 Public Function NormalizeForComparison(text As String) As String
-&#x27; Remove extra spaces and convert to uppercase
-Dim temp As String
-temp = Trim$(text)
-
-&#x27; Replace multiple spaces with single space
-Do While InStr(temp, &quot;  &quot;) &gt; 0
-temp = Replace(temp, &quot;  &quot;, &quot; &quot;)
-Loop
-
-NormalizeForComparison = UCase$(temp)
+    &#x27; Remove extra spaces and convert to uppercase
+    Dim temp As String
+    temp = Trim$(text)
+    &#x27; Replace multiple spaces with single space
+    Do While InStr(temp, &quot;  &quot;) &gt; 0
+        temp = Replace(temp, &quot;  &quot;, &quot; &quot;)
+    Loop
+    NormalizeForComparison = UCase$(temp)
 End Function</code></pre>
 <h3 id="example-4-command-parser-module">Example 4: Command Parser Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: CommandParser
 &#x27; Parses and processes user commands
 Option Explicit
-
 Public Function ParseCommand(commandLine As String, command As String, _
-arguments() As String) As Boolean
-Dim parts() As String
-Dim i As Integer
-
-commandLine = Trim$(commandLine)
-If Len(commandLine) = 0 Then
-ParseCommand = False
-Exit Function
-End If
-
-parts = Split(commandLine, &quot; &quot;)
-command = UCase$(parts(0))
-
-If UBound(parts) &gt; 0 Then
-ReDim arguments(0 To UBound(parts) - 1)
-For i = 1 To UBound(parts)
-arguments(i - 1) = parts(i)
-Next i
-Else
-ReDim arguments(0 To -1) &#x27; Empty array
-End If
-
-ParseCommand = True
+                            arguments() As String) As Boolean
+    Dim parts() As String
+    Dim i As Integer
+    commandLine = Trim$(commandLine)
+    If Len(commandLine) = 0 Then
+        ParseCommand = False
+        Exit Function
+    End If
+    parts = Split(commandLine, &quot; &quot;)
+    command = UCase$(parts(0))
+    If UBound(parts) &gt; 0 Then
+        ReDim arguments(0 To UBound(parts) - 1)
+        For i = 1 To UBound(parts)
+            arguments(i - 1) = parts(i)
+        Next i
+    Else
+        ReDim arguments(0 To -1) &#x27; Empty array
+    End If
+    ParseCommand = True
 End Function
-
 Public Function IsValidCommand(command As String, validCommands() As String) As Boolean
-Dim i As Long
-Dim cmdUpper As String
-
-cmdUpper = UCase$(command)
-
-For i = LBound(validCommands) To UBound(validCommands)
-If UCase$(validCommands(i)) = cmdUpper Then
-IsValidCommand = True
-Exit Function
-End If
-Next i
-
-IsValidCommand = False
+    Dim i As Long
+    Dim cmdUpper As String
+    cmdUpper = UCase$(command)
+    For i = LBound(validCommands) To UBound(validCommands)
+        If UCase$(validCommands(i)) = cmdUpper Then
+            IsValidCommand = True
+            Exit Function
+        End If
+    Next i
+    IsValidCommand = False
 End Function
-
 Public Function GetCommandHelp(command As String) As String
-Select Case UCase$(Trim$(command))
-Case &quot;HELP&quot;
-GetCommandHelp = &quot;Displays help information&quot;
-Case &quot;SAVE&quot;
-GetCommandHelp = &quot;Saves the current document&quot;
-Case &quot;LOAD&quot;
-GetCommandHelp = &quot;Loads a document&quot;
-Case &quot;EXIT&quot;, &quot;QUIT&quot;
-GetCommandHelp = &quot;Exits the application&quot;
-Case Else
-GetCommandHelp = &quot;Unknown command&quot;
-End Select
+    Select Case UCase$(Trim$(command))
+        Case &quot;HELP&quot;
+            GetCommandHelp = &quot;Displays help information&quot;
+        Case &quot;SAVE&quot;
+            GetCommandHelp = &quot;Saves the current document&quot;
+        Case &quot;LOAD&quot;
+            GetCommandHelp = &quot;Loads a document&quot;
+        Case &quot;EXIT&quot;, &quot;QUIT&quot;
+            GetCommandHelp = &quot;Exits the application&quot;
+        Case Else
+            GetCommandHelp = &quot;Unknown command&quot;
+    End Select
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>UCase</code> function can raise the following errors:</p>
-<ul>
-<li><strong>Error 13 (Type mismatch)</strong>: If argument cannot be converted to a string</li>
-<li><strong>Error 94 (Invalid use of Null)</strong>: When using <code>UCase$</code> (not <code>UCase</code>) with Null argument</li>
-</ul>
-<p>Note: <code>UCase</code> (without $) returns Null if passed Null, while <code>UCase$</code> raises an error.</p>
+<p>The <code>UCase</code> function can raise the following errors:
+- <strong>Error 13 (Type mismatch)</strong>: If argument cannot be converted to a string
+- <strong>Error 94 (Invalid use of Null)</strong>: When using <code>UCase$</code> (not <code>UCase</code>) with Null argument
+Note: <code>UCase</code> (without $) returns Null if passed Null, while <code>UCase$</code> raises an error.</p>
 <h2 id="performance-notes">Performance Notes</h2>
 <ul>
 <li>Very fast string operation</li>

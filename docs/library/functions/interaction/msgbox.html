@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="msgbox-function"><code>MsgBox</code> Function</h1>
+            <h1 id="msgbox-function">MsgBox Function</h1>
 <p>Displays a message in a dialog box, waits for the user to click a button, and returns an Integer indicating which button the user clicked.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">MsgBox(prompt, [buttons], [title], [helpfile], [context])</code></pre>
@@ -138,389 +138,329 @@ MsgBox &quot;File not found!&quot;, vbExclamation, &quot;Error&quot;</code></pre
 Dim result As Integer
 result = MsgBox(&quot;Do you want to save changes?&quot;, vbYesNo + vbQuestion, &quot;Confirm&quot;)
 If result = vbYes Then
-&#x27; Save changes
+    &#x27; Save changes
 End If</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 4: Multi-line message
 MsgBox &quot;Line 1&quot; &amp; vbCrLf &amp; &quot;Line 2&quot; &amp; vbCrLf &amp; &quot;Line 3&quot;, vbInformation, &quot;Multi-line&quot;</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Simple error message
 Sub ShowError(message As String)
-MsgBox message, vbCritical, &quot;Error&quot;
+    MsgBox message, vbCritical, &quot;Error&quot;
 End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 2: Confirmation with default No
 Function ConfirmAction(message As String) As Boolean
-Dim result As Integer
-result = MsgBox(message, vbYesNo + vbQuestion + vbDefaultButton2, &quot;Confirm&quot;)
-ConfirmAction = (result = vbYes)
+    Dim result As Integer
+    result = MsgBox(message, vbYesNo + vbQuestion + vbDefaultButton2, &quot;Confirm&quot;)
+    ConfirmAction = (result = vbYes)
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 3: Save prompt
 Function PromptToSave(fileName As String) As Integer
-Dim msg As String
-msg = &quot;Save changes to &quot; &amp; fileName &amp; &quot;?&quot;
-PromptToSave = MsgBox(msg, vbYesNoCancel + vbQuestion, &quot;Save Changes&quot;)
+    Dim msg As String
+    msg = &quot;Save changes to &quot; &amp; fileName &amp; &quot;?&quot;
+    PromptToSave = MsgBox(msg, vbYesNoCancel + vbQuestion, &quot;Save Changes&quot;)
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 4: Display detailed error
 Sub ShowDetailedError(errorMsg As String, errorNumber As Long)
-Dim msg As String
-msg = &quot;Error #&quot; &amp; errorNumber &amp; vbCrLf &amp; vbCrLf &amp; errorMsg
-MsgBox msg, vbCritical + vbOKOnly, &quot;Application Error&quot;
+    Dim msg As String
+    msg = &quot;Error #&quot; &amp; errorNumber &amp; vbCrLf &amp; vbCrLf &amp; errorMsg
+    MsgBox msg, vbCritical + vbOKOnly, &quot;Application Error&quot;
 End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 5: Information with sound
 Sub ShowInfo(message As String)
-MsgBox message, vbInformation + vbOKOnly, &quot;Information&quot;
-&#x27; vbInformation plays the system information sound
+    MsgBox message, vbInformation + vbOKOnly, &quot;Information&quot;
+    &#x27; vbInformation plays the system information sound
 End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 6: Retry/Cancel operation
 Function RetryOperation(operation As String) As Boolean
-Dim result As Integer
-Dim msg As String
-
-msg = &quot;Failed to &quot; &amp; operation &amp; &quot;.&quot; &amp; vbCrLf &amp; &quot;Would you like to retry?&quot;
-result = MsgBox(msg, vbRetryCancel + vbExclamation, &quot;Operation Failed&quot;)
-RetryOperation = (result = vbRetry)
+    Dim result As Integer
+    Dim msg As String
+    msg = &quot;Failed to &quot; &amp; operation &amp; &quot;.&quot; &amp; vbCrLf &amp; &quot;Would you like to retry?&quot;
+    result = MsgBox(msg, vbRetryCancel + vbExclamation, &quot;Operation Failed&quot;)
+    RetryOperation = (result = vbRetry)
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 7: Debug variable display
 Sub DebugShow(variableName As String, value As Variant)
-#If DEBUG_MODE Then
-MsgBox variableName &amp; &quot; = &quot; &amp; CStr(value), vbInformation, &quot;Debug&quot;
-#End If
+    #If DEBUG_MODE Then
+        MsgBox variableName &amp; &quot; = &quot; &amp; CStr(value), vbInformation, &quot;Debug&quot;
+    #End If
 End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 8: Abort/Retry/Ignore pattern
 Function HandleError(errorMsg As String) As Integer
-Dim msg As String
-msg = &quot;An error occurred:&quot; &amp; vbCrLf &amp; vbCrLf &amp; errorMsg &amp; vbCrLf &amp; vbCrLf &amp; _
-&quot;Abort: Stop operation&quot; &amp; vbCrLf &amp; _
-&quot;Retry: Try again&quot; &amp; vbCrLf &amp; _
-&quot;Ignore: Continue anyway&quot;
-HandleError = MsgBox(msg, vbAbortRetryIgnore + vbCritical, &quot;Error&quot;)
+    Dim msg As String
+    msg = &quot;An error occurred:&quot; &amp; vbCrLf &amp; vbCrLf &amp; errorMsg &amp; vbCrLf &amp; vbCrLf &amp; _
+          &quot;Abort: Stop operation&quot; &amp; vbCrLf &amp; _
+          &quot;Retry: Try again&quot; &amp; vbCrLf &amp; _
+          &quot;Ignore: Continue anyway&quot;
+    HandleError = MsgBox(msg, vbAbortRetryIgnore + vbCritical, &quot;Error&quot;)
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 9: Formatted message with details
 Sub ShowOperationResult(operation As String, recordCount As Long, elapsedTime As Double)
-Dim msg As String
-msg = &quot;Operation: &quot; &amp; operation &amp; vbCrLf &amp; _
-&quot;Records processed: &quot; &amp; recordCount &amp; vbCrLf &amp; _
-&quot;Time elapsed: &quot; &amp; Format(elapsedTime, &quot;0.00&quot;) &amp; &quot; seconds&quot;
-MsgBox msg, vbInformation, &quot;Operation Complete&quot;
+    Dim msg As String
+    msg = &quot;Operation: &quot; &amp; operation &amp; vbCrLf &amp; _
+          &quot;Records processed: &quot; &amp; recordCount &amp; vbCrLf &amp; _
+          &quot;Time elapsed: &quot; &amp; Format(elapsedTime, &quot;0.00&quot;) &amp; &quot; seconds&quot;
+    MsgBox msg, vbInformation, &quot;Operation Complete&quot;
 End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 10: Custom button selection handler
 Sub ProcessUserChoice(prompt As String)
-Dim result As Integer
-result = MsgBox(prompt, vbYesNoCancel + vbQuestion, &quot;Choose Option&quot;)
-
-Select Case result
-Case vbYes
-&#x27; Handle Yes
-Case vbNo
-&#x27; Handle No
-Case vbCancel
-&#x27; Handle Cancel
-End Select
+    Dim result As Integer
+    result = MsgBox(prompt, vbYesNoCancel + vbQuestion, &quot;Choose Option&quot;)
+    Select Case result
+        Case vbYes
+            &#x27; Handle Yes
+        Case vbNo
+            &#x27; Handle No
+        Case vbCancel
+            &#x27; Handle Cancel
+    End Select
 End Sub</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-smart-message-box-wrapper">Example 1: Smart Message Box Wrapper</h3>
 <pre><code class="language-vbnet">&#x27; Module: SmartMessageBox
 &#x27; Provides enhanced message box functionality with logging and customization
-
 Option Explicit
-
 Private m_logEnabled As Boolean
 Private m_defaultTitle As String
-
 Public Sub Initialize(appName As String, enableLogging As Boolean)
-m_defaultTitle = appName
-m_logEnabled = enableLogging
+    m_defaultTitle = appName
+    m_logEnabled = enableLogging
 End Sub
-
 Public Function ShowMessage(message As String, _
-Optional msgType As VbMsgBoxStyle = vbInformation, _
-Optional title As String = &quot;&quot;) As Integer
-Dim actualTitle As String
-
-If Len(title) = 0 Then
-actualTitle = m_defaultTitle
-Else
-actualTitle = title
-End If
-
-If m_logEnabled Then
-LogMessage message, msgType
-End If
-
-ShowMessage = MsgBox(message, msgType, actualTitle)
+                           Optional msgType As VbMsgBoxStyle = vbInformation, _
+                           Optional title As String = &quot;&quot;) As Integer
+    Dim actualTitle As String
+    If Len(title) = 0 Then
+        actualTitle = m_defaultTitle
+    Else
+        actualTitle = title
+    End If
+    If m_logEnabled Then
+        LogMessage message, msgType
+    End If
+    ShowMessage = MsgBox(message, msgType, actualTitle)
 End Function
-
 Public Function Confirm(message As String, _
-Optional defaultToNo As Boolean = False) As Boolean
-Dim buttons As VbMsgBoxStyle
-Dim result As Integer
-
-buttons = vbYesNo + vbQuestion
-
-If defaultToNo Then
-buttons = buttons + vbDefaultButton2
-End If
-
-result = MsgBox(message, buttons, m_defaultTitle)
-Confirm = (result = vbYes)
+                       Optional defaultToNo As Boolean = False) As Boolean
+    Dim buttons As VbMsgBoxStyle
+    Dim result As Integer
+    buttons = vbYesNo + vbQuestion
+    If defaultToNo Then
+        buttons = buttons + vbDefaultButton2
+    End If
+    result = MsgBox(message, buttons, m_defaultTitle)
+    Confirm = (result = vbYes)
 End Function
-
 Public Sub ShowError(message As String, Optional errorNumber As Long = 0)
-Dim msg As String
-
-If errorNumber &lt;&gt; 0 Then
-msg = &quot;Error #&quot; &amp; errorNumber &amp; vbCrLf &amp; vbCrLf &amp; message
-Else
-msg = message
-End If
-
-If m_logEnabled Then
-LogMessage &quot;ERROR: &quot; &amp; msg, vbCritical
-End If
-
-MsgBox msg, vbCritical, m_defaultTitle
+    Dim msg As String
+    If errorNumber &lt;&gt; 0 Then
+        msg = &quot;Error #&quot; &amp; errorNumber &amp; vbCrLf &amp; vbCrLf &amp; message
+    Else
+        msg = message
+    End If
+    If m_logEnabled Then
+        LogMessage &quot;ERROR: &quot; &amp; msg, vbCritical
+    End If
+    MsgBox msg, vbCritical, m_defaultTitle
 End Sub
-
 Public Sub ShowWarning(message As String)
-If m_logEnabled Then
-LogMessage &quot;WARNING: &quot; &amp; message, vbExclamation
-End If
-
-MsgBox message, vbExclamation, m_defaultTitle
+    If m_logEnabled Then
+        LogMessage &quot;WARNING: &quot; &amp; message, vbExclamation
+    End If
+    MsgBox message, vbExclamation, m_defaultTitle
 End Sub
-
 Public Sub ShowInfo(message As String)
-If m_logEnabled Then
-LogMessage &quot;INFO: &quot; &amp; message, vbInformation
-End If
-
-MsgBox message, vbInformation, m_defaultTitle
+    If m_logEnabled Then
+        LogMessage &quot;INFO: &quot; &amp; message, vbInformation
+    End If
+    MsgBox message, vbInformation, m_defaultTitle
 End Sub
-
 Private Sub LogMessage(message As String, msgType As VbMsgBoxStyle)
-&#x27; Log to file or debug window
-Debug.Print Now &amp; &quot; - &quot; &amp; GetMessageTypeString(msgType) &amp; &quot;: &quot; &amp; message
+    &#x27; Log to file or debug window
+    Debug.Print Now &amp; &quot; - &quot; &amp; GetMessageTypeString(msgType) &amp; &quot;: &quot; &amp; message
 End Sub
-
 Private Function GetMessageTypeString(msgType As VbMsgBoxStyle) As String
-If (msgType And vbCritical) = vbCritical Then
-GetMessageTypeString = &quot;ERROR&quot;
-ElseIf (msgType And vbExclamation) = vbExclamation Then
-GetMessageTypeString = &quot;WARNING&quot;
-ElseIf (msgType And vbQuestion) = vbQuestion Then
-GetMessageTypeString = &quot;QUESTION&quot;
-Else
-GetMessageTypeString = &quot;INFO&quot;
-End If
+    If (msgType And vbCritical) = vbCritical Then
+        GetMessageTypeString = &quot;ERROR&quot;
+    ElseIf (msgType And vbExclamation) = vbExclamation Then
+        GetMessageTypeString = &quot;WARNING&quot;
+    ElseIf (msgType And vbQuestion) = vbQuestion Then
+        GetMessageTypeString = &quot;QUESTION&quot;
+    Else
+        GetMessageTypeString = &quot;INFO&quot;
+    End If
 End Function</code></pre>
 <h3 id="example-2-message-box-builder-class">Example 2: Message Box Builder Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: MessageBoxBuilder
 &#x27; Fluent interface for building complex message boxes
-
 Option Explicit
-
 Private m_prompt As String
 Private m_title As String
 Private m_buttons As VbMsgBoxStyle
 Private m_icon As VbMsgBoxStyle
 Private m_defaultButton As VbMsgBoxStyle
-
 Private Sub Class_Initialize()
-m_prompt = &quot;&quot;
-m_title = &quot;&quot;
-m_buttons = vbOKOnly
-m_icon = 0
-m_defaultButton = vbDefaultButton1
+    m_prompt = &quot;&quot;
+    m_title = &quot;&quot;
+    m_buttons = vbOKOnly
+    m_icon = 0
+    m_defaultButton = vbDefaultButton1
 End Sub
-
 Public Function WithPrompt(prompt As String) As MessageBoxBuilder
-m_prompt = prompt
-Set WithPrompt = Me
+    m_prompt = prompt
+    Set WithPrompt = Me
 End Function
-
 Public Function WithTitle(title As String) As MessageBoxBuilder
-m_title = title
-Set WithTitle = Me
+    m_title = title
+    Set WithTitle = Me
 End Function
-
 Public Function WithButtons(buttons As VbMsgBoxStyle) As MessageBoxBuilder
-m_buttons = buttons
-Set WithButtons = Me
+    m_buttons = buttons
+    Set WithButtons = Me
 End Function
-
 Public Function WithIcon(icon As VbMsgBoxStyle) As MessageBoxBuilder
-m_icon = icon
-Set WithIcon = Me
+    m_icon = icon
+    Set WithIcon = Me
 End Function
-
 Public Function WithDefaultButton(defaultButton As VbMsgBoxStyle) As MessageBoxBuilder
-m_defaultButton = defaultButton
-Set WithDefaultButton = Me
+    m_defaultButton = defaultButton
+    Set WithDefaultButton = Me
 End Function
-
 Public Function AddLine(text As String) As MessageBoxBuilder
-If Len(m_prompt) &gt; 0 Then
-m_prompt = m_prompt &amp; vbCrLf
-End If
-m_prompt = m_prompt &amp; text
-Set AddLine = Me
+    If Len(m_prompt) &gt; 0 Then
+        m_prompt = m_prompt &amp; vbCrLf
+    End If
+    m_prompt = m_prompt &amp; text
+    Set AddLine = Me
 End Function
-
 Public Function Show() As Integer
-Dim style As VbMsgBoxStyle
-style = m_buttons Or m_icon Or m_defaultButton
-Show = MsgBox(m_prompt, style, m_title)
+    Dim style As VbMsgBoxStyle
+    style = m_buttons Or m_icon Or m_defaultButton
+    Show = MsgBox(m_prompt, style, m_title)
 End Function
-
 &#x27; Convenience methods
 Public Function ShowError(errorMsg As String) As Integer
-Set WithPrompt(errorMsg)
-Set WithIcon(vbCritical)
-ShowError = Show()
+    Set WithPrompt(errorMsg)
+    Set WithIcon(vbCritical)
+    ShowError = Show()
 End Function
-
 Public Function AskYesNo(question As String) As Boolean
-Set WithPrompt(question)
-Set WithButtons(vbYesNo)
-Set WithIcon(vbQuestion)
-AskYesNo = (Show() = vbYes)
+    Set WithPrompt(question)
+    Set WithButtons(vbYesNo)
+    Set WithIcon(vbQuestion)
+    AskYesNo = (Show() = vbYes)
 End Function</code></pre>
 <h3 id="example-3-message-queue-manager">Example 3: Message Queue Manager</h3>
 <pre><code class="language-vbnet">&#x27; Class: MessageQueueManager
 &#x27; Manages queued messages to avoid overwhelming the user
-
 Option Explicit
-
 Private Type QueuedMessage
-prompt As String
-buttons As VbMsgBoxStyle
-title As String
-timestamp As Date
+    prompt As String
+    buttons As VbMsgBoxStyle
+    title As String
+    timestamp As Date
 End Type
-
 Private m_queue As Collection
 Private m_maxQueueSize As Long
 Private m_autoShowDelay As Long &#x27; milliseconds
-
 Private Sub Class_Initialize()
-Set m_queue = New Collection
-m_maxQueueSize = 10
-m_autoShowDelay = 1000
+    Set m_queue = New Collection
+    m_maxQueueSize = 10
+    m_autoShowDelay = 1000
 End Sub
-
 Public Sub QueueMessage(prompt As String, _
-Optional buttons As VbMsgBoxStyle = vbOKOnly, _
-Optional title As String = &quot;Message&quot;)
-Dim msg As QueuedMessage
-
-msg.prompt = prompt
-msg.buttons = buttons
-msg.title = title
-msg.timestamp = Now
-
-If m_queue.Count &gt;= m_maxQueueSize Then
-&#x27; Remove oldest message
-m_queue.Remove 1
-End If
-
-m_queue.Add msg
+                       Optional buttons As VbMsgBoxStyle = vbOKOnly, _
+                       Optional title As String = &quot;Message&quot;)
+    Dim msg As QueuedMessage
+    msg.prompt = prompt
+    msg.buttons = buttons
+    msg.title = title
+    msg.timestamp = Now
+    If m_queue.Count &gt;= m_maxQueueSize Then
+        &#x27; Remove oldest message
+        m_queue.Remove 1
+    End If
+    m_queue.Add msg
 End Sub
-
 Public Sub ShowNextMessage() As Integer
-Dim msg As QueuedMessage
-
-If m_queue.Count &gt; 0 Then
-msg = m_queue(1)
-m_queue.Remove 1
-ShowNextMessage = MsgBox(msg.prompt, msg.buttons, msg.title)
-End If
+    Dim msg As QueuedMessage
+    If m_queue.Count &gt; 0 Then
+        msg = m_queue(1)
+        m_queue.Remove 1
+        ShowNextMessage = MsgBox(msg.prompt, msg.buttons, msg.title)
+    End If
 End Sub
-
 Public Sub ShowAllMessages()
-Dim msg As QueuedMessage
-Dim i As Long
-
-For i = 1 To m_queue.Count
-msg = m_queue(i)
-MsgBox msg.prompt, msg.buttons, msg.title
-Next i
-
-Set m_queue = New Collection
+    Dim msg As QueuedMessage
+    Dim i As Long
+    For i = 1 To m_queue.Count
+        msg = m_queue(i)
+        MsgBox msg.prompt, msg.buttons, msg.title
+    Next i
+    Set m_queue = New Collection
 End Sub
-
 Public Function GetQueuedCount() As Long
-GetQueuedCount = m_queue.Count
+    GetQueuedCount = m_queue.Count
 End Function
-
 Public Sub ShowSummary()
-Dim msg As String
-Dim qMsg As QueuedMessage
-Dim i As Long
-
-If m_queue.Count = 0 Then
-MsgBox &quot;No queued messages&quot;, vbInformation
-Exit Sub
-End If
-
-msg = &quot;Queued Messages (&quot; &amp; m_queue.Count &amp; &quot;):&quot; &amp; vbCrLf &amp; vbCrLf
-
-For i = 1 To m_queue.Count
-qMsg = m_queue(i)
-msg = msg &amp; i &amp; &quot;. &quot; &amp; Left(qMsg.prompt, 50)
-If Len(qMsg.prompt) &gt; 50 Then msg = msg &amp; &quot;...&quot;
-msg = msg &amp; vbCrLf
-Next i
-
-MsgBox msg, vbInformation, &quot;Message Queue&quot;
+    Dim msg As String
+    Dim qMsg As QueuedMessage
+    Dim i As Long
+    If m_queue.Count = 0 Then
+        MsgBox &quot;No queued messages&quot;, vbInformation
+        Exit Sub
+    End If
+    msg = &quot;Queued Messages (&quot; &amp; m_queue.Count &amp; &quot;):&quot; &amp; vbCrLf &amp; vbCrLf
+    For i = 1 To m_queue.Count
+        qMsg = m_queue(i)
+        msg = msg &amp; i &amp; &quot;. &quot; &amp; Left(qMsg.prompt, 50)
+        If Len(qMsg.prompt) &gt; 50 Then msg = msg &amp; &quot;...&quot;
+        msg = msg &amp; vbCrLf
+    Next i
+    MsgBox msg, vbInformation, &quot;Message Queue&quot;
 End Sub</code></pre>
 <h3 id="example-4-auto-dismissing-message-box-timer-based">Example 4: Auto-Dismissing Message Box (Timer-based)</h3>
 <pre><code class="language-vbnet">&#x27; Module: TimedMessageBox
 &#x27; Shows message boxes that auto-dismiss after timeout
-
 Option Explicit
-
 #If Win32 Then
-Private Declare Function MessageBoxTimeout Lib &quot;user32&quot; Alias &quot;MessageBoxTimeoutA&quot; ( _
-ByVal hwnd As Long, _
-ByVal lpText As String, _
-ByVal lpCaption As String, _
-ByVal uType As Long, _
-ByVal wLanguageId As Long, _
-ByVal dwMilliseconds As Long) As Long
+    Private Declare Function MessageBoxTimeout Lib &quot;user32&quot; Alias &quot;MessageBoxTimeoutA&quot; ( _
+        ByVal hwnd As Long, _
+        ByVal lpText As String, _
+        ByVal lpCaption As String, _
+        ByVal uType As Long, _
+        ByVal wLanguageId As Long, _
+        ByVal dwMilliseconds As Long) As Long
 #End If
-
 Public Function MsgBoxTimed(prompt As String, _
-Optional buttons As VbMsgBoxStyle = vbOKOnly, _
-Optional title As String = &quot;&quot;, _
-Optional timeout As Long = 5000) As Integer
-#If Win32 Then
-&#x27; Use Windows API for timed message box
-MsgBoxTimed = MessageBoxTimeout(0, prompt, title, buttons, 0, timeout)
-#Else
-&#x27; Fallback to regular MsgBox
-MsgBoxTimed = MsgBox(prompt, buttons, title)
-#End If
+                           Optional buttons As VbMsgBoxStyle = vbOKOnly, _
+                           Optional title As String = &quot;&quot;, _
+                           Optional timeout As Long = 5000) As Integer
+    #If Win32 Then
+        &#x27; Use Windows API for timed message box
+        MsgBoxTimed = MessageBoxTimeout(0, prompt, title, buttons, 0, timeout)
+    #Else
+        &#x27; Fallback to regular MsgBox
+        MsgBoxTimed = MsgBox(prompt, buttons, title)
+    #End If
 End Function
-
 Public Sub ShowTimedInfo(message As String, Optional seconds As Long = 3)
-MsgBoxTimed message, vbInformation, &quot;Information&quot;, seconds * 1000
+    MsgBoxTimed message, vbInformation, &quot;Information&quot;, seconds * 1000
 End Sub
-
 Public Sub ShowTimedWarning(message As String, Optional seconds As Long = 5)
-MsgBoxTimed message, vbExclamation, &quot;Warning&quot;, seconds * 1000
+    MsgBoxTimed message, vbExclamation, &quot;Warning&quot;, seconds * 1000
 End Sub
-
 Public Function ConfirmTimed(message As String, Optional seconds As Long = 10) As Boolean
-Dim result As Integer
-result = MsgBoxTimed(message, vbYesNo + vbQuestion, &quot;Confirm&quot;, seconds * 1000)
-ConfirmTimed = (result = vbYes)
+    Dim result As Integer
+    result = MsgBoxTimed(message, vbYesNo + vbQuestion, &quot;Confirm&quot;, seconds * 1000)
+    ConfirmTimed = (result = vbYes)
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">&#x27; MsgBox rarely fails, but handle potential issues:
 On Error Resume Next
 result = MsgBox(userInput, vbOKOnly, &quot;Message&quot;)
 If Err.Number &lt;&gt; 0 Then
-Debug.Print &quot;MsgBox error: &quot; &amp; Err.Description
-&#x27; Possibly userInput was too long or contained invalid characters
+    Debug.Print &quot;MsgBox error: &quot; &amp; Err.Description
+    &#x27; Possibly userInput was too long or contained invalid characters
 End If
 On Error GoTo 0</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
@@ -592,7 +532,6 @@ On Error GoTo 0</code></pre>
 <p><code>MsgBox</code> can be used as both a statement (no parentheses, no return value) and a function (with parentheses, returns value):</p>
 <pre><code class="language-vbnet">&#x27; As a statement (no return value needed)
 MsgBox &quot;Hello, World!&quot;
-
 &#x27; As a function (capture return value)
 result = MsgBox(&quot;Continue?&quot;, vbYesNo)</code></pre>
 <h2 id="platform-notes">Platform Notes</h2>

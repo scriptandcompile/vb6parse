@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="ucase-function"><code>UCase$</code> Function</h1>
+            <h1 id="ucase-function">UCase$ Function</h1>
 <p>Returns a <code>String</code> that has been converted to uppercase.
 The "$" suffix indicates this function returns a <code>String</code> type.</p>
 <h2 id="syntax">Syntax</h2>
@@ -88,130 +88,117 @@ upper = UCase$(&quot;ALREADY UPPERCASE&quot;)  &#x27; Returns &quot;ALREADY UPPE
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="sql-keyword-formatting">SQL Keyword Formatting</h3>
 <pre><code class="language-vbnet">Function BuildSQLQuery(table As String, field As String) As String
-BuildSQLQuery = UCase$(&quot;SELECT&quot;) &amp; &quot; * &quot; &amp; UCase$(&quot;FROM&quot;) &amp; &quot; &quot; &amp; table
+    BuildSQLQuery = UCase$(&quot;SELECT&quot;) &amp; &quot; * &quot; &amp; UCase$(&quot;FROM&quot;) &amp; &quot; &quot; &amp; table
 End Function</code></pre>
 <h3 id="constant-name-generator">Constant Name Generator</h3>
 <pre><code class="language-vbnet">Function GenerateConstantName(baseName As String) As String
-GenerateConstantName = UCase$(Replace(baseName, &quot; &quot;, &quot;_&quot;))
+    GenerateConstantName = UCase$(Replace(baseName, &quot; &quot;, &quot;_&quot;))
 End Function</code></pre>
 <h3 id="acronym-formatter">Acronym Formatter</h3>
 <pre><code class="language-vbnet">Function FormatAcronym(text As String) As String
-FormatAcronym = UCase$(text)
+    FormatAcronym = UCase$(text)
 End Function</code></pre>
 <h3 id="header-text-generator">Header Text Generator</h3>
 <pre><code class="language-vbnet">Function CreateHeader(title As String) As String
-CreateHeader = String$(Len(title), &quot;=&quot;) &amp; vbCrLf &amp; _
-UCase$(title) &amp; vbCrLf &amp; _
-String$(Len(title), &quot;=&quot;)
+    CreateHeader = String$(Len(title), &quot;=&quot;) &amp; vbCrLf &amp; _
+                   UCase$(title) &amp; vbCrLf &amp; _
+                   String$(Len(title), &quot;=&quot;)
 End Function</code></pre>
 <h3 id="case-insensitive-command-comparison">Case-Insensitive Command Comparison</h3>
 <pre><code class="language-vbnet">Function ProcessCommand(cmd As String) As Boolean
-Select Case UCase$(Trim$(cmd))
-Case &quot;START&quot;
-ProcessCommand = StartService()
-Case &quot;STOP&quot;
-ProcessCommand = StopService()
-Case &quot;RESTART&quot;
-ProcessCommand = RestartService()
-Case Else
-ProcessCommand = False
-End Select
+    Select Case UCase$(Trim$(cmd))
+        Case &quot;START&quot;
+            ProcessCommand = StartService()
+        Case &quot;STOP&quot;
+            ProcessCommand = StopService()
+        Case &quot;RESTART&quot;
+            ProcessCommand = RestartService()
+        Case Else
+            ProcessCommand = False
+    End Select
 End Function</code></pre>
 <h3 id="file-extension-normalization">File Extension Normalization</h3>
 <pre><code class="language-vbnet">Function NormalizeExtension(filename As String) As String
-Dim ext As String
-ext = Right$(filename, 4)
-If UCase$(ext) = &quot;.TXT&quot; Then
-NormalizeExtension = &quot;Text File&quot;
-End If
+    Dim ext As String
+    ext = Right$(filename, 4)
+    If UCase$(ext) = &quot;.TXT&quot; Then
+        NormalizeExtension = &quot;Text File&quot;
+    End If
 End Function</code></pre>
 <h3 id="environment-variable-names">Environment Variable Names</h3>
 <pre><code class="language-vbnet">Function GetEnvironmentVar(varName As String) As String
-GetEnvironmentVar = Environ$(UCase$(varName))
+    GetEnvironmentVar = Environ$(UCase$(varName))
 End Function</code></pre>
 <h3 id="registry-key-normalization">Registry Key Normalization</h3>
 <pre><code class="language-vbnet">Function NormalizeRegistryKey(keyName As String) As String
-NormalizeRegistryKey = UCase$(Trim$(keyName))
+    NormalizeRegistryKey = UCase$(Trim$(keyName))
 End Function</code></pre>
 <h3 id="display-name-formatting">Display Name Formatting</h3>
 <pre><code class="language-vbnet">Function FormatDisplayName(firstName As String, lastName As String) As String
-FormatDisplayName = UCase$(lastName) &amp; &quot;, &quot; &amp; firstName
+    FormatDisplayName = UCase$(lastName) &amp; &quot;, &quot; &amp; firstName
 End Function</code></pre>
 <h3 id="code-template-generator">Code Template Generator</h3>
 <pre><code class="language-vbnet">Function GenerateEnumMember(memberName As String) As String
-GenerateEnumMember = &quot;    &quot; &amp; UCase$(memberName) &amp; &quot; = &quot; &amp; counter
+    GenerateEnumMember = &quot;    &quot; &amp; UCase$(memberName) &amp; &quot; = &quot; &amp; counter
 End Function</code></pre>
 <h2 id="advanced-examples">Advanced Examples</h2>
 <h3 id="sql-query-builder-with-uppercase-keywords">SQL Query Builder with Uppercase Keywords</h3>
 <pre><code class="language-vbnet">Function BuildComplexQuery(table As String, fields As String, whereClause As String) As String
-Dim sql As String
-
-sql = UCase$(&quot;SELECT&quot;) &amp; &quot; &quot; &amp; fields &amp; &quot; &quot;
-sql = sql &amp; UCase$(&quot;FROM&quot;) &amp; &quot; &quot; &amp; table
-
-If Len(whereClause) &gt; 0 Then
-sql = sql &amp; &quot; &quot; &amp; UCase$(&quot;WHERE&quot;) &amp; &quot; &quot; &amp; whereClause
-End If
-
-BuildComplexQuery = sql
+    Dim sql As String
+    sql = UCase$(&quot;SELECT&quot;) &amp; &quot; &quot; &amp; fields &amp; &quot; &quot;
+    sql = sql &amp; UCase$(&quot;FROM&quot;) &amp; &quot; &quot; &amp; table
+    If Len(whereClause) &gt; 0 Then
+        sql = sql &amp; &quot; &quot; &amp; UCase$(&quot;WHERE&quot;) &amp; &quot; &quot; &amp; whereClause
+    End If
+    BuildComplexQuery = sql
 End Function</code></pre>
 <h3 id="configuration-file-writer">Configuration File Writer</h3>
 <pre><code class="language-vbnet">Sub WriteConfigSection(fileNum As Integer, sectionName As String, settings As Collection)
-Dim key As Variant
-
-Print #fileNum, &quot;[&quot; &amp; UCase$(sectionName) &amp; &quot;]&quot;
-
-For Each key In settings
-Print #fileNum, UCase$(key) &amp; &quot;=&quot; &amp; settings(key)
-Next key
-
-Print #fileNum, &quot;&quot;
+    Dim key As Variant
+    Print #fileNum, &quot;[&quot; &amp; UCase$(sectionName) &amp; &quot;]&quot;
+    For Each key In settings
+        Print #fileNum, UCase$(key) &amp; &quot;=&quot; &amp; settings(key)
+    Next key
+    Print #fileNum, &quot;&quot;
 End Sub</code></pre>
 <h3 id="report-header-generator">Report Header Generator</h3>
 <pre><code class="language-vbnet">Function GenerateReportHeader(reportTitle As String, reportDate As String) As String
-Dim header As String
-Dim separator As String
-
-separator = String$(60, &quot;=&quot;)
-header = separator &amp; vbCrLf
-header = header &amp; Space$((60 - Len(reportTitle)) \ 2) &amp; UCase$(reportTitle) &amp; vbCrLf
-header = header &amp; Space$((60 - Len(reportDate)) \ 2) &amp; reportDate &amp; vbCrLf
-header = header &amp; separator &amp; vbCrLf
-
-GenerateReportHeader = header
+    Dim header As String
+    Dim separator As String
+    separator = String$(60, &quot;=&quot;)
+    header = separator &amp; vbCrLf
+    header = header &amp; Space$((60 - Len(reportTitle)) \ 2) &amp; UCase$(reportTitle) &amp; vbCrLf
+    header = header &amp; Space$((60 - Len(reportDate)) \ 2) &amp; reportDate &amp; vbCrLf
+    header = header &amp; separator &amp; vbCrLf
+    GenerateReportHeader = header
 End Function</code></pre>
 <h3 id="macro-name-validator">Macro Name Validator</h3>
 <pre><code class="language-vbnet">Function ValidateMacroName(macroName As String) As String
-Dim validName As String
-Dim i As Long
-Dim char As String
-
-&#x27; Convert to uppercase and remove invalid characters
-validName = UCase$(macroName)
-
-For i = 1 To Len(validName)
-char = Mid$(validName, i, 1)
-If (char &gt;= &quot;A&quot; And char &lt;= &quot;Z&quot;) Or _
-(char &gt;= &quot;0&quot; And char &lt;= &quot;9&quot;) Or _
-char = &quot;_&quot; Then
-ValidateMacroName = ValidateMacroName &amp; char
-End If
-Next i
+    Dim validName As String
+    Dim i As Long
+    Dim char As String
+    &#x27; Convert to uppercase and remove invalid characters
+    validName = UCase$(macroName)
+    For i = 1 To Len(validName)
+        char = Mid$(validName, i, 1)
+        If (char &gt;= &quot;A&quot; And char &lt;= &quot;Z&quot;) Or _
+           (char &gt;= &quot;0&quot; And char &lt;= &quot;9&quot;) Or _
+           char = &quot;_&quot; Then
+            ValidateMacroName = ValidateMacroName &amp; char
+        End If
+    Next i
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeUCase(text As String) As String
-On Error GoTo ErrorHandler
-
-If IsNull(text) Then
-SafeUCase = &quot;&quot;
-Exit Function
-End If
-
-SafeUCase = UCase$(text)
-Exit Function
-
+    On Error GoTo ErrorHandler
+    If IsNull(text) Then
+        SafeUCase = &quot;&quot;
+        Exit Function
+    End If
+    SafeUCase = UCase$(text)
+    Exit Function
 ErrorHandler:
-SafeUCase = &quot;&quot;
+    SafeUCase = &quot;&quot;
 End Function</code></pre>
 <h2 id="performance-notes">Performance Notes</h2>
 <ul>
@@ -277,30 +264,29 @@ End Function</code></pre>
 <h2 id="common-use-cases">Common Use Cases</h2>
 <h3 id="http-header-names">HTTP Header Names</h3>
 <pre><code class="language-vbnet">Function FormatHTTPHeader(headerName As String, headerValue As String) As String
-FormatHTTPHeader = UCase$(headerName) &amp; &quot;: &quot; &amp; headerValue
+    FormatHTTPHeader = UCase$(headerName) &amp; &quot;: &quot; &amp; headerValue
 End Function</code></pre>
 <h3 id="database-column-names">Database Column Names</h3>
 <pre><code class="language-vbnet">Function GetColumnName(fieldName As String) As String
-GetColumnName = UCase$(Replace(fieldName, &quot; &quot;, &quot;_&quot;))
+    GetColumnName = UCase$(Replace(fieldName, &quot; &quot;, &quot;_&quot;))
 End Function</code></pre>
 <h3 id="license-key-formatting">License Key Formatting</h3>
 <pre><code class="language-vbnet">Function FormatLicenseKey(key As String) As String
-&#x27; Format as XXXX-XXXX-XXXX-XXXX
-Dim upperKey As String
-upperKey = UCase$(Replace(key, &quot;-&quot;, &quot;&quot;))
-
-FormatLicenseKey = Mid$(upperKey, 1, 4) &amp; &quot;-&quot; &amp; _
-Mid$(upperKey, 5, 4) &amp; &quot;-&quot; &amp; _
-Mid$(upperKey, 9, 4) &amp; &quot;-&quot; &amp; _
-Mid$(upperKey, 13, 4)
+    &#x27; Format as XXXX-XXXX-XXXX-XXXX
+    Dim upperKey As String
+    upperKey = UCase$(Replace(key, &quot;-&quot;, &quot;&quot;))
+    FormatLicenseKey = Mid$(upperKey, 1, 4) &amp; &quot;-&quot; &amp; _
+                       Mid$(upperKey, 5, 4) &amp; &quot;-&quot; &amp; _
+                       Mid$(upperKey, 9, 4) &amp; &quot;-&quot; &amp; _
+                       Mid$(upperKey, 13, 4)
 End Function</code></pre>
 <h3 id="command-line-argument-parsing">Command Line Argument Parsing</h3>
 <pre><code class="language-vbnet">Function ParseArgument(arg As String) As String
-If Left$(arg, 1) = &quot;/&quot; Or Left$(arg, 1) = &quot;-&quot; Then
-ParseArgument = UCase$(Mid$(arg, 2))
-Else
-ParseArgument = UCase$(arg)
-End If
+    If Left$(arg, 1) = &quot;/&quot; Or Left$(arg, 1) = &quot;-&quot; Then
+        ParseArgument = UCase$(Mid$(arg, 2))
+    Else
+        ParseArgument = UCase$(arg)
+    End If
 End Function</code></pre>
 <h2 id="platform-notes">Platform Notes</h2>
 <ul>

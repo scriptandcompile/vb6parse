@@ -57,13 +57,13 @@ It is particularly useful for:
 - Saving position to return to later
 - Calculating file progress (current position vs file size using LOF)
 - Implementing custom file navigation
-- Verifying position after Seek statement</p>
-<p>For Random access files, Seek returns the record number (1-based) of the next record to be read or written.
-For all other access modes (Binary, Input, Output, Append), Seek returns the byte position (1-based).</p>
-<p>The Seek function is different from the Seek statement:
+- Verifying position after Seek statement
+For Random access files, Seek returns the record number (1-based) of the next record to be read or written.
+For all other access modes (Binary, Input, Output, Append), Seek returns the byte position (1-based).
+The Seek function is different from the Seek statement:
 - Seek function: Returns current position (read-only operation)
-- Seek statement: Sets the position for next read/write (write operation)</p>
-<p>The file must be open before calling Seek. Use <code>FreeFile</code> to get an available file number.
+- Seek statement: Sets the position for next read/write (write operation)
+The file must be open before calling Seek. Use <code>FreeFile</code> to get an available file number.
 Always close files when done using Close statement.</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
@@ -115,87 +115,81 @@ Close #FileNum</code></pre>
 <h3 id="pattern-1-getcurrentposition">Pattern 1: <code>GetCurrentPosition</code></h3>
 <p>Get current file position with error handling</p>
 <pre><code class="language-vbnet">Function GetCurrentPosition(FileNum As Integer) As Long
-On Error Resume Next
-GetCurrentPosition = Seek(FileNum)
-If Err.Number &lt;&gt; 0 Then
-GetCurrentPosition = -1  &#x27; Error indicator
-End If
+    On Error Resume Next
+    GetCurrentPosition = Seek(FileNum)
+    If Err.Number &lt;&gt; 0 Then
+        GetCurrentPosition = -1  &#x27; Error indicator
+    End If
 End Function</code></pre>
 <h3 id="pattern-2-getprogresspercentage">Pattern 2: <code>GetProgressPercentage</code></h3>
 <p>Calculate how much of file has been processed</p>
 <pre><code class="language-vbnet">Function GetProgressPercentage(FileNum As Integer) As Double
-Dim CurrentPos As Long
-Dim FileSize As Long
-
-CurrentPos = Seek(FileNum)
-FileSize = LOF(FileNum)
-
-If FileSize &gt; 0 Then
-GetProgressPercentage = (CurrentPos / FileSize) * 100
-Else
-GetProgressPercentage = 0
-End If
+    Dim CurrentPos As Long
+    Dim FileSize As Long
+    CurrentPos = Seek(FileNum)
+    FileSize = LOF(FileNum)
+    If FileSize &gt; 0 Then
+        GetProgressPercentage = (CurrentPos / FileSize) * 100
+    Else
+        GetProgressPercentage = 0
+    End If
 End Function</code></pre>
 <h3 id="pattern-3-isatendoffile">Pattern 3: <code>IsAtEndOfFile</code></h3>
 <p>Check if at end of file using position</p>
 <pre><code class="language-vbnet">Function IsAtEndOfFile(FileNum As Integer) As Boolean
-IsAtEndOfFile = (Seek(FileNum) &gt; LOF(FileNum))
+    IsAtEndOfFile = (Seek(FileNum) &gt; LOF(FileNum))
 End Function</code></pre>
 <h3 id="pattern-4-getremainingbytes">Pattern 4: <code>GetRemainingBytes</code></h3>
 <p>Calculate bytes remaining in file</p>
 <pre><code class="language-vbnet">Function GetRemainingBytes(FileNum As Integer) As Long
-GetRemainingBytes = LOF(FileNum) - Seek(FileNum) + 1
+    GetRemainingBytes = LOF(FileNum) - Seek(FileNum) + 1
 End Function</code></pre>
 <h3 id="pattern-5-saveandrestoreposition">Pattern 5: <code>SaveAndRestorePosition</code></h3>
 <p>Save position, perform operation, restore</p>
 <pre><code class="language-vbnet">Sub SaveAndRestorePosition(FileNum As Integer)
-Dim SavedPos As Long
-SavedPos = Seek(FileNum)
-
-&#x27; Perform operations that change position
-Seek #FileNum, 1  &#x27; Go to start
-&#x27; Read header...
-
-Seek #FileNum, SavedPos  &#x27; Restore position
+    Dim SavedPos As Long
+    SavedPos = Seek(FileNum)
+    &#x27; Perform operations that change position
+    Seek #FileNum, 1  &#x27; Go to start
+    &#x27; Read header...
+    Seek #FileNum, SavedPos  &#x27; Restore position
 End Sub</code></pre>
 <h3 id="pattern-6-getcurrentrecordnumber">Pattern 6: <code>GetCurrentRecordNumber</code></h3>
 <p>Get current record in Random access file</p>
 <pre><code class="language-vbnet">Function GetCurrentRecordNumber(FileNum As Integer) As Long
-&#x27; For Random access, Seek returns record number
-GetCurrentRecordNumber = Seek(FileNum)
+    &#x27; For Random access, Seek returns record number
+    GetCurrentRecordNumber = Seek(FileNum)
 End Function</code></pre>
 <h3 id="pattern-7-calculatebytesprocessed">Pattern 7: <code>CalculateBytesProcessed</code></h3>
 <p>Track bytes processed since start</p>
 <pre><code class="language-vbnet">Function CalculateBytesProcessed(FileNum As Integer, StartPos As Long) As Long
-CalculateBytesProcessed = Seek(FileNum) - StartPos
+    CalculateBytesProcessed = Seek(FileNum) - StartPos
 End Function</code></pre>
 <h3 id="pattern-8-validatefileposition">Pattern 8: <code>ValidateFilePosition</code></h3>
 <p>Verify position is within file bounds</p>
 <pre><code class="language-vbnet">Function ValidateFilePosition(FileNum As Integer) As Boolean
-Dim CurrentPos As Long
-Dim FileSize As Long
-
-CurrentPos = Seek(FileNum)
-FileSize = LOF(FileNum)
-
-ValidateFilePosition = (CurrentPos &gt;= 1 And CurrentPos &lt;= FileSize + 1)
+    Dim CurrentPos As Long
+    Dim FileSize As Long
+    CurrentPos = Seek(FileNum)
+    FileSize = LOF(FileNum)
+    ValidateFilePosition = (CurrentPos &gt;= 1 And CurrentPos &lt;= FileSize + 1)
 End Function</code></pre>
 <h3 id="pattern-9-getpositioninfo">Pattern 9: <code>GetPositionInfo</code></h3>
 <p>Get detailed position information</p>
 <pre><code class="language-vbnet">Sub GetPositionInfo(FileNum As Integer, ByRef Position As Long, _
-ByRef Size As Long, ByRef Remaining As Long)
-Position = Seek(FileNum)
-Size = LOF(FileNum)
-Remaining = Size - Position + 1
+                    ByRef Size As Long, ByRef Remaining As Long)
+    Position = Seek(FileNum)
+    Size = LOF(FileNum)
+    Remaining = Size - Position + 1
 End Sub</code></pre>
 <h3 id="pattern-10-seektopercentage">Pattern 10: <code>SeekToPercentage</code></h3>
 <p>Jump to percentage of file</p>
 <pre><code class="language-vbnet">Sub SeekToPercentage(FileNum As Integer, Percentage As Double)
-Dim TargetPos As Long
-TargetPos = CLng((LOF(FileNum) * Percentage) / 100)
-If TargetPos &lt; 1 Then TargetPos = 1
-Seek #FileNum, TargetPos
-Debug.Print &quot;Moved to position: &quot; &amp; Seek(FileNum)
+    Dim TargetPos As Long
+    TargetPos = CLng((LOF(FileNum) * Percentage) / 100)
+    If TargetPos &lt; 1 Then TargetPos = 1
+    Seek #FileNum, TargetPos
+    Debug.Print &quot;Moved to position: &quot; &amp; Seek(FileNum)
 End Sub</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-filepositiontracker-class">Example 1: <code>FilePositionTracker</code> Class</h3>
@@ -203,132 +197,106 @@ End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Class: FilePositionTracker
 Private m_FileNum As Integer
 Private m_Bookmarks As Collection
-
 Private Sub Class_Initialize()
-Set m_Bookmarks = New Collection
+    Set m_Bookmarks = New Collection
 End Sub
-
 Public Sub Initialize(FileNum As Integer)
-m_FileNum = FileNum
+    m_FileNum = FileNum
 End Sub
-
 Public Function GetCurrentPosition() As Long
-GetCurrentPosition = Seek(m_FileNum)
+    GetCurrentPosition = Seek(m_FileNum)
 End Function
-
 Public Sub AddBookmark(BookmarkName As String)
-Dim CurrentPos As Long
-CurrentPos = Seek(m_FileNum)
-
-On Error Resume Next
-m_Bookmarks.Remove BookmarkName
-On Error GoTo 0
-
-m_Bookmarks.Add CurrentPos, BookmarkName
+    Dim CurrentPos As Long
+    CurrentPos = Seek(m_FileNum)
+    On Error Resume Next
+    m_Bookmarks.Remove BookmarkName
+    On Error GoTo 0
+    m_Bookmarks.Add CurrentPos, BookmarkName
 End Sub
-
 Public Sub GoToBookmark(BookmarkName As String)
-Dim BookmarkPos As Long
-On Error Resume Next
-BookmarkPos = m_Bookmarks(BookmarkName)
-If Err.Number = 0 Then
-Seek #m_FileNum, BookmarkPos
-Else
-Err.Raise vbObjectError + 1001, &quot;FilePositionTracker&quot;, _
-&quot;Bookmark not found: &quot; &amp; BookmarkName
-End If
+    Dim BookmarkPos As Long
+    On Error Resume Next
+    BookmarkPos = m_Bookmarks(BookmarkName)
+    If Err.Number = 0 Then
+        Seek #m_FileNum, BookmarkPos
+    Else
+        Err.Raise vbObjectError + 1001, &quot;FilePositionTracker&quot;, _
+                  &quot;Bookmark not found: &quot; &amp; BookmarkName
+    End If
 End Sub
-
 Public Function GetProgress() As Double
-Dim CurrentPos As Long
-Dim FileSize As Long
-
-CurrentPos = Seek(m_FileNum)
-FileSize = LOF(m_FileNum)
-
-If FileSize &gt; 0 Then
-GetProgress = (CDbl(CurrentPos) / CDbl(FileSize)) * 100
-Else
-GetProgress = 0
-End If
+    Dim CurrentPos As Long
+    Dim FileSize As Long
+    CurrentPos = Seek(m_FileNum)
+    FileSize = LOF(m_FileNum)
+    If FileSize &gt; 0 Then
+        GetProgress = (CDbl(CurrentPos) / CDbl(FileSize)) * 100
+    Else
+        GetProgress = 0
+    End If
 End Function
-
 Public Function GetRemainingBytes() As Long
-GetRemainingBytes = LOF(m_FileNum) - Seek(m_FileNum) + 1
+    GetRemainingBytes = LOF(m_FileNum) - Seek(m_FileNum) + 1
 End Function
-
 Public Sub ClearBookmarks()
-Set m_Bookmarks = New Collection
+    Set m_Bookmarks = New Collection
 End Sub</code></pre>
 <h3 id="example-2-binaryfileparser-module">Example 2: <code>BinaryFileParser</code> Module</h3>
 <p>Parse structured binary files with position tracking</p>
 <pre><code class="language-vbnet">&#x27; Module: BinaryFileParser
 Private Type FileHeader
-Signature As String * 4
-Version As Integer
-RecordCount As Long
+    Signature As String * 4
+    Version As Integer
+    RecordCount As Long
 End Type
-
 Public Function ParseFile(FileName As String) As Collection
-Dim FileNum As Integer
-Dim Header As FileHeader
-Dim Records As New Collection
-Dim i As Long
-Dim StartPos As Long
-
-FileNum = FreeFile
-Open FileName For Binary As #FileNum
-
-&#x27; Read header
-StartPos = Seek(FileNum)
-Debug.Print &quot;Reading header at position: &quot; &amp; StartPos
-Get #FileNum, , Header
-
-Debug.Print &quot;Header read, now at position: &quot; &amp; Seek(FileNum)
-
-&#x27; Validate signature
-If Header.Signature &lt;&gt; &quot;DATA&quot; Then
-Close #FileNum
-Err.Raise vbObjectError + 1001, &quot;ParseFile&quot;, &quot;Invalid file signature&quot;
-End If
-
-&#x27; Read records
-For i = 1 To Header.RecordCount
-Dim RecordPos As Long
-Dim RecordData As String
-
-RecordPos = Seek(FileNum)
-Debug.Print &quot;Reading record &quot; &amp; i &amp; &quot; at position: &quot; &amp; RecordPos
-
-&#x27; Read record (example: 100 byte records)
-RecordData = Space$(100)
-Get #FileNum, , RecordData
-Records.Add RecordData
-Next i
-
-Debug.Print &quot;Finished at position: &quot; &amp; Seek(FileNum)
-Debug.Print &quot;File size: &quot; &amp; LOF(FileNum)
-
-Close #FileNum
-Set ParseFile = Records
+    Dim FileNum As Integer
+    Dim Header As FileHeader
+    Dim Records As New Collection
+    Dim i As Long
+    Dim StartPos As Long
+    FileNum = FreeFile
+    Open FileName For Binary As #FileNum
+    &#x27; Read header
+    StartPos = Seek(FileNum)
+    Debug.Print &quot;Reading header at position: &quot; &amp; StartPos
+    Get #FileNum, , Header
+    Debug.Print &quot;Header read, now at position: &quot; &amp; Seek(FileNum)
+    &#x27; Validate signature
+    If Header.Signature &lt;&gt; &quot;DATA&quot; Then
+        Close #FileNum
+        Err.Raise vbObjectError + 1001, &quot;ParseFile&quot;, &quot;Invalid file signature&quot;
+    End If
+    &#x27; Read records
+    For i = 1 To Header.RecordCount
+        Dim RecordPos As Long
+        Dim RecordData As String
+        RecordPos = Seek(FileNum)
+        Debug.Print &quot;Reading record &quot; &amp; i &amp; &quot; at position: &quot; &amp; RecordPos
+        &#x27; Read record (example: 100 byte records)
+        RecordData = Space$(100)
+        Get #FileNum, , RecordData
+        Records.Add RecordData
+    Next i
+    Debug.Print &quot;Finished at position: &quot; &amp; Seek(FileNum)
+    Debug.Print &quot;File size: &quot; &amp; LOF(FileNum)
+    Close #FileNum
+    Set ParseFile = Records
 End Function
-
 Public Function GetFileProgress(FileNum As Integer) As String
-Dim CurrentPos As Long
-Dim FileSize As Long
-Dim Percentage As Double
-
-CurrentPos = Seek(FileNum)
-FileSize = LOF(FileNum)
-
-If FileSize &gt; 0 Then
-Percentage = (CDbl(CurrentPos) / CDbl(FileSize)) * 100
-Else
-Percentage = 0
-End If
-
-GetFileProgress = &quot;Position: &quot; &amp; CurrentPos &amp; &quot; of &quot; &amp; FileSize &amp; _
-&quot; (&quot; &amp; Format(Percentage, &quot;0.0&quot;) &amp; &quot;%)&quot;
+    Dim CurrentPos As Long
+    Dim FileSize As Long
+    Dim Percentage As Double
+    CurrentPos = Seek(FileNum)
+    FileSize = LOF(FileNum)
+    If FileSize &gt; 0 Then
+        Percentage = (CDbl(CurrentPos) / CDbl(FileSize)) * 100
+    Else
+        Percentage = 0
+    End If
+    GetFileProgress = &quot;Position: &quot; &amp; CurrentPos &amp; &quot; of &quot; &amp; FileSize &amp; _
+                      &quot; (&quot; &amp; Format(Percentage, &quot;0.0&quot;) &amp; &quot;%)&quot;
 End Function</code></pre>
 <h3 id="example-3-randomaccessnavigator-class">Example 3: <code>RandomAccessNavigator</code> Class</h3>
 <p>Navigate through Random access file records</p>
@@ -336,74 +304,59 @@ End Function</code></pre>
 Private m_FileNum As Integer
 Private m_RecordLength As Integer
 Private m_TotalRecords As Long
-
 Public Sub Initialize(FileName As String, RecordLength As Integer)
-m_RecordLength = RecordLength
-m_FileNum = FreeFile
-
-Open FileName For Random As #m_FileNum Len = RecordLength
-m_TotalRecords = LOF(m_FileNum) \ RecordLength
+    m_RecordLength = RecordLength
+    m_FileNum = FreeFile
+    Open FileName For Random As #m_FileNum Len = RecordLength
+    m_TotalRecords = LOF(m_FileNum) \ RecordLength
 End Sub
-
 Public Function GetCurrentRecord() As Long
-&#x27; For Random access, Seek returns record number
-GetCurrentRecord = Seek(m_FileNum)
+    &#x27; For Random access, Seek returns record number
+    GetCurrentRecord = Seek(m_FileNum)
 End Function
-
 Public Function GetTotalRecords() As Long
-GetTotalRecords = m_TotalRecords
+    GetTotalRecords = m_TotalRecords
 End Function
-
 Public Function MoveNext() As Boolean
-Dim CurrentRecord As Long
-CurrentRecord = Seek(m_FileNum)
-
-If CurrentRecord &lt;= m_TotalRecords Then
-&#x27; Seek statement will auto-advance after Get
-MoveNext = True
-Else
-MoveNext = False
-End If
+    Dim CurrentRecord As Long
+    CurrentRecord = Seek(m_FileNum)
+    If CurrentRecord &lt;= m_TotalRecords Then
+        &#x27; Seek statement will auto-advance after Get
+        MoveNext = True
+    Else
+        MoveNext = False
+    End If
 End Function
-
 Public Sub MovePrevious()
-Dim CurrentRecord As Long
-CurrentRecord = Seek(m_FileNum)
-
-If CurrentRecord &gt; 1 Then
-Seek #m_FileNum, CurrentRecord - 1
-End If
+    Dim CurrentRecord As Long
+    CurrentRecord = Seek(m_FileNum)
+    If CurrentRecord &gt; 1 Then
+        Seek #m_FileNum, CurrentRecord - 1
+    End If
 End Sub
-
 Public Sub MoveFirst()
-Seek #m_FileNum, 1
+    Seek #m_FileNum, 1
 End Sub
-
 Public Sub MoveLast()
-Seek #m_FileNum, m_TotalRecords
+    Seek #m_FileNum, m_TotalRecords
 End Sub
-
 Public Function IsAtBeginning() As Boolean
-IsAtBeginning = (Seek(m_FileNum) = 1)
+    IsAtBeginning = (Seek(m_FileNum) = 1)
 End Function
-
 Public Function IsAtEnd() As Boolean
-IsAtEnd = (Seek(m_FileNum) &gt; m_TotalRecords)
+    IsAtEnd = (Seek(m_FileNum) &gt; m_TotalRecords)
 End Function
-
 Public Function GetProgress() As Double
-Dim CurrentRecord As Long
-CurrentRecord = Seek(m_FileNum)
-
-If m_TotalRecords &gt; 0 Then
-GetProgress = (CDbl(CurrentRecord - 1) / CDbl(m_TotalRecords)) * 100
-Else
-GetProgress = 0
-End If
+    Dim CurrentRecord As Long
+    CurrentRecord = Seek(m_FileNum)
+    If m_TotalRecords &gt; 0 Then
+        GetProgress = (CDbl(CurrentRecord - 1) / CDbl(m_TotalRecords)) * 100
+    Else
+        GetProgress = 0
+    End If
 End Function
-
 Public Sub Close()
-Close #m_FileNum
+    Close #m_FileNum
 End Sub</code></pre>
 <h3 id="example-4-fileprogressmonitor-class">Example 4: <code>FileProgressMonitor</code> Class</h3>
 <p>Monitor file processing progress with time estimates</p>
@@ -412,88 +365,72 @@ Private m_FileNum As Integer
 Private m_StartPosition As Long
 Private m_StartTime As Double
 Private m_FileSize As Long
-
 Public Sub StartMonitoring(FileNum As Integer)
-m_FileNum = FileNum
-m_StartPosition = Seek(FileNum)
-m_StartTime = Timer
-m_FileSize = LOF(FileNum)
+    m_FileNum = FileNum
+    m_StartPosition = Seek(FileNum)
+    m_StartTime = Timer
+    m_FileSize = LOF(FileNum)
 End Sub
-
 Public Function GetCurrentPosition() As Long
-GetCurrentPosition = Seek(m_FileNum)
+    GetCurrentPosition = Seek(m_FileNum)
 End Function
-
 Public Function GetBytesProcessed() As Long
-GetBytesProcessed = Seek(m_FileNum) - m_StartPosition
+    GetBytesProcessed = Seek(m_FileNum) - m_StartPosition
 End Function
-
 Public Function GetPercentComplete() As Double
-Dim CurrentPos As Long
-CurrentPos = Seek(m_FileNum)
-
-If m_FileSize &gt; 0 Then
-GetPercentComplete = (CDbl(CurrentPos) / CDbl(m_FileSize)) * 100
-Else
-GetPercentComplete = 0
-End If
+    Dim CurrentPos As Long
+    CurrentPos = Seek(m_FileNum)
+    If m_FileSize &gt; 0 Then
+        GetPercentComplete = (CDbl(CurrentPos) / CDbl(m_FileSize)) * 100
+    Else
+        GetPercentComplete = 0
+    End If
 End Function
-
 Public Function GetElapsedSeconds() As Double
-GetElapsedSeconds = Timer - m_StartTime
+    GetElapsedSeconds = Timer - m_StartTime
 End Function
-
 Public Function GetEstimatedTimeRemaining() As Double
-Dim BytesProcessed As Long
-Dim BytesRemaining As Long
-Dim ElapsedTime As Double
-Dim BytesPerSecond As Double
-
-BytesProcessed = Seek(m_FileNum) - m_StartPosition
-BytesRemaining = m_FileSize - Seek(m_FileNum) + 1
-ElapsedTime = Timer - m_StartTime
-
-If BytesProcessed &gt; 0 And ElapsedTime &gt; 0 Then
-BytesPerSecond = BytesProcessed / ElapsedTime
-GetEstimatedTimeRemaining = BytesRemaining / BytesPerSecond
-Else
-GetEstimatedTimeRemaining = 0
-End If
+    Dim BytesProcessed As Long
+    Dim BytesRemaining As Long
+    Dim ElapsedTime As Double
+    Dim BytesPerSecond As Double
+    BytesProcessed = Seek(m_FileNum) - m_StartPosition
+    BytesRemaining = m_FileSize - Seek(m_FileNum) + 1
+    ElapsedTime = Timer - m_StartTime
+    If BytesProcessed &gt; 0 And ElapsedTime &gt; 0 Then
+        BytesPerSecond = BytesProcessed / ElapsedTime
+        GetEstimatedTimeRemaining = BytesRemaining / BytesPerSecond
+    Else
+        GetEstimatedTimeRemaining = 0
+    End If
 End Function
-
 Public Function GetProgressReport() As String
-Dim Report As String
-Dim PercentComplete As Double
-Dim ElapsedTime As Double
-Dim RemainingTime As Double
-
-PercentComplete = GetPercentComplete()
-ElapsedTime = GetElapsedSeconds()
-RemainingTime = GetEstimatedTimeRemaining()
-
-Report = &quot;Progress: &quot; &amp; Format(PercentComplete, &quot;0.0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-Report = Report &amp; &quot;Position: &quot; &amp; Seek(m_FileNum) &amp; &quot; of &quot; &amp; m_FileSize &amp; vbCrLf
-Report = Report &amp; &quot;Elapsed: &quot; &amp; Format(ElapsedTime, &quot;0.0&quot;) &amp; &quot;s&quot; &amp; vbCrLf
-Report = Report &amp; &quot;Remaining: &quot; &amp; Format(RemainingTime, &quot;0.0&quot;) &amp; &quot;s&quot;
-
-GetProgressReport = Report
+    Dim Report As String
+    Dim PercentComplete As Double
+    Dim ElapsedTime As Double
+    Dim RemainingTime As Double
+    PercentComplete = GetPercentComplete()
+    ElapsedTime = GetElapsedSeconds()
+    RemainingTime = GetEstimatedTimeRemaining()
+    Report = &quot;Progress: &quot; &amp; Format(PercentComplete, &quot;0.0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+    Report = Report &amp; &quot;Position: &quot; &amp; Seek(m_FileNum) &amp; &quot; of &quot; &amp; m_FileSize &amp; vbCrLf
+    Report = Report &amp; &quot;Elapsed: &quot; &amp; Format(ElapsedTime, &quot;0.0&quot;) &amp; &quot;s&quot; &amp; vbCrLf
+    Report = Report &amp; &quot;Remaining: &quot; &amp; Format(RemainingTime, &quot;0.0&quot;) &amp; &quot;s&quot;
+    GetProgressReport = Report
 End Function
-
 Public Sub Reset()
-m_StartPosition = Seek(m_FileNum)
-m_StartTime = Timer
+    m_StartPosition = Seek(m_FileNum)
+    m_StartTime = Timer
 End Sub</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The Seek function can generate the following errors:</p>
-<ul>
-<li><strong>Error 52</strong> (Bad file name or number): File not open or invalid file number</li>
-<li><strong>Error 5</strong> (Invalid procedure call): File number is invalid</li>
-</ul>
-<p>Always use error handling when working with file I/O:</p>
+<p>The Seek function can generate the following errors:
+- <strong>Error 52</strong> (Bad file name or number): File not open or invalid file number
+- <strong>Error 5</strong> (Invalid procedure call): File number is invalid
+Always use error handling when working with file I/O:</p>
 <pre><code class="language-vbnet">On Error Resume Next
 CurrentPos = Seek(FileNum)
 If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Error getting position: &quot; &amp; Err.Description
+    MsgBox &quot;Error getting position: &quot; &amp; Err.Description
 End If</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>

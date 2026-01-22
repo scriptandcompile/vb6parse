@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="midb-statement"><code>MidB</code> Statement</h1>
+            <h1 id="midb-statement">MidB Statement</h1>
 <p>Replaces a specified number of bytes in a Variant (String) variable with bytes from another string.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">MidB(stringvar, start[, length]) = string</code></pre>
@@ -63,7 +63,6 @@
 <pre><code class="language-vbnet">Dim s As String
 s = &quot;ABCDEFGH&quot;
 MidB(s, 3, 2) = &quot;12&quot;       &#x27; Replaces 2 bytes starting at byte 3
-
 &#x27; For DBCS strings:
 Dim dbcsStr As String
 dbcsStr = &quot;日本語&quot;          &#x27; Japanese characters

@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p><code>GetObject</code> Function</p>
-<p>Returns a reference to an <code>ActiveX</code> object from a file or a running instance of an object.</p>
+            <p>GetObject Function
+Returns a reference to an <code>ActiveX</code> object from a file or a running instance of an object.</p>
 <h1 id="syntax">Syntax</h1>
 <pre><code class="language-vbnet">GetObject([pathname] [, class])</code></pre>
 <h1 id="parameters">Parameters</h1>
@@ -76,346 +76,268 @@
 <pre><code class="language-vbnet">&#x27; Get reference to Excel object from file
 Dim xlApp As Object
 Set xlApp = GetObject(&quot;C:\Reports\Sales.xls&quot;)
-
 &#x27; Activate Excel
 xlApp.Application.Visible = True
-
 &#x27; Get existing Excel instance
 Dim excelApp As Object
 Set excelApp = GetObject(, &quot;Excel.Application&quot;)
-
 &#x27; Get specific Excel range
 Dim xlRange As Object
 Set xlRange = GetObject(&quot;C:\Data\Report.xls!Sheet1!R1C1:R10C5&quot;)
-
 &#x27; Get Word document
 Dim wordDoc As Object
 Set wordDoc = GetObject(&quot;C:\Documents\Letter.doc&quot;)</code></pre>
 <h1 id="common-patterns">Common Patterns</h1>
 <h2 id="1-get-or-create-pattern">1. Get or Create Pattern</h2>
 <pre><code class="language-vbnet">Function GetExcelInstance() As Object
-On Error Resume Next
-
-&#x27; Try to get existing instance
-Set GetExcelInstance = GetObject(, &quot;Excel.Application&quot;)
-
-If Err.Number &lt;&gt; 0 Then
-&#x27; No instance running, create new one
-Set GetExcelInstance = CreateObject(&quot;Excel.Application&quot;)
-End If
-
-On Error GoTo 0
+    On Error Resume Next
+    &#x27; Try to get existing instance
+    Set GetExcelInstance = GetObject(, &quot;Excel.Application&quot;)
+    If Err.Number &lt;&gt; 0 Then
+        &#x27; No instance running, create new one
+        Set GetExcelInstance = CreateObject(&quot;Excel.Application&quot;)
+    End If
+    On Error GoTo 0
 End Function
-
 &#x27; Usage
 Dim excel As Object
 Set excel = GetExcelInstance()
 excel.Visible = True</code></pre>
 <h2 id="2-open-existing-excel-file">2. Open Existing Excel File</h2>
 <pre><code class="language-vbnet">Sub ProcessExcelFile(filePath As String)
-Dim xlApp As Object
-Dim xlWorkbook As Object
-Dim xlSheet As Object
-
-On Error GoTo ErrorHandler
-
-&#x27; Open the Excel file
-Set xlWorkbook = GetObject(filePath)
-Set xlApp = xlWorkbook.Application
-
-&#x27; Make Excel visible
-xlApp.Visible = True
-
-&#x27; Access first worksheet
-Set xlSheet = xlWorkbook.Worksheets(1)
-
-&#x27; Process data
-Debug.Print xlSheet.Range(&quot;A1&quot;).Value
-
-&#x27; Cleanup
-xlWorkbook.Close SaveChanges:=False
-Set xlSheet = Nothing
-Set xlWorkbook = Nothing
-Set xlApp = Nothing
-
-Exit Sub
-
+    Dim xlApp As Object
+    Dim xlWorkbook As Object
+    Dim xlSheet As Object
+    On Error GoTo ErrorHandler
+    &#x27; Open the Excel file
+    Set xlWorkbook = GetObject(filePath)
+    Set xlApp = xlWorkbook.Application
+    &#x27; Make Excel visible
+    xlApp.Visible = True
+    &#x27; Access first worksheet
+    Set xlSheet = xlWorkbook.Worksheets(1)
+    &#x27; Process data
+    Debug.Print xlSheet.Range(&quot;A1&quot;).Value
+    &#x27; Cleanup
+    xlWorkbook.Close SaveChanges:=False
+    Set xlSheet = Nothing
+    Set xlWorkbook = Nothing
+    Set xlApp = Nothing
+    Exit Sub
 ErrorHandler:
-MsgBox &quot;Error: &quot; &amp; Err.Description
+    MsgBox &quot;Error: &quot; &amp; Err.Description
 End Sub</code></pre>
 <h2 id="3-access-specific-excel-range">3. Access Specific Excel Range</h2>
 <pre><code class="language-vbnet">Sub ReadExcelRange()
-Dim xlRange As Object
-Dim cell As Variant
-
-On Error GoTo ErrorHandler
-
-&#x27; Get specific range from Excel file
-Set xlRange = GetObject(&quot;C:\Data\Sales.xls!Sheet1!R1C1:R10C3&quot;)
-
-&#x27; Loop through cells
-For Each cell In xlRange.Cells
-Debug.Print cell.Value
-Next cell
-
-&#x27; Cleanup
-xlRange.Parent.Parent.Close SaveChanges:=False
-Set xlRange = Nothing
-
-Exit Sub
-
+    Dim xlRange As Object
+    Dim cell As Variant
+    On Error GoTo ErrorHandler
+    &#x27; Get specific range from Excel file
+    Set xlRange = GetObject(&quot;C:\Data\Sales.xls!Sheet1!R1C1:R10C3&quot;)
+    &#x27; Loop through cells
+    For Each cell In xlRange.Cells
+        Debug.Print cell.Value
+    Next cell
+    &#x27; Cleanup
+    xlRange.Parent.Parent.Close SaveChanges:=False
+    Set xlRange = Nothing
+    Exit Sub
 ErrorHandler:
-MsgBox &quot;Error reading range: &quot; &amp; Err.Description
+    MsgBox &quot;Error reading range: &quot; &amp; Err.Description
 End Sub</code></pre>
 <h2 id="4-connect-to-running-application">4. Connect to Running Application</h2>
 <pre><code class="language-vbnet">Function ConnectToRunningWord() As Object
-On Error Resume Next
-
-Set ConnectToRunningWord = GetObject(, &quot;Word.Application&quot;)
-
-If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Word is not currently running&quot;
-Set ConnectToRunningWord = Nothing
-End If
-
-On Error GoTo 0
+    On Error Resume Next
+    Set ConnectToRunningWord = GetObject(, &quot;Word.Application&quot;)
+    If Err.Number &lt;&gt; 0 Then
+        MsgBox &quot;Word is not currently running&quot;
+        Set ConnectToRunningWord = Nothing
+    End If
+    On Error GoTo 0
 End Function
-
 &#x27; Usage
 Sub UseRunningWord()
-Dim wordApp As Object
-
-Set wordApp = ConnectToRunningWord()
-
-If Not wordApp Is Nothing Then
-Debug.Print &quot;Word has &quot; &amp; wordApp.Documents.Count &amp; &quot; documents open&quot;
-Set wordApp = Nothing
-End If
+    Dim wordApp As Object
+    Set wordApp = ConnectToRunningWord()
+    If Not wordApp Is Nothing Then
+        Debug.Print &quot;Word has &quot; &amp; wordApp.Documents.Count &amp; &quot; documents open&quot;
+        Set wordApp = Nothing
+    End If
 End Sub</code></pre>
 <h2 id="5-multiple-file-processing">5. Multiple File Processing</h2>
 <pre><code class="language-vbnet">Sub ProcessMultipleExcelFiles()
-Dim files() As String
-Dim i As Long
-Dim xlWorkbook As Object
-Dim xlApp As Object
-
-files = Array(&quot;C:\Data\Jan.xls&quot;, &quot;C:\Data\Feb.xls&quot;, &quot;C:\Data\Mar.xls&quot;)
-
-For i = LBound(files) To UBound(files)
-On Error Resume Next
-
-Set xlWorkbook = GetObject(files(i))
-
-If Err.Number = 0 Then
-Set xlApp = xlWorkbook.Application
-
-&#x27; Process workbook
-Debug.Print &quot;Processing: &quot; &amp; xlWorkbook.Name
-Debug.Print &quot;Sheets: &quot; &amp; xlWorkbook.Worksheets.Count
-
-&#x27; Close without saving
-xlWorkbook.Close SaveChanges:=False
-Else
-Debug.Print &quot;Failed to open: &quot; &amp; files(i)
-End If
-
-Set xlWorkbook = Nothing
-Set xlApp = Nothing
-
-On Error GoTo 0
-Next i
+    Dim files() As String
+    Dim i As Long
+    Dim xlWorkbook As Object
+    Dim xlApp As Object
+    files = Array(&quot;C:\Data\Jan.xls&quot;, &quot;C:\Data\Feb.xls&quot;, &quot;C:\Data\Mar.xls&quot;)
+    For i = LBound(files) To UBound(files)
+        On Error Resume Next
+        Set xlWorkbook = GetObject(files(i))
+        If Err.Number = 0 Then
+            Set xlApp = xlWorkbook.Application
+            &#x27; Process workbook
+            Debug.Print &quot;Processing: &quot; &amp; xlWorkbook.Name
+            Debug.Print &quot;Sheets: &quot; &amp; xlWorkbook.Worksheets.Count
+            &#x27; Close without saving
+            xlWorkbook.Close SaveChanges:=False
+        Else
+            Debug.Print &quot;Failed to open: &quot; &amp; files(i)
+        End If
+        Set xlWorkbook = Nothing
+        Set xlApp = Nothing
+        On Error GoTo 0
+    Next i
 End Sub</code></pre>
 <h2 id="6-word-document-automation">6. Word Document Automation</h2>
 <pre><code class="language-vbnet">Sub ModifyWordDocument(filePath As String)
-Dim wordDoc As Object
-Dim wordApp As Object
-
-On Error GoTo ErrorHandler
-
-&#x27; Open existing Word document
-Set wordDoc = GetObject(filePath)
-Set wordApp = wordDoc.Application
-
-&#x27; Make Word visible
-wordApp.Visible = True
-
-&#x27; Modify document
-wordDoc.Content.InsertAfter vbCrLf &amp; &quot;Added text: &quot; &amp; Now
-
-&#x27; Save and close
-wordDoc.Save
-wordDoc.Close
-
-&#x27; Cleanup
-Set wordDoc = Nothing
-Set wordApp = Nothing
-
-Exit Sub
-
+    Dim wordDoc As Object
+    Dim wordApp As Object
+    On Error GoTo ErrorHandler
+    &#x27; Open existing Word document
+    Set wordDoc = GetObject(filePath)
+    Set wordApp = wordDoc.Application
+    &#x27; Make Word visible
+    wordApp.Visible = True
+    &#x27; Modify document
+    wordDoc.Content.InsertAfter vbCrLf &amp; &quot;Added text: &quot; &amp; Now
+    &#x27; Save and close
+    wordDoc.Save
+    wordDoc.Close
+    &#x27; Cleanup
+    Set wordDoc = Nothing
+    Set wordApp = Nothing
+    Exit Sub
 ErrorHandler:
-MsgBox &quot;Error modifying document: &quot; &amp; Err.Description
+    MsgBox &quot;Error modifying document: &quot; &amp; Err.Description
 End Sub</code></pre>
 <h2 id="7-excel-data-extraction">7. Excel Data Extraction</h2>
 <pre><code class="language-vbnet">Function ExtractExcelData(filePath As String, _
-sheetName As String, _
-rangeName As String) As Variant
-Dim xlWorkbook As Object
-Dim xlSheet As Object
-Dim data As Variant
-
-On Error GoTo ErrorHandler
-
-Set xlWorkbook = GetObject(filePath)
-Set xlSheet = xlWorkbook.Worksheets(sheetName)
-
-&#x27; Get data from range
-data = xlSheet.Range(rangeName).Value
-
-&#x27; Close workbook
-xlWorkbook.Close SaveChanges:=False
-
-&#x27; Return data
-ExtractExcelData = data
-
-&#x27; Cleanup
-Set xlSheet = Nothing
-Set xlWorkbook = Nothing
-
-Exit Function
-
+                         sheetName As String, _
+                         rangeName As String) As Variant
+    Dim xlWorkbook As Object
+    Dim xlSheet As Object
+    Dim data As Variant
+    On Error GoTo ErrorHandler
+    Set xlWorkbook = GetObject(filePath)
+    Set xlSheet = xlWorkbook.Worksheets(sheetName)
+    &#x27; Get data from range
+    data = xlSheet.Range(rangeName).Value
+    &#x27; Close workbook
+    xlWorkbook.Close SaveChanges:=False
+    &#x27; Return data
+    ExtractExcelData = data
+    &#x27; Cleanup
+    Set xlSheet = Nothing
+    Set xlWorkbook = Nothing
+    Exit Function
 ErrorHandler:
-ExtractExcelData = Null
-If Not xlWorkbook Is Nothing Then xlWorkbook.Close SaveChanges:=False
+    ExtractExcelData = Null
+    If Not xlWorkbook Is Nothing Then xlWorkbook.Close SaveChanges:=False
 End Function
-
 &#x27; Usage
 Sub DisplayData()
-Dim data As Variant
-
-data = ExtractExcelData(&quot;C:\Reports\Sales.xls&quot;, &quot;Summary&quot;, &quot;A1:C10&quot;)
-
-If Not IsNull(data) Then
-Debug.Print &quot;Data extracted: &quot; &amp; UBound(data, 1) &amp; &quot; rows&quot;
-End If
+    Dim data As Variant
+    data = ExtractExcelData(&quot;C:\Reports\Sales.xls&quot;, &quot;Summary&quot;, &quot;A1:C10&quot;)
+    If Not IsNull(data) Then
+        Debug.Print &quot;Data extracted: &quot; &amp; UBound(data, 1) &amp; &quot; rows&quot;
+    End If
 End Sub</code></pre>
 <h2 id="8-application-instance-manager">8. Application Instance Manager</h2>
 <pre><code class="language-vbnet">Type AppInstance
-AppName As String
-ProgID As String
-IsRunning As Boolean
-Instance As Object
+    AppName As String
+    ProgID As String
+    IsRunning As Boolean
+    Instance As Object
 End Type
-
 Function CheckAppInstance(progID As String) As AppInstance
-Dim result As AppInstance
-
-result.ProgID = progID
-result.AppName = Split(progID, &quot;.&quot;)(0)
-
-On Error Resume Next
-Set result.Instance = GetObject(, progID)
-On Error GoTo 0
-
-result.IsRunning = Not (result.Instance Is Nothing)
-
-CheckAppInstance = result
+    Dim result As AppInstance
+    result.ProgID = progID
+    result.AppName = Split(progID, &quot;.&quot;)(0)
+    On Error Resume Next
+    Set result.Instance = GetObject(, progID)
+    On Error GoTo 0
+    result.IsRunning = Not (result.Instance Is Nothing)
+    CheckAppInstance = result
 End Function
-
 Sub ReportRunningApplications()
-Dim apps() As String
-Dim i As Long
-Dim instance As AppInstance
-
-apps = Array(&quot;Excel.Application&quot;, &quot;Word.Application&quot;, _
-&quot;PowerPoint.Application&quot;, &quot;Outlook.Application&quot;)
-
-For i = LBound(apps) To UBound(apps)
-instance = CheckAppInstance(apps(i))
-
-If instance.IsRunning Then
-Debug.Print instance.AppName &amp; &quot; is running&quot;
-Else
-Debug.Print instance.AppName &amp; &quot; is not running&quot;
-End If
-Next i
+    Dim apps() As String
+    Dim i As Long
+    Dim instance As AppInstance
+    apps = Array(&quot;Excel.Application&quot;, &quot;Word.Application&quot;, _
+                 &quot;PowerPoint.Application&quot;, &quot;Outlook.Application&quot;)
+    For i = LBound(apps) To UBound(apps)
+        instance = CheckAppInstance(apps(i))
+        If instance.IsRunning Then
+            Debug.Print instance.AppName &amp; &quot; is running&quot;
+        Else
+            Debug.Print instance.AppName &amp; &quot; is not running&quot;
+        End If
+    Next i
 End Sub</code></pre>
 <h2 id="9-safe-object-retrieval">9. Safe Object Retrieval</h2>
 <pre><code class="language-vbnet">Function SafeGetObject(Optional filePath As Variant, _
-Optional progID As Variant) As Object
-Dim obj As Object
-
-On Error Resume Next
-
-If IsMissing(filePath) And IsMissing(progID) Then
-&#x27; Invalid call
-Set SafeGetObject = Nothing
-Exit Function
-End If
-
-If IsMissing(filePath) Then
-&#x27; Get running instance
-Set obj = GetObject(, CStr(progID))
-ElseIf IsMissing(progID) Then
-&#x27; Get from file
-Set obj = GetObject(CStr(filePath))
-Else
-&#x27; Get from file with specific class
-Set obj = GetObject(CStr(filePath), CStr(progID))
-End If
-
-If Err.Number &lt;&gt; 0 Then
-Debug.Print &quot;GetObject failed: &quot; &amp; Err.Description
-Set obj = Nothing
-End If
-
-On Error GoTo 0
-
-Set SafeGetObject = obj
+                      Optional progID As Variant) As Object
+    Dim obj As Object
+    On Error Resume Next
+    If IsMissing(filePath) And IsMissing(progID) Then
+        &#x27; Invalid call
+        Set SafeGetObject = Nothing
+        Exit Function
+    End If
+    If IsMissing(filePath) Then
+        &#x27; Get running instance
+        Set obj = GetObject(, CStr(progID))
+    ElseIf IsMissing(progID) Then
+        &#x27; Get from file
+        Set obj = GetObject(CStr(filePath))
+    Else
+        &#x27; Get from file with specific class
+        Set obj = GetObject(CStr(filePath), CStr(progID))
+    End If
+    If Err.Number &lt;&gt; 0 Then
+        Debug.Print &quot;GetObject failed: &quot; &amp; Err.Description
+        Set obj = Nothing
+    End If
+    On Error GoTo 0
+    Set SafeGetObject = obj
 End Function</code></pre>
 <h2 id="10-document-comparison">10. Document Comparison</h2>
 <pre><code class="language-vbnet">Function CompareExcelFiles(file1 As String, file2 As String) As Boolean
-Dim wb1 As Object
-Dim wb2 As Object
-Dim sheet1 As Object
-Dim sheet2 As Object
-Dim identical As Boolean
-
-On Error GoTo ErrorHandler
-
-Set wb1 = GetObject(file1)
-Set wb2 = GetObject(file2)
-
-&#x27; Compare sheet counts
-If wb1.Worksheets.Count &lt;&gt; wb2.Worksheets.Count Then
-CompareExcelFiles = False
-GoTo Cleanup
-End If
-
-&#x27; Compare first sheet data
-Set sheet1 = wb1.Worksheets(1)
-Set sheet2 = wb2.Worksheets(1)
-
-If sheet1.UsedRange.Address = sheet2.UsedRange.Address Then
-identical = True
-Else
-identical = False
-End If
-
-CompareExcelFiles = identical
-
+    Dim wb1 As Object
+    Dim wb2 As Object
+    Dim sheet1 As Object
+    Dim sheet2 As Object
+    Dim identical As Boolean
+    On Error GoTo ErrorHandler
+    Set wb1 = GetObject(file1)
+    Set wb2 = GetObject(file2)
+    &#x27; Compare sheet counts
+    If wb1.Worksheets.Count &lt;&gt; wb2.Worksheets.Count Then
+        CompareExcelFiles = False
+        GoTo Cleanup
+    End If
+    &#x27; Compare first sheet data
+    Set sheet1 = wb1.Worksheets(1)
+    Set sheet2 = wb2.Worksheets(1)
+    If sheet1.UsedRange.Address = sheet2.UsedRange.Address Then
+        identical = True
+    Else
+        identical = False
+    End If
+    CompareExcelFiles = identical
 Cleanup:
-wb1.Close SaveChanges:=False
-wb2.Close SaveChanges:=False
-Set sheet1 = Nothing
-Set sheet2 = Nothing
-Set wb1 = Nothing
-Set wb2 = Nothing
-Exit Function
-
+    wb1.Close SaveChanges:=False
+    wb2.Close SaveChanges:=False
+    Set sheet1 = Nothing
+    Set sheet2 = Nothing
+    Set wb1 = Nothing
+    Set wb2 = Nothing
+    Exit Function
 ErrorHandler:
-CompareExcelFiles = False
-If Not wb1 Is Nothing Then wb1.Close SaveChanges:=False
-If Not wb2 Is Nothing Then wb2.Close SaveChanges:=False
+    CompareExcelFiles = False
+    If Not wb1 Is Nothing Then wb1.Close SaveChanges:=False
+    If Not wb2 Is Nothing Then wb2.Close SaveChanges:=False
 End Function</code></pre>
 <h1 id="advanced-usage">Advanced Usage</h1>
 <h2 id="1-document-manager-class">1. Document Manager Class</h2>
@@ -424,266 +346,214 @@ Private m_FilePath As String
 Private m_Document As Object
 Private m_Application As Object
 Private m_DocumentType As String
-
 Public Sub OpenDocument(filePath As String)
-On Error GoTo ErrorHandler
-
-m_FilePath = filePath
-Set m_Document = GetObject(filePath)
-Set m_Application = m_Document.Application
-
-&#x27; Determine document type
-m_DocumentType = TypeName(m_Document)
-
-Exit Sub
-
+    On Error GoTo ErrorHandler
+    m_FilePath = filePath
+    Set m_Document = GetObject(filePath)
+    Set m_Application = m_Document.Application
+    &#x27; Determine document type
+    m_DocumentType = TypeName(m_Document)
+    Exit Sub
 ErrorHandler:
-Err.Raise vbObjectError + 1000, , &quot;Failed to open: &quot; &amp; filePath
+    Err.Raise vbObjectError + 1000, , &quot;Failed to open: &quot; &amp; filePath
 End Sub
-
 Public Property Get IsOpen() As Boolean
-IsOpen = Not (m_Document Is Nothing)
+    IsOpen = Not (m_Document Is Nothing)
 End Property
-
 Public Property Get DocumentType() As String
-DocumentType = m_DocumentType
+    DocumentType = m_DocumentType
 End Property
-
 Public Sub MakeVisible()
-If Not m_Application Is Nothing Then
-m_Application.Visible = True
-End If
+    If Not m_Application Is Nothing Then
+        m_Application.Visible = True
+    End If
 End Sub
-
 Public Function GetProperty(propertyName As String) As Variant
-On Error Resume Next
-GetProperty = CallByName(m_Document, propertyName, VbGet)
+    On Error Resume Next
+    GetProperty = CallByName(m_Document, propertyName, VbGet)
 End Function
-
 Public Sub CloseDocument(Optional saveChanges As Boolean = False)
-If Not m_Document Is Nothing Then
-m_Document.Close saveChanges
-Set m_Document = Nothing
-Set m_Application = Nothing
-End If
+    If Not m_Document Is Nothing Then
+        m_Document.Close saveChanges
+        Set m_Document = Nothing
+        Set m_Application = Nothing
+    End If
 End Sub
-
 Private Sub Class_Terminate()
-CloseDocument False
+    CloseDocument False
 End Sub</code></pre>
 <h2 id="2-batch-file-processor">2. Batch File Processor</h2>
 <pre><code class="language-vbnet">Type ProcessingResult
-FileName As String
-Success As Boolean
-ErrorMessage As String
-ProcessedDate As Date
+    FileName As String
+    Success As Boolean
+    ErrorMessage As String
+    ProcessedDate As Date
 End Type
-
 Function BatchProcessFiles(files As Collection, _
-processingFunc As String) As Collection
-Dim results As New Collection
-Dim file As Variant
-Dim doc As Object
-Dim result As ProcessingResult
-
-For Each file In files
-result.FileName = CStr(file)
-result.ProcessedDate = Now
-
-On Error Resume Next
-Set doc = GetObject(CStr(file))
-
-If Err.Number = 0 Then
-&#x27; Call custom processing function
-Application.Run processingFunc, doc
-
-doc.Save
-doc.Close
-
-result.Success = True
-result.ErrorMessage = &quot;&quot;
-Else
-result.Success = False
-result.ErrorMessage = Err.Description
-End If
-
-On Error GoTo 0
-
-Set doc = Nothing
-results.Add result
-Next file
-
-Set BatchProcessFiles = results
+                          processingFunc As String) As Collection
+    Dim results As New Collection
+    Dim file As Variant
+    Dim doc As Object
+    Dim result As ProcessingResult
+    For Each file In files
+        result.FileName = CStr(file)
+        result.ProcessedDate = Now
+        On Error Resume Next
+        Set doc = GetObject(CStr(file))
+        If Err.Number = 0 Then
+            &#x27; Call custom processing function
+            Application.Run processingFunc, doc
+            doc.Save
+            doc.Close
+            result.Success = True
+            result.ErrorMessage = &quot;&quot;
+        Else
+            result.Success = False
+            result.ErrorMessage = Err.Description
+        End If
+        On Error GoTo 0
+        Set doc = Nothing
+        results.Add result
+    Next file
+    Set BatchProcessFiles = results
 End Function</code></pre>
 <h2 id="3-smart-office-connector">3. Smart Office Connector</h2>
 <pre><code class="language-vbnet">Class OfficeConnector
-Private m_Instances As Collection
-
-Private Sub Class_Initialize()
-Set m_Instances = New Collection
-End Sub
-
-Public Function GetOrCreateExcel() As Object
-Dim excel As Object
-Dim key As String
-
-key = &quot;Excel.Application&quot;
-
-&#x27; Check cache
-On Error Resume Next
-Set excel = m_Instances(key)
-On Error GoTo 0
-
-If excel Is Nothing Then
-&#x27; Try to get existing instance
-On Error Resume Next
-Set excel = GetObject(, key)
-On Error GoTo 0
-
-If excel Is Nothing Then
-&#x27; Create new instance
-Set excel = CreateObject(key)
-End If
-
-&#x27; Cache instance
-m_Instances.Add excel, key
-End If
-
-Set GetOrCreateExcel = excel
-End Function
-
-Public Function OpenFile(filePath As String) As Object
-Dim doc As Object
-
-On Error GoTo ErrorHandler
-
-Set doc = GetObject(filePath)
-Set OpenFile = doc
-
-Exit Function
-
-ErrorHandler:
-Set OpenFile = Nothing
-End Function
-
-Public Sub CloseAll()
-Dim item As Variant
-
-For Each item In m_Instances
-On Error Resume Next
-item.Quit
-On Error GoTo 0
-Next item
-
-Set m_Instances = New Collection
-End Sub
-
-Private Sub Class_Terminate()
-CloseAll
-End Sub
+    Private m_Instances As Collection
+    Private Sub Class_Initialize()
+        Set m_Instances = New Collection
+    End Sub
+    Public Function GetOrCreateExcel() As Object
+        Dim excel As Object
+        Dim key As String
+        key = &quot;Excel.Application&quot;
+        &#x27; Check cache
+        On Error Resume Next
+        Set excel = m_Instances(key)
+        On Error GoTo 0
+        If excel Is Nothing Then
+            &#x27; Try to get existing instance
+            On Error Resume Next
+            Set excel = GetObject(, key)
+            On Error GoTo 0
+            If excel Is Nothing Then
+                &#x27; Create new instance
+                Set excel = CreateObject(key)
+            End If
+            &#x27; Cache instance
+            m_Instances.Add excel, key
+        End If
+        Set GetOrCreateExcel = excel
+    End Function
+    Public Function OpenFile(filePath As String) As Object
+        Dim doc As Object
+        On Error GoTo ErrorHandler
+        Set doc = GetObject(filePath)
+        Set OpenFile = doc
+        Exit Function
+    ErrorHandler:
+        Set OpenFile = Nothing
+    End Function
+    Public Sub CloseAll()
+        Dim item As Variant
+        For Each item In m_Instances
+            On Error Resume Next
+            item.Quit
+            On Error GoTo 0
+        Next item
+        Set m_Instances = New Collection
+    End Sub
+    Private Sub Class_Terminate()
+        CloseAll
+    End Sub
 End Class</code></pre>
 <h2 id="4-document-cache-system">4. Document Cache System</h2>
 <pre><code class="language-vbnet">Type CachedDocument
-FilePath As String
-Document As Object
-LastAccessed As Date
-AccessCount As Long
+    FilePath As String
+    Document As Object
+    LastAccessed As Date
+    AccessCount As Long
 End Type
-
 Private m_DocumentCache As Collection
 Private Const CACHE_TIMEOUT = 300 &#x27; 5 minutes in seconds
-
 Sub InitializeDocumentCache()
-Set m_DocumentCache = New Collection
+    Set m_DocumentCache = New Collection
 End Sub
-
 Function GetCachedDocument(filePath As String) As Object
-Dim cached As CachedDocument
-Dim i As Long
-Dim found As Boolean
-
-&#x27; Search cache
-For i = 1 To m_DocumentCache.Count
-cached = m_DocumentCache(i)
-
-If cached.FilePath = filePath Then
-&#x27; Check if cache is still valid
-If DateDiff(&quot;s&quot;, cached.LastAccessed, Now) &lt; CACHE_TIMEOUT Then
-cached.LastAccessed = Now
-cached.AccessCount = cached.AccessCount + 1
-m_DocumentCache.Remove i
-m_DocumentCache.Add cached, filePath
-
-Set GetCachedDocument = cached.Document
-Exit Function
-Else
-&#x27; Cache expired, remove it
-cached.Document.Close SaveChanges:=False
-m_DocumentCache.Remove i
-Exit For
-End If
-End If
-Next i
-
-&#x27; Not in cache, open new
-On Error Resume Next
-Set cached.Document = GetObject(filePath)
-On Error GoTo 0
-
-If Not cached.Document Is Nothing Then
-cached.FilePath = filePath
-cached.LastAccessed = Now
-cached.AccessCount = 1
-
-m_DocumentCache.Add cached, filePath
-Set GetCachedDocument = cached.Document
-Else
-Set GetCachedDocument = Nothing
-End If
+    Dim cached As CachedDocument
+    Dim i As Long
+    Dim found As Boolean
+    &#x27; Search cache
+    For i = 1 To m_DocumentCache.Count
+        cached = m_DocumentCache(i)
+        If cached.FilePath = filePath Then
+            &#x27; Check if cache is still valid
+            If DateDiff(&quot;s&quot;, cached.LastAccessed, Now) &lt; CACHE_TIMEOUT Then
+                cached.LastAccessed = Now
+                cached.AccessCount = cached.AccessCount + 1
+                m_DocumentCache.Remove i
+                m_DocumentCache.Add cached, filePath
+                Set GetCachedDocument = cached.Document
+                Exit Function
+            Else
+                &#x27; Cache expired, remove it
+                cached.Document.Close SaveChanges:=False
+                m_DocumentCache.Remove i
+                Exit For
+            End If
+        End If
+    Next i
+    &#x27; Not in cache, open new
+    On Error Resume Next
+    Set cached.Document = GetObject(filePath)
+    On Error GoTo 0
+    If Not cached.Document Is Nothing Then
+        cached.FilePath = filePath
+        cached.LastAccessed = Now
+        cached.AccessCount = 1
+        m_DocumentCache.Add cached, filePath
+        Set GetCachedDocument = cached.Document
+    Else
+        Set GetCachedDocument = Nothing
+    End If
 End Function
-
 Sub ClearDocumentCache()
-Dim cached As CachedDocument
-Dim i As Long
-
-For i = m_DocumentCache.Count To 1 Step -1
-cached = m_DocumentCache(i)
-cached.Document.Close SaveChanges:=False
-m_DocumentCache.Remove i
-Next i
+    Dim cached As CachedDocument
+    Dim i As Long
+    For i = m_DocumentCache.Count To 1 Step -1
+        cached = m_DocumentCache(i)
+        cached.Document.Close SaveChanges:=False
+        m_DocumentCache.Remove i
+    Next i
 End Sub</code></pre>
 <h1 id="error-handling">Error Handling</h1>
 <pre><code class="language-vbnet">Function SafelyGetObject(Optional pathName As String, _
-Optional className As String) As Object
-On Error GoTo ErrorHandler
-
-If pathName &lt;&gt; &quot;&quot; And className &lt;&gt; &quot;&quot; Then
-Set SafelyGetObject = GetObject(pathName, className)
-ElseIf pathName &lt;&gt; &quot;&quot; Then
-Set SafelyGetObject = GetObject(pathName)
-ElseIf className &lt;&gt; &quot;&quot; Then
-Set SafelyGetObject = GetObject(, className)
-Else
-Set SafelyGetObject = Nothing
-End If
-
-Exit Function
-
+                        Optional className As String) As Object
+    On Error GoTo ErrorHandler
+    If pathName &lt;&gt; &quot;&quot; And className &lt;&gt; &quot;&quot; Then
+        Set SafelyGetObject = GetObject(pathName, className)
+    ElseIf pathName &lt;&gt; &quot;&quot; Then
+        Set SafelyGetObject = GetObject(pathName)
+    ElseIf className &lt;&gt; &quot;&quot; Then
+        Set SafelyGetObject = GetObject(, className)
+    Else
+        Set SafelyGetObject = Nothing
+    End If
+    Exit Function
 ErrorHandler:
-Select Case Err.Number
-Case 429  &#x27; ActiveX component can&#x27;t create object
-Debug.Print &quot;Object unavailable or not registered&quot;
-Case 432  &#x27; File name or class name not found
-Debug.Print &quot;File or class not found: &quot; &amp; pathName &amp; &quot; &quot; &amp; className
-Case 462  &#x27; Remote server machine does not exist
-Debug.Print &quot;Server not available&quot;
-Case 70   &#x27; Permission denied
-Debug.Print &quot;Access denied&quot;
-Case Else
-Debug.Print &quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Err.Description
-End Select
-
-Set SafelyGetObject = Nothing
+    Select Case Err.Number
+        Case 429  &#x27; ActiveX component can&#x27;t create object
+            Debug.Print &quot;Object unavailable or not registered&quot;
+        Case 432  &#x27; File name or class name not found
+            Debug.Print &quot;File or class not found: &quot; &amp; pathName &amp; &quot; &quot; &amp; className
+        Case 462  &#x27; Remote server machine does not exist
+            Debug.Print &quot;Server not available&quot;
+        Case 70   &#x27; Permission denied
+            Debug.Print &quot;Access denied&quot;
+        Case Else
+            Debug.Print &quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Err.Description
+    End Select
+    Set SafelyGetObject = Nothing
 End Function</code></pre>
 <p>Common errors:
 - <strong>Error 429</strong>: <code>ActiveX</code> component can't create object - object not available or not registered.
@@ -716,17 +586,14 @@ End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; GetObject - Get existing instance or open file
 Set excel = GetObject(, &quot;Excel.Application&quot;)  &#x27; Gets running instance
 Set workbook = GetObject(&quot;C:\Data.xls&quot;)       &#x27; Opens existing file
-
 &#x27; CreateObject - Always creates new instance
 Set excel = CreateObject(&quot;Excel.Application&quot;) &#x27; Creates new instance
 Set workbook = excel.Workbooks.Open(&quot;C:\Data.xls&quot;) &#x27; Opens file</code></pre>
 <h2 id="getobject-with-file-vs-without"><code>GetObject</code> with File vs Without</h2>
 <pre><code class="language-vbnet">&#x27; With file - Opens the file
 Set doc = GetObject(&quot;C:\Report.xls&quot;)
-
 &#x27; Without file - Gets running instance
 Set app = GetObject(, &quot;Excel.Application&quot;)
-
 &#x27; With both - Opens file with specific application
 Set doc = GetObject(&quot;C:\Data.txt&quot;, &quot;Excel.Application&quot;)</code></pre>
 <h1 id="limitations">Limitations</h1>
@@ -744,10 +611,8 @@ Set doc = GetObject(&quot;C:\Data.txt&quot;, &quot;Excel.Application&quot;)</cod
 <p>For files that support partial activation:</p>
 <pre><code class="language-vbnet">&#x27; Excel - specific range
 Set range = GetObject(&quot;C:\Data.xls!Sheet1!R1C1:R10C10&quot;)
-
 &#x27; Excel - named range
 Set range = GetObject(&quot;C:\Data.xls!MyRange&quot;)
-
 &#x27; Word - bookmark (if supported)
 Set bookmark = GetObject(&quot;C:\Doc.doc!MyBookmark&quot;)</code></pre>
 <h1 id="related-functions">Related Functions</h1>
