@@ -63,7 +63,7 @@ root:
           text: "\"Excel is running\""
         - kind: Newline
           text: "\n"
-    - kind: Unknown
+    - kind: EndKeyword
       text: End
     - kind: Whitespace
       text: " "
