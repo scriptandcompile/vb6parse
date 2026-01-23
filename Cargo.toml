@@ -92,9 +92,17 @@ opt-level = "z"     # Optimize for size
 lto = true          # Enable Link Time Optimization
 codegen-units = 1   # Reduce parallel code generation units for better optimization
 
-[dev-dependencies]
+[target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
 criterion = { version = "0.8.1", features = ["html_reports"] }
 insta = { version = "1.46.0", features = ["yaml"] }
+
+[target.'cfg(target_arch = "wasm32")'.dev-dependencies]
+criterion = { version = "0.8.1", default-features = false }
+insta = { version = "1.46.0", features = ["yaml"] }
+wasm-bindgen-test = "0.3.58"
+
+
+
 
 [[bench]]
 name = "lexer"
