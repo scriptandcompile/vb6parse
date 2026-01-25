@@ -32,6 +32,18 @@ root:
                     - kind: StringLiteralExpression
                       children:
                         - kind: StringLiteral
-                          text: "\"C:\\\", vbVolume)"
+                          text: "\"C:\\\""
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: vbVolume
+            - kind: RightParenthesis
+              text: )
         - kind: Newline
           text: "\n"

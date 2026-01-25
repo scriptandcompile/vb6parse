@@ -62,7 +62,11 @@ root:
             - kind: StringLiteralExpression
               children:
                 - kind: StringLiteral
-                  text: "\"\\\" Then"
+                  text: "\"\\\""
+        - kind: Whitespace
+          text: " "
+        - kind: ThenKeyword
+          text: Then
         - kind: Newline
           text: "\n"
         - kind: StatementList

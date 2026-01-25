@@ -100,7 +100,9 @@ root:
                             - kind: StringLiteralExpression
                               children:
                                 - kind: StringLiteral
-                                  text: "\"\\\")"
+                                  text: "\"\\\""
+                    - kind: RightParenthesis
+                      text: )
                 - kind: Newline
                   text: "\n"
             - kind: IfStatement

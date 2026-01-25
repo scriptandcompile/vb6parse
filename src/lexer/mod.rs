@@ -671,25 +671,17 @@ fn take_date_literal<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<
 fn take_string_literal<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<'a>> {
     input.peek_text("\"", crate::io::Comparator::CaseInsensitive)?;
 
-    // TODO: Need to handle error reporting of incorrect escape sequences as well
-    // as string literals that hit a newline before the second quote character.
-    let mut escape_sequence_started = false;
     let mut quote_character_count = 0;
     let take_string = |next_character| match next_character {
         // it doesn't matter what the character is if it is right after
         // the second quote character.
+        '\"' if quote_character_count == 2 => {
+            quote_character_count = 1;
+            false
+        }
         _ if quote_character_count == 2 => true,
-        '\r' | '\n' => true,
-        '\\' => {
-            escape_sequence_started = true;
-            false
-        }
-        '\"' if !escape_sequence_started && quote_character_count < 2 => {
+        '\"' if quote_character_count < 2 => {
             quote_character_count += 1;
-            false
-        }
-        _ if escape_sequence_started => {
-            escape_sequence_started = false;
             false
         }
         _ => false,
@@ -825,6 +817,131 @@ fn take_variable_name<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn vb6_double_qoute_start_containing_string() {
+        let content = r#"r = """ " 'Also a comment"#;
+        let mut input = SourceStream::new("", content);
+        let result = tokenize(&mut input);
+
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("r", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("\"\"\" \"", Token::StringLiteral));
+        assert_eq!(tokens[5], (" ", Token::Whitespace));
+        assert_eq!(tokens[6], ("'Also a comment", Token::EndOfLineComment));
+    }
+
+    #[test]
+    fn vb6_double_qoute_mid_string() {
+        let content = r#"r = " "" " 'Also a comment"#;
+        let mut input = SourceStream::new("", content);
+        let result = tokenize(&mut input);
+
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("r", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("\" \"\" \"", Token::StringLiteral));
+        assert_eq!(tokens[5], (" ", Token::Whitespace));
+        assert_eq!(tokens[6], ("'Also a comment", Token::EndOfLineComment));
+    }
+
+    #[test]
+    fn vb6_double_qoute_end_string() {
+        let content = r#"r = " """ 'Also a comment"#;
+        let mut input = SourceStream::new("", content);
+        let result = tokenize(&mut input);
+
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("r", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("\" \"\"\"", Token::StringLiteral));
+        assert_eq!(tokens[5], (" ", Token::Whitespace));
+        assert_eq!(tokens[6], ("'Also a comment", Token::EndOfLineComment));
+    }
+
+    #[test]
+    fn vb6_double_qoute_doubled_string() {
+        let content = r#"r = " "" "" " 'Also a comment"#;
+        let mut input = SourceStream::new("", content);
+        let result = tokenize(&mut input);
+
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("r", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("\" \"\" \"\" \"", Token::StringLiteral));
+        assert_eq!(tokens[5], (" ", Token::Whitespace));
+        assert_eq!(tokens[6], ("'Also a comment", Token::EndOfLineComment));
+    }
+
+    #[test]
+    fn vb6_quad_qoute_mid_string() {
+        let content = r#"r = " """" " 'Also a comment"#;
+        let mut input = SourceStream::new("", content);
+        let result = tokenize(&mut input);
+
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("r", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("\" \"\"\"\" \"", Token::StringLiteral));
+        assert_eq!(tokens[5], (" ", Token::Whitespace));
+        assert_eq!(tokens[6], ("'Also a comment", Token::EndOfLineComment));
+    }
 
     #[test]
     fn vb6_tokenize() {

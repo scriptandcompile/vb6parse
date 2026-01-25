@@ -39,56 +39,64 @@ root:
                   text: "="
                 - kind: Whitespace
                   text: " "
-                - kind: CallExpression
+                - kind: BinaryExpression
                   children:
-                    - kind: Identifier
-                      text: GetSetting
-                    - kind: LeftParenthesis
-                      text: (
-                    - kind: ArgumentList
+                    - kind: CallExpression
                       children:
-                        - kind: Argument
+                        - kind: Identifier
+                          text: GetSetting
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
                           children:
-                            - kind: StringLiteralExpression
+                            - kind: Argument
                               children:
-                                - kind: StringLiteral
-                                  text: "\"MyApp\""
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
-                        - kind: Argument
-                          children:
-                            - kind: StringLiteralExpression
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"MyApp\""
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
                               children:
-                                - kind: StringLiteral
-                                  text: "\"Paths\""
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
-                        - kind: Argument
-                          children:
-                            - kind: StringLiteralExpression
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Paths\""
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
                               children:
-                                - kind: StringLiteral
-                                  text: "\"Base\""
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
-                        - kind: Argument
-                          children:
-                            - kind: StringLiteralExpression
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Base\""
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
                               children:
-                                - kind: StringLiteral
-                                  text: "\"C:\\\") & \""
-            - kind: CallStatement
-              children:
-                - kind: Identifier
-                  text: Data
-                - kind: StringLiteral
-                  text: "\""
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"C:\\\""
+                        - kind: RightParenthesis
+                          text: )
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Data\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword
