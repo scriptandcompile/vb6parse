@@ -28,10 +28,14 @@ root:
         - kind: Whitespace
           text: " "
         - kind: StringLiteral
-          text: "\"\\\", \""
-        - kind: DivisionOperator
-          text: /
+          text: "\"\\\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
         - kind: StringLiteral
-          text: "\")"
+          text: "\"/\""
+        - kind: RightParenthesis
+          text: )
         - kind: Newline
           text: "\n"

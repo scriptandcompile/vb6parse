@@ -59,26 +59,38 @@ root:
                   text: " "
                 - kind: BinaryExpression
                   children:
-                    - kind: CallExpression
+                    - kind: BinaryExpression
                       children:
-                        - kind: Identifier
-                          text: CurDir$
-                        - kind: LeftParenthesis
-                          text: (
-                        - kind: ArgumentList
-                          children: []
-                        - kind: RightParenthesis
-                          text: )
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: CurDir$
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children: []
+                            - kind: RightParenthesis
+                              text: )
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Ampersand
+                          text: "&"
+                        - kind: Whitespace
+                          text: " "
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"\\\""
                     - kind: Whitespace
                       text: " "
                     - kind: Ampersand
                       text: "&"
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteralExpression
+                    - kind: IdentifierExpression
                       children:
-                        - kind: StringLiteral
-                          text: "\"\\\" & relativePath"
+                        - kind: Identifier
+                          text: relativePath
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

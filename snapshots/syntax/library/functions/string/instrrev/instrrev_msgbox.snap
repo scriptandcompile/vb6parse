@@ -52,7 +52,9 @@ root:
                 - kind: Whitespace
                   text: " "
                 - kind: StringLiteral
-                  text: "\"\\\")"
+                  text: "\"\\\""
+                - kind: RightParenthesis
+                  text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword
