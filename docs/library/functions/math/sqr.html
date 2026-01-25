@@ -48,16 +48,16 @@
 <h2 id="return-value">Return Value</h2>
 <p>Returns a Double containing the square root of the number.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The Sqr function calculates the positive square root of a non-negative number. It's one of the fundamental mathematical functions in VB6 and is commonly used in geometric calculations, statistical analysis, and scientific applications.</p>
-<p>Key characteristics:
+<p>The Sqr function calculates the positive square root of a non-negative number. It's one of the fundamental mathematical functions in VB6 and is commonly used in geometric calculations, statistical analysis, and scientific applications.
+Key characteristics:
 - Returns the positive (principal) square root only
 - Argument must be &gt;= 0 (negative values cause Error 5)
 - Returns Double for maximum precision
 - Sqr(0) = 0
 - Sqr(1) = 1
 - Sqr(x) * Sqr(x) = x (within floating-point precision)
-- Inverse operation of squaring: Sqr(x^2) = x (for x &gt;= 0)</p>
-<p>Mathematical relationships:
+- Inverse operation of squaring: Sqr(x^2) = x (for x &gt;= 0)
+Mathematical relationships:
 - Sqr(x * y) = Sqr(x) * Sqr(y)
 - Sqr(x / y) = Sqr(x) / Sqr(y)
 - Sqr(x^2) = Abs(x)
@@ -83,7 +83,6 @@ result = Sqr(25)
 Dim x1 As Double, y1 As Double
 Dim x2 As Double, y2 As Double
 Dim distance As Double
-
 x1 = 0: y1 = 0
 x2 = 3: y2 = 4
 distance = Sqr((x2 - x1) ^ 2 + (y2 - y1) ^ 2)
@@ -92,7 +91,6 @@ distance = Sqr((x2 - x1) ^ 2 + (y2 - y1) ^ 2)
 Dim sideA As Double
 Dim sideB As Double
 Dim hypotenuse As Double
-
 sideA = 3
 sideB = 4
 hypotenuse = Sqr(sideA ^ 2 + sideB ^ 2)
@@ -101,421 +99,351 @@ hypotenuse = Sqr(sideA ^ 2 + sideB ^ 2)
 Dim a As Double, b As Double, c As Double
 Dim discriminant As Double
 Dim root1 As Double, root2 As Double
-
 a = 1: b = -5: c = 6
 discriminant = b ^ 2 - 4 * a * c
-
 If discriminant &gt;= 0 Then
-root1 = (-b + Sqr(discriminant)) / (2 * a)
-root2 = (-b - Sqr(discriminant)) / (2 * a)
+    root1 = (-b + Sqr(discriminant)) / (2 * a)
+    root2 = (-b - Sqr(discriminant)) / (2 * a)
 End If</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-calculatedistance2d">Pattern 1: <code>CalculateDistance2D</code></h3>
 <p>Calculate distance between two 2D points</p>
 <pre><code class="language-vbnet">Function CalculateDistance2D(x1 As Double, y1 As Double, _
-x2 As Double, y2 As Double) As Double
-Dim dx As Double
-Dim dy As Double
-
-dx = x2 - x1
-dy = y2 - y1
-
-CalculateDistance2D = Sqr(dx * dx + dy * dy)
+                             x2 As Double, y2 As Double) As Double
+    Dim dx As Double
+    Dim dy As Double
+    dx = x2 - x1
+    dy = y2 - y1
+    CalculateDistance2D = Sqr(dx * dx + dy * dy)
 End Function</code></pre>
 <h3 id="pattern-2-calculatedistance3d">Pattern 2: <code>CalculateDistance3D</code></h3>
 <p>Calculate distance between two 3D points</p>
 <pre><code class="language-vbnet">Function CalculateDistance3D(x1 As Double, y1 As Double, z1 As Double, _
-x2 As Double, y2 As Double, z2 As Double) As Double
-Dim dx As Double, dy As Double, dz As Double
-
-dx = x2 - x1
-dy = y2 - y1
-dz = z2 - z1
-
-CalculateDistance3D = Sqr(dx * dx + dy * dy + dz * dz)
+                             x2 As Double, y2 As Double, z2 As Double) As Double
+    Dim dx As Double, dy As Double, dz As Double
+    dx = x2 - x1
+    dy = y2 - y1
+    dz = z2 - z1
+    CalculateDistance3D = Sqr(dx * dx + dy * dy + dz * dz)
 End Function</code></pre>
 <h3 id="pattern-3-calculatehypotenuse">Pattern 3: <code>CalculateHypotenuse</code></h3>
 <p>Calculate hypotenuse of right triangle</p>
 <pre><code class="language-vbnet">Function CalculateHypotenuse(sideA As Double, sideB As Double) As Double
-CalculateHypotenuse = Sqr(sideA ^ 2 + sideB ^ 2)
+    CalculateHypotenuse = Sqr(sideA ^ 2 + sideB ^ 2)
 End Function</code></pre>
 <h3 id="pattern-4-calculatestandarddeviation">Pattern 4: <code>CalculateStandardDeviation</code></h3>
 <p>Calculate standard deviation of values</p>
 <pre><code class="language-vbnet">Function CalculateStandardDeviation(values() As Double) As Double
-Dim i As Integer
-Dim sum As Double
-Dim mean As Double
-Dim sumSquaredDiff As Double
-Dim count As Integer
-
-count = UBound(values) - LBound(values) + 1
-
-&#x27; Calculate mean
-sum = 0
-For i = LBound(values) To UBound(values)
-sum = sum + values(i)
-Next i
-mean = sum / count
-
-&#x27; Calculate sum of squared differences
-sumSquaredDiff = 0
-For i = LBound(values) To UBound(values)
-sumSquaredDiff = sumSquaredDiff + (values(i) - mean) ^ 2
-Next i
-
-CalculateStandardDeviation = Sqr(sumSquaredDiff / count)
+    Dim i As Integer
+    Dim sum As Double
+    Dim mean As Double
+    Dim sumSquaredDiff As Double
+    Dim count As Integer
+    count = UBound(values) - LBound(values) + 1
+    &#x27; Calculate mean
+    sum = 0
+    For i = LBound(values) To UBound(values)
+        sum = sum + values(i)
+    Next i
+    mean = sum / count
+    &#x27; Calculate sum of squared differences
+    sumSquaredDiff = 0
+    For i = LBound(values) To UBound(values)
+        sumSquaredDiff = sumSquaredDiff + (values(i) - mean) ^ 2
+    Next i
+    CalculateStandardDeviation = Sqr(sumSquaredDiff / count)
 End Function</code></pre>
 <h3 id="pattern-5-normalizevector">Pattern 5: <code>NormalizeVector</code></h3>
 <p>Normalize a 2D vector</p>
 <pre><code class="language-vbnet">Sub NormalizeVector(x As Double, y As Double)
-Dim magnitude As Double
-
-magnitude = Sqr(x * x + y * y)
-
-If magnitude &gt; 0 Then
-x = x / magnitude
-y = y / magnitude
-End If
+    Dim magnitude As Double
+    magnitude = Sqr(x * x + y * y)
+    If magnitude &gt; 0 Then
+        x = x / magnitude
+        y = y / magnitude
+    End If
 End Sub</code></pre>
 <h3 id="pattern-6-calculaterms">Pattern 6: <code>CalculateRMS</code></h3>
 <p>Calculate root mean square</p>
 <pre><code class="language-vbnet">Function CalculateRMS(values() As Double) As Double
-Dim i As Integer
-Dim sumSquares As Double
-Dim count As Integer
-
-count = UBound(values) - LBound(values) + 1
-sumSquares = 0
-
-For i = LBound(values) To UBound(values)
-sumSquares = sumSquares + values(i) ^ 2
-Next i
-
-CalculateRMS = Sqr(sumSquares / count)
+    Dim i As Integer
+    Dim sumSquares As Double
+    Dim count As Integer
+    count = UBound(values) - LBound(values) + 1
+    sumSquares = 0
+    For i = LBound(values) To UBound(values)
+        sumSquares = sumSquares + values(i) ^ 2
+    Next i
+    CalculateRMS = Sqr(sumSquares / count)
 End Function</code></pre>
 <h3 id="pattern-7-solvequadratic">Pattern 7: <code>SolveQuadratic</code></h3>
 <p>Solve quadratic equation ax² + bx + c = 0</p>
 <pre><code class="language-vbnet">Function SolveQuadratic(a As Double, b As Double, c As Double, _
-root1 As Double, root2 As Double) As Boolean
-Dim discriminant As Double
-
-discriminant = b * b - 4 * a * c
-
-If discriminant &lt; 0 Then
-SolveQuadratic = False
-Exit Function
-End If
-
-root1 = (-b + Sqr(discriminant)) / (2 * a)
-root2 = (-b - Sqr(discriminant)) / (2 * a)
-SolveQuadratic = True
+                        root1 As Double, root2 As Double) As Boolean
+    Dim discriminant As Double
+    discriminant = b * b - 4 * a * c
+    If discriminant &lt; 0 Then
+        SolveQuadratic = False
+        Exit Function
+    End If
+    root1 = (-b + Sqr(discriminant)) / (2 * a)
+    root2 = (-b - Sqr(discriminant)) / (2 * a)
+    SolveQuadratic = True
 End Function</code></pre>
 <h3 id="pattern-8-calculatecircleradius">Pattern 8: <code>CalculateCircleRadius</code></h3>
 <p>Calculate radius from area</p>
 <pre><code class="language-vbnet">Function CalculateCircleRadius(area As Double) As Double
-Const PI As Double = 3.14159265358979
-CalculateCircleRadius = Sqr(area / PI)
+    Const PI As Double = 3.14159265358979
+    CalculateCircleRadius = Sqr(area / PI)
 End Function</code></pre>
 <h3 id="pattern-9-calculatevelocity">Pattern 9: <code>CalculateVelocity</code></h3>
 <p>Calculate velocity from kinetic energy</p>
 <pre><code class="language-vbnet">Function CalculateVelocity(kineticEnergy As Double, mass As Double) As Double
-&#x27; KE = 1/2 * m * v^2
-&#x27; v = Sqr(2 * KE / m)
-If mass &gt; 0 Then
-CalculateVelocity = Sqr(2 * kineticEnergy / mass)
-Else
-CalculateVelocity = 0
-End If
+    &#x27; KE = 1/2 * m * v^2
+    &#x27; v = Sqr(2 * KE / m)
+    If mass &gt; 0 Then
+        CalculateVelocity = Sqr(2 * kineticEnergy / mass)
+    Else
+        CalculateVelocity = 0
+    End If
 End Function</code></pre>
 <h3 id="pattern-10-isperfectsquare">Pattern 10: <code>IsPerfectSquare</code></h3>
 <p>Check if number is a perfect square</p>
 <pre><code class="language-vbnet">Function IsPerfectSquare(n As Long) As Boolean
-Dim sqrtValue As Double
-Dim intValue As Long
-
-If n &lt; 0 Then
-IsPerfectSquare = False
-Exit Function
-End If
-
-sqrtValue = Sqr(n)
-intValue = CLng(sqrtValue)
-IsPerfectSquare = (intValue * intValue = n)
+    Dim sqrtValue As Double
+    Dim intValue As Long
+    If n &lt; 0 Then
+        IsPerfectSquare = False
+        Exit Function
+    End If
+    sqrtValue = Sqr(n)
+    intValue = CLng(sqrtValue)
+    IsPerfectSquare = (intValue * intValue = n)
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-geometryhelper-class">Example 1: <code>GeometryHelper</code> Class</h3>
 <p>Geometric calculations using Sqr</p>
 <pre><code class="language-vbnet">&#x27; Class: GeometryHelper
-
 Public Function DistanceBetweenPoints(x1 As Double, y1 As Double, _
-x2 As Double, y2 As Double) As Double
-DistanceBetweenPoints = Sqr((x2 - x1) ^ 2 + (y2 - y1) ^ 2)
+                                      x2 As Double, y2 As Double) As Double
+    DistanceBetweenPoints = Sqr((x2 - x1) ^ 2 + (y2 - y1) ^ 2)
 End Function
-
 Public Function PointToLineDistance(px As Double, py As Double, _
-x1 As Double, y1 As Double, _
-x2 As Double, y2 As Double) As Double
-&#x27; Distance from point to line segment
-Dim A As Double, B As Double, C As Double
-
-A = px - x1
-B = py - y1
-C = x2 - x1
-Dim D As Double
-D = y2 - y1
-
-Dim dot As Double
-dot = A * C + B * D
-Dim lenSq As Double
-lenSq = C * C + D * D
-
-Dim param As Double
-param = -1
-If lenSq &lt;&gt; 0 Then param = dot / lenSq
-
-Dim xx As Double, yy As Double
-
-If param &lt; 0 Then
-xx = x1
-yy = y1
-ElseIf param &gt; 1 Then
-xx = x2
-yy = y2
-Else
-xx = x1 + param * C
-yy = y1 + param * D
-End If
-
-Dim dx As Double, dy As Double
-dx = px - xx
-dy = py - yy
-
-PointToLineDistance = Sqr(dx * dx + dy * dy)
+                                    x1 As Double, y1 As Double, _
+                                    x2 As Double, y2 As Double) As Double
+    &#x27; Distance from point to line segment
+    Dim A As Double, B As Double, C As Double
+    A = px - x1
+    B = py - y1
+    C = x2 - x1
+    Dim D As Double
+    D = y2 - y1
+    Dim dot As Double
+    dot = A * C + B * D
+    Dim lenSq As Double
+    lenSq = C * C + D * D
+    Dim param As Double
+    param = -1
+    If lenSq &lt;&gt; 0 Then param = dot / lenSq
+    Dim xx As Double, yy As Double
+    If param &lt; 0 Then
+        xx = x1
+        yy = y1
+    ElseIf param &gt; 1 Then
+        xx = x2
+        yy = y2
+    Else
+        xx = x1 + param * C
+        yy = y1 + param * D
+    End If
+    Dim dx As Double, dy As Double
+    dx = px - xx
+    dy = py - yy
+    PointToLineDistance = Sqr(dx * dx + dy * dy)
 End Function
-
 Public Function CircleArea(radius As Double) As Double
-Const PI As Double = 3.14159265358979
-CircleArea = PI * radius * radius
+    Const PI As Double = 3.14159265358979
+    CircleArea = PI * radius * radius
 End Function
-
 Public Function CircleRadiusFromArea(area As Double) As Double
-Const PI As Double = 3.14159265358979
-CircleRadiusFromArea = Sqr(area / PI)
+    Const PI As Double = 3.14159265358979
+    CircleRadiusFromArea = Sqr(area / PI)
 End Function
-
 Public Function SphereVolume(radius As Double) As Double
-Const PI As Double = 3.14159265358979
-SphereVolume = (4# / 3#) * PI * radius ^ 3
+    Const PI As Double = 3.14159265358979
+    SphereVolume = (4# / 3#) * PI * radius ^ 3
 End Function
-
 Public Function SphereRadiusFromVolume(volume As Double) As Double
-Const PI As Double = 3.14159265358979
-SphereRadiusFromVolume = ((3 * volume) / (4 * PI)) ^ (1# / 3#)
+    Const PI As Double = 3.14159265358979
+    SphereRadiusFromVolume = ((3 * volume) / (4 * PI)) ^ (1# / 3#)
 End Function</code></pre>
 <h3 id="example-2-statisticscalculator-class">Example 2: <code>StatisticsCalculator</code> Class</h3>
 <p>Statistical calculations with Sqr</p>
 <pre><code class="language-vbnet">&#x27; Class: StatisticsCalculator
 Private m_values() As Double
 Private m_count As Integer
-
 Public Sub AddValue(value As Double)
-If m_count &gt; UBound(m_values) Then
-ReDim Preserve m_values(0 To m_count * 2)
-End If
-m_values(m_count) = value
-m_count = m_count + 1
+    If m_count &gt; UBound(m_values) Then
+        ReDim Preserve m_values(0 To m_count * 2)
+    End If
+    m_values(m_count) = value
+    m_count = m_count + 1
 End Sub
-
 Public Sub Clear()
-m_count = 0
-ReDim m_values(0 To 9)
+    m_count = 0
+    ReDim m_values(0 To 9)
 End Sub
-
 Private Sub Class_Initialize()
-Clear
+    Clear
 End Sub
-
 Public Function GetMean() As Double
-Dim sum As Double
-Dim i As Integer
-
-If m_count = 0 Then
-GetMean = 0
-Exit Function
-End If
-
-sum = 0
-For i = 0 To m_count - 1
-sum = sum + m_values(i)
-Next i
-
-GetMean = sum / m_count
+    Dim sum As Double
+    Dim i As Integer
+    If m_count = 0 Then
+        GetMean = 0
+        Exit Function
+    End If
+    sum = 0
+    For i = 0 To m_count - 1
+        sum = sum + m_values(i)
+    Next i
+    GetMean = sum / m_count
 End Function
-
 Public Function GetStandardDeviation() As Double
-Dim mean As Double
-Dim sumSquaredDiff As Double
-Dim i As Integer
-
-If m_count = 0 Then
-GetStandardDeviation = 0
-Exit Function
-End If
-
-mean = GetMean()
-sumSquaredDiff = 0
-
-For i = 0 To m_count - 1
-sumSquaredDiff = sumSquaredDiff + (m_values(i) - mean) ^ 2
-Next i
-
-GetStandardDeviation = Sqr(sumSquaredDiff / m_count)
+    Dim mean As Double
+    Dim sumSquaredDiff As Double
+    Dim i As Integer
+    If m_count = 0 Then
+        GetStandardDeviation = 0
+        Exit Function
+    End If
+    mean = GetMean()
+    sumSquaredDiff = 0
+    For i = 0 To m_count - 1
+        sumSquaredDiff = sumSquaredDiff + (m_values(i) - mean) ^ 2
+    Next i
+    GetStandardDeviation = Sqr(sumSquaredDiff / m_count)
 End Function
-
 Public Function GetVariance() As Double
-Dim sd As Double
-sd = GetStandardDeviation()
-GetVariance = sd * sd
+    Dim sd As Double
+    sd = GetStandardDeviation()
+    GetVariance = sd * sd
 End Function
-
 Public Function GetRMS() As Double
-Dim sumSquares As Double
-Dim i As Integer
-
-If m_count = 0 Then
-GetRMS = 0
-Exit Function
-End If
-
-sumSquares = 0
-For i = 0 To m_count - 1
-sumSquares = sumSquares + m_values(i) ^ 2
-Next i
-
-GetRMS = Sqr(sumSquares / m_count)
+    Dim sumSquares As Double
+    Dim i As Integer
+    If m_count = 0 Then
+        GetRMS = 0
+        Exit Function
+    End If
+    sumSquares = 0
+    For i = 0 To m_count - 1
+        sumSquares = sumSquares + m_values(i) ^ 2
+    Next i
+    GetRMS = Sqr(sumSquares / m_count)
 End Function
-
 Public Property Get Count() As Integer
-Count = m_count
+    Count = m_count
 End Property</code></pre>
 <h3 id="example-3-physicsengine-module">Example 3: <code>PhysicsEngine</code> Module</h3>
 <p>Physics calculations using Sqr</p>
 <pre><code class="language-vbnet">&#x27; Module: PhysicsEngine
-
 Public Function CalculateVelocityFromEnergy(kineticEnergy As Double, _
-mass As Double) As Double
-&#x27; v = Sqr(2 * KE / m)
-If mass &gt; 0 Then
-CalculateVelocityFromEnergy = Sqr(2 * kineticEnergy / mass)
-Else
-CalculateVelocityFromEnergy = 0
-End If
+                                            mass As Double) As Double
+    &#x27; v = Sqr(2 * KE / m)
+    If mass &gt; 0 Then
+        CalculateVelocityFromEnergy = Sqr(2 * kineticEnergy / mass)
+    Else
+        CalculateVelocityFromEnergy = 0
+    End If
 End Function
-
 Public Function CalculateEscapeVelocity(mass As Double, radius As Double) As Double
-&#x27; v_escape = Sqr(2 * G * M / R)
-Const G As Double = 6.674E-11  &#x27; Gravitational constant
-CalculateEscapeVelocity = Sqr(2 * G * mass / radius)
+    &#x27; v_escape = Sqr(2 * G * M / R)
+    Const G As Double = 6.674E-11  &#x27; Gravitational constant
+    CalculateEscapeVelocity = Sqr(2 * G * mass / radius)
 End Function
-
 Public Function CalculatePeriod(length As Double) As Double
-&#x27; Period of simple pendulum: T = 2π * Sqr(L/g)
-Const PI As Double = 3.14159265358979
-Const g As Double = 9.81  &#x27; Gravity
-CalculatePeriod = 2 * PI * Sqr(length / g)
+    &#x27; Period of simple pendulum: T = 2π * Sqr(L/g)
+    Const PI As Double = 3.14159265358979
+    Const g As Double = 9.81  &#x27; Gravity
+    CalculatePeriod = 2 * PI * Sqr(length / g)
 End Function
-
 Public Function CalculateFallTime(height As Double) As Double
-&#x27; Time to fall from height: t = Sqr(2h/g)
-Const g As Double = 9.81  &#x27; Gravity
-CalculateFallTime = Sqr(2 * height / g)
+    &#x27; Time to fall from height: t = Sqr(2h/g)
+    Const g As Double = 9.81  &#x27; Gravity
+    CalculateFallTime = Sqr(2 * height / g)
 End Function
-
 Public Function CalculateImpactVelocity(height As Double) As Double
-&#x27; v = Sqr(2gh)
-Const g As Double = 9.81  &#x27; Gravity
-CalculateImpactVelocity = Sqr(2 * g * height)
+    &#x27; v = Sqr(2gh)
+    Const g As Double = 9.81  &#x27; Gravity
+    CalculateImpactVelocity = Sqr(2 * g * height)
 End Function
-
 Public Function CalculateOrbitalVelocity(mass As Double, radius As Double) As Double
-&#x27; v = Sqr(G * M / R)
-Const G As Double = 6.674E-11  &#x27; Gravitational constant
-CalculateOrbitalVelocity = Sqr(G * mass / radius)
+    &#x27; v = Sqr(G * M / R)
+    Const G As Double = 6.674E-11  &#x27; Gravitational constant
+    CalculateOrbitalVelocity = Sqr(G * mass / radius)
 End Function</code></pre>
 <h3 id="example-4-vectormath-module">Example 4: <code>VectorMath</code> Module</h3>
 <p>Vector operations using Sqr</p>
 <pre><code class="language-vbnet">&#x27; Module: VectorMath
-
 Public Function VectorMagnitude2D(x As Double, y As Double) As Double
-VectorMagnitude2D = Sqr(x * x + y * y)
+    VectorMagnitude2D = Sqr(x * x + y * y)
 End Function
-
 Public Function VectorMagnitude3D(x As Double, y As Double, z As Double) As Double
-VectorMagnitude3D = Sqr(x * x + y * y + z * z)
+    VectorMagnitude3D = Sqr(x * x + y * y + z * z)
 End Function
-
 Public Sub NormalizeVector2D(x As Double, y As Double)
-Dim magnitude As Double
-magnitude = VectorMagnitude2D(x, y)
-
-If magnitude &gt; 0 Then
-x = x / magnitude
-y = y / magnitude
-End If
+    Dim magnitude As Double
+    magnitude = VectorMagnitude2D(x, y)
+    If magnitude &gt; 0 Then
+        x = x / magnitude
+        y = y / magnitude
+    End If
 End Sub
-
 Public Sub NormalizeVector3D(x As Double, y As Double, z As Double)
-Dim magnitude As Double
-magnitude = VectorMagnitude3D(x, y, z)
-
-If magnitude &gt; 0 Then
-x = x / magnitude
-y = y / magnitude
-z = z / magnitude
-End If
+    Dim magnitude As Double
+    magnitude = VectorMagnitude3D(x, y, z)
+    If magnitude &gt; 0 Then
+        x = x / magnitude
+        y = y / magnitude
+        z = z / magnitude
+    End If
 End Sub
-
 Public Function DotProduct2D(x1 As Double, y1 As Double, _
-x2 As Double, y2 As Double) As Double
-DotProduct2D = x1 * x2 + y1 * y2
+                             x2 As Double, y2 As Double) As Double
+    DotProduct2D = x1 * x2 + y1 * y2
 End Function
-
 Public Function VectorDistance2D(x1 As Double, y1 As Double, _
-x2 As Double, y2 As Double) As Double
-VectorDistance2D = Sqr((x2 - x1) ^ 2 + (y2 - y1) ^ 2)
+                                 x2 As Double, y2 As Double) As Double
+    VectorDistance2D = Sqr((x2 - x1) ^ 2 + (y2 - y1) ^ 2)
 End Function
-
 Public Function VectorAngleBetween(x1 As Double, y1 As Double, _
-x2 As Double, y2 As Double) As Double
-&#x27; Returns angle in radians
-Dim dot As Double
-Dim mag1 As Double, mag2 As Double
-
-dot = DotProduct2D(x1, y1, x2, y2)
-mag1 = VectorMagnitude2D(x1, y1)
-mag2 = VectorMagnitude2D(x2, y2)
-
-If mag1 &gt; 0 And mag2 &gt; 0 Then
-VectorAngleBetween = Atn(Sqr(1 - (dot / (mag1 * mag2)) ^ 2) / (dot / (mag1 * mag2)))
-Else
-VectorAngleBetween = 0
-End If
+                                   x2 As Double, y2 As Double) As Double
+    &#x27; Returns angle in radians
+    Dim dot As Double
+    Dim mag1 As Double, mag2 As Double
+    dot = DotProduct2D(x1, y1, x2, y2)
+    mag1 = VectorMagnitude2D(x1, y1)
+    mag2 = VectorMagnitude2D(x2, y2)
+    If mag1 &gt; 0 And mag2 &gt; 0 Then
+        VectorAngleBetween = Atn(Sqr(1 - (dot / (mag1 * mag2)) ^ 2) / (dot / (mag1 * mag2)))
+    Else
+        VectorAngleBetween = 0
+    End If
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The Sqr function can generate the following errors:</p>
-<ul>
-<li><strong>Error 5</strong> (Invalid procedure call or argument): If number is negative</li>
-<li><strong>Error 13</strong> (Type mismatch): If argument is not numeric</li>
-</ul>
-<p>Always validate inputs:</p>
+<p>The Sqr function can generate the following errors:
+- <strong>Error 5</strong> (Invalid procedure call or argument): If number is negative
+- <strong>Error 13</strong> (Type mismatch): If argument is not numeric
+Always validate inputs:</p>
 <pre><code class="language-vbnet">On Error Resume Next
 If value &gt;= 0 Then
-result = Sqr(value)
-If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Error calculating square root: &quot; &amp; Err.Description
-End If
+    result = Sqr(value)
+    If Err.Number &lt;&gt; 0 Then
+        MsgBox &quot;Error calculating square root: &quot; &amp; Err.Description
+    End If
 Else
-MsgBox &quot;Cannot calculate square root of negative number&quot;
+    MsgBox &quot;Cannot calculate square root of negative number&quot;
 End If</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>

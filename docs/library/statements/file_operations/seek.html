@@ -102,10 +102,9 @@ Get #1, , myData
 Close #1</code></pre>
 <h3 id="seek-to-specific-record-in-random-file">Seek to Specific Record in Random File</h3>
 <pre><code class="language-vbnet">Type Employee
-ID As Integer
-Name As String * 30
+    ID As Integer
+    Name As String * 30
 End Type
-
 Dim emp As Employee
 Open &quot;EMPLOYEE.DAT&quot; For Random As #1 Len = Len(emp)
 Seek #1, 5   &#x27; Position at record 5
@@ -118,8 +117,8 @@ Seek #1, recordNumber</code></pre>
 <h3 id="using-seek-with-loop">Using Seek with Loop</h3>
 <pre><code class="language-vbnet">Open &quot;DATA.BIN&quot; For Binary As #1
 For i = 1 To 100 Step 10
-Seek #1, i
-Put #1, , dataArray(i)
+    Seek #1, i
+    Put #1, , dataArray(i)
 Next i
 Close #1</code></pre>
 <h3 id="seek-to-end-of-file">Seek to End of File</h3>
@@ -134,17 +133,15 @@ Seek #1, currentPos + 50  &#x27; Move 50 bytes forward
 Close #1</code></pre>
 <h3 id="rewind-file">Rewind File</h3>
 <pre><code class="language-vbnet">Sub RewindFile(fileNum As Integer)
-Seek fileNum, 1  &#x27; Return to beginning
+    Seek fileNum, 1  &#x27; Return to beginning
 End Sub</code></pre>
 <h3 id="seek-in-random-access-processing">Seek in Random Access Processing</h3>
 <pre><code class="language-vbnet">Type Product
-Code As String * 10
-Price As Double
+    Code As String * 10
+    Price As Double
 End Type
-
 Dim prod As Product
 Dim recordNum As Long
-
 Open &quot;PRODUCTS.DAT&quot; For Random As #1 Len = Len(prod)
 recordNum = 25
 Seek #1, recordNum

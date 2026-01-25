@@ -44,7 +44,7 @@
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><strong>date</strong>: Required. Any Variant, numeric expression, string expression, or any combination
-that can represent a date. If date contains Null, Null is returned.</li>
+  that can represent a date. If date contains Null, Null is returned.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns an Integer representing the day of the month (1-31). Returns Null if the date
@@ -52,28 +52,24 @@ parameter contains Null.</p>
 <h2 id="remarks">Remarks</h2>
 <p>The <code>Day</code> function extracts the day component from a date value. It's one of the primary
 date component extraction functions in VB6, along with <code>Year</code>, <code>Month</code>, <code>Weekday</code>, <code>Hour</code>,
-<code>Minute</code>, and <code>Second</code>.</p>
-<p><strong>Important Characteristics:</strong></p>
-<ul>
-<li>Returns values 1-31 depending on the month</li>
-<li>Works with Date variables, date literals, and date expressions</li>
-<li>Returns Null if input is Null (Variant behavior)</li>
-<li>Automatically handles different month lengths</li>
-<li>Time portion of datetime values is ignored</li>
-<li>Type mismatch error if argument cannot be interpreted as date</li>
-<li>Can be used with date arithmetic results</li>
-</ul>
+<code>Minute</code>, and <code>Second</code>.
+<strong>Important Characteristics:</strong>
+- Returns values 1-31 depending on the month
+- Works with Date variables, date literals, and date expressions
+- Returns Null if input is Null (Variant behavior)
+- Automatically handles different month lengths
+- Time portion of datetime values is ignored
+- Type mismatch error if argument cannot be interpreted as date
+- Can be used with date arithmetic results</p>
 <h2 id="examples">Examples</h2>
 <h3 id="basic-usage">Basic Usage</h3>
 <pre><code class="language-vbnet">&#x27; Extract day from date literal
 Dim d As Integer
 d = Day(#1/15/2025#)  &#x27; Returns 15
-
 &#x27; From Date variable
 Dim birthday As Date
 birthday = #5/23/1990#
 d = Day(birthday)  &#x27; Returns 23
-
 &#x27; From current date
 d = Day(Date)  &#x27; Returns current day</code></pre>
 <h3 id="with-date-functions">With Date Functions</h3>
@@ -82,320 +78,276 @@ Dim constructedDate As Date
 constructedDate = DateSerial(2025, 12, 25)
 Dim dayNum As Integer
 dayNum = Day(constructedDate)  &#x27; Returns 25
-
 &#x27; From DateAdd calculation
 Dim futureDate As Date
 futureDate = DateAdd(&quot;d&quot;, 10, Date)
 dayNum = Day(futureDate)</code></pre>
 <h3 id="date-validation">Date Validation</h3>
 <pre><code class="language-vbnet">Function IsLastDayOfMonth(dateValue As Date) As Boolean
-Dim nextDay As Date
-nextDay = DateAdd(&quot;d&quot;, 1, dateValue)
-IsLastDayOfMonth = (Day(nextDay) = 1)
+    Dim nextDay As Date
+    nextDay = DateAdd(&quot;d&quot;, 1, dateValue)
+    IsLastDayOfMonth = (Day(nextDay) = 1)
 End Function
-
 &#x27; Alternative using month comparison
 Function IsLastDayOfMonth2(dateValue As Date) As Boolean
-IsLastDayOfMonth2 = (Day(dateValue + 1) = 1)
+    IsLastDayOfMonth2 = (Day(dateValue + 1) = 1)
 End Function</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="get-days-in-month">Get Days in Month</h3>
 <pre><code class="language-vbnet">Function DaysInMonth(dateValue As Date) As Integer
-&#x27; Get last day of the month
-Dim firstOfNextMonth As Date
-firstOfNextMonth = DateSerial(Year(dateValue), Month(dateValue) + 1, 1)
-DaysInMonth = Day(firstOfNextMonth - 1)
+    &#x27; Get last day of the month
+    Dim firstOfNextMonth As Date
+    firstOfNextMonth = DateSerial(Year(dateValue), Month(dateValue) + 1, 1)
+    DaysInMonth = Day(firstOfNextMonth - 1)
 End Function
-
 &#x27; Alternative approach
 Function DaysInMonth2(yr As Integer, mo As Integer) As Integer
-DaysInMonth2 = Day(DateSerial(yr, mo + 1, 0))
+    DaysInMonth2 = Day(DateSerial(yr, mo + 1, 0))
 End Function</code></pre>
 <h3 id="extract-date-components">Extract Date Components</h3>
 <pre><code class="language-vbnet">Sub DisplayDateParts(dateValue As Date)
-Dim yr As Integer, mo As Integer, dy As Integer
-
-yr = Year(dateValue)
-mo = Month(dateValue)
-dy = Day(dateValue)
-
-MsgBox &quot;Year: &quot; &amp; yr &amp; &quot;, Month: &quot; &amp; mo &amp; &quot;, Day: &quot; &amp; dy
+    Dim yr As Integer, mo As Integer, dy As Integer
+    yr = Year(dateValue)
+    mo = Month(dateValue)
+    dy = Day(dateValue)
+    MsgBox &quot;Year: &quot; &amp; yr &amp; &quot;, Month: &quot; &amp; mo &amp; &quot;, Day: &quot; &amp; dy
 End Sub</code></pre>
 <h3 id="day-based-filtering">Day-Based Filtering</h3>
 <pre><code class="language-vbnet">Function IsFirstHalfOfMonth(dateValue As Date) As Boolean
-IsFirstHalfOfMonth = (Day(dateValue) &lt;= 15)
+    IsFirstHalfOfMonth = (Day(dateValue) &lt;= 15)
 End Function
-
 Function IsSecondHalfOfMonth(dateValue As Date) As Boolean
-IsSecondHalfOfMonth = (Day(dateValue) &gt; 15)
+    IsSecondHalfOfMonth = (Day(dateValue) &gt; 15)
 End Function
-
 Function IsMonthStart(dateValue As Date) As Boolean
-IsMonthStart = (Day(dateValue) = 1)
+    IsMonthStart = (Day(dateValue) = 1)
 End Function</code></pre>
 <h3 id="date-comparison-by-day">Date Comparison by Day</h3>
 <pre><code class="language-vbnet">Function SameDayOfMonth(date1 As Date, date2 As Date) As Boolean
-SameDayOfMonth = (Day(date1) = Day(date2))
+    SameDayOfMonth = (Day(date1) = Day(date2))
 End Function
-
 Function CompareDays(date1 As Date, date2 As Date) As Integer
-&#x27; Returns: -1 if date1&#x27;s day &lt; date2&#x27;s day
-&#x27;           0 if same day
-&#x27;           1 if date1&#x27;s day &gt; date2&#x27;s day
-Dim d1 As Integer, d2 As Integer
-d1 = Day(date1)
-d2 = Day(date2)
-
-If d1 &lt; d2 Then
-CompareDays = -1
-ElseIf d1 &gt; d2 Then
-CompareDays = 1
-Else
-CompareDays = 0
-End If
+    &#x27; Returns: -1 if date1&#x27;s day &lt; date2&#x27;s day
+    &#x27;           0 if same day
+    &#x27;           1 if date1&#x27;s day &gt; date2&#x27;s day
+    Dim d1 As Integer, d2 As Integer
+    d1 = Day(date1)
+    d2 = Day(date2)
+    If d1 &lt; d2 Then
+        CompareDays = -1
+    ElseIf d1 &gt; d2 Then
+        CompareDays = 1
+    Else
+        CompareDays = 0
+    End If
 End Function</code></pre>
 <h3 id="reconstruct-date-with-modified-day">Reconstruct Date with Modified Day</h3>
 <pre><code class="language-vbnet">Function ChangeDay(originalDate As Date, newDay As Integer) As Date
-&#x27; Create new date with same year/month but different day
-ChangeDay = DateSerial(Year(originalDate), Month(originalDate), newDay)
+    &#x27; Create new date with same year/month but different day
+    ChangeDay = DateSerial(Year(originalDate), Month(originalDate), newDay)
 End Function
-
 &#x27; Move to specific day of current month
 Function MoveToDayOfMonth(dayNum As Integer) As Date
-MoveToDayOfMonth = DateSerial(Year(Date), Month(Date), dayNum)
+    MoveToDayOfMonth = DateSerial(Year(Date), Month(Date), dayNum)
 End Function</code></pre>
 <h3 id="loop-through-days-of-month">Loop Through Days of Month</h3>
 <pre><code class="language-vbnet">Sub ProcessAllDaysInMonth(yr As Integer, mo As Integer)
-Dim dayCount As Integer
-Dim currentDay As Date
-Dim i As Integer
-
-dayCount = Day(DateSerial(yr, mo + 1, 0))
-
-For i = 1 To dayCount
-currentDay = DateSerial(yr, mo, i)
-Debug.Print &quot;Day &quot; &amp; Day(currentDay) &amp; &quot;: &quot; &amp; Format(currentDay, &quot;dddd&quot;)
-Next i
+    Dim dayCount As Integer
+    Dim currentDay As Date
+    Dim i As Integer
+    dayCount = Day(DateSerial(yr, mo + 1, 0))
+    For i = 1 To dayCount
+        currentDay = DateSerial(yr, mo, i)
+        Debug.Print &quot;Day &quot; &amp; Day(currentDay) &amp; &quot;: &quot; &amp; Format(currentDay, &quot;dddd&quot;)
+    Next i
 End Sub</code></pre>
 <h3 id="pay-period-calculations">Pay Period Calculations</h3>
 <pre><code class="language-vbnet">Function GetPayPeriod(dateValue As Date) As String
-&#x27; Bi-monthly pay periods: 1-15 and 16-end
-If Day(dateValue) &lt;= 15 Then
-GetPayPeriod = &quot;First Half&quot;
-Else
-GetPayPeriod = &quot;Second Half&quot;
-End If
+    &#x27; Bi-monthly pay periods: 1-15 and 16-end
+    If Day(dateValue) &lt;= 15 Then
+        GetPayPeriod = &quot;First Half&quot;
+    Else
+        GetPayPeriod = &quot;Second Half&quot;
+    End If
 End Function
-
 Function IsPayday(dateValue As Date) As Boolean
-Dim dy As Integer
-dy = Day(dateValue)
-&#x27; Payday on 15th and last day of month
-IsPayday = (dy = 15) Or (Day(dateValue + 1) = 1)
+    Dim dy As Integer
+    dy = Day(dateValue)
+    &#x27; Payday on 15th and last day of month
+    IsPayday = (dy = 15) Or (Day(dateValue + 1) = 1)
 End Function</code></pre>
 <h3 id="birthdayanniversary-checks">Birthday/Anniversary Checks</h3>
 <pre><code class="language-vbnet">Function IsBirthdayMonth(birthday As Date) As Boolean
-&#x27; Check if current month/day matches birthday
-IsBirthdayMonth = (Month(Date) = Month(birthday)) And _
-(Day(Date) = Day(birthday))
+    &#x27; Check if current month/day matches birthday
+    IsBirthdayMonth = (Month(Date) = Month(birthday)) And _
+                      (Day(Date) = Day(birthday))
 End Function
-
 Function DaysUntilBirthday(birthday As Date) As Integer
-Dim thisYearBirthday As Date
-thisYearBirthday = DateSerial(Year(Date), Month(birthday), Day(birthday))
-
-If thisYearBirthday &lt; Date Then
-&#x27; Birthday already passed this year
-thisYearBirthday = DateSerial(Year(Date) + 1, Month(birthday), Day(birthday))
-End If
-
-DaysUntilBirthday = DateDiff(&quot;d&quot;, Date, thisYearBirthday)
+    Dim thisYearBirthday As Date
+    thisYearBirthday = DateSerial(Year(Date), Month(birthday), Day(birthday))
+    If thisYearBirthday &lt; Date Then
+        &#x27; Birthday already passed this year
+        thisYearBirthday = DateSerial(Year(Date) + 1, Month(birthday), Day(birthday))
+    End If
+    DaysUntilBirthday = DateDiff(&quot;d&quot;, Date, thisYearBirthday)
 End Function</code></pre>
 <h3 id="data-grouping-by-day">Data Grouping by Day</h3>
 <pre><code class="language-vbnet">Function GetDayGroup(dateValue As Date) As String
-Dim dy As Integer
-dy = Day(dateValue)
-
-Select Case dy
-Case 1 To 10
-GetDayGroup = &quot;Days 1-10&quot;
-Case 11 To 20
-GetDayGroup = &quot;Days 11-20&quot;
-Case Else
-GetDayGroup = &quot;Days 21-31&quot;
-End Select
+    Dim dy As Integer
+    dy = Day(dateValue)
+    Select Case dy
+        Case 1 To 10
+            GetDayGroup = &quot;Days 1-10&quot;
+        Case 11 To 20
+            GetDayGroup = &quot;Days 11-20&quot;
+        Case Else
+            GetDayGroup = &quot;Days 21-31&quot;
+    End Select
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="calendar-grid-generator">Calendar Grid Generator</h3>
 <pre><code class="language-vbnet">Sub GenerateMonthCalendar(yr As Integer, mo As Integer)
-Dim firstDay As Date
-Dim lastDay As Date
-Dim currentDate As Date
-Dim dayOfWeek As Integer
-Dim daysInMonth As Integer
-
-firstDay = DateSerial(yr, mo, 1)
-daysInMonth = Day(DateSerial(yr, mo + 1, 0))
-
-&#x27; Print header
-Debug.Print &quot;Sun Mon Tue Wed Thu Fri Sat&quot;
-
-&#x27; Print leading spaces
-dayOfWeek = Weekday(firstDay, vbSunday)
-Debug.Print String((dayOfWeek - 1) * 4, &quot; &quot;);
-
-&#x27; Print days
-For i = 1 To daysInMonth
-currentDate = DateSerial(yr, mo, i)
-Debug.Print Format(Day(currentDate), &quot;000&quot;) &amp; &quot; &quot;;
-
-If Weekday(currentDate, vbSunday) = 7 Then
-Debug.Print  &#x27; New line
-End If
-Next i
+    Dim firstDay As Date
+    Dim lastDay As Date
+    Dim currentDate As Date
+    Dim dayOfWeek As Integer
+    Dim daysInMonth As Integer
+    firstDay = DateSerial(yr, mo, 1)
+    daysInMonth = Day(DateSerial(yr, mo + 1, 0))
+    &#x27; Print header
+    Debug.Print &quot;Sun Mon Tue Wed Thu Fri Sat&quot;
+    &#x27; Print leading spaces
+    dayOfWeek = Weekday(firstDay, vbSunday)
+    Debug.Print String((dayOfWeek - 1) * 4, &quot; &quot;);
+    &#x27; Print days
+    For i = 1 To daysInMonth
+        currentDate = DateSerial(yr, mo, i)
+        Debug.Print Format(Day(currentDate), &quot;000&quot;) &amp; &quot; &quot;;
+        If Weekday(currentDate, vbSunday) = 7 Then
+            Debug.Print  &#x27; New line
+        End If
+    Next i
 End Sub</code></pre>
 <h3 id="date-range-iterator">Date Range Iterator</h3>
 <pre><code class="language-vbnet">Function GetDateRange(startDate As Date, endDate As Date) As Variant
-&#x27; Returns array of dates in range
-Dim dayCount As Long
-Dim dates() As Date
-Dim i As Long
-
-dayCount = DateDiff(&quot;d&quot;, startDate, endDate) + 1
-ReDim dates(0 To dayCount - 1)
-
-For i = 0 To dayCount - 1
-dates(i) = DateAdd(&quot;d&quot;, i, startDate)
-Debug.Print &quot;Day &quot; &amp; Day(dates(i)) &amp; &quot;: &quot; &amp; dates(i)
-Next i
-
-GetDateRange = dates
+    &#x27; Returns array of dates in range
+    Dim dayCount As Long
+    Dim dates() As Date
+    Dim i As Long
+    dayCount = DateDiff(&quot;d&quot;, startDate, endDate) + 1
+    ReDim dates(0 To dayCount - 1)
+    For i = 0 To dayCount - 1
+        dates(i) = DateAdd(&quot;d&quot;, i, startDate)
+        Debug.Print &quot;Day &quot; &amp; Day(dates(i)) &amp; &quot;: &quot; &amp; dates(i)
+    Next i
+    GetDateRange = dates
 End Function</code></pre>
 <h3 id="billing-cycle-calculator">Billing Cycle Calculator</h3>
 <pre><code class="language-vbnet">Function CalculateBillingDay(startDate As Date, monthsElapsed As Integer) As Date
-&#x27; Keep same day-of-month for billing cycle
-Dim billingDay As Integer
-billingDay = Day(startDate)
-
-CalculateBillingDay = DateSerial( _
-Year(DateAdd(&quot;m&quot;, monthsElapsed, startDate)), _
-Month(DateAdd(&quot;m&quot;, monthsElapsed, startDate)), _
-billingDay)
+    &#x27; Keep same day-of-month for billing cycle
+    Dim billingDay As Integer
+    billingDay = Day(startDate)
+    CalculateBillingDay = DateSerial( _
+        Year(DateAdd(&quot;m&quot;, monthsElapsed, startDate)), _
+        Month(DateAdd(&quot;m&quot;, monthsElapsed, startDate)), _
+        billingDay)
 End Function
-
 Function AdjustForMonthEnd(targetDate As Date, originalDay As Integer) As Date
-&#x27; Handle when original day doesn&#x27;t exist in target month
-Dim targetMonth As Date
-Dim maxDayInMonth As Integer
-
-targetMonth = DateSerial(Year(targetDate), Month(targetDate), 1)
-maxDayInMonth = Day(DateSerial(Year(targetDate), Month(targetDate) + 1, 0))
-
-If originalDay &gt; maxDayInMonth Then
-AdjustForMonthEnd = DateSerial(Year(targetDate), Month(targetDate), maxDayInMonth)
-Else
-AdjustForMonthEnd = DateSerial(Year(targetDate), Month(targetDate), originalDay)
-End If
+    &#x27; Handle when original day doesn&#x27;t exist in target month
+    Dim targetMonth As Date
+    Dim maxDayInMonth As Integer
+    targetMonth = DateSerial(Year(targetDate), Month(targetDate), 1)
+    maxDayInMonth = Day(DateSerial(Year(targetDate), Month(targetDate) + 1, 0))
+    If originalDay &gt; maxDayInMonth Then
+        AdjustForMonthEnd = DateSerial(Year(targetDate), Month(targetDate), maxDayInMonth)
+    Else
+        AdjustForMonthEnd = DateSerial(Year(targetDate), Month(targetDate), originalDay)
+    End If
 End Function</code></pre>
 <h3 id="date-pattern-analyzer">Date Pattern Analyzer</h3>
 <pre><code class="language-vbnet">Function AnalyzeDatePattern(dates() As Date) As String
-&#x27; Determine if dates follow a pattern
-Dim i As Long
-Dim allSameDay As Boolean
-Dim firstDay As Integer
-
-If UBound(dates) &lt; LBound(dates) Then
-AnalyzeDatePattern = &quot;Empty&quot;
-Exit Function
-End If
-
-firstDay = Day(dates(LBound(dates)))
-allSameDay = True
-
-For i = LBound(dates) + 1 To UBound(dates)
-If Day(dates(i)) &lt;&gt; firstDay Then
-allSameDay = False
-Exit For
-End If
-Next i
-
-If allSameDay Then
-AnalyzeDatePattern = &quot;Monthly on day &quot; &amp; firstDay
-Else
-AnalyzeDatePattern = &quot;Variable days&quot;
-End If
+    &#x27; Determine if dates follow a pattern
+    Dim i As Long
+    Dim allSameDay As Boolean
+    Dim firstDay As Integer
+    If UBound(dates) &lt; LBound(dates) Then
+        AnalyzeDatePattern = &quot;Empty&quot;
+        Exit Function
+    End If
+    firstDay = Day(dates(LBound(dates)))
+    allSameDay = True
+    For i = LBound(dates) + 1 To UBound(dates)
+        If Day(dates(i)) &lt;&gt; firstDay Then
+            allSameDay = False
+            Exit For
+        End If
+    Next i
+    If allSameDay Then
+        AnalyzeDatePattern = &quot;Monthly on day &quot; &amp; firstDay
+    Else
+        AnalyzeDatePattern = &quot;Variable days&quot;
+    End If
 End Function</code></pre>
 <h3 id="work-schedule-helper">Work Schedule Helper</h3>
 <pre><code class="language-vbnet">Function IsWorkDay(dateValue As Date, workDays As String) As Boolean
-&#x27; workDays: comma-separated list like &quot;1,15,30&quot;
-Dim dayList() As String
-Dim i As Integer
-Dim currentDay As Integer
-
-currentDay = Day(dateValue)
-dayList = Split(workDays, &quot;,&quot;)
-
-For i = LBound(dayList) To UBound(dayList)
-If CInt(Trim(dayList(i))) = currentDay Then
-IsWorkDay = True
-Exit Function
-End If
-Next i
-
-IsWorkDay = False
+    &#x27; workDays: comma-separated list like &quot;1,15,30&quot;
+    Dim dayList() As String
+    Dim i As Integer
+    Dim currentDay As Integer
+    currentDay = Day(dateValue)
+    dayList = Split(workDays, &quot;,&quot;)
+    For i = LBound(dayList) To UBound(dayList)
+        If CInt(Trim(dayList(i))) = currentDay Then
+            IsWorkDay = True
+            Exit Function
+        End If
+    Next i
+    IsWorkDay = False
 End Function</code></pre>
 <h3 id="leap-year-day-check">Leap Year Day Check</h3>
 <pre><code class="language-vbnet">Function IsLeapYearDay(dateValue As Date) As Boolean
-&#x27; Check if date is February 29
-IsLeapYearDay = (Month(dateValue) = 2) And (Day(dateValue) = 29)
+    &#x27; Check if date is February 29
+    IsLeapYearDay = (Month(dateValue) = 2) And (Day(dateValue) = 29)
 End Function
-
 Function HasLeapYearDayBetween(startDate As Date, endDate As Date) As Boolean
-Dim yr As Integer
-Dim leapDay As Date
-
-For yr = Year(startDate) To Year(endDate)
-On Error Resume Next
-leapDay = DateSerial(yr, 2, 29)
-If Err.Number = 0 Then
-If leapDay &gt;= startDate And leapDay &lt;= endDate Then
-HasLeapYearDayBetween = True
-Exit Function
-End If
-End If
-Err.Clear
-Next yr
-
-HasLeapYearDayBetween = False
+    Dim yr As Integer
+    Dim leapDay As Date
+    For yr = Year(startDate) To Year(endDate)
+        On Error Resume Next
+        leapDay = DateSerial(yr, 2, 29)
+        If Err.Number = 0 Then
+            If leapDay &gt;= startDate And leapDay &lt;= endDate Then
+                HasLeapYearDayBetween = True
+                Exit Function
+            End If
+        End If
+        Err.Clear
+    Next yr
+    HasLeapYearDayBetween = False
 End Function</code></pre>
 <h3 id="database-query-builder">Database Query Builder</h3>
 <pre><code class="language-vbnet">Function BuildDayFilter(targetDay As Integer) As String
-&#x27; Build SQL WHERE clause for specific day of month
-BuildDayFilter = &quot;Day(DateField) = &quot; &amp; targetDay
+    &#x27; Build SQL WHERE clause for specific day of month
+    BuildDayFilter = &quot;Day(DateField) = &quot; &amp; targetDay
 End Function
-
 Function GetRecordsForDayRange(startDay As Integer, endDay As Integer) As String
-GetRecordsForDayRange = &quot;Day(DateField) BETWEEN &quot; &amp; startDay &amp; &quot; AND &quot; &amp; endDay
+    GetRecordsForDayRange = &quot;Day(DateField) BETWEEN &quot; &amp; startDay &amp; &quot; AND &quot; &amp; endDay
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeDay(dateValue As Variant) As Variant
-On Error GoTo ErrorHandler
-
-If IsNull(dateValue) Then
-SafeDay = Null
-Exit Function
-End If
-
-If Not IsDate(dateValue) Then
-SafeDay = Null
-Exit Function
-End If
-
-SafeDay = Day(dateValue)
-Exit Function
-
+    On Error GoTo ErrorHandler
+    If IsNull(dateValue) Then
+        SafeDay = Null
+        Exit Function
+    End If
+    If Not IsDate(dateValue) Then
+        SafeDay = Null
+        Exit Function
+    End If
+    SafeDay = Day(dateValue)
+    Exit Function
 ErrorHandler:
-SafeDay = Null
+    SafeDay = Null
 End Function</code></pre>
 <h3 id="common-errors">Common Errors</h3>
 <ul>
@@ -414,49 +366,42 @@ End Function</code></pre>
 <h3 id="use-for-component-extraction">Use for Component Extraction</h3>
 <pre><code class="language-vbnet">&#x27; Good - Direct component access
 dayNum = Day(someDate)
-
 &#x27; Avoid - String manipulation overhead
 dayNum = CInt(Format(someDate, &quot;dd&quot;))</code></pre>
 <h3 id="validate-date-before-extraction">Validate Date Before Extraction</h3>
 <pre><code class="language-vbnet">&#x27; Good - Check for valid date
 If IsDate(userInput) Then
-dayNum = Day(CDate(userInput))
+    dayNum = Day(CDate(userInput))
 End If
-
 &#x27; Avoid - May cause type mismatch error
 dayNum = Day(userInput)</code></pre>
 <h3 id="handle-null-values-in-variants">Handle Null Values in Variants</h3>
 <pre><code class="language-vbnet">&#x27; Good - Check for Null
 If Not IsNull(dateVariant) Then
-dayNum = Day(dateVariant)
+    dayNum = Day(dateVariant)
 End If
-
 &#x27; Avoid - May propagate Null unexpectedly
 dayNum = Day(dateVariant)</code></pre>
 <h3 id="combine-with-dateserial-for-date-manipulation">Combine with <code>DateSerial</code> for Date Manipulation</h3>
 <pre><code class="language-vbnet">&#x27; Good - Reconstruct date with modified component
 newDate = DateSerial(Year(oldDate), Month(oldDate), 15)
-
 &#x27; Good - Get last day of month
 lastDay = Day(DateSerial(yr, mo + 1, 0))</code></pre>
 <h2 id="comparison-with-other-functions">Comparison with Other Functions</h2>
 <h3 id="day-vs-format"><code>Day</code> vs <code>Format</code></h3>
 <pre><code class="language-vbnet">&#x27; Day - Returns integer, fast
 dayNum = Day(someDate)  &#x27; Returns 15
-
 &#x27; Format - Returns string, slower, more flexible
 dayStr = Format(someDate, &quot;dd&quot;)  &#x27; Returns &quot;15&quot;
 dayStr = Format(someDate, &quot;d&quot;)   &#x27; Returns &quot;15&quot; (no leading zero)</code></pre>
 <h3 id="day-vs-datepart"><code>Day</code> vs <code>DatePart</code></h3>
 <pre><code class="language-vbnet">&#x27; Day - Specific function for day of month
 dayNum = Day(someDate)
-
 &#x27; DatePart - Generic function, can extract any part
 dayNum = DatePart(&quot;d&quot;, someDate)  &#x27; Same result</code></pre>
 <h3 id="day-vs-weekday"><code>Day</code> vs <code>Weekday</code></h3>
 <pre><code class="language-vbnet">&#x27; Day - Day of month (1-31)
 dayOfMonth = Day(#1/15/2025#)  &#x27; Returns 15
-
 &#x27; Weekday - Day of week (1-7)
 dayOfWeek = Weekday(#1/15/2025#)  &#x27; Returns 4 (Wednesday)</code></pre>
 <h2 id="limitations">Limitations</h2>

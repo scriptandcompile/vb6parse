@@ -44,19 +44,19 @@
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><code>number</code> - Required. Any valid numeric expression or string expression. If not a whole number,
-it is rounded to the nearest whole number before being evaluated.</li>
+  it is rounded to the nearest whole number before being evaluated.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>String</code> representing the octal value of the number.</p>
 <h2 id="remarks">Remarks</h2>
 <p>The <code>Oct</code> function converts a decimal number to its octal (base-8) representation. Octal numbers
 use only the digits 0-7. This function is primarily used for low-level programming, bit manipulation,
-file permissions (especially on Unix systems), and legacy system integration.</p>
-<p>If <code>number</code> is negative, the function returns the octal representation of the two's complement
-representation of the number. For Long values, this produces an 11-digit octal string.</p>
-<p>The returned string contains only the octal digits without any prefix (like "&amp;O" or "0o").
-To use the result in VB6 code as an octal literal, you need to prefix it with "&amp;O".</p>
-<p>If <code>number</code> is <code>Null</code>, <code>Oct</code> returns <code>Null</code>. If <code>number</code> is not a whole number, it is rounded
+file permissions (especially on Unix systems), and legacy system integration.
+If <code>number</code> is negative, the function returns the octal representation of the two's complement
+representation of the number. For Long values, this produces an 11-digit octal string.
+The returned string contains only the octal digits without any prefix (like "&amp;O" or "0o").
+To use the result in VB6 code as an octal literal, you need to prefix it with "&amp;O".
+If <code>number</code> is <code>Null</code>, <code>Oct</code> returns <code>Null</code>. If <code>number</code> is not a whole number, it is rounded
 to the nearest whole number before conversion.</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
@@ -87,484 +87,437 @@ negValue = Oct(-1)      &#x27; Returns &quot;177777&quot; for Integer
 negValue = Oct(-10)     &#x27; Returns &quot;177766&quot;</code></pre>
 <h3 id="example-4-display-value-in-multiple-bases">Example 4: Display Value in Multiple Bases</h3>
 <pre><code class="language-vbnet">Sub ShowBases(num As Long)
-Debug.Print &quot;Decimal: &quot; &amp; num
-Debug.Print &quot;Hex: &quot; &amp; Hex(num)
-Debug.Print &quot;Octal: &quot; &amp; Oct(num)
-Debug.Print &quot;Binary: &quot; &amp; ConvertToBinary(num)  &#x27; Custom function
+    Debug.Print &quot;Decimal: &quot; &amp; num
+    Debug.Print &quot;Hex: &quot; &amp; Hex(num)
+    Debug.Print &quot;Octal: &quot; &amp; Oct(num)
+    Debug.Print &quot;Binary: &quot; &amp; ConvertToBinary(num)  &#x27; Custom function
 End Sub</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-convertfilepermission">Pattern 1: <code>ConvertFilePermission</code></h3>
 <pre><code class="language-vbnet">Function ConvertFilePermission(owner As Integer, group As Integer, other As Integer) As String
-&#x27; Each parameter is 0-7 (rwx bits)
-Dim permValue As Integer
-permValue = owner * 64 + group * 8 + other
-ConvertFilePermission = Oct(permValue)
+    &#x27; Each parameter is 0-7 (rwx bits)
+    Dim permValue As Integer
+    permValue = owner * 64 + group * 8 + other
+    ConvertFilePermission = Oct(permValue)
 End Function
 &#x27; Usage: perms = ConvertFilePermission(7, 5, 5)  &#x27; Returns &quot;755&quot;</code></pre>
 <h3 id="pattern-2-displayinoctal">Pattern 2: <code>DisplayInOctal</code></h3>
 <pre><code class="language-vbnet">Function DisplayInOctal(value As Long) As String
-&#x27; Display with octal prefix for clarity
-DisplayInOctal = &quot;&amp;O&quot; &amp; Oct(value)
+    &#x27; Display with octal prefix for clarity
+    DisplayInOctal = &quot;&amp;O&quot; &amp; Oct(value)
 End Function
 &#x27; Usage: Debug.Print DisplayInOctal(64)  &#x27; Displays &quot;&amp;O100&quot;</code></pre>
 <h3 id="pattern-3-parseoctalstring">Pattern 3: <code>ParseOctalString</code></h3>
 <pre><code class="language-vbnet">Function ParseOctalString(octStr As String) As Long
-&#x27; Convert octal string back to decimal
-If Left(octStr, 2) = &quot;&amp;O&quot; Then
-octStr = Mid(octStr, 3)
-End If
-ParseOctalString = CLng(&quot;&amp;O&quot; &amp; octStr)
+    &#x27; Convert octal string back to decimal
+    If Left(octStr, 2) = &quot;&amp;O&quot; Then
+        octStr = Mid(octStr, 3)
+    End If
+    ParseOctalString = CLng(&quot;&amp;O&quot; &amp; octStr)
 End Function</code></pre>
 <h3 id="pattern-4-validateoctaldigits">Pattern 4: <code>ValidateOctalDigits</code></h3>
 <pre><code class="language-vbnet">Function ValidateOctalDigits(octStr As String) As Boolean
-Dim i As Integer
-ValidateOctalDigits = True
-For i = 1 To Len(octStr)
-If Mid(octStr, i, 1) &lt; &quot;0&quot; Or Mid(octStr, i, 1) &gt; &quot;7&quot; Then
-ValidateOctalDigits = False
-Exit Function
-End If
-Next i
+    Dim i As Integer
+    ValidateOctalDigits = True
+    For i = 1 To Len(octStr)
+        If Mid(octStr, i, 1) &lt; &quot;0&quot; Or Mid(octStr, i, 1) &gt; &quot;7&quot; Then
+            ValidateOctalDigits = False
+            Exit Function
+        End If
+    Next i
 End Function</code></pre>
 <h3 id="pattern-5-convertbetweenbases">Pattern 5: <code>ConvertBetweenBases</code></h3>
 <pre><code class="language-vbnet">Sub ShowAllBases(decimalValue As Long)
-Debug.Print &quot;Dec: &quot; &amp; decimalValue &amp; _
-&quot; Hex: &quot; &amp; Hex(decimalValue) &amp; _
-&quot; Oct: &quot; &amp; Oct(decimalValue)
+    Debug.Print &quot;Dec: &quot; &amp; decimalValue &amp; _
+                &quot; Hex: &quot; &amp; Hex(decimalValue) &amp; _
+                &quot; Oct: &quot; &amp; Oct(decimalValue)
 End Sub</code></pre>
 <h3 id="pattern-6-checkoctalrange">Pattern 6: <code>CheckOctalRange</code></h3>
 <pre><code class="language-vbnet">Function IsValidOctalPermission(value As Integer) As Boolean
-&#x27; Check if value represents valid Unix permissions (0-777)
-IsValidOctalPermission = (value &gt;= 0 And value &lt;= 511)  &#x27; 511 = &amp;O777
+    &#x27; Check if value represents valid Unix permissions (0-777)
+    IsValidOctalPermission = (value &gt;= 0 And value &lt;= 511)  &#x27; 511 = &amp;O777
 End Function</code></pre>
 <h3 id="pattern-7-formatoctalwithpadding">Pattern 7: <code>FormatOctalWithPadding</code></h3>
 <pre><code class="language-vbnet">Function FormatOctal(value As Long, digits As Integer) As String
-Dim octStr As String
-octStr = Oct(value)
-FormatOctal = String(digits - Len(octStr), &quot;0&quot;) &amp; octStr
+    Dim octStr As String
+    octStr = Oct(value)
+    FormatOctal = String(digits - Len(octStr), &quot;0&quot;) &amp; octStr
 End Function
 &#x27; Usage: perms = FormatOctal(64, 4)  &#x27; Returns &quot;0100&quot;</code></pre>
 <h3 id="pattern-8-extractoctaldigits">Pattern 8: <code>ExtractOctalDigits</code></h3>
 <pre><code class="language-vbnet">Function GetOctalDigit(value As Long, position As Integer) As Integer
-&#x27; Get specific octal digit (0-based from right)
-Dim octStr As String
-octStr = Oct(value)
-If position &gt;= 0 And position &lt; Len(octStr) Then
-GetOctalDigit = CInt(Mid(octStr, Len(octStr) - position, 1))
-Else
-GetOctalDigit = 0
-End If
+    &#x27; Get specific octal digit (0-based from right)
+    Dim octStr As String
+    octStr = Oct(value)
+    If position &gt;= 0 And position &lt; Len(octStr) Then
+        GetOctalDigit = CInt(Mid(octStr, Len(octStr) - position, 1))
+    Else
+        GetOctalDigit = 0
+    End If
 End Function</code></pre>
 <h3 id="pattern-9-compareoctalvalues">Pattern 9: <code>CompareOctalValues</code></h3>
 <pre><code class="language-vbnet">Function CompareAsOctal(val1 As Long, val2 As Long) As String
-If val1 = val2 Then
-CompareAsOctal = Oct(val1) &amp; &quot; equals &quot; &amp; Oct(val2)
-ElseIf val1 &gt; val2 Then
-CompareAsOctal = Oct(val1) &amp; &quot; &gt; &quot; &amp; Oct(val2)
-Else
-CompareAsOctal = Oct(val1) &amp; &quot; &lt; &quot; &amp; Oct(val2)
-End If
+    If val1 = val2 Then
+        CompareAsOctal = Oct(val1) &amp; &quot; equals &quot; &amp; Oct(val2)
+    ElseIf val1 &gt; val2 Then
+        CompareAsOctal = Oct(val1) &amp; &quot; &gt; &quot; &amp; Oct(val2)
+    Else
+        CompareAsOctal = Oct(val1) &amp; &quot; &lt; &quot; &amp; Oct(val2)
+    End If
 End Function</code></pre>
 <h3 id="pattern-10-buildoctaltable">Pattern 10: <code>BuildOctalTable</code></h3>
 <pre><code class="language-vbnet">Sub CreateOctalTable(maxValue As Integer)
-Dim i As Integer
-Debug.Print &quot;Dec&quot;, &quot;Oct&quot;, &quot;Hex&quot;
-Debug.Print &quot;---&quot;, &quot;---&quot;, &quot;---&quot;
-For i = 0 To maxValue
-Debug.Print i, Oct(i), Hex(i)
-Next i
+    Dim i As Integer
+    Debug.Print &quot;Dec&quot;, &quot;Oct&quot;, &quot;Hex&quot;
+    Debug.Print &quot;---&quot;, &quot;---&quot;, &quot;---&quot;
+    For i = 0 To maxValue
+        Debug.Print i, Oct(i), Hex(i)
+    Next i
 End Sub</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-file-permission-manager">Example 1: File Permission Manager</h3>
 <pre><code class="language-vbnet">&#x27; Complete class for managing Unix file permissions
 Class FilePermissionManager
-Private m_owner As Integer
-Private m_group As Integer
-Private m_other As Integer
-
-Public Property Let OwnerPermissions(value As Integer)
-If value &gt;= 0 And value &lt;= 7 Then
-m_owner = value
-Else
-Err.Raise 5, , &quot;Owner permissions must be 0-7&quot;
-End If
-End Property
-
-Public Property Let GroupPermissions(value As Integer)
-If value &gt;= 0 And value &lt;= 7 Then
-m_group = value
-Else
-Err.Raise 5, , &quot;Group permissions must be 0-7&quot;
-End If
-End Property
-
-Public Property Let OtherPermissions(value As Integer)
-If value &gt;= 0 And value &lt;= 7 Then
-m_other = value
-Else
-Err.Raise 5, , &quot;Other permissions must be 0-7&quot;
-End If
-End Property
-
-Public Function GetDecimalValue() As Integer
-GetDecimalValue = m_owner * 64 + m_group * 8 + m_other
-End Function
-
-Public Function GetOctalString() As String
-GetOctalString = Oct(GetDecimalValue())
-End Function
-
-Public Function GetFormattedOctal() As String
-Dim octStr As String
-octStr = Oct(GetDecimalValue())
-&#x27; Pad to 3 digits
-GetFormattedOctal = String(3 - Len(octStr), &quot;0&quot;) &amp; octStr
-End Function
-
-Public Function GetSymbolicNotation() As String
-GetSymbolicNotation = ConvertToSymbolic(m_owner) &amp; _
-ConvertToSymbolic(m_group) &amp; _
-ConvertToSymbolic(m_other)
-End Function
-
-Private Function ConvertToSymbolic(perm As Integer) As String
-Dim result As String
-result = IIf(perm And 4, &quot;r&quot;, &quot;-&quot;)
-result = result &amp; IIf(perm And 2, &quot;w&quot;, &quot;-&quot;)
-result = result &amp; IIf(perm And 1, &quot;x&quot;, &quot;-&quot;)
-ConvertToSymbolic = result
-End Function
-
-Public Sub SetFromOctal(octalStr As String)
-Dim decValue As Long
-&#x27; Remove any prefix
-If Left(octalStr, 2) = &quot;&amp;O&quot; Then
-octalStr = Mid(octalStr, 3)
-End If
-
-&#x27; Convert to decimal
-decValue = CLng(&quot;&amp;O&quot; &amp; octalStr)
-
-&#x27; Extract individual permissions
-m_other = decValue Mod 8
-decValue = decValue \ 8
-m_group = decValue Mod 8
-m_owner = decValue \ 8
-End Sub
-
-Public Function GenerateReport() As String
-Dim report As String
-report = &quot;File Permissions:&quot; &amp; vbCrLf
-report = report &amp; &quot;  Decimal: &quot; &amp; GetDecimalValue() &amp; vbCrLf
-report = report &amp; &quot;  Octal: &quot; &amp; GetFormattedOctal() &amp; vbCrLf
-report = report &amp; &quot;  Symbolic: &quot; &amp; GetSymbolicNotation() &amp; vbCrLf
-report = report &amp; &quot;  Owner: &quot; &amp; m_owner &amp; &quot; (&quot; &amp; ConvertToSymbolic(m_owner) &amp; &quot;)&quot; &amp; vbCrLf
-report = report &amp; &quot;  Group: &quot; &amp; m_group &amp; &quot; (&quot; &amp; ConvertToSymbolic(m_group) &amp; &quot;)&quot; &amp; vbCrLf
-report = report &amp; &quot;  Other: &quot; &amp; m_other &amp; &quot; (&quot; &amp; ConvertToSymbolic(m_other) &amp; &quot;)&quot;
-GenerateReport = report
-End Function
+    Private m_owner As Integer
+    Private m_group As Integer
+    Private m_other As Integer
+    Public Property Let OwnerPermissions(value As Integer)
+        If value &gt;= 0 And value &lt;= 7 Then
+            m_owner = value
+        Else
+            Err.Raise 5, , &quot;Owner permissions must be 0-7&quot;
+        End If
+    End Property
+    Public Property Let GroupPermissions(value As Integer)
+        If value &gt;= 0 And value &lt;= 7 Then
+            m_group = value
+        Else
+            Err.Raise 5, , &quot;Group permissions must be 0-7&quot;
+        End If
+    End Property
+    Public Property Let OtherPermissions(value As Integer)
+        If value &gt;= 0 And value &lt;= 7 Then
+            m_other = value
+        Else
+            Err.Raise 5, , &quot;Other permissions must be 0-7&quot;
+        End If
+    End Property
+    Public Function GetDecimalValue() As Integer
+        GetDecimalValue = m_owner * 64 + m_group * 8 + m_other
+    End Function
+    Public Function GetOctalString() As String
+        GetOctalString = Oct(GetDecimalValue())
+    End Function
+    Public Function GetFormattedOctal() As String
+        Dim octStr As String
+        octStr = Oct(GetDecimalValue())
+        &#x27; Pad to 3 digits
+        GetFormattedOctal = String(3 - Len(octStr), &quot;0&quot;) &amp; octStr
+    End Function
+    Public Function GetSymbolicNotation() As String
+        GetSymbolicNotation = ConvertToSymbolic(m_owner) &amp; _
+                             ConvertToSymbolic(m_group) &amp; _
+                             ConvertToSymbolic(m_other)
+    End Function
+    Private Function ConvertToSymbolic(perm As Integer) As String
+        Dim result As String
+        result = IIf(perm And 4, &quot;r&quot;, &quot;-&quot;)
+        result = result &amp; IIf(perm And 2, &quot;w&quot;, &quot;-&quot;)
+        result = result &amp; IIf(perm And 1, &quot;x&quot;, &quot;-&quot;)
+        ConvertToSymbolic = result
+    End Function
+    Public Sub SetFromOctal(octalStr As String)
+        Dim decValue As Long
+        &#x27; Remove any prefix
+        If Left(octalStr, 2) = &quot;&amp;O&quot; Then
+            octalStr = Mid(octalStr, 3)
+        End If
+        &#x27; Convert to decimal
+        decValue = CLng(&quot;&amp;O&quot; &amp; octalStr)
+        &#x27; Extract individual permissions
+        m_other = decValue Mod 8
+        decValue = decValue \ 8
+        m_group = decValue Mod 8
+        m_owner = decValue \ 8
+    End Sub
+    Public Function GenerateReport() As String
+        Dim report As String
+        report = &quot;File Permissions:&quot; &amp; vbCrLf
+        report = report &amp; &quot;  Decimal: &quot; &amp; GetDecimalValue() &amp; vbCrLf
+        report = report &amp; &quot;  Octal: &quot; &amp; GetFormattedOctal() &amp; vbCrLf
+        report = report &amp; &quot;  Symbolic: &quot; &amp; GetSymbolicNotation() &amp; vbCrLf
+        report = report &amp; &quot;  Owner: &quot; &amp; m_owner &amp; &quot; (&quot; &amp; ConvertToSymbolic(m_owner) &amp; &quot;)&quot; &amp; vbCrLf
+        report = report &amp; &quot;  Group: &quot; &amp; m_group &amp; &quot; (&quot; &amp; ConvertToSymbolic(m_group) &amp; &quot;)&quot; &amp; vbCrLf
+        report = report &amp; &quot;  Other: &quot; &amp; m_other &amp; &quot; (&quot; &amp; ConvertToSymbolic(m_other) &amp; &quot;)&quot;
+        GenerateReport = report
+    End Function
 End Class</code></pre>
 <h3 id="example-2-number-base-converter-utility">Example 2: Number Base Converter Utility</h3>
 <pre><code class="language-vbnet">&#x27; Utility module for converting between different number bases
 Module NumberBaseConverter
-Public Function ConvertToBase(value As Long, fromBase As Integer, toBase As Integer) As String
-Dim decValue As Long
-
-&#x27; First convert to decimal
-If fromBase = 10 Then
-decValue = value
-ElseIf fromBase = 8 Then
-decValue = CLng(&quot;&amp;O&quot; &amp; CStr(value))
-ElseIf fromBase = 16 Then
-decValue = CLng(&quot;&amp;H&quot; &amp; CStr(value))
-Else
-Err.Raise 5, , &quot;Unsupported base: &quot; &amp; fromBase
-End If
-
-&#x27; Then convert from decimal to target base
-Select Case toBase
-Case 2
-ConvertToBase = ConvertToBinary(decValue)
-Case 8
-ConvertToBase = Oct(decValue)
-Case 10
-ConvertToBase = CStr(decValue)
-Case 16
-ConvertToBase = Hex(decValue)
-Case Else
-Err.Raise 5, , &quot;Unsupported base: &quot; &amp; toBase
-End Select
-End Function
-
-Private Function ConvertToBinary(value As Long) As String
-Dim result As String
-Dim tempValue As Long
-
-If value = 0 Then
-ConvertToBinary = &quot;0&quot;
-Exit Function
-End If
-
-tempValue = value
-Do While tempValue &gt; 0
-result = (tempValue Mod 2) &amp; result
-tempValue = tempValue \ 2
-Loop
-ConvertToBinary = result
-End Function
-
-Public Function FormatWithPrefix(value As String, base As Integer) As String
-Select Case base
-Case 2
-FormatWithPrefix = &quot;0b&quot; &amp; value
-Case 8
-FormatWithPrefix = &quot;&amp;O&quot; &amp; value
-Case 16
-FormatWithPrefix = &quot;&amp;H&quot; &amp; value
-Case Else
-FormatWithPrefix = value
-End Select
-End Function
-
-Public Sub DisplayConversionTable(startValue As Integer, endValue As Integer)
-Dim i As Integer
-Debug.Print &quot;Dec&quot;, &quot;Bin&quot;, &quot;Oct&quot;, &quot;Hex&quot;
-Debug.Print String(40, &quot;-&quot;)
-
-For i = startValue To endValue
-Debug.Print i, _
-ConvertToBinary(i), _
-Oct(i), _
-Hex(i)
-Next i
-End Sub
-
-Public Function ValidateBaseString(value As String, base As Integer) As Boolean
-Dim i As Integer
-Dim ch As String
-Dim validChars As String
-
-Select Case base
-Case 2
-validChars = &quot;01&quot;
-Case 8
-validChars = &quot;01234567&quot;
-Case 16
-validChars = &quot;0123456789ABCDEFabcdef&quot;
-Case Else
-ValidateBaseString = False
-Exit Function
-End Select
-
-For i = 1 To Len(value)
-ch = Mid(value, i, 1)
-If InStr(validChars, ch) = 0 Then
-ValidateBaseString = False
-Exit Function
-End If
-Next i
-
-ValidateBaseString = True
-End Function
+    Public Function ConvertToBase(value As Long, fromBase As Integer, toBase As Integer) As String
+        Dim decValue As Long
+        &#x27; First convert to decimal
+        If fromBase = 10 Then
+            decValue = value
+        ElseIf fromBase = 8 Then
+            decValue = CLng(&quot;&amp;O&quot; &amp; CStr(value))
+        ElseIf fromBase = 16 Then
+            decValue = CLng(&quot;&amp;H&quot; &amp; CStr(value))
+        Else
+            Err.Raise 5, , &quot;Unsupported base: &quot; &amp; fromBase
+        End If
+        &#x27; Then convert from decimal to target base
+        Select Case toBase
+            Case 2
+                ConvertToBase = ConvertToBinary(decValue)
+            Case 8
+                ConvertToBase = Oct(decValue)
+            Case 10
+                ConvertToBase = CStr(decValue)
+            Case 16
+                ConvertToBase = Hex(decValue)
+            Case Else
+                Err.Raise 5, , &quot;Unsupported base: &quot; &amp; toBase
+        End Select
+    End Function
+    Private Function ConvertToBinary(value As Long) As String
+        Dim result As String
+        Dim tempValue As Long
+        If value = 0 Then
+            ConvertToBinary = &quot;0&quot;
+            Exit Function
+        End If
+        tempValue = value
+        Do While tempValue &gt; 0
+            result = (tempValue Mod 2) &amp; result
+            tempValue = tempValue \ 2
+        Loop
+        ConvertToBinary = result
+    End Function
+    Public Function FormatWithPrefix(value As String, base As Integer) As String
+        Select Case base
+            Case 2
+                FormatWithPrefix = &quot;0b&quot; &amp; value
+            Case 8
+                FormatWithPrefix = &quot;&amp;O&quot; &amp; value
+            Case 16
+                FormatWithPrefix = &quot;&amp;H&quot; &amp; value
+            Case Else
+                FormatWithPrefix = value
+        End Select
+    End Function
+    Public Sub DisplayConversionTable(startValue As Integer, endValue As Integer)
+        Dim i As Integer
+        Debug.Print &quot;Dec&quot;, &quot;Bin&quot;, &quot;Oct&quot;, &quot;Hex&quot;
+        Debug.Print String(40, &quot;-&quot;)
+        For i = startValue To endValue
+            Debug.Print i, _
+                       ConvertToBinary(i), _
+                       Oct(i), _
+                       Hex(i)
+        Next i
+    End Sub
+    Public Function ValidateBaseString(value As String, base As Integer) As Boolean
+        Dim i As Integer
+        Dim ch As String
+        Dim validChars As String
+        Select Case base
+            Case 2
+                validChars = &quot;01&quot;
+            Case 8
+                validChars = &quot;01234567&quot;
+            Case 16
+                validChars = &quot;0123456789ABCDEFabcdef&quot;
+            Case Else
+                ValidateBaseString = False
+                Exit Function
+        End Select
+        For i = 1 To Len(value)
+            ch = Mid(value, i, 1)
+            If InStr(validChars, ch) = 0 Then
+                ValidateBaseString = False
+                Exit Function
+            End If
+        Next i
+        ValidateBaseString = True
+    End Function
 End Module</code></pre>
 <h3 id="example-3-bit-mask-analyzer">Example 3: Bit Mask Analyzer</h3>
 <pre><code class="language-vbnet">&#x27; Tool for analyzing and displaying bit masks in various formats
 Class BitMaskAnalyzer
-Private m_value As Long
-
-Public Sub SetValue(value As Long)
-m_value = value
-End Sub
-
-Public Function GetValue() As Long
-GetValue = m_value
-End Function
-
-Public Function GetOctal() As String
-GetOctal = Oct(m_value)
-End Function
-
-Public Function GetHex() As String
-GetHex = Hex(m_value)
-End Function
-
-Public Function GetBinary() As String
-Dim result As String
-Dim tempValue As Long
-Dim bitCount As Integer
-
-tempValue = m_value
-For bitCount = 31 To 0 Step -1
-If tempValue And (2 ^ bitCount) Then
-result = result &amp; &quot;1&quot;
-Else
-result = result &amp; &quot;0&quot;
-End If
-If bitCount Mod 4 = 0 And bitCount &gt; 0 Then
-result = result &amp; &quot; &quot;
-End If
-Next bitCount
-GetBinary = result
-End Function
-
-Public Function CountSetBits() As Integer
-Dim count As Integer
-Dim tempValue As Long
-
-count = 0
-tempValue = m_value
-Do While tempValue &gt; 0
-If tempValue And 1 Then count = count + 1
-tempValue = tempValue \ 2
-Loop
-CountSetBits = count
-End Function
-
-Public Function IsBitSet(position As Integer) As Boolean
-If position &gt;= 0 And position &lt; 32 Then
-IsBitSet = (m_value And (2 ^ position)) &lt;&gt; 0
-End If
-End Function
-
-Public Sub SetBit(position As Integer)
-If position &gt;= 0 And position &lt; 32 Then
-m_value = m_value Or (2 ^ position)
-End If
-End Sub
-
-Public Sub ClearBit(position As Integer)
-If position &gt;= 0 And position &lt; 32 Then
-m_value = m_value And Not (2 ^ position)
-End If
-End Sub
-
-Public Sub ToggleBit(position As Integer)
-If position &gt;= 0 And position &lt; 32 Then
-m_value = m_value Xor (2 ^ position)
-End If
-End Sub
-
-Public Function GenerateReport() As String
-Dim report As String
-report = &quot;Bit Mask Analysis:&quot; &amp; vbCrLf
-report = report &amp; &quot;  Decimal: &quot; &amp; m_value &amp; vbCrLf
-report = report &amp; &quot;  Hexadecimal: &quot; &amp; GetHex() &amp; vbCrLf
-report = report &amp; &quot;  Octal: &quot; &amp; GetOctal() &amp; vbCrLf
-report = report &amp; &quot;  Binary: &quot; &amp; GetBinary() &amp; vbCrLf
-report = report &amp; &quot;  Set Bits: &quot; &amp; CountSetBits()
-GenerateReport = report
-End Function
+    Private m_value As Long
+    Public Sub SetValue(value As Long)
+        m_value = value
+    End Sub
+    Public Function GetValue() As Long
+        GetValue = m_value
+    End Function
+    Public Function GetOctal() As String
+        GetOctal = Oct(m_value)
+    End Function
+    Public Function GetHex() As String
+        GetHex = Hex(m_value)
+    End Function
+    Public Function GetBinary() As String
+        Dim result As String
+        Dim tempValue As Long
+        Dim bitCount As Integer
+        tempValue = m_value
+        For bitCount = 31 To 0 Step -1
+            If tempValue And (2 ^ bitCount) Then
+                result = result &amp; &quot;1&quot;
+            Else
+                result = result &amp; &quot;0&quot;
+            End If
+            If bitCount Mod 4 = 0 And bitCount &gt; 0 Then
+                result = result &amp; &quot; &quot;
+            End If
+        Next bitCount
+        GetBinary = result
+    End Function
+    Public Function CountSetBits() As Integer
+        Dim count As Integer
+        Dim tempValue As Long
+        count = 0
+        tempValue = m_value
+        Do While tempValue &gt; 0
+            If tempValue And 1 Then count = count + 1
+            tempValue = tempValue \ 2
+        Loop
+        CountSetBits = count
+    End Function
+    Public Function IsBitSet(position As Integer) As Boolean
+        If position &gt;= 0 And position &lt; 32 Then
+            IsBitSet = (m_value And (2 ^ position)) &lt;&gt; 0
+        End If
+    End Function
+    Public Sub SetBit(position As Integer)
+        If position &gt;= 0 And position &lt; 32 Then
+            m_value = m_value Or (2 ^ position)
+        End If
+    End Sub
+    Public Sub ClearBit(position As Integer)
+        If position &gt;= 0 And position &lt; 32 Then
+            m_value = m_value And Not (2 ^ position)
+        End If
+    End Sub
+    Public Sub ToggleBit(position As Integer)
+        If position &gt;= 0 And position &lt; 32 Then
+            m_value = m_value Xor (2 ^ position)
+        End If
+    End Sub
+    Public Function GenerateReport() As String
+        Dim report As String
+        report = &quot;Bit Mask Analysis:&quot; &amp; vbCrLf
+        report = report &amp; &quot;  Decimal: &quot; &amp; m_value &amp; vbCrLf
+        report = report &amp; &quot;  Hexadecimal: &quot; &amp; GetHex() &amp; vbCrLf
+        report = report &amp; &quot;  Octal: &quot; &amp; GetOctal() &amp; vbCrLf
+        report = report &amp; &quot;  Binary: &quot; &amp; GetBinary() &amp; vbCrLf
+        report = report &amp; &quot;  Set Bits: &quot; &amp; CountSetBits()
+        GenerateReport = report
+    End Function
 End Class</code></pre>
 <h3 id="example-4-legacy-system-interface">Example 4: Legacy System Interface</h3>
 <pre><code class="language-vbnet">&#x27; Module for interfacing with legacy systems using octal notation
 Module LegacySystemInterface
-&#x27; Configuration record structure
-Private Type ConfigRecord
-DeviceID As Integer
-StatusFlags As Integer
-ControlWord As Integer
-ErrorMask As Integer
-End Type
-
-Public Function FormatDeviceConfig(config As ConfigRecord) As String
-Dim output As String
-output = &quot;Device Configuration:&quot; &amp; vbCrLf
-output = output &amp; &quot;  Device ID: &quot; &amp; config.DeviceID &amp; &quot; (&amp;O&quot; &amp; Oct(config.DeviceID) &amp; &quot;)&quot; &amp; vbCrLf
-output = output &amp; &quot;  Status Flags: &amp;O&quot; &amp; FormatOctalPadded(config.StatusFlags, 6) &amp; vbCrLf
-output = output &amp; &quot;  Control Word: &amp;O&quot; &amp; FormatOctalPadded(config.ControlWord, 6) &amp; vbCrLf
-output = output &amp; &quot;  Error Mask: &amp;O&quot; &amp; FormatOctalPadded(config.ErrorMask, 6)
-FormatDeviceConfig = output
-End Function
-
-Private Function FormatOctalPadded(value As Long, width As Integer) As String
-Dim octStr As String
-octStr = Oct(value)
-If Len(octStr) &lt; width Then
-FormatOctalPadded = String(width - Len(octStr), &quot;0&quot;) &amp; octStr
-Else
-FormatOctalPadded = octStr
-End If
-End Function
-
-Public Function ParseOctalConfig(configStr As String) As ConfigRecord
-Dim lines() As String
-Dim config As ConfigRecord
-Dim i As Integer
-Dim parts() As String
-
-lines = Split(configStr, vbCrLf)
-For i = LBound(lines) To UBound(lines)
-If InStr(lines(i), &quot;:&quot;) &gt; 0 Then
-parts = Split(lines(i), &quot;:&quot;)
-If UBound(parts) &gt;= 1 Then
-If InStr(lines(i), &quot;Device ID&quot;) &gt; 0 Then
-config.DeviceID = ExtractOctalValue(parts(1))
-ElseIf InStr(lines(i), &quot;Status Flags&quot;) &gt; 0 Then
-config.StatusFlags = ExtractOctalValue(parts(1))
-ElseIf InStr(lines(i), &quot;Control Word&quot;) &gt; 0 Then
-config.ControlWord = ExtractOctalValue(parts(1))
-ElseIf InStr(lines(i), &quot;Error Mask&quot;) &gt; 0 Then
-config.ErrorMask = ExtractOctalValue(parts(1))
-End If
-End If
-End If
-Next i
-
-ParseOctalConfig = config
-End Function
-
-Private Function ExtractOctalValue(valueStr As String) As Integer
-Dim cleanStr As String
-cleanStr = Trim(valueStr)
-
-&#x27; Look for &amp;O prefix
-If InStr(cleanStr, &quot;&amp;O&quot;) &gt; 0 Then
-cleanStr = Mid(cleanStr, InStr(cleanStr, &quot;&amp;O&quot;) + 2)
-&#x27; Remove any non-octal characters
-Dim i As Integer
-Dim octStr As String
-For i = 1 To Len(cleanStr)
-If Mid(cleanStr, i, 1) &gt;= &quot;0&quot; And Mid(cleanStr, i, 1) &lt;= &quot;7&quot; Then
-octStr = octStr &amp; Mid(cleanStr, i, 1)
-Else
-Exit For
-End If
-Next i
-If Len(octStr) &gt; 0 Then
-ExtractOctalValue = CInt(&quot;&amp;O&quot; &amp; octStr)
-End If
-End If
-End Function
-
-Public Sub LogConfigChange(oldConfig As ConfigRecord, newConfig As ConfigRecord)
-Debug.Print &quot;Configuration Change:&quot;
-If oldConfig.DeviceID &lt;&gt; newConfig.DeviceID Then
-Debug.Print &quot;  Device ID: &quot; &amp; Oct(oldConfig.DeviceID) &amp; &quot; -&gt; &quot; &amp; Oct(newConfig.DeviceID)
-End If
-If oldConfig.StatusFlags &lt;&gt; newConfig.StatusFlags Then
-Debug.Print &quot;  Status: &quot; &amp; Oct(oldConfig.StatusFlags) &amp; &quot; -&gt; &quot; &amp; Oct(newConfig.StatusFlags)
-End If
-If oldConfig.ControlWord &lt;&gt; newConfig.ControlWord Then
-Debug.Print &quot;  Control: &quot; &amp; Oct(oldConfig.ControlWord) &amp; &quot; -&gt; &quot; &amp; Oct(newConfig.ControlWord)
-End If
-If oldConfig.ErrorMask &lt;&gt; newConfig.ErrorMask Then
-Debug.Print &quot;  Errors: &quot; &amp; Oct(oldConfig.ErrorMask) &amp; &quot; -&gt; &quot; &amp; Oct(newConfig.ErrorMask)
-End If
-End Sub
+    &#x27; Configuration record structure
+    Private Type ConfigRecord
+        DeviceID As Integer
+        StatusFlags As Integer
+        ControlWord As Integer
+        ErrorMask As Integer
+    End Type
+    Public Function FormatDeviceConfig(config As ConfigRecord) As String
+        Dim output As String
+        output = &quot;Device Configuration:&quot; &amp; vbCrLf
+        output = output &amp; &quot;  Device ID: &quot; &amp; config.DeviceID &amp; &quot; (&amp;O&quot; &amp; Oct(config.DeviceID) &amp; &quot;)&quot; &amp; vbCrLf
+        output = output &amp; &quot;  Status Flags: &amp;O&quot; &amp; FormatOctalPadded(config.StatusFlags, 6) &amp; vbCrLf
+        output = output &amp; &quot;  Control Word: &amp;O&quot; &amp; FormatOctalPadded(config.ControlWord, 6) &amp; vbCrLf
+        output = output &amp; &quot;  Error Mask: &amp;O&quot; &amp; FormatOctalPadded(config.ErrorMask, 6)
+        FormatDeviceConfig = output
+    End Function
+    Private Function FormatOctalPadded(value As Long, width As Integer) As String
+        Dim octStr As String
+        octStr = Oct(value)
+        If Len(octStr) &lt; width Then
+            FormatOctalPadded = String(width - Len(octStr), &quot;0&quot;) &amp; octStr
+        Else
+            FormatOctalPadded = octStr
+        End If
+    End Function
+    Public Function ParseOctalConfig(configStr As String) As ConfigRecord
+        Dim lines() As String
+        Dim config As ConfigRecord
+        Dim i As Integer
+        Dim parts() As String
+        lines = Split(configStr, vbCrLf)
+        For i = LBound(lines) To UBound(lines)
+            If InStr(lines(i), &quot;:&quot;) &gt; 0 Then
+                parts = Split(lines(i), &quot;:&quot;)
+                If UBound(parts) &gt;= 1 Then
+                    If InStr(lines(i), &quot;Device ID&quot;) &gt; 0 Then
+                        config.DeviceID = ExtractOctalValue(parts(1))
+                    ElseIf InStr(lines(i), &quot;Status Flags&quot;) &gt; 0 Then
+                        config.StatusFlags = ExtractOctalValue(parts(1))
+                    ElseIf InStr(lines(i), &quot;Control Word&quot;) &gt; 0 Then
+                        config.ControlWord = ExtractOctalValue(parts(1))
+                    ElseIf InStr(lines(i), &quot;Error Mask&quot;) &gt; 0 Then
+                        config.ErrorMask = ExtractOctalValue(parts(1))
+                    End If
+                End If
+            End If
+        Next i
+        ParseOctalConfig = config
+    End Function
+    Private Function ExtractOctalValue(valueStr As String) As Integer
+        Dim cleanStr As String
+        cleanStr = Trim(valueStr)
+        &#x27; Look for &amp;O prefix
+        If InStr(cleanStr, &quot;&amp;O&quot;) &gt; 0 Then
+            cleanStr = Mid(cleanStr, InStr(cleanStr, &quot;&amp;O&quot;) + 2)
+            &#x27; Remove any non-octal characters
+            Dim i As Integer
+            Dim octStr As String
+            For i = 1 To Len(cleanStr)
+                If Mid(cleanStr, i, 1) &gt;= &quot;0&quot; And Mid(cleanStr, i, 1) &lt;= &quot;7&quot; Then
+                    octStr = octStr &amp; Mid(cleanStr, i, 1)
+                Else
+                    Exit For
+                End If
+            Next i
+            If Len(octStr) &gt; 0 Then
+                ExtractOctalValue = CInt(&quot;&amp;O&quot; &amp; octStr)
+            End If
+        End If
+    End Function
+    Public Sub LogConfigChange(oldConfig As ConfigRecord, newConfig As ConfigRecord)
+        Debug.Print &quot;Configuration Change:&quot;
+        If oldConfig.DeviceID &lt;&gt; newConfig.DeviceID Then
+            Debug.Print &quot;  Device ID: &quot; &amp; Oct(oldConfig.DeviceID) &amp; &quot; -&gt; &quot; &amp; Oct(newConfig.DeviceID)
+        End If
+        If oldConfig.StatusFlags &lt;&gt; newConfig.StatusFlags Then
+            Debug.Print &quot;  Status: &quot; &amp; Oct(oldConfig.StatusFlags) &amp; &quot; -&gt; &quot; &amp; Oct(newConfig.StatusFlags)
+        End If
+        If oldConfig.ControlWord &lt;&gt; newConfig.ControlWord Then
+            Debug.Print &quot;  Control: &quot; &amp; Oct(oldConfig.ControlWord) &amp; &quot; -&gt; &quot; &amp; Oct(newConfig.ControlWord)
+        End If
+        If oldConfig.ErrorMask &lt;&gt; newConfig.ErrorMask Then
+            Debug.Print &quot;  Errors: &quot; &amp; Oct(oldConfig.ErrorMask) &amp; &quot; -&gt; &quot; &amp; Oct(newConfig.ErrorMask)
+        End If
+    End Sub
 End Module</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>Oct</code> function can raise errors in the following situations:</p>
-<ul>
-<li><strong>Type Mismatch (Error 13)</strong>: When the argument cannot be converted to a numeric value</li>
-<li><strong>Overflow (Error 6)</strong>: When the number is too large for the data type</li>
-<li><strong>Invalid Procedure Call (Error 5)</strong>: In rare cases with invalid arguments</li>
-</ul>
-<p>Always validate input before calling <code>Oct</code>, especially when working with user input:</p>
+<p>The <code>Oct</code> function can raise errors in the following situations:
+- <strong>Type Mismatch (Error 13)</strong>: When the argument cannot be converted to a numeric value
+- <strong>Overflow (Error 6)</strong>: When the number is too large for the data type
+- <strong>Invalid Procedure Call (Error 5)</strong>: In rare cases with invalid arguments
+Always validate input before calling <code>Oct</code>, especially when working with user input:</p>
 <pre><code class="language-vbnet">On Error Resume Next
 result = Oct(userInput)
 If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Invalid numeric value for octal conversion&quot;
-Err.Clear
+    MsgBox &quot;Invalid numeric value for octal conversion&quot;
+    Err.Clear
 End If
 On Error GoTo 0</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>

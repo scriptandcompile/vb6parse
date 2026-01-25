@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="ipmt-function"><code>IPmt</code> Function</h1>
+            <h1 id="ipmt-function">IPmt Function</h1>
 <p>Returns a <code>Double</code> specifying the interest payment for a given period of an annuity based on periodic, fixed payments and a fixed interest rate.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">IPmt(rate, per, nper, pv[, fv[, type]])</code></pre>
@@ -56,20 +56,18 @@
 - Positive value indicates money received (such as investment interest earnings)
 - The sum of interest payments (<code>IPmt</code>) and principal payments (<code>PPmt</code>) equals the total payment for a period</p>
 <h2 id="remarks">Remarks</h2>
-<p>An annuity is a series of fixed cash payments made over a period of time:</p>
-<ul>
-<li>Used to calculate the interest portion of a specific payment</li>
-<li>Commonly used for loan amortization calculations</li>
-<li>Interest payment decreases over the life of a loan (more principal paid later)</li>
-<li>The <code>per</code> argument must be in the range 1 through <code>nper</code></li>
-<li><code>rate</code> and <code>nper</code> must be calculated using payment periods in the same units</li>
-<li>For monthly payments, divide annual rate by 12, multiply years by 12</li>
-<li>For quarterly payments, divide annual rate by 4, multiply years by 4</li>
-<li>All arguments referring to cash paid out are negative; cash received is positive</li>
-<li>The interest payment varies by period (unlike fixed total payment)</li>
-<li>Use <code>PPmt</code> to calculate the principal portion of a payment</li>
-<li>Use <code>Pmt</code> to calculate the total payment amount</li>
-</ul>
+<p>An annuity is a series of fixed cash payments made over a period of time:
+- Used to calculate the interest portion of a specific payment
+- Commonly used for loan amortization calculations
+- Interest payment decreases over the life of a loan (more principal paid later)
+- The <code>per</code> argument must be in the range 1 through <code>nper</code>
+- <code>rate</code> and <code>nper</code> must be calculated using payment periods in the same units
+- For monthly payments, divide annual rate by 12, multiply years by 12
+- For quarterly payments, divide annual rate by 4, multiply years by 4
+- All arguments referring to cash paid out are negative; cash received is positive
+- The interest payment varies by period (unlike fixed total payment)
+- Use <code>PPmt</code> to calculate the principal portion of a payment
+- Use <code>Pmt</code> to calculate the total payment amount</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Loan Amortization</strong>: Calculate interest portion of loan payments</li>
@@ -87,406 +85,333 @@ Dim monthlyRate As Double
 Dim totalMonths As Integer
 Dim loanAmount As Double
 Dim interestPayment As Double
-
 monthlyRate = 0.08 / 12  &#x27; 8% annual rate
 totalMonths = 48         &#x27; 4-year loan
 loanAmount = -20000      &#x27; $20,000 borrowed (negative = cash received)
-
 interestPayment = IPmt(monthlyRate, 1, totalMonths, loanAmount)
 Debug.Print &quot;First month interest: &quot; &amp; Format$(interestPayment, &quot;Currency&quot;)
 &#x27; Prints approximately: -$133.33
-
 &#x27; Example 2: Calculate last payment&#x27;s interest
 interestPayment = IPmt(monthlyRate, 48, totalMonths, loanAmount)
 Debug.Print &quot;Last month interest: &quot; &amp; Format$(interestPayment, &quot;Currency&quot;)
 &#x27; Prints approximately: -$3.26 (much less than first month)
-
 &#x27; Example 3: Calculate total interest paid in first year
 Dim totalInterest As Double
 Dim i As Integer
 totalInterest = 0
 For i = 1 To 12
-totalInterest = totalInterest + IPmt(monthlyRate, i, totalMonths, loanAmount)
+    totalInterest = totalInterest + IPmt(monthlyRate, i, totalMonths, loanAmount)
 Next i
 Debug.Print &quot;First year interest: &quot; &amp; Format$(totalInterest, &quot;Currency&quot;)
-
 &#x27; Example 4: Monthly mortgage interest payment
 Dim mortgageRate As Double
 Dim mortgageMonths As Integer
 Dim mortgageAmount As Double
-
 mortgageRate = 0.06 / 12  &#x27; 6% annual rate
 mortgageMonths = 30 * 12  &#x27; 30-year mortgage
 mortgageAmount = -200000  &#x27; $200,000 loan
-
 interestPayment = IPmt(mortgageRate, 1, mortgageMonths, mortgageAmount)
 Debug.Print &quot;First mortgage payment interest: &quot; &amp; Format$(interestPayment, &quot;Currency&quot;)</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Calculate interest for specific payment
 Function CalculateInterestPayment(loanAmount As Double, annualRate As Double, _
-years As Integer, paymentNumber As Integer) As Double
-Dim monthlyRate As Double
-Dim totalPayments As Integer
-
-monthlyRate = annualRate / 12
-totalPayments = years * 12
-
-CalculateInterestPayment = IPmt(monthlyRate, paymentNumber, totalPayments, -loanAmount)
+                                  years As Integer, paymentNumber As Integer) As Double
+    Dim monthlyRate As Double
+    Dim totalPayments As Integer
+    monthlyRate = annualRate / 12
+    totalPayments = years * 12
+    CalculateInterestPayment = IPmt(monthlyRate, paymentNumber, totalPayments, -loanAmount)
 End Function
-
 &#x27; Pattern 2: Calculate total interest for a year
 Function CalculateAnnualInterest(loanAmount As Double, annualRate As Double, _
-years As Integer, year As Integer) As Double
-Dim monthlyRate As Double
-Dim totalPayments As Integer
-Dim startMonth As Integer
-Dim endMonth As Integer
-Dim totalInterest As Double
-Dim i As Integer
-
-monthlyRate = annualRate / 12
-totalPayments = years * 12
-startMonth = (year - 1) * 12 + 1
-endMonth = year * 12
-
-totalInterest = 0
-For i = startMonth To endMonth
-If i &lt;= totalPayments Then
-totalInterest = totalInterest + IPmt(monthlyRate, i, totalPayments, -loanAmount)
-End If
-Next i
-
-CalculateAnnualInterest = totalInterest
+                                 years As Integer, year As Integer) As Double
+    Dim monthlyRate As Double
+    Dim totalPayments As Integer
+    Dim startMonth As Integer
+    Dim endMonth As Integer
+    Dim totalInterest As Double
+    Dim i As Integer
+    monthlyRate = annualRate / 12
+    totalPayments = years * 12
+    startMonth = (year - 1) * 12 + 1
+    endMonth = year * 12
+    totalInterest = 0
+    For i = startMonth To endMonth
+        If i &lt;= totalPayments Then
+            totalInterest = totalInterest + IPmt(monthlyRate, i, totalPayments, -loanAmount)
+        End If
+    Next i
+    CalculateAnnualInterest = totalInterest
 End Function
-
 &#x27; Pattern 3: Generate amortization schedule entry
 Type AmortizationEntry
-PaymentNumber As Integer
-TotalPayment As Double
-InterestPayment As Double
-PrincipalPayment As Double
-Balance As Double
+    PaymentNumber As Integer
+    TotalPayment As Double
+    InterestPayment As Double
+    PrincipalPayment As Double
+    Balance As Double
 End Type
-
 Function GetAmortizationEntry(loanAmount As Double, annualRate As Double, _
-years As Integer, paymentNumber As Integer) As AmortizationEntry
-Dim monthlyRate As Double
-Dim totalPayments As Integer
-Dim entry As AmortizationEntry
-
-monthlyRate = annualRate / 12
-totalPayments = years * 12
-
-entry.PaymentNumber = paymentNumber
-entry.TotalPayment = Pmt(monthlyRate, totalPayments, -loanAmount)
-entry.InterestPayment = IPmt(monthlyRate, paymentNumber, totalPayments, -loanAmount)
-entry.PrincipalPayment = PPmt(monthlyRate, paymentNumber, totalPayments, -loanAmount)
-
-GetAmortizationEntry = entry
+                              years As Integer, paymentNumber As Integer) As AmortizationEntry
+    Dim monthlyRate As Double
+    Dim totalPayments As Integer
+    Dim entry As AmortizationEntry
+    monthlyRate = annualRate / 12
+    totalPayments = years * 12
+    entry.PaymentNumber = paymentNumber
+    entry.TotalPayment = Pmt(monthlyRate, totalPayments, -loanAmount)
+    entry.InterestPayment = IPmt(monthlyRate, paymentNumber, totalPayments, -loanAmount)
+    entry.PrincipalPayment = PPmt(monthlyRate, paymentNumber, totalPayments, -loanAmount)
+    GetAmortizationEntry = entry
 End Function
-
 &#x27; Pattern 4: Compare interest costs between loans
 Function CompareInterestCosts(loan1Amount As Double, loan1Rate As Double, loan1Years As Integer, _
-loan2Amount As Double, loan2Rate As Double, loan2Years As Integer) As String
-Dim loan1Interest As Double
-Dim loan2Interest As Double
-Dim i As Integer
-
-&#x27; Calculate total interest for loan 1
-For i = 1 To loan1Years * 12
-loan1Interest = loan1Interest + IPmt(loan1Rate / 12, i, loan1Years * 12, -loan1Amount)
-Next i
-
-&#x27; Calculate total interest for loan 2
-For i = 1 To loan2Years * 12
-loan2Interest = loan2Interest + IPmt(loan2Rate / 12, i, loan2Years * 12, -loan2Amount)
-Next i
-
-CompareInterestCosts = &quot;Loan 1 total interest: &quot; &amp; Format$(loan1Interest, &quot;Currency&quot;) &amp; vbCrLf &amp; _
-&quot;Loan 2 total interest: &quot; &amp; Format$(loan2Interest, &quot;Currency&quot;)
+                              loan2Amount As Double, loan2Rate As Double, loan2Years As Integer) As String
+    Dim loan1Interest As Double
+    Dim loan2Interest As Double
+    Dim i As Integer
+    &#x27; Calculate total interest for loan 1
+    For i = 1 To loan1Years * 12
+        loan1Interest = loan1Interest + IPmt(loan1Rate / 12, i, loan1Years * 12, -loan1Amount)
+    Next i
+    &#x27; Calculate total interest for loan 2
+    For i = 1 To loan2Years * 12
+        loan2Interest = loan2Interest + IPmt(loan2Rate / 12, i, loan2Years * 12, -loan2Amount)
+    Next i
+    CompareInterestCosts = &quot;Loan 1 total interest: &quot; &amp; Format$(loan1Interest, &quot;Currency&quot;) &amp; vbCrLf &amp; _
+                          &quot;Loan 2 total interest: &quot; &amp; Format$(loan2Interest, &quot;Currency&quot;)
 End Function
-
 &#x27; Pattern 5: Calculate deductible interest for tax year
 Function CalculateTaxDeductibleInterest(loanAmount As Double, annualRate As Double, _
-totalYears As Integer, taxYear As Integer) As Double
-&#x27; Assumes loan started at beginning of year 1
-CalculateTaxDeductibleInterest = CalculateAnnualInterest(loanAmount, annualRate, totalYears, taxYear)
+                                       totalYears As Integer, taxYear As Integer) As Double
+    &#x27; Assumes loan started at beginning of year 1
+    CalculateTaxDeductibleInterest = CalculateAnnualInterest(loanAmount, annualRate, totalYears, taxYear)
 End Function
-
 &#x27; Pattern 6: Determine when interest drops below threshold
 Function FindPaymentWhenInterestBelow(loanAmount As Double, annualRate As Double, _
-years As Integer, threshold As Double) As Integer
-Dim monthlyRate As Double
-Dim totalPayments As Integer
-Dim i As Integer
-Dim interestPayment As Double
-
-monthlyRate = annualRate / 12
-totalPayments = years * 12
-
-For i = 1 To totalPayments
-interestPayment = Abs(IPmt(monthlyRate, i, totalPayments, -loanAmount))
-If interestPayment &lt; threshold Then
-FindPaymentWhenInterestBelow = i
-Exit Function
-End If
-Next i
-
-FindPaymentWhenInterestBelow = -1  &#x27; Never drops below threshold
+                                      years As Integer, threshold As Double) As Integer
+    Dim monthlyRate As Double
+    Dim totalPayments As Integer
+    Dim i As Integer
+    Dim interestPayment As Double
+    monthlyRate = annualRate / 12
+    totalPayments = years * 12
+    For i = 1 To totalPayments
+        interestPayment = Abs(IPmt(monthlyRate, i, totalPayments, -loanAmount))
+        If interestPayment &lt; threshold Then
+            FindPaymentWhenInterestBelow = i
+            Exit Function
+        End If
+    Next i
+    FindPaymentWhenInterestBelow = -1  &#x27; Never drops below threshold
 End Function
-
 &#x27; Pattern 7: Calculate average monthly interest
 Function CalculateAverageMonthlyInterest(loanAmount As Double, annualRate As Double, _
-years As Integer) As Double
-Dim totalInterest As Double
-Dim totalPayments As Integer
-Dim i As Integer
-
-totalPayments = years * 12
-
-For i = 1 To totalPayments
-totalInterest = totalInterest + IPmt(annualRate / 12, i, totalPayments, -loanAmount)
-Next i
-
-CalculateAverageMonthlyInterest = totalInterest / totalPayments
+                                         years As Integer) As Double
+    Dim totalInterest As Double
+    Dim totalPayments As Integer
+    Dim i As Integer
+    totalPayments = years * 12
+    For i = 1 To totalPayments
+        totalInterest = totalInterest + IPmt(annualRate / 12, i, totalPayments, -loanAmount)
+    Next i
+    CalculateAverageMonthlyInterest = totalInterest / totalPayments
 End Function
-
 &#x27; Pattern 8: Interest payment with balloon payment
 Function CalculateInterestWithBalloon(loanAmount As Double, annualRate As Double, _
-years As Integer, paymentNumber As Integer, _
-balloonAmount As Double) As Double
-Dim monthlyRate As Double
-Dim totalPayments As Integer
-
-monthlyRate = annualRate / 12
-totalPayments = years * 12
-
-CalculateInterestWithBalloon = IPmt(monthlyRate, paymentNumber, totalPayments, _
--loanAmount, -balloonAmount)
+                                      years As Integer, paymentNumber As Integer, _
+                                      balloonAmount As Double) As Double
+    Dim monthlyRate As Double
+    Dim totalPayments As Integer
+    monthlyRate = annualRate / 12
+    totalPayments = years * 12
+    CalculateInterestWithBalloon = IPmt(monthlyRate, paymentNumber, totalPayments, _
+                                        -loanAmount, -balloonAmount)
 End Function
-
 &#x27; Pattern 9: Interest for payment due at beginning
 Function CalculateInterestPaymentBeginning(loanAmount As Double, annualRate As Double, _
-years As Integer, paymentNumber As Integer) As Double
-Dim monthlyRate As Double
-Dim totalPayments As Integer
-
-monthlyRate = annualRate / 12
-totalPayments = years * 12
-
-&#x27; Type = 1 means payment at beginning of period
-CalculateInterestPaymentBeginning = IPmt(monthlyRate, paymentNumber, totalPayments, _
--loanAmount, 0, 1)
+                                           years As Integer, paymentNumber As Integer) As Double
+    Dim monthlyRate As Double
+    Dim totalPayments As Integer
+    monthlyRate = annualRate / 12
+    totalPayments = years * 12
+    &#x27; Type = 1 means payment at beginning of period
+    CalculateInterestPaymentBeginning = IPmt(monthlyRate, paymentNumber, totalPayments, _
+                                             -loanAmount, 0, 1)
 End Function
-
 &#x27; Pattern 10: Validate interest payment calculation
 Function ValidateInterestPayment(loanAmount As Double, annualRate As Double, _
-years As Integer, paymentNumber As Integer) As Boolean
-Dim totalPayment As Double
-Dim interestPayment As Double
-Dim principalPayment As Double
-Dim monthlyRate As Double
-Dim totalPayments As Integer
-
-monthlyRate = annualRate / 12
-totalPayments = years * 12
-
-totalPayment = Pmt(monthlyRate, totalPayments, -loanAmount)
-interestPayment = IPmt(monthlyRate, paymentNumber, totalPayments, -loanAmount)
-principalPayment = PPmt(monthlyRate, paymentNumber, totalPayments, -loanAmount)
-
-&#x27; Verify that interest + principal = total payment (within rounding tolerance)
-ValidateInterestPayment = (Abs(totalPayment - (interestPayment + principalPayment)) &lt; 0.01)
+                                 years As Integer, paymentNumber As Integer) As Boolean
+    Dim totalPayment As Double
+    Dim interestPayment As Double
+    Dim principalPayment As Double
+    Dim monthlyRate As Double
+    Dim totalPayments As Integer
+    monthlyRate = annualRate / 12
+    totalPayments = years * 12
+    totalPayment = Pmt(monthlyRate, totalPayments, -loanAmount)
+    interestPayment = IPmt(monthlyRate, paymentNumber, totalPayments, -loanAmount)
+    principalPayment = PPmt(monthlyRate, paymentNumber, totalPayments, -loanAmount)
+    &#x27; Verify that interest + principal = total payment (within rounding tolerance)
+    ValidateInterestPayment = (Abs(totalPayment - (interestPayment + principalPayment)) &lt; 0.01)
 End Function</code></pre>
 <h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Complete amortization schedule generator
 Public Class AmortizationSchedule
-Private m_loanAmount As Double
-Private m_annualRate As Double
-Private m_years As Integer
-Private m_schedule As Collection
-
-Public Sub Initialize(loanAmount As Double, annualRate As Double, years As Integer)
-m_loanAmount = loanAmount
-m_annualRate = annualRate
-m_years = years
-GenerateSchedule
-End Sub
-
-Private Sub GenerateSchedule()
-Dim monthlyRate As Double
-Dim totalPayments As Integer
-Dim i As Integer
-Dim entry As AmortizationEntry
-Dim balance As Double
-
-Set m_schedule = New Collection
-monthlyRate = m_annualRate / 12
-totalPayments = m_years * 12
-balance = m_loanAmount
-
-For i = 1 To totalPayments
-entry.PaymentNumber = i
-entry.TotalPayment = Pmt(monthlyRate, totalPayments, -m_loanAmount)
-entry.InterestPayment = IPmt(monthlyRate, i, totalPayments, -m_loanAmount)
-entry.PrincipalPayment = PPmt(monthlyRate, i, totalPayments, -m_loanAmount)
-balance = balance - entry.PrincipalPayment
-entry.Balance = balance
-
-m_schedule.Add entry
-Next i
-End Sub
-
-Public Function GetPayment(paymentNumber As Integer) As AmortizationEntry
-If paymentNumber &gt;= 1 And paymentNumber &lt;= m_schedule.Count Then
-GetPayment = m_schedule(paymentNumber)
-End If
-End Function
-
-Public Function GetTotalInterest() As Double
-Dim i As Integer
-Dim total As Double
-Dim entry As AmortizationEntry
-
-For i = 1 To m_schedule.Count
-entry = m_schedule(i)
-total = total + entry.InterestPayment
-Next i
-
-GetTotalInterest = total
-End Function
+    Private m_loanAmount As Double
+    Private m_annualRate As Double
+    Private m_years As Integer
+    Private m_schedule As Collection
+    Public Sub Initialize(loanAmount As Double, annualRate As Double, years As Integer)
+        m_loanAmount = loanAmount
+        m_annualRate = annualRate
+        m_years = years
+        GenerateSchedule
+    End Sub
+    Private Sub GenerateSchedule()
+        Dim monthlyRate As Double
+        Dim totalPayments As Integer
+        Dim i As Integer
+        Dim entry As AmortizationEntry
+        Dim balance As Double
+        Set m_schedule = New Collection
+        monthlyRate = m_annualRate / 12
+        totalPayments = m_years * 12
+        balance = m_loanAmount
+        For i = 1 To totalPayments
+            entry.PaymentNumber = i
+            entry.TotalPayment = Pmt(monthlyRate, totalPayments, -m_loanAmount)
+            entry.InterestPayment = IPmt(monthlyRate, i, totalPayments, -m_loanAmount)
+            entry.PrincipalPayment = PPmt(monthlyRate, i, totalPayments, -m_loanAmount)
+            balance = balance - entry.PrincipalPayment
+            entry.Balance = balance
+            m_schedule.Add entry
+        Next i
+    End Sub
+    Public Function GetPayment(paymentNumber As Integer) As AmortizationEntry
+        If paymentNumber &gt;= 1 And paymentNumber &lt;= m_schedule.Count Then
+            GetPayment = m_schedule(paymentNumber)
+        End If
+    End Function
+    Public Function GetTotalInterest() As Double
+        Dim i As Integer
+        Dim total As Double
+        Dim entry As AmortizationEntry
+        For i = 1 To m_schedule.Count
+            entry = m_schedule(i)
+            total = total + entry.InterestPayment
+        Next i
+        GetTotalInterest = total
+    End Function
 End Class
-
 &#x27; Example 2: Loan comparison calculator
 Public Class LoanComparer
-Public Function CompareLoanOptions(loanAmount As Double) As String
-Dim result As String
-Dim option1Interest As Double
-Dim option2Interest As Double
-Dim option3Interest As Double
-Dim i As Integer
-
-result = &quot;Loan Amount: &quot; &amp; Format$(loanAmount, &quot;Currency&quot;) &amp; vbCrLf &amp; vbCrLf
-
-&#x27; Option 1: 15-year at 5.5%
-For i = 1 To 15 * 12
-option1Interest = option1Interest + IPmt(0.055 / 12, i, 15 * 12, -loanAmount)
-Next i
-result = result &amp; &quot;15-year at 5.5%: &quot; &amp; Format$(option1Interest, &quot;Currency&quot;) &amp; vbCrLf
-
-&#x27; Option 2: 20-year at 6.0%
-For i = 1 To 20 * 12
-option2Interest = option2Interest + IPmt(0.06 / 12, i, 20 * 12, -loanAmount)
-Next i
-result = result &amp; &quot;20-year at 6.0%: &quot; &amp; Format$(option2Interest, &quot;Currency&quot;) &amp; vbCrLf
-
-&#x27; Option 3: 30-year at 6.5%
-For i = 1 To 30 * 12
-option3Interest = option3Interest + IPmt(0.065 / 12, i, 30 * 12, -loanAmount)
-Next i
-result = result &amp; &quot;30-year at 6.5%: &quot; &amp; Format$(option3Interest, &quot;Currency&quot;)
-
-CompareLoanOptions = result
-End Function
+    Public Function CompareLoanOptions(loanAmount As Double) As String
+        Dim result As String
+        Dim option1Interest As Double
+        Dim option2Interest As Double
+        Dim option3Interest As Double
+        Dim i As Integer
+        result = &quot;Loan Amount: &quot; &amp; Format$(loanAmount, &quot;Currency&quot;) &amp; vbCrLf &amp; vbCrLf
+        &#x27; Option 1: 15-year at 5.5%
+        For i = 1 To 15 * 12
+            option1Interest = option1Interest + IPmt(0.055 / 12, i, 15 * 12, -loanAmount)
+        Next i
+        result = result &amp; &quot;15-year at 5.5%: &quot; &amp; Format$(option1Interest, &quot;Currency&quot;) &amp; vbCrLf
+        &#x27; Option 2: 20-year at 6.0%
+        For i = 1 To 20 * 12
+            option2Interest = option2Interest + IPmt(0.06 / 12, i, 20 * 12, -loanAmount)
+        Next i
+        result = result &amp; &quot;20-year at 6.0%: &quot; &amp; Format$(option2Interest, &quot;Currency&quot;) &amp; vbCrLf
+        &#x27; Option 3: 30-year at 6.5%
+        For i = 1 To 30 * 12
+            option3Interest = option3Interest + IPmt(0.065 / 12, i, 30 * 12, -loanAmount)
+        Next i
+        result = result &amp; &quot;30-year at 6.5%: &quot; &amp; Format$(option3Interest, &quot;Currency&quot;)
+        CompareLoanOptions = result
+    End Function
 End Class
-
 &#x27; Example 3: Interest payment tracker
 Public Class InterestTracker
-Private m_loanAmount As Double
-Private m_annualRate As Double
-Private m_years As Integer
-Private m_currentPayment As Integer
-
-Public Sub Initialize(loanAmount As Double, annualRate As Double, years As Integer)
-m_loanAmount = loanAmount
-m_annualRate = annualRate
-m_years = years
-m_currentPayment = 0
-End Sub
-
-Public Function GetNextInterestPayment() As Double
-m_currentPayment = m_currentPayment + 1
-If m_currentPayment &lt;= m_years * 12 Then
-GetNextInterestPayment = IPmt(m_annualRate / 12, m_currentPayment, _
-m_years * 12, -m_loanAmount)
-Else
-GetNextInterestPayment = 0
-End If
-End Function
-
-Public Function GetInterestForPayment(paymentNumber As Integer) As Double
-If paymentNumber &gt;= 1 And paymentNumber &lt;= m_years * 12 Then
-GetInterestForPayment = IPmt(m_annualRate / 12, paymentNumber, _
-m_years * 12, -m_loanAmount)
-Else
-GetInterestForPayment = 0
-End If
-End Function
-
-Public Function GetYearToDateInterest() As Double
-Dim currentYear As Integer
-Dim startMonth As Integer
-Dim endMonth As Integer
-Dim total As Double
-Dim i As Integer
-
-currentYear = Int((m_currentPayment - 1) / 12) + 1
-startMonth = (currentYear - 1) * 12 + 1
-endMonth = m_currentPayment
-
-For i = startMonth To endMonth
-total = total + IPmt(m_annualRate / 12, i, m_years * 12, -m_loanAmount)
-Next i
-
-GetYearToDateInterest = total
-End Function
+    Private m_loanAmount As Double
+    Private m_annualRate As Double
+    Private m_years As Integer
+    Private m_currentPayment As Integer
+    Public Sub Initialize(loanAmount As Double, annualRate As Double, years As Integer)
+        m_loanAmount = loanAmount
+        m_annualRate = annualRate
+        m_years = years
+        m_currentPayment = 0
+    End Sub
+    Public Function GetNextInterestPayment() As Double
+        m_currentPayment = m_currentPayment + 1
+        If m_currentPayment &lt;= m_years * 12 Then
+            GetNextInterestPayment = IPmt(m_annualRate / 12, m_currentPayment, _
+                                         m_years * 12, -m_loanAmount)
+        Else
+            GetNextInterestPayment = 0
+        End If
+    End Function
+    Public Function GetInterestForPayment(paymentNumber As Integer) As Double
+        If paymentNumber &gt;= 1 And paymentNumber &lt;= m_years * 12 Then
+            GetInterestForPayment = IPmt(m_annualRate / 12, paymentNumber, _
+                                        m_years * 12, -m_loanAmount)
+        Else
+            GetInterestForPayment = 0
+        End If
+    End Function
+    Public Function GetYearToDateInterest() As Double
+        Dim currentYear As Integer
+        Dim startMonth As Integer
+        Dim endMonth As Integer
+        Dim total As Double
+        Dim i As Integer
+        currentYear = Int((m_currentPayment - 1) / 12) + 1
+        startMonth = (currentYear - 1) * 12 + 1
+        endMonth = m_currentPayment
+        For i = startMonth To endMonth
+            total = total + IPmt(m_annualRate / 12, i, m_years * 12, -m_loanAmount)
+        Next i
+        GetYearToDateInterest = total
+    End Function
 End Class
-
 &#x27; Example 4: Refinancing analyzer
 Function AnalyzeRefinancing(currentLoanBalance As Double, currentRate As Double, _
-remainingYears As Integer, newRate As Double, _
-newYears As Integer, closingCosts As Double) As String
-Dim currentTotalInterest As Double
-Dim newTotalInterest As Double
-Dim i As Integer
-Dim result As String
-
-&#x27; Calculate remaining interest on current loan
-For i = 1 To remainingYears * 12
-currentTotalInterest = currentTotalInterest + _
-IPmt(currentRate / 12, i, remainingYears * 12, -currentLoanBalance)
-Next i
-
-&#x27; Calculate total interest on new loan
-For i = 1 To newYears * 12
-newTotalInterest = newTotalInterest + _
-IPmt(newRate / 12, i, newYears * 12, -currentLoanBalance)
-Next i
-
-result = &quot;Current loan interest: &quot; &amp; Format$(currentTotalInterest, &quot;Currency&quot;) &amp; vbCrLf
-result = result &amp; &quot;New loan interest: &quot; &amp; Format$(newTotalInterest, &quot;Currency&quot;) &amp; vbCrLf
-result = result &amp; &quot;Closing costs: &quot; &amp; Format$(closingCosts, &quot;Currency&quot;) &amp; vbCrLf
-result = result &amp; &quot;Net savings: &quot; &amp; _
-Format$(currentTotalInterest - newTotalInterest - closingCosts, &quot;Currency&quot;)
-
-AnalyzeRefinancing = result
+                           remainingYears As Integer, newRate As Double, _
+                           newYears As Integer, closingCosts As Double) As String
+    Dim currentTotalInterest As Double
+    Dim newTotalInterest As Double
+    Dim i As Integer
+    Dim result As String
+    &#x27; Calculate remaining interest on current loan
+    For i = 1 To remainingYears * 12
+        currentTotalInterest = currentTotalInterest + _
+            IPmt(currentRate / 12, i, remainingYears * 12, -currentLoanBalance)
+    Next i
+    &#x27; Calculate total interest on new loan
+    For i = 1 To newYears * 12
+        newTotalInterest = newTotalInterest + _
+            IPmt(newRate / 12, i, newYears * 12, -currentLoanBalance)
+    Next i
+    result = &quot;Current loan interest: &quot; &amp; Format$(currentTotalInterest, &quot;Currency&quot;) &amp; vbCrLf
+    result = result &amp; &quot;New loan interest: &quot; &amp; Format$(newTotalInterest, &quot;Currency&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Closing costs: &quot; &amp; Format$(closingCosts, &quot;Currency&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Net savings: &quot; &amp; _
+             Format$(currentTotalInterest - newTotalInterest - closingCosts, &quot;Currency&quot;)
+    AnalyzeRefinancing = result
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>IPmt</code> function can raise errors:</p>
-<ul>
-<li><strong>Invalid procedure call (Error 5)</strong>: If <code>per</code> is less than 1 or greater than <code>nper</code></li>
-<li><strong>Type Mismatch (Error 13)</strong>: If arguments are not numeric</li>
-<li><strong>Overflow (Error 6)</strong>: If result exceeds Double range</li>
-</ul>
+<p>The <code>IPmt</code> function can raise errors:
+- <strong>Invalid procedure call (Error 5)</strong>: If <code>per</code> is less than 1 or greater than <code>nper</code>
+- <strong>Type Mismatch (Error 13)</strong>: If arguments are not numeric
+- <strong>Overflow (Error 6)</strong>: If result exceeds Double range</p>
 <pre><code class="language-vbnet">On Error GoTo ErrorHandler
 Dim interestPayment As Double
-
 interestPayment = IPmt(0.08 / 12, 1, 48, -20000)
 Debug.Print &quot;Interest payment: &quot; &amp; Format$(interestPayment, &quot;Currency&quot;)
 Exit Sub
-
 ErrorHandler:
-MsgBox &quot;Error calculating interest: &quot; &amp; Err.Description, vbCritical</code></pre>
+    MsgBox &quot;Error calculating interest: &quot; &amp; Err.Description, vbCritical</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
 <li><strong>Calculation Intensity</strong>: <code>IPmt</code> involves complex financial calculations</li>

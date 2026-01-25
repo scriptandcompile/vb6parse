@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="inputbox-function"><code>InputBox</code> Function</h1>
+            <h1 id="inputbox-function">InputBox Function</h1>
 <p>Displays a prompt in a dialog box, waits for the user to input text or click a button,
 and returns a <code>String</code> containing the contents of the text box.</p>
 <h2 id="syntax">Syntax</h2>
@@ -59,21 +59,19 @@ and returns a <code>String</code> containing the contents of the text box.</p>
 - If Esc is pressed: Returns an empty string ("")
 - If the default parameter is provided and user clicks OK without entering text: Returns the default value</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>InputBox</code> function provides a simple way to get user input:</p>
-<ul>
-<li>Displays a modal dialog box that blocks execution until user responds</li>
-<li>The dialog always includes OK and Cancel buttons</li>
-<li>Pressing Enter is equivalent to clicking OK</li>
-<li>Pressing Esc is equivalent to clicking Cancel</li>
-<li>Cannot distinguish between Cancel and an empty string entered by user</li>
-<li>For multi-line input, use a custom form instead</li>
-<li>Maximum prompt length is approximately 1024 characters</li>
-<li>Position parameters (xpos, ypos) are in twips (1440 twips = 1 inch)</li>
-<li>Help integration requires both helpfile and context parameters</li>
-<li>The text box accepts a single line of text (no multi-line support)</li>
-<li>Input is returned as typed (no automatic validation or conversion)</li>
-<li>Always returns a <code>String</code>, even if numeric input is expected</li>
-</ul>
+<p>The <code>InputBox</code> function provides a simple way to get user input:
+- Displays a modal dialog box that blocks execution until user responds
+- The dialog always includes OK and Cancel buttons
+- Pressing Enter is equivalent to clicking OK
+- Pressing Esc is equivalent to clicking Cancel
+- Cannot distinguish between Cancel and an empty string entered by user
+- For multi-line input, use a custom form instead
+- Maximum prompt length is approximately 1024 characters
+- Position parameters (xpos, ypos) are in twips (1440 twips = 1 inch)
+- Help integration requires both helpfile and context parameters
+- The text box accepts a single line of text (no multi-line support)
+- Input is returned as typed (no automatic validation or conversion)
+- Always returns a <code>String</code>, even if numeric input is expected</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Simple User Input</strong>: Get basic text input from users</li>
@@ -90,410 +88,336 @@ and returns a <code>String</code> containing the contents of the text box.</p>
 Dim userName As String
 userName = InputBox(&quot;Enter your name:&quot;)
 If userName &lt;&gt; &quot;&quot; Then
-MsgBox &quot;Hello, &quot; &amp; userName
+    MsgBox &quot;Hello, &quot; &amp; userName
 End If
-
 &#x27; Example 2: With title and default
 Dim age As String
 age = InputBox(&quot;Enter your age:&quot;, &quot;Age Entry&quot;, &quot;18&quot;)
 If IsNumeric(age) Then
-MsgBox &quot;You are &quot; &amp; age &amp; &quot; years old&quot;
+    MsgBox &quot;You are &quot; &amp; age &amp; &quot; years old&quot;
 End If
-
 &#x27; Example 3: With position
 Dim response As String
 response = InputBox(&quot;Enter response:&quot;, &quot;Input&quot;, &quot;&quot;, 1000, 1000)
-
 &#x27; Example 4: Multi-line prompt
 Dim email As String
 email = InputBox(&quot;Please enter your email address:&quot; &amp; vbCrLf &amp; _
-&quot;This will be used for notifications.&quot;, _
-&quot;Email Address&quot;)</code></pre>
+                 &quot;This will be used for notifications.&quot;, _
+                 &quot;Email Address&quot;)</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Validate numeric input
 Function GetNumericInput(prompt As String, Optional default As String = &quot;0&quot;) As Double
-Dim input As String
-Dim result As Double
-
-Do
-input = InputBox(prompt, &quot;Numeric Input&quot;, default)
-
-If input = &quot;&quot; Then
-GetNumericInput = 0
-Exit Function
-End If
-
-If IsNumeric(input) Then
-GetNumericInput = CDbl(input)
-Exit Function
-End If
-
-MsgBox &quot;Please enter a valid number&quot;, vbExclamation
-Loop
+    Dim input As String
+    Dim result As Double
+    Do
+        input = InputBox(prompt, &quot;Numeric Input&quot;, default)
+        If input = &quot;&quot; Then
+            GetNumericInput = 0
+            Exit Function
+        End If
+        If IsNumeric(input) Then
+            GetNumericInput = CDbl(input)
+            Exit Function
+        End If
+        MsgBox &quot;Please enter a valid number&quot;, vbExclamation
+    Loop
 End Function
-
 &#x27; Pattern 2: Required input (loop until provided)
 Function GetRequiredInput(prompt As String, title As String) As String
-Dim input As String
-
-Do
-input = InputBox(prompt, title)
-
-If input &lt;&gt; &quot;&quot; Then
-GetRequiredInput = input
-Exit Function
-End If
-
-If MsgBox(&quot;Input is required. Try again?&quot;, vbYesNo) = vbNo Then
-GetRequiredInput = &quot;&quot;
-Exit Function
-End If
-Loop
+    Dim input As String
+    Do
+        input = InputBox(prompt, title)
+        If input &lt;&gt; &quot;&quot; Then
+            GetRequiredInput = input
+            Exit Function
+        End If
+        If MsgBox(&quot;Input is required. Try again?&quot;, vbYesNo) = vbNo Then
+            GetRequiredInput = &quot;&quot;
+            Exit Function
+        End If
+    Loop
 End Function
-
 &#x27; Pattern 3: Input with validation
 Function GetEmailAddress() As String
-Dim email As String
-
-Do
-email = InputBox(&quot;Enter your email address:&quot;, &quot;Email&quot;)
-
-If email = &quot;&quot; Then
-GetEmailAddress = &quot;&quot;
-Exit Function
-End If
-
-If InStr(email, &quot;@&quot;) &gt; 0 And InStr(email, &quot;.&quot;) &gt; 0 Then
-GetEmailAddress = email
-Exit Function
-End If
-
-MsgBox &quot;Please enter a valid email address&quot;, vbExclamation
-Loop
+    Dim email As String
+    Do
+        email = InputBox(&quot;Enter your email address:&quot;, &quot;Email&quot;)
+        If email = &quot;&quot; Then
+            GetEmailAddress = &quot;&quot;
+            Exit Function
+        End If
+        If InStr(email, &quot;@&quot;) &gt; 0 And InStr(email, &quot;.&quot;) &gt; 0 Then
+            GetEmailAddress = email
+            Exit Function
+        End If
+        MsgBox &quot;Please enter a valid email address&quot;, vbExclamation
+    Loop
 End Function
-
 &#x27; Pattern 4: Input with range validation
 Function GetIntegerInRange(prompt As String, minVal As Long, maxVal As Long) As Long
-Dim input As String
-Dim value As Long
-
-Do
-input = InputBox(prompt &amp; vbCrLf &amp; _
-&quot;Range: &quot; &amp; minVal &amp; &quot; to &quot; &amp; maxVal, _
-&quot;Input&quot;, CStr(minVal))
-
-If input = &quot;&quot; Then
-GetIntegerInRange = minVal
-Exit Function
-End If
-
-If IsNumeric(input) Then
-value = CLng(input)
-If value &gt;= minVal And value &lt;= maxVal Then
-GetIntegerInRange = value
-Exit Function
-End If
-End If
-
-MsgBox &quot;Please enter a value between &quot; &amp; minVal &amp; &quot; and &quot; &amp; maxVal, vbExclamation
-Loop
+    Dim input As String
+    Dim value As Long
+    Do
+        input = InputBox(prompt &amp; vbCrLf &amp; _
+                        &quot;Range: &quot; &amp; minVal &amp; &quot; to &quot; &amp; maxVal, _
+                        &quot;Input&quot;, CStr(minVal))
+        If input = &quot;&quot; Then
+            GetIntegerInRange = minVal
+            Exit Function
+        End If
+        If IsNumeric(input) Then
+            value = CLng(input)
+            If value &gt;= minVal And value &lt;= maxVal Then
+                GetIntegerInRange = value
+                Exit Function
+            End If
+        End If
+        MsgBox &quot;Please enter a value between &quot; &amp; minVal &amp; &quot; and &quot; &amp; maxVal, vbExclamation
+    Loop
 End Function
-
 &#x27; Pattern 5: File name input with validation
 Function GetFileName(prompt As String, Optional extension As String = &quot;&quot;) As String
-Dim fileName As String
-
-Do
-fileName = InputBox(prompt, &quot;File Name&quot;)
-
-If fileName = &quot;&quot; Then
-GetFileName = &quot;&quot;
-Exit Function
-End If
-
-&#x27; Check for invalid characters
-If InStr(fileName, &quot;\&quot;) &gt; 0 Or InStr(fileName, &quot;/&quot;) &gt; 0 Or _
-InStr(fileName, &quot;:&quot;) &gt; 0 Or InStr(fileName, &quot;*&quot;) &gt; 0 Or _
-InStr(fileName, &quot;?&quot;) &gt; 0 Or InStr(fileName, &quot;&quot;&quot;&quot;) &gt; 0 Or _
-InStr(fileName, &quot;&lt;&quot;) &gt; 0 Or InStr(fileName, &quot;&gt;&quot;) &gt; 0 Or _
-InStr(fileName, &quot;|&quot;) &gt; 0 Then
-MsgBox &quot;File name contains invalid characters&quot;, vbExclamation
-Else
-If extension &lt;&gt; &quot;&quot; And Right$(fileName, Len(extension)) &lt;&gt; extension Then
-fileName = fileName &amp; extension
-End If
-GetFileName = fileName
-Exit Function
-End If
-Loop
+    Dim fileName As String
+    Do
+        fileName = InputBox(prompt, &quot;File Name&quot;)
+        If fileName = &quot;&quot; Then
+            GetFileName = &quot;&quot;
+            Exit Function
+        End If
+        &#x27; Check for invalid characters
+        If InStr(fileName, &quot;\&quot;) &gt; 0 Or InStr(fileName, &quot;/&quot;) &gt; 0 Or _
+           InStr(fileName, &quot;:&quot;) &gt; 0 Or InStr(fileName, &quot;*&quot;) &gt; 0 Or _
+           InStr(fileName, &quot;?&quot;) &gt; 0 Or InStr(fileName, &quot;&quot;&quot;&quot;) &gt; 0 Or _
+           InStr(fileName, &quot;&lt;&quot;) &gt; 0 Or InStr(fileName, &quot;&gt;&quot;) &gt; 0 Or _
+           InStr(fileName, &quot;|&quot;) &gt; 0 Then
+            MsgBox &quot;File name contains invalid characters&quot;, vbExclamation
+        Else
+            If extension &lt;&gt; &quot;&quot; And Right$(fileName, Len(extension)) &lt;&gt; extension Then
+                fileName = fileName &amp; extension
+            End If
+            GetFileName = fileName
+            Exit Function
+        End If
+    Loop
 End Function
-
 &#x27; Pattern 6: Password input (simple - visible text)
 Function GetPassword(prompt As String) As String
-Dim password As String
-Dim confirm As String
-
-password = InputBox(prompt, &quot;Password&quot;)
-
-If password = &quot;&quot; Then
-GetPassword = &quot;&quot;
-Exit Function
-End If
-
-confirm = InputBox(&quot;Confirm password:&quot;, &quot;Confirm Password&quot;)
-
-If password = confirm Then
-GetPassword = password
-Else
-MsgBox &quot;Passwords do not match&quot;, vbExclamation
-GetPassword = &quot;&quot;
-End If
+    Dim password As String
+    Dim confirm As String
+    password = InputBox(prompt, &quot;Password&quot;)
+    If password = &quot;&quot; Then
+        GetPassword = &quot;&quot;
+        Exit Function
+    End If
+    confirm = InputBox(&quot;Confirm password:&quot;, &quot;Confirm Password&quot;)
+    If password = confirm Then
+        GetPassword = password
+    Else
+        MsgBox &quot;Passwords do not match&quot;, vbExclamation
+        GetPassword = &quot;&quot;
+    End If
 End Function
-
 &#x27; Pattern 7: Multiple inputs in sequence
 Sub GetUserInfo()
-Dim firstName As String
-Dim lastName As String
-Dim email As String
-
-firstName = InputBox(&quot;Enter first name:&quot;, &quot;User Information&quot;)
-If firstName = &quot;&quot; Then Exit Sub
-
-lastName = InputBox(&quot;Enter last name:&quot;, &quot;User Information&quot;)
-If lastName = &quot;&quot; Then Exit Sub
-
-email = InputBox(&quot;Enter email:&quot;, &quot;User Information&quot;)
-If email = &quot;&quot; Then Exit Sub
-
-MsgBox &quot;User: &quot; &amp; firstName &amp; &quot; &quot; &amp; lastName &amp; vbCrLf &amp; _
-&quot;Email: &quot; &amp; email
+    Dim firstName As String
+    Dim lastName As String
+    Dim email As String
+    firstName = InputBox(&quot;Enter first name:&quot;, &quot;User Information&quot;)
+    If firstName = &quot;&quot; Then Exit Sub
+    lastName = InputBox(&quot;Enter last name:&quot;, &quot;User Information&quot;)
+    If lastName = &quot;&quot; Then Exit Sub
+    email = InputBox(&quot;Enter email:&quot;, &quot;User Information&quot;)
+    If email = &quot;&quot; Then Exit Sub
+    MsgBox &quot;User: &quot; &amp; firstName &amp; &quot; &quot; &amp; lastName &amp; vbCrLf &amp; _
+           &quot;Email: &quot; &amp; email
 End Sub
-
 &#x27; Pattern 8: Input with list of options in prompt
 Function GetOption() As String
-Dim choice As String
-Dim prompt As String
-
-prompt = &quot;Select an option:&quot; &amp; vbCrLf &amp; _
-&quot;1 - Create new file&quot; &amp; vbCrLf &amp; _
-&quot;2 - Open existing file&quot; &amp; vbCrLf &amp; _
-&quot;3 - Exit&quot; &amp; vbCrLf &amp; vbCrLf &amp; _
-&quot;Enter choice (1-3):&quot;
-
-choice = InputBox(prompt, &quot;Main Menu&quot;, &quot;1&quot;)
-
-Select Case choice
-Case &quot;1&quot;, &quot;2&quot;, &quot;3&quot;
-GetOption = choice
-Case Else
-GetOption = &quot;&quot;
-End Select
+    Dim choice As String
+    Dim prompt As String
+    prompt = &quot;Select an option:&quot; &amp; vbCrLf &amp; _
+             &quot;1 - Create new file&quot; &amp; vbCrLf &amp; _
+             &quot;2 - Open existing file&quot; &amp; vbCrLf &amp; _
+             &quot;3 - Exit&quot; &amp; vbCrLf &amp; vbCrLf &amp; _
+             &quot;Enter choice (1-3):&quot;
+    choice = InputBox(prompt, &quot;Main Menu&quot;, &quot;1&quot;)
+    Select Case choice
+        Case &quot;1&quot;, &quot;2&quot;, &quot;3&quot;
+            GetOption = choice
+        Case Else
+            GetOption = &quot;&quot;
+    End Select
 End Function
-
 &#x27; Pattern 9: Trim and clean input
 Function GetCleanInput(prompt As String, title As String) As String
-Dim input As String
-
-input = InputBox(prompt, title)
-
-&#x27; Trim whitespace
-input = Trim$(input)
-
-&#x27; Remove multiple spaces
-Do While InStr(input, &quot;  &quot;) &gt; 0
-input = Replace(input, &quot;  &quot;, &quot; &quot;)
-Loop
-
-GetCleanInput = input
+    Dim input As String
+    input = InputBox(prompt, title)
+    &#x27; Trim whitespace
+    input = Trim$(input)
+    &#x27; Remove multiple spaces
+    Do While InStr(input, &quot;  &quot;) &gt; 0
+        input = Replace(input, &quot;  &quot;, &quot; &quot;)
+    Loop
+    GetCleanInput = input
 End Function
-
 &#x27; Pattern 10: Cancel detection with default
 Function GetInputWithCancelDetection(prompt As String, defaultValue As String) As Variant
-Dim input As String
-
-input = InputBox(prompt, &quot;Input&quot;, defaultValue)
-
-If input = &quot;&quot; And defaultValue &lt;&gt; &quot;&quot; Then
-&#x27; User likely clicked Cancel
-GetInputWithCancelDetection = Null
-Else
-GetInputWithCancelDetection = input
-End If
+    Dim input As String
+    input = InputBox(prompt, &quot;Input&quot;, defaultValue)
+    If input = &quot;&quot; And defaultValue &lt;&gt; &quot;&quot; Then
+        &#x27; User likely clicked Cancel
+        GetInputWithCancelDetection = Null
+    Else
+        GetInputWithCancelDetection = input
+    End If
 End Function</code></pre>
 <h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Configuration manager with InputBox
 Public Class ConfigManager
-Private m_settings As Collection
-
-Private Sub Class_Initialize()
-Set m_settings = New Collection
-End Sub
-
-Public Function GetSetting(key As String, prompt As String, _
-Optional defaultValue As String = &quot;&quot;) As String
-On Error Resume Next
-GetSetting = m_settings(key)
-
-If Err.Number &lt;&gt; 0 Or GetSetting = &quot;&quot; Then
-Err.Clear
-GetSetting = InputBox(prompt, &quot;Configuration: &quot; &amp; key, defaultValue)
-
-If GetSetting &lt;&gt; &quot;&quot; Then
-m_settings.Add GetSetting, key
-End If
-End If
-On Error GoTo 0
-End Function
-
-Public Sub ClearSettings()
-Set m_settings = New Collection
-End Sub
+    Private m_settings As Collection
+    Private Sub Class_Initialize()
+        Set m_settings = New Collection
+    End Sub
+    Public Function GetSetting(key As String, prompt As String, _
+                               Optional defaultValue As String = &quot;&quot;) As String
+        On Error Resume Next
+        GetSetting = m_settings(key)
+        If Err.Number &lt;&gt; 0 Or GetSetting = &quot;&quot; Then
+            Err.Clear
+            GetSetting = InputBox(prompt, &quot;Configuration: &quot; &amp; key, defaultValue)
+            If GetSetting &lt;&gt; &quot;&quot; Then
+                m_settings.Add GetSetting, key
+            End If
+        End If
+        On Error GoTo 0
+    End Function
+    Public Sub ClearSettings()
+        Set m_settings = New Collection
+    End Sub
 End Class
-
 &#x27; Example 2: Data validation wrapper
 Public Class InputValidator
-Public Enum ValidationType
-vtText = 0
-vtInteger = 1
-vtDecimal = 2
-vtEmail = 3
-vtDate = 4
-End Enum
-
-Public Function GetValidatedInput(prompt As String, _
-validationType As ValidationType, _
-Optional title As String = &quot;Input&quot;, _
-Optional defaultValue As String = &quot;&quot;) As Variant
-Dim input As String
-Dim isValid As Boolean
-
-Do
-input = InputBox(prompt, title, defaultValue)
-
-If input = &quot;&quot; Then
-GetValidatedInput = Null
-Exit Function
-End If
-
-isValid = ValidateInput(input, validationType)
-
-If isValid Then
-GetValidatedInput = ConvertInput(input, validationType)
-Exit Function
-Else
-MsgBox &quot;Invalid input. Please try again.&quot;, vbExclamation
-End If
-Loop
-End Function
-
-Private Function ValidateInput(input As String, vType As ValidationType) As Boolean
-Select Case vType
-Case vtText
-ValidateInput = Len(input) &gt; 0
-Case vtInteger
-ValidateInput = IsNumeric(input) And InStr(input, &quot;.&quot;) = 0
-Case vtDecimal
-ValidateInput = IsNumeric(input)
-Case vtEmail
-ValidateInput = InStr(input, &quot;@&quot;) &gt; 0 And InStr(input, &quot;.&quot;) &gt; 0
-Case vtDate
-ValidateInput = IsDate(input)
-Case Else
-ValidateInput = False
-End Select
-End Function
-
-Private Function ConvertInput(input As String, vType As ValidationType) As Variant
-Select Case vType
-Case vtInteger
-ConvertInput = CLng(input)
-Case vtDecimal
-ConvertInput = CDbl(input)
-Case vtDate
-ConvertInput = CDate(input)
-Case Else
-ConvertInput = input
-End Select
-End Function
+    Public Enum ValidationType
+        vtText = 0
+        vtInteger = 1
+        vtDecimal = 2
+        vtEmail = 3
+        vtDate = 4
+    End Enum
+    Public Function GetValidatedInput(prompt As String, _
+                                      validationType As ValidationType, _
+                                      Optional title As String = &quot;Input&quot;, _
+                                      Optional defaultValue As String = &quot;&quot;) As Variant
+        Dim input As String
+        Dim isValid As Boolean
+        Do
+            input = InputBox(prompt, title, defaultValue)
+            If input = &quot;&quot; Then
+                GetValidatedInput = Null
+                Exit Function
+            End If
+            isValid = ValidateInput(input, validationType)
+            If isValid Then
+                GetValidatedInput = ConvertInput(input, validationType)
+                Exit Function
+            Else
+                MsgBox &quot;Invalid input. Please try again.&quot;, vbExclamation
+            End If
+        Loop
+    End Function
+    Private Function ValidateInput(input As String, vType As ValidationType) As Boolean
+        Select Case vType
+            Case vtText
+                ValidateInput = Len(input) &gt; 0
+            Case vtInteger
+                ValidateInput = IsNumeric(input) And InStr(input, &quot;.&quot;) = 0
+            Case vtDecimal
+                ValidateInput = IsNumeric(input)
+            Case vtEmail
+                ValidateInput = InStr(input, &quot;@&quot;) &gt; 0 And InStr(input, &quot;.&quot;) &gt; 0
+            Case vtDate
+                ValidateInput = IsDate(input)
+            Case Else
+                ValidateInput = False
+        End Select
+    End Function
+    Private Function ConvertInput(input As String, vType As ValidationType) As Variant
+        Select Case vType
+            Case vtInteger
+                ConvertInput = CLng(input)
+            Case vtDecimal
+                ConvertInput = CDbl(input)
+            Case vtDate
+                ConvertInput = CDate(input)
+            Case Else
+                ConvertInput = input
+        End Select
+    End Function
 End Class
-
 &#x27; Example 3: Wizard-style input sequence
 Function RunWizard() As Boolean
-Dim step1 As String, step2 As String, step3 As String
-Dim prompt As String
-
-&#x27; Step 1
-prompt = &quot;Step 1 of 3:&quot; &amp; vbCrLf &amp; _
-&quot;Enter project name:&quot;
-step1 = InputBox(prompt, &quot;Project Wizard&quot;)
-If step1 = &quot;&quot; Then
-RunWizard = False
-Exit Function
-End If
-
-&#x27; Step 2
-prompt = &quot;Step 2 of 3:&quot; &amp; vbCrLf &amp; _
-&quot;Enter project location:&quot;
-step2 = InputBox(prompt, &quot;Project Wizard&quot;, &quot;C:\Projects&quot;)
-If step2 = &quot;&quot; Then
-RunWizard = False
-Exit Function
-End If
-
-&#x27; Step 3
-prompt = &quot;Step 3 of 3:&quot; &amp; vbCrLf &amp; _
-&quot;Enter description:&quot;
-step3 = InputBox(prompt, &quot;Project Wizard&quot;)
-If step3 = &quot;&quot; Then step3 = &quot;(No description)&quot;
-
-&#x27; Create project
-MsgBox &quot;Creating project:&quot; &amp; vbCrLf &amp; _
-&quot;Name: &quot; &amp; step1 &amp; vbCrLf &amp; _
-&quot;Location: &quot; &amp; step2 &amp; vbCrLf &amp; _
-&quot;Description: &quot; &amp; step3
-
-RunWizard = True
+    Dim step1 As String, step2 As String, step3 As String
+    Dim prompt As String
+    &#x27; Step 1
+    prompt = &quot;Step 1 of 3:&quot; &amp; vbCrLf &amp; _
+             &quot;Enter project name:&quot;
+    step1 = InputBox(prompt, &quot;Project Wizard&quot;)
+    If step1 = &quot;&quot; Then
+        RunWizard = False
+        Exit Function
+    End If
+    &#x27; Step 2
+    prompt = &quot;Step 2 of 3:&quot; &amp; vbCrLf &amp; _
+             &quot;Enter project location:&quot;
+    step2 = InputBox(prompt, &quot;Project Wizard&quot;, &quot;C:\Projects&quot;)
+    If step2 = &quot;&quot; Then
+        RunWizard = False
+        Exit Function
+    End If
+    &#x27; Step 3
+    prompt = &quot;Step 3 of 3:&quot; &amp; vbCrLf &amp; _
+             &quot;Enter description:&quot;
+    step3 = InputBox(prompt, &quot;Project Wizard&quot;)
+    If step3 = &quot;&quot; Then step3 = &quot;(No description)&quot;
+    &#x27; Create project
+    MsgBox &quot;Creating project:&quot; &amp; vbCrLf &amp; _
+           &quot;Name: &quot; &amp; step1 &amp; vbCrLf &amp; _
+           &quot;Location: &quot; &amp; step2 &amp; vbCrLf &amp; _
+           &quot;Description: &quot; &amp; step3
+    RunWizard = True
 End Function
-
 &#x27; Example 4: Search query builder
 Function BuildSearchQuery() As String
-Dim searchTerm As String
-Dim filters As String
-Dim query As String
-
-searchTerm = InputBox(&quot;Enter search term:&quot;, &quot;Search&quot;)
-If searchTerm = &quot;&quot; Then
-BuildSearchQuery = &quot;&quot;
-Exit Function
-End If
-
-filters = InputBox(&quot;Enter filters (optional):&quot; &amp; vbCrLf &amp; _
-&quot;Examples: category:books, year:2020&quot;, _
-&quot;Search Filters&quot;)
-
-query = &quot;search=&quot; &amp; searchTerm
-If filters &lt;&gt; &quot;&quot; Then
-query = query &amp; &quot;&amp;filters=&quot; &amp; filters
-End If
-
-BuildSearchQuery = query
+    Dim searchTerm As String
+    Dim filters As String
+    Dim query As String
+    searchTerm = InputBox(&quot;Enter search term:&quot;, &quot;Search&quot;)
+    If searchTerm = &quot;&quot; Then
+        BuildSearchQuery = &quot;&quot;
+        Exit Function
+    End If
+    filters = InputBox(&quot;Enter filters (optional):&quot; &amp; vbCrLf &amp; _
+                      &quot;Examples: category:books, year:2020&quot;, _
+                      &quot;Search Filters&quot;)
+    query = &quot;search=&quot; &amp; searchTerm
+    If filters &lt;&gt; &quot;&quot; Then
+        query = query &amp; &quot;&amp;filters=&quot; &amp; filters
+    End If
+    BuildSearchQuery = query
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <p>The <code>InputBox</code> function rarely raises errors, but should be used with error handling:</p>
 <pre><code class="language-vbnet">On Error GoTo ErrorHandler
 Dim userInput As String
-
 userInput = InputBox(&quot;Enter value:&quot;, &quot;Input&quot;)
-
 If userInput = &quot;&quot; Then
-MsgBox &quot;No input provided&quot;, vbInformation
+    MsgBox &quot;No input provided&quot;, vbInformation
 Else
-ProcessInput userInput
+    ProcessInput userInput
 End If
 Exit Sub
-
 ErrorHandler:
-MsgBox &quot;Error getting input: &quot; &amp; Err.Description, vbCritical</code></pre>
+    MsgBox &quot;Error getting input: &quot; &amp; Err.Description, vbCritical</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
 <li><strong>Modal Dialog</strong>: Blocks execution until user responds</li>

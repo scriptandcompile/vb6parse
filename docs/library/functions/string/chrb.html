@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="chrb-function"><code>ChrB</code> Function</h1>
+            <h1 id="chrb-function">ChrB Function</h1>
 <p>Returns a <code>String</code> containing the character associated with the specified ANSI character code.
 The "B" suffix indicates this is the byte (ANSI) version of the <code>Chr</code> function.</p>
 <h2 id="syntax">Syntax</h2>
@@ -45,7 +45,7 @@ The "B" suffix indicates this is the byte (ANSI) version of the <code>Chr</code>
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><strong>charcode</strong>: Required. Long. A numeric expression that identifies a character in the ANSI character set.
-Valid values are 0-255.</li>
+  Valid values are 0-255.</li>
 </ul>
 <h2 id="returns">Returns</h2>
 <p>Returns a <code>String</code> containing a single byte character corresponding to the specified ANSI code.</p>
@@ -96,7 +96,7 @@ Dim result As String
 Dim bytes() As Byte
 bytes = Array(72, 101, 108, 108, 111)
 For i = LBound(bytes) To UBound(bytes)
-result = result &amp; ChrB(bytes(i))
+    result = result &amp; ChrB(bytes(i))
 Next i</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 4: Creating null-terminated strings
 Dim nullTerm As String
@@ -105,7 +105,7 @@ nullTerm = &quot;Hello&quot; &amp; ChrB(0)</code></pre>
 Dim alphabet As String
 Dim i As Integer
 For i = 65 To 90
-alphabet = alphabet &amp; ChrB(i)
+    alphabet = alphabet &amp; ChrB(i)
 Next i  &#x27; &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 6: Control character constants
 Const NULL_CHAR As String = ChrB(0)
@@ -120,12 +120,12 @@ quote = ChrB(34)  &#x27; Double quote character
 result = quote &amp; &quot;Hello&quot; &amp; quote  &#x27; &quot;Hello&quot;</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 8: Binary data to string conversion
 Function BytesToString(bytes() As Byte) As String
-Dim i As Long
-Dim result As String
-For i = LBound(bytes) To UBound(bytes)
-result = result &amp; ChrB(bytes(i))
-Next i
-BytesToString = result
+    Dim i As Long
+    Dim result As String
+    For i = LBound(bytes) To UBound(bytes)
+        result = result &amp; ChrB(bytes(i))
+    Next i
+    BytesToString = result
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 9: Creating delimited strings
 Dim PIPE As String
@@ -137,105 +137,84 @@ box = ChrB(218) &amp; String(10, ChrB(196)) &amp; ChrB(191)  &#x27; Top of box</
 <h2 id="advanced-examples">Advanced Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Complete ANSI string builder
 Function BuildANSIString(byteCodes() As Integer) As String
-Dim i As Integer
-Dim result As String
-
-For i = LBound(byteCodes) To UBound(byteCodes)
-If byteCodes(i) &gt;= 0 And byteCodes(i) &lt;= 255 Then
-result = result &amp; ChrB(byteCodes(i))
-Else
-Err.Raise 5, , &quot;Invalid byte code: &quot; &amp; byteCodes(i)
-End If
-Next i
-
-BuildANSIString = result
+    Dim i As Integer
+    Dim result As String
+    For i = LBound(byteCodes) To UBound(byteCodes)
+        If byteCodes(i) &gt;= 0 And byteCodes(i) &lt;= 255 Then
+            result = result &amp; ChrB(byteCodes(i))
+        Else
+            Err.Raise 5, , &quot;Invalid byte code: &quot; &amp; byteCodes(i)
+        End If
+    Next i
+    BuildANSIString = result
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 2: Legacy file format writer
 Sub WriteLegacyFormat(filename As String, data As String)
-Dim f As Integer
-Dim i As Integer
-Dim checksum As Byte
-
-f = FreeFile
-Open filename For Binary As #f
-
-&#x27; Write header with STX (Start of Text)
-Put #f, , ChrB(2)
-
-&#x27; Write data
-Put #f, , data
-
-&#x27; Calculate and write checksum
-checksum = 0
-For i = 1 To Len(data)
-checksum = checksum Xor Asc(Mid(data, i, 1))
-Next i
-Put #f, , ChrB(checksum)
-
-&#x27; Write ETX (End of Text)
-Put #f, , ChrB(3)
-
-Close #f
+    Dim f As Integer
+    Dim i As Integer
+    Dim checksum As Byte
+    f = FreeFile
+    Open filename For Binary As #f
+    &#x27; Write header with STX (Start of Text)
+    Put #f, , ChrB(2)
+    &#x27; Write data
+    Put #f, , data
+    &#x27; Calculate and write checksum
+    checksum = 0
+    For i = 1 To Len(data)
+        checksum = checksum Xor Asc(Mid(data, i, 1))
+    Next i
+    Put #f, , ChrB(checksum)
+    &#x27; Write ETX (End of Text)
+    Put #f, , ChrB(3)
+    Close #f
 End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 3: Character encoding converter
 Function ConvertToANSI(text As String) As String
-Dim i As Integer
-Dim result As String
-Dim charCode As Integer
-
-For i = 1 To Len(text)
-charCode = Asc(Mid(text, i, 1))
-If charCode &lt;= 255 Then
-result = result &amp; ChrB(charCode)
-Else
-result = result &amp; ChrB(63)  &#x27; &quot;?&quot; for unmappable chars
-End If
-Next i
-
-ConvertToANSI = result
+    Dim i As Integer
+    Dim result As String
+    Dim charCode As Integer
+    For i = 1 To Len(text)
+        charCode = Asc(Mid(text, i, 1))
+        If charCode &lt;= 255 Then
+            result = result &amp; ChrB(charCode)
+        Else
+            result = result &amp; ChrB(63)  &#x27; &quot;?&quot; for unmappable chars
+        End If
+    Next i
+    ConvertToANSI = result
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 4: Binary protocol message builder
 Function CreateProtocolMessage(msgType As Byte, payload As String) As String
-Dim msg As String
-Dim length As Integer
-
-length = Len(payload)
-
-&#x27; SOH (Start of Header)
-msg = ChrB(1)
-
-&#x27; Message type
-msg = msg &amp; ChrB(msgType)
-
-&#x27; Length (2 bytes, little-endian)
-msg = msg &amp; ChrB(length Mod 256)
-msg = msg &amp; ChrB(length \ 256)
-
-&#x27; STX (Start of Text)
-msg = msg &amp; ChrB(2)
-
-&#x27; Payload
-msg = msg &amp; payload
-
-&#x27; ETX (End of Text)
-msg = msg &amp; ChrB(3)
-
-CreateProtocolMessage = msg
+    Dim msg As String
+    Dim length As Integer
+    length = Len(payload)
+    &#x27; SOH (Start of Header)
+    msg = ChrB(1)
+    &#x27; Message type
+    msg = msg &amp; ChrB(msgType)
+    &#x27; Length (2 bytes, little-endian)
+    msg = msg &amp; ChrB(length Mod 256)
+    msg = msg &amp; ChrB(length \ 256)
+    &#x27; STX (Start of Text)
+    msg = msg &amp; ChrB(2)
+    &#x27; Payload
+    msg = msg &amp; payload
+    &#x27; ETX (End of Text)
+    msg = msg &amp; ChrB(3)
+    CreateProtocolMessage = msg
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeChrB(charcode As Long) As String
-On Error GoTo ErrorHandler
-
-If charcode &lt; 0 Or charcode &gt; 255 Then
-Err.Raise 5, , &quot;Character code must be between 0 and 255&quot;
-End If
-
-SafeChrB = ChrB(charcode)
-Exit Function
-
+    On Error GoTo ErrorHandler
+    If charcode &lt; 0 Or charcode &gt; 255 Then
+        Err.Raise 5, , &quot;Character code must be between 0 and 255&quot;
+    End If
+    SafeChrB = ChrB(charcode)
+    Exit Function
 ErrorHandler:
-SafeChrB = &quot;&quot;
-MsgBox &quot;Error converting character code &quot; &amp; charcode &amp; &quot;: &quot; &amp; Err.Description
+    SafeChrB = &quot;&quot;
+    MsgBox &quot;Error converting character code &quot; &amp; charcode &amp; &quot;: &quot; &amp; Err.Description
 End Function</code></pre>
 <h2 id="performance-notes">Performance Notes</h2>
 <ul>
