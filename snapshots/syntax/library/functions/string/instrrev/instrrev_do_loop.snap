@@ -37,30 +37,44 @@ root:
                   text: While
                 - kind: Whitespace
                   text: " "
-                - kind: CallExpression
+                - kind: BinaryExpression
                   children:
-                    - kind: Identifier
-                      text: InStrRev
-                    - kind: LeftParenthesis
-                      text: (
-                    - kind: ArgumentList
+                    - kind: CallExpression
                       children:
-                        - kind: Argument
+                        - kind: Identifier
+                          text: InStrRev
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
                           children:
-                            - kind: IdentifierExpression
+                            - kind: Argument
                               children:
-                                - kind: Identifier
-                                  text: path
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
-                        - kind: Argument
-                          children:
-                            - kind: StringLiteralExpression
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: path
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
                               children:
-                                - kind: StringLiteral
-                                  text: "\"\\\") > 0"
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"\\\""
+                        - kind: RightParenthesis
+                          text: )
+                    - kind: Whitespace
+                      text: " "
+                    - kind: GreaterThanOperator
+                      text: ">"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "0"
                 - kind: Newline
                   text: "\n"
                 - kind: StatementList
@@ -99,30 +113,46 @@ root:
                                   text: " "
                                 - kind: Argument
                                   children:
-                                    - kind: CallExpression
+                                    - kind: BinaryExpression
                                       children:
-                                        - kind: Identifier
-                                          text: InStrRev
-                                        - kind: LeftParenthesis
-                                          text: (
-                                        - kind: ArgumentList
+                                        - kind: CallExpression
                                           children:
-                                            - kind: Argument
+                                            - kind: Identifier
+                                              text: InStrRev
+                                            - kind: LeftParenthesis
+                                              text: (
+                                            - kind: ArgumentList
                                               children:
-                                                - kind: IdentifierExpression
+                                                - kind: Argument
                                                   children:
-                                                    - kind: Identifier
-                                                      text: path
-                                            - kind: Comma
-                                              text: ","
-                                            - kind: Whitespace
-                                              text: " "
-                                            - kind: Argument
-                                              children:
-                                                - kind: StringLiteralExpression
+                                                    - kind: IdentifierExpression
+                                                      children:
+                                                        - kind: Identifier
+                                                          text: path
+                                                - kind: Comma
+                                                  text: ","
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: Argument
                                                   children:
-                                                    - kind: StringLiteral
-                                                      text: "\"\\\") - 1)"
+                                                    - kind: StringLiteralExpression
+                                                      children:
+                                                        - kind: StringLiteral
+                                                          text: "\"\\\""
+                                            - kind: RightParenthesis
+                                              text: )
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: SubtractionOperator
+                                          text: "-"
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: NumericLiteralExpression
+                                          children:
+                                            - kind: IntegerLiteral
+                                              text: "1"
+                            - kind: RightParenthesis
+                              text: )
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

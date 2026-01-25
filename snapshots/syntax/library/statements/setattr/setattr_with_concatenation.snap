@@ -34,13 +34,29 @@ root:
                 - kind: Whitespace
                   text: " "
                 - kind: StringLiteral
-                  text: "\"C:\\Data\\\" & fileName & \""
-                - kind: PeriodOperator
-                  text: "."
+                  text: "\"C:\\Data\\\""
+                - kind: Whitespace
+                  text: " "
+                - kind: Ampersand
+                  text: "&"
+                - kind: Whitespace
+                  text: " "
                 - kind: Identifier
-                  text: txt
+                  text: fileName
+                - kind: Whitespace
+                  text: " "
+                - kind: Ampersand
+                  text: "&"
+                - kind: Whitespace
+                  text: " "
                 - kind: StringLiteral
-                  text: "\", vbHidden"
+                  text: "\".txt\""
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: vbHidden
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

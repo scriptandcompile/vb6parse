@@ -84,7 +84,15 @@ root:
                 - kind: Whitespace
                   text: " "
                 - kind: StringLiteral
-                  text: "\"\\\" & fileName"
+                  text: "\"\\\""
+                - kind: Whitespace
+                  text: " "
+                - kind: Ampersand
+                  text: "&"
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: fileName
                 - kind: Newline
                   text: "\n"
             - kind: Whitespace

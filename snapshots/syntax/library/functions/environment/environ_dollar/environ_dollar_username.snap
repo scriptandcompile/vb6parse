@@ -71,20 +71,36 @@ root:
                   text: "="
                 - kind: Whitespace
                   text: " "
-                - kind: MemberAccessExpression
+                - kind: BinaryExpression
                   children:
+                    - kind: BinaryExpression
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"C:\\Logs\\\""
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Ampersand
+                          text: "&"
+                        - kind: Whitespace
+                          text: " "
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: currentUser
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
                     - kind: StringLiteralExpression
                       children:
                         - kind: StringLiteral
-                          text: "\"C:\\Logs\\\" & currentUser & \""
-                    - kind: PeriodOperator
-                      text: "."
-                    - kind: Identifier
-                      text: log
-            - kind: Unknown
-              text: "\""
-            - kind: Newline
-              text: "\n"
+                          text: "\".log\""
+                - kind: Newline
+                  text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

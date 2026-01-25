@@ -98,7 +98,15 @@ root:
                         - kind: Whitespace
                           text: " "
                         - kind: StringLiteral
-                          text: "\"C:\\\" & fileName"
+                          text: "\"C:\\\""
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Ampersand
+                          text: "&"
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Identifier
+                          text: fileName
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

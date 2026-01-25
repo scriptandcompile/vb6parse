@@ -17,20 +17,36 @@ root:
           text: "="
         - kind: Whitespace
           text: " "
-        - kind: MemberAccessExpression
+        - kind: BinaryExpression
           children:
+            - kind: BinaryExpression
+              children:
+                - kind: StringLiteralExpression
+                  children:
+                    - kind: StringLiteral
+                      text: "\"C:\\Data\\\""
+                - kind: Whitespace
+                  text: " "
+                - kind: Ampersand
+                  text: "&"
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: fileName
+            - kind: Whitespace
+              text: " "
+            - kind: Ampersand
+              text: "&"
+            - kind: Whitespace
+              text: " "
             - kind: StringLiteralExpression
               children:
                 - kind: StringLiteral
-                  text: "\"C:\\Data\\\" & fileName & \""
-            - kind: PeriodOperator
-              text: "."
-            - kind: Identifier
-              text: xls
-    - kind: Unknown
-      text: "\""
-    - kind: Newline
-      text: "\n"
+                  text: "\".xls\""
+        - kind: Newline
+          text: "\n"
     - kind: SetStatement
       children:
         - kind: SetKeyword
