@@ -91,8 +91,8 @@ export function renderTokensTab(tokens) {
 
         // Value (escape HTML)
         const valueCell = document.createElement('td');
-        const escapedValue = escapeHtml(token.content);
-        valueCell.textContent = escapedValue;
+        valueCell.textContent = token.content;
+        valueCell.style = "white-space: pre;";
         valueCell.style.fontFamily = "'Courier New', monospace";
 
         // Position
