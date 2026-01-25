@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="midb-function"><code>MidB$</code> Function</h1>
+            <h1 id="midb-function">MidB$ Function</h1>
 <p>Returns a <code>String</code> containing a specified number of bytes from a string.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">MidB$(string, start[, length])</code></pre>
@@ -50,17 +50,17 @@
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>String</code> containing the specified number of bytes from <code>string</code>, starting at the byte position <code>start</code>. If <code>length</code> is omitted, returns all bytes from <code>start</code> to the end. Returns an empty string if <code>start</code> is greater than the byte length of the string.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>MidB$</code> function is used with byte data contained in a string. Instead of specifying character positions and counts, <code>start</code> and <code>length</code> specify byte positions and byte counts.</p>
-<p>This function is particularly useful when working with:
+<p>The <code>MidB$</code> function is used with byte data contained in a string. Instead of specifying character positions and counts, <code>start</code> and <code>length</code> specify byte positions and byte counts.
+This function is particularly useful when working with:
 - Binary data stored in strings
 - ANSI strings requiring byte-level manipulation
 - Double-byte character set (DBCS) strings
 - Fixed-position binary protocols
 - File format parsing at byte level
-- Network packet extraction</p>
-<p><code>MidB$</code> is the byte-oriented version of <code>Mid$</code>. While <code>Mid$</code> counts characters, <code>MidB$</code> counts bytes. In single-byte character sets (like standard ASCII), these are equivalent, but in DBCS systems (like Japanese, Chinese, or Korean Windows), characters may occupy multiple bytes.</p>
-<p>The <code>MidB$</code> function always returns a <code>String</code>. The <code>MidB</code> function returns a <code>Variant</code>.</p>
-<p>Note: Byte positions are 1-based, not 0-based. The first byte is at position 1.</p>
+- Network packet extraction
+<code>MidB$</code> is the byte-oriented version of <code>Mid$</code>. While <code>Mid$</code> counts characters, <code>MidB$</code> counts bytes. In single-byte character sets (like standard ASCII), these are equivalent, but in DBCS systems (like Japanese, Chinese, or Korean Windows), characters may occupy multiple bytes.
+The <code>MidB$</code> function always returns a <code>String</code>. The <code>MidB</code> function returns a <code>Variant</code>.
+Note: Byte positions are 1-based, not 0-based. The first byte is at position 1.</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <h3 id="example-1-extracting-binary-field">Example 1: Extracting Binary Field</h3>
 <pre><code class="language-vbnet">Dim record As String
@@ -97,7 +97,7 @@ fileData = Input$(100, #1)
 Close #1
 signature = MidB$(fileData, 1, 4)
 If signature = &quot;RIFF&quot; Then
-fileSize = MidB$(fileData, 5, 4)
+    fileSize = MidB$(fileData, 5, 4)
 End If</code></pre>
 <h3 id="processing-network-packet">Processing Network Packet</h3>
 <pre><code class="language-vbnet">Dim packet As String
@@ -124,9 +124,9 @@ Dim pos As Long
 data = GetBinaryData()
 pos = 1
 Do While pos &lt;= LenB(data)
-chunk = MidB$(data, pos, 512)
-ProcessChunk chunk
-pos = pos + 512
+    chunk = MidB$(data, pos, 512)
+    ProcessChunk chunk
+    pos = pos + 512
 Loop</code></pre>
 <h3 id="extracting-record-fields">Extracting Record Fields</h3>
 <pre><code class="language-vbnet">Dim record As String

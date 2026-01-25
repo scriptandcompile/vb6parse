@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p><code>FreeFile</code> Function</p>
-<p>Returns an <code>Integer</code> representing the next file number available for use by the Open statement.</p>
+            <p>FreeFile Function
+Returns an <code>Integer</code> representing the next file number available for use by the Open statement.</p>
 <h1 id="syntax">Syntax</h1>
 <pre><code class="language-vbnet">FreeFile[(rangenumber)]</code></pre>
 <h1 id="parameters">Parameters</h1>
@@ -75,7 +75,6 @@ fileNum = FreeFile
 Open &quot;data.txt&quot; For Output As #fileNum
 Print #fileNum, &quot;Hello, World!&quot;
 Close #fileNum
-
 &#x27; Multiple file operations
 Dim inputFile As Integer
 Dim outputFile As Integer
@@ -86,408 +85,335 @@ Open &quot;output.txt&quot; For Output As #outputFile
 &#x27; Process files...
 Close #inputFile
 Close #outputFile
-
 &#x27; Using range parameter
 Dim highRangeFile As Integer
 highRangeFile = FreeFile(1)  &#x27; Returns 256-511
 Open &quot;temp.dat&quot; For Binary As #highRangeFile
 Close #highRangeFile
-
 &#x27; Immediate use pattern
 Open &quot;log.txt&quot; For Append As #FreeFile
 &#x27; Note: Cannot close without saving the file number</code></pre>
 <h1 id="common-patterns">Common Patterns</h1>
 <h2 id="1-simple-file-read">1. Simple File Read</h2>
 <pre><code class="language-vbnet">Sub ReadTextFile(filename As String)
-Dim fileNum As Integer
-Dim line As String
-
-fileNum = FreeFile
-Open filename For Input As #fileNum
-
-Do While Not EOF(fileNum)
-Line Input #fileNum, line
-Debug.Print line
-Loop
-
-Close #fileNum
+    Dim fileNum As Integer
+    Dim line As String
+    fileNum = FreeFile
+    Open filename For Input As #fileNum
+    Do While Not EOF(fileNum)
+        Line Input #fileNum, line
+        Debug.Print line
+    Loop
+    Close #fileNum
 End Sub</code></pre>
 <h2 id="2-simple-file-write">2. Simple File Write</h2>
 <pre><code class="language-vbnet">Sub WriteTextFile(filename As String, content As String)
-Dim fileNum As Integer
-
-fileNum = FreeFile
-Open filename For Output As #fileNum
-Print #fileNum, content
-Close #fileNum
+    Dim fileNum As Integer
+    fileNum = FreeFile
+    Open filename For Output As #fileNum
+    Print #fileNum, content
+    Close #fileNum
 End Sub</code></pre>
 <h2 id="3-append-to-log-file">3. Append to Log File</h2>
 <pre><code class="language-vbnet">Sub LogMessage(message As String)
-Dim fileNum As Integer
-
-fileNum = FreeFile
-Open App.Path &amp; &quot;\app.log&quot; For Append As #fileNum
-Print #fileNum, Now &amp; &quot; - &quot; &amp; message
-Close #fileNum
+    Dim fileNum As Integer
+    fileNum = FreeFile
+    Open App.Path &amp; &quot;\app.log&quot; For Append As #fileNum
+    Print #fileNum, Now &amp; &quot; - &quot; &amp; message
+    Close #fileNum
 End Sub</code></pre>
 <h2 id="4-copy-file-contents">4. Copy File Contents</h2>
 <pre><code class="language-vbnet">Sub CopyFile(source As String, destination As String)
-Dim sourceNum As Integer
-Dim destNum As Integer
-Dim line As String
-
-sourceNum = FreeFile
-Open source For Input As #sourceNum
-
-destNum = FreeFile
-Open destination For Output As #destNum
-
-Do While Not EOF(sourceNum)
-Line Input #sourceNum, line
-Print #destNum, line
-Loop
-
-Close #sourceNum
-Close #destNum
+    Dim sourceNum As Integer
+    Dim destNum As Integer
+    Dim line As String
+    sourceNum = FreeFile
+    Open source For Input As #sourceNum
+    destNum = FreeFile
+    Open destination For Output As #destNum
+    Do While Not EOF(sourceNum)
+        Line Input #sourceNum, line
+        Print #destNum, line
+    Loop
+    Close #sourceNum
+    Close #destNum
 End Sub</code></pre>
 <h2 id="5-read-binary-file">5. Read Binary File</h2>
 <pre><code class="language-vbnet">Function ReadBinaryFile(filename As String) As Byte()
-Dim fileNum As Integer
-Dim fileSize As Long
-Dim buffer() As Byte
-
-fileNum = FreeFile
-Open filename For Binary As #fileNum
-
-fileSize = LOF(fileNum)
-ReDim buffer(0 To fileSize - 1)
-Get #fileNum, , buffer
-
-Close #fileNum
-ReadBinaryFile = buffer
+    Dim fileNum As Integer
+    Dim fileSize As Long
+    Dim buffer() As Byte
+    fileNum = FreeFile
+    Open filename For Binary As #fileNum
+    fileSize = LOF(fileNum)
+    ReDim buffer(0 To fileSize - 1)
+    Get #fileNum, , buffer
+    Close #fileNum
+    ReadBinaryFile = buffer
 End Function</code></pre>
 <h2 id="6-write-binary-file">6. Write Binary File</h2>
 <pre><code class="language-vbnet">Sub WriteBinaryFile(filename As String, data() As Byte)
-Dim fileNum As Integer
-
-fileNum = FreeFile
-Open filename For Binary As #fileNum
-Put #fileNum, , data
-Close #fileNum
+    Dim fileNum As Integer
+    fileNum = FreeFile
+    Open filename For Binary As #fileNum
+    Put #fileNum, , data
+    Close #fileNum
 End Sub</code></pre>
 <h2 id="7-read-ini-style-configuration">7. Read INI-Style Configuration</h2>
 <pre><code class="language-vbnet">Function ReadConfigValue(filename As String, key As String) As String
-Dim fileNum As Integer
-Dim line As String
-Dim pos As Integer
-
-fileNum = FreeFile
-Open filename For Input As #fileNum
-
-Do While Not EOF(fileNum)
-Line Input #fileNum, line
-line = Trim(line)
-
-If Left(line, Len(key) + 1) = key &amp; &quot;=&quot; Then
-ReadConfigValue = Mid(line, Len(key) + 2)
-Close #fileNum
-Exit Function
-End If
-Loop
-
-Close #fileNum
-ReadConfigValue = &quot;&quot;
+    Dim fileNum As Integer
+    Dim line As String
+    Dim pos As Integer
+    fileNum = FreeFile
+    Open filename For Input As #fileNum
+    Do While Not EOF(fileNum)
+        Line Input #fileNum, line
+        line = Trim(line)
+        If Left(line, Len(key) + 1) = key &amp; &quot;=&quot; Then
+            ReadConfigValue = Mid(line, Len(key) + 2)
+            Close #fileNum
+            Exit Function
+        End If
+    Loop
+    Close #fileNum
+    ReadConfigValue = &quot;&quot;
 End Function</code></pre>
 <h2 id="8-write-csv-file">8. Write CSV File</h2>
 <pre><code class="language-vbnet">Sub WriteCSV(filename As String, data() As Variant)
-Dim fileNum As Integer
-Dim i As Long, j As Long
-Dim row As String
-
-fileNum = FreeFile
-Open filename For Output As #fileNum
-
-For i = LBound(data, 1) To UBound(data, 1)
-row = &quot;&quot;
-For j = LBound(data, 2) To UBound(data, 2)
-If j &gt; LBound(data, 2) Then row = row &amp; &quot;,&quot;
-row = row &amp; CStr(data(i, j))
-Next j
-Print #fileNum, row
-Next i
-
-Close #fileNum
+    Dim fileNum As Integer
+    Dim i As Long, j As Long
+    Dim row As String
+    fileNum = FreeFile
+    Open filename For Output As #fileNum
+    For i = LBound(data, 1) To UBound(data, 1)
+        row = &quot;&quot;
+        For j = LBound(data, 2) To UBound(data, 2)
+            If j &gt; LBound(data, 2) Then row = row &amp; &quot;,&quot;
+            row = row &amp; CStr(data(i, j))
+        Next j
+        Print #fileNum, row
+    Next i
+    Close #fileNum
 End Sub</code></pre>
 <h2 id="9-read-entire-file-into-string">9. Read Entire File into String</h2>
 <pre><code class="language-vbnet">Function ReadFileAsString(filename As String) As String
-Dim fileNum As Integer
-Dim fileContent As String
-
-fileNum = FreeFile
-Open filename For Input As #fileNum
-fileContent = Input(LOF(fileNum), fileNum)
-Close #fileNum
-
-ReadFileAsString = fileContent
+    Dim fileNum As Integer
+    Dim fileContent As String
+    fileNum = FreeFile
+    Open filename For Input As #fileNum
+    fileContent = Input(LOF(fileNum), fileNum)
+    Close #fileNum
+    ReadFileAsString = fileContent
 End Function</code></pre>
 <h2 id="10-process-large-file-line-by-line">10. Process Large File Line by Line</h2>
 <pre><code class="language-vbnet">Sub ProcessLargeFile(filename As String)
-Dim fileNum As Integer
-Dim line As String
-Dim lineCount As Long
-
-fileNum = FreeFile
-Open filename For Input As #fileNum
-
-lineCount = 0
-Do While Not EOF(fileNum)
-Line Input #fileNum, line
-lineCount = lineCount + 1
-
-&#x27; Process line here
-If lineCount Mod 1000 = 0 Then
-Debug.Print &quot;Processed &quot; &amp; lineCount &amp; &quot; lines...&quot;
-End If
-Loop
-
-Close #fileNum
-Debug.Print &quot;Total lines: &quot; &amp; lineCount
+    Dim fileNum As Integer
+    Dim line As String
+    Dim lineCount As Long
+    fileNum = FreeFile
+    Open filename For Input As #fileNum
+    lineCount = 0
+    Do While Not EOF(fileNum)
+        Line Input #fileNum, line
+        lineCount = lineCount + 1
+        &#x27; Process line here
+        If lineCount Mod 1000 = 0 Then
+            Debug.Print &quot;Processed &quot; &amp; lineCount &amp; &quot; lines...&quot;
+        End If
+    Loop
+    Close #fileNum
+    Debug.Print &quot;Total lines: &quot; &amp; lineCount
 End Sub</code></pre>
 <h1 id="advanced-usage">Advanced Usage</h1>
 <h2 id="1-file-manager-class">1. File Manager Class</h2>
 <pre><code class="language-vbnet">&#x27; Class module: FileManager
 Private m_FileNumber As Integer
-
 Public Sub OpenFile(filename As String, mode As String)
-m_FileNumber = FreeFile
-
-Select Case LCase(mode)
-Case &quot;read&quot;
-Open filename For Input As #m_FileNumber
-Case &quot;write&quot;
-Open filename For Output As #m_FileNumber
-Case &quot;append&quot;
-Open filename For Append As #m_FileNumber
-Case &quot;binary&quot;
-Open filename For Binary As #m_FileNumber
-End Select
+    m_FileNumber = FreeFile
+    Select Case LCase(mode)
+        Case &quot;read&quot;
+            Open filename For Input As #m_FileNumber
+        Case &quot;write&quot;
+            Open filename For Output As #m_FileNumber
+        Case &quot;append&quot;
+            Open filename For Append As #m_FileNumber
+        Case &quot;binary&quot;
+            Open filename For Binary As #m_FileNumber
+    End Select
 End Sub
-
 Public Sub WriteLine(text As String)
-Print #m_FileNumber, text
+    Print #m_FileNumber, text
 End Sub
-
 Public Function ReadLine() As String
-Dim line As String
-If Not EOF(m_FileNumber) Then
-Line Input #m_FileNumber, line
-ReadLine = line
-End If
+    Dim line As String
+    If Not EOF(m_FileNumber) Then
+        Line Input #m_FileNumber, line
+        ReadLine = line
+    End If
 End Function
-
 Public Function IsEOF() As Boolean
-IsEOF = EOF(m_FileNumber)
+    IsEOF = EOF(m_FileNumber)
 End Function
-
 Public Sub CloseFile()
-If m_FileNumber &gt; 0 Then
-Close #m_FileNumber
-m_FileNumber = 0
-End If
+    If m_FileNumber &gt; 0 Then
+        Close #m_FileNumber
+        m_FileNumber = 0
+    End If
 End Sub
-
 Private Sub Class_Terminate()
-CloseFile
+    CloseFile
 End Sub</code></pre>
 <h2 id="2-safe-file-operations-with-error-handling">2. Safe File Operations with Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeWriteFile(filename As String, content As String) As Boolean
-Dim fileNum As Integer
-
-On Error GoTo ErrorHandler
-
-fileNum = FreeFile
-Open filename For Output As #fileNum
-Print #fileNum, content
-Close #fileNum
-
-SafeWriteFile = True
-Exit Function
-
+    Dim fileNum As Integer
+    On Error GoTo ErrorHandler
+    fileNum = FreeFile
+    Open filename For Output As #fileNum
+    Print #fileNum, content
+    Close #fileNum
+    SafeWriteFile = True
+    Exit Function
 ErrorHandler:
-If fileNum &gt; 0 Then Close #fileNum
-SafeWriteFile = False
-Debug.Print &quot;Error writing file: &quot; &amp; Err.Description
+    If fileNum &gt; 0 Then Close #fileNum
+    SafeWriteFile = False
+    Debug.Print &quot;Error writing file: &quot; &amp; Err.Description
 End Function</code></pre>
 <h2 id="3-multi-file-transaction-manager">3. Multi-File Transaction Manager</h2>
 <pre><code class="language-vbnet">Type FileHandle
-Number As Integer
-Filename As String
-IsOpen As Boolean
+    Number As Integer
+    Filename As String
+    IsOpen As Boolean
 End Type
-
 Sub TransactionExample()
-Dim files(1 To 3) As FileHandle
-Dim i As Integer
-
-On Error GoTo Rollback
-
-&#x27; Open multiple files
-For i = 1 To 3
-files(i).Number = FreeFile
-files(i).Filename = &quot;file&quot; &amp; i &amp; &quot;.txt&quot;
-files(i).IsOpen = False
-Next i
-
-&#x27; Perform operations
-For i = 1 To 3
-Open files(i).Filename For Output As #files(i).Number
-files(i).IsOpen = True
-Print #files(i).Number, &quot;Data for file &quot; &amp; i
-Next i
-
-&#x27; Success - close all
-For i = 1 To 3
-Close #files(i).Number
-files(i).IsOpen = False
-Next i
-
-Exit Sub
-
+    Dim files(1 To 3) As FileHandle
+    Dim i As Integer
+    On Error GoTo Rollback
+    &#x27; Open multiple files
+    For i = 1 To 3
+        files(i).Number = FreeFile
+        files(i).Filename = &quot;file&quot; &amp; i &amp; &quot;.txt&quot;
+        files(i).IsOpen = False
+    Next i
+    &#x27; Perform operations
+    For i = 1 To 3
+        Open files(i).Filename For Output As #files(i).Number
+        files(i).IsOpen = True
+        Print #files(i).Number, &quot;Data for file &quot; &amp; i
+    Next i
+    &#x27; Success - close all
+    For i = 1 To 3
+        Close #files(i).Number
+        files(i).IsOpen = False
+    Next i
+    Exit Sub
 Rollback:
-&#x27; Clean up any open files
-For i = 1 To 3
-If files(i).IsOpen Then
-Close #files(i).Number
-End If
-Next i
-
-MsgBox &quot;Transaction failed: &quot; &amp; Err.Description
+    &#x27; Clean up any open files
+    For i = 1 To 3
+        If files(i).IsOpen Then
+            Close #files(i).Number
+        End If
+    Next i
+    MsgBox &quot;Transaction failed: &quot; &amp; Err.Description
 End Sub</code></pre>
 <h2 id="4-file-pool-manager">4. File Pool Manager</h2>
 <pre><code class="language-vbnet">&#x27; Module-level variables
 Private m_FilePool() As Integer
 Private m_PoolSize As Integer
-
 Sub InitializeFilePool(poolSize As Integer)
-Dim i As Integer
-
-m_PoolSize = poolSize
-ReDim m_FilePool(1 To poolSize)
-
-For i = 1 To poolSize
-m_FilePool(i) = FreeFile(1)  &#x27; Use high range
-Next i
+    Dim i As Integer
+    m_PoolSize = poolSize
+    ReDim m_FilePool(1 To poolSize)
+    For i = 1 To poolSize
+        m_FilePool(i) = FreeFile(1)  &#x27; Use high range
+    Next i
 End Sub
-
 Function GetPooledFileNumber() As Integer
-Static currentIndex As Integer
-
-currentIndex = currentIndex + 1
-If currentIndex &gt; m_PoolSize Then currentIndex = 1
-
-GetPooledFileNumber = m_FilePool(currentIndex)
+    Static currentIndex As Integer
+    currentIndex = currentIndex + 1
+    If currentIndex &gt; m_PoolSize Then currentIndex = 1
+    GetPooledFileNumber = m_FilePool(currentIndex)
 End Function</code></pre>
 <h2 id="5-buffered-file-writer">5. Buffered File Writer</h2>
 <pre><code class="language-vbnet">Type BufferedWriter
-FileNumber As Integer
-Buffer As String
-BufferSize As Long
-MaxBufferSize As Long
+    FileNumber As Integer
+    Buffer As String
+    BufferSize As Long
+    MaxBufferSize As Long
 End Type
-
 Sub InitBufferedWriter(writer As BufferedWriter, filename As String, _
-Optional maxBuffer As Long = 4096)
-writer.FileNumber = FreeFile
-writer.MaxBufferSize = maxBuffer
-writer.BufferSize = 0
-writer.Buffer = &quot;&quot;
-
-Open filename For Output As #writer.FileNumber
+                       Optional maxBuffer As Long = 4096)
+    writer.FileNumber = FreeFile
+    writer.MaxBufferSize = maxBuffer
+    writer.BufferSize = 0
+    writer.Buffer = &quot;&quot;
+    Open filename For Output As #writer.FileNumber
 End Sub
-
 Sub BufferedWrite(writer As BufferedWriter, text As String)
-writer.Buffer = writer.Buffer &amp; text &amp; vbCrLf
-writer.BufferSize = Len(writer.Buffer)
-
-If writer.BufferSize &gt;= writer.MaxBufferSize Then
-Print #writer.FileNumber, writer.Buffer;
-writer.Buffer = &quot;&quot;
-writer.BufferSize = 0
-End If
+    writer.Buffer = writer.Buffer &amp; text &amp; vbCrLf
+    writer.BufferSize = Len(writer.Buffer)
+    If writer.BufferSize &gt;= writer.MaxBufferSize Then
+        Print #writer.FileNumber, writer.Buffer;
+        writer.Buffer = &quot;&quot;
+        writer.BufferSize = 0
+    End If
 End Sub
-
 Sub FlushBufferedWriter(writer As BufferedWriter)
-If writer.BufferSize &gt; 0 Then
-Print #writer.FileNumber, writer.Buffer;
-writer.Buffer = &quot;&quot;
-writer.BufferSize = 0
-End If
-
-Close #writer.FileNumber
+    If writer.BufferSize &gt; 0 Then
+        Print #writer.FileNumber, writer.Buffer;
+        writer.Buffer = &quot;&quot;
+        writer.BufferSize = 0
+    End If
+    Close #writer.FileNumber
 End Sub</code></pre>
 <h2 id="6-temporary-file-manager">6. Temporary File Manager</h2>
 <pre><code class="language-vbnet">Function CreateTempFile() As Integer
-Dim fileNum As Integer
-Dim tempPath As String
-Dim tempFile As String
-
-tempPath = Environ(&quot;TEMP&quot;)
-If Right(tempPath, 1) &lt;&gt; &quot;\&quot; Then tempPath = tempPath &amp; &quot;\&quot;
-
-tempFile = tempPath &amp; &quot;temp_&quot; &amp; Format(Now, &quot;yyyymmddhhnnss&quot;) &amp; &quot;.tmp&quot;
-
-fileNum = FreeFile
-Open tempFile For Binary As #fileNum
-
-CreateTempFile = fileNum
+    Dim fileNum As Integer
+    Dim tempPath As String
+    Dim tempFile As String
+    tempPath = Environ(&quot;TEMP&quot;)
+    If Right(tempPath, 1) &lt;&gt; &quot;\&quot; Then tempPath = tempPath &amp; &quot;\&quot;
+    tempFile = tempPath &amp; &quot;temp_&quot; &amp; Format(Now, &quot;yyyymmddhhnnss&quot;) &amp; &quot;.tmp&quot;
+    fileNum = FreeFile
+    Open tempFile For Binary As #fileNum
+    CreateTempFile = fileNum
 End Function
-
 Sub DeleteTempFile(fileNum As Integer)
-Dim filename As String
-
-&#x27; Get filename before closing
-filename = FileAttr(fileNum, 1)  &#x27; Returns filename
-
-Close #fileNum
-Kill filename  &#x27; Delete the file
+    Dim filename As String
+    &#x27; Get filename before closing
+    filename = FileAttr(fileNum, 1)  &#x27; Returns filename
+    Close #fileNum
+    Kill filename  &#x27; Delete the file
 End Sub</code></pre>
 <h1 id="error-handling">Error Handling</h1>
 <pre><code class="language-vbnet">Function SafeFileOperation(filename As String) As Boolean
-Dim fileNum As Integer
-
-On Error GoTo ErrorHandler
-
-fileNum = FreeFile
-Open filename For Input As #fileNum
-
-&#x27; Process file...
-
-Close #fileNum
-SafeFileOperation = True
-Exit Function
-
+    Dim fileNum As Integer
+    On Error GoTo ErrorHandler
+    fileNum = FreeFile
+    Open filename For Input As #fileNum
+    &#x27; Process file...
+    Close #fileNum
+    SafeFileOperation = True
+    Exit Function
 ErrorHandler:
-&#x27; Always try to close the file
-On Error Resume Next
-If fileNum &gt; 0 Then Close #fileNum
-On Error GoTo 0
-
-Select Case Err.Number
-Case 53  &#x27; File not found
-Debug.Print &quot;File not found: &quot; &amp; filename
-Case 55  &#x27; File already open
-Debug.Print &quot;File already open: &quot; &amp; filename
-Case 70  &#x27; Permission denied
-Debug.Print &quot;Permission denied: &quot; &amp; filename
-Case 71  &#x27; Disk not ready
-Debug.Print &quot;Disk not ready&quot;
-Case 76  &#x27; Path not found
-Debug.Print &quot;Path not found: &quot; &amp; filename
-Case Else
-Debug.Print &quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Err.Description
-End Select
-
-SafeFileOperation = False
+    &#x27; Always try to close the file
+    On Error Resume Next
+    If fileNum &gt; 0 Then Close #fileNum
+    On Error GoTo 0
+    Select Case Err.Number
+        Case 53  &#x27; File not found
+            Debug.Print &quot;File not found: &quot; &amp; filename
+        Case 55  &#x27; File already open
+            Debug.Print &quot;File already open: &quot; &amp; filename
+        Case 70  &#x27; Permission denied
+            Debug.Print &quot;Permission denied: &quot; &amp; filename
+        Case 71  &#x27; Disk not ready
+            Debug.Print &quot;Disk not ready&quot;
+        Case 76  &#x27; Path not found
+            Debug.Print &quot;Path not found: &quot; &amp; filename
+        Case Else
+            Debug.Print &quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Err.Description
+    End Select
+    SafeFileOperation = False
 End Function</code></pre>
 <p>Common errors:
 - <strong>Error 55 (File already open)</strong>: File number is already in use. Always use <code>FreeFile</code> to avoid this.
@@ -517,7 +443,6 @@ End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Bad - Hard-coded file number
 Open &quot;data.txt&quot; For Input As #1
 &#x27; What if file #1 is already open?
-
 &#x27; Good - Use FreeFile
 Dim fileNum As Integer
 fileNum = FreeFile
@@ -529,7 +454,6 @@ fileNum = FreeFile
 Open &quot;data.txt&quot; For Input As #fileNum
 &#x27; ...
 Close #fileNum
-
 &#x27; FileSystemObject - more features, requires reference
 Dim fso As New FileSystemObject
 Dim ts As TextStream
@@ -548,15 +472,12 @@ Set fso = Nothing</code></pre>
 <li>Traditional file I/O is slower than modern streaming APIs</li>
 </ul>
 <h1 id="range-selection">Range Selection</h1>
-<p>When to use different ranges:</p>
-<ul>
-<li><strong>Range 0 (1-255)</strong>: Default for application code, user files</li>
-<li><strong>Range 1 (256-511)</strong>: System files, library code, background operations</li>
-</ul>
+<p>When to use different ranges:
+- <strong>Range 0 (1-255)</strong>: Default for application code, user files
+- <strong>Range 1 (256-511)</strong>: System files, library code, background operations</p>
 <pre><code class="language-vbnet">&#x27; Application uses default range
 Dim userFile As Integer
 userFile = FreeFile(0)  &#x27; or just FreeFile
-
 &#x27; Library uses high range to avoid conflicts
 Dim sysFile As Integer
 sysFile = FreeFile(1)</code></pre>

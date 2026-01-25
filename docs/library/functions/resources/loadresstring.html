@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="loadresstring-function"><code>LoadResString</code> Function</h1>
+            <h1 id="loadresstring-function">LoadResString Function</h1>
 <p>Returns a string from a resource (.res) file.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">LoadResString(index)</code></pre>
@@ -56,518 +56,456 @@
 - Preserves all formatting including line breaks
 - Unicode strings supported in VB6</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>LoadResString</code> function loads text from embedded resources:</p>
-<ul>
-<li>Loads strings from compiled resource (.res) files</li>
-<li>Resource file must be linked to project at compile time</li>
-<li>Primary method for internationalization (i18n) in VB6</li>
-<li>Allows localizing applications without code changes</li>
-<li>Strings can be translated by replacing resource file</li>
-<li>No external text files needed at runtime</li>
-<li>Embedded in compiled EXE/DLL</li>
-<li>Only one resource file per project</li>
-<li>Resource file added via Project &gt; Add File</li>
-<li>Resource files created with Resource Editor or RC.EXE</li>
-<li>Index must be numeric (string names not supported)</li>
-<li>Common for error messages, prompts, labels</li>
-<li>Supports Unicode in VB6</li>
-<li>Error 32813: "Resource not found" if ID doesn't exist</li>
-<li>Error 48: "Error loading from file" if resource file corrupt</li>
-<li>More maintainable than hardcoded strings</li>
-<li>Easier to update text without recompiling code</li>
-<li>Standard practice for multi-language applications</li>
-<li>Can store long text passages</li>
-<li>Supports special characters and formatting</li>
-</ul>
+<p>The <code>LoadResString</code> function loads text from embedded resources:
+- Loads strings from compiled resource (.res) files
+- Resource file must be linked to project at compile time
+- Primary method for internationalization (i18n) in VB6
+- Allows localizing applications without code changes
+- Strings can be translated by replacing resource file
+- No external text files needed at runtime
+- Embedded in compiled EXE/DLL
+- Only one resource file per project
+- Resource file added via Project &gt; Add File
+- Resource files created with Resource Editor or RC.EXE
+- Index must be numeric (string names not supported)
+- Common for error messages, prompts, labels
+- Supports Unicode in VB6
+- Error 32813: "Resource not found" if ID doesn't exist
+- Error 48: "Error loading from file" if resource file corrupt
+- More maintainable than hardcoded strings
+- Easier to update text without recompiling code
+- Standard practice for multi-language applications
+- Can store long text passages
+- Supports special characters and formatting</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Load Error Message</strong></li>
 </ol>
-<pre><code class="language-vbnet">MsgBox LoadResString(1001), vbCritical</code></pre>
-<ol>
-<li><strong>Load Form Caption</strong></li>
-</ol>
-<pre><code class="language-vbnet">Me.Caption = LoadResString(2001)</code></pre>
-<ol>
-<li><strong>Load Label Text</strong></li>
-</ol>
-<pre><code class="language-vbnet">lblWelcome.Caption = LoadResString(3001)</code></pre>
-<ol>
-<li><strong>Load Menu Caption</strong></li>
-</ol>
-<pre><code class="language-vbnet">mnuFile.Caption = LoadResString(4001)</code></pre>
-<ol>
-<li><strong>Load Button Caption</strong></li>
-</ol>
-<pre><code class="language-vbnet">cmdOK.Caption = LoadResString(5001)</code></pre>
-<ol>
-<li><strong>Load <code>MessageBox</code> Text</strong></li>
-</ol>
-<pre><code class="language-vbnet">MsgBox LoadResString(6001), vbInformation</code></pre>
-<ol>
-<li><strong>Load <code>StatusBar</code> Text</strong></li>
-</ol>
-<pre><code class="language-vbnet">StatusBar1.SimpleText = LoadResString(7001)</code></pre>
-<ol>
-<li><strong>Load <code>ToolTip</code> Text</strong></li>
-</ol>
-<pre><code class="language-vbnet">cmdSave.ToolTipText = LoadResString(8001)</code></pre>
-<h2 id="basic-examples">Basic Examples</h2>
-<h3 id="example-1-loading-messages">Example 1: Loading Messages</h3>
-<pre><code class="language-vbnet">&#x27; Load various UI strings from resources
-Me.Caption = LoadResString(1001)          &#x27; &quot;My Application&quot;
-lblTitle.Caption = LoadResString(1002)    &#x27; &quot;Welcome!&quot;
-cmdOK.Caption = LoadResString(1003)       &#x27; &quot;OK&quot;
-cmdCancel.Caption = LoadResString(1004)   &#x27; &quot;Cancel&quot;</code></pre>
-<h3 id="example-2-error-messages">Example 2: Error Messages</h3>
-<pre><code class="language-vbnet">&#x27; Use resource strings for error messages
+<pre><code class="language-vbnet">   MsgBox LoadResString(1001), vbCritical
+   ```
+2. **Load Form Caption**
+   ```vb
+   Me.Caption = LoadResString(2001)
+   ```
+3. **Load Label Text**
+   ```vb
+   lblWelcome.Caption = LoadResString(3001)
+   ```
+4. **Load Menu Caption**
+   ```vb
+   mnuFile.Caption = LoadResString(4001)
+   ```
+5. **Load Button Caption**
+   ```vb
+   cmdOK.Caption = LoadResString(5001)
+   ```
+6. **Load `MessageBox` Text**
+   ```vb
+   MsgBox LoadResString(6001), vbInformation
+   ```
+7. **Load `StatusBar` Text**
+   ```vb
+   StatusBar1.SimpleText = LoadResString(7001)
+   ```
+8. **Load `ToolTip` Text**
+   ```vb
+   cmdSave.ToolTipText = LoadResString(8001)
+   ```
+## Basic Examples
+### Example 1: Loading Messages</code></pre>
+<p>vb
+' Load various UI strings from resources
+Me.Caption = LoadResString(1001)          ' "My Application"
+lblTitle.Caption = LoadResString(1002)    ' "Welcome!"
+cmdOK.Caption = LoadResString(1003)       ' "OK"
+cmdCancel.Caption = LoadResString(1004)   ' "Cancel"</p>
+<pre><code>### Example 2: Error Messages</code></pre>
+<p>vb
+' Use resource strings for error messages
 If Not fileExists Then
-MsgBox LoadResString(2001), vbCritical  &#x27; &quot;File not found&quot;
+    MsgBox LoadResString(2001), vbCritical  ' "File not found"
 End If
-
 If accessDenied Then
-MsgBox LoadResString(2002), vbCritical  &#x27; &quot;Access denied&quot;
-End If</code></pre>
-<h3 id="example-3-error-handling">Example 3: Error Handling</h3>
-<pre><code class="language-vbnet">On Error Resume Next
+    MsgBox LoadResString(2002), vbCritical  ' "Access denied"
+End If</p>
+<pre><code>### Example 3: Error Handling</code></pre>
+<p>vb
+On Error Resume Next
 Dim msg As String
 msg = LoadResString(9999)
 If Err.Number = 32813 Then
-msg = &quot;String resource not found!&quot;
-Err.Clear
+    msg = "String resource not found!"
+    Err.Clear
 End If
-MsgBox msg</code></pre>
-<h3 id="example-4-form-initialization">Example 4: Form Initialization</h3>
-<pre><code class="language-vbnet">Private Sub Form_Load()
-&#x27; Load all UI strings from resources
-Me.Caption = LoadResString(1001)
-lblName.Caption = LoadResString(1002)
-lblAddress.Caption = LoadResString(1003)
-cmdSave.Caption = LoadResString(1004)
-cmdCancel.Caption = LoadResString(1005)
-End Sub</code></pre>
-<h2 id="common-patterns">Common Patterns</h2>
-<h3 id="pattern-1-safeloadresstring">Pattern 1: <code>SafeLoadResString</code></h3>
-<pre><code class="language-vbnet">Function SafeLoadResString(ByVal resID As Integer, _
-Optional ByVal defaultText As String = &quot;&quot;) As String
-On Error Resume Next
-SafeLoadResString = LoadResString(resID)
-If Err.Number &lt;&gt; 0 Then
-SafeLoadResString = defaultText
-Err.Clear
-End If
-End Function</code></pre>
-<h3 id="pattern-2-loadformstrings">Pattern 2: <code>LoadFormStrings</code></h3>
-<pre><code class="language-vbnet">Sub LoadFormStrings(frm As Form, ByVal baseID As Integer)
-Dim ctrl As Control
-Dim id As Integer
-
-On Error Resume Next
-frm.Caption = LoadResString(baseID)
-
-id = baseID + 1
-For Each ctrl In frm.Controls
-If TypeOf ctrl Is Label Or TypeOf ctrl Is CommandButton Then
-ctrl.Caption = LoadResString(id)
-id = id + 1
-End If
-Next ctrl
-End Sub</code></pre>
-<h3 id="pattern-3-formatresstring">Pattern 3: <code>FormatResString</code></h3>
-<pre><code class="language-vbnet">Function FormatResString(ByVal resID As Integer, _
-ParamArray args()) As String
-Dim template As String
-Dim i As Long
-
-template = LoadResString(resID)
-
-For i = LBound(args) To UBound(args)
-template = Replace(template, &quot;{&quot; &amp; i &amp; &quot;}&quot;, CStr(args(i)))
-Next i
-
-FormatResString = template
-End Function</code></pre>
-<h3 id="pattern-4-geterrormessage">Pattern 4: <code>GetErrorMessage</code></h3>
-<pre><code class="language-vbnet">Function GetErrorMessage(ByVal errorCode As Long) As String
-Const BASE_ERROR_ID = 10000
-On Error Resume Next
-
-GetErrorMessage = LoadResString(BASE_ERROR_ID + errorCode)
-If Err.Number &lt;&gt; 0 Then
-GetErrorMessage = &quot;Unknown error: &quot; &amp; errorCode
-Err.Clear
-End If
-End Function</code></pre>
-<h3 id="pattern-5-loadmenustrings">Pattern 5: <code>LoadMenuStrings</code></h3>
-<pre><code class="language-vbnet">Sub LoadMenuStrings()
-Const MENU_BASE = 4000
-
-mnuFile.Caption = LoadResString(MENU_BASE + 1)      &#x27; &quot;&amp;File&quot;
-mnuFileNew.Caption = LoadResString(MENU_BASE + 2)   &#x27; &quot;&amp;New&quot;
-mnuFileOpen.Caption = LoadResString(MENU_BASE + 3)  &#x27; &quot;&amp;Open&quot;
-mnuFileSave.Caption = LoadResString(MENU_BASE + 4)  &#x27; &quot;&amp;Save&quot;
-mnuFileExit.Caption = LoadResString(MENU_BASE + 5)  &#x27; &quot;E&amp;xit&quot;
-End Sub</code></pre>
-<h3 id="pattern-6-cachedresstring">Pattern 6: <code>CachedResString</code></h3>
-<pre><code class="language-vbnet">Dim resStringCache As New Collection
-
+MsgBox msg</p>
+<pre><code>### Example 4: Form Initialization</code></pre>
+<p>vb
+Private Sub Form_Load()
+    ' Load all UI strings from resources
+    Me.Caption = LoadResString(1001)
+    lblName.Caption = LoadResString(1002)
+    lblAddress.Caption = LoadResString(1003)
+    cmdSave.Caption = LoadResString(1004)
+    cmdCancel.Caption = LoadResString(1005)
+End Sub</p>
+<pre><code>## Common Patterns
+### Pattern 1: `SafeLoadResString`</code></pre>
+<p>vb
+Function SafeLoadResString(ByVal resID As Integer, _
+                           Optional ByVal defaultText As String = "") As String
+    On Error Resume Next
+    SafeLoadResString = LoadResString(resID)
+    If Err.Number &lt;&gt; 0 Then
+        SafeLoadResString = defaultText
+        Err.Clear
+    End If
+End Function</p>
+<pre><code>### Pattern 2: `LoadFormStrings`</code></pre>
+<p>vb
+Sub LoadFormStrings(frm As Form, ByVal baseID As Integer)
+    Dim ctrl As Control
+    Dim id As Integer
+    On Error Resume Next
+    frm.Caption = LoadResString(baseID)
+    id = baseID + 1
+    For Each ctrl In frm.Controls
+        If TypeOf ctrl Is Label Or TypeOf ctrl Is CommandButton Then
+            ctrl.Caption = LoadResString(id)
+            id = id + 1
+        End If
+    Next ctrl
+End Sub</p>
+<pre><code>### Pattern 3: `FormatResString`</code></pre>
+<p>vb
+Function FormatResString(ByVal resID As Integer, _
+                         ParamArray args()) As String
+    Dim template As String
+    Dim i As Long
+    template = LoadResString(resID)
+    For i = LBound(args) To UBound(args)
+        template = Replace(template, "{" &amp; i &amp; "}", CStr(args(i)))
+    Next i
+    FormatResString = template
+End Function</p>
+<pre><code>### Pattern 4: `GetErrorMessage`</code></pre>
+<p>vb
+Function GetErrorMessage(ByVal errorCode As Long) As String
+    Const BASE_ERROR_ID = 10000
+    On Error Resume Next
+    GetErrorMessage = LoadResString(BASE_ERROR_ID + errorCode)
+    If Err.Number &lt;&gt; 0 Then
+        GetErrorMessage = "Unknown error: " &amp; errorCode
+        Err.Clear
+    End If
+End Function</p>
+<pre><code>### Pattern 5: `LoadMenuStrings`</code></pre>
+<p>vb
+Sub LoadMenuStrings()
+    Const MENU_BASE = 4000
+    mnuFile.Caption = LoadResString(MENU_BASE + 1)      ' "&amp;File"
+    mnuFileNew.Caption = LoadResString(MENU_BASE + 2)   ' "&amp;New"
+    mnuFileOpen.Caption = LoadResString(MENU_BASE + 3)  ' "&amp;Open"
+    mnuFileSave.Caption = LoadResString(MENU_BASE + 4)  ' "&amp;Save"
+    mnuFileExit.Caption = LoadResString(MENU_BASE + 5)  ' "E&amp;xit"
+End Sub</p>
+<pre><code>### Pattern 6: `CachedResString`</code></pre>
+<p>vb
+Dim resStringCache As New Collection
 Function CachedLoadResString(ByVal resID As Integer) As String
-Dim key As String
-On Error Resume Next
-
-key = &quot;RES_&quot; &amp; resID
-CachedLoadResString = resStringCache(key)
-
-If Err.Number &lt;&gt; 0 Then
-Err.Clear
-CachedLoadResString = LoadResString(resID)
-resStringCache.Add CachedLoadResString, key
-End If
-End Function</code></pre>
-<h3 id="pattern-7-resstringexists">Pattern 7: <code>ResStringExists</code></h3>
-<pre><code class="language-vbnet">Function ResStringExists(ByVal resID As Integer) As Boolean
-On Error Resume Next
-Dim s As String
-s = LoadResString(resID)
-ResStringExists = (Err.Number = 0)
-Err.Clear
-End Function</code></pre>
-<h3 id="pattern-8-loadresstringarray">Pattern 8: <code>LoadResStringArray</code></h3>
-<pre><code class="language-vbnet">Function LoadResStringArray(ByVal startID As Integer, _
-ByVal count As Integer) As String()
-Dim result() As String
-Dim i As Integer
-
-ReDim result(0 To count - 1)
-
-On Error Resume Next
-For i = 0 To count - 1
-result(i) = LoadResString(startID + i)
-If Err.Number &lt;&gt; 0 Then
-result(i) = &quot;&quot;
-Err.Clear
-End If
-Next i
-
-LoadResStringArray = result
-End Function</code></pre>
-<h3 id="pattern-9-showresmessage">Pattern 9: <code>ShowResMessage</code></h3>
-<pre><code class="language-vbnet">Sub ShowResMessage(ByVal resID As Integer, _
-Optional ByVal icon As VbMsgBoxStyle = vbInformation)
-On Error Resume Next
-Dim msg As String
-msg = LoadResString(resID)
-
-If Err.Number = 0 Then
-MsgBox msg, icon
-Else
-MsgBox &quot;Message resource &quot; &amp; resID &amp; &quot; not found&quot;, vbCritical
-Err.Clear
-End If
-End Sub</code></pre>
-<h3 id="pattern-10-multilineresstring">Pattern 10: <code>MultiLineResString</code></h3>
-<pre><code class="language-vbnet">Function MultiLineResString(ByVal resID As Integer) As String
-Dim text As String
-text = LoadResString(resID)
-&#x27; Resource strings preserve line breaks
-MultiLineResString = text
-End Function</code></pre>
-<h2 id="advanced-examples">Advanced Examples</h2>
-<h3 id="example-1-localization-manager">Example 1: Localization Manager</h3>
-<pre><code class="language-vbnet">&#x27; Class: LocalizationManager
+    Dim key As String
+    On Error Resume Next
+    key = "RES_" &amp; resID
+    CachedLoadResString = resStringCache(key)
+    If Err.Number &lt;&gt; 0 Then
+        Err.Clear
+        CachedLoadResString = LoadResString(resID)
+        resStringCache.Add CachedLoadResString, key
+    End If
+End Function</p>
+<pre><code>### Pattern 7: `ResStringExists`</code></pre>
+<p>vb
+Function ResStringExists(ByVal resID As Integer) As Boolean
+    On Error Resume Next
+    Dim s As String
+    s = LoadResString(resID)
+    ResStringExists = (Err.Number = 0)
+    Err.Clear
+End Function</p>
+<pre><code>### Pattern 8: `LoadResStringArray`</code></pre>
+<p>vb
+Function LoadResStringArray(ByVal startID As Integer, _
+                            ByVal count As Integer) As String()
+    Dim result() As String
+    Dim i As Integer
+    ReDim result(0 To count - 1)
+    On Error Resume Next
+    For i = 0 To count - 1
+        result(i) = LoadResString(startID + i)
+        If Err.Number &lt;&gt; 0 Then
+            result(i) = ""
+            Err.Clear
+        End If
+    Next i
+    LoadResStringArray = result
+End Function</p>
+<pre><code>### Pattern 9: `ShowResMessage`</code></pre>
+<p>vb
+Sub ShowResMessage(ByVal resID As Integer, _
+                   Optional ByVal icon As VbMsgBoxStyle = vbInformation)
+    On Error Resume Next
+    Dim msg As String
+    msg = LoadResString(resID)
+    If Err.Number = 0 Then
+        MsgBox msg, icon
+    Else
+        MsgBox "Message resource " &amp; resID &amp; " not found", vbCritical
+        Err.Clear
+    End If
+End Sub</p>
+<pre><code>### Pattern 10: `MultiLineResString`</code></pre>
+<p>vb
+Function MultiLineResString(ByVal resID As Integer) As String
+    Dim text As String
+    text = LoadResString(resID)
+    ' Resource strings preserve line breaks
+    MultiLineResString = text
+End Function</p>
+<pre><code>## Advanced Examples
+### Example 1: Localization Manager</code></pre>
+<p>vb
+' Class: LocalizationManager
 Private m_cache As Collection
 Private m_languageID As Integer
-
 Private Sub Class_Initialize()
-Set m_cache = New Collection
-m_languageID = 1033 &#x27; Default to English (US)
+    Set m_cache = New Collection
+    m_languageID = 1033 ' Default to English (US)
 End Sub
-
 Public Property Let LanguageID(ByVal newLanguage As Integer)
-m_languageID = newLanguage
-ClearCache
+    m_languageID = newLanguage
+    ClearCache
 End Property
-
 Public Function GetString(ByVal baseID As Integer) As String
-Dim resID As Integer
-Dim key As String
-
-On Error Resume Next
-resID = baseID + m_languageID
-key = &quot;STR_&quot; &amp; resID
-
-GetString = m_cache(key)
-If Err.Number &lt;&gt; 0 Then
-Err.Clear
-GetString = LoadResString(resID)
-If Err.Number = 0 Then
-m_cache.Add GetString, key
-Else
-&#x27; Fallback to default language
-GetString = LoadResString(baseID + 1033)
-Err.Clear
-End If
-End If
+    Dim resID As Integer
+    Dim key As String
+    On Error Resume Next
+    resID = baseID + m_languageID
+    key = "STR_" &amp; resID
+    GetString = m_cache(key)
+    If Err.Number &lt;&gt; 0 Then
+        Err.Clear
+        GetString = LoadResString(resID)
+        If Err.Number = 0 Then
+            m_cache.Add GetString, key
+        Else
+            ' Fallback to default language
+            GetString = LoadResString(baseID + 1033)
+            Err.Clear
+        End If
+    End If
 End Function
-
 Public Sub LocalizeForm(frm As Form)
-Dim ctrl As Control
-On Error Resume Next
-
-&#x27; Load form caption
-frm.Caption = GetString(GetFormBaseID(frm))
-
-&#x27; Load control captions
-For Each ctrl In frm.Controls
-If HasCaption(ctrl) Then
-ctrl.Caption = GetString(GetControlID(ctrl))
-End If
-Next ctrl
+    Dim ctrl As Control
+    On Error Resume Next
+    ' Load form caption
+    frm.Caption = GetString(GetFormBaseID(frm))
+    ' Load control captions
+    For Each ctrl In frm.Controls
+        If HasCaption(ctrl) Then
+            ctrl.Caption = GetString(GetControlID(ctrl))
+        End If
+    Next ctrl
 End Sub
-
 Private Sub ClearCache()
-Set m_cache = New Collection
+    Set m_cache = New Collection
 End Sub
-
 Private Function HasCaption(ctrl As Control) As Boolean
-HasCaption = TypeOf ctrl Is Label Or _
-TypeOf ctrl Is CommandButton Or _
-TypeOf ctrl Is CheckBox Or _
-TypeOf ctrl Is OptionButton
+    HasCaption = TypeOf ctrl Is Label Or _
+                 TypeOf ctrl Is CommandButton Or _
+                 TypeOf ctrl Is CheckBox Or _
+                 TypeOf ctrl Is OptionButton
 End Function
-
 Private Sub Class_Terminate()
-Set m_cache = Nothing
-End Sub</code></pre>
-<h3 id="example-2-error-message-system">Example 2: Error Message System</h3>
-<pre><code class="language-vbnet">&#x27; Module: ErrorMessages
+    Set m_cache = Nothing
+End Sub</p>
+<pre><code>### Example 2: Error Message System</code></pre>
+<p>vb
+' Module: ErrorMessages
 Private Const ERR_BASE = 20000
-
 Public Enum AppError
-errFileNotFound = 1
-errAccessDenied = 2
-errInvalidFormat = 3
-errNetworkError = 4
-errDatabaseError = 5
+    errFileNotFound = 1
+    errAccessDenied = 2
+    errInvalidFormat = 3
+    errNetworkError = 4
+    errDatabaseError = 5
 End Enum
-
 Public Sub ShowError(ByVal errorType As AppError, _
-Optional ByVal additionalInfo As String = &quot;&quot;)
-Dim msg As String
-On Error Resume Next
-
-msg = LoadResString(ERR_BASE + errorType)
-If Err.Number &lt;&gt; 0 Then
-msg = &quot;Unknown error occurred&quot;
-Err.Clear
-End If
-
-If Len(additionalInfo) &gt; 0 Then
-msg = msg &amp; vbCrLf &amp; vbCrLf &amp; additionalInfo
-End If
-
-MsgBox msg, vbCritical, LoadResString(ERR_BASE)
+                     Optional ByVal additionalInfo As String = "")
+    Dim msg As String
+    On Error Resume Next
+    msg = LoadResString(ERR_BASE + errorType)
+    If Err.Number &lt;&gt; 0 Then
+        msg = "Unknown error occurred"
+        Err.Clear
+    End If
+    If Len(additionalInfo) &gt; 0 Then
+        msg = msg &amp; vbCrLf &amp; vbCrLf &amp; additionalInfo
+    End If
+    MsgBox msg, vbCritical, LoadResString(ERR_BASE)
 End Sub
-
 Public Function GetErrorText(ByVal errorType As AppError) As String
-On Error Resume Next
-GetErrorText = LoadResString(ERR_BASE + errorType)
-If Err.Number &lt;&gt; 0 Then
-GetErrorText = &quot;Unknown error&quot;
-Err.Clear
-End If
-End Function</code></pre>
-<h3 id="example-3-multi-language-application">Example 3: Multi-Language Application</h3>
-<pre><code class="language-vbnet">&#x27; Form with language selection
+    On Error Resume Next
+    GetErrorText = LoadResString(ERR_BASE + errorType)
+    If Err.Number &lt;&gt; 0 Then
+        GetErrorText = "Unknown error"
+        Err.Clear
+    End If
+End Function</p>
+<pre><code>### Example 3: Multi-Language Application</code></pre>
+<p>vb
+' Form with language selection
 Public Enum Language
-langEnglish = 0
-langSpanish = 1000
-langFrench = 2000
-langGerman = 3000
+    langEnglish = 0
+    langSpanish = 1000
+    langFrench = 2000
+    langGerman = 3000
 End Enum
-
 Private currentLanguage As Language
-
 Private Sub Form_Load()
-&#x27; Default to English
-currentLanguage = langEnglish
-LoadLanguage
+    ' Default to English
+    currentLanguage = langEnglish
+    LoadLanguage
 End Sub
-
 Private Sub cboLanguage_Click()
-Select Case cboLanguage.ListIndex
-Case 0: currentLanguage = langEnglish
-Case 1: currentLanguage = langSpanish
-Case 2: currentLanguage = langFrench
-Case 3: currentLanguage = langGerman
-End Select
-LoadLanguage
+    Select Case cboLanguage.ListIndex
+        Case 0: currentLanguage = langEnglish
+        Case 1: currentLanguage = langSpanish
+        Case 2: currentLanguage = langFrench
+        Case 3: currentLanguage = langGerman
+    End Select
+    LoadLanguage
 End Sub
-
 Private Sub LoadLanguage()
-Dim baseID As Integer
-baseID = 10000 + currentLanguage
-
-On Error Resume Next
-Me.Caption = LoadResString(baseID + 1)
-lblWelcome.Caption = LoadResString(baseID + 2)
-lblInstructions.Caption = LoadResString(baseID + 3)
-cmdStart.Caption = LoadResString(baseID + 4)
-cmdExit.Caption = LoadResString(baseID + 5)
-
-&#x27; Update menu
-mnuFile.Caption = LoadResString(baseID + 10)
-mnuHelp.Caption = LoadResString(baseID + 11)
-End Sub</code></pre>
-<h3 id="example-4-string-template-system">Example 4: String Template System</h3>
-<pre><code class="language-vbnet">&#x27; Module: StringTemplates
+    Dim baseID As Integer
+    baseID = 10000 + currentLanguage
+    On Error Resume Next
+    Me.Caption = LoadResString(baseID + 1)
+    lblWelcome.Caption = LoadResString(baseID + 2)
+    lblInstructions.Caption = LoadResString(baseID + 3)
+    cmdStart.Caption = LoadResString(baseID + 4)
+    cmdExit.Caption = LoadResString(baseID + 5)
+    ' Update menu
+    mnuFile.Caption = LoadResString(baseID + 10)
+    mnuHelp.Caption = LoadResString(baseID + 11)
+End Sub</p>
+<pre><code>### Example 4: String Template System</code></pre>
+<p>vb
+' Module: StringTemplates
 Private Const TEMPLATE_BASE = 30000
-
 Public Function GetFormattedString(ByVal templateID As Integer, _
-ParamArray values()) As String
-Dim template As String
-Dim result As String
-Dim i As Long
-
-On Error Resume Next
-template = LoadResString(TEMPLATE_BASE + templateID)
-If Err.Number &lt;&gt; 0 Then
-GetFormattedString = &quot;&quot;
-Err.Clear
-Exit Function
-End If
-
-result = template
-For i = LBound(values) To UBound(values)
-result = Replace(result, &quot;{&quot; &amp; i &amp; &quot;}&quot;, CStr(values(i)))
-Next i
-
-GetFormattedString = result
+                                   ParamArray values()) As String
+    Dim template As String
+    Dim result As String
+    Dim i As Long
+    On Error Resume Next
+    template = LoadResString(TEMPLATE_BASE + templateID)
+    If Err.Number &lt;&gt; 0 Then
+        GetFormattedString = ""
+        Err.Clear
+        Exit Function
+    End If
+    result = template
+    For i = LBound(values) To UBound(values)
+        result = Replace(result, "{" &amp; i &amp; "}", CStr(values(i)))
+    Next i
+    GetFormattedString = result
 End Function
-
 Public Function GetWelcomeMessage(ByVal userName As String) As String
-&#x27; Template: &quot;Welcome, {0}! You have {1} new messages.&quot;
-GetWelcomeMessage = GetFormattedString(1, userName, GetMessageCount())
+    ' Template: "Welcome, {0}! You have {1} new messages."
+    GetWelcomeMessage = GetFormattedString(1, userName, GetMessageCount())
 End Function
-
 Public Function GetSaveConfirmation(ByVal filename As String) As String
-&#x27; Template: &quot;Do you want to save changes to {0}?&quot;
-GetSaveConfirmation = GetFormattedString(2, filename)
+    ' Template: "Do you want to save changes to {0}?"
+    GetSaveConfirmation = GetFormattedString(2, filename)
 End Function
-
 Private Function GetMessageCount() As Long
-&#x27; Implementation would return actual message count
-GetMessageCount = 5
-End Function</code></pre>
-<h2 id="error-handling">Error Handling</h2>
-<pre><code class="language-vbnet">&#x27; Error 32813: Resource not found
+    ' Implementation would return actual message count
+    GetMessageCount = 5
+End Function</p>
+<pre><code>## Error Handling</code></pre>
+<p>vb
+' Error 32813: Resource not found
 On Error Resume Next
 Dim msg As String
 msg = LoadResString(9999)
 If Err.Number = 32813 Then
-MsgBox &quot;String resource not found!&quot;
+    MsgBox "String resource not found!"
 End If
-
-&#x27; Error 48: Error loading from file
+' Error 48: Error loading from file
 msg = LoadResString(1001)
 If Err.Number = 48 Then
-MsgBox &quot;Resource file is corrupt or missing!&quot;
+    MsgBox "Resource file is corrupt or missing!"
 End If
-
-&#x27; Safe loading pattern
+' Safe loading pattern
 Function TryLoadResString(ByVal resID As Integer, _
-ByRef outString As String) As Boolean
-On Error Resume Next
-outString = LoadResString(resID)
-TryLoadResString = (Err.Number = 0)
-If Err.Number &lt;&gt; 0 Then
-outString = &quot;&quot;
-End If
-Err.Clear
-End Function</code></pre>
-<h2 id="performance-considerations">Performance Considerations</h2>
-<ul>
-<li><strong>Fast Access</strong>: Strings embedded in EXE (very fast loading)</li>
-<li><strong>No File I/O</strong>: No disk access required</li>
-<li><strong>No Caching</strong>: Each call loads fresh copy (implement caching if needed)</li>
-<li><strong>Memory Efficient</strong>: Strings only loaded when accessed</li>
-<li><strong>Cache Strategy</strong>: For frequently used strings, cache in Collection or array</li>
-<li><strong>Startup Time</strong>: Loading many strings at startup may slow <code>Form_Load</code></li>
-</ul>
-<h2 id="best-practices">Best Practices</h2>
-<ol>
-<li><strong>Use constants</strong> for string IDs for maintainability</li>
-<li><strong>Group by category</strong> using ID ranges (1000s for errors, 2000s for menus, etc.)</li>
-<li><strong>Cache frequently used strings</strong> to improve performance</li>
-<li><strong>Always handle errors</strong> - resource might not exist</li>
-<li><strong>Document string IDs</strong> in code or separate file</li>
-<li><strong>Use templates</strong> with placeholders for dynamic content</li>
-<li><strong>Organize by language</strong> using ID offsets (English: 0, Spanish: +1000, etc.)</li>
-<li><strong>Test all languages</strong> before deployment</li>
-<li><strong>Provide fallbacks</strong> for missing strings</li>
-<li><strong>Keep strings updated</strong> in sync with code changes</li>
-</ol>
-<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
-<table>
-<thead>
-<tr>
-<th>Function</th>
-<th>Purpose</th>
-<th>Return Type</th>
-<th>Data Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong><code>LoadResString</code></strong></td>
-<td>Load string from resources</td>
-<td>String</td>
-<td>Text strings</td>
-</tr>
-<tr>
-<td><strong><code>LoadResPicture</code></strong></td>
-<td>Load image from resources</td>
-<td><code>StdPicture</code></td>
-<td>Images</td>
-</tr>
-<tr>
-<td><strong><code>LoadResData</code></strong></td>
-<td>Load binary data from resources</td>
-<td>Byte array</td>
-<td>Binary data</td>
-</tr>
-<tr>
-<td><strong><code>LoadString</code></strong> (API)</td>
-<td>Windows API alternative</td>
-<td>String</td>
-<td>Text strings</td>
-</tr>
-</tbody>
-</table>
-<h2 id="loadresstring-vs-hardcoded-strings"><code>LoadResString</code> vs Hardcoded Strings</h2>
-<pre><code class="language-vbnet">&#x27; Hardcoded - difficult to localize
-MsgBox &quot;File not found&quot;, vbCritical
-
-&#x27; Resource string - easy to localize
-MsgBox LoadResString(1001), vbCritical</code></pre>
-<p><strong>Advantages of <code>LoadResString</code>:</strong>
+                          ByRef outString As String) As Boolean
+    On Error Resume Next
+    outString = LoadResString(resID)
+    TryLoadResString = (Err.Number = 0)
+    If Err.Number &lt;&gt; 0 Then
+        outString = ""
+    End If
+    Err.Clear
+End Function</p>
+<pre><code>## Performance Considerations
+- **Fast Access**: Strings embedded in EXE (very fast loading)
+- **No File I/O**: No disk access required
+- **No Caching**: Each call loads fresh copy (implement caching if needed)
+- **Memory Efficient**: Strings only loaded when accessed
+- **Cache Strategy**: For frequently used strings, cache in Collection or array
+- **Startup Time**: Loading many strings at startup may slow `Form_Load`
+## Best Practices
+1. **Use constants** for string IDs for maintainability
+2. **Group by category** using ID ranges (1000s for errors, 2000s for menus, etc.)
+3. **Cache frequently used strings** to improve performance
+4. **Always handle errors** - resource might not exist
+5. **Document string IDs** in code or separate file
+6. **Use templates** with placeholders for dynamic content
+7. **Organize by language** using ID offsets (English: 0, Spanish: +1000, etc.)
+8. **Test all languages** before deployment
+9. **Provide fallbacks** for missing strings
+10. **Keep strings updated** in sync with code changes
+## Comparison with Related Functions
+| Function | Purpose | Return Type | Data Type |
+|----------|---------|-------------|-----------|
+| **`LoadResString`** | Load string from resources | String | Text strings |
+| **`LoadResPicture`** | Load image from resources | `StdPicture` | Images |
+| **`LoadResData`** | Load binary data from resources | Byte array | Binary data |
+| **`LoadString`** (API) | Windows API alternative | String | Text strings |
+## `LoadResString` vs Hardcoded Strings</code></pre>
+<p>vb
+' Hardcoded - difficult to localize
+MsgBox "File not found", vbCritical
+' Resource string - easy to localize
+MsgBox LoadResString(1001), vbCritical</p>
+<pre><code>**Advantages of `LoadResString`:**
 - Easy localization (just replace .res file)
 - Centralized string management
 - No code changes needed for translations
-- Consistent messaging across application</p>
-<h2 id="string-id-organization">String ID Organization</h2>
-<pre><code class="language-vbnet">&#x27; Recommended ID ranges
-Const STR_APP_BASE = 1000         &#x27; Application strings
-Const STR_ERROR_BASE = 2000       &#x27; Error messages
-Const STR_MENU_BASE = 3000        &#x27; Menu items
-Const STR_DIALOG_BASE = 4000      &#x27; Dialog messages
-Const STR_STATUS_BASE = 5000      &#x27; Status messages
-Const STR_HELP_BASE = 6000        &#x27; Help text
-
-&#x27; Language offsets
+- Consistent messaging across application
+## String ID Organization</code></pre>
+<p>vb
+' Recommended ID ranges
+Const STR_APP_BASE = 1000         ' Application strings
+Const STR_ERROR_BASE = 2000       ' Error messages
+Const STR_MENU_BASE = 3000        ' Menu items
+Const STR_DIALOG_BASE = 4000      ' Dialog messages
+Const STR_STATUS_BASE = 5000      ' Status messages
+Const STR_HELP_BASE = 6000        ' Help text
+' Language offsets
 Const LANG_ENGLISH = 0
 Const LANG_SPANISH = 10000
-Const LANG_FRENCH = 20000</code></pre>
+Const LANG_FRENCH = 20000
+```</p>
 <h2 id="platform-notes">Platform Notes</h2>
 <ul>
 <li>Available in VB6 (not in early VB versions)</li>

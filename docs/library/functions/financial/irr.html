@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="irr-function"><code>IRR</code> Function</h1>
+            <h1 id="irr-function">IRR Function</h1>
 <p>Returns a <code>Double</code> specifying the internal rate of return for a series of periodic cash flows (payments and receipts).</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">IRR(values()[, guess])</code></pre>
@@ -53,20 +53,18 @@
 - Used to evaluate the profitability of potential investments
 - Higher <code>IRR</code> indicates more desirable investment</p>
 <h2 id="remarks">Remarks</h2>
-<p>The internal rate of return is the interest rate received for an investment consisting of payments and receipts that occur at regular intervals:</p>
-<ul>
-<li><code>IRR</code> uses the order of values within the array to interpret the order of cash flows</li>
-<li>Cash flows must occur at regular intervals (monthly, quarterly, annually, etc.)</li>
-<li>First element is typically a negative value (initial investment)</li>
-<li>Array must contain at least one positive and one negative value</li>
-<li>Uses an iterative technique to calculate <code>IRR</code></li>
-<li>Begins with the value of <code>guess</code> and cycles through until result is accurate to within 0.00001 percent</li>
-<li>If <code>IRR</code> can't find a result after 20 tries, it fails with Error 5</li>
-<li>Most cases, you don't need to provide <code>guess</code>; if omitted, 10% is assumed</li>
-<li>If <code>IRR</code> returns Error 5, try different value for <code>guess</code></li>
-<li><code>IRR</code> is closely related to <code>NPV</code> (net present value) function</li>
-<li><code>IRR</code> is the rate where <code>NPV</code> equals zero: <code>NPV(IRR(values), values) = 0</code> (approximately)</li>
-</ul>
+<p>The internal rate of return is the interest rate received for an investment consisting of payments and receipts that occur at regular intervals:
+- <code>IRR</code> uses the order of values within the array to interpret the order of cash flows
+- Cash flows must occur at regular intervals (monthly, quarterly, annually, etc.)
+- First element is typically a negative value (initial investment)
+- Array must contain at least one positive and one negative value
+- Uses an iterative technique to calculate <code>IRR</code>
+- Begins with the value of <code>guess</code> and cycles through until result is accurate to within 0.00001 percent
+- If <code>IRR</code> can't find a result after 20 tries, it fails with Error 5
+- Most cases, you don't need to provide <code>guess</code>; if omitted, 10% is assumed
+- If <code>IRR</code> returns Error 5, try different value for <code>guess</code>
+- <code>IRR</code> is closely related to <code>NPV</code> (net present value) function
+- <code>IRR</code> is the rate where <code>NPV</code> equals zero: <code>NPV(IRR(values), values) = 0</code> (approximately)</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Investment Analysis</strong>: Evaluate profitability of potential investments</li>
@@ -82,17 +80,14 @@
 <pre><code class="language-vbnet">&#x27; Example 1: Simple investment analysis
 Dim cashFlows(0 To 4) As Double
 Dim returnRate As Double
-
 cashFlows(0) = -10000  &#x27; Initial investment (negative = cash out)
 cashFlows(1) = 3000    &#x27; Year 1 return
 cashFlows(2) = 3500    &#x27; Year 2 return
 cashFlows(3) = 4000    &#x27; Year 3 return
 cashFlows(4) = 4500    &#x27; Year 4 return
-
 returnRate = IRR(cashFlows)
 Debug.Print &quot;Internal Rate of Return: &quot; &amp; Format$(returnRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
 &#x27; Prints approximately: 28.09%
-
 &#x27; Example 2: Equipment purchase evaluation
 Dim equipmentCosts(0 To 5) As Double
 equipmentCosts(0) = -50000  &#x27; Equipment cost
@@ -101,34 +96,27 @@ equipmentCosts(2) = 15000   &#x27; Year 2 savings
 equipmentCosts(3) = 18000   &#x27; Year 3 savings
 equipmentCosts(4) = 21000   &#x27; Year 4 savings
 equipmentCosts(5) = 24000   &#x27; Year 5 savings
-
 returnRate = IRR(equipmentCosts)
 If returnRate &gt; 0.15 Then  &#x27; 15% hurdle rate
-MsgBox &quot;Equipment purchase approved - IRR: &quot; &amp; Format$(returnRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+    MsgBox &quot;Equipment purchase approved - IRR: &quot; &amp; Format$(returnRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
 Else
-MsgBox &quot;Equipment purchase rejected - IRR too low&quot;
+    MsgBox &quot;Equipment purchase rejected - IRR too low&quot;
 End If
-
 &#x27; Example 3: Comparing two projects
 Dim projectA(0 To 3) As Double
 Dim projectB(0 To 3) As Double
-
 projectA(0) = -25000: projectA(1) = 10000: projectA(2) = 12000: projectA(3) = 15000
 projectB(0) = -30000: projectB(1) = 15000: projectB(2) = 14000: projectB(3) = 13000
-
 Dim irrA As Double, irrB As Double
 irrA = IRR(projectA)
 irrB = IRR(projectB)
-
 Debug.Print &quot;Project A IRR: &quot; &amp; Format$(irrA * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
 Debug.Print &quot;Project B IRR: &quot; &amp; Format$(irrB * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
-
 If irrA &gt; irrB Then
-MsgBox &quot;Select Project A&quot;
+    MsgBox &quot;Select Project A&quot;
 Else
-MsgBox &quot;Select Project B&quot;
+    MsgBox &quot;Select Project B&quot;
 End If
-
 &#x27; Example 4: Using guess parameter for difficult calculations
 Dim complexFlows(0 To 6) As Double
 complexFlows(0) = -100000
@@ -138,443 +126,362 @@ complexFlows(3) = 40000
 complexFlows(4) = 50000
 complexFlows(5) = 60000
 complexFlows(6) = 70000
-
 &#x27; Provide guess to help convergence
 On Error Resume Next
 returnRate = IRR(complexFlows, 0.2)  &#x27; Start with 20% guess
 If Err.Number = 0 Then
-Debug.Print &quot;Complex IRR: &quot; &amp; Format$(returnRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+    Debug.Print &quot;Complex IRR: &quot; &amp; Format$(returnRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
 Else
-Debug.Print &quot;Could not calculate IRR&quot;
+    Debug.Print &quot;Could not calculate IRR&quot;
 End If
 On Error GoTo 0</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Calculate IRR for investment
 Function CalculateInvestmentIRR(initialInvestment As Double, returns() As Double) As Double
-Dim cashFlows() As Double
-Dim i As Integer
-
-ReDim cashFlows(0 To UBound(returns) + 1)
-cashFlows(0) = -Abs(initialInvestment)  &#x27; Ensure negative
-
-For i = 0 To UBound(returns)
-cashFlows(i + 1) = returns(i)
-Next i
-
-CalculateInvestmentIRR = IRR(cashFlows)
+    Dim cashFlows() As Double
+    Dim i As Integer
+    ReDim cashFlows(0 To UBound(returns) + 1)
+    cashFlows(0) = -Abs(initialInvestment)  &#x27; Ensure negative
+    For i = 0 To UBound(returns)
+        cashFlows(i + 1) = returns(i)
+    Next i
+    CalculateInvestmentIRR = IRR(cashFlows)
 End Function
-
 &#x27; Pattern 2: IRR with hurdle rate comparison
 Function MeetsHurdleRate(cashFlows() As Double, hurdleRate As Double) As Boolean
-On Error Resume Next
-Dim rate As Double
-rate = IRR(cashFlows)
-
-If Err.Number = 0 Then
-MeetsHurdleRate = (rate &gt;= hurdleRate)
-Else
-MeetsHurdleRate = False
-End If
-On Error GoTo 0
+    On Error Resume Next
+    Dim rate As Double
+    rate = IRR(cashFlows)
+    If Err.Number = 0 Then
+        MeetsHurdleRate = (rate &gt;= hurdleRate)
+    Else
+        MeetsHurdleRate = False
+    End If
+    On Error GoTo 0
 End Function
-
 &#x27; Pattern 3: Format IRR as percentage
 Function FormatIRR(cashFlows() As Double) As String
-On Error Resume Next
-Dim rate As Double
-rate = IRR(cashFlows)
-
-If Err.Number = 0 Then
-FormatIRR = Format$(rate * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
-Else
-FormatIRR = &quot;N/A&quot;
-End If
-On Error GoTo 0
+    On Error Resume Next
+    Dim rate As Double
+    rate = IRR(cashFlows)
+    If Err.Number = 0 Then
+        FormatIRR = Format$(rate * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+    Else
+        FormatIRR = &quot;N/A&quot;
+    End If
+    On Error GoTo 0
 End Function
-
 &#x27; Pattern 4: Select best investment from multiple options
 Function SelectBestInvestment(investments As Collection) As Integer
-Dim bestIRR As Double
-Dim bestIndex As Integer
-Dim currentIRR As Double
-Dim i As Integer
-
-bestIRR = -999999
-bestIndex = -1
-
-For i = 1 To investments.Count
-On Error Resume Next
-currentIRR = IRR(investments(i))
-
-If Err.Number = 0 And currentIRR &gt; bestIRR Then
-bestIRR = currentIRR
-bestIndex = i
-End If
-On Error GoTo 0
-Next i
-
-SelectBestInvestment = bestIndex
+    Dim bestIRR As Double
+    Dim bestIndex As Integer
+    Dim currentIRR As Double
+    Dim i As Integer
+    bestIRR = -999999
+    bestIndex = -1
+    For i = 1 To investments.Count
+        On Error Resume Next
+        currentIRR = IRR(investments(i))
+        If Err.Number = 0 And currentIRR &gt; bestIRR Then
+            bestIRR = currentIRR
+            bestIndex = i
+        End If
+        On Error GoTo 0
+    Next i
+    SelectBestInvestment = bestIndex
 End Function
-
 &#x27; Pattern 5: Calculate IRR with validation
 Function SafeIRR(cashFlows() As Double, Optional guess As Double = 0.1) As Variant
-Dim hasPositive As Boolean
-Dim hasNegative As Boolean
-Dim i As Integer
-
-&#x27; Validate array has both positive and negative values
-For i = LBound(cashFlows) To UBound(cashFlows)
-If cashFlows(i) &gt; 0 Then hasPositive = True
-If cashFlows(i) &lt; 0 Then hasNegative = True
-Next i
-
-If Not (hasPositive And hasNegative) Then
-SafeIRR = Null
-Exit Function
-End If
-
-On Error Resume Next
-SafeIRR = IRR(cashFlows, guess)
-If Err.Number &lt;&gt; 0 Then SafeIRR = Null
-On Error GoTo 0
+    Dim hasPositive As Boolean
+    Dim hasNegative As Boolean
+    Dim i As Integer
+    &#x27; Validate array has both positive and negative values
+    For i = LBound(cashFlows) To UBound(cashFlows)
+        If cashFlows(i) &gt; 0 Then hasPositive = True
+        If cashFlows(i) &lt; 0 Then hasNegative = True
+    Next i
+    If Not (hasPositive And hasNegative) Then
+        SafeIRR = Null
+        Exit Function
+    End If
+    On Error Resume Next
+    SafeIRR = IRR(cashFlows, guess)
+    If Err.Number &lt;&gt; 0 Then SafeIRR = Null
+    On Error GoTo 0
 End Function
-
 &#x27; Pattern 6: Compare project IRRs
 Sub CompareProjects(project1() As Double, project2() As Double)
-Dim irr1 As Double, irr2 As Double
-
-irr1 = IRR(project1)
-irr2 = IRR(project2)
-
-Debug.Print &quot;Project 1 IRR: &quot; &amp; Format$(irr1 * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
-Debug.Print &quot;Project 2 IRR: &quot; &amp; Format$(irr2 * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
-Debug.Print &quot;Difference: &quot; &amp; Format$((irr1 - irr2) * 100, &quot;0.00&quot;) &amp; &quot; percentage points&quot;
+    Dim irr1 As Double, irr2 As Double
+    irr1 = IRR(project1)
+    irr2 = IRR(project2)
+    Debug.Print &quot;Project 1 IRR: &quot; &amp; Format$(irr1 * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+    Debug.Print &quot;Project 2 IRR: &quot; &amp; Format$(irr2 * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+    Debug.Print &quot;Difference: &quot; &amp; Format$((irr1 - irr2) * 100, &quot;0.00&quot;) &amp; &quot; percentage points&quot;
 End Sub
-
 &#x27; Pattern 7: Calculate breakeven IRR
 Function GetBreakevenIRR(costOfCapital As Double, cashFlows() As Double) As String
-Dim projectIRR As Double
-projectIRR = IRR(cashFlows)
-
-If projectIRR &gt; costOfCapital Then
-GetBreakevenIRR = &quot;Project exceeds cost of capital by &quot; &amp; _
-Format$((projectIRR - costOfCapital) * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
-ElseIf projectIRR &lt; costOfCapital Then
-GetBreakevenIRR = &quot;Project falls short of cost of capital by &quot; &amp; _
-Format$((costOfCapital - projectIRR) * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
-Else
-GetBreakevenIRR = &quot;Project exactly meets cost of capital&quot;
-End If
+    Dim projectIRR As Double
+    projectIRR = IRR(cashFlows)
+    If projectIRR &gt; costOfCapital Then
+        GetBreakevenIRR = &quot;Project exceeds cost of capital by &quot; &amp; _
+                         Format$((projectIRR - costOfCapital) * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+    ElseIf projectIRR &lt; costOfCapital Then
+        GetBreakevenIRR = &quot;Project falls short of cost of capital by &quot; &amp; _
+                         Format$((costOfCapital - projectIRR) * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+    Else
+        GetBreakevenIRR = &quot;Project exactly meets cost of capital&quot;
+    End If
 End Function
-
 &#x27; Pattern 8: IRR for monthly cash flows
 Function MonthlyIRR(monthlyCashFlows() As Double) As Double
-&#x27; Returns annualized IRR from monthly cash flows
-Dim monthlyRate As Double
-monthlyRate = IRR(monthlyCashFlows)
-MonthlyIRR = ((1 + monthlyRate) ^ 12) - 1  &#x27; Convert to annual rate
+    &#x27; Returns annualized IRR from monthly cash flows
+    Dim monthlyRate As Double
+    monthlyRate = IRR(monthlyCashFlows)
+    MonthlyIRR = ((1 + monthlyRate) ^ 12) - 1  &#x27; Convert to annual rate
 End Function
-
 &#x27; Pattern 9: Try multiple guesses if IRR fails
 Function RobustIRR(cashFlows() As Double) As Variant
-Dim guesses As Variant
-Dim i As Integer
-Dim result As Double
-
-guesses = Array(0.1, 0.2, 0.5, -0.1, -0.2, 0.01, 0.9)
-
-For i = 0 To UBound(guesses)
-On Error Resume Next
-result = IRR(cashFlows, guesses(i))
-
-If Err.Number = 0 Then
-RobustIRR = result
-On Error GoTo 0
-Exit Function
-End If
-On Error GoTo 0
-Next i
-
-RobustIRR = Null  &#x27; Could not calculate
+    Dim guesses As Variant
+    Dim i As Integer
+    Dim result As Double
+    guesses = Array(0.1, 0.2, 0.5, -0.1, -0.2, 0.01, 0.9)
+    For i = 0 To UBound(guesses)
+        On Error Resume Next
+        result = IRR(cashFlows, guesses(i))
+        If Err.Number = 0 Then
+            RobustIRR = result
+            On Error GoTo 0
+            Exit Function
+        End If
+        On Error GoTo 0
+    Next i
+    RobustIRR = Null  &#x27; Could not calculate
 End Function
-
 &#x27; Pattern 10: Incremental IRR analysis
 Function IncrementalIRR(baseProject() As Double, incrementalProject() As Double) As Double
-Dim incrementalFlows() As Double
-Dim i As Integer
-Dim maxIndex As Integer
-
-&#x27; Calculate incremental cash flows
-maxIndex = IIf(UBound(baseProject) &gt; UBound(incrementalProject), _
-UBound(baseProject), UBound(incrementalProject))
-
-ReDim incrementalFlows(0 To maxIndex)
-
-For i = 0 To maxIndex
-incrementalFlows(i) = 0
-If i &lt;= UBound(incrementalProject) Then
-incrementalFlows(i) = incrementalFlows(i) + incrementalProject(i)
-End If
-If i &lt;= UBound(baseProject) Then
-incrementalFlows(i) = incrementalFlows(i) - baseProject(i)
-End If
-Next i
-
-IncrementalIRR = IRR(incrementalFlows)
+    Dim incrementalFlows() As Double
+    Dim i As Integer
+    Dim maxIndex As Integer
+    &#x27; Calculate incremental cash flows
+    maxIndex = IIf(UBound(baseProject) &gt; UBound(incrementalProject), _
+                   UBound(baseProject), UBound(incrementalProject))
+    ReDim incrementalFlows(0 To maxIndex)
+    For i = 0 To maxIndex
+        incrementalFlows(i) = 0
+        If i &lt;= UBound(incrementalProject) Then
+            incrementalFlows(i) = incrementalFlows(i) + incrementalProject(i)
+        End If
+        If i &lt;= UBound(baseProject) Then
+            incrementalFlows(i) = incrementalFlows(i) - baseProject(i)
+        End If
+    Next i
+    IncrementalIRR = IRR(incrementalFlows)
 End Function</code></pre>
 <h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Investment analyzer class
 Public Class InvestmentAnalyzer
-Private m_cashFlows() As Double
-Private m_irr As Variant
-Private m_calculated As Boolean
-
-Public Sub SetCashFlows(cashFlows() As Double)
-Dim i As Integer
-ReDim m_cashFlows(LBound(cashFlows) To UBound(cashFlows))
-
-For i = LBound(cashFlows) To UBound(cashFlows)
-m_cashFlows(i) = cashFlows(i)
-Next i
-
-m_calculated = False
-End Sub
-
-Public Function GetIRR() As Variant
-If Not m_calculated Then
-On Error Resume Next
-m_irr = IRR(m_cashFlows)
-If Err.Number &lt;&gt; 0 Then m_irr = Null
-On Error GoTo 0
-m_calculated = True
-End If
-GetIRR = m_irr
-End Function
-
-Public Function GetFormattedIRR() As String
-Dim rate As Variant
-rate = GetIRR()
-
-If IsNull(rate) Then
-GetFormattedIRR = &quot;N/A&quot;
-Else
-GetFormattedIRR = Format$(rate * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
-End If
-End Function
-
-Public Function IsAcceptable(hurdleRate As Double) As Boolean
-Dim rate As Variant
-rate = GetIRR()
-
-If IsNull(rate) Then
-IsAcceptable = False
-Else
-IsAcceptable = (rate &gt;= hurdleRate)
-End If
-End Function
-
-Public Function CompareToRate(targetRate As Double) As String
-Dim rate As Variant
-rate = GetIRR()
-
-If IsNull(rate) Then
-CompareToRate = &quot;Unable to calculate IRR&quot;
-ElseIf rate &gt; targetRate Then
-CompareToRate = &quot;Exceeds target by &quot; &amp; _
-Format$((rate - targetRate) * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
-ElseIf rate &lt; targetRate Then
-CompareToRate = &quot;Below target by &quot; &amp; _
-Format$((targetRate - rate) * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
-Else
-CompareToRate = &quot;Exactly meets target&quot;
-End If
-End Function
+    Private m_cashFlows() As Double
+    Private m_irr As Variant
+    Private m_calculated As Boolean
+    Public Sub SetCashFlows(cashFlows() As Double)
+        Dim i As Integer
+        ReDim m_cashFlows(LBound(cashFlows) To UBound(cashFlows))
+        For i = LBound(cashFlows) To UBound(cashFlows)
+            m_cashFlows(i) = cashFlows(i)
+        Next i
+        m_calculated = False
+    End Sub
+    Public Function GetIRR() As Variant
+        If Not m_calculated Then
+            On Error Resume Next
+            m_irr = IRR(m_cashFlows)
+            If Err.Number &lt;&gt; 0 Then m_irr = Null
+            On Error GoTo 0
+            m_calculated = True
+        End If
+        GetIRR = m_irr
+    End Function
+    Public Function GetFormattedIRR() As String
+        Dim rate As Variant
+        rate = GetIRR()
+        If IsNull(rate) Then
+            GetFormattedIRR = &quot;N/A&quot;
+        Else
+            GetFormattedIRR = Format$(rate * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+        End If
+    End Function
+    Public Function IsAcceptable(hurdleRate As Double) As Boolean
+        Dim rate As Variant
+        rate = GetIRR()
+        If IsNull(rate) Then
+            IsAcceptable = False
+        Else
+            IsAcceptable = (rate &gt;= hurdleRate)
+        End If
+    End Function
+    Public Function CompareToRate(targetRate As Double) As String
+        Dim rate As Variant
+        rate = GetIRR()
+        If IsNull(rate) Then
+            CompareToRate = &quot;Unable to calculate IRR&quot;
+        ElseIf rate &gt; targetRate Then
+            CompareToRate = &quot;Exceeds target by &quot; &amp; _
+                           Format$((rate - targetRate) * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+        ElseIf rate &lt; targetRate Then
+            CompareToRate = &quot;Below target by &quot; &amp; _
+                           Format$((targetRate - rate) * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+        Else
+            CompareToRate = &quot;Exactly meets target&quot;
+        End If
+    End Function
 End Class
-
 &#x27; Example 2: Project portfolio manager
 Public Class ProjectPortfolio
-Private m_projects As Collection
-
-Private Sub Class_Initialize()
-Set m_projects = New Collection
-End Sub
-
-Public Sub AddProject(projectName As String, cashFlows() As Double)
-Dim projectData As Variant
-projectData = Array(projectName, cashFlows)
-m_projects.Add projectData
-End Sub
-
-Public Function GetBestProject() As String
-Dim bestIRR As Double
-Dim bestName As String
-Dim currentIRR As Double
-Dim i As Integer
-Dim projectData As Variant
-
-bestIRR = -999999
-bestName = &quot;&quot;
-
-For i = 1 To m_projects.Count
-projectData = m_projects(i)
-
-On Error Resume Next
-currentIRR = IRR(projectData(1))
-
-If Err.Number = 0 And currentIRR &gt; bestIRR Then
-bestIRR = currentIRR
-bestName = projectData(0)
-End If
-On Error GoTo 0
-Next i
-
-GetBestProject = bestName &amp; &quot; (IRR: &quot; &amp; Format$(bestIRR * 100, &quot;0.00&quot;) &amp; &quot;%)&quot;
-End Function
-
-Public Function GetRankedProjects() As String
-Dim rankings() As Variant
-Dim i As Integer, j As Integer
-Dim temp As Variant
-Dim result As String
-Dim projectData As Variant
-Dim projectIRR As Double
-
-ReDim rankings(1 To m_projects.Count)
-
-&#x27; Build array of project names and IRRs
-For i = 1 To m_projects.Count
-projectData = m_projects(i)
-
-On Error Resume Next
-projectIRR = IRR(projectData(1))
-If Err.Number &lt;&gt; 0 Then projectIRR = -999999
-On Error GoTo 0
-
-rankings(i) = Array(projectData(0), projectIRR)
-Next i
-
-&#x27; Sort by IRR (descending)
-For i = 1 To UBound(rankings) - 1
-For j = i + 1 To UBound(rankings)
-If rankings(j)(1) &gt; rankings(i)(1) Then
-temp = rankings(i)
-rankings(i) = rankings(j)
-rankings(j) = temp
-End If
-Next j
-Next i
-
-&#x27; Build result string
-result = &quot;Project Rankings:&quot; &amp; vbCrLf
-For i = 1 To UBound(rankings)
-result = result &amp; i &amp; &quot;. &quot; &amp; rankings(i)(0) &amp; &quot;: &quot; &amp; _
-Format$(rankings(i)(1) * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-Next i
-
-GetRankedProjects = result
-End Function
+    Private m_projects As Collection
+    Private Sub Class_Initialize()
+        Set m_projects = New Collection
+    End Sub
+    Public Sub AddProject(projectName As String, cashFlows() As Double)
+        Dim projectData As Variant
+        projectData = Array(projectName, cashFlows)
+        m_projects.Add projectData
+    End Sub
+    Public Function GetBestProject() As String
+        Dim bestIRR As Double
+        Dim bestName As String
+        Dim currentIRR As Double
+        Dim i As Integer
+        Dim projectData As Variant
+        bestIRR = -999999
+        bestName = &quot;&quot;
+        For i = 1 To m_projects.Count
+            projectData = m_projects(i)
+            On Error Resume Next
+            currentIRR = IRR(projectData(1))
+            If Err.Number = 0 And currentIRR &gt; bestIRR Then
+                bestIRR = currentIRR
+                bestName = projectData(0)
+            End If
+            On Error GoTo 0
+        Next i
+        GetBestProject = bestName &amp; &quot; (IRR: &quot; &amp; Format$(bestIRR * 100, &quot;0.00&quot;) &amp; &quot;%)&quot;
+    End Function
+    Public Function GetRankedProjects() As String
+        Dim rankings() As Variant
+        Dim i As Integer, j As Integer
+        Dim temp As Variant
+        Dim result As String
+        Dim projectData As Variant
+        Dim projectIRR As Double
+        ReDim rankings(1 To m_projects.Count)
+        &#x27; Build array of project names and IRRs
+        For i = 1 To m_projects.Count
+            projectData = m_projects(i)
+            On Error Resume Next
+            projectIRR = IRR(projectData(1))
+            If Err.Number &lt;&gt; 0 Then projectIRR = -999999
+            On Error GoTo 0
+            rankings(i) = Array(projectData(0), projectIRR)
+        Next i
+        &#x27; Sort by IRR (descending)
+        For i = 1 To UBound(rankings) - 1
+            For j = i + 1 To UBound(rankings)
+                If rankings(j)(1) &gt; rankings(i)(1) Then
+                    temp = rankings(i)
+                    rankings(i) = rankings(j)
+                    rankings(j) = temp
+                End If
+            Next j
+        Next i
+        &#x27; Build result string
+        result = &quot;Project Rankings:&quot; &amp; vbCrLf
+        For i = 1 To UBound(rankings)
+            result = result &amp; i &amp; &quot;. &quot; &amp; rankings(i)(0) &amp; &quot;: &quot; &amp; _
+                     Format$(rankings(i)(1) * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+        Next i
+        GetRankedProjects = result
+    End Function
 End Class
-
 &#x27; Example 3: Capital budgeting calculator
 Function EvaluateCapitalProject(initialCost As Double, annualSavings As Double, _
-years As Integer, salvageValue As Double, _
-hurdleRate As Double) As String
-Dim cashFlows() As Double
-Dim i As Integer
-Dim projectIRR As Double
-Dim result As String
-
-ReDim cashFlows(0 To years)
-cashFlows(0) = -Abs(initialCost)
-
-For i = 1 To years - 1
-cashFlows(i) = annualSavings
-Next i
-
-cashFlows(years) = annualSavings + salvageValue
-
-projectIRR = IRR(cashFlows)
-
-result = &quot;Capital Project Evaluation&quot; &amp; vbCrLf
-result = result &amp; &quot;Initial Cost: &quot; &amp; Format$(initialCost, &quot;Currency&quot;) &amp; vbCrLf
-result = result &amp; &quot;Annual Savings: &quot; &amp; Format$(annualSavings, &quot;Currency&quot;) &amp; vbCrLf
-result = result &amp; &quot;Project Life: &quot; &amp; years &amp; &quot; years&quot; &amp; vbCrLf
-result = result &amp; &quot;Salvage Value: &quot; &amp; Format$(salvageValue, &quot;Currency&quot;) &amp; vbCrLf
-result = result &amp; &quot;IRR: &quot; &amp; Format$(projectIRR * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-result = result &amp; &quot;Hurdle Rate: &quot; &amp; Format$(hurdleRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-
-If projectIRR &gt;= hurdleRate Then
-result = result &amp; &quot;Recommendation: APPROVE&quot;
-Else
-result = result &amp; &quot;Recommendation: REJECT&quot;
-End If
-
-EvaluateCapitalProject = result
+                               years As Integer, salvageValue As Double, _
+                               hurdleRate As Double) As String
+    Dim cashFlows() As Double
+    Dim i As Integer
+    Dim projectIRR As Double
+    Dim result As String
+    ReDim cashFlows(0 To years)
+    cashFlows(0) = -Abs(initialCost)
+    For i = 1 To years - 1
+        cashFlows(i) = annualSavings
+    Next i
+    cashFlows(years) = annualSavings + salvageValue
+    projectIRR = IRR(cashFlows)
+    result = &quot;Capital Project Evaluation&quot; &amp; vbCrLf
+    result = result &amp; &quot;Initial Cost: &quot; &amp; Format$(initialCost, &quot;Currency&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Annual Savings: &quot; &amp; Format$(annualSavings, &quot;Currency&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Project Life: &quot; &amp; years &amp; &quot; years&quot; &amp; vbCrLf
+    result = result &amp; &quot;Salvage Value: &quot; &amp; Format$(salvageValue, &quot;Currency&quot;) &amp; vbCrLf
+    result = result &amp; &quot;IRR: &quot; &amp; Format$(projectIRR * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+    result = result &amp; &quot;Hurdle Rate: &quot; &amp; Format$(hurdleRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+    If projectIRR &gt;= hurdleRate Then
+        result = result &amp; &quot;Recommendation: APPROVE&quot;
+    Else
+        result = result &amp; &quot;Recommendation: REJECT&quot;
+    End If
+    EvaluateCapitalProject = result
 End Function
-
 &#x27; Example 4: Real estate investment analyzer
 Function AnalyzeRealEstateInvestment(purchasePrice As Double, downPayment As Double, _
-monthlyRent As Double, monthlyExpenses As Double, _
-years As Integer, appreciationRate As Double) As String
-Dim cashFlows() As Double
-Dim i As Integer
-Dim salePrice As Double
-Dim annualIRR As Double
-Dim result As String
-
-ReDim cashFlows(0 To years)
-
-&#x27; Initial investment (down payment)
-cashFlows(0) = -Abs(downPayment)
-
-&#x27; Annual net cash flows
-For i = 1 To years - 1
-cashFlows(i) = (monthlyRent - monthlyExpenses) * 12
-Next i
-
-&#x27; Final year includes sale
-salePrice = purchasePrice * ((1 + appreciationRate) ^ years)
-cashFlows(years) = (monthlyRent - monthlyExpenses) * 12 + salePrice - (purchasePrice - downPayment)
-
-annualIRR = IRR(cashFlows)
-
-result = &quot;Real Estate Investment Analysis&quot; &amp; vbCrLf
-result = result &amp; &quot;Purchase Price: &quot; &amp; Format$(purchasePrice, &quot;Currency&quot;) &amp; vbCrLf
-result = result &amp; &quot;Down Payment: &quot; &amp; Format$(downPayment, &quot;Currency&quot;) &amp; vbCrLf
-result = result &amp; &quot;Monthly Rent: &quot; &amp; Format$(monthlyRent, &quot;Currency&quot;) &amp; vbCrLf
-result = result &amp; &quot;Monthly Expenses: &quot; &amp; Format$(monthlyExpenses, &quot;Currency&quot;) &amp; vbCrLf
-result = result &amp; &quot;Holding Period: &quot; &amp; years &amp; &quot; years&quot; &amp; vbCrLf
-result = result &amp; &quot;Annual IRR: &quot; &amp; Format$(annualIRR * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
-
-AnalyzeRealEstateInvestment = result
+                                     monthlyRent As Double, monthlyExpenses As Double, _
+                                     years As Integer, appreciationRate As Double) As String
+    Dim cashFlows() As Double
+    Dim i As Integer
+    Dim salePrice As Double
+    Dim annualIRR As Double
+    Dim result As String
+    ReDim cashFlows(0 To years)
+    &#x27; Initial investment (down payment)
+    cashFlows(0) = -Abs(downPayment)
+    &#x27; Annual net cash flows
+    For i = 1 To years - 1
+        cashFlows(i) = (monthlyRent - monthlyExpenses) * 12
+    Next i
+    &#x27; Final year includes sale
+    salePrice = purchasePrice * ((1 + appreciationRate) ^ years)
+    cashFlows(years) = (monthlyRent - monthlyExpenses) * 12 + salePrice - (purchasePrice - downPayment)
+    annualIRR = IRR(cashFlows)
+    result = &quot;Real Estate Investment Analysis&quot; &amp; vbCrLf
+    result = result &amp; &quot;Purchase Price: &quot; &amp; Format$(purchasePrice, &quot;Currency&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Down Payment: &quot; &amp; Format$(downPayment, &quot;Currency&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Monthly Rent: &quot; &amp; Format$(monthlyRent, &quot;Currency&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Monthly Expenses: &quot; &amp; Format$(monthlyExpenses, &quot;Currency&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Holding Period: &quot; &amp; years &amp; &quot; years&quot; &amp; vbCrLf
+    result = result &amp; &quot;Annual IRR: &quot; &amp; Format$(annualIRR * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
+    AnalyzeRealEstateInvestment = result
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The IRR function can raise errors:</p>
-<ul>
-<li><strong>Invalid procedure call (Error 5)</strong>: If IRR can't find a result after 20 iterations, or if array doesn't contain at least one positive and one negative value</li>
-<li><strong>Type Mismatch (Error 13)</strong>: If values array is not numeric</li>
-<li><strong>Subscript out of range (Error 9)</strong>: If array is invalid</li>
-</ul>
+<p>The IRR function can raise errors:
+- <strong>Invalid procedure call (Error 5)</strong>: If IRR can't find a result after 20 iterations, or if array doesn't contain at least one positive and one negative value
+- <strong>Type Mismatch (Error 13)</strong>: If values array is not numeric
+- <strong>Subscript out of range (Error 9)</strong>: If array is invalid</p>
 <pre><code class="language-vbnet">On Error GoTo ErrorHandler
 Dim cashFlows(0 To 4) As Double
 Dim rate As Double
-
 cashFlows(0) = -10000
 cashFlows(1) = 3000
 cashFlows(2) = 3500
 cashFlows(3) = 4000
 cashFlows(4) = 4500
-
 rate = IRR(cashFlows)
 Debug.Print &quot;IRR: &quot; &amp; Format$(rate * 100, &quot;0.00&quot;) &amp; &quot;%&quot;
 Exit Sub
-
 ErrorHandler:
-If Err.Number = 5 Then
-MsgBox &quot;Unable to calculate IRR. Try a different guess value.&quot;, vbCritical
-Else
-MsgBox &quot;Error calculating IRR: &quot; &amp; Err.Description, vbCritical
-End If</code></pre>
+    If Err.Number = 5 Then
+        MsgBox &quot;Unable to calculate IRR. Try a different guess value.&quot;, vbCritical
+    Else
+        MsgBox &quot;Error calculating IRR: &quot; &amp; Err.Description, vbCritical
+    End If</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
 <li><strong>Iterative Calculation</strong>: <code>IRR</code> uses iterative algorithm that can be slow for complex cash flows</li>

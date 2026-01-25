@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="chr-function"><code>Chr$</code> Function</h1>
+            <h1 id="chr-function">Chr$ Function</h1>
 <p>Returns a <code>String</code> containing the character associated with the specified character code.
 The dollar sign suffix (<code>$</code>) explicitly indicates that this function returns a <code>String</code> type.</p>
 <h2 id="syntax">Syntax</h2>
@@ -45,7 +45,7 @@ The dollar sign suffix (<code>$</code>) explicitly indicates that this function 
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><strong><code>charcode</code></strong>: Required. <code>Long</code> value that identifies a character. The valid range for
-<code>charcode</code> is 0-255. For values outside this range, an error occurs.</li>
+  <code>charcode</code> is 0-255. For values outside this range, an error occurs.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>String</code> containing the single character corresponding to the specified character
@@ -159,112 +159,108 @@ msg = &quot;Line 1&quot; &amp; Chr$(13) &amp; Chr$(10) &amp; &quot;Line 2&quot;<
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="multi-line-strings">Multi-line Strings</h3>
 <pre><code class="language-vbnet">Function CreateMultiLine() As String
-Dim result As String
-result = &quot;First Line&quot; &amp; Chr$(13) &amp; Chr$(10)
-result = result &amp; &quot;Second Line&quot; &amp; Chr$(13) &amp; Chr$(10)
-result = result &amp; &quot;Third Line&quot;
-CreateMultiLine = result
+    Dim result As String
+    result = &quot;First Line&quot; &amp; Chr$(13) &amp; Chr$(10)
+    result = result &amp; &quot;Second Line&quot; &amp; Chr$(13) &amp; Chr$(10)
+    result = result &amp; &quot;Third Line&quot;
+    CreateMultiLine = result
 End Function</code></pre>
 <h3 id="tab-separated-values">Tab-Separated Values</h3>
 <pre><code class="language-vbnet">Function CreateTSV(col1 As String, col2 As String, col3 As String) As String
-CreateTSV = col1 &amp; Chr$(9) &amp; col2 &amp; Chr$(9) &amp; col3
+    CreateTSV = col1 &amp; Chr$(9) &amp; col2 &amp; Chr$(9) &amp; col3
 End Function</code></pre>
 <h3 id="generate-alphabet">Generate Alphabet</h3>
 <pre><code class="language-vbnet">Function GenerateAlphabet() As String
-Dim i As Integer
-Dim result As String
-For i = 65 To 90
-result = result &amp; Chr$(i)
-Next i
-GenerateAlphabet = result  &#x27; Returns &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;
+    Dim i As Integer
+    Dim result As String
+    For i = 65 To 90
+        result = result &amp; Chr$(i)
+    Next i
+    GenerateAlphabet = result  &#x27; Returns &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;
 End Function</code></pre>
 <h3 id="quote-in-string">Quote in String</h3>
 <pre><code class="language-vbnet">Function AddQuotes(text As String) As String
-AddQuotes = Chr$(34) &amp; text &amp; Chr$(34)
+    AddQuotes = Chr$(34) &amp; text &amp; Chr$(34)
 End Function</code></pre>
 <h3 id="csv-field-with-quotes">CSV Field with Quotes</h3>
 <pre><code class="language-vbnet">Function QuoteCSVField(field As String) As String
-&#x27; Replace &quot; with &quot;&quot;
-Dim quoted As String
-quoted = Replace(field, Chr$(34), Chr$(34) &amp; Chr$(34))
-QuoteCSVField = Chr$(34) &amp; quoted &amp; Chr$(34)
+    &#x27; Replace &quot; with &quot;&quot;
+    Dim quoted As String
+    quoted = Replace(field, Chr$(34), Chr$(34) &amp; Chr$(34))
+    QuoteCSVField = Chr$(34) &amp; quoted &amp; Chr$(34)
 End Function</code></pre>
 <h3 id="null-terminated-string">Null-Terminated String</h3>
 <pre><code class="language-vbnet">Function CreateNullTerminated(text As String) As String
-CreateNullTerminated = text &amp; Chr$(0)
+    CreateNullTerminated = text &amp; Chr$(0)
 End Function</code></pre>
 <h3 id="password-mask">Password Mask</h3>
 <pre><code class="language-vbnet">Function MaskPassword(length As Integer) As String
-Dim i As Integer
-Dim result As String
-For i = 1 To length
-result = result &amp; Chr$(42)  &#x27; Asterisk
-Next i
-MaskPassword = result
+    Dim i As Integer
+    Dim result As String
+    For i = 1 To length
+        result = result &amp; Chr$(42)  &#x27; Asterisk
+    Next i
+    MaskPassword = result
 End Function</code></pre>
 <h3 id="character-range-check">Character Range Check</h3>
 <pre><code class="language-vbnet">Function IsUpperCase(ch As String) As Boolean
-If Len(ch) &lt;&gt; 1 Then Exit Function
-Dim code As Integer
-code = Asc(ch)
-IsUpperCase = (code &gt;= 65 And code &lt;= 90)
+    If Len(ch) &lt;&gt; 1 Then Exit Function
+    Dim code As Integer
+    code = Asc(ch)
+    IsUpperCase = (code &gt;= 65 And code &lt;= 90)
 End Function</code></pre>
 <h3 id="build-character-set">Build Character Set</h3>
 <pre><code class="language-vbnet">Function GetDigitCharacters() As String
-Dim i As Integer
-Dim result As String
-For i = 48 To 57  &#x27; ASCII codes for 0-9
-result = result &amp; Chr$(i)
-Next i
-GetDigitCharacters = result  &#x27; Returns &quot;0123456789&quot;
+    Dim i As Integer
+    Dim result As String
+    For i = 48 To 57  &#x27; ASCII codes for 0-9
+        result = result &amp; Chr$(i)
+    Next i
+    GetDigitCharacters = result  &#x27; Returns &quot;0123456789&quot;
 End Function</code></pre>
 <h3 id="format-output-with-alignment">Format Output with Alignment</h3>
 <pre><code class="language-vbnet">Function AlignRight(text As String, width As Integer) As String
-Dim padding As Integer
-Dim result As String
-padding = width - Len(text)
-If padding &gt; 0 Then
-Dim i As Integer
-For i = 1 To padding
-result = result &amp; Chr$(32)  &#x27; Space
-Next i
-End If
-AlignRight = result &amp; text
+    Dim padding As Integer
+    Dim result As String
+    padding = width - Len(text)
+    If padding &gt; 0 Then
+        Dim i As Integer
+        For i = 1 To padding
+            result = result &amp; Chr$(32)  &#x27; Space
+        Next i
+    End If
+    AlignRight = result &amp; text
 End Function</code></pre>
 <h2 id="advanced-examples">Advanced Examples</h2>
 <h3 id="format-report-header">Format Report Header</h3>
 <pre><code class="language-vbnet">Function CreateReportHeader() As String
-Dim header As String
-header = &quot;Name&quot; &amp; Chr$(9) &amp; &quot;Age&quot; &amp; Chr$(9) &amp; &quot;City&quot; &amp; Chr$(13) &amp; Chr$(10)
-header = header &amp; String$(40, Chr$(45))  &#x27; Underline with dashes
-CreateReportHeader = header
+    Dim header As String
+    header = &quot;Name&quot; &amp; Chr$(9) &amp; &quot;Age&quot; &amp; Chr$(9) &amp; &quot;City&quot; &amp; Chr$(13) &amp; Chr$(10)
+    header = header &amp; String$(40, Chr$(45))  &#x27; Underline with dashes
+    CreateReportHeader = header
 End Function</code></pre>
 <h3 id="parse-character-codes">Parse Character Codes</h3>
 <pre><code class="language-vbnet">Function DecodeCharCodes(codes() As Integer) As String
-Dim i As Integer
-Dim result As String
-For i = LBound(codes) To UBound(codes)
-result = result &amp; Chr$(codes(i))
-Next i
-DecodeCharCodes = result
+    Dim i As Integer
+    Dim result As String
+    For i = LBound(codes) To UBound(codes)
+        result = result &amp; Chr$(codes(i))
+    Next i
+    DecodeCharCodes = result
 End Function</code></pre>
 <h3 id="create-box-drawing">Create Box Drawing</h3>
 <pre><code class="language-vbnet">Function CreateBox(width As Integer, height As Integer) As String
-Dim result As String
-Dim i As Integer
-
-&#x27; Top line
-result = String$(width, Chr$(45)) &amp; Chr$(13) &amp; Chr$(10)
-
-&#x27; Middle lines
-For i = 1 To height - 2
-result = result &amp; Chr$(124) &amp; Space$(width - 2) &amp; Chr$(124) &amp; Chr$(13) &amp; Chr$(10)
-Next i
-
-&#x27; Bottom line
-result = result &amp; String$(width, Chr$(45))
-
-CreateBox = result
+    Dim result As String
+    Dim i As Integer
+    &#x27; Top line
+    result = String$(width, Chr$(45)) &amp; Chr$(13) &amp; Chr$(10)
+    &#x27; Middle lines
+    For i = 1 To height - 2
+        result = result &amp; Chr$(124) &amp; Space$(width - 2) &amp; Chr$(124) &amp; Chr$(13) &amp; Chr$(10)
+    Next i
+    &#x27; Bottom line
+    result = result &amp; String$(width, Chr$(45))
+    CreateBox = result
 End Function</code></pre>
 <h2 id="differences-from-chr">Differences from Chr</h2>
 <table>
@@ -309,12 +305,12 @@ End Function</code></pre>
 </ul>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeChr(code As Long) As String
-On Error Resume Next
-SafeChr = Chr$(code)
-If Err.Number &lt;&gt; 0 Then
-SafeChr = &quot;&quot;
-Err.Clear
-End If
+    On Error Resume Next
+    SafeChr = Chr$(code)
+    If Err.Number &lt;&gt; 0 Then
+        SafeChr = &quot;&quot;
+        Err.Clear
+    End If
 End Function</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>

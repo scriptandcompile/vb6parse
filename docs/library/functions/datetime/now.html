@@ -44,8 +44,8 @@
 <h2 id="parameters">Parameters</h2>
 <p>None. Now takes no parameters.</p>
 <h2 id="return-value">Return Value</h2>
-<p>Returns a <strong>Variant (Date)</strong> containing the current system date and time.</p>
-<p>The returned value includes both the date portion (number of days since December 30, 1899) and the time portion (fractional part of a 24-hour day).</p>
+<p>Returns a <strong>Variant (Date)</strong> containing the current system date and time.
+The returned value includes both the date portion (number of days since December 30, 1899) and the time portion (fractional part of a 24-hour day).</p>
 <h2 id="remarks">Remarks</h2>
 <p>The Now function is one of the most frequently used VB6 date/time functions for getting the current moment.
 It combines both date and time information in a single value.</p>
@@ -106,528 +106,430 @@ MsgBox &quot;Elapsed: &quot; &amp; DateDiff(&quot;s&quot;, startTime, Now) &amp;
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Simple timestamp logging
 Sub LogMessage(message As String)
-Debug.Print Now &amp; &quot; - &quot; &amp; message
+    Debug.Print Now &amp; &quot; - &quot; &amp; message
 End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 2: Formatted timestamp
 Function GetTimestamp() As String
-GetTimestamp = Format(Now, &quot;yyyy-mm-dd hh:nn:ss&quot;)
+    GetTimestamp = Format(Now, &quot;yyyy-mm-dd hh:nn:ss&quot;)
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 3: Calculate operation duration
 Function MeasureOperation() As Double
-Dim startTime As Date
-Dim endTime As Date
-
-startTime = Now
-
-&#x27; Perform operation
-DoSomething
-
-endTime = Now
-
-&#x27; Return elapsed seconds
-MeasureOperation = DateDiff(&quot;s&quot;, startTime, endTime)
+    Dim startTime As Date
+    Dim endTime As Date
+    startTime = Now
+    &#x27; Perform operation
+    DoSomething
+    endTime = Now
+    &#x27; Return elapsed seconds
+    MeasureOperation = DateDiff(&quot;s&quot;, startTime, endTime)
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 4: Audit trail update
 Sub UpdateRecord(recordID As Long)
-Dim sql As String
-sql = &quot;UPDATE Records SET ModifiedDate = &quot; &amp; _
-Format(Now, &quot;\#mm\/dd\/yyyy hh:nn:ss\#&quot;) &amp; _
-&quot; WHERE ID = &quot; &amp; recordID
-ExecuteSQL sql
+    Dim sql As String
+    sql = &quot;UPDATE Records SET ModifiedDate = &quot; &amp; _
+          Format(Now, &quot;\#mm\/dd\/yyyy hh:nn:ss\#&quot;) &amp; _
+          &quot; WHERE ID = &quot; &amp; recordID
+    ExecuteSQL sql
 End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 5: Time-stamped filename
 Function GetLogFileName() As String
-GetLogFileName = &quot;log_&quot; &amp; Format(Now, &quot;yyyymmdd_hhnnss&quot;) &amp; &quot;.txt&quot;
+    GetLogFileName = &quot;log_&quot; &amp; Format(Now, &quot;yyyymmdd_hhnnss&quot;) &amp; &quot;.txt&quot;
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 6: Session tracking
 Sub RecordLogin(userID As Long)
-Dim loginTime As Date
-loginTime = Now
-
-&#x27; Store in database or session object
-Session(&quot;LoginTime&quot;) = loginTime
-Session(&quot;UserID&quot;) = userID
+    Dim loginTime As Date
+    loginTime = Now
+    &#x27; Store in database or session object
+    Session(&quot;LoginTime&quot;) = loginTime
+    Session(&quot;UserID&quot;) = userID
 End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 7: Timeout checking
 Function IsTimedOut(startTime As Date, timeoutMinutes As Long) As Boolean
-Dim elapsed As Long
-elapsed = DateDiff(&quot;n&quot;, startTime, Now)
-IsTimedOut = (elapsed &gt;= timeoutMinutes)
+    Dim elapsed As Long
+    elapsed = DateDiff(&quot;n&quot;, startTime, Now)
+    IsTimedOut = (elapsed &gt;= timeoutMinutes)
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 8: Scheduled task checking
 Function ShouldRunTask(lastRun As Date, intervalHours As Long) As Boolean
-Dim hoursSinceRun As Long
-
-If IsNull(lastRun) Then
-ShouldRunTask = True
-Else
-hoursSinceRun = DateDiff(&quot;h&quot;, lastRun, Now)
-ShouldRunTask = (hoursSinceRun &gt;= intervalHours)
-End If
+    Dim hoursSinceRun As Long
+    If IsNull(lastRun) Then
+        ShouldRunTask = True
+    Else
+        hoursSinceRun = DateDiff(&quot;h&quot;, lastRun, Now)
+        ShouldRunTask = (hoursSinceRun &gt;= intervalHours)
+    End If
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 9: Display relative time
 Function GetTimeAgo(pastTime As Date) As String
-Dim seconds As Long
-Dim minutes As Long
-Dim hours As Long
-
-seconds = DateDiff(&quot;s&quot;, pastTime, Now)
-
-If seconds &lt; 60 Then
-GetTimeAgo = seconds &amp; &quot; seconds ago&quot;
-ElseIf seconds &lt; 3600 Then
-minutes = seconds \ 60
-GetTimeAgo = minutes &amp; &quot; minutes ago&quot;
-Else
-hours = seconds \ 3600
-GetTimeAgo = hours &amp; &quot; hours ago&quot;
-End If
+    Dim seconds As Long
+    Dim minutes As Long
+    Dim hours As Long
+    seconds = DateDiff(&quot;s&quot;, pastTime, Now)
+    If seconds &lt; 60 Then
+        GetTimeAgo = seconds &amp; &quot; seconds ago&quot;
+    ElseIf seconds &lt; 3600 Then
+        minutes = seconds \ 60
+        GetTimeAgo = minutes &amp; &quot; minutes ago&quot;
+    Else
+        hours = seconds \ 3600
+        GetTimeAgo = hours &amp; &quot; hours ago&quot;
+    End If
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 10: Business hours check
 Function IsDuringBusinessHours() As Boolean
-Dim currentHour As Integer
-Dim currentDay As Integer
-
-currentHour = Hour(Now)
-currentDay = Weekday(Now)
-
-&#x27; Monday-Friday, 9 AM to 5 PM
-IsDuringBusinessHours = (currentDay &gt;= vbMonday And currentDay &lt;= vbFriday) And _
-(currentHour &gt;= 9 And currentHour &lt; 17)
+    Dim currentHour As Integer
+    Dim currentDay As Integer
+    currentHour = Hour(Now)
+    currentDay = Weekday(Now)
+    &#x27; Monday-Friday, 9 AM to 5 PM
+    IsDuringBusinessHours = (currentDay &gt;= vbMonday And currentDay &lt;= vbFriday) And _
+                            (currentHour &gt;= 9 And currentHour &lt; 17)
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-performance-monitor-class">Example 1: Performance Monitor Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: PerformanceMonitor
 &#x27; Tracks operation performance with detailed timing
-
 Option Explicit
-
 Private m_operations As Collection
-
 Private Type OperationTiming
-operationName As String
-startTime As Date
-endTime As Date
-duration As Double
+    operationName As String
+    startTime As Date
+    endTime As Date
+    duration As Double
 End Type
-
 Private Sub Class_Initialize()
-Set m_operations = New Collection
+    Set m_operations = New Collection
 End Sub
-
 Public Sub StartOperation(operationName As String)
-Dim timing As OperationTiming
-
-timing.operationName = operationName
-timing.startTime = Now
-timing.endTime = 0
-timing.duration = 0
-
-m_operations.Add timing, operationName
+    Dim timing As OperationTiming
+    timing.operationName = operationName
+    timing.startTime = Now
+    timing.endTime = 0
+    timing.duration = 0
+    m_operations.Add timing, operationName
 End Sub
-
 Public Sub EndOperation(operationName As String)
-Dim timing As OperationTiming
-Dim i As Long
-
-&#x27; Find the operation
-For i = 1 To m_operations.Count
-timing = m_operations(i)
-If timing.operationName = operationName Then
-timing.endTime = Now
-timing.duration = DateDiff(&quot;s&quot;, timing.startTime, timing.endTime)
-
-&#x27; Update the collection
-m_operations.Remove i
-m_operations.Add timing, operationName
-Exit Sub
-End If
-Next i
+    Dim timing As OperationTiming
+    Dim i As Long
+    &#x27; Find the operation
+    For i = 1 To m_operations.Count
+        timing = m_operations(i)
+        If timing.operationName = operationName Then
+            timing.endTime = Now
+            timing.duration = DateDiff(&quot;s&quot;, timing.startTime, timing.endTime)
+            &#x27; Update the collection
+            m_operations.Remove i
+            m_operations.Add timing, operationName
+            Exit Sub
+        End If
+    Next i
 End Sub
-
 Public Function GetDuration(operationName As String) As Double
-Dim timing As OperationTiming
-Dim i As Long
-
-For i = 1 To m_operations.Count
-timing = m_operations(i)
-If timing.operationName = operationName Then
-If timing.endTime = 0 Then
-&#x27; Still running - calculate current duration
-GetDuration = DateDiff(&quot;s&quot;, timing.startTime, Now)
-Else
-GetDuration = timing.duration
-End If
-Exit Function
-End If
-Next i
-
-GetDuration = -1 &#x27; Not found
+    Dim timing As OperationTiming
+    Dim i As Long
+    For i = 1 To m_operations.Count
+        timing = m_operations(i)
+        If timing.operationName = operationName Then
+            If timing.endTime = 0 Then
+                &#x27; Still running - calculate current duration
+                GetDuration = DateDiff(&quot;s&quot;, timing.startTime, Now)
+            Else
+                GetDuration = timing.duration
+            End If
+            Exit Function
+        End If
+    Next i
+    GetDuration = -1 &#x27; Not found
 End Function
-
 Public Function GenerateReport() As String
-Dim report As String
-Dim timing As OperationTiming
-Dim i As Long
-
-report = &quot;Performance Report - &quot; &amp; Format(Now, &quot;yyyy-mm-dd hh:nn:ss&quot;) &amp; vbCrLf
-report = report &amp; String(60, &quot;-&quot;) &amp; vbCrLf
-
-For i = 1 To m_operations.Count
-timing = m_operations(i)
-report = report &amp; timing.operationName &amp; &quot;: &quot;
-
-If timing.endTime = 0 Then
-report = report &amp; &quot;Running (&quot; &amp; DateDiff(&quot;s&quot;, timing.startTime, Now) &amp; &quot;s)&quot;
-Else
-report = report &amp; timing.duration &amp; &quot; seconds&quot;
-End If
-
-report = report &amp; vbCrLf
-Next i
-
-GenerateReport = report
+    Dim report As String
+    Dim timing As OperationTiming
+    Dim i As Long
+    report = &quot;Performance Report - &quot; &amp; Format(Now, &quot;yyyy-mm-dd hh:nn:ss&quot;) &amp; vbCrLf
+    report = report &amp; String(60, &quot;-&quot;) &amp; vbCrLf
+    For i = 1 To m_operations.Count
+        timing = m_operations(i)
+        report = report &amp; timing.operationName &amp; &quot;: &quot;
+        If timing.endTime = 0 Then
+            report = report &amp; &quot;Running (&quot; &amp; DateDiff(&quot;s&quot;, timing.startTime, Now) &amp; &quot;s)&quot;
+        Else
+            report = report &amp; timing.duration &amp; &quot; seconds&quot;
+        End If
+        report = report &amp; vbCrLf
+    Next i
+    GenerateReport = report
 End Function</code></pre>
 <h3 id="example-2-audit-logger-class">Example 2: Audit Logger Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: AuditLogger
 &#x27; Logs all database operations with timestamps
-
 Option Explicit
-
 Private m_logFile As String
 Private m_enabled As Boolean
-
 Public Sub Initialize(logFilePath As String)
-m_logFile = logFilePath
-m_enabled = True
+    m_logFile = logFilePath
+    m_enabled = True
 End Sub
-
 Public Sub LogInsert(tableName As String, recordID As Variant, userName As String)
-Dim entry As String
-entry = FormatLogEntry(&quot;INSERT&quot;, tableName, recordID, userName, &quot;&quot;)
-WriteToLog entry
+    Dim entry As String
+    entry = FormatLogEntry(&quot;INSERT&quot;, tableName, recordID, userName, &quot;&quot;)
+    WriteToLog entry
 End Sub
-
 Public Sub LogUpdate(tableName As String, recordID As Variant, userName As String, changes As String)
-Dim entry As String
-entry = FormatLogEntry(&quot;UPDATE&quot;, tableName, recordID, userName, changes)
-WriteToLog entry
+    Dim entry As String
+    entry = FormatLogEntry(&quot;UPDATE&quot;, tableName, recordID, userName, changes)
+    WriteToLog entry
 End Sub
-
 Public Sub LogDelete(tableName As String, recordID As Variant, userName As String)
-Dim entry As String
-entry = FormatLogEntry(&quot;DELETE&quot;, tableName, recordID, userName, &quot;&quot;)
-WriteToLog entry
+    Dim entry As String
+    entry = FormatLogEntry(&quot;DELETE&quot;, tableName, recordID, userName, &quot;&quot;)
+    WriteToLog entry
 End Sub
-
 Public Sub LogSelect(tableName As String, userName As String, criteria As String)
-Dim entry As String
-entry = FormatLogEntry(&quot;SELECT&quot;, tableName, &quot;&quot;, userName, criteria)
-WriteToLog entry
+    Dim entry As String
+    entry = FormatLogEntry(&quot;SELECT&quot;, tableName, &quot;&quot;, userName, criteria)
+    WriteToLog entry
 End Sub
-
 Private Function FormatLogEntry(operation As String, _
-tableName As String, _
-recordID As Variant, _
-userName As String, _
-details As String) As String
-Dim entry As String
-
-entry = Format(Now, &quot;yyyy-mm-dd hh:nn:ss&quot;) &amp; vbTab
-entry = entry &amp; operation &amp; vbTab
-entry = entry &amp; tableName &amp; vbTab
-entry = entry &amp; CStr(recordID) &amp; vbTab
-entry = entry &amp; userName &amp; vbTab
-entry = entry &amp; details
-
-FormatLogEntry = entry
+                               tableName As String, _
+                               recordID As Variant, _
+                               userName As String, _
+                               details As String) As String
+    Dim entry As String
+    entry = Format(Now, &quot;yyyy-mm-dd hh:nn:ss&quot;) &amp; vbTab
+    entry = entry &amp; operation &amp; vbTab
+    entry = entry &amp; tableName &amp; vbTab
+    entry = entry &amp; CStr(recordID) &amp; vbTab
+    entry = entry &amp; userName &amp; vbTab
+    entry = entry &amp; details
+    FormatLogEntry = entry
 End Function
-
 Private Sub WriteToLog(entry As String)
-Dim fileNum As Integer
-
-If Not m_enabled Then Exit Sub
-
-On Error Resume Next
-fileNum = FreeFile
-Open m_logFile For Append As #fileNum
-Print #fileNum, entry
-Close #fileNum
-On Error GoTo 0
+    Dim fileNum As Integer
+    If Not m_enabled Then Exit Sub
+    On Error Resume Next
+    fileNum = FreeFile
+    Open m_logFile For Append As #fileNum
+    Print #fileNum, entry
+    Close #fileNum
+    On Error GoTo 0
 End Sub
-
 Public Function GetRecentEntries(minutes As Long) As Collection
-Dim entries As New Collection
-Dim fileNum As Integer
-Dim line As String
-Dim timestamp As Date
-Dim cutoffTime As Date
-
-cutoffTime = DateAdd(&quot;n&quot;, -minutes, Now)
-
-On Error Resume Next
-fileNum = FreeFile
-Open m_logFile For Input As #fileNum
-
-Do While Not EOF(fileNum)
-Line Input #fileNum, line
-
-&#x27; Parse timestamp from first field
-timestamp = CDate(Left(line, 19))
-
-If timestamp &gt;= cutoffTime Then
-entries.Add line
-End If
-Loop
-
-Close #fileNum
-On Error GoTo 0
-
-Set GetRecentEntries = entries
+    Dim entries As New Collection
+    Dim fileNum As Integer
+    Dim line As String
+    Dim timestamp As Date
+    Dim cutoffTime As Date
+    cutoffTime = DateAdd(&quot;n&quot;, -minutes, Now)
+    On Error Resume Next
+    fileNum = FreeFile
+    Open m_logFile For Input As #fileNum
+    Do While Not EOF(fileNum)
+        Line Input #fileNum, line
+        &#x27; Parse timestamp from first field
+        timestamp = CDate(Left(line, 19))
+        If timestamp &gt;= cutoffTime Then
+            entries.Add line
+        End If
+    Loop
+    Close #fileNum
+    On Error GoTo 0
+    Set GetRecentEntries = entries
 End Function</code></pre>
 <h3 id="example-3-session-manager-module">Example 3: Session Manager Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: SessionManager
 &#x27; Manages user sessions with timeout tracking
-
 Option Explicit
-
 Private Type UserSession
-userID As Long
-userName As String
-loginTime As Date
-lastActivity As Date
-ipAddress As String
-isActive As Boolean
+    userID As Long
+    userName As String
+    loginTime As Date
+    lastActivity As Date
+    ipAddress As String
+    isActive As Boolean
 End Type
-
 Private m_sessions As Collection
 Private m_timeoutMinutes As Long
-
 Public Sub Initialize(timeoutMinutes As Long)
-Set m_sessions = New Collection
-m_timeoutMinutes = timeoutMinutes
+    Set m_sessions = New Collection
+    m_timeoutMinutes = timeoutMinutes
 End Sub
-
 Public Function CreateSession(userID As Long, userName As String, ipAddress As String) As String
-Dim session As UserSession
-Dim sessionID As String
-
-&#x27; Generate unique session ID
-sessionID = GenerateSessionID()
-
-session.userID = userID
-session.userName = userName
-session.loginTime = Now
-session.lastActivity = Now
-session.ipAddress = ipAddress
-session.isActive = True
-
-m_sessions.Add session, sessionID
-
-CreateSession = sessionID
+    Dim session As UserSession
+    Dim sessionID As String
+    &#x27; Generate unique session ID
+    sessionID = GenerateSessionID()
+    session.userID = userID
+    session.userName = userName
+    session.loginTime = Now
+    session.lastActivity = Now
+    session.ipAddress = ipAddress
+    session.isActive = True
+    m_sessions.Add session, sessionID
+    CreateSession = sessionID
 End Function
-
 Public Sub UpdateActivity(sessionID As String)
-Dim session As UserSession
-
-On Error Resume Next
-session = m_sessions(sessionID)
-
-If Err.Number = 0 Then
-session.lastActivity = Now
-m_sessions.Remove sessionID
-m_sessions.Add session, sessionID
-End If
-On Error GoTo 0
+    Dim session As UserSession
+    On Error Resume Next
+    session = m_sessions(sessionID)
+    If Err.Number = 0 Then
+        session.lastActivity = Now
+        m_sessions.Remove sessionID
+        m_sessions.Add session, sessionID
+    End If
+    On Error GoTo 0
 End Sub
-
 Public Function IsSessionValid(sessionID As String) As Boolean
-Dim session As UserSession
-Dim minutesIdle As Long
-
-On Error Resume Next
-session = m_sessions(sessionID)
-
-If Err.Number &lt;&gt; 0 Then
-IsSessionValid = False
-Exit Function
-End If
-On Error GoTo 0
-
-If Not session.isActive Then
-IsSessionValid = False
-Exit Function
-End If
-
-minutesIdle = DateDiff(&quot;n&quot;, session.lastActivity, Now)
-IsSessionValid = (minutesIdle &lt; m_timeoutMinutes)
+    Dim session As UserSession
+    Dim minutesIdle As Long
+    On Error Resume Next
+    session = m_sessions(sessionID)
+    If Err.Number &lt;&gt; 0 Then
+        IsSessionValid = False
+        Exit Function
+    End If
+    On Error GoTo 0
+    If Not session.isActive Then
+        IsSessionValid = False
+        Exit Function
+    End If
+    minutesIdle = DateDiff(&quot;n&quot;, session.lastActivity, Now)
+    IsSessionValid = (minutesIdle &lt; m_timeoutMinutes)
 End Function
-
 Public Sub CleanupExpiredSessions()
-Dim session As UserSession
-Dim sessionID As Variant
-Dim minutesIdle As Long
-Dim expiredIDs As Collection
-
-Set expiredIDs = New Collection
-
-&#x27; Find expired sessions
-For Each sessionID In m_sessions
-session = m_sessions(sessionID)
-minutesIdle = DateDiff(&quot;n&quot;, session.lastActivity, Now)
-
-If minutesIdle &gt;= m_timeoutMinutes Then
-expiredIDs.Add sessionID
-End If
-Next sessionID
-
-&#x27; Remove expired sessions
-For Each sessionID In expiredIDs
-m_sessions.Remove sessionID
-Next sessionID
+    Dim session As UserSession
+    Dim sessionID As Variant
+    Dim minutesIdle As Long
+    Dim expiredIDs As Collection
+    Set expiredIDs = New Collection
+    &#x27; Find expired sessions
+    For Each sessionID In m_sessions
+        session = m_sessions(sessionID)
+        minutesIdle = DateDiff(&quot;n&quot;, session.lastActivity, Now)
+        If minutesIdle &gt;= m_timeoutMinutes Then
+            expiredIDs.Add sessionID
+        End If
+    Next sessionID
+    &#x27; Remove expired sessions
+    For Each sessionID In expiredIDs
+        m_sessions.Remove sessionID
+    Next sessionID
 End Sub
-
 Public Function GetSessionDuration(sessionID As String) As Long
-Dim session As UserSession
-
-On Error Resume Next
-session = m_sessions(sessionID)
-
-If Err.Number = 0 Then
-GetSessionDuration = DateDiff(&quot;n&quot;, session.loginTime, Now)
-Else
-GetSessionDuration = 0
-End If
-On Error GoTo 0
+    Dim session As UserSession
+    On Error Resume Next
+    session = m_sessions(sessionID)
+    If Err.Number = 0 Then
+        GetSessionDuration = DateDiff(&quot;n&quot;, session.loginTime, Now)
+    Else
+        GetSessionDuration = 0
+    End If
+    On Error GoTo 0
 End Function
-
 Private Function GenerateSessionID() As String
-GenerateSessionID = Format(Now, &quot;yyyymmddhhnnss&quot;) &amp; &quot;_&quot; &amp; Int(Rnd * 10000)
+    GenerateSessionID = Format(Now, &quot;yyyymmddhhnnss&quot;) &amp; &quot;_&quot; &amp; Int(Rnd * 10000)
 End Function</code></pre>
 <h3 id="example-4-scheduled-task-runner">Example 4: Scheduled Task Runner</h3>
 <pre><code class="language-vbnet">&#x27; Class: ScheduledTaskRunner
 &#x27; Executes tasks on a schedule based on current time
-
 Option Explicit
-
 Private Type ScheduledTask
-taskName As String
-lastRun As Date
-intervalMinutes As Long
-enabled As Boolean
-callbackObject As Object
-callbackMethod As String
+    taskName As String
+    lastRun As Date
+    intervalMinutes As Long
+    enabled As Boolean
+    callbackObject As Object
+    callbackMethod As String
 End Type
-
 Private m_tasks As Collection
-
 Private Sub Class_Initialize()
-Set m_tasks = New Collection
+    Set m_tasks = New Collection
 End Sub
-
 Public Sub AddTask(taskName As String, _
-intervalMinutes As Long, _
-callbackObj As Object, _
-callbackMethod As String)
-Dim task As ScheduledTask
-
-task.taskName = taskName
-task.lastRun = 0
-task.intervalMinutes = intervalMinutes
-task.enabled = True
-Set task.callbackObject = callbackObj
-task.callbackMethod = callbackMethod
-
-m_tasks.Add task, taskName
+                  intervalMinutes As Long, _
+                  callbackObj As Object, _
+                  callbackMethod As String)
+    Dim task As ScheduledTask
+    task.taskName = taskName
+    task.lastRun = 0
+    task.intervalMinutes = intervalMinutes
+    task.enabled = True
+    Set task.callbackObject = callbackObj
+    task.callbackMethod = callbackMethod
+    m_tasks.Add task, taskName
 End Sub
-
 Public Sub CheckAndRunTasks()
-Dim task As ScheduledTask
-Dim i As Long
-Dim minutesSinceRun As Long
-
-For i = 1 To m_tasks.Count
-task = m_tasks(i)
-
-If task.enabled Then
-If task.lastRun = 0 Then
-&#x27; Never run - execute now
-ExecuteTask task
-task.lastRun = Now
-UpdateTask i, task
-Else
-minutesSinceRun = DateDiff(&quot;n&quot;, task.lastRun, Now)
-
-If minutesSinceRun &gt;= task.intervalMinutes Then
-ExecuteTask task
-task.lastRun = Now
-UpdateTask i, task
-End If
-End If
-End If
-Next i
+    Dim task As ScheduledTask
+    Dim i As Long
+    Dim minutesSinceRun As Long
+    For i = 1 To m_tasks.Count
+        task = m_tasks(i)
+        If task.enabled Then
+            If task.lastRun = 0 Then
+                &#x27; Never run - execute now
+                ExecuteTask task
+                task.lastRun = Now
+                UpdateTask i, task
+            Else
+                minutesSinceRun = DateDiff(&quot;n&quot;, task.lastRun, Now)
+                If minutesSinceRun &gt;= task.intervalMinutes Then
+                    ExecuteTask task
+                    task.lastRun = Now
+                    UpdateTask i, task
+                End If
+            End If
+        End If
+    Next i
 End Sub
-
 Private Sub ExecuteTask(task As ScheduledTask)
-On Error Resume Next
-CallByName task.callbackObject, task.callbackMethod, VbMethod
-
-If Err.Number &lt;&gt; 0 Then
-Debug.Print &quot;Task execution error: &quot; &amp; task.taskName &amp; &quot; - &quot; &amp; Err.Description
-End If
-On Error GoTo 0
+    On Error Resume Next
+    CallByName task.callbackObject, task.callbackMethod, VbMethod
+    If Err.Number &lt;&gt; 0 Then
+        Debug.Print &quot;Task execution error: &quot; &amp; task.taskName &amp; &quot; - &quot; &amp; Err.Description
+    End If
+    On Error GoTo 0
 End Sub
-
 Private Sub UpdateTask(index As Long, task As ScheduledTask)
-Dim taskName As String
-taskName = task.taskName
-
-m_tasks.Remove index
-m_tasks.Add task, taskName
+    Dim taskName As String
+    taskName = task.taskName
+    m_tasks.Remove index
+    m_tasks.Add task, taskName
 End Sub
-
 Public Function GetNextRunTime(taskName As String) As Date
-Dim task As ScheduledTask
-
-On Error Resume Next
-task = m_tasks(taskName)
-
-If Err.Number = 0 Then
-If task.lastRun = 0 Then
-GetNextRunTime = Now &#x27; Will run immediately
-Else
-GetNextRunTime = DateAdd(&quot;n&quot;, task.intervalMinutes, task.lastRun)
-End If
-End If
-On Error GoTo 0
+    Dim task As ScheduledTask
+    On Error Resume Next
+    task = m_tasks(taskName)
+    If Err.Number = 0 Then
+        If task.lastRun = 0 Then
+            GetNextRunTime = Now &#x27; Will run immediately
+        Else
+            GetNextRunTime = DateAdd(&quot;n&quot;, task.intervalMinutes, task.lastRun)
+        End If
+    End If
+    On Error GoTo 0
 End Function
-
 Public Sub EnableTask(taskName As String)
-Dim task As ScheduledTask
-Dim i As Long
-
-For i = 1 To m_tasks.Count
-task = m_tasks(i)
-If task.taskName = taskName Then
-task.enabled = True
-UpdateTask i, task
-Exit Sub
-End If
-Next i
+    Dim task As ScheduledTask
+    Dim i As Long
+    For i = 1 To m_tasks.Count
+        task = m_tasks(i)
+        If task.taskName = taskName Then
+            task.enabled = True
+            UpdateTask i, task
+            Exit Sub
+        End If
+    Next i
 End Sub
-
 Public Sub DisableTask(taskName As String)
-Dim task As ScheduledTask
-Dim i As Long
-
-For i = 1 To m_tasks.Count
-task = m_tasks(i)
-If task.taskName = taskName Then
-task.enabled = False
-UpdateTask i, task
-Exit Sub
-End If
-Next i
+    Dim task As ScheduledTask
+    Dim i As Long
+    For i = 1 To m_tasks.Count
+        task = m_tasks(i)
+        If task.taskName = taskName Then
+            task.enabled = False
+            UpdateTask i, task
+            Exit Sub
+        End If
+    Next i
 End Sub</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">&#x27; Now rarely fails, but system clock issues can occur:
@@ -635,8 +537,8 @@ On Error Resume Next
 Dim currentTime As Date
 currentTime = Now
 If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Unable to get system time: &quot; &amp; Err.Description
-&#x27; Use a default or cached value
+    MsgBox &quot;Unable to get system time: &quot; &amp; Err.Description
+    &#x27; Use a default or cached value
 End If
 On Error GoTo 0</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>

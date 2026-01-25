@@ -63,116 +63,106 @@
 <h2 id="examples">Examples</h2>
 <h3 id="simple-stop">Simple Stop</h3>
 <pre><code class="language-vbnet">Sub Test()
-Dim x As Integer
-x = 10
-Stop  &#x27; Execution pauses here in IDE
-x = x + 5
+    Dim x As Integer
+    x = 10
+    Stop  &#x27; Execution pauses here in IDE
+    x = x + 5
 End Sub</code></pre>
 <h3 id="conditional-stop-for-debugging">Conditional Stop for Debugging</h3>
 <pre><code class="language-vbnet">Sub ProcessData(value As Integer)
-If value &lt; 0 Then
-Stop  &#x27; Pause when invalid data is encountered
-End If
-&#x27; Process value
+    If value &lt; 0 Then
+        Stop  &#x27; Pause when invalid data is encountered
+    End If
+    &#x27; Process value
 End Sub</code></pre>
 <h3 id="stop-in-loop-for-specific-iteration">Stop in Loop for Specific Iteration</h3>
 <pre><code class="language-vbnet">For i = 1 To 100
-If i = 50 Then
-Stop  &#x27; Pause at iteration 50
-End If
-ProcessItem i
+    If i = 50 Then
+        Stop  &#x27; Pause at iteration 50
+    End If
+    ProcessItem i
 Next i</code></pre>
 <h3 id="stop-on-error-condition">Stop on Error Condition</h3>
 <pre><code class="language-vbnet">Sub CalculateTotal()
-Dim total As Double
-total = GetSubtotal()
-
-If total &lt; 0 Then
-Stop  &#x27; Investigate negative total
-End If
-
-SaveTotal total
+    Dim total As Double
+    total = GetSubtotal()
+    If total &lt; 0 Then
+        Stop  &#x27; Investigate negative total
+    End If
+    SaveTotal total
 End Sub</code></pre>
 <h3 id="multiple-stop-statements-for-debugging-path">Multiple Stop Statements for Debugging Path</h3>
 <pre><code class="language-vbnet">Function ValidateData(data As String) As Boolean
-Stop  &#x27; Entry point
-
-If Len(data) = 0 Then
-Stop  &#x27; Empty string case
-ValidateData = False
-Exit Function
-End If
-
-Stop  &#x27; Normal processing
-ValidateData = True
+    Stop  &#x27; Entry point
+    If Len(data) = 0 Then
+        Stop  &#x27; Empty string case
+        ValidateData = False
+        Exit Function
+    End If
+    Stop  &#x27; Normal processing
+    ValidateData = True
 End Function</code></pre>
 <h3 id="stop-in-select-case">Stop in Select Case</h3>
 <pre><code class="language-vbnet">Select Case userType
-Case 1
-ProcessAdmin
-Case 2
-ProcessUser
-Case Else
-Stop  &#x27; Unknown user type - investigate
+    Case 1
+        ProcessAdmin
+    Case 2
+        ProcessUser
+    Case Else
+        Stop  &#x27; Unknown user type - investigate
 End Select</code></pre>
 <h3 id="stop-with-error-handler">Stop with Error Handler</h3>
 <pre><code class="language-vbnet">On Error GoTo ErrorHandler
-
 ProcessData
 Exit Sub
-
 ErrorHandler:
-Stop  &#x27; Pause to examine error
-MsgBox Err.Description
+    Stop  &#x27; Pause to examine error
+    MsgBox Err.Description
 End Sub</code></pre>
 <h3 id="stop-in-class-module">Stop in Class Module</h3>
 <pre><code class="language-vbnet">Private Sub Class_Initialize()
-Stop  &#x27; Verify initialization sequence
-InitializeProperties
+    Stop  &#x27; Verify initialization sequence
+    InitializeProperties
 End Sub</code></pre>
 <h3 id="stop-before-critical-operation">Stop Before Critical Operation</h3>
 <pre><code class="language-vbnet">Sub DeleteAllRecords()
-Stop  &#x27; Verify this operation should proceed
-
-Dim rs As Recordset
-Set rs = db.OpenRecordset(&quot;Data&quot;)
-
-Do While Not rs.EOF
-rs.Delete
-rs.MoveNext
-Loop
+    Stop  &#x27; Verify this operation should proceed
+    Dim rs As Recordset
+    Set rs = db.OpenRecordset(&quot;Data&quot;)
+    Do While Not rs.EOF
+        rs.Delete
+        rs.MoveNext
+    Loop
 End Sub</code></pre>
 <h3 id="stop-in-property-procedure">Stop in Property Procedure</h3>
 <pre><code class="language-vbnet">Public Property Let Value(ByVal newValue As Integer)
-If newValue &lt; 0 Then
-Stop  &#x27; Negative value assigned
-End If
-m_Value = newValue
+    If newValue &lt; 0 Then
+        Stop  &#x27; Negative value assigned
+    End If
+    m_Value = newValue
 End Property</code></pre>
 <h3 id="stop-with-doevents">Stop with <code>DoEvents</code></h3>
 <pre><code class="language-vbnet">For i = 1 To 1000
-DoEvents
-ProcessItem i
-
-If ShouldDebug Then
-Stop  &#x27; Conditional pause
-End If
+    DoEvents
+    ProcessItem i
+    If ShouldDebug Then
+        Stop  &#x27; Conditional pause
+    End If
 Next i</code></pre>
 <h3 id="stop-in-event-handler">Stop in Event Handler</h3>
 <pre><code class="language-vbnet">Private Sub Form_Load()
-Stop  &#x27; Debug form initialization
-InitializeControls
-LoadData
+    Stop  &#x27; Debug form initialization
+    InitializeControls
+    LoadData
 End Sub</code></pre>
 <h3 id="stop-with-assert-like-check">Stop with Assert-like Check</h3>
 <pre><code class="language-vbnet">Sub ProcessArray(arr() As Integer)
-If UBound(arr) &lt; LBound(arr) Then
-Stop  &#x27; Invalid array bounds
-End If
-
-For i = LBound(arr) To UBound(arr)
-ProcessItem arr(i)
-Next i
+    If UBound(arr) &lt; LBound(arr) Then
+        Stop  &#x27; Invalid array bounds
+    End If
+    For i = LBound(arr) To UBound(arr)
+        ProcessItem arr(i)
+    Next i
 End Sub</code></pre>
 <h2 id="important-notes">Important Notes</h2>
 <ul>

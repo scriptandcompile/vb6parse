@@ -49,20 +49,20 @@
 <h2 id="return-value">Return Value</h2>
 <p>Returns a value of the same type as <code>expression</code> that has been rounded to the specified number of decimal places.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>Round</code> function rounds numbers using "banker's rounding" (round to even), also known as "round half to even". This differs from the typical "round half up" method taught in schools.</p>
-<p><strong>Important Notes</strong>:
+<p>The <code>Round</code> function rounds numbers using "banker's rounding" (round to even), also known as "round half to even". This differs from the typical "round half up" method taught in schools.
+<strong>Important Notes</strong>:
 - Uses banker's rounding (round to nearest even number when exactly halfway)
 - If <code>numdecimalplaces</code> is omitted, returns an integer
 - If <code>numdecimalplaces</code> is 0, rounds to nearest integer
 - If <code>numdecimalplaces</code> is positive, rounds to that many decimal places
 - If <code>numdecimalplaces</code> is negative, rounds to the left of decimal point
-- Returns same data type as input expression</p>
-<p><strong>Banker's Rounding Examples</strong>:
+- Returns same data type as input expression
+<strong>Banker's Rounding Examples</strong>:
 - Round(2.5) = 2 (rounds to even)
 - Round(3.5) = 4 (rounds to even)
 - Round(4.5) = 4 (rounds to even)
-- Round(5.5) = 6 (rounds to even)</p>
-<p><strong>Rounding Behavior by numdecimalplaces</strong>:</p>
+- Round(5.5) = 6 (rounds to even)
+<strong>Rounding Behavior by numdecimalplaces</strong>:</p>
 <table>
 <thead>
 <tr>
@@ -109,501 +109,419 @@
 <h3 id="example-1-round-to-integer">Example 1: Round to Integer</h3>
 <pre><code class="language-vbnet">Dim value As Double
 Dim rounded As Integer
-
 value = 3.7
 rounded = Round(value)  &#x27; Returns 4</code></pre>
 <h3 id="example-2-round-currency">Example 2: Round Currency</h3>
 <pre><code class="language-vbnet">Dim price As Double
 Dim roundedPrice As Double
-
 price = 12.3456
 roundedPrice = Round(price, 2)  &#x27; Returns 12.35</code></pre>
 <h3 id="example-3-bankers-rounding">Example 3: Banker's Rounding</h3>
 <pre><code class="language-vbnet">&#x27; Demonstrates round-to-even behavior
 Dim result1 As Integer
 Dim result2 As Integer
-
 result1 = Round(2.5)  &#x27; Returns 2 (rounds to even)
 result2 = Round(3.5)  &#x27; Returns 4 (rounds to even)</code></pre>
 <h3 id="example-4-round-to-tens">Example 4: Round to Tens</h3>
 <pre><code class="language-vbnet">Dim value As Long
 Dim roundedToTens As Long
-
 value = 2748
 roundedToTens = Round(value, -1)  &#x27; Returns 2750</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-roundcurrency">Pattern 1: <code>RoundCurrency</code></h3>
 <pre><code class="language-vbnet">Function RoundCurrency(amount As Double) As Double
-&#x27; Round to 2 decimal places for currency
-RoundCurrency = Round(amount, 2)
+    &#x27; Round to 2 decimal places for currency
+    RoundCurrency = Round(amount, 2)
 End Function</code></pre>
 <h3 id="pattern-2-roundpercentage">Pattern 2: <code>RoundPercentage</code></h3>
 <pre><code class="language-vbnet">Function RoundPercentage(percentage As Double, _
-Optional decimals As Integer = 1) As Double
-&#x27; Round percentage to specified decimal places
-RoundPercentage = Round(percentage, decimals)
+                        Optional decimals As Integer = 1) As Double
+    &#x27; Round percentage to specified decimal places
+    RoundPercentage = Round(percentage, decimals)
 End Function</code></pre>
 <h3 id="pattern-3-roundtosignificantfigures">Pattern 3: <code>RoundToSignificantFigures</code></h3>
 <pre><code class="language-vbnet">Function RoundToSignificantFigures(value As Double, _
-sigFigs As Integer) As Double
-&#x27; Round to specified number of significant figures
-Dim magnitude As Double
-Dim factor As Double
-
-If value = 0 Then
-RoundToSignificantFigures = 0
-Exit Function
-End If
-
-magnitude = Int(Log(Abs(value)) / Log(10))
-factor = 10 ^ (sigFigs - magnitude - 1)
-
-RoundToSignificantFigures = Round(value * factor) / factor
+                                  sigFigs As Integer) As Double
+    &#x27; Round to specified number of significant figures
+    Dim magnitude As Double
+    Dim factor As Double
+    If value = 0 Then
+        RoundToSignificantFigures = 0
+        Exit Function
+    End If
+    magnitude = Int(Log(Abs(value)) / Log(10))
+    factor = 10 ^ (sigFigs - magnitude - 1)
+    RoundToSignificantFigures = Round(value * factor) / factor
 End Function</code></pre>
 <h3 id="pattern-4-roundupalways">Pattern 4: <code>RoundUpAlways</code></h3>
 <pre><code class="language-vbnet">Function RoundUpAlways(value As Double, decimals As Integer) As Double
-&#x27; Always round up (ceiling behavior)
-Dim factor As Double
-
-factor = 10 ^ decimals
-
-If value &gt; 0 Then
-RoundUpAlways = Int(value * factor + 0.9999999) / factor
-Else
-RoundUpAlways = Int(value * factor) / factor
-End If
+    &#x27; Always round up (ceiling behavior)
+    Dim factor As Double
+    factor = 10 ^ decimals
+    If value &gt; 0 Then
+        RoundUpAlways = Int(value * factor + 0.9999999) / factor
+    Else
+        RoundUpAlways = Int(value * factor) / factor
+    End If
 End Function</code></pre>
 <h3 id="pattern-5-rounddownalways">Pattern 5: <code>RoundDownAlways</code></h3>
 <pre><code class="language-vbnet">Function RoundDownAlways(value As Double, decimals As Integer) As Double
-&#x27; Always round down (floor behavior)
-Dim factor As Double
-
-factor = 10 ^ decimals
-
-If value &gt; 0 Then
-RoundDownAlways = Int(value * factor) / factor
-Else
-RoundDownAlways = Int(value * factor - 0.9999999) / factor
-End If
+    &#x27; Always round down (floor behavior)
+    Dim factor As Double
+    factor = 10 ^ decimals
+    If value &gt; 0 Then
+        RoundDownAlways = Int(value * factor) / factor
+    Else
+        RoundDownAlways = Int(value * factor - 0.9999999) / factor
+    End If
 End Function</code></pre>
 <h3 id="pattern-6-roundtonearest">Pattern 6: <code>RoundToNearest</code></h3>
 <pre><code class="language-vbnet">Function RoundToNearest(value As Double, nearest As Double) As Double
-&#x27; Round to nearest multiple of a number
-&#x27; e.g., RoundToNearest(47, 5) = 45
-RoundToNearest = Round(value / nearest) * nearest
+    &#x27; Round to nearest multiple of a number
+    &#x27; e.g., RoundToNearest(47, 5) = 45
+    RoundToNearest = Round(value / nearest) * nearest
 End Function</code></pre>
 <h3 id="pattern-7-roundarray">Pattern 7: <code>RoundArray</code></h3>
 <pre><code class="language-vbnet">Sub RoundArray(arr() As Double, decimals As Integer)
-&#x27; Round all elements in an array
-Dim i As Integer
-
-For i = LBound(arr) To UBound(arr)
-arr(i) = Round(arr(i), decimals)
-Next i
+    &#x27; Round all elements in an array
+    Dim i As Integer
+    For i = LBound(arr) To UBound(arr)
+        arr(i) = Round(arr(i), decimals)
+    Next i
 End Sub</code></pre>
 <h3 id="pattern-8-roundifneeded">Pattern 8: <code>RoundIfNeeded</code></h3>
 <pre><code class="language-vbnet">Function RoundIfNeeded(value As Double, decimals As Integer, _
-threshold As Double) As Double
-&#x27; Only round if difference from rounded value exceeds threshold
-Dim rounded As Double
-
-rounded = Round(value, decimals)
-
-If Abs(value - rounded) &gt; threshold Then
-RoundIfNeeded = rounded
-Else
-RoundIfNeeded = value
-End If
+                      threshold As Double) As Double
+    &#x27; Only round if difference from rounded value exceeds threshold
+    Dim rounded As Double
+    rounded = Round(value, decimals)
+    If Abs(value - rounded) &gt; threshold Then
+        RoundIfNeeded = rounded
+    Else
+        RoundIfNeeded = value
+    End If
 End Function</code></pre>
 <h3 id="pattern-9-roundfordisplay">Pattern 9: <code>RoundForDisplay</code></h3>
 <pre><code class="language-vbnet">Function RoundForDisplay(value As Double) As String
-&#x27; Round and format for display based on magnitude
-If Abs(value) &lt; 0.01 Then
-RoundForDisplay = Format(Round(value, 4), &quot;0.0000&quot;)
-ElseIf Abs(value) &lt; 1 Then
-RoundForDisplay = Format(Round(value, 3), &quot;0.000&quot;)
-ElseIf Abs(value) &lt; 100 Then
-RoundForDisplay = Format(Round(value, 2), &quot;0.00&quot;)
-Else
-RoundForDisplay = Format(Round(value, 0), &quot;0&quot;)
-End If
+    &#x27; Round and format for display based on magnitude
+    If Abs(value) &lt; 0.01 Then
+        RoundForDisplay = Format(Round(value, 4), &quot;0.0000&quot;)
+    ElseIf Abs(value) &lt; 1 Then
+        RoundForDisplay = Format(Round(value, 3), &quot;0.000&quot;)
+    ElseIf Abs(value) &lt; 100 Then
+        RoundForDisplay = Format(Round(value, 2), &quot;0.00&quot;)
+    Else
+        RoundForDisplay = Format(Round(value, 0), &quot;0&quot;)
+    End If
 End Function</code></pre>
 <h3 id="pattern-10-symmetricround">Pattern 10: <code>SymmetricRound</code></h3>
 <pre><code class="language-vbnet">Function SymmetricRound(value As Double, decimals As Integer) As Double
-&#x27; Traditional &quot;round half up&quot; instead of banker&#x27;s rounding
-Dim factor As Double
-Dim shifted As Double
-
-factor = 10 ^ decimals
-shifted = value * factor
-
-If shifted &gt;= 0 Then
-SymmetricRound = Int(shifted + 0.5) / factor
-Else
-SymmetricRound = Int(shifted - 0.5) / factor
-End If
+    &#x27; Traditional &quot;round half up&quot; instead of banker&#x27;s rounding
+    Dim factor As Double
+    Dim shifted As Double
+    factor = 10 ^ decimals
+    shifted = value * factor
+    If shifted &gt;= 0 Then
+        SymmetricRound = Int(shifted + 0.5) / factor
+    Else
+        SymmetricRound = Int(shifted - 0.5) / factor
+    End If
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-financial-calculator">Example 1: Financial Calculator</h3>
 <pre><code class="language-vbnet">&#x27; Precise financial calculations with proper rounding
 Class FinancialCalculator
-Private m_precision As Integer
-
-Public Sub Initialize(Optional precision As Integer = 2)
-m_precision = precision
-End Sub
-
-Public Function CalculateInterest(principal As Double, _
-rate As Double, _
-periods As Integer) As Double
-&#x27; Calculate simple interest with rounding
-Dim interest As Double
-
-interest = principal * rate * periods
-CalculateInterest = Round(interest, m_precision)
-End Function
-
-Public Function CalculatePayment(loanAmount As Double, _
-interestRate As Double, _
-numPayments As Integer) As Double
-&#x27; Calculate loan payment with rounding
-Dim monthlyRate As Double
-Dim payment As Double
-
-monthlyRate = interestRate / 12
-
-If monthlyRate = 0 Then
-payment = loanAmount / numPayments
-Else
-payment = loanAmount * (monthlyRate * (1 + monthlyRate) ^ numPayments) / _
-((1 + monthlyRate) ^ numPayments - 1)
-End If
-
-CalculatePayment = Round(payment, m_precision)
-End Function
-
-Public Function CalculateTax(amount As Double, taxRate As Double) As Double
-&#x27; Calculate tax with rounding
-Dim tax As Double
-
-tax = amount * taxRate
-CalculateTax = Round(tax, m_precision)
-End Function
-
-Public Function CalculateTotal(subtotal As Double, taxRate As Double) As Double
-&#x27; Calculate total with tax
-Dim tax As Double
-Dim total As Double
-
-tax = Round(subtotal * taxRate, m_precision)
-total = subtotal + tax
-
-CalculateTotal = Round(total, m_precision)
-End Function
-
-Public Function SplitAmount(totalAmount As Double, _
-numSplits As Integer) As Double()
-&#x27; Split amount evenly with proper rounding
-Dim splits() As Double
-Dim baseAmount As Double
-Dim remainder As Double
-Dim i As Integer
-
-ReDim splits(1 To numSplits)
-
-baseAmount = Round(totalAmount / numSplits, m_precision)
-
-For i = 1 To numSplits
-splits(i) = baseAmount
-Next i
-
-&#x27; Adjust for rounding errors
-remainder = Round(totalAmount - (baseAmount * numSplits), m_precision)
-splits(1) = Round(splits(1) + remainder, m_precision)
-
-SplitAmount = splits
-End Function
-
-Public Sub SetPrecision(precision As Integer)
-m_precision = precision
-End Sub
-
-Public Function GetPrecision() As Integer
-GetPrecision = m_precision
-End Function
+    Private m_precision As Integer
+    Public Sub Initialize(Optional precision As Integer = 2)
+        m_precision = precision
+    End Sub
+    Public Function CalculateInterest(principal As Double, _
+                                     rate As Double, _
+                                     periods As Integer) As Double
+        &#x27; Calculate simple interest with rounding
+        Dim interest As Double
+        interest = principal * rate * periods
+        CalculateInterest = Round(interest, m_precision)
+    End Function
+    Public Function CalculatePayment(loanAmount As Double, _
+                                    interestRate As Double, _
+                                    numPayments As Integer) As Double
+        &#x27; Calculate loan payment with rounding
+        Dim monthlyRate As Double
+        Dim payment As Double
+        monthlyRate = interestRate / 12
+        If monthlyRate = 0 Then
+            payment = loanAmount / numPayments
+        Else
+            payment = loanAmount * (monthlyRate * (1 + monthlyRate) ^ numPayments) / _
+                     ((1 + monthlyRate) ^ numPayments - 1)
+        End If
+        CalculatePayment = Round(payment, m_precision)
+    End Function
+    Public Function CalculateTax(amount As Double, taxRate As Double) As Double
+        &#x27; Calculate tax with rounding
+        Dim tax As Double
+        tax = amount * taxRate
+        CalculateTax = Round(tax, m_precision)
+    End Function
+    Public Function CalculateTotal(subtotal As Double, taxRate As Double) As Double
+        &#x27; Calculate total with tax
+        Dim tax As Double
+        Dim total As Double
+        tax = Round(subtotal * taxRate, m_precision)
+        total = subtotal + tax
+        CalculateTotal = Round(total, m_precision)
+    End Function
+    Public Function SplitAmount(totalAmount As Double, _
+                               numSplits As Integer) As Double()
+        &#x27; Split amount evenly with proper rounding
+        Dim splits() As Double
+        Dim baseAmount As Double
+        Dim remainder As Double
+        Dim i As Integer
+        ReDim splits(1 To numSplits)
+        baseAmount = Round(totalAmount / numSplits, m_precision)
+        For i = 1 To numSplits
+            splits(i) = baseAmount
+        Next i
+        &#x27; Adjust for rounding errors
+        remainder = Round(totalAmount - (baseAmount * numSplits), m_precision)
+        splits(1) = Round(splits(1) + remainder, m_precision)
+        SplitAmount = splits
+    End Function
+    Public Sub SetPrecision(precision As Integer)
+        m_precision = precision
+    End Sub
+    Public Function GetPrecision() As Integer
+        GetPrecision = m_precision
+    End Function
 End Class</code></pre>
 <h3 id="example-2-statistical-rounder">Example 2: Statistical Rounder</h3>
 <pre><code class="language-vbnet">&#x27; Round statistical values to appropriate precision
 Module StatisticalRounder
-Public Function RoundMean(values() As Double, decimals As Integer) As Double
-&#x27; Calculate and round mean
-Dim sum As Double
-Dim i As Integer
-
-sum = 0
-For i = LBound(values) To UBound(values)
-sum = sum + values(i)
-Next i
-
-RoundMean = Round(sum / (UBound(values) - LBound(values) + 1), decimals)
-End Function
-
-Public Function RoundStdDev(values() As Double, decimals As Integer) As Double
-&#x27; Calculate and round standard deviation
-Dim mean As Double
-Dim sumSquaredDiff As Double
-Dim i As Integer
-Dim n As Integer
-
-n = UBound(values) - LBound(values) + 1
-mean = RoundMean(values, decimals + 2)
-
-sumSquaredDiff = 0
-For i = LBound(values) To UBound(values)
-sumSquaredDiff = sumSquaredDiff + (values(i) - mean) ^ 2
-Next i
-
-RoundStdDev = Round(Sqr(sumSquaredDiff / (n - 1)), decimals)
-End Function
-
-Public Function RoundPercentile(values() As Double, percentile As Double, _
-decimals As Integer) As Double
-&#x27; Calculate and round percentile
-Dim sortedValues() As Double
-Dim index As Double
-Dim lowerIndex As Integer
-Dim upperIndex As Integer
-Dim weight As Double
-Dim result As Double
-
-&#x27; Copy and sort array (simplified - would need sorting implementation)
-sortedValues = values
-
-index = percentile * (UBound(sortedValues) - LBound(sortedValues))
-lowerIndex = Int(index) + LBound(sortedValues)
-upperIndex = lowerIndex + 1
-weight = index - Int(index)
-
-If upperIndex &gt; UBound(sortedValues) Then
-result = sortedValues(lowerIndex)
-Else
-result = sortedValues(lowerIndex) * (1 - weight) + _
-sortedValues(upperIndex) * weight
-End If
-
-RoundPercentile = Round(result, decimals)
-End Function
-
-Public Function RoundCorrelation(values1() As Double, values2() As Double, _
-decimals As Integer) As Double
-&#x27; Calculate and round correlation coefficient
-Dim mean1 As Double, mean2 As Double
-Dim sum As Double
-Dim sum1Sq As Double, sum2Sq As Double
-Dim i As Integer
-Dim correlation As Double
-
-mean1 = RoundMean(values1, decimals + 2)
-mean2 = RoundMean(values2, decimals + 2)
-
-sum = 0
-sum1Sq = 0
-sum2Sq = 0
-
-For i = LBound(values1) To UBound(values1)
-sum = sum + (values1(i) - mean1) * (values2(i) - mean2)
-sum1Sq = sum1Sq + (values1(i) - mean1) ^ 2
-sum2Sq = sum2Sq + (values2(i) - mean2) ^ 2
-Next i
-
-correlation = sum / Sqr(sum1Sq * sum2Sq)
-RoundCorrelation = Round(correlation, decimals)
-End Function
+    Public Function RoundMean(values() As Double, decimals As Integer) As Double
+        &#x27; Calculate and round mean
+        Dim sum As Double
+        Dim i As Integer
+        sum = 0
+        For i = LBound(values) To UBound(values)
+            sum = sum + values(i)
+        Next i
+        RoundMean = Round(sum / (UBound(values) - LBound(values) + 1), decimals)
+    End Function
+    Public Function RoundStdDev(values() As Double, decimals As Integer) As Double
+        &#x27; Calculate and round standard deviation
+        Dim mean As Double
+        Dim sumSquaredDiff As Double
+        Dim i As Integer
+        Dim n As Integer
+        n = UBound(values) - LBound(values) + 1
+        mean = RoundMean(values, decimals + 2)
+        sumSquaredDiff = 0
+        For i = LBound(values) To UBound(values)
+            sumSquaredDiff = sumSquaredDiff + (values(i) - mean) ^ 2
+        Next i
+        RoundStdDev = Round(Sqr(sumSquaredDiff / (n - 1)), decimals)
+    End Function
+    Public Function RoundPercentile(values() As Double, percentile As Double, _
+                                   decimals As Integer) As Double
+        &#x27; Calculate and round percentile
+        Dim sortedValues() As Double
+        Dim index As Double
+        Dim lowerIndex As Integer
+        Dim upperIndex As Integer
+        Dim weight As Double
+        Dim result As Double
+        &#x27; Copy and sort array (simplified - would need sorting implementation)
+        sortedValues = values
+        index = percentile * (UBound(sortedValues) - LBound(sortedValues))
+        lowerIndex = Int(index) + LBound(sortedValues)
+        upperIndex = lowerIndex + 1
+        weight = index - Int(index)
+        If upperIndex &gt; UBound(sortedValues) Then
+            result = sortedValues(lowerIndex)
+        Else
+            result = sortedValues(lowerIndex) * (1 - weight) + _
+                    sortedValues(upperIndex) * weight
+        End If
+        RoundPercentile = Round(result, decimals)
+    End Function
+    Public Function RoundCorrelation(values1() As Double, values2() As Double, _
+                                    decimals As Integer) As Double
+        &#x27; Calculate and round correlation coefficient
+        Dim mean1 As Double, mean2 As Double
+        Dim sum As Double
+        Dim sum1Sq As Double, sum2Sq As Double
+        Dim i As Integer
+        Dim correlation As Double
+        mean1 = RoundMean(values1, decimals + 2)
+        mean2 = RoundMean(values2, decimals + 2)
+        sum = 0
+        sum1Sq = 0
+        sum2Sq = 0
+        For i = LBound(values1) To UBound(values1)
+            sum = sum + (values1(i) - mean1) * (values2(i) - mean2)
+            sum1Sq = sum1Sq + (values1(i) - mean1) ^ 2
+            sum2Sq = sum2Sq + (values2(i) - mean2) ^ 2
+        Next i
+        correlation = sum / Sqr(sum1Sq * sum2Sq)
+        RoundCorrelation = Round(correlation, decimals)
+    End Function
 End Module</code></pre>
 <h3 id="example-3-grade-calculator">Example 3: Grade Calculator</h3>
 <pre><code class="language-vbnet">&#x27; Calculate and round student grades
 Class GradeCalculator
-Private m_roundingMode As String  &#x27; &quot;banker&quot;, &quot;up&quot;, &quot;down&quot;, &quot;nearest&quot;
-
-Public Sub Initialize(Optional roundingMode As String = &quot;banker&quot;)
-m_roundingMode = roundingMode
-End Sub
-
-Public Function CalculateFinalGrade(scores() As Double, _
-weights() As Double) As Double
-&#x27; Calculate weighted average grade
-Dim weightedSum As Double
-Dim totalWeight As Double
-Dim i As Integer
-
-weightedSum = 0
-totalWeight = 0
-
-For i = LBound(scores) To UBound(scores)
-weightedSum = weightedSum + scores(i) * weights(i)
-totalWeight = totalWeight + weights(i)
-Next i
-
-CalculateFinalGrade = RoundGrade(weightedSum / totalWeight)
-End Function
-
-Private Function RoundGrade(grade As Double) As Double
-&#x27; Round grade based on configured mode
-Select Case m_roundingMode
-Case &quot;banker&quot;
-RoundGrade = Round(grade, 1)
-
-Case &quot;up&quot;
-If grade &gt; Int(grade) Then
-RoundGrade = Int(grade) + 1
-Else
-RoundGrade = Int(grade)
-End If
-
-Case &quot;down&quot;
-RoundGrade = Int(grade)
-
-Case &quot;nearest&quot;
-If grade - Int(grade) &gt;= 0.5 Then
-RoundGrade = Int(grade) + 1
-Else
-RoundGrade = Int(grade)
-End If
-
-Case Else
-RoundGrade = Round(grade, 1)
-End Select
-End Function
-
-Public Function GetLetterGrade(numericGrade As Double) As String
-&#x27; Convert numeric grade to letter grade
-Dim rounded As Double
-
-rounded = RoundGrade(numericGrade)
-
-If rounded &gt;= 90 Then
-GetLetterGrade = &quot;A&quot;
-ElseIf rounded &gt;= 80 Then
-GetLetterGrade = &quot;B&quot;
-ElseIf rounded &gt;= 70 Then
-GetLetterGrade = &quot;C&quot;
-ElseIf rounded &gt;= 60 Then
-GetLetterGrade = &quot;D&quot;
-Else
-GetLetterGrade = &quot;F&quot;
-End If
-End Function
-
-Public Sub SetRoundingMode(mode As String)
-m_roundingMode = mode
-End Sub
-
-Public Function GetRoundingMode() As String
-GetRoundingMode = m_roundingMode
-End Function
+    Private m_roundingMode As String  &#x27; &quot;banker&quot;, &quot;up&quot;, &quot;down&quot;, &quot;nearest&quot;
+    Public Sub Initialize(Optional roundingMode As String = &quot;banker&quot;)
+        m_roundingMode = roundingMode
+    End Sub
+    Public Function CalculateFinalGrade(scores() As Double, _
+                                       weights() As Double) As Double
+        &#x27; Calculate weighted average grade
+        Dim weightedSum As Double
+        Dim totalWeight As Double
+        Dim i As Integer
+        weightedSum = 0
+        totalWeight = 0
+        For i = LBound(scores) To UBound(scores)
+            weightedSum = weightedSum + scores(i) * weights(i)
+            totalWeight = totalWeight + weights(i)
+        Next i
+        CalculateFinalGrade = RoundGrade(weightedSum / totalWeight)
+    End Function
+    Private Function RoundGrade(grade As Double) As Double
+        &#x27; Round grade based on configured mode
+        Select Case m_roundingMode
+            Case &quot;banker&quot;
+                RoundGrade = Round(grade, 1)
+            Case &quot;up&quot;
+                If grade &gt; Int(grade) Then
+                    RoundGrade = Int(grade) + 1
+                Else
+                    RoundGrade = Int(grade)
+                End If
+            Case &quot;down&quot;
+                RoundGrade = Int(grade)
+            Case &quot;nearest&quot;
+                If grade - Int(grade) &gt;= 0.5 Then
+                    RoundGrade = Int(grade) + 1
+                Else
+                    RoundGrade = Int(grade)
+                End If
+            Case Else
+                RoundGrade = Round(grade, 1)
+        End Select
+    End Function
+    Public Function GetLetterGrade(numericGrade As Double) As String
+        &#x27; Convert numeric grade to letter grade
+        Dim rounded As Double
+        rounded = RoundGrade(numericGrade)
+        If rounded &gt;= 90 Then
+            GetLetterGrade = &quot;A&quot;
+        ElseIf rounded &gt;= 80 Then
+            GetLetterGrade = &quot;B&quot;
+        ElseIf rounded &gt;= 70 Then
+            GetLetterGrade = &quot;C&quot;
+        ElseIf rounded &gt;= 60 Then
+            GetLetterGrade = &quot;D&quot;
+        Else
+            GetLetterGrade = &quot;F&quot;
+        End If
+    End Function
+    Public Sub SetRoundingMode(mode As String)
+        m_roundingMode = mode
+    End Sub
+    Public Function GetRoundingMode() As String
+        GetRoundingMode = m_roundingMode
+    End Function
 End Class</code></pre>
 <h3 id="example-4-measurement-precision-manager">Example 4: Measurement Precision Manager</h3>
 <pre><code class="language-vbnet">&#x27; Manage precision for different types of measurements
 Class MeasurementPrecisionManager
-Private Type MeasurementType
-Name As String
-Decimals As Integer
-Unit As String
-End Type
-
-Private m_types() As MeasurementType
-Private m_count As Integer
-
-Public Sub Initialize()
-m_count = 0
-ReDim m_types(0 To 99)
-
-&#x27; Add default measurement types
-AddMeasurementType &quot;Temperature&quot;, 1, &quot;°C&quot;
-AddMeasurementType &quot;Distance&quot;, 2, &quot;m&quot;
-AddMeasurementType &quot;Weight&quot;, 3, &quot;kg&quot;
-AddMeasurementType &quot;Pressure&quot;, 1, &quot;kPa&quot;
-AddMeasurementType &quot;Voltage&quot;, 2, &quot;V&quot;
-End Sub
-
-Public Sub AddMeasurementType(name As String, decimals As Integer, _
-unit As String)
-If m_count &gt; UBound(m_types) Then
-ReDim Preserve m_types(0 To UBound(m_types) + 50)
-End If
-
-m_types(m_count).Name = name
-m_types(m_count).Decimals = decimals
-m_types(m_count).Unit = unit
-m_count = m_count + 1
-End Sub
-
-Public Function RoundMeasurement(value As Double, _
-measurementType As String) As Double
-&#x27; Round value based on measurement type
-Dim i As Integer
-
-For i = 0 To m_count - 1
-If UCase(m_types(i).Name) = UCase(measurementType) Then
-RoundMeasurement = Round(value, m_types(i).Decimals)
-Exit Function
-End If
-Next i
-
-&#x27; Default to 2 decimals if type not found
-RoundMeasurement = Round(value, 2)
-End Function
-
-Public Function FormatMeasurement(value As Double, _
-measurementType As String) As String
-&#x27; Round and format measurement with unit
-Dim rounded As Double
-Dim i As Integer
-Dim decimals As Integer
-Dim unit As String
-
-decimals = 2
-unit = &quot;&quot;
-
-For i = 0 To m_count - 1
-If UCase(m_types(i).Name) = UCase(measurementType) Then
-decimals = m_types(i).Decimals
-unit = m_types(i).Unit
-Exit For
-End If
-Next i
-
-rounded = Round(value, decimals)
-FormatMeasurement = Format(rounded, &quot;0.&quot; &amp; String(decimals, &quot;0&quot;)) &amp; &quot; &quot; &amp; unit
-End Function
-
-Public Function GetPrecision(measurementType As String) As Integer
-Dim i As Integer
-
-For i = 0 To m_count - 1
-If UCase(m_types(i).Name) = UCase(measurementType) Then
-GetPrecision = m_types(i).Decimals
-Exit Function
-End If
-Next i
-
-GetPrecision = 2  &#x27; Default
-End Function
+    Private Type MeasurementType
+        Name As String
+        Decimals As Integer
+        Unit As String
+    End Type
+    Private m_types() As MeasurementType
+    Private m_count As Integer
+    Public Sub Initialize()
+        m_count = 0
+        ReDim m_types(0 To 99)
+        &#x27; Add default measurement types
+        AddMeasurementType &quot;Temperature&quot;, 1, &quot;°C&quot;
+        AddMeasurementType &quot;Distance&quot;, 2, &quot;m&quot;
+        AddMeasurementType &quot;Weight&quot;, 3, &quot;kg&quot;
+        AddMeasurementType &quot;Pressure&quot;, 1, &quot;kPa&quot;
+        AddMeasurementType &quot;Voltage&quot;, 2, &quot;V&quot;
+    End Sub
+    Public Sub AddMeasurementType(name As String, decimals As Integer, _
+                                  unit As String)
+        If m_count &gt; UBound(m_types) Then
+            ReDim Preserve m_types(0 To UBound(m_types) + 50)
+        End If
+        m_types(m_count).Name = name
+        m_types(m_count).Decimals = decimals
+        m_types(m_count).Unit = unit
+        m_count = m_count + 1
+    End Sub
+    Public Function RoundMeasurement(value As Double, _
+                                    measurementType As String) As Double
+        &#x27; Round value based on measurement type
+        Dim i As Integer
+        For i = 0 To m_count - 1
+            If UCase(m_types(i).Name) = UCase(measurementType) Then
+                RoundMeasurement = Round(value, m_types(i).Decimals)
+                Exit Function
+            End If
+        Next i
+        &#x27; Default to 2 decimals if type not found
+        RoundMeasurement = Round(value, 2)
+    End Function
+    Public Function FormatMeasurement(value As Double, _
+                                     measurementType As String) As String
+        &#x27; Round and format measurement with unit
+        Dim rounded As Double
+        Dim i As Integer
+        Dim decimals As Integer
+        Dim unit As String
+        decimals = 2
+        unit = &quot;&quot;
+        For i = 0 To m_count - 1
+            If UCase(m_types(i).Name) = UCase(measurementType) Then
+                decimals = m_types(i).Decimals
+                unit = m_types(i).Unit
+                Exit For
+            End If
+        Next i
+        rounded = Round(value, decimals)
+        FormatMeasurement = Format(rounded, &quot;0.&quot; &amp; String(decimals, &quot;0&quot;)) &amp; &quot; &quot; &amp; unit
+    End Function
+    Public Function GetPrecision(measurementType As String) As Integer
+        Dim i As Integer
+        For i = 0 To m_count - 1
+            If UCase(m_types(i).Name) = UCase(measurementType) Then
+                GetPrecision = m_types(i).Decimals
+                Exit Function
+            End If
+        Next i
+        GetPrecision = 2  &#x27; Default
+    End Function
 End Class</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>Round</code> function generates errors in specific situations:</p>
-<p><strong>Error 5: Invalid procedure call or argument</strong>
+<p>The <code>Round</code> function generates errors in specific situations:
+<strong>Error 5: Invalid procedure call or argument</strong>
 - Occurs when expression cannot be converted to numeric type
-- Occurs when numdecimalplaces is excessively large</p>
-<p><strong>Error 6: Overflow</strong>
-- Occurs when the rounded value exceeds the range of the return type</p>
-<p>Example error handling:</p>
+- Occurs when numdecimalplaces is excessively large
+<strong>Error 6: Overflow</strong>
+- Occurs when the rounded value exceeds the range of the return type
+Example error handling:</p>
 <pre><code class="language-vbnet">On Error Resume Next
 Dim result As Double
 result = Round(userInput, decimalPlaces)
 If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Error rounding value: &quot; &amp; Err.Description
-result = 0
+    MsgBox &quot;Error rounding value: &quot; &amp; Err.Description
+    result = 0
 End If
 On Error GoTo 0</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>

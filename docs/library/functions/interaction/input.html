@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="input-function"><code>Input</code> Function</h1>
+            <h1 id="input-function">Input Function</h1>
 <p>Returns a <code>String</code> containing characters from a file opened in <code>Input</code> or <code>Binary</code> mode.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">Input(number, [#]filenumber)</code></pre>
@@ -50,19 +50,17 @@
 <p>Returns a <code>String</code> containing <code>number</code> characters read from the file. If fewer than <code>number</code>
 characters remain in the file, returns all remaining characters.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>Input</code> function reads data from files:</p>
-<ul>
-<li>Used with files opened in <code>Input</code> or <code>Binary</code> mode</li>
-<li>Returns exactly the number of characters requested (or fewer if end of file reached)</li>
-<li>Does not skip or ignore any characters (unlike <code>Input #</code> statement)</li>
-<li>Reads all characters including commas, quotes, line feeds, carriage returns, etc.</li>
-<li>The file pointer advances by the number of characters read</li>
-<li>Use <code>EOF</code> function to check for end of file before reading</li>
-<li>For <code>Binary</code> mode files, reads raw bytes</li>
-<li>For <code>Input</code> mode files, reads text characters</li>
-<li>Cannot be used with files opened in <code>Output</code> or <code>Append</code> mode</li>
-<li>The # symbol before filenumber is optional but commonly used</li>
-</ul>
+<p>The <code>Input</code> function reads data from files:
+- Used with files opened in <code>Input</code> or <code>Binary</code> mode
+- Returns exactly the number of characters requested (or fewer if end of file reached)
+- Does not skip or ignore any characters (unlike <code>Input #</code> statement)
+- Reads all characters including commas, quotes, line feeds, carriage returns, etc.
+- The file pointer advances by the number of characters read
+- Use <code>EOF</code> function to check for end of file before reading
+- For <code>Binary</code> mode files, reads raw bytes
+- For <code>Input</code> mode files, reads text characters
+- Cannot be used with files opened in <code>Output</code> or <code>Append</code> mode
+- The # symbol before filenumber is optional but commonly used</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Binary File Reading</strong>: Read fixed-size chunks from binary files</li>
@@ -80,7 +78,6 @@ fileNum = FreeFile
 Open &quot;data.txt&quot; For Input As #fileNum
 content = Input(10, #fileNum)
 Close #fileNum
-
 &#x27; Example 2: Read entire file
 Dim fileNum As Integer
 Dim fileContent As String
@@ -90,18 +87,16 @@ Open &quot;document.txt&quot; For Input As #fileNum
 fileSize = LOF(fileNum)
 fileContent = Input(fileSize, #fileNum)
 Close #fileNum
-
 &#x27; Example 3: Read file in chunks
 Dim fileNum As Integer
 Dim chunk As String
 fileNum = FreeFile
 Open &quot;data.bin&quot; For Binary As #fileNum
 Do While Not EOF(fileNum)
-chunk = Input(1024, #fileNum)
-ProcessChunk chunk
+    chunk = Input(1024, #fileNum)
+    ProcessChunk chunk
 Loop
 Close #fileNum
-
 &#x27; Example 4: Read fixed-width record
 Dim fileNum As Integer
 Dim record As String
@@ -112,341 +107,275 @@ Close #fileNum</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Read entire file into string
 Function ReadFileToString(fileName As String) As String
-Dim fileNum As Integer
-Dim fileSize As Long
-
-fileNum = FreeFile
-Open fileName For Input As #fileNum
-fileSize = LOF(fileNum)
-
-If fileSize &gt; 0 Then
-ReadFileToString = Input(fileSize, #fileNum)
-Else
-ReadFileToString = &quot;&quot;
-End If
-
-Close #fileNum
+    Dim fileNum As Integer
+    Dim fileSize As Long
+    fileNum = FreeFile
+    Open fileName For Input As #fileNum
+    fileSize = LOF(fileNum)
+    If fileSize &gt; 0 Then
+        ReadFileToString = Input(fileSize, #fileNum)
+    Else
+        ReadFileToString = &quot;&quot;
+    End If
+    Close #fileNum
 End Function
-
 &#x27; Pattern 2: Read file in fixed-size chunks
 Sub ReadFileInChunks(fileName As String, chunkSize As Long)
-Dim fileNum As Integer
-Dim chunk As String
-
-fileNum = FreeFile
-Open fileName For Binary As #fileNum
-
-Do While Not EOF(fileNum)
-chunk = Input(chunkSize, #fileNum)
-Debug.Print &quot;Read &quot; &amp; Len(chunk) &amp; &quot; bytes&quot;
-Loop
-
-Close #fileNum
+    Dim fileNum As Integer
+    Dim chunk As String
+    fileNum = FreeFile
+    Open fileName For Binary As #fileNum
+    Do While Not EOF(fileNum)
+        chunk = Input(chunkSize, #fileNum)
+        Debug.Print &quot;Read &quot; &amp; Len(chunk) &amp; &quot; bytes&quot;
+    Loop
+    Close #fileNum
 End Sub
-
 &#x27; Pattern 3: Read file header
 Function ReadFileHeader(fileName As String, headerSize As Long) As String
-Dim fileNum As Integer
-
-fileNum = FreeFile
-Open fileName For Binary As #fileNum
-
-If LOF(fileNum) &gt;= headerSize Then
-ReadFileHeader = Input(headerSize, #fileNum)
-Else
-ReadFileHeader = &quot;&quot;
-End If
-
-Close #fileNum
+    Dim fileNum As Integer
+    fileNum = FreeFile
+    Open fileName For Binary As #fileNum
+    If LOF(fileNum) &gt;= headerSize Then
+        ReadFileHeader = Input(headerSize, #fileNum)
+    Else
+        ReadFileHeader = &quot;&quot;
+    End If
+    Close #fileNum
 End Function
-
 &#x27; Pattern 4: Read until delimiter found
 Function ReadUntilDelimiter(fileNum As Integer, delimiter As String) As String
-Dim result As String
-Dim char As String
-
-result = &quot;&quot;
-Do While Not EOF(fileNum)
-char = Input(1, #fileNum)
-If char = delimiter Then
-Exit Do
-End If
-result = result &amp; char
-Loop
-
-ReadUntilDelimiter = result
+    Dim result As String
+    Dim char As String
+    result = &quot;&quot;
+    Do While Not EOF(fileNum)
+        char = Input(1, #fileNum)
+        If char = delimiter Then
+            Exit Do
+        End If
+        result = result &amp; char
+    Loop
+    ReadUntilDelimiter = result
 End Function
-
 &#x27; Pattern 5: Peek at file content without closing
 Function PeekFileContent(fileNum As Integer, bytes As Long) As String
-Dim currentPos As Long
-Dim content As String
-
-currentPos = Seek(fileNum)
-content = Input(bytes, #fileNum)
-Seek fileNum, currentPos  &#x27; Restore position
-
-PeekFileContent = content
+    Dim currentPos As Long
+    Dim content As String
+    currentPos = Seek(fileNum)
+    content = Input(bytes, #fileNum)
+    Seek fileNum, currentPos  &#x27; Restore position
+    PeekFileContent = content
 End Function
-
 &#x27; Pattern 6: Read line character by character
 Function ReadCustomLine(fileNum As Integer) As String
-Dim result As String
-Dim char As String
-
-result = &quot;&quot;
-Do While Not EOF(fileNum)
-char = Input(1, #fileNum)
-If char = vbCr Or char = vbLf Then
-&#x27; Skip additional line feed if CRLF
-If char = vbCr And Not EOF(fileNum) Then
-If Input(1, #fileNum) &lt;&gt; vbLf Then
-Seek fileNum, Seek(fileNum) - 1
-End If
-End If
-Exit Do
-End If
-result = result &amp; char
-Loop
-
-ReadCustomLine = result
+    Dim result As String
+    Dim char As String
+    result = &quot;&quot;
+    Do While Not EOF(fileNum)
+        char = Input(1, #fileNum)
+        If char = vbCr Or char = vbLf Then
+            &#x27; Skip additional line feed if CRLF
+            If char = vbCr And Not EOF(fileNum) Then
+                If Input(1, #fileNum) &lt;&gt; vbLf Then
+                    Seek fileNum, Seek(fileNum) - 1
+                End If
+            End If
+            Exit Do
+        End If
+        result = result &amp; char
+    Loop
+    ReadCustomLine = result
 End Function
-
 &#x27; Pattern 7: Read binary structure
 Function ReadBinaryStruct(fileNum As Integer, structSize As Long) As Byte()
-Dim data As String
-Dim bytes() As Byte
-Dim i As Long
-
-data = Input(structSize, #fileNum)
-ReDim bytes(0 To Len(data) - 1)
-
-For i = 0 To Len(data) - 1
-bytes(i) = Asc(Mid$(data, i + 1, 1))
-Next i
-
-ReadBinaryStruct = bytes
+    Dim data As String
+    Dim bytes() As Byte
+    Dim i As Long
+    data = Input(structSize, #fileNum)
+    ReDim bytes(0 To Len(data) - 1)
+    For i = 0 To Len(data) - 1
+        bytes(i) = Asc(Mid$(data, i + 1, 1))
+    Next i
+    ReadBinaryStruct = bytes
 End Function
-
 &#x27; Pattern 8: Safe read with EOF check
 Function SafeRead(fileNum As Integer, numChars As Long) As String
-Dim available As Long
-Dim toRead As Long
-
-available = LOF(fileNum) - Seek(fileNum) + 1
-toRead = IIf(numChars &lt; available, numChars, available)
-
-If toRead &gt; 0 Then
-SafeRead = Input(toRead, #fileNum)
-Else
-SafeRead = &quot;&quot;
-End If
+    Dim available As Long
+    Dim toRead As Long
+    available = LOF(fileNum) - Seek(fileNum) + 1
+    toRead = IIf(numChars &lt; available, numChars, available)
+    If toRead &gt; 0 Then
+        SafeRead = Input(toRead, #fileNum)
+    Else
+        SafeRead = &quot;&quot;
+    End If
 End Function
-
 &#x27; Pattern 9: Read with progress tracking
 Function ReadFileWithProgress(fileName As String) As String
-Dim fileNum As Integer
-Dim fileSize As Long
-Dim bytesRead As Long
-Dim chunk As String
-Dim result As String
-Const CHUNK_SIZE As Long = 4096
-
-fileNum = FreeFile
-Open fileName For Binary As #fileNum
-fileSize = LOF(fileNum)
-result = &quot;&quot;
-bytesRead = 0
-
-Do While Not EOF(fileNum)
-chunk = Input(CHUNK_SIZE, #fileNum)
-result = result &amp; chunk
-bytesRead = bytesRead + Len(chunk)
-
-&#x27; Update progress (0 to 100)
-DoEvents
-Debug.Print &quot;Progress: &quot; &amp; (bytesRead * 100 / fileSize) &amp; &quot;%&quot;
-Loop
-
-Close #fileNum
-ReadFileWithProgress = result
+    Dim fileNum As Integer
+    Dim fileSize As Long
+    Dim bytesRead As Long
+    Dim chunk As String
+    Dim result As String
+    Const CHUNK_SIZE As Long = 4096
+    fileNum = FreeFile
+    Open fileName For Binary As #fileNum
+    fileSize = LOF(fileNum)
+    result = &quot;&quot;
+    bytesRead = 0
+    Do While Not EOF(fileNum)
+        chunk = Input(CHUNK_SIZE, #fileNum)
+        result = result &amp; chunk
+        bytesRead = bytesRead + Len(chunk)
+        &#x27; Update progress (0 to 100)
+        DoEvents
+        Debug.Print &quot;Progress: &quot; &amp; (bytesRead * 100 / fileSize) &amp; &quot;%&quot;
+    Loop
+    Close #fileNum
+    ReadFileWithProgress = result
 End Function
-
 &#x27; Pattern 10: Read specific byte range
 Function ReadByteRange(fileName As String, startPos As Long, numBytes As Long) As String
-Dim fileNum As Integer
-
-fileNum = FreeFile
-Open fileName For Binary As #fileNum
-
-Seek fileNum, startPos
-ReadByteRange = Input(numBytes, #fileNum)
-
-Close #fileNum
+    Dim fileNum As Integer
+    fileNum = FreeFile
+    Open fileName For Binary As #fileNum
+    Seek fileNum, startPos
+    ReadByteRange = Input(numBytes, #fileNum)
+    Close #fileNum
 End Function</code></pre>
 <h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Binary file reader class
 Public Class BinaryFileReader
-Private m_fileNum As Integer
-Private m_fileName As String
-Private m_isOpen As Boolean
-
-Public Sub OpenFile(fileName As String)
-If m_isOpen Then CloseFile
-
-m_fileName = fileName
-m_fileNum = FreeFile
-Open m_fileName For Binary As #m_fileNum
-m_isOpen = True
-End Sub
-
-Public Function ReadBytes(numBytes As Long) As String
-If Not m_isOpen Then
-Err.Raise 5, , &quot;File not open&quot;
-End If
-
-If EOF(m_fileNum) Then
-ReadBytes = &quot;&quot;
-Else
-ReadBytes = Input(numBytes, #m_fileNum)
-End If
-End Function
-
-Public Function ReadAll() As String
-If Not m_isOpen Then
-Err.Raise 5, , &quot;File not open&quot;
-End If
-
-Dim fileSize As Long
-fileSize = LOF(m_fileNum) - Seek(m_fileNum) + 1
-
-If fileSize &gt; 0 Then
-ReadAll = Input(fileSize, #m_fileNum)
-Else
-ReadAll = &quot;&quot;
-End If
-End Function
-
-Public Sub CloseFile()
-If m_isOpen Then
-Close #m_fileNum
-m_isOpen = False
-End If
-End Sub
-
-Private Sub Class_Terminate()
-CloseFile
-End Sub
+    Private m_fileNum As Integer
+    Private m_fileName As String
+    Private m_isOpen As Boolean
+    Public Sub OpenFile(fileName As String)
+        If m_isOpen Then CloseFile
+        m_fileName = fileName
+        m_fileNum = FreeFile
+        Open m_fileName For Binary As #m_fileNum
+        m_isOpen = True
+    End Sub
+    Public Function ReadBytes(numBytes As Long) As String
+        If Not m_isOpen Then
+            Err.Raise 5, , &quot;File not open&quot;
+        End If
+        If EOF(m_fileNum) Then
+            ReadBytes = &quot;&quot;
+        Else
+            ReadBytes = Input(numBytes, #m_fileNum)
+        End If
+    End Function
+    Public Function ReadAll() As String
+        If Not m_isOpen Then
+            Err.Raise 5, , &quot;File not open&quot;
+        End If
+        Dim fileSize As Long
+        fileSize = LOF(m_fileNum) - Seek(m_fileNum) + 1
+        If fileSize &gt; 0 Then
+            ReadAll = Input(fileSize, #m_fileNum)
+        Else
+            ReadAll = &quot;&quot;
+        End If
+    End Function
+    Public Sub CloseFile()
+        If m_isOpen Then
+            Close #m_fileNum
+            m_isOpen = False
+        End If
+    End Sub
+    Private Sub Class_Terminate()
+        CloseFile
+    End Sub
 End Class
-
 &#x27; Example 2: Custom file parser
 Function ParseFixedWidthFile(fileName As String) As Collection
-Dim fileNum As Integer
-Dim records As New Collection
-Dim recordData As String
-Const RECORD_SIZE As Long = 100
-
-fileNum = FreeFile
-Open fileName For Binary As #fileNum
-
-Do While Not EOF(fileNum)
-recordData = Input(RECORD_SIZE, #fileNum)
-If Len(recordData) = RECORD_SIZE Then
-records.Add ParseRecord(recordData)
-End If
-Loop
-
-Close #fileNum
-Set ParseFixedWidthFile = records
+    Dim fileNum As Integer
+    Dim records As New Collection
+    Dim recordData As String
+    Const RECORD_SIZE As Long = 100
+    fileNum = FreeFile
+    Open fileName For Binary As #fileNum
+    Do While Not EOF(fileNum)
+        recordData = Input(RECORD_SIZE, #fileNum)
+        If Len(recordData) = RECORD_SIZE Then
+            records.Add ParseRecord(recordData)
+        End If
+    Loop
+    Close #fileNum
+    Set ParseFixedWidthFile = records
 End Function
-
 &#x27; Example 3: File comparison utility
 Function CompareFiles(file1 As String, file2 As String) As Boolean
-Dim fileNum1 As Integer, fileNum2 As Integer
-Dim chunk1 As String, chunk2 As String
-Const CHUNK_SIZE As Long = 8192
-
-fileNum1 = FreeFile
-Open file1 For Binary As #fileNum1
-
-fileNum2 = FreeFile
-Open file2 For Binary As #fileNum2
-
-&#x27; Check file sizes
-If LOF(fileNum1) &lt;&gt; LOF(fileNum2) Then
-Close #fileNum1
-Close #fileNum2
-CompareFiles = False
-Exit Function
-End If
-
-&#x27; Compare content
-Do While Not EOF(fileNum1)
-chunk1 = Input(CHUNK_SIZE, #fileNum1)
-chunk2 = Input(CHUNK_SIZE, #fileNum2)
-
-If chunk1 &lt;&gt; chunk2 Then
-Close #fileNum1
-Close #fileNum2
-CompareFiles = False
-Exit Function
-End If
-Loop
-
-Close #fileNum1
-Close #fileNum2
-CompareFiles = True
+    Dim fileNum1 As Integer, fileNum2 As Integer
+    Dim chunk1 As String, chunk2 As String
+    Const CHUNK_SIZE As Long = 8192
+    fileNum1 = FreeFile
+    Open file1 For Binary As #fileNum1
+    fileNum2 = FreeFile
+    Open file2 For Binary As #fileNum2
+    &#x27; Check file sizes
+    If LOF(fileNum1) &lt;&gt; LOF(fileNum2) Then
+        Close #fileNum1
+        Close #fileNum2
+        CompareFiles = False
+        Exit Function
+    End If
+    &#x27; Compare content
+    Do While Not EOF(fileNum1)
+        chunk1 = Input(CHUNK_SIZE, #fileNum1)
+        chunk2 = Input(CHUNK_SIZE, #fileNum2)
+        If chunk1 &lt;&gt; chunk2 Then
+            Close #fileNum1
+            Close #fileNum2
+            CompareFiles = False
+            Exit Function
+        End If
+    Loop
+    Close #fileNum1
+    Close #fileNum2
+    CompareFiles = True
 End Function
-
 &#x27; Example 4: Large file reader with buffering
 Function ReadLargeFile(fileName As String, Optional bufferSize As Long = 32768) As String
-Dim fileNum As Integer
-Dim result As String
-Dim chunk As String
-Dim chunks As Collection
-Dim i As Long
-
-Set chunks = New Collection
-fileNum = FreeFile
-Open fileName For Binary As #fileNum
-
-&#x27; Read in chunks
-Do While Not EOF(fileNum)
-chunk = Input(bufferSize, #fileNum)
-chunks.Add chunk
-Loop
-
-Close #fileNum
-
-&#x27; Concatenate chunks
-result = &quot;&quot;
-For i = 1 To chunks.Count
-result = result &amp; chunks(i)
-Next i
-
-ReadLargeFile = result
+    Dim fileNum As Integer
+    Dim result As String
+    Dim chunk As String
+    Dim chunks As Collection
+    Dim i As Long
+    Set chunks = New Collection
+    fileNum = FreeFile
+    Open fileName For Binary As #fileNum
+    &#x27; Read in chunks
+    Do While Not EOF(fileNum)
+        chunk = Input(bufferSize, #fileNum)
+        chunks.Add chunk
+    Loop
+    Close #fileNum
+    &#x27; Concatenate chunks
+    result = &quot;&quot;
+    For i = 1 To chunks.Count
+        result = result &amp; chunks(i)
+    Next i
+    ReadLargeFile = result
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>Input</code> function can raise several errors:</p>
-<ul>
-<li><strong>Bad file mode (Error 54)</strong>: If file is not opened in <code>Input</code> or <code>Binary</code> mode</li>
-<li><strong>Bad file number (Error 52)</strong>: If filenumber is invalid or file is not open</li>
-<li><strong>Input past end of file (Error 62)</strong>: Only if reading past <code>EOF</code> (rare, usually returns partial data)</li>
-<li><strong>Type Mismatch (Error 13)</strong>: If number parameter is not numeric</li>
-</ul>
+<p>The <code>Input</code> function can raise several errors:
+- <strong>Bad file mode (Error 54)</strong>: If file is not opened in <code>Input</code> or <code>Binary</code> mode
+- <strong>Bad file number (Error 52)</strong>: If filenumber is invalid or file is not open
+- <strong>Input past end of file (Error 62)</strong>: Only if reading past <code>EOF</code> (rare, usually returns partial data)
+- <strong>Type Mismatch (Error 13)</strong>: If number parameter is not numeric</p>
 <pre><code class="language-vbnet">On Error GoTo ErrorHandler
 Dim fileNum As Integer
 Dim content As String
-
 fileNum = FreeFile
 Open &quot;data.txt&quot; For Input As #fileNum
 content = Input(LOF(fileNum), #fileNum)
 Close #fileNum
 Exit Sub
-
 ErrorHandler:
-If fileNum &gt; 0 Then Close #fileNum
-MsgBox &quot;Error reading file: &quot; &amp; Err.Description, vbCritical</code></pre>
+    If fileNum &gt; 0 Then Close #fileNum
+    MsgBox &quot;Error reading file: &quot; &amp; Err.Description, vbCritical</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
 <li><strong>Buffer Size</strong>: Reading in larger chunks (4KB-32KB) is more efficient than single bytes</li>

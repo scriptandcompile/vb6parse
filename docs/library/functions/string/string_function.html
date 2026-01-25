@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p>VB6 <code>String</code> Function</p>
-<p>The <code>String</code> function returns a string consisting of a repeating character.</p>
+            <p>VB6 String Function
+The <code>String</code> function returns a string consisting of a repeating character.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">String(number, character)</code></pre>
 <h2 id="parameters">Parameters</h2>
@@ -51,17 +51,15 @@
 <h2 id="returns">Returns</h2>
 <p>Returns a <code>Variant</code> (String) containing a string of length <code>number</code> composed of the repeating character.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>String</code> function creates strings filled with repeating characters:</p>
-<ul>
-<li><strong>Character code</strong>: If <code>character</code> is numeric (0-255), it's interpreted as an ASCII/ANSI character code</li>
-<li><strong>String argument</strong>: If <code>character</code> is a string, only the first character is used (rest is ignored)</li>
-<li><strong>Empty string</strong>: If <code>number</code> is 0, returns an empty string ("")</li>
-<li><strong>Negative number</strong>: Causes Error 5 (Invalid procedure call or argument)</li>
-<li><strong>Performance</strong>: Very efficient for creating repeating character strings</li>
-<li><strong>Common uses</strong>: Creating separators, padding, borders, rulers, progress bars</li>
-<li><strong>Memory limit</strong>: <code>number</code> is limited by available memory (typically up to ~2 billion characters)</li>
-<li><strong>Related function</strong>: <code>Space</code> function is equivalent to <code>String(n, 32)</code> or <code>String(n, " ")</code></li>
-</ul>
+<p>The <code>String</code> function creates strings filled with repeating characters:
+- <strong>Character code</strong>: If <code>character</code> is numeric (0-255), it's interpreted as an ASCII/ANSI character code
+- <strong>String argument</strong>: If <code>character</code> is a string, only the first character is used (rest is ignored)
+- <strong>Empty string</strong>: If <code>number</code> is 0, returns an empty string ("")
+- <strong>Negative number</strong>: Causes Error 5 (Invalid procedure call or argument)
+- <strong>Performance</strong>: Very efficient for creating repeating character strings
+- <strong>Common uses</strong>: Creating separators, padding, borders, rulers, progress bars
+- <strong>Memory limit</strong>: <code>number</code> is limited by available memory (typically up to ~2 billion characters)
+- <strong>Related function</strong>: <code>Space</code> function is equivalent to <code>String(n, 32)</code> or <code>String(n, " ")</code></p>
 <h3 id="character-code-examples">Character Code Examples</h3>
 <ul>
 <li><code>String(5, 65)</code> returns "AAAAA" (65 is ASCII code for 'A')</li>
@@ -90,7 +88,6 @@
 <h2 id="basic-examples">Basic Examples</h2>
 <h3 id="example-1-creating-line-separators">Example 1: Creating Line Separators</h3>
 <pre><code class="language-vbnet">Dim separator As String
-
 separator = String(50, &quot;-&quot;)     &#x27; &quot;--------------------------------------------------&quot;
 separator = String(40, &quot;=&quot;)     &#x27; &quot;========================================&quot;
 separator = String(30, &quot;*&quot;)     &#x27; &quot;******************************&quot;
@@ -98,419 +95,348 @@ separator = String(20, 45)      &#x27; &quot;--------------------&quot; (45 = &#
 <h3 id="example-2-padding-strings">Example 2: Padding Strings</h3>
 <pre><code class="language-vbnet">Dim text As String
 Dim padded As String
-
 text = &quot;Title&quot;
-
 &#x27; Left padding with spaces
 padded = String(10 - Len(text), &quot; &quot;) &amp; text  &#x27; &quot;     Title&quot;
-
 &#x27; Right padding with dots
 padded = text &amp; String(20 - Len(text), &quot;.&quot;)  &#x27; &quot;Title...............&quot;</code></pre>
 <h3 id="example-3-creating-box-borders">Example 3: Creating Box Borders</h3>
 <pre><code class="language-vbnet">Sub DrawBox(width As Integer)
-Dim topBottom As String
-Dim side As String
-
-topBottom = &quot;+&quot; &amp; String(width - 2, &quot;-&quot;) &amp; &quot;+&quot;
-side = &quot;|&quot; &amp; String(width - 2, &quot; &quot;) &amp; &quot;|&quot;
-
-Debug.Print topBottom
-Debug.Print side
-Debug.Print side
-Debug.Print topBottom
+    Dim topBottom As String
+    Dim side As String
+    topBottom = &quot;+&quot; &amp; String(width - 2, &quot;-&quot;) &amp; &quot;+&quot;
+    side = &quot;|&quot; &amp; String(width - 2, &quot; &quot;) &amp; &quot;|&quot;
+    Debug.Print topBottom
+    Debug.Print side
+    Debug.Print side
+    Debug.Print topBottom
 End Sub</code></pre>
 <h3 id="example-4-progress-bar">Example 4: Progress Bar</h3>
 <pre><code class="language-vbnet">Function CreateProgressBar(percent As Integer, width As Integer) As String
-Dim filled As Integer
-Dim empty As Integer
-
-filled = (percent * width) \ 100
-empty = width - filled
-
-CreateProgressBar = &quot;[&quot; &amp; String(filled, &quot;#&quot;) &amp; String(empty, &quot; &quot;) &amp; &quot;]&quot;
-&#x27; Example: [#####     ] for 50%
+    Dim filled As Integer
+    Dim empty As Integer
+    filled = (percent * width) \ 100
+    empty = width - filled
+    CreateProgressBar = &quot;[&quot; &amp; String(filled, &quot;#&quot;) &amp; String(empty, &quot; &quot;) &amp; &quot;]&quot;
+    &#x27; Example: [#####     ] for 50%
 End Function</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-create-horizontal-line">Pattern 1: Create Horizontal Line</h3>
 <pre><code class="language-vbnet">Function HorizontalLine(width As Integer, Optional char As String = &quot;-&quot;) As String
-HorizontalLine = String(width, char)
+    HorizontalLine = String(width, char)
 End Function</code></pre>
 <h3 id="pattern-2-center-text">Pattern 2: Center Text</h3>
 <pre><code class="language-vbnet">Function CenterText(text As String, width As Integer) As String
-Dim padding As Integer
-Dim leftPad As Integer
-Dim rightPad As Integer
-
-If Len(text) &gt;= width Then
-CenterText = Left$(text, width)
-Exit Function
-End If
-
-padding = width - Len(text)
-leftPad = padding \ 2
-rightPad = padding - leftPad
-
-CenterText = String(leftPad, &quot; &quot;) &amp; text &amp; String(rightPad, &quot; &quot;)
+    Dim padding As Integer
+    Dim leftPad As Integer
+    Dim rightPad As Integer
+    If Len(text) &gt;= width Then
+        CenterText = Left$(text, width)
+        Exit Function
+    End If
+    padding = width - Len(text)
+    leftPad = padding \ 2
+    rightPad = padding - leftPad
+    CenterText = String(leftPad, &quot; &quot;) &amp; text &amp; String(rightPad, &quot; &quot;)
 End Function</code></pre>
 <h3 id="pattern-3-pad-number-with-zeros">Pattern 3: Pad Number with Zeros</h3>
 <pre><code class="language-vbnet">Function PadWithZeros(value As Long, totalWidth As Integer) As String
-Dim numStr As String
-numStr = CStr(value)
-
-If Len(numStr) &gt;= totalWidth Then
-PadWithZeros = numStr
-Else
-PadWithZeros = String(totalWidth - Len(numStr), &quot;0&quot;) &amp; numStr
-End If
+    Dim numStr As String
+    numStr = CStr(value)
+    If Len(numStr) &gt;= totalWidth Then
+        PadWithZeros = numStr
+    Else
+        PadWithZeros = String(totalWidth - Len(numStr), &quot;0&quot;) &amp; numStr
+    End If
 End Function</code></pre>
 <h3 id="pattern-4-create-table-row-separator">Pattern 4: Create Table Row Separator</h3>
 <pre><code class="language-vbnet">Function TableSeparator(columnWidths() As Integer) As String
-Dim i As Integer
-Dim result As String
-
-result = &quot;+&quot;
-For i = LBound(columnWidths) To UBound(columnWidths)
-result = result &amp; String(columnWidths(i), &quot;-&quot;) &amp; &quot;+&quot;
-Next i
-
-TableSeparator = result
+    Dim i As Integer
+    Dim result As String
+    result = &quot;+&quot;
+    For i = LBound(columnWidths) To UBound(columnWidths)
+        result = result &amp; String(columnWidths(i), &quot;-&quot;) &amp; &quot;+&quot;
+    Next i
+    TableSeparator = result
 End Function</code></pre>
 <h3 id="pattern-5-mask-sensitive-data">Pattern 5: Mask Sensitive Data</h3>
 <pre><code class="language-vbnet">Function MaskString(text As String, Optional maskChar As String = &quot;*&quot;) As String
-MaskString = String(Len(text), maskChar)
+    MaskString = String(Len(text), maskChar)
 End Function</code></pre>
 <h3 id="pattern-6-indent-text">Pattern 6: Indent Text</h3>
 <pre><code class="language-vbnet">Function IndentText(text As String, level As Integer, _
-Optional indentSize As Integer = 4) As String
-IndentText = String(level * indentSize, &quot; &quot;) &amp; text
+                    Optional indentSize As Integer = 4) As String
+    IndentText = String(level * indentSize, &quot; &quot;) &amp; text
 End Function</code></pre>
 <h3 id="pattern-7-create-ruler">Pattern 7: Create Ruler</h3>
 <pre><code class="language-vbnet">Function CreateRuler(length As Integer) As String
-Dim i As Integer
-Dim ruler As String
-Dim markers As String
-
-&#x27; Create tick marks every 10 characters
-ruler = &quot;&quot;
-markers = &quot;&quot;
-For i = 1 To length
-If i Mod 10 = 0 Then
-ruler = ruler &amp; &quot;|&quot;
-markers = markers &amp; CStr(i \ 10 Mod 10)
-Else
-ruler = ruler &amp; &quot;.&quot;
-markers = markers &amp; &quot; &quot;
-End If
-Next i
-
-CreateRuler = markers &amp; vbCrLf &amp; ruler
+    Dim i As Integer
+    Dim ruler As String
+    Dim markers As String
+    &#x27; Create tick marks every 10 characters
+    ruler = &quot;&quot;
+    markers = &quot;&quot;
+    For i = 1 To length
+        If i Mod 10 = 0 Then
+            ruler = ruler &amp; &quot;|&quot;
+            markers = markers &amp; CStr(i \ 10 Mod 10)
+        Else
+            ruler = ruler &amp; &quot;.&quot;
+            markers = markers &amp; &quot; &quot;
+        End If
+    Next i
+    CreateRuler = markers &amp; vbCrLf &amp; ruler
 End Function</code></pre>
 <h3 id="pattern-8-fill-to-width">Pattern 8: Fill to Width</h3>
 <pre><code class="language-vbnet">Function FillToWidth(text As String, width As Integer, _
-Optional fillChar As String = &quot; &quot;) As String
-If Len(text) &gt;= width Then
-FillToWidth = Left$(text, width)
-Else
-FillToWidth = text &amp; String(width - Len(text), fillChar)
-End If
+                     Optional fillChar As String = &quot; &quot;) As String
+    If Len(text) &gt;= width Then
+        FillToWidth = Left$(text, width)
+    Else
+        FillToWidth = text &amp; String(width - Len(text), fillChar)
+    End If
 End Function</code></pre>
 <h3 id="pattern-9-create-loading-animation">Pattern 9: Create Loading Animation</h3>
 <pre><code class="language-vbnet">Function LoadingBar(step As Integer, totalSteps As Integer, width As Integer) As String
-Dim filled As Integer
-filled = (step * width) \ totalSteps
-LoadingBar = String(filled, &quot;=&quot;) &amp; &quot;&gt;&quot; &amp; String(width - filled - 1, &quot; &quot;)
+    Dim filled As Integer
+    filled = (step * width) \ totalSteps
+    LoadingBar = String(filled, &quot;=&quot;) &amp; &quot;&gt;&quot; &amp; String(width - filled - 1, &quot; &quot;)
 End Function</code></pre>
 <h3 id="pattern-10-duplicate-character">Pattern 10: Duplicate Character</h3>
 <pre><code class="language-vbnet">Function RepeatChar(char As String, count As Integer) As String
-&#x27; Alias for String function with clearer name
-RepeatChar = String(count, char)
+    &#x27; Alias for String function with clearer name
+    RepeatChar = String(count, char)
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-text-box-drawer">Example 1: Text Box Drawer</h3>
 <pre><code class="language-vbnet">&#x27; Class: TextBoxDrawer
 &#x27; Draws ASCII boxes around text
 Option Explicit
-
 Private m_Width As Integer
 Private m_Padding As Integer
-
 Public Sub Initialize(width As Integer, Optional padding As Integer = 1)
-m_Width = width
-m_Padding = padding
+    m_Width = width
+    m_Padding = padding
 End Sub
-
 Public Function DrawBox(title As String, lines() As String) As String
-Dim result As String
-Dim i As Integer
-Dim maxLen As Integer
-
-&#x27; Find maximum line length
-maxLen = Len(title)
-For i = LBound(lines) To UBound(lines)
-If Len(lines(i)) &gt; maxLen Then maxLen = Len(lines(i))
-Next i
-
-&#x27; Adjust width if needed
-If m_Width &lt; maxLen + (m_Padding * 2) + 2 Then
-m_Width = maxLen + (m_Padding * 2) + 2
-End If
-
-&#x27; Top border
-result = &quot;+&quot; &amp; String(m_Width - 2, &quot;-&quot;) &amp; &quot;+&quot; &amp; vbCrLf
-
-&#x27; Title (centered)
-If Len(title) &gt; 0 Then
-result = result &amp; &quot;|&quot; &amp; CenterInWidth(title, m_Width - 2) &amp; &quot;|&quot; &amp; vbCrLf
-result = result &amp; &quot;+&quot; &amp; String(m_Width - 2, &quot;-&quot;) &amp; &quot;+&quot; &amp; vbCrLf
-End If
-
-&#x27; Content lines
-For i = LBound(lines) To UBound(lines)
-result = result &amp; &quot;|&quot; &amp; PadLine(lines(i), m_Width - 2) &amp; &quot;|&quot; &amp; vbCrLf
-Next i
-
-&#x27; Bottom border
-result = result &amp; &quot;+&quot; &amp; String(m_Width - 2, &quot;-&quot;) &amp; &quot;+&quot;
-
-DrawBox = result
+    Dim result As String
+    Dim i As Integer
+    Dim maxLen As Integer
+    &#x27; Find maximum line length
+    maxLen = Len(title)
+    For i = LBound(lines) To UBound(lines)
+        If Len(lines(i)) &gt; maxLen Then maxLen = Len(lines(i))
+    Next i
+    &#x27; Adjust width if needed
+    If m_Width &lt; maxLen + (m_Padding * 2) + 2 Then
+        m_Width = maxLen + (m_Padding * 2) + 2
+    End If
+    &#x27; Top border
+    result = &quot;+&quot; &amp; String(m_Width - 2, &quot;-&quot;) &amp; &quot;+&quot; &amp; vbCrLf
+    &#x27; Title (centered)
+    If Len(title) &gt; 0 Then
+        result = result &amp; &quot;|&quot; &amp; CenterInWidth(title, m_Width - 2) &amp; &quot;|&quot; &amp; vbCrLf
+        result = result &amp; &quot;+&quot; &amp; String(m_Width - 2, &quot;-&quot;) &amp; &quot;+&quot; &amp; vbCrLf
+    End If
+    &#x27; Content lines
+    For i = LBound(lines) To UBound(lines)
+        result = result &amp; &quot;|&quot; &amp; PadLine(lines(i), m_Width - 2) &amp; &quot;|&quot; &amp; vbCrLf
+    Next i
+    &#x27; Bottom border
+    result = result &amp; &quot;+&quot; &amp; String(m_Width - 2, &quot;-&quot;) &amp; &quot;+&quot;
+    DrawBox = result
 End Function
-
 Private Function CenterInWidth(text As String, width As Integer) As String
-Dim leftPad As Integer
-Dim rightPad As Integer
-Dim totalPad As Integer
-
-totalPad = width - Len(text)
-leftPad = totalPad \ 2
-rightPad = totalPad - leftPad
-
-CenterInWidth = String(leftPad, &quot; &quot;) &amp; text &amp; String(rightPad, &quot; &quot;)
+    Dim leftPad As Integer
+    Dim rightPad As Integer
+    Dim totalPad As Integer
+    totalPad = width - Len(text)
+    leftPad = totalPad \ 2
+    rightPad = totalPad - leftPad
+    CenterInWidth = String(leftPad, &quot; &quot;) &amp; text &amp; String(rightPad, &quot; &quot;)
 End Function
-
 Private Function PadLine(text As String, width As Integer) As String
-Dim content As String
-content = String(m_Padding, &quot; &quot;) &amp; text
-PadLine = content &amp; String(width - Len(content), &quot; &quot;)
+    Dim content As String
+    content = String(m_Padding, &quot; &quot;) &amp; text
+    PadLine = content &amp; String(width - Len(content), &quot; &quot;)
 End Function</code></pre>
 <h3 id="example-2-progress-bar-generator">Example 2: Progress Bar Generator</h3>
 <pre><code class="language-vbnet">&#x27; Class: ProgressBarGenerator
 &#x27; Creates customizable progress bars
 Option Explicit
-
 Private m_Width As Integer
 Private m_FilledChar As String
 Private m_EmptyChar As String
 Private m_ShowPercent As Boolean
-
 Public Sub Initialize(width As Integer, Optional filledChar As String = &quot;#&quot;, _
-Optional emptyChar As String = &quot;-&quot;, _
-Optional showPercent As Boolean = True)
-m_Width = width
-m_FilledChar = filledChar
-m_EmptyChar = emptyChar
-m_ShowPercent = showPercent
+                      Optional emptyChar As String = &quot;-&quot;, _
+                      Optional showPercent As Boolean = True)
+    m_Width = width
+    m_FilledChar = filledChar
+    m_EmptyChar = emptyChar
+    m_ShowPercent = showPercent
 End Sub
-
 Public Function Generate(current As Long, total As Long) As String
-Dim percent As Integer
-Dim filled As Integer
-Dim empty As Integer
-Dim bar As String
-
-If total = 0 Then
-Generate = &quot;[&quot; &amp; String(m_Width, m_EmptyChar) &amp; &quot;]&quot;
-Exit Function
-End If
-
-percent = CInt((current * 100) / total)
-If percent &gt; 100 Then percent = 100
-
-filled = (percent * m_Width) \ 100
-empty = m_Width - filled
-
-bar = &quot;[&quot; &amp; String(filled, m_FilledChar) &amp; String(empty, m_EmptyChar) &amp; &quot;]&quot;
-
-If m_ShowPercent Then
-bar = bar &amp; &quot; &quot; &amp; Format$(percent, &quot;000&quot;) &amp; &quot;%&quot;
-End If
-
-Generate = bar
+    Dim percent As Integer
+    Dim filled As Integer
+    Dim empty As Integer
+    Dim bar As String
+    If total = 0 Then
+        Generate = &quot;[&quot; &amp; String(m_Width, m_EmptyChar) &amp; &quot;]&quot;
+        Exit Function
+    End If
+    percent = CInt((current * 100) / total)
+    If percent &gt; 100 Then percent = 100
+    filled = (percent * m_Width) \ 100
+    empty = m_Width - filled
+    bar = &quot;[&quot; &amp; String(filled, m_FilledChar) &amp; String(empty, m_EmptyChar) &amp; &quot;]&quot;
+    If m_ShowPercent Then
+        bar = bar &amp; &quot; &quot; &amp; Format$(percent, &quot;000&quot;) &amp; &quot;%&quot;
+    End If
+    Generate = bar
 End Function
-
 Public Function GenerateIndeterminate(step As Integer) As String
-&#x27; Animated indeterminate progress bar
-Dim pos As Integer
-Dim blockSize As Integer
-
-blockSize = 5
-pos = step Mod (m_Width + blockSize)
-
-If pos &lt; blockSize Then
-GenerateIndeterminate = &quot;[&quot; &amp; String(pos, m_FilledChar) &amp; _
-String(m_Width - pos, m_EmptyChar) &amp; &quot;]&quot;
-ElseIf pos &lt; m_Width Then
-GenerateIndeterminate = &quot;[&quot; &amp; String(pos - blockSize, m_EmptyChar) &amp; _
-String(blockSize, m_FilledChar) &amp; _
-String(m_Width - pos, m_EmptyChar) &amp; &quot;]&quot;
-Else
-GenerateIndeterminate = &quot;[&quot; &amp; String(m_Width - (pos - m_Width), m_EmptyChar) &amp; _
-String(pos - m_Width, m_FilledChar) &amp; &quot;]&quot;
-End If
+    &#x27; Animated indeterminate progress bar
+    Dim pos As Integer
+    Dim blockSize As Integer
+    blockSize = 5
+    pos = step Mod (m_Width + blockSize)
+    If pos &lt; blockSize Then
+        GenerateIndeterminate = &quot;[&quot; &amp; String(pos, m_FilledChar) &amp; _
+                               String(m_Width - pos, m_EmptyChar) &amp; &quot;]&quot;
+    ElseIf pos &lt; m_Width Then
+        GenerateIndeterminate = &quot;[&quot; &amp; String(pos - blockSize, m_EmptyChar) &amp; _
+                               String(blockSize, m_FilledChar) &amp; _
+                               String(m_Width - pos, m_EmptyChar) &amp; &quot;]&quot;
+    Else
+        GenerateIndeterminate = &quot;[&quot; &amp; String(m_Width - (pos - m_Width), m_EmptyChar) &amp; _
+                               String(pos - m_Width, m_FilledChar) &amp; &quot;]&quot;
+    End If
 End Function</code></pre>
 <h3 id="example-3-table-formatter-module">Example 3: Table Formatter Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: TableFormatter
 &#x27; Creates formatted ASCII tables
 Option Explicit
-
 Public Function CreateTable(headers() As String, data() As String, _
-columnWidths() As Integer) As String
-Dim result As String
-Dim i As Integer
-Dim j As Integer
-Dim row As Integer
-Dim col As Integer
-
-&#x27; Top border
-result = CreateBorder(columnWidths, True) &amp; vbCrLf
-
-&#x27; Headers
-result = result &amp; CreateRow(headers, columnWidths) &amp; vbCrLf
-
-&#x27; Separator
-result = result &amp; CreateBorder(columnWidths, False) &amp; vbCrLf
-
-&#x27; Data rows
-row = LBound(data, 1)
-Do While row &lt;= UBound(data, 1)
-Dim rowData() As String
-ReDim rowData(LBound(headers) To UBound(headers))
-
-For col = LBound(headers) To UBound(headers)
-rowData(col) = data(row, col)
-Next col
-
-result = result &amp; CreateRow(rowData, columnWidths) &amp; vbCrLf
-row = row + 1
-Loop
-
-&#x27; Bottom border
-result = result &amp; CreateBorder(columnWidths, True)
-
-CreateTable = result
+                            columnWidths() As Integer) As String
+    Dim result As String
+    Dim i As Integer
+    Dim j As Integer
+    Dim row As Integer
+    Dim col As Integer
+    &#x27; Top border
+    result = CreateBorder(columnWidths, True) &amp; vbCrLf
+    &#x27; Headers
+    result = result &amp; CreateRow(headers, columnWidths) &amp; vbCrLf
+    &#x27; Separator
+    result = result &amp; CreateBorder(columnWidths, False) &amp; vbCrLf
+    &#x27; Data rows
+    row = LBound(data, 1)
+    Do While row &lt;= UBound(data, 1)
+        Dim rowData() As String
+        ReDim rowData(LBound(headers) To UBound(headers))
+        For col = LBound(headers) To UBound(headers)
+            rowData(col) = data(row, col)
+        Next col
+        result = result &amp; CreateRow(rowData, columnWidths) &amp; vbCrLf
+        row = row + 1
+    Loop
+    &#x27; Bottom border
+    result = result &amp; CreateBorder(columnWidths, True)
+    CreateTable = result
 End Function
-
 Private Function CreateBorder(columnWidths() As Integer, heavy As Boolean) As String
-Dim i As Integer
-Dim result As String
-Dim corner As String
-Dim line As String
-
-If heavy Then
-corner = &quot;+&quot;
-line = &quot;=&quot;
-Else
-corner = &quot;+&quot;
-line = &quot;-&quot;
-End If
-
-result = corner
-For i = LBound(columnWidths) To UBound(columnWidths)
-result = result &amp; String(columnWidths(i) + 2, line) &amp; corner
-Next i
-
-CreateBorder = result
+    Dim i As Integer
+    Dim result As String
+    Dim corner As String
+    Dim line As String
+    If heavy Then
+        corner = &quot;+&quot;
+        line = &quot;=&quot;
+    Else
+        corner = &quot;+&quot;
+        line = &quot;-&quot;
+    End If
+    result = corner
+    For i = LBound(columnWidths) To UBound(columnWidths)
+        result = result &amp; String(columnWidths(i) + 2, line) &amp; corner
+    Next i
+    CreateBorder = result
 End Function
-
 Private Function CreateRow(cells() As String, columnWidths() As Integer) As String
-Dim i As Integer
-Dim result As String
-Dim cell As String
-
-result = &quot;|&quot;
-For i = LBound(cells) To UBound(cells)
-cell = &quot; &quot; &amp; cells(i)
-If Len(cell) &lt; columnWidths(i) + 1 Then
-cell = cell &amp; String(columnWidths(i) + 1 - Len(cell), &quot; &quot;)
-End If
-result = result &amp; cell &amp; &quot; |&quot;
-Next i
-
-CreateRow = result
+    Dim i As Integer
+    Dim result As String
+    Dim cell As String
+    result = &quot;|&quot;
+    For i = LBound(cells) To UBound(cells)
+        cell = &quot; &quot; &amp; cells(i)
+        If Len(cell) &lt; columnWidths(i) + 1 Then
+            cell = cell &amp; String(columnWidths(i) + 1 - Len(cell), &quot; &quot;)
+        End If
+        result = result &amp; cell &amp; &quot; |&quot;
+    Next i
+    CreateRow = result
 End Function</code></pre>
 <h3 id="example-4-text-padding-utilities">Example 4: Text Padding Utilities</h3>
 <pre><code class="language-vbnet">&#x27; Module: TextPaddingUtils
 &#x27; Utilities for padding and aligning text
 Option Explicit
-
 Public Function PadLeft(text As String, width As Integer, _
-Optional padChar As String = &quot; &quot;) As String
-If Len(text) &gt;= width Then
-PadLeft = text
-Else
-PadLeft = String(width - Len(text), padChar) &amp; text
-End If
+                        Optional padChar As String = &quot; &quot;) As String
+    If Len(text) &gt;= width Then
+        PadLeft = text
+    Else
+        PadLeft = String(width - Len(text), padChar) &amp; text
+    End If
 End Function
-
 Public Function PadRight(text As String, width As Integer, _
-Optional padChar As String = &quot; &quot;) As String
-If Len(text) &gt;= width Then
-PadRight = text
-Else
-PadRight = text &amp; String(width - Len(text), padChar)
-End If
+                         Optional padChar As String = &quot; &quot;) As String
+    If Len(text) &gt;= width Then
+        PadRight = text
+    Else
+        PadRight = text &amp; String(width - Len(text), padChar)
+    End If
 End Function
-
 Public Function PadCenter(text As String, width As Integer, _
-Optional padChar As String = &quot; &quot;) As String
-Dim totalPad As Integer
-Dim leftPad As Integer
-Dim rightPad As Integer
-
-If Len(text) &gt;= width Then
-PadCenter = text
-Exit Function
-End If
-
-totalPad = width - Len(text)
-leftPad = totalPad \ 2
-rightPad = totalPad - leftPad
-
-PadCenter = String(leftPad, padChar) &amp; text &amp; String(rightPad, padChar)
+                          Optional padChar As String = &quot; &quot;) As String
+    Dim totalPad As Integer
+    Dim leftPad As Integer
+    Dim rightPad As Integer
+    If Len(text) &gt;= width Then
+        PadCenter = text
+        Exit Function
+    End If
+    totalPad = width - Len(text)
+    leftPad = totalPad \ 2
+    rightPad = totalPad - leftPad
+    PadCenter = String(leftPad, padChar) &amp; text &amp; String(rightPad, padChar)
 End Function
-
 Public Function CreateLine(width As Integer, Optional lineChar As String = &quot;-&quot;) As String
-CreateLine = String(width, lineChar)
+    CreateLine = String(width, lineChar)
 End Function
-
 Public Function FrameText(text As String, width As Integer, _
-Optional frameChar As String = &quot;*&quot;) As String
-Dim topBottom As String
-Dim middle As String
-
-topBottom = String(width, frameChar)
-middle = frameChar &amp; PadCenter(text, width - 2) &amp; frameChar
-
-FrameText = topBottom &amp; vbCrLf &amp; middle &amp; vbCrLf &amp; topBottom
+                          Optional frameChar As String = &quot;*&quot;) As String
+    Dim topBottom As String
+    Dim middle As String
+    topBottom = String(width, frameChar)
+    middle = frameChar &amp; PadCenter(text, width - 2) &amp; frameChar
+    FrameText = topBottom &amp; vbCrLf &amp; middle &amp; vbCrLf &amp; topBottom
 End Function
-
 Public Function Underline(text As String, Optional underlineChar As String = &quot;-&quot;) As String
-Underline = text &amp; vbCrLf &amp; String(Len(text), underlineChar)
+    Underline = text &amp; vbCrLf &amp; String(Len(text), underlineChar)
 End Function
-
 Public Function NumberedLine(lineNum As Integer, text As String, _
-totalWidth As Integer) As String
-Dim numStr As String
-numStr = PadLeft(CStr(lineNum), 4) &amp; &quot;: &quot;
-NumberedLine = numStr &amp; text &amp; String(totalWidth - Len(numStr) - Len(text), &quot; &quot;)
+                             totalWidth As Integer) As String
+    Dim numStr As String
+    numStr = PadLeft(CStr(lineNum), 4) &amp; &quot;: &quot;
+    NumberedLine = numStr &amp; text &amp; String(totalWidth - Len(numStr) - Len(text), &quot; &quot;)
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>String</code> function can raise the following errors:</p>
-<ul>
-<li><strong>Error 5 (Invalid procedure call or argument)</strong>: If <code>number</code> is negative</li>
-<li><strong>Error 6 (Overflow)</strong>: If <code>number</code> is too large (exceeds memory limits)</li>
-<li><strong>Error 13 (Type mismatch)</strong>: If <code>character</code> cannot be converted to a valid character</li>
-<li><strong>Error 5 (Invalid procedure call)</strong>: If <code>character</code> is a numeric value outside 0-255 range</li>
-</ul>
+<p>The <code>String</code> function can raise the following errors:
+- <strong>Error 5 (Invalid procedure call or argument)</strong>: If <code>number</code> is negative
+- <strong>Error 6 (Overflow)</strong>: If <code>number</code> is too large (exceeds memory limits)
+- <strong>Error 13 (Type mismatch)</strong>: If <code>character</code> cannot be converted to a valid character
+- <strong>Error 5 (Invalid procedure call)</strong>: If <code>character</code> is a numeric value outside 0-255 range</p>
 <h2 id="performance-notes">Performance Notes</h2>
 <ul>
 <li>Very fast and efficient for creating repeating character strings</li>

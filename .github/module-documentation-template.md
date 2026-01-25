@@ -1,13 +1,33 @@
+
+Module documentation in these sub-folders are auto converted into the VB6 library documentation for the github.io webpage. 
+They need to follow this specific template:
+
+The first line should have a double ## a single backtick qouting for the function or statement name and then a single empty line:
+
 //! ## `Split` Function
 //!
+
+Next, it should have a general description of the function/statements effects followed by a single empty line.
+
 //! Returns a zero-based, one-dimensional array containing a specified number of substrings.
 //!
+
+Next is the Syntax section, again preceeded by a double octothorpe, followed by a single empty line, then a code block of type
+text that has the syntax for using the function/statement, with a trailing empty line.
+
 //! ## Syntax
 //!
 //! ```text
 //! Split(expression[, delimiter[, limit[, compare]]])
 //! ```
 //!
+
+The parameters section is next with a double octothorpe header, a single empty line, and then a bulleted list of the arguments
+the function/statement takes. These arguments are marked as bold with double asterist quoting, followed by if they are optional
+or required and a description of both their type and what those arguments are. If an argument has a specific detail of importance,
+such as special values or invalid values, then the line following that argument is indented and marked with a bullet point and the
+specific detailed information follows. The section ends with a single empty line.
+
 //! ## Parameters
 //!
 //! - **expression** (Required): `String` expression containing substrings and delimiters
@@ -16,18 +36,34 @@
 //! - **limit** (Optional): Number of substrings to be returned; `-1` returns all substrings
 //! - **compare** (Optional): Numeric value indicating comparison type (see Compare Settings)
 //!
+
+Some parameters have only a small number of set values or values that are predefined as part of the language. In that case,
+the follow section will name the argument with a double octothorpe header, have a single empty line, and then list off the
+defined names, the values, and what that value represents. Following that is a single empty line. This entire section is optional
+and only used when a parameter has need of such a block.
+
 //! ## Compare Settings
 //!
 //! - `vbBinaryCompare` (0): Perform a binary comparison
 //! - `vbTextCompare` (1): Perform a textual comparison
 //! - `vbDatabaseCompare` (2): Perform a comparison based on information in your database
 //!
+
+The return value section uses a double octothorpe header and lists both the return value and type as well as any special
+values that might be returned if the parameter is one of a set of special edge cases. This section is ommited if the
+statement has no return value. This section is ended with a single empty line.
+
 //! ## Return Value
 //!
 //! - Returns a `Variant` containing a one-dimensional array of strings (zero-based)
 //! - If `expression` is a zero-length string (""), returns an empty array
 //! - If `delimiter` is a zero-length string or not found, returns a single-element array containing the entire expression
 //!
+
+The remarks section has any special information which might be pertinent to this function/statement that has not been mentioned
+or may have some kind of edge case involving Optional Base, or special handling for strings with zero lengths, nulls, or empty 
+arrays. As always, the section is ended with a single empty line.
+
 //! ## Remarks
 //!
 //! The `Split` function breaks a string into substrings at the specified delimiter and returns them as an array. This is the opposite of the `Join` function, which combines array elements into a single string.
@@ -40,6 +76,10 @@
 //! - If `limit` is provided and is less than the number of substrings, the last element contains the remainder of the string (including delimiters)
 //! - Multiple consecutive delimiters create empty string elements in the array
 //!
+
+'Typical Uses' is another double header section which should contain a bulleted list of common uses for the function/statement, each element of which should have a bulleted common name a colon and a basic explination for that use case. There should be no more than ten items and
+the section should end with a single empty line.
+
 //! ## Typical Uses
 //!
 //! - **Parse CSV Data**: Split comma-separated values
@@ -51,6 +91,15 @@
 //! - **String Tokenization**: Break strings into tokens
 //! * **Configuration Parsing**: Parse config file entries
 //!
+
+The 'Common Errors' is an optional section which uses a double # header and should contain a basic description of what can 
+cause errors as well as a bolded list of the error numbers, a paranthetical for the common error name, and then when that error
+can occur. The error number and common name might be repeated if their are multiple ways to produce the same error number.
+
+If special error handling might be needed or details involving errors an example may be included using a triple # header
+title with a code block (marked vb6) that demonstrates the specific needs. As always, a single empty line is used to 
+delimit each section.
+
 //! ## Common Errors
 //!
 //! The Split function itself doesn't typically generate errors with valid inputs, but related operations can:
@@ -70,6 +119,11 @@
 //! End If
 //! ```
 //!
+
+'Performance Considerations' is an optional double # section which should contain a bulleted list of ways to maximize performance
+with the statement/function as well as what to avoid. This section may require an optional triple # named header for an code
+example.
+
 //! ## Performance Considerations
 //!
 //! - Split is very efficient for moderate-sized strings
@@ -78,6 +132,11 @@
 //! - Consider caching Split results if reused multiple times
 //! - For complex parsing, Split may be slower than manual parsing
 //!
+
+The 'Best Practices' section should contain a bulleted list of issues which could arise from using the statement/function
+as well as considerations for improving the quality of the resultant code. Each element should have a single bolded statement
+followed by clear instructions to apply that tip.
+
 //! ## Best Practices
 //!
 //! - **Check Array Bounds**: Always verify `UBound` before accessing elements
@@ -91,6 +150,9 @@
 //! - **Filter Empty Elements**: Remove empty strings when caused by multiple delimiters
 //! - **Combine with Join**: Use Join to reconstruct modified arrays
 //!
+
+
+
 //! ## Comparison with Related Functions
 //!
 //! | Function | Purpose | Input | Output |
@@ -704,624 +766,3 @@
 //! End Function
 //! ```
 //!
-
-#[cfg(test)]
-mod tests {
-    use crate::*;
-
-    #[test]
-    fn split_basic() {
-        let source = r#"
-Sub Test()
-    Dim parts() As String
-    parts = Split("a,b,c", ",")
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    #[allow(clippy::too_many_lines)]
-    fn split_with_variable() {
-        let source = r#"
-Sub Test()
-    Dim text As String
-    Dim delimiter As String
-    Dim result() As String
-    text = "one,two,three"
-    delimiter = ","
-    result = Split(text, delimiter)
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    fn split_default_delimiter() {
-        let source = r#"
-Sub Test()
-    Dim words() As String
-    words = Split("The quick brown fox")
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    fn split_with_limit() {
-        let source = r#"
-Sub Test()
-    Dim items() As String
-    items = Split("a,b,c,d,e", ",", 3)
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    fn split_if_statement() {
-        let source = r#"
-Sub Test()
-    If UBound(Split(text, ",")) > 0 Then
-        MsgBox "Multiple items"
-    End If
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    fn split_function_return() {
-        let source = r#"
-Function ParseCSV(line As String) As String()
-    ParseCSV = Split(line, ",")
-End Function
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    fn split_variable_assignment() {
-        let source = r#"
-Sub Test()
-    Dim fields() As String
-    fields = Split(csvLine, ",")
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    #[allow(clippy::too_many_lines)]
-    fn split_array_access() {
-        let source = r#"
-Sub Test()
-    Dim parts() As String
-    Dim firstPart As String
-    parts = Split("a,b,c", ",")
-    firstPart = parts(0)
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    #[allow(clippy::too_many_lines)]
-    fn split_in_loop() {
-        let source = r#"
-Sub Test()
-    Dim parts() As String
-    Dim i As Integer
-    parts = Split(data, ",")
-    For i = 0 To UBound(parts)
-        Debug.Print parts(i)
-    Next i
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    fn split_class_usage() {
-        let source = r"
-Class Parser
-    Public Function GetFields(line As String) As String()
-        GetFields = Split(line, vbTab)
-    End Function
-End Class
-";
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    fn split_with_statement() {
-        let source = r"
-Sub Test()
-    With parser
-        Dim data() As String
-        data = Split(.Text, .Delimiter)
-    End With
-End Sub
-";
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    #[allow(clippy::too_many_lines)]
-    fn split_elseif() {
-        let source = r#"
-Sub Test()
-    Dim arr() As String
-    If delimiter = "," Then
-        arr = Split(text, ",")
-    ElseIf delimiter = ";" Then
-        arr = Split(text, ";")
-    End If
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    #[allow(clippy::too_many_lines)]
-    fn split_select_case() {
-        let source = r#"
-Sub Test()
-    Dim parts() As String
-    Select Case fileType
-        Case "CSV"
-            parts = Split(line, ",")
-        Case "TSV"
-            parts = Split(line, vbTab)
-    End Select
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    #[allow(clippy::too_many_lines)]
-    fn split_do_while() {
-        let source = r#"
-Sub Test()
-    Do While lineNum <= 10
-        Dim fields() As String
-        fields = Split(lines(lineNum), ",")
-        lineNum = lineNum + 1
-    Loop
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    #[allow(clippy::too_many_lines)]
-    fn split_do_until() {
-        let source = r#"
-Sub Test()
-    Do Until EOF(1)
-        Dim data() As String
-        Line Input #1, currentLine
-        data = Split(currentLine, ",")
-    Loop
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    #[allow(clippy::too_many_lines)]
-    fn split_while_wend() {
-        let source = r#"
-Sub Test()
-    While i < count
-        Dim tokens() As String
-        tokens = Split(lines(i), " ")
-        i = i + 1
-    Wend
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    #[allow(clippy::too_many_lines)]
-    fn split_ubound_check() {
-        let source = r#"
-Sub Test()
-    Dim arr() As String
-    arr = Split(text, ",")
-    If UBound(arr) >= 0 Then
-        MsgBox arr(0)
-    End If
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    #[allow(clippy::too_many_lines)]
-    fn split_lbound_ubound() {
-        let source = r#"
-Sub Test()
-    Dim parts() As String
-    Dim i As Integer
-    parts = Split(data, "|")
-    For i = LBound(parts) To UBound(parts)
-        Debug.Print parts(i)
-    Next i
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    fn split_vbcrlf() {
-        let source = r"
-Sub Test()
-    Dim lines() As String
-    lines = Split(multilineText, vbCrLf)
-End Sub
-";
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    fn split_nested_function() {
-        let source = r#"
-Sub Test()
-    Dim count As Integer
-    count = UBound(Split(text, ",")) + 1
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    #[allow(clippy::too_many_lines)]
-    fn split_join_combination() {
-        let source = r#"
-Sub Test()
-    Dim parts() As String
-    Dim result As String
-    parts = Split(original, ",")
-    result = Join(parts, ";")
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    #[allow(clippy::too_many_lines)]
-    fn split_trim_combination() {
-        let source = r#"
-Sub Test()
-    Dim values() As String
-    Dim i As Integer
-    values = Split(data, ",")
-    For i = 0 To UBound(values)
-        values(i) = Trim(values(i))
-    Next i
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    #[allow(clippy::too_many_lines)]
-    fn split_error_handling() {
-        let source = r#"
-Sub Test()
-    On Error Resume Next
-    Dim arr() As String
-    arr = Split(text, delimiter)
-    If Err.Number <> 0 Then
-        MsgBox "Error"
-    End If
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    #[allow(clippy::too_many_lines)]
-    fn split_on_error_goto() {
-        let source = r#"
-Sub Test()
-    On Error GoTo ErrorHandler
-    Dim fields() As String
-    fields = Split(csvData, ",")
-    Exit Sub
-ErrorHandler:
-    MsgBox "Error parsing data"
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    #[allow(clippy::too_many_lines)]
-    fn split_file_path() {
-        let source = r#"
-Sub Test()
-    Dim pathParts() As String
-    Dim fileName As String
-    pathParts = Split(filePath, "\")
-    fileName = pathParts(UBound(pathParts))
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    fn split_compare_parameter() {
-        let source = r"
-Sub Test()
-    Dim items() As String
-    items = Split(text, delimiter, -1, vbTextCompare)
-End Sub
-";
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
-    #[allow(clippy::too_many_lines)]
-    fn split_key_value_parsing() {
-        let source = r#"
-Sub Test()
-    Dim kvPair As String
-    Dim parts() As String
-    Dim key As String
-    Dim value As String
-    kvPair = "name=John"
-    parts = Split(kvPair, "=", 2)
-    key = parts(0)
-    value = parts(1)
-End Sub
-"#;
-        let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/split");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-}

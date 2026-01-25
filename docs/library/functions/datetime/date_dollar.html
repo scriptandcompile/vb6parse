@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="date-function"><code>Date$</code> Function</h1>
+            <h1 id="date-function">Date$ Function</h1>
 <p>Returns the current system date as a <code>String</code>. The dollar sign suffix (<code>$</code>) explicitly
 indicates that this function returns a <code>String</code> type (not a <code>Variant</code>).</p>
 <h2 id="syntax">Syntax</h2>
@@ -83,100 +83,87 @@ currentDate = Date$</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="file-naming-with-date">File Naming with Date</h3>
 <pre><code class="language-vbnet">Function CreateDateStampedFilename(baseName As String) As String
-Dim dateStr As String
-Dim cleanDate As String
-
-&#x27; Get date and remove slashes
-dateStr = Date$
-cleanDate = Replace$(dateStr, &quot;/&quot;, &quot;&quot;)
-
-CreateDateStampedFilename = baseName &amp; &quot;_&quot; &amp; cleanDate &amp; &quot;.txt&quot;
+    Dim dateStr As String
+    Dim cleanDate As String
+    &#x27; Get date and remove slashes
+    dateStr = Date$
+    cleanDate = Replace$(dateStr, &quot;/&quot;, &quot;&quot;)
+    CreateDateStampedFilename = baseName &amp; &quot;_&quot; &amp; cleanDate &amp; &quot;.txt&quot;
 End Function</code></pre>
 <h3 id="log-entry-with-date">Log Entry with Date</h3>
 <pre><code class="language-vbnet">Sub WriteLogEntry(message As String)
-Dim logFile As Integer
-Dim logEntry As String
-
-logFile = FreeFile
-Open &quot;application.log&quot; For Append As #logFile
-
-logEntry = Date$ &amp; &quot; - &quot; &amp; message
-Print #logFile, logEntry
-
-Close #logFile
+    Dim logFile As Integer
+    Dim logEntry As String
+    logFile = FreeFile
+    Open &quot;application.log&quot; For Append As #logFile
+    logEntry = Date$ &amp; &quot; - &quot; &amp; message
+    Print #logFile, logEntry
+    Close #logFile
 End Sub</code></pre>
 <h3 id="date-based-conditional-logic">Date-Based Conditional Logic</h3>
 <pre><code class="language-vbnet">Sub CheckDate()
-Dim todayStr As String
-todayStr = Date$
-
-&#x27; Simple string comparison (locale-dependent)
-If todayStr = &quot;12/25/2025&quot; Then
-MsgBox &quot;Merry Christmas!&quot;
-End If
+    Dim todayStr As String
+    todayStr = Date$
+    &#x27; Simple string comparison (locale-dependent)
+    If todayStr = &quot;12/25/2025&quot; Then
+        MsgBox &quot;Merry Christmas!&quot;
+    End If
 End Sub</code></pre>
 <h3 id="report-header">Report Header</h3>
 <pre><code class="language-vbnet">Function CreateReportHeader(title As String) As String
-Dim header As String
-header = String$(60, &quot;=&quot;) &amp; vbCrLf
-header = header &amp; title &amp; vbCrLf
-header = header &amp; &quot;Generated: &quot; &amp; Date$ &amp; vbCrLf
-header = header &amp; String$(60, &quot;=&quot;) &amp; vbCrLf
-CreateReportHeader = header
+    Dim header As String
+    header = String$(60, &quot;=&quot;) &amp; vbCrLf
+    header = header &amp; title &amp; vbCrLf
+    header = header &amp; &quot;Generated: &quot; &amp; Date$ &amp; vbCrLf
+    header = header &amp; String$(60, &quot;=&quot;) &amp; vbCrLf
+    CreateReportHeader = header
 End Function</code></pre>
 <h3 id="date-display-in-status-bar">Date Display in Status Bar</h3>
 <pre><code class="language-vbnet">Sub UpdateStatusBar()
-Form1.StatusBar.Panels(1).Text = &quot;Date: &quot; &amp; Date$
+    Form1.StatusBar.Panels(1).Text = &quot;Date: &quot; &amp; Date$
 End Sub</code></pre>
 <h3 id="backup-file-naming">Backup File Naming</h3>
 <pre><code class="language-vbnet">Function GetBackupFilename(originalFile As String) As String
-Dim baseName As String
-Dim extension As String
-Dim dotPos As Integer
-Dim dateStr As String
-
-dotPos = InStrRev(originalFile, &quot;.&quot;)
-If dotPos &gt; 0 Then
-baseName = Left$(originalFile, dotPos - 1)
-extension = Mid$(originalFile, dotPos)
-Else
-baseName = originalFile
-extension = &quot;&quot;
-End If
-
-&#x27; Clean date string for filename
-dateStr = Replace$(Date$, &quot;/&quot;, &quot;-&quot;)
-
-GetBackupFilename = baseName &amp; &quot;_backup_&quot; &amp; dateStr &amp; extension
+    Dim baseName As String
+    Dim extension As String
+    Dim dotPos As Integer
+    Dim dateStr As String
+    dotPos = InStrRev(originalFile, &quot;.&quot;)
+    If dotPos &gt; 0 Then
+        baseName = Left$(originalFile, dotPos - 1)
+        extension = Mid$(originalFile, dotPos)
+    Else
+        baseName = originalFile
+        extension = &quot;&quot;
+    End If
+    &#x27; Clean date string for filename
+    dateStr = Replace$(Date$, &quot;/&quot;, &quot;-&quot;)
+    GetBackupFilename = baseName &amp; &quot;_backup_&quot; &amp; dateStr &amp; extension
 End Function</code></pre>
 <h3 id="daily-log-file">Daily Log File</h3>
 <pre><code class="language-vbnet">Function GetDailyLogFilename() As String
-Dim dateStr As String
-dateStr = Replace$(Date$, &quot;/&quot;, &quot;&quot;)
-GetDailyLogFilename = &quot;log_&quot; &amp; dateStr &amp; &quot;.txt&quot;
+    Dim dateStr As String
+    dateStr = Replace$(Date$, &quot;/&quot;, &quot;&quot;)
+    GetDailyLogFilename = &quot;log_&quot; &amp; dateStr &amp; &quot;.txt&quot;
 End Function</code></pre>
 <h3 id="date-validation-simple">Date Validation (Simple)</h3>
 <pre><code class="language-vbnet">Function IsToday(dateStr As String) As Boolean
-IsToday = (dateStr = Date$)
+    IsToday = (dateStr = Date$)
 End Function</code></pre>
 <h3 id="combining-date-and-time">Combining Date and Time</h3>
 <pre><code class="language-vbnet">Function GetDateTimeStamp() As String
-GetDateTimeStamp = Date$ &amp; &quot; &quot; &amp; Time$
+    GetDateTimeStamp = Date$ &amp; &quot; &quot; &amp; Time$
 End Function</code></pre>
 <h3 id="data-export-header">Data Export Header</h3>
 <pre><code class="language-vbnet">Sub ExportData()
-Dim exportFile As Integer
-
-exportFile = FreeFile
-Open &quot;export.csv&quot; For Output As #exportFile
-
-&#x27; Write header with date
-Print #exportFile, &quot;Data Export - &quot; &amp; Date$
-Print #exportFile, &quot;Name,Value,Status&quot;
-
-&#x27; Export data...
-
-Close #exportFile
+    Dim exportFile As Integer
+    exportFile = FreeFile
+    Open &quot;export.csv&quot; For Output As #exportFile
+    &#x27; Write header with date
+    Print #exportFile, &quot;Data Export - &quot; &amp; Date$
+    Print #exportFile, &quot;Name,Value,Status&quot;
+    &#x27; Export data...
+    Close #exportFile
 End Sub</code></pre>
 <h2 id="related-functions">Related Functions</h2>
 <ul>
@@ -250,30 +237,26 @@ End Sub</code></pre>
 </table>
 <h2 id="common-pitfalls">Common Pitfalls</h2>
 <ol>
-<li><strong>String Comparison</strong>: Comparing <code>Date$</code> strings directly is locale-dependent and unreliable</li>
+<li><strong>String Comparison</strong>: Comparing <code>Date$</code> strings directly is locale-dependent and unreliable
+   <code>vb
+   ' BAD - locale-dependent
+   If Date$ = "12/25/2025" Then
+   ' GOOD - use Date variants
+   If Date = #12/25/2025# Then</code></li>
+<li><strong>Date Parsing</strong>: Don't parse <code>Date$</code> manually - use <code>DateValue</code> instead
+   <code>vb
+   ' BAD - fragile parsing
+   parts = Split(Date$, "/")
+   ' GOOD - use built-in functions
+   currentYear = Year(Date)
+   currentMonth = Month(Date)</code></li>
+<li><strong>Filename Safety</strong>: Date strings may contain invalid filename characters
+   <code>vb
+   ' BAD - slashes invalid in filenames
+   filename = "report_" &amp; Date$ &amp; ".txt"
+   ' GOOD - replace invalid characters
+   filename = "report_" &amp; Replace$(Date$, "/", "-") &amp; ".txt"</code></li>
 </ol>
-<pre><code class="language-vbnet">&#x27; BAD - locale-dependent
-If Date$ = &quot;12/25/2025&quot; Then
-
-&#x27; GOOD - use Date variants
-If Date = #12/25/2025# Then</code></pre>
-<ol>
-<li><strong>Date Parsing</strong>: Don't parse <code>Date$</code> manually - use <code>DateValue</code> instead</li>
-</ol>
-<pre><code class="language-vbnet">&#x27; BAD - fragile parsing
-parts = Split(Date$, &quot;/&quot;)
-
-&#x27; GOOD - use built-in functions
-currentYear = Year(Date)
-currentMonth = Month(Date)</code></pre>
-<ol>
-<li><strong>Filename Safety</strong>: Date strings may contain invalid filename characters</li>
-</ol>
-<pre><code class="language-vbnet">&#x27; BAD - slashes invalid in filenames
-filename = &quot;report_&quot; &amp; Date$ &amp; &quot;.txt&quot;
-
-&#x27; GOOD - replace invalid characters
-filename = &quot;report_&quot; &amp; Replace$(Date$, &quot;/&quot;, &quot;-&quot;) &amp; &quot;.txt&quot;</code></pre>
 <h2 id="limitations">Limitations</h2>
 <ul>
 <li>Cannot be used to set the system date (use <code>Date</code> statement for that)</li>

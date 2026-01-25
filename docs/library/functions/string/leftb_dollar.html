@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="leftb-function"><code>LeftB$</code> Function</h1>
+            <h1 id="leftb-function">LeftB$ Function</h1>
 <p>Returns a <code>String</code> containing a specified number of bytes from the left side of a string.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">LeftB$(string, length)</code></pre>
@@ -49,15 +49,15 @@
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>String</code> containing the leftmost <code>length</code> bytes from <code>string</code>. If <code>length</code> is 0, returns an empty string. If <code>length</code> is greater than or equal to the byte length of <code>string</code>, returns the entire string.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>LeftB$</code> function is used with byte data contained in a string. Instead of specifying the number of characters to return, <code>length</code> specifies the number of bytes.</p>
-<p>This function is particularly useful when working with:
+<p>The <code>LeftB$</code> function is used with byte data contained in a string. Instead of specifying the number of characters to return, <code>length</code> specifies the number of bytes.
+This function is particularly useful when working with:
 - Binary data stored in strings
 - ANSI strings where you need byte-level control
 - Double-byte character set (DBCS) strings
 - Legacy file formats that use byte-oriented data
-- Network protocols that specify byte lengths</p>
-<p><code>LeftB$</code> is the byte-oriented version of <code>Left$</code>. While <code>Left$</code> counts characters, <code>LeftB$</code> counts bytes. In single-byte character sets (like standard ASCII), these are equivalent, but in DBCS systems (like Japanese, Chinese, or Korean Windows), characters may occupy multiple bytes.</p>
-<p>The <code>LeftB$</code> function always returns a <code>String</code>. The <code>LeftB</code> function returns a <code>Variant</code>.</p>
+- Network protocols that specify byte lengths
+<code>LeftB$</code> is the byte-oriented version of <code>Left$</code>. While <code>Left$</code> counts characters, <code>LeftB$</code> counts bytes. In single-byte character sets (like standard ASCII), these are equivalent, but in DBCS systems (like Japanese, Chinese, or Korean Windows), characters may occupy multiple bytes.
+The <code>LeftB$</code> function always returns a <code>String</code>. The <code>LeftB</code> function returns a <code>Variant</code>.</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <h3 id="example-1-extracting-binary-header">Example 1: Extracting Binary Header</h3>
 <pre><code class="language-vbnet">Dim data As String
@@ -83,7 +83,7 @@ fileData = Input$(LOF(1), #1)
 Close #1
 signature = LeftB$(fileData, 4)
 If signature = &quot;MZ&quot; &amp; Chr$(0) &amp; Chr$(0) Then
-Debug.Print &quot;Executable file&quot;
+    Debug.Print &quot;Executable file&quot;
 End If</code></pre>
 <h3 id="reading-binary-structure">Reading Binary Structure</h3>
 <pre><code class="language-vbnet">Dim buffer As String
@@ -95,7 +95,7 @@ netData = Socket.Receive()
 header = LeftB$(netData, 16)  &#x27; 16-byte protocol header</code></pre>
 <h3 id="validating-byte-prefix">Validating Byte Prefix</h3>
 <pre><code class="language-vbnet">If LeftB$(data, 3) = Chr$(0xFF) &amp; Chr$(0xFE) &amp; Chr$(0xFD) Then
-Debug.Print &quot;Valid magic bytes&quot;
+    Debug.Print &quot;Valid magic bytes&quot;
 End If</code></pre>
 <h3 id="extracting-bmp-header">Extracting BMP Header</h3>
 <pre><code class="language-vbnet">Dim bmpData As String
@@ -108,18 +108,18 @@ fileType = LeftB$(bmpData, 2)  &#x27; &quot;BM&quot; for BMP files</code></pre>
 message = buffer
 lenBytes = LeftB$(message, 4)
 msgLen = CLng(AscB(MidB$(lenBytes, 1, 1))) + _
-CLng(AscB(MidB$(lenBytes, 2, 1))) * 256</code></pre>
+         CLng(AscB(MidB$(lenBytes, 2, 1))) * 256</code></pre>
 <h3 id="processing-dbcs-carefully">Processing DBCS Carefully</h3>
 <pre><code class="language-vbnet">Dim text As String
 text = dbcsString
 &#x27; Be careful not to split DBCS characters
 If LenB(text) &gt; 10 Then
-truncated = LeftB$(text, 10)
+    truncated = LeftB$(text, 10)
 End If</code></pre>
 <h3 id="comparing-byte-sequences">Comparing Byte Sequences</h3>
 <pre><code class="language-vbnet">Dim data1 As String, data2 As String
 If LeftB$(data1, 8) = LeftB$(data2, 8) Then
-Debug.Print &quot;Headers match&quot;
+    Debug.Print &quot;Headers match&quot;
 End If</code></pre>
 <h3 id="extracting-guid-bytes">Extracting GUID Bytes</h3>
 <pre><code class="language-vbnet">Dim guidStr As String
@@ -131,10 +131,10 @@ data2 = MidB$(guidStr, 5, 2) &#x27; First WORD</code></pre>
 Dim offset As Long
 offset = 1
 Do While offset &lt;= LenB(binaryData)
-chunk = MidB$(binaryData, offset, 512)
-If LenB(chunk) = 0 Then Exit Do
-processChunk LeftB$(chunk, 512)
-offset = offset + 512
+    chunk = MidB$(binaryData, offset, 512)
+    If LenB(chunk) = 0 Then Exit Do
+    processChunk LeftB$(chunk, 512)
+    offset = offset + 512
 Loop</code></pre>
 <h2 id="related-functions">Related Functions</h2>
 <ul>

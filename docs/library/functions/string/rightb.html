@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="rightb-function"><code>RightB</code> Function</h1>
+            <h1 id="rightb-function">RightB Function</h1>
 <p>Returns a Variant (String) containing a specified number of bytes from the right side of a string.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">RightB(string, length)</code></pre>
@@ -58,24 +58,22 @@
 - Returns Null if string argument is Null
 - Returns Variant type (<code>RightB$</code> variant returns String type directly)</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>RightB</code> function extracts bytes from the end of a string:</p>
-<ul>
-<li>Returns rightmost bytes up to specified length</li>
-<li>Operates on byte level, not character level</li>
-<li>Particularly useful with double-byte character sets (DBCS)</li>
-<li>Complements <code>LeftB</code> function (which returns leftmost bytes)</li>
-<li>Works with <code>MidB</code> function for complete byte-level substring extraction</li>
-<li>Extraction from end: RightB("ABC", 2) returns last 2 bytes</li>
-<li>Safe with lengths exceeding string byte length (returns full string)</li>
-<li>Null propagates through the function</li>
-<li>Negative length raises Error 5 (Invalid procedure call or argument)</li>
-<li>Common for extracting binary data suffixes, checksums, trailers</li>
-<li>More efficient than <code>MidB</code> for right extraction</li>
-<li><code>RightB$</code> variant returns String type (not Variant) for slight performance gain</li>
-<li>Cannot extract from left side (use <code>LeftB</code> for that)</li>
-<li>Cannot skip bytes (use <code>MidB</code> for that)</li>
-<li>Does not modify original string (strings are immutable)</li>
-</ul>
+<p>The <code>RightB</code> function extracts bytes from the end of a string:
+- Returns rightmost bytes up to specified length
+- Operates on byte level, not character level
+- Particularly useful with double-byte character sets (DBCS)
+- Complements <code>LeftB</code> function (which returns leftmost bytes)
+- Works with <code>MidB</code> function for complete byte-level substring extraction
+- Extraction from end: RightB("ABC", 2) returns last 2 bytes
+- Safe with lengths exceeding string byte length (returns full string)
+- Null propagates through the function
+- Negative length raises Error 5 (Invalid procedure call or argument)
+- Common for extracting binary data suffixes, checksums, trailers
+- More efficient than <code>MidB</code> for right extraction
+- <code>RightB$</code> variant returns String type (not Variant) for slight performance gain
+- Cannot extract from left side (use <code>LeftB</code> for that)
+- Cannot skip bytes (use <code>MidB</code> for that)
+- Does not modify original string (strings are immutable)</p>
 <h2 id="differences-from-right-function">Differences from <code>Right</code> Function</h2>
 <ul>
 <li><code>Right</code> operates on characters, <code>RightB</code> operates on bytes</li>
@@ -99,103 +97,84 @@
 <pre><code class="language-vbnet">&#x27; Example 1: Basic byte extraction
 Dim data As String
 data = Chr$(65) &amp; Chr$(66) &amp; Chr$(67)  &#x27; &quot;ABC&quot;
-
 Debug.Print RightB(data, 2)            &#x27; Last 2 bytes
 Debug.Print RightB(data, 1)            &#x27; Last byte
-
 &#x27; Example 2: Checksum extraction
 Dim packet As String
 packet = ReceiveNetworkData()
-
 Dim checksum As String
 checksum = RightB(packet, 4)  &#x27; 4-byte checksum at end
-
 &#x27; Example 3: File trailer
 Dim fileData As String
 Open &quot;data.bin&quot; For Binary As #1
 fileData = Input$(LOF(1), #1)
 Close #1
-
 Dim trailer As String
 trailer = RightB(fileData, 16)  &#x27; 16-byte trailer
-
 &#x27; Example 4: DBCS text handling
 Dim japaneseText As String
 japaneseText = LoadJapaneseText()  &#x27; Load Japanese text
-
 Dim lastBytes As String
 lastBytes = RightB(japaneseText, 4)  &#x27; Last 4 bytes (may be 2 DBCS chars)</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Extract checksum
 Function GetChecksum(data As String) As String
-If LenB(data) &lt; 4 Then
-GetChecksum = &quot;&quot;
-Else
-GetChecksum = RightB(data, 4)
-End If
+    If LenB(data) &lt; 4 Then
+        GetChecksum = &quot;&quot;
+    Else
+        GetChecksum = RightB(data, 4)
+    End If
 End Function
-
 &#x27; Pattern 2: Validate trailer
 Function ValidateTrailer(data As String, trailer As String) As Boolean
-ValidateTrailer = (RightB(data, LenB(trailer)) = trailer)
+    ValidateTrailer = (RightB(data, LenB(trailer)) = trailer)
 End Function
-
 &#x27; Pattern 3: Extract record suffix
 Function GetRecordSuffix(record As String) As String
-&#x27; Last 8 bytes contain record suffix
-GetRecordSuffix = RightB(record, 8)
+    &#x27; Last 8 bytes contain record suffix
+    GetRecordSuffix = RightB(record, 8)
 End Function
-
 &#x27; Pattern 4: Parse packet trailer
 Sub ParsePacket(packet As String)
-Dim payload As String
-Dim trailer As String
-
-trailer = RightB(packet, 8)  &#x27; 8-byte trailer
-payload = LeftB(packet, LenB(packet) - 8)  &#x27; All but trailer
-
-&#x27; Process payload and trailer
+    Dim payload As String
+    Dim trailer As String
+    trailer = RightB(packet, 8)  &#x27; 8-byte trailer
+    payload = LeftB(packet, LenB(packet) - 8)  &#x27; All but trailer
+    &#x27; Process payload and trailer
 End Sub
-
 &#x27; Pattern 5: Extract file extension bytes
 Function GetExtensionBytes(fileName As String) As String
-&#x27; Assumes extension is last 3 bytes after dot
-GetExtensionBytes = RightB(fileName, 3)
+    &#x27; Assumes extension is last 3 bytes after dot
+    GetExtensionBytes = RightB(fileName, 3)
 End Function</code></pre>
 <h2 id="advanced-examples">Advanced Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example: CRC validation
 Function ValidateCRC(data As String) As Boolean
-Dim crc As String
-Dim payload As String
-
-If LenB(data) &lt; 4 Then
-ValidateCRC = False
-Exit Function
-End If
-
-crc = RightB(data, 4)
-payload = LeftB(data, LenB(data) - 4)
-
-ValidateCRC = (CalculateCRC(payload) = crc)
+    Dim crc As String
+    Dim payload As String
+    If LenB(data) &lt; 4 Then
+        ValidateCRC = False
+        Exit Function
+    End If
+    crc = RightB(data, 4)
+    payload = LeftB(data, LenB(data) - 4)
+    ValidateCRC = (CalculateCRC(payload) = crc)
 End Function
-
 &#x27; Example: Extract GUID data
 Sub ExtractGUID(guidData As String)
-Dim data4 As String
-data4 = RightB(guidData, 8)  &#x27; Last 8 bytes of GUID
-Debug.Print &quot;Data4: &quot; &amp; BytesToHex(data4)
+    Dim data4 As String
+    data4 = RightB(guidData, 8)  &#x27; Last 8 bytes of GUID
+    Debug.Print &quot;Data4: &quot; &amp; BytesToHex(data4)
 End Sub
-
 &#x27; Example: Binary record trailer
 Function GetRecordTrailer(record As String) As String
-&#x27; Records have 12-byte trailer
-Const TRAILER_SIZE As Long = 12
-
-If LenB(record) &gt;= TRAILER_SIZE Then
-GetRecordTrailer = RightB(record, TRAILER_SIZE)
-Else
-GetRecordTrailer = record
-End If
+    &#x27; Records have 12-byte trailer
+    Const TRAILER_SIZE As Long = 12
+    If LenB(record) &gt;= TRAILER_SIZE Then
+        GetRecordTrailer = RightB(record, TRAILER_SIZE)
+    Else
+        GetRecordTrailer = record
+    End If
 End Function</code></pre>
 <h2 id="see-also">See Also</h2>
 <ul>

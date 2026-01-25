@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="ismissing-function"><code>IsMissing</code> Function</h1>
+            <h1 id="ismissing-function">IsMissing Function</h1>
 <p>Returns a <code>Boolean</code> value indicating whether an optional <code>Variant</code> parameter was passed to a procedure.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">IsMissing(argname)</code></pre>
@@ -54,21 +54,19 @@
 - Does not work with <code>ParamArray</code> parameters
 - Returns <code>False</code> if <code>Null</code>, <code>Empty</code>, or any value was explicitly passed</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>IsMissing</code> function is used to detect whether an optional parameter was omitted:</p>
-<ul>
-<li>Only works with Optional <code>Variant</code> parameters</li>
-<li>Cannot be used with typed optional parameters (Integer, String, etc.)</li>
-<li>Returns <code>True</code> only when argument was completely omitted</li>
-<li>Returns <code>False</code> if any value was passed (including <code>Empty</code>, <code>Null</code>, 0, "")</li>
-<li>Useful for implementing functions with truly optional behavior</li>
-<li>Different from checking <code>IsEmpty</code> - <code>IsMissing</code> detects omission</li>
-<li><code>Empty</code> can be explicitly passed: <code>MyFunc Empty</code> - <code>IsMissing</code> returns <code>False</code></li>
-<li>Common in COM/ActiveX programming for optional parameters</li>
-<li>Allows distinguishing "not provided" from "provided as Empty/Null/0"</li>
-<li>Must be used directly on parameter name, not on expressions</li>
-<li>Parameter must be declared as Optional <code>Variant</code></li>
-<li>Cannot be used after assigning the parameter to another variable</li>
-</ul>
+<p>The <code>IsMissing</code> function is used to detect whether an optional parameter was omitted:
+- Only works with Optional <code>Variant</code> parameters
+- Cannot be used with typed optional parameters (Integer, String, etc.)
+- Returns <code>True</code> only when argument was completely omitted
+- Returns <code>False</code> if any value was passed (including <code>Empty</code>, <code>Null</code>, 0, "")
+- Useful for implementing functions with truly optional behavior
+- Different from checking <code>IsEmpty</code> - <code>IsMissing</code> detects omission
+- <code>Empty</code> can be explicitly passed: <code>MyFunc Empty</code> - <code>IsMissing</code> returns <code>False</code>
+- Common in COM/ActiveX programming for optional parameters
+- Allows distinguishing "not provided" from "provided as Empty/Null/0"
+- Must be used directly on parameter name, not on expressions
+- Parameter must be declared as Optional <code>Variant</code>
+- Cannot be used after assigning the parameter to another variable</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Optional Parameter Detection</strong>: Check if optional argument was provided</li>
@@ -83,79 +81,63 @@
 <h2 id="basic-usage-examples">Basic Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Simple optional parameter handling
 Function Greet(name As String, Optional title As Variant) As String
-Dim greeting As String
-
-If IsMissing(title) Then
-greeting = &quot;Hello, &quot; &amp; name
-Else
-greeting = &quot;Hello, &quot; &amp; title &amp; &quot; &quot; &amp; name
-End If
-
-Greet = greeting
+    Dim greeting As String
+    If IsMissing(title) Then
+        greeting = &quot;Hello, &quot; &amp; name
+    Else
+        greeting = &quot;Hello, &quot; &amp; title &amp; &quot; &quot; &amp; name
+    End If
+    Greet = greeting
 End Function
-
 &#x27; Usage
 Debug.Print Greet(&quot;Smith&quot;)              &#x27; &quot;Hello, Smith&quot;
 Debug.Print Greet(&quot;Smith&quot;, &quot;Dr.&quot;)       &#x27; &quot;Hello, Dr. Smith&quot;
 Debug.Print Greet(&quot;Smith&quot;, Empty)       &#x27; &quot;Hello,  Smith&quot; - Empty was passed!
-
 &#x27; Example 2: Multiple optional parameters
 Sub LogMessage(msg As String, Optional level As Variant, Optional timestamp As Variant)
-Dim output As String
-
-output = msg
-
-If Not IsMissing(level) Then
-output = &quot;[&quot; &amp; level &amp; &quot;] &quot; &amp; output
-End If
-
-If Not IsMissing(timestamp) Then
-output = Format$(timestamp, &quot;hh:nn:ss&quot;) &amp; &quot; &quot; &amp; output
-Else
-output = Format$(Now, &quot;hh:nn:ss&quot;) &amp; &quot; &quot; &amp; output
-End If
-
-Debug.Print output
+    Dim output As String
+    output = msg
+    If Not IsMissing(level) Then
+        output = &quot;[&quot; &amp; level &amp; &quot;] &quot; &amp; output
+    End If
+    If Not IsMissing(timestamp) Then
+        output = Format$(timestamp, &quot;hh:nn:ss&quot;) &amp; &quot; &quot; &amp; output
+    Else
+        output = Format$(Now, &quot;hh:nn:ss&quot;) &amp; &quot; &quot; &amp; output
+    End If
+    Debug.Print output
 End Sub
-
 &#x27; Usage
 LogMessage &quot;Application started&quot;                    &#x27; Uses current time, no level
 LogMessage &quot;Error occurred&quot;, &quot;ERROR&quot;                &#x27; Uses current time, ERROR level
 LogMessage &quot;Debug info&quot;, &quot;DEBUG&quot;, #1/1/2025 10:30#  &#x27; Uses specified time
-
 &#x27; Example 3: Distinguish missing from zero/empty
 Function Calculate(value As Double, Optional multiplier As Variant) As Double
-If IsMissing(multiplier) Then
-&#x27; No multiplier provided - return original value
-Calculate = value
-ElseIf multiplier = 0 Then
-&#x27; Multiplier is explicitly 0 - return 0
-Calculate = 0
-Else
-&#x27; Multiplier provided and non-zero
-Calculate = value * multiplier
-End If
+    If IsMissing(multiplier) Then
+        &#x27; No multiplier provided - return original value
+        Calculate = value
+    ElseIf multiplier = 0 Then
+        &#x27; Multiplier is explicitly 0 - return 0
+        Calculate = 0
+    Else
+        &#x27; Multiplier provided and non-zero
+        Calculate = value * multiplier
+    End If
 End Function
-
 Debug.Print Calculate(10)           &#x27; 10 - multiplier missing
 Debug.Print Calculate(10, 2)        &#x27; 20 - multiplier is 2
 Debug.Print Calculate(10, 0)        &#x27; 0 - multiplier is explicitly 0
-
 &#x27; Example 4: Database query with optional filter
 Function GetRecords(table As String, Optional whereClause As Variant) As Recordset
-Dim sql As String
-
-sql = &quot;SELECT * FROM &quot; &amp; table
-
-If Not IsMissing(whereClause) Then
-If whereClause &lt;&gt; &quot;&quot; Then
-sql = sql &amp; &quot; WHERE &quot; &amp; whereClause
-End If
-End If
-
-Set GetRecords = db.OpenRecordset(sql)
+    Dim sql As String
+    sql = &quot;SELECT * FROM &quot; &amp; table
+    If Not IsMissing(whereClause) Then
+        If whereClause &lt;&gt; &quot;&quot; Then
+            sql = sql &amp; &quot; WHERE &quot; &amp; whereClause
+        End If
+    End If
+    Set GetRecords = db.OpenRecordset(sql)
 End Function
-
 &#x27; Usage
 Set rs = GetRecords(&quot;Customers&quot;)                    &#x27; All records
 Set rs = GetRecords(&quot;Customers&quot;, &quot;State = &#x27;CA&#x27;&quot;)    &#x27; Filtered records
@@ -163,358 +145,300 @@ Set rs = GetRecords(&quot;Customers&quot;, &quot;&quot;)                &#x27; A
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Optional parameter with computed default
 Function ProcessData(data As String, Optional maxLength As Variant) As String
-Dim limit As Long
-
-If IsMissing(maxLength) Then
-limit = Len(data)  &#x27; Use full length when not specified
-Else
-limit = maxLength
-End If
-
-ProcessData = Left$(data, limit)
+    Dim limit As Long
+    If IsMissing(maxLength) Then
+        limit = Len(data)  &#x27; Use full length when not specified
+    Else
+        limit = maxLength
+    End If
+    ProcessData = Left$(data, limit)
 End Function
-
 &#x27; Pattern 2: Cascading optional parameters
 Sub SaveFile(filename As String, Optional path As Variant, Optional createBackup As Variant)
-Dim fullPath As String
-Dim backup As Boolean
-
-If IsMissing(path) Then
-fullPath = App.Path &amp; &quot;\&quot; &amp; filename
-Else
-fullPath = path &amp; &quot;\&quot; &amp; filename
-End If
-
-If IsMissing(createBackup) Then
-backup = False  &#x27; Default to no backup
-Else
-backup = createBackup
-End If
-
-&#x27; Save file logic...
+    Dim fullPath As String
+    Dim backup As Boolean
+    If IsMissing(path) Then
+        fullPath = App.Path &amp; &quot;\&quot; &amp; filename
+    Else
+        fullPath = path &amp; &quot;\&quot; &amp; filename
+    End If
+    If IsMissing(createBackup) Then
+        backup = False  &#x27; Default to no backup
+    Else
+        backup = createBackup
+    End If
+    &#x27; Save file logic...
 End Sub
-
 &#x27; Pattern 3: Count provided optional parameters
 Function CountProvided(Optional arg1 As Variant, Optional arg2 As Variant, _
-Optional arg3 As Variant) As Integer
-Dim count As Integer
-
-count = 0
-If Not IsMissing(arg1) Then count = count + 1
-If Not IsMissing(arg2) Then count = count + 1
-If Not IsMissing(arg3) Then count = count + 1
-
-CountProvided = count
+                       Optional arg3 As Variant) As Integer
+    Dim count As Integer
+    count = 0
+    If Not IsMissing(arg1) Then count = count + 1
+    If Not IsMissing(arg2) Then count = count + 1
+    If Not IsMissing(arg3) Then count = count + 1
+    CountProvided = count
 End Function
-
 &#x27; Pattern 4: Optional override parameter
 Function GetSetting(key As String, Optional overrideValue As Variant) As Variant
-If IsMissing(overrideValue) Then
-&#x27; Load from registry or config file
-GetSetting = LoadFromConfig(key)
-Else
-&#x27; Use provided override
-GetSetting = overrideValue
-End If
+    If IsMissing(overrideValue) Then
+        &#x27; Load from registry or config file
+        GetSetting = LoadFromConfig(key)
+    Else
+        &#x27; Use provided override
+        GetSetting = overrideValue
+    End If
 End Function
-
 &#x27; Pattern 5: Optional parameter affects behavior
 Sub PrintReport(data As Variant, Optional includeHeader As Variant)
-If Not IsMissing(includeHeader) Then
-If includeHeader Then
-PrintHeader
-End If
-Else
-&#x27; Default: always include header when not specified
-PrintHeader
-End If
-
-PrintData data
+    If Not IsMissing(includeHeader) Then
+        If includeHeader Then
+            PrintHeader
+        End If
+    Else
+        &#x27; Default: always include header when not specified
+        PrintHeader
+    End If
+    PrintData data
 End Sub
-
 &#x27; Pattern 6: Validation with optional strict mode
 Function ValidateEmail(email As String, Optional strictMode As Variant) As Boolean
-Dim strict As Boolean
-
-If IsMissing(strictMode) Then
-strict = False  &#x27; Default to lenient validation
-Else
-strict = strictMode
-End If
-
-If strict Then
-ValidateEmail = ValidateEmailStrict(email)
-Else
-ValidateEmail = ValidateEmailBasic(email)
-End If
+    Dim strict As Boolean
+    If IsMissing(strictMode) Then
+        strict = False  &#x27; Default to lenient validation
+    Else
+        strict = strictMode
+    End If
+    If strict Then
+        ValidateEmail = ValidateEmailStrict(email)
+    Else
+        ValidateEmail = ValidateEmailBasic(email)
+    End If
 End Function
-
 &#x27; Pattern 7: Optional range parameters
 Function GetSubstring(text As String, Optional startPos As Variant, _
-Optional length As Variant) As String
-Dim start As Long
-Dim len As Long
-
-If IsMissing(startPos) Then
-start = 1
-Else
-start = startPos
-End If
-
-If IsMissing(length) Then
-len = Len(text) - start + 1
-Else
-len = length
-End If
-
-GetSubstring = Mid$(text, start, len)
+                      Optional length As Variant) As String
+    Dim start As Long
+    Dim len As Long
+    If IsMissing(startPos) Then
+        start = 1
+    Else
+        start = startPos
+    End If
+    If IsMissing(length) Then
+        len = Len(text) - start + 1
+    Else
+        len = length
+    End If
+    GetSubstring = Mid$(text, start, len)
 End Function
-
 &#x27; Pattern 8: Build parameter list dynamically
 Function BuildCommand(command As String, Optional arg1 As Variant, _
-Optional arg2 As Variant) As String
-Dim cmd As String
-
-cmd = command
-
-If Not IsMissing(arg1) Then
-cmd = cmd &amp; &quot; &quot; &amp; arg1
-End If
-
-If Not IsMissing(arg2) Then
-cmd = cmd &amp; &quot; &quot; &amp; arg2
-End If
-
-BuildCommand = cmd
+                      Optional arg2 As Variant) As String
+    Dim cmd As String
+    cmd = command
+    If Not IsMissing(arg1) Then
+        cmd = cmd &amp; &quot; &quot; &amp; arg1
+    End If
+    If Not IsMissing(arg2) Then
+        cmd = cmd &amp; &quot; &quot; &amp; arg2
+    End If
+    BuildCommand = cmd
 End Function
-
 &#x27; Pattern 9: Optional error handler callback
 Function ProcessRecords(records As Variant, Optional errorHandler As Variant) As Long
-Dim count As Long
-Dim i As Long
-
-count = 0
-For i = LBound(records) To UBound(records)
-On Error Resume Next
-ProcessRecord records(i)
-
-If Err.Number &lt;&gt; 0 Then
-If Not IsMissing(errorHandler) Then
-&#x27; Call custom error handler if provided
-Application.Run errorHandler, records(i), Err.Number
-End If
-Err.Clear
-Else
-count = count + 1
-End If
-On Error GoTo 0
-Next i
-
-ProcessRecords = count
+    Dim count As Long
+    Dim i As Long
+    count = 0
+    For i = LBound(records) To UBound(records)
+        On Error Resume Next
+        ProcessRecord records(i)
+        If Err.Number &lt;&gt; 0 Then
+            If Not IsMissing(errorHandler) Then
+                &#x27; Call custom error handler if provided
+                Application.Run errorHandler, records(i), Err.Number
+            End If
+            Err.Clear
+        Else
+            count = count + 1
+        End If
+        On Error GoTo 0
+    Next i
+    ProcessRecords = count
 End Function
-
 &#x27; Pattern 10: Optional configuration object
 Sub Initialize(Optional config As Variant)
-If IsMissing(config) Then
-&#x27; Use default configuration
-LoadDefaultConfig
-Else
-&#x27; Apply provided configuration
-ApplyConfig config
-End If
+    If IsMissing(config) Then
+        &#x27; Use default configuration
+        LoadDefaultConfig
+    Else
+        &#x27; Apply provided configuration
+        ApplyConfig config
+    End If
 End Sub</code></pre>
 <h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Flexible query builder
 Public Class QueryBuilder
-Private m_sql As String
-
-Public Sub SelectFrom(table As String, Optional fields As Variant, _
-Optional whereClause As Variant, _
-Optional orderBy As Variant)
-If IsMissing(fields) Then
-m_sql = &quot;SELECT * FROM &quot; &amp; table
-Else
-m_sql = &quot;SELECT &quot; &amp; fields &amp; &quot; FROM &quot; &amp; table
-End If
-
-If Not IsMissing(whereClause) Then
-If whereClause &lt;&gt; &quot;&quot; Then
-m_sql = m_sql &amp; &quot; WHERE &quot; &amp; whereClause
-End If
-End If
-
-If Not IsMissing(orderBy) Then
-If orderBy &lt;&gt; &quot;&quot; Then
-m_sql = m_sql &amp; &quot; ORDER BY &quot; &amp; orderBy
-End If
-End If
-End Sub
-
-Public Function GetSQL() As String
-GetSQL = m_sql
-End Function
+    Private m_sql As String
+    Public Sub SelectFrom(table As String, Optional fields As Variant, _
+                         Optional whereClause As Variant, _
+                         Optional orderBy As Variant)
+        If IsMissing(fields) Then
+            m_sql = &quot;SELECT * FROM &quot; &amp; table
+        Else
+            m_sql = &quot;SELECT &quot; &amp; fields &amp; &quot; FROM &quot; &amp; table
+        End If
+        If Not IsMissing(whereClause) Then
+            If whereClause &lt;&gt; &quot;&quot; Then
+                m_sql = m_sql &amp; &quot; WHERE &quot; &amp; whereClause
+            End If
+        End If
+        If Not IsMissing(orderBy) Then
+            If orderBy &lt;&gt; &quot;&quot; Then
+                m_sql = m_sql &amp; &quot; ORDER BY &quot; &amp; orderBy
+            End If
+        End If
+    End Sub
+    Public Function GetSQL() As String
+        GetSQL = m_sql
+    End Function
 End Class
-
 &#x27; Usage:
 Dim qb As New QueryBuilder
 qb.SelectFrom &quot;Customers&quot;                           &#x27; SELECT * FROM Customers
 qb.SelectFrom &quot;Customers&quot;, &quot;Name, Email&quot;            &#x27; SELECT Name, Email FROM Customers
 qb.SelectFrom &quot;Customers&quot;, , &quot;State = &#x27;CA&#x27;&quot;         &#x27; SELECT * FROM Customers WHERE State = &#x27;CA&#x27;
 qb.SelectFrom &quot;Customers&quot;, &quot;Name&quot;, &quot;Active = 1&quot;, &quot;Name&quot;  &#x27; Full query
-
 &#x27; Example 2: Logger with flexible output
 Public Class Logger
-Private m_logFile As String
-
-Public Sub Initialize(Optional filename As Variant)
-If IsMissing(filename) Then
-m_logFile = App.Path &amp; &quot;\app.log&quot;
-Else
-m_logFile = filename
-End If
-End Sub
-
-Public Sub Log(message As String, Optional level As Variant, _
-Optional timestamp As Variant, Optional writeToFile As Variant)
-Dim output As String
-Dim logLevel As String
-Dim useTimestamp As Date
-Dim toFile As Boolean
-
-&#x27; Determine log level
-If IsMissing(level) Then
-logLevel = &quot;INFO&quot;
-Else
-logLevel = level
-End If
-
-&#x27; Determine timestamp
-If IsMissing(timestamp) Then
-useTimestamp = Now
-Else
-useTimestamp = timestamp
-End If
-
-&#x27; Determine output destination
-If IsMissing(writeToFile) Then
-toFile = True  &#x27; Default to file
-Else
-toFile = writeToFile
-End If
-
-&#x27; Build output
-output = Format$(useTimestamp, &quot;yyyy-mm-dd hh:nn:ss&quot;) &amp; &quot; [&quot; &amp; _
-logLevel &amp; &quot;] &quot; &amp; message
-
-&#x27; Write output
-Debug.Print output
-If toFile Then
-WriteToLogFile output
-End If
-End Sub
-
-Private Sub WriteToLogFile(text As String)
-Dim fileNum As Integer
-fileNum = FreeFile
-Open m_logFile For Append As fileNum
-Print #fileNum, text
-Close fileNum
-End Sub
+    Private m_logFile As String
+    Public Sub Initialize(Optional filename As Variant)
+        If IsMissing(filename) Then
+            m_logFile = App.Path &amp; &quot;\app.log&quot;
+        Else
+            m_logFile = filename
+        End If
+    End Sub
+    Public Sub Log(message As String, Optional level As Variant, _
+                   Optional timestamp As Variant, Optional writeToFile As Variant)
+        Dim output As String
+        Dim logLevel As String
+        Dim useTimestamp As Date
+        Dim toFile As Boolean
+        &#x27; Determine log level
+        If IsMissing(level) Then
+            logLevel = &quot;INFO&quot;
+        Else
+            logLevel = level
+        End If
+        &#x27; Determine timestamp
+        If IsMissing(timestamp) Then
+            useTimestamp = Now
+        Else
+            useTimestamp = timestamp
+        End If
+        &#x27; Determine output destination
+        If IsMissing(writeToFile) Then
+            toFile = True  &#x27; Default to file
+        Else
+            toFile = writeToFile
+        End If
+        &#x27; Build output
+        output = Format$(useTimestamp, &quot;yyyy-mm-dd hh:nn:ss&quot;) &amp; &quot; [&quot; &amp; _
+                 logLevel &amp; &quot;] &quot; &amp; message
+        &#x27; Write output
+        Debug.Print output
+        If toFile Then
+            WriteToLogFile output
+        End If
+    End Sub
+    Private Sub WriteToLogFile(text As String)
+        Dim fileNum As Integer
+        fileNum = FreeFile
+        Open m_logFile For Append As fileNum
+        Print #fileNum, text
+        Close fileNum
+    End Sub
 End Class
-
 &#x27; Example 3: HTTP request builder
 Public Class HttpRequest
-Public Function Get(url As String, Optional headers As Variant, _
-Optional timeout As Variant) As String
-Dim http As Object
-Set http = CreateObject(&quot;MSXML2.XMLHTTP&quot;)
-
-&#x27; Set timeout if provided
-If Not IsMissing(timeout) Then
-http.SetTimeouts timeout, timeout, timeout, timeout
-End If
-
-http.Open &quot;GET&quot;, url, False
-
-&#x27; Add custom headers if provided
-If Not IsMissing(headers) Then
-Dim headerList As Variant
-Dim i As Long
-
-If IsArray(headers) Then
-For i = LBound(headers) To UBound(headers)
-http.setRequestHeader Split(headers(i), &quot;:&quot;)(0), _
-Trim$(Split(headers(i), &quot;:&quot;)(1))
-Next i
-End If
-End If
-
-http.send
-Get = http.responseText
-End Function
+    Public Function Get(url As String, Optional headers As Variant, _
+                       Optional timeout As Variant) As String
+        Dim http As Object
+        Set http = CreateObject(&quot;MSXML2.XMLHTTP&quot;)
+        &#x27; Set timeout if provided
+        If Not IsMissing(timeout) Then
+            http.SetTimeouts timeout, timeout, timeout, timeout
+        End If
+        http.Open &quot;GET&quot;, url, False
+        &#x27; Add custom headers if provided
+        If Not IsMissing(headers) Then
+            Dim headerList As Variant
+            Dim i As Long
+            If IsArray(headers) Then
+                For i = LBound(headers) To UBound(headers)
+                    http.setRequestHeader Split(headers(i), &quot;:&quot;)(0), _
+                                         Trim$(Split(headers(i), &quot;:&quot;)(1))
+                Next i
+            End If
+        End If
+        http.send
+        Get = http.responseText
+    End Function
 End Class
-
 &#x27; Example 4: Validation framework
 Public Class Validator
-Public Function Validate(value As Variant, Optional minValue As Variant, _
-Optional maxValue As Variant, _
-Optional pattern As Variant) As Boolean
-Dim isValid As Boolean
-isValid = True
-
-&#x27; Check minimum value
-If Not IsMissing(minValue) Then
-If value &lt; minValue Then
-isValid = False
-Exit Function
-End If
-End If
-
-&#x27; Check maximum value
-If Not IsMissing(maxValue) Then
-If value &gt; maxValue Then
-isValid = False
-Exit Function
-End If
-End If
-
-&#x27; Check pattern (if string)
-If Not IsMissing(pattern) Then
-If VarType(value) = vbString Then
-isValid = MatchesPattern(CStr(value), CStr(pattern))
-End If
-End If
-
-Validate = isValid
-End Function
-
-Private Function MatchesPattern(text As String, pattern As String) As Boolean
-&#x27; Simple pattern matching implementation
-MatchesPattern = (text Like pattern)
-End Function
+    Public Function Validate(value As Variant, Optional minValue As Variant, _
+                            Optional maxValue As Variant, _
+                            Optional pattern As Variant) As Boolean
+        Dim isValid As Boolean
+        isValid = True
+        &#x27; Check minimum value
+        If Not IsMissing(minValue) Then
+            If value &lt; minValue Then
+                isValid = False
+                Exit Function
+            End If
+        End If
+        &#x27; Check maximum value
+        If Not IsMissing(maxValue) Then
+            If value &gt; maxValue Then
+                isValid = False
+                Exit Function
+            End If
+        End If
+        &#x27; Check pattern (if string)
+        If Not IsMissing(pattern) Then
+            If VarType(value) = vbString Then
+                isValid = MatchesPattern(CStr(value), CStr(pattern))
+            End If
+        End If
+        Validate = isValid
+    End Function
+    Private Function MatchesPattern(text As String, pattern As String) As Boolean
+        &#x27; Simple pattern matching implementation
+        MatchesPattern = (text Like pattern)
+    End Function
 End Class</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <p><code>IsMissing</code> itself does not raise errors, but improper usage can:</p>
 <pre><code class="language-vbnet">&#x27; ERROR: Cannot use with non-Variant optional parameters
 Function BadExample(Optional value As Integer) As Boolean
-BadExample = IsMissing(value)  &#x27; Compile error!
+    BadExample = IsMissing(value)  &#x27; Compile error!
 End Function
-
 &#x27; CORRECT: Must use Optional Variant
 Function GoodExample(Optional value As Variant) As Boolean
-GoodExample = IsMissing(value)  &#x27; Works correctly
+    GoodExample = IsMissing(value)  &#x27; Works correctly
 End Function
-
 &#x27; ERROR: Cannot use after assignment
 Function BadExample2(Optional value As Variant) As Boolean
-Dim temp As Variant
-temp = value
-BadExample2 = IsMissing(temp)  &#x27; Always False! Use value directly.
+    Dim temp As Variant
+    temp = value
+    BadExample2 = IsMissing(temp)  &#x27; Always False! Use value directly.
 End Function
-
 &#x27; CORRECT: Use parameter directly
 Function GoodExample2(Optional value As Variant) As Boolean
-GoodExample2 = IsMissing(value)  &#x27; Works correctly
+    GoodExample2 = IsMissing(value)  &#x27; Works correctly
 End Function</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
@@ -585,25 +509,22 @@ End Function</code></pre>
 </table>
 <h2 id="ismissing-vs-isempty"><code>IsMissing</code> vs <code>IsEmpty</code></h2>
 <pre><code class="language-vbnet">Sub Test(Optional param As Variant)
-&#x27; Case 1: Parameter not provided
-&#x27; Call: Test
-Debug.Print IsMissing(param)  &#x27; True - was not provided
-Debug.Print IsEmpty(param)    &#x27; True - is Empty
-
-&#x27; Case 2: Explicit Empty passed
-&#x27; Call: Test Empty
-Debug.Print IsMissing(param)  &#x27; False - was provided (even though Empty)
-Debug.Print IsEmpty(param)    &#x27; True - is Empty
-
-&#x27; Case 3: Null passed
-&#x27; Call: Test Null
-Debug.Print IsMissing(param)  &#x27; False - was provided
-Debug.Print IsEmpty(param)    &#x27; False - is Null, not Empty
-
-&#x27; Case 4: Zero passed
-&#x27; Call: Test 0
-Debug.Print IsMissing(param)  &#x27; False - was provided
-Debug.Print IsEmpty(param)    &#x27; False - has value (0)
+    &#x27; Case 1: Parameter not provided
+    &#x27; Call: Test
+    Debug.Print IsMissing(param)  &#x27; True - was not provided
+    Debug.Print IsEmpty(param)    &#x27; True - is Empty
+    &#x27; Case 2: Explicit Empty passed
+    &#x27; Call: Test Empty
+    Debug.Print IsMissing(param)  &#x27; False - was provided (even though Empty)
+    Debug.Print IsEmpty(param)    &#x27; True - is Empty
+    &#x27; Case 3: Null passed
+    &#x27; Call: Test Null
+    Debug.Print IsMissing(param)  &#x27; False - was provided
+    Debug.Print IsEmpty(param)    &#x27; False - is Null, not Empty
+    &#x27; Case 4: Zero passed
+    &#x27; Call: Test 0
+    Debug.Print IsMissing(param)  &#x27; False - was provided
+    Debug.Print IsEmpty(param)    &#x27; False - has value (0)
 End Sub</code></pre>
 <h2 id="platform-and-version-notes">Platform and Version Notes</h2>
 <ul>

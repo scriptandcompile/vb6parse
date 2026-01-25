@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="setattr-statement"><code>SetAttr</code> Statement</h1>
+            <h1 id="setattr-statement">SetAttr Statement</h1>
 <p>Sets attribute information for a file.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">SetAttr pathname, attributes</code></pre>
@@ -110,36 +110,33 @@ SetAttr &quot;C:\Config.ini&quot;, vbReadOnly + vbHidden</code></pre>
 <h3 id="using-variables">Using Variables</h3>
 <pre><code class="language-vbnet">Dim fileName As String
 Dim attrs As Integer
-
 fileName = &quot;C:\Data\MyFile.txt&quot;
 attrs = vbReadOnly + vbArchive
 SetAttr fileName, attrs</code></pre>
 <h3 id="toggle-read-only-attribute">Toggle Read-Only Attribute</h3>
 <pre><code class="language-vbnet">Dim currentAttrs As Integer
 Dim filePath As String
-
 filePath = &quot;C:\MyFile.txt&quot;
 currentAttrs = GetAttr(filePath)
-
 If currentAttrs And vbReadOnly Then
-&#x27; Remove read-only
-SetAttr filePath, currentAttrs And Not vbReadOnly
+    &#x27; Remove read-only
+    SetAttr filePath, currentAttrs And Not vbReadOnly
 Else
-&#x27; Add read-only
-SetAttr filePath, currentAttrs Or vbReadOnly
+    &#x27; Add read-only
+    SetAttr filePath, currentAttrs Or vbReadOnly
 End If</code></pre>
 <h3 id="set-system-file">Set System File</h3>
 <pre><code class="language-vbnet">SetAttr &quot;C:\Windows\system.dat&quot;, vbSystem</code></pre>
 <h3 id="set-multiple-files-in-a-loop">Set Multiple Files in a Loop</h3>
 <pre><code class="language-vbnet">Dim i As Integer
 For i = 1 To 10
-SetAttr &quot;C:\Files\File&quot; &amp; i &amp; &quot;.txt&quot;, vbReadOnly
+    SetAttr &quot;C:\Files\File&quot; &amp; i &amp; &quot;.txt&quot;, vbReadOnly
 Next i</code></pre>
 <h3 id="with-error-handling">With Error Handling</h3>
 <pre><code class="language-vbnet">On Error Resume Next
 SetAttr &quot;C:\MyFile.txt&quot;, vbReadOnly
 If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Could not set file attributes: &quot; &amp; Err.Description
+    MsgBox &quot;Could not set file attributes: &quot; &amp; Err.Description
 End If
 On Error GoTo 0</code></pre>
 <h3 id="using-apppath">Using App.Path</h3>
@@ -147,19 +144,15 @@ On Error GoTo 0</code></pre>
 <h3 id="preserve-existing-attributes-while-adding-new-ones">Preserve Existing Attributes While Adding New Ones</h3>
 <pre><code class="language-vbnet">Dim filePath As String
 Dim currentAttrs As Integer
-
 filePath = &quot;C:\MyFile.txt&quot;
 currentAttrs = GetAttr(filePath)
-
 &#x27; Add hidden attribute while preserving others
 SetAttr filePath, currentAttrs Or vbHidden</code></pre>
 <h3 id="remove-specific-attribute">Remove Specific Attribute</h3>
 <pre><code class="language-vbnet">Dim filePath As String
 Dim currentAttrs As Integer
-
 filePath = &quot;C:\MyFile.txt&quot;
 currentAttrs = GetAttr(filePath)
-
 &#x27; Remove hidden attribute while preserving others
 SetAttr filePath, currentAttrs And Not vbHidden</code></pre>
 <h3 id="using-numeric-values">Using Numeric Values</h3>
@@ -168,9 +161,9 @@ SetAttr &quot;C:\MyFile.txt&quot;, 3  &#x27; Read-only + Hidden (1 + 2)
 SetAttr &quot;C:\MyFile.txt&quot;, 35 &#x27; Read-only + Hidden + Archive (1 + 2 + 32)</code></pre>
 <h3 id="conditional-attribute-setting">Conditional Attribute Setting</h3>
 <pre><code class="language-vbnet">If FileIsImportant Then
-SetAttr filePath, vbReadOnly + vbArchive
+    SetAttr filePath, vbReadOnly + vbArchive
 Else
-SetAttr filePath, vbNormal
+    SetAttr filePath, vbNormal
 End If</code></pre>
 <h2 id="common-errors">Common Errors</h2>
 <ul>

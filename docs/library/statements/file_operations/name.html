@@ -44,7 +44,7 @@
 <ul>
 <li><code>oldpathname</code>: Required. String expression that specifies the existing file name and location. May include directory or folder, and drive.</li>
 <li><code>newpathname</code>: Required. String expression that specifies the new file name and location. May include directory or folder, and drive.
-Cannot specify a different drive from the one specified in <code>oldpathname</code>.</li>
+  Cannot specify a different drive from the one specified in <code>oldpathname</code>.</li>
 </ul>
 <h2 id="remarks">Remarks</h2>
 <ul>
@@ -59,16 +59,12 @@ Cannot specify a different drive from the one specified in <code>oldpathname</co
 <h2 id="examples">Examples</h2>
 <pre><code class="language-vbnet">&#x27; Rename a file
 Name &quot;OLDFILE.TXT&quot; As &quot;NEWFILE.TXT&quot;
-
 &#x27; Move and rename a file
 Name &quot;C:\Data\Report.doc&quot; As &quot;C:\Archive\OldReport.doc&quot;
-
 &#x27; Rename a directory
 Name &quot;C:\OldFolder&quot; As &quot;C:\NewFolder&quot;
-
 &#x27; Move file to different directory (same drive)
 Name &quot;C:\Temp\Test.dat&quot; As &quot;C:\Data\Test.dat&quot;
-
 &#x27; Using variables
 Dim oldName As String, newName As String
 oldName = &quot;File1.txt&quot;
