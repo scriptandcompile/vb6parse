@@ -1484,7 +1484,7 @@ Attribute VB_Exposed = False
     }
 
     #[test]
-    fn date_literal_tokenize() {
+    fn date_literal_slash_tokenize() {
         use super::tokenize;
         use crate::io::SourceStream;
 
@@ -1509,7 +1509,7 @@ Attribute VB_Exposed = False
     }
 
     #[test]
-    fn date_literal_with_time_tokenize() {
+    fn date_literal_slash_with_time_tokenize() {
         use super::tokenize;
         use crate::io::SourceStream;
 
@@ -1530,6 +1530,106 @@ Attribute VB_Exposed = False
         assert_eq!(tokens[2], ("=", Token::EqualityOperator));
         assert_eq!(tokens[3], (" ", Token::Whitespace));
         assert_eq!(tokens[4], ("#12/31/1999 11:59:59 PM#", Token::DateLiteral));
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn date_literal_slash_with_second_time_tokenize() {
+        use super::tokenize;
+        use crate::io::SourceStream;
+
+        let mut input = SourceStream::new("", "d = #12/31/1999 11:59:59:58#");
+        let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("d", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("#12/31/1999 11:59:59:58#", Token::DateLiteral));
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn date_literal_dash_tokenize() {
+        use super::tokenize;
+        use crate::io::SourceStream;
+
+        let mut input = SourceStream::new("", "d = #2000-1-1#");
+        let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("d", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("#2000-1-1#", Token::DateLiteral));
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn date_literal_dash_with_time_tokenize() {
+        use super::tokenize;
+        use crate::io::SourceStream;
+
+        let mut input = SourceStream::new("", "d = #1999-12-31 11:59:59 AM#");
+        let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("d", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("#1999-12-31 11:59:59 AM#", Token::DateLiteral));
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn date_literal_dash_with_second_time_tokenize() {
+        use super::tokenize;
+        use crate::io::SourceStream;
+
+        let mut input = SourceStream::new("", "d = #1999-12-31 11:59:59:01#");
+        let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("d", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("#1999-12-31 11:59:59:01#", Token::DateLiteral));
         assert_eq!(tokens.len(), 5);
     }
 
