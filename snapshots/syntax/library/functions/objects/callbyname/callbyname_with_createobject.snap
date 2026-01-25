@@ -108,7 +108,9 @@ root:
                             - kind: StringLiteralExpression
                               children:
                                 - kind: StringLiteral
-                                  text: "\"C:\\\")"
+                                  text: "\"C:\\\""
+                    - kind: RightParenthesis
+                      text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword
