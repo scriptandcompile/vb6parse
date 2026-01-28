@@ -99,7 +99,7 @@ pub fn tokenize_vb6_code(code: &str) -> Result<JsValue, JsValue> {
         let kind = match token {
             Token::Whitespace => WHITESPACE.to_string(),
             Token::Identifier => IDENTIFIER.to_string(),
-            Token::DateLiteral
+            Token::DateTimeLiteral
             | Token::DecimalLiteral
             | Token::SingleLiteral
             | Token::DoubleLiteral
