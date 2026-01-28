@@ -33,8 +33,18 @@ root:
                   text: Close
                 - kind: Whitespace
                   text: "   "
-                - kind: DateLiteral
-                  text: "#1  ,  #"
+                - kind: Octothorpe
+                  text: "#"
+                - kind: IntegerLiteral
+                  text: "1"
+                - kind: Whitespace
+                  text: "  "
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: "  "
+                - kind: Octothorpe
+                  text: "#"
                 - kind: IntegerLiteral
                   text: "2"
                 - kind: Newline

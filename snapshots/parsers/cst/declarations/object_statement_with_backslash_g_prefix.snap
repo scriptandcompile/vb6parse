@@ -43,8 +43,10 @@ root:
           text: "000000000046"
         - kind: RightCurlyBrace
           text: "}"
-        - kind: DateLiteral
-          text: "#5.2#"
+        - kind: Octothorpe
+          text: "#"
+        - kind: DoubleLiteral
+          text: "5.2#"
         - kind: IntegerLiteral
           text: "0"
         - kind: Semicolon

@@ -33,18 +33,16 @@ root:
                   text: Write
                 - kind: Whitespace
                   text: " "
+                - kind: Octothorpe
+                  text: "#"
+                - kind: IntegerLiteral
+                  text: "1"
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
                 - kind: DateLiteral
-                  text: "#1, #"
-                - kind: IntegerLiteral
-                  text: "1"
-                - kind: DivisionOperator
-                  text: /
-                - kind: IntegerLiteral
-                  text: "1"
-                - kind: DivisionOperator
-                  text: /
-                - kind: DoubleLiteral
-                  text: "2025#"
+                  text: "#1/1/2025#"
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword
