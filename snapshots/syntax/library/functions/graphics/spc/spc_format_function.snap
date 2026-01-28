@@ -73,13 +73,53 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: DateLiteral
-                  text: "#1, \"Total:\"; Spc(5); Format(amount, \"$#"
+                - kind: Octothorpe
+                  text: "#"
+                - kind: IntegerLiteral
+                  text: "1"
                 - kind: Comma
                   text: ","
-                - kind: DateLiteral
-                  text: "##"
-                - kind: SingleLiteral
-                  text: "0.00"
+                - kind: Whitespace
+                  text: " "
                 - kind: StringLiteral
-                  text: "\")\nEnd Sub\n"
+                  text: "\"Total:\""
+                - kind: Semicolon
+                  text: ;
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: Spc
+                - kind: LeftParenthesis
+                  text: (
+                - kind: IntegerLiteral
+                  text: "5"
+                - kind: RightParenthesis
+                  text: )
+                - kind: Semicolon
+                  text: ;
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: Format
+                - kind: LeftParenthesis
+                  text: (
+                - kind: Identifier
+                  text: amount
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"$#,##0.00\""
+                - kind: RightParenthesis
+                  text: )
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

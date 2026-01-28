@@ -1162,8 +1162,8 @@ pub enum Token {
     DoubleLiteral,
     /// Represents a `Decimal` literal with `@` suffix (e.g., 12.50@).
     DecimalLiteral,
-    /// Represents a `Date` literal with `#` delimiters (e.g., #1/1/2000#).
-    DateLiteral,
+    /// Represents a `Date` literal with `#` delimiters (e.g., #1/1/2000#, or #10:20:45 AM# or #1/15/2000 10:30:45 AM#).
+    DateTimeLiteral,
 }
 
 impl Token {

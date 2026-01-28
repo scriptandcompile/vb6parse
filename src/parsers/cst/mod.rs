@@ -1935,7 +1935,7 @@ mod tests {
             SyntaxKind::DoubleLiteral
         );
         assert_eq!(
-            SyntaxKind::from(Token::DateLiteral),
+            SyntaxKind::from(Token::DateTimeLiteral),
             SyntaxKind::DateLiteral
         );
     }
