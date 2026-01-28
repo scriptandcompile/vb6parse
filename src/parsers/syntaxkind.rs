@@ -713,7 +713,7 @@ impl From<Token> for SyntaxKind {
             Token::SingleLiteral => SyntaxKind::SingleLiteral,
             Token::DoubleLiteral => SyntaxKind::DoubleLiteral,
             Token::DecimalLiteral => SyntaxKind::DecimalLiteral,
-            Token::DateLiteral => SyntaxKind::DateLiteral,
+            Token::DateTimeLiteral => SyntaxKind::DateLiteral,
             Token::IfKeyword => SyntaxKind::IfKeyword,
             Token::ElseKeyword => SyntaxKind::ElseKeyword,
             Token::ElseIfKeyword => SyntaxKind::ElseIfKeyword,

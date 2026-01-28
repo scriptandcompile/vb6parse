@@ -361,8 +361,14 @@ pub fn tokenize<'a>(
             continue;
         }
 
-        // Try to parse date literal first (#date#)
-        if let Some((date_text, date_token)) = take_date_literal(input) {
+        // Try to parse date/ time literal #date# or #date time#
+        if let Some((date_text, date_token)) = take_date_time_literal(input) {
+            tokens.push((date_text, date_token));
+            continue;
+        }
+
+        // Try to parse time only datetime literal #time#
+        if let Some((date_text, date_token)) = take_time_literal(input) {
             tokens.push((date_text, date_token));
             continue;
         }
@@ -608,9 +614,189 @@ fn take_numeric_literal<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTup
     Some((literal_text, token_type))
 }
 
+/// We only check the month digits of the stream without actually taking anything.
+/// This will return the month if it's found or None if it doesn't match the correct format.
+fn check_month_digits(input: &mut SourceStream) -> Option<u8> {
+    // Snag the first digit of the month then check based on the digit.
+    let Some(month_digit_peek) = input.peek(1) else {
+        // Failed parse. This is not a date/time literal. Reset and return None.
+        return None;
+    };
+
+    // Months can *not* start with a zero digit.
+    if month_digit_peek == "0" {
+        return None;
+    }
+
+    if month_digit_peek != "1" {
+        // Likely a single digit month. Parse it and report it if it worked.
+        if let Ok(single_digit_month) = str::parse::<u8>(month_digit_peek) {
+            // It's between February (2) to September (9)
+            return Some(single_digit_month);
+        }
+
+        return None;
+    }
+
+    // so, this could be 1 as in january, or it could be
+    // october, november, or december, so we need to check
+    // the next item as well.
+    let Some(two_digit_month) = input.peek(2) else {
+        // Failed parse. This is not a date/time literal. Reset and return None.
+        return None;
+    };
+
+    if two_digit_month == "1/" {
+        // looks like it might be the start of date/time literal with january as the month.
+        return Some(1u8);
+    }
+
+    if let Ok(month) = str::parse::<u8>(two_digit_month) {
+        // two digit month! 10, 11, or 12.
+        return Some(month);
+    }
+
+    None
+}
+
+fn check_day_digits(input: &mut SourceStream) -> Option<u8> {
+    // Snag the first digit of the day then check based on the digit.
+    let Some(day_digit_peek) = input.peek(1) else {
+        // Failed parse. This is not a date/time literal. Reset and return None.
+        return None;
+    };
+
+    // days can *not* start with a zero digit.
+    if day_digit_peek == "0" {
+        return None;
+    }
+
+    if day_digit_peek != "1" && day_digit_peek != "2" && day_digit_peek != "3" {
+        // Likely a single digit day. Parse it and report it if it worked.
+        if let Ok(single_digit_day) = str::parse::<u8>(day_digit_peek) {
+            // It's between 2 & 9
+            return Some(single_digit_day);
+        }
+
+        return None;
+    }
+
+    // so, this could be 1 as in 1x, 2 as 2x, 3 as in 3x.
+    let Some(two_digit_day) = input.peek(2) else {
+        // Failed parse. This is not a date/time literal. Reset and return None.
+        return None;
+    };
+
+    if two_digit_day == "1/" {
+        // looks like it might be the start of date/time literal on the 1st.
+        return Some(1u8);
+    }
+
+    if two_digit_day == "2/" {
+        // looks like it might be the start of date/time literal on the 2nd.
+        return Some(2u8);
+    }
+
+    if two_digit_day == "3/" {
+        // looks like it might be the start of date/time literal on the 3rd.
+        return Some(3u8);
+    }
+
+    if let Ok(day) = str::parse::<u8>(two_digit_day) {
+        // If it's larger than 31, just bail out on the parsing.
+        // Seriously, vb6 doesn't care if the month / day combo doesn't make sense.
+        // All it cares about is that the day is 1 to 31.
+        if day > 31 {
+            return None;
+        }
+
+        return Some(day);
+    }
+
+    None
+}
+
+fn check_year_digits(input: &mut SourceStream) -> Option<u32> {
+    // the year must be between 100 and 9999
+
+    let four_digit_year_peek = input.peek(4)?;
+
+    if let Ok(day) = str::parse::<u32>(four_digit_year_peek) {
+        // looks like the four digit number parses so it's between 1000 and 9999
+        return Some(day);
+    }
+
+    let three_digit_year_peek = input.peek(3)?;
+
+    if let Ok(day) = str::parse::<u32>(three_digit_year_peek) {
+        // looks like the three digit number parses so it's between 100 and 999
+        return Some(day);
+    }
+
+    None
+}
+
+fn check_hour_digits(input: &mut SourceStream) -> Option<u8> {
+    let Some(hour_double_digits) = input.peek(2) else {
+        // Failed parse. This is not a date/time literal
+        return None;
+    };
+
+    if let Ok(hour) = str::parse::<u8>(hour_double_digits) {
+        // We got a double digit hour so now we need to be sure it's
+        // betwene 12 and 1. Technically we should only have been able
+        // to get 12, 11, or 10 here, but it doesn't hurt anything to expand the check.
+        if (1..=12).contains(&hour) {
+            return Some(hour);
+        }
+
+        return None;
+    }
+
+    // might be a single digit hour so check just a single digit.
+    let Some(hour_single_digits) = input.peek(1) else {
+        // Failed parse. This is not a date/time literal.
+        // Technically, it shouldn't be possible to hit this
+        // since we pulled *two* digits right above, but whatever.
+        return None;
+    };
+
+    if let Ok(hour) = str::parse::<u8>(hour_single_digits) {
+        // We got a single digit hour so now we need to be sure it's
+        // betwene 12 and 1. Technically we should only have been able
+        // to get 1 to 9 here, but it doesn't hurt anything to expand the check.
+        if (1..=12).contains(&hour) {
+            return Some(hour);
+        }
+
+        return None;
+    }
+
+    None
+}
+
+fn check_minute_or_second_digits(input: &mut SourceStream) -> Option<u8> {
+    let Some(double_digits) = input.peek(2) else {
+        // Failed parse. This is not a date/time literal
+        return None;
+    };
+
+    if let Ok(time) = str::parse::<u8>(double_digits) {
+        // We got a double digit time so now we need to be sure it's
+        // less than 59.
+        if time <= 59 {
+            return Some(time);
+        }
+
+        return None;
+    }
+
+    None
+}
+
 /// Parses a VB6 date literal from the input stream.
 ///
-/// Date literals are enclosed in # characters, e.g., `#1/1/2000#`, `#12:30:00 PM#`
+/// Date literals are enclosed in # characters, e.g., `#1/1/2000#`, `#1/1/2000 12:30:00 PM#`
 ///
 /// # Arguments
 ///
@@ -620,42 +806,408 @@ fn take_numeric_literal<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTup
 ///
 /// `Some()` with a tuple containing the matched date literal text and its corresponding VB6 token
 /// if a date literal is found at the current position in the stream; otherwise, `None`.
-fn take_date_literal<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<'a>> {
+fn take_date_time_literal<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<'a>> {
     let start_offset = input.offset;
 
+    // Date format literals come in a few different formats:
+    // #MM/dd/yyyy#
+    // #MM/d/yyyy#
+    // #M/dd/yyyy#
+    // #M/d/yyyy#
+    // #MM/dd/yyyy HH:mm::yyyy AM#
+    // #MM/d/yyyy HH:mm::yyyy AM#
+    // #M/dd/yyyy HH:mm::yyyy AM#
+    // #M/d/yyyy HH:mm::yyyy AM#
+    // #MM/dd/yyyy HH:mm::yyyy PM#
+    // #MM/d/yyyy HH:mm::yyyy PM#
+    // #M/dd/yyyy HH:mm::yyyy PM#
+    // #M/d/yyyy HH:mm::yyyy PM#
+    // #HH:mm::yyyy PM#
+    // #H:mm::yyyy PM#
+    // #HH:mm::yyyy AM#
+    // #H:mm::yyyy AM#
+
     // Must start with #
-    input.peek_text("#", Comparator::CaseInsensitive)?;
-    let _ = input.take_count(1);
+    let Some(_) = input.take("#", Comparator::CaseInsensitive) else {
+        // reset and return since we failed the parse.
+        input.offset = start_offset;
+        return None;
+    };
 
-    // Take everything until the closing # or newline
-    let found_closing = loop {
-        if let Some(peek) = input.peek(1) {
-            let ch = peek.chars().next()?;
-            if ch == '#' {
+    let _month = match check_month_digits(input) {
+        None => {
+            // reset and return since we failed the parse.
+            input.offset = start_offset;
+            return None;
+        }
+        Some(month) => {
+            // grab the single or double digit(s) of month
+            if month >= 10 {
+                let _ = input.take_count(2);
+            } else {
                 let _ = input.take_count(1);
-                break true;
-            } else if ch == '\r' || ch == '\n' {
-                // Date literals cannot span multiple lines
-                break false;
             }
-
-            let _ = input.take_count(1);
-        } else {
-            // End of input
-            break false;
+            month
         }
     };
 
-    if !found_closing {
-        // Rollback if we didn't find a closing #
+    // take the day divider.
+    let Some(_) = input.take("/", Comparator::CaseInsensitive) else {
+        // reset and return since we failed the parse.
+        input.offset = start_offset;
+        return None;
+    };
+
+    let _day = match check_day_digits(input) {
+        None => {
+            //reset and return since we failed the parse.
+            input.offset = start_offset;
+            return None;
+        }
+        Some(day) => {
+            // grab the single or double digit(s) of the day
+            if day >= 10 {
+                let _ = input.take_count(2);
+            } else {
+                let _ = input.take_count(1);
+            }
+            day
+        }
+    };
+
+    // take the year divider.
+    let Some(_) = input.take("/", Comparator::CaseInsensitive) else {
+        // reset and return since we failed the parse.
+        input.offset = start_offset;
+        return None;
+    };
+
+    let _year = match check_year_digits(input) {
+        None => {
+            // reset and return since we failed the parse.
+            input.offset = start_offset;
+            return None;
+        }
+        Some(year) => {
+            if year < 100 {
+                // I don't think it's possible to get a year less than 100
+                // but it's not that hard to check against it so we should.
+                // reset and return since we failed the parse.
+                input.offset = start_offset;
+                return None;
+            } else if (100..=999).contains(&year) {
+                let _ = input.take_count(3);
+            } else if (1000..=9999).contains(&year) {
+                let _ = input.take_count(4);
+            }
+
+            year
+        }
+    };
+
+    let Some(end_year_divider_peek) = input.peek(1) else {
+        // reset and return since we failed the parse.
+        input.offset = start_offset;
+        return None;
+    };
+    if end_year_divider_peek == "#" {
+        // looks like it's just a date not a date/time literal.
+        let _ = input.take_count(1);
+
+        let end_offset = input.offset;
+        let date_text = &input.contents[start_offset..end_offset];
+
+        return Some((date_text, Token::DateTimeLiteral));
+    }
+
+    if end_year_divider_peek != " " {
+        // This needs to be a space since it's a date & time literal.
+        // Since we have something besides a " " or "#" it's not a date/time literal.
+
         input.offset = start_offset;
         return None;
     }
 
+    // looks like this is a date time literal with a time section.
+    // grab the space character and move on to handle the hours.
+    let Some(_) = input.take(" ", Comparator::CaseInsensitive) else {
+        // reset and return since we failed the parse.
+        input.offset = start_offset;
+        return None;
+    };
+
+    // Grab the hours.
+    let _hour = match check_hour_digits(input) {
+        None => {
+            // reset and return since we failed the parse.
+            input.offset = start_offset;
+            return None;
+        }
+        Some(hour) => {
+            if hour > 12 || hour == 0 {
+                // shouldn't be possible to get an hour outside the range,
+                // but checking won't cause us any issue either.
+                input.offset = start_offset;
+                return None;
+            } else if (10..=12).contains(&hour) {
+                let _ = input.take_count(2);
+            } else if (1..9).contains(&hour) {
+                let _ = input.take_count(1);
+            }
+
+            hour
+        }
+    };
+
+    let Some(end_hour_divider_peek) = input.peek(1) else {
+        // reset and return since we failed the parse.
+        input.offset = start_offset;
+        return None;
+    };
+    if end_hour_divider_peek != ":" {
+        // looks like it's not a date / time parse for the hour.
+        input.offset = start_offset;
+        return None;
+    }
+
+    // eat the ":"
+    let Some(_) = input.take(":", Comparator::CaseInsensitive) else {
+        // reset and return since we failed the parse.
+        input.offset = start_offset;
+        return None;
+    };
+
+    // Grab the minutes.
+    let _minute = match check_minute_or_second_digits(input) {
+        None => {
+            // reset and return since we failed the parse.
+            input.offset = start_offset;
+            return None;
+        }
+        Some(minute) => {
+            if minute > 59 {
+                // shouldn't be possible to get a minute outside the range,
+                // but checking won't cause us any issue either.
+                input.offset = start_offset;
+                return None;
+            }
+
+            let _ = input.take_count(2);
+            minute
+        }
+    };
+
+    let Some(end_minute_divider_peek) = input.peek(1) else {
+        // reset and return since we failed the parse.
+        input.offset = start_offset;
+        return None;
+    };
+    if end_minute_divider_peek != ":" {
+        // looks like it's not a date / time parse for the hour.
+        input.offset = start_offset;
+        return None;
+    }
+
+    // eat the ":"
+    let Some(_) = input.take(":", Comparator::CaseInsensitive) else {
+        // reset and return since we failed the parse.
+        input.offset = start_offset;
+        return None;
+    };
+
+    // Grab the seconds.
+    let _seconds = match check_minute_or_second_digits(input) {
+        None => {
+            // reset and return since we failed the parse.
+            input.offset = start_offset;
+            return None;
+        }
+        Some(seconds) => {
+            if seconds > 59 {
+                // shouldn't be possible to get a second outside the range,
+                // but checking won't cause us any issue either.
+                input.offset = start_offset;
+                return None;
+            }
+
+            let _ = input.take_count(2);
+            seconds
+        }
+    };
+
+    let Some(end_second_divider_peek) = input.peek(4) else {
+        // reset and return since we failed the parse.
+        input.offset = start_offset;
+        return None;
+    };
+    if end_second_divider_peek != " PM#" && end_second_divider_peek != " AM#" {
+        // looks like it's not a date / time parse for the hour.
+        input.offset = start_offset;
+        return None;
+    }
+
+    // eat the " *M#"
+    let Some(_) = input.take_count(4) else {
+        // reset and return since we failed the parse.
+        input.offset = start_offset;
+        return None;
+    };
+
     let end_offset = input.offset;
     let date_text = &input.contents[start_offset..end_offset];
 
-    Some((date_text, Token::DateLiteral))
+    Some((date_text, Token::DateTimeLiteral))
+}
+
+/// Parses a VB6 date/time literal with only a time component from the input stream.
+///
+/// Date literals are enclosed in # characters, e.g., `#12:30:00 PM#`
+///
+/// # Arguments
+///
+/// * `input` - The input stream to parse.
+///
+/// # Returns
+///
+/// `Some()` with a tuple containing the matched date literal text and its corresponding VB6 token
+/// if a date literal is found at the current position in the stream; otherwise, `None`.
+fn take_time_literal<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<'a>> {
+    let start_offset = input.offset;
+
+    // Date format literals come in a few different formats:
+    // #HH:mm::yyyy PM#
+    // #H:mm::yyyy PM#
+    // #HH:mm::yyyy AM#
+    // #H:mm::yyyy AM#
+
+    // Must start with #
+    let Some(_) = input.take("#", Comparator::CaseInsensitive) else {
+        // reset and return since we failed the parse.
+        input.offset = start_offset;
+        return None;
+    };
+
+    // Grab the hours.
+    let _hour = match check_hour_digits(input) {
+        None => {
+            // reset and return since we failed the parse.
+            input.offset = start_offset;
+            return None;
+        }
+        Some(hour) => {
+            if hour > 12 || hour == 0 {
+                // shouldn't be possible to get an hour outside the range,
+                // but checking won't cause us any issue either.
+                input.offset = start_offset;
+                return None;
+            } else if (10..=12).contains(&hour) {
+                let _ = input.take_count(2);
+            } else if (1..9).contains(&hour) {
+                let _ = input.take_count(1);
+            }
+
+            hour
+        }
+    };
+
+    let Some(end_hour_divider_peek) = input.peek(1) else {
+        // reset and return since we failed the parse.
+        input.offset = start_offset;
+        return None;
+    };
+    if end_hour_divider_peek != ":" {
+        // looks like it's not a date / time parse for the hour.
+        input.offset = start_offset;
+        return None;
+    }
+
+    // eat the ":"
+    let Some(_) = input.take(":", Comparator::CaseInsensitive) else {
+        // reset and return since we failed the parse.
+        input.offset = start_offset;
+        return None;
+    };
+
+    // Grab the minutes.
+    let _minute = match check_minute_or_second_digits(input) {
+        None => {
+            // reset and return since we failed the parse.
+            input.offset = start_offset;
+            return None;
+        }
+        Some(minute) => {
+            if minute > 59 {
+                // shouldn't be possible to get a minute outside the range,
+                // but checking won't cause us any issue either.
+                input.offset = start_offset;
+                return None;
+            }
+
+            let _ = input.take_count(2);
+            minute
+        }
+    };
+
+    let Some(end_minute_divider_peek) = input.peek(1) else {
+        // reset and return since we failed the parse.
+        input.offset = start_offset;
+        return None;
+    };
+    if end_minute_divider_peek != ":" {
+        // looks like it's not a date / time parse for the hour.
+        input.offset = start_offset;
+        return None;
+    }
+
+    // eat the ":"
+    let Some(_) = input.take(":", Comparator::CaseInsensitive) else {
+        // reset and return since we failed the parse.
+        input.offset = start_offset;
+        return None;
+    };
+
+    // Grab the seconds.
+    let _seconds = match check_minute_or_second_digits(input) {
+        None => {
+            // reset and return since we failed the parse.
+            input.offset = start_offset;
+            return None;
+        }
+        Some(seconds) => {
+            if seconds > 59 {
+                // shouldn't be possible to get a second outside the range,
+                // but checking won't cause us any issue either.
+                input.offset = start_offset;
+                return None;
+            }
+
+            let _ = input.take_count(2);
+            seconds
+        }
+    };
+
+    let Some(end_second_divider_peek) = input.peek(4) else {
+        // reset and return since we failed the parse.
+        input.offset = start_offset;
+        return None;
+    };
+    if end_second_divider_peek != " PM#" && end_second_divider_peek != " AM#" {
+        // looks like it's not a date / time parse for the hour.
+        input.offset = start_offset;
+        return None;
+    }
+
+    // eat the " *M#"
+    let Some(_) = input.take_count(4) else {
+        // reset and return since we failed the parse.
+        input.offset = start_offset;
+        return None;
+    };
+
+    let end_offset = input.offset;
+    let date_text = &input.contents[start_offset..end_offset];
+
+    Some((date_text, Token::DateTimeLiteral))
 }
 
 /// Parses a VB6 string literal from the input stream.
@@ -1484,7 +2036,7 @@ Attribute VB_Exposed = False
     }
 
     #[test]
-    fn date_literal_tokenize() {
+    fn date_literal_only_tokenize() {
         use super::tokenize;
         use crate::io::SourceStream;
 
@@ -1504,7 +2056,7 @@ Attribute VB_Exposed = False
         assert_eq!(tokens[1], (" ", Token::Whitespace));
         assert_eq!(tokens[2], ("=", Token::EqualityOperator));
         assert_eq!(tokens[3], (" ", Token::Whitespace));
-        assert_eq!(tokens[4], ("#1/1/2000#", Token::DateLiteral));
+        assert_eq!(tokens[4], ("#1/1/2000#", Token::DateTimeLiteral));
         assert_eq!(tokens.len(), 5);
     }
 
@@ -1529,7 +2081,144 @@ Attribute VB_Exposed = False
         assert_eq!(tokens[1], (" ", Token::Whitespace));
         assert_eq!(tokens[2], ("=", Token::EqualityOperator));
         assert_eq!(tokens[3], (" ", Token::Whitespace));
-        assert_eq!(tokens[4], ("#12/31/1999 11:59:59 PM#", Token::DateLiteral));
+        assert_eq!(
+            tokens[4],
+            ("#12/31/1999 11:59:59 PM#", Token::DateTimeLiteral)
+        );
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn date_literal_with_am_tokenize() {
+        use super::tokenize;
+        use crate::io::SourceStream;
+
+        let mut input = SourceStream::new("", "d = #12/31/1999 11:59:59 AM#");
+        let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("d", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(
+            tokens[4],
+            ("#12/31/1999 11:59:59 AM#", Token::DateTimeLiteral)
+        );
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn date_literal_single_month_with_am_tokenize() {
+        use super::tokenize;
+        use crate::io::SourceStream;
+
+        let mut input = SourceStream::new("", "d = #1/15/2000 10:30:45 AM#");
+        let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("d", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(
+            tokens[4],
+            ("#1/15/2000 10:30:45 AM#", Token::DateTimeLiteral)
+        );
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn time_only_literal_tokenize() {
+        use super::tokenize;
+        use crate::io::SourceStream;
+
+        let mut input = SourceStream::new("", "d = #10:20:45 AM#");
+        let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("d", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("#10:20:45 AM#", Token::DateTimeLiteral));
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn date_literal_with_pm_tokenize() {
+        use super::tokenize;
+        use crate::io::SourceStream;
+
+        let mut input = SourceStream::new("", "d = #1/1/100 1:00:00 PM#");
+        let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("d", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("#1/1/100 1:00:00 PM#", Token::DateTimeLiteral));
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn date_literal_with_largest_time_tokenize() {
+        use super::tokenize;
+        use crate::io::SourceStream;
+
+        let mut input = SourceStream::new("", "d = #12/31/9999 12:59:59 PM#");
+        let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("d", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(
+            tokens[4],
+            ("#12/31/9999 12:59:59 PM#", Token::DateTimeLiteral)
+        );
         assert_eq!(tokens.len(), 5);
     }
 

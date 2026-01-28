@@ -373,7 +373,7 @@ impl Parser<'_> {
                 self.parse_special_literal();
             }
             // Date literal
-            Some(Token::DateLiteral) => {
+            Some(Token::DateTimeLiteral) => {
                 self.parse_date_literal();
             }
             // Identifiers (including keywords that can be identifiers in expression context)
