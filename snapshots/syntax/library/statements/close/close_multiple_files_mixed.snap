@@ -33,8 +33,22 @@ root:
                   text: Close
                 - kind: Whitespace
                   text: " "
-                - kind: DateLiteral
-                  text: "#1, fileNum2, #"
+                - kind: Octothorpe
+                  text: "#"
+                - kind: IntegerLiteral
+                  text: "1"
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: fileNum2
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Octothorpe
+                  text: "#"
                 - kind: IntegerLiteral
                   text: "3"
                 - kind: Newline

@@ -11,8 +11,26 @@ root:
           text: Seek
         - kind: Whitespace
           text: " "
-        - kind: DateLiteral
-          text: "#1, 100: Seek #"
+        - kind: Octothorpe
+          text: "#"
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "100"
+        - kind: ColonOperator
+          text: ":"
+        - kind: Whitespace
+          text: " "
+        - kind: SeekKeyword
+          text: Seek
+        - kind: Whitespace
+          text: " "
+        - kind: Octothorpe
+          text: "#"
         - kind: IntegerLiteral
           text: "2"
         - kind: Comma
