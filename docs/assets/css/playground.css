@@ -449,13 +449,15 @@
     font-weight: 600;
 }
 
+.token-type { background-color: #e5e7eb2a; color: white; }
 .token-type.keyword { background-color: var(--node-keyword); color: white; }
 .token-type.identifier { background-color: #6b7280; color: white; }
 .token-type.literal { background-color: var(--node-literal); color: white; }
 .token-type.operator { background-color: #ec4899; color: white; }
 .token-type.comment { background-color: #22c55e; color: white; }
-.token-type.whitespace { background-color: #e5e7eb; color: #374151; }
-.token-type.newline { background-color: #e5e7eb4b; color: #6d809e; }
+.token-type.whitespace { background-color: #7eadf3; color: black; }
+.token-type.newline { background-color: #0a036dd3; color: white; }
+
 
 /* ============================================
    CST Tab Content
