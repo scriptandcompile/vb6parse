@@ -54,48 +54,103 @@ pub struct ErrorInfo {
     pub message: String,
 }
 
+/// Stats for the parse results
+#[derive(Serialize, Deserialize)]
+pub struct ParseStats {
+    pub tokenCount: u32,
+    pub nodeCount: u32,
+    pub treeDepth: u32,
+}
+
 /// Information about the output of the VB6 playground, including tokens, CST, and errors.
 #[derive(Serialize, Deserialize)]
 pub struct PlaygroundOutput {
     /// A list of tokens found in the source code, if tokenization was successful.
     pub tokens: Option<Vec<TokenInfo>>,
     /// The concrete syntax tree (CST) of the source code, if parsing was successful.
-    pub cst: Option<String>,
+    pub cst: Option<CstNode>,
     /// A list of errors encountered during parsing or tokenization.
     pub errors: Vec<ErrorInfo>,
     /// The time taken to parse the source code, in milliseconds.
     pub parse_time_ms: f64,
+    pub stats: ParseStats,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct CstNode {
+    pub kind: String,
+    pub range: [u32; 2],
+    pub children: Vec<CstNode>,
+}
+
+/// Convert a `parsers::cst::CstNode` to the wasm-facing `CstNode` recursively.
+fn convert_cst_node(node: &parsers::cst::CstNode) -> CstNode {
+    CstNode {
+        kind: format!("{:?}", node.kind()),
+        range: [0, 0], // TODO: Replace with actual range if available from node
+        children: node.children().iter().map(convert_cst_node).collect(),
+    }
 }
 
 /// Parses VB6 code and returns a `PlaygroundOutput` object containing tokens, CST, and errors.
 #[wasm_bindgen]
 pub fn parse_vb6_code(
-    _code: &str,
+    code: &str,
     _file_type: &str, // "project", "class", "module", "form"
 ) -> Result<JsValue, JsValue> {
     // Implementation that calls appropriate parser
     // Returns serialized PlaygroundOutput
 
-    Ok(JsValue::FALSE)
-}
-
-/// Tokenizes VB6 code and returns a list of `TokenInfo` objects for quick preview.
-#[wasm_bindgen]
-pub fn tokenize_vb6_code(code: &str) -> Result<JsValue, JsValue> {
-    // Returns just tokens for quick preview
-
-    let mut tokens = vec![];
-
     let mut source_stream = crate::SourceStream::new("test.bas", code);
 
-    let (token_stream_opt, _failures) = tokenize(&mut source_stream).unpack();
+    let (token_stream_opt, failures) = tokenize(&mut source_stream).unpack();
 
     let token_stream = token_stream_opt.unwrap();
+
+    let tokens = produce_tokens(token_stream.clone());
+
+    // Parse CST using the token stream and convert to CstNode
+    let cst = parsers::cst::parse(token_stream.clone());
+    let cst_node = convert_cst_node(&cst.to_root_node());
+
+    // Helper to count nodes recursively
+    fn count_nodes(node: &CstNode) -> u32 {
+        1 + node.children.iter().map(count_nodes).sum::<u32>()
+    }
+
+    // Helper to compute tree depth recursively
+    fn tree_depth(node: &CstNode) -> u32 {
+        if node.children.is_empty() {
+            1
+        } else {
+            1 + node.children.iter().map(tree_depth).max().unwrap_or(0)
+        }
+    }
+
+    let parse_stats = ParseStats {
+        tokenCount: tokens.len() as u32,
+        nodeCount: count_nodes(&cst_node),
+        treeDepth: tree_depth(&cst_node),
+    };
+
+    let playground_output = PlaygroundOutput {
+        tokens: Some(tokens),
+        cst: Some(cst_node),
+        errors: vec![],
+        parse_time_ms: 0.0f64,
+        stats: parse_stats,
+    };
+
+    Ok(to_value(&playground_output).unwrap())
+}
+
+pub fn produce_tokens(token_stream: TokenStream) -> Vec<TokenInfo> {
+    let mut tokens = vec![];
 
     let mut column = 1;
     let mut line = 1;
 
-    for (text, token) in token_stream {
+    for (text, token) in token_stream.into_tokens() {
         let kind = match token {
             Token::Whitespace => WHITESPACE.to_string(),
             Token::Identifier => IDENTIFIER.to_string(),
@@ -147,6 +202,22 @@ pub fn tokenize_vb6_code(code: &str) -> Result<JsValue, JsValue> {
 
         tokens.push(token);
     }
+
+    tokens
+}
+
+/// Tokenizes VB6 code and returns a list of `TokenInfo` objects for quick preview.
+#[wasm_bindgen]
+pub fn tokenize_vb6_code(code: &str) -> Result<JsValue, JsValue> {
+    // Returns just tokens for quick preview
+
+    let mut source_stream = crate::SourceStream::new("test.bas", code);
+
+    let (token_stream_opt, failures) = tokenize(&mut source_stream).unpack();
+
+    let mut token_stream = token_stream_opt.unwrap();
+
+    let tokens = produce_tokens(token_stream);
 
     Ok(to_value(&tokens).unwrap())
 }
