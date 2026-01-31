@@ -149,7 +149,7 @@ export function renderCstTab(cst) {
 function renderCstNode(node, depth, showRanges) {
     const nodeDiv = document.createElement('div');
     nodeDiv.className = 'cst-node';
-    nodeDiv.dataset.nodeType = node.type;
+    nodeDiv.dataset.nodeType = node.kind;
     nodeDiv.dataset.depth = depth;
 
     // Node header
@@ -174,7 +174,7 @@ function renderCstNode(node, depth, showRanges) {
     // Node name
     const name = document.createElement('span');
     name.className = 'cst-node-name';
-    name.textContent = node.type;
+    name.textContent = node.kind;
     header.appendChild(name);
 
     // Node value (for leaf nodes)
@@ -234,7 +234,7 @@ export function renderInfoTab(result) {
         document.getElementById('stat-parse-time').textContent = `${result.parseTimeMs.toFixed(2)}ms`;
         document.getElementById('stat-tree-depth').textContent = result.stats.treeDepth;
         document.getElementById('stat-node-count').textContent = result.stats.nodeCount;
-        document.getElementById('stat-file-type').textContent = result.cst.type;
+        document.getElementById('stat-file-type').textContent = result.cst.kind;
     }
 
     // Render errors

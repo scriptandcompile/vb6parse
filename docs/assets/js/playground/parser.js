@@ -9,7 +9,7 @@
  * TODO: Add error handling for WASM failures
  */
 
-import init, { tokenize_vb6_code } from "../../wasm/vb6parse.js";
+import init, { tokenize_vb6_code, parse_vb6_code } from "../../wasm/vb6parse.js";
 
 let wasmInitialized = false;
 
@@ -58,7 +58,6 @@ export function isWasmReady() {
  * @param {string} fileType - 'module', 'class', 'form', or 'project'
  * @returns {Promise<ParseResult>} Parse result object
  * 
- * TODO: Replace with actual WASM call
  * Example return structure:
  * {
  *     tokens: TokenInfo[],
@@ -81,16 +80,13 @@ export async function parseCode(code, fileType) {
     const startTime = performance.now();
 
     try {
-        // TODO: Call actual WASM parse function
-        // const result = parse_vb6_code(code, fileType);
         
-        // Placeholder: return mock data
-        const mockResult = createMockParseResult(code, fileType);
+        const parseResult = parse_vb6_code(code, fileType);
         const parseTime = performance.now() - startTime;
-        mockResult.parseTimeMs = parseTime;
+        parseResult.parseTimeMs = parseTime;
 
         console.log(`✅ Parsed ${fileType} in ${parseTime.toFixed(2)}ms`);
-        return mockResult;
+        return parseResult;
 
     } catch (error) {
         console.error('Parse error:', error);
@@ -124,52 +120,30 @@ export async function tokenizeCode(code) {
 }
 
 /**
- * Create mock parse result for testing UI
- * TODO: Remove when WASM is integrated
- */
-async function createMockParseResult(code, fileType) {
-    const lines = code.split('\n');
-    const tokens = await tokenizeCode(code)
-    
-    return {
-        tokens: tokens,
-        cst: createMockCst(code, fileType),
-        errors: [],
-        warnings: [],
-        parseTimeMs: 0, // Will be set by parseCode
-        stats: {
-            tokenCount: tokens.length,
-            nodeCount: 42, // Mock value
-            treeDepth: 5    // Mock value
-        }
-    };
-}
-
-/**
  * Create mock CST for testing UI
  * TODO: Remove when WASM is integrated
  */
 function createMockCst(code, fileType) {
     return {
-        type: 'CompilationUnit',
+        kind: 'CompilationUnit',
         range: [0, code.length],
         children: [
             {
-                type: 'VersionStatement',
+                kind: 'VersionStatement',
                 range: [0, 20],
                 children: [
-                    { type: 'Keyword', value: 'VERSION', range: [0, 7] },
-                    { type: 'Whitespace', value: ' ', range: [7, 8] },
-                    { type: 'Number', value: '1.0', range: [8, 11] }
+                    { kind: 'Keyword', value: 'VERSION', range: [0, 7] },
+                    { kind: 'Whitespace', value: ' ', range: [7, 8] },
+                    { kind: 'Number', value: '1.0', range: [8, 11] }
                 ]
             },
             {
-                type: 'OptionStatement',
+                kind: 'OptionStatement',
                 range: [21, 36],
                 children: [
-                    { type: 'Keyword', value: 'Option', range: [21, 27] },
-                    { type: 'Whitespace', value: ' ', range: [27, 28] },
-                    { type: 'Keyword', value: 'Explicit', range: [28, 36] }
+                    { kind: 'Keyword', value: 'Option', range: [21, 27] },
+                    { kind: 'Whitespace', value: ' ', range: [27, 28] },
+                    { kind: 'Keyword', value: 'Explicit', range: [28, 36] }
                 ]
             }
         ]
@@ -187,13 +161,13 @@ function createMockCst(code, fileType) {
  * @property {number} length - Token length in characters
  * 
  * @typedef {Object} CstNode
- * @property {string} type - Node type (e.g., 'CompilationUnit', 'SubDeclaration')
+ * @property {string} kind - Node kind (e.g., 'CompilationUnit', 'SubDeclaration')
  * @property {number[]} range - [start, end] byte offsets
  * @property {string} [value] - Node value for leaf nodes
  * @property {CstNode[]} [children] - Child nodes
  * 
  * @typedef {Object} ErrorInfo
- * @property {string} type - Error type
+ * @property {string} kind - Error kind
  * @property {string} message - Error message
  * @property {number} line - Line number
  * @property {number} column - Column number
