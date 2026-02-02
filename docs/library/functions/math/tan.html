@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p>VB6 <code>Tan</code> Function</p>
-<p>The <code>Tan</code> function returns the tangent of an angle specified in radians.</p>
+            <p>VB6 Tan Function
+The <code>Tan</code> function returns the tangent of an angle specified in radians.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">Tan(number)</code></pre>
 <h2 id="parameters">Parameters</h2>
@@ -85,34 +85,34 @@ result = Tan(angle)
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-convert-degrees-to-radians">Pattern 1: Convert degrees to radians</h3>
 <pre><code class="language-vbnet">Function DegreesToRadians(degrees As Double) As Double
-DegreesToRadians = degrees * 3.14159265358979 / 180
+    DegreesToRadians = degrees * 3.14159265358979 / 180
 End Function
 result = Tan(DegreesToRadians(60))</code></pre>
 <h3 id="pattern-2-calculate-slope-from-angle">Pattern 2: Calculate slope from angle</h3>
 <pre><code class="language-vbnet">Function SlopeFromAngle(angleRadians As Double) As Double
-SlopeFromAngle = Tan(angleRadians)
+    SlopeFromAngle = Tan(angleRadians)
 End Function</code></pre>
 <h3 id="pattern-3-use-in-triangle-calculations">Pattern 3: Use in triangle calculations</h3>
 <pre><code class="language-vbnet">Function OppositeFromAdjacent(adjacent As Double, angleRadians As Double) As Double
-OppositeFromAdjacent = adjacent * Tan(angleRadians)
+    OppositeFromAdjacent = adjacent * Tan(angleRadians)
 End Function</code></pre>
 <h3 id="pattern-4-animation-rotation">Pattern 4: Animation rotation</h3>
 <pre><code class="language-vbnet">angle = t * 3.14159265358979 / 180
 y = Tan(angle) * x</code></pre>
 <h3 id="pattern-5-periodic-function">Pattern 5: Periodic function</h3>
 <pre><code class="language-vbnet">For i = 0 To 360 Step 45
-Debug.Print Tan(i * 3.14159265358979 / 180)
+    Debug.Print Tan(i * 3.14159265358979 / 180)
 Next i</code></pre>
 <h3 id="pattern-6-error-handling-for-undefined-values">Pattern 6: Error handling for undefined values</h3>
 <pre><code class="language-vbnet">On Error Resume Next
 result = Tan(3.14159265358979 / 2)
 If Err.Number &lt;&gt; 0 Then
-Debug.Print &quot;Overflow error&quot;
+    Debug.Print &quot;Overflow error&quot;
 End If
 On Error GoTo 0</code></pre>
 <h3 id="pattern-7-use-with-arrays">Pattern 7: Use with arrays</h3>
 <pre><code class="language-vbnet">For i = LBound(arr) To UBound(arr)
-arr(i) = Tan(arr(i))
+    arr(i) = Tan(arr(i))
 Next i</code></pre>
 <h3 id="pattern-8-inverse-calculation">Pattern 8: Inverse calculation</h3>
 <pre><code class="language-vbnet">angle = Atn(Tan(x))</code></pre>
@@ -124,17 +124,17 @@ result = Tan(angle)</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-trigonometric-table">Example 1: Trigonometric Table</h3>
 <pre><code class="language-vbnet">For i = 0 To 90 Step 15
-Debug.Print &quot;Tan(&quot; &amp; i &amp; &quot;) = &quot; &amp; Tan(i * 3.14159265358979 / 180)
+    Debug.Print &quot;Tan(&quot; &amp; i &amp; &quot;) = &quot; &amp; Tan(i * 3.14159265358979 / 180)
 Next i</code></pre>
 <h3 id="example-2-slope-calculation">Example 2: Slope Calculation</h3>
 <pre><code class="language-vbnet">Function Slope(degrees As Double) As Double
-Slope = Tan(degrees * 3.14159265358979 / 180)
+    Slope = Tan(degrees * 3.14159265358979 / 180)
 End Function</code></pre>
 <h3 id="example-3-handling-undefined-values">Example 3: Handling Undefined Values</h3>
 <pre><code class="language-vbnet">On Error Resume Next
 result = Tan(3.14159265358979 / 2)
 If Err.Number &lt;&gt; 0 Then
-result = Null
+    result = Null
 End If
 On Error GoTo 0</code></pre>
 <h3 id="example-4-use-in-physics-formula">Example 4: Use in Physics Formula</h3>

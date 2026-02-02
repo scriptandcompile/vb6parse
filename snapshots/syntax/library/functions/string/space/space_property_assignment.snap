@@ -7,12 +7,12 @@ root:
   children:
     - kind: Newline
       text: "\n"
-    - kind: Unknown
-      text: Class
-    - kind: Whitespace
-      text: " "
     - kind: CallStatement
       children:
+        - kind: ClassKeyword
+          text: Class
+        - kind: Whitespace
+          text: " "
         - kind: Identifier
           text: TextFormatter
         - kind: Newline
@@ -37,14 +37,16 @@ root:
           text: String
         - kind: Newline
           text: "\n"
-    - kind: Unknown
+    - kind: EndKeyword
       text: End
     - kind: Whitespace
       text: " "
-    - kind: Unknown
-      text: Class
-    - kind: Newline
-      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: ClassKeyword
+          text: Class
+        - kind: Newline
+          text: "\n"
     - kind: Newline
       text: "\n"
     - kind: SubStatement

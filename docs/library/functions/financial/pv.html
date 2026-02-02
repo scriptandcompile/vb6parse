@@ -53,14 +53,14 @@
 <p>Returns a <code>Double</code> specifying the present value of an annuity. The present value is the current value of a series of future payments or the current value of a future lump sum.</p>
 <h2 id="remarks">Remarks</h2>
 <p>The <code>PV</code> function is the inverse of the <code>FV</code> function. While <code>FV</code> calculates what a series of payments will be worth in the future,
-<code>PV</code> calculates what those same future payments are worth today, discounted by a rate of return.</p>
-<p>An annuity is a series of fixed cash payments made over a period of time. An annuity can be a loan (such as a home mortgage)
-or an investment (such as a monthly savings plan).</p>
-<p>The <code>rate</code> and <code>nper</code> arguments must be calculated using payment periods expressed in the same units. For example, if <code>rate</code>
-is calculated using months, <code>nper</code> must also be calculated using months.</p>
-<p>For all arguments, cash paid out (such as deposits to savings) is represented by negative numbers; cash received
-(such as dividend checks) is represented by positive numbers.</p>
-<p><strong>Important Uses</strong>:
+<code>PV</code> calculates what those same future payments are worth today, discounted by a rate of return.
+An annuity is a series of fixed cash payments made over a period of time. An annuity can be a loan (such as a home mortgage)
+or an investment (such as a monthly savings plan).
+The <code>rate</code> and <code>nper</code> arguments must be calculated using payment periods expressed in the same units. For example, if <code>rate</code>
+is calculated using months, <code>nper</code> must also be calculated using months.
+For all arguments, cash paid out (such as deposits to savings) is represented by negative numbers; cash received
+(such as dividend checks) is represented by positive numbers.
+<strong>Important Uses</strong>:
 - <strong>Loan Affordability</strong>: Calculate how much you can borrow given a specific payment amount
 - <strong>Investment Valuation</strong>: Determine current value of future cash flows
 - <strong>Annuity Pricing</strong>: Calculate lump sum value of periodic payments
@@ -100,473 +100,402 @@ presentValue = Abs(PV(0.06, 10, 0, -50000))
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-calculateaffordableloan">Pattern 1: <code>CalculateAffordableLoan</code></h3>
 <pre><code class="language-vbnet">Function CalculateAffordableLoan(monthlyPayment As Double, _
-annualRate As Double, _
-years As Integer) As Double
-Dim monthlyRate As Double
-Dim numPayments As Integer
-
-monthlyRate = annualRate / 12
-numPayments = years * 12
-
-&#x27; Negative payment because it&#x27;s money flowing out
-CalculateAffordableLoan = Abs(PV(monthlyRate, numPayments, -monthlyPayment))
+                                 annualRate As Double, _
+                                 years As Integer) As Double
+    Dim monthlyRate As Double
+    Dim numPayments As Integer
+    monthlyRate = annualRate / 12
+    numPayments = years * 12
+    &#x27; Negative payment because it&#x27;s money flowing out
+    CalculateAffordableLoan = Abs(PV(monthlyRate, numPayments, -monthlyPayment))
 End Function</code></pre>
 <h3 id="pattern-2-comparepaymentoptions">Pattern 2: <code>ComparePaymentOptions</code></h3>
 <pre><code class="language-vbnet">Function ComparePaymentOptions(payment1 As Double, years1 As Integer, _
-payment2 As Double, years2 As Integer, _
-rate As Double) As String
-Dim pv1 As Double
-Dim pv2 As Double
-
-pv1 = Abs(PV(rate / 12, years1 * 12, -payment1))
-pv2 = Abs(PV(rate / 12, years2 * 12, -payment2))
-
-If pv1 &gt; pv2 Then
-ComparePaymentOptions = &quot;Option 1 allows borrowing $&quot; &amp; _
-Format(pv1 - pv2, &quot;#,##0&quot;) &amp; &quot; more&quot;
-Else
-ComparePaymentOptions = &quot;Option 2 allows borrowing $&quot; &amp; _
-Format(pv2 - pv1, &quot;#,##0&quot;) &amp; &quot; more&quot;
-End If
+                               payment2 As Double, years2 As Integer, _
+                               rate As Double) As String
+    Dim pv1 As Double
+    Dim pv2 As Double
+    pv1 = Abs(PV(rate / 12, years1 * 12, -payment1))
+    pv2 = Abs(PV(rate / 12, years2 * 12, -payment2))
+    If pv1 &gt; pv2 Then
+        ComparePaymentOptions = &quot;Option 1 allows borrowing $&quot; &amp; _
+                               Format(pv1 - pv2, &quot;#,##0&quot;) &amp; &quot; more&quot;
+    Else
+        ComparePaymentOptions = &quot;Option 2 allows borrowing $&quot; &amp; _
+                               Format(pv2 - pv1, &quot;#,##0&quot;) &amp; &quot; more&quot;
+    End If
 End Function</code></pre>
 <h3 id="pattern-3-calculatelumpsumequivalent">Pattern 3: <code>CalculateLumpSumEquivalent</code></h3>
 <pre><code class="language-vbnet">Function CalculateLumpSumEquivalent(monthlyPayment As Double, _
-years As Integer, _
-discountRate As Double) As Double
-&#x27; Calculate what a stream of payments is worth as a lump sum today
-Dim monthlyRate As Double
-
-monthlyRate = discountRate / 12
-CalculateLumpSumEquivalent = Abs(PV(monthlyRate, years * 12, monthlyPayment))
+                                    years As Integer, _
+                                    discountRate As Double) As Double
+    &#x27; Calculate what a stream of payments is worth as a lump sum today
+    Dim monthlyRate As Double
+    monthlyRate = discountRate / 12
+    CalculateLumpSumEquivalent = Abs(PV(monthlyRate, years * 12, monthlyPayment))
 End Function</code></pre>
 <h3 id="pattern-4-validatepvparameters">Pattern 4: <code>ValidatePVParameters</code></h3>
 <pre><code class="language-vbnet">Function ValidatePVParameters(rate As Double, nper As Integer, _
-pmt As Double) As Boolean
-ValidatePVParameters = False
-
-If nper &lt;= 0 Then
-MsgBox &quot;Number of periods must be positive&quot;
-Exit Function
-End If
-
-If rate &lt; -1 Then
-MsgBox &quot;Interest rate cannot be less than -100%&quot;
-Exit Function
-End If
-
-ValidatePVParameters = True
+                              pmt As Double) As Boolean
+    ValidatePVParameters = False
+    If nper &lt;= 0 Then
+        MsgBox &quot;Number of periods must be positive&quot;
+        Exit Function
+    End If
+    If rate &lt; -1 Then
+        MsgBox &quot;Interest rate cannot be less than -100%&quot;
+        Exit Function
+    End If
+    ValidatePVParameters = True
 End Function</code></pre>
 <h3 id="pattern-5-calculatebreakevenloanamount">Pattern 5: <code>CalculateBreakEvenLoanAmount</code></h3>
 <pre><code class="language-vbnet">Function CalculateBreakEvenLoanAmount(payment As Double, _
-rate As Double, _
-years As Integer, _
-upfrontCosts As Double) As Double
-&#x27; Calculate loan amount where total cost equals upfront costs
-Dim loanPV As Double
-
-loanPV = Abs(PV(rate / 12, years * 12, -payment))
-CalculateBreakEvenLoanAmount = loanPV - upfrontCosts
+                                      rate As Double, _
+                                      years As Integer, _
+                                      upfrontCosts As Double) As Double
+    &#x27; Calculate loan amount where total cost equals upfront costs
+    Dim loanPV As Double
+    loanPV = Abs(PV(rate / 12, years * 12, -payment))
+    CalculateBreakEvenLoanAmount = loanPV - upfrontCosts
 End Function</code></pre>
 <h3 id="pattern-6-pvofmixedcashflows">Pattern 6: <code>PVOfMixedCashFlows</code></h3>
 <pre><code class="language-vbnet">Function PVOfMixedCashFlows(regularPayment As Double, _
-rate As Double, _
-nper As Integer, _
-futureValue As Double) As Double
-&#x27; Calculate PV when you have both regular payments and a lump sum
-PVOfMixedCashFlows = Abs(PV(rate, nper, regularPayment, futureValue))
+                            rate As Double, _
+                            nper As Integer, _
+                            futureValue As Double) As Double
+    &#x27; Calculate PV when you have both regular payments and a lump sum
+    PVOfMixedCashFlows = Abs(PV(rate, nper, regularPayment, futureValue))
 End Function</code></pre>
 <h3 id="pattern-7-calculaterequireddownpayment">Pattern 7: <code>CalculateRequiredDownPayment</code></h3>
 <pre><code class="language-vbnet">Function CalculateRequiredDownPayment(homePrice As Double, _
-monthlyPayment As Double, _
-rate As Double, _
-years As Integer) As Double
-Dim maxLoan As Double
-
-maxLoan = Abs(PV(rate / 12, years * 12, -monthlyPayment))
-
-If maxLoan &gt;= homePrice Then
-CalculateRequiredDownPayment = 0
-Else
-CalculateRequiredDownPayment = homePrice - maxLoan
-End If
+                                      monthlyPayment As Double, _
+                                      rate As Double, _
+                                      years As Integer) As Double
+    Dim maxLoan As Double
+    maxLoan = Abs(PV(rate / 12, years * 12, -monthlyPayment))
+    If maxLoan &gt;= homePrice Then
+        CalculateRequiredDownPayment = 0
+    Else
+        CalculateRequiredDownPayment = homePrice - maxLoan
+    End If
 End Function</code></pre>
 <h3 id="pattern-8-comparelumpsumvsannuity">Pattern 8: <code>CompareLumpSumVsAnnuity</code></h3>
 <pre><code class="language-vbnet">Function CompareLumpSumVsAnnuity(lumpSum As Double, _
-annuityPayment As Double, _
-years As Integer, _
-discountRate As Double) As String
-Dim annuityPV As Double
-Dim difference As Double
-
-annuityPV = Abs(PV(discountRate / 12, years * 12, annuityPayment))
-difference = lumpSum - annuityPV
-
-If difference &gt; 0 Then
-CompareLumpSumVsAnnuity = &quot;Lump sum is better by $&quot; &amp; Format(difference, &quot;#,##0&quot;)
-ElseIf difference &lt; 0 Then
-CompareLumpSumVsAnnuity = &quot;Annuity is better by $&quot; &amp; Format(Abs(difference), &quot;#,##0&quot;)
-Else
-CompareLumpSumVsAnnuity = &quot;Both options are equal&quot;
-End If
+                                 annuityPayment As Double, _
+                                 years As Integer, _
+                                 discountRate As Double) As String
+    Dim annuityPV As Double
+    Dim difference As Double
+    annuityPV = Abs(PV(discountRate / 12, years * 12, annuityPayment))
+    difference = lumpSum - annuityPV
+    If difference &gt; 0 Then
+        CompareLumpSumVsAnnuity = &quot;Lump sum is better by $&quot; &amp; Format(difference, &quot;#,##0&quot;)
+    ElseIf difference &lt; 0 Then
+        CompareLumpSumVsAnnuity = &quot;Annuity is better by $&quot; &amp; Format(Abs(difference), &quot;#,##0&quot;)
+    Else
+        CompareLumpSumVsAnnuity = &quot;Both options are equal&quot;
+    End If
 End Function</code></pre>
 <h3 id="pattern-9-calculateleasevalue">Pattern 9: <code>CalculateLeaseValue</code></h3>
 <pre><code class="language-vbnet">Function CalculateLeaseValue(monthlyLease As Double, _
-leaseTermMonths As Integer, _
-discountRate As Double) As Double
-&#x27; Calculate present value of all lease payments
-CalculateLeaseValue = Abs(PV(discountRate / 12, leaseTermMonths, -monthlyLease))
+                             leaseTermMonths As Integer, _
+                             discountRate As Double) As Double
+    &#x27; Calculate present value of all lease payments
+    CalculateLeaseValue = Abs(PV(discountRate / 12, leaseTermMonths, -monthlyLease))
 End Function</code></pre>
 <h3 id="pattern-10-findaffordablepayment">Pattern 10: <code>FindAffordablePayment</code></h3>
 <pre><code class="language-vbnet">Function FindAffordablePayment(desiredLoan As Double, _
-rate As Double, _
-nper As Integer) As Double
-&#x27; Reverse calculation: find payment from desired loan amount
-&#x27; This uses Pmt, but demonstrates PV relationship
-FindAffordablePayment = Abs(Pmt(rate, nper, desiredLoan))
+                               rate As Double, _
+                               nper As Integer) As Double
+    &#x27; Reverse calculation: find payment from desired loan amount
+    &#x27; This uses Pmt, but demonstrates PV relationship
+    FindAffordablePayment = Abs(Pmt(rate, nper, desiredLoan))
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-comprehensive-loan-calculator">Example 1: Comprehensive Loan Calculator</h3>
 <pre><code class="language-vbnet">&#x27; Calculate loan amounts based on payment affordability
 Class LoanAffordabilityCalculator
-Private m_monthlyIncome As Double
-Private m_monthlyDebts As Double
-Private m_annualRate As Double
-Private m_loanYears As Integer
-Private m_debtToIncomeRatio As Double
-
-Public Sub Initialize(monthlyIncome As Double, monthlyDebts As Double, _
-annualRate As Double, loanYears As Integer)
-m_monthlyIncome = monthlyIncome
-m_monthlyDebts = monthlyDebts
-m_annualRate = annualRate
-m_loanYears = loanYears
-m_debtToIncomeRatio = 0.43  &#x27; Standard 43% DTI ratio
-End Sub
-
-Public Function GetMaxMonthlyPayment() As Double
-Dim maxTotalDebt As Double
-Dim maxPayment As Double
-
-maxTotalDebt = m_monthlyIncome * m_debtToIncomeRatio
-maxPayment = maxTotalDebt - m_monthlyDebts
-
-If maxPayment &lt; 0 Then maxPayment = 0
-GetMaxMonthlyPayment = maxPayment
-End Function
-
-Public Function GetMaxLoanAmount() As Double
-Dim maxPayment As Double
-Dim monthlyRate As Double
-Dim numPayments As Integer
-
-maxPayment = GetMaxMonthlyPayment()
-monthlyRate = m_annualRate / 12
-numPayments = m_loanYears * 12
-
-&#x27; Use PV to find how much can be borrowed
-GetMaxLoanAmount = Abs(PV(monthlyRate, numPayments, -maxPayment))
-End Function
-
-Public Function GetLoanWithDownPayment(downPayment As Double) As Double
-GetLoanWithDownPayment = GetMaxLoanAmount() + downPayment
-End Function
-
-Public Function GetRequiredDownPayment(homePrice As Double) As Double
-Dim maxLoan As Double
-
-maxLoan = GetMaxLoanAmount()
-
-If maxLoan &gt;= homePrice Then
-GetRequiredDownPayment = 0
-Else
-GetRequiredDownPayment = homePrice - maxLoan
-End If
-End Function
-
-Public Function GenerateAffordabilityReport() As String
-Dim report As String
-Dim maxPayment As Double
-Dim maxLoan As Double
-
-maxPayment = GetMaxMonthlyPayment()
-maxLoan = GetMaxLoanAmount()
-
-report = &quot;Loan Affordability Analysis&quot; &amp; vbCrLf
-report = report &amp; String(50, &quot;=&quot;) &amp; vbCrLf
-report = report &amp; &quot;Monthly Income: $&quot; &amp; Format(m_monthlyIncome, &quot;#,##0&quot;) &amp; vbCrLf
-report = report &amp; &quot;Existing Debts: $&quot; &amp; Format(m_monthlyDebts, &quot;#,##0&quot;) &amp; vbCrLf
-report = report &amp; &quot;DTI Ratio: &quot; &amp; Format(m_debtToIncomeRatio * 100, &quot;0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
-report = report &amp; &quot;Max Monthly Payment: $&quot; &amp; Format(maxPayment, &quot;#,##0&quot;) &amp; vbCrLf
-report = report &amp; &quot;Interest Rate: &quot; &amp; Format(m_annualRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-report = report &amp; &quot;Loan Term: &quot; &amp; m_loanYears &amp; &quot; years&quot; &amp; vbCrLf
-report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
-report = report &amp; &quot;Maximum Loan Amount: $&quot; &amp; Format(maxLoan, &quot;#,##0&quot;)
-
-GenerateAffordabilityReport = report
-End Function
+    Private m_monthlyIncome As Double
+    Private m_monthlyDebts As Double
+    Private m_annualRate As Double
+    Private m_loanYears As Integer
+    Private m_debtToIncomeRatio As Double
+    Public Sub Initialize(monthlyIncome As Double, monthlyDebts As Double, _
+                         annualRate As Double, loanYears As Integer)
+        m_monthlyIncome = monthlyIncome
+        m_monthlyDebts = monthlyDebts
+        m_annualRate = annualRate
+        m_loanYears = loanYears
+        m_debtToIncomeRatio = 0.43  &#x27; Standard 43% DTI ratio
+    End Sub
+    Public Function GetMaxMonthlyPayment() As Double
+        Dim maxTotalDebt As Double
+        Dim maxPayment As Double
+        maxTotalDebt = m_monthlyIncome * m_debtToIncomeRatio
+        maxPayment = maxTotalDebt - m_monthlyDebts
+        If maxPayment &lt; 0 Then maxPayment = 0
+        GetMaxMonthlyPayment = maxPayment
+    End Function
+    Public Function GetMaxLoanAmount() As Double
+        Dim maxPayment As Double
+        Dim monthlyRate As Double
+        Dim numPayments As Integer
+        maxPayment = GetMaxMonthlyPayment()
+        monthlyRate = m_annualRate / 12
+        numPayments = m_loanYears * 12
+        &#x27; Use PV to find how much can be borrowed
+        GetMaxLoanAmount = Abs(PV(monthlyRate, numPayments, -maxPayment))
+    End Function
+    Public Function GetLoanWithDownPayment(downPayment As Double) As Double
+        GetLoanWithDownPayment = GetMaxLoanAmount() + downPayment
+    End Function
+    Public Function GetRequiredDownPayment(homePrice As Double) As Double
+        Dim maxLoan As Double
+        maxLoan = GetMaxLoanAmount()
+        If maxLoan &gt;= homePrice Then
+            GetRequiredDownPayment = 0
+        Else
+            GetRequiredDownPayment = homePrice - maxLoan
+        End If
+    End Function
+    Public Function GenerateAffordabilityReport() As String
+        Dim report As String
+        Dim maxPayment As Double
+        Dim maxLoan As Double
+        maxPayment = GetMaxMonthlyPayment()
+        maxLoan = GetMaxLoanAmount()
+        report = &quot;Loan Affordability Analysis&quot; &amp; vbCrLf
+        report = report &amp; String(50, &quot;=&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Monthly Income: $&quot; &amp; Format(m_monthlyIncome, &quot;#,##0&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Existing Debts: $&quot; &amp; Format(m_monthlyDebts, &quot;#,##0&quot;) &amp; vbCrLf
+        report = report &amp; &quot;DTI Ratio: &quot; &amp; Format(m_debtToIncomeRatio * 100, &quot;0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+        report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Max Monthly Payment: $&quot; &amp; Format(maxPayment, &quot;#,##0&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Interest Rate: &quot; &amp; Format(m_annualRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+        report = report &amp; &quot;Loan Term: &quot; &amp; m_loanYears &amp; &quot; years&quot; &amp; vbCrLf
+        report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Maximum Loan Amount: $&quot; &amp; Format(maxLoan, &quot;#,##0&quot;)
+        GenerateAffordabilityReport = report
+    End Function
 End Class</code></pre>
 <h3 id="example-2-annuity-comparison-tool">Example 2: Annuity Comparison Tool</h3>
 <pre><code class="language-vbnet">&#x27; Compare different annuity and lump sum options
 Module AnnuityComparison
-Private Type AnnuityOption
-Name As String
-Payment As Double
-Years As Integer
-IsLumpSum As Boolean
-LumpSumAmount As Double
-End Type
-
-Public Function CompareOptions(options() As AnnuityOption, _
-discountRate As Double) As String
-Dim report As String
-Dim i As Integer
-Dim pv As Double
-Dim monthlyRate As Double
-Dim bestValue As Double
-Dim bestIndex As Integer
-
-monthlyRate = discountRate / 12
-bestValue = 0
-bestIndex = LBound(options)
-
-report = &quot;Annuity Option Comparison&quot; &amp; vbCrLf
-report = report &amp; &quot;Discount Rate: &quot; &amp; Format(discountRate * 100, &quot;0.0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-report = report &amp; String(60, &quot;=&quot;) &amp; vbCrLf
-report = report &amp; &quot;Option              Type        Present Value&quot; &amp; vbCrLf
-report = report &amp; String(60, &quot;-&quot;) &amp; vbCrLf
-
-For i = LBound(options) To UBound(options)
-If options(i).IsLumpSum Then
-pv = options(i).LumpSumAmount
-Else
-pv = Abs(PV(monthlyRate, options(i).Years * 12, options(i).Payment))
-End If
-
-If pv &gt; bestValue Then
-bestValue = pv
-bestIndex = i
-End If
-
-report = report &amp; Left(options(i).Name &amp; Space(20), 20) &amp; _
-IIf(options(i).IsLumpSum, &quot;Lump Sum    &quot;, &quot;Annuity     &quot;) &amp; _
-&quot;$&quot; &amp; Format(pv, &quot;#,##0&quot;)
-
-If i = bestIndex Then report = report &amp; &quot; *BEST*&quot;
-report = report &amp; vbCrLf
-Next i
-
-report = report &amp; String(60, &quot;-&quot;) &amp; vbCrLf
-report = report &amp; &quot;Recommended: &quot; &amp; options(bestIndex).Name
-
-CompareOptions = report
-End Function
-
-Public Function CalculateAnnuityYield(lumpSum As Double, _
-monthlyPayment As Double, _
-years As Integer) As Double
-&#x27; Find the discount rate that makes PV equal to lump sum
-&#x27; This is a simplified approximation
-Dim rate As Double
-Dim pv As Double
-Dim diff As Double
-
-rate = 0.05  &#x27; Starting guess
-Do
-pv = Abs(PV(rate / 12, years * 12, monthlyPayment))
-diff = pv - lumpSum
-
-If Abs(diff) &lt; 0.01 Then Exit Do
-
-&#x27; Adjust rate
-If diff &gt; 0 Then
-rate = rate + 0.0001
-Else
-rate = rate - 0.0001
-End If
-Loop While Abs(diff) &gt; 0.01
-
-CalculateAnnuityYield = rate
-End Function
+    Private Type AnnuityOption
+        Name As String
+        Payment As Double
+        Years As Integer
+        IsLumpSum As Boolean
+        LumpSumAmount As Double
+    End Type
+    Public Function CompareOptions(options() As AnnuityOption, _
+                                  discountRate As Double) As String
+        Dim report As String
+        Dim i As Integer
+        Dim pv As Double
+        Dim monthlyRate As Double
+        Dim bestValue As Double
+        Dim bestIndex As Integer
+        monthlyRate = discountRate / 12
+        bestValue = 0
+        bestIndex = LBound(options)
+        report = &quot;Annuity Option Comparison&quot; &amp; vbCrLf
+        report = report &amp; &quot;Discount Rate: &quot; &amp; Format(discountRate * 100, &quot;0.0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+        report = report &amp; String(60, &quot;=&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Option              Type        Present Value&quot; &amp; vbCrLf
+        report = report &amp; String(60, &quot;-&quot;) &amp; vbCrLf
+        For i = LBound(options) To UBound(options)
+            If options(i).IsLumpSum Then
+                pv = options(i).LumpSumAmount
+            Else
+                pv = Abs(PV(monthlyRate, options(i).Years * 12, options(i).Payment))
+            End If
+            If pv &gt; bestValue Then
+                bestValue = pv
+                bestIndex = i
+            End If
+            report = report &amp; Left(options(i).Name &amp; Space(20), 20) &amp; _
+                     IIf(options(i).IsLumpSum, &quot;Lump Sum    &quot;, &quot;Annuity     &quot;) &amp; _
+                     &quot;$&quot; &amp; Format(pv, &quot;#,##0&quot;)
+            If i = bestIndex Then report = report &amp; &quot; *BEST*&quot;
+            report = report &amp; vbCrLf
+        Next i
+        report = report &amp; String(60, &quot;-&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Recommended: &quot; &amp; options(bestIndex).Name
+        CompareOptions = report
+    End Function
+    Public Function CalculateAnnuityYield(lumpSum As Double, _
+                                         monthlyPayment As Double, _
+                                         years As Integer) As Double
+        &#x27; Find the discount rate that makes PV equal to lump sum
+        &#x27; This is a simplified approximation
+        Dim rate As Double
+        Dim pv As Double
+        Dim diff As Double
+        rate = 0.05  &#x27; Starting guess
+        Do
+            pv = Abs(PV(rate / 12, years * 12, monthlyPayment))
+            diff = pv - lumpSum
+            If Abs(diff) &lt; 0.01 Then Exit Do
+            &#x27; Adjust rate
+            If diff &gt; 0 Then
+                rate = rate + 0.0001
+            Else
+                rate = rate - 0.0001
+            End If
+        Loop While Abs(diff) &gt; 0.01
+        CalculateAnnuityYield = rate
+    End Function
 End Module</code></pre>
 <h3 id="example-3-lease-vs-buy-analyzer">Example 3: Lease vs Buy Analyzer</h3>
 <pre><code class="language-vbnet">&#x27; Compare leasing vs buying with present value analysis
 Class LeaseVsBuyAnalyzer
-Private m_purchasePrice As Double
-Private m_monthlyLease As Double
-Private m_leaseTermMonths As Integer
-Private m_discountRate As Double
-Private m_residualValue As Double
-
-Public Sub Initialize(purchasePrice As Double, monthlyLease As Double, _
-leaseTermMonths As Integer, discountRate As Double, _
-residualValue As Double)
-m_purchasePrice = purchasePrice
-m_monthlyLease = monthlyLease
-m_leaseTermMonths = leaseTermMonths
-m_discountRate = discountRate
-m_residualValue = residualValue
-End Sub
-
-Public Function GetLeasePresentValue() As Double
-&#x27; Calculate PV of all lease payments
-GetLeasePresentValue = Abs(PV(m_discountRate / 12, m_leaseTermMonths, -m_monthlyLease))
-End Function
-
-Public Function GetBuyPresentValue() As Double
-&#x27; Calculate PV of buying (purchase price minus PV of residual value)
-Dim pvResidual As Double
-
-&#x27; PV of residual value (what it&#x27;s worth after lease term)
-pvResidual = Abs(PV(m_discountRate / 12, m_leaseTermMonths, 0, -m_residualValue))
-
-GetBuyPresentValue = m_purchasePrice - pvResidual
-End Function
-
-Public Function GetRecommendation() As String
-Dim leasePV As Double
-Dim buyPV As Double
-Dim difference As Double
-
-leasePV = GetLeasePresentValue()
-buyPV = GetBuyPresentValue()
-difference = Abs(buyPV - leasePV)
-
-If leasePV &lt; buyPV Then
-GetRecommendation = &quot;LEASE - Saves $&quot; &amp; Format(difference, &quot;#,##0&quot;) &amp; &quot; in PV&quot;
-ElseIf leasePV &gt; buyPV Then
-GetRecommendation = &quot;BUY - Saves $&quot; &amp; Format(difference, &quot;#,##0&quot;) &amp; &quot; in PV&quot;
-Else
-GetRecommendation = &quot;Either option - PV is equal&quot;
-End If
-End Function
-
-Public Function GenerateAnalysis() As String
-Dim analysis As String
-Dim leasePV As Double
-Dim buyPV As Double
-
-leasePV = GetLeasePresentValue()
-buyPV = GetBuyPresentValue()
-
-analysis = &quot;Lease vs Buy Analysis&quot; &amp; vbCrLf
-analysis = analysis &amp; String(50, &quot;=&quot;) &amp; vbCrLf
-analysis = analysis &amp; &quot;Purchase Price: $&quot; &amp; Format(m_purchasePrice, &quot;#,##0&quot;) &amp; vbCrLf
-analysis = analysis &amp; &quot;Monthly Lease: $&quot; &amp; Format(m_monthlyLease, &quot;#,##0&quot;) &amp; vbCrLf
-analysis = analysis &amp; &quot;Lease Term: &quot; &amp; m_leaseTermMonths &amp; &quot; months&quot; &amp; vbCrLf
-analysis = analysis &amp; &quot;Discount Rate: &quot; &amp; Format(m_discountRate * 100, &quot;0.0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-analysis = analysis &amp; &quot;Residual Value: $&quot; &amp; Format(m_residualValue, &quot;#,##0&quot;) &amp; vbCrLf
-analysis = analysis &amp; String(50, &quot;-&quot;) &amp; vbCrLf
-analysis = analysis &amp; &quot;Lease PV: $&quot; &amp; Format(leasePV, &quot;#,##0&quot;) &amp; vbCrLf
-analysis = analysis &amp; &quot;Buy PV: $&quot; &amp; Format(buyPV, &quot;#,##0&quot;) &amp; vbCrLf
-analysis = analysis &amp; String(50, &quot;-&quot;) &amp; vbCrLf
-analysis = analysis &amp; &quot;Recommendation: &quot; &amp; GetRecommendation()
-
-GenerateAnalysis = analysis
-End Function
+    Private m_purchasePrice As Double
+    Private m_monthlyLease As Double
+    Private m_leaseTermMonths As Integer
+    Private m_discountRate As Double
+    Private m_residualValue As Double
+    Public Sub Initialize(purchasePrice As Double, monthlyLease As Double, _
+                         leaseTermMonths As Integer, discountRate As Double, _
+                         residualValue As Double)
+        m_purchasePrice = purchasePrice
+        m_monthlyLease = monthlyLease
+        m_leaseTermMonths = leaseTermMonths
+        m_discountRate = discountRate
+        m_residualValue = residualValue
+    End Sub
+    Public Function GetLeasePresentValue() As Double
+        &#x27; Calculate PV of all lease payments
+        GetLeasePresentValue = Abs(PV(m_discountRate / 12, m_leaseTermMonths, -m_monthlyLease))
+    End Function
+    Public Function GetBuyPresentValue() As Double
+        &#x27; Calculate PV of buying (purchase price minus PV of residual value)
+        Dim pvResidual As Double
+        &#x27; PV of residual value (what it&#x27;s worth after lease term)
+        pvResidual = Abs(PV(m_discountRate / 12, m_leaseTermMonths, 0, -m_residualValue))
+        GetBuyPresentValue = m_purchasePrice - pvResidual
+    End Function
+    Public Function GetRecommendation() As String
+        Dim leasePV As Double
+        Dim buyPV As Double
+        Dim difference As Double
+        leasePV = GetLeasePresentValue()
+        buyPV = GetBuyPresentValue()
+        difference = Abs(buyPV - leasePV)
+        If leasePV &lt; buyPV Then
+            GetRecommendation = &quot;LEASE - Saves $&quot; &amp; Format(difference, &quot;#,##0&quot;) &amp; &quot; in PV&quot;
+        ElseIf leasePV &gt; buyPV Then
+            GetRecommendation = &quot;BUY - Saves $&quot; &amp; Format(difference, &quot;#,##0&quot;) &amp; &quot; in PV&quot;
+        Else
+            GetRecommendation = &quot;Either option - PV is equal&quot;
+        End If
+    End Function
+    Public Function GenerateAnalysis() As String
+        Dim analysis As String
+        Dim leasePV As Double
+        Dim buyPV As Double
+        leasePV = GetLeasePresentValue()
+        buyPV = GetBuyPresentValue()
+        analysis = &quot;Lease vs Buy Analysis&quot; &amp; vbCrLf
+        analysis = analysis &amp; String(50, &quot;=&quot;) &amp; vbCrLf
+        analysis = analysis &amp; &quot;Purchase Price: $&quot; &amp; Format(m_purchasePrice, &quot;#,##0&quot;) &amp; vbCrLf
+        analysis = analysis &amp; &quot;Monthly Lease: $&quot; &amp; Format(m_monthlyLease, &quot;#,##0&quot;) &amp; vbCrLf
+        analysis = analysis &amp; &quot;Lease Term: &quot; &amp; m_leaseTermMonths &amp; &quot; months&quot; &amp; vbCrLf
+        analysis = analysis &amp; &quot;Discount Rate: &quot; &amp; Format(m_discountRate * 100, &quot;0.0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+        analysis = analysis &amp; &quot;Residual Value: $&quot; &amp; Format(m_residualValue, &quot;#,##0&quot;) &amp; vbCrLf
+        analysis = analysis &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+        analysis = analysis &amp; &quot;Lease PV: $&quot; &amp; Format(leasePV, &quot;#,##0&quot;) &amp; vbCrLf
+        analysis = analysis &amp; &quot;Buy PV: $&quot; &amp; Format(buyPV, &quot;#,##0&quot;) &amp; vbCrLf
+        analysis = analysis &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+        analysis = analysis &amp; &quot;Recommendation: &quot; &amp; GetRecommendation()
+        GenerateAnalysis = analysis
+    End Function
 End Class</code></pre>
 <h3 id="example-4-pension-valuation-calculator">Example 4: Pension Valuation Calculator</h3>
 <pre><code class="language-vbnet">&#x27; Calculate present value of pension benefits
 Class PensionValuator
-Private m_monthlyPension As Double
-Private m_yearsToRetirement As Integer
-Private m_yearsOfPayments As Integer
-Private m_discountRate As Double
-Private m_inflationRate As Double
-
-Public Sub SetPensionDetails(monthlyPension As Double, _
-yearsToRetirement As Integer, _
-yearsOfPayments As Integer)
-m_monthlyPension = monthlyPension
-m_yearsToRetirement = yearsToRetirement
-m_yearsOfPayments = yearsOfPayments
-End Sub
-
-Public Sub SetEconomicAssumptions(discountRate As Double, inflationRate As Double)
-m_discountRate = discountRate
-m_inflationRate = inflationRate
-End Sub
-
-Public Function GetPensionPresentValue() As Double
-Dim monthlyRate As Double
-Dim numPayments As Integer
-Dim pvAtRetirement As Double
-Dim pvToday As Double
-
-monthlyRate = m_discountRate / 12
-numPayments = m_yearsOfPayments * 12
-
-&#x27; Calculate PV at retirement
-pvAtRetirement = Abs(PV(monthlyRate, numPayments, m_monthlyPension))
-
-&#x27; Discount back to today
-pvToday = Abs(PV(m_discountRate, m_yearsToRetirement, 0, -pvAtRetirement))
-
-GetPensionPresentValue = pvToday
-End Function
-
-Public Function GetInflationAdjustedValue() As Double
-Dim realRate As Double
-Dim monthlyRate As Double
-Dim numPayments As Integer
-Dim pvAtRetirement As Double
-Dim pvToday As Double
-
-&#x27; Fisher equation: (1 + nominal) = (1 + real)(1 + inflation)
-realRate = ((1 + m_discountRate) / (1 + m_inflationRate)) - 1
-monthlyRate = realRate / 12
-numPayments = m_yearsOfPayments * 12
-
-pvAtRetirement = Abs(PV(monthlyRate, numPayments, m_monthlyPension))
-pvToday = Abs(PV(realRate, m_yearsToRetirement, 0, -pvAtRetirement))
-
-GetInflationAdjustedValue = pvToday
-End Function
-
-Public Function GenerateValuationReport() As String
-Dim report As String
-Dim nominalPV As Double
-Dim realPV As Double
-Dim totalPayments As Double
-
-nominalPV = GetPensionPresentValue()
-realPV = GetInflationAdjustedValue()
-totalPayments = m_monthlyPension * m_yearsOfPayments * 12
-
-report = &quot;Pension Valuation Report&quot; &amp; vbCrLf
-report = report &amp; String(50, &quot;=&quot;) &amp; vbCrLf
-report = report &amp; &quot;Monthly Pension: $&quot; &amp; Format(m_monthlyPension, &quot;#,##0&quot;) &amp; vbCrLf
-report = report &amp; &quot;Years to Retirement: &quot; &amp; m_yearsToRetirement &amp; vbCrLf
-report = report &amp; &quot;Years of Payments: &quot; &amp; m_yearsOfPayments &amp; vbCrLf
-report = report &amp; &quot;Discount Rate: &quot; &amp; Format(m_discountRate * 100, &quot;0.0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-report = report &amp; &quot;Inflation Rate: &quot; &amp; Format(m_inflationRate * 100, &quot;0.0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
-report = report &amp; &quot;Total Nominal Payments: $&quot; &amp; Format(totalPayments, &quot;#,##0&quot;) &amp; vbCrLf
-report = report &amp; &quot;Present Value (Nominal): $&quot; &amp; Format(nominalPV, &quot;#,##0&quot;) &amp; vbCrLf
-report = report &amp; &quot;Present Value (Real): $&quot; &amp; Format(realPV, &quot;#,##0&quot;) &amp; vbCrLf
-report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
-report = report &amp; &quot;Value Reduction from Inflation: $&quot; &amp; _
-Format(nominalPV - realPV, &quot;#,##0&quot;) &amp; &quot; (&quot; &amp; _
-Format(((nominalPV - realPV) / nominalPV) * 100, &quot;0.0&quot;) &amp; &quot;%)&quot;
-
-GenerateValuationReport = report
-End Function
+    Private m_monthlyPension As Double
+    Private m_yearsToRetirement As Integer
+    Private m_yearsOfPayments As Integer
+    Private m_discountRate As Double
+    Private m_inflationRate As Double
+    Public Sub SetPensionDetails(monthlyPension As Double, _
+                                yearsToRetirement As Integer, _
+                                yearsOfPayments As Integer)
+        m_monthlyPension = monthlyPension
+        m_yearsToRetirement = yearsToRetirement
+        m_yearsOfPayments = yearsOfPayments
+    End Sub
+    Public Sub SetEconomicAssumptions(discountRate As Double, inflationRate As Double)
+        m_discountRate = discountRate
+        m_inflationRate = inflationRate
+    End Sub
+    Public Function GetPensionPresentValue() As Double
+        Dim monthlyRate As Double
+        Dim numPayments As Integer
+        Dim pvAtRetirement As Double
+        Dim pvToday As Double
+        monthlyRate = m_discountRate / 12
+        numPayments = m_yearsOfPayments * 12
+        &#x27; Calculate PV at retirement
+        pvAtRetirement = Abs(PV(monthlyRate, numPayments, m_monthlyPension))
+        &#x27; Discount back to today
+        pvToday = Abs(PV(m_discountRate, m_yearsToRetirement, 0, -pvAtRetirement))
+        GetPensionPresentValue = pvToday
+    End Function
+    Public Function GetInflationAdjustedValue() As Double
+        Dim realRate As Double
+        Dim monthlyRate As Double
+        Dim numPayments As Integer
+        Dim pvAtRetirement As Double
+        Dim pvToday As Double
+        &#x27; Fisher equation: (1 + nominal) = (1 + real)(1 + inflation)
+        realRate = ((1 + m_discountRate) / (1 + m_inflationRate)) - 1
+        monthlyRate = realRate / 12
+        numPayments = m_yearsOfPayments * 12
+        pvAtRetirement = Abs(PV(monthlyRate, numPayments, m_monthlyPension))
+        pvToday = Abs(PV(realRate, m_yearsToRetirement, 0, -pvAtRetirement))
+        GetInflationAdjustedValue = pvToday
+    End Function
+    Public Function GenerateValuationReport() As String
+        Dim report As String
+        Dim nominalPV As Double
+        Dim realPV As Double
+        Dim totalPayments As Double
+        nominalPV = GetPensionPresentValue()
+        realPV = GetInflationAdjustedValue()
+        totalPayments = m_monthlyPension * m_yearsOfPayments * 12
+        report = &quot;Pension Valuation Report&quot; &amp; vbCrLf
+        report = report &amp; String(50, &quot;=&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Monthly Pension: $&quot; &amp; Format(m_monthlyPension, &quot;#,##0&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Years to Retirement: &quot; &amp; m_yearsToRetirement &amp; vbCrLf
+        report = report &amp; &quot;Years of Payments: &quot; &amp; m_yearsOfPayments &amp; vbCrLf
+        report = report &amp; &quot;Discount Rate: &quot; &amp; Format(m_discountRate * 100, &quot;0.0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+        report = report &amp; &quot;Inflation Rate: &quot; &amp; Format(m_inflationRate * 100, &quot;0.0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+        report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Total Nominal Payments: $&quot; &amp; Format(totalPayments, &quot;#,##0&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Present Value (Nominal): $&quot; &amp; Format(nominalPV, &quot;#,##0&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Present Value (Real): $&quot; &amp; Format(realPV, &quot;#,##0&quot;) &amp; vbCrLf
+        report = report &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+        report = report &amp; &quot;Value Reduction from Inflation: $&quot; &amp; _
+                 Format(nominalPV - realPV, &quot;#,##0&quot;) &amp; &quot; (&quot; &amp; _
+                 Format(((nominalPV - realPV) / nominalPV) * 100, &quot;0.0&quot;) &amp; &quot;%)&quot;
+        GenerateValuationReport = report
+    End Function
 End Class</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>PV</code> function can raise errors in the following situations:</p>
-<ul>
-<li><strong>Invalid Procedure Call (Error 5)</strong>: When:</li>
-<li><code>nper</code> is 0 or negative</li>
-<li><code>rate</code> is -1 (causes division by zero in the formula)</li>
-<li><strong>Type Mismatch (Error 13)</strong>: When arguments cannot be converted to numeric values</li>
-<li><strong>Overflow (Error 6)</strong>: When calculated values exceed Double range</li>
-</ul>
-<p>Always validate input parameters:</p>
+<p>The <code>PV</code> function can raise errors in the following situations:
+- <strong>Invalid Procedure Call (Error 5)</strong>: When:
+  - <code>nper</code> is 0 or negative
+  - <code>rate</code> is -1 (causes division by zero in the formula)
+- <strong>Type Mismatch (Error 13)</strong>: When arguments cannot be converted to numeric values
+- <strong>Overflow (Error 6)</strong>: When calculated values exceed Double range
+Always validate input parameters:</p>
 <pre><code class="language-vbnet">On Error Resume Next
 presentValue = PV(rate, nper, pmt, fv, type)
 If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Error calculating present value: &quot; &amp; Err.Description
-Err.Clear
+    MsgBox &quot;Error calculating present value: &quot; &amp; Err.Description
+    Err.Clear
 End If
 On Error GoTo 0</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>

@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="isempty-function"><code>IsEmpty</code> Function</h1>
+            <h1 id="isempty-function">IsEmpty Function</h1>
 <p>Returns a <code>Boolean</code> value indicating whether a <code>Variant</code> variable has been initialized.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">IsEmpty(expression)</code></pre>
@@ -54,20 +54,18 @@
 - Returns <code>False</code> for <code>Null</code> values (<code>Null</code> is not the same as <code>Empty</code>)
 - Returns <code>False</code> for zero, empty strings, and <code>False</code></p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>IsEmpty</code> function is used to determine whether a <code>Variant</code> variable has been initialized:</p>
-<ul>
-<li>Only works with <code>Variant</code> data type</li>
-<li>Returns <code>True</code> only for uninitialized <code>Variant</code> variables</li>
-<li><code>Empty</code> is different from <code>Null</code> (<code>IsNull</code>) and zero</li>
-<li><code>Empty</code> is different from zero-length string ("")</li>
-<li><code>Empty</code> is different from <code>False</code></li>
-<li>Useful for checking optional <code>Variant</code> parameters</li>
-<li>Can detect uninitialized elements in <code>Variant</code> arrays</li>
-<li>Once a <code>Variant</code> is assigned any value (including <code>Null</code>), it is no longer <code>Empty</code></li>
-<li>Use <code>VarType(var) = vbEmpty</code> for the same check</li>
-<li>Cannot be used to test whether procedure or function exists</li>
-<li>Commonly used in procedures with optional Variant parameters</li>
-</ul>
+<p>The <code>IsEmpty</code> function is used to determine whether a <code>Variant</code> variable has been initialized:
+- Only works with <code>Variant</code> data type
+- Returns <code>True</code> only for uninitialized <code>Variant</code> variables
+- <code>Empty</code> is different from <code>Null</code> (<code>IsNull</code>) and zero
+- <code>Empty</code> is different from zero-length string ("")
+- <code>Empty</code> is different from <code>False</code>
+- Useful for checking optional <code>Variant</code> parameters
+- Can detect uninitialized elements in <code>Variant</code> arrays
+- Once a <code>Variant</code> is assigned any value (including <code>Null</code>), it is no longer <code>Empty</code>
+- Use <code>VarType(var) = vbEmpty</code> for the same check
+- Cannot be used to test whether procedure or function exists
+- Commonly used in procedures with optional Variant parameters</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Optional Parameters</strong>: Check if optional Variant parameter was provided</li>
@@ -82,21 +80,17 @@
 <h2 id="basic-usage-examples">Basic Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Check uninitialized Variant
 Dim myVar As Variant
-
 If IsEmpty(myVar) Then
-Debug.Print &quot;Variable is uninitialized&quot;  &#x27; This prints
+    Debug.Print &quot;Variable is uninitialized&quot;  &#x27; This prints
 End If
-
 myVar = 0
 If IsEmpty(myVar) Then
-Debug.Print &quot;Still empty&quot;
+    Debug.Print &quot;Still empty&quot;
 Else
-Debug.Print &quot;Now initialized&quot;  &#x27; This prints
+    Debug.Print &quot;Now initialized&quot;  &#x27; This prints
 End If
-
 &#x27; Example 2: Distinguish Empty from other values
 Dim testVar As Variant
-
 Debug.Print IsEmpty(testVar)        &#x27; True - uninitialized
 testVar = 0
 Debug.Print IsEmpty(testVar)        &#x27; False - initialized to zero
@@ -106,345 +100,288 @@ testVar = False
 Debug.Print IsEmpty(testVar)        &#x27; False - initialized to False
 testVar = Null
 Debug.Print IsEmpty(testVar)        &#x27; False - Null is not Empty
-
 &#x27; Example 3: Optional parameter handling
 Function ProcessData(data As String, Optional threshold As Variant) As Boolean
-Dim thresholdValue As Double
-
-If IsEmpty(threshold) Then
-&#x27; Use default value when parameter not provided
-thresholdValue = 100
-Debug.Print &quot;Using default threshold: 100&quot;
-Else
-thresholdValue = threshold
-Debug.Print &quot;Using provided threshold: &quot; &amp; threshold
-End If
-
-&#x27; Process data with threshold
-ProcessData = (Len(data) &gt; thresholdValue)
+    Dim thresholdValue As Double
+    If IsEmpty(threshold) Then
+        &#x27; Use default value when parameter not provided
+        thresholdValue = 100
+        Debug.Print &quot;Using default threshold: 100&quot;
+    Else
+        thresholdValue = threshold
+        Debug.Print &quot;Using provided threshold: &quot; &amp; threshold
+    End If
+    &#x27; Process data with threshold
+    ProcessData = (Len(data) &gt; thresholdValue)
 End Function
-
 &#x27; Usage
 ProcessData &quot;test&quot;              &#x27; Uses default threshold (100)
 ProcessData &quot;test&quot;, 10          &#x27; Uses provided threshold (10)
 ProcessData &quot;test&quot;, 0           &#x27; Uses provided threshold (0) - not Empty!
-
 &#x27; Example 4: Check array elements
 Dim values(1 To 5) As Variant
 Dim i As Integer
-
 values(1) = 10
 values(3) = &quot;Hello&quot;
 &#x27; values(2), values(4), values(5) remain Empty
-
 For i = 1 To 5
-If IsEmpty(values(i)) Then
-Debug.Print &quot;Element &quot; &amp; i &amp; &quot; is uninitialized&quot;
-Else
-Debug.Print &quot;Element &quot; &amp; i &amp; &quot; = &quot; &amp; values(i)
-End If
+    If IsEmpty(values(i)) Then
+        Debug.Print &quot;Element &quot; &amp; i &amp; &quot; is uninitialized&quot;
+    Else
+        Debug.Print &quot;Element &quot; &amp; i &amp; &quot; = &quot; &amp; values(i)
+    End If
 Next i</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Optional parameter with default
 Function GetValue(key As String, Optional defaultValue As Variant) As Variant
-Dim result As Variant
-result = LookupValue(key)
-
-If IsEmpty(result) Then
-If IsEmpty(defaultValue) Then
-GetValue = Null  &#x27; No default provided
-Else
-GetValue = defaultValue
-End If
-Else
-GetValue = result
-End If
+    Dim result As Variant
+    result = LookupValue(key)
+    If IsEmpty(result) Then
+        If IsEmpty(defaultValue) Then
+            GetValue = Null  &#x27; No default provided
+        Else
+            GetValue = defaultValue
+        End If
+    Else
+        GetValue = result
+    End If
 End Function
-
 &#x27; Pattern 2: Initialize if empty
 Sub EnsureInitialized(ByRef value As Variant, defaultValue As Variant)
-If IsEmpty(value) Then
-value = defaultValue
-End If
+    If IsEmpty(value) Then
+        value = defaultValue
+    End If
 End Sub
-
 &#x27; Pattern 3: Count initialized array elements
 Function CountInitializedElements(arr As Variant) As Long
-Dim i As Long
-Dim count As Long
-
-If Not IsArray(arr) Then
-CountInitializedElements = 0
-Exit Function
-End If
-
-count = 0
-For i = LBound(arr) To UBound(arr)
-If Not IsEmpty(arr(i)) Then
-count = count + 1
-End If
-Next i
-
-CountInitializedElements = count
+    Dim i As Long
+    Dim count As Long
+    If Not IsArray(arr) Then
+        CountInitializedElements = 0
+        Exit Function
+    End If
+    count = 0
+    For i = LBound(arr) To UBound(arr)
+        If Not IsEmpty(arr(i)) Then
+            count = count + 1
+        End If
+    Next i
+    CountInitializedElements = count
 End Function
-
 &#x27; Pattern 4: Safe value retrieval
 Function SafeGetValue(source As Variant, key As String) As Variant
-On Error Resume Next
-SafeGetValue = source(key)
-
-If Err.Number &lt;&gt; 0 Or IsEmpty(SafeGetValue) Then
-SafeGetValue = Null
-End If
-On Error GoTo 0
+    On Error Resume Next
+    SafeGetValue = source(key)
+    If Err.Number &lt;&gt; 0 Or IsEmpty(SafeGetValue) Then
+        SafeGetValue = Null
+    End If
+    On Error GoTo 0
 End Function
-
 &#x27; Pattern 5: Validate required parameter
 Sub ProcessRecord(recordData As Variant)
-If IsEmpty(recordData) Then
-Err.Raise 5, , &quot;Record data is required&quot;
-End If
-
-&#x27; Process the record
+    If IsEmpty(recordData) Then
+        Err.Raise 5, , &quot;Record data is required&quot;
+    End If
+    &#x27; Process the record
 End Sub
-
 &#x27; Pattern 6: Type-aware value handling
 Function DescribeValue(value As Variant) As String
-If IsEmpty(value) Then
-DescribeValue = &quot;Uninitialized&quot;
-ElseIf IsNull(value) Then
-DescribeValue = &quot;Null value&quot;
-ElseIf IsNumeric(value) Then
-DescribeValue = &quot;Number: &quot; &amp; value
-ElseIf IsDate(value) Then
-DescribeValue = &quot;Date: &quot; &amp; value
-Else
-DescribeValue = &quot;Other: &quot; &amp; value
-End If
+    If IsEmpty(value) Then
+        DescribeValue = &quot;Uninitialized&quot;
+    ElseIf IsNull(value) Then
+        DescribeValue = &quot;Null value&quot;
+    ElseIf IsNumeric(value) Then
+        DescribeValue = &quot;Number: &quot; &amp; value
+    ElseIf IsDate(value) Then
+        DescribeValue = &quot;Date: &quot; &amp; value
+    Else
+        DescribeValue = &quot;Other: &quot; &amp; value
+    End If
 End Function
-
 &#x27; Pattern 7: Clear variant (make it empty again)
 Sub ClearVariant(ByRef value As Variant)
-&#x27; Set to Empty state
-value = Empty
-Debug.Print &quot;IsEmpty now: &quot; &amp; IsEmpty(value)  &#x27; True
+    &#x27; Set to Empty state
+    value = Empty
+    Debug.Print &quot;IsEmpty now: &quot; &amp; IsEmpty(value)  &#x27; True
 End Sub
-
 &#x27; Pattern 8: Coalesce - return first non-empty value
 Function Coalesce(ParamArray values() As Variant) As Variant
-Dim i As Long
-
-For i = LBound(values) To UBound(values)
-If Not IsEmpty(values(i)) And Not IsNull(values(i)) Then
-Coalesce = values(i)
-Exit Function
-End If
-Next i
-
-Coalesce = Null  &#x27; All values were Empty or Null
+    Dim i As Long
+    For i = LBound(values) To UBound(values)
+        If Not IsEmpty(values(i)) And Not IsNull(values(i)) Then
+            Coalesce = values(i)
+            Exit Function
+        End If
+    Next i
+    Coalesce = Null  &#x27; All values were Empty or Null
 End Function
-
 &#x27; Pattern 9: Check multiple values
 Function AllInitialized(ParamArray values() As Variant) As Boolean
-Dim i As Long
-
-For i = LBound(values) To UBound(values)
-If IsEmpty(values(i)) Then
-AllInitialized = False
-Exit Function
-End If
-Next i
-
-AllInitialized = True
+    Dim i As Long
+    For i = LBound(values) To UBound(values)
+        If IsEmpty(values(i)) Then
+            AllInitialized = False
+            Exit Function
+        End If
+    Next i
+    AllInitialized = True
 End Function
-
 &#x27; Pattern 10: Cache with lazy initialization
 Private m_cachedValue As Variant
-
 Function GetCachedValue() As Variant
-If IsEmpty(m_cachedValue) Then
-&#x27; Initialize cache on first access
-m_cachedValue = ExpensiveCalculation()
-End If
-
-GetCachedValue = m_cachedValue
+    If IsEmpty(m_cachedValue) Then
+        &#x27; Initialize cache on first access
+        m_cachedValue = ExpensiveCalculation()
+    End If
+    GetCachedValue = m_cachedValue
 End Function
-
 Sub InvalidateCache()
-m_cachedValue = Empty
+    m_cachedValue = Empty
 End Sub</code></pre>
 <h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Configuration manager with lazy loading
 Public Class ConfigurationManager
-Private m_config As Variant
-Private m_filePath As String
-
-Public Sub Initialize(filePath As String)
-m_filePath = filePath
-m_config = Empty  &#x27; Mark as uninitialized
-End Sub
-
-Public Function GetSetting(key As String, Optional defaultValue As Variant) As Variant
-&#x27; Load config on first access
-If IsEmpty(m_config) Then
-LoadConfiguration
-End If
-
-On Error Resume Next
-GetSetting = m_config(key)
-
-If Err.Number &lt;&gt; 0 Or IsEmpty(GetSetting) Then
-If IsEmpty(defaultValue) Then
-GetSetting = Null
-Else
-GetSetting = defaultValue
-End If
-End If
-On Error GoTo 0
-End Function
-
-Private Sub LoadConfiguration()
-&#x27; Load configuration from file
-Set m_config = CreateObject(&quot;Scripting.Dictionary&quot;)
-&#x27; ... load settings into dictionary ...
-End Sub
-
-Public Sub Reload()
-m_config = Empty  &#x27; Clear cache to force reload
-End Sub
+    Private m_config As Variant
+    Private m_filePath As String
+    Public Sub Initialize(filePath As String)
+        m_filePath = filePath
+        m_config = Empty  &#x27; Mark as uninitialized
+    End Sub
+    Public Function GetSetting(key As String, Optional defaultValue As Variant) As Variant
+        &#x27; Load config on first access
+        If IsEmpty(m_config) Then
+            LoadConfiguration
+        End If
+        On Error Resume Next
+        GetSetting = m_config(key)
+        If Err.Number &lt;&gt; 0 Or IsEmpty(GetSetting) Then
+            If IsEmpty(defaultValue) Then
+                GetSetting = Null
+            Else
+                GetSetting = defaultValue
+            End If
+        End If
+        On Error GoTo 0
+    End Function
+    Private Sub LoadConfiguration()
+        &#x27; Load configuration from file
+        Set m_config = CreateObject(&quot;Scripting.Dictionary&quot;)
+        &#x27; ... load settings into dictionary ...
+    End Sub
+    Public Sub Reload()
+        m_config = Empty  &#x27; Clear cache to force reload
+    End Sub
 End Class
-
 &#x27; Example 2: Smart default value provider
 Public Class DefaultValueProvider
-Private m_defaults As Variant
-
-Public Sub SetDefault(key As String, value As Variant)
-If IsEmpty(m_defaults) Then
-Set m_defaults = CreateObject(&quot;Scripting.Dictionary&quot;)
-End If
-m_defaults(key) = value
-End Sub
-
-Public Function GetWithDefault(value As Variant, key As String) As Variant
-If IsEmpty(value) Then
-If Not IsEmpty(m_defaults) Then
-On Error Resume Next
-GetWithDefault = m_defaults(key)
-If Err.Number &lt;&gt; 0 Then
-GetWithDefault = Null
-End If
-On Error GoTo 0
-Else
-GetWithDefault = Null
-End If
-Else
-GetWithDefault = value
-End If
-End Function
+    Private m_defaults As Variant
+    Public Sub SetDefault(key As String, value As Variant)
+        If IsEmpty(m_defaults) Then
+            Set m_defaults = CreateObject(&quot;Scripting.Dictionary&quot;)
+        End If
+        m_defaults(key) = value
+    End Sub
+    Public Function GetWithDefault(value As Variant, key As String) As Variant
+        If IsEmpty(value) Then
+            If Not IsEmpty(m_defaults) Then
+                On Error Resume Next
+                GetWithDefault = m_defaults(key)
+                If Err.Number &lt;&gt; 0 Then
+                    GetWithDefault = Null
+                End If
+                On Error GoTo 0
+            Else
+                GetWithDefault = Null
+            End If
+        Else
+            GetWithDefault = value
+        End If
+    End Function
 End Class
-
 &#x27; Example 3: Variant array processor
 Public Class VariantArrayProcessor
-Public Function Compact(arr As Variant) As Variant
-&#x27; Remove Empty elements from array
-Dim result() As Variant
-Dim i As Long, count As Long
-
-If Not IsArray(arr) Then
-Compact = arr
-Exit Function
-End If
-
-ReDim result(LBound(arr) To UBound(arr))
-count = LBound(arr) - 1
-
-For i = LBound(arr) To UBound(arr)
-If Not IsEmpty(arr(i)) Then
-count = count + 1
-result(count) = arr(i)
-End If
-Next i
-
-If count &gt;= LBound(result) Then
-ReDim Preserve result(LBound(result) To count)
-Compact = result
-Else
-Compact = Array()  &#x27; Empty array
-End If
-End Function
-
-Public Function FillEmpty(arr As Variant, fillValue As Variant) As Variant
-&#x27; Replace Empty elements with fill value
-Dim result() As Variant
-Dim i As Long
-
-If Not IsArray(arr) Then
-FillEmpty = arr
-Exit Function
-End If
-
-ReDim result(LBound(arr) To UBound(arr))
-
-For i = LBound(arr) To UBound(arr)
-If IsEmpty(arr(i)) Then
-result(i) = fillValue
-Else
-result(i) = arr(i)
-End If
-Next i
-
-FillEmpty = result
-End Function
+    Public Function Compact(arr As Variant) As Variant
+        &#x27; Remove Empty elements from array
+        Dim result() As Variant
+        Dim i As Long, count As Long
+        If Not IsArray(arr) Then
+            Compact = arr
+            Exit Function
+        End If
+        ReDim result(LBound(arr) To UBound(arr))
+        count = LBound(arr) - 1
+        For i = LBound(arr) To UBound(arr)
+            If Not IsEmpty(arr(i)) Then
+                count = count + 1
+                result(count) = arr(i)
+            End If
+        Next i
+        If count &gt;= LBound(result) Then
+            ReDim Preserve result(LBound(result) To count)
+            Compact = result
+        Else
+            Compact = Array()  &#x27; Empty array
+        End If
+    End Function
+    Public Function FillEmpty(arr As Variant, fillValue As Variant) As Variant
+        &#x27; Replace Empty elements with fill value
+        Dim result() As Variant
+        Dim i As Long
+        If Not IsArray(arr) Then
+            FillEmpty = arr
+            Exit Function
+        End If
+        ReDim result(LBound(arr) To UBound(arr))
+        For i = LBound(arr) To UBound(arr)
+            If IsEmpty(arr(i)) Then
+                result(i) = fillValue
+            Else
+                result(i) = arr(i)
+            End If
+        Next i
+        FillEmpty = result
+    End Function
 End Class
-
 &#x27; Example 4: Flexible function with multiple optional parameters
 Function CreateReport(title As String, Optional author As Variant, _
-Optional date As Variant, Optional includeIndex As Variant) As String
-Dim report As String
-
-report = &quot;REPORT: &quot; &amp; title &amp; vbCrLf
-
-If Not IsEmpty(author) Then
-report = report &amp; &quot;Author: &quot; &amp; author &amp; vbCrLf
-Else
-report = report &amp; &quot;Author: Unknown&quot; &amp; vbCrLf
-End If
-
-If Not IsEmpty(date) Then
-If IsDate(date) Then
-report = report &amp; &quot;Date: &quot; &amp; Format$(date, &quot;Long Date&quot;) &amp; vbCrLf
-Else
-report = report &amp; &quot;Date: &quot; &amp; date &amp; vbCrLf
-End If
-Else
-report = report &amp; &quot;Date: &quot; &amp; Format$(Now, &quot;Long Date&quot;) &amp; vbCrLf
-End If
-
-report = report &amp; String(40, &quot;-&quot;) &amp; vbCrLf
-
-&#x27; Add content...
-
-&#x27; Add index if requested
-If Not IsEmpty(includeIndex) Then
-If includeIndex = True Then
-report = report &amp; vbCrLf &amp; &quot;INDEX&quot; &amp; vbCrLf
-&#x27; ... add index content ...
-End If
-End If
-
-CreateReport = report
+                      Optional date As Variant, Optional includeIndex As Variant) As String
+    Dim report As String
+    report = &quot;REPORT: &quot; &amp; title &amp; vbCrLf
+    If Not IsEmpty(author) Then
+        report = report &amp; &quot;Author: &quot; &amp; author &amp; vbCrLf
+    Else
+        report = report &amp; &quot;Author: Unknown&quot; &amp; vbCrLf
+    End If
+    If Not IsEmpty(date) Then
+        If IsDate(date) Then
+            report = report &amp; &quot;Date: &quot; &amp; Format$(date, &quot;Long Date&quot;) &amp; vbCrLf
+        Else
+            report = report &amp; &quot;Date: &quot; &amp; date &amp; vbCrLf
+        End If
+    Else
+        report = report &amp; &quot;Date: &quot; &amp; Format$(Now, &quot;Long Date&quot;) &amp; vbCrLf
+    End If
+    report = report &amp; String(40, &quot;-&quot;) &amp; vbCrLf
+    &#x27; Add content...
+    &#x27; Add index if requested
+    If Not IsEmpty(includeIndex) Then
+        If includeIndex = True Then
+            report = report &amp; vbCrLf &amp; &quot;INDEX&quot; &amp; vbCrLf
+            &#x27; ... add index content ...
+        End If
+    End If
+    CreateReport = report
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <p>The <code>IsEmpty</code> function itself does not raise errors, but it's commonly used in error prevention:</p>
 <pre><code class="language-vbnet">Function SafeOperation(value As Variant) As Boolean
-If IsEmpty(value) Then
-MsgBox &quot;Value must be initialized&quot;, vbExclamation
-SafeOperation = False
-Exit Function
-End If
-
-&#x27; Safe to use value
-SafeOperation = True
+    If IsEmpty(value) Then
+        MsgBox &quot;Value must be initialized&quot;, vbExclamation
+        SafeOperation = False
+        Exit Function
+    End If
+    &#x27; Safe to use value
+    SafeOperation = True
 End Function</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
@@ -521,23 +458,19 @@ End Function</code></pre>
 </table>
 <h2 id="empty-vs-null-vs-zero-vs-empty-string"><code>Empty</code> vs <code>Null</code> vs <code>Zero</code> vs Empty <code>String</code></h2>
 <pre><code class="language-vbnet">Dim v As Variant
-
 &#x27; Empty (uninitialized)
 Debug.Print IsEmpty(v)         &#x27; True
 Debug.Print IsNull(v)          &#x27; False
 Debug.Print v = 0              &#x27; True (Empty coerces to 0 in numeric context)
 Debug.Print v = &quot;&quot;             &#x27; True (Empty coerces to &quot;&quot; in string context)
-
 &#x27; Null
 v = Null
 Debug.Print IsEmpty(v)         &#x27; False
 Debug.Print IsNull(v)          &#x27; True
-
 &#x27; Zero
 v = 0
 Debug.Print IsEmpty(v)         &#x27; False
 Debug.Print v = 0              &#x27; True
-
 &#x27; Empty String
 v = &quot;&quot;
 Debug.Print IsEmpty(v)         &#x27; False

@@ -37,21 +37,21 @@
     <main class="container">
         
         <article class="library-item">
-            <p><code>FormatPercent</code> Function</p>
-<p>Returns an expression formatted as a percentage (multiplied by 100) with a trailing % character.</p>
+            <p>FormatPercent Function
+Returns an expression formatted as a percentage (multiplied by 100) with a trailing % character.</p>
 <h1 id="syntax">Syntax</h1>
 <pre><code class="language-vbnet">FormatPercent(expression[, numdigitsafterdecimal[, includeleadingdigit[, useparensfornegativenumbers[, groupdigits]]]])</code></pre>
 <h1 id="parameters">Parameters</h1>
 <ul>
 <li><code>expression</code> - Required. Expression to be formatted as a percentage.</li>
 <li><code>numdigitsafterdecimal</code> - Optional. Numeric value indicating how many places to the right of the decimal are displayed.
-Default value is -1, which indicates that the computer's regional settings are used.</li>
+  Default value is -1, which indicates that the computer's regional settings are used.</li>
 <li><code>includeleadingdigit</code> - Optional. Tristate constant that indicates whether or not a leading zero is displayed for fractional values.
-See Settings section for values.</li>
+  See Settings section for values.</li>
 <li><code>useparensfornegativenumbers</code> - Optional. Tristate constant that indicates whether or not to place negative values within parentheses.
-See Settings section for values.</li>
+  See Settings section for values.</li>
 <li><code>groupdigits</code> - Optional. Tristate constant that indicates whether or not numbers are grouped using the group delimiter
-specified in the computer's regional settings. See Settings section for values.</li>
+  specified in the computer's regional settings. See Settings section for values.</li>
 </ul>
 <h1 id="settings">Settings</h1>
 <p>The <code>includeleadingdigit</code>, <code>useparensfornegativenumbers</code>, and <code>groupdigits</code> arguments have the following settings:</p>
@@ -105,16 +105,13 @@ specified in the computer's regional settings. See Settings section for values.<
 result = FormatPercent(0.75)           &#x27; Returns: &quot;75.00%&quot;
 result = FormatPercent(0.5)            &#x27; Returns: &quot;50.00%&quot;
 result = FormatPercent(1.25)           &#x27; Returns: &quot;125.00%&quot;
-
 &#x27; Handling negative percentages
 result = FormatPercent(-0.15)          &#x27; Returns: &quot;-15.00%&quot;
 result = FormatPercent(-0.05, 2, , vbTrue)  &#x27; Returns: &quot;(5.00)%&quot;
-
 &#x27; Controlling decimal places
 result = FormatPercent(0.3333, 0)      &#x27; Returns: &quot;33%&quot;
 result = FormatPercent(0.3333, 2)      &#x27; Returns: &quot;33.33%&quot;
 result = FormatPercent(0.3333, 4)      &#x27; Returns: &quot;33.3300%&quot;
-
 &#x27; Leading digit control
 result = FormatPercent(0.005, 2, vbTrue)   &#x27; Returns: &quot;0.50%&quot;
 result = FormatPercent(0.005, 2, vbFalse)  &#x27; Returns: &quot;.50%&quot;</code></pre>
@@ -123,200 +120,170 @@ result = FormatPercent(0.005, 2, vbFalse)  &#x27; Returns: &quot;.50%&quot;</cod
 <pre><code class="language-vbnet">Dim successful As Long
 Dim total As Long
 Dim rate As Double
-
 successful = 85
 total = 100
 rate = successful / total
-
 MsgBox &quot;Success Rate: &quot; &amp; FormatPercent(rate, 1)  &#x27; &quot;Success Rate: 85.0%&quot;</code></pre>
 <h2 id="2-financial-ratios">2. Financial Ratios</h2>
 <pre><code class="language-vbnet">Dim profit As Currency
 Dim revenue As Currency
 Dim margin As Double
-
 profit = 25000
 revenue = 100000
 margin = profit / revenue
-
 lblMargin.Caption = &quot;Profit Margin: &quot; &amp; FormatPercent(margin, 2)  &#x27; &quot;Profit Margin: 25.00%&quot;</code></pre>
 <h2 id="3-survey-results">3. Survey Results</h2>
 <pre><code class="language-vbnet">Dim yesVotes As Long
 Dim totalVotes As Long
-
 yesVotes = 347
 totalVotes = 500
-
 txtResult.Text = FormatPercent(yesVotes / totalVotes, 1)  &#x27; &quot;69.4%&quot;</code></pre>
 <h2 id="4-progress-indicator">4. Progress Indicator</h2>
 <pre><code class="language-vbnet">Dim completed As Long
 Dim total As Long
 Dim progress As Double
-
 completed = 45
 total = 100
 progress = completed / total
-
 lblProgress.Caption = &quot;Progress: &quot; &amp; FormatPercent(progress, 0)  &#x27; &quot;Progress: 45%&quot;</code></pre>
 <h2 id="5-growth-rate-calculation">5. Growth Rate Calculation</h2>
 <pre><code class="language-vbnet">Dim currentValue As Double
 Dim previousValue As Double
 Dim growth As Double
-
 currentValue = 125000
 previousValue = 100000
 growth = (currentValue - previousValue) / previousValue
-
 MsgBox &quot;Growth: &quot; &amp; FormatPercent(growth, 1)  &#x27; &quot;Growth: 25.0%&quot;</code></pre>
 <h2 id="6-grade-percentage">6. Grade Percentage</h2>
 <pre><code class="language-vbnet">Dim score As Long
 Dim maxScore As Long
 Dim percentage As Double
-
 score = 87
 maxScore = 100
 percentage = score / maxScore
-
 lblGrade.Caption = &quot;Score: &quot; &amp; FormatPercent(percentage, 0)  &#x27; &quot;Score: 87%&quot;</code></pre>
 <h2 id="7-comparison-display">7. Comparison Display</h2>
 <pre><code class="language-vbnet">Dim actual As Double
 Dim target As Double
 Dim achievement As Double
-
 actual = 95000
 target = 100000
 achievement = actual / target
-
 lblStatus.Caption = &quot;Target Achievement: &quot; &amp; FormatPercent(achievement, 1)  &#x27; &quot;Target Achievement: 95.0%&quot;</code></pre>
 <h2 id="8-listbox-population-with-percentages">8. <code>ListBox</code> Population with Percentages</h2>
 <pre><code class="language-vbnet">Dim i As Integer
 Dim values() As Double
 Dim total As Double
-
 values = Array(15.5, 28.3, 42.1, 14.1)
 total = 100
-
 For i = 0 To UBound(values)
-lstResults.AddItem FormatPercent(values(i) / total, 1)
+    lstResults.AddItem FormatPercent(values(i) / total, 1)
 Next i</code></pre>
 <h2 id="9-database-field-display">9. Database Field Display</h2>
 <pre><code class="language-vbnet">Dim rs As ADODB.Recordset
 Set rs = New ADODB.Recordset
-
 rs.Open &quot;SELECT CompletionRate FROM Projects&quot;, conn
-
 While Not rs.EOF
-Debug.Print FormatPercent(rs(&quot;CompletionRate&quot;), 0)
-rs.MoveNext
+    Debug.Print FormatPercent(rs(&quot;CompletionRate&quot;), 0)
+    rs.MoveNext
 Wend</code></pre>
 <h2 id="10-multiple-percentages-in-report">10. Multiple Percentages in Report</h2>
 <pre><code class="language-vbnet">Dim passed As Long, failed As Long, total As Long
 Dim report As String
-
 passed = 85
 failed = 15
 total = passed + failed
-
 report = &quot;Passed: &quot; &amp; FormatPercent(passed / total, 1) &amp; vbCrLf &amp; _
-&quot;Failed: &quot; &amp; FormatPercent(failed / total, 1)
+         &quot;Failed: &quot; &amp; FormatPercent(failed / total, 1)
 &#x27; &quot;Passed: 85.0%
 &#x27;  Failed: 15.0%&quot;</code></pre>
 <h1 id="advanced-usage">Advanced Usage</h1>
 <h2 id="1-flexible-percentage-formatter">1. Flexible Percentage Formatter</h2>
 <pre><code class="language-vbnet">Function DisplayPercentage(value As Double, Optional precision As Integer = 1) As String
-If value &lt; 0.01 Then
-DisplayPercentage = FormatPercent(value, 3)  &#x27; More precision for small values
-ElseIf value &gt; 1 Then
-DisplayPercentage = FormatPercent(value, 0)  &#x27; No decimals for large percentages
-Else
-DisplayPercentage = FormatPercent(value, precision)
-End If
+    If value &lt; 0.01 Then
+        DisplayPercentage = FormatPercent(value, 3)  &#x27; More precision for small values
+    ElseIf value &gt; 1 Then
+        DisplayPercentage = FormatPercent(value, 0)  &#x27; No decimals for large percentages
+    Else
+        DisplayPercentage = FormatPercent(value, precision)
+    End If
 End Function</code></pre>
 <h2 id="2-comparison-with-color-coding">2. Comparison with Color Coding</h2>
 <pre><code class="language-vbnet">Function FormatVariance(actual As Double, target As Double) As String
-Dim variance As Double
-variance = (actual - target) / target
-
-FormatVariance = FormatPercent(variance, 1)
-
-If variance &gt; 0 Then
-lblVariance.ForeColor = vbGreen  &#x27; Positive variance
-ElseIf variance &lt; 0 Then
-lblVariance.ForeColor = vbRed    &#x27; Negative variance
-End If
+    Dim variance As Double
+    variance = (actual - target) / target
+    FormatVariance = FormatPercent(variance, 1)
+    If variance &gt; 0 Then
+        lblVariance.ForeColor = vbGreen  &#x27; Positive variance
+    ElseIf variance &lt; 0 Then
+        lblVariance.ForeColor = vbRed    &#x27; Negative variance
+    End If
 End Function</code></pre>
 <h2 id="3-dynamic-precision-based-on-value">3. Dynamic Precision Based on Value</h2>
 <pre><code class="language-vbnet">Function SmartFormatPercent(value As Double) As String
-Dim absValue As Double
-absValue = Abs(value)
-
-Select Case absValue
-Case Is &lt; 0.0001
-SmartFormatPercent = FormatPercent(value, 4)
-Case Is &lt; 0.01
-SmartFormatPercent = FormatPercent(value, 3)
-Case Is &lt; 1
-SmartFormatPercent = FormatPercent(value, 2)
-Case Else
-SmartFormatPercent = FormatPercent(value, 1)
-End Select
+    Dim absValue As Double
+    absValue = Abs(value)
+    Select Case absValue
+        Case Is &lt; 0.0001
+            SmartFormatPercent = FormatPercent(value, 4)
+        Case Is &lt; 0.01
+            SmartFormatPercent = FormatPercent(value, 3)
+        Case Is &lt; 1
+            SmartFormatPercent = FormatPercent(value, 2)
+        Case Else
+            SmartFormatPercent = FormatPercent(value, 1)
+    End Select
 End Function</code></pre>
 <h2 id="4-table-alignment-with-percentages">4. Table Alignment with Percentages</h2>
 <pre><code class="language-vbnet">Function AlignedPercentage(value As Double, width As Integer) As String
-Dim formatted As String
-formatted = FormatPercent(value, 2)
-AlignedPercentage = Space(width - Len(formatted)) &amp; formatted
+    Dim formatted As String
+    formatted = FormatPercent(value, 2)
+    AlignedPercentage = Space(width - Len(formatted)) &amp; formatted
 End Function
-
 &#x27; Usage in grid or report
 For i = 1 To 10
-Debug.Print AlignedPercentage(data(i), 12)
+    Debug.Print AlignedPercentage(data(i), 12)
 Next i</code></pre>
 <h2 id="5-statistical-analysis-display">5. Statistical Analysis Display</h2>
 <pre><code class="language-vbnet">Type StatisticsResult
-Mean As Double
-StdDev As Double
-Confidence As Double
+    Mean As Double
+    StdDev As Double
+    Confidence As Double
 End Type
-
 Function FormatStatistics(stats As StatisticsResult) As String
-FormatStatistics = &quot;Mean: &quot; &amp; FormatPercent(stats.Mean, 2) &amp; vbCrLf &amp; _
-&quot;Std Dev: &quot; &amp; FormatPercent(stats.StdDev, 2) &amp; vbCrLf &amp; _
-&quot;Confidence: &quot; &amp; FormatPercent(stats.Confidence, 1)
+    FormatStatistics = &quot;Mean: &quot; &amp; FormatPercent(stats.Mean, 2) &amp; vbCrLf &amp; _
+                      &quot;Std Dev: &quot; &amp; FormatPercent(stats.StdDev, 2) &amp; vbCrLf &amp; _
+                      &quot;Confidence: &quot; &amp; FormatPercent(stats.Confidence, 1)
 End Function</code></pre>
 <h2 id="6-conditional-formatting-for-thresholds">6. Conditional Formatting for Thresholds</h2>
 <pre><code class="language-vbnet">Sub DisplayMetricWithThreshold(metric As Double, threshold As Double, lbl As Label)
-lbl.Caption = FormatPercent(metric, 1)
-
-If metric &gt;= threshold Then
-lbl.BackColor = vbGreen
-lbl.ForeColor = vbWhite
-ElseIf metric &gt;= threshold * 0.8 Then
-lbl.BackColor = vbYellow
-lbl.ForeColor = vbBlack
-Else
-lbl.BackColor = vbRed
-lbl.ForeColor = vbWhite
-End If
+    lbl.Caption = FormatPercent(metric, 1)
+    If metric &gt;= threshold Then
+        lbl.BackColor = vbGreen
+        lbl.ForeColor = vbWhite
+    ElseIf metric &gt;= threshold * 0.8 Then
+        lbl.BackColor = vbYellow
+        lbl.ForeColor = vbBlack
+    Else
+        lbl.BackColor = vbRed
+        lbl.ForeColor = vbWhite
+    End If
 End Sub</code></pre>
 <h1 id="error-handling">Error Handling</h1>
 <pre><code class="language-vbnet">Function SafeFormatPercent(value As Variant) As String
-On Error GoTo ErrorHandler
-
-If IsNull(value) Then
-SafeFormatPercent = &quot;N/A&quot;
-Exit Function
-End If
-
-If Not IsNumeric(value) Then
-SafeFormatPercent = &quot;Invalid&quot;
-Exit Function
-End If
-
-SafeFormatPercent = FormatPercent(CDbl(value), 2)
-Exit Function
-
+    On Error GoTo ErrorHandler
+    If IsNull(value) Then
+        SafeFormatPercent = &quot;N/A&quot;
+        Exit Function
+    End If
+    If Not IsNumeric(value) Then
+        SafeFormatPercent = &quot;Invalid&quot;
+        Exit Function
+    End If
+    SafeFormatPercent = FormatPercent(CDbl(value), 2)
+    Exit Function
 ErrorHandler:
-SafeFormatPercent = &quot;Error&quot;
+    SafeFormatPercent = &quot;Error&quot;
 End Function</code></pre>
 <p>Common errors:
 - <strong>Error 13 (Type mismatch)</strong>: Occurs when expression cannot be converted to a numeric value.
@@ -354,12 +321,10 @@ End Function</code></pre>
 <li>Depends on regional settings which may vary across systems</li>
 </ul>
 <h1 id="regional-settings-impact">Regional Settings Impact</h1>
-<p>The appearance of formatted percentages varies by locale:</p>
-<ul>
-<li><strong>US (English)</strong>: 75.50%</li>
-<li><strong>European (many)</strong>: 75,50%</li>
-<li><strong>Switzerland</strong>: 75.50%</li>
-</ul>
+<p>The appearance of formatted percentages varies by locale:
+- <strong>US (English)</strong>: 75.50%
+- <strong>European (many)</strong>: 75,50%
+- <strong>Switzerland</strong>: 75.50%</p>
 <h1 id="related-functions">Related Functions</h1>
 <ul>
 <li><code>FormatNumber</code> - Formats numbers without percentage conversion</li>

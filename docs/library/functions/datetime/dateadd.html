@@ -37,16 +37,16 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="dateadd-function"><code>DateAdd</code> Function</h1>
+            <h1 id="dateadd-function">DateAdd Function</h1>
 <p>Returns a <code>Variant</code> (<code>Date</code>) containing a date to which a specified time interval has been added.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">DateAdd(interval, number, date)</code></pre>
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><strong><code>interval</code></strong>: Required. <code>String</code> expression that is the interval of time you want to add.
-See the Interval Settings section for valid values.</li>
+  See the Interval Settings section for valid values.</li>
 <li><strong><code>number</code></strong>: Required. <code>Numeric</code> expression that is the number of intervals you want to add.
-Can be positive (to get dates in the future) or negative (to get dates in the past).</li>
+  Can be positive (to get dates in the future) or negative (to get dates in the past).</li>
 <li><strong><code>date</code></strong>: Required. <code>Variant</code> (<code>Date</code>) or literal representing the date to which the interval is added.</li>
 </ul>
 <h2 id="interval-settings">Interval Settings</h2>
@@ -106,18 +106,16 @@ Can be positive (to get dates in the future) or negative (to get dates in the pa
 to the given date. Returns Null if any parameter is Null.</p>
 <h2 id="remarks">Remarks</h2>
 <p>The <code>DateAdd</code> function is used to add or subtract a specified time interval from a date.
-You can use it to calculate future or past dates relative to a known date.</p>
-<p><strong>Important Characteristics:</strong></p>
-<ul>
-<li>Negative numbers subtract intervals (dates in the past)</li>
-<li>Positive numbers add intervals (dates in the future)</li>
-<li>Handles month-end dates intelligently (e.g., adding 1 month to Jan 31 gives Feb 28/29)</li>
-<li>When adding months, if the resulting day doesn't exist, uses last day of month</li>
-<li>Respects daylight saving time transitions</li>
-<li>Week ("ww") interval treats Sunday as the first day of the week</li>
-<li>Weekday ("w") interval is equivalent to day ("d") interval</li>
-<li>Day of year ("y") interval is equivalent to day ("d") interval</li>
-</ul>
+You can use it to calculate future or past dates relative to a known date.
+<strong>Important Characteristics:</strong>
+- Negative numbers subtract intervals (dates in the past)
+- Positive numbers add intervals (dates in the future)
+- Handles month-end dates intelligently (e.g., adding 1 month to Jan 31 gives Feb 28/29)
+- When adding months, if the resulting day doesn't exist, uses last day of month
+- Respects daylight saving time transitions
+- Week ("ww") interval treats Sunday as the first day of the week
+- Weekday ("w") interval is equivalent to day ("d") interval
+- Day of year ("y") interval is equivalent to day ("d") interval</p>
 <h2 id="month-and-year-calculations">Month and Year Calculations</h2>
 <p>When adding months or years, <code>DateAdd</code> ensures the result is valid:
 - Jan 31 + 1 month = Feb 28 (or 29 in leap year)
@@ -129,12 +127,10 @@ You can use it to calculate future or past dates relative to a known date.</p>
 Dim futureDate As Date
 futureDate = DateAdd(&quot;d&quot;, 30, Date)
 MsgBox &quot;30 days from now: &quot; &amp; futureDate
-
 &#x27; Subtract days from a date
 Dim pastDate As Date
 pastDate = DateAdd(&quot;d&quot;, -7, Date)
 MsgBox &quot;A week ago: &quot; &amp; pastDate
-
 &#x27; Add months
 Dim nextMonth As Date
 nextMonth = DateAdd(&quot;m&quot;, 1, Date)
@@ -142,43 +138,34 @@ MsgBox &quot;One month from now: &quot; &amp; nextMonth</code></pre>
 <h3 id="different-time-intervals">Different Time Intervals</h3>
 <pre><code class="language-vbnet">Dim startDate As Date
 startDate = #1/15/2025#
-
 &#x27; Add years
 MsgBox &quot;Next year: &quot; &amp; DateAdd(&quot;yyyy&quot;, 1, startDate)
-
 &#x27; Add quarters
 MsgBox &quot;Next quarter: &quot; &amp; DateAdd(&quot;q&quot;, 1, startDate)
-
 &#x27; Add weeks
 MsgBox &quot;Next week: &quot; &amp; DateAdd(&quot;ww&quot;, 1, startDate)
-
 &#x27; Add hours
 MsgBox &quot;In 6 hours: &quot; &amp; DateAdd(&quot;h&quot;, 6, startDate)
-
 &#x27; Add minutes
 MsgBox &quot;In 90 minutes: &quot; &amp; DateAdd(&quot;n&quot;, 90, startDate)
-
 &#x27; Add seconds
 MsgBox &quot;In 3600 seconds: &quot; &amp; DateAdd(&quot;s&quot;, 3600, startDate)</code></pre>
 <h3 id="working-with-past-dates">Working with Past Dates</h3>
 <pre><code class="language-vbnet">&#x27; Calculate date 90 days ago
 Dim quarterAgo As Date
 quarterAgo = DateAdd(&quot;d&quot;, -90, Date)
-
 &#x27; Calculate date 1 year ago
 Dim yearAgo As Date
 yearAgo = DateAdd(&quot;yyyy&quot;, -1, Date)
-
 &#x27; Calculate date 3 months ago
 Dim threeMonthsAgo As Date
 threeMonthsAgo = DateAdd(&quot;m&quot;, -3, Date)</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="due-date-calculation">Due Date Calculation</h3>
 <pre><code class="language-vbnet">Function CalculateDueDate(invoiceDate As Date, terms As Integer) As Date
-&#x27; NET 30, NET 60, etc.
-CalculateDueDate = DateAdd(&quot;d&quot;, terms, invoiceDate)
+    &#x27; NET 30, NET 60, etc.
+    CalculateDueDate = DateAdd(&quot;d&quot;, terms, invoiceDate)
 End Function
-
 &#x27; Usage
 Dim invoice As Date
 Dim dueDate As Date
@@ -186,20 +173,18 @@ invoice = Date
 dueDate = CalculateDueDate(invoice, 30)  &#x27; Due in 30 days</code></pre>
 <h3 id="age-based-eligibility">Age-Based Eligibility</h3>
 <pre><code class="language-vbnet">Function IsOldEnough(birthDate As Date, requiredAge As Integer) As Boolean
-Dim eligibilityDate As Date
-eligibilityDate = DateAdd(&quot;yyyy&quot;, requiredAge, birthDate)
-IsOldEnough = (Date &gt;= eligibilityDate)
+    Dim eligibilityDate As Date
+    eligibilityDate = DateAdd(&quot;yyyy&quot;, requiredAge, birthDate)
+    IsOldEnough = (Date &gt;= eligibilityDate)
 End Function
-
 &#x27; Usage
 If IsOldEnough(#5/10/2005#, 18) Then
-MsgBox &quot;Eligible&quot;
+    MsgBox &quot;Eligible&quot;
 End If</code></pre>
 <h3 id="expiration-date-setting">Expiration Date Setting</h3>
 <pre><code class="language-vbnet">Function SetExpirationDate(startDate As Date, months As Integer) As Date
-SetExpirationDate = DateAdd(&quot;m&quot;, months, startDate)
+    SetExpirationDate = DateAdd(&quot;m&quot;, months, startDate)
 End Function
-
 &#x27; Set license to expire in 12 months
 Dim license As Date
 license = Date
@@ -207,35 +192,30 @@ Dim expires As Date
 expires = SetExpirationDate(license, 12)</code></pre>
 <h3 id="meeting-schedule">Meeting Schedule</h3>
 <pre><code class="language-vbnet">Function GetNextMeeting(lastMeeting As Date, interval As String, count As Integer) As Date
-GetNextMeeting = DateAdd(interval, count, lastMeeting)
+    GetNextMeeting = DateAdd(interval, count, lastMeeting)
 End Function
-
 &#x27; Weekly meeting
 Dim nextWeekly As Date
 nextWeekly = GetNextMeeting(#1/15/2025#, &quot;ww&quot;, 1)
-
 &#x27; Monthly meeting
 Dim nextMonthly As Date
 nextMonthly = GetNextMeeting(#1/15/2025#, &quot;m&quot;, 1)</code></pre>
 <h3 id="subscription-renewal">Subscription Renewal</h3>
 <pre><code class="language-vbnet">Sub CalculateRenewalDates()
-Dim startDate As Date
-Dim firstRenewal As Date
-Dim secondRenewal As Date
-
-startDate = Date
-firstRenewal = DateAdd(&quot;m&quot;, 12, startDate)   &#x27; Annual renewal
-secondRenewal = DateAdd(&quot;m&quot;, 24, startDate)  &#x27; Second year
-
-MsgBox &quot;Start: &quot; &amp; startDate &amp; vbCrLf &amp; _
-&quot;First renewal: &quot; &amp; firstRenewal &amp; vbCrLf &amp; _
-&quot;Second renewal: &quot; &amp; secondRenewal
+    Dim startDate As Date
+    Dim firstRenewal As Date
+    Dim secondRenewal As Date
+    startDate = Date
+    firstRenewal = DateAdd(&quot;m&quot;, 12, startDate)   &#x27; Annual renewal
+    secondRenewal = DateAdd(&quot;m&quot;, 24, startDate)  &#x27; Second year
+    MsgBox &quot;Start: &quot; &amp; startDate &amp; vbCrLf &amp; _
+           &quot;First renewal: &quot; &amp; firstRenewal &amp; vbCrLf &amp; _
+           &quot;Second renewal: &quot; &amp; secondRenewal
 End Sub</code></pre>
 <h3 id="trial-period-end">Trial Period End</h3>
 <pre><code class="language-vbnet">Function GetTrialEndDate(startDate As Date, trialDays As Integer) As Date
-GetTrialEndDate = DateAdd(&quot;d&quot;, trialDays, startDate)
+    GetTrialEndDate = DateAdd(&quot;d&quot;, trialDays, startDate)
 End Function
-
 &#x27; 30-day trial
 Dim trialStart As Date
 Dim trialEnd As Date
@@ -243,103 +223,88 @@ trialStart = Date
 trialEnd = GetTrialEndDate(trialStart, 30)</code></pre>
 <h3 id="report-period-calculation">Report Period Calculation</h3>
 <pre><code class="language-vbnet">Function GetReportingPeriod(endDate As Date, months As Integer) As Date
-&#x27; Calculate start date by going back specified months
-GetReportingPeriod = DateAdd(&quot;m&quot;, -months, endDate)
+    &#x27; Calculate start date by going back specified months
+    GetReportingPeriod = DateAdd(&quot;m&quot;, -months, endDate)
 End Function
-
 &#x27; Get start of 6-month period ending today
 Dim periodStart As Date
 periodStart = GetReportingPeriod(Date, 6)</code></pre>
 <h3 id="reminder-dates">Reminder Dates</h3>
 <pre><code class="language-vbnet">Sub SetReminders(eventDate As Date)
-Dim oneWeekBefore As Date
-Dim oneDayBefore As Date
-Dim oneHourBefore As Date
-
-oneWeekBefore = DateAdd(&quot;d&quot;, -7, eventDate)
-oneDayBefore = DateAdd(&quot;d&quot;, -1, eventDate)
-oneHourBefore = DateAdd(&quot;h&quot;, -1, eventDate)
-
-&#x27; Schedule reminders...
+    Dim oneWeekBefore As Date
+    Dim oneDayBefore As Date
+    Dim oneHourBefore As Date
+    oneWeekBefore = DateAdd(&quot;d&quot;, -7, eventDate)
+    oneDayBefore = DateAdd(&quot;d&quot;, -1, eventDate)
+    oneHourBefore = DateAdd(&quot;h&quot;, -1, eventDate)
+    &#x27; Schedule reminders...
 End Sub</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="business-days-calculation">Business Days Calculation</h3>
 <pre><code class="language-vbnet">Function AddBusinessDays(startDate As Date, days As Integer) As Date
-Dim result As Date
-Dim daysAdded As Integer
-Dim direction As Integer
-
-result = startDate
-direction = Sgn(days)
-daysAdded = 0
-
-Do While Abs(daysAdded) &lt; Abs(days)
-result = DateAdd(&quot;d&quot;, direction, result)
-
-&#x27; Skip weekends
-If Weekday(result) &lt;&gt; vbSaturday And Weekday(result) &lt;&gt; vbSunday Then
-daysAdded = daysAdded + direction
-End If
-Loop
-
-AddBusinessDays = result
+    Dim result As Date
+    Dim daysAdded As Integer
+    Dim direction As Integer
+    result = startDate
+    direction = Sgn(days)
+    daysAdded = 0
+    Do While Abs(daysAdded) &lt; Abs(days)
+        result = DateAdd(&quot;d&quot;, direction, result)
+        &#x27; Skip weekends
+        If Weekday(result) &lt;&gt; vbSaturday And Weekday(result) &lt;&gt; vbSunday Then
+            daysAdded = daysAdded + direction
+        End If
+    Loop
+    AddBusinessDays = result
 End Function</code></pre>
 <h3 id="date-range-generator">Date Range Generator</h3>
 <pre><code class="language-vbnet">Function GenerateDateSeries(startDate As Date, interval As String, _
-count As Integer, step As Integer) As Variant
-Dim dates() As Date
-Dim i As Integer
-
-ReDim dates(0 To count - 1)
-
-For i = 0 To count - 1
-dates(i) = DateAdd(interval, i * step, startDate)
-Next i
-
-GenerateDateSeries = dates
+                           count As Integer, step As Integer) As Variant
+    Dim dates() As Date
+    Dim i As Integer
+    ReDim dates(0 To count - 1)
+    For i = 0 To count - 1
+        dates(i) = DateAdd(interval, i * step, startDate)
+    Next i
+    GenerateDateSeries = dates
 End Function
-
 &#x27; Generate 12 month-end dates
 Dim monthEnds As Variant
 monthEnds = GenerateDateSeries(#1/31/2025#, &quot;m&quot;, 12, 1)</code></pre>
 <h3 id="fiscal-period-calculator">Fiscal Period Calculator</h3>
 <pre><code class="language-vbnet">Function GetFiscalQuarterEnd(fiscalYearStart As Date, quarter As Integer) As Date
-Dim quarterStart As Date
-Dim quarterEnd As Date
-
-&#x27; Calculate start of quarter
-quarterStart = DateAdd(&quot;m&quot;, (quarter - 1) * 3, fiscalYearStart)
-
-&#x27; End is 3 months later minus 1 day
-quarterEnd = DateAdd(&quot;d&quot;, -1, DateAdd(&quot;m&quot;, 3, quarterStart))
-
-GetFiscalQuarterEnd = quarterEnd
+    Dim quarterStart As Date
+    Dim quarterEnd As Date
+    &#x27; Calculate start of quarter
+    quarterStart = DateAdd(&quot;m&quot;, (quarter - 1) * 3, fiscalYearStart)
+    &#x27; End is 3 months later minus 1 day
+    quarterEnd = DateAdd(&quot;d&quot;, -1, DateAdd(&quot;m&quot;, 3, quarterStart))
+    GetFiscalQuarterEnd = quarterEnd
 End Function</code></pre>
 <h3 id="recurring-event-calculator">Recurring Event Calculator</h3>
 <pre><code class="language-vbnet">Function GetNextOccurrence(lastOccurrence As Date, frequency As String) As Date
-Select Case LCase(frequency)
-Case &quot;daily&quot;
-GetNextOccurrence = DateAdd(&quot;d&quot;, 1, lastOccurrence)
-Case &quot;weekly&quot;
-GetNextOccurrence = DateAdd(&quot;ww&quot;, 1, lastOccurrence)
-Case &quot;biweekly&quot;
-GetNextOccurrence = DateAdd(&quot;ww&quot;, 2, lastOccurrence)
-Case &quot;monthly&quot;
-GetNextOccurrence = DateAdd(&quot;m&quot;, 1, lastOccurrence)
-Case &quot;quarterly&quot;
-GetNextOccurrence = DateAdd(&quot;q&quot;, 1, lastOccurrence)
-Case &quot;annually&quot;
-GetNextOccurrence = DateAdd(&quot;yyyy&quot;, 1, lastOccurrence)
-Case Else
-GetNextOccurrence = lastOccurrence
-End Select
+    Select Case LCase(frequency)
+        Case &quot;daily&quot;
+            GetNextOccurrence = DateAdd(&quot;d&quot;, 1, lastOccurrence)
+        Case &quot;weekly&quot;
+            GetNextOccurrence = DateAdd(&quot;ww&quot;, 1, lastOccurrence)
+        Case &quot;biweekly&quot;
+            GetNextOccurrence = DateAdd(&quot;ww&quot;, 2, lastOccurrence)
+        Case &quot;monthly&quot;
+            GetNextOccurrence = DateAdd(&quot;m&quot;, 1, lastOccurrence)
+        Case &quot;quarterly&quot;
+            GetNextOccurrence = DateAdd(&quot;q&quot;, 1, lastOccurrence)
+        Case &quot;annually&quot;
+            GetNextOccurrence = DateAdd(&quot;yyyy&quot;, 1, lastOccurrence)
+        Case Else
+            GetNextOccurrence = lastOccurrence
+    End Select
 End Function</code></pre>
 <h3 id="time-zone-offset-simple">Time Zone Offset (Simple)</h3>
 <pre><code class="language-vbnet">Function ConvertToTimeZone(localTime As Date, hourOffset As Integer) As Date
-&#x27; Simple timezone conversion (doesn&#x27;t account for DST)
-ConvertToTimeZone = DateAdd(&quot;h&quot;, hourOffset, localTime)
+    &#x27; Simple timezone conversion (doesn&#x27;t account for DST)
+    ConvertToTimeZone = DateAdd(&quot;h&quot;, hourOffset, localTime)
 End Function
-
 &#x27; Convert EST to PST (3 hours earlier)
 Dim estTime As Date
 Dim pstTime As Date
@@ -347,48 +312,41 @@ estTime = Now
 pstTime = ConvertToTimeZone(estTime, -3)</code></pre>
 <h3 id="age-calculator-with-precision">Age Calculator with Precision</h3>
 <pre><code class="language-vbnet">Function GetExactAge(birthDate As Date) As String
-Dim years As Integer
-Dim months As Integer
-Dim days As Integer
-Dim tempDate As Date
-
-&#x27; Calculate years
-tempDate = birthDate
-years = 0
-Do While DateAdd(&quot;yyyy&quot;, years + 1, tempDate) &lt;= Date
-years = years + 1
-Loop
-
-&#x27; Calculate remaining months
-tempDate = DateAdd(&quot;yyyy&quot;, years, birthDate)
-months = 0
-Do While DateAdd(&quot;m&quot;, months + 1, tempDate) &lt;= Date
-months = months + 1
-Loop
-
-&#x27; Calculate remaining days
-tempDate = DateAdd(&quot;m&quot;, months, DateAdd(&quot;yyyy&quot;, years, birthDate))
-days = DateDiff(&quot;d&quot;, tempDate, Date)
-
-GetExactAge = years &amp; &quot; years, &quot; &amp; months &amp; &quot; months, &quot; &amp; days &amp; &quot; days&quot;
+    Dim years As Integer
+    Dim months As Integer
+    Dim days As Integer
+    Dim tempDate As Date
+    &#x27; Calculate years
+    tempDate = birthDate
+    years = 0
+    Do While DateAdd(&quot;yyyy&quot;, years + 1, tempDate) &lt;= Date
+        years = years + 1
+    Loop
+    &#x27; Calculate remaining months
+    tempDate = DateAdd(&quot;yyyy&quot;, years, birthDate)
+    months = 0
+    Do While DateAdd(&quot;m&quot;, months + 1, tempDate) &lt;= Date
+        months = months + 1
+    Loop
+    &#x27; Calculate remaining days
+    tempDate = DateAdd(&quot;m&quot;, months, DateAdd(&quot;yyyy&quot;, years, birthDate))
+    days = DateDiff(&quot;d&quot;, tempDate, Date)
+    GetExactAge = years &amp; &quot; years, &quot; &amp; months &amp; &quot; months, &quot; &amp; days &amp; &quot; days&quot;
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeDateAdd(interval As String, number As Long, _
-dateValue As Date) As Variant
-On Error GoTo ErrorHandler
-
-&#x27; Validate interval
-Select Case LCase(interval)
-Case &quot;yyyy&quot;, &quot;q&quot;, &quot;m&quot;, &quot;y&quot;, &quot;d&quot;, &quot;w&quot;, &quot;ww&quot;, &quot;h&quot;, &quot;n&quot;, &quot;s&quot;
-SafeDateAdd = DateAdd(interval, number, dateValue)
-Case Else
-SafeDateAdd = Null  &#x27; Invalid interval
-End Select
-
-Exit Function
-
+                    dateValue As Date) As Variant
+    On Error GoTo ErrorHandler
+    &#x27; Validate interval
+    Select Case LCase(interval)
+        Case &quot;yyyy&quot;, &quot;q&quot;, &quot;m&quot;, &quot;y&quot;, &quot;d&quot;, &quot;w&quot;, &quot;ww&quot;, &quot;h&quot;, &quot;n&quot;, &quot;s&quot;
+            SafeDateAdd = DateAdd(interval, number, dateValue)
+        Case Else
+            SafeDateAdd = Null  &#x27; Invalid interval
+    End Select
+    Exit Function
 ErrorHandler:
-SafeDateAdd = Null  &#x27; Return Null on error
+    SafeDateAdd = Null  &#x27; Return Null on error
 End Function</code></pre>
 <h3 id="common-errors">Common Errors</h3>
 <ul>
@@ -410,26 +368,22 @@ Const INTERVAL_YEAR As String = &quot;yyyy&quot;
 Const INTERVAL_MONTH As String = &quot;m&quot;
 Const INTERVAL_DAY As String = &quot;d&quot;
 Const INTERVAL_HOUR As String = &quot;h&quot;
-
 &#x27; Use in code
 nextYear = DateAdd(INTERVAL_YEAR, 1, Date)</code></pre>
 <h3 id="validate-input-dates">Validate Input Dates</h3>
 <pre><code class="language-vbnet">Function AddDaysToDate(startDate As Variant, days As Integer) As Date
-If Not IsDate(startDate) Then
-Err.Raise 13, , &quot;Invalid date&quot;
-End If
-
-AddDaysToDate = DateAdd(&quot;d&quot;, days, CDate(startDate))
+    If Not IsDate(startDate) Then
+        Err.Raise 13, , &quot;Invalid date&quot;
+    End If
+    AddDaysToDate = DateAdd(&quot;d&quot;, days, CDate(startDate))
 End Function</code></pre>
 <h3 id="handle-month-end-edge-cases">Handle Month-End Edge Cases</h3>
 <pre><code class="language-vbnet">&#x27; Be aware of month-end behavior
 Dim jan31 As Date
 jan31 = #1/31/2025#
-
 &#x27; Adding 1 month gives Feb 28 (or 29)
 Dim result As Date
 result = DateAdd(&quot;m&quot;, 1, jan31)  &#x27; Feb 28, 2025
-
 &#x27; Adding 2 months gives Mar 31
 result = DateAdd(&quot;m&quot;, 2, jan31)  &#x27; Mar 31, 2025</code></pre>
 <h2 id="comparison-with-other-date-functions">Comparison with Other Date Functions</h2>
@@ -437,7 +391,6 @@ result = DateAdd(&quot;m&quot;, 2, jan31)  &#x27; Mar 31, 2025</code></pre>
 <pre><code class="language-vbnet">&#x27; DateAdd - Adds interval to date, returns new date
 Dim future As Date
 future = DateAdd(&quot;d&quot;, 30, Date)
-
 &#x27; DateDiff - Calculates interval between dates, returns number
 Dim difference As Long
 difference = DateDiff(&quot;d&quot;, Date, future)  &#x27; Returns 30</code></pre>
@@ -445,7 +398,6 @@ difference = DateDiff(&quot;d&quot;, Date, future)  &#x27; Returns 30</code></pr
 <pre><code class="language-vbnet">&#x27; Simple arithmetic works for days
 Dim tomorrow As Date
 tomorrow = Date + 1  &#x27; Same as DateAdd(&quot;d&quot;, 1, Date)
-
 &#x27; But DateAdd is better for months/years
 Dim nextMonth As Date
 nextMonth = DateAdd(&quot;m&quot;, 1, Date)  &#x27; Handles month-end correctly</code></pre>

@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="ascb-function"><code>AscB</code> Function</h1>
+            <h1 id="ascb-function">AscB Function</h1>
 <p>Returns an <code>Integer</code> representing the byte value (ANSI code) of the first byte in a string.
 The "B" suffix indicates this is the byte (ANSI) version of the <code>Asc</code> function.</p>
 <h2 id="syntax">Syntax</h2>
@@ -45,7 +45,7 @@ The "B" suffix indicates this is the byte (ANSI) version of the <code>Asc</code>
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><strong>string</strong>: Required. Any valid string expression. If the string contains no characters,
-a runtime error occurs (Error 5: Invalid procedure call or argument).</li>
+  a runtime error occurs (Error 5: Invalid procedure call or argument).</li>
 </ul>
 <h2 id="returns">Returns</h2>
 <p>Returns an <code>Integer</code> (0-255) representing the byte value of the first byte in the string.</p>
@@ -88,220 +88,188 @@ tabByte = AscB(vbTab)  &#x27; Returns 9</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="validate-ascii-range">Validate ASCII Range</h3>
 <pre><code class="language-vbnet">Function IsASCII(char As String) As Boolean
-If Len(char) = 0 Then Exit Function
-IsASCII = (AscB(char) &lt; 128)
+    If Len(char) = 0 Then Exit Function
+    IsASCII = (AscB(char) &lt; 128)
 End Function</code></pre>
 <h3 id="check-for-control-characters">Check for Control Characters</h3>
 <pre><code class="language-vbnet">Function IsControlChar(char As String) As Boolean
-If Len(char) = 0 Then Exit Function
-Dim byteVal As Integer
-byteVal = AscB(char)
-IsControlChar = (byteVal &lt; 32 Or byteVal = 127)
+    If Len(char) = 0 Then Exit Function
+    Dim byteVal As Integer
+    byteVal = AscB(char)
+    IsControlChar = (byteVal &lt; 32 Or byteVal = 127)
 End Function</code></pre>
 <h3 id="compare-byte-values">Compare Byte Values</h3>
 <pre><code class="language-vbnet">Function CompareBytes(str1 As String, str2 As String) As Integer
-If Len(str1) = 0 Or Len(str2) = 0 Then Exit Function
-CompareBytes = AscB(str1) - AscB(str2)
+    If Len(str1) = 0 Or Len(str2) = 0 Then Exit Function
+    CompareBytes = AscB(str1) - AscB(str2)
 End Function</code></pre>
 <h3 id="extract-byte-array">Extract Byte Array</h3>
 <pre><code class="language-vbnet">Function GetByteArray(text As String) As Variant
-Dim bytes() As Integer
-Dim i As Long
-
-If Len(text) = 0 Then Exit Function
-
-ReDim bytes(1 To Len(text))
-For i = 1 To Len(text)
-bytes(i) = AscB(Mid(text, i, 1))
-Next i
-
-GetByteArray = bytes
+    Dim bytes() As Integer
+    Dim i As Long
+    If Len(text) = 0 Then Exit Function
+    ReDim bytes(1 To Len(text))
+    For i = 1 To Len(text)
+        bytes(i) = AscB(Mid(text, i, 1))
+    Next i
+    GetByteArray = bytes
 End Function</code></pre>
 <h3 id="calculate-simple-checksum">Calculate Simple Checksum</h3>
 <pre><code class="language-vbnet">Function SimpleChecksum(text As String) As Long
-Dim i As Long
-Dim checksum As Long
-
-For i = 1 To Len(text)
-checksum = checksum + AscB(Mid(text, i, 1))
-Next i
-
-SimpleChecksum = checksum Mod 256
+    Dim i As Long
+    Dim checksum As Long
+    For i = 1 To Len(text)
+        checksum = checksum + AscB(Mid(text, i, 1))
+    Next i
+    SimpleChecksum = checksum Mod 256
 End Function</code></pre>
 <h3 id="detect-line-endings">Detect Line Endings</h3>
 <pre><code class="language-vbnet">Function DetectLineEnding(text As String) As String
-Dim i As Long
-Dim byteVal As Integer
-
-For i = 1 To Len(text)
-byteVal = AscB(Mid(text, i, 1))
-If byteVal = 13 Then  &#x27; CR
-If i &lt; Len(text) And AscB(Mid(text, i + 1, 1)) = 10 Then
-DetectLineEnding = &quot;CRLF&quot;
-Else
-DetectLineEnding = &quot;CR&quot;
-End If
-Exit Function
-ElseIf byteVal = 10 Then  &#x27; LF
-DetectLineEnding = &quot;LF&quot;
-Exit Function
-End If
-Next i
+    Dim i As Long
+    Dim byteVal As Integer
+    For i = 1 To Len(text)
+        byteVal = AscB(Mid(text, i, 1))
+        If byteVal = 13 Then  &#x27; CR
+            If i &lt; Len(text) And AscB(Mid(text, i + 1, 1)) = 10 Then
+                DetectLineEnding = &quot;CRLF&quot;
+            Else
+                DetectLineEnding = &quot;CR&quot;
+            End If
+            Exit Function
+        ElseIf byteVal = 10 Then  &#x27; LF
+            DetectLineEnding = &quot;LF&quot;
+            Exit Function
+        End If
+    Next i
 End Function</code></pre>
 <h3 id="hex-dump-generator">Hex Dump Generator</h3>
 <pre><code class="language-vbnet">Function ByteToHex(char As String) As String
-If Len(char) = 0 Then Exit Function
-Dim byteVal As Integer
-byteVal = AscB(char)
-ByteToHex = Right(&quot;0&quot; &amp; Hex(byteVal), 2)
+    If Len(char) = 0 Then Exit Function
+    Dim byteVal As Integer
+    byteVal = AscB(char)
+    ByteToHex = Right(&quot;0&quot; &amp; Hex(byteVal), 2)
 End Function</code></pre>
 <h3 id="case-insensitive-byte-compare">Case-Insensitive Byte Compare</h3>
 <pre><code class="language-vbnet">Function ByteEqualsIgnoreCase(char1 As String, char2 As String) As Boolean
-If Len(char1) = 0 Or Len(char2) = 0 Then Exit Function
-
-Dim byte1 As Integer, byte2 As Integer
-byte1 = AscB(char1)
-byte2 = AscB(char2)
-
-&#x27; Convert uppercase to lowercase (65-90 to 97-122)
-If byte1 &gt;= 65 And byte1 &lt;= 90 Then byte1 = byte1 + 32
-If byte2 &gt;= 65 And byte2 &lt;= 90 Then byte2 = byte2 + 32
-
-ByteEqualsIgnoreCase = (byte1 = byte2)
+    If Len(char1) = 0 Or Len(char2) = 0 Then Exit Function
+    Dim byte1 As Integer, byte2 As Integer
+    byte1 = AscB(char1)
+    byte2 = AscB(char2)
+    &#x27; Convert uppercase to lowercase (65-90 to 97-122)
+    If byte1 &gt;= 65 And byte1 &lt;= 90 Then byte1 = byte1 + 32
+    If byte2 &gt;= 65 And byte2 &lt;= 90 Then byte2 = byte2 + 32
+    ByteEqualsIgnoreCase = (byte1 = byte2)
 End Function</code></pre>
 <h3 id="filter-printable-characters">Filter Printable Characters</h3>
 <pre><code class="language-vbnet">Function FilterPrintable(text As String) As String
-Dim result As String
-Dim i As Long
-Dim byteVal As Integer
-
-For i = 1 To Len(text)
-byteVal = AscB(Mid(text, i, 1))
-If byteVal &gt;= 32 And byteVal &lt;= 126 Then
-result = result &amp; Mid(text, i, 1)
-End If
-Next i
-
-FilterPrintable = result
+    Dim result As String
+    Dim i As Long
+    Dim byteVal As Integer
+    For i = 1 To Len(text)
+        byteVal = AscB(Mid(text, i, 1))
+        If byteVal &gt;= 32 And byteVal &lt;= 126 Then
+            result = result &amp; Mid(text, i, 1)
+        End If
+    Next i
+    FilterPrintable = result
 End Function</code></pre>
 <h3 id="encode-for-url">Encode for URL</h3>
 <pre><code class="language-vbnet">Function NeedsURLEncoding(char As String) As Boolean
-If Len(char) = 0 Then Exit Function
-
-Dim byteVal As Integer
-byteVal = AscB(char)
-
-&#x27; Check if character needs encoding
-If (byteVal &gt;= 48 And byteVal &lt;= 57) Or _
-(byteVal &gt;= 65 And byteVal &lt;= 90) Or _
-(byteVal &gt;= 97 And byteVal &lt;= 122) Then
-NeedsURLEncoding = False
-Else
-NeedsURLEncoding = True
-End If
+    If Len(char) = 0 Then Exit Function
+    Dim byteVal As Integer
+    byteVal = AscB(char)
+    &#x27; Check if character needs encoding
+    If (byteVal &gt;= 48 And byteVal &lt;= 57) Or _
+       (byteVal &gt;= 65 And byteVal &lt;= 90) Or _
+       (byteVal &gt;= 97 And byteVal &lt;= 122) Then
+        NeedsURLEncoding = False
+    Else
+        NeedsURLEncoding = True
+    End If
 End Function</code></pre>
 <h2 id="advanced-examples">Advanced Examples</h2>
 <h3 id="binary-data-parser">Binary Data Parser</h3>
 <pre><code class="language-vbnet">Function ParseBinaryHeader(data As String) As Variant
-&#x27; Parse a binary file header (example: BMP format)
-Dim header As Variant
-ReDim header(1 To 4)
-
-If Len(data) &lt; 4 Then Exit Function
-
-&#x27; Read signature bytes
-header(1) = AscB(Mid(data, 1, 1))  &#x27; &#x27;B&#x27; = 66
-header(2) = AscB(Mid(data, 2, 1))  &#x27; &#x27;M&#x27; = 77
-
-&#x27; Read size bytes (little-endian)
-header(3) = AscB(Mid(data, 3, 1))
-header(4) = AscB(Mid(data, 4, 1))
-
-ParseBinaryHeader = header
+    &#x27; Parse a binary file header (example: BMP format)
+    Dim header As Variant
+    ReDim header(1 To 4)
+    If Len(data) &lt; 4 Then Exit Function
+    &#x27; Read signature bytes
+    header(1) = AscB(Mid(data, 1, 1))  &#x27; &#x27;B&#x27; = 66
+    header(2) = AscB(Mid(data, 2, 1))  &#x27; &#x27;M&#x27; = 77
+    &#x27; Read size bytes (little-endian)
+    header(3) = AscB(Mid(data, 3, 1))
+    header(4) = AscB(Mid(data, 4, 1))
+    ParseBinaryHeader = header
 End Function</code></pre>
 <h3 id="xor-encryptiondecryption">XOR Encryption/Decryption</h3>
 <pre><code class="language-vbnet">Function XOREncrypt(text As String, key As String) As String
-Dim result As String
-Dim i As Long, keyPos As Long
-Dim textByte As Integer, keyByte As Integer
-
-If Len(text) = 0 Or Len(key) = 0 Then Exit Function
-
-keyPos = 1
-For i = 1 To Len(text)
-textByte = AscB(Mid(text, i, 1))
-keyByte = AscB(Mid(key, keyPos, 1))
-
-result = result &amp; ChrB(textByte Xor keyByte)
-
-keyPos = keyPos + 1
-If keyPos &gt; Len(key) Then keyPos = 1
-Next i
-
-XOREncrypt = result
+    Dim result As String
+    Dim i As Long, keyPos As Long
+    Dim textByte As Integer, keyByte As Integer
+    If Len(text) = 0 Or Len(key) = 0 Then Exit Function
+    keyPos = 1
+    For i = 1 To Len(text)
+        textByte = AscB(Mid(text, i, 1))
+        keyByte = AscB(Mid(key, keyPos, 1))
+        result = result &amp; ChrB(textByte Xor keyByte)
+        keyPos = keyPos + 1
+        If keyPos &gt; Len(key) Then keyPos = 1
+    Next i
+    XOREncrypt = result
 End Function</code></pre>
 <h3 id="csv-field-parser-with-byte-analysis">CSV Field Parser with Byte Analysis</h3>
 <pre><code class="language-vbnet">Function ParseCSVField(field As String) As String
-Dim result As String
-Dim i As Long
-Dim byteVal As Integer
-Dim inQuotes As Boolean
-
-For i = 1 To Len(field)
-byteVal = AscB(Mid(field, i, 1))
-
-Select Case byteVal
-Case 34  &#x27; Double quote
-inQuotes = Not inQuotes
-Case 44  &#x27; Comma
-If Not inQuotes Then Exit Function
-result = result &amp; Chr(byteVal)
-Case Else
-result = result &amp; Chr(byteVal)
-End Select
-Next i
-
-ParseCSVField = result
+    Dim result As String
+    Dim i As Long
+    Dim byteVal As Integer
+    Dim inQuotes As Boolean
+    For i = 1 To Len(field)
+        byteVal = AscB(Mid(field, i, 1))
+        Select Case byteVal
+            Case 34  &#x27; Double quote
+                inQuotes = Not inQuotes
+            Case 44  &#x27; Comma
+                If Not inQuotes Then Exit Function
+                result = result &amp; Chr(byteVal)
+            Case Else
+                result = result &amp; Chr(byteVal)
+        End Select
+    Next i
+    ParseCSVField = result
 End Function</code></pre>
 <h3 id="character-set-validator">Character Set Validator</h3>
 <pre><code class="language-vbnet">Function ValidateCharacterSet(text As String, validSet As String) As Boolean
-Dim i As Long, j As Long
-Dim textByte As Integer
-Dim found As Boolean
-
-For i = 1 To Len(text)
-textByte = AscB(Mid(text, i, 1))
-found = False
-
-For j = 1 To Len(validSet)
-If textByte = AscB(Mid(validSet, j, 1)) Then
-found = True
-Exit For
-End If
-Next j
-
-If Not found Then
-ValidateCharacterSet = False
-Exit Function
-End If
-Next i
-
-ValidateCharacterSet = True
+    Dim i As Long, j As Long
+    Dim textByte As Integer
+    Dim found As Boolean
+    For i = 1 To Len(text)
+        textByte = AscB(Mid(text, i, 1))
+        found = False
+        For j = 1 To Len(validSet)
+            If textByte = AscB(Mid(validSet, j, 1)) Then
+                found = True
+                Exit For
+            End If
+        Next j
+        If Not found Then
+            ValidateCharacterSet = False
+            Exit Function
+        End If
+    Next i
+    ValidateCharacterSet = True
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeAscB(text As String) As Integer
-On Error GoTo ErrorHandler
-
-If Len(text) = 0 Then
-SafeAscB = -1  &#x27; Error indicator
-Exit Function
-End If
-
-SafeAscB = AscB(text)
-Exit Function
-
+    On Error GoTo ErrorHandler
+    If Len(text) = 0 Then
+        SafeAscB = -1  &#x27; Error indicator
+        Exit Function
+    End If
+    SafeAscB = AscB(text)
+    Exit Function
 ErrorHandler:
-SafeAscB = -1
+    SafeAscB = -1
 End Function</code></pre>
 <h2 id="performance-notes">Performance Notes</h2>
 <ul>
@@ -359,19 +327,17 @@ End Function</code></pre>
 </tbody>
 </table>
 <h2 id="common-byte-values-reference">Common Byte Values Reference</h2>
-<p>Some commonly used byte values with <code>AscB</code>:</p>
-<ul>
-<li><strong>0</strong>: Null character (NUL)</li>
-<li><strong>9</strong>: Tab (HT)</li>
-<li><strong>10</strong>: Line feed (LF)</li>
-<li><strong>13</strong>: Carriage return (CR)</li>
-<li><strong>32</strong>: Space</li>
-<li><strong>48-57</strong>: Digits '0'-'9'</li>
-<li><strong>65-90</strong>: Uppercase letters 'A'-'Z'</li>
-<li><strong>97-122</strong>: Lowercase letters 'a'-'z'</li>
-<li><strong>127</strong>: Delete (DEL)</li>
-<li><strong>128-255</strong>: Extended ANSI (varies by code page)</li>
-</ul>
+<p>Some commonly used byte values with <code>AscB</code>:
+- <strong>0</strong>: Null character (NUL)
+- <strong>9</strong>: Tab (HT)
+- <strong>10</strong>: Line feed (LF)
+- <strong>13</strong>: Carriage return (CR)
+- <strong>32</strong>: Space
+- <strong>48-57</strong>: Digits '0'-'9'
+- <strong>65-90</strong>: Uppercase letters 'A'-'Z'
+- <strong>97-122</strong>: Lowercase letters 'a'-'z'
+- <strong>127</strong>: Delete (DEL)
+- <strong>128-255</strong>: Extended ANSI (varies by code page)</p>
 <h2 id="platform-notes">Platform Notes</h2>
 <ul>
 <li>On Windows systems, <code>AscB</code> uses the system's ANSI code page (e.g., Windows-1252)</li>

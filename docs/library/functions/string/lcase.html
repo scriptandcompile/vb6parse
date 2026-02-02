@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="lcase-function"><code>LCase</code> Function</h1>
+            <h1 id="lcase-function">LCase Function</h1>
 <p>Returns a <code>String</code> that has been converted to lowercase.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">LCase(string)</code></pre>
@@ -56,22 +56,20 @@
 - Numbers, punctuation, and symbols are unchanged
 - Whitespace is preserved</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>LCase</code> function converts uppercase letters to lowercase:</p>
-<ul>
-<li>Only affects uppercase letters A-Z</li>
-<li>All other characters remain unchanged</li>
-<li>Counterpart to <code>UCase</code> function (converts to uppercase)</li>
-<li><code>Null</code> propagates through the function (<code>Null</code> input returns <code>Null</code>)</li>
-<li>Does not modify the original string (strings are immutable in VB6)</li>
-<li>Locale-aware in some versions (may affect accented characters)</li>
-<li>Common for case-insensitive string comparisons</li>
-<li>Useful for normalizing user input</li>
-<li>Works with string variables, literals, and expressions</li>
-<li>Can be combined with other string functions (<code>Trim</code>, <code>Replace</code>, etc.)</li>
-<li>Performance is generally fast for typical strings</li>
-<li>For single character, consider using <code>LCase$</code> for slightly better performance</li>
-<li><code>LCase$</code> variant returns <code>String</code> type (not <code>Variant</code>)</li>
-</ul>
+<p>The <code>LCase</code> function converts uppercase letters to lowercase:
+- Only affects uppercase letters A-Z
+- All other characters remain unchanged
+- Counterpart to <code>UCase</code> function (converts to uppercase)
+- <code>Null</code> propagates through the function (<code>Null</code> input returns <code>Null</code>)
+- Does not modify the original string (strings are immutable in VB6)
+- Locale-aware in some versions (may affect accented characters)
+- Common for case-insensitive string comparisons
+- Useful for normalizing user input
+- Works with string variables, literals, and expressions
+- Can be combined with other string functions (<code>Trim</code>, <code>Replace</code>, etc.)
+- Performance is generally fast for typical strings
+- For single character, consider using <code>LCase$</code> for slightly better performance
+- <code>LCase$</code> variant returns <code>String</code> type (not <code>Variant</code>)</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Case-Insensitive Comparison</strong>: Compare strings ignoring case</li>
@@ -86,372 +84,308 @@
 <h2 id="basic-usage-examples">Basic Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Basic lowercase conversion
 Dim result As String
-
 result = LCase(&quot;HELLO&quot;)              &#x27; &quot;hello&quot;
 result = LCase(&quot;Hello World&quot;)        &#x27; &quot;hello world&quot;
 result = LCase(&quot;VB6 Programming&quot;)    &#x27; &quot;vb6 programming&quot;
-
 &#x27; Example 2: Case-insensitive comparison
 Dim input As String
 input = &quot;Yes&quot;
-
 If LCase(input) = &quot;yes&quot; Then
-MsgBox &quot;User answered yes&quot;
+    MsgBox &quot;User answered yes&quot;
 End If
-
 &#x27; Example 3: Mixed case preservation
 Dim text As String
 text = &quot;Hello123WORLD&quot;
-
 Debug.Print LCase(text)              &#x27; &quot;hello123world&quot; - numbers unchanged
-
 &#x27; Example 4: Null handling
 Dim value As Variant
 value = Null
-
 Debug.Print IsNull(LCase(value))     &#x27; True - Null propagates</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Case-insensitive string comparison
 Function EqualsIgnoreCase(str1 As String, str2 As String) As Boolean
-EqualsIgnoreCase = (LCase(str1) = LCase(str2))
+    EqualsIgnoreCase = (LCase(str1) = LCase(str2))
 End Function
-
 &#x27; Pattern 2: Case-insensitive contains check
 Function ContainsIgnoreCase(text As String, searchFor As String) As Boolean
-ContainsIgnoreCase = (InStr(1, LCase(text), LCase(searchFor)) &gt; 0)
+    ContainsIgnoreCase = (InStr(1, LCase(text), LCase(searchFor)) &gt; 0)
 End Function
-
 &#x27; Pattern 3: Normalize user input
 Function NormalizeInput(userInput As String) As String
-NormalizeInput = LCase(Trim(userInput))
+    NormalizeInput = LCase(Trim(userInput))
 End Function
-
 &#x27; Pattern 4: Validate yes/no input
 Function IsYes(input As String) As Boolean
-Select Case LCase(Trim(input))
-Case &quot;yes&quot;, &quot;y&quot;, &quot;true&quot;, &quot;1&quot;
-IsYes = True
-Case Else
-IsYes = False
-End Select
+    Select Case LCase(Trim(input))
+        Case &quot;yes&quot;, &quot;y&quot;, &quot;true&quot;, &quot;1&quot;
+            IsYes = True
+        Case Else
+            IsYes = False
+    End Select
 End Function
-
 &#x27; Pattern 5: Case-insensitive array search
 Function FindInArray(arr As Variant, searchValue As String) As Long
-Dim i As Long
-Dim searchLower As String
-
-FindInArray = -1
-If Not IsArray(arr) Then Exit Function
-
-searchLower = LCase(searchValue)
-For i = LBound(arr) To UBound(arr)
-If LCase(arr(i)) = searchLower Then
-FindInArray = i
-Exit Function
-End If
-Next i
+    Dim i As Long
+    Dim searchLower As String
+    FindInArray = -1
+    If Not IsArray(arr) Then Exit Function
+    searchLower = LCase(searchValue)
+    For i = LBound(arr) To UBound(arr)
+        If LCase(arr(i)) = searchLower Then
+            FindInArray = i
+            Exit Function
+        End If
+    Next i
 End Function
-
 &#x27; Pattern 6: Extract lowercase letters only
 Function GetLowercaseLetters(text As String) As String
-Dim i As Long
-Dim char As String
-Dim result As String
-
-result = &quot;&quot;
-For i = 1 To Len(text)
-char = Mid(text, i, 1)
-If char = LCase(char) And char &gt;= &quot;a&quot; And char &lt;= &quot;z&quot; Then
-result = result &amp; char
-End If
-Next i
-
-GetLowercaseLetters = result
+    Dim i As Long
+    Dim char As String
+    Dim result As String
+    result = &quot;&quot;
+    For i = 1 To Len(text)
+        char = Mid(text, i, 1)
+        If char = LCase(char) And char &gt;= &quot;a&quot; And char &lt;= &quot;z&quot; Then
+            result = result &amp; char
+        End If
+    Next i
+    GetLowercaseLetters = result
 End Function
-
 &#x27; Pattern 7: Normalize email address
 Function NormalizeEmail(email As String) As String
-NormalizeEmail = LCase(Trim(email))
+    NormalizeEmail = LCase(Trim(email))
 End Function
-
 &#x27; Pattern 8: Case-insensitive Replace
 Function ReplaceIgnoreCase(text As String, findStr As String, _
-replaceStr As String) As String
-Dim pos As Long
-Dim result As String
-Dim textLower As String
-Dim findLower As String
-
-result = text
-textLower = LCase(text)
-findLower = LCase(findStr)
-
-pos = InStr(1, textLower, findLower)
-Do While pos &gt; 0
-result = Left(result, pos - 1) &amp; replaceStr &amp; _
-Mid(result, pos + Len(findStr))
-textLower = LCase(result)
-pos = InStr(pos + Len(replaceStr), textLower, findLower)
-Loop
-
-ReplaceIgnoreCase = result
+                           replaceStr As String) As String
+    Dim pos As Long
+    Dim result As String
+    Dim textLower As String
+    Dim findLower As String
+    result = text
+    textLower = LCase(text)
+    findLower = LCase(findStr)
+    pos = InStr(1, textLower, findLower)
+    Do While pos &gt; 0
+        result = Left(result, pos - 1) &amp; replaceStr &amp; _
+                 Mid(result, pos + Len(findStr))
+        textLower = LCase(result)
+        pos = InStr(pos + Len(replaceStr), textLower, findLower)
+    Loop
+    ReplaceIgnoreCase = result
 End Function
-
 &#x27; Pattern 9: Check if string is all lowercase
 Function IsAllLowercase(text As String) As Boolean
-IsAllLowercase = (text = LCase(text))
+    IsAllLowercase = (text = LCase(text))
 End Function
-
 &#x27; Pattern 10: Toggle case
 Function ToggleCase(text As String) As String
-Dim i As Long
-Dim char As String
-Dim result As String
-
-result = &quot;&quot;
-For i = 1 To Len(text)
-char = Mid(text, i, 1)
-If char = UCase(char) Then
-result = result &amp; LCase(char)
-Else
-result = result &amp; UCase(char)
-End If
-Next i
-
-ToggleCase = result
+    Dim i As Long
+    Dim char As String
+    Dim result As String
+    result = &quot;&quot;
+    For i = 1 To Len(text)
+        char = Mid(text, i, 1)
+        If char = UCase(char) Then
+            result = result &amp; LCase(char)
+        Else
+            result = result &amp; UCase(char)
+        End If
+    Next i
+    ToggleCase = result
 End Function</code></pre>
 <h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Case-insensitive dictionary/lookup
 Public Class CaseInsensitiveDictionary
-Private m_dict As Object  &#x27; Scripting.Dictionary
-
-Private Sub Class_Initialize()
-Set m_dict = CreateObject(&quot;Scripting.Dictionary&quot;)
-m_dict.CompareMode = vbTextCompare  &#x27; Alternative to LCase
-End Sub
-
-Public Sub Add(key As String, value As Variant)
-Dim keyLower As String
-keyLower = LCase(key)
-
-If m_dict.Exists(keyLower) Then
-Err.Raise 457, &quot;CaseInsensitiveDictionary&quot;, &quot;Key already exists&quot;
-End If
-
-If IsObject(value) Then
-Set m_dict(keyLower) = value
-Else
-m_dict(keyLower) = value
-End If
-End Sub
-
-Public Function Get(key As String) As Variant
-Dim keyLower As String
-keyLower = LCase(key)
-
-If Not m_dict.Exists(keyLower) Then
-Err.Raise 5, &quot;CaseInsensitiveDictionary&quot;, &quot;Key not found&quot;
-End If
-
-If IsObject(m_dict(keyLower)) Then
-Set Get = m_dict(keyLower)
-Else
-Get = m_dict(keyLower)
-End If
-End Function
-
-Public Function Exists(key As String) As Boolean
-Exists = m_dict.Exists(LCase(key))
-End Function
-
-Public Sub Remove(key As String)
-m_dict.Remove LCase(key)
-End Sub
+    Private m_dict As Object  &#x27; Scripting.Dictionary
+    Private Sub Class_Initialize()
+        Set m_dict = CreateObject(&quot;Scripting.Dictionary&quot;)
+        m_dict.CompareMode = vbTextCompare  &#x27; Alternative to LCase
+    End Sub
+    Public Sub Add(key As String, value As Variant)
+        Dim keyLower As String
+        keyLower = LCase(key)
+        If m_dict.Exists(keyLower) Then
+            Err.Raise 457, &quot;CaseInsensitiveDictionary&quot;, &quot;Key already exists&quot;
+        End If
+        If IsObject(value) Then
+            Set m_dict(keyLower) = value
+        Else
+            m_dict(keyLower) = value
+        End If
+    End Sub
+    Public Function Get(key As String) As Variant
+        Dim keyLower As String
+        keyLower = LCase(key)
+        If Not m_dict.Exists(keyLower) Then
+            Err.Raise 5, &quot;CaseInsensitiveDictionary&quot;, &quot;Key not found&quot;
+        End If
+        If IsObject(m_dict(keyLower)) Then
+            Set Get = m_dict(keyLower)
+        Else
+            Get = m_dict(keyLower)
+        End If
+    End Function
+    Public Function Exists(key As String) As Boolean
+        Exists = m_dict.Exists(LCase(key))
+    End Function
+    Public Sub Remove(key As String)
+        m_dict.Remove LCase(key)
+    End Sub
 End Class
-
 &#x27; Example 2: Text search with case-insensitive highlighting
 Public Class TextHighlighter
-Public Function Highlight(text As String, searchTerm As String, _
-highlightStart As String, _
-highlightEnd As String) As String
-Dim result As String
-Dim pos As Long
-Dim lastPos As Long
-Dim textLower As String
-Dim searchLower As String
-
-If Len(searchTerm) = 0 Then
-Highlight = text
-Exit Function
-End If
-
-result = &quot;&quot;
-lastPos = 1
-textLower = LCase(text)
-searchLower = LCase(searchTerm)
-
-pos = InStr(lastPos, textLower, searchLower)
-Do While pos &gt; 0
-&#x27; Add text before match
-result = result &amp; Mid(text, lastPos, pos - lastPos)
-&#x27; Add highlighted match
-result = result &amp; highlightStart &amp; _
-Mid(text, pos, Len(searchTerm)) &amp; highlightEnd
-
-lastPos = pos + Len(searchTerm)
-pos = InStr(lastPos, textLower, searchLower)
-Loop
-
-&#x27; Add remaining text
-result = result &amp; Mid(text, lastPos)
-
-Highlight = result
-End Function
+    Public Function Highlight(text As String, searchTerm As String, _
+                              highlightStart As String, _
+                              highlightEnd As String) As String
+        Dim result As String
+        Dim pos As Long
+        Dim lastPos As Long
+        Dim textLower As String
+        Dim searchLower As String
+        If Len(searchTerm) = 0 Then
+            Highlight = text
+            Exit Function
+        End If
+        result = &quot;&quot;
+        lastPos = 1
+        textLower = LCase(text)
+        searchLower = LCase(searchTerm)
+        pos = InStr(lastPos, textLower, searchLower)
+        Do While pos &gt; 0
+            &#x27; Add text before match
+            result = result &amp; Mid(text, lastPos, pos - lastPos)
+            &#x27; Add highlighted match
+            result = result &amp; highlightStart &amp; _
+                     Mid(text, pos, Len(searchTerm)) &amp; highlightEnd
+            lastPos = pos + Len(searchTerm)
+            pos = InStr(lastPos, textLower, searchLower)
+        Loop
+        &#x27; Add remaining text
+        result = result &amp; Mid(text, lastPos)
+        Highlight = result
+    End Function
 End Class
-
 &#x27; Example 3: String matcher with wildcards
 Public Class WildcardMatcher
-Public Function Matches(text As String, pattern As String, _
-Optional caseSensitive As Boolean = False) As Boolean
-Dim textToMatch As String
-Dim patternToMatch As String
-
-If caseSensitive Then
-textToMatch = text
-patternToMatch = pattern
-Else
-textToMatch = LCase(text)
-patternToMatch = LCase(pattern)
-End If
-
-Matches = MatchesInternal(textToMatch, patternToMatch)
-End Function
-
-Private Function MatchesInternal(text As String, pattern As String) As Boolean
-&#x27; Simple wildcard matching (* = any chars, ? = any single char)
-If pattern = &quot;*&quot; Then
-MatchesInternal = True
-Exit Function
-End If
-
-If Len(pattern) = 0 Then
-MatchesInternal = (Len(text) = 0)
-Exit Function
-End If
-
-If Left(pattern, 1) = &quot;*&quot; Then
-&#x27; Try matching rest of pattern at various positions
-Dim i As Long
-For i = 0 To Len(text)
-If MatchesInternal(Mid(text, i + 1), Mid(pattern, 2)) Then
-MatchesInternal = True
-Exit Function
-End If
-Next i
-MatchesInternal = False
-ElseIf Left(pattern, 1) = &quot;?&quot; Then
-If Len(text) &gt; 0 Then
-MatchesInternal = MatchesInternal(Mid(text, 2), Mid(pattern, 2))
-Else
-MatchesInternal = False
-End If
-Else
-If Len(text) &gt; 0 And Left(text, 1) = Left(pattern, 1) Then
-MatchesInternal = MatchesInternal(Mid(text, 2), Mid(pattern, 2))
-Else
-MatchesInternal = False
-End If
-End If
-End Function
+    Public Function Matches(text As String, pattern As String, _
+                            Optional caseSensitive As Boolean = False) As Boolean
+        Dim textToMatch As String
+        Dim patternToMatch As String
+        If caseSensitive Then
+            textToMatch = text
+            patternToMatch = pattern
+        Else
+            textToMatch = LCase(text)
+            patternToMatch = LCase(pattern)
+        End If
+        Matches = MatchesInternal(textToMatch, patternToMatch)
+    End Function
+    Private Function MatchesInternal(text As String, pattern As String) As Boolean
+        &#x27; Simple wildcard matching (* = any chars, ? = any single char)
+        If pattern = &quot;*&quot; Then
+            MatchesInternal = True
+            Exit Function
+        End If
+        If Len(pattern) = 0 Then
+            MatchesInternal = (Len(text) = 0)
+            Exit Function
+        End If
+        If Left(pattern, 1) = &quot;*&quot; Then
+            &#x27; Try matching rest of pattern at various positions
+            Dim i As Long
+            For i = 0 To Len(text)
+                If MatchesInternal(Mid(text, i + 1), Mid(pattern, 2)) Then
+                    MatchesInternal = True
+                    Exit Function
+                End If
+            Next i
+            MatchesInternal = False
+        ElseIf Left(pattern, 1) = &quot;?&quot; Then
+            If Len(text) &gt; 0 Then
+                MatchesInternal = MatchesInternal(Mid(text, 2), Mid(pattern, 2))
+            Else
+                MatchesInternal = False
+            End If
+        Else
+            If Len(text) &gt; 0 And Left(text, 1) = Left(pattern, 1) Then
+                MatchesInternal = MatchesInternal(Mid(text, 2), Mid(pattern, 2))
+            Else
+                MatchesInternal = False
+            End If
+        End If
+    End Function
 End Class
-
 &#x27; Example 4: Command parser with case-insensitive commands
 Public Class CommandParser
-Private m_commands As Collection
-
-Private Sub Class_Initialize()
-Set m_commands = New Collection
-End Sub
-
-Public Sub RegisterCommand(commandName As String, handler As Object)
-m_commands.Add handler, LCase(commandName)
-End Sub
-
-Public Function Parse(input As String) As Boolean
-Dim parts() As String
-Dim command As String
-Dim handler As Object
-
-Parse = False
-input = Trim(input)
-If Len(input) = 0 Then Exit Function
-
-parts = Split(input, &quot; &quot;)
-If UBound(parts) &lt; 0 Then Exit Function
-
-command = LCase(parts(0))
-
-On Error Resume Next
-Set handler = m_commands(command)
-On Error GoTo 0
-
-If Not handler Is Nothing Then
-&#x27; Execute command handler
-&#x27; handler.Execute(parts)
-Parse = True
-End If
-End Function
-
-Public Function GetCommandList() As String
-Dim i As Long
-Dim result As String
-
-result = &quot;&quot;
-For i = 1 To m_commands.Count
-If i &gt; 1 Then result = result &amp; &quot;, &quot;
-&#x27; Note: Can&#x27;t easily get key from Collection
-&#x27; This is simplified example
-Next i
-
-GetCommandList = result
-End Function
+    Private m_commands As Collection
+    Private Sub Class_Initialize()
+        Set m_commands = New Collection
+    End Sub
+    Public Sub RegisterCommand(commandName As String, handler As Object)
+        m_commands.Add handler, LCase(commandName)
+    End Sub
+    Public Function Parse(input As String) As Boolean
+        Dim parts() As String
+        Dim command As String
+        Dim handler As Object
+        Parse = False
+        input = Trim(input)
+        If Len(input) = 0 Then Exit Function
+        parts = Split(input, &quot; &quot;)
+        If UBound(parts) &lt; 0 Then Exit Function
+        command = LCase(parts(0))
+        On Error Resume Next
+        Set handler = m_commands(command)
+        On Error GoTo 0
+        If Not handler Is Nothing Then
+            &#x27; Execute command handler
+            &#x27; handler.Execute(parts)
+            Parse = True
+        End If
+    End Function
+    Public Function GetCommandList() As String
+        Dim i As Long
+        Dim result As String
+        result = &quot;&quot;
+        For i = 1 To m_commands.Count
+            If i &gt; 1 Then result = result &amp; &quot;, &quot;
+            &#x27; Note: Can&#x27;t easily get key from Collection
+            &#x27; This is simplified example
+        Next i
+        GetCommandList = result
+    End Function
 End Class</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <p><code>LCase</code> handles special cases gracefully:</p>
 <pre><code class="language-vbnet">&#x27; Empty string returns empty string
 Debug.Print LCase(&quot;&quot;)                &#x27; &quot;&quot;
-
 &#x27; Null propagates
 Dim value As Variant
 value = Null
 Debug.Print IsNull(LCase(value))     &#x27; True
-
 &#x27; Non-alphabetic characters unchanged
 Debug.Print LCase(&quot;123!@#&quot;)          &#x27; &quot;123!@#&quot;
-
 &#x27; Mixed content
 Debug.Print LCase(&quot;ABC123xyz&quot;)       &#x27; &quot;abc123xyz&quot;
-
 &#x27; Safe pattern with Null check
 Function SafeLCase(value As Variant) As String
-If IsNull(value) Then
-SafeLCase = &quot;&quot;
-Else
-SafeLCase = LCase(value)
-End If
+    If IsNull(value) Then
+        SafeLCase = &quot;&quot;
+    Else
+        SafeLCase = LCase(value)
+    End If
 End Function</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
 <li><strong>Fast Operation</strong>: <code>LCase</code> is generally very fast</li>
 <li><strong>String Creation</strong>: Creates new string (strings are immutable)</li>
 <li><strong>Repeated Calls</strong>: Cache result if using same lowercase value multiple times</li>
-<li><strong><code>LCase$</code> Variant</strong>: Use <code>LCase$</code> for <code>String</code> return type (slightly faster)</li>
+<li><strong><code>LCase$</code> Variant</strong>: Use <code>LCase$</code> for <code>String</code> return type (slightly faster)
+Performance tips:</li>
 </ul>
-<p>Performance tips:</p>
 <pre><code class="language-vbnet">&#x27; Less efficient - multiple conversions
 If LCase(str1) = LCase(str2) And LCase(str1) = LCase(str3) Then
-
 &#x27; More efficient - cache conversion
 Dim str1Lower As String
 str1Lower = LCase(str1)
@@ -514,28 +448,23 @@ If str1Lower = LCase(str2) And str1Lower = LCase(str3) Then</code></pre>
 <pre><code class="language-vbnet">Dim str1 As String, str2 As String
 str1 = &quot;Hello&quot;
 str2 = &quot;HELLO&quot;
-
 &#x27; Using LCase for comparison
 If LCase(str1) = LCase(str2) Then
-MsgBox &quot;Equal (case-insensitive)&quot;
+    MsgBox &quot;Equal (case-insensitive)&quot;
 End If
-
 &#x27; Using StrComp for comparison
 If StrComp(str1, str2, vbTextCompare) = 0 Then
-MsgBox &quot;Equal (case-insensitive)&quot;
+    MsgBox &quot;Equal (case-insensitive)&quot;
 End If
-
 &#x27; LCase is more explicit and readable for simple comparisons
 &#x27; StrComp is better when you need the comparison result (-1, 0, 1)</code></pre>
 <h2 id="lcase-variant"><code>LCase$</code> Variant</h2>
 <pre><code class="language-vbnet">&#x27; LCase returns Variant
 Dim result As Variant
 result = LCase(&quot;HELLO&quot;)
-
 &#x27; LCase$ returns String (slightly faster, cannot handle Null)
 Dim resultStr As String
 resultStr = LCase$(&quot;HELLO&quot;)
-
 &#x27; LCase$ will error on Null
 &#x27; resultStr = LCase$(Null)  &#x27; Error 94: Invalid use of Null</code></pre>
 <h2 id="platform-and-version-notes">Platform and Version Notes</h2>

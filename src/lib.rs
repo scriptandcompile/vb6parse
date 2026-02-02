@@ -192,6 +192,10 @@ pub mod lexer;
 pub mod parsers;
 pub mod syntax;
 
+// wasm module for playground use.
+#[cfg(target_arch = "wasm32")]
+pub mod wasm;
+
 // =============================================================================
 // Top-level re-exports for common use cases
 // =============================================================================

@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="rtrim-function"><code>RTrim</code> Function</h1>
+            <h1 id="rtrim-function">RTrim Function</h1>
 <p>Returns a String containing a copy of a specified string with trailing spaces removed.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">RTrim(string)</code></pre>
@@ -58,547 +58,466 @@
 - Leading spaces are preserved
 - Internal spaces are preserved</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>RTrim</code> function removes trailing spaces:</p>
-<ul>
-<li>Removes only space characters (ASCII 32) from the right side</li>
-<li>Does not remove tabs (Chr(9)), line feeds (Chr(10)), or carriage returns (Chr(13))</li>
-<li>Does not remove non-breaking spaces or other Unicode whitespace</li>
-<li>Leading spaces are not affected</li>
-<li>Internal spaces between words are preserved</li>
-<li>Often used to clean up output formatting</li>
-<li>Commonly paired with <code>LTrim</code> or used with Trim</li>
-<li>Null input returns Null (propagates Null)</li>
-<li>Empty string input returns empty string</li>
-<li>String of only spaces returns empty string</li>
-<li>Does not modify the original string (returns new string)</li>
-<li>Can be used with Variant variables</li>
-<li>Common in report generation and text alignment</li>
-<li>Used to remove padding from fixed-width fields</li>
-<li>Essential for cleaning exported data</li>
-<li>Part of the VB6 string manipulation library</li>
-<li>Available in all VB versions</li>
-<li>Related to <code>LTrim</code> (removes leading spaces) and Trim (removes both)</li>
-</ul>
+<p>The <code>RTrim</code> function removes trailing spaces:
+- Removes only space characters (ASCII 32) from the right side
+- Does not remove tabs (Chr(9)), line feeds (Chr(10)), or carriage returns (Chr(13))
+- Does not remove non-breaking spaces or other Unicode whitespace
+- Leading spaces are not affected
+- Internal spaces between words are preserved
+- Often used to clean up output formatting
+- Commonly paired with <code>LTrim</code> or used with Trim
+- Null input returns Null (propagates Null)
+- Empty string input returns empty string
+- String of only spaces returns empty string
+- Does not modify the original string (returns new string)
+- Can be used with Variant variables
+- Common in report generation and text alignment
+- Used to remove padding from fixed-width fields
+- Essential for cleaning exported data
+- Part of the VB6 string manipulation library
+- Available in all VB versions
+- Related to <code>LTrim</code> (removes leading spaces) and Trim (removes both)</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Remove Trailing Spaces</strong></li>
 </ol>
-<pre><code class="language-vbnet">cleanText = RTrim(&quot;Hello   &quot;)</code></pre>
-<ol>
-<li><strong>Clean Fixed-Width Output</strong></li>
-</ol>
-<pre><code class="language-vbnet">outputLine = RTrim(paddedField)</code></pre>
-<ol>
-<li><strong>Format Display</strong></li>
-</ol>
-<pre><code class="language-vbnet">lblName.Caption = RTrim(recordset(&quot;Name&quot;))</code></pre>
-<ol>
-<li><strong>Process Data Export</strong></li>
-</ol>
-<pre><code class="language-vbnet">exportValue = RTrim(databaseField)</code></pre>
-<ol>
-<li><strong>Normalize Text</strong></li>
-</ol>
-<pre><code class="language-vbnet">normalizedText = LTrim(RTrim(inputText))</code></pre>
-<ol>
-<li><strong>String Comparison</strong></li>
-</ol>
-<pre><code class="language-vbnet">If RTrim(text1) = RTrim(text2) Then
-&#x27; Equal when ignoring trailing spaces
-End If</code></pre>
-<ol>
-<li><strong>Write to File</strong></li>
-</ol>
-<pre><code class="language-vbnet">Print #1, RTrim(record.Field1)</code></pre>
-<ol>
-<li><strong>Report Generation</strong></li>
-</ol>
-<pre><code class="language-vbnet">reportLine = RTrim(customerName) &amp; &quot; - &quot; &amp; orderID</code></pre>
-<h2 id="basic-examples">Basic Examples</h2>
-<h3 id="example-1-basic-usage">Example 1: Basic Usage</h3>
-<pre><code class="language-vbnet">Dim result As String
-
-result = RTrim(&quot;Hello   &quot;)           &#x27; Returns &quot;Hello&quot;
-result = RTrim(&quot;   Hello&quot;)           &#x27; Returns &quot;   Hello&quot; (leading preserved)
-result = RTrim(&quot;   Hello World   &quot;)  &#x27; Returns &quot;   Hello World&quot;
-result = RTrim(&quot;NoSpaces&quot;)           &#x27; Returns &quot;NoSpaces&quot;
-result = RTrim(&quot;     &quot;)              &#x27; Returns &quot;&quot;
-result = RTrim(&quot;&quot;)                   &#x27; Returns &quot;&quot;</code></pre>
-<h3 id="example-2-fixed-width-file-export">Example 2: Fixed-Width File Export</h3>
-<pre><code class="language-vbnet">Sub ExportToFixedWidth(ByVal filename As String)
-Dim rs As ADODB.Recordset
-Dim fileNum As Integer
-Dim line As String
-
-Set rs = New ADODB.Recordset
-rs.Open &quot;SELECT * FROM Customers&quot;, conn
-
-fileNum = FreeFile
-Open filename For Output As #fileNum
-
-Do While Not rs.EOF
-&#x27; Build fixed-width line and remove trailing spaces
-line = Left(rs(&quot;CustomerID&quot;) &amp; Space(10), 10) &amp; _
-Left(rs(&quot;CompanyName&quot;) &amp; Space(40), 40) &amp; _
-Left(rs(&quot;City&quot;) &amp; Space(20), 20)
-
-&#x27; Write without trailing spaces
-Print #fileNum, RTrim(line)
-
-rs.MoveNext
-Loop
-
-Close #fileNum
-rs.Close
-Set rs = Nothing
-End Sub</code></pre>
-<h3 id="example-3-database-field-cleanup">Example 3: Database Field Cleanup</h3>
-<pre><code class="language-vbnet">Function GetCustomerName(ByVal customerID As String) As String
-Dim rs As ADODB.Recordset
-Dim sql As String
-
-sql = &quot;SELECT CustomerName FROM Customers WHERE CustomerID = &#x27;&quot; &amp; customerID &amp; &quot;&#x27;&quot;
-
-Set rs = New ADODB.Recordset
-rs.Open sql, conn
-
-If Not rs.EOF Then
-&#x27; Remove trailing spaces from database field (may be CHAR type)
-GetCustomerName = RTrim(rs(&quot;CustomerName&quot;) &amp; &quot;&quot;)
-Else
-GetCustomerName = &quot;&quot;
-End If
-
-rs.Close
-Set rs = Nothing
-End Function</code></pre>
-<h3 id="example-4-report-formatting">Example 4: Report Formatting</h3>
-<pre><code class="language-vbnet">Sub GenerateReport()
-Dim rs As ADODB.Recordset
-Dim reportLine As String
-
-Set rs = New ADODB.Recordset
-rs.Open &quot;SELECT * FROM Orders&quot;, conn
-
-lstReport.Clear
-
-Do While Not rs.EOF
-&#x27; Format report line with proper spacing
-reportLine = RTrim(rs(&quot;CustomerName&quot;) &amp; &quot;&quot;) &amp; &quot; - &quot; &amp; _
-&quot;Order #&quot; &amp; rs(&quot;OrderID&quot;) &amp; &quot; - &quot; &amp; _
-Format(rs(&quot;OrderDate&quot;), &quot;mm/dd/yyyy&quot;)
-
-lstReport.AddItem reportLine
-
-rs.MoveNext
-Loop
-
-rs.Close
-Set rs = Nothing
-End Sub</code></pre>
-<h2 id="common-patterns">Common Patterns</h2>
-<h3 id="pattern-1-fulltrim-combine-with-ltrim">Pattern 1: <code>FullTrim</code> (combine with <code>LTrim</code>)</h3>
-<pre><code class="language-vbnet">Function FullTrim(ByVal text As String) As String
-FullTrim = LTrim(RTrim(text))
-&#x27; Note: Can also use built-in Trim() function
-End Function</code></pre>
-<h3 id="pattern-2-safertrim-handle-null">Pattern 2: <code>SafeRTrim</code> (handle Null)</h3>
-<pre><code class="language-vbnet">Function SafeRTrim(ByVal text As Variant) As String
-If IsNull(text) Then
-SafeRTrim = &quot;&quot;
-Else
-SafeRTrim = RTrim(text)
-End If
-End Function</code></pre>
-<h3 id="pattern-3-cleandatabasefield">Pattern 3: <code>CleanDatabaseField</code></h3>
-<pre><code class="language-vbnet">Function CleanDatabaseField(ByVal rs As Recordset, _
-ByVal fieldName As String) As String
-If Not IsNull(rs(fieldName)) Then
-CleanDatabaseField = RTrim(rs(fieldName) &amp; &quot;&quot;)
-Else
-CleanDatabaseField = &quot;&quot;
-End If
-End Function</code></pre>
-<h3 id="pattern-4-trimtrailingspaces">Pattern 4: <code>TrimTrailingSpaces</code></h3>
-<pre><code class="language-vbnet">Sub TrimTrailingSpaces(fields() As String)
-Dim i As Integer
-For i = LBound(fields) To UBound(fields)
-fields(i) = RTrim(fields(i))
-Next i
-End Sub</code></pre>
-<h3 id="pattern-5-compareignoretrailing">Pattern 5: <code>CompareIgnoreTrailing</code></h3>
-<pre><code class="language-vbnet">Function CompareIgnoreTrailing(ByVal str1 As String, _
-ByVal str2 As String) As Boolean
-CompareIgnoreTrailing = (RTrim(str1) = RTrim(str2))
-End Function</code></pre>
-<h3 id="pattern-6-formatfixedwidth">Pattern 6: <code>FormatFixedWidth</code></h3>
-<pre><code class="language-vbnet">Function FormatFixedWidth(ByVal text As String, _
-ByVal width As Integer) As String
-Dim padded As String
-padded = Left(text &amp; Space(width), width)
-FormatFixedWidth = RTrim(padded)
-End Function</code></pre>
-<h3 id="pattern-7-cleanrecordsetfield">Pattern 7: <code>CleanRecordsetField</code></h3>
-<pre><code class="language-vbnet">Function CleanRecordsetField(ByVal rs As Recordset, _
-ByVal fieldName As String, _
-Optional ByVal defaultValue As String = &quot;&quot;) As String
-On Error Resume Next
-If Not IsNull(rs(fieldName)) Then
-CleanRecordsetField = RTrim(CStr(rs(fieldName)))
-Else
-CleanRecordsetField = defaultValue
-End If
-End Function</code></pre>
-<h3 id="pattern-8-exportcleanline">Pattern 8: <code>ExportCleanLine</code></h3>
-<pre><code class="language-vbnet">Sub ExportCleanLine(ByVal fileNum As Integer, _
-ByVal text As String)
-Print #fileNum, RTrim(text)
-End Sub</code></pre>
-<h3 id="pattern-9-removetrailingpadding">Pattern 9: <code>RemoveTrailingPadding</code></h3>
-<pre><code class="language-vbnet">Function RemoveTrailingPadding(ByVal paddedText As String) As String
-RemoveTrailingPadding = RTrim(paddedText)
-End Function</code></pre>
-<h3 id="pattern-10-cleandisplaytext">Pattern 10: <code>CleanDisplayText</code></h3>
-<pre><code class="language-vbnet">Sub CleanDisplayText(ByVal ctrl As Control)
-If TypeOf ctrl Is Label Or TypeOf ctrl Is TextBox Then
-ctrl.Caption = RTrim(ctrl.Caption)
-End If
-End Sub</code></pre>
-<h2 id="advanced-examples">Advanced Examples</h2>
-<h3 id="example-1-fixed-width-file-processor">Example 1: Fixed-Width File Processor</h3>
-<pre><code class="language-vbnet">&#x27; Class: FixedWidthExporter
+<pre><code class="language-vbnet">   cleanText = RTrim(&quot;Hello   &quot;)
+   ```
+2. **Clean Fixed-Width Output**
+   ```vb
+   outputLine = RTrim(paddedField)
+   ```
+3. **Format Display**
+   ```vb
+   lblName.Caption = RTrim(recordset(&quot;Name&quot;))
+   ```
+4. **Process Data Export**
+   ```vb
+   exportValue = RTrim(databaseField)
+   ```
+5. **Normalize Text**
+   ```vb
+   normalizedText = LTrim(RTrim(inputText))
+   ```
+6. **String Comparison**
+   ```vb
+   If RTrim(text1) = RTrim(text2) Then
+       &#x27; Equal when ignoring trailing spaces
+   End If
+   ```
+7. **Write to File**
+   ```vb
+   Print #1, RTrim(record.Field1)
+   ```
+8. **Report Generation**
+   ```vb
+   reportLine = RTrim(customerName) &amp; &quot; - &quot; &amp; orderID
+   ```
+## Basic Examples
+### Example 1: Basic Usage</code></pre>
+<p>vb
+Dim result As String
+result = RTrim("Hello   ")           ' Returns "Hello"
+result = RTrim("   Hello")           ' Returns "   Hello" (leading preserved)
+result = RTrim("   Hello World   ")  ' Returns "   Hello World"
+result = RTrim("NoSpaces")           ' Returns "NoSpaces"
+result = RTrim("     ")              ' Returns ""
+result = RTrim("")                   ' Returns ""</p>
+<pre><code>### Example 2: Fixed-Width File Export</code></pre>
+<p>vb
+Sub ExportToFixedWidth(ByVal filename As String)
+    Dim rs As ADODB.Recordset
+    Dim fileNum As Integer
+    Dim line As String
+    Set rs = New ADODB.Recordset
+    rs.Open "SELECT * FROM Customers", conn
+    fileNum = FreeFile
+    Open filename For Output As #fileNum
+    Do While Not rs.EOF
+        ' Build fixed-width line and remove trailing spaces
+        line = Left(rs("CustomerID") &amp; Space(10), 10) &amp; _
+               Left(rs("CompanyName") &amp; Space(40), 40) &amp; _
+               Left(rs("City") &amp; Space(20), 20)
+        ' Write without trailing spaces
+        Print #fileNum, RTrim(line)
+        rs.MoveNext
+    Loop
+    Close #fileNum
+    rs.Close
+    Set rs = Nothing
+End Sub</p>
+<pre><code>### Example 3: Database Field Cleanup</code></pre>
+<p>vb
+Function GetCustomerName(ByVal customerID As String) As String
+    Dim rs As ADODB.Recordset
+    Dim sql As String
+    sql = "SELECT CustomerName FROM Customers WHERE CustomerID = '" &amp; customerID &amp; "'"
+    Set rs = New ADODB.Recordset
+    rs.Open sql, conn
+    If Not rs.EOF Then
+        ' Remove trailing spaces from database field (may be CHAR type)
+        GetCustomerName = RTrim(rs("CustomerName") &amp; "")
+    Else
+        GetCustomerName = ""
+    End If
+    rs.Close
+    Set rs = Nothing
+End Function</p>
+<pre><code>### Example 4: Report Formatting</code></pre>
+<p>vb
+Sub GenerateReport()
+    Dim rs As ADODB.Recordset
+    Dim reportLine As String
+    Set rs = New ADODB.Recordset
+    rs.Open "SELECT * FROM Orders", conn
+    lstReport.Clear
+    Do While Not rs.EOF
+        ' Format report line with proper spacing
+        reportLine = RTrim(rs("CustomerName") &amp; "") &amp; " - " &amp; _
+                    "Order #" &amp; rs("OrderID") &amp; " - " &amp; _
+                    Format(rs("OrderDate"), "mm/dd/yyyy")
+        lstReport.AddItem reportLine
+        rs.MoveNext
+    Loop
+    rs.Close
+    Set rs = Nothing
+End Sub</p>
+<pre><code>## Common Patterns
+### Pattern 1: `FullTrim` (combine with `LTrim`)</code></pre>
+<p>vb
+Function FullTrim(ByVal text As String) As String
+    FullTrim = LTrim(RTrim(text))
+    ' Note: Can also use built-in Trim() function
+End Function</p>
+<pre><code>### Pattern 2: `SafeRTrim` (handle Null)</code></pre>
+<p>vb
+Function SafeRTrim(ByVal text As Variant) As String
+    If IsNull(text) Then
+        SafeRTrim = ""
+    Else
+        SafeRTrim = RTrim(text)
+    End If
+End Function</p>
+<pre><code>### Pattern 3: `CleanDatabaseField`</code></pre>
+<p>vb
+Function CleanDatabaseField(ByVal rs As Recordset, _
+                           ByVal fieldName As String) As String
+    If Not IsNull(rs(fieldName)) Then
+        CleanDatabaseField = RTrim(rs(fieldName) &amp; "")
+    Else
+        CleanDatabaseField = ""
+    End If
+End Function</p>
+<pre><code>### Pattern 4: `TrimTrailingSpaces`</code></pre>
+<p>vb
+Sub TrimTrailingSpaces(fields() As String)
+    Dim i As Integer
+    For i = LBound(fields) To UBound(fields)
+        fields(i) = RTrim(fields(i))
+    Next i
+End Sub</p>
+<pre><code>### Pattern 5: `CompareIgnoreTrailing`</code></pre>
+<p>vb
+Function CompareIgnoreTrailing(ByVal str1 As String, _
+                               ByVal str2 As String) As Boolean
+    CompareIgnoreTrailing = (RTrim(str1) = RTrim(str2))
+End Function</p>
+<pre><code>### Pattern 6: `FormatFixedWidth`</code></pre>
+<p>vb
+Function FormatFixedWidth(ByVal text As String, _
+                         ByVal width As Integer) As String
+    Dim padded As String
+    padded = Left(text &amp; Space(width), width)
+    FormatFixedWidth = RTrim(padded)
+End Function</p>
+<pre><code>### Pattern 7: `CleanRecordsetField`</code></pre>
+<p>vb
+Function CleanRecordsetField(ByVal rs As Recordset, _
+                            ByVal fieldName As String, _
+                            Optional ByVal defaultValue As String = "") As String
+    On Error Resume Next
+    If Not IsNull(rs(fieldName)) Then
+        CleanRecordsetField = RTrim(CStr(rs(fieldName)))
+    Else
+        CleanRecordsetField = defaultValue
+    End If
+End Function</p>
+<pre><code>### Pattern 8: `ExportCleanLine`</code></pre>
+<p>vb
+Sub ExportCleanLine(ByVal fileNum As Integer, _
+                    ByVal text As String)
+    Print #fileNum, RTrim(text)
+End Sub</p>
+<pre><code>### Pattern 9: `RemoveTrailingPadding`</code></pre>
+<p>vb
+Function RemoveTrailingPadding(ByVal paddedText As String) As String
+    RemoveTrailingPadding = RTrim(paddedText)
+End Function</p>
+<pre><code>### Pattern 10: `CleanDisplayText`</code></pre>
+<p>vb
+Sub CleanDisplayText(ByVal ctrl As Control)
+    If TypeOf ctrl Is Label Or TypeOf ctrl Is TextBox Then
+        ctrl.Caption = RTrim(ctrl.Caption)
+    End If
+End Sub</p>
+<pre><code>## Advanced Examples
+### Example 1: Fixed-Width File Processor</code></pre>
+<p>vb
+' Class: FixedWidthExporter
 Private m_fileNum As Integer
 Private m_isOpen As Boolean
-
 Public Sub OpenFile(ByVal filename As String)
-If m_isOpen Then CloseFile
-
-m_fileNum = FreeFile
-Open filename For Output As #m_fileNum
-m_isOpen = True
+    If m_isOpen Then CloseFile
+    m_fileNum = FreeFile
+    Open filename For Output As #m_fileNum
+    m_isOpen = True
 End Sub
-
 Public Sub WriteField(ByVal text As String, ByVal width As Integer)
-Dim padded As String
-
-&#x27; Pad to width and remove trailing spaces
-padded = Left(text &amp; Space(width), width)
-Print #m_fileNum, RTrim(padded);
+    Dim padded As String
+    ' Pad to width and remove trailing spaces
+    padded = Left(text &amp; Space(width), width)
+    Print #m_fileNum, RTrim(padded);
 End Sub
-
 Public Sub WriteLine()
-Print #m_fileNum, &quot;&quot;
+    Print #m_fileNum, ""
 End Sub
-
 Public Sub WriteRecord(ParamArray fields() As Variant)
-Dim i As Integer
-Dim line As String
-
-For i = LBound(fields) To UBound(fields)
-If i Mod 2 = 0 Then
-&#x27; Even index = text
-line = line &amp; Left(fields(i) &amp; Space(fields(i + 1)), fields(i + 1))
-End If
-Next i
-
-Print #m_fileNum, RTrim(line)
+    Dim i As Integer
+    Dim line As String
+    For i = LBound(fields) To UBound(fields)
+        If i Mod 2 = 0 Then
+            ' Even index = text
+            line = line &amp; Left(fields(i) &amp; Space(fields(i + 1)), fields(i + 1))
+        End If
+    Next i
+    Print #m_fileNum, RTrim(line)
 End Sub
-
 Public Sub CloseFile()
-If m_isOpen Then
-Close #m_fileNum
-m_isOpen = False
-End If
+    If m_isOpen Then
+        Close #m_fileNum
+        m_isOpen = False
+    End If
 End Sub
-
 Private Sub Class_Terminate()
-CloseFile
-End Sub</code></pre>
-<h3 id="example-2-database-field-cleaner">Example 2: Database Field Cleaner</h3>
-<pre><code class="language-vbnet">&#x27; Class: RecordsetCleaner
+    CloseFile
+End Sub</p>
+<pre><code>### Example 2: Database Field Cleaner</code></pre>
+<p>vb
+' Class: RecordsetCleaner
 Private m_trimLeading As Boolean
 Private m_trimTrailing As Boolean
-
 Private Sub Class_Initialize()
-m_trimLeading = False
-m_trimTrailing = True
+    m_trimLeading = False
+    m_trimTrailing = True
 End Sub
-
 Public Property Let TrimLeading(ByVal value As Boolean)
-m_trimLeading = value
+    m_trimLeading = value
 End Property
-
 Public Property Let TrimTrailing(ByVal value As Boolean)
-m_trimTrailing = value
+    m_trimTrailing = value
 End Property
-
 Public Function GetCleanField(ByVal rs As Recordset, _
-ByVal fieldName As String) As String
-Dim value As String
-
-If IsNull(rs(fieldName)) Then
-GetCleanField = &quot;&quot;
-Exit Function
-End If
-
-value = CStr(rs(fieldName))
-
-If m_trimTrailing Then
-value = RTrim(value)
-End If
-
-If m_trimLeading Then
-value = LTrim(value)
-End If
-
-GetCleanField = value
+                              ByVal fieldName As String) As String
+    Dim value As String
+    If IsNull(rs(fieldName)) Then
+        GetCleanField = ""
+        Exit Function
+    End If
+    value = CStr(rs(fieldName))
+    If m_trimTrailing Then
+        value = RTrim(value)
+    End If
+    If m_trimLeading Then
+        value = LTrim(value)
+    End If
+    GetCleanField = value
 End Function
-
 Public Sub CleanRecordset(ByVal rs As Recordset)
-Dim fld As Field
-
-If rs.EOF And rs.BOF Then Exit Sub
-
-rs.MoveFirst
-Do While Not rs.EOF
-For Each fld In rs.Fields
-If fld.Type = adVarChar Or fld.Type = adChar Then
-If Not IsNull(fld.Value) Then
-fld.Value = GetCleanField(rs, fld.Name)
-End If
-End If
-Next fld
-rs.MoveNext
-Loop
-End Sub</code></pre>
-<h3 id="example-3-report-generator">Example 3: Report Generator</h3>
-<pre><code class="language-vbnet">&#x27; Class: ReportGenerator
+    Dim fld As Field
+    If rs.EOF And rs.BOF Then Exit Sub
+    rs.MoveFirst
+    Do While Not rs.EOF
+        For Each fld In rs.Fields
+            If fld.Type = adVarChar Or fld.Type = adChar Then
+                If Not IsNull(fld.Value) Then
+                    fld.Value = GetCleanField(rs, fld.Name)
+                End If
+            End If
+        Next fld
+        rs.MoveNext
+    Loop
+End Sub</p>
+<pre><code>### Example 3: Report Generator</code></pre>
+<p>vb
+' Class: ReportGenerator
 Private m_lines As Collection
 Private m_columnWidths() As Integer
-
 Public Sub Initialize(columnWidths() As Integer)
-Set m_lines = New Collection
-m_columnWidths = columnWidths
+    Set m_lines = New Collection
+    m_columnWidths = columnWidths
 End Sub
-
 Public Sub AddRow(ParamArray values() As Variant)
-Dim i As Integer
-Dim line As String
-Dim cellValue As String
-
-For i = LBound(values) To UBound(values)
-If i &lt;= UBound(m_columnWidths) Then
-cellValue = CStr(values(i))
-line = line &amp; Left(cellValue &amp; Space(m_columnWidths(i)), _
-m_columnWidths(i))
-End If
-Next i
-
-&#x27; Remove trailing spaces from line
-m_lines.Add RTrim(line)
+    Dim i As Integer
+    Dim line As String
+    Dim cellValue As String
+    For i = LBound(values) To UBound(values)
+        If i &lt;= UBound(m_columnWidths) Then
+            cellValue = CStr(values(i))
+            line = line &amp; Left(cellValue &amp; Space(m_columnWidths(i)), _
+                               m_columnWidths(i))
+        End If
+    Next i
+    ' Remove trailing spaces from line
+    m_lines.Add RTrim(line)
 End Sub
-
 Public Sub AddSeparator()
-Dim i As Integer
-Dim line As String
-
-For i = LBound(m_columnWidths) To UBound(m_columnWidths)
-line = line &amp; String(m_columnWidths(i), &quot;-&quot;)
-Next i
-
-m_lines.Add RTrim(line)
+    Dim i As Integer
+    Dim line As String
+    For i = LBound(m_columnWidths) To UBound(m_columnWidths)
+        line = line &amp; String(m_columnWidths(i), "-")
+    Next i
+    m_lines.Add RTrim(line)
 End Sub
-
 Public Function GetReport() As String
-Dim line As Variant
-Dim report As String
-
-For Each line In m_lines
-report = report &amp; line &amp; vbCrLf
-Next line
-
-GetReport = report
+    Dim line As Variant
+    Dim report As String
+    For Each line In m_lines
+        report = report &amp; line &amp; vbCrLf
+    Next line
+    GetReport = report
 End Function
-
 Public Sub SaveToFile(ByVal filename As String)
-Dim fileNum As Integer
-Dim line As Variant
-
-fileNum = FreeFile
-Open filename For Output As #fileNum
-
-For Each line In m_lines
-Print #fileNum, line
-Next line
-
-Close #fileNum
-End Sub</code></pre>
-<h3 id="example-4-text-utilities-module">Example 4: Text Utilities Module</h3>
-<pre><code class="language-vbnet">&#x27; Module: TextUtils
-
+    Dim fileNum As Integer
+    Dim line As Variant
+    fileNum = FreeFile
+    Open filename For Output As #fileNum
+    For Each line In m_lines
+        Print #fileNum, line
+    Next line
+    Close #fileNum
+End Sub</p>
+<pre><code>### Example 4: Text Utilities Module</code></pre>
+<p>vb
+' Module: TextUtils
 Public Function CleanTrailing(ByVal text As String) As String
-CleanTrailing = RTrim(text)
+    CleanTrailing = RTrim(text)
 End Function
-
 Public Function CleanBoth(ByVal text As String) As String
-CleanBoth = LTrim(RTrim(text))
+    CleanBoth = LTrim(RTrim(text))
 End Function
-
 Public Function CleanArray(arr() As String, _
-ByVal trimType As String) As String()
-Dim i As Integer
-Dim result() As String
-
-ReDim result(LBound(arr) To UBound(arr))
-
-For i = LBound(arr) To UBound(arr)
-Select Case LCase(trimType)
-Case &quot;trailing&quot;, &quot;right&quot;
-result(i) = RTrim(arr(i))
-Case &quot;leading&quot;, &quot;left&quot;
-result(i) = LTrim(arr(i))
-Case &quot;both&quot;, &quot;all&quot;
-result(i) = LTrim(RTrim(arr(i)))
-Case Else
-result(i) = arr(i)
-End Select
-Next i
-
-CleanArray = result
+                          ByVal trimType As String) As String()
+    Dim i As Integer
+    Dim result() As String
+    ReDim result(LBound(arr) To UBound(arr))
+    For i = LBound(arr) To UBound(arr)
+        Select Case LCase(trimType)
+            Case "trailing", "right"
+                result(i) = RTrim(arr(i))
+            Case "leading", "left"
+                result(i) = LTrim(arr(i))
+            Case "both", "all"
+                result(i) = LTrim(RTrim(arr(i)))
+            Case Else
+                result(i) = arr(i)
+        End Select
+    Next i
+    CleanArray = result
 End Function
-
 Public Function PadAndTrim(ByVal text As String, _
-ByVal width As Integer, _
-Optional ByVal padChar As String = &quot; &quot;) As String
-Dim padded As String
-
-If Len(padChar) = 0 Then padChar = &quot; &quot;
-padded = Left(text &amp; String(width, padChar), width)
-PadAndTrim = RTrim(padded)
+                          ByVal width As Integer, _
+                          Optional ByVal padChar As String = " ") As String
+    Dim padded As String
+    If Len(padChar) = 0 Then padChar = " "
+    padded = Left(text &amp; String(width, padChar), width)
+    PadAndTrim = RTrim(padded)
 End Function
-
 Public Function JoinClean(arr() As String, _
-ByVal delimiter As String) As String
-Dim i As Integer
-Dim result As String
-Dim cleanValue As String
-
-For i = LBound(arr) To UBound(arr)
-cleanValue = RTrim(arr(i))
-If cleanValue &lt;&gt; &quot;&quot; Then
-If result &lt;&gt; &quot;&quot; Then
-result = result &amp; delimiter
-End If
-result = result &amp; cleanValue
-End If
-Next i
-
-JoinClean = result
-End Function</code></pre>
-<h2 id="error-handling">Error Handling</h2>
-<pre><code class="language-vbnet">&#x27; RTrim handles Null gracefully
+                         ByVal delimiter As String) As String
+    Dim i As Integer
+    Dim result As String
+    Dim cleanValue As String
+    For i = LBound(arr) To UBound(arr)
+        cleanValue = RTrim(arr(i))
+        If cleanValue &lt;&gt; "" Then
+            If result &lt;&gt; "" Then
+                result = result &amp; delimiter
+            End If
+            result = result &amp; cleanValue
+        End If
+    Next i
+    JoinClean = result
+End Function</p>
+<pre><code>## Error Handling</code></pre>
+<p>vb
+' RTrim handles Null gracefully
 Dim result As Variant
-result = RTrim(Null)  &#x27; Returns Null
-
-&#x27; Safe trimming with Null check
+result = RTrim(Null)  ' Returns Null
+' Safe trimming with Null check
 Function SafeRTrim(ByVal value As Variant) As String
-If IsNull(value) Then
-SafeRTrim = &quot;&quot;
-Else
-SafeRTrim = RTrim(CStr(value))
-End If
-End Function</code></pre>
-<h2 id="performance-considerations">Performance Considerations</h2>
-<ul>
-<li><strong>Fast Operation</strong>: String trimming is highly optimized</li>
-<li><strong>Creates New String</strong>: Does not modify original (immutable)</li>
-<li><strong>Avoid in Tight Loops</strong>: Cache result if using multiple times</li>
-<li><strong>Use <code>Trim()</code> for Both</strong>: If removing both leading and trailing spaces</li>
-</ul>
-<h2 id="best-practices">Best Practices</h2>
-<ol>
-<li><strong>Use for database CHAR fields</strong> - Remove padding from fixed-length fields</li>
-<li><strong>Clean export data</strong> - Remove trailing spaces before writing to files</li>
-<li><strong>Combine with <code>LTrim</code></strong> - Use <code>Trim()</code> instead for both sides</li>
-<li><strong>Validate before use</strong> - Check for Null if using Variant</li>
-<li><strong>Cache trimmed values</strong> - Don't call repeatedly in loops</li>
-<li><strong>Apply to report output</strong> - Clean formatting in generated reports</li>
-<li><strong>Use with fixed-width formats</strong> - Essential for proper alignment</li>
-<li><strong>Document expectations</strong> - Clarify if tabs/newlines should be removed</li>
-<li><strong>Test edge cases</strong> - Empty strings, all spaces, Null values</li>
-<li><strong>Consider Unicode</strong> - <code>RTrim</code> only removes ASCII space (32)</li>
-</ol>
-<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
-<table>
-<thead>
-<tr>
-<th>Function</th>
-<th>Removes Leading</th>
-<th>Removes Trailing</th>
-<th>Removes Both</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong><code>RTrim</code></strong></td>
-<td>No</td>
-<td>Yes</td>
-<td>No</td>
-</tr>
-<tr>
-<td><strong><code>LTrim</code></strong></td>
-<td>Yes</td>
-<td>No</td>
-<td>No</td>
-</tr>
-<tr>
-<td><strong>Trim</strong></td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-</tbody>
-</table>
-<h2 id="rtrim-vs-ltrim-vs-trim"><code>RTrim</code> vs <code>LTrim</code> vs Trim</h2>
-<pre><code class="language-vbnet">Dim text As String
-text = &quot;   Hello World   &quot;
-
-&#x27; RTrim - removes trailing spaces only
-Debug.Print &quot;[&quot; &amp; RTrim(text) &amp; &quot;]&quot;   &#x27; [   Hello World]
-
-&#x27; LTrim - removes leading spaces only
-Debug.Print &quot;[&quot; &amp; LTrim(text) &amp; &quot;]&quot;   &#x27; [Hello World   ]
-
-&#x27; Trim - removes both leading and trailing
-Debug.Print &quot;[&quot; &amp; Trim(text) &amp; &quot;]&quot;    &#x27; [Hello World]
-
-&#x27; Manual equivalent to Trim
-Debug.Print &quot;[&quot; &amp; LTrim(RTrim(text)) &amp; &quot;]&quot;  &#x27; [Hello World]</code></pre>
-<h2 id="whitespace-characters">Whitespace Characters</h2>
-<pre><code class="language-vbnet">&#x27; RTrim only removes space (ASCII 32)
+    If IsNull(value) Then
+        SafeRTrim = ""
+    Else
+        SafeRTrim = RTrim(CStr(value))
+    End If
+End Function</p>
+<pre><code>## Performance Considerations
+- **Fast Operation**: String trimming is highly optimized
+- **Creates New String**: Does not modify original (immutable)
+- **Avoid in Tight Loops**: Cache result if using multiple times
+- **Use `Trim()` for Both**: If removing both leading and trailing spaces
+## Best Practices
+1. **Use for database CHAR fields** - Remove padding from fixed-length fields
+2. **Clean export data** - Remove trailing spaces before writing to files
+3. **Combine with `LTrim`** - Use `Trim()` instead for both sides
+4. **Validate before use** - Check for Null if using Variant
+5. **Cache trimmed values** - Don&#x27;t call repeatedly in loops
+6. **Apply to report output** - Clean formatting in generated reports
+7. **Use with fixed-width formats** - Essential for proper alignment
+8. **Document expectations** - Clarify if tabs/newlines should be removed
+9. **Test edge cases** - Empty strings, all spaces, Null values
+10. **Consider Unicode** - `RTrim` only removes ASCII space (32)
+## Comparison with Related Functions
+| Function | Removes Leading | Removes Trailing | Removes Both |
+|----------|----------------|------------------|--------------|
+| **`RTrim`** | No | Yes | No |
+| **`LTrim`** | Yes | No | No |
+| **Trim** | Yes | Yes | Yes |
+## `RTrim` vs `LTrim` vs Trim</code></pre>
+<p>vb
 Dim text As String
-
-text = &quot;Hello   &quot;        &#x27; Spaces - REMOVED
-text = &quot;Hello&quot; &amp; Chr(9)  &#x27; Tab - NOT REMOVED
-text = &quot;Hello&quot; &amp; Chr(10) &#x27; Line feed - NOT REMOVED
-text = &quot;Hello&quot; &amp; Chr(13) &#x27; Carriage return - NOT REMOVED
-text = &quot;Hello&quot; &amp; Chr(160) &#x27; Non-breaking space - NOT REMOVED
-
-&#x27; To remove other whitespace, use custom function
+text = "   Hello World   "
+' RTrim - removes trailing spaces only
+Debug.Print "[" &amp; RTrim(text) &amp; "]"   ' [   Hello World]
+' LTrim - removes leading spaces only
+Debug.Print "[" &amp; LTrim(text) &amp; "]"   ' [Hello World   ]
+' Trim - removes both leading and trailing
+Debug.Print "[" &amp; Trim(text) &amp; "]"    ' [Hello World]
+' Manual equivalent to Trim
+Debug.Print "[" &amp; LTrim(RTrim(text)) &amp; "]"  ' [Hello World]</p>
+<pre><code>## Whitespace Characters</code></pre>
+<p>vb
+' RTrim only removes space (ASCII 32)
+Dim text As String
+text = "Hello   "        ' Spaces - REMOVED
+text = "Hello" &amp; Chr(9)  ' Tab - NOT REMOVED
+text = "Hello" &amp; Chr(10) ' Line feed - NOT REMOVED
+text = "Hello" &amp; Chr(13) ' Carriage return - NOT REMOVED
+text = "Hello" &amp; Chr(160) ' Non-breaking space - NOT REMOVED
+' To remove other whitespace, use custom function
 Function TrimAllWhitespaceRight(ByVal text As String) As String
-Do While Len(text) &gt; 0
-Dim ch As String
-ch = Right(text, 1)
-
-If ch = &quot; &quot; Or ch = Chr(9) Or ch = Chr(10) Or ch = Chr(13) Then
-text = Left(text, Len(text) - 1)
-Else
-Exit Do
-End If
-Loop
-
-TrimAllWhitespaceRight = text
-End Function</code></pre>
+    Do While Len(text) &gt; 0
+        Dim ch As String
+        ch = Right(text, 1)
+        If ch = " " Or ch = Chr(9) Or ch = Chr(10) Or ch = Chr(13) Then
+            text = Left(text, Len(text) - 1)
+        Else
+            Exit Do
+        End If
+    Loop
+    TrimAllWhitespaceRight = text
+End Function
+```</p>
 <h2 id="platform-notes">Platform Notes</h2>
 <ul>
 <li>Available in all VB6 versions</li>

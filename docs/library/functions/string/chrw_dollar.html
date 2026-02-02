@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="chrw-function"><code>ChrW$</code> Function</h1>
+            <h1 id="chrw-function">ChrW$ Function</h1>
 <p>Returns a <code>String</code> containing the Unicode character associated with the specified character code.
 The dollar sign suffix (<code>$</code>) explicitly indicates that this function returns a <code>String</code> type
 (not a <code>Variant</code>), and the "W" suffix indicates this is the wide (Unicode) version.</p>
@@ -46,8 +46,8 @@ The dollar sign suffix (<code>$</code>) explicitly indicates that this function 
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><strong><code>charcode</code></strong>: Required. <code>Long</code> value that identifies a Unicode character. Valid values are
--32768 to 65535. The range 0-65535 represents Unicode characters. Negative values are treated
-as unsigned values (e.g., -1 becomes 65535).</li>
+  -32768 to 65535. The range 0-65535 represents Unicode characters. Negative values are treated
+  as unsigned values (e.g., -1 becomes 65535).</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>String</code> containing the single Unicode character corresponding to the specified character
@@ -56,7 +56,7 @@ character (2 bytes).</p>
 <h2 id="remarks">Remarks</h2>
 <ul>
 <li>The <code>ChrW$</code> function combines the behavior of <code>ChrW</code> (Unicode character) with the <code>$</code> suffix
-(explicit <code>String</code> return type).</li>
+  (explicit <code>String</code> return type).</li>
 <li>Valid range: -32768 to 65535 (values outside this range may cause errors).</li>
 <li><code>ChrW$</code> returns Unicode characters, allowing access to the full Unicode Basic Multilingual Plane (BMP).</li>
 <li>For values 0-127, <code>ChrW$</code> and <code>Chr$</code> return the same ASCII characters.</li>
@@ -174,82 +174,82 @@ msg = &quot;Line 1&quot; &amp; ChrW$(13) &amp; ChrW$(10) &amp; &quot;Line 2&quot
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="multi-line-strings">Multi-line Strings</h3>
 <pre><code class="language-vbnet">Function CreateMultiLine() As String
-Dim result As String
-result = &quot;First Line&quot; &amp; ChrW$(13) &amp; ChrW$(10)
-result = result &amp; &quot;Second Line&quot; &amp; ChrW$(13) &amp; ChrW$(10)
-result = result &amp; &quot;Third Line&quot;
-CreateMultiLine = result
+    Dim result As String
+    result = &quot;First Line&quot; &amp; ChrW$(13) &amp; ChrW$(10)
+    result = result &amp; &quot;Second Line&quot; &amp; ChrW$(13) &amp; ChrW$(10)
+    result = result &amp; &quot;Third Line&quot;
+    CreateMultiLine = result
 End Function</code></pre>
 <h3 id="unicode-symbols">Unicode Symbols</h3>
 <pre><code class="language-vbnet">Function CreateCopyrightNotice(year As String, company As String) As String
-CreateCopyrightNotice = &quot;Copyright &quot; &amp; ChrW$(169) &amp; &quot; &quot; &amp; year &amp; &quot; &quot; &amp; company
+    CreateCopyrightNotice = &quot;Copyright &quot; &amp; ChrW$(169) &amp; &quot; &quot; &amp; year &amp; &quot; &quot; &amp; company
 End Function</code></pre>
 <h3 id="currency-symbols">Currency Symbols</h3>
 <pre><code class="language-vbnet">Function FormatPrice(amount As Double, currency As String) As String
-Dim symbol As String
-Select Case currency
-Case &quot;EUR&quot;
-symbol = ChrW$(8364)  &#x27; €
-Case &quot;GBP&quot;
-symbol = ChrW$(163)   &#x27; £
-Case &quot;YEN&quot;
-symbol = ChrW$(165)   &#x27; ¥
-Case Else
-symbol = &quot;$&quot;
-End Select
-FormatPrice = symbol &amp; Format(amount, &quot;0.00&quot;)
+    Dim symbol As String
+    Select Case currency
+        Case &quot;EUR&quot;
+            symbol = ChrW$(8364)  &#x27; €
+        Case &quot;GBP&quot;
+            symbol = ChrW$(163)   &#x27; £
+        Case &quot;YEN&quot;
+            symbol = ChrW$(165)   &#x27; ¥
+        Case Else
+            symbol = &quot;$&quot;
+    End Select
+    FormatPrice = symbol &amp; Format(amount, &quot;0.00&quot;)
 End Function</code></pre>
 <h3 id="international-characters">International Characters</h3>
 <pre><code class="language-vbnet">Function GetGreeting(language As String) As String
-Select Case language
-Case &quot;German&quot;
-GetGreeting = &quot;Gr&quot; &amp; ChrW$(252) &amp; ChrW$(223) &amp; &quot; Gott&quot;  &#x27; Grüß Gott
-Case &quot;French&quot;
-GetGreeting = &quot;Fran&quot; &amp; ChrW$(231) &amp; &quot;ais&quot;  &#x27; Français
-Case &quot;Spanish&quot;
-GetGreeting = &quot;Espa&quot; &amp; ChrW$(241) &amp; &quot;ol&quot;   &#x27; Español
-Case Else
-GetGreeting = &quot;Hello&quot;
-End Select
+    Select Case language
+        Case &quot;German&quot;
+            GetGreeting = &quot;Gr&quot; &amp; ChrW$(252) &amp; ChrW$(223) &amp; &quot; Gott&quot;  &#x27; Grüß Gott
+        Case &quot;French&quot;
+            GetGreeting = &quot;Fran&quot; &amp; ChrW$(231) &amp; &quot;ais&quot;  &#x27; Français
+        Case &quot;Spanish&quot;
+            GetGreeting = &quot;Espa&quot; &amp; ChrW$(241) &amp; &quot;ol&quot;   &#x27; Español
+        Case Else
+            GetGreeting = &quot;Hello&quot;
+    End Select
 End Function</code></pre>
 <h3 id="mathematical-symbols">Mathematical Symbols</h3>
 <pre><code class="language-vbnet">Function CreateMathExpression() As String
-Dim result As String
-result = &quot;x &quot; &amp; ChrW$(8804) &amp; &quot; 10&quot;  &#x27; x ≤ 10
-result = result &amp; &quot; &quot; &amp; ChrW$(8743) &amp; &quot; &quot;  &#x27; ∧ (and)
-result = result &amp; &quot;x &quot; &amp; ChrW$(8805) &amp; &quot; 0&quot;  &#x27; x ≥ 0
-CreateMathExpression = result
+    Dim result As String
+    result = &quot;x &quot; &amp; ChrW$(8804) &amp; &quot; 10&quot;  &#x27; x ≤ 10
+    result = result &amp; &quot; &quot; &amp; ChrW$(8743) &amp; &quot; &quot;  &#x27; ∧ (and)
+    result = result &amp; &quot;x &quot; &amp; ChrW$(8805) &amp; &quot; 0&quot;  &#x27; x ≥ 0
+    CreateMathExpression = result
 End Function</code></pre>
 <h3 id="tab-separated-values">Tab-Separated Values</h3>
 <pre><code class="language-vbnet">Function CreateTSV(col1 As String, col2 As String, col3 As String) As String
-CreateTSV = col1 &amp; ChrW$(9) &amp; col2 &amp; ChrW$(9) &amp; col3
+    CreateTSV = col1 &amp; ChrW$(9) &amp; col2 &amp; ChrW$(9) &amp; col3
 End Function</code></pre>
 <h3 id="quote-in-string">Quote in String</h3>
 <pre><code class="language-vbnet">Function AddQuotes(text As String) As String
-AddQuotes = ChrW$(34) &amp; text &amp; ChrW$(34)
+    AddQuotes = ChrW$(34) &amp; text &amp; ChrW$(34)
 End Function</code></pre>
 <h3 id="bullet-points">Bullet Points</h3>
 <pre><code class="language-vbnet">Function CreateBulletList() As String
-Dim result As String
-Dim bullet As String
-bullet = ChrW$(8226)  &#x27; •
-result = bullet &amp; &quot; First item&quot; &amp; ChrW$(13) &amp; ChrW$(10)
-result = result &amp; bullet &amp; &quot; Second item&quot; &amp; ChrW$(13) &amp; ChrW$(10)
-result = result &amp; bullet &amp; &quot; Third item&quot;
-CreateBulletList = result
+    Dim result As String
+    Dim bullet As String
+    bullet = ChrW$(8226)  &#x27; •
+    result = bullet &amp; &quot; First item&quot; &amp; ChrW$(13) &amp; ChrW$(10)
+    result = result &amp; bullet &amp; &quot; Second item&quot; &amp; ChrW$(13) &amp; ChrW$(10)
+    result = result &amp; bullet &amp; &quot; Third item&quot;
+    CreateBulletList = result
 End Function</code></pre>
 <h3 id="null-terminated-string">Null-Terminated String</h3>
 <pre><code class="language-vbnet">Function CreateNullTerminated(text As String) As String
-CreateNullTerminated = text &amp; ChrW$(0)
+    CreateNullTerminated = text &amp; ChrW$(0)
 End Function</code></pre>
 <h3 id="generate-alphabet">Generate Alphabet</h3>
 <pre><code class="language-vbnet">Function GenerateAlphabet() As String
-Dim i As Integer
-Dim result As String
-For i = 65 To 90
-result = result &amp; ChrW$(i)
-Next i
-GenerateAlphabet = result  &#x27; Returns &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;
+    Dim i As Integer
+    Dim result As String
+    For i = 65 To 90
+        result = result &amp; ChrW$(i)
+    Next i
+    GenerateAlphabet = result  &#x27; Returns &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;
 End Function</code></pre>
 <h2 id="related-functions">Related Functions</h2>
 <ul>
@@ -262,12 +262,12 @@ End Function</code></pre>
 </ul>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeChrW(code As Long) As String
-On Error Resume Next
-SafeChrW = ChrW$(code)
-If Err.Number &lt;&gt; 0 Then
-SafeChrW = &quot;&quot;
-Err.Clear
-End If
+    On Error Resume Next
+    SafeChrW = ChrW$(code)
+    If Err.Number &lt;&gt; 0 Then
+        SafeChrW = &quot;&quot;
+        Err.Clear
+    End If
 End Function</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>

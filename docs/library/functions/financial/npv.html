@@ -95,14 +95,12 @@ If you have an initial investment, subtract it from the NPV result:</p>
 Dim cashFlows(1 To 5) As Double
 Dim npvResult As Double
 Dim initialInvestment As Double
-
 initialInvestment = 10000
 cashFlows(1) = 3000
 cashFlows(2) = 3000
 cashFlows(3) = 3000
 cashFlows(4) = 3000
 cashFlows(5) = 3000
-
 &#x27; Calculate NPV at 10% discount rate
 npvResult = NPV(0.1, cashFlows) - initialInvestment
 &#x27; Result: approximately $1,372 (good investment)</code></pre>
@@ -110,596 +108,487 @@ npvResult = NPV(0.1, cashFlows) - initialInvestment
 Dim savings(1 To 3) As Double
 Dim equipmentCost As Double
 Dim netValue As Double
-
 equipmentCost = 5000
 savings(1) = 2000 &#x27; Year 1 savings
 savings(2) = 2500 &#x27; Year 2 savings
 savings(3) = 3000 &#x27; Year 3 savings
-
 netValue = NPV(0.08, savings) - equipmentCost
 If netValue &gt; 0 Then
-MsgBox &quot;Good investment: NPV = $&quot; &amp; Format(netValue, &quot;#,##0.00&quot;)
+    MsgBox &quot;Good investment: NPV = $&quot; &amp; Format(netValue, &quot;#,##0.00&quot;)
 End If</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 3: Compare two projects
 Dim project1(1 To 4) As Double
 Dim project2(1 To 4) As Double
 Dim npv1 As Double, npv2 As Double
-
 &#x27; Project 1: Higher initial investment, steady returns
 project1(1) = 4000: project1(2) = 4000: project1(3) = 4000: project1(4) = 4000
 npv1 = NPV(0.1, project1) - 12000
-
 &#x27; Project 2: Lower investment, increasing returns
 project2(1) = 2000: project2(2) = 3000: project2(3) = 4000: project2(4) = 5000
 npv2 = NPV(0.1, project2) - 10000
-
 If npv2 &gt; npv1 Then
-MsgBox &quot;Project 2 has better NPV&quot;
+    MsgBox &quot;Project 2 has better NPV&quot;
 End If</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 4: Real estate investment analysis
 Dim rentalIncome(1 To 10) As Double
 Dim purchasePrice As Double
 Dim i As Integer
-
 purchasePrice = 200000
-
 &#x27; Annual rental income for 10 years
 For i = 1 To 10
-rentalIncome(i) = 24000 &#x27; $2,000/month
+    rentalIncome(i) = 24000 &#x27; $2,000/month
 Next i
-
 Dim propertyNPV As Double
 propertyNPV = NPV(0.08, rentalIncome) - purchasePrice
 MsgBox &quot;Property NPV: $&quot; &amp; Format(propertyNPV, &quot;#,##0.00&quot;)</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Basic NPV calculation with initial investment
 Function CalculateInvestmentNPV(initialCost As Double, _
-cashFlows() As Double, _
-discountRate As Double) As Double
-CalculateInvestmentNPV = NPV(discountRate, cashFlows) - initialCost
+                               cashFlows() As Double, _
+                               discountRate As Double) As Double
+    CalculateInvestmentNPV = NPV(discountRate, cashFlows) - initialCost
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 2: Investment decision helper
 Function ShouldInvest(initialInvestment As Double, _
-cashFlows() As Double, _
-requiredReturn As Double) As Boolean
-Dim npvResult As Double
-npvResult = NPV(requiredReturn, cashFlows) - initialInvestment
-ShouldInvest = (npvResult &gt; 0)
+                     cashFlows() As Double, _
+                     requiredReturn As Double) As Boolean
+    Dim npvResult As Double
+    npvResult = NPV(requiredReturn, cashFlows) - initialInvestment
+    ShouldInvest = (npvResult &gt; 0)
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 3: Sensitivity analysis
 Sub AnalyzeNPVSensitivity(initialCost As Double, cashFlows() As Double)
-Dim rate As Double
-Dim npvResult As Double
-
-Debug.Print &quot;NPV Sensitivity Analysis&quot;
-Debug.Print String(40, &quot;-&quot;)
-
-For rate = 0.05 To 0.20 Step 0.01
-npvResult = NPV(rate, cashFlows) - initialCost
-Debug.Print Format(rate * 100, &quot;0.0&quot;) &amp; &quot;%: $&quot; &amp; Format(npvResult, &quot;#,##0.00&quot;)
-Next rate
+    Dim rate As Double
+    Dim npvResult As Double
+    Debug.Print &quot;NPV Sensitivity Analysis&quot;
+    Debug.Print String(40, &quot;-&quot;)
+    For rate = 0.05 To 0.20 Step 0.01
+        npvResult = NPV(rate, cashFlows) - initialCost
+        Debug.Print Format(rate * 100, &quot;0.0&quot;) &amp; &quot;%: $&quot; &amp; Format(npvResult, &quot;#,##0.00&quot;)
+    Next rate
 End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 4: Profitability Index
 Function CalculateProfitabilityIndex(initialInvestment As Double, _
-cashFlows() As Double, _
-discountRate As Double) As Double
-Dim presentValue As Double
-presentValue = NPV(discountRate, cashFlows)
-
-If initialInvestment = 0 Then
-CalculateProfitabilityIndex = 0
-Else
-CalculateProfitabilityIndex = presentValue / initialInvestment
-End If
+                                     cashFlows() As Double, _
+                                     discountRate As Double) As Double
+    Dim presentValue As Double
+    presentValue = NPV(discountRate, cashFlows)
+    If initialInvestment = 0 Then
+        CalculateProfitabilityIndex = 0
+    Else
+        CalculateProfitabilityIndex = presentValue / initialInvestment
+    End If
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 5: Compare multiple projects
 Function SelectBestProject(projects As Collection, discountRate As Double) As String
-Dim project As Variant
-Dim bestNPV As Double
-Dim bestProject As String
-Dim currentNPV As Double
-
-bestNPV = -999999
-
-For Each project In projects
-currentNPV = NPV(discountRate, project.CashFlows) - project.InitialCost
-
-If currentNPV &gt; bestNPV Then
-bestNPV = currentNPV
-bestProject = project.Name
-End If
-Next project
-
-SelectBestProject = bestProject
+    Dim project As Variant
+    Dim bestNPV As Double
+    Dim bestProject As String
+    Dim currentNPV As Double
+    bestNPV = -999999
+    For Each project In projects
+        currentNPV = NPV(discountRate, project.CashFlows) - project.InitialCost
+        If currentNPV &gt; bestNPV Then
+            bestNPV = currentNPV
+            bestProject = project.Name
+        End If
+    Next project
+    SelectBestProject = bestProject
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 6: Break-even discount rate (approximation of IRR)
 Function FindBreakEvenRate(initialInvestment As Double, _
-cashFlows() As Double) As Double
-Dim rate As Double
-Dim npvResult As Double
-Dim increment As Double
-
-increment = 0.001
-
-For rate = 0 To 1 Step increment
-npvResult = NPV(rate, cashFlows) - initialInvestment
-If npvResult &lt;= 0 Then
-FindBreakEvenRate = rate
-Exit Function
-End If
-Next rate
-
-FindBreakEvenRate = -1 &#x27; Not found
+                          cashFlows() As Double) As Double
+    Dim rate As Double
+    Dim npvResult As Double
+    Dim increment As Double
+    increment = 0.001
+    For rate = 0 To 1 Step increment
+        npvResult = NPV(rate, cashFlows) - initialInvestment
+        If npvResult &lt;= 0 Then
+            FindBreakEvenRate = rate
+            Exit Function
+        End If
+    Next rate
+    FindBreakEvenRate = -1 &#x27; Not found
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 7: NPV with growing cash flows
 Function NPVWithGrowth(initialInvestment As Double, _
-firstYearCashFlow As Double, _
-growthRate As Double, _
-years As Integer, _
-discountRate As Double) As Double
-Dim cashFlows() As Double
-Dim i As Integer
-
-ReDim cashFlows(1 To years)
-
-For i = 1 To years
-cashFlows(i) = firstYearCashFlow * ((1 + growthRate) ^ (i - 1))
-Next i
-
-NPVWithGrowth = NPV(discountRate, cashFlows) - initialInvestment
+                       firstYearCashFlow As Double, _
+                       growthRate As Double, _
+                       years As Integer, _
+                       discountRate As Double) As Double
+    Dim cashFlows() As Double
+    Dim i As Integer
+    ReDim cashFlows(1 To years)
+    For i = 1 To years
+        cashFlows(i) = firstYearCashFlow * ((1 + growthRate) ^ (i - 1))
+    Next i
+    NPVWithGrowth = NPV(discountRate, cashFlows) - initialInvestment
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 8: Payback period with NPV
 Function CalculateDiscountedPayback(initialInvestment As Double, _
-cashFlows() As Double, _
-discountRate As Double) As Double
-Dim i As Integer
-Dim cumulativeNPV As Double
-Dim periodCashFlows() As Double
-
-For i = LBound(cashFlows) To UBound(cashFlows)
-ReDim periodCashFlows(LBound(cashFlows) To i)
-
-Dim j As Integer
-For j = LBound(cashFlows) To i
-periodCashFlows(j) = cashFlows(j)
-Next j
-
-cumulativeNPV = NPV(discountRate, periodCashFlows) - initialInvestment
-
-If cumulativeNPV &gt;= 0 Then
-CalculateDiscountedPayback = i
-Exit Function
-End If
-Next i
-
-CalculateDiscountedPayback = -1 &#x27; Never pays back
+                                    cashFlows() As Double, _
+                                    discountRate As Double) As Double
+    Dim i As Integer
+    Dim cumulativeNPV As Double
+    Dim periodCashFlows() As Double
+    For i = LBound(cashFlows) To UBound(cashFlows)
+        ReDim periodCashFlows(LBound(cashFlows) To i)
+        Dim j As Integer
+        For j = LBound(cashFlows) To i
+            periodCashFlows(j) = cashFlows(j)
+        Next j
+        cumulativeNPV = NPV(discountRate, periodCashFlows) - initialInvestment
+        If cumulativeNPV &gt;= 0 Then
+            CalculateDiscountedPayback = i
+            Exit Function
+        End If
+    Next i
+    CalculateDiscountedPayback = -1 &#x27; Never pays back
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 9: NPV with terminal value
 Function NPVWithTerminalValue(initialInvestment As Double, _
-cashFlows() As Double, _
-terminalValue As Double, _
-discountRate As Double) As Double
-Dim i As Integer
-Dim modifiedCashFlows() As Double
-
-ReDim modifiedCashFlows(LBound(cashFlows) To UBound(cashFlows))
-
-For i = LBound(cashFlows) To UBound(cashFlows) - 1
-modifiedCashFlows(i) = cashFlows(i)
-Next i
-
-&#x27; Add terminal value to final period
-modifiedCashFlows(UBound(cashFlows)) = cashFlows(UBound(cashFlows)) + terminalValue
-
-NPVWithTerminalValue = NPV(discountRate, modifiedCashFlows) - initialInvestment
+                              cashFlows() As Double, _
+                              terminalValue As Double, _
+                              discountRate As Double) As Double
+    Dim i As Integer
+    Dim modifiedCashFlows() As Double
+    ReDim modifiedCashFlows(LBound(cashFlows) To UBound(cashFlows))
+    For i = LBound(cashFlows) To UBound(cashFlows) - 1
+        modifiedCashFlows(i) = cashFlows(i)
+    Next i
+    &#x27; Add terminal value to final period
+    modifiedCashFlows(UBound(cashFlows)) = cashFlows(UBound(cashFlows)) + terminalValue
+    NPVWithTerminalValue = NPV(discountRate, modifiedCashFlows) - initialInvestment
 End Function</code></pre>
 <pre><code class="language-vbnet">&#x27; Pattern 10: Risk-adjusted NPV
 Function RiskAdjustedNPV(initialInvestment As Double, _
-expectedCashFlows() As Double, _
-riskFreeRate As Double, _
-riskPremium As Double) As Double
-Dim adjustedRate As Double
-adjustedRate = riskFreeRate + riskPremium
-RiskAdjustedNPV = NPV(adjustedRate, expectedCashFlows) - initialInvestment
+                        expectedCashFlows() As Double, _
+                        riskFreeRate As Double, _
+                        riskPremium As Double) As Double
+    Dim adjustedRate As Double
+    adjustedRate = riskFreeRate + riskPremium
+    RiskAdjustedNPV = NPV(adjustedRate, expectedCashFlows) - initialInvestment
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-investment-analyzer-class">Example 1: Investment Analyzer Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: InvestmentAnalyzer
 &#x27; Comprehensive investment analysis with NPV and related metrics
-
 Option Explicit
-
 Private m_initialInvestment As Double
 Private m_cashFlows() As Double
 Private m_discountRate As Double
-
 Public Sub Initialize(initialInvestment As Double, _
-cashFlows() As Double, _
-discountRate As Double)
-m_initialInvestment = initialInvestment
-m_cashFlows = cashFlows
-m_discountRate = discountRate
+                     cashFlows() As Double, _
+                     discountRate As Double)
+    m_initialInvestment = initialInvestment
+    m_cashFlows = cashFlows
+    m_discountRate = discountRate
 End Sub
-
 Public Function GetNPV() As Double
-GetNPV = NPV(m_discountRate, m_cashFlows) - m_initialInvestment
+    GetNPV = NPV(m_discountRate, m_cashFlows) - m_initialInvestment
 End Function
-
 Public Function GetProfitabilityIndex() As Double
-Dim pvCashFlows As Double
-pvCashFlows = NPV(m_discountRate, m_cashFlows)
-GetProfitabilityIndex = pvCashFlows / m_initialInvestment
+    Dim pvCashFlows As Double
+    pvCashFlows = NPV(m_discountRate, m_cashFlows)
+    GetProfitabilityIndex = pvCashFlows / m_initialInvestment
 End Function
-
 Public Function IsAcceptable() As Boolean
-IsAcceptable = (GetNPV() &gt; 0)
+    IsAcceptable = (GetNPV() &gt; 0)
 End Function
-
 Public Function GetApproximateIRR() As Double
-Dim rate As Double
-Dim npvResult As Double
-Dim lastRate As Double
-Dim lastNPV As Double
-
-&#x27; Binary search for IRR
-Dim lowRate As Double, highRate As Double
-lowRate = 0
-highRate = 1
-
-Do While (highRate - lowRate) &gt; 0.0001
-rate = (lowRate + highRate) / 2
-npvResult = NPV(rate, m_cashFlows) - m_initialInvestment
-
-If npvResult &gt; 0 Then
-lowRate = rate
-Else
-highRate = rate
-End If
-Loop
-
-GetApproximateIRR = rate
+    Dim rate As Double
+    Dim npvResult As Double
+    Dim lastRate As Double
+    Dim lastNPV As Double
+    &#x27; Binary search for IRR
+    Dim lowRate As Double, highRate As Double
+    lowRate = 0
+    highRate = 1
+    Do While (highRate - lowRate) &gt; 0.0001
+        rate = (lowRate + highRate) / 2
+        npvResult = NPV(rate, m_cashFlows) - m_initialInvestment
+        If npvResult &gt; 0 Then
+            lowRate = rate
+        Else
+            highRate = rate
+        End If
+    Loop
+    GetApproximateIRR = rate
 End Function
-
 Public Function GenerateReport() As String
-Dim report As String
-Dim npvValue As Double
-Dim pi As Double
-Dim irr As Double
-
-npvValue = GetNPV()
-pi = GetProfitabilityIndex()
-irr = GetApproximateIRR()
-
-report = &quot;Investment Analysis Report&quot; &amp; vbCrLf
-report = report &amp; String(50, &quot;=&quot;) &amp; vbCrLf &amp; vbCrLf
-report = report &amp; &quot;Initial Investment: $&quot; &amp; Format(m_initialInvestment, &quot;#,##0.00&quot;) &amp; vbCrLf
-report = report &amp; &quot;Discount Rate: &quot; &amp; Format(m_discountRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-report = report &amp; &quot;Number of Periods: &quot; &amp; UBound(m_cashFlows) &amp; vbCrLf &amp; vbCrLf
-report = report &amp; &quot;Net Present Value: $&quot; &amp; Format(npvValue, &quot;#,##0.00&quot;) &amp; vbCrLf
-report = report &amp; &quot;Profitability Index: &quot; &amp; Format(pi, &quot;0.00&quot;) &amp; vbCrLf
-report = report &amp; &quot;Approx. IRR: &quot; &amp; Format(irr * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf &amp; vbCrLf
-
-If IsAcceptable() Then
-report = report &amp; &quot;Recommendation: ACCEPT - Positive NPV&quot;
-Else
-report = report &amp; &quot;Recommendation: REJECT - Negative NPV&quot;
-End If
-
-GenerateReport = report
+    Dim report As String
+    Dim npvValue As Double
+    Dim pi As Double
+    Dim irr As Double
+    npvValue = GetNPV()
+    pi = GetProfitabilityIndex()
+    irr = GetApproximateIRR()
+    report = &quot;Investment Analysis Report&quot; &amp; vbCrLf
+    report = report &amp; String(50, &quot;=&quot;) &amp; vbCrLf &amp; vbCrLf
+    report = report &amp; &quot;Initial Investment: $&quot; &amp; Format(m_initialInvestment, &quot;#,##0.00&quot;) &amp; vbCrLf
+    report = report &amp; &quot;Discount Rate: &quot; &amp; Format(m_discountRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+    report = report &amp; &quot;Number of Periods: &quot; &amp; UBound(m_cashFlows) &amp; vbCrLf &amp; vbCrLf
+    report = report &amp; &quot;Net Present Value: $&quot; &amp; Format(npvValue, &quot;#,##0.00&quot;) &amp; vbCrLf
+    report = report &amp; &quot;Profitability Index: &quot; &amp; Format(pi, &quot;0.00&quot;) &amp; vbCrLf
+    report = report &amp; &quot;Approx. IRR: &quot; &amp; Format(irr * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf &amp; vbCrLf
+    If IsAcceptable() Then
+        report = report &amp; &quot;Recommendation: ACCEPT - Positive NPV&quot;
+    Else
+        report = report &amp; &quot;Recommendation: REJECT - Negative NPV&quot;
+    End If
+    GenerateReport = report
 End Function
-
 Public Function RunSensitivityAnalysis() As String
-Dim result As String
-Dim rate As Double
-Dim npvValue As Double
-
-result = &quot;NPV Sensitivity to Discount Rate&quot; &amp; vbCrLf
-result = result &amp; String(40, &quot;-&quot;) &amp; vbCrLf
-
-For rate = 0.05 To 0.25 Step 0.05
-npvValue = NPV(rate, m_cashFlows) - m_initialInvestment
-result = result &amp; Format(rate * 100, &quot;0.0&quot;) &amp; &quot;%: $&quot; &amp; _
-Format(npvValue, &quot;#,##0.00&quot;) &amp; vbCrLf
-Next rate
-
-RunSensitivityAnalysis = result
+    Dim result As String
+    Dim rate As Double
+    Dim npvValue As Double
+    result = &quot;NPV Sensitivity to Discount Rate&quot; &amp; vbCrLf
+    result = result &amp; String(40, &quot;-&quot;) &amp; vbCrLf
+    For rate = 0.05 To 0.25 Step 0.05
+        npvValue = NPV(rate, m_cashFlows) - m_initialInvestment
+        result = result &amp; Format(rate * 100, &quot;0.0&quot;) &amp; &quot;%: $&quot; &amp; _
+                 Format(npvValue, &quot;#,##0.00&quot;) &amp; vbCrLf
+    Next rate
+    RunSensitivityAnalysis = result
 End Function</code></pre>
 <h3 id="example-2-project-portfolio-manager">Example 2: Project Portfolio Manager</h3>
 <pre><code class="language-vbnet">&#x27; Class: ProjectPortfolioManager
 &#x27; Manages and ranks multiple investment projects
-
 Option Explicit
-
 Private Type Project
-name As String
-initialInvestment As Double
-cashFlows() As Double
-npv As Double
-pi As Double
-rank As Integer
+    name As String
+    initialInvestment As Double
+    cashFlows() As Double
+    npv As Double
+    pi As Double
+    rank As Integer
 End Type
-
 Private m_projects As Collection
 Private m_discountRate As Double
-
 Public Sub Initialize(discountRate As Double)
-Set m_projects = New Collection
-m_discountRate = discountRate
+    Set m_projects = New Collection
+    m_discountRate = discountRate
 End Sub
-
 Public Sub AddProject(name As String, _
-initialInvestment As Double, _
-cashFlows() As Double)
-Dim proj As Project
-
-proj.name = name
-proj.initialInvestment = initialInvestment
-proj.cashFlows = cashFlows
-proj.npv = NPV(m_discountRate, cashFlows) - initialInvestment
-
-Dim pvCashFlows As Double
-pvCashFlows = NPV(m_discountRate, cashFlows)
-proj.pi = pvCashFlows / initialInvestment
-
-m_projects.Add proj, name
+                     initialInvestment As Double, _
+                     cashFlows() As Double)
+    Dim proj As Project
+    proj.name = name
+    proj.initialInvestment = initialInvestment
+    proj.cashFlows = cashFlows
+    proj.npv = NPV(m_discountRate, cashFlows) - initialInvestment
+    Dim pvCashFlows As Double
+    pvCashFlows = NPV(m_discountRate, cashFlows)
+    proj.pi = pvCashFlows / initialInvestment
+    m_projects.Add proj, name
 End Sub
-
 Public Sub RankByNPV()
-&#x27; Simple ranking based on NPV
-Dim projects() As Project
-Dim i As Integer, j As Integer
-
-ReDim projects(1 To m_projects.Count)
-
-For i = 1 To m_projects.Count
-projects(i) = m_projects(i)
-Next i
-
-&#x27; Sort by NPV (descending)
-For i = 1 To UBound(projects) - 1
-For j = i + 1 To UBound(projects)
-If projects(j).npv &gt; projects(i).npv Then
-Dim temp As Project
-temp = projects(i)
-projects(i) = projects(j)
-projects(j) = temp
-End If
-Next j
-Next i
-
-&#x27; Assign ranks
-For i = 1 To UBound(projects)
-projects(i).rank = i
-Next i
+    &#x27; Simple ranking based on NPV
+    Dim projects() As Project
+    Dim i As Integer, j As Integer
+    ReDim projects(1 To m_projects.Count)
+    For i = 1 To m_projects.Count
+        projects(i) = m_projects(i)
+    Next i
+    &#x27; Sort by NPV (descending)
+    For i = 1 To UBound(projects) - 1
+        For j = i + 1 To UBound(projects)
+            If projects(j).npv &gt; projects(i).npv Then
+                Dim temp As Project
+                temp = projects(i)
+                projects(i) = projects(j)
+                projects(j) = temp
+            End If
+        Next j
+    Next i
+    &#x27; Assign ranks
+    For i = 1 To UBound(projects)
+        projects(i).rank = i
+    Next i
 End Sub
-
 Public Function GetPortfolioNPV() As Double
-Dim proj As Project
-Dim totalNPV As Double
-Dim i As Integer
-
-totalNPV = 0
-
-For i = 1 To m_projects.Count
-proj = m_projects(i)
-totalNPV = totalNPV + proj.npv
-Next i
-
-GetPortfolioNPV = totalNPV
+    Dim proj As Project
+    Dim totalNPV As Double
+    Dim i As Integer
+    totalNPV = 0
+    For i = 1 To m_projects.Count
+        proj = m_projects(i)
+        totalNPV = totalNPV + proj.npv
+    Next i
+    GetPortfolioNPV = totalNPV
 End Function
-
 Public Function SelectProjectsWithBudget(budget As Double) As Collection
-Dim selectedProjects As New Collection
-Dim remainingBudget As Double
-Dim proj As Project
-Dim i As Integer
-
-RankByNPV
-remainingBudget = budget
-
-For i = 1 To m_projects.Count
-proj = m_projects(i)
-
-If proj.npv &gt; 0 And proj.initialInvestment &lt;= remainingBudget Then
-selectedProjects.Add proj
-remainingBudget = remainingBudget - proj.initialInvestment
-End If
-Next i
-
-Set SelectProjectsWithBudget = selectedProjects
+    Dim selectedProjects As New Collection
+    Dim remainingBudget As Double
+    Dim proj As Project
+    Dim i As Integer
+    RankByNPV
+    remainingBudget = budget
+    For i = 1 To m_projects.Count
+        proj = m_projects(i)
+        If proj.npv &gt; 0 And proj.initialInvestment &lt;= remainingBudget Then
+            selectedProjects.Add proj
+            remainingBudget = remainingBudget - proj.initialInvestment
+        End If
+    Next i
+    Set SelectProjectsWithBudget = selectedProjects
 End Function
-
 Public Function GenerateRankingReport() As String
-Dim report As String
-Dim proj As Project
-Dim i As Integer
-
-RankByNPV
-
-report = &quot;Project Portfolio Ranking&quot; &amp; vbCrLf
-report = report &amp; String(80, &quot;=&quot;) &amp; vbCrLf
-report = report &amp; &quot;Rank  Project Name          Investment       NPV          PI&quot; &amp; vbCrLf
-report = report &amp; String(80, &quot;-&quot;) &amp; vbCrLf
-
-For i = 1 To m_projects.Count
-proj = m_projects(i)
-report = report &amp; Format(proj.rank, &quot;0&quot;) &amp; &quot;     &quot;
-report = report &amp; Left(proj.name &amp; String(20, &quot; &quot;), 20) &amp; &quot;  &quot;
-report = report &amp; Format(proj.initialInvestment, &quot;$#,##0&quot;) &amp; &quot;  &quot;
-report = report &amp; Format(proj.npv, &quot;$#,##0&quot;) &amp; &quot;  &quot;
-report = report &amp; Format(proj.pi, &quot;0.00&quot;) &amp; vbCrLf
-Next i
-
-report = report &amp; vbCrLf &amp; &quot;Total Portfolio NPV: $&quot; &amp; _
-Format(GetPortfolioNPV(), &quot;#,##0.00&quot;)
-
-GenerateRankingReport = report
+    Dim report As String
+    Dim proj As Project
+    Dim i As Integer
+    RankByNPV
+    report = &quot;Project Portfolio Ranking&quot; &amp; vbCrLf
+    report = report &amp; String(80, &quot;=&quot;) &amp; vbCrLf
+    report = report &amp; &quot;Rank  Project Name          Investment       NPV          PI&quot; &amp; vbCrLf
+    report = report &amp; String(80, &quot;-&quot;) &amp; vbCrLf
+    For i = 1 To m_projects.Count
+        proj = m_projects(i)
+        report = report &amp; Format(proj.rank, &quot;0&quot;) &amp; &quot;     &quot;
+        report = report &amp; Left(proj.name &amp; String(20, &quot; &quot;), 20) &amp; &quot;  &quot;
+        report = report &amp; Format(proj.initialInvestment, &quot;$#,##0&quot;) &amp; &quot;  &quot;
+        report = report &amp; Format(proj.npv, &quot;$#,##0&quot;) &amp; &quot;  &quot;
+        report = report &amp; Format(proj.pi, &quot;0.00&quot;) &amp; vbCrLf
+    Next i
+    report = report &amp; vbCrLf &amp; &quot;Total Portfolio NPV: $&quot; &amp; _
+             Format(GetPortfolioNPV(), &quot;#,##0.00&quot;)
+    GenerateRankingReport = report
 End Function</code></pre>
 <h3 id="example-3-real-estate-investment-analyzer">Example 3: Real Estate Investment Analyzer</h3>
 <pre><code class="language-vbnet">&#x27; Module: RealEstateAnalyzer
 &#x27; Analyzes real estate investments using NPV
-
 Option Explicit
-
 Public Function AnalyzeRentalProperty(purchasePrice As Double, _
-annualRent As Double, _
-annualExpenses As Double, _
-holdingYears As Integer, _
-appreciationRate As Double, _
-discountRate As Double) As String
-Dim cashFlows() As Double
-Dim i As Integer
-Dim salePrice As Double
-Dim npvValue As Double
-Dim result As String
-
-ReDim cashFlows(1 To holdingYears)
-
-&#x27; Calculate annual net cash flows
-For i = 1 To holdingYears - 1
-cashFlows(i) = annualRent - annualExpenses
-Next i
-
-&#x27; Final year includes property sale
-salePrice = purchasePrice * ((1 + appreciationRate) ^ holdingYears)
-cashFlows(holdingYears) = (annualRent - annualExpenses) + salePrice
-
-npvValue = NPV(discountRate, cashFlows) - purchasePrice
-
-result = &quot;Real Estate Investment Analysis&quot; &amp; vbCrLf
-result = result &amp; String(50, &quot;=&quot;) &amp; vbCrLf
-result = result &amp; &quot;Purchase Price: $&quot; &amp; Format(purchasePrice, &quot;#,##0&quot;) &amp; vbCrLf
-result = result &amp; &quot;Annual Rent: $&quot; &amp; Format(annualRent, &quot;#,##0&quot;) &amp; vbCrLf
-result = result &amp; &quot;Annual Expenses: $&quot; &amp; Format(annualExpenses, &quot;#,##0&quot;) &amp; vbCrLf
-result = result &amp; &quot;Holding Period: &quot; &amp; holdingYears &amp; &quot; years&quot; &amp; vbCrLf
-result = result &amp; &quot;Appreciation Rate: &quot; &amp; Format(appreciationRate * 100, &quot;0.0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-result = result &amp; &quot;Discount Rate: &quot; &amp; Format(discountRate * 100, &quot;0.0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-result = result &amp; &quot;Estimated Sale Price: $&quot; &amp; Format(salePrice, &quot;#,##0&quot;) &amp; vbCrLf &amp; vbCrLf
-result = result &amp; &quot;Net Present Value: $&quot; &amp; Format(npvValue, &quot;#,##0.00&quot;) &amp; vbCrLf
-
-If npvValue &gt; 0 Then
-result = result &amp; &quot;Recommendation: Good investment opportunity&quot;
-Else
-result = result &amp; &quot;Recommendation: Consider other opportunities&quot;
-End If
-
-AnalyzeRentalProperty = result
+                                     annualRent As Double, _
+                                     annualExpenses As Double, _
+                                     holdingYears As Integer, _
+                                     appreciationRate As Double, _
+                                     discountRate As Double) As String
+    Dim cashFlows() As Double
+    Dim i As Integer
+    Dim salePrice As Double
+    Dim npvValue As Double
+    Dim result As String
+    ReDim cashFlows(1 To holdingYears)
+    &#x27; Calculate annual net cash flows
+    For i = 1 To holdingYears - 1
+        cashFlows(i) = annualRent - annualExpenses
+    Next i
+    &#x27; Final year includes property sale
+    salePrice = purchasePrice * ((1 + appreciationRate) ^ holdingYears)
+    cashFlows(holdingYears) = (annualRent - annualExpenses) + salePrice
+    npvValue = NPV(discountRate, cashFlows) - purchasePrice
+    result = &quot;Real Estate Investment Analysis&quot; &amp; vbCrLf
+    result = result &amp; String(50, &quot;=&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Purchase Price: $&quot; &amp; Format(purchasePrice, &quot;#,##0&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Annual Rent: $&quot; &amp; Format(annualRent, &quot;#,##0&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Annual Expenses: $&quot; &amp; Format(annualExpenses, &quot;#,##0&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Holding Period: &quot; &amp; holdingYears &amp; &quot; years&quot; &amp; vbCrLf
+    result = result &amp; &quot;Appreciation Rate: &quot; &amp; Format(appreciationRate * 100, &quot;0.0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+    result = result &amp; &quot;Discount Rate: &quot; &amp; Format(discountRate * 100, &quot;0.0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+    result = result &amp; &quot;Estimated Sale Price: $&quot; &amp; Format(salePrice, &quot;#,##0&quot;) &amp; vbCrLf &amp; vbCrLf
+    result = result &amp; &quot;Net Present Value: $&quot; &amp; Format(npvValue, &quot;#,##0.00&quot;) &amp; vbCrLf
+    If npvValue &gt; 0 Then
+        result = result &amp; &quot;Recommendation: Good investment opportunity&quot;
+    Else
+        result = result &amp; &quot;Recommendation: Consider other opportunities&quot;
+    End If
+    AnalyzeRentalProperty = result
 End Function
-
 Public Function CompareBuyVsLease(equipmentCost As Double, _
-leaseCosts() As Double, _
-buyingCashFlows() As Double, _
-discountRate As Double) As String
-Dim buyNPV As Double
-Dim leaseNPV As Double
-Dim result As String
-
-buyNPV = NPV(discountRate, buyingCashFlows) - equipmentCost
-leaseNPV = NPV(discountRate, leaseCosts)
-
-result = &quot;Buy vs. Lease Analysis&quot; &amp; vbCrLf
-result = result &amp; String(40, &quot;-&quot;) &amp; vbCrLf
-result = result &amp; &quot;Buying NPV: $&quot; &amp; Format(buyNPV, &quot;#,##0.00&quot;) &amp; vbCrLf
-result = result &amp; &quot;Leasing NPV: $&quot; &amp; Format(leaseNPV, &quot;#,##0.00&quot;) &amp; vbCrLf
-result = result &amp; vbCrLf
-
-If buyNPV &gt; leaseNPV Then
-result = result &amp; &quot;Recommendation: BUY (NPV advantage: $&quot; &amp; _
-Format(buyNPV - leaseNPV, &quot;#,##0.00&quot;) &amp; &quot;)&quot;
-Else
-result = result &amp; &quot;Recommendation: LEASE (NPV advantage: $&quot; &amp; _
-Format(leaseNPV - buyNPV, &quot;#,##0.00&quot;) &amp; &quot;)&quot;
-End If
-
-CompareBuyVsLease = result
+                                 leaseCosts() As Double, _
+                                 buyingCashFlows() As Double, _
+                                 discountRate As Double) As String
+    Dim buyNPV As Double
+    Dim leaseNPV As Double
+    Dim result As String
+    buyNPV = NPV(discountRate, buyingCashFlows) - equipmentCost
+    leaseNPV = NPV(discountRate, leaseCosts)
+    result = &quot;Buy vs. Lease Analysis&quot; &amp; vbCrLf
+    result = result &amp; String(40, &quot;-&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Buying NPV: $&quot; &amp; Format(buyNPV, &quot;#,##0.00&quot;) &amp; vbCrLf
+    result = result &amp; &quot;Leasing NPV: $&quot; &amp; Format(leaseNPV, &quot;#,##0.00&quot;) &amp; vbCrLf
+    result = result &amp; vbCrLf
+    If buyNPV &gt; leaseNPV Then
+        result = result &amp; &quot;Recommendation: BUY (NPV advantage: $&quot; &amp; _
+                 Format(buyNPV - leaseNPV, &quot;#,##0.00&quot;) &amp; &quot;)&quot;
+    Else
+        result = result &amp; &quot;Recommendation: LEASE (NPV advantage: $&quot; &amp; _
+                 Format(leaseNPV - buyNPV, &quot;#,##0.00&quot;) &amp; &quot;)&quot;
+    End If
+    CompareBuyVsLease = result
 End Function</code></pre>
 <h3 id="example-4-business-valuation-tool">Example 4: Business Valuation Tool</h3>
 <pre><code class="language-vbnet">&#x27; Class: BusinessValuationTool
 &#x27; Values businesses using discounted cash flow (DCF) method
-
 Option Explicit
-
 Private m_projectedCashFlows() As Double
 Private m_terminalValue As Double
 Private m_discountRate As Double
-
 Public Sub ProjectCashFlows(baseCashFlow As Double, _
-growthRate As Double, _
-years As Integer)
-Dim i As Integer
-
-ReDim m_projectedCashFlows(1 To years)
-
-For i = 1 To years
-m_projectedCashFlows(i) = baseCashFlow * ((1 + growthRate) ^ i)
-Next i
+                           growthRate As Double, _
+                           years As Integer)
+    Dim i As Integer
+    ReDim m_projectedCashFlows(1 To years)
+    For i = 1 To years
+        m_projectedCashFlows(i) = baseCashFlow * ((1 + growthRate) ^ i)
+    Next i
 End Sub
-
 Public Sub CalculateTerminalValue(finalYearCashFlow As Double, _
-perpetualGrowthRate As Double, _
-discountRate As Double)
-&#x27; Terminal value using Gordon Growth Model
-m_terminalValue = (finalYearCashFlow * (1 + perpetualGrowthRate)) / _
-(discountRate - perpetualGrowthRate)
+                                 perpetualGrowthRate As Double, _
+                                 discountRate As Double)
+    &#x27; Terminal value using Gordon Growth Model
+    m_terminalValue = (finalYearCashFlow * (1 + perpetualGrowthRate)) / _
+                      (discountRate - perpetualGrowthRate)
 End Sub
-
 Public Function GetEnterpriseValue(discountRate As Double) As Double
-Dim i As Integer
-Dim cashFlowsWithTerminal() As Double
-
-m_discountRate = discountRate
-
-&#x27; Create array including terminal value
-ReDim cashFlowsWithTerminal(1 To UBound(m_projectedCashFlows))
-
-For i = 1 To UBound(m_projectedCashFlows) - 1
-cashFlowsWithTerminal(i) = m_projectedCashFlows(i)
-Next i
-
-&#x27; Add terminal value to final year
-cashFlowsWithTerminal(UBound(m_projectedCashFlows)) = _
-m_projectedCashFlows(UBound(m_projectedCashFlows)) + m_terminalValue
-
-GetEnterpriseValue = NPV(discountRate, cashFlowsWithTerminal)
+    Dim i As Integer
+    Dim cashFlowsWithTerminal() As Double
+    m_discountRate = discountRate
+    &#x27; Create array including terminal value
+    ReDim cashFlowsWithTerminal(1 To UBound(m_projectedCashFlows))
+    For i = 1 To UBound(m_projectedCashFlows) - 1
+        cashFlowsWithTerminal(i) = m_projectedCashFlows(i)
+    Next i
+    &#x27; Add terminal value to final year
+    cashFlowsWithTerminal(UBound(m_projectedCashFlows)) = _
+        m_projectedCashFlows(UBound(m_projectedCashFlows)) + m_terminalValue
+    GetEnterpriseValue = NPV(discountRate, cashFlowsWithTerminal)
 End Function
-
 Public Function GetEquityValue(enterpriseValue As Double, _
-debt As Double, _
-cash As Double) As Double
-GetEquityValue = enterpriseValue - debt + cash
+                              debt As Double, _
+                              cash As Double) As Double
+    GetEquityValue = enterpriseValue - debt + cash
 End Function
-
 Public Function GenerateValuationReport(companyName As String, _
-debt As Double, _
-cash As Double) As String
-Dim report As String
-Dim ev As Double
-Dim equity As Double
-
-ev = GetEnterpriseValue(m_discountRate)
-equity = GetEquityValue(ev, debt, cash)
-
-report = &quot;Business Valuation: &quot; &amp; companyName &amp; vbCrLf
-report = report &amp; String(60, &quot;=&quot;) &amp; vbCrLf &amp; vbCrLf
-report = report &amp; &quot;Discounted Cash Flow Analysis&quot; &amp; vbCrLf
-report = report &amp; &quot;Discount Rate (WACC): &quot; &amp; Format(m_discountRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
-report = report &amp; &quot;Projection Period: &quot; &amp; UBound(m_projectedCashFlows) &amp; &quot; years&quot; &amp; vbCrLf
-report = report &amp; vbCrLf
-report = report &amp; &quot;Enterprise Value: $&quot; &amp; Format(ev, &quot;#,##0,000&quot;) &amp; vbCrLf
-report = report &amp; &quot;Less: Debt: $&quot; &amp; Format(debt, &quot;#,##0,000&quot;) &amp; vbCrLf
-report = report &amp; &quot;Plus: Cash: $&quot; &amp; Format(cash, &quot;#,##0,000&quot;) &amp; vbCrLf
-report = report &amp; String(60, &quot;-&quot;) &amp; vbCrLf
-report = report &amp; &quot;Equity Value: $&quot; &amp; Format(equity, &quot;#,##0,000&quot;)
-
-GenerateValuationReport = report
+                                       debt As Double, _
+                                       cash As Double) As String
+    Dim report As String
+    Dim ev As Double
+    Dim equity As Double
+    ev = GetEnterpriseValue(m_discountRate)
+    equity = GetEquityValue(ev, debt, cash)
+    report = &quot;Business Valuation: &quot; &amp; companyName &amp; vbCrLf
+    report = report &amp; String(60, &quot;=&quot;) &amp; vbCrLf &amp; vbCrLf
+    report = report &amp; &quot;Discounted Cash Flow Analysis&quot; &amp; vbCrLf
+    report = report &amp; &quot;Discount Rate (WACC): &quot; &amp; Format(m_discountRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+    report = report &amp; &quot;Projection Period: &quot; &amp; UBound(m_projectedCashFlows) &amp; &quot; years&quot; &amp; vbCrLf
+    report = report &amp; vbCrLf
+    report = report &amp; &quot;Enterprise Value: $&quot; &amp; Format(ev, &quot;#,##0,000&quot;) &amp; vbCrLf
+    report = report &amp; &quot;Less: Debt: $&quot; &amp; Format(debt, &quot;#,##0,000&quot;) &amp; vbCrLf
+    report = report &amp; &quot;Plus: Cash: $&quot; &amp; Format(cash, &quot;#,##0,000&quot;) &amp; vbCrLf
+    report = report &amp; String(60, &quot;-&quot;) &amp; vbCrLf
+    report = report &amp; &quot;Equity Value: $&quot; &amp; Format(equity, &quot;#,##0,000&quot;)
+    GenerateValuationReport = report
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">On Error Resume Next
 Dim npvResult As Double
 npvResult = NPV(rate, cashFlows())
 If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Error calculating NPV: &quot; &amp; Err.Description &amp; vbCrLf &amp; _
-&quot;Ensure cash flows array is properly dimensioned and rate is valid.&quot;
+    MsgBox &quot;Error calculating NPV: &quot; &amp; Err.Description &amp; vbCrLf &amp; _
+           &quot;Ensure cash flows array is properly dimensioned and rate is valid.&quot;
 End If
 On Error GoTo 0</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
