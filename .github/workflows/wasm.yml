@@ -4,11 +4,6 @@ on:
   # Run on pushes to master that change source code or build configuration
   push:
     branches: [ master ]
-    paths:
-      - 'src/**'
-      - 'Cargo.toml'
-      - 'Cargo.lock'
-      - 'scripts/build-wasm.py'
     paths-ignore:
       - '**.md'
       - 'docs/**'
