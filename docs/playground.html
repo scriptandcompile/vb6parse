@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive VB6Parse Playground - Parse and visualize Visual Basic 6 code in your browser">
+    <meta name="keywords" content="vb6, parser, visual basic 6, playground, online parser, code visualization">
+    <title>VB6Parse Playground - Interactive VB6 Parser</title>
+    
+    <!-- Main site CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Playground-specific CSS -->
+    <link rel="stylesheet" href="assets/css/playground.css">
+    <link rel="stylesheet" href="assets/css/tree-viz.css">
+    
+    <!-- D3.js for tree visualization -->
+    <!-- TODO: Consider loading D3 dynamically only when Tree tab is opened -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- Theme switcher from main site -->
+    <script src="assets/js/theme-switcher.js"></script>
+</head>
+<body>
+    <!-- Compact header for playground -->
+    <header class="playground-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1>VB6Parse Playground</h1>
+                </div>
+                <div class="header-right">
+                    <a href="index.html" class="header-link">← Home</a>
+                    <a href="documentation.html" class="header-link">Docs</a>
+                    <a href="https://github.com/scriptandcompile/vb6parse" target="_blank" class="header-link">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Toolbar with controls -->
+    <div class="playground-toolbar">
+        <div class="container toolbar-content">
+            <!-- Left side: File type and examples -->
+            <div class="toolbar-left">
+                <label for="file-type">File Type:</label>
+                <select id="file-type" class="file-type-selector">
+                    <option value="module">Module (.bas)</option>
+                    <option value="class">Class (.cls)</option>
+                    <option value="form">Form (.frm)</option>
+                    <option value="project">Project (.vbp)</option>
+                </select>
+                
+                <label for="examples">Examples:</label>
+                <select id="examples" class="examples-selector">
+                    <option value="">-- Load Example --</option>
+                    <!-- TODO: Populate from examples.js -->
+                    <option value="simple-module">Simple Module</option>
+                    <option value="class-with-properties">Class with Properties</option>
+                    <option value="form-with-controls">Form with Controls</option>
+                    <option value="project-file">Project File</option>
+                </select>
+            </div>
+            
+            <!-- Right side: Actions -->
+            <div class="toolbar-right">
+                <button id="parse-btn" class="btn btn-primary">
+                    <span class="btn-icon">▶</span> Parse Code
+                </button>
+                <button id="share-btn" class="btn btn-secondary" title="Share (generates URL with code)">
+                    <span class="btn-icon">🔗</span> Share
+                </button>
+                <button id="clear-btn" class="btn btn-secondary" title="Clear editor">
+                    <span class="btn-icon">🗑</span> Clear
+                </button>
+                <label class="toggle-label">
+                    <input type="checkbox" id="auto-parse" checked>
+                    Auto-parse
+                </label>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main playground layout: split panel -->
+    <div class="playground-container">
+        <!-- Left Panel: Code Editor -->
+        <div class="editor-panel">
+            <div class="panel-header">
+                <h3>VB6 Code</h3>
+                <div class="editor-status">
+                    <span id="editor-line-col">Ln 1, Col 1</span>
+                </div>
+            </div>
+            <div id="editor-container" class="editor-container">
+                <!-- Monaco/Ace editor will be initialized here -->
+                <!-- TODO: Initialize editor in editor.js -->
+            </div>
+            <div class="panel-footer">
+                <button id="parse-footer-btn" class="btn btn-primary btn-sm">
+                    Parse
+                </button>
+                <span id="code-stats" class="code-stats">
+                    <!-- Lines: 0 | Chars: 0 -->
+                </span>
+            </div>
+        </div>
+
+        <!-- Resizer handle -->
+        <div class="resizer" id="resizer" title="Drag to resize">
+            <div class="resizer-handle"></div>
+        </div>
+        <div class="output-panel" if="output-panel">
+            <!-- Tab Navigation -->
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="tokens">
+                    <span class="tab-icon">🔤</span> Tokens
+                </button>
+                <button class="tab-btn" data-tab="cst">
+                    <span class="tab-icon">📋</span> CST
+                </button>
+                <button class="tab-btn" data-tab="tree">
+                    <span class="tab-icon">🌳</span> Tree
+                </button>
+                <button class="tab-btn" data-tab="info">
+                    <span class="tab-icon">ℹ️</span> Info
+                </button>
+            </div>
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- Tokens Tab -->
+                <div id="tokens-tab" class="tab-pane active">
+                    <div class="tab-toolbar">
+                        <input type="text" id="token-search" class="search-input" placeholder="Search tokens...">
+                        <select id="token-filter" class="filter-select">
+                            <option value="all">All Tokens</option>
+                            <option value="keyword">Keywords</option>
+                            <option value="identifier">Identifiers</option>
+                            <option value="literal">Literals</option>
+                            <option value="operator">Operators</option>
+                            <option value="comment">Comments</option>
+                        </select>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="show-whitespace">
+                            Show Whitespace
+                        </label>
+                    </div>
+                    <div id="tokens-content" class="tokens-content">
+                        <!-- TODO: Populate from parser.js output -->
+                        <div class="placeholder">
+                            <p>👈 Enter VB6 code and click Parse to see tokens</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- CST Tab -->
+                <div id="cst-tab" class="tab-pane">
+                    <div class="tab-toolbar">
+                        <button id="expand-all" class="btn btn-sm">Expand All</button>
+                        <button id="collapse-all" class="btn btn-sm">Collapse All</button>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="show-byte-ranges" checked>
+                            Show Byte Ranges
+                        </label>
+                    </div>
+                    <div id="cst-content" class="cst-content">
+                        <!-- TODO: Render tree structure from parser.js output -->
+                        <div class="placeholder">
+                            <p>👈 Parse code to see the Concrete Syntax Tree</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tree Visualization Tab -->
+                <div id="tree-tab" class="tab-pane">
+                    <div class="tab-toolbar">
+                        <button id="tree-layout-toggle" class="btn btn-sm">
+                            <span id="layout-icon">↔️</span> Toggle Layout
+                        </button>
+                        <button id="tree-fit" class="btn btn-sm">Fit to Screen</button>
+                        <button id="tree-reset-zoom" class="btn btn-sm">Reset Zoom</button>
+                        <div class="tree-legend">
+                            <span class="legend-item">
+                                <span class="legend-color" style="background: var(--node-statement)"></span>
+                                Statement
+                            </span>
+                            <span class="legend-item">
+                                <span class="legend-color" style="background: var(--node-expression)"></span>
+                                Expression
+                            </span>
+                            <span class="legend-item">
+                                <span class="legend-color" style="background: var(--node-literal)"></span>
+                                Literal
+                            </span>
+                            <span class="legend-item">
+                                <span class="legend-color" style="background: var(--node-keyword)"></span>
+                                Keyword
+                            </span>
+                        </div>
+                    </div>
+                    <div id="tree-viz-container" class="tree-viz-container">
+                        <!-- TODO: D3 tree visualization rendered here -->
+                        <div class="placeholder">
+                            <p>🌳 Parse code to see the visual tree</p>
+                        </div>
+                    </div>
+                    <div id="tree-node-details" class="tree-node-details hidden">
+                        <!-- Shows details when a node is clicked -->
+                        <h4>Node Details</h4>
+                        <div id="node-details-content"></div>
+                    </div>
+                </div>
+                <!-- Info/Stats Tab -->
+                <div id="info-tab" class="tab-pane">
+                    <div id="info-content" class="info-content">
+                        <!-- TODO: Populate statistics and errors -->
+                        <div class="placeholder">
+                            <p>📊 Parse code to see statistics and errors</p>
+                        </div>
+                        <!-- Template for when parsed (hidden initially) -->
+                        <div id="info-stats" class="info-section hidden">
+                            <h4>Statistics</h4>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <!-- ...existing code... -->
+                            <!-- Only output-panel should contain tab-nav, tab-content, and parse-status -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Info/Stats Tab -->
+                    <div id="info-tab" class="tab-pane">
+                        <div id="info-content" class="info-content">
+                            <!-- TODO: Populate statistics and errors -->
+                            <div class="placeholder">
+                                <p>📊 Parse code to see statistics and errors</p>
+                            </div>
+
+                            <!-- Template for when parsed (hidden initially) -->
+                            <div id="info-stats" class="info-section hidden">
+                                <h4>Statistics</h4>
+                                <div class="stats-grid">
+                                    <div class="stat-item">
+                                        <span class="stat-label">Total Tokens:</span>
+                                        <span id="stat-tokens" class="stat-value">--</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">Parse Time:</span>
+                                        <span id="stat-parse-time" class="stat-value">--</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">Tree Depth:</span>
+                                        <span id="stat-tree-depth" class="stat-value">--</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">Node Count:</span>
+                                        <span id="stat-node-count" class="stat-value">--</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">File Type:</span>
+                                        <span id="stat-file-type" class="stat-value">--</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="info-errors" class="info-section hidden">
+                                <h4>Errors</h4>
+                                <div id="errors-list" class="errors-list">
+                                    <!-- Error items populated here -->
+                                </div>
+                            </div>
+
+                            <div id="info-warnings" class="info-section hidden">
+                                <h4>Warnings</h4>
+                                <div id="warnings-list" class="warnings-list">
+                                    <!-- Warning items populated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="parse-status">
+                <span id="parse-time" class="parse-time">Parse time: --</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <p>Initializing WASM module...</p>
+    </div>
+
+    <!-- Error modal -->
+    <div id="error-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3>Error</h3>
+            <p id="error-message"></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="playground-footer">
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Project | <a href="https://github.com/scriptandcompile/vb6parse">GitHub</a> | Licensed under MIT</p>
+            <p>Powered by <a href="https://github.com/scriptandcompile/vb6parse">VB6Parse</a> | Built with Rust 🦀 and WebAssembly</p>
+        </div>
+    </footer>
+
+    <!-- Monaco Editor Loader (if using Monaco) -->
+    <!-- TODO: Replace with Ac-->
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.js"></script>
+    <!-- Playground JavaScript Modules -->
+    <!-- TODO: Convert to ES6 modules if desired -->
+    <script type="module" src="assets/js/playground/examples.js"></script>
+    <script type="module" src="assets/js/playground/parser.js"></script>
+    <script type="module" src="assets/js/playground/editor.js"></script>
+    <script type="module" src="assets/js/playground/renderer.js"></script>
+    <script type="module" src="assets/js/playground/tree-viz.js"></script>
+    <script type="module" src="assets/js/playground/main.js"></script>
+</body>
+</html>

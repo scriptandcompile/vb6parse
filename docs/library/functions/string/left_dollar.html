@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="left-function"><code>Left$</code> Function</h1>
+            <h1 id="left-function">Left$ Function</h1>
 <p>Returns a <code>String</code> containing a specified number of characters from the left side of a string.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">Left$(string, length)</code></pre>
@@ -49,9 +49,9 @@
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>String</code> containing the leftmost <code>length</code> characters from <code>string</code>. If <code>length</code> is 0, returns an empty string. If <code>length</code> is greater than or equal to the length of <code>string</code>, returns the entire string.</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>Left$</code> function returns the specified number of characters from the left (beginning) of a string. It's commonly used for string parsing, extracting prefixes, or taking substrings from the start of a string.</p>
-<p>To determine the number of characters in <code>string</code>, use the <code>Len</code> function.</p>
-<p><code>Left$</code> is the string-specific version that always returns a <code>String</code>. The <code>Left</code> function returns a <code>Variant</code>.</p>
+<p>The <code>Left$</code> function returns the specified number of characters from the left (beginning) of a string. It's commonly used for string parsing, extracting prefixes, or taking substrings from the start of a string.
+To determine the number of characters in <code>string</code>, use the <code>Len</code> function.
+<code>Left$</code> is the string-specific version that always returns a <code>String</code>. The <code>Left</code> function returns a <code>Variant</code>.</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <h3 id="example-1-extracting-file-extension-prefix">Example 1: Extracting File Extension Prefix</h3>
 <pre><code class="language-vbnet">Dim filename As String
@@ -72,7 +72,7 @@ year = Left$(dateStr, 4)  &#x27; &quot;2024&quot;</code></pre>
 <h2 id="common-usage-patterns">Common Usage Patterns</h2>
 <h3 id="checking-string-prefix">Checking String Prefix</h3>
 <pre><code class="language-vbnet">If Left$(filename, 4) = &quot;tmp_&quot; Then
-Debug.Print &quot;Temporary file&quot;
+    Debug.Print &quot;Temporary file&quot;
 End If</code></pre>
 <h3 id="extracting-initials">Extracting Initials</h3>
 <pre><code class="language-vbnet">Dim name As String
@@ -86,7 +86,7 @@ id = Left$(record, 5)  &#x27; &quot;12345&quot;</code></pre>
 <pre><code class="language-vbnet">Dim description As String
 description = &quot;Very long description text...&quot;
 If Len(description) &gt; 50 Then
-description = Left$(description, 47) &amp; &quot;...&quot;
+    description = Left$(description, 47) &amp; &quot;...&quot;
 End If</code></pre>
 <h3 id="extracting-drive-letter">Extracting Drive Letter</h3>
 <pre><code class="language-vbnet">Dim path As String
@@ -100,13 +100,13 @@ protocol = Left$(url, 5)  &#x27; &quot;https&quot;</code></pre>
 <pre><code class="language-vbnet">Dim fileName As String
 fileName = &quot;IMG_1234.JPG&quot;
 If Left$(fileName, 4) = &quot;IMG_&quot; Then
-processImage fileName
+    processImage fileName
 End If</code></pre>
 <h3 id="extracting-country-code">Extracting Country Code</h3>
 <pre><code class="language-vbnet">Dim phoneNumber As String
 phoneNumber = &quot;+1-555-1234&quot;
 If Left$(phoneNumber, 1) = &quot;+&quot; Then
-countryCode = Left$(phoneNumber, 2)  &#x27; &quot;+1&quot;
+    countryCode = Left$(phoneNumber, 2)  &#x27; &quot;+1&quot;
 End If</code></pre>
 <h3 id="creating-abbreviations">Creating Abbreviations</h3>
 <pre><code class="language-vbnet">Dim state As String
@@ -118,7 +118,7 @@ csvLine = &quot;John,Doe,555-1234&quot;
 Dim pos As Integer
 pos = InStr(csvLine, &quot;,&quot;)
 If pos &gt; 0 Then
-firstName = Left$(csvLine, pos - 1)  &#x27; &quot;John&quot;
+    firstName = Left$(csvLine, pos - 1)  &#x27; &quot;John&quot;
 End If</code></pre>
 <h2 id="related-functions">Related Functions</h2>
 <ul>

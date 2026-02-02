@@ -94,21 +94,21 @@
 - If unsuccessful: Returns 0
 - Task ID can be used with <code>AppActivate</code> statement to give focus to the window</p>
 <h2 id="remarks">Remarks</h2>
-<p>The Shell function runs an executable program asynchronously. This means that a program started with Shell might not finish executing before the statements following the Shell function are executed.</p>
-<p>Key characteristics:
+<p>The Shell function runs an executable program asynchronously. This means that a program started with Shell might not finish executing before the statements following the Shell function are executed.
+Key characteristics:
 - Executes programs asynchronously (doesn't wait for completion)
 - Returns immediately after starting the program
 - Can launch any executable file (.exe, .com, .bat, .cmd, etc.)
 - Can include command-line arguments in pathname
 - Task ID can be used with <code>AppActivate</code> to switch focus
 - If program cannot be started, returns 0
-- On error, generates Error 5 (Invalid procedure call) or Error 53 (File not found)</p>
-<p>The pathname can include:
+- On error, generates Error 5 (Invalid procedure call) or Error 53 (File not found)
+The pathname can include:
 - Full path to executable: "C:\Windows\notepad.exe"
 - Relative path: "....\tools\mytool.exe"
 - Program in system PATH: "notepad.exe"
-- Command with arguments: "notepad.exe C:\readme.txt"</p>
-<p>Important considerations:
+- Command with arguments: "notepad.exe C:\readme.txt"
+Important considerations:
 - Shell executes asynchronously - use <code>AppActivate</code> or API calls to synchronize
 - No direct way to know when shelled program terminates from VB6
 - Can't capture standard output/error directly (use API or temp files)
@@ -130,7 +130,7 @@
 Dim taskId As Double
 taskId = Shell(&quot;notepad.exe&quot;, vbNormalFocus)
 If taskId = 0 Then
-MsgBox &quot;Failed to start Notepad&quot;
+    MsgBox &quot;Failed to start Notepad&quot;
 End If</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 2: Open file with Notepad
 Dim taskId As Double
@@ -145,551 +145,444 @@ taskId = Shell(&quot;C:\Scripts\backup.bat&quot;, vbHide)</code></pre>
 <h3 id="pattern-1-safeshell">Pattern 1: <code>SafeShell</code></h3>
 <p>Execute program with error handling</p>
 <pre><code class="language-vbnet">Function SafeShell(programPath As String, Optional windowStyle As Integer = vbNormalFocus) As Double
-On Error Resume Next
-SafeShell = Shell(programPath, windowStyle)
-
-If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Error starting program: &quot; &amp; Err.Description, vbExclamation
-SafeShell = 0
-End If
+    On Error Resume Next
+    SafeShell = Shell(programPath, windowStyle)
+    If Err.Number &lt;&gt; 0 Then
+        MsgBox &quot;Error starting program: &quot; &amp; Err.Description, vbExclamation
+        SafeShell = 0
+    End If
 End Function</code></pre>
 <h3 id="pattern-2-shellandwait">Pattern 2: <code>ShellAndWait</code></h3>
 <p>Execute program and wait for completion (using <code>AppActivate</code>)</p>
 <pre><code class="language-vbnet">Function ShellAndWait(programPath As String, windowStyle As Integer) As Boolean
-Dim taskId As Double
-Dim startTime As Double
-
-On Error GoTo ErrorHandler
-
-taskId = Shell(programPath, windowStyle)
-If taskId = 0 Then
-ShellAndWait = False
-Exit Function
-End If
-
-&#x27; Give the program time to start
-DoEvents
-
-&#x27; Wait for program window to exist
-startTime = Timer
-Do While Timer - startTime &lt; 30  &#x27; 30 second timeout
-On Error Resume Next
-AppActivate taskId
-If Err.Number = 0 Then Exit Do
-Err.Clear
-DoEvents
-Loop
-
-ShellAndWait = True
-Exit Function
-
+    Dim taskId As Double
+    Dim startTime As Double
+    On Error GoTo ErrorHandler
+    taskId = Shell(programPath, windowStyle)
+    If taskId = 0 Then
+        ShellAndWait = False
+        Exit Function
+    End If
+    &#x27; Give the program time to start
+    DoEvents
+    &#x27; Wait for program window to exist
+    startTime = Timer
+    Do While Timer - startTime &lt; 30  &#x27; 30 second timeout
+        On Error Resume Next
+        AppActivate taskId
+        If Err.Number = 0 Then Exit Do
+        Err.Clear
+        DoEvents
+    Loop
+    ShellAndWait = True
+    Exit Function
 ErrorHandler:
-ShellAndWait = False
+    ShellAndWait = False
 End Function</code></pre>
 <h3 id="pattern-3-quotepath">Pattern 3: <code>QuotePath</code></h3>
 <p>Ensure path is properly quoted for spaces</p>
 <pre><code class="language-vbnet">Function QuotePath(path As String) As String
-If InStr(path, &quot; &quot;) &gt; 0 And Left(path, 1) &lt;&gt; &quot;&quot;&quot;&quot; Then
-QuotePath = &quot;&quot;&quot;&quot; &amp; path &amp; &quot;&quot;&quot;&quot;
-Else
-QuotePath = path
-End If
+    If InStr(path, &quot; &quot;) &gt; 0 And Left(path, 1) &lt;&gt; &quot;&quot;&quot;&quot; Then
+        QuotePath = &quot;&quot;&quot;&quot; &amp; path &amp; &quot;&quot;&quot;&quot;
+    Else
+        QuotePath = path
+    End If
 End Function
-
 &#x27; Usage:
 taskId = Shell(QuotePath(&quot;C:\Program Files\MyApp\app.exe&quot;), vbNormalFocus)</code></pre>
 <h3 id="pattern-4-openfilewithapp">Pattern 4: <code>OpenFileWithApp</code></h3>
 <p>Open file with specific application</p>
 <pre><code class="language-vbnet">Function OpenFileWithApp(appPath As String, filePath As String, _
-Optional windowStyle As Integer = vbNormalFocus) As Boolean
-Dim commandLine As String
-Dim taskId As Double
-
-&#x27; Quote paths if they contain spaces
-If InStr(appPath, &quot; &quot;) &gt; 0 Then appPath = &quot;&quot;&quot;&quot; &amp; appPath &amp; &quot;&quot;&quot;&quot;
-If InStr(filePath, &quot; &quot;) &gt; 0 Then filePath = &quot;&quot;&quot;&quot; &amp; filePath &amp; &quot;&quot;&quot;&quot;
-
-commandLine = appPath &amp; &quot; &quot; &amp; filePath
-
-On Error Resume Next
-taskId = Shell(commandLine, windowStyle)
-OpenFileWithApp = (taskId &lt;&gt; 0 And Err.Number = 0)
+                         Optional windowStyle As Integer = vbNormalFocus) As Boolean
+    Dim commandLine As String
+    Dim taskId As Double
+    &#x27; Quote paths if they contain spaces
+    If InStr(appPath, &quot; &quot;) &gt; 0 Then appPath = &quot;&quot;&quot;&quot; &amp; appPath &amp; &quot;&quot;&quot;&quot;
+    If InStr(filePath, &quot; &quot;) &gt; 0 Then filePath = &quot;&quot;&quot;&quot; &amp; filePath &amp; &quot;&quot;&quot;&quot;
+    commandLine = appPath &amp; &quot; &quot; &amp; filePath
+    On Error Resume Next
+    taskId = Shell(commandLine, windowStyle)
+    OpenFileWithApp = (taskId &lt;&gt; 0 And Err.Number = 0)
 End Function</code></pre>
 <h3 id="pattern-5-executecommand">Pattern 5: <code>ExecuteCommand</code></h3>
 <p>Execute command-line command</p>
 <pre><code class="language-vbnet">Function ExecuteCommand(command As String, Optional waitSeconds As Integer = 0) As Double
-Dim taskId As Double
-Dim endTime As Double
-
-On Error GoTo ErrorHandler
-
-&#x27; Run command via cmd.exe
-taskId = Shell(&quot;cmd.exe /c &quot; &amp; command, vbHide)
-
-If waitSeconds &gt; 0 Then
-endTime = Timer + waitSeconds
-Do While Timer &lt; endTime
-DoEvents
-Loop
-End If
-
-ExecuteCommand = taskId
-Exit Function
-
+    Dim taskId As Double
+    Dim endTime As Double
+    On Error GoTo ErrorHandler
+    &#x27; Run command via cmd.exe
+    taskId = Shell(&quot;cmd.exe /c &quot; &amp; command, vbHide)
+    If waitSeconds &gt; 0 Then
+        endTime = Timer + waitSeconds
+        Do While Timer &lt; endTime
+            DoEvents
+        Loop
+    End If
+    ExecuteCommand = taskId
+    Exit Function
 ErrorHandler:
-ExecuteCommand = 0
+    ExecuteCommand = 0
 End Function</code></pre>
 <h3 id="pattern-6-launchandactivate">Pattern 6: <code>LaunchAndActivate</code></h3>
 <p>Launch program and bring to front</p>
 <pre><code class="language-vbnet">Function LaunchAndActivate(programPath As String) As Boolean
-Dim taskId As Double
-Dim attempts As Integer
-
-On Error Resume Next
-taskId = Shell(programPath, vbNormalFocus)
-
-If taskId = 0 Then
-LaunchAndActivate = False
-Exit Function
-End If
-
-&#x27; Try to activate window
-For attempts = 1 To 10
-DoEvents
-AppActivate taskId
-If Err.Number = 0 Then
-LaunchAndActivate = True
-Exit Function
-End If
-Err.Clear
-Next attempts
-
-LaunchAndActivate = False
+    Dim taskId As Double
+    Dim attempts As Integer
+    On Error Resume Next
+    taskId = Shell(programPath, vbNormalFocus)
+    If taskId = 0 Then
+        LaunchAndActivate = False
+        Exit Function
+    End If
+    &#x27; Try to activate window
+    For attempts = 1 To 10
+        DoEvents
+        AppActivate taskId
+        If Err.Number = 0 Then
+            LaunchAndActivate = True
+            Exit Function
+        End If
+        Err.Clear
+    Next attempts
+    LaunchAndActivate = False
 End Function</code></pre>
 <h3 id="pattern-7-checkprogramexists">Pattern 7: <code>CheckProgramExists</code></h3>
 <p>Verify program exists before shelling</p>
 <pre><code class="language-vbnet">Function CheckProgramExists(programPath As String) As Boolean
-On Error Resume Next
-CheckProgramExists = (Dir(programPath) &lt;&gt; &quot;&quot;)
+    On Error Resume Next
+    CheckProgramExists = (Dir(programPath) &lt;&gt; &quot;&quot;)
 End Function
-
 &#x27; Usage:
 If CheckProgramExists(&quot;C:\Tools\mytool.exe&quot;) Then
-taskId = Shell(&quot;C:\Tools\mytool.exe&quot;, vbNormalFocus)
+    taskId = Shell(&quot;C:\Tools\mytool.exe&quot;, vbNormalFocus)
 Else
-MsgBox &quot;Program not found&quot;
+    MsgBox &quot;Program not found&quot;
 End If</code></pre>
 <h3 id="pattern-8-shellwithtimeout">Pattern 8: <code>ShellWithTimeout</code></h3>
 <p>Execute with timeout detection</p>
 <pre><code class="language-vbnet">Function ShellWithTimeout(programPath As String, timeoutSeconds As Integer) As Boolean
-Dim taskId As Double
-Dim startTime As Double
-
-On Error GoTo ErrorHandler
-
-taskId = Shell(programPath, vbNormalFocus)
-If taskId = 0 Then
-ShellWithTimeout = False
-Exit Function
-End If
-
-startTime = Timer
-Do While Timer - startTime &lt; timeoutSeconds
-DoEvents
-Loop
-
-ShellWithTimeout = True
-Exit Function
-
+    Dim taskId As Double
+    Dim startTime As Double
+    On Error GoTo ErrorHandler
+    taskId = Shell(programPath, vbNormalFocus)
+    If taskId = 0 Then
+        ShellWithTimeout = False
+        Exit Function
+    End If
+    startTime = Timer
+    Do While Timer - startTime &lt; timeoutSeconds
+        DoEvents
+    Loop
+    ShellWithTimeout = True
+    Exit Function
 ErrorHandler:
-ShellWithTimeout = False
+    ShellWithTimeout = False
 End Function</code></pre>
 <h3 id="pattern-9-opendocument">Pattern 9: <code>OpenDocument</code></h3>
 <p>Open document with default application</p>
 <pre><code class="language-vbnet">Function OpenDocument(filePath As String) As Boolean
-Dim taskId As Double
-
-On Error Resume Next
-
-&#x27; Use &quot;start&quot; command to open with default app
-taskId = Shell(&quot;cmd.exe /c start &quot;&quot;&quot;&quot; &quot;&quot;&quot; &amp; filePath &amp; &quot;&quot;&quot;&quot;, vbHide)
-
-OpenDocument = (taskId &lt;&gt; 0 And Err.Number = 0)
+    Dim taskId As Double
+    On Error Resume Next
+    &#x27; Use &quot;start&quot; command to open with default app
+    taskId = Shell(&quot;cmd.exe /c start &quot;&quot;&quot;&quot; &quot;&quot;&quot; &amp; filePath &amp; &quot;&quot;&quot;&quot;, vbHide)
+    OpenDocument = (taskId &lt;&gt; 0 And Err.Number = 0)
 End Function</code></pre>
 <h3 id="pattern-10-runbatchfile">Pattern 10: <code>RunBatchFile</code></h3>
 <p>Execute batch file with parameters</p>
 <pre><code class="language-vbnet">Function RunBatchFile(batchPath As String, parameters As String, _
-Optional hideWindow As Boolean = True) As Double
-Dim commandLine As String
-Dim windowStyle As Integer
-
-If InStr(batchPath, &quot; &quot;) &gt; 0 Then
-commandLine = &quot;&quot;&quot;&quot; &amp; batchPath &amp; &quot;&quot;&quot;&quot;
-Else
-commandLine = batchPath
-End If
-
-If Len(parameters) &gt; 0 Then
-commandLine = commandLine &amp; &quot; &quot; &amp; parameters
-End If
-
-windowStyle = IIf(hideWindow, vbHide, vbNormalFocus)
-
-On Error Resume Next
-RunBatchFile = Shell(commandLine, windowStyle)
+                      Optional hideWindow As Boolean = True) As Double
+    Dim commandLine As String
+    Dim windowStyle As Integer
+    If InStr(batchPath, &quot; &quot;) &gt; 0 Then
+        commandLine = &quot;&quot;&quot;&quot; &amp; batchPath &amp; &quot;&quot;&quot;&quot;
+    Else
+        commandLine = batchPath
+    End If
+    If Len(parameters) &gt; 0 Then
+        commandLine = commandLine &amp; &quot; &quot; &amp; parameters
+    End If
+    windowStyle = IIf(hideWindow, vbHide, vbNormalFocus)
+    On Error Resume Next
+    RunBatchFile = Shell(commandLine, windowStyle)
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-processlauncher-class">Example 1: <code>ProcessLauncher</code> Class</h3>
 <p>Manage launching and tracking external processes</p>
 <pre><code class="language-vbnet">&#x27; Class: ProcessLauncher
 Private m_processes As Collection
-
 Private Type ProcessInfo
-TaskId As Double
-ProgramPath As String
-LaunchTime As Date
-Description As String
+    TaskId As Double
+    ProgramPath As String
+    LaunchTime As Date
+    Description As String
 End Type
-
 Private Sub Class_Initialize()
-Set m_processes = New Collection
+    Set m_processes = New Collection
 End Sub
-
 Public Function LaunchProcess(programPath As String, _
-Optional description As String = &quot;&quot;, _
-Optional windowStyle As Integer = vbNormalFocus) As Double
-Dim taskId As Double
-Dim procInfo As ProcessInfo
-
-On Error GoTo ErrorHandler
-
-taskId = Shell(programPath, windowStyle)
-
-If taskId &lt;&gt; 0 Then
-procInfo.TaskId = taskId
-procInfo.ProgramPath = programPath
-procInfo.LaunchTime = Now
-procInfo.Description = description
-
-m_processes.Add procInfo, CStr(taskId)
-End If
-
-LaunchProcess = taskId
-Exit Function
-
+                              Optional description As String = &quot;&quot;, _
+                              Optional windowStyle As Integer = vbNormalFocus) As Double
+    Dim taskId As Double
+    Dim procInfo As ProcessInfo
+    On Error GoTo ErrorHandler
+    taskId = Shell(programPath, windowStyle)
+    If taskId &lt;&gt; 0 Then
+        procInfo.TaskId = taskId
+        procInfo.ProgramPath = programPath
+        procInfo.LaunchTime = Now
+        procInfo.Description = description
+        m_processes.Add procInfo, CStr(taskId)
+    End If
+    LaunchProcess = taskId
+    Exit Function
 ErrorHandler:
-LaunchProcess = 0
+    LaunchProcess = 0
 End Function
-
 Public Function ActivateProcess(taskId As Double) As Boolean
-On Error Resume Next
-AppActivate taskId
-ActivateProcess = (Err.Number = 0)
+    On Error Resume Next
+    AppActivate taskId
+    ActivateProcess = (Err.Number = 0)
 End Function
-
 Public Function GetProcessCount() As Long
-GetProcessCount = m_processes.Count
+    GetProcessCount = m_processes.Count
 End Function
-
 Public Function GetProcessInfo(taskId As Double) As String
-Dim procInfo As ProcessInfo
-
-On Error Resume Next
-procInfo = m_processes(CStr(taskId))
-
-If Err.Number = 0 Then
-GetProcessInfo = &quot;Program: &quot; &amp; procInfo.ProgramPath &amp; vbCrLf &amp; _
-&quot;Description: &quot; &amp; procInfo.Description &amp; vbCrLf &amp; _
-&quot;Launched: &quot; &amp; procInfo.LaunchTime &amp; vbCrLf &amp; _
-&quot;Task ID: &quot; &amp; procInfo.TaskId
-Else
-GetProcessInfo = &quot;Process not found&quot;
-End If
+    Dim procInfo As ProcessInfo
+    On Error Resume Next
+    procInfo = m_processes(CStr(taskId))
+    If Err.Number = 0 Then
+        GetProcessInfo = &quot;Program: &quot; &amp; procInfo.ProgramPath &amp; vbCrLf &amp; _
+                        &quot;Description: &quot; &amp; procInfo.Description &amp; vbCrLf &amp; _
+                        &quot;Launched: &quot; &amp; procInfo.LaunchTime &amp; vbCrLf &amp; _
+                        &quot;Task ID: &quot; &amp; procInfo.TaskId
+    Else
+        GetProcessInfo = &quot;Process not found&quot;
+    End If
 End Function
-
 Public Sub ClearProcesses()
-Set m_processes = New Collection
+    Set m_processes = New Collection
 End Sub</code></pre>
 <h3 id="example-2-commandexecutor-module">Example 2: <code>CommandExecutor</code> Module</h3>
 <p>Execute command-line commands with output capture</p>
 <pre><code class="language-vbnet">&#x27; Module: CommandExecutor
-
 Public Function ExecuteCommandWithOutput(command As String, _
-ByRef output As String) As Boolean
-Dim tempFile As String
-Dim fileNum As Integer
-Dim commandLine As String
-Dim taskId As Double
-
-On Error GoTo ErrorHandler
-
-&#x27; Create temp file for output
-tempFile = Environ(&quot;TEMP&quot;) &amp; &quot;\cmdout_&quot; &amp; Format(Now, &quot;yyyymmddhhnnss&quot;) &amp; &quot;.txt&quot;
-
-&#x27; Redirect output to temp file
-commandLine = &quot;cmd.exe /c &quot; &amp; command &amp; &quot; &gt; &quot;&quot;&quot; &amp; tempFile &amp; &quot;&quot;&quot; 2&gt;&amp;1&quot;
-
-taskId = Shell(commandLine, vbHide)
-If taskId = 0 Then
-ExecuteCommandWithOutput = False
-Exit Function
-End If
-
-&#x27; Wait for command to complete (primitive wait)
-Sleep 1000  &#x27; Would need to declare Sleep API
-
-&#x27; Read output file
-fileNum = FreeFile
-Open tempFile For Input As #fileNum
-output = Input(LOF(fileNum), #fileNum)
-Close #fileNum
-
-&#x27; Clean up
-Kill tempFile
-
-ExecuteCommandWithOutput = True
-Exit Function
-
+                                         ByRef output As String) As Boolean
+    Dim tempFile As String
+    Dim fileNum As Integer
+    Dim commandLine As String
+    Dim taskId As Double
+    On Error GoTo ErrorHandler
+    &#x27; Create temp file for output
+    tempFile = Environ(&quot;TEMP&quot;) &amp; &quot;\cmdout_&quot; &amp; Format(Now, &quot;yyyymmddhhnnss&quot;) &amp; &quot;.txt&quot;
+    &#x27; Redirect output to temp file
+    commandLine = &quot;cmd.exe /c &quot; &amp; command &amp; &quot; &gt; &quot;&quot;&quot; &amp; tempFile &amp; &quot;&quot;&quot; 2&gt;&amp;1&quot;
+    taskId = Shell(commandLine, vbHide)
+    If taskId = 0 Then
+        ExecuteCommandWithOutput = False
+        Exit Function
+    End If
+    &#x27; Wait for command to complete (primitive wait)
+    Sleep 1000  &#x27; Would need to declare Sleep API
+    &#x27; Read output file
+    fileNum = FreeFile
+    Open tempFile For Input As #fileNum
+    output = Input(LOF(fileNum), #fileNum)
+    Close #fileNum
+    &#x27; Clean up
+    Kill tempFile
+    ExecuteCommandWithOutput = True
+    Exit Function
 ErrorHandler:
-If fileNum &gt; 0 Then Close #fileNum
-On Error Resume Next
-If Dir(tempFile) &lt;&gt; &quot;&quot; Then Kill tempFile
-ExecuteCommandWithOutput = False
+    If fileNum &gt; 0 Then Close #fileNum
+    On Error Resume Next
+    If Dir(tempFile) &lt;&gt; &quot;&quot; Then Kill tempFile
+    ExecuteCommandWithOutput = False
 End Function
-
 Public Function RunCommandHidden(command As String) As Boolean
-Dim taskId As Double
-
-On Error Resume Next
-taskId = Shell(&quot;cmd.exe /c &quot; &amp; command, vbHide)
-RunCommandHidden = (taskId &lt;&gt; 0 And Err.Number = 0)
+    Dim taskId As Double
+    On Error Resume Next
+    taskId = Shell(&quot;cmd.exe /c &quot; &amp; command, vbHide)
+    RunCommandHidden = (taskId &lt;&gt; 0 And Err.Number = 0)
 End Function
-
 Public Function RunCommandVisible(command As String) As Double
-On Error Resume Next
-RunCommandVisible = Shell(&quot;cmd.exe /k &quot; &amp; command, vbNormalFocus)
+    On Error Resume Next
+    RunCommandVisible = Shell(&quot;cmd.exe /k &quot; &amp; command, vbNormalFocus)
 End Function</code></pre>
 <h3 id="example-3-applicationlauncher-class">Example 3: <code>ApplicationLauncher</code> Class</h3>
 <p>Launch applications with comprehensive error handling</p>
 <pre><code class="language-vbnet">&#x27; Class: ApplicationLauncher
 Private m_lastError As String
 Private m_lastTaskId As Double
-
 Public Function LaunchApplication(programPath As String, _
-Optional arguments As String = &quot;&quot;, _
-Optional windowStyle As Integer = vbNormalFocus, _
-Optional verifyExists As Boolean = True) As Boolean
-Dim fullCommand As String
-
-On Error GoTo ErrorHandler
-
-m_lastError = &quot;&quot;
-m_lastTaskId = 0
-
-&#x27; Verify program exists
-If verifyExists Then
-If Dir(programPath) = &quot;&quot; Then
-m_lastError = &quot;Program not found: &quot; &amp; programPath
-LaunchApplication = False
-Exit Function
-End If
-End If
-
-&#x27; Build command line
-fullCommand = programPath
-If InStr(fullCommand, &quot; &quot;) &gt; 0 And Left(fullCommand, 1) &lt;&gt; &quot;&quot;&quot;&quot; Then
-fullCommand = &quot;&quot;&quot;&quot; &amp; fullCommand &amp; &quot;&quot;&quot;&quot;
-End If
-
-If Len(arguments) &gt; 0 Then
-fullCommand = fullCommand &amp; &quot; &quot; &amp; arguments
-End If
-
-&#x27; Launch
-m_lastTaskId = Shell(fullCommand, windowStyle)
-
-If m_lastTaskId = 0 Then
-m_lastError = &quot;Shell function returned 0&quot;
-LaunchApplication = False
-Else
-LaunchApplication = True
-End If
-
-Exit Function
-
+                                  Optional arguments As String = &quot;&quot;, _
+                                  Optional windowStyle As Integer = vbNormalFocus, _
+                                  Optional verifyExists As Boolean = True) As Boolean
+    Dim fullCommand As String
+    On Error GoTo ErrorHandler
+    m_lastError = &quot;&quot;
+    m_lastTaskId = 0
+    &#x27; Verify program exists
+    If verifyExists Then
+        If Dir(programPath) = &quot;&quot; Then
+            m_lastError = &quot;Program not found: &quot; &amp; programPath
+            LaunchApplication = False
+            Exit Function
+        End If
+    End If
+    &#x27; Build command line
+    fullCommand = programPath
+    If InStr(fullCommand, &quot; &quot;) &gt; 0 And Left(fullCommand, 1) &lt;&gt; &quot;&quot;&quot;&quot; Then
+        fullCommand = &quot;&quot;&quot;&quot; &amp; fullCommand &amp; &quot;&quot;&quot;&quot;
+    End If
+    If Len(arguments) &gt; 0 Then
+        fullCommand = fullCommand &amp; &quot; &quot; &amp; arguments
+    End If
+    &#x27; Launch
+    m_lastTaskId = Shell(fullCommand, windowStyle)
+    If m_lastTaskId = 0 Then
+        m_lastError = &quot;Shell function returned 0&quot;
+        LaunchApplication = False
+    Else
+        LaunchApplication = True
+    End If
+    Exit Function
 ErrorHandler:
-m_lastError = &quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Err.Description
-LaunchApplication = False
+    m_lastError = &quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Err.Description
+    LaunchApplication = False
 End Function
-
 Public Function LaunchAndActivate(programPath As String, _
-Optional arguments As String = &quot;&quot;) As Boolean
-Dim success As Boolean
-Dim attempts As Integer
-
-success = LaunchApplication(programPath, arguments, vbNormalFocus)
-
-If Not success Then
-LaunchAndActivate = False
-Exit Function
-End If
-
-&#x27; Try to activate
-For attempts = 1 To 20
-DoEvents
-On Error Resume Next
-AppActivate m_lastTaskId
-If Err.Number = 0 Then
-LaunchAndActivate = True
-Exit Function
-End If
-Err.Clear
-Next attempts
-
-LaunchAndActivate = False
+                                  Optional arguments As String = &quot;&quot;) As Boolean
+    Dim success As Boolean
+    Dim attempts As Integer
+    success = LaunchApplication(programPath, arguments, vbNormalFocus)
+    If Not success Then
+        LaunchAndActivate = False
+        Exit Function
+    End If
+    &#x27; Try to activate
+    For attempts = 1 To 20
+        DoEvents
+        On Error Resume Next
+        AppActivate m_lastTaskId
+        If Err.Number = 0 Then
+            LaunchAndActivate = True
+            Exit Function
+        End If
+        Err.Clear
+    Next attempts
+    LaunchAndActivate = False
 End Function
-
 Public Property Get LastError() As String
-LastError = m_lastError
+    LastError = m_lastError
 End Property
-
 Public Property Get LastTaskId() As Double
-LastTaskId = m_lastTaskId
+    LastTaskId = m_lastTaskId
 End Property
-
 Public Function OpenFileWithDefaultApp(filePath As String) As Boolean
-Dim commandLine As String
-
-&#x27; Use Windows &quot;start&quot; command
-commandLine = &quot;cmd.exe /c start &quot;&quot;&quot;&quot; &quot;&quot;&quot; &amp; filePath &amp; &quot;&quot;&quot;&quot;
-
-On Error Resume Next
-m_lastTaskId = Shell(commandLine, vbHide)
-
-OpenFileWithDefaultApp = (m_lastTaskId &lt;&gt; 0 And Err.Number = 0)
-
-If Not OpenFileWithDefaultApp Then
-m_lastError = &quot;Failed to open file: &quot; &amp; Err.Description
-End If
+    Dim commandLine As String
+    &#x27; Use Windows &quot;start&quot; command
+    commandLine = &quot;cmd.exe /c start &quot;&quot;&quot;&quot; &quot;&quot;&quot; &amp; filePath &amp; &quot;&quot;&quot;&quot;
+    On Error Resume Next
+    m_lastTaskId = Shell(commandLine, vbHide)
+    OpenFileWithDefaultApp = (m_lastTaskId &lt;&gt; 0 And Err.Number = 0)
+    If Not OpenFileWithDefaultApp Then
+        m_lastError = &quot;Failed to open file: &quot; &amp; Err.Description
+    End If
 End Function</code></pre>
 <h3 id="example-4-batchfilerunner-module">Example 4: <code>BatchFileRunner</code> Module</h3>
 <p>Execute batch files with enhanced functionality</p>
 <pre><code class="language-vbnet">&#x27; Module: BatchFileRunner
-
 Public Function ExecuteBatchFile(batchPath As String, _
-Optional parameters As String = &quot;&quot;, _
-Optional visible As Boolean = False, _
-Optional workingDir As String = &quot;&quot;) As Double
-Dim commandLine As String
-Dim windowStyle As Integer
-Dim originalDir As String
-
-On Error GoTo ErrorHandler
-
-&#x27; Verify batch file exists
-If Dir(batchPath) = &quot;&quot; Then
-MsgBox &quot;Batch file not found: &quot; &amp; batchPath, vbExclamation
-ExecuteBatchFile = 0
-Exit Function
-End If
-
-&#x27; Quote path if needed
-If InStr(batchPath, &quot; &quot;) &gt; 0 Then
-commandLine = &quot;&quot;&quot;&quot; &amp; batchPath &amp; &quot;&quot;&quot;&quot;
-Else
-commandLine = batchPath
-End If
-
-&#x27; Add parameters
-If Len(parameters) &gt; 0 Then
-commandLine = commandLine &amp; &quot; &quot; &amp; parameters
-End If
-
-&#x27; Change working directory if specified
-If Len(workingDir) &gt; 0 Then
-originalDir = CurDir
-ChDir workingDir
-End If
-
-&#x27; Execute
-windowStyle = IIf(visible, vbNormalFocus, vbHide)
-ExecuteBatchFile = Shell(commandLine, windowStyle)
-
-&#x27; Restore directory
-If Len(workingDir) &gt; 0 Then
-ChDir originalDir
-End If
-
-Exit Function
-
+                                 Optional parameters As String = &quot;&quot;, _
+                                 Optional visible As Boolean = False, _
+                                 Optional workingDir As String = &quot;&quot;) As Double
+    Dim commandLine As String
+    Dim windowStyle As Integer
+    Dim originalDir As String
+    On Error GoTo ErrorHandler
+    &#x27; Verify batch file exists
+    If Dir(batchPath) = &quot;&quot; Then
+        MsgBox &quot;Batch file not found: &quot; &amp; batchPath, vbExclamation
+        ExecuteBatchFile = 0
+        Exit Function
+    End If
+    &#x27; Quote path if needed
+    If InStr(batchPath, &quot; &quot;) &gt; 0 Then
+        commandLine = &quot;&quot;&quot;&quot; &amp; batchPath &amp; &quot;&quot;&quot;&quot;
+    Else
+        commandLine = batchPath
+    End If
+    &#x27; Add parameters
+    If Len(parameters) &gt; 0 Then
+        commandLine = commandLine &amp; &quot; &quot; &amp; parameters
+    End If
+    &#x27; Change working directory if specified
+    If Len(workingDir) &gt; 0 Then
+        originalDir = CurDir
+        ChDir workingDir
+    End If
+    &#x27; Execute
+    windowStyle = IIf(visible, vbNormalFocus, vbHide)
+    ExecuteBatchFile = Shell(commandLine, windowStyle)
+    &#x27; Restore directory
+    If Len(workingDir) &gt; 0 Then
+        ChDir originalDir
+    End If
+    Exit Function
 ErrorHandler:
-If Len(workingDir) &gt; 0 Then
-On Error Resume Next
-ChDir originalDir
-End If
-ExecuteBatchFile = 0
+    If Len(workingDir) &gt; 0 Then
+        On Error Resume Next
+        ChDir originalDir
+    End If
+    ExecuteBatchFile = 0
 End Function
-
 Public Function RunBatchWithLog(batchPath As String, logPath As String) As Boolean
-Dim commandLine As String
-Dim taskId As Double
-
-&#x27; Quote paths
-If InStr(batchPath, &quot; &quot;) &gt; 0 Then batchPath = &quot;&quot;&quot;&quot; &amp; batchPath &amp; &quot;&quot;&quot;&quot;
-If InStr(logPath, &quot; &quot;) &gt; 0 Then logPath = &quot;&quot;&quot;&quot; &amp; logPath &amp; &quot;&quot;&quot;&quot;
-
-&#x27; Redirect output to log
-commandLine = &quot;cmd.exe /c &quot; &amp; batchPath &amp; &quot; &gt; &quot; &amp; logPath &amp; &quot; 2&gt;&amp;1&quot;
-
-On Error Resume Next
-taskId = Shell(commandLine, vbHide)
-
-RunBatchWithLog = (taskId &lt;&gt; 0 And Err.Number = 0)
+    Dim commandLine As String
+    Dim taskId As Double
+    &#x27; Quote paths
+    If InStr(batchPath, &quot; &quot;) &gt; 0 Then batchPath = &quot;&quot;&quot;&quot; &amp; batchPath &amp; &quot;&quot;&quot;&quot;
+    If InStr(logPath, &quot; &quot;) &gt; 0 Then logPath = &quot;&quot;&quot;&quot; &amp; logPath &amp; &quot;&quot;&quot;&quot;
+    &#x27; Redirect output to log
+    commandLine = &quot;cmd.exe /c &quot; &amp; batchPath &amp; &quot; &gt; &quot; &amp; logPath &amp; &quot; 2&gt;&amp;1&quot;
+    On Error Resume Next
+    taskId = Shell(commandLine, vbHide)
+    RunBatchWithLog = (taskId &lt;&gt; 0 And Err.Number = 0)
 End Function
-
 Public Function CreateAndRunBatch(commands() As String, _
-Optional visible As Boolean = False) As Boolean
-Dim batchPath As String
-Dim fileNum As Integer
-Dim i As Long
-Dim taskId As Double
-
-On Error GoTo ErrorHandler
-
-&#x27; Create temp batch file
-batchPath = Environ(&quot;TEMP&quot;) &amp; &quot;\temp_&quot; &amp; Format(Now, &quot;yyyymmddhhnnss&quot;) &amp; &quot;.bat&quot;
-
-&#x27; Write commands
-fileNum = FreeFile
-Open batchPath For Output As #fileNum
-Print #fileNum, &quot;@echo off&quot;
-For i = LBound(commands) To UBound(commands)
-Print #fileNum, commands(i)
-Next i
-Close #fileNum
-
-&#x27; Execute
-taskId = Shell(batchPath, IIf(visible, vbNormalFocus, vbHide))
-
-CreateAndRunBatch = (taskId &lt;&gt; 0)
-Exit Function
-
+                                  Optional visible As Boolean = False) As Boolean
+    Dim batchPath As String
+    Dim fileNum As Integer
+    Dim i As Long
+    Dim taskId As Double
+    On Error GoTo ErrorHandler
+    &#x27; Create temp batch file
+    batchPath = Environ(&quot;TEMP&quot;) &amp; &quot;\temp_&quot; &amp; Format(Now, &quot;yyyymmddhhnnss&quot;) &amp; &quot;.bat&quot;
+    &#x27; Write commands
+    fileNum = FreeFile
+    Open batchPath For Output As #fileNum
+    Print #fileNum, &quot;@echo off&quot;
+    For i = LBound(commands) To UBound(commands)
+        Print #fileNum, commands(i)
+    Next i
+    Close #fileNum
+    &#x27; Execute
+    taskId = Shell(batchPath, IIf(visible, vbNormalFocus, vbHide))
+    CreateAndRunBatch = (taskId &lt;&gt; 0)
+    Exit Function
 ErrorHandler:
-If fileNum &gt; 0 Then Close #fileNum
-CreateAndRunBatch = False
+    If fileNum &gt; 0 Then Close #fileNum
+    CreateAndRunBatch = False
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The Shell function can generate the following errors:</p>
-<ul>
-<li><strong>Error 5</strong> (Invalid procedure call or argument): Invalid windowstyle parameter</li>
-<li><strong>Error 53</strong> (File not found): Program or path not found</li>
-<li><strong>Error 76</strong> (Path not found): Directory in path doesn't exist</li>
-</ul>
-<p>Always use error handling when executing external programs:</p>
+<p>The Shell function can generate the following errors:
+- <strong>Error 5</strong> (Invalid procedure call or argument): Invalid windowstyle parameter
+- <strong>Error 53</strong> (File not found): Program or path not found
+- <strong>Error 76</strong> (Path not found): Directory in path doesn't exist
+Always use error handling when executing external programs:</p>
 <pre><code class="language-vbnet">On Error Resume Next
 taskId = Shell(programPath, vbNormalFocus)
 If Err.Number &lt;&gt; 0 Or taskId = 0 Then
-MsgBox &quot;Error: &quot; &amp; Err.Description
+    MsgBox &quot;Error: &quot; &amp; Err.Description
 End If</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>

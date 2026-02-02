@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="iserror-function"><code>IsError</code> Function</h1>
+            <h1 id="iserror-function">IsError Function</h1>
 <p>Returns a <code>Boolean</code> value indicating whether an expression is an error value.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">IsError(expression)</code></pre>
@@ -54,21 +54,19 @@
 - Works with <code>Variant</code> variables containing error values
 - Returns <code>False</code> for <code>Null</code>, <code>Empty</code>, or any non-error value</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>IsError</code> function is used to determine whether a <code>Variant</code> expression contains an error value:</p>
-<ul>
-<li>Only detects <code>CVErr</code> error values (<code>Variant</code> subtype <code>vbError</code>)</li>
-<li>Does not detect <code>Err</code> object or runtime errors</li>
-<li>Error values are created using <code>CVErr</code> function</li>
-<li>Useful for propagating errors through <code>Variant</code> returns</li>
-<li>Common in functions that need to return error indicators</li>
-<li>Error values are different from Null or Empty</li>
-<li>Can be used to check function return values for errors</li>
-<li>Error values preserve error numbers through call chains</li>
-<li>Use <code>CVErr</code> to create error values, <code>IsError</code> to detect them</li>
-<li><code>VarType(expr) = vbError</code> provides same functionality</li>
-<li>Error values are uncommon in modern VB6 code</li>
-<li>Most code uses <code>Err.Raise</code> for error handling instead</li>
-</ul>
+<p>The <code>IsError</code> function is used to determine whether a <code>Variant</code> expression contains an error value:
+- Only detects <code>CVErr</code> error values (<code>Variant</code> subtype <code>vbError</code>)
+- Does not detect <code>Err</code> object or runtime errors
+- Error values are created using <code>CVErr</code> function
+- Useful for propagating errors through <code>Variant</code> returns
+- Common in functions that need to return error indicators
+- Error values are different from Null or Empty
+- Can be used to check function return values for errors
+- Error values preserve error numbers through call chains
+- Use <code>CVErr</code> to create error values, <code>IsError</code> to detect them
+- <code>VarType(expr) = vbError</code> provides same functionality
+- Error values are uncommon in modern VB6 code
+- Most code uses <code>Err.Raise</code> for error handling instead</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Error Propagation</strong>: Check if function returned an error value</li>
@@ -83,17 +81,13 @@
 <h2 id="basic-usage-examples">Basic Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Create and detect error values
 Dim result As Variant
-
 result = CVErr(5)  &#x27; Create error value with error number 5
-
 If IsError(result) Then
-Debug.Print &quot;Result is an error&quot;  &#x27; This prints
-Debug.Print &quot;Error number: &quot; &amp; CLng(result)  &#x27; Prints: 5
+    Debug.Print &quot;Result is an error&quot;  &#x27; This prints
+    Debug.Print &quot;Error number: &quot; &amp; CLng(result)  &#x27; Prints: 5
 End If
-
 &#x27; Example 2: Distinguish error from other values
 Dim testVar As Variant
-
 testVar = CVErr(13)
 Debug.Print IsError(testVar)        &#x27; True - error value
 testVar = 13
@@ -102,387 +96,322 @@ testVar = Null
 Debug.Print IsError(testVar)        &#x27; False - Null is not error
 testVar = Empty
 Debug.Print IsError(testVar)        &#x27; False - Empty is not error
-
 &#x27; Example 3: Function returning error or value
 Function SafeDivide(numerator As Double, denominator As Double) As Variant
-If denominator = 0 Then
-SafeDivide = CVErr(11)  &#x27; Division by zero error
-Else
-SafeDivide = numerator / denominator
-End If
+    If denominator = 0 Then
+        SafeDivide = CVErr(11)  &#x27; Division by zero error
+    Else
+        SafeDivide = numerator / denominator
+    End If
 End Function
-
 &#x27; Usage
 Dim result As Variant
 result = SafeDivide(10, 2)
-
 If IsError(result) Then
-MsgBox &quot;Error in calculation: &quot; &amp; CLng(result)
+    MsgBox &quot;Error in calculation: &quot; &amp; CLng(result)
 Else
-MsgBox &quot;Result: &quot; &amp; result  &#x27; Prints: 5
+    MsgBox &quot;Result: &quot; &amp; result  &#x27; Prints: 5
 End If
-
 &#x27; Example 4: Process array with error checking
 Function ProcessValues(values() As Variant) As Variant
-Dim i As Integer
-Dim total As Double
-
-total = 0
-For i = LBound(values) To UBound(values)
-If IsError(values(i)) Then
-ProcessValues = CVErr(CLng(values(i)))  &#x27; Propagate error
-Exit Function
-End If
-total = total + values(i)
-Next i
-
-ProcessValues = total
+    Dim i As Integer
+    Dim total As Double
+    total = 0
+    For i = LBound(values) To UBound(values)
+        If IsError(values(i)) Then
+            ProcessValues = CVErr(CLng(values(i)))  &#x27; Propagate error
+            Exit Function
+        End If
+        total = total + values(i)
+    Next i
+    ProcessValues = total
 End Function</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <pre><code class="language-vbnet">&#x27; Pattern 1: Safe function call with error checking
 Function SafeGetValue(source As Variant, key As String) As Variant
-On Error Resume Next
-SafeGetValue = source(key)
-
-If Err.Number &lt;&gt; 0 Then
-SafeGetValue = CVErr(Err.Number)
-End If
-On Error GoTo 0
+    On Error Resume Next
+    SafeGetValue = source(key)
+    If Err.Number &lt;&gt; 0 Then
+        SafeGetValue = CVErr(Err.Number)
+    End If
+    On Error GoTo 0
 End Function
-
 &#x27; Usage
 Dim value As Variant
 value = SafeGetValue(myDict, &quot;key&quot;)
 If IsError(value) Then
-MsgBox &quot;Error: &quot; &amp; CLng(value)
+    MsgBox &quot;Error: &quot; &amp; CLng(value)
 End If
-
 &#x27; Pattern 2: Coalesce - return first non-error value
 Function CoalesceValues(ParamArray values() As Variant) As Variant
-Dim i As Long
-
-For i = LBound(values) To UBound(values)
-If Not IsError(values(i)) And Not IsNull(values(i)) And Not IsEmpty(values(i)) Then
-CoalesceValues = values(i)
-Exit Function
-End If
-Next i
-
-CoalesceValues = CVErr(xlErrNA)  &#x27; All values were invalid
+    Dim i As Long
+    For i = LBound(values) To UBound(values)
+        If Not IsError(values(i)) And Not IsNull(values(i)) And Not IsEmpty(values(i)) Then
+            CoalesceValues = values(i)
+            Exit Function
+        End If
+    Next i
+    CoalesceValues = CVErr(xlErrNA)  &#x27; All values were invalid
 End Function
-
 &#x27; Pattern 3: Get error number from error value
 Function GetErrorNumber(errorValue As Variant) As Long
-If IsError(errorValue) Then
-GetErrorNumber = CLng(errorValue)
-Else
-GetErrorNumber = 0  &#x27; No error
-End If
+    If IsError(errorValue) Then
+        GetErrorNumber = CLng(errorValue)
+    Else
+        GetErrorNumber = 0  &#x27; No error
+    End If
 End Function
-
 &#x27; Pattern 4: Chain operations with error propagation
 Function CalculateResult(a As Variant, b As Variant) As Variant
-If IsError(a) Then
-CalculateResult = a  &#x27; Propagate first error
-Exit Function
-End If
-
-If IsError(b) Then
-CalculateResult = b  &#x27; Propagate second error
-Exit Function
-End If
-
-&#x27; Perform calculation
-CalculateResult = a + b
+    If IsError(a) Then
+        CalculateResult = a  &#x27; Propagate first error
+        Exit Function
+    End If
+    If IsError(b) Then
+        CalculateResult = b  &#x27; Propagate second error
+        Exit Function
+    End If
+    &#x27; Perform calculation
+    CalculateResult = a + b
 End Function
-
 &#x27; Pattern 5: Validate all values before processing
 Function AllValid(ParamArray values() As Variant) As Boolean
-Dim i As Long
-
-For i = LBound(values) To UBound(values)
-If IsError(values(i)) Or IsNull(values(i)) Then
-AllValid = False
-Exit Function
-End If
-Next i
-
-AllValid = True
+    Dim i As Long
+    For i = LBound(values) To UBound(values)
+        If IsError(values(i)) Or IsNull(values(i)) Then
+            AllValid = False
+            Exit Function
+        End If
+    Next i
+    AllValid = True
 End Function
-
 &#x27; Pattern 6: Convert error to message
 Function ErrorToMessage(value As Variant) As String
-If IsError(value) Then
-Select Case CLng(value)
-Case 5
-ErrorToMessage = &quot;Invalid procedure call&quot;
-Case 7
-ErrorToMessage = &quot;Out of memory&quot;
-Case 9
-ErrorToMessage = &quot;Subscript out of range&quot;
-Case 11
-ErrorToMessage = &quot;Division by zero&quot;
-Case 13
-ErrorToMessage = &quot;Type mismatch&quot;
-Case Else
-ErrorToMessage = &quot;Error &quot; &amp; CLng(value)
-End Select
-Else
-ErrorToMessage = &quot;No error&quot;
-End If
+    If IsError(value) Then
+        Select Case CLng(value)
+            Case 5
+                ErrorToMessage = &quot;Invalid procedure call&quot;
+            Case 7
+                ErrorToMessage = &quot;Out of memory&quot;
+            Case 9
+                ErrorToMessage = &quot;Subscript out of range&quot;
+            Case 11
+                ErrorToMessage = &quot;Division by zero&quot;
+            Case 13
+                ErrorToMessage = &quot;Type mismatch&quot;
+            Case Else
+                ErrorToMessage = &quot;Error &quot; &amp; CLng(value)
+        End Select
+    Else
+        ErrorToMessage = &quot;No error&quot;
+    End If
 End Function
-
 &#x27; Pattern 7: Default value for errors
 Function ValueOrDefault(value As Variant, defaultValue As Variant) As Variant
-If IsError(value) Or IsNull(value) Or IsEmpty(value) Then
-ValueOrDefault = defaultValue
-Else
-ValueOrDefault = value
-End If
+    If IsError(value) Or IsNull(value) Or IsEmpty(value) Then
+        ValueOrDefault = defaultValue
+    Else
+        ValueOrDefault = value
+    End If
 End Function
-
 &#x27; Pattern 8: Find first error in array
 Function FindFirstError(arr As Variant) As Variant
-Dim i As Long
-
-If Not IsArray(arr) Then
-FindFirstError = CVErr(13)  &#x27; Type mismatch
-Exit Function
-End If
-
-For i = LBound(arr) To UBound(arr)
-If IsError(arr(i)) Then
-FindFirstError = arr(i)
-Exit Function
-End If
-Next i
-
-FindFirstError = Null  &#x27; No errors found
+    Dim i As Long
+    If Not IsArray(arr) Then
+        FindFirstError = CVErr(13)  &#x27; Type mismatch
+        Exit Function
+    End If
+    For i = LBound(arr) To UBound(arr)
+        If IsError(arr(i)) Then
+            FindFirstError = arr(i)
+            Exit Function
+        End If
+    Next i
+    FindFirstError = Null  &#x27; No errors found
 End Function
-
 &#x27; Pattern 9: Count errors in array
 Function CountErrors(arr As Variant) As Long
-Dim i As Long
-Dim count As Long
-
-If Not IsArray(arr) Then
-CountErrors = 0
-Exit Function
-End If
-
-count = 0
-For i = LBound(arr) To UBound(arr)
-If IsError(arr(i)) Then
-count = count + 1
-End If
-Next i
-
-CountErrors = count
+    Dim i As Long
+    Dim count As Long
+    If Not IsArray(arr) Then
+        CountErrors = 0
+        Exit Function
+    End If
+    count = 0
+    For i = LBound(arr) To UBound(arr)
+        If IsError(arr(i)) Then
+            count = count + 1
+        End If
+    Next i
+    CountErrors = count
 End Function
-
 &#x27; Pattern 10: Safe numeric conversion
 Function SafeCDbl(value As Variant) As Variant
-On Error Resume Next
-Dim result As Double
-
-result = CDbl(value)
-
-If Err.Number &lt;&gt; 0 Then
-SafeCDbl = CVErr(Err.Number)
-Else
-SafeCDbl = result
-End If
-On Error GoTo 0
+    On Error Resume Next
+    Dim result As Double
+    result = CDbl(value)
+    If Err.Number &lt;&gt; 0 Then
+        SafeCDbl = CVErr(Err.Number)
+    Else
+        SafeCDbl = result
+    End If
+    On Error GoTo 0
 End Function</code></pre>
 <h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Error-aware calculator class
 Public Class SafeCalculator
-Public Function Add(a As Variant, b As Variant) As Variant
-If IsError(a) Then
-Add = a
-Exit Function
-End If
-If IsError(b) Then
-Add = b
-Exit Function
-End If
-
-On Error Resume Next
-Add = a + b
-If Err.Number &lt;&gt; 0 Then
-Add = CVErr(Err.Number)
-End If
-On Error GoTo 0
-End Function
-
-Public Function Divide(numerator As Variant, denominator As Variant) As Variant
-If IsError(numerator) Then
-Divide = numerator
-Exit Function
-End If
-If IsError(denominator) Then
-Divide = denominator
-Exit Function
-End If
-
-If denominator = 0 Then
-Divide = CVErr(11)  &#x27; Division by zero
-Exit Function
-End If
-
-Divide = numerator / denominator
-End Function
-
-Public Function GetErrorMessage(errorValue As Variant) As String
-If Not IsError(errorValue) Then
-GetErrorMessage = &quot;No error&quot;
-Exit Function
-End If
-
-GetErrorMessage = &quot;Error &quot; &amp; CLng(errorValue) &amp; &quot;: &quot; &amp; _
-Error$(CLng(errorValue))
-End Function
+    Public Function Add(a As Variant, b As Variant) As Variant
+        If IsError(a) Then
+            Add = a
+            Exit Function
+        End If
+        If IsError(b) Then
+            Add = b
+            Exit Function
+        End If
+        On Error Resume Next
+        Add = a + b
+        If Err.Number &lt;&gt; 0 Then
+            Add = CVErr(Err.Number)
+        End If
+        On Error GoTo 0
+    End Function
+    Public Function Divide(numerator As Variant, denominator As Variant) As Variant
+        If IsError(numerator) Then
+            Divide = numerator
+            Exit Function
+        End If
+        If IsError(denominator) Then
+            Divide = denominator
+            Exit Function
+        End If
+        If denominator = 0 Then
+            Divide = CVErr(11)  &#x27; Division by zero
+            Exit Function
+        End If
+        Divide = numerator / denominator
+    End Function
+    Public Function GetErrorMessage(errorValue As Variant) As String
+        If Not IsError(errorValue) Then
+            GetErrorMessage = &quot;No error&quot;
+            Exit Function
+        End If
+        GetErrorMessage = &quot;Error &quot; &amp; CLng(errorValue) &amp; &quot;: &quot; &amp; _
+                         Error$(CLng(errorValue))
+    End Function
 End Class
-
 &#x27; Example 2: Variant array processor with error handling
 Public Class VariantArrayProcessor
-Public Function Map(arr As Variant, callback As String) As Variant
-&#x27; Apply callback function to each element, propagate errors
-Dim result() As Variant
-Dim i As Long
-
-If Not IsArray(arr) Then
-Map = CVErr(13)  &#x27; Type mismatch
-Exit Function
-End If
-
-ReDim result(LBound(arr) To UBound(arr))
-
-For i = LBound(arr) To UBound(arr)
-If IsError(arr(i)) Then
-result(i) = arr(i)  &#x27; Preserve error
-Else
-On Error Resume Next
-result(i) = Application.Run(callback, arr(i))
-If Err.Number &lt;&gt; 0 Then
-result(i) = CVErr(Err.Number)
-End If
-On Error GoTo 0
-End If
-Next i
-
-Map = result
-End Function
-
-Public Function Filter(arr As Variant) As Variant
-&#x27; Remove error values from array
-Dim result() As Variant
-Dim i As Long, count As Long
-
-If Not IsArray(arr) Then
-Filter = Array()
-Exit Function
-End If
-
-ReDim result(LBound(arr) To UBound(arr))
-count = LBound(arr) - 1
-
-For i = LBound(arr) To UBound(arr)
-If Not IsError(arr(i)) Then
-count = count + 1
-result(count) = arr(i)
-End If
-Next i
-
-If count &gt;= LBound(result) Then
-ReDim Preserve result(LBound(result) To count)
-Filter = result
-Else
-Filter = Array()
-End If
-End Function
+    Public Function Map(arr As Variant, callback As String) As Variant
+        &#x27; Apply callback function to each element, propagate errors
+        Dim result() As Variant
+        Dim i As Long
+        If Not IsArray(arr) Then
+            Map = CVErr(13)  &#x27; Type mismatch
+            Exit Function
+        End If
+        ReDim result(LBound(arr) To UBound(arr))
+        For i = LBound(arr) To UBound(arr)
+            If IsError(arr(i)) Then
+                result(i) = arr(i)  &#x27; Preserve error
+            Else
+                On Error Resume Next
+                result(i) = Application.Run(callback, arr(i))
+                If Err.Number &lt;&gt; 0 Then
+                    result(i) = CVErr(Err.Number)
+                End If
+                On Error GoTo 0
+            End If
+        Next i
+        Map = result
+    End Function
+    Public Function Filter(arr As Variant) As Variant
+        &#x27; Remove error values from array
+        Dim result() As Variant
+        Dim i As Long, count As Long
+        If Not IsArray(arr) Then
+            Filter = Array()
+            Exit Function
+        End If
+        ReDim result(LBound(arr) To UBound(arr))
+        count = LBound(arr) - 1
+        For i = LBound(arr) To UBound(arr)
+            If Not IsError(arr(i)) Then
+                count = count + 1
+                result(count) = arr(i)
+            End If
+        Next i
+        If count &gt;= LBound(result) Then
+            ReDim Preserve result(LBound(result) To count)
+            Filter = result
+        Else
+            Filter = Array()
+        End If
+    End Function
 End Class
-
 &#x27; Example 3: Data validator with detailed error reporting
 Public Class DataValidator
-Private m_errors As Collection
-
-Private Sub Class_Initialize()
-Set m_errors = New Collection
-End Sub
-
-Public Function ValidateRecord(record As Variant) As Boolean
-Dim i As Long
-Dim fieldName As String
-
-m_errors.Clear
-
-If Not IsArray(record) Then
-ValidateRecord = False
-Exit Function
-End If
-
-For i = LBound(record) To UBound(record)
-If IsError(record(i)) Then
-m_errors.Add &quot;Field &quot; &amp; i &amp; &quot;: Error &quot; &amp; CLng(record(i))
-ElseIf IsNull(record(i)) Then
-m_errors.Add &quot;Field &quot; &amp; i &amp; &quot;: Null value&quot;
-ElseIf IsEmpty(record(i)) Then
-m_errors.Add &quot;Field &quot; &amp; i &amp; &quot;: Empty value&quot;
-End If
-Next i
-
-ValidateRecord = (m_errors.Count = 0)
-End Function
-
-Public Function GetErrors() As Collection
-Set GetErrors = m_errors
-End Function
-
-Public Function GetErrorSummary() As String
-Dim msg As String
-Dim i As Long
-
-If m_errors.Count = 0 Then
-GetErrorSummary = &quot;No errors&quot;
-Exit Function
-End If
-
-msg = &quot;Found &quot; &amp; m_errors.Count &amp; &quot; error(s):&quot; &amp; vbCrLf
-For i = 1 To m_errors.Count
-msg = msg &amp; &quot;- &quot; &amp; m_errors(i) &amp; vbCrLf
-Next i
-
-GetErrorSummary = msg
-End Function
+    Private m_errors As Collection
+    Private Sub Class_Initialize()
+        Set m_errors = New Collection
+    End Sub
+    Public Function ValidateRecord(record As Variant) As Boolean
+        Dim i As Long
+        Dim fieldName As String
+        m_errors.Clear
+        If Not IsArray(record) Then
+            ValidateRecord = False
+            Exit Function
+        End If
+        For i = LBound(record) To UBound(record)
+            If IsError(record(i)) Then
+                m_errors.Add &quot;Field &quot; &amp; i &amp; &quot;: Error &quot; &amp; CLng(record(i))
+            ElseIf IsNull(record(i)) Then
+                m_errors.Add &quot;Field &quot; &amp; i &amp; &quot;: Null value&quot;
+            ElseIf IsEmpty(record(i)) Then
+                m_errors.Add &quot;Field &quot; &amp; i &amp; &quot;: Empty value&quot;
+            End If
+        Next i
+        ValidateRecord = (m_errors.Count = 0)
+    End Function
+    Public Function GetErrors() As Collection
+        Set GetErrors = m_errors
+    End Function
+    Public Function GetErrorSummary() As String
+        Dim msg As String
+        Dim i As Long
+        If m_errors.Count = 0 Then
+            GetErrorSummary = &quot;No errors&quot;
+            Exit Function
+        End If
+        msg = &quot;Found &quot; &amp; m_errors.Count &amp; &quot; error(s):&quot; &amp; vbCrLf
+        For i = 1 To m_errors.Count
+            msg = msg &amp; &quot;- &quot; &amp; m_errors(i) &amp; vbCrLf
+        Next i
+        GetErrorSummary = msg
+    End Function
 End Class
-
 &#x27; Example 4: Function composition with error handling
 Function Compose(value As Variant, ParamArray functions() As Variant) As Variant
-&#x27; Apply functions in sequence, stop on first error
-Dim i As Long
-Dim result As Variant
-
-result = value
-
-For i = LBound(functions) To UBound(functions)
-If IsError(result) Then
-Compose = result  &#x27; Propagate error
-Exit Function
-End If
-
-On Error Resume Next
-result = Application.Run(functions(i), result)
-If Err.Number &lt;&gt; 0 Then
-Compose = CVErr(Err.Number)
-Exit Function
-End If
-On Error GoTo 0
-Next i
-
-Compose = result
+    &#x27; Apply functions in sequence, stop on first error
+    Dim i As Long
+    Dim result As Variant
+    result = value
+    For i = LBound(functions) To UBound(functions)
+        If IsError(result) Then
+            Compose = result  &#x27; Propagate error
+            Exit Function
+        End If
+        On Error Resume Next
+        result = Application.Run(functions(i), result)
+        If Err.Number &lt;&gt; 0 Then
+            Compose = CVErr(Err.Number)
+            Exit Function
+        End If
+        On Error GoTo 0
+    Next i
+    Compose = result
 End Function
-
 &#x27; Usage:
 &#x27; result = Compose(10, &quot;DoubleValue&quot;, &quot;AddTen&quot;, &quot;FormatResult&quot;)
 &#x27; If IsError(result) Then MsgBox &quot;Error in processing&quot;</code></pre>
@@ -494,12 +423,11 @@ Debug.Print IsError(&quot;text&quot;)        &#x27; False
 Debug.Print IsError(CVErr(5))      &#x27; True
 Debug.Print IsError(Null)          &#x27; False
 Debug.Print IsError(Empty)         &#x27; False
-
 &#x27; Common pattern: check and extract error number
 If IsError(value) Then
-Dim errNum As Long
-errNum = CLng(value)  &#x27; Extract error number
-MsgBox Error$(errNum) &#x27; Get error description
+    Dim errNum As Long
+    errNum = CLng(value)  &#x27; Extract error number
+    MsgBox Error$(errNum) &#x27; Get error description
 End If</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
@@ -577,30 +505,27 @@ End If</code></pre>
 <h2 id="cverr-vs-errraise"><code>CVErr</code> vs <code>Err.Raise</code></h2>
 <pre><code class="language-vbnet">&#x27; CVErr pattern (older style)
 Function OldStyleDivide(a As Double, b As Double) As Variant
-If b = 0 Then
-OldStyleDivide = CVErr(11)  &#x27; Return error value
-Else
-OldStyleDivide = a / b
-End If
+    If b = 0 Then
+        OldStyleDivide = CVErr(11)  &#x27; Return error value
+    Else
+        OldStyleDivide = a / b
+    End If
 End Function
-
 If IsError(result) Then
-MsgBox &quot;Error: &quot; &amp; CLng(result)
+    MsgBox &quot;Error: &quot; &amp; CLng(result)
 End If
-
 &#x27; Err.Raise pattern (modern style)
 Function ModernDivide(a As Double, b As Double) As Double
-If b = 0 Then
-Err.Raise 11, , &quot;Division by zero&quot;  &#x27; Raise error
-Else
-ModernDivide = a / b
-End If
+    If b = 0 Then
+        Err.Raise 11, , &quot;Division by zero&quot;  &#x27; Raise error
+    Else
+        ModernDivide = a / b
+    End If
 End Function
-
 On Error Resume Next
 result = ModernDivide(10, 0)
 If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Error: &quot; &amp; Err.Description
+    MsgBox &quot;Error: &quot; &amp; Err.Description
 End If</code></pre>
 <h2 id="platform-and-version-notes">Platform and Version Notes</h2>
 <ul>

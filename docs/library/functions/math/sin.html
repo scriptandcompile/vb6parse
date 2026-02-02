@@ -53,20 +53,20 @@
 - Sin(π) ≈ 0
 - Sin(3π/2) ≈ -1</p>
 <h2 id="remarks">Remarks</h2>
-<p>The Sin function takes an angle in radians and returns the ratio of two sides of a right triangle. The ratio is the length of the side opposite the angle divided by the length of the hypotenuse.</p>
-<p>Key characteristics:
+<p>The Sin function takes an angle in radians and returns the ratio of two sides of a right triangle. The ratio is the length of the side opposite the angle divided by the length of the hypotenuse.
+Key characteristics:
 - Input is in radians, not degrees
 - To convert degrees to radians: radians = degrees × (π / 180)
 - To convert radians to degrees: degrees = radians × (180 / π)
 - π (Pi) ≈ 3.14159265358979
 - Use <code>Atn(1) * 4</code> to calculate π in VB6
 - Periodic function: Sin(x) = Sin(x + 2π)
-- Returns values between -1 and 1</p>
-<p>The sine function is one of the fundamental trigonometric functions:
+- Returns values between -1 and 1
+The sine function is one of the fundamental trigonometric functions:
 - Sin(x): Sine (this function)
 - Cos(x): Cosine (use Cos function)
-- Tan(x): Tangent (use Tan function or Sin(x)/Cos(x))</p>
-<p>Common angles and their sines:
+- Tan(x): Tangent (use Tan function or Sin(x)/Cos(x))
+Common angles and their sines:
 - Sin(0°) = Sin(0 rad) = 0
 - Sin(30°) = Sin(π/6 rad) = 0.5
 - Sin(45°) = Sin(π/4 rad) ≈ 0.707
@@ -91,7 +91,6 @@
 Const PI As Double = 3.14159265358979
 Dim angle45 As Double
 Dim sineValue As Double
-
 angle45 = 45 * (PI / 180)  &#x27; Convert to radians
 sineValue = Sin(angle45)   &#x27; Returns ≈ 0.707</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 2: Calculate sine of π/2 (90 degrees)
@@ -107,106 +106,99 @@ sineValue = Sin(pi)  &#x27; Returns ≈ 0 (very small number)</code></pre>
 Dim i As Integer
 Dim y As Double
 For i = 0 To 360
-y = Sin(i * (Atn(1) * 4) / 180)
-Debug.Print i &amp; &quot; degrees: &quot; &amp; y
+    y = Sin(i * (Atn(1) * 4) / 180)
+    Debug.Print i &amp; &quot; degrees: &quot; &amp; y
 Next i</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-degreestoradians">Pattern 1: <code>DegreesToRadians</code></h3>
 <p>Convert degrees to radians for Sin function</p>
 <pre><code class="language-vbnet">Function DegreesToRadians(degrees As Double) As Double
-Const PI As Double = 3.14159265358979
-DegreesToRadians = degrees * (PI / 180)
+    Const PI As Double = 3.14159265358979
+    DegreesToRadians = degrees * (PI / 180)
 End Function
-
 &#x27; Usage:
 result = Sin(DegreesToRadians(45))</code></pre>
 <h3 id="pattern-2-sindegrees">Pattern 2: <code>SinDegrees</code></h3>
 <p>Sine function that accepts degrees</p>
 <pre><code class="language-vbnet">Function SinDegrees(degrees As Double) As Double
-Const PI As Double = 3.14159265358979
-SinDegrees = Sin(degrees * (PI / 180))
+    Const PI As Double = 3.14159265358979
+    SinDegrees = Sin(degrees * (PI / 180))
 End Function</code></pre>
 <h3 id="pattern-3-generatesinewave">Pattern 3: <code>GenerateSineWave</code></h3>
 <p>Generate array of sine wave values</p>
 <pre><code class="language-vbnet">Function GenerateSineWave(samples As Integer, amplitude As Double, _
-frequency As Double) As Double()
-Dim result() As Double
-Dim i As Integer
-Dim angle As Double
-Const PI As Double = 3.14159265358979
-
-ReDim result(0 To samples - 1)
-
-For i = 0 To samples - 1
-angle = (i / samples) * 2 * PI * frequency
-result(i) = amplitude * Sin(angle)
-Next i
-
-GenerateSineWave = result
+                          frequency As Double) As Double()
+    Dim result() As Double
+    Dim i As Integer
+    Dim angle As Double
+    Const PI As Double = 3.14159265358979
+    ReDim result(0 To samples - 1)
+    For i = 0 To samples - 1
+        angle = (i / samples) * 2 * PI * frequency
+        result(i) = amplitude * Sin(angle)
+    Next i
+    GenerateSineWave = result
 End Function</code></pre>
 <h3 id="pattern-4-circularmotiony">Pattern 4: <code>CircularMotionY</code></h3>
 <p>Calculate vertical position in circular motion</p>
 <pre><code class="language-vbnet">Function CircularMotionY(centerY As Double, radius As Double, _
-angle As Double) As Double
-&#x27; angle in radians
-CircularMotionY = centerY + radius * Sin(angle)
+                         angle As Double) As Double
+    &#x27; angle in radians
+    CircularMotionY = centerY + radius * Sin(angle)
 End Function</code></pre>
 <h3 id="pattern-5-oscillatingvalue">Pattern 5: <code>OscillatingValue</code></h3>
 <p>Create oscillating value over time</p>
 <pre><code class="language-vbnet">Function OscillatingValue(time As Double, amplitude As Double, _
-frequency As Double, Optional phase As Double = 0) As Double
-Const PI As Double = 3.14159265358979
-OscillatingValue = amplitude * Sin(2 * PI * frequency * time + phase)
+                          frequency As Double, Optional phase As Double = 0) As Double
+    Const PI As Double = 3.14159265358979
+    OscillatingValue = amplitude * Sin(2 * PI * frequency * time + phase)
 End Function</code></pre>
 <h3 id="pattern-6-sineinterpolation">Pattern 6: <code>SineInterpolation</code></h3>
 <p>Smooth interpolation using sine</p>
 <pre><code class="language-vbnet">Function SineInterpolation(startValue As Double, endValue As Double, _
-t As Double) As Double
-&#x27; t ranges from 0 to 1
-Dim factor As Double
-Const PI As Double = 3.14159265358979
-
-factor = (1 - Cos(t * PI)) / 2
-SineInterpolation = startValue + (endValue - startValue) * factor
+                           t As Double) As Double
+    &#x27; t ranges from 0 to 1
+    Dim factor As Double
+    Const PI As Double = 3.14159265358979
+    factor = (1 - Cos(t * PI)) / 2
+    SineInterpolation = startValue + (endValue - startValue) * factor
 End Function</code></pre>
 <h3 id="pattern-7-anglefromsine">Pattern 7: <code>AngleFromSine</code></h3>
 <p>Get angle from sine value (inverse sine approximation)</p>
 <pre><code class="language-vbnet">Function ArcSineApprox(sineValue As Double) As Double
-&#x27; For small angles, asin(x) ≈ x
-&#x27; For better accuracy, use iterative methods or Atn
-&#x27; Using Atn for proper arcsin:
-If Abs(sineValue) &gt;= 1 Then
-ArcSineApprox = Sgn(sineValue) * Atn(1) * 2
-Else
-ArcSineApprox = Atn(sineValue / Sqr(1 - sineValue * sineValue))
-End If
+    &#x27; For small angles, asin(x) ≈ x
+    &#x27; For better accuracy, use iterative methods or Atn
+    &#x27; Using Atn for proper arcsin:
+    If Abs(sineValue) &gt;= 1 Then
+        ArcSineApprox = Sgn(sineValue) * Atn(1) * 2
+    Else
+        ArcSineApprox = Atn(sineValue / Sqr(1 - sineValue * sineValue))
+    End If
 End Function</code></pre>
 <h3 id="pattern-8-sinewaveanalysis">Pattern 8: <code>SineWaveAnalysis</code></h3>
 <p>Analyze sine wave properties</p>
 <pre><code class="language-vbnet">Sub AnalyzeSineWave(amplitude As Double, frequency As Double, _
-ByRef maxVal As Double, ByRef minVal As Double, _
-ByRef period As Double)
-Const PI As Double = 3.14159265358979
-
-maxVal = amplitude
-minVal = -amplitude
-period = 1 / frequency  &#x27; In seconds or time units
+                    ByRef maxVal As Double, ByRef minVal As Double, _
+                    ByRef period As Double)
+    Const PI As Double = 3.14159265358979
+    maxVal = amplitude
+    minVal = -amplitude
+    period = 1 / frequency  &#x27; In seconds or time units
 End Sub</code></pre>
 <h3 id="pattern-9-projectilemotiony">Pattern 9: <code>ProjectileMotionY</code></h3>
 <p>Calculate vertical position in projectile motion</p>
 <pre><code class="language-vbnet">Function ProjectileY(initialY As Double, velocity As Double, _
-angle As Double, time As Double, gravity As Double) As Double
-&#x27; angle in radians
-Dim verticalVelocity As Double
-
-verticalVelocity = velocity * Sin(angle)
-ProjectileY = initialY + verticalVelocity * time - 0.5 * gravity * time * time
+                     angle As Double, time As Double, gravity As Double) As Double
+    &#x27; angle in radians
+    Dim verticalVelocity As Double
+    verticalVelocity = velocity * Sin(angle)
+    ProjectileY = initialY + verticalVelocity * time - 0.5 * gravity * time * time
 End Function</code></pre>
 <h3 id="pattern-10-harmonicmotion">Pattern 10: <code>HarmonicMotion</code></h3>
 <p>Simple harmonic motion displacement</p>
 <pre><code class="language-vbnet">Function HarmonicDisplacement(amplitude As Double, angularFrequency As Double, _
-time As Double, Optional phase As Double = 0) As Double
-HarmonicDisplacement = amplitude * Sin(angularFrequency * time + phase)
+                              time As Double, Optional phase As Double = 0) As Double
+    HarmonicDisplacement = amplitude * Sin(angularFrequency * time + phase)
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-waveformgenerator-class">Example 1: <code>WaveformGenerator</code> Class</h3>
@@ -215,275 +207,224 @@ End Function</code></pre>
 Private Const PI As Double = 3.14159265358979
 Private m_sampleRate As Long
 Private m_duration As Double
-
 Public Sub Initialize(sampleRate As Long, duration As Double)
-m_sampleRate = sampleRate
-m_duration = duration
+    m_sampleRate = sampleRate
+    m_duration = duration
 End Sub
-
 Public Function GenerateSineWave(frequency As Double, amplitude As Double) As Double()
-Dim samples As Long
-Dim result() As Double
-Dim i As Long
-Dim t As Double
-
-samples = CLng(m_sampleRate * m_duration)
-ReDim result(0 To samples - 1)
-
-For i = 0 To samples - 1
-t = i / m_sampleRate
-result(i) = amplitude * Sin(2 * PI * frequency * t)
-Next i
-
-GenerateSineWave = result
+    Dim samples As Long
+    Dim result() As Double
+    Dim i As Long
+    Dim t As Double
+    samples = CLng(m_sampleRate * m_duration)
+    ReDim result(0 To samples - 1)
+    For i = 0 To samples - 1
+        t = i / m_sampleRate
+        result(i) = amplitude * Sin(2 * PI * frequency * t)
+    Next i
+    GenerateSineWave = result
 End Function
-
 Public Function GenerateAMWave(carrier As Double, modulator As Double, _
-amplitude As Double, modDepth As Double) As Double()
-&#x27; Amplitude Modulation
-Dim samples As Long
-Dim result() As Double
-Dim i As Long
-Dim t As Double
-Dim envelope As Double
-
-samples = CLng(m_sampleRate * m_duration)
-ReDim result(0 To samples - 1)
-
-For i = 0 To samples - 1
-t = i / m_sampleRate
-envelope = 1 + modDepth * Sin(2 * PI * modulator * t)
-result(i) = amplitude * envelope * Sin(2 * PI * carrier * t)
-Next i
-
-GenerateAMWave = result
+                               amplitude As Double, modDepth As Double) As Double()
+    &#x27; Amplitude Modulation
+    Dim samples As Long
+    Dim result() As Double
+    Dim i As Long
+    Dim t As Double
+    Dim envelope As Double
+    samples = CLng(m_sampleRate * m_duration)
+    ReDim result(0 To samples - 1)
+    For i = 0 To samples - 1
+        t = i / m_sampleRate
+        envelope = 1 + modDepth * Sin(2 * PI * modulator * t)
+        result(i) = amplitude * envelope * Sin(2 * PI * carrier * t)
+    Next i
+    GenerateAMWave = result
 End Function
-
 Public Function GenerateFMWave(carrier As Double, modulator As Double, _
-amplitude As Double, modIndex As Double) As Double()
-&#x27; Frequency Modulation
-Dim samples As Long
-Dim result() As Double
-Dim i As Long
-Dim t As Double
-Dim phase As Double
-
-samples = CLng(m_sampleRate * m_duration)
-ReDim result(0 To samples - 1)
-
-For i = 0 To samples - 1
-t = i / m_sampleRate
-phase = 2 * PI * carrier * t + modIndex * Sin(2 * PI * modulator * t)
-result(i) = amplitude * Sin(phase)
-Next i
-
-GenerateFMWave = result
+                               amplitude As Double, modIndex As Double) As Double()
+    &#x27; Frequency Modulation
+    Dim samples As Long
+    Dim result() As Double
+    Dim i As Long
+    Dim t As Double
+    Dim phase As Double
+    samples = CLng(m_sampleRate * m_duration)
+    ReDim result(0 To samples - 1)
+    For i = 0 To samples - 1
+        t = i / m_sampleRate
+        phase = 2 * PI * carrier * t + modIndex * Sin(2 * PI * modulator * t)
+        result(i) = amplitude * Sin(phase)
+    Next i
+    GenerateFMWave = result
 End Function
-
 Public Function GenerateHarmonics(fundamental As Double, harmonics As Integer, _
-amplitude As Double) As Double()
-&#x27; Generate complex tone with harmonics
-Dim samples As Long
-Dim result() As Double
-Dim i As Long
-Dim h As Integer
-Dim t As Double
-Dim value As Double
-
-samples = CLng(m_sampleRate * m_duration)
-ReDim result(0 To samples - 1)
-
-For i = 0 To samples - 1
-t = i / m_sampleRate
-value = 0
-
-For h = 1 To harmonics
-value = value + (amplitude / h) * Sin(2 * PI * fundamental * h * t)
-Next h
-
-result(i) = value
-Next i
-
-GenerateHarmonics = result
+                                  amplitude As Double) As Double()
+    &#x27; Generate complex tone with harmonics
+    Dim samples As Long
+    Dim result() As Double
+    Dim i As Long
+    Dim h As Integer
+    Dim t As Double
+    Dim value As Double
+    samples = CLng(m_sampleRate * m_duration)
+    ReDim result(0 To samples - 1)
+    For i = 0 To samples - 1
+        t = i / m_sampleRate
+        value = 0
+        For h = 1 To harmonics
+            value = value + (amplitude / h) * Sin(2 * PI * fundamental * h * t)
+        Next h
+        result(i) = value
+    Next i
+    GenerateHarmonics = result
 End Function</code></pre>
 <h3 id="example-2-circularmotion-module">Example 2: <code>CircularMotion</code> Module</h3>
 <p>Calculate circular and elliptical motion using trigonometry</p>
 <pre><code class="language-vbnet">&#x27; Module: CircularMotion
 Private Const PI As Double = 3.14159265358979
-
 Public Sub GetCircularPosition(centerX As Double, centerY As Double, _
-radius As Double, angle As Double, _
-ByRef x As Double, ByRef y As Double)
-&#x27; angle in radians
-x = centerX + radius * Cos(angle)
-y = centerY + radius * Sin(angle)
+                               radius As Double, angle As Double, _
+                               ByRef x As Double, ByRef y As Double)
+    &#x27; angle in radians
+    x = centerX + radius * Cos(angle)
+    y = centerY + radius * Sin(angle)
 End Sub
-
 Public Sub GetEllipticalPosition(centerX As Double, centerY As Double, _
-radiusX As Double, radiusY As Double, _
-angle As Double, ByRef x As Double, ByRef y As Double)
-&#x27; angle in radians
-x = centerX + radiusX * Cos(angle)
-y = centerY + radiusY * Sin(angle)
+                                 radiusX As Double, radiusY As Double, _
+                                 angle As Double, ByRef x As Double, ByRef y As Double)
+    &#x27; angle in radians
+    x = centerX + radiusX * Cos(angle)
+    y = centerY + radiusY * Sin(angle)
 End Sub
-
 Public Function CalculateAngularVelocity(rpm As Double) As Double
-&#x27; Convert revolutions per minute to radians per second
-CalculateAngularVelocity = (rpm / 60) * 2 * PI
+    &#x27; Convert revolutions per minute to radians per second
+    CalculateAngularVelocity = (rpm / 60) * 2 * PI
 End Function
-
 Public Sub AnimateCircularMotion(centerX As Double, centerY As Double, _
-radius As Double, angularVelocity As Double, _
-time As Double, ByRef x As Double, ByRef y As Double)
-Dim angle As Double
-angle = angularVelocity * time
-
-x = centerX + radius * Cos(angle)
-y = centerY + radius * Sin(angle)
+                                 radius As Double, angularVelocity As Double, _
+                                 time As Double, ByRef x As Double, ByRef y As Double)
+    Dim angle As Double
+    angle = angularVelocity * time
+    x = centerX + radius * Cos(angle)
+    y = centerY + radius * Sin(angle)
 End Sub
-
 Public Function CalculateTangentialVelocity(radius As Double, _
-angularVelocity As Double) As Double
-&#x27; v = r * ω
-CalculateTangentialVelocity = radius * angularVelocity
+                                            angularVelocity As Double) As Double
+    &#x27; v = r * ω
+    CalculateTangentialVelocity = radius * angularVelocity
 End Function
-
 Public Sub GetVelocityComponents(speed As Double, angle As Double, _
-ByRef vx As Double, ByRef vy As Double)
-&#x27; angle in radians from horizontal
-vx = speed * Cos(angle)
-vy = speed * Sin(angle)
+                                 ByRef vx As Double, ByRef vy As Double)
+    &#x27; angle in radians from horizontal
+    vx = speed * Cos(angle)
+    vy = speed * Sin(angle)
 End Sub</code></pre>
 <h3 id="example-3-physicssimulator-class">Example 3: <code>PhysicsSimulator</code> Class</h3>
 <p>Simulate physics using trigonometric functions</p>
 <pre><code class="language-vbnet">&#x27; Class: PhysicsSimulator
 Private Const PI As Double = 3.14159265358979
 Private Const GRAVITY As Double = 9.81  &#x27; m/s²
-
 Public Function CalculateRange(velocity As Double, angle As Double) As Double
-&#x27; Projectile range formula: R = v² * sin(2θ) / g
-&#x27; angle in radians
-CalculateRange = (velocity * velocity * Sin(2 * angle)) / GRAVITY
+    &#x27; Projectile range formula: R = v² * sin(2θ) / g
+    &#x27; angle in radians
+    CalculateRange = (velocity * velocity * Sin(2 * angle)) / GRAVITY
 End Function
-
 Public Function CalculateMaxHeight(velocity As Double, angle As Double) As Double
-&#x27; Max height: H = (v * sin(θ))² / (2g)
-Dim verticalVelocity As Double
-verticalVelocity = velocity * Sin(angle)
-CalculateMaxHeight = (verticalVelocity * verticalVelocity) / (2 * GRAVITY)
+    &#x27; Max height: H = (v * sin(θ))² / (2g)
+    Dim verticalVelocity As Double
+    verticalVelocity = velocity * Sin(angle)
+    CalculateMaxHeight = (verticalVelocity * verticalVelocity) / (2 * GRAVITY)
 End Function
-
 Public Function CalculateTimeOfFlight(velocity As Double, angle As Double) As Double
-&#x27; Time of flight: T = 2 * v * sin(θ) / g
-CalculateTimeOfFlight = (2 * velocity * Sin(angle)) / GRAVITY
+    &#x27; Time of flight: T = 2 * v * sin(θ) / g
+    CalculateTimeOfFlight = (2 * velocity * Sin(angle)) / GRAVITY
 End Function
-
 Public Sub GetProjectilePosition(velocity As Double, angle As Double, _
-time As Double, ByRef x As Double, ByRef y As Double)
-&#x27; angle in radians
-Dim vx As Double, vy As Double
-
-vx = velocity * Cos(angle)
-vy = velocity * Sin(angle)
-
-x = vx * time
-y = vy * time - 0.5 * GRAVITY * time * time
+                                 time As Double, ByRef x As Double, ByRef y As Double)
+    &#x27; angle in radians
+    Dim vx As Double, vy As Double
+    vx = velocity * Cos(angle)
+    vy = velocity * Sin(angle)
+    x = vx * time
+    y = vy * time - 0.5 * GRAVITY * time * time
 End Sub
-
 Public Function CalculatePendulumDisplacement(length As Double, angle0 As Double, _
-time As Double) As Double
-&#x27; Small angle approximation
-&#x27; angle(t) = angle0 * cos(ωt) where ω = sqrt(g/L)
-Dim omega As Double
-omega = Sqr(GRAVITY / length)
-
-&#x27; For small angles, displacement ≈ L * θ
-CalculatePendulumDisplacement = length * angle0 * Cos(omega * time)
+                                              time As Double) As Double
+    &#x27; Small angle approximation
+    &#x27; angle(t) = angle0 * cos(ωt) where ω = sqrt(g/L)
+    Dim omega As Double
+    omega = Sqr(GRAVITY / length)
+    &#x27; For small angles, displacement ≈ L * θ
+    CalculatePendulumDisplacement = length * angle0 * Cos(omega * time)
 End Function
-
 Public Function CalculateInclinedPlaneForce(mass As Double, angle As Double) As Double
-&#x27; Force down incline: F = m * g * sin(θ)
-&#x27; angle in radians
-CalculateInclinedPlaneForce = mass * GRAVITY * Sin(angle)
+    &#x27; Force down incline: F = m * g * sin(θ)
+    &#x27; angle in radians
+    CalculateInclinedPlaneForce = mass * GRAVITY * Sin(angle)
 End Function</code></pre>
 <h3 id="example-4-graphicshelper-module">Example 4: <code>GraphicsHelper</code> Module</h3>
 <p>Graphics and animation helpers using trigonometry</p>
 <pre><code class="language-vbnet">&#x27; Module: GraphicsHelper
 Private Const PI As Double = 3.14159265358979
-
 Public Function RotatePointX(x As Double, y As Double, angle As Double, _
-centerX As Double, centerY As Double) As Double
-&#x27; Rotate point around center, return new X
-&#x27; angle in radians
-Dim dx As Double, dy As Double
-
-dx = x - centerX
-dy = y - centerY
-
-RotatePointX = centerX + dx * Cos(angle) - dy * Sin(angle)
+                             centerX As Double, centerY As Double) As Double
+    &#x27; Rotate point around center, return new X
+    &#x27; angle in radians
+    Dim dx As Double, dy As Double
+    dx = x - centerX
+    dy = y - centerY
+    RotatePointX = centerX + dx * Cos(angle) - dy * Sin(angle)
 End Function
-
 Public Function RotatePointY(x As Double, y As Double, angle As Double, _
-centerX As Double, centerY As Double) As Double
-&#x27; Rotate point around center, return new Y
-&#x27; angle in radians
-Dim dx As Double, dy As Double
-
-dx = x - centerX
-dy = y - centerY
-
-RotatePointY = centerY + dx * Sin(angle) + dy * Cos(angle)
+                             centerX As Double, centerY As Double) As Double
+    &#x27; Rotate point around center, return new Y
+    &#x27; angle in radians
+    Dim dx As Double, dy As Double
+    dx = x - centerX
+    dy = y - centerY
+    RotatePointY = centerY + dx * Sin(angle) + dy * Cos(angle)
 End Function
-
 Public Function CreatePulseEffect(time As Double, frequency As Double) As Double
-&#x27; Create pulsing effect (0 to 1)
-CreatePulseEffect = (Sin(2 * PI * frequency * time) + 1) / 2
+    &#x27; Create pulsing effect (0 to 1)
+    CreatePulseEffect = (Sin(2 * PI * frequency * time) + 1) / 2
 End Function
-
 Public Function CreateFadeInOut(time As Double, duration As Double) As Double
-&#x27; Smooth fade in and out using sine
-Dim t As Double
-t = (time / duration) * PI
-CreateFadeInOut = Sin(t)
+    &#x27; Smooth fade in and out using sine
+    Dim t As Double
+    t = (time / duration) * PI
+    CreateFadeInOut = Sin(t)
 End Function
-
 Public Function EaseInOutSine(t As Double) As Double
-&#x27; Easing function using sine (t from 0 to 1)
-EaseInOutSine = -(Cos(PI * t) - 1) / 2
+    &#x27; Easing function using sine (t from 0 to 1)
+    EaseInOutSine = -(Cos(PI * t) - 1) / 2
 End Function
-
 Public Sub DrawSineWave(picBox As Object, amplitude As Double, _
-frequency As Double, Optional phase As Double = 0)
-Dim x As Integer
-Dim y As Double
-Dim prevX As Integer, prevY As Integer
-Dim width As Integer
-
-width = picBox.ScaleWidth
-
-For x = 0 To width
-y = amplitude * Sin(2 * PI * frequency * (x / width) + phase)
-y = picBox.ScaleHeight / 2 - y  &#x27; Flip Y axis
-
-If x &gt; 0 Then
-picBox.Line (prevX, prevY)-(x, y)
-End If
-
-prevX = x
-prevY = y
-Next x
+                        frequency As Double, Optional phase As Double = 0)
+    Dim x As Integer
+    Dim y As Double
+    Dim prevX As Integer, prevY As Integer
+    Dim width As Integer
+    width = picBox.ScaleWidth
+    For x = 0 To width
+        y = amplitude * Sin(2 * PI * frequency * (x / width) + phase)
+        y = picBox.ScaleHeight / 2 - y  &#x27; Flip Y axis
+        If x &gt; 0 Then
+            picBox.Line (prevX, prevY)-(x, y)
+        End If
+        prevX = x
+        prevY = y
+    Next x
 End Sub</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The Sin function can generate the following errors:</p>
-<ul>
-<li><strong>Error 13</strong> (Type mismatch): Argument cannot be interpreted as numeric</li>
-<li><strong>Error 5</strong> (Invalid procedure call): In rare cases with invalid input</li>
-</ul>
-<p>Error handling example:</p>
+<p>The Sin function can generate the following errors:
+- <strong>Error 13</strong> (Type mismatch): Argument cannot be interpreted as numeric
+- <strong>Error 5</strong> (Invalid procedure call): In rare cases with invalid input
+Error handling example:</p>
 <pre><code class="language-vbnet">On Error Resume Next
 result = Sin(angle)
 If Err.Number &lt;&gt; 0 Then
-MsgBox &quot;Error calculating sine: &quot; &amp; Err.Description
+    MsgBox &quot;Error calculating sine: &quot; &amp; Err.Description
 End If</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>

@@ -1,10 +1,10 @@
-//! # Filter Function
+//! ## `Filter` Function
 //!
 //! Returns a zero-based array containing a subset of a string array based on specified filter criteria.
 //!
 //! ## Syntax
 //!
-//! ```vb
+//! ```text
 //! Filter(sourcearray, match[, include[, compare]])
 //! ```
 //!
@@ -16,13 +16,13 @@
 //!   or exclude match. If True (default), Filter returns subset including match. If False,
 //!   Filter returns subset excluding match.
 //! - **compare**: Optional. Numeric value indicating the kind of string comparison to use.
-//!   - 0 = vbBinaryCompare (case-sensitive, default)
-//!   - 1 = vbTextCompare (case-insensitive)
-//!   - 2 = vbDatabaseCompare (Microsoft Access only)
+//!   * 0 = vbBinaryCompare (case-sensitive, default)
+//!   * 1 = vbTextCompare (case-insensitive)
+//!   * 2 = vbDatabaseCompare (Microsoft Access only)
 //!
 //! ## Return Value
 //!
-//! Returns a Variant containing a zero-based array of strings. If no matches are found,
+//! Returns a `Variant` containing a zero-based array of strings. If no matches are found,
 //! Filter returns an empty array. If sourcearray is Null or not a one-dimensional array,
 //! an error occurs.
 //!
@@ -32,7 +32,7 @@
 //! and returns a new array with matching (or non-matching) elements. This is useful for
 //! filtering lists, implementing search functionality, and processing string collections.
 //!
-//! **Important Characteristics:**
+//! ## Important Characteristics
 //!
 //! - Returns zero-based array regardless of input array bounds
 //! - Match is substring search (not whole string match)
@@ -47,6 +47,21 @@
 //! - Returned array starts at index 0
 //! - Can be used to implement NOT logic (include=False)
 //!
+//! ### Common Errors
+//!
+//! - **Error 13** (Type Mismatch): sourcearray is not an array or not a string array
+//! - **Error 5** (Invalid procedure call): sourcearray is multi-dimensional
+//! - **Error 94** (Invalid use of Null): sourcearray is Null
+//!
+//! ## Performance Considerations
+//!
+//! - Filter is efficient for small to medium arrays (< 10,000 elements)
+//! - For very large arrays, consider Dictionary-based approaches
+//! - Case-insensitive search is slightly slower than case-sensitive
+//! - Filtering already-filtered results is faster than re-filtering original array
+//! - Consider caching results for repeated searches
+//! - Empty string match returns entire array
+//!
 //! ## Typical Uses
 //!
 //! - Filter lists based on user input
@@ -58,11 +73,30 @@
 //! - Process search results
 //! - Implement autocomplete features
 //!
+//! ## Limitations
+//!
+//! - Works only with one-dimensional arrays
+//! - Only supports string arrays
+//! - Returns zero-based array (even if source is 1-based)
+//! - Substring match only (no regex or wildcards)
+//! - Cannot filter on multiple criteria in single call
+//! - No built-in support for custom comparison functions
+//! - Case-insensitive limited to vbTextCompare behavior
+//!
+//! ## Related Functions
+//!
+//! - `Array`: Creates a `Variant` array
+//! - `Split`: Splits a string into an array
+//! - `Join`: Joins array elements into a string
+//! - `InStr`: Finds substring position
+//! - `LBound`/`UBound`: Gets array bounds
+//! - `IsArray`: Checks if variable is an array
+//!
 //! ## Examples
 //!
 //! ### Basic Usage
 //!
-//! ```vb
+//! ```vb6
 //! Dim fruits() As String
 //! Dim filtered() As String
 //!
@@ -83,7 +117,7 @@
 //!
 //! ### Case-Sensitive vs Case-Insensitive
 //!
-//! ```vb
+//! ```vb6
 //! Dim names() As String
 //! names = Array("John", "jane", "JAMES", "Julia", "jack")
 //!
@@ -100,7 +134,7 @@
 //!
 //! ### Exclude Matches
 //!
-//! ```vb
+//! ```vb6
 //! Dim files() As String
 //! files = Array("data.txt", "backup.bak", "report.txt", "temp.bak", "notes.txt")
 //!
@@ -114,7 +148,7 @@
 //!
 //! ### Filter List Based on User Input
 //!
-//! ```vb
+//! ```vb6
 //! Function SearchList(items() As String, searchTerm As String) As String()
 //!     On Error GoTo ErrorHandler
 //!     
@@ -138,7 +172,7 @@
 //!
 //! ### Count Matching Items
 //!
-//! ```vb
+//! ```vb6
 //! Function CountMatches(items() As String, searchTerm As String) As Long
 //!     On Error GoTo ErrorHandler
 //!     
@@ -161,7 +195,7 @@
 //!
 //! ### Filter File List by Extension
 //!
-//! ```vb
+//! ```vb6
 //! Function GetFilesByExtension(files() As String, extension As String) As String()
 //!     ' Ensure extension starts with dot
 //!     If Left(extension, 1) <> "." Then
@@ -181,7 +215,7 @@
 //!
 //! ### Multiple Filter Criteria
 //!
-//! ```vb
+//! ```vb6
 //! Function FilterMultiple(items() As String, filters() As String) As String()
 //!     Dim result() As String
 //!     Dim temp() As String
@@ -209,7 +243,7 @@
 //!
 //! ### Populate `ListBox` with Filtered Results
 //!
-//! ```vb
+//! ```vb6
 //! Sub UpdateFilteredList(lstBox As ListBox, items() As String, searchText As String)
 //!     Dim filtered() As String
 //!     Dim i As Long
@@ -243,7 +277,7 @@
 //!
 //! ### Remove Duplicates with Filter
 //!
-//! ```vb
+//! ```vb6
 //! Function RemoveDuplicates(items() As String) As String()
 //!     Dim result() As String
 //!     Dim dict As Object
@@ -274,7 +308,7 @@
 //!
 //! ### Filter with Wildcard Simulation
 //!
-//! ```vb
+//! ```vb6
 //! Function FilterWildcard(items() As String, pattern As String) As Collection
 //!     ' Simple wildcard: * at start, end, or both
 //!     Dim results As New Collection
@@ -325,7 +359,7 @@
 //!
 //! ### Autocomplete Implementation
 //!
-//! ```vb
+//! ```vb6
 //! Sub TextBox_Change()
 //!     Dim allItems() As String
 //!     Dim matches() As String
@@ -357,7 +391,7 @@
 //!
 //! ### Filter Log Entries
 //!
-//! ```vb
+//! ```vb6
 //! Function FilterLogsByLevel(logEntries() As String, level As String) As String()
 //!     ' Assume log format: "[LEVEL] Message"
 //!     Dim levelTag As String
@@ -376,7 +410,7 @@
 //!
 //! ### Check If Array Contains Value
 //!
-//! ```vb
+//! ```vb6
 //! Function ArrayContains(items() As String, value As String, _
 //!                        Optional caseSensitive As Boolean = False) As Boolean
 //!     On Error GoTo ErrorHandler
@@ -411,7 +445,7 @@
 //!
 //! ### Combine Include and Exclude Filters
 //!
-//! ```vb
+//! ```vb6
 //! Function FilterIncludeExclude(items() As String, includeText As String, _
 //!                               excludeText As String) As String()
 //!     Dim temp() As String
@@ -439,7 +473,7 @@
 //!
 //! ### Dynamic Search with Multiple Columns
 //!
-//! ```vb
+//! ```vb6
 //! Type RecordData
 //!     ID As String
 //!     Name As String
@@ -508,7 +542,7 @@
 //!
 //! ### Incremental Filter (Type-Ahead)
 //!
-//! ```vb
+//! ```vb6
 //! Private lastSearch As String
 //! Private cachedResults() As String
 //!
@@ -538,7 +572,7 @@
 //!
 //! ### Category-Based Filtering
 //!
-//! ```vb
+//! ```vb6
 //! Type Product
 //!     Name As String
 //!     Category As String
@@ -586,7 +620,7 @@
 //!
 //! ### Filter with Performance Tracking
 //!
-//! ```vb
+//! ```vb6
 //! Function FilterWithStats(items() As String, searchTerm As String, _
 //!                          ByRef matchCount As Long, _
 //!                          ByRef elapsedMs As Double) As String()
@@ -619,7 +653,7 @@
 //!
 //! ### Smart Case-Sensitive Filter
 //!
-//! ```vb
+//! ```vb6
 //! Function SmartFilter(items() As String, searchTerm As String) As String()
 //!     Dim compareMode As VbCompareMethod
 //!     
@@ -637,7 +671,7 @@
 //!
 //! ## Error Handling
 //!
-//! ```vb
+//! ```vb6
 //! Function SafeFilter(items As Variant, searchTerm As String) As Variant
 //!     On Error GoTo ErrorHandler
 //!     
@@ -678,26 +712,11 @@
 //! End Function
 //! ```
 //!
-//! ### Common Errors
-//!
-//! - **Error 13** (Type Mismatch): sourcearray is not an array or not a string array
-//! - **Error 5** (Invalid procedure call): sourcearray is multi-dimensional
-//! - **Error 94** (Invalid use of Null): sourcearray is Null
-//!
-//! ## Performance Considerations
-//!
-//! - Filter is efficient for small to medium arrays (< 10,000 elements)
-//! - For very large arrays, consider Dictionary-based approaches
-//! - Case-insensitive search is slightly slower than case-sensitive
-//! - Filtering already-filtered results is faster than re-filtering original array
-//! - Consider caching results for repeated searches
-//! - Empty string match returns entire array
-//!
 //! ## Best Practices
 //!
 //! ### Always Check Result Array
 //!
-//! ```vb
+//! ```vb6
 //! Dim results() As String
 //! results = Filter(items, searchTerm)
 //!
@@ -713,7 +732,7 @@
 //!
 //! ### Use Error Handling
 //!
-//! ```vb
+//! ```vb6
 //! On Error Resume Next
 //! filtered = Filter(sourceArray, searchText, True, vbTextCompare)
 //! If Err.Number <> 0 Then
@@ -725,7 +744,7 @@
 //!
 //! ### Default to Case-Insensitive for User Input
 //!
-//! ```vb
+//! ```vb6
 //! ' Good - User-friendly search
 //! results = Filter(items, userInput, True, vbTextCompare)
 //!
@@ -737,7 +756,7 @@
 //!
 //! ### Filter vs Manual Loop
 //!
-//! ```vb
+//! ```vb6
 //! ' Using Filter (concise)
 //! matches = Filter(items, searchTerm, True, vbTextCompare)
 //!
@@ -757,7 +776,7 @@
 //!
 //! ### Filter vs Collection/Dictionary
 //!
-//! ```vb
+//! ```vb6
 //! ' Filter - Returns array
 //! Dim arr() As String
 //! arr = Filter(items, searchTerm)
@@ -771,24 +790,6 @@
 //! Next i
 //! ```
 //!
-//! ## Limitations
-//!
-//! - Works only with one-dimensional arrays
-//! - Only supports string arrays
-//! - Returns zero-based array (even if source is 1-based)
-//! - Substring match only (no regex or wildcards)
-//! - Cannot filter on multiple criteria in single call
-//! - No built-in support for custom comparison functions
-//! - Case-insensitive limited to vbTextCompare behavior
-//!
-//! ## Related Functions
-//!
-//! - `Array`: Creates a Variant array
-//! - `Split`: Splits a string into an array
-//! - `Join`: Joins array elements into a string
-//! - `InStr`: Finds substring position
-//! - `LBound`/`UBound`: Gets array bounds
-//! - `IsArray`: Checks if variable is an array
 
 #[cfg(test)]
 mod tests {

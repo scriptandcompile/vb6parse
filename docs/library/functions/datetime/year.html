@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p>VB6 <code>Year</code> Function</p>
-<p>The <code>Year</code> function returns an Integer representing the year of a specified date.</p>
+            <p>VB6 Year Function
+The <code>Year</code> function returns an Integer representing the year of a specified date.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">Year(date)</code></pre>
 <h2 id="parameters">Parameters</h2>
@@ -48,19 +48,17 @@
 <h2 id="returns">Returns</h2>
 <p>Returns an <code>Integer</code> representing the year (a whole number between 100 and 9999, inclusive).</p>
 <h2 id="remarks">Remarks</h2>
-<p>The <code>Year</code> function extracts the year component from a date value:</p>
-<ul>
-<li><strong>Return range</strong>: Returns values from 100 to 9999</li>
-<li><strong>Null handling</strong>: If the date argument is Null, the function returns Null</li>
-<li><strong>Date validation</strong>: Invalid dates cause Error 13 (Type mismatch)</li>
-<li><strong>String dates</strong>: Accepts string representations of dates (e.g., "12/25/2023")</li>
-<li><strong>Numeric dates</strong>: Accepts numeric date values (serial dates)</li>
-<li><strong>Date literals</strong>: Accepts date literals (e.g., #12/25/2023#)</li>
-<li><strong>Current year</strong>: Use <code>Year(Date)</code> or <code>Year(Now)</code> to get current year</li>
-<li><strong>Leap year calculation</strong>: Can be used to determine leap years</li>
-<li><strong>Year arithmetic</strong>: Often combined with <code>DateSerial</code> for date calculations</li>
-<li><strong>Four-digit years</strong>: Always returns full four-digit year (not two-digit)</li>
-</ul>
+<p>The <code>Year</code> function extracts the year component from a date value:
+- <strong>Return range</strong>: Returns values from 100 to 9999
+- <strong>Null handling</strong>: If the date argument is Null, the function returns Null
+- <strong>Date validation</strong>: Invalid dates cause Error 13 (Type mismatch)
+- <strong>String dates</strong>: Accepts string representations of dates (e.g., "12/25/2023")
+- <strong>Numeric dates</strong>: Accepts numeric date values (serial dates)
+- <strong>Date literals</strong>: Accepts date literals (e.g., #12/25/2023#)
+- <strong>Current year</strong>: Use <code>Year(Date)</code> or <code>Year(Now)</code> to get current year
+- <strong>Leap year calculation</strong>: Can be used to determine leap years
+- <strong>Year arithmetic</strong>: Often combined with <code>DateSerial</code> for date calculations
+- <strong>Four-digit years</strong>: Always returns full four-digit year (not two-digit)</p>
 <h3 id="date-components-family">Date Components Family</h3>
 <p>The <code>Year</code> function is part of a family of date component extraction functions:
 - <code>Year(date)</code> - Returns the year (100-9999)
@@ -72,12 +70,11 @@
 - <code>Second(date)</code> - Returns the second (0-59)</p>
 <h3 id="leap-year-detection">Leap Year Detection</h3>
 <pre><code class="language-vbnet">Function IsLeapYear(yr As Integer) As Boolean
-IsLeapYear = ((yr Mod 4 = 0) And (yr Mod 100 &lt;&gt; 0)) Or (yr Mod 400 = 0)
+    IsLeapYear = ((yr Mod 4 = 0) And (yr Mod 100 &lt;&gt; 0)) Or (yr Mod 400 = 0)
 End Function</code></pre>
 <h3 id="combining-with-dateserial">Combining with <code>DateSerial</code></h3>
 <pre><code class="language-vbnet">&#x27; Get first day of current year
 firstDay = DateSerial(Year(Date), 1, 1)
-
 &#x27; Get last day of current year
 lastDay = DateSerial(Year(Date), 12, 31)</code></pre>
 <h2 id="typical-uses">Typical Uses</h2>
@@ -94,360 +91,306 @@ lastDay = DateSerial(Year(Date), 12, 31)</code></pre>
 <h2 id="basic-examples">Basic Examples</h2>
 <h3 id="example-1-get-current-year">Example 1: Get Current Year</h3>
 <pre><code class="language-vbnet">Sub ShowCurrentYear()
-Dim currentYear As Integer
-currentYear = Year(Date)
-MsgBox &quot;Current year: &quot; &amp; currentYear
+    Dim currentYear As Integer
+    currentYear = Year(Date)
+    MsgBox &quot;Current year: &quot; &amp; currentYear
 End Sub</code></pre>
 <h3 id="example-2-calculate-age">Example 2: Calculate Age</h3>
 <pre><code class="language-vbnet">Function CalculateAge(birthDate As Date) As Integer
-Dim age As Integer
-age = Year(Date) - Year(birthDate)
-
-&#x27; Adjust if birthday hasn&#x27;t occurred this year
-If Month(Date) &lt; Month(birthDate) Or _
-(Month(Date) = Month(birthDate) And Day(Date) &lt; Day(birthDate)) Then
-age = age - 1
-End If
-
-CalculateAge = age
+    Dim age As Integer
+    age = Year(Date) - Year(birthDate)
+    &#x27; Adjust if birthday hasn&#x27;t occurred this year
+    If Month(Date) &lt; Month(birthDate) Or _
+       (Month(Date) = Month(birthDate) And Day(Date) &lt; Day(birthDate)) Then
+        age = age - 1
+    End If
+    CalculateAge = age
 End Function</code></pre>
 <h3 id="example-3-get-years-between-dates">Example 3: Get Years Between Dates</h3>
 <pre><code class="language-vbnet">Function YearsBetween(startDate As Date, endDate As Date) As Integer
-YearsBetween = Year(endDate) - Year(startDate)
+    YearsBetween = Year(endDate) - Year(startDate)
 End Function</code></pre>
 <h3 id="example-4-check-if-leap-year">Example 4: Check If Leap Year</h3>
 <pre><code class="language-vbnet">Function IsLeapYear(dt As Date) As Boolean
-Dim yr As Integer
-yr = Year(dt)
-IsLeapYear = ((yr Mod 4 = 0) And (yr Mod 100 &lt;&gt; 0)) Or (yr Mod 400 = 0)
+    Dim yr As Integer
+    yr = Year(dt)
+    IsLeapYear = ((yr Mod 4 = 0) And (yr Mod 100 &lt;&gt; 0)) Or (yr Mod 400 = 0)
 End Function</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-get-first-day-of-year">Pattern 1: Get First Day of Year</h3>
 <pre><code class="language-vbnet">Function GetFirstDayOfYear(dt As Date) As Date
-GetFirstDayOfYear = DateSerial(Year(dt), 1, 1)
+    GetFirstDayOfYear = DateSerial(Year(dt), 1, 1)
 End Function</code></pre>
 <h3 id="pattern-2-get-last-day-of-year">Pattern 2: Get Last Day of Year</h3>
 <pre><code class="language-vbnet">Function GetLastDayOfYear(dt As Date) As Date
-GetLastDayOfYear = DateSerial(Year(dt), 12, 31)
+    GetLastDayOfYear = DateSerial(Year(dt), 12, 31)
 End Function</code></pre>
 <h3 id="pattern-3-same-year-check">Pattern 3: Same Year Check</h3>
 <pre><code class="language-vbnet">Function IsSameYear(date1 As Date, date2 As Date) As Boolean
-IsSameYear = (Year(date1) = Year(date2))
+    IsSameYear = (Year(date1) = Year(date2))
 End Function</code></pre>
 <h3 id="pattern-4-get-fiscal-year">Pattern 4: Get Fiscal Year</h3>
 <pre><code class="language-vbnet">Function GetFiscalYear(dt As Date, fiscalStartMonth As Integer) As Integer
-If Month(dt) &gt;= fiscalStartMonth Then
-GetFiscalYear = Year(dt)
-Else
-GetFiscalYear = Year(dt) - 1
-End If
+    If Month(dt) &gt;= fiscalStartMonth Then
+        GetFiscalYear = Year(dt)
+    Else
+        GetFiscalYear = Year(dt) - 1
+    End If
 End Function</code></pre>
 <h3 id="pattern-5-format-year-display">Pattern 5: Format Year Display</h3>
 <pre><code class="language-vbnet">Function FormatYearDisplay(dt As Date) As String
-FormatYearDisplay = &quot;Year &quot; &amp; Year(dt)
+    FormatYearDisplay = &quot;Year &quot; &amp; Year(dt)
 End Function</code></pre>
 <h3 id="pattern-6-year-difference">Pattern 6: Year Difference</h3>
 <pre><code class="language-vbnet">Function GetYearDifference(startDate As Date, endDate As Date) As Integer
-GetYearDifference = Abs(Year(endDate) - Year(startDate))
+    GetYearDifference = Abs(Year(endDate) - Year(startDate))
 End Function</code></pre>
 <h3 id="pattern-7-validate-year-range">Pattern 7: Validate Year Range</h3>
 <pre><code class="language-vbnet">Function IsYearInRange(dt As Date, minYear As Integer, maxYear As Integer) As Boolean
-Dim yr As Integer
-yr = Year(dt)
-IsYearInRange = (yr &gt;= minYear And yr &lt;= maxYear)
+    Dim yr As Integer
+    yr = Year(dt)
+    IsYearInRange = (yr &gt;= minYear And yr &lt;= maxYear)
 End Function</code></pre>
 <h3 id="pattern-8-get-years-until-date">Pattern 8: Get Years Until Date</h3>
 <pre><code class="language-vbnet">Function YearsUntil(targetDate As Date) As Integer
-YearsUntil = Year(targetDate) - Year(Date)
+    YearsUntil = Year(targetDate) - Year(Date)
 End Function</code></pre>
 <h3 id="pattern-9-add-years-to-date">Pattern 9: Add Years to Date</h3>
 <pre><code class="language-vbnet">Function AddYears(dt As Date, years As Integer) As Date
-AddYears = DateSerial(Year(dt) + years, Month(dt), Day(dt))
+    AddYears = DateSerial(Year(dt) + years, Month(dt), Day(dt))
 End Function</code></pre>
 <h3 id="pattern-10-get-year-to-date-range">Pattern 10: Get Year-to-Date Range</h3>
 <pre><code class="language-vbnet">Sub GetYTDRange(ByRef startDate As Date, ByRef endDate As Date)
-startDate = DateSerial(Year(Date), 1, 1)
-endDate = Date
+    startDate = DateSerial(Year(Date), 1, 1)
+    endDate = Date
 End Sub</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-age-calculator-class">Example 1: Age Calculator Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: AgeCalculator
 &#x27; Calculates precise age with various options
 Option Explicit
-
 Public Function GetAge(birthDate As Date, Optional asOfDate As Variant) As Integer
-Dim referenceDate As Date
-Dim age As Integer
-
-If IsMissing(asOfDate) Then
-referenceDate = Date
-Else
-referenceDate = CDate(asOfDate)
-End If
-
-age = Year(referenceDate) - Year(birthDate)
-
-&#x27; Adjust if birthday hasn&#x27;t occurred yet
-If Month(referenceDate) &lt; Month(birthDate) Or _
-(Month(referenceDate) = Month(birthDate) And _
-Day(referenceDate) &lt; Day(birthDate)) Then
-age = age - 1
-End If
-
-GetAge = age
+    Dim referenceDate As Date
+    Dim age As Integer
+    If IsMissing(asOfDate) Then
+        referenceDate = Date
+    Else
+        referenceDate = CDate(asOfDate)
+    End If
+    age = Year(referenceDate) - Year(birthDate)
+    &#x27; Adjust if birthday hasn&#x27;t occurred yet
+    If Month(referenceDate) &lt; Month(birthDate) Or _
+       (Month(referenceDate) = Month(birthDate) And _
+        Day(referenceDate) &lt; Day(birthDate)) Then
+        age = age - 1
+    End If
+    GetAge = age
 End Function
-
 Public Function GetAgeInYearsAndMonths(birthDate As Date) As String
-Dim years As Integer
-Dim months As Integer
-Dim tempDate As Date
-
-years = GetAge(birthDate)
-tempDate = DateSerial(Year(birthDate) + years, Month(birthDate), Day(birthDate))
-months = DateDiff(&quot;m&quot;, tempDate, Date)
-
-GetAgeInYearsAndMonths = years &amp; &quot; years, &quot; &amp; months &amp; &quot; months&quot;
+    Dim years As Integer
+    Dim months As Integer
+    Dim tempDate As Date
+    years = GetAge(birthDate)
+    tempDate = DateSerial(Year(birthDate) + years, Month(birthDate), Day(birthDate))
+    months = DateDiff(&quot;m&quot;, tempDate, Date)
+    GetAgeInYearsAndMonths = years &amp; &quot; years, &quot; &amp; months &amp; &quot; months&quot;
 End Function
-
 Public Function WillBeBirthdayThisYear(birthDate As Date) As Boolean
-Dim birthdayThisYear As Date
-birthdayThisYear = DateSerial(Year(Date), Month(birthDate), Day(birthDate))
-WillBeBirthdayThisYear = (birthdayThisYear &gt;= Date)
+    Dim birthdayThisYear As Date
+    birthdayThisYear = DateSerial(Year(Date), Month(birthDate), Day(birthDate))
+    WillBeBirthdayThisYear = (birthdayThisYear &gt;= Date)
 End Function
-
 Public Function GetAgeAtDate(birthDate As Date, targetDate As Date) As Integer
-GetAgeAtDate = GetAge(birthDate, targetDate)
+    GetAgeAtDate = GetAge(birthDate, targetDate)
 End Function</code></pre>
 <h3 id="example-2-fiscal-year-manager-module">Example 2: Fiscal Year Manager Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: FiscalYearManager
 &#x27; Manages fiscal year calculations
 Option Explicit
-
 Private m_FiscalStartMonth As Integer
-
 Public Sub SetFiscalYearStart(startMonth As Integer)
-If startMonth &lt; 1 Or startMonth &gt; 12 Then
-Err.Raise 5, , &quot;Start month must be between 1 and 12&quot;
-End If
-m_FiscalStartMonth = startMonth
+    If startMonth &lt; 1 Or startMonth &gt; 12 Then
+        Err.Raise 5, , &quot;Start month must be between 1 and 12&quot;
+    End If
+    m_FiscalStartMonth = startMonth
 End Sub
-
 Public Function GetFiscalYear(dt As Date) As Integer
-If m_FiscalStartMonth = 0 Then m_FiscalStartMonth = 1
-
-If Month(dt) &gt;= m_FiscalStartMonth Then
-GetFiscalYear = Year(dt)
-Else
-GetFiscalYear = Year(dt) - 1
-End If
+    If m_FiscalStartMonth = 0 Then m_FiscalStartMonth = 1
+    If Month(dt) &gt;= m_FiscalStartMonth Then
+        GetFiscalYear = Year(dt)
+    Else
+        GetFiscalYear = Year(dt) - 1
+    End If
 End Function
-
 Public Function GetFiscalYearStart(fiscalYear As Integer) As Date
-If m_FiscalStartMonth = 0 Then m_FiscalStartMonth = 1
-GetFiscalYearStart = DateSerial(fiscalYear, m_FiscalStartMonth, 1)
+    If m_FiscalStartMonth = 0 Then m_FiscalStartMonth = 1
+    GetFiscalYearStart = DateSerial(fiscalYear, m_FiscalStartMonth, 1)
 End Function
-
 Public Function GetFiscalYearEnd(fiscalYear As Integer) As Date
-Dim endMonth As Integer
-Dim endYear As Integer
-
-If m_FiscalStartMonth = 0 Then m_FiscalStartMonth = 1
-
-endMonth = m_FiscalStartMonth - 1
-If endMonth = 0 Then endMonth = 12
-
-If m_FiscalStartMonth = 1 Then
-endYear = fiscalYear
-Else
-endYear = fiscalYear + 1
-End If
-
-GetFiscalYearEnd = DateSerial(endYear, endMonth, Day(DateSerial(endYear, endMonth + 1, 0)))
+    Dim endMonth As Integer
+    Dim endYear As Integer
+    If m_FiscalStartMonth = 0 Then m_FiscalStartMonth = 1
+    endMonth = m_FiscalStartMonth - 1
+    If endMonth = 0 Then endMonth = 12
+    If m_FiscalStartMonth = 1 Then
+        endYear = fiscalYear
+    Else
+        endYear = fiscalYear + 1
+    End If
+    GetFiscalYearEnd = DateSerial(endYear, endMonth, Day(DateSerial(endYear, endMonth + 1, 0)))
 End Function
-
 Public Function FormatFiscalYear(fiscalYear As Integer) As String
-If m_FiscalStartMonth = 1 Then
-FormatFiscalYear = &quot;FY&quot; &amp; fiscalYear
-Else
-FormatFiscalYear = &quot;FY&quot; &amp; fiscalYear &amp; &quot;-&quot; &amp; Right$(CStr(fiscalYear + 1), 2)
-End If
+    If m_FiscalStartMonth = 1 Then
+        FormatFiscalYear = &quot;FY&quot; &amp; fiscalYear
+    Else
+        FormatFiscalYear = &quot;FY&quot; &amp; fiscalYear &amp; &quot;-&quot; &amp; Right$(CStr(fiscalYear + 1), 2)
+    End If
 End Function</code></pre>
 <h3 id="example-3-year-range-analyzer-class">Example 3: Year Range Analyzer Class</h3>
 <pre><code class="language-vbnet">&#x27; Class: YearRangeAnalyzer
 &#x27; Analyzes year ranges in date collections
 Option Explicit
-
 Public Function GetYearRange(dates() As Date) As String
-Dim minYear As Integer
-Dim maxYear As Integer
-Dim i As Long
-Dim yr As Integer
-
-If UBound(dates) &lt; LBound(dates) Then
-GetYearRange = &quot;No dates&quot;
-Exit Function
-End If
-
-minYear = Year(dates(LBound(dates)))
-maxYear = minYear
-
-For i = LBound(dates) To UBound(dates)
-yr = Year(dates(i))
-If yr &lt; minYear Then minYear = yr
-If yr &gt; maxYear Then maxYear = yr
-Next i
-
-If minYear = maxYear Then
-GetYearRange = CStr(minYear)
-Else
-GetYearRange = minYear &amp; &quot;-&quot; &amp; maxYear
-End If
+    Dim minYear As Integer
+    Dim maxYear As Integer
+    Dim i As Long
+    Dim yr As Integer
+    If UBound(dates) &lt; LBound(dates) Then
+        GetYearRange = &quot;No dates&quot;
+        Exit Function
+    End If
+    minYear = Year(dates(LBound(dates)))
+    maxYear = minYear
+    For i = LBound(dates) To UBound(dates)
+        yr = Year(dates(i))
+        If yr &lt; minYear Then minYear = yr
+        If yr &gt; maxYear Then maxYear = yr
+    Next i
+    If minYear = maxYear Then
+        GetYearRange = CStr(minYear)
+    Else
+        GetYearRange = minYear &amp; &quot;-&quot; &amp; maxYear
+    End If
 End Function
-
 Public Function GetYearDistribution(dates() As Date) As Collection
-Dim distribution As New Collection
-Dim i As Long
-Dim yr As Integer
-Dim yearKey As String
-Dim count As Long
-
-For i = LBound(dates) To UBound(dates)
-yr = Year(dates(i))
-yearKey = CStr(yr)
-
-On Error Resume Next
-count = distribution(yearKey)
-If Err.Number &lt;&gt; 0 Then
-distribution.Add 1, yearKey
-Err.Clear
-Else
-distribution.Remove yearKey
-distribution.Add count + 1, yearKey
-End If
-On Error GoTo 0
-Next i
-
-Set GetYearDistribution = distribution
+    Dim distribution As New Collection
+    Dim i As Long
+    Dim yr As Integer
+    Dim yearKey As String
+    Dim count As Long
+    For i = LBound(dates) To UBound(dates)
+        yr = Year(dates(i))
+        yearKey = CStr(yr)
+        On Error Resume Next
+        count = distribution(yearKey)
+        If Err.Number &lt;&gt; 0 Then
+            distribution.Add 1, yearKey
+            Err.Clear
+        Else
+            distribution.Remove yearKey
+            distribution.Add count + 1, yearKey
+        End If
+        On Error GoTo 0
+    Next i
+    Set GetYearDistribution = distribution
 End Function
-
 Public Function GetMostCommonYear(dates() As Date) As Integer
-Dim distribution As Collection
-Dim maxCount As Long
-Dim maxYear As Integer
-Dim yr As Variant
-
-Set distribution = GetYearDistribution(dates)
-
-maxCount = 0
-For Each yr In distribution
-If distribution(CStr(yr)) &gt; maxCount Then
-maxCount = distribution(CStr(yr))
-maxYear = CInt(yr)
-End If
-Next yr
-
-GetMostCommonYear = maxYear
+    Dim distribution As Collection
+    Dim maxCount As Long
+    Dim maxYear As Integer
+    Dim yr As Variant
+    Set distribution = GetYearDistribution(dates)
+    maxCount = 0
+    For Each yr In distribution
+        If distribution(CStr(yr)) &gt; maxCount Then
+            maxCount = distribution(CStr(yr))
+            maxYear = CInt(yr)
+        End If
+    Next yr
+    GetMostCommonYear = maxYear
 End Function
-
 Public Function GetUniqueYears(dates() As Date) As Collection
-Dim years As New Collection
-Dim i As Long
-Dim yr As Integer
-Dim yearKey As String
-
-For i = LBound(dates) To UBound(dates)
-yr = Year(dates(i))
-yearKey = CStr(yr)
-
-On Error Resume Next
-years.Add yr, yearKey
-On Error GoTo 0
-Next i
-
-Set GetUniqueYears = years
+    Dim years As New Collection
+    Dim i As Long
+    Dim yr As Integer
+    Dim yearKey As String
+    For i = LBound(dates) To UBound(dates)
+        yr = Year(dates(i))
+        yearKey = CStr(yr)
+        On Error Resume Next
+        years.Add yr, yearKey
+        On Error GoTo 0
+    Next i
+    Set GetUniqueYears = years
 End Function</code></pre>
 <h3 id="example-4-date-archive-organizer-module">Example 4: Date Archive Organizer Module</h3>
 <pre><code class="language-vbnet">&#x27; Module: DateArchiveOrganizer
 &#x27; Organizes files and data by year
 Option Explicit
-
 Public Function GetArchivePath(baseFolder As String, dt As Date) As String
-Dim yearFolder As String
-yearFolder = baseFolder
-If Right$(yearFolder, 1) &lt;&gt; &quot;\&quot; Then yearFolder = yearFolder &amp; &quot;\&quot;
-yearFolder = yearFolder &amp; Year(dt) &amp; &quot;\&quot;
-GetArchivePath = yearFolder
+    Dim yearFolder As String
+    yearFolder = baseFolder
+    If Right$(yearFolder, 1) &lt;&gt; &quot;\&quot; Then yearFolder = yearFolder &amp; &quot;\&quot;
+    yearFolder = yearFolder &amp; Year(dt) &amp; &quot;\&quot;
+    GetArchivePath = yearFolder
 End Function
-
 Public Function CreateYearlyArchiveFolders(baseFolder As String, _
-startYear As Integer, _
-endYear As Integer) As Long
-Dim yr As Integer
-Dim folderPath As String
-Dim count As Long
-
-count = 0
-For yr = startYear To endYear
-folderPath = baseFolder
-If Right$(folderPath, 1) &lt;&gt; &quot;\&quot; Then folderPath = folderPath &amp; &quot;\&quot;
-folderPath = folderPath &amp; yr &amp; &quot;\&quot;
-
-On Error Resume Next
-MkDir folderPath
-If Err.Number = 0 Then count = count + 1
-Err.Clear
-On Error GoTo 0
-Next yr
-
-CreateYearlyArchiveFolders = count
+                                           startYear As Integer, _
+                                           endYear As Integer) As Long
+    Dim yr As Integer
+    Dim folderPath As String
+    Dim count As Long
+    count = 0
+    For yr = startYear To endYear
+        folderPath = baseFolder
+        If Right$(folderPath, 1) &lt;&gt; &quot;\&quot; Then folderPath = folderPath &amp; &quot;\&quot;
+        folderPath = folderPath &amp; yr &amp; &quot;\&quot;
+        On Error Resume Next
+        MkDir folderPath
+        If Err.Number = 0 Then count = count + 1
+        Err.Clear
+        On Error GoTo 0
+    Next yr
+    CreateYearlyArchiveFolders = count
 End Function
-
 Public Function GetYearFromFilename(filename As String) As Integer
-Dim parts() As String
-Dim part As Variant
-Dim yr As Integer
-
-parts = Split(filename, &quot;_&quot;)
-For Each part In parts
-If IsNumeric(part) Then
-yr = CInt(part)
-If yr &gt;= 1900 And yr &lt;= 9999 Then
-GetYearFromFilename = yr
-Exit Function
-End If
-End If
-Next part
-
-GetYearFromFilename = 0
+    Dim parts() As String
+    Dim part As Variant
+    Dim yr As Integer
+    parts = Split(filename, &quot;_&quot;)
+    For Each part In parts
+        If IsNumeric(part) Then
+            yr = CInt(part)
+            If yr &gt;= 1900 And yr &lt;= 9999 Then
+                GetYearFromFilename = yr
+                Exit Function
+            End If
+        End If
+    Next part
+    GetYearFromFilename = 0
 End Function
-
 Public Function GenerateYearlyReport(data As Collection, reportYear As Integer) As String
-Dim report As String
-Dim item As Variant
-Dim itemDate As Date
-Dim count As Long
-
-report = &quot;Year &quot; &amp; reportYear &amp; &quot; Report&quot; &amp; vbCrLf
-report = report &amp; String$(50, &quot;=&quot;) &amp; vbCrLf
-
-count = 0
-For Each item In data
-itemDate = CDate(item)
-If Year(itemDate) = reportYear Then
-count = count + 1
-End If
-Next item
-
-report = report &amp; &quot;Total items: &quot; &amp; count &amp; vbCrLf
-GenerateYearlyReport = report
+    Dim report As String
+    Dim item As Variant
+    Dim itemDate As Date
+    Dim count As Long
+    report = &quot;Year &quot; &amp; reportYear &amp; &quot; Report&quot; &amp; vbCrLf
+    report = report &amp; String$(50, &quot;=&quot;) &amp; vbCrLf
+    count = 0
+    For Each item In data
+        itemDate = CDate(item)
+        If Year(itemDate) = reportYear Then
+            count = count + 1
+        End If
+    Next item
+    report = report &amp; &quot;Total items: &quot; &amp; count &amp; vbCrLf
+    GenerateYearlyReport = report
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
-<p>The <code>Year</code> function can raise the following errors:</p>
-<ul>
-<li><strong>Error 13 (Type mismatch)</strong>: If the argument cannot be interpreted as a date</li>
-<li><strong>Error 5 (Invalid procedure call)</strong>: If the date is outside the valid range</li>
-<li><strong>Returns Null</strong>: If the input is Null (not an error)</li>
-</ul>
+<p>The <code>Year</code> function can raise the following errors:
+- <strong>Error 13 (Type mismatch)</strong>: If the argument cannot be interpreted as a date
+- <strong>Error 5 (Invalid procedure call)</strong>: If the date is outside the valid range
+- <strong>Returns Null</strong>: If the input is Null (not an error)</p>
 <h2 id="performance-notes">Performance Notes</h2>
 <ul>
 <li>Very fast operation - direct extraction from date value</li>

@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="right-function"><code>Right$</code> Function</h1>
+            <h1 id="right-function">Right$ Function</h1>
 <p>The <code>Right$</code> function in Visual Basic 6 returns a string containing a specified number of
 characters from the right side (end) of a string. The dollar sign (<code>$</code>) suffix indicates
 that this function always returns a <code>String</code> type, never a <code>Variant</code>.</p>
@@ -46,10 +46,10 @@ that this function always returns a <code>String</code> type, never a <code>Vari
 <h2 id="parameters">Parameters</h2>
 <ul>
 <li><code>string</code> - Required. String expression from which the rightmost characters are returned.
-If <code>string</code> contains <code>Null</code>, <code>Null</code> is returned.</li>
+  If <code>string</code> contains <code>Null</code>, <code>Null</code> is returned.</li>
 <li><code>length</code> - Required. Numeric expression indicating how many characters to return. If 0,
-a zero-length string ("") is returned. If greater than or equal to the number of characters
-in <code>string</code>, the entire string is returned.</li>
+  a zero-length string ("") is returned. If greater than or equal to the number of characters
+  in <code>string</code>, the entire string is returned.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>String</code> containing the rightmost <code>length</code> characters of <code>string</code>.</p>
@@ -76,15 +76,14 @@ in <code>string</code>, the entire string is returned.</li>
 <h2 id="common-usage-patterns">Common Usage Patterns</h2>
 <h3 id="1-extract-file-extension">1. Extract File Extension</h3>
 <pre><code class="language-vbnet">Function GetExtension(fileName As String) As String
-Dim dotPos As Integer
-dotPos = InStrRev(fileName, &quot;.&quot;)
-If dotPos &gt; 0 Then
-GetExtension = Right$(fileName, Len(fileName) - dotPos)
-Else
-GetExtension = &quot;&quot;
-End If
+    Dim dotPos As Integer
+    dotPos = InStrRev(fileName, &quot;.&quot;)
+    If dotPos &gt; 0 Then
+        GetExtension = Right$(fileName, Len(fileName) - dotPos)
+    Else
+        GetExtension = &quot;&quot;
+    End If
 End Function
-
 Dim ext As String
 ext = GetExtension(&quot;document.txt&quot;)  &#x27; Returns &quot;txt&quot;</code></pre>
 <h3 id="2-get-last-n-characters">2. Get Last N Characters</h3>
@@ -94,87 +93,80 @@ text = &quot;Hello World&quot;
 suffix = Right$(text, 5)  &#x27; Returns &quot;World&quot;</code></pre>
 <h3 id="3-extract-account-number-suffix">3. Extract Account Number Suffix</h3>
 <pre><code class="language-vbnet">Function GetAccountSuffix(accountNum As String) As String
-&#x27; Get last 4 digits of account number
-GetAccountSuffix = Right$(accountNum, 4)
+    &#x27; Get last 4 digits of account number
+    GetAccountSuffix = Right$(accountNum, 4)
 End Function
-
 Dim lastFour As String
 lastFour = GetAccountSuffix(&quot;1234567890&quot;)  &#x27; Returns &quot;7890&quot;</code></pre>
 <h3 id="4-pad-string-to-fixed-width">4. Pad String to Fixed Width</h3>
 <pre><code class="language-vbnet">Function PadLeft(text As String, width As Integer) As String
-Dim padded As String
-padded = Space(width) &amp; text
-PadLeft = Right$(padded, width)
+    Dim padded As String
+    padded = Space(width) &amp; text
+    PadLeft = Right$(padded, width)
 End Function
-
 Dim result As String
 result = PadLeft(&quot;42&quot;, 5)  &#x27; Returns &quot;   42&quot;</code></pre>
 <h3 id="5-extract-trailing-digits">5. Extract Trailing Digits</h3>
 <pre><code class="language-vbnet">Function GetTrailingNumber(text As String) As String
-Dim i As Integer
-Dim numChars As Integer
-For i = Len(text) To 1 Step -1
-If Not IsNumeric(Mid$(text, i, 1)) Then Exit For
-numChars = numChars + 1
-Next i
-If numChars &gt; 0 Then
-GetTrailingNumber = Right$(text, numChars)
-Else
-GetTrailingNumber = &quot;&quot;
-End If
+    Dim i As Integer
+    Dim numChars As Integer
+    For i = Len(text) To 1 Step -1
+        If Not IsNumeric(Mid$(text, i, 1)) Then Exit For
+        numChars = numChars + 1
+    Next i
+    If numChars &gt; 0 Then
+        GetTrailingNumber = Right$(text, numChars)
+    Else
+        GetTrailingNumber = &quot;&quot;
+    End If
 End Function
-
 Dim num As String
 num = GetTrailingNumber(&quot;Item123&quot;)  &#x27; Returns &quot;123&quot;</code></pre>
 <h3 id="6-time-component-extraction">6. Time Component Extraction</h3>
 <pre><code class="language-vbnet">Function GetSeconds(timeStr As String) As String
-&#x27; Extract seconds from &quot;HH:MM:SS&quot; format
-GetSeconds = Right$(timeStr, 2)
+    &#x27; Extract seconds from &quot;HH:MM:SS&quot; format
+    GetSeconds = Right$(timeStr, 2)
 End Function
-
 Dim secs As String
 secs = GetSeconds(&quot;14:30:45&quot;)  &#x27; Returns &quot;45&quot;</code></pre>
 <h3 id="7-validate-string-suffix">7. Validate String Suffix</h3>
 <pre><code class="language-vbnet">Function HasExtension(fileName As String, ext As String) As Boolean
-Dim fileExt As String
-fileExt = Right$(fileName, Len(ext))
-HasExtension = (UCase$(fileExt) = UCase$(ext))
+    Dim fileExt As String
+    fileExt = Right$(fileName, Len(ext))
+    HasExtension = (UCase$(fileExt) = UCase$(ext))
 End Function
-
 If HasExtension(&quot;report.pdf&quot;, &quot;.pdf&quot;) Then
-Debug.Print &quot;PDF file detected&quot;
+    Debug.Print &quot;PDF file detected&quot;
 End If</code></pre>
 <h3 id="8-extract-domain-from-email">8. Extract Domain from Email</h3>
 <pre><code class="language-vbnet">Function GetEmailDomain(email As String) As String
-Dim atPos As Integer
-atPos = InStr(email, &quot;@&quot;)
-If atPos &gt; 0 Then
-GetEmailDomain = Right$(email, Len(email) - atPos)
-Else
-GetEmailDomain = &quot;&quot;
-End If
+    Dim atPos As Integer
+    atPos = InStr(email, &quot;@&quot;)
+    If atPos &gt; 0 Then
+        GetEmailDomain = Right$(email, Len(email) - atPos)
+    Else
+        GetEmailDomain = &quot;&quot;
+    End If
 End Function
-
 Dim domain As String
 domain = GetEmailDomain(&quot;user@example.com&quot;)  &#x27; Returns &quot;example.com&quot;</code></pre>
 <h3 id="9-format-currency-display">9. Format Currency Display</h3>
 <pre><code class="language-vbnet">Function FormatAmount(amount As String) As String
-&#x27; Align decimal values
-Dim formatted As String
-formatted = Space(15) &amp; amount
-FormatAmount = Right$(formatted, 15)
+    &#x27; Align decimal values
+    Dim formatted As String
+    formatted = Space(15) &amp; amount
+    FormatAmount = Right$(formatted, 15)
 End Function</code></pre>
 <h3 id="10-extract-path-component">10. Extract Path Component</h3>
 <pre><code class="language-vbnet">Function GetFileName(fullPath As String) As String
-Dim slashPos As Integer
-slashPos = InStrRev(fullPath, &quot;\&quot;)
-If slashPos &gt; 0 Then
-GetFileName = Right$(fullPath, Len(fullPath) - slashPos)
-Else
-GetFileName = fullPath
-End If
+    Dim slashPos As Integer
+    slashPos = InStrRev(fullPath, &quot;\&quot;)
+    If slashPos &gt; 0 Then
+        GetFileName = Right$(fullPath, Len(fullPath) - slashPos)
+    Else
+        GetFileName = fullPath
+    End If
 End Function
-
 Dim fileName As String
 fileName = GetFileName(&quot;C:\Documents\report.txt&quot;)  &#x27; Returns &quot;report.txt&quot;</code></pre>
 <h2 id="related-functions">Related Functions</h2>
@@ -193,32 +185,31 @@ fileName = GetFileName(&quot;C:\Documents\report.txt&quot;)  &#x27; Returns &quo
 <pre><code class="language-vbnet">&#x27; Use Right$ when you need a String
 Dim fileName As String
 fileName = Right$(fullPath, 10)  &#x27; Type-safe, always returns String
-
 &#x27; Use Right when working with Variants or Null values
 Dim result As Variant
 result = Right(variantValue, 5)  &#x27; Can propagate Null</code></pre>
 <h3 id="validate-length-parameter">Validate Length Parameter</h3>
 <pre><code class="language-vbnet">Function SafeRight(text As String, length As Integer) As String
-If length &lt; 0 Then
-SafeRight = &quot;&quot;
-ElseIf length &gt;= Len(text) Then
-SafeRight = text
-Else
-SafeRight = Right$(text, length)
-End If
+    If length &lt; 0 Then
+        SafeRight = &quot;&quot;
+    ElseIf length &gt;= Len(text) Then
+        SafeRight = text
+    Else
+        SafeRight = Right$(text, length)
+    End If
 End Function</code></pre>
 <h3 id="check-for-empty-strings">Check for Empty Strings</h3>
 <pre><code class="language-vbnet">If Len(text) &gt; 0 Then
-suffix = Right$(text, 3)
+    suffix = Right$(text, 3)
 Else
-suffix = &quot;&quot;
+    suffix = &quot;&quot;
 End If</code></pre>
 <h3 id="use-with-instrrev-for-parsing">Use with <code>InStrRev</code> for Parsing</h3>
 <pre><code class="language-vbnet">&#x27; Find last occurrence and extract everything after it
 Dim pos As Integer
 pos = InStrRev(fullPath, &quot;\&quot;)
 If pos &gt; 0 Then
-fileName = Right$(fullPath, Len(fullPath) - pos)
+    fileName = Right$(fullPath, Len(fullPath) - pos)
 End If</code></pre>
 <h2 id="performance-considerations">Performance Considerations</h2>
 <ul>
@@ -229,23 +220,21 @@ End If</code></pre>
 </ul>
 <pre><code class="language-vbnet">&#x27; Less efficient
 For i = 1 To 1000
-result = Right$(largeString, Len(largeString) - 10)
+    result = Right$(largeString, Len(largeString) - 10)
 Next i
-
 &#x27; More efficient
 Dim strLen As Long
 strLen = Len(largeString)
 For i = 1 To 1000
-result = Right$(largeString, strLen - 10)
+    result = Right$(largeString, strLen - 10)
 Next i</code></pre>
 <h2 id="common-pitfalls">Common Pitfalls</h2>
 <h3 id="1-negative-length-values">1. Negative Length Values</h3>
 <pre><code class="language-vbnet">&#x27; Runtime error: Invalid procedure call or argument
 text = Right$(&quot;Hello&quot;, -1)  &#x27; ERROR!
-
 &#x27; Validate first
 If length &gt;= 0 Then
-text = Right$(source, length)
+    text = Right$(source, length)
 End If</code></pre>
 <h3 id="2-off-by-one-errors">2. Off-by-One Errors</h3>
 <pre><code class="language-vbnet">&#x27; Common mistake: forgetting to account for delimiter position
@@ -258,34 +247,31 @@ fileName = Right$(path, Len(path) - pos)</code></pre>
 <h3 id="3-not-checking-string-length">3. Not Checking String Length</h3>
 <pre><code class="language-vbnet">&#x27; Potential issue: what if text is shorter than 10 characters?
 suffix = Right$(text, 10)  &#x27; Returns entire string if text.Length &lt; 10
-
 &#x27; Better: check first
 If Len(text) &gt;= 10 Then
-suffix = Right$(text, 10)
+    suffix = Right$(text, 10)
 Else
-&#x27; Handle short string case
-suffix = text
+    &#x27; Handle short string case
+    suffix = text
 End If</code></pre>
 <h3 id="4-assuming-fixed-positions">4. Assuming Fixed Positions</h3>
 <pre><code class="language-vbnet">&#x27; Fragile: assumes extension is always 3 characters
 ext = Right$(fileName, 3)  &#x27; Fails for &quot;.html&quot;, &quot;.jpeg&quot;
-
 &#x27; Better: find the dot
 Dim dotPos As Integer
 dotPos = InStrRev(fileName, &quot;.&quot;)
 If dotPos &gt; 0 Then
-ext = Right$(fileName, Len(fileName) - dotPos)
+    ext = Right$(fileName, Len(fileName) - dotPos)
 End If</code></pre>
 <h3 id="5-null-value-handling">5. Null Value Handling</h3>
 <pre><code class="language-vbnet">&#x27; Right$ with Null causes runtime error
 Dim result As String
 result = Right$(nullValue, 5)  &#x27; ERROR if nullValue is Null
-
 &#x27; Protect against Null
 If Not IsNull(value) Then
-result = Right$(value, 5)
+    result = Right$(value, 5)
 Else
-result = &quot;&quot;
+    result = &quot;&quot;
 End If</code></pre>
 <h2 id="limitations">Limitations</h2>
 <ul>

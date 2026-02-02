@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="atn-function"><code>Atn</code> Function</h1>
+            <h1 id="atn-function">Atn Function</h1>
 <p>Returns a <code>Double</code> specifying the arctangent of a number.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">Atn(number)</code></pre>
@@ -46,12 +46,10 @@
 <li><code>number</code> - Required. A <code>Double</code> or any valid numeric expression. The tangent value for which you want the angle.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
-<p>Returns a <code>Double</code> representing the arctangent of the number in radians.</p>
-<ul>
-<li>The result is in the range -π/2 to π/2 radians (-90° to 90°)</li>
-<li>To convert from radians to degrees, multiply by 180/π (approximately 57.2957795130823)</li>
-<li>To convert from degrees to radians, multiply by π/180 (approximately 0.0174532925199433)</li>
-</ul>
+<p>Returns a <code>Double</code> representing the arctangent of the number in radians.
+- The result is in the range -π/2 to π/2 radians (-90° to 90°)
+- To convert from radians to degrees, multiply by 180/π (approximately 57.2957795130823)
+- To convert from degrees to radians, multiply by π/180 (approximately 0.0174532925199433)</p>
 <h2 id="remarks">Remarks</h2>
 <p>The <code>Atn</code> function takes the ratio of two sides of a right triangle (opposite/adjacent) and
 returns the corresponding angle in radians. This is the inverse of the tangent function.</p>
@@ -66,7 +64,6 @@ returns the corresponding angle in radians. This is the inverse of the tangent f
 <h3 id="mathematical-relationship">Mathematical Relationship</h3>
 <pre><code class="language-vbnet">&#x27; For a right triangle:
 angle = Atn(opposite / adjacent)
-
 &#x27; Converting between functions:
 Tan(Atn(x)) = x    &#x27; Always true
 Atn(Tan(x)) = x    &#x27; True when -π/2 &lt; x &lt; π/2</code></pre>
@@ -87,177 +84,161 @@ angle = Atn(-1)             &#x27; Returns -π/4 (approx -0.785398) = -45°
 angle = Atn(1.732050808)    &#x27; Returns π/3 (approx 1.047198) = 60°</code></pre>
 <h3 id="converting-to-degrees">Converting to Degrees</h3>
 <pre><code class="language-vbnet">Function AtnDegrees(tangent As Double) As Double
-Const PI As Double = 3.14159265358979
-AtnDegrees = Atn(tangent) * 180 / PI
+    Const PI As Double = 3.14159265358979
+    AtnDegrees = Atn(tangent) * 180 / PI
 End Function
-
 &#x27; Usage:
 angle = AtnDegrees(1)       &#x27; Returns 45 degrees</code></pre>
 <h3 id="calculating-angle-from-triangle-sides">Calculating Angle from Triangle Sides</h3>
 <pre><code class="language-vbnet">Function AngleFromSides(opposite As Double, adjacent As Double) As Double
-&#x27; Returns angle in radians
-AngleFromSides = Atn(opposite / adjacent)
+    &#x27; Returns angle in radians
+    AngleFromSides = Atn(opposite / adjacent)
 End Function
-
 &#x27; For a right triangle with opposite=3, adjacent=4:
 angle = AngleFromSides(3, 4)    &#x27; Returns angle in radians</code></pre>
 <h3 id="calculating">Calculating π</h3>
 <pre><code class="language-vbnet">Function CalculatePi() As Double
-&#x27; Since Atn(1) = π/4, then 4 * Atn(1) = π
-CalculatePi = 4 * Atn(1)
+    &#x27; Since Atn(1) = π/4, then 4 * Atn(1) = π
+    CalculatePi = 4 * Atn(1)
 End Function</code></pre>
 <h3 id="full-circle-angle-calculation-atn2-emulation">Full Circle Angle Calculation (Atn2 Emulation)</h3>
 <pre><code class="language-vbnet">Function Atn2(y As Double, x As Double) As Double
-&#x27; Emulates atan2 function for full circle (-π to π)
-Const PI As Double = 3.14159265358979
-
-If x &gt; 0 Then
-Atn2 = Atn(y / x)
-ElseIf x &lt; 0 Then
-If y &gt;= 0 Then
-Atn2 = Atn(y / x) + PI
-Else
-Atn2 = Atn(y / x) - PI
-End If
-ElseIf y &gt; 0 Then
-Atn2 = PI / 2
-ElseIf y &lt; 0 Then
-Atn2 = -PI / 2
-Else
-Atn2 = 0  &#x27; Undefined, but return 0
-End If
+    &#x27; Emulates atan2 function for full circle (-π to π)
+    Const PI As Double = 3.14159265358979
+    If x &gt; 0 Then
+        Atn2 = Atn(y / x)
+    ElseIf x &lt; 0 Then
+        If y &gt;= 0 Then
+            Atn2 = Atn(y / x) + PI
+        Else
+            Atn2 = Atn(y / x) - PI
+        End If
+    ElseIf y &gt; 0 Then
+        Atn2 = PI / 2
+    ElseIf y &lt; 0 Then
+        Atn2 = -PI / 2
+    Else
+        Atn2 = 0  &#x27; Undefined, but return 0
+    End If
 End Function</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="1-slope-to-angle-conversion">1. Slope to Angle Conversion</h3>
 <pre><code class="language-vbnet">Dim slope As Double
 Dim angleRadians As Double
 Dim angleDegrees As Double
-
 slope = 0.5  &#x27; Rise over run
 angleRadians = Atn(slope)
 angleDegrees = angleRadians * 180 / (4 * Atn(1))</code></pre>
 <h3 id="2-direction-calculation">2. Direction Calculation</h3>
 <pre><code class="language-vbnet">Function GetDirection(deltaX As Double, deltaY As Double) As Double
-&#x27; Returns angle in degrees (0-360)
-Const PI As Double = 3.14159265358979
-Dim angle As Double
-
-If deltaX = 0 Then
-If deltaY &gt; 0 Then
-angle = 90
-ElseIf deltaY &lt; 0 Then
-angle = 270
-Else
-angle = 0
-End If
-Else
-angle = Atn(deltaY / deltaX) * 180 / PI
-If deltaX &lt; 0 Then angle = angle + 180
-If angle &lt; 0 Then angle = angle + 360
-End If
-
-GetDirection = angle
+    &#x27; Returns angle in degrees (0-360)
+    Const PI As Double = 3.14159265358979
+    Dim angle As Double
+    If deltaX = 0 Then
+        If deltaY &gt; 0 Then
+            angle = 90
+        ElseIf deltaY &lt; 0 Then
+            angle = 270
+        Else
+            angle = 0
+        End If
+    Else
+        angle = Atn(deltaY / deltaX) * 180 / PI
+        If deltaX &lt; 0 Then angle = angle + 180
+        If angle &lt; 0 Then angle = angle + 360
+    End If
+    GetDirection = angle
 End Function</code></pre>
 <h3 id="3-distance-and-angle-from-origin">3. Distance and Angle from Origin</h3>
 <pre><code class="language-vbnet">Sub GetPolarCoordinates(x As Double, y As Double, _
-distance As Double, angle As Double)
-distance = Sqr(x * x + y * y)
-
-If x = 0 Then
-If y &gt; 0 Then
-angle = 90
-Else
-angle = 270
-End If
-Else
-angle = Atn(y / x) * 180 / (4 * Atn(1))
-If x &lt; 0 Then angle = angle + 180
-End If
+                        distance As Double, angle As Double)
+    distance = Sqr(x * x + y * y)
+    If x = 0 Then
+        If y &gt; 0 Then
+            angle = 90
+        Else
+            angle = 270
+        End If
+    Else
+        angle = Atn(y / x) * 180 / (4 * Atn(1))
+        If x &lt; 0 Then angle = angle + 180
+    End If
 End Sub</code></pre>
 <h3 id="4-graphics-rotation">4. Graphics Rotation</h3>
 <pre><code class="language-vbnet">Function RotatePoint(x As Double, y As Double, _
-centerX As Double, centerY As Double, _
-angleDegrees As Double)
-Const PI As Double = 3.14159265358979
-Dim angleRadians As Double
-Dim currentAngle As Double
-Dim distance As Double
-Dim newAngle As Double
-
-&#x27; Get current angle and distance from center
-distance = Sqr((x - centerX) ^ 2 + (y - centerY) ^ 2)
-currentAngle = Atn((y - centerY) / (x - centerX))
-
-&#x27; Calculate new angle
-angleRadians = angleDegrees * PI / 180
-newAngle = currentAngle + angleRadians
-
-&#x27; Calculate new position
-x = centerX + distance * Cos(newAngle)
-y = centerY + distance * Sin(newAngle)
+                    centerX As Double, centerY As Double, _
+                    angleDegrees As Double)
+    Const PI As Double = 3.14159265358979
+    Dim angleRadians As Double
+    Dim currentAngle As Double
+    Dim distance As Double
+    Dim newAngle As Double
+    &#x27; Get current angle and distance from center
+    distance = Sqr((x - centerX) ^ 2 + (y - centerY) ^ 2)
+    currentAngle = Atn((y - centerY) / (x - centerX))
+    &#x27; Calculate new angle
+    angleRadians = angleDegrees * PI / 180
+    newAngle = currentAngle + angleRadians
+    &#x27; Calculate new position
+    x = centerX + distance * Cos(newAngle)
+    y = centerY + distance * Sin(newAngle)
 End Function</code></pre>
 <h3 id="5-navigation-bearing">5. Navigation Bearing</h3>
 <pre><code class="language-vbnet">Function CalculateBearing(lat1 As Double, lon1 As Double, _
-lat2 As Double, lon2 As Double) As Double
-Const PI As Double = 3.14159265358979
-Dim dLon As Double
-Dim y As Double
-Dim x As Double
-Dim bearing As Double
-
-dLon = lon2 - lon1
-y = Sin(dLon) * Cos(lat2)
-x = Cos(lat1) * Sin(lat2) - Sin(lat1) * Cos(lat2) * Cos(dLon)
-bearing = Atn(y / x) * 180 / PI
-
-&#x27; Normalize to 0-360
-CalculateBearing = (bearing + 360) Mod 360
+                         lat2 As Double, lon2 As Double) As Double
+    Const PI As Double = 3.14159265358979
+    Dim dLon As Double
+    Dim y As Double
+    Dim x As Double
+    Dim bearing As Double
+    dLon = lon2 - lon1
+    y = Sin(dLon) * Cos(lat2)
+    x = Cos(lat1) * Sin(lat2) - Sin(lat1) * Cos(lat2) * Cos(dLon)
+    bearing = Atn(y / x) * 180 / PI
+    &#x27; Normalize to 0-360
+    CalculateBearing = (bearing + 360) Mod 360
 End Function</code></pre>
 <h3 id="6-inverse-trigonometry-relationships">6. Inverse Trigonometry Relationships</h3>
 <pre><code class="language-vbnet">&#x27; Calculate arcsine using Atn
 Function Asin(x As Double) As Double
-Asin = Atn(x / Sqr(1 - x * x))
+    Asin = Atn(x / Sqr(1 - x * x))
 End Function
-
 &#x27; Calculate arccosine using Atn
 Function Acos(x As Double) As Double
-Const PI As Double = 3.14159265358979
-Acos = PI / 2 - Atn(x / Sqr(1 - x * x))
+    Const PI As Double = 3.14159265358979
+    Acos = PI / 2 - Atn(x / Sqr(1 - x * x))
 End Function</code></pre>
 <h3 id="7-tangent-line-slope">7. Tangent Line Slope</h3>
 <pre><code class="language-vbnet">Function GetTangentAngle(x1 As Double, y1 As Double, _
-x2 As Double, y2 As Double) As Double
-Dim slope As Double
-Const PI As Double = 3.14159265358979
-
-If x2 = x1 Then
-GetTangentAngle = 90  &#x27; Vertical line
-Else
-slope = (y2 - y1) / (x2 - x1)
-GetTangentAngle = Atn(slope) * 180 / PI
-End If
+                        x2 As Double, y2 As Double) As Double
+    Dim slope As Double
+    Const PI As Double = 3.14159265358979
+    If x2 = x1 Then
+        GetTangentAngle = 90  &#x27; Vertical line
+    Else
+        slope = (y2 - y1) / (x2 - x1)
+        GetTangentAngle = Atn(slope) * 180 / PI
+    End If
 End Function</code></pre>
 <h3 id="8-game-development-projectile-angle">8. Game Development - Projectile Angle</h3>
 <pre><code class="language-vbnet">Function AimAngle(shooterX As Double, shooterY As Double, _
-targetX As Double, targetY As Double) As Double
-Const PI As Double = 3.14159265358979
-Dim deltaX As Double
-Dim deltaY As Double
-
-deltaX = targetX - shooterX
-deltaY = targetY - shooterY
-
-If deltaX = 0 Then
-If deltaY &gt; 0 Then
-AimAngle = 90
-Else
-AimAngle = 270
-End If
-Else
-AimAngle = Atn(deltaY / deltaX) * 180 / PI
-If deltaX &lt; 0 Then AimAngle = AimAngle + 180
-If AimAngle &lt; 0 Then AimAngle = AimAngle + 360
-End If
+                  targetX As Double, targetY As Double) As Double
+    Const PI As Double = 3.14159265358979
+    Dim deltaX As Double
+    Dim deltaY As Double
+    deltaX = targetX - shooterX
+    deltaY = targetY - shooterY
+    If deltaX = 0 Then
+        If deltaY &gt; 0 Then
+            AimAngle = 90
+        Else
+            AimAngle = 270
+        End If
+    Else
+        AimAngle = Atn(deltaY / deltaX) * 180 / PI
+        If deltaX &lt; 0 Then AimAngle = AimAngle + 180
+        If AimAngle &lt; 0 Then AimAngle = AimAngle + 360
+    End If
 End Function</code></pre>
 <h2 id="common-trigonometric-values">Common Trigonometric Values</h2>
 <table>

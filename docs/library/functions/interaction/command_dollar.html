@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="command-function"><code>Command$</code> Function</h1>
+            <h1 id="command-function">Command$ Function</h1>
 <p>Returns the argument portion of the command line used to launch Microsoft Visual Basic or an
 executable program developed with Visual Basic. The dollar sign suffix (<code>$</code>) explicitly
 indicates that this function returns a <code>String</code> type (not a <code>Variant</code>).</p>
@@ -78,210 +78,184 @@ were passed, returns an empty string (""). The return value is always a <code>St
 <h2 id="basic-examples">Basic Examples</h2>
 <pre><code class="language-vbnet">&#x27; Example 1: Get command line arguments
 Sub Main()
-Dim cmdLine As String
-cmdLine = Command$()
-MsgBox &quot;Arguments: &quot; &amp; cmdLine
+    Dim cmdLine As String
+    cmdLine = Command$()
+    MsgBox &quot;Arguments: &quot; &amp; cmdLine
 End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 2: Check if arguments provided
 Sub Main()
-If Command$() &lt;&gt; &quot;&quot; Then
-MsgBox &quot;Arguments: &quot; &amp; Command$()
-Else
-MsgBox &quot;No arguments&quot;
-End If
+    If Command$() &lt;&gt; &quot;&quot; Then
+        MsgBox &quot;Arguments: &quot; &amp; Command$()
+    Else
+        MsgBox &quot;No arguments&quot;
+    End If
 End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 3: Simple file opener
 Sub Main()
-Dim filename As String
-filename = Trim$(Command$())
-If filename &lt;&gt; &quot;&quot; Then
-OpenFile filename
-End If
+    Dim filename As String
+    filename = Trim$(Command$())
+    If filename &lt;&gt; &quot;&quot; Then
+        OpenFile filename
+    End If
 End Sub</code></pre>
 <pre><code class="language-vbnet">&#x27; Example 4: Check for debug mode
 Sub Main()
-If InStr(Command$(), &quot;/debug&quot;) &gt; 0 Then
-EnableDebugMode
-End If
+    If InStr(Command$(), &quot;/debug&quot;) &gt; 0 Then
+        EnableDebugMode
+    End If
 End Sub</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="processing-multiple-arguments">Processing Multiple Arguments</h3>
 <pre><code class="language-vbnet">Function ParseArguments() As Collection
-Dim args As String
-Dim result As New Collection
-Dim parts() As String
-
-args = Command$()
-If args = &quot;&quot; Then
-Set ParseArguments = result
-Exit Function
-End If
-
-parts = Split(args, &quot; &quot;)
-Dim i As Integer
-For i = LBound(parts) To UBound(parts)
-If Trim$(parts(i)) &lt;&gt; &quot;&quot; Then
-result.Add Trim$(parts(i))
-End If
-Next i
-
-Set ParseArguments = result
+    Dim args As String
+    Dim result As New Collection
+    Dim parts() As String
+    args = Command$()
+    If args = &quot;&quot; Then
+        Set ParseArguments = result
+        Exit Function
+    End If
+    parts = Split(args, &quot; &quot;)
+    Dim i As Integer
+    For i = LBound(parts) To UBound(parts)
+        If Trim$(parts(i)) &lt;&gt; &quot;&quot; Then
+            result.Add Trim$(parts(i))
+        End If
+    Next i
+    Set ParseArguments = result
 End Function</code></pre>
 <h3 id="processing-switches-and-parameters">Processing Switches and Parameters</h3>
 <pre><code class="language-vbnet">Sub Main()
-Dim args As String
-args = Command$()
-
-&#x27; Check for various switches
-If InStr(args, &quot;/debug&quot;) &gt; 0 Then
-App.LogMode = 1
-End If
-
-If InStr(args, &quot;/silent&quot;) &gt; 0 Then
-App.SilentMode = True
-End If
-
-If InStr(args, &quot;/verbose&quot;) &gt; 0 Then
-App.VerboseMode = True
-End If
+    Dim args As String
+    args = Command$()
+    &#x27; Check for various switches
+    If InStr(args, &quot;/debug&quot;) &gt; 0 Then
+        App.LogMode = 1
+    End If
+    If InStr(args, &quot;/silent&quot;) &gt; 0 Then
+        App.SilentMode = True
+    End If
+    If InStr(args, &quot;/verbose&quot;) &gt; 0 Then
+        App.VerboseMode = True
+    End If
 End Sub</code></pre>
 <h3 id="opening-file-from-command-line">Opening File from Command Line</h3>
 <pre><code class="language-vbnet">Sub Main()
-Dim filename As String
-filename = Trim$(Command$())
-
-If filename &lt;&gt; &quot;&quot; Then
-&#x27; Remove surrounding quotes if present
-If Left$(filename, 1) = Chr$(34) Then
-filename = Mid$(filename, 2)
-End If
-If Right$(filename, 1) = Chr$(34) Then
-filename = Left$(filename, Len(filename) - 1)
-End If
-
-&#x27; Verify file exists and open it
-If Dir$(filename) &lt;&gt; &quot;&quot; Then
-LoadDocument filename
-Else
-MsgBox &quot;File not found: &quot; &amp; filename
-End If
-End If
+    Dim filename As String
+    filename = Trim$(Command$())
+    If filename &lt;&gt; &quot;&quot; Then
+        &#x27; Remove surrounding quotes if present
+        If Left$(filename, 1) = Chr$(34) Then
+            filename = Mid$(filename, 2)
+        End If
+        If Right$(filename, 1) = Chr$(34) Then
+            filename = Left$(filename, Len(filename) - 1)
+        End If
+        &#x27; Verify file exists and open it
+        If Dir$(filename) &lt;&gt; &quot;&quot; Then
+            LoadDocument filename
+        Else
+            MsgBox &quot;File not found: &quot; &amp; filename
+        End If
+    End If
 End Sub</code></pre>
 <h3 id="named-parameter-extraction">Named Parameter Extraction</h3>
 <pre><code class="language-vbnet">Function GetParameter(paramName As String) As String
-Dim args As String
-Dim pos As Integer
-Dim endPos As Integer
-Dim result As String
-
-args = &quot; &quot; &amp; Command$() &amp; &quot; &quot;
-pos = InStr(1, args, &quot;/&quot; &amp; paramName &amp; &quot;:&quot;, vbTextCompare)
-
-If pos &gt; 0 Then
-pos = pos + Len(paramName) + 2
-endPos = InStr(pos, args, &quot; &quot;)
-If endPos &gt; pos Then
-result = Mid$(args, pos, endPos - pos)
-End If
-End If
-
-GetParameter = result
+    Dim args As String
+    Dim pos As Integer
+    Dim endPos As Integer
+    Dim result As String
+    args = &quot; &quot; &amp; Command$() &amp; &quot; &quot;
+    pos = InStr(1, args, &quot;/&quot; &amp; paramName &amp; &quot;:&quot;, vbTextCompare)
+    If pos &gt; 0 Then
+        pos = pos + Len(paramName) + 2
+        endPos = InStr(pos, args, &quot; &quot;)
+        If endPos &gt; pos Then
+            result = Mid$(args, pos, endPos - pos)
+        End If
+    End If
+    GetParameter = result
 End Function</code></pre>
 <h3 id="logging-startup-arguments">Logging Startup Arguments</h3>
 <pre><code class="language-vbnet">Sub Main()
-Dim args As String
-Dim logFile As Integer
-
-args = Command$()
-
-logFile = FreeFile
-Open App.Path &amp; &quot;\startup.log&quot; For Append As #logFile
-Print #logFile, Now &amp; &quot; - Started with args: &quot; &amp; args
-Close #logFile
+    Dim args As String
+    Dim logFile As Integer
+    args = Command$()
+    logFile = FreeFile
+    Open App.Path &amp; &quot;\startup.log&quot; For Append As #logFile
+    Print #logFile, Now &amp; &quot; - Started with args: &quot; &amp; args
+    Close #logFile
 End Sub</code></pre>
 <h3 id="configuration-from-command-line">Configuration from Command Line</h3>
 <pre><code class="language-vbnet">Sub Main()
-Dim args As String
-args = UCase$(Command$())
-
-&#x27; Set configuration based on arguments
-If InStr(args, &quot;/SERVER:&quot;) &gt; 0 Then
-App.ServerName = GetParameter(&quot;server&quot;)
-End If
-
-If InStr(args, &quot;/PORT:&quot;) &gt; 0 Then
-App.Port = Val(GetParameter(&quot;port&quot;))
-End If
-
-If InStr(args, &quot;/USER:&quot;) &gt; 0 Then
-App.UserName = GetParameter(&quot;user&quot;)
-End If
+    Dim args As String
+    args = UCase$(Command$())
+    &#x27; Set configuration based on arguments
+    If InStr(args, &quot;/SERVER:&quot;) &gt; 0 Then
+        App.ServerName = GetParameter(&quot;server&quot;)
+    End If
+    If InStr(args, &quot;/PORT:&quot;) &gt; 0 Then
+        App.Port = Val(GetParameter(&quot;port&quot;))
+    End If
+    If InStr(args, &quot;/USER:&quot;) &gt; 0 Then
+        App.UserName = GetParameter(&quot;user&quot;)
+    End If
 End Sub</code></pre>
 <h3 id="help-display">Help Display</h3>
 <pre><code class="language-vbnet">Sub Main()
-Dim args As String
-args = LCase$(Trim$(Command$()))
-
-If args = &quot;/?&quot; Or args = &quot;-?&quot; Or args = &quot;/help&quot; Or args = &quot;-help&quot; Then
-DisplayHelp
-End
-End If
+    Dim args As String
+    args = LCase$(Trim$(Command$()))
+    If args = &quot;/?&quot; Or args = &quot;-?&quot; Or args = &quot;/help&quot; Or args = &quot;-help&quot; Then
+        DisplayHelp
+        End
+    End If
 End Sub
-
 Sub DisplayHelp()
-Dim helpText As String
-helpText = &quot;Usage: MyApp [options]&quot; &amp; vbCrLf
-helpText = helpText &amp; &quot;/debug    - Enable debug mode&quot; &amp; vbCrLf
-helpText = helpText &amp; &quot;/silent   - Run in silent mode&quot; &amp; vbCrLf
-helpText = helpText &amp; &quot;/file:xxx - Open specified file&quot; &amp; vbCrLf
-MsgBox helpText
+    Dim helpText As String
+    helpText = &quot;Usage: MyApp [options]&quot; &amp; vbCrLf
+    helpText = helpText &amp; &quot;/debug    - Enable debug mode&quot; &amp; vbCrLf
+    helpText = helpText &amp; &quot;/silent   - Run in silent mode&quot; &amp; vbCrLf
+    helpText = helpText &amp; &quot;/file:xxx - Open specified file&quot; &amp; vbCrLf
+    MsgBox helpText
 End Sub</code></pre>
 <h3 id="batch-mode-processing">Batch Mode Processing</h3>
 <pre><code class="language-vbnet">Sub Main()
-Dim args As String
-Dim files() As String
-Dim i As Integer
-
-args = Command$()
-
-If InStr(args, &quot;/batch&quot;) &gt; 0 Then
-&#x27; Parse file list
-files = Split(Replace$(args, &quot;/batch&quot;, &quot;&quot;), &quot; &quot;)
-
-For i = LBound(files) To UBound(files)
-If Trim$(files(i)) &lt;&gt; &quot;&quot; Then
-ProcessFile Trim$(files(i))
-End If
-Next i
-
-End  &#x27; Exit after batch processing
-End If
+    Dim args As String
+    Dim files() As String
+    Dim i As Integer
+    args = Command$()
+    If InStr(args, &quot;/batch&quot;) &gt; 0 Then
+        &#x27; Parse file list
+        files = Split(Replace$(args, &quot;/batch&quot;, &quot;&quot;), &quot; &quot;)
+        For i = LBound(files) To UBound(files)
+            If Trim$(files(i)) &lt;&gt; &quot;&quot; Then
+                ProcessFile Trim$(files(i))
+            End If
+        Next i
+        End  &#x27; Exit after batch processing
+    End If
 End Sub</code></pre>
 <h3 id="error-recovery">Error Recovery</h3>
 <pre><code class="language-vbnet">Sub Main()
-On Error GoTo ErrorHandler
-
-Dim args As String
-args = Command$()
-
-&#x27; Process arguments
-If args &lt;&gt; &quot;&quot; Then
-ProcessCommandLine args
-End If
-
-Exit Sub
-
+    On Error GoTo ErrorHandler
+    Dim args As String
+    args = Command$()
+    &#x27; Process arguments
+    If args &lt;&gt; &quot;&quot; Then
+        ProcessCommandLine args
+    End If
+    Exit Sub
 ErrorHandler:
-MsgBox &quot;Error processing command line: &quot; &amp; args &amp; vbCrLf &amp; _
-&quot;Error: &quot; &amp; Err.Description
-End
+    MsgBox &quot;Error processing command line: &quot; &amp; args &amp; vbCrLf &amp; _
+           &quot;Error: &quot; &amp; Err.Description
+    End
 End Sub</code></pre>
 <h3 id="case-insensitive-switch-detection">Case-Insensitive Switch Detection</h3>
 <pre><code class="language-vbnet">Function HasSwitch(switchName As String) As Boolean
-Dim args As String
-args = &quot; &quot; &amp; UCase$(Command$()) &amp; &quot; &quot;
-switchName = &quot; /&quot; &amp; UCase$(switchName) &amp; &quot; &quot;
-HasSwitch = (InStr(args, switchName) &gt; 0)
+    Dim args As String
+    args = &quot; &quot; &amp; UCase$(Command$()) &amp; &quot; &quot;
+    switchName = &quot; /&quot; &amp; UCase$(switchName) &amp; &quot; &quot;
+    HasSwitch = (InStr(args, switchName) &gt; 0)
 End Function</code></pre>
 <h2 id="related-functions">Related Functions</h2>
 <ul>

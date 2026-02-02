@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="formatcurrency-function"><code>FormatCurrency</code> Function</h1>
+            <h1 id="formatcurrency-function">FormatCurrency Function</h1>
 <p>Returns an expression formatted as a currency value using the currency symbol defined in the system control panel.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">FormatCurrency(expression[, numdigitsafterdecimal[, includeleadingdigit[, useparensfornegativenumbers[, groupdigits]]]])</code></pre>
@@ -50,31 +50,27 @@
 <li><strong>groupdigits</strong>: Optional. Tristate constant that indicates whether numbers are grouped using the group delimiter specified in the computer's regional settings. See Settings for values.</li>
 </ul>
 <h2 id="settings">Settings</h2>
-<p>The includeleadingdigit, useparensfornegativenumbers, and groupdigits arguments have the following settings:</p>
-<ul>
-<li><strong>vbTrue</strong> (-1): True</li>
-<li><strong>vbFalse</strong> (0): False</li>
-<li><strong>vbUseDefault</strong> (-2): Use the setting from the computer's regional settings</li>
-</ul>
+<p>The includeleadingdigit, useparensfornegativenumbers, and groupdigits arguments have the following settings:
+- <strong>vbTrue</strong> (-1): True
+- <strong>vbFalse</strong> (0): False
+- <strong>vbUseDefault</strong> (-2): Use the setting from the computer's regional settings</p>
 <h2 id="return-value">Return Value</h2>
 <p>Returns a <code>Variant</code> of subtype <code>String</code> containing the expression formatted as a currency value.</p>
 <h2 id="remarks">Remarks</h2>
 <p>The <code>FormatCurrency</code> function provides a simple way to format numbers as currency values
 using the system's locale settings. It automatically applies the currency symbol, decimal
-separator, thousand separator, and negative number formatting according to regional settings.</p>
-<p><strong>Important Characteristics:</strong></p>
-<ul>
-<li>Uses system locale for currency symbol and formatting</li>
-<li>Default: 2 decimal places (from regional settings)</li>
-<li>Automatically adds thousand separators</li>
-<li>Negative numbers can be displayed with parentheses or minus sign</li>
-<li>Leading zeros controlled by regional settings or parameter</li>
-<li>Currency symbol position depends on locale (before or after amount)</li>
-<li>Returns empty string if expression is Null</li>
-<li>More convenient than <code>Format</code> for simple currency formatting</li>
-<li>Less flexible than <code>Format</code> for custom patterns</li>
-<li>Locale-aware (respects user's regional settings)</li>
-</ul>
+separator, thousand separator, and negative number formatting according to regional settings.
+<strong>Important Characteristics:</strong>
+- Uses system locale for currency symbol and formatting
+- Default: 2 decimal places (from regional settings)
+- Automatically adds thousand separators
+- Negative numbers can be displayed with parentheses or minus sign
+- Leading zeros controlled by regional settings or parameter
+- Currency symbol position depends on locale (before or after amount)
+- Returns empty string if expression is Null
+- More convenient than <code>Format</code> for simple currency formatting
+- Less flexible than <code>Format</code> for custom patterns
+- Locale-aware (respects user's regional settings)</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ul>
 <li>Display prices and monetary amounts</li>
@@ -90,333 +86,287 @@ separator, thousand separator, and negative number formatting according to regio
 <h3 id="basic-usage">Basic Usage</h3>
 <pre><code class="language-vbnet">Dim amount As Double
 amount = 1234.567
-
 &#x27; Default formatting (2 decimal places, system settings)
 Debug.Print FormatCurrency(amount)           &#x27; $1,234.57
-
 &#x27; No decimal places
 Debug.Print FormatCurrency(amount, 0)        &#x27; $1,235
-
 &#x27; Three decimal places
 Debug.Print FormatCurrency(amount, 3)        &#x27; $1,234.567
-
 &#x27; Negative with parentheses
 Debug.Print FormatCurrency(-500, , , vbTrue) &#x27; ($500.00)</code></pre>
 <h3 id="handling-negative-values">Handling Negative Values</h3>
 <pre><code class="language-vbnet">Dim balance As Double
 balance = -1250.50
-
 &#x27; Default negative (with minus sign)
 Debug.Print FormatCurrency(balance)          &#x27; -$1,250.50
-
 &#x27; Parentheses for negative
 Debug.Print FormatCurrency(balance, 2, , vbTrue)  &#x27; ($1,250.50)
-
 &#x27; No parentheses (explicit)
 Debug.Print FormatCurrency(balance, 2, , vbFalse) &#x27; -$1,250.50</code></pre>
 <h3 id="control-leading-digits">Control Leading Digits</h3>
 <pre><code class="language-vbnet">Dim fraction As Double
 fraction = 0.75
-
 &#x27; With leading zero (default)
 Debug.Print FormatCurrency(fraction)         &#x27; $0.75
-
 &#x27; No leading zero
 Debug.Print FormatCurrency(fraction, 2, vbFalse)  &#x27; $.75
-
 &#x27; Explicit leading zero
 Debug.Print FormatCurrency(fraction, 2, vbTrue)   &#x27; $0.75</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="format-invoice-line-items">Format Invoice Line Items</h3>
 <pre><code class="language-vbnet">Sub DisplayInvoiceLines(items As Collection)
-Dim item As Variant
-Dim total As Double
-
-Debug.Print &quot;Item&quot;, &quot;Quantity&quot;, &quot;Price&quot;, &quot;Amount&quot;
-Debug.Print String(60, &quot;-&quot;)
-
-total = 0
-For Each item In items
-Debug.Print item.Name, _
-item.Quantity, _
-FormatCurrency(item.Price), _
-FormatCurrency(item.Quantity * item.Price)
-total = total + (item.Quantity * item.Price)
-Next item
-
-Debug.Print String(60, &quot;-&quot;)
-Debug.Print &quot;Total:&quot;, , , FormatCurrency(total)
+    Dim item As Variant
+    Dim total As Double
+    Debug.Print &quot;Item&quot;, &quot;Quantity&quot;, &quot;Price&quot;, &quot;Amount&quot;
+    Debug.Print String(60, &quot;-&quot;)
+    total = 0
+    For Each item In items
+        Debug.Print item.Name, _
+                    item.Quantity, _
+                    FormatCurrency(item.Price), _
+                    FormatCurrency(item.Quantity * item.Price)
+        total = total + (item.Quantity * item.Price)
+    Next item
+    Debug.Print String(60, &quot;-&quot;)
+    Debug.Print &quot;Total:&quot;, , , FormatCurrency(total)
 End Sub</code></pre>
 <h3 id="format-account-balance-with-parentheses">Format Account Balance with Parentheses</h3>
 <pre><code class="language-vbnet">Function FormatAccountBalance(balance As Double) As String
-&#x27; Show negative balances in parentheses (accounting style)
-FormatAccountBalance = FormatCurrency(balance, 2, vbTrue, vbTrue, vbTrue)
+    &#x27; Show negative balances in parentheses (accounting style)
+    FormatAccountBalance = FormatCurrency(balance, 2, vbTrue, vbTrue, vbTrue)
 End Function
-
 &#x27; Usage
 Debug.Print FormatAccountBalance(1500)       &#x27; $1,500.00
 Debug.Print FormatAccountBalance(-250.50)    &#x27; ($250.50)</code></pre>
 <h3 id="create-price-display">Create Price Display</h3>
 <pre><code class="language-vbnet">Function FormatPrice(price As Double, showCents As Boolean) As String
-If showCents Then
-FormatPrice = FormatCurrency(price, 2)
-Else
-FormatPrice = FormatCurrency(price, 0)
-End If
+    If showCents Then
+        FormatPrice = FormatCurrency(price, 2)
+    Else
+        FormatPrice = FormatCurrency(price, 0)
+    End If
 End Function
-
 &#x27; Usage
 Debug.Print FormatPrice(19.99, True)         &#x27; $19.99
 Debug.Print FormatPrice(19.99, False)        &#x27; $20</code></pre>
 <h3 id="display-transaction-summary">Display Transaction Summary</h3>
 <pre><code class="language-vbnet">Sub ShowTransactionSummary(credits As Double, debits As Double)
-Dim balance As Double
-
-Debug.Print &quot;Transaction Summary&quot;
-Debug.Print String(40, &quot;=&quot;)
-Debug.Print &quot;Credits:  &quot;, FormatCurrency(credits)
-Debug.Print &quot;Debits:   &quot;, FormatCurrency(debits, 2, , vbTrue)
-Debug.Print String(40, &quot;-&quot;)
-
-balance = credits - debits
-Debug.Print &quot;Balance:  &quot;, FormatCurrency(balance, 2, , vbTrue)
+    Dim balance As Double
+    Debug.Print &quot;Transaction Summary&quot;
+    Debug.Print String(40, &quot;=&quot;)
+    Debug.Print &quot;Credits:  &quot;, FormatCurrency(credits)
+    Debug.Print &quot;Debits:   &quot;, FormatCurrency(debits, 2, , vbTrue)
+    Debug.Print String(40, &quot;-&quot;)
+    balance = credits - debits
+    Debug.Print &quot;Balance:  &quot;, FormatCurrency(balance, 2, , vbTrue)
 End Sub</code></pre>
 <h3 id="format-budget-report">Format Budget Report</h3>
 <pre><code class="language-vbnet">Sub PrintBudgetReport()
-Dim budgeted As Double
-Dim actual As Double
-Dim variance As Double
-
-budgeted = 50000
-actual = 48500
-variance = actual - budgeted
-
-Debug.Print &quot;Budget Report&quot;
-Debug.Print String(50, &quot;=&quot;)
-Debug.Print &quot;Budgeted:&quot;, FormatCurrency(budgeted, 0)
-Debug.Print &quot;Actual:  &quot;, FormatCurrency(actual, 0)
-Debug.Print &quot;Variance:&quot;, FormatCurrency(variance, 0, , vbTrue)
-
-If variance &lt; 0 Then
-Debug.Print &quot;Status: Under budget&quot;
-Else
-Debug.Print &quot;Status: Over budget&quot;
-End If
+    Dim budgeted As Double
+    Dim actual As Double
+    Dim variance As Double
+    budgeted = 50000
+    actual = 48500
+    variance = actual - budgeted
+    Debug.Print &quot;Budget Report&quot;
+    Debug.Print String(50, &quot;=&quot;)
+    Debug.Print &quot;Budgeted:&quot;, FormatCurrency(budgeted, 0)
+    Debug.Print &quot;Actual:  &quot;, FormatCurrency(actual, 0)
+    Debug.Print &quot;Variance:&quot;, FormatCurrency(variance, 0, , vbTrue)
+    If variance &lt; 0 Then
+        Debug.Print &quot;Status: Under budget&quot;
+    Else
+        Debug.Print &quot;Status: Over budget&quot;
+    End If
 End Sub</code></pre>
 <h3 id="listboxcombobox-population"><code>ListBox</code>/<code>ComboBox</code> Population</h3>
 <pre><code class="language-vbnet">Sub PopulatePriceList(lstPrices As ListBox, prices() As Double)
-Dim i As Long
-
-lstPrices.Clear
-
-For i = LBound(prices) To UBound(prices)
-lstPrices.AddItem FormatCurrency(prices(i))
-Next i
+    Dim i As Long
+    lstPrices.Clear
+    For i = LBound(prices) To UBound(prices)
+        lstPrices.AddItem FormatCurrency(prices(i))
+    Next i
 End Sub</code></pre>
 <h3 id="format-for-database-display">Format for Database Display</h3>
 <pre><code class="language-vbnet">Function GetFormattedPrice(rs As ADODB.Recordset, fieldName As String) As String
-If IsNull(rs.Fields(fieldName).Value) Then
-GetFormattedPrice = &quot;N/A&quot;
-Else
-GetFormattedPrice = FormatCurrency(rs.Fields(fieldName).Value)
-End If
+    If IsNull(rs.Fields(fieldName).Value) Then
+        GetFormattedPrice = &quot;N/A&quot;
+    Else
+        GetFormattedPrice = FormatCurrency(rs.Fields(fieldName).Value)
+    End If
 End Function</code></pre>
 <h3 id="calculate-and-display-tax">Calculate and Display Tax</h3>
 <pre><code class="language-vbnet">Function DisplayPriceWithTax(basePrice As Double, taxRate As Double) As String
-Dim tax As Double
-Dim total As Double
-
-tax = basePrice * taxRate
-total = basePrice + tax
-
-DisplayPriceWithTax = &quot;Price: &quot; &amp; FormatCurrency(basePrice) &amp; vbCrLf &amp; _
-&quot;Tax: &quot; &amp; FormatCurrency(tax) &amp; vbCrLf &amp; _
-&quot;Total: &quot; &amp; FormatCurrency(total)
+    Dim tax As Double
+    Dim total As Double
+    tax = basePrice * taxRate
+    total = basePrice + tax
+    DisplayPriceWithTax = &quot;Price: &quot; &amp; FormatCurrency(basePrice) &amp; vbCrLf &amp; _
+                          &quot;Tax: &quot; &amp; FormatCurrency(tax) &amp; vbCrLf &amp; _
+                          &quot;Total: &quot; &amp; FormatCurrency(total)
 End Function
-
 &#x27; Usage
 MsgBox DisplayPriceWithTax(100, 0.08)</code></pre>
 <h3 id="format-payment-schedule">Format Payment Schedule</h3>
 <pre><code class="language-vbnet">Sub ShowPaymentSchedule(loanAmount As Double, months As Integer, rate As Double)
-Dim payment As Double
-Dim i As Integer
-Dim balance As Double
-
-payment = loanAmount / months
-balance = loanAmount
-
-Debug.Print &quot;Payment Schedule&quot;
-Debug.Print String(50, &quot;=&quot;)
-Debug.Print &quot;Month&quot;, &quot;Payment&quot;, &quot;Balance&quot;
-Debug.Print String(50, &quot;-&quot;)
-
-For i = 1 To months
-Debug.Print i, FormatCurrency(payment), FormatCurrency(balance)
-balance = balance - payment
-Next i
+    Dim payment As Double
+    Dim i As Integer
+    Dim balance As Double
+    payment = loanAmount / months
+    balance = loanAmount
+    Debug.Print &quot;Payment Schedule&quot;
+    Debug.Print String(50, &quot;=&quot;)
+    Debug.Print &quot;Month&quot;, &quot;Payment&quot;, &quot;Balance&quot;
+    Debug.Print String(50, &quot;-&quot;)
+    For i = 1 To months
+        Debug.Print i, FormatCurrency(payment), FormatCurrency(balance)
+        balance = balance - payment
+    Next i
 End Sub</code></pre>
 <h3 id="compare-values">Compare Values</h3>
 <pre><code class="language-vbnet">Function ComparePrices(price1 As Double, price2 As Double) As String
-Dim difference As Double
-difference = price1 - price2
-
-ComparePrices = FormatCurrency(price1) &amp; &quot; vs &quot; &amp; FormatCurrency(price2) &amp; _
-&quot; (Difference: &quot; &amp; FormatCurrency(difference, 2, , vbTrue) &amp; &quot;)&quot;
+    Dim difference As Double
+    difference = price1 - price2
+    ComparePrices = FormatCurrency(price1) &amp; &quot; vs &quot; &amp; FormatCurrency(price2) &amp; _
+                    &quot; (Difference: &quot; &amp; FormatCurrency(difference, 2, , vbTrue) &amp; &quot;)&quot;
 End Function</code></pre>
 <h3 id="shopping-cart-total">Shopping Cart Total</h3>
 <pre><code class="language-vbnet">Function GetCartSummary(items As Collection) As String
-Dim item As Variant
-Dim subtotal As Double
-Dim tax As Double
-Dim shipping As Double
-Dim total As Double
-
-subtotal = 0
-For Each item In items
-subtotal = subtotal + (item.Price * item.Quantity)
-Next item
-
-tax = subtotal * 0.08
-shipping = 5.99
-total = subtotal + tax + shipping
-
-GetCartSummary = &quot;Subtotal: &quot; &amp; FormatCurrency(subtotal) &amp; vbCrLf &amp; _
-&quot;Tax:      &quot; &amp; FormatCurrency(tax) &amp; vbCrLf &amp; _
-&quot;Shipping: &quot; &amp; FormatCurrency(shipping) &amp; vbCrLf &amp; _
-&quot;Total:    &quot; &amp; FormatCurrency(total)
+    Dim item As Variant
+    Dim subtotal As Double
+    Dim tax As Double
+    Dim shipping As Double
+    Dim total As Double
+    subtotal = 0
+    For Each item In items
+        subtotal = subtotal + (item.Price * item.Quantity)
+    Next item
+    tax = subtotal * 0.08
+    shipping = 5.99
+    total = subtotal + tax + shipping
+    GetCartSummary = &quot;Subtotal: &quot; &amp; FormatCurrency(subtotal) &amp; vbCrLf &amp; _
+                     &quot;Tax:      &quot; &amp; FormatCurrency(tax) &amp; vbCrLf &amp; _
+                     &quot;Shipping: &quot; &amp; FormatCurrency(shipping) &amp; vbCrLf &amp; _
+                     &quot;Total:    &quot; &amp; FormatCurrency(total)
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="flexible-currency-formatter">Flexible Currency Formatter</h3>
 <pre><code class="language-vbnet">Function FormatCurrencyEx(amount As Double, _
-Optional decimals As Integer = 2, _
-Optional useParens As Boolean = True, _
-Optional useGroups As Boolean = True) As String
-Dim leadingDigit As VbTriState
-Dim parens As VbTriState
-Dim groups As VbTriState
-
-leadingDigit = vbTrue
-parens = IIf(useParens, vbTrue, vbFalse)
-groups = IIf(useGroups, vbTrue, vbFalse)
-
-FormatCurrencyEx = FormatCurrency(amount, decimals, leadingDigit, parens, groups)
+                          Optional decimals As Integer = 2, _
+                          Optional useParens As Boolean = True, _
+                          Optional useGroups As Boolean = True) As String
+    Dim leadingDigit As VbTriState
+    Dim parens As VbTriState
+    Dim groups As VbTriState
+    leadingDigit = vbTrue
+    parens = IIf(useParens, vbTrue, vbFalse)
+    groups = IIf(useGroups, vbTrue, vbFalse)
+    FormatCurrencyEx = FormatCurrency(amount, decimals, leadingDigit, parens, groups)
 End Function</code></pre>
 <h3 id="multi-currency-support">Multi-Currency Support</h3>
 <pre><code class="language-vbnet">Function FormatMultiCurrency(amount As Double, currencyCode As String) As String
-&#x27; Simple multi-currency display (uses FormatCurrency then replaces symbol)
-Dim formatted As String
-formatted = FormatCurrency(amount)
-
-Select Case UCase(currencyCode)
-Case &quot;USD&quot;
-&#x27; Keep default $ symbol
-FormatMultiCurrency = formatted
-Case &quot;EUR&quot;
-FormatMultiCurrency = Replace(formatted, &quot;$&quot;, &quot;€&quot;)
-Case &quot;GBP&quot;
-FormatMultiCurrency = Replace(formatted, &quot;$&quot;, &quot;£&quot;)
-Case &quot;JPY&quot;
-FormatMultiCurrency = Replace(formatted, &quot;$&quot;, &quot;¥&quot;)
-FormatMultiCurrency = Replace(FormatMultiCurrency, &quot;.00&quot;, &quot;&quot;)
-Case Else
-FormatMultiCurrency = currencyCode &amp; &quot; &quot; &amp; Format(amount, &quot;#,##0.00&quot;)
-End Select
+    &#x27; Simple multi-currency display (uses FormatCurrency then replaces symbol)
+    Dim formatted As String
+    formatted = FormatCurrency(amount)
+    Select Case UCase(currencyCode)
+        Case &quot;USD&quot;
+            &#x27; Keep default $ symbol
+            FormatMultiCurrency = formatted
+        Case &quot;EUR&quot;
+            FormatMultiCurrency = Replace(formatted, &quot;$&quot;, &quot;€&quot;)
+        Case &quot;GBP&quot;
+            FormatMultiCurrency = Replace(formatted, &quot;$&quot;, &quot;£&quot;)
+        Case &quot;JPY&quot;
+            FormatMultiCurrency = Replace(formatted, &quot;$&quot;, &quot;¥&quot;)
+            FormatMultiCurrency = Replace(FormatMultiCurrency, &quot;.00&quot;, &quot;&quot;)
+        Case Else
+            FormatMultiCurrency = currencyCode &amp; &quot; &quot; &amp; Format(amount, &quot;#,##0.00&quot;)
+    End Select
 End Function</code></pre>
 <h3 id="financial-statement-formatter">Financial Statement Formatter</h3>
 <pre><code class="language-vbnet">Type FinancialLine
-Description As String
-Amount As Double
-IsSubtotal As Boolean
+    Description As String
+    Amount As Double
+    IsSubtotal As Boolean
 End Type
-
 Function FormatFinancialStatement(lines() As FinancialLine) As String
-Dim result As String
-Dim i As Long
-Dim line As String
-
-result = &quot;Financial Statement&quot; &amp; vbCrLf
-result = result &amp; String(60, &quot;=&quot;) &amp; vbCrLf
-
-For i = LBound(lines) To UBound(lines)
-line = lines(i).Description
-
-&#x27; Right-align amounts
-line = line &amp; Space(40 - Len(line))
-line = line &amp; FormatCurrency(lines(i).Amount, 2, vbTrue, vbTrue, vbTrue)
-
-If lines(i).IsSubtotal Then
-result = result &amp; String(60, &quot;-&quot;) &amp; vbCrLf
-End If
-
-result = result &amp; line &amp; vbCrLf
-Next i
-
-FormatFinancialStatement = result
+    Dim result As String
+    Dim i As Long
+    Dim line As String
+    result = &quot;Financial Statement&quot; &amp; vbCrLf
+    result = result &amp; String(60, &quot;=&quot;) &amp; vbCrLf
+    For i = LBound(lines) To UBound(lines)
+        line = lines(i).Description
+        &#x27; Right-align amounts
+        line = line &amp; Space(40 - Len(line))
+        line = line &amp; FormatCurrency(lines(i).Amount, 2, vbTrue, vbTrue, vbTrue)
+        If lines(i).IsSubtotal Then
+            result = result &amp; String(60, &quot;-&quot;) &amp; vbCrLf
+        End If
+        result = result &amp; line &amp; vbCrLf
+    Next i
+    FormatFinancialStatement = result
 End Function</code></pre>
 <h3 id="dynamic-precision-formatter">Dynamic Precision Formatter</h3>
 <pre><code class="language-vbnet">Function FormatCurrencyDynamic(amount As Double) As String
-&#x27; Use different precision based on amount magnitude
-If Abs(amount) &gt;= 1000000 Then
-&#x27; Millions: no decimals
-FormatCurrencyDynamic = FormatCurrency(amount, 0) &amp; &quot;M&quot;
-ElseIf Abs(amount) &gt;= 1000 Then
-&#x27; Thousands: no decimals
-FormatCurrencyDynamic = FormatCurrency(amount, 0)
-ElseIf Abs(amount) &gt;= 1 Then
-&#x27; Regular: 2 decimals
-FormatCurrencyDynamic = FormatCurrency(amount, 2)
-Else
-&#x27; Small amounts: 4 decimals
-FormatCurrencyDynamic = FormatCurrency(amount, 4)
-End If
+    &#x27; Use different precision based on amount magnitude
+    If Abs(amount) &gt;= 1000000 Then
+        &#x27; Millions: no decimals
+        FormatCurrencyDynamic = FormatCurrency(amount, 0) &amp; &quot;M&quot;
+    ElseIf Abs(amount) &gt;= 1000 Then
+        &#x27; Thousands: no decimals
+        FormatCurrencyDynamic = FormatCurrency(amount, 0)
+    ElseIf Abs(amount) &gt;= 1 Then
+        &#x27; Regular: 2 decimals
+        FormatCurrencyDynamic = FormatCurrency(amount, 2)
+    Else
+        &#x27; Small amounts: 4 decimals
+        FormatCurrencyDynamic = FormatCurrency(amount, 4)
+    End If
 End Function</code></pre>
 <h3 id="conditional-formatting">Conditional Formatting</h3>
 <pre><code class="language-vbnet">Function FormatProfitLoss(amount As Double) As String
-&#x27; Format with color indicators for profit/loss
-If amount &gt; 0 Then
-FormatProfitLoss = &quot;[GREEN]+&quot; &amp; FormatCurrency(amount)
-ElseIf amount &lt; 0 Then
-FormatProfitLoss = &quot;[RED]&quot; &amp; FormatCurrency(amount, 2, , vbTrue)
-Else
-FormatProfitLoss = &quot;[BLACK]&quot; &amp; FormatCurrency(0)
-End If
+    &#x27; Format with color indicators for profit/loss
+    If amount &gt; 0 Then
+        FormatProfitLoss = &quot;[GREEN]+&quot; &amp; FormatCurrency(amount)
+    ElseIf amount &lt; 0 Then
+        FormatProfitLoss = &quot;[RED]&quot; &amp; FormatCurrency(amount, 2, , vbTrue)
+    Else
+        FormatProfitLoss = &quot;[BLACK]&quot; &amp; FormatCurrency(0)
+    End If
 End Function</code></pre>
 <h3 id="gridreport-alignment">Grid/Report Alignment</h3>
 <pre><code class="language-vbnet">Function FormatCurrencyAligned(amount As Double, width As Integer) As String
-Dim formatted As String
-formatted = FormatCurrency(amount, 2, vbTrue, vbTrue, vbTrue)
-
-&#x27; Right-align in field
-If Len(formatted) &lt; width Then
-FormatCurrencyAligned = Space(width - Len(formatted)) &amp; formatted
-Else
-FormatCurrencyAligned = formatted
-End If
+    Dim formatted As String
+    formatted = FormatCurrency(amount, 2, vbTrue, vbTrue, vbTrue)
+    &#x27; Right-align in field
+    If Len(formatted) &lt; width Then
+        FormatCurrencyAligned = Space(width - Len(formatted)) &amp; formatted
+    Else
+        FormatCurrencyAligned = formatted
+    End If
 End Function</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <pre><code class="language-vbnet">Function SafeFormatCurrency(value As Variant, _
-Optional decimals As Integer = 2) As String
-On Error GoTo ErrorHandler
-
-If IsNull(value) Then
-SafeFormatCurrency = &quot;N/A&quot;
-ElseIf Not IsNumeric(value) Then
-SafeFormatCurrency = &quot;Invalid&quot;
-Else
-SafeFormatCurrency = FormatCurrency(CDbl(value), decimals)
-End If
-
-Exit Function
-
+                            Optional decimals As Integer = 2) As String
+    On Error GoTo ErrorHandler
+    If IsNull(value) Then
+        SafeFormatCurrency = &quot;N/A&quot;
+    ElseIf Not IsNumeric(value) Then
+        SafeFormatCurrency = &quot;Invalid&quot;
+    Else
+        SafeFormatCurrency = FormatCurrency(CDbl(value), decimals)
+    End If
+    Exit Function
 ErrorHandler:
-Select Case Err.Number
-Case 13  &#x27; Type mismatch
-SafeFormatCurrency = &quot;Type Error&quot;
-Case 6   &#x27; Overflow
-SafeFormatCurrency = &quot;Overflow&quot;
-Case Else
-SafeFormatCurrency = &quot;Error&quot;
-End Select
+    Select Case Err.Number
+        Case 13  &#x27; Type mismatch
+            SafeFormatCurrency = &quot;Type Error&quot;
+        Case 6   &#x27; Overflow
+            SafeFormatCurrency = &quot;Overflow&quot;
+        Case Else
+            SafeFormatCurrency = &quot;Error&quot;
+    End Select
 End Function</code></pre>
 <h3 id="common-errors">Common Errors</h3>
 <ul>
@@ -437,15 +387,14 @@ End Function</code></pre>
 <h3 id="use-formatcurrency-for-user-facing-amounts">Use <code>FormatCurrency</code> for User-Facing Amounts</h3>
 <pre><code class="language-vbnet">&#x27; Good - Locale-aware, user-friendly
 lblPrice.Caption = FormatCurrency(price)
-
 &#x27; Less portable - Hard-coded format
 lblPrice.Caption = &quot;$&quot; &amp; Format(price, &quot;0.00&quot;)</code></pre>
 <h3 id="handle-null-values">Handle <code>Null</code> Values</h3>
 <pre><code class="language-vbnet">&#x27; Good - Check for Null
 If Not IsNull(amount) Then
-formatted = FormatCurrency(amount)
+    formatted = FormatCurrency(amount)
 Else
-formatted = &quot;N/A&quot;
+    formatted = &quot;N/A&quot;
 End If</code></pre>
 <h3 id="be-consistent-with-negative-formatting">Be Consistent with Negative Formatting</h3>
 <pre><code class="language-vbnet">&#x27; Good - Use same style throughout application
@@ -455,22 +404,18 @@ formatted = FormatCurrency(balance, 2, , USE_PARENS)</code></pre>
 <h3 id="formatcurrency-vs-format"><code>FormatCurrency</code> vs <code>Format</code></h3>
 <pre><code class="language-vbnet">&#x27; FormatCurrency - Simple, locale-aware
 result = FormatCurrency(1234.56)
-
 &#x27; Format - More control, custom patterns
 result = Format(1234.56, &quot;$#,##0.00&quot;)</code></pre>
 <h3 id="formatcurrency-vs-formatnumber"><code>FormatCurrency</code> vs <code>FormatNumber</code></h3>
 <pre><code class="language-vbnet">&#x27; FormatCurrency - Adds currency symbol
 result = FormatCurrency(1234.56)        &#x27; $1,234.56
-
 &#x27; FormatNumber - No currency symbol
 result = FormatNumber(1234.56)          &#x27; 1,234.56</code></pre>
 <h3 id="formatcurrency-vs-strcstr"><code>FormatCurrency</code> vs <code>Str</code>/<code>CStr</code></h3>
 <pre><code class="language-vbnet">&#x27; FormatCurrency - Full formatting
 result = FormatCurrency(1234.56)        &#x27; $1,234.56
-
 &#x27; Str - Basic conversion, no formatting
 result = Str(1234.56)                   &#x27; &quot; 1234.56&quot;
-
 &#x27; CStr - Basic conversion
 result = CStr(1234.56)                  &#x27; &quot;1234.56&quot;</code></pre>
 <h2 id="limitations">Limitations</h2>
@@ -484,13 +429,11 @@ result = CStr(1234.56)                  &#x27; &quot;1234.56&quot;</code></pre>
 <li>Cannot format multiple currencies in same session</li>
 </ul>
 <h2 id="regional-settings-impact">Regional Settings Impact</h2>
-<p>The <code>FormatCurrency</code> function behavior varies by locale:</p>
-<ul>
-<li><strong>United States</strong>: $1,234.56</li>
-<li><strong>United Kingdom</strong>: £1,234.56</li>
-<li><strong>European Union</strong>: €1.234,56 (note decimal/thousand separators)</li>
-<li><strong>Japan</strong>: ¥1,235 (typically no decimal places)</li>
-</ul>
+<p>The <code>FormatCurrency</code> function behavior varies by locale:
+- <strong>United States</strong>: $1,234.56
+- <strong>United Kingdom</strong>: £1,234.56
+- <strong>European Union</strong>: €1.234,56 (note decimal/thousand separators)
+- <strong>Japan</strong>: ¥1,235 (typically no decimal places)</p>
 <h2 id="related-functions">Related Functions</h2>
 <ul>
 <li><code>Format</code>: More flexible formatting with custom patterns</li>

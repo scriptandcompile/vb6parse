@@ -37,7 +37,7 @@
     <main class="container">
         
         <article class="library-item">
-            <h1 id="asc-function"><code>Asc</code> Function</h1>
+            <h1 id="asc-function">Asc Function</h1>
 <p>Returns an <code>Integer</code> representing the character code corresponding to the first letter in a string.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">Asc(string)</code></pre>
@@ -46,12 +46,10 @@
 <li><code>string</code> - Required. Any valid string expression. If the string contains no characters, a run-time error occurs.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
-<p>Returns an <code>Integer</code> representing the <code>ANSI</code> character code of the first character in the string.</p>
-<ul>
-<li>For <code>ANSI</code> characters (0-127), returns standard <code>ASCII</code> values</li>
-<li>For extended <code>ANSI</code> characters (128-255), returns extended <code>ASCII</code> values</li>
-<li>Unicode characters are converted to <code>ANSI</code> before the code is returned</li>
-</ul>
+<p>Returns an <code>Integer</code> representing the <code>ANSI</code> character code of the first character in the string.
+- For <code>ANSI</code> characters (0-127), returns standard <code>ASCII</code> values
+- For extended <code>ANSI</code> characters (128-255), returns extended <code>ASCII</code> values
+- Unicode characters are converted to <code>ANSI</code> before the code is returned</p>
 <h2 id="remarks">Remarks</h2>
 <p>The <code>Asc</code> function returns the numeric <code>ANSI</code> character code for the first character in a string.
 This is useful for:
@@ -86,15 +84,14 @@ code = Asc(&quot;0&quot;)          &#x27; Returns 48
 code = Asc(&quot; &quot;)          &#x27; Returns 32 (space)</code></pre>
 <h3 id="character-validation">Character Validation</h3>
 <pre><code class="language-vbnet">Function IsDigit(ch As String) As Boolean
-Dim code As Integer
-code = Asc(ch)
-IsDigit = (code &gt;= 48 And code &lt;= 57)
+    Dim code As Integer
+    code = Asc(ch)
+    IsDigit = (code &gt;= 48 And code &lt;= 57)
 End Function
-
 Function IsUpperCase(ch As String) As Boolean
-Dim code As Integer
-code = Asc(ch)
-IsUpperCase = (code &gt;= 65 And code &lt;= 90)
+    Dim code As Integer
+    code = Asc(ch)
+    IsUpperCase = (code &gt;= 65 And code &lt;= 90)
 End Function</code></pre>
 <h3 id="case-conversion-offset">Case Conversion Offset</h3>
 <pre><code class="language-vbnet">&#x27; Calculate offset between upper and lower case
@@ -102,68 +99,68 @@ Dim offset As Integer
 offset = Asc(&quot;a&quot;) - Asc(&quot;A&quot;)  &#x27; Returns 32</code></pre>
 <h3 id="character-range-checking">Character Range Checking</h3>
 <pre><code class="language-vbnet">Function IsPrintable(ch As String) As Boolean
-Dim code As Integer
-code = Asc(ch)
-IsPrintable = (code &gt;= 32 And code &lt;= 126)
+    Dim code As Integer
+    code = Asc(ch)
+    IsPrintable = (code &gt;= 32 And code &lt;= 126)
 End Function</code></pre>
 <h3 id="string-encoding">String Encoding</h3>
 <pre><code class="language-vbnet">Function EncodeString(s As String) As String
-Dim i As Integer
-Dim result As String
-For i = 1 To Len(s)
-If result &lt;&gt; &quot;&quot; Then result = result &amp; &quot;,&quot;
-result = result &amp; CStr(Asc(Mid(s, i, 1)))
-Next i
-EncodeString = result
+    Dim i As Integer
+    Dim result As String
+    For i = 1 To Len(s)
+        If result &lt;&gt; &quot;&quot; Then result = result &amp; &quot;,&quot;
+        result = result &amp; CStr(Asc(Mid(s, i, 1)))
+    Next i
+    EncodeString = result
 End Function</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="1-input-validation">1. Input Validation</h3>
 <pre><code class="language-vbnet">If Asc(userInput) &gt;= 48 And Asc(userInput) &lt;= 57 Then
-&#x27; First character is a digit
+    &#x27; First character is a digit
 End If</code></pre>
 <h3 id="2-alphabetic-checking">2. Alphabetic Checking</h3>
 <pre><code class="language-vbnet">Dim code As Integer
 code = Asc(UCase(letter))
 If code &gt;= 65 And code &lt;= 90 Then
-&#x27; It&#x27;s a letter
+    &#x27; It&#x27;s a letter
 End If</code></pre>
 <h3 id="3-csv-parsing-helper">3. CSV Parsing Helper</h3>
 <pre><code class="language-vbnet">If Asc(field) = 34 Then  &#x27; 34 is double quote
-&#x27; Handle quoted field
+    &#x27; Handle quoted field
 End If</code></pre>
 <h3 id="4-character-comparison">4. Character Comparison</h3>
 <pre><code class="language-vbnet">If Asc(char1) &lt; Asc(char2) Then
-&#x27; char1 comes before char2 in ASCII order
+    &#x27; char1 comes before char2 in ASCII order
 End If</code></pre>
 <h3 id="5-special-character-detection">5. Special Character Detection</h3>
 <pre><code class="language-vbnet">Select Case Asc(ch)
-Case 9      &#x27; Tab
-Case 10     &#x27; Line feed
-Case 13     &#x27; Carriage return
-Case 32     &#x27; Space
+    Case 9      &#x27; Tab
+    Case 10     &#x27; Line feed
+    Case 13     &#x27; Carriage return
+    Case 32     &#x27; Space
 End Select</code></pre>
 <h3 id="6-keyboard-input-processing">6. Keyboard Input Processing</h3>
 <pre><code class="language-vbnet">Private Sub Text1_KeyPress(KeyAscii As Integer)
-If KeyAscii = 13 Then  &#x27; Enter key
-&#x27; Process input
-End If
+    If KeyAscii = 13 Then  &#x27; Enter key
+        &#x27; Process input
+    End If
 End Sub</code></pre>
 <h3 id="7-character-class-testing">7. Character Class Testing</h3>
 <pre><code class="language-vbnet">Function IsControl(ch As String) As Boolean
-Dim code As Integer
-code = Asc(ch)
-IsControl = (code &lt; 32 Or code = 127)
+    Dim code As Integer
+    code = Asc(ch)
+    IsControl = (code &lt; 32 Or code = 127)
 End Function</code></pre>
 <h3 id="8-simple-encryption">8. Simple Encryption</h3>
 <pre><code class="language-vbnet">Function ROT13Char(ch As String) As String
-Dim code As Integer
-code = Asc(UCase(ch))
-If code &gt;= 65 And code &lt;= 90 Then
-code = ((code - 65 + 13) Mod 26) + 65
-ROT13Char = Chr(code)
-Else
-ROT13Char = ch
-End If
+    Dim code As Integer
+    code = Asc(UCase(ch))
+    If code &gt;= 65 And code &lt;= 90 Then
+        code = ((code - 65 + 13) Mod 26) + 65
+        ROT13Char = Chr(code)
+    Else
+        ROT13Char = ch
+    End If
 End Function</code></pre>
 <h2 id="common-character-codes">Common Character Codes</h2>
 <table>
@@ -251,8 +248,8 @@ End Function</code></pre>
 <pre><code class="language-vbnet">On Error Resume Next
 code = Asc(inputString)
 If Err.Number = 5 Then
-&#x27; Empty string error
-MsgBox &quot;String cannot be empty&quot;
+    &#x27; Empty string error
+    MsgBox &quot;String cannot be empty&quot;
 End If</code></pre>
 <h2 id="related-functions">Related Functions</h2>
 <ul>

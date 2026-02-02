@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p>VB6 <code>TypeName</code> Function</p>
-<p>The <code>TypeName</code> function returns a string that provides information about the data type of a variable or expression.</p>
+            <p>VB6 TypeName Function
+The <code>TypeName</code> function returns a string that provides information about the data type of a variable or expression.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">TypeName(varname)</code></pre>
 <h2 id="parameters">Parameters</h2>
@@ -105,69 +105,69 @@ MsgBox TypeName(v) &#x27; &quot;Integer&quot;</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-check-for-array">Pattern 1: Check for array</h3>
 <pre><code class="language-vbnet">If Right$(TypeName(var), 2) = &quot;()&quot; Then
-MsgBox &quot;It&#x27;s an array!&quot;
+    MsgBox &quot;It&#x27;s an array!&quot;
 End If</code></pre>
 <h3 id="pattern-2-check-for-object">Pattern 2: Check for object</h3>
 <pre><code class="language-vbnet">If TypeName(obj) = &quot;Nothing&quot; Then
-MsgBox &quot;Object not set!&quot;
+    MsgBox &quot;Object not set!&quot;
 End If</code></pre>
 <h3 id="pattern-3-handle-variant-types">Pattern 3: Handle Variant types</h3>
 <pre><code class="language-vbnet">If TypeName(v) = &quot;String&quot; Then
-&#x27; Handle string
+    &#x27; Handle string
 End If</code></pre>
 <h3 id="pattern-4-log-variable-types">Pattern 4: Log variable types</h3>
 <pre><code class="language-vbnet">Debug.Print &quot;Type: &quot; &amp; TypeName(x)</code></pre>
 <h3 id="pattern-5-validate-argument-type">Pattern 5: Validate argument type</h3>
 <pre><code class="language-vbnet">Sub Foo(arg As Variant)
-If TypeName(arg) &lt;&gt; &quot;String&quot; Then Err.Raise 5
+    If TypeName(arg) &lt;&gt; &quot;String&quot; Then Err.Raise 5
 End Sub</code></pre>
 <h3 id="pattern-6-reflection-like-usage">Pattern 6: Reflection-like usage</h3>
 <pre><code class="language-vbnet">Dim t As String
 t = TypeName(obj)
 If t = &quot;MyClass&quot; Then
-&#x27; Do something
+    &#x27; Do something
 End If</code></pre>
 <h3 id="pattern-7-handle-null-and-empty">Pattern 7: Handle Null and Empty</h3>
 <pre><code class="language-vbnet">If TypeName(v) = &quot;Null&quot; Then
-&#x27; Handle Null
+    &#x27; Handle Null
 ElseIf TypeName(v) = &quot;Empty&quot; Then
-&#x27; Handle Empty
+    &#x27; Handle Empty
 End If</code></pre>
 <h3 id="pattern-8-array-type-detection">Pattern 8: Array type detection</h3>
 <pre><code class="language-vbnet">If InStr(TypeName(arr), &quot;()&quot;) &gt; 0 Then
-Debug.Print &quot;Array of type: &quot; &amp; Left$(TypeName(arr), Len(TypeName(arr)) - 2)
+    Debug.Print &quot;Array of type: &quot; &amp; Left$(TypeName(arr), Len(TypeName(arr)) - 2)
 End If</code></pre>
 <h3 id="pattern-9-user-defined-type">Pattern 9: User-defined type</h3>
 <pre><code class="language-vbnet">Type MyType
-x As Integer
+    x As Integer
 End Type
 Dim t As MyType
 MsgBox TypeName(t) &#x27; &quot;MyType&quot;</code></pre>
 <h3 id="pattern-10-class-type-detection">Pattern 10: Class type detection</h3>
 <pre><code class="language-vbnet">If TypeName(obj) = &quot;MyClass&quot; Then
-&#x27; Handle MyClass
+    &#x27; Handle MyClass
 End If</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-type-checking-in-generic-function">Example 1: Type checking in generic function</h3>
 <pre><code class="language-vbnet">Function IsString(val As Variant) As Boolean
-IsString = (TypeName(val) = &quot;String&quot;)
+    IsString = (TypeName(val) = &quot;String&quot;)
 End Function</code></pre>
 <h3 id="example-2-logging-all-argument-types">Example 2: Logging all argument types</h3>
 <pre><code class="language-vbnet">Sub LogTypes(ParamArray args() As Variant)
-Dim i As Integer
-For i = LBound(args) To UBound(args)
-Debug.Print &quot;Arg &quot; &amp; i &amp; &quot;: &quot; &amp; TypeName(args(i))
-Next i
+    Dim i As Integer
+    For i = LBound(args) To UBound(args)
+        Debug.Print &quot;Arg &quot; &amp; i &amp; &quot;: &quot; &amp; TypeName(args(i))
+    Next i
 End Sub</code></pre>
 <h3 id="example-3-reflection-for-class-methods">Example 3: Reflection for class methods</h3>
 <pre><code class="language-vbnet">If TypeName(obj) = &quot;MyClass&quot; Then
-obj.SpecialMethod
+    obj.SpecialMethod
 End If</code></pre>
 <h3 id="example-4-variant-array-detection">Example 4: Variant array detection</h3>
 <pre><code class="language-vbnet">Dim v As Variant
 v = Array(1, 2, 3)
 If Right$(TypeName(v), 2) = &quot;()&quot; Then
-Debug.Print &quot;Variant array&quot;
+    Debug.Print &quot;Variant array&quot;
 End If</code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <ul>

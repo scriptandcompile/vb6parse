@@ -44,83 +44,83 @@
 <h2 id="parts">Parts</h2>
 <ul>
 <li><strong>object</strong>: Required. An object expression that evaluates to a Form or control. If object is
-a form, unloading the form causes all controls on the form to be unloaded as well.</li>
+  a form, unloading the form causes all controls on the form to be unloaded as well.</li>
 </ul>
 <h2 id="remarks">Remarks</h2>
 <ul>
 <li><strong>Form Unloading</strong>: When a form is unloaded, all of its controls are removed from memory and
-all values of the form's properties are lost. You can use the <code>Hide</code> method to make a form
-invisible without unloading it, allowing you to continue to access properties of the form
-and its controls.</li>
+  all values of the form's properties are lost. You can use the <code>Hide</code> method to make a form
+  invisible without unloading it, allowing you to continue to access properties of the form
+  and its controls.</li>
 <li><strong>Control Arrays</strong>: When you unload a control created at run time with the <code>Load</code> statement,
-the control is removed from the control array, and the array's upper bound is decremented by one.</li>
+  the control is removed from the control array, and the array's upper bound is decremented by one.</li>
 <li><strong><code>QueryUnload</code> Event</strong>: Before a form is unloaded, the <code>QueryUnload</code> event procedure is called.
-Setting the <code>Cancel</code> argument to <code>True</code> in the <code>QueryUnload</code> event prevents the form from
-being unloaded.</li>
+  Setting the <code>Cancel</code> argument to <code>True</code> in the <code>QueryUnload</code> event prevents the form from
+  being unloaded.</li>
 <li><strong>Unload Event</strong>: After the <code>QueryUnload</code> event, the <code>Unload</code> event procedure is called. You
-can include code in this event procedure to save data or clean up resources.</li>
+  can include code in this event procedure to save data or clean up resources.</li>
 <li><strong>Me Keyword</strong>: Within a form's code, you can use <code>Unload Me</code> to unload the form itself.</li>
 <li><strong>Subsequent References</strong>: Any subsequent references to properties or controls on an unloaded
-form will cause the form to be reloaded and its <code>Load</code> event to fire.</li>
+  form will cause the form to be reloaded and its <code>Load</code> event to fire.</li>
 </ul>
 <h2 id="examples">Examples</h2>
 <h3 id="simple-form-unload">Simple Form Unload</h3>
 <pre><code class="language-vbnet">Unload Form1</code></pre>
 <h3 id="unload-current-form">Unload Current Form</h3>
 <pre><code class="language-vbnet">Private Sub cmdClose_Click()
-Unload Me
+    Unload Me
 End Sub</code></pre>
 <h3 id="unload-control-array-element">Unload Control Array Element</h3>
 <pre><code class="language-vbnet">Unload txtDynamic(5)</code></pre>
 <h3 id="unload-with-cleanup">Unload With Cleanup</h3>
 <pre><code class="language-vbnet">Private Sub Form_Unload(Cancel As Integer)
-&#x27; Save data before closing
-SaveSettings
-CloseDatabase
+    &#x27; Save data before closing
+    SaveSettings
+    CloseDatabase
 End Sub</code></pre>
 <h3 id="conditional-unload">Conditional Unload</h3>
 <pre><code class="language-vbnet">If UserConfirmed Then
-Unload frmDialog
+    Unload frmDialog
 End If</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="save-data-before-unload">Save Data Before Unload</h3>
 <pre><code class="language-vbnet">Private Sub Form_Unload(Cancel As Integer)
-If DataModified Then
-Dim response As VbMsgBoxResult
-response = MsgBox(&quot;Save changes?&quot;, vbYesNoCancel)
-If response = vbYes Then
-SaveData
-ElseIf response = vbCancel Then
-Cancel = True &#x27; Prevent unload
-End If
-End If
+    If DataModified Then
+        Dim response As VbMsgBoxResult
+        response = MsgBox(&quot;Save changes?&quot;, vbYesNoCancel)
+        If response = vbYes Then
+            SaveData
+        ElseIf response = vbCancel Then
+            Cancel = True &#x27; Prevent unload
+        End If
+    End If
 End Sub</code></pre>
 <h3 id="unload-multiple-forms">Unload Multiple Forms</h3>
 <pre><code class="language-vbnet">Sub CloseAllForms()
-Dim frm As Form
-For Each frm In Forms
-If frm.Name &lt;&gt; &quot;frmMain&quot; Then
-Unload frm
-End If
-Next frm
+    Dim frm As Form
+    For Each frm In Forms
+        If frm.Name &lt;&gt; &quot;frmMain&quot; Then
+            Unload frm
+        End If
+    Next frm
 End Sub</code></pre>
 <h3 id="unload-dynamically-created-controls">Unload Dynamically Created Controls</h3>
 <pre><code class="language-vbnet">Dim i As Integer
 For i = 1 To 10
-Unload lblDynamic(i)
+    Unload lblDynamic(i)
 Next i</code></pre>
 <h2 id="best-practices">Best Practices</h2>
 <ol>
 <li><strong>Use Unload vs Hide</strong>: Use <code>Unload</code> when you're done with a form and want to free memory.
-Use <code>Hide</code> when you want to make a form invisible but may need to show it again soon.</li>
+   Use <code>Hide</code> when you want to make a form invisible but may need to show it again soon.</li>
 <li><strong>Clean Up Resources</strong>: Use the <code>Unload</code> event to close database connections, release objects,
-and perform other cleanup tasks.</li>
+   and perform other cleanup tasks.</li>
 <li><strong>Prevent Accidental Closes</strong>: Use the <code>QueryUnload</code> event with <code>Cancel = True</code> to prevent
-forms from being unloaded when necessary.</li>
+   forms from being unloaded when necessary.</li>
 <li><strong>Main Form Considerations</strong>: Unloading the startup form (main form) terminates the application
-unless you've specified a Sub Main procedure.</li>
+   unless you've specified a Sub Main procedure.</li>
 <li><strong>Memory Management</strong>: Unloading forms and controls frees memory, which is important in
-applications that create many forms or controls dynamically.</li>
+   applications that create many forms or controls dynamically.</li>
 </ol>
 <h2 id="important-notes">Important Notes</h2>
 <ul>

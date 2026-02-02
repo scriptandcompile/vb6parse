@@ -33,7 +33,7 @@ root:
           text: "\n"
         - kind: Whitespace
           text: "    "
-        - kind: Unknown
+        - kind: TypeKeyword
           text: Type
         - kind: Whitespace
           text: " "
@@ -47,7 +47,7 @@ root:
           text: "\n"
         - kind: Whitespace
           text: "    "
-        - kind: Unknown
+        - kind: EndKeyword
           text: End
         - kind: Whitespace
           text: " "

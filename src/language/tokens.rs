@@ -1217,6 +1217,18 @@ impl Token {
                 | Token::SetAttrKeyword
                 | Token::SetKeyword
                 | Token::SendKeysKeyword
+                | Token::ClassKeyword
+                | Token::AttributeKeyword
+                | Token::BeginKeyword
+                | Token::FalseKeyword
+                | Token::TrueKeyword
+                | Token::PrivateKeyword
+                | Token::DimKeyword
+                | Token::TypeKeyword
+                | Token::ByValKeyword
+                | Token::LongKeyword
+                | Token::AsKeyword
+                | Token::DoubleKeyword
                 | Token::SelectKeyword
                 | Token::CaseKeyword
                 | Token::SeekKeyword
@@ -1279,6 +1291,12 @@ impl Token {
                 | Token::RandomKeyword
                 | Token::ReadKeyword
                 | Token::OutputKeyword
+                | Token::OptionKeyword
+                | Token::ExplicitKeyword
+                | Token::PublicKeyword
+                | Token::SubKeyword
+                | Token::EndKeyword
+                | Token::FunctionKeyword
                 | Token::AppendKeyword
                 | Token::AccessKeyword
                 | Token::TextKeyword
