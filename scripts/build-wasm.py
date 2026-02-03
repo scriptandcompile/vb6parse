@@ -186,6 +186,12 @@ def main():
         wasm_file = output_dir / "vb6parse_bg.wasm"
         optimize_wasm(wasm_opt, wasm_file)
     
+    # Remove .gitignore created by wasm-pack (we want to commit these files)
+    gitignore_file = output_dir / ".gitignore"
+    if gitignore_file.exists():
+        gitignore_file.unlink()
+        print("🗑️  Removed .gitignore from output directory")
+    
     print("=" * 60)
     print("✅ WASM build complete!")
     print(f"📦 Output files in: {output_dir}")
