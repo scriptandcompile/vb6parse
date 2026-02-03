@@ -6,7 +6,7 @@
 //! Predominantly, this is designed for the needs of the `VB6Parser` playground.
 //!
 
-use crate::*;
+use crate::{parsers, tokenize, Token, TokenStream};
 use serde::{Deserialize, Serialize};
 use serde_wasm_bindgen::to_value;
 use wasm_bindgen::prelude::*;
@@ -57,9 +57,12 @@ pub struct ErrorInfo {
 /// Stats for the parse results
 #[derive(Serialize, Deserialize)]
 pub struct ParseStats {
-    pub tokenCount: u32,
-    pub nodeCount: u32,
-    pub treeDepth: u32,
+    /// The total number of tokens in the source code.
+    pub token_count: u32,
+    /// The total number of nodes in the CST.
+    pub node_count: u32,
+    /// The maximum depth of the CST.
+    pub tree_depth: u32,
 }
 
 /// Information about the output of the VB6 playground, including tokens, CST, and errors.
@@ -73,13 +76,18 @@ pub struct PlaygroundOutput {
     pub errors: Vec<ErrorInfo>,
     /// The time taken to parse the source code, in milliseconds.
     pub parse_time_ms: f64,
+    /// Statistics about the parse results.
     pub stats: ParseStats,
 }
 
+/// A node in the concrete syntax tree (CST).
 #[derive(Serialize, Deserialize)]
 pub struct CstNode {
+    /// The kind of CST node (e.g., `FunctionDeclaration`, `IfStatement`).
     pub kind: String,
+    /// The range of the node in the source code as [start, end] positions.
     pub range: [u32; 2],
+    /// The child nodes of this CST node.
     pub children: Vec<CstNode>,
 }
 
@@ -92,18 +100,44 @@ fn convert_cst_node(node: &parsers::cst::CstNode) -> CstNode {
     }
 }
 
+/// Helper to count nodes recursively
+fn count_nodes(node: &CstNode) -> u32 {
+    1 + node.children.iter().map(count_nodes).sum::<u32>()
+}
+
+/// Helper to compute tree depth recursively
+fn tree_depth(node: &CstNode) -> u32 {
+    if node.children.is_empty() {
+        1
+    } else {
+        1 + node.children.iter().map(tree_depth).max().unwrap_or(0)
+    }
+}
+
 /// Parses VB6 code and returns a `PlaygroundOutput` object containing tokens, CST, and errors.
+///
+/// # Errors
+///
+/// So far we do not correctly handle errors and failures and just panic but this must eventually
+/// be converted into an error value.
+///
+/// # Panics
+///
+/// Currently, we are doing minimal error recovery and checking for the playground as this
+/// is an attempt to get the system up and working well enough to demonstrate the possibilities.
+/// As is, we can produce a panic if the input can not be tokenized.
+///
 #[wasm_bindgen]
 pub fn parse_vb6_code(
     code: &str,
     _file_type: &str, // "project", "class", "module", "form"
-) -> Result<JsValue, JsValue> {
+) -> Result<JsValue, JsError> {
     // Implementation that calls appropriate parser
     // Returns serialized PlaygroundOutput
 
     let mut source_stream = crate::SourceStream::new("test.bas", code);
 
-    let (token_stream_opt, failures) = tokenize(&mut source_stream).unpack();
+    let (token_stream_opt, _failures) = tokenize(&mut source_stream).unpack();
 
     let token_stream = token_stream_opt.unwrap();
 
@@ -113,24 +147,12 @@ pub fn parse_vb6_code(
     let cst = parsers::cst::parse(token_stream.clone());
     let cst_node = convert_cst_node(&cst.to_root_node());
 
-    // Helper to count nodes recursively
-    fn count_nodes(node: &CstNode) -> u32 {
-        1 + node.children.iter().map(count_nodes).sum::<u32>()
-    }
-
-    // Helper to compute tree depth recursively
-    fn tree_depth(node: &CstNode) -> u32 {
-        if node.children.is_empty() {
-            1
-        } else {
-            1 + node.children.iter().map(tree_depth).max().unwrap_or(0)
-        }
-    }
+    let token_count = u32::try_from(tokens.len())?;
 
     let parse_stats = ParseStats {
-        tokenCount: tokens.len() as u32,
-        nodeCount: count_nodes(&cst_node),
-        treeDepth: tree_depth(&cst_node),
+        token_count,
+        node_count: count_nodes(&cst_node),
+        tree_depth: tree_depth(&cst_node),
     };
 
     let playground_output = PlaygroundOutput {
@@ -144,6 +166,8 @@ pub fn parse_vb6_code(
     Ok(to_value(&playground_output).unwrap())
 }
 
+/// Produces a list of `TokenInfo` objects from a `TokenStream`.
+#[must_use]
 pub fn produce_tokens(token_stream: TokenStream) -> Vec<TokenInfo> {
     let mut tokens = vec![];
 
@@ -207,15 +231,27 @@ pub fn produce_tokens(token_stream: TokenStream) -> Vec<TokenInfo> {
 }
 
 /// Tokenizes VB6 code and returns a list of `TokenInfo` objects for quick preview.
+///
+/// # Errors
+///
+/// So far we do not correctly handle errors and failures and just panic but this must eventually
+/// be converted into an error value.
+///
+/// # Panics
+///
+/// Currently, we are doing minimal error recovery and checking for the playground as this
+/// is an attempt to get the system up and working well enough to demonstrate the possibilities.
+/// As is, we can produce a panic if the input can not be tokenized.
+///
 #[wasm_bindgen]
-pub fn tokenize_vb6_code(code: &str) -> Result<JsValue, JsValue> {
+pub fn tokenize_vb6_code(code: &str) -> Result<JsValue, JsError> {
     // Returns just tokens for quick preview
 
     let mut source_stream = crate::SourceStream::new("test.bas", code);
 
-    let (token_stream_opt, failures) = tokenize(&mut source_stream).unpack();
+    let (token_stream_opt, _failures) = tokenize(&mut source_stream).unpack();
 
-    let mut token_stream = token_stream_opt.unwrap();
+    let token_stream = token_stream_opt.unwrap();
 
     let tokens = produce_tokens(token_stream);
 
