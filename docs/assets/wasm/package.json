@@ -1,0 +1,29 @@
+{
+  "name": "vb6parse",
+  "type": "module",
+  "collaborators": [
+    "ScriptAndCompile"
+  ],
+  "description": "vb6parse is a library for parsing and analyzing VB6 code, from projects, to controls, to modules, and forms.",
+  "version": "0.5.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scriptandcompile/vb6parse"
+  },
+  "files": [
+    "vb6parse_bg.wasm",
+    "vb6parse.js"
+  ],
+  "main": "vb6parse.js",
+  "homepage": "https://github.com/scriptandcompile/vb6parse",
+  "sideEffects": [
+    "./snippets/*"
+  ],
+  "keywords": [
+    "vb6",
+    "parser",
+    "analyzer",
+    "vb6parse"
+  ]
+}
