@@ -157,6 +157,8 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    height: 36px;
+    box-sizing: border-box;
 }
 
 .btn-primary {
