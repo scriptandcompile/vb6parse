@@ -98,10 +98,7 @@ fn convert_cst_node(node: &parsers::cst::CstNode) -> CstNode {
 
 /// Convert a `parsers::cst::CstNode` to the wasm-facing `CstNode` recursively,
 /// tracking the current byte offset. Returns the converted node and the next offset.
-fn convert_cst_node_with_offset(
-    node: &parsers::cst::CstNode,
-    start_offset: u32,
-) -> (CstNode, u32) {
+fn convert_cst_node_with_offset(node: &parsers::cst::CstNode, start_offset: u32) -> (CstNode, u32) {
     let text_len = u32::try_from(node.text().len()).unwrap_or(0);
     let end_offset = start_offset + text_len;
 
