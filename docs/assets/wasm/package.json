@@ -13,12 +13,10 @@
   },
   "files": [
     "vb6parse_bg.wasm",
-    "vb6parse.js",
-    "vb6parse.d.ts"
+    "vb6parse.js"
   ],
   "main": "vb6parse.js",
   "homepage": "https://github.com/scriptandcompile/vb6parse",
-  "types": "vb6parse.d.ts",
   "sideEffects": [
     "./snippets/*"
   ],
