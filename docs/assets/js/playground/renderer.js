@@ -18,8 +18,9 @@ export function renderOutput(result) {
     renderCstTab(result.cst);
     renderInfoTab(result);
     
-    // Update parse time in header
-    updateParseTime(result.parseTimeMs);
+    // Update parse time in header (parseTimeMs is set by JavaScript in parser.js)
+    const parseTime = result.parseTimeMs ?? 0;
+    updateParseTime(parseTime);
 }
 
 /**
@@ -264,17 +265,36 @@ export function renderInfoTab(result) {
     const container = document.getElementById('info-content');
     if (!container) return;
 
-    // Show statistics section
+    // Hide placeholder
+    const placeholder = container.querySelector('.placeholder');
+    if (placeholder) {
+        placeholder.classList.add('hidden');
+    }
+
+    // Show and populate statistics section
     const statsSection = document.getElementById('info-stats');
     if (statsSection) {
         statsSection.classList.remove('hidden');
         
-        // Update stat values
-        document.getElementById('stat-tokens').textContent = result.stats.tokenCount;
-        document.getElementById('stat-parse-time').textContent = `${result.parseTimeMs.toFixed(2)}ms`;
-        document.getElementById('stat-tree-depth').textContent = result.stats.treeDepth;
-        document.getElementById('stat-node-count').textContent = result.stats.nodeCount;
-        document.getElementById('stat-file-type').textContent = result.cst.kind;
+        // Update stat values (handle both camelCase and snake_case for compatibility)
+        const tokenCount = result.stats?.token_count ?? result.stats?.tokenCount ?? 0;
+        // parseTimeMs is set by JavaScript in parser.js, parse_time_ms is from WASM (always 0)
+        const parseTime = result.parseTimeMs ?? 0;
+        const treeDepth = result.stats?.tree_depth ?? result.stats?.treeDepth ?? 0;
+        const nodeCount = result.stats?.node_count ?? result.stats?.nodeCount ?? 0;
+        const fileType = result.cst?.kind ?? 'Unknown';
+        
+        const statTokensEl = document.getElementById('stat-tokens');
+        const statParseTimeEl = document.getElementById('stat-parse-time');
+        const statTreeDepthEl = document.getElementById('stat-tree-depth');
+        const statNodeCountEl = document.getElementById('stat-node-count');
+        const statFileTypeEl = document.getElementById('stat-file-type');
+        
+        if (statTokensEl) statTokensEl.textContent = tokenCount.toLocaleString();
+        if (statParseTimeEl) statParseTimeEl.textContent = `${parseTime.toFixed(2)}ms`;
+        if (statTreeDepthEl) statTreeDepthEl.textContent = treeDepth.toLocaleString();
+        if (statNodeCountEl) statNodeCountEl.textContent = nodeCount.toLocaleString();
+        if (statFileTypeEl) statFileTypeEl.textContent = fileType;
     }
 
     // Render errors
@@ -307,12 +327,6 @@ export function renderInfoTab(result) {
         }
     } else {
         warningsSection?.classList.add('hidden');
-    }
-
-    // Hide placeholder
-    const placeholder = container.querySelector('.placeholder');
-    if (placeholder) {
-        placeholder.style.display = 'none';
     }
 
     console.log(`✅ Rendered info tab`);
@@ -499,7 +513,7 @@ export function clearOutput() {
     const infoContent = document.getElementById('info-content');
     const placeholder = infoContent?.querySelector('.placeholder');
     if (placeholder) {
-        placeholder.style.display = 'flex';
+        placeholder.classList.remove('hidden');
     }
 
     // Reset parse time
