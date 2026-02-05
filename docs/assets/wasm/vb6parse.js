@@ -1,3 +1,5 @@
+/* @ts-self-types="./vb6parse.d.ts" */
+
 /**
  * Chroma subsampling format
  * @enum {0 | 1 | 2 | 3}

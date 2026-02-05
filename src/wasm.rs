@@ -93,11 +93,33 @@ pub struct CstNode {
 
 /// Convert a `parsers::cst::CstNode` to the wasm-facing `CstNode` recursively.
 fn convert_cst_node(node: &parsers::cst::CstNode) -> CstNode {
-    CstNode {
+    convert_cst_node_with_offset(node, 0).0
+}
+
+/// Convert a `parsers::cst::CstNode` to the wasm-facing `CstNode` recursively,
+/// tracking the current byte offset. Returns the converted node and the next offset.
+fn convert_cst_node_with_offset(node: &parsers::cst::CstNode, start_offset: u32) -> (CstNode, u32) {
+    let text_len = u32::try_from(node.text().len()).unwrap_or(0);
+    let end_offset = start_offset + text_len;
+
+    let mut current_offset = start_offset;
+    let children: Vec<CstNode> = node
+        .children()
+        .iter()
+        .map(|child| {
+            let (child_node, next_offset) = convert_cst_node_with_offset(child, current_offset);
+            current_offset = next_offset;
+            child_node
+        })
+        .collect();
+
+    let wasm_node = CstNode {
         kind: format!("{:?}", node.kind()),
-        range: [0, 0], // TODO: Replace with actual range if available from node
-        children: node.children().iter().map(convert_cst_node).collect(),
-    }
+        range: [start_offset, end_offset],
+        children,
+    };
+
+    (wasm_node, end_offset)
 }
 
 /// Helper to count nodes recursively
