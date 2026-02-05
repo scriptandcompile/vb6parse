@@ -451,6 +451,16 @@
     background-color: rgba(255, 255, 255, 0.05);
 }
 
+/* Highlighted token row (when clicked from editor) */
+.tokens-table tr.highlighted {
+    background-color: rgba(59, 130, 246, 0.15);
+    border-left: 3px solid var(--primary-color);
+}
+
+[data-theme="dark"] .tokens-table tr.highlighted {
+    background-color: rgba(59, 130, 246, 0.25);
+}
+
 /* Token type badges */
 .token-type {
     display: inline-block;

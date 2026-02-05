@@ -70,6 +70,14 @@ export async function initEditor(containerId) {
             // Listen for cursor position changes
             editor.onDidChangeCursorPosition((e) => {
                 updateCursorPosition(e.position);
+                // Emit event for token highlighting
+                const event = new CustomEvent('editorCursorPositionChange', {
+                    detail: {
+                        lineNumber: e.position.lineNumber,
+                        column: e.position.column
+                    }
+                });
+                document.dispatchEvent(event);
             });
 
             console.log('✅ Monaco Editor initialized');
