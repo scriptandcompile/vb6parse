@@ -118,6 +118,9 @@ export function renderTokensTab(tokens) {
     console.log(`✅ Rendered ${filteredTokens.length} tokens`);
 }
 
+// Counter for generating unique node IDs
+let nodeIdCounter = 0;
+
 /**
  * Render CST to the CST tab
  * @param {CstNode} cst - Root CST node
@@ -129,14 +132,32 @@ export function renderCstTab(cst) {
     // Remove placeholder
     container.innerHTML = '';
 
+    // Reset node ID counter
+    nodeIdCounter = 0;
+
     // Check if we should show byte ranges
     const showRanges = document.getElementById('show-byte-ranges')?.checked ?? true;
+
+    // Add node IDs to CST tree
+    addNodeIds(cst);
 
     // Render tree recursively
     const treeElement = renderCstNode(cst, 0, showRanges);
     container.appendChild(treeElement);
 
     console.log(`✅ Rendered CST tree`);
+}
+
+/**
+ * Add unique IDs to CST nodes recursively
+ * @param {CstNode} node - CST node
+ */
+function addNodeIds(node) {
+    if (!node) return;
+    node._nodeId = nodeIdCounter++;
+    if (node.children) {
+        node.children.forEach(child => addNodeIds(child));
+    }
 }
 
 /**
@@ -193,10 +214,13 @@ function renderCstNode(node, depth, showRanges) {
         header.appendChild(range);
     }
 
-    // Store range data for event handlers
+    // Store range data and node ID for event handlers
     if (node.range) {
         nodeDiv.dataset.rangeStart = node.range[0];
         nodeDiv.dataset.rangeEnd = node.range[1];
+    }
+    if (node._nodeId !== undefined) {
+        nodeDiv.dataset.nodeId = node._nodeId;
     }
 
     // Add click handler to highlight and position cursor
