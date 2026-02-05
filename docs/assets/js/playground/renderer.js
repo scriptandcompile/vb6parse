@@ -193,9 +193,25 @@ function renderCstNode(node, depth, showRanges) {
         header.appendChild(range);
     }
 
-    // Add click handler to highlight in editor
-    header.addEventListener('click', () => {
-        highlightNodeInEditor(node);
+    // Store range data for event handlers
+    if (node.range) {
+        nodeDiv.dataset.rangeStart = node.range[0];
+        nodeDiv.dataset.rangeEnd = node.range[1];
+    }
+
+    // Add click handler to highlight and position cursor
+    header.addEventListener('click', (e) => {
+        e.stopPropagation();
+        highlightAndPositionCursor(node);
+    });
+
+    // Add hover handler to highlight
+    header.addEventListener('mouseenter', () => {
+        highlightNodeInEditor(node, true);
+    });
+
+    header.addEventListener('mouseleave', () => {
+        clearEditorHighlight();
     });
 
     nodeDiv.appendChild(header);
@@ -371,14 +387,45 @@ function highlightTokenInEditor(token) {
 }
 
 /**
- * Highlight node in editor
- * TODO: Integrate with editor.js
+ * Highlight node in editor (hover)
+ * @param {CstNode} node - Node to highlight
+ * @param {boolean} isHover - Whether this is a hover event
+ */
+function highlightNodeInEditor(node, isHover = false) {
+    if (!node.range) return;
+
+    const event = new CustomEvent('highlightNodeInEditor', {
+        detail: {
+            startOffset: node.range[0],
+            endOffset: node.range[1],
+            isHover: isHover
+        }
+    });
+    document.dispatchEvent(event);
+}
+
+/**
+ * Highlight node and position cursor at start (click)
  * @param {CstNode} node - Node to highlight
  */
-function highlightNodeInEditor(node) {
-    console.log('TODO: Highlight node in editor:', node);
-    // Convert byte range to line/column
-    // Import and call editor.highlightRange()
+function highlightAndPositionCursor(node) {
+    if (!node.range) return;
+
+    const event = new CustomEvent('highlightAndPositionCursor', {
+        detail: {
+            startOffset: node.range[0],
+            endOffset: node.range[1]
+        }
+    });
+    document.dispatchEvent(event);
+}
+
+/**
+ * Clear editor highlight
+ */
+function clearEditorHighlight() {
+    const event = new CustomEvent('clearEditorHighlight');
+    document.dispatchEvent(event);
 }
 
 /**

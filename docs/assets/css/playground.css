@@ -309,6 +309,17 @@
     /* Monaco/Ace editor will fill this */
 }
 
+/* Monaco Editor CST Node Highlight */
+.cst-node-highlight {
+    background-color: rgba(255, 200, 0, 0.25);
+    border: 1px solid rgba(255, 200, 0, 0.5);
+}
+
+[data-theme="dark"] .cst-node-highlight {
+    background-color: rgba(255, 200, 0, 0.15);
+    border: 1px solid rgba(255, 200, 0, 0.35);
+}
+
 /* TODO: Configure Monaco editor theme in editor.js */
 /* TODO: Add VB6 syntax highlighting definition */
 
@@ -490,7 +501,7 @@
     padding: 4px 8px;
     cursor: pointer;
     border-radius: 3px;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
     display: flex;
     align-items: center;
     gap: 6px;
@@ -498,10 +509,12 @@
 
 .cst-node-header:hover {
     background-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3);
 }
 
 [data-theme="dark"] .cst-node-header:hover {
     background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5);
 }
 
 .cst-node-toggle {
