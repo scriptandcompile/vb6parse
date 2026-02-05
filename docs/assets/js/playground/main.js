@@ -97,6 +97,11 @@ function setupEventListeners() {
         btn.addEventListener('click', () => handleTabChange(btn.dataset.tab));
     });
 
+    // Editor highlight events from CST nodes
+    document.addEventListener('highlightNodeInEditor', handleHighlightNode);
+    document.addEventListener('highlightAndPositionCursor', handleHighlightAndPosition);
+    document.addEventListener('clearEditorHighlight', handleClearHighlight);
+
     // Token filter
     document.getElementById('show-whitespace')?.addEventListener('change', () => {
         if (state.lastParseResult) {
@@ -343,6 +348,54 @@ function handleCollapseAll() {
 function handleHighlightRequest(e) {
     const { line, column, length } = e.detail;
     Editor.highlightRange(line, column, line, column + length);
+}
+
+/**
+ * Handle highlighting a CST node in the editor (hover)
+ */
+function handleHighlightNode(e) {
+    const { startOffset, endOffset } = e.detail;
+    
+    // Convert byte offsets to Monaco positions
+    const startPos = Editor.byteOffsetToPosition(startOffset);
+    const endPos = Editor.byteOffsetToPosition(endOffset);
+    
+    // Highlight the range
+    Editor.highlightRange(
+        startPos.lineNumber,
+        startPos.column,
+        endPos.lineNumber,
+        endPos.column
+    );
+}
+
+/**
+ * Handle highlighting and positioning cursor (click)
+ */
+function handleHighlightAndPosition(e) {
+    const { startOffset, endOffset } = e.detail;
+    
+    // Convert byte offsets to Monaco positions
+    const startPos = Editor.byteOffsetToPosition(startOffset);
+    const endPos = Editor.byteOffsetToPosition(endOffset);
+    
+    // Highlight the range
+    Editor.highlightRange(
+        startPos.lineNumber,
+        startPos.column,
+        endPos.lineNumber,
+        endPos.column
+    );
+    
+    // Set cursor to start position
+    Editor.setCursorToPosition(startPos.lineNumber, startPos.column);
+}
+
+/**
+ * Handle clearing editor highlight
+ */
+function handleClearHighlight() {
+    Editor.clearHighlight();
 }
 
 /**

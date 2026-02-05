@@ -308,6 +308,9 @@ function handleCodeChange() {
     document.dispatchEvent(event);
 }
 
+// Store current decorations for cleanup
+let currentDecorations = [];
+
 /**
  * Highlight a range in the editor
  * @param {number} startLine - Start line (1-based)
@@ -318,15 +321,86 @@ function handleCodeChange() {
 export function highlightRange(startLine, startCol, endLine, endCol) {
     if (!editor) return;
 
-    // TODO: Implement highlighting
-    // Use editor.deltaDecorations() to add/remove decorations
-    editor.revealLineInCenter(startLine);
-    editor.setSelection({
+    // Clear previous decorations
+    currentDecorations = editor.deltaDecorations(currentDecorations, []);
+
+    // Add new highlight decoration
+    currentDecorations = editor.deltaDecorations([], [
+        {
+            range: new monaco.Range(startLine, startCol, endLine, endCol),
+            options: {
+                className: 'cst-node-highlight',
+                isWholeLine: false
+            }
+        }
+    ]);
+
+    editor.revealRangeInCenter({
         startLineNumber: startLine,
         startColumn: startCol,
         endLineNumber: endLine,
         endColumn: endCol
     });
+}
+
+/**
+ * Clear all editor highlights
+ */
+export function clearHighlight() {
+    if (!editor) return;
+    currentDecorations = editor.deltaDecorations(currentDecorations, []);
+}
+
+/**
+ * Set cursor position in the editor
+ * @param {number} line - Line number (1-based)
+ * @param {number} column - Column number (1-based)
+ */
+export function setCursorToPosition(line, column) {
+    if (!editor) return;
+
+    editor.setPosition({
+        lineNumber: line,
+        column: column
+    });
+    
+    editor.revealPositionInCenter({
+        lineNumber: line,
+        column: column
+    });
+    
+    // Focus the editor
+    editor.focus();
+}
+
+/**
+ * Convert byte offset to Monaco position
+ * @param {number} byteOffset - Zero-based byte offset
+ * @returns {{lineNumber: number, column: number}} Monaco position (1-based)
+ */
+export function byteOffsetToPosition(byteOffset) {
+    if (!editor) return { lineNumber: 1, column: 1 };
+
+    const model = editor.getModel();
+    const content = model.getValue();
+    
+    // Convert byte offset to character position
+    // For ASCII/Latin-1 content, byte offset equals character position
+    let currentOffset = 0;
+    let line = 1;
+    let column = 1;
+    
+    for (let i = 0; i < content.length && currentOffset < byteOffset; i++) {
+        if (content[i] === '\n') {
+            line++;
+            column = 1;
+        } else {
+            column++;
+        }
+        currentOffset++;
+    }
+    
+    return { lineNumber: line, column: column };
 }
 
 /**
