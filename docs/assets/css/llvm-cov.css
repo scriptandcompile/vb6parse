@@ -1,0 +1,497 @@
+/* LLVM Coverage Report Styles - Integrated with Site Theme */
+
+/* Coverage-specific color overrides for light theme */
+:root {
+    --coverage-uncovered: #d00;
+    --coverage-covered: #06d;
+    --coverage-highlight-bg: #8884;
+    --coverage-hover-bg: #eee;
+    --coverage-tooltip-bg: #bef;
+    --coverage-border: #8888;
+    --coverage-yellow: #ff06;
+    --coverage-red: #f004;
+    --coverage-gray: #fff4;
+    --coverage-green: #0f04;
+    --coverage-control-bg: #FFF8;
+}
+
+/* Dark theme overrides */
+[data-theme="dark"] {
+    --coverage-uncovered: #f55;
+    --coverage-covered: #39f;
+    --coverage-highlight-bg: #8884;
+    --coverage-hover-bg: #111;
+    --coverage-tooltip-bg: #068;
+    --coverage-border: #555;
+    --coverage-yellow: #cc8800;
+    --coverage-red: #cc0044;
+    --coverage-gray: #444;
+    --coverage-green: #00cc44;
+    --coverage-control-bg: #2228;
+}
+
+/* Also support system preference */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --coverage-uncovered: #f55;
+        --coverage-covered: #39f;
+        --coverage-highlight-bg: #8884;
+        --coverage-hover-bg: #111;
+        --coverage-tooltip-bg: #068;
+        --coverage-border: #555;
+        --coverage-yellow: #cc8800;
+        --coverage-red: #cc0044;
+        --coverage-gray: #444;
+        --coverage-green: #00cc44;
+        --coverage-control-bg: #2228;
+    }
+}
+
+/* Base styles */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* Link styling - light theme */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:visited {
+    color: #551a8b;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Link styling - dark theme */
+[data-theme="dark"] a {
+    color: #66b3ff;
+}
+
+[data-theme="dark"] a:visited {
+    color: #b39ddb;
+}
+
+[data-theme="dark"] a:hover {
+    color: #99ccff;
+}
+
+/* Dark theme: colored coverage cells should use black text for better contrast */
+[data-theme="dark"] .column-entry-green,
+[data-theme="dark"] .column-entry-red,
+[data-theme="dark"] .column-entry-yellow {
+    color: black;
+}
+
+/* Also support system preference */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) a {
+        color: #66b3ff;
+    }
+    
+    :root:not([data-theme="light"]) a:visited {
+        color: #b39ddb;
+    }
+    
+    :root:not([data-theme="light"]) a:hover {
+        color: #99ccff;
+    }
+    
+    /* Colored coverage cells should use black text for better contrast */
+    :root:not([data-theme="light"]) .column-entry-green,
+    :root:not([data-theme="light"]) .column-entry-red,
+    :root:not([data-theme="light"]) .column-entry-yellow {
+        color: black;
+    }
+}
+
+/* Headers should use theme text color */
+h2, h4 {
+    color: var(--text-color);
+    margin: 10px;
+}
+
+/* Override main site pre styles for coverage reports */
+pre {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: none !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    font-size: 0.9rem !important;
+    overflow-x: visible !important;
+    position: static !important;
+}
+
+/* Specific override for table pre elements */
+table pre {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    color: inherit !important;
+}
+
+/* Ensure code elements don't override colors */
+code {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    color: inherit !important;
+    font-family: 'Courier New', Courier, monospace !important;
+}
+
+/* Layout components */
+.centered {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 1300px;
+    min-width: 600px;
+    margin: 2rem auto;
+}
+
+.centered .source-name-title {
+    margin: 0px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.source-name-title a {
+    color: #e6f2ff;
+    text-decoration: none;
+}
+
+.source-name-title a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.source-name-title a:visited {
+    color: #cce0ff;
+}
+
+[data-theme="dark"] .source-name-title a {
+    color: #01346b;
+}
+
+[data-theme="dark"] .source-name-title a:hover {
+    color: #01346b;
+    text-decoration: underline;
+}
+
+[data-theme="dark"] .source-name-title a:visited {
+    color: #504399;
+}
+
+.expansion-view {
+    margin-left: 0;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border: 1px solid var(--coverage-border);
+    border-radius: 3px;
+}
+
+/* Table styles */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* Summary tables (with coverage statistics) get centered card styling */
+.centered table {
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 2rem;
+    background: var(--card-bg);
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    
+}
+
+.light-row {
+    border-top: 1px solid var(--border-color);
+}
+
+.light-row-bold {
+    border-top: 1px solid var(--border-color);
+    font-weight: bold;
+}
+
+/* Column entry styles */
+.column-entry {
+    text-align: center;
+}
+
+.column-entry-bold {
+    font-weight: 700;
+    text-align: left;
+    background: var(--primary-color);
+    color: white;
+    padding: 1rem;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.8px;
+}
+
+.column-entry-yellow {
+    text-align: center;
+    background-color: var(--coverage-yellow);
+}
+
+.column-entry-red {
+    text-align: center;
+    background-color: var(--coverage-red);
+}
+
+.column-entry-gray {
+    text-align: center;
+    background-color: var(--coverage-gray);
+}
+
+.column-entry-green {
+    text-align: center;
+    background-color: var(--coverage-green);
+}
+
+/* Line number and coverage indicators */
+.line-number {
+    text-align: right;
+    user-select: none;
+}
+
+.covered-line {
+    text-align: right;
+    color: var(--coverage-covered);
+    font-weight: 600;
+}
+
+.uncovered-line {
+    text-align: right;
+    color: var(--coverage-uncovered);
+    font-weight: 600;
+}
+
+.skipped-line {
+    text-align: right;
+    color: var(--text-secondary, #999);
+}
+
+.uncovered-line.selected {
+    color: var(--coverage-uncovered);
+    font-weight: bold;
+}
+
+/* Region highlighting */
+.region.red {
+    background-color: var(--coverage-red);
+}
+
+.region.red.selected {
+    background-color: var(--coverage-red);
+    font-weight: bold;
+}
+
+.branch.red.selected {
+    background-color: var(--coverage-red);
+    font-weight: bold;
+}
+
+.red {
+    background-color: var(--coverage-red);
+}
+
+.cyan {
+    background-color: cyan;
+}
+
+/* Tooltip styles */
+.tooltip {
+    position: relative;
+    display: inline;
+    background-color: var(--coverage-tooltip-bg);
+    text-decoration: none;
+}
+
+.tooltip span.tooltip-content {
+    position: absolute;
+    width: 100px;
+    margin-left: -50px;
+    color: #FFFFFF;
+    background: #000000;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    visibility: hidden;
+    border-radius: 6px;
+    z-index: 1000;
+}
+
+.tooltip span.tooltip-content:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -8px;
+    width: 0;
+    height: 0;
+    border-top: 8px solid #000000;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+}
+
+:hover.tooltip span.tooltip-content {
+    visibility: visible;
+    opacity: 0.8;
+    bottom: 30px;
+    left: 50%;
+}
+
+/* Table cell styles */
+th, td {
+    vertical-align: top;
+    padding: 2px 8px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+/* Remove vertical padding and center content for source code tables */
+td.line-number,
+td.covered-line,
+td.uncovered-line,
+td.skipped-line,
+td.code {
+    padding: 0 8px;
+    vertical-align: middle;
+}
+
+/* Summary table cells get better padding 
+.centered th,
+.centered td {
+    padding: 0.75rem 1rem;
+}
+*/
+
+th {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.8px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+td pre {
+    display: inline-block;
+    text-decoration: inherit;
+    vertical-align: middle;
+}
+
+/* Only apply hover to summary table rows, not source code lines */
+.centered tbody tr:hover {
+    background-color: var(--bg-secondary);
+    transition: background 0.2s;
+}
+
+/* Remove alternating row backgrounds from style.css for coverage tables */
+tbody tr:nth-child(even) {
+    background-color: transparent;
+}
+
+[data-theme="dark"] tbody tr:nth-child(even) {
+    background-color: transparent;
+}
+
+/* Highlight for targeted/selected source code lines */
+tr:has(> td > a:target),
+tr:has(> td.uncovered-line.selected) {
+    background-color: var(--coverage-highlight-bg);
+}
+
+/* Coverage page adjustments - header and nav inherit from main site styles */
+/* Add bottom margin to nav for spacing before coverage content */
+nav {
+    margin-bottom: 20px;
+}
+
+/* Ensure nav links are always white (nav has colored background) */
+nav a,
+nav a:visited {
+    color: white;
+}
+
+nav a:hover {
+    color: white;
+    opacity: 0.8;
+}
+
+/* Control panel */
+.control {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 1em;
+    background: var(--coverage-control-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 8px 0 0 0;
+    z-index: 100;
+}
+
+.control a {
+    color: var(--primary-color);
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.control a:hover {
+    text-decoration: underline;
+}
+
+/* Code display */
+.code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    line-height: 1;
+    background: transparent !important;
+}
+
+.code pre {
+    background: transparent !important;
+    color: inherit !important;
+    line-height: 1;
+}
+
+/* Table cells should inherit their background colors */
+td.code {
+    background: transparent;
+}
+
+/* Ensure proper spacing and sizing for summary tables */
+.centered table {
+    min-width: 600px;
+}
