@@ -24,7 +24,8 @@ const state = {
     autoParse: true,
     parseTimeout: null,
     lastParseResult: null,
-    isInitialized: false
+    isInitialized: false,
+    activeTab: 'tokens'
 };
 
 /**
@@ -81,7 +82,6 @@ function setupEventListeners() {
 
     // Parse button
     document.getElementById('parse-btn')?.addEventListener('click', handleParse);
-    document.getElementById('parse-footer-btn')?.addEventListener('click', handleParse);
 
     // Share button
     document.getElementById('share-btn')?.addEventListener('click', handleShare);
@@ -96,6 +96,11 @@ function setupEventListeners() {
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.addEventListener('click', () => handleTabChange(btn.dataset.tab));
     });
+
+    // Editor highlight events from CST nodes
+    document.addEventListener('highlightNodeInEditor', handleHighlightNode);
+    document.addEventListener('highlightAndPositionCursor', handleHighlightAndPosition);
+    document.addEventListener('clearEditorHighlight', handleClearHighlight);
 
     // Token filter
     document.getElementById('show-whitespace')?.addEventListener('change', () => {
@@ -123,6 +128,9 @@ function setupEventListeners() {
 
     // Editor content change (for auto-parse)
     document.addEventListener('editorContentChanged', handleEditorChange);
+
+    // Editor click event (for token highlighting)
+    document.addEventListener('editorCursorPositionChange', handleEditorCursorChange);
 
     // Highlight in editor (from renderer)
     document.addEventListener('highlightInEditor', handleHighlightRequest);
@@ -283,6 +291,9 @@ function handleClear() {
  * Handle tab change
  */
 function handleTabChange(tabId) {
+    // Update active tab in state
+    state.activeTab = tabId;
+
     // Update tab buttons
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.tab === tabId);
@@ -343,6 +354,266 @@ function handleCollapseAll() {
 function handleHighlightRequest(e) {
     const { line, column, length } = e.detail;
     Editor.highlightRange(line, column, line, column + length);
+}
+
+/**
+ * Handle highlighting a CST node in the editor (hover)
+ */
+function handleHighlightNode(e) {
+    const { startOffset, endOffset } = e.detail;
+    
+    // Convert byte offsets to Monaco positions
+    const startPos = Editor.byteOffsetToPosition(startOffset);
+    const endPos = Editor.byteOffsetToPosition(endOffset);
+    
+    // Highlight the range
+    Editor.highlightRange(
+        startPos.lineNumber,
+        startPos.column,
+        endPos.lineNumber,
+        endPos.column
+    );
+}
+
+/**
+ * Handle highlighting and positioning cursor (click)
+ */
+function handleHighlightAndPosition(e) {
+    const { startOffset, endOffset } = e.detail;
+    
+    // Convert byte offsets to Monaco positions
+    const startPos = Editor.byteOffsetToPosition(startOffset);
+    const endPos = Editor.byteOffsetToPosition(endOffset);
+    
+    // Highlight the range
+    Editor.highlightRange(
+        startPos.lineNumber,
+        startPos.column,
+        endPos.lineNumber,
+        endPos.column
+    );
+    
+    // Set cursor to start position
+    Editor.setCursorToPosition(startPos.lineNumber, startPos.column);
+}
+
+/**
+ * Handle clearing editor highlight
+ */
+function handleClearHighlight() {
+    Editor.clearHighlight();
+}
+
+/**
+ * Handle editor cursor position change (for token/CST highlighting)
+ */
+function handleEditorCursorChange(e) {
+    // Only process if tokens or CST tab is active and we have parse results
+    if (!state.lastParseResult) {
+        return;
+    }
+
+    const { lineNumber, column } = e.detail;
+    
+    if (state.activeTab === 'tokens') {
+        // Find and highlight token at this position
+        const token = findTokenAtPosition(state.lastParseResult.tokens, lineNumber, column);
+        if (token) {
+            highlightTokenRow(token);
+        }
+    } else if (state.activeTab === 'cst') {
+        // Find and highlight CST node at this position
+        const byteOffset = positionToByteOffset(lineNumber, column);
+        if (byteOffset !== null && state.lastParseResult.cst) {
+            const node = findMostSpecificCstNode(state.lastParseResult.cst, byteOffset);
+            if (node) {
+                highlightCstNode(node);
+            }
+        }
+    }
+}
+
+/**
+ * Find the most specific token that contains the given position
+ * @param {Array} tokens - Array of token objects
+ * @param {number} line - Line number (1-based)
+ * @param {number} column - Column number (1-based)
+ * @returns {object|null} The matching token or null
+ */
+function findTokenAtPosition(tokens, line, column) {
+    // Find all tokens on the same line
+    const tokensOnLine = tokens.filter(t => t.line === line);
+    
+    // Find token that contains this column position
+    for (const token of tokensOnLine) {
+        const tokenEnd = token.column + token.length;
+        if (column >= token.column && column < tokenEnd) {
+            return token;
+        }
+    }
+    
+    return null;
+}
+
+/**
+ * Highlight a token row in the tokens table
+ * @param {object} token - Token object to highlight
+ */
+function highlightTokenRow(token) {
+    // Remove previous highlights
+    document.querySelectorAll('.tokens-table tbody tr.highlighted').forEach(row => {
+        row.classList.remove('highlighted');
+    });
+    
+    // Find and highlight the matching row
+    const rows = document.querySelectorAll('.tokens-table tbody tr');
+    for (const row of rows) {
+        const rowLine = parseInt(row.dataset.line);
+        const rowColumn = parseInt(row.dataset.column);
+        
+        if (rowLine === token.line && rowColumn === token.column) {
+            row.classList.add('highlighted');
+            // Scroll into view
+            row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            break;
+        }
+    }
+}
+
+/**
+ * Convert editor position to byte offset
+ * @param {number} line - Line number (1-based)
+ * @param {number} column - Column number (1-based)
+ * @returns {number|null} Byte offset (0-based) or null
+ */
+function positionToByteOffset(line, column) {
+    const content = Editor.getEditorContent();
+    if (!content) return null;
+    
+    let currentLine = 1;
+    let currentColumn = 1;
+    let offset = 0;
+    
+    for (let i = 0; i < content.length; i++) {
+        if (currentLine === line && currentColumn === column) {
+            return offset;
+        }
+        
+        if (content[i] === '\n') {
+            currentLine++;
+            currentColumn = 1;
+        } else {
+            currentColumn++;
+        }
+        offset++;
+    }
+    
+    // If position is at end of content
+    if (currentLine === line && currentColumn === column) {
+        return offset;
+    }
+    
+    return null;
+}
+
+/**
+ * Find the most specific (deepest) CST node containing the byte offset
+ * @param {object} node - CST node to search
+ * @param {number} byteOffset - Byte offset to find
+ * @returns {object|null} The most specific node or null
+ */
+function findMostSpecificCstNode(node, byteOffset) {
+    if (!node || !node.range) return null;
+    
+    const [start, end] = node.range;
+    
+    // Check if offset is within this node's range
+    if (byteOffset < start || byteOffset >= end) {
+        return null;
+    }
+    
+    // If this node has children, search them for a more specific match
+    if (node.children && node.children.length > 0) {
+        let bestMatch = null;
+        let bestMatchDepth = 0;
+        let bestMatchSize = end - start;
+        
+        for (const child of node.children) {
+            const specificChild = findMostSpecificCstNode(child, byteOffset);
+            if (specificChild) {
+                const childSize = specificChild.range[1] - specificChild.range[0];
+                const childDepth = getNodeDepth(specificChild);
+                
+                // Prefer smaller ranges (more specific) or deeper nodes when size is equal
+                if (!bestMatch || childSize < bestMatchSize || 
+                    (childSize === bestMatchSize && childDepth > bestMatchDepth)) {
+                    bestMatch = specificChild;
+                    bestMatchSize = childSize;
+                    bestMatchDepth = childDepth;
+                }
+            }
+        }
+        
+        // If we found a child match, return it
+        if (bestMatch) {
+            return bestMatch;
+        }
+    }
+    
+    // This node contains the offset and no child contains it more specifically
+    return node;
+}
+
+/**
+ * Get the depth of a CST node (how many levels of children it has)
+ * @param {object} node - CST node
+ * @returns {number} Depth of the node
+ */
+function getNodeDepth(node) {
+    if (!node.children || node.children.length === 0) {
+        return 0;
+    }
+    return 1 + Math.max(...node.children.map(child => getNodeDepth(child)));
+}
+
+/**
+ * Highlight a CST node in the tree
+ * @param {object} node - CST node to highlight
+ */
+function highlightCstNode(node) {
+    if (!node) return;
+    
+    // Remove previous highlights
+    document.querySelectorAll('.cst-node.highlighted').forEach(el => {
+        el.classList.remove('highlighted');
+    });
+    
+    // Find and highlight the matching node in the DOM by unique ID
+    const nodeId = node._nodeId;
+    if (nodeId === undefined) return;
+    
+    const cstNodes = document.querySelectorAll('.cst-node');
+    
+    for (const cstNode of cstNodes) {
+        const domNodeId = parseInt(cstNode.dataset.nodeId);
+        
+        if (domNodeId === nodeId) {
+            cstNode.classList.add('highlighted');
+            
+            // Expand parent nodes if collapsed
+            let parent = cstNode.parentElement;
+            while (parent) {
+                if (parent.classList.contains('cst-node') && parent.classList.contains('collapsed')) {
+                    parent.classList.remove('collapsed');
+                }
+                parent = parent.parentElement;
+            }
+            
+            // Scroll into view
+            cstNode.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            break;
+        }
+    }
 }
 
 /**
