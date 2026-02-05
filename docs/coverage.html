@@ -295,16 +295,13 @@
                 // Render rows grouped by directory
                 sortedDirs.forEach(dir => {
                     const group = grouped[dir];
-                    const githubDirUrl = `${githubBase}/tree/${branch}/${dir}`;
                     
                     // Add directory header with coverage
                     const dirRow = document.createElement('tr');
                     dirRow.className = 'directory-header';
                     dirRow.innerHTML = `
                         <td class="directory-name">
-                            <a href="${githubDirUrl}" target="_blank" class="directory-link">
-                                📁 ${dir}
-                            </a>
+                            <span class="directory-link">📁 ${dir}</span>
                         </td>
                         <td>${getCoverageBadge(group.totalLines.percent)}</td>
                         <td>${getCoverageBadge(group.totalFunctions.percent)}</td>
@@ -322,11 +319,13 @@
                         const row = document.createElement('tr');
                         row.className = 'file-row';
                         const displayName = file.name.replace(dir + '/', '');
-                        const githubFileUrl = `${githubBase}/blob/${branch}/${file.name}`;
+                        // Remove source file extension before adding .html
+                        const filePathWithoutExt = file.name.replace(/\.(rs|toml|md|txt|json|yml|yaml)$/, '');
+                        const coverageFileUrl = `assets/coverage/${filePathWithoutExt}.html`;
                         
                         row.innerHTML = `
                             <td class="file-name">
-                                &nbsp;&nbsp;<a href="${githubFileUrl}" target="_blank" class="file-link">${displayName}</a>
+                                &nbsp;&nbsp;<a href="${coverageFileUrl}" class="file-link">${displayName}</a>
                             </td>
                             <td>${getCoverageBadge(file.lines.percent)}</td>
                             <td>${getCoverageBadge(file.functions.percent)}</td>
