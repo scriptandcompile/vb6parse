@@ -286,8 +286,7 @@
     font-size: 0.85rem;
 }
 
-.editor-status,
-.parse-status {
+.editor-status {
     font-size: 0.85rem;
     color: var(--text-color);
     opacity: 0.8;
@@ -782,6 +781,10 @@
     color: var(--placeholder-color);
     font-size: 1.1rem;
     text-align: center;
+}
+
+.placeholder.hidden {
+    display: none;
 }
 
 /* ============================================
