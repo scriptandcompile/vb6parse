@@ -59,19 +59,44 @@
 }
 
 .coverage-bar {
-    height: 12px;
+    height: 24px;
     background: var(--bg-secondary);
-    border-radius: 6px;
-    overflow: hidden;
+    border-radius: 8px;
+    overflow: visible;
     margin: 0 0 1rem 0;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--border-color);
+    position: relative;
 }
 
 .coverage-bar-fill {
     height: 100%;
-    background: var(--gradient);
+    background: var(--primary-color);
     transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 12px rgba(138, 43, 226, 0.4);
+    box-shadow: 0 0 8px rgba(0, 102, 204, 0.5);
+    border-radius: 6px;
+    border: 2px solid rgba(0, 102, 204, 0.3);
+    position: relative;
+}
+
+.coverage-bar-fill::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -2px;
+    bottom: -2px;
+    width: 3px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 0 6px 6px 0;
+}
+
+[data-theme="dark"] .coverage-bar-fill {
+    box-shadow: 0 0 8px rgba(51, 153, 255, 0.5);
+    border: 2px solid rgba(51, 153, 255, 0.3);
+}
+
+[data-theme="dark"] .coverage-bar-fill::after {
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .coverage-details {
