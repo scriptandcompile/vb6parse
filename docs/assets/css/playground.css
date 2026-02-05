@@ -1,5 +1,13 @@
 /* VB6Parse Playground Styles */
 
+/* Override body for playground full-height layout */
+body {
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+    margin: 0;
+}
+
 /* ============================================
    Compact Playground Header
    ============================================ */
@@ -8,6 +16,7 @@
     color: white;
     padding: 12px 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
 }
 
 .playground-header .container {
@@ -100,8 +109,7 @@
     background-color: var(--toolbar-bg);
     border-bottom: 2px solid var(--panel-border);
     padding: 10px 0;
-    position: sticky;
-    top: 0;
+    flex-shrink: 0;
     z-index: 100;
 }
 
@@ -237,7 +245,37 @@
    ============================================ */
 
 .playground-footer {
-    padding: 0;
+    padding: 8px 0;
+    flex-shrink: 0;
+    font-size: 0.85rem;
+}
+
+.playground-footer .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-left {
+    white-space: nowrap;
+    flex: 0 0 auto;
+    text-align: left;
+}
+
+.footer-right {
+    white-space: nowrap;
+    flex: 0 0 auto;
+    text-align: right;
+    margin-left: auto;
+}
+
+@media (max-width: 768px) {
+    .playground-footer .footer-content {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
 }
 
 /* ============================================
@@ -245,8 +283,9 @@
    ============================================ */
 .playground-container {
     display: flex;
-    height: calc(100vh - var(--toolbar-height) - 120px); /* Adjust for header/footer */
-    min-height: 500px;
+    flex: 1;
+    min-height: 0; /* Allow flex item to shrink below content size */
+    overflow: hidden;
     background-color: var(--panel-bg);
 }
 
