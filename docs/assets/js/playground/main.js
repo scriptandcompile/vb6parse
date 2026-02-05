@@ -82,7 +82,6 @@ function setupEventListeners() {
 
     // Parse button
     document.getElementById('parse-btn')?.addEventListener('click', handleParse);
-    document.getElementById('parse-footer-btn')?.addEventListener('click', handleParse);
 
     // Share button
     document.getElementById('share-btn')?.addEventListener('click', handleShare);

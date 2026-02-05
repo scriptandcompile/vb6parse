@@ -9,6 +9,8 @@
  * TODO: Implement click-to-highlight interaction
  */
 
+import { getEditor } from './editor.js';
+
 /**
  * Render all output tabs from parse result
  * @param {ParseResult} result - Parse result from parser.js
@@ -284,17 +286,31 @@ export function renderInfoTab(result) {
         const nodeCount = result.stats?.node_count ?? result.stats?.nodeCount ?? 0;
         const fileType = result.cst?.kind ?? 'Unknown';
         
+        // Get lines and chars from editor
+        const editor = getEditor();
+        let lineCount = 0;
+        let charCount = 0;
+        if (editor) {
+            const model = editor.getModel();
+            lineCount = model.getLineCount();
+            charCount = model.getValueLength();
+        }
+        
         const statTokensEl = document.getElementById('stat-tokens');
         const statParseTimeEl = document.getElementById('stat-parse-time');
         const statTreeDepthEl = document.getElementById('stat-tree-depth');
         const statNodeCountEl = document.getElementById('stat-node-count');
         const statFileTypeEl = document.getElementById('stat-file-type');
+        const statLinesEl = document.getElementById('stat-lines');
+        const statCharsEl = document.getElementById('stat-chars');
         
         if (statTokensEl) statTokensEl.textContent = tokenCount.toLocaleString();
         if (statParseTimeEl) statParseTimeEl.textContent = `${parseTime.toFixed(2)}ms`;
         if (statTreeDepthEl) statTreeDepthEl.textContent = treeDepth.toLocaleString();
         if (statNodeCountEl) statNodeCountEl.textContent = nodeCount.toLocaleString();
         if (statFileTypeEl) statFileTypeEl.textContent = fileType;
+        if (statLinesEl) statLinesEl.textContent = lineCount.toLocaleString();
+        if (statCharsEl) statCharsEl.textContent = charCount.toLocaleString();
     }
 
     // Render errors
