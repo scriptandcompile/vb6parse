@@ -24,7 +24,8 @@ const state = {
     autoParse: true,
     parseTimeout: null,
     lastParseResult: null,
-    isInitialized: false
+    isInitialized: false,
+    activeTab: 'tokens'
 };
 
 /**
@@ -128,6 +129,9 @@ function setupEventListeners() {
 
     // Editor content change (for auto-parse)
     document.addEventListener('editorContentChanged', handleEditorChange);
+
+    // Editor click event (for token highlighting)
+    document.addEventListener('editorCursorPositionChange', handleEditorCursorChange);
 
     // Highlight in editor (from renderer)
     document.addEventListener('highlightInEditor', handleHighlightRequest);
@@ -288,6 +292,9 @@ function handleClear() {
  * Handle tab change
  */
 function handleTabChange(tabId) {
+    // Update active tab in state
+    state.activeTab = tabId;
+
     // Update tab buttons
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.tab === tabId);
@@ -396,6 +403,72 @@ function handleHighlightAndPosition(e) {
  */
 function handleClearHighlight() {
     Editor.clearHighlight();
+}
+
+/**
+ * Handle editor cursor position change (for token highlighting)
+ */
+function handleEditorCursorChange(e) {
+    // Only process if tokens tab is active and we have parse results
+    if (state.activeTab !== 'tokens' || !state.lastParseResult) {
+        return;
+    }
+
+    const { lineNumber, column } = e.detail;
+    
+    // Find token at this position
+    const token = findTokenAtPosition(state.lastParseResult.tokens, lineNumber, column);
+    
+    if (token) {
+        highlightTokenRow(token);
+    }
+}
+
+/**
+ * Find the most specific token that contains the given position
+ * @param {Array} tokens - Array of token objects
+ * @param {number} line - Line number (1-based)
+ * @param {number} column - Column number (1-based)
+ * @returns {object|null} The matching token or null
+ */
+function findTokenAtPosition(tokens, line, column) {
+    // Find all tokens on the same line
+    const tokensOnLine = tokens.filter(t => t.line === line);
+    
+    // Find token that contains this column position
+    for (const token of tokensOnLine) {
+        const tokenEnd = token.column + token.length;
+        if (column >= token.column && column < tokenEnd) {
+            return token;
+        }
+    }
+    
+    return null;
+}
+
+/**
+ * Highlight a token row in the tokens table
+ * @param {object} token - Token object to highlight
+ */
+function highlightTokenRow(token) {
+    // Remove previous highlights
+    document.querySelectorAll('.tokens-table tbody tr.highlighted').forEach(row => {
+        row.classList.remove('highlighted');
+    });
+    
+    // Find and highlight the matching row
+    const rows = document.querySelectorAll('.tokens-table tbody tr');
+    for (const row of rows) {
+        const rowLine = parseInt(row.dataset.line);
+        const rowColumn = parseInt(row.dataset.column);
+        
+        if (rowLine === token.line && rowColumn === token.column) {
+            row.classList.add('highlighted');
+            // Scroll into view
+            row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            break;
+        }
+    }
 }
 
 /**
