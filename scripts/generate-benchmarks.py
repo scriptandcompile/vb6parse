@@ -177,43 +177,65 @@ def load_history():
 
 
 def apply_retention_policy(snapshots):
-    """Apply retention policy to limit history size."""
+    """Apply retention policy to limit history size.
+    
+    Keeps the most recent snapshot from each time period:
+    - All snapshots from last 30 days
+    - One snapshot per week for days 31-180 (most recent in each week)
+    - One snapshot per month for days 181-365 (most recent in each month)
+    - One snapshot per quarter beyond 365 days (most recent in each quarter)
+    """
     if not snapshots:
         return []
     
     now = datetime.now(timezone.utc)
-    retained = []
     
-    # Sort by timestamp (newest first)
-    sorted_snapshots = sorted(snapshots, key=lambda s: s['timestamp'], reverse=True)
-    
-    for snapshot in sorted_snapshots:
+    # Parse all valid snapshots with their timestamps
+    parsed_snapshots = []
+    for snapshot in snapshots:
         try:
             timestamp_str = snapshot['timestamp'].replace('Z', '+00:00')
             timestamp = datetime.fromisoformat(timestamp_str)
             age_days = (now - timestamp).days
-            
-            # Keep all from last 30 days
-            if age_days <= RETENTION_DAYS_FULL:
-                retained.append(snapshot)
-            # Keep weekly for 31-180 days (keep Mondays)
-            elif age_days <= RETENTION_DAYS_WEEKLY:
-                if timestamp.weekday() == 0:
-                    retained.append(snapshot)
-            # Keep monthly for 181-365 days (keep 1st of month)
-            elif age_days <= RETENTION_DAYS_MONTHLY:
-                if timestamp.day == 1:
-                    retained.append(snapshot)
-            # Keep quarterly beyond 365 days (keep Jan, Apr, Jul, Oct 1st)
-            else:
-                if timestamp.day == 1 and timestamp.month in [1, 4, 7, 10]:
-                    retained.append(snapshot)
+            parsed_snapshots.append((timestamp, age_days, snapshot))
         except (ValueError, KeyError) as e:
             print(f"Warning: Skipping malformed snapshot: {e}", file=sys.stderr)
             continue
     
+    # Sort by timestamp (newest first for grouping)
+    parsed_snapshots.sort(key=lambda x: x[0], reverse=True)
+    
+    retained = []
+    seen_weeks = set()
+    seen_months = set()
+    seen_quarters = set()
+    
+    for timestamp, age_days, snapshot in parsed_snapshots:
+        # Keep all from last 30 days
+        if age_days <= RETENTION_DAYS_FULL:
+            retained.append(snapshot)
+        # Keep one per week for 31-180 days (ISO week)
+        elif age_days <= RETENTION_DAYS_WEEKLY:
+            week_key = (timestamp.year, timestamp.isocalendar()[1])
+            if week_key not in seen_weeks:
+                retained.append(snapshot)
+                seen_weeks.add(week_key)
+        # Keep one per month for 181-365 days
+        elif age_days <= RETENTION_DAYS_MONTHLY:
+            month_key = (timestamp.year, timestamp.month)
+            if month_key not in seen_months:
+                retained.append(snapshot)
+                seen_months.add(month_key)
+        # Keep one per quarter beyond 365 days
+        else:
+            quarter = (timestamp.month - 1) // 3 + 1
+            quarter_key = (timestamp.year, quarter)
+            if quarter_key not in seen_quarters:
+                retained.append(snapshot)
+                seen_quarters.add(quarter_key)
+    
     # Return in chronological order (oldest first)
-    return list(reversed(retained))
+    return sorted(retained, key=lambda s: s['timestamp'])
 
 
 def calculate_trend(history_data, benchmark_name):
