@@ -62,116 +62,31 @@ function formatBenchmarkName(name) {
     return parsed.displayName;
 }
 
-// Get benchmark id for a specific benchmark name
+// Generate anchor ID for a benchmark
 function getBenchmarkId(name) {
     return 'benchmark-' + name.replace(/[^a-z0-9]/gi, '-').toLowerCase();
-}
-
-// Get trend information for a benchmark
-function getTrendInfo(benchmarkName, history) {
-    if (!history || !history.benchmarks_summary) {
-        return null;
-    }
-    
-    const summary = history.benchmarks_summary[benchmarkName];
-    if (!summary || !summary.trend) {
-        return null;
-    }
-    
-    return summary.trend;
-}
-
-// Format trend badge HTML
-// Format trend badge HTML
-function formatTrendBadge(trend) {
-    if (!trend) {
-        return '';
-    }
-    
-    const icons = {
-        'improving': '📈 ↓',
-        'degrading': '📉 ↑',
-        'stable': '→'
-    };
-    
-    const colors = {
-        'improving': '#10b981',
-        'degrading': '#ef4444',
-        'stable': '#6b7280'
-    };
-    
-    const icon = icons[trend.direction] || '→';
-    const color = colors[trend.direction] || '#6b7280';
-    const changeText = Math.abs(trend.change_percent).toFixed(2);
-    
-    return `
-        <span class="trend-badge" style="background-color: ${color}20; color: ${color}; border: 1px solid ${color}40;">
-            ${icon} ${changeText}%
-        </span>
-    `;
 }
 
 // Load and display benchmark data
 async function loadBenchmarks() {
     try {
-        // Load current snapshot
         const response = await fetch('assets/data/benchmarks.json');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        
-        // Try to load historical data
-        let history = null;
-        try {
-            const historyResponse = await fetch('assets/data/benchmarks-history.json');
-            if (historyResponse.ok) {
-                history = await historyResponse.json();
-            }
-        } catch (e) {
-            console.log('No historical data available yet');
-        }
-        
-        displayBenchmarks(data, history);
-        
-        // Render historical trends chart if history is available
-        if (history && history.snapshots && history.snapshots.length >= 2) {
-            renderTrendsChart(history, 30); // Default to 30 days
-            setupTimeRangeSelector(history);
-        }
+        displayBenchmarks(data);
     } catch (error) {
         showError(error.message);
     }
 }
 
-function displayBenchmarks(data, history) {
+function displayBenchmarks(data) {
     const benchmarks = data.benchmarks || [];
     
     if (benchmarks.length === 0) {
         showError('No benchmark data available');
         return;
-    }
-    
-    // Add history info to summary if available
-    if (history && history.snapshots) {
-        const snapshotCount = history.snapshots.length;
-        const lastUpdated = history.last_updated;
-        const summaryContainer = document.getElementById('overall-summary');
-        
-        // Add history info card
-        if (snapshotCount > 1) {
-            const historyCard = document.createElement('div');
-            historyCard.className = 'summary-card history-card';
-            historyCard.innerHTML = `
-                <h3>📊 Historical Data</h3>
-                <div class="summary-value">${snapshotCount}</div>
-                <div class="summary-label">snapshots</div>
-                <div class="summary-sublabel" style="font-size: 0.8em; opacity: 0.7; margin-top: 4px;">
-                    Last: ${new Date(lastUpdated).toLocaleDateString()}
-                </div>
-            `;
-            summaryContainer.insertBefore(historyCard, summaryContainer.firstChild);
-        }
     }
 
     // Group benchmarks by file type and size, then by base name
@@ -346,7 +261,6 @@ function displayBenchmarks(data, history) {
                         <div class="benchmark-card" id="${getBenchmarkId(benchmark.name)}">
                             <div class="benchmark-header">
                                 <h4 class="benchmark-name">Run #${idx + 1}</h4>
-                                ${formatTrendBadge(getTrendInfo(benchmark.name, history))}
                             </div>
                             <div class="benchmark-metrics">
                                 <div class="metric">
@@ -386,7 +300,6 @@ function displayBenchmarks(data, history) {
                     <div class="benchmark-card" id="${getBenchmarkId(benchmark.name)}">
                         <div class="benchmark-header">
                             <h3 class="benchmark-name">${benchmark.parsed.displayName}</h3>
-                            ${formatTrendBadge(getTrendInfo(benchmark.name, history))}
                         </div>
                         <div class="benchmark-metrics">
                             <div class="metric">
@@ -461,187 +374,6 @@ function displayBenchmarks(data, history) {
     // Show content, hide loading
     document.getElementById('loading').style.display = 'none';
     document.getElementById('benchmark-content').style.display = 'block';
-}
-
-// Render historical trends chart
-function renderTrendsChart(history, timeRangeDays = 30) {
-    if (!history || !history.snapshots || history.snapshots.length < 2) {
-        return; // Need at least 2 data points
-    }
-    
-    // Show the historical section
-    document.getElementById('historical-trends').style.display = 'block';
-    
-    // Filter snapshots by time range
-    const now = new Date();
-    const cutoffDate = timeRangeDays === 'all' ? new Date(0) : 
-        new Date(now.getTime() - timeRangeDays * 24 * 60 * 60 * 1000);
-    
-    const filteredSnapshots = history.snapshots.filter(s => {
-        const date = new Date(s.timestamp);
-        return date >= cutoffDate;
-    });
-    
-    if (filteredSnapshots.length < 2) {
-        return; // Not enough data in this range
-    }
-    
-    // Group benchmarks by file type and calculate averages per snapshot
-    const fileTypes = ['Project Files', 'Class Files', 'Module Files', 'Form Files', 'Form Resources'];
-    const datasets = [];
-    const colors = {
-        'Project Files': 'rgba(255, 99, 132, 1)',
-        'Class Files': 'rgba(54, 162, 235, 1)',
-        'Module Files': 'rgba(75, 192, 192, 1)',
-        'Form Files': 'rgba(153, 102, 255, 1)',
-        'Form Resources': 'rgba(255, 159, 64, 1)'
-    };
-    
-    fileTypes.forEach(fileType => {
-        const data = filteredSnapshots.map(snapshot => {
-            // Find all benchmarks of this file type in this snapshot
-            const typeBenchmarks = snapshot.benchmarks.filter(b => {
-                const parsed = parseBenchmarkName(b.name);
-                return getFileTypeCategory(parsed.extension) === fileType;
-            });
-            
-            if (typeBenchmarks.length === 0) return null;
-            
-            // Calculate average mean time for this file type
-            const avgMean = typeBenchmarks.reduce((sum, b) => sum + b.mean, 0) / typeBenchmarks.length;
-            
-            return {
-                x: new Date(snapshot.timestamp),
-                y: avgMean / 1000 // Convert to microseconds
-            };
-        }).filter(d => d !== null);
-        
-        if (data.length > 0) {
-            datasets.push({
-                label: fileType,
-                data: data,
-                borderColor: colors[fileType],
-                backgroundColor: colors[fileType].replace('1)', '0.1)'),
-                tension: 0.3,
-                pointRadius: 4,
-                pointHoverRadius: 6,
-                borderWidth: 2
-            });
-        }
-    });
-    
-    // Destroy existing chart if it exists
-    const canvas = document.getElementById('trends-chart');
-    if (canvas.chart) {
-        canvas.chart.destroy();
-    }
-    
-    // Create new chart
-    const ctx = canvas.getContext('2d');
-    canvas.chart = new Chart(ctx, {
-        type: 'line',
-        data: { datasets },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            interaction: {
-                mode: 'index',
-                intersect: false
-            },
-            plugins: {
-                legend: {
-                    position: 'top',
-                    labels: {
-                        color: getComputedStyle(document.documentElement)
-                            .getPropertyValue('--text-primary').trim(),
-                        font: {
-                            size: 12,
-                            weight: 600
-                        }
-                    }
-                },
-                title: {
-                    display: true,
-                    text: 'Average Benchmark Performance Over Time',
-                    color: getComputedStyle(document.documentElement)
-                        .getPropertyValue('--text-primary').trim(),
-                    font: {
-                        size: 16,
-                        weight: 700
-                    }
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            return `${context.dataset.label}: ${context.parsed.y.toFixed(2)} μs`;
-                        }
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    type: 'time',
-                    time: {
-                        unit: timeRangeDays <= 30 ? 'day' : 
-                              timeRangeDays <= 90 ? 'week' : 'month',
-                        displayFormats: {
-                            day: 'MMM d',
-                            week: 'MMM d',
-                            month: 'MMM yyyy'
-                        }
-                    },
-                    grid: {
-                        color: getComputedStyle(document.documentElement)
-                            .getPropertyValue('--border-color').trim()
-                    },
-                    ticks: {
-                        color: getComputedStyle(document.documentElement)
-                            .getPropertyValue('--text-secondary').trim()
-                    }
-                },
-                y: {
-                    beginAtZero: false,
-                    title: {
-                        display: true,
-                        text: 'Execution Time (μs)',
-                        color: getComputedStyle(document.documentElement)
-                            .getPropertyValue('--text-primary').trim(),
-                        font: {
-                            weight: 600
-                        }
-                    },
-                    grid: {
-                        color: getComputedStyle(document.documentElement)
-                            .getPropertyValue('--border-color').trim()
-                    },
-                    ticks: {
-                        color: getComputedStyle(document.documentElement)
-                            .getPropertyValue('--text-secondary').trim(),
-                        callback: function(value) {
-                            return value.toFixed(0) + ' μs';
-                        }
-                    }
-                }
-            }
-        }
-    });
-}
-
-// Setup time range selector event listeners
-function setupTimeRangeSelector(history) {
-    const buttons = document.querySelectorAll('.time-range-btn');
-    buttons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Update active state
-            buttons.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Re-render chart with new time range
-            const range = this.dataset.range;
-            const days = range === 'all' ? 'all' : parseInt(range);
-            renderTrendsChart(history, days);
-        });
-    });
 }
 
 function showError(message) {
