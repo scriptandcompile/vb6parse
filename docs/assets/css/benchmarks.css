@@ -81,16 +81,6 @@ main.container {
     border-color: rgba(138, 43, 226, 0.5);
 }
 
-.summary-card.history-card {
-    background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(100, 30, 180, 0.05));
-    border-color: rgba(138, 43, 226, 0.3);
-}
-
-.summary-card.history-card:hover {
-    border-color: rgba(138, 43, 226, 0.6);
-    background: linear-gradient(135deg, rgba(138, 43, 226, 0.15), rgba(100, 30, 180, 0.08));
-}
-
 .summary-card h3 {
     margin: 0 0 1rem 0;
     font-size: 0.95rem;
@@ -315,10 +305,6 @@ main.container {
 
 .benchmark-header {
     margin-bottom: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
 }
 
 .benchmark-name {
@@ -328,57 +314,29 @@ main.container {
     font-weight: 600;
 }
 
-/* Trend badge styling */
-.trend-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    white-space: nowrap;
-}
-
 /* Style for run numbers in main sections (e.g., "Run #1", "Run #2") */
-.benchmark-section-cards > .benchmark-card .benchmark-header {
+.benchmark-section-cards > .benchmark-card .benchmark-name {
+    display: block;
     background: var(--primary-color);
     color: white;
     padding: 0.75rem 1rem;
     border-radius: 6px 6px 0 0;
     text-align: center;
-    margin: -1.75rem -1.75rem 1rem -1.75rem;
-    align-items: center;
-}
-
-.benchmark-section-cards > .benchmark-card .benchmark-name {
-    display: block;
     font-weight: 700;
-}
-
-/* Trend badge in run number headers */
-.benchmark-section-cards > .benchmark-card .benchmark-header .trend-badge,
-.benchmark-subsection .benchmark-header .trend-badge {
-    background: rgba(255, 255, 255, 0.2) !important;
-    color: white !important;
-    border-color: rgba(255, 255, 255, 0.3) !important;
+    margin: -1.75rem -1.75rem 1rem -1.75rem;
 }
 
 /* Style for h4 run numbers in subsections */
-.benchmark-subsection .benchmark-header {
+.benchmark-subsection h4.benchmark-name {
+    display: block;
     background: var(--primary-color);
     color: white;
     padding: 0.5rem 0.75rem;
     border-radius: 6px 6px 0 0;
     text-align: center;
-    margin: -1.75rem -1.75rem 1rem -1.75rem;
-    align-items: center;
-}
-
-.benchmark-subsection h4.benchmark-name {
-    display: block;
     font-weight: 600;
     font-size: 1rem;
+    margin: -1.75rem -1.75rem 1rem -1.75rem;
 }
 
 .benchmark-metrics {
@@ -446,77 +404,6 @@ main.container {
     }
 }
 
-/* Historical Trends Section */
-.historical-section {
-    margin: 3rem 0;
-    padding: 2rem;
-    background: var(--card-bg);
-    border: 2px solid var(--border-color);
-    border-radius: 12px;
-}
-
-.historical-section h2 {
-    margin: 0 0 1.5rem 0;
-    color: var(--text-primary);
-}
-
-/* Time Range Selector */
-.time-range-selector {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-}
-
-.time-range-btn {
-    padding: 0.5rem 1rem;
-    border: 2px solid var(--border-color);
-    background: var(--card-bg);
-    color: var(--text-primary);
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.875rem;
-    font-weight: 600;
-    transition: all 0.2s ease;
-}
-
-.time-range-btn:hover {
-    border-color: var(--primary-color);
-    background: rgba(138, 43, 226, 0.1);
-}
-
-.time-range-btn.active {
-    background: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-}
-
-/* Chart Container */
-.chart-container {
-    position: relative;
-    height: 400px;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    background: var(--bg-primary);
-    border-radius: 8px;
-}
-
-.chart-legend {
-    padding: 1rem;
-    background: rgba(138, 43, 226, 0.05);
-    border-radius: 6px;
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-}
-
-.chart-legend p {
-    margin: 0;
-}
-
-.chart-legend strong {
-    color: var(--text-primary);
-}
-
 @media (max-width: 768px) {
     .benchmark-summary {
         grid-template-columns: 1fr;
@@ -541,16 +428,4 @@ main.container {
     .stat-value {
         font-size: 1.5rem;
     }
-    
-    .chart-container {
-        height: 300px;
-    }
-    
-    .time-range-btn {
-        font-size: 0.75rem;
-        padding: 0.4rem 0.8rem;
-    }
-    
-    .historical-section {
-        padding: 1rem;
-    }
+}
