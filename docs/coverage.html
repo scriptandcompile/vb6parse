@@ -8,8 +8,11 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/docs-style.css">
     <link rel="stylesheet" href="assets/css/coverage.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script src="assets/js/theme-switcher.js"></script>
     <script src="assets/js/stats.js"></script>
+    <script src="assets/js/coverage-history.js"></script>
 </head>
 <body>
     <header class="docs-header">
@@ -44,10 +47,19 @@
         </div>
 
         <div id="coverage-content" style="display: none;">
+            <div id="regression-alert" class="regression-alert" style="display: none;">
+                <div class="alert-icon">⚠️</div>
+                <div class="alert-content">
+                    <strong>Coverage Regression Detected</strong>
+                    <p id="regression-message">Coverage has decreased compared to previous snapshot.</p>
+                </div>
+            </div>
+
             <div class="coverage-summary">
                 <div class="coverage-card">
                     <h3>Line Coverage</h3>
                     <div class="coverage-percent" id="line-percent">--%</div>
+                    <div id="line-trend" class="trend-indicator"></div>
                     <div class="coverage-bar">
                         <div class="coverage-bar-fill" id="line-bar" style="width: 0%"></div>
                     </div>
@@ -58,6 +70,7 @@
                 <div class="coverage-card">
                     <h3>Function Coverage</h3>
                     <div class="coverage-percent" id="function-percent">--%</div>
+                    <div id="function-trend" class="trend-indicator"></div>
                     <div class="coverage-bar">
                         <div class="coverage-bar-fill" id="function-bar" style="width: 0%"></div>
                     </div>
@@ -68,6 +81,7 @@
                 <div class="coverage-card">
                     <h3>Region Coverage</h3>
                     <div class="coverage-percent" id="region-percent">--%</div>
+                    <div id="region-trend" class="trend-indicator"></div>
                     <div class="coverage-bar">
                         <div class="coverage-bar-fill" id="region-bar" style="width: 0%"></div>
                     </div>
@@ -109,6 +123,55 @@
                 <a href="https://github.com/bheisler/criterion.rs" target="_blank">criterion</a>, 
                 and fuzz testing with <a href="https://github.com/rust-fuzz/cargo-fuzz" target="_blank">cargo-fuzz</a>.
             </p>
+
+            <div id="historical-trends" class="historical-section" style="display: none;">
+                <h2>Historical Coverage Trends</h2>
+                <div class="time-range-selector">
+                    <button class="time-range-btn active" data-range="7">Last 7 Days</button>
+                    <button class="time-range-btn" data-range="30">Last 30 Days</button>
+                    <button class="time-range-btn" data-range="90">Last 90 Days</button>
+                    <button class="time-range-btn" data-range="all">All Time</button>
+                </div>
+                <div class="chart-container">
+                    <canvas id="trends-chart"></canvas>
+                </div>
+                <div class="chart-legend">
+                    <p><strong>Chart shows:</strong> Coverage percentage trends over time. Higher is better. <em>Click any data point to view that commit on GitHub.</em></p>
+                </div>
+            </div>
+
+            <div id="test-trends" class="historical-section" style="display: none;">
+                <h2>Test Count Growth</h2>
+                <div class="chart-container">
+                    <canvas id="test-chart"></canvas>
+                </div>
+                <div class="chart-legend">
+                    <p><strong>Chart shows:</strong> Total test count over time. Click any data point to view that commit on GitHub.</p>
+                </div>
+            </div>
+
+            <div id="recent-snapshots" class="historical-section" style="display: none;">
+                <h2>Recent Snapshots</h2>
+                <div class="snapshots-controls">
+                    <button id="export-csv" class="export-btn">📊 Export CSV</button>
+                </div>
+                <div class="snapshots-table-wrapper">
+                    <table class="snapshots-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Commit</th>
+                                <th>Line %</th>
+                                <th>Function %</th>
+                                <th>Region %</th>
+                                <th>Tests</th>
+                            </tr>
+                        </thead>
+                        <tbody id="snapshots-table-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
             <div class="file-list">
                 <h2>Files Needing Coverage</h2>
@@ -156,241 +219,5 @@
             <p>Built with ❤️ by <a href="https://github.com/scriptandcompile" target="_blank">ScriptAndCompile</a></p>
         </div>
     </footer>
-
-    <script>
-        // Load and display coverage data
-        async function loadCoverage() {
-            try {
-                const response = await fetch('assets/data/coverage.json');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-                displayCoverage(data);
-            } catch (error) {
-                showError(error.message);
-            }
-        }
-
-        function displayCoverage(data) {
-            const totals = data.data[0].totals;
-            const files = data.data[0].files;
-
-            // Display summary
-            displaySummary('line', totals.lines);
-            displaySummary('function', totals.functions);
-            displaySummary('region', totals.regions);
-
-            // Display file table
-            displayFiles(files);
-
-            // Show content, hide loading
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('coverage-content').style.display = 'block';
-        }
-
-        function displaySummary(type, data) {
-            const percent = data.percent.toFixed(2);
-            document.getElementById(`${type}-percent`).textContent = `${percent}%`;
-            document.getElementById(`${type}-details`).textContent = 
-                `${data.covered.toLocaleString()} / ${data.count.toLocaleString()} ${type}s`;
-            
-            // Animate bar
-            setTimeout(() => {
-                document.getElementById(`${type}-bar`).style.width = `${percent}%`;
-            }, 100);
-        }
-
-        function getCoverageBadge(percent) {
-            const p = parseFloat(percent);
-            let className = 'coverage-poor';
-            if (p >= 80) className = 'coverage-excellent';
-            else if (p >= 60) className = 'coverage-good';
-            return `<span class="coverage-badge ${className}">${p.toFixed(1)}%</span>`;
-        }
-
-        function displayFiles(files) {
-            const tbody = document.getElementById('file-table-body');
-            const completeTbody = document.getElementById('complete-file-table-body');
-            const allFiles = [];
-            const githubBase = 'https://github.com/scriptandcompile/vb6parse';
-            const branch = 'master';
-
-            files.forEach(file => {
-                const fileName = file.filename.replace(/^.*\/src\//, 'src/');
-                const lines = file.summary.lines;
-                const functions = file.summary.functions;
-                const regions = file.summary.regions;
-
-                allFiles.push({
-                    name: fileName,
-                    lines: lines,
-                    functions: functions,
-                    regions: regions,
-                    isComplete: lines.percent === 100 && functions.percent === 100 && regions.percent === 100
-                });
-            });
-
-            // Group files by directory and calculate directory totals
-            const groupedFiles = {};
-            const completeGroupedFiles = {};
-            
-            allFiles.forEach(file => {
-                let dir = 'src/';
-                if (file.name.includes('/')) {
-                    const parts = file.name.split('/');
-                    if (parts.length > 2) {
-                        dir = parts.slice(0, 2).join('/'); // e.g., "src/errors"
-                    }
-                }
-                
-                const targetGroup = file.isComplete ? completeGroupedFiles : groupedFiles;
-                
-                if (!targetGroup[dir]) {
-                    targetGroup[dir] = {
-                        files: [],
-                        totalLines: { covered: 0, count: 0 },
-                        totalFunctions: { covered: 0, count: 0 },
-                        totalRegions: { covered: 0, count: 0 }
-                    };
-                }
-                targetGroup[dir].files.push(file);
-                
-                // Accumulate totals for directory
-                targetGroup[dir].totalLines.covered += file.lines.covered;
-                targetGroup[dir].totalLines.count += file.lines.count;
-                targetGroup[dir].totalFunctions.covered += file.functions.covered;
-                targetGroup[dir].totalFunctions.count += file.functions.count;
-                targetGroup[dir].totalRegions.covered += file.regions.covered;
-                targetGroup[dir].totalRegions.count += file.regions.count;
-            });
-
-            // Calculate percentages for each directory
-            [groupedFiles, completeGroupedFiles].forEach(grouped => {
-                Object.keys(grouped).forEach(dir => {
-                    const group = grouped[dir];
-                    group.totalLines.percent = group.totalLines.count > 0 
-                        ? (group.totalLines.covered / group.totalLines.count * 100) 
-                        : 0;
-                    group.totalFunctions.percent = group.totalFunctions.count > 0 
-                        ? (group.totalFunctions.covered / group.totalFunctions.count * 100) 
-                        : 0;
-                    group.totalRegions.percent = group.totalRegions.count > 0 
-                        ? (group.totalRegions.covered / group.totalRegions.count * 100) 
-                        : 0;
-                    // Average coverage for sorting
-                    group.avgCoverage = (group.totalLines.percent + group.totalFunctions.percent + group.totalRegions.percent) / 3;
-                });
-            });
-
-            // Function to render a table
-            function renderTable(targetTbody, grouped, sortAscending = true) {
-                // Sort directories by average coverage
-                const sortedDirs = Object.keys(grouped).sort((a, b) => {
-                    return sortAscending 
-                        ? grouped[a].avgCoverage - grouped[b].avgCoverage
-                        : grouped[b].avgCoverage - grouped[a].avgCoverage;
-                });
-
-                // Render rows grouped by directory
-                sortedDirs.forEach(dir => {
-                    const group = grouped[dir];
-                    
-                    // Add directory header with coverage
-                    const dirRow = document.createElement('tr');
-                    dirRow.className = 'directory-header';
-                    dirRow.innerHTML = `
-                        <td class="directory-name">
-                            <span class="directory-link">📁 ${dir}</span>
-                        </td>
-                        <td>${getCoverageBadge(group.totalLines.percent)}</td>
-                        <td>${getCoverageBadge(group.totalFunctions.percent)}</td>
-                        <td>${getCoverageBadge(group.totalRegions.percent)}</td>
-                    `;
-                    targetTbody.appendChild(dirRow);
-
-                    // Sort files within directory by line coverage
-                    group.files.sort((a, b) => sortAscending 
-                        ? a.lines.percent - b.lines.percent
-                        : b.lines.percent - a.lines.percent);
-
-                    // Add file rows
-                    group.files.forEach(file => {
-                        const row = document.createElement('tr');
-                        row.className = 'file-row';
-                        const displayName = file.name.replace(dir + '/', '');
-                        // Remove source file extension before adding .html
-                        const filePathWithoutExt = file.name.replace(/\.(rs|toml|md|txt|json|yml|yaml)$/, '');
-                        const coverageFileUrl = `assets/coverage/${filePathWithoutExt}.html`;
-                        
-                        row.innerHTML = `
-                            <td class="file-name">
-                                &nbsp;&nbsp;<a href="${coverageFileUrl}" class="file-link">${displayName}</a>
-                            </td>
-                            <td>${getCoverageBadge(file.lines.percent)}</td>
-                            <td>${getCoverageBadge(file.functions.percent)}</td>
-                            <td>${getCoverageBadge(file.regions.percent)}</td>
-                        `;
-                        row.dataset.fullName = file.name;
-                        targetTbody.appendChild(row);
-                    });
-                });
-            }
-
-            // Render both tables
-            renderTable(tbody, groupedFiles, true); // Incomplete files sorted least to most
-            renderTable(completeTbody, completeGroupedFiles, false); // Complete files sorted most to least (all 100% anyway)
-
-            // Show complete coverage section if there are complete files
-            if (Object.keys(completeGroupedFiles).length > 0) {
-                document.getElementById('complete-coverage-section').style.display = 'block';
-            }
-
-            // Add search functionality for both tables
-            function setupSearch(searchId, tableBodyId) {
-                document.getElementById(searchId).addEventListener('input', (e) => {
-                    const search = e.target.value.toLowerCase();
-                    const targetTbody = document.getElementById(tableBodyId);
-                    const dirHeaders = targetTbody.querySelectorAll('.directory-header');
-                    
-                    // First pass: filter file rows
-                    const fileRows = targetTbody.querySelectorAll('.file-row');
-                    fileRows.forEach(row => {
-                        const fileName = row.dataset.fullName.toLowerCase();
-                        row.style.display = fileName.includes(search) ? '' : 'none';
-                    });
-                    
-                    // Second pass: hide/show directory headers based on visible files
-                    dirHeaders.forEach(header => {
-                        let nextSibling = header.nextElementSibling;
-                        let hasVisibleFiles = false;
-                        
-                        // Check if any files in this directory are visible
-                        while (nextSibling && nextSibling.classList.contains('file-row')) {
-                            if (nextSibling.style.display !== 'none') {
-                                hasVisibleFiles = true;
-                                break;
-                            }
-                            nextSibling = nextSibling.nextElementSibling;
-                        }
-                        
-                        header.style.display = hasVisibleFiles ? '' : 'none';
-                    });
-                });
-            }
-            
-            setupSearch('file-search', 'file-table-body');
-            setupSearch('complete-file-search', 'complete-file-table-body');
-        }
-
-        function showError(message) {
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('error').style.display = 'block';
-            document.getElementById('error-message').textContent = message;
-        }
-
-        // Load coverage on page load
-        loadCoverage();
-    </script>
 </body>
 </html>

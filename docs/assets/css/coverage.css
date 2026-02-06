@@ -311,3 +311,309 @@
     font-size: 3rem;
     margin-bottom: 1rem;
 }
+
+/* Regression Alert */
+.regression-alert {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(239, 68, 68, 0.1);
+    border: 2px solid #ef4444;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.regression-alert .alert-icon {
+    font-size: 2.5rem;
+    line-height: 1;
+}
+
+.regression-alert .alert-content {
+    flex: 1;
+}
+
+.regression-alert .alert-content strong {
+    display: block;
+    font-size: 1.1rem;
+    color: #991b1b;
+    margin-bottom: 0.5rem;
+}
+
+.regression-alert .alert-content p {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+/* Trend Indicators */
+.trend-indicator {
+    margin: 0.75rem 0;
+    min-height: 28px;
+}
+
+.trend-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.trend-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.trend-badge.improving {
+    background-color: #d1fae5;
+    color: #065f46;
+    border: 2px solid #10b981;
+}
+
+.trend-badge.degrading {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 2px solid #ef4444;
+}
+
+.trend-badge.stable {
+    background-color: #e5e7eb;
+    color: #374151;
+    border: 2px solid #6b7280;
+}
+
+[data-theme="dark"] .trend-badge.improving {
+    background-color: rgba(16, 185, 129, 0.2);
+    color: #6ee7b7;
+}
+
+[data-theme="dark"] .trend-badge.degrading {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+}
+
+[data-theme="dark"] .trend-badge.stable {
+    background-color: rgba(107, 114, 128, 0.2);
+    color: #d1d5db;
+}
+
+/* Historical Trends Section */
+.historical-section {
+    margin: 3rem 0;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: box-shadow 0.3s ease;
+}
+
+.historical-section:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.historical-section h2 {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-primary);
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.time-range-selector {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.time-range-btn {
+    padding: 0.6rem 1.25rem;
+    border: 2px solid var(--border-color);
+    background: var(--bg-primary);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.time-range-btn:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.time-range-btn.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.chart-container {
+    position: relative;
+    height: 400px;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: var(--bg-primary);
+    border-radius: 8px;
+}
+
+.chart-container canvas {
+    cursor: pointer;
+}
+
+.chart-legend {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.chart-legend p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.chart-legend strong {
+    color: var(--text-primary);
+}
+
+.chart-legend em {
+    opacity: 0.8;
+}
+
+/* Snapshots Table */
+.snapshots-controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+}
+
+.export-btn {
+    padding: 0.6rem 1.25rem;
+    border: 2px solid var(--primary-color);
+    background: var(--primary-color);
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.export-btn:hover {
+    background: var(--bg-primary);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(138, 43, 226, 0.2);
+}
+
+.snapshots-table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.snapshots-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+}
+
+.snapshots-table thead {
+    background: var(--primary-color);
+}
+
+.snapshots-table th {
+    text-align: left;
+    padding: 1rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.8px;
+}
+
+.snapshots-table th:nth-child(3),
+.snapshots-table th:nth-child(4),
+.snapshots-table th:nth-child(5),
+.snapshots-table th:nth-child(6) {
+    text-align: center;
+}
+
+.snapshots-table td {
+    padding: 0.875rem 1rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.snapshots-table td:nth-child(3),
+.snapshots-table td:nth-child(4),
+.snapshots-table td:nth-child(5),
+.snapshots-table td:nth-child(6) {
+    text-align: center;
+    font-weight: 600;
+}
+
+.snapshots-table tbody tr {
+    transition: background 0.2s;
+}
+
+.snapshots-table tbody tr:hover {
+    background: var(--bg-secondary);
+}
+
+.commit-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(138, 43, 226, 0.1);
+    transition: all 0.2s ease;
+}
+
+.commit-link:hover {
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .regression-alert {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .time-range-selector {
+        flex-direction: column;
+    }
+    
+    .time-range-btn {
+        width: 100%;
+    }
+    
+    .chart-container {
+        height: 300px;
+    }
+    
+    .snapshots-table th,
+    .snapshots-table td {
+        padding: 0.5rem;
+        font-size: 0.8rem;
+    }
+    
+    .export-btn {
+        width: 100%;
+    }
+}
