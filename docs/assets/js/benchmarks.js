@@ -93,18 +93,11 @@ function formatTrendBadge(trend) {
         'stable': '→'
     };
     
-    const colors = {
-        'improving': '#10b981',
-        'degrading': '#ef4444',
-        'stable': '#6b7280'
-    };
-    
     const icon = icons[trend.direction] || '→';
-    const color = colors[trend.direction] || '#6b7280';
     const changeText = Math.abs(trend.change_percent).toFixed(2);
     
     return `
-        <span class="trend-badge" style="background-color: ${color}20; color: ${color}; border: 1px solid ${color}40;">
+        <span class="trend-badge ${trend.direction}">
             ${icon} ${changeText}%
         </span>
     `;
@@ -539,6 +532,12 @@ function renderTrendsChart(history, daysRange) {
         window.trendsChartInstance.destroy();
     }
     
+    // Store snapshots for click handling
+    window.trendsChartSnapshots = snapshots;
+    
+    // GitHub repository URL
+    const githubRepo = 'https://github.com/scriptandcompile/vb6parse';
+    
     // Create new chart
     const ctx = canvas.getContext('2d');
     window.trendsChartInstance = new Chart(ctx, {
@@ -551,6 +550,15 @@ function renderTrendsChart(history, daysRange) {
                 mode: 'index',
                 intersect: false
             },
+            onClick: (event, elements) => {
+                if (elements.length > 0) {
+                    const index = elements[0].index;
+                    const snapshot = window.trendsChartSnapshots[index];
+                    if (snapshot && snapshot.commit_sha && snapshot.commit_sha !== 'unknown') {
+                        window.open(`${githubRepo}/commit/${snapshot.commit_sha}`, '_blank');
+                    }
+                }
+            },
             plugins: {
                 legend: {
                     position: 'top',
@@ -561,8 +569,50 @@ function renderTrendsChart(history, daysRange) {
                 },
                 tooltip: {
                     callbacks: {
+                        title: function(context) {
+                            // Show date as title
+                            if (context.length > 0) {
+                                const snapshot = window.trendsChartSnapshots[context[0].dataIndex];
+                                if (snapshot) {
+                                    const date = new Date(snapshot.timestamp).toLocaleDateString('en-US', {
+                                        year: 'numeric',
+                                        month: 'short',
+                                        day: 'numeric',
+                                        hour: '2-digit',
+                                        minute: '2-digit'
+                                    });
+                                    return date;
+                                }
+                            }
+                            return '';
+                        },
+                        beforeBody: function(context) {
+                            // Show commit info once before all data points
+                            if (context.length > 0) {
+                                const snapshot = window.trendsChartSnapshots[context[0].dataIndex];
+                                if (snapshot && snapshot.commit_sha && snapshot.commit_sha !== 'unknown') {
+                                    const commitShort = snapshot.commit_sha.substring(0, 8);
+                                    const commitMsg = snapshot.commit_message.substring(0, 60);
+                                    return [
+                                        `Commit: ${commitShort}`,
+                                        `${commitMsg}${snapshot.commit_message.length > 60 ? '...' : ''}`,
+                                        '' // empty line separator
+                                    ];
+                                }
+                            }
+                            return [];
+                        },
                         label: function(context) {
                             return context.dataset.label + ': ' + context.parsed.y.toFixed(2) + ' ms';
+                        },
+                        footer: function(context) {
+                            if (context.length > 0) {
+                                const snapshot = window.trendsChartSnapshots[context[0].dataIndex];
+                                if (snapshot && snapshot.commit_sha && snapshot.commit_sha !== 'unknown') {
+                                    return '(click to view on GitHub)';
+                                }
+                            }
+                            return '';
                         }
                     }
                 }
