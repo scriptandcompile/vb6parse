@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-02-06T20:34:11Z",
+  "last_updated": "2026-02-06T21:29:13Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T19:53:21Z",
@@ -108,6 +108,40 @@
       "timestamp": "2026-02-06T20:34:11Z",
       "commit_sha": "e378c37b7f1fb7a8bc774829f5d4950718896a01",
       "commit_message": "Merge pull request #13 from scriptandcompile/coverage_historical",
+      "coverage": {
+        "line_coverage": 95.51,
+        "function_coverage": 93.76,
+        "region_coverage": 95.56
+      },
+      "tests": {
+        "total": 5671,
+        "lib_tests": 5478,
+        "doc_tests": 98,
+        "integration_tests": 95,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 93474,
+          "total": 97867,
+          "percent": 95.51
+        },
+        "functions": {
+          "covered": 6028,
+          "total": 6429,
+          "percent": 93.76
+        },
+        "regions": {
+          "covered": 149215,
+          "total": 156141,
+          "percent": 95.56
+        }
+      }
+    },
+    {
+      "timestamp": "2026-02-06T21:29:13Z",
+      "commit_sha": "91e478305e1c69019290fb9d7b74a02646de715f",
+      "commit_message": "Merge pull request #15 from scriptandcompile/coverage_fix",
       "coverage": {
         "line_coverage": 95.51,
         "function_coverage": 93.76,
