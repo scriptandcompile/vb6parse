@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate coverage data and test statistics for VB6Parse.
+Generate coverage data and test statistics for VB6Parse with historical tracking.
 Cross-platform script for Windows and Linux.
 """
 
@@ -10,6 +10,139 @@ import sys
 import subprocess
 import glob
 from pathlib import Path
+from datetime import datetime, timezone
+
+# Configuration
+HISTORY_FILE = Path("docs/assets/data/coverage-history.json")
+COVERAGE_FILE = Path("docs/assets/data/coverage.json")
+STATS_FILE = Path("docs/assets/data/stats.json")
+RETENTION_DAYS_FULL = 30
+RETENTION_DAYS_WEEKLY = 180
+RETENTION_DAYS_MONTHLY = 365
+
+
+def get_git_info():
+    """Get current git commit information."""
+    try:
+        commit_sha = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            capture_output=True,
+            text=True,
+            check=True
+        ).stdout.strip()
+        
+        commit_msg = subprocess.run(
+            ["git", "log", "-1", "--pretty=%B"],
+            capture_output=True,
+            text=True,
+            check=True
+        ).stdout.strip().split('\n')[0]
+        
+        timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        
+        return commit_sha, commit_msg, timestamp
+    except subprocess.CalledProcessError:
+        # If git is not available or not a git repo
+        return "unknown", "No git information available", datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def load_history():
+    """Load existing coverage history or create new."""
+    if HISTORY_FILE.exists():
+        try:
+            with open(HISTORY_FILE, 'r') as f:
+                return json.load(f)
+        except (json.JSONDecodeError, IOError) as e:
+            print(f"Warning: Failed to load history, starting fresh: {e}", file=sys.stderr)
+    
+    return {
+        "version": "1.0",
+        "last_updated": "",
+        "snapshots": [],
+        "coverage_summary": {}
+    }
+
+
+def apply_retention_policy(snapshots):
+    """Apply retention policy to limit history size.
+    
+    Keeps the most recent snapshot from each time period:
+    - All snapshots from last 30 days
+    - One snapshot per week for days 31-180 (most recent in each week)
+    - One snapshot per month for days 181-365 (most recent in each month)
+    - One snapshot per quarter beyond 365 days (most recent in each quarter)
+    """
+    if not snapshots:
+        return [], {"removed": 0, "kept": 0}
+    
+    now = datetime.now(timezone.utc)
+    original_count = len(snapshots)
+    
+    # Parse all valid snapshots with their timestamps
+    parsed_snapshots = []
+    for snapshot in snapshots:
+        try:
+            timestamp_str = snapshot['timestamp'].replace('Z', '+00:00')
+            timestamp = datetime.fromisoformat(timestamp_str)
+            age_days = (now - timestamp).days
+            parsed_snapshots.append((timestamp, age_days, snapshot))
+        except (ValueError, KeyError) as e:
+            print(f"Warning: Skipping malformed snapshot: {e}", file=sys.stderr)
+            continue
+    
+    # Sort by timestamp (newest first for grouping)
+    parsed_snapshots.sort(key=lambda x: x[0], reverse=True)
+    
+    retained = []
+    seen_weeks = set()
+    seen_months = set()
+    seen_quarters = set()
+    
+    retention_stats = {
+        "full": 0,
+        "weekly": 0,
+        "monthly": 0,
+        "quarterly": 0
+    }
+    
+    for timestamp, age_days, snapshot in parsed_snapshots:
+        # Keep all from last 30 days
+        if age_days <= RETENTION_DAYS_FULL:
+            retained.append(snapshot)
+            retention_stats["full"] += 1
+        # Keep one per week for 31-180 days (ISO week)
+        elif age_days <= RETENTION_DAYS_WEEKLY:
+            week_key = (timestamp.year, timestamp.isocalendar()[1])
+            if week_key not in seen_weeks:
+                retained.append(snapshot)
+                seen_weeks.add(week_key)
+                retention_stats["weekly"] += 1
+        # Keep one per month for 181-365 days
+        elif age_days <= RETENTION_DAYS_MONTHLY:
+            month_key = (timestamp.year, timestamp.month)
+            if month_key not in seen_months:
+                retained.append(snapshot)
+                seen_months.add(month_key)
+                retention_stats["monthly"] += 1
+        # Keep one per quarter beyond 365 days
+        else:
+            quarter = (timestamp.month - 1) // 3 + 1
+            quarter_key = (timestamp.year, quarter)
+            if quarter_key not in seen_quarters:
+                retained.append(snapshot)
+                seen_quarters.add(quarter_key)
+                retention_stats["quarterly"] += 1
+    
+    # Return in chronological order (oldest first)
+    retained_sorted = sorted(retained, key=lambda s: s['timestamp'])
+    
+    summary = {
+        "removed": original_count - len(retained_sorted),
+        "kept": len(retained_sorted),
+        "breakdown": retention_stats
+    }
+    
+    return retained_sorted, summary
 
 
 def run_coverage():
@@ -18,7 +151,7 @@ def run_coverage():
     
     try:
         subprocess.run(
-            ["cargo", "llvm-cov", "--lib", "--tests", "--json", "--output-path", "docs/assets/data/coverage.json"],
+            ["cargo", "llvm-cov", "--lib", "--tests", "--json", "--output-path", str(COVERAGE_FILE)],
             check=True
         )
     except subprocess.CalledProcessError as e:
@@ -334,7 +467,7 @@ def collect_test_statistics():
 def extract_coverage_metrics():
     """Extract coverage metrics from coverage.json."""
     try:
-        with open('docs/assets/data/coverage.json', 'r') as f:
+        with open(COVERAGE_FILE, 'r') as f:
             coverage = json.load(f)
         
         totals = coverage['data'][0]['totals']
@@ -353,14 +486,113 @@ def extract_coverage_metrics():
         }
 
 
+def create_coverage_snapshot(commit_sha, commit_msg, timestamp, test_stats, coverage_metrics):
+    """Create a coverage snapshot from current data."""
+    try:
+        with open(COVERAGE_FILE, 'r') as f:
+            coverage_data = json.load(f)
+        
+        totals = coverage_data['data'][0]['totals']
+        
+        return {
+            "timestamp": timestamp,
+            "commit_sha": commit_sha,
+            "commit_message": commit_msg,
+            "coverage": {
+                "line_coverage": coverage_metrics['line_coverage'],
+                "function_coverage": coverage_metrics['function_coverage'],
+                "region_coverage": coverage_metrics['region_coverage']
+            },
+            "tests": {
+                "total": test_stats['test_count'],
+                "lib_tests": test_stats['lib_tests'],
+                "doc_tests": test_stats['doc_tests'],
+                "integration_tests": test_stats['integration_tests'],
+                "fuzz_targets": test_stats['fuzz_targets']
+            },
+            "details": {
+                "lines": {
+                    "covered": totals['lines']['covered'],
+                    "total": totals['lines']['count'],
+                    "percent": round(totals['lines']['percent'], 2)
+                },
+                "functions": {
+                    "covered": totals['functions']['covered'],
+                    "total": totals['functions']['count'],
+                    "percent": round(totals['functions']['percent'], 2)
+                },
+                "regions": {
+                    "covered": totals['regions']['covered'],
+                    "total": totals['regions']['count'],
+                    "percent": round(totals['regions']['percent'], 2)
+                }
+            }
+        }
+    except (IOError, KeyError, IndexError) as e:
+        print(f"Error creating snapshot: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
+def update_coverage_summary(history):
+    """Calculate summary statistics and trends for all metrics."""
+    if not history['snapshots']:
+        return {}
+    
+    summary = {}
+    
+    for metric in ['line_coverage', 'function_coverage', 'region_coverage']:
+        values = [s['coverage'][metric] for s in history['snapshots']]
+        
+        if len(values) >= 2:
+            recent = values[-1]
+            previous = values[-2]
+            change = recent - previous
+            
+            # Coverage changes are small, use tight threshold
+            if abs(change) < 0.1:
+                trend = "stable"
+            elif change > 0:
+                trend = "improving"
+            else:
+                trend = "degrading"
+        else:
+            trend = "no_data"
+            change = 0
+        
+        summary[metric] = {
+            "latest": values[-1],
+            "trend": trend,
+            "change_percent": round(abs(change), 2),
+            "best": round(max(values), 2),
+            "worst": round(min(values), 2),
+            "average": round(sum(values) / len(values), 2)
+        }
+    
+    # Test count tracking
+    test_counts = [s['tests']['total'] for s in history['snapshots']]
+    if len(test_counts) >= 2:
+        change = test_counts[-1] - test_counts[-2]
+        growth_rate = (change / test_counts[-2]) * 100 if test_counts[-2] > 0 else 0
+        
+        trend = "growing" if change > 5 else "stable" if change >= -5 else "shrinking"
+        
+        summary['test_count'] = {
+            "latest": test_counts[-1],
+            "trend": trend,
+            "change_count": change,
+            "growth_rate": round(growth_rate, 2)
+        }
+    
+    return summary
+
+
 def write_stats(test_stats, coverage_metrics):
     """Write combined statistics to stats.json."""
     stats = {**test_stats, **coverage_metrics}
     
-    stats_path = Path('docs/assets/data/stats.json')
-    stats_path.parent.mkdir(parents=True, exist_ok=True)
+    STATS_FILE.parent.mkdir(parents=True, exist_ok=True)
     
-    with open(stats_path, 'w') as f:
+    with open(STATS_FILE, 'w') as f:
         json.dump(stats, f, indent=2)
     
     # Print summary
@@ -374,8 +606,8 @@ def write_stats(test_stats, coverage_metrics):
     print(f"  Function coverage: {stats['function_coverage']}%")
     print(f"  Region coverage: {stats['region_coverage']}%")
     
-    print(f"\n✓ Coverage data saved to docs/assets/data/coverage.json")
-    print(f"✓ Test statistics saved to {stats_path}")
+    print(f"\n✓ Coverage data saved to {COVERAGE_FILE}")
+    print(f"✓ Test statistics saved to {STATS_FILE}")
 
 
 def main():
@@ -389,6 +621,57 @@ def main():
         test_stats = collect_test_statistics()
         coverage_metrics = extract_coverage_metrics()
         write_stats(test_stats, coverage_metrics)
+        
+        # Historical tracking
+        print("\n📊 Updating coverage history...")
+        commit_sha, commit_msg, timestamp = get_git_info()
+        
+        # Load and update history
+        history = load_history()
+        snapshot = create_coverage_snapshot(
+            commit_sha, commit_msg, timestamp,
+            test_stats, coverage_metrics
+        )
+        
+        history['snapshots'].append(snapshot)
+        history['last_updated'] = timestamp
+        
+        # Apply retention policy
+        before_count = len(history['snapshots'])
+        history['snapshots'], retention_summary = apply_retention_policy(
+            history['snapshots']
+        )
+        
+        # Update summary with trends
+        history['coverage_summary'] = update_coverage_summary(history)
+        
+        # Write history file
+        HISTORY_FILE.parent.mkdir(parents=True, exist_ok=True)
+        with open(HISTORY_FILE, 'w') as f:
+            json.dump(history, f, indent=2)
+        
+        # Print summary
+        print(f"   Snapshots before retention: {before_count}")
+        print(f"   Snapshots retained: {retention_summary['kept']}")
+        print(f"   Snapshots removed: {retention_summary['removed']}")
+        print(f"\n✅ Coverage history saved to {HISTORY_FILE}")
+        print(f"   {len(history['snapshots'])} total snapshots")
+        print(f"   Commit: {commit_sha[:8]} - {commit_msg}")
+        
+        # Show trends
+        summary = history['coverage_summary']
+        if summary:
+            print(f"\n📈 Coverage Trends:")
+            print(f"   Line: {summary['line_coverage']['latest']}% "
+                  f"({summary['line_coverage']['trend']})")
+            print(f"   Function: {summary['function_coverage']['latest']}% "
+                  f"({summary['function_coverage']['trend']})")
+            print(f"   Region: {summary['region_coverage']['latest']}% "
+                  f"({summary['region_coverage']['trend']})")
+            if 'test_count' in summary:
+                print(f"   Tests: {summary['test_count']['latest']:,} "
+                      f"({summary['test_count']['trend']}, "
+                      f"{summary['test_count']['change_count']:+d})")
         
         print(f"\n✓ HTML coverage reports available at {html_dir}")
     except Exception as e:
