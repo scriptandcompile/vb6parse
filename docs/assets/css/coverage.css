@@ -411,6 +411,14 @@
     border-radius: 12px;
     padding: 2rem;
     transition: box-shadow 0.3s ease;
+    /* Fallbacks for older browsers */
+    background-color: #ffffff;
+    border-color: #e5e7eb;
+}
+
+[data-theme="dark"] .historical-section {
+    background-color: #1f2937;
+    border-color: #374151;
 }
 
 .historical-section:hover {
@@ -441,10 +449,21 @@
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.2s ease;
+    /* Fallbacks */
+    background-color: #ffffff;
+    border-color: #e5e7eb;
+    color: #111827;
+}
+
+[data-theme="dark"] .time-range-btn {
+    background-color: #1f2937;
+    border-color: #374151;
+    color: #f9fafb;
 }
 
 .time-range-btn:hover {
     border-color: var(--primary-color);
+    border-color: #8a2be2;
     transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -453,6 +472,9 @@
     background: var(--primary-color);
     border-color: var(--primary-color);
     color: white;
+    /* Fallback */
+    background-color: #8a2be2;
+    border-color: #8a2be2;
 }
 
 .chart-container {
@@ -462,10 +484,24 @@
     padding: 1rem;
     background: var(--bg-primary);
     border-radius: 8px;
+    /* Ensure Chart.js renders properly */
+    width: 100%;
+    box-sizing: border-box;
+    /* Fallback background */
+    background-color: #f9fafb;
+}
+
+[data-theme="dark"] .chart-container {
+    background-color: #111827;
 }
 
 .chart-container canvas {
     cursor: pointer;
+    /* Ensure canvas takes full space */
+    max-width: 100% !important;
+    max-height: 100% !important;
+    display: block;
+    margin: 0 auto;
 }
 
 .chart-legend {
