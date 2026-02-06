@@ -1,5 +1,15 @@
 /* Coverage Report Styles */
 
+/* Additional coverage-specific variables */
+:root {
+    --bg-primary: #ffffff;
+    --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+[data-theme="dark"] {
+    --bg-primary: #1f2937;
+}
+
 .coverage-summary {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -425,6 +435,8 @@
 [data-theme="dark"] .historical-section {
     background-color: #1f2937;
     border-color: #374151;
+}
+
 #historical-trends h2,
 #test-trends h2,
 #recent-snapshots h2,
@@ -443,13 +455,7 @@
 }
 
 #historical-trends .time-range-selector {
-    display: flex !important
-
-.time-range-selector {
-    display: flex;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
+    display: flex !important;
 }
 
 .time-range-btn {
