@@ -9,6 +9,8 @@
  * TODO: Implement click-to-highlight interaction
  */
 
+import { getEditor } from './editor.js';
+
 /**
  * Render all output tabs from parse result
  * @param {ParseResult} result - Parse result from parser.js
@@ -18,8 +20,9 @@ export function renderOutput(result) {
     renderCstTab(result.cst);
     renderInfoTab(result);
     
-    // Update parse time in header
-    updateParseTime(result.parseTimeMs);
+    // Update parse time in header (parseTimeMs is set by JavaScript in parser.js)
+    const parseTime = result.parseTimeMs ?? 0;
+    updateParseTime(parseTime);
 }
 
 /**
@@ -118,6 +121,9 @@ export function renderTokensTab(tokens) {
     console.log(`✅ Rendered ${filteredTokens.length} tokens`);
 }
 
+// Counter for generating unique node IDs
+let nodeIdCounter = 0;
+
 /**
  * Render CST to the CST tab
  * @param {CstNode} cst - Root CST node
@@ -129,14 +135,32 @@ export function renderCstTab(cst) {
     // Remove placeholder
     container.innerHTML = '';
 
+    // Reset node ID counter
+    nodeIdCounter = 0;
+
     // Check if we should show byte ranges
     const showRanges = document.getElementById('show-byte-ranges')?.checked ?? true;
+
+    // Add node IDs to CST tree
+    addNodeIds(cst);
 
     // Render tree recursively
     const treeElement = renderCstNode(cst, 0, showRanges);
     container.appendChild(treeElement);
 
     console.log(`✅ Rendered CST tree`);
+}
+
+/**
+ * Add unique IDs to CST nodes recursively
+ * @param {CstNode} node - CST node
+ */
+function addNodeIds(node) {
+    if (!node) return;
+    node._nodeId = nodeIdCounter++;
+    if (node.children) {
+        node.children.forEach(child => addNodeIds(child));
+    }
 }
 
 /**
@@ -193,9 +217,28 @@ function renderCstNode(node, depth, showRanges) {
         header.appendChild(range);
     }
 
-    // Add click handler to highlight in editor
-    header.addEventListener('click', () => {
-        highlightNodeInEditor(node);
+    // Store range data and node ID for event handlers
+    if (node.range) {
+        nodeDiv.dataset.rangeStart = node.range[0];
+        nodeDiv.dataset.rangeEnd = node.range[1];
+    }
+    if (node._nodeId !== undefined) {
+        nodeDiv.dataset.nodeId = node._nodeId;
+    }
+
+    // Add click handler to highlight and position cursor
+    header.addEventListener('click', (e) => {
+        e.stopPropagation();
+        highlightAndPositionCursor(node);
+    });
+
+    // Add hover handler to highlight
+    header.addEventListener('mouseenter', () => {
+        highlightNodeInEditor(node, true);
+    });
+
+    header.addEventListener('mouseleave', () => {
+        clearEditorHighlight();
     });
 
     nodeDiv.appendChild(header);
@@ -224,17 +267,50 @@ export function renderInfoTab(result) {
     const container = document.getElementById('info-content');
     if (!container) return;
 
-    // Show statistics section
+    // Hide placeholder
+    const placeholder = container.querySelector('.placeholder');
+    if (placeholder) {
+        placeholder.classList.add('hidden');
+    }
+
+    // Show and populate statistics section
     const statsSection = document.getElementById('info-stats');
     if (statsSection) {
         statsSection.classList.remove('hidden');
         
-        // Update stat values
-        document.getElementById('stat-tokens').textContent = result.stats.tokenCount;
-        document.getElementById('stat-parse-time').textContent = `${result.parseTimeMs.toFixed(2)}ms`;
-        document.getElementById('stat-tree-depth').textContent = result.stats.treeDepth;
-        document.getElementById('stat-node-count').textContent = result.stats.nodeCount;
-        document.getElementById('stat-file-type').textContent = result.cst.kind;
+        // Update stat values (handle both camelCase and snake_case for compatibility)
+        const tokenCount = result.stats?.token_count ?? result.stats?.tokenCount ?? 0;
+        // parseTimeMs is set by JavaScript in parser.js, parse_time_ms is from WASM (always 0)
+        const parseTime = result.parseTimeMs ?? 0;
+        const treeDepth = result.stats?.tree_depth ?? result.stats?.treeDepth ?? 0;
+        const nodeCount = result.stats?.node_count ?? result.stats?.nodeCount ?? 0;
+        const fileType = result.cst?.kind ?? 'Unknown';
+        
+        // Get lines and chars from editor
+        const editor = getEditor();
+        let lineCount = 0;
+        let charCount = 0;
+        if (editor) {
+            const model = editor.getModel();
+            lineCount = model.getLineCount();
+            charCount = model.getValueLength();
+        }
+        
+        const statTokensEl = document.getElementById('stat-tokens');
+        const statParseTimeEl = document.getElementById('stat-parse-time');
+        const statTreeDepthEl = document.getElementById('stat-tree-depth');
+        const statNodeCountEl = document.getElementById('stat-node-count');
+        const statFileTypeEl = document.getElementById('stat-file-type');
+        const statLinesEl = document.getElementById('stat-lines');
+        const statCharsEl = document.getElementById('stat-chars');
+        
+        if (statTokensEl) statTokensEl.textContent = tokenCount.toLocaleString();
+        if (statParseTimeEl) statParseTimeEl.textContent = `${parseTime.toFixed(2)}ms`;
+        if (statTreeDepthEl) statTreeDepthEl.textContent = treeDepth.toLocaleString();
+        if (statNodeCountEl) statNodeCountEl.textContent = nodeCount.toLocaleString();
+        if (statFileTypeEl) statFileTypeEl.textContent = fileType;
+        if (statLinesEl) statLinesEl.textContent = lineCount.toLocaleString();
+        if (statCharsEl) statCharsEl.textContent = charCount.toLocaleString();
     }
 
     // Render errors
@@ -267,12 +343,6 @@ export function renderInfoTab(result) {
         }
     } else {
         warningsSection?.classList.add('hidden');
-    }
-
-    // Hide placeholder
-    const placeholder = container.querySelector('.placeholder');
-    if (placeholder) {
-        placeholder.style.display = 'none';
     }
 
     console.log(`✅ Rendered info tab`);
@@ -371,14 +441,45 @@ function highlightTokenInEditor(token) {
 }
 
 /**
- * Highlight node in editor
- * TODO: Integrate with editor.js
+ * Highlight node in editor (hover)
+ * @param {CstNode} node - Node to highlight
+ * @param {boolean} isHover - Whether this is a hover event
+ */
+function highlightNodeInEditor(node, isHover = false) {
+    if (!node.range) return;
+
+    const event = new CustomEvent('highlightNodeInEditor', {
+        detail: {
+            startOffset: node.range[0],
+            endOffset: node.range[1],
+            isHover: isHover
+        }
+    });
+    document.dispatchEvent(event);
+}
+
+/**
+ * Highlight node and position cursor at start (click)
  * @param {CstNode} node - Node to highlight
  */
-function highlightNodeInEditor(node) {
-    console.log('TODO: Highlight node in editor:', node);
-    // Convert byte range to line/column
-    // Import and call editor.highlightRange()
+function highlightAndPositionCursor(node) {
+    if (!node.range) return;
+
+    const event = new CustomEvent('highlightAndPositionCursor', {
+        detail: {
+            startOffset: node.range[0],
+            endOffset: node.range[1]
+        }
+    });
+    document.dispatchEvent(event);
+}
+
+/**
+ * Clear editor highlight
+ */
+function clearEditorHighlight() {
+    const event = new CustomEvent('clearEditorHighlight');
+    document.dispatchEvent(event);
 }
 
 /**
@@ -428,7 +529,7 @@ export function clearOutput() {
     const infoContent = document.getElementById('info-content');
     const placeholder = infoContent?.querySelector('.placeholder');
     if (placeholder) {
-        placeholder.style.display = 'flex';
+        placeholder.classList.remove('hidden');
     }
 
     // Reset parse time

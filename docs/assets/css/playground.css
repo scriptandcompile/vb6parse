@@ -1,5 +1,13 @@
 /* VB6Parse Playground Styles */
 
+/* Override body for playground full-height layout */
+body {
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+    margin: 0;
+}
+
 /* ============================================
    Compact Playground Header
    ============================================ */
@@ -8,6 +16,7 @@
     color: white;
     padding: 12px 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
 }
 
 .playground-header .container {
@@ -36,6 +45,7 @@
     display: flex;
     gap: 20px;
     align-items: center;
+    position: relative;
 }
 
 .playground-header .header-link {
@@ -99,8 +109,7 @@
     background-color: var(--toolbar-bg);
     border-bottom: 2px solid var(--panel-border);
     padding: 10px 0;
-    position: sticky;
-    top: 0;
+    flex-shrink: 0;
     z-index: 100;
 }
 
@@ -157,6 +166,8 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    height: 36px;
+    box-sizing: border-box;
 }
 
 .btn-primary {
@@ -195,12 +206,76 @@
     font-size: 0.9rem;
 }
 
+/* Theme toggle in playground header */
+.playground-header .theme-toggle {
+    position: relative;
+    right: auto;
+    margin-left: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.playground-header .theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.playground-header .theme-toggle:active {
+    transform: scale(0.95);
+}
+
+.playground-header .theme-icon {
+    line-height: 1;
+    display: inline-block;
+}
+
 /* ============================================
    Playground Footer
    ============================================ */
 
 .playground-footer {
-    padding: 0;
+    padding: 8px 0;
+    flex-shrink: 0;
+    font-size: 0.85rem;
+}
+
+.playground-footer .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-left {
+    white-space: nowrap;
+    flex: 0 0 auto;
+    text-align: left;
+}
+
+.footer-right {
+    white-space: nowrap;
+    flex: 0 0 auto;
+    text-align: right;
+    margin-left: auto;
+}
+
+@media (max-width: 768px) {
+    .playground-footer .footer-content {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
 }
 
 /* ============================================
@@ -208,8 +283,9 @@
    ============================================ */
 .playground-container {
     display: flex;
-    height: calc(100vh - var(--toolbar-height) - 120px); /* Adjust for header/footer */
-    min-height: 500px;
+    flex: 1;
+    min-height: 0; /* Allow flex item to shrink below content size */
+    overflow: hidden;
     background-color: var(--panel-bg);
 }
 
@@ -286,8 +362,7 @@
     font-size: 0.85rem;
 }
 
-.editor-status,
-.parse-status {
+.editor-status {
     font-size: 0.85rem;
     color: var(--text-color);
     opacity: 0.8;
@@ -307,6 +382,17 @@
     background-color: var(--editor-bg);
     color: var(--editor-text);
     /* Monaco/Ace editor will fill this */
+}
+
+/* Monaco Editor CST Node Highlight */
+.cst-node-highlight {
+    background-color: rgba(255, 200, 0, 0.25);
+    border: 1px solid rgba(255, 200, 0, 0.5);
+}
+
+[data-theme="dark"] .cst-node-highlight {
+    background-color: rgba(255, 200, 0, 0.15);
+    border: 1px solid rgba(255, 200, 0, 0.35);
 }
 
 /* TODO: Configure Monaco editor theme in editor.js */
@@ -440,6 +526,16 @@
     background-color: rgba(255, 255, 255, 0.05);
 }
 
+/* Highlighted token row (when clicked from editor) */
+.tokens-table tr.highlighted {
+    background-color: rgba(59, 130, 246, 0.15);
+    border-left: 3px solid var(--primary-color);
+}
+
+[data-theme="dark"] .tokens-table tr.highlighted {
+    background-color: rgba(59, 130, 246, 0.25);
+}
+
 /* Token type badges */
 .token-type {
     display: inline-block;
@@ -490,7 +586,7 @@
     padding: 4px 8px;
     cursor: pointer;
     border-radius: 3px;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
     display: flex;
     align-items: center;
     gap: 6px;
@@ -498,10 +594,23 @@
 
 .cst-node-header:hover {
     background-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3);
 }
 
 [data-theme="dark"] .cst-node-header:hover {
     background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5);
+}
+
+/* Highlighted CST node (when clicked from editor) */
+.cst-node.highlighted > .cst-node-header {
+    background-color: rgba(59, 130, 246, 0.15);
+    border-left: 3px solid var(--primary-color);
+    padding-left: 5px;
+}
+
+[data-theme="dark"] .cst-node.highlighted > .cst-node-header {
+    background-color: rgba(59, 130, 246, 0.25);
 }
 
 .cst-node-toggle {
@@ -748,6 +857,10 @@
     color: var(--placeholder-color);
     font-size: 1.1rem;
     text-align: center;
+}
+
+.placeholder.hidden {
+    display: none;
 }
 
 /* ============================================
