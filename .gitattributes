@@ -1,0 +1,6 @@
+# Generated benchmark data - always prefer the version being merged into (usually master)
+# This prevents merge conflicts on auto-generated files
+docs/assets/data/benchmarks.json merge=ours
+docs/assets/data/benchmarks-history.json merge=ours
+docs/assets/data/coverage.json merge=ours
+docs/assets/data/stats.json merge=ours
