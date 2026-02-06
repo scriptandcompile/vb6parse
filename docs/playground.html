@@ -33,6 +33,9 @@
                     <a href="index.html" class="header-link">← Home</a>
                     <a href="documentation.html" class="header-link">Docs</a>
                     <a href="https://github.com/scriptandcompile/vb6parse" target="_blank" class="header-link">GitHub</a>
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                        <span class="theme-icon">🌙</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -77,9 +80,6 @@
                     <input type="checkbox" id="auto-parse" checked>
                     Auto-parse
                 </label>
-                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-                    <span class="theme-icon">🌙</span>
-                </button>
             </div>
         </div>
     </div>
@@ -99,9 +99,6 @@
                 <!-- TODO: Initialize editor in editor.js -->
             </div>
             <div class="panel-footer">
-                <button id="parse-footer-btn" class="btn btn-primary btn-sm">
-                    Parse
-                </button>
                 <span id="code-stats" class="code-stats">
                     <!-- Lines: 0 | Chars: 0 -->
                 </span>
@@ -121,7 +118,7 @@
                 <button class="tab-btn" data-tab="cst">
                     <span class="tab-icon">📋</span> CST
                 </button>
-                <button class="tab-btn" data-tab="tree">
+                <button class="tab-btn" data-tab="tree" style="display: none;">
                     <span class="tab-icon">🌳</span> Tree
                 </button>
                 <button class="tab-btn" data-tab="info">
@@ -172,7 +169,7 @@
                     </div>
                 </div>
                 <!-- Tree Visualization Tab -->
-                <div id="tree-tab" class="tab-pane">
+                <div id="tree-tab" class="tab-pane" style="display: none;">
                     <div class="tab-toolbar">
                         <button id="tree-layout-toggle" class="btn btn-sm">
                             <span id="layout-icon">↔️</span> Toggle Layout
@@ -213,32 +210,12 @@
                 <!-- Info/Stats Tab -->
                 <div id="info-tab" class="tab-pane">
                     <div id="info-content" class="info-content">
-                        <!-- TODO: Populate statistics and errors -->
                         <div class="placeholder">
                             <p>📊 Parse code to see statistics and errors</p>
                         </div>
+
                         <!-- Template for when parsed (hidden initially) -->
                         <div id="info-stats" class="info-section hidden">
-                            <h4>Statistics</h4>
-                            <div class="stats-grid">
-                                <div class="stat-item">
-                                    <!-- ...existing code... -->
-                            <!-- Only output-panel should contain tab-nav, tab-content, and parse-status -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Info/Stats Tab -->
-                    <div id="info-tab" class="tab-pane">
-                        <div id="info-content" class="info-content">
-                            <!-- TODO: Populate statistics and errors -->
-                            <div class="placeholder">
-                                <p>📊 Parse code to see statistics and errors</p>
-                            </div>
-
-                            <!-- Template for when parsed (hidden initially) -->
-                            <div id="info-stats" class="info-section hidden">
                                 <h4>Statistics</h4>
                                 <div class="stats-grid">
                                     <div class="stat-item">
@@ -261,6 +238,14 @@
                                         <span class="stat-label">File Type:</span>
                                         <span id="stat-file-type" class="stat-value">--</span>
                                     </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">Lines:</span>
+                                        <span id="stat-lines" class="stat-value">--</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">Chars:</span>
+                                        <span id="stat-chars" class="stat-value">--</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -280,9 +265,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="parse-status">
-                <span id="parse-time" class="parse-time">Parse time: --</span>
             </div>
         </div>
     </div>
@@ -304,9 +286,9 @@
 
     <!-- Footer -->
     <footer class="playground-footer">
-        <div class="container">
-            <p>&copy; 2024-2026 VB6Parse Project | <a href="https://github.com/scriptandcompile/vb6parse">GitHub</a> | Licensed under MIT</p>
-            <p>Powered by <a href="https://github.com/scriptandcompile/vb6parse">VB6Parse</a> | Built with Rust 🦀 and WebAssembly</p>
+        <div class="container footer-content">
+            <span class="footer-left">&copy; 2024-2026 VB6Parse Project | <a href="https://github.com/scriptandcompile/vb6parse">GitHub</a> | Licensed under MIT</span>
+            <span class="footer-right">Powered by <a href="https://github.com/scriptandcompile/vb6parse">VB6Parse</a> | Built with Rust 🦀 and WebAssembly</span>
         </div>
     </footer>
 
