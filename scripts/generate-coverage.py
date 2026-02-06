@@ -201,11 +201,11 @@ def restructure_coverage_html(output_dir):
         print("Warning: html directory not found, skipping restructure")
         return
     
-    # Move style.css and control.js to the coverage root (index.html not needed)
-    for file in ['style.css', 'control.js']:
-        src = html_dir / file
-        if src.exists():
-            shutil.move(str(src), str(output_dir / file))
+    # Copy control.js to coverage root (provides interactive functionality)
+    js_src = html_dir / 'control.js'
+    if js_src.exists():
+        js_dest = output_dir / 'control.js'
+        shutil.copy2(str(js_src), str(js_dest))
     
     # Find the workspace root in the nested structure
     coverage_subdir = html_dir / 'coverage'
@@ -343,9 +343,9 @@ def restructure_coverage_html(output_dir):
                 # Calculate path to control.js (stays in coverage directory)
                 js_prefix = '../' * (depth_from_src + 1)  # +1 to go from src/ to coverage/
                 
-                # Replace CSS references - load BOTH main site style.css AND llvm-cov.css
-                css_links = f"<link rel='stylesheet' type='text/css' href='{css_base}style.css'><link rel='stylesheet' type='text/css' href='{css_base}llvm-cov.css'>"
-                content = re.sub(r"<link rel='stylesheet' type='text/css' href='(?:\.\./)+style\.css'>", css_links, content)
+                # Replace CSS references - only use llvm-cov.css (has all styles + theme support)
+                css_link = f"<link rel='stylesheet' type='text/css' href='{css_base}llvm-cov.css'>"
+                content = re.sub(r"<link rel='stylesheet' type='text/css' href='(?:\.\./)+style\.css'>", css_link, content)
                 
                 # Replace JS references (handles excessive ../ paths from llvm-cov)
                 content = re.sub(r"src='(?:\.\./)+control\.js'", f"src='{js_prefix}control.js'", content)

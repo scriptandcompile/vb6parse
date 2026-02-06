@@ -1,5 +1,15 @@
 /* Coverage Report Styles */
 
+/* Additional coverage-specific variables */
+:root {
+    --bg-primary: #ffffff;
+    --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+[data-theme="dark"] {
+    --bg-primary: #1f2937;
+}
+
 .coverage-summary {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -404,6 +414,9 @@
 }
 
 /* Historical Trends Section */
+#historical-trends,
+#test-trends,
+#recent-snapshots,
 .historical-section {
     margin: 3rem 0;
     background: var(--card-bg);
@@ -416,15 +429,17 @@
     border-color: #e5e7eb;
 }
 
+[data-theme="dark"] #historical-trends,
+[data-theme="dark"] #test-trends,
+[data-theme="dark"] #recent-snapshots,
 [data-theme="dark"] .historical-section {
     background-color: #1f2937;
     border-color: #374151;
 }
 
-.historical-section:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-}
-
+#historical-trends h2,
+#test-trends h2,
+#recent-snapshots h2,
 .historical-section h2 {
     margin: 0 0 1.5rem 0;
     color: var(--text-primary);
@@ -437,6 +452,10 @@
     gap: 0.75rem;
     margin-bottom: 1.5rem;
     flex-wrap: wrap;
+}
+
+#historical-trends .time-range-selector {
+    display: flex !important;
 }
 
 .time-range-btn {
@@ -489,6 +508,21 @@
     box-sizing: border-box;
     /* Fallback background */
     background-color: #f9fafb;
+}
+
+/* Specific targeting for Chart.js canvas elements */
+#historical-trends .chart-container,
+#test-trends .chart-container {
+    height: 400px !important;
+    width: 100% !important;
+}
+
+#trends-chart,
+#test-chart {
+    max-width: 100% !important;
+    max-height: 380px !important;
+    height: 100% !important;
+    width: 100% !important;
 }
 
 [data-theme="dark"] .chart-container {
