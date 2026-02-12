@@ -57,9 +57,10 @@ pub use controls::{
     timer::TimerProperties,
     Activation, Align, Alignment, Appearance, AutoRedraw, AutoSize, BackStyle, BorderStyle,
     CausesValidation, ClipControls, Control, ControlKind, DragMode, DrawMode, DrawStyle, FillStyle,
-    FontTransparency, FormLinkMode, HasDeviceContext, JustifyAlignment, LinkMode, MousePointer,
-    Movability, MultiSelect, OLEDragMode, OLEDropMode, ScaleMode, SizeMode, StartUpPosition, Style,
-    TabStop, TextDirection, UseMaskColor, Visibility, WhatsThisHelp, WindowState,
+    FontTransparency, Form, FormLinkMode, FormRoot, HasDeviceContext, JustifyAlignment, LinkMode,
+    MDIForm, MousePointer, Movability, MultiSelect, OLEDragMode, OLEDropMode, ScaleMode, SizeMode,
+    StartUpPosition, Style, TabStop, TextDirection, UseMaskColor, Visibility, WhatsThisHelp,
+    WindowState,
 };
 
 pub use tokens::Token;
