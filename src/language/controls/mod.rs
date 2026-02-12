@@ -25,6 +25,7 @@ pub mod dirlistbox;
 pub mod drivelistbox;
 pub mod filelistbox;
 pub mod form;
+pub mod form_root;
 pub mod frame;
 pub mod image;
 pub mod label;
@@ -59,13 +60,11 @@ use crate::language::controls::{
     dirlistbox::DirListBoxProperties,
     drivelistbox::DriveListBoxProperties,
     filelistbox::FileListBoxProperties,
-    form::FormProperties,
     frame::FrameProperties,
     image::ImageProperties,
     label::LabelProperties,
     line::LineProperties,
     listbox::ListBoxProperties,
-    mdiform::MDIFormProperties,
     menus::{MenuControl, MenuProperties},
     ole::OLEProperties,
     optionbutton::OptionButtonProperties,
@@ -75,6 +74,9 @@ use crate::language::controls::{
     textbox::TextBoxProperties,
     timer::TimerProperties,
 };
+
+// Re-export form root types at the controls module level
+pub use form_root::{Form, FormRoot, MDIForm};
 
 /// `AutoRedraw` determines if the control is redrawn automatically when something is
 /// moved in front of it or if it is redrawn manually.
@@ -1281,24 +1283,6 @@ pub enum ControlKind {
         /// The sub-menus of the menu control.
         sub_menus: Vec<MenuControl>,
     },
-    /// A form control.
-    Form {
-        /// The properties of the form control.
-        properties: FormProperties,
-        /// The child controls of the form control.
-        controls: Vec<Control>,
-        /// The menus of the form control.
-        menus: Vec<MenuControl>,
-    },
-    /// An MDI form control.
-    MDIForm {
-        /// The properties of the MDI form control.
-        properties: MDIFormProperties,
-        /// The child controls of the MDI form control.
-        controls: Vec<Control>,
-        /// The menus of the MDI form control.
-        menus: Vec<MenuControl>,
-    },
     /// A custom control.
     Custom {
         /// The properties of the custom control.
@@ -1332,8 +1316,6 @@ impl Display for ControlKind {
             ControlKind::HScrollBar { .. } => write!(f, "HScrollBar"),
             ControlKind::VScrollBar { .. } => write!(f, "VScrollBar"),
             ControlKind::Menu { .. } => write!(f, "Menu"),
-            ControlKind::Form { .. } => write!(f, "Form"),
-            ControlKind::MDIForm { .. } => write!(f, "MDIForm"),
             ControlKind::Custom { .. } => write!(f, "Custom"),
         }
     }
@@ -1360,10 +1342,7 @@ impl ControlKind {
     pub fn can_contain_children(&self) -> bool {
         matches!(
             self,
-            ControlKind::Frame { .. }
-                | ControlKind::PictureBox { .. }
-                | ControlKind::Form { .. }
-                | ControlKind::MDIForm { .. }
+            ControlKind::Frame { .. } | ControlKind::PictureBox { .. }
         )
     }
 
@@ -1372,9 +1351,12 @@ impl ControlKind {
     /// # Returns
     ///
     /// Returns `true` if the control kind can contain menus, otherwise `false`.
+    ///
+    /// Note: This always returns `false` for `ControlKind` since Form and MDIForm
+    /// are now top-level types (`FormRoot`), not control kinds.
     #[must_use]
     pub fn can_contain_menus(&self) -> bool {
-        matches!(self, ControlKind::Form { .. } | ControlKind::MDIForm { .. })
+        false
     }
 
     /// Indicates if the control kind currently has menus.
@@ -1382,14 +1364,12 @@ impl ControlKind {
     /// # Returns
     ///
     /// Returns `true` if the control kind has menus, otherwise `false`.
+    ///
+    /// Note: This always returns `false` for `ControlKind` since only Form and MDIForm
+    /// can have menus, and they are now top-level types (`FormRoot`), not control kinds.
     #[must_use]
     pub fn has_menu(&self) -> bool {
-        match self {
-            ControlKind::Form { menus, .. } | ControlKind::MDIForm { menus, .. } => {
-                !menus.is_empty()
-            }
-            _ => false,
-        }
+        false
     }
 
     /// Indicates if the control kind currently has child controls.
@@ -1402,9 +1382,7 @@ impl ControlKind {
         matches!(
             self,
             ControlKind::Frame { controls, .. } |
-            ControlKind::PictureBox { controls, .. } |
-            ControlKind::Form { controls, .. } |
-            ControlKind::MDIForm { controls, .. } if !controls.is_empty()
+            ControlKind::PictureBox { controls, .. } if !controls.is_empty()
         )
     }
 
@@ -1438,10 +1416,9 @@ impl ControlKind {
     #[must_use]
     pub fn children(&self) -> Option<impl Iterator<Item = &Control>> {
         match self {
-            ControlKind::Frame { controls, .. }
-            | ControlKind::PictureBox { controls, .. }
-            | ControlKind::Form { controls, .. }
-            | ControlKind::MDIForm { controls, .. } => Some(controls.iter()),
+            ControlKind::Frame { controls, .. } | ControlKind::PictureBox { controls, .. } => {
+                Some(controls.iter())
+            }
             _ => None,
         }
     }
@@ -1452,46 +1429,29 @@ impl ControlKind {
     ///
     /// An `Option` containing an iterator over menus if the control kind supports menus, otherwise `None`.
     ///
+    /// Note: This always returns `None` for `ControlKind` since only Form and MDIForm
+    /// can have menus, and they are now top-level types (`FormRoot`), not control kinds.
+    ///
     /// Example:
     /// ```rust
-    /// use vb6parse::*;
-    /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
+    /// use vb6parse::language::{ControlKind, MenuControl, MenuProperties};
     ///
-    /// let control = Control::new(
-    ///     "MyForm".to_string(),
-    ///     "".to_string(),
-    ///     0,
-    ///     ControlKind::Form {
-    ///         properties: Default::default(),
-    ///         controls: vec![],
-    ///         menus: vec![
-    ///             MenuControl::new(
-    ///                 "File".to_string(),
-    ///                 "".to_string(),
-    ///                 0,
-    ///                 MenuProperties {
-    ///                     caption: "File".to_string(),
-    ///                     ..Default::default()
-    ///                 },
-    ///                 vec![],
-    ///             ),
-    ///        ],
+    /// // Menu controls can have sub-menus
+    /// let menu_kind = ControlKind::Menu {
+    ///     properties: MenuProperties {
+    ///         caption: "File".to_string(),
+    ///         ..Default::default()
     ///     },
-    /// );
-    ///
-    /// if let Some(menus) = control.kind().menus() {
-    ///     for menu in menus {
-    ///         println!("Menu: {}", menu.properties().caption);
-    ///     }
+    ///     sub_menus: vec![],
     /// };
+    ///
+    /// // Most control kinds don't support menus
+    /// assert!(menu_kind.menus().is_none());
+    /// ```
+    /// can have menus, and they are now top-level types (`FormRoot`), not control kinds.
     #[must_use]
     pub fn menus(&self) -> Option<impl Iterator<Item = &MenuControl>> {
-        match self {
-            ControlKind::Form { menus, .. } | ControlKind::MDIForm { menus, .. } => {
-                Some(menus.iter())
-            }
-            _ => None,
-        }
+        None::<std::iter::Empty<&MenuControl>>
     }
 
     /// Recursively iterates over all descendant controls, if this control type supports children.
@@ -1566,38 +1526,24 @@ impl Control {
     ///
     /// An `Option` containing an iterator over menus if the control supports menus, otherwise `None`.
     ///
+    /// Note: This always returns `None` since only Form and MDIForm can have menus,
+    /// and they are now top-level types (`FormRoot`), not control kinds.
+    ///
     /// Example:
     /// ```rust
-    /// use vb6parse::*;
-    /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
+    /// use vb6parse::language::{Control, ControlKind};
     ///
     /// let control = Control::new(
-    ///     "MyForm".to_string(),
+    ///     "MyButton".to_string(),
     ///     "".to_string(),
     ///     0,
-    ///     ControlKind::Form {
+    ///     ControlKind::CommandButton {
     ///         properties: Default::default(),
-    ///         controls: vec![],
-    ///         menus: vec![
-    ///             MenuControl::new(
-    ///                 "File".to_string(),
-    ///                 "".to_string(),
-    ///                 0,
-    ///                 MenuProperties {
-    ///                     caption: "File".to_string(),
-    ///                     ..Default::default()
-    ///                 },
-    ///                 vec![],
-    ///             ),
-    ///        ],
     ///     },
     /// );
     ///
-    /// if let Some(menus) = control.menus() {
-    ///     for menu in menus {
-    ///         println!("Menu: {}", menu.properties().caption);
-    ///     }
-    /// };
+    /// // Regular controls don't support menus
+    /// assert!(control.menus().is_none());
     /// ```
     #[must_use]
     pub fn menus(&self) -> Option<impl Iterator<Item = &MenuControl>> {
@@ -1653,7 +1599,7 @@ impl Control {
     pub fn has_children(&self) -> bool {
         matches!(
             self.kind,
-            ControlKind::Frame { .. } | ControlKind::PictureBox { .. } | ControlKind::Form { .. }
+            ControlKind::Frame { .. } | ControlKind::PictureBox { .. }
         )
     }
 
