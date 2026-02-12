@@ -3,552 +3,551 @@ source: tests/form.rs
 expression: form_file
 ---
 form:
-  name: frmColorize
-  tag: ""
-  index: 0
-  kind:
-    Form:
-      properties:
-        appearance: ThreeD
-        auto_redraw: Manual
-        back_color:
-          System:
-            index: 5
-        border_style: Sizable
-        caption: Colorize Image Filter - tannerhelland.com
-        client_height: 9195
-        client_left: 45
-        client_top: 630
-        client_width: 11190
-        clip_controls: Clipped
-        control_box: Included
-        draw_mode: CopyPen
-        draw_style: Solid
-        draw_width: 1
-        enabled: Enabled
-        fill_color:
-          System:
+  Form:
+    name: frmColorize
+    tag: ""
+    index: 0
+    properties:
+      appearance: ThreeD
+      auto_redraw: Manual
+      back_color:
+        System:
+          index: 5
+      border_style: Sizable
+      caption: Colorize Image Filter - tannerhelland.com
+      client_height: 9195
+      client_left: 45
+      client_top: 630
+      client_width: 11190
+      clip_controls: Clipped
+      control_box: Included
+      draw_mode: CopyPen
+      draw_style: Solid
+      draw_width: 1
+      enabled: Enabled
+      fill_color:
+        System:
+          index: 0
+      fill_style: Transparent
+      font_transparent: Transparent
+      fore_color:
+        System:
+          index: 18
+      has_dc: HasContext
+      height: 240
+      help_context_id: 0
+      icon: ~
+      key_preview: false
+      left: 0
+      link_mode: None
+      link_topic: Form1
+      max_button: Included
+      mdi_child: false
+      min_button: Included
+      mouse_icon: ~
+      mouse_pointer: Default
+      moveable: Moveable
+      negotiate_menus: true
+      ole_drop_mode: None
+      palette: ~
+      palette_mode: HalfTone
+      picture: ~
+      right_to_left: LeftToRight
+      scale_height: 613
+      scale_left: 0
+      scale_mode: Twip
+      scale_top: 0
+      scale_width: 746
+      show_in_taskbar: Show
+      start_up_position: WindowsDefault
+      top: 0
+      visible: Visible
+      whats_this_button: Excluded
+      whats_this_help: F1Help
+      width: 240
+      window_state: Normal
+    controls:
+      - name: hScrollSaturation
+        tag: ""
+        index: 0
+        kind:
+          HScrollBar:
+            properties:
+              causes_validation: "Yes"
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              height: 255
+              help_context_id: 0
+              large_change: 1
+              left: 6000
+              max: 100
+              min: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              right_to_left: LeftToRight
+              small_change: 1
+              tab_index: 9
+              tab_stop: Included
+              top: 1200
+              value: 50
+              visible: Visible
+              whats_this_help_id: 0
+              width: 2175
+      - name: optKeepSaturation
+        tag: ""
+        index: 0
+        kind:
+          OptionButton:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              caption: Keep original pixel saturation
+              causes_validation: "Yes"
+              disabled_picture: ~
+              down_picture: ~
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 255
+              help_context_id: 0
+              left: 120
+              mask_color:
+                RGB:
+                  red: 192
+                  green: 192
+                  blue: 192
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              style: Standard
+              tab_index: 6
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 1200
+              use_mask_color: DoNotUseMaskColor
+              value: UnSelected
+              visible: Visible
+              whats_this_help_id: 0
+              width: 2895
+      - name: hScrollHue
+        tag: ""
+        index: 0
+        kind:
+          HScrollBar:
+            properties:
+              causes_validation: "Yes"
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              height: 255
+              help_context_id: 0
+              large_change: 1
+              left: 720
+              max: 359
+              min: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              right_to_left: LeftToRight
+              small_change: 1
+              tab_index: 5
+              tab_stop: Included
+              top: 240
+              value: 180
+              visible: Visible
+              whats_this_help_id: 0
+              width: 7455
+      - name: picHueDemo
+        tag: ""
+        index: 0
+        kind:
+          PictureBox:
+            properties:
+              align: None
+              appearance: ThreeD
+              auto_redraw: Manual
+              auto_size: Fixed
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              clip_controls: Clipped
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              draw_mode: CopyPen
+              draw_style: Solid
+              draw_width: 1
+              enabled: Enabled
+              fill_color:
+                System:
+                  index: 0
+              fill_style: Transparent
+              font_transparent: Transparent
+              fore_color:
+                System:
+                  index: 8
+              has_dc: HasContext
+              height: 375
+              help_context_id: 0
+              left: 960
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              negotiate: false
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              scale_height: 23
+              scale_left: 0
+              scale_mode: Twip
+              scale_top: 0
+              scale_width: 464
+              tab_index: 3
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 600
+              visible: Visible
+              whats_this_help_id: 0
+              width: 6990
+            controls: []
+      - name: cmdReset
+        tag: ""
+        index: 0
+        kind:
+          CommandButton:
+            properties:
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 15
+              cancel: false
+              caption: Show the Original Image
+              causes_validation: "Yes"
+              default: false
+              disabled_picture: ~
+              down_picture: ~
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              height: 1215
+              help_context_id: 0
+              left: 8400
+              mask_color:
+                RGB:
+                  red: 192
+                  green: 192
+                  blue: 192
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              style: Standard
+              tab_index: 2
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 240
+              use_mask_color: DoNotUseMaskColor
+              whats_this_help_id: 0
+              width: 2535
+      - name: picMain
+        tag: ""
+        index: 0
+        kind:
+          PictureBox:
+            properties:
+              align: None
+              appearance: ThreeD
+              auto_redraw: Manual
+              auto_size: Fixed
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              clip_controls: Clipped
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              draw_mode: CopyPen
+              draw_style: Solid
+              draw_width: 1
+              enabled: Enabled
+              fill_color:
+                System:
+                  index: 0
+              fill_style: Transparent
+              font_transparent: Transparent
+              fore_color:
+                System:
+                  index: 8
+              has_dc: HasContext
+              height: 735
+              help_context_id: 0
+              left: 120
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              negotiate: false
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              scale_height: 47
+              scale_left: 0
+              scale_mode: Twip
+              scale_top: 0
+              scale_width: 87
+              tab_index: 0
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 1680
+              visible: Visible
+              whats_this_help_id: 0
+              width: 1335
+            controls: []
+      - name: picBack
+        tag: ""
+        index: 0
+        kind:
+          PictureBox:
+            properties:
+              align: None
+              appearance: ThreeD
+              auto_redraw: Manual
+              auto_size: Fixed
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              clip_controls: Clipped
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              draw_mode: CopyPen
+              draw_style: Solid
+              draw_width: 1
+              enabled: Enabled
+              fill_color:
+                System:
+                  index: 0
+              fill_style: Transparent
+              font_transparent: Transparent
+              fore_color:
+                System:
+                  index: 8
+              has_dc: HasContext
+              height: 6780
+              help_context_id: 0
+              left: 120
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              negotiate: false
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              scale_height: 450
+              scale_left: 0
+              scale_mode: Twip
+              scale_top: 0
+              scale_width: 720
+              tab_index: 1
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 1680
+              visible: Visible
+              whats_this_help_id: 0
+              width: 10830
+            controls: []
+      - name: optForceSaturation
+        tag: ""
+        index: 0
+        kind:
+          OptionButton:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              caption: Force all saturation to
+              causes_validation: "Yes"
+              disabled_picture: ~
+              down_picture: ~
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 255
+              help_context_id: 0
+              left: 3120
+              mask_color:
+                RGB:
+                  red: 192
+                  green: 192
+                  blue: 192
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              style: Standard
+              tab_index: 7
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 1200
+              use_mask_color: DoNotUseMaskColor
+              value: UnSelected
+              visible: Visible
+              whats_this_help_id: 0
+              width: 2175
+      - name: lblSaturation
+        tag: ""
+        index: 0
+        kind:
+          Label:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              auto_size: Fixed
+              back_color:
+                System:
+                  index: 5
+              back_style: Opaque
+              border_style: None
+              caption: 50%
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 255
+              left: 5340
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              right_to_left: LeftToRight
+              tab_index: 8
+              tool_tip_text: ""
+              top: 1200
+              use_mnemonic: true
+              visible: Visible
+              whats_this_help_id: 0
+              width: 615
+              word_wrap: NonWrapping
+      - name: Label2
+        tag: ""
+        index: 0
+        kind:
+          Label:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              auto_size: Fixed
+              back_color:
+                System:
+                  index: 15
+              back_style: Opaque
+              border_style: None
+              caption: "Hue:"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 18
+              height: 255
+              left: 120
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              right_to_left: LeftToRight
+              tab_index: 4
+              tool_tip_text: ""
+              top: 240
+              use_mnemonic: true
+              visible: Visible
+              whats_this_help_id: 0
+              width: 735
+              word_wrap: NonWrapping
+    menus:
+      - name: mnuFile
+        tag: ""
+        index: 0
+        properties:
+          caption: "&File"
+          checked: false
+          enabled: Enabled
+          help_context_id: 0
+          negotiate_position: None
+          shortcut: ~
+          visible: Visible
+          window_list: false
+        sub_menus:
+          - name: mnuOpenImage
+            tag: ""
             index: 0
-        fill_style: Transparent
-        font_transparent: Transparent
-        fore_color:
-          System:
-            index: 18
-        has_dc: HasContext
-        height: 240
-        help_context_id: 0
-        icon: ~
-        key_preview: false
-        left: 0
-        link_mode: None
-        link_topic: Form1
-        max_button: Included
-        mdi_child: false
-        min_button: Included
-        mouse_icon: ~
-        mouse_pointer: Default
-        moveable: Moveable
-        negotiate_menus: true
-        ole_drop_mode: None
-        palette: ~
-        palette_mode: HalfTone
-        picture: ~
-        right_to_left: LeftToRight
-        scale_height: 613
-        scale_left: 0
-        scale_mode: Twip
-        scale_top: 0
-        scale_width: 746
-        show_in_taskbar: Show
-        start_up_position: WindowsDefault
-        top: 0
-        visible: Visible
-        whats_this_button: Excluded
-        whats_this_help: F1Help
-        width: 240
-        window_state: Normal
-      controls:
-        - name: hScrollSaturation
-          tag: ""
-          index: 0
-          kind:
-            HScrollBar:
-              properties:
-                causes_validation: "Yes"
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                height: 255
-                help_context_id: 0
-                large_change: 1
-                left: 6000
-                max: 100
-                min: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                right_to_left: LeftToRight
-                small_change: 1
-                tab_index: 9
-                tab_stop: Included
-                top: 1200
-                value: 50
-                visible: Visible
-                whats_this_help_id: 0
-                width: 2175
-        - name: optKeepSaturation
-          tag: ""
-          index: 0
-          kind:
-            OptionButton:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                caption: Keep original pixel saturation
-                causes_validation: "Yes"
-                disabled_picture: ~
-                down_picture: ~
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 255
-                help_context_id: 0
-                left: 120
-                mask_color:
-                  RGB:
-                    red: 192
-                    green: 192
-                    blue: 192
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                style: Standard
-                tab_index: 6
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 1200
-                use_mask_color: DoNotUseMaskColor
-                value: UnSelected
-                visible: Visible
-                whats_this_help_id: 0
-                width: 2895
-        - name: hScrollHue
-          tag: ""
-          index: 0
-          kind:
-            HScrollBar:
-              properties:
-                causes_validation: "Yes"
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                height: 255
-                help_context_id: 0
-                large_change: 1
-                left: 720
-                max: 359
-                min: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                right_to_left: LeftToRight
-                small_change: 1
-                tab_index: 5
-                tab_stop: Included
-                top: 240
-                value: 180
-                visible: Visible
-                whats_this_help_id: 0
-                width: 7455
-        - name: picHueDemo
-          tag: ""
-          index: 0
-          kind:
-            PictureBox:
-              properties:
-                align: None
-                appearance: ThreeD
-                auto_redraw: Manual
-                auto_size: Fixed
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                clip_controls: Clipped
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                draw_mode: CopyPen
-                draw_style: Solid
-                draw_width: 1
-                enabled: Enabled
-                fill_color:
-                  System:
-                    index: 0
-                fill_style: Transparent
-                font_transparent: Transparent
-                fore_color:
-                  System:
-                    index: 8
-                has_dc: HasContext
-                height: 375
-                help_context_id: 0
-                left: 960
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                mouse_icon: ~
-                mouse_pointer: Default
-                negotiate: false
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                scale_height: 23
-                scale_left: 0
-                scale_mode: Twip
-                scale_top: 0
-                scale_width: 464
-                tab_index: 3
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 600
-                visible: Visible
-                whats_this_help_id: 0
-                width: 6990
-              controls: []
-        - name: cmdReset
-          tag: ""
-          index: 0
-          kind:
-            CommandButton:
-              properties:
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 15
-                cancel: false
-                caption: Show the Original Image
-                causes_validation: "Yes"
-                default: false
-                disabled_picture: ~
-                down_picture: ~
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                height: 1215
-                help_context_id: 0
-                left: 8400
-                mask_color:
-                  RGB:
-                    red: 192
-                    green: 192
-                    blue: 192
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                style: Standard
-                tab_index: 2
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 240
-                use_mask_color: DoNotUseMaskColor
-                whats_this_help_id: 0
-                width: 2535
-        - name: picMain
-          tag: ""
-          index: 0
-          kind:
-            PictureBox:
-              properties:
-                align: None
-                appearance: ThreeD
-                auto_redraw: Manual
-                auto_size: Fixed
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                clip_controls: Clipped
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                draw_mode: CopyPen
-                draw_style: Solid
-                draw_width: 1
-                enabled: Enabled
-                fill_color:
-                  System:
-                    index: 0
-                fill_style: Transparent
-                font_transparent: Transparent
-                fore_color:
-                  System:
-                    index: 8
-                has_dc: HasContext
-                height: 735
-                help_context_id: 0
-                left: 120
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                mouse_icon: ~
-                mouse_pointer: Default
-                negotiate: false
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                scale_height: 47
-                scale_left: 0
-                scale_mode: Twip
-                scale_top: 0
-                scale_width: 87
-                tab_index: 0
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 1680
-                visible: Visible
-                whats_this_help_id: 0
-                width: 1335
-              controls: []
-        - name: picBack
-          tag: ""
-          index: 0
-          kind:
-            PictureBox:
-              properties:
-                align: None
-                appearance: ThreeD
-                auto_redraw: Manual
-                auto_size: Fixed
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                clip_controls: Clipped
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                draw_mode: CopyPen
-                draw_style: Solid
-                draw_width: 1
-                enabled: Enabled
-                fill_color:
-                  System:
-                    index: 0
-                fill_style: Transparent
-                font_transparent: Transparent
-                fore_color:
-                  System:
-                    index: 8
-                has_dc: HasContext
-                height: 6780
-                help_context_id: 0
-                left: 120
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                mouse_icon: ~
-                mouse_pointer: Default
-                negotiate: false
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                scale_height: 450
-                scale_left: 0
-                scale_mode: Twip
-                scale_top: 0
-                scale_width: 720
-                tab_index: 1
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 1680
-                visible: Visible
-                whats_this_help_id: 0
-                width: 10830
-              controls: []
-        - name: optForceSaturation
-          tag: ""
-          index: 0
-          kind:
-            OptionButton:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                caption: Force all saturation to
-                causes_validation: "Yes"
-                disabled_picture: ~
-                down_picture: ~
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 255
-                help_context_id: 0
-                left: 3120
-                mask_color:
-                  RGB:
-                    red: 192
-                    green: 192
-                    blue: 192
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                style: Standard
-                tab_index: 7
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 1200
-                use_mask_color: DoNotUseMaskColor
-                value: UnSelected
-                visible: Visible
-                whats_this_help_id: 0
-                width: 2175
-        - name: lblSaturation
-          tag: ""
-          index: 0
-          kind:
-            Label:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                auto_size: Fixed
-                back_color:
-                  System:
-                    index: 5
-                back_style: Opaque
-                border_style: None
-                caption: 50%
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 255
-                left: 5340
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drop_mode: None
-                right_to_left: LeftToRight
-                tab_index: 8
-                tool_tip_text: ""
-                top: 1200
-                use_mnemonic: true
-                visible: Visible
-                whats_this_help_id: 0
-                width: 615
-                word_wrap: NonWrapping
-        - name: Label2
-          tag: ""
-          index: 0
-          kind:
-            Label:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                auto_size: Fixed
-                back_color:
-                  System:
-                    index: 15
-                back_style: Opaque
-                border_style: None
-                caption: "Hue:"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 18
-                height: 255
-                left: 120
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drop_mode: None
-                right_to_left: LeftToRight
-                tab_index: 4
-                tool_tip_text: ""
-                top: 240
-                use_mnemonic: true
-                visible: Visible
-                whats_this_help_id: 0
-                width: 735
-                word_wrap: NonWrapping
-      menus:
-        - name: mnuFile
-          tag: ""
-          index: 0
-          properties:
-            caption: "&File"
-            checked: false
-            enabled: Enabled
-            help_context_id: 0
-            negotiate_position: None
-            shortcut: ~
-            visible: Visible
-            window_list: false
-          sub_menus:
-            - name: mnuOpenImage
-              tag: ""
-              index: 0
-              properties:
-                caption: "&Open image"
-                checked: false
-                enabled: Enabled
-                help_context_id: 0
-                negotiate_position: None
-                shortcut: ~
-                visible: Visible
-                window_list: false
-              sub_menus: []
+            properties:
+              caption: "&Open image"
+              checked: false
+              enabled: Enabled
+              help_context_id: 0
+              negotiate_position: None
+              shortcut: ~
+              visible: Visible
+              window_list: false
+            sub_menus: []
 objects: []
 version:
   major: 5
