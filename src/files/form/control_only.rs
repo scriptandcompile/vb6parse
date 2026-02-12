@@ -34,20 +34,20 @@
 //! ```
 
 use crate::{
-    errors::FormErrorKind, files::common::FileFormatVersion, language::Control, lexer::TokenStream,
-    parsers::ParseResult,
+    errors::FormErrorKind, files::common::FileFormatVersion, language::FormRoot,
+    lexer::TokenStream, parsers::ParseResult,
 };
 
 /// Result of control-only parsing containing:
 /// - Optional VERSION (5.00, etc.) - may be absent in older files
-/// - Optional Control (Form/MDIForm/UserControl) - None if parsing failed
+/// - Optional FormRoot (Form/MDIForm) - None if parsing failed
 /// - Remaining `TokenStream` positioned after control block
 ///
 /// Both fields are optional to support partial success:
 /// - VERSION may be missing in older .frm files
-/// - Control may fail to parse while VERSION succeeds
+/// - FormRoot may fail to parse while VERSION succeeds
 /// - Failures are collected in the `ParseResult` wrapper
-pub type ControlOnlyResult<'a> = (Option<FileFormatVersion>, Option<Control>, TokenStream<'a>);
+pub type ControlOnlyResult<'a> = (Option<FileFormatVersion>, Option<FormRoot>, TokenStream<'a>);
 
 /// Parses only the VERSION header and root control from a `TokenStream`.
 ///
@@ -72,7 +72,7 @@ pub type ControlOnlyResult<'a> = (Option<FileFormatVersion>, Option<Control>, To
 ///
 /// * `ParseResult<ControlOnlyResult, FormErrorKind>` containing:
 ///   - `Option<FileFormatVersion>` - VERSION if found, None otherwise
-///   - `Option<Control>` - Parsed root control, None if parsing failed
+///   - `Option<FormRoot>` - Parsed root form (Form or MDIForm), None if parsing failed
 ///   - `TokenStream` - Remaining tokens positioned after control block
 ///   - Failures vector with any warnings/errors encountered
 ///
@@ -116,18 +116,18 @@ pub fn parse_control_from_tokens(
     // Parse VERSION directly (no CST overhead)
     let (version_opt, version_failures) = parser.parse_version_direct().unpack();
 
-    // Parse control directly (no CST overhead)
-    let (control_opt, control_failures) = parser.parse_properties_block_to_control().unpack();
+    // Parse form root directly (no CST overhead)
+    let (form_root_opt, form_failures) = parser.parse_properties_block_to_form_root().unpack();
 
     // Collect all failures
     let mut failures = Vec::new();
     failures.extend(version_failures);
-    failures.extend(control_failures);
+    failures.extend(form_failures);
 
     // Get remaining tokens
     let remaining_tokens = parser.into_tokens();
     let remaining_stream = TokenStream::from_tokens(remaining_tokens);
 
     // Return result tuple
-    ParseResult::new(Some((version_opt, control_opt, remaining_stream)), failures)
+    ParseResult::new(Some((version_opt, form_root_opt, remaining_stream)), failures)
 }

@@ -117,32 +117,27 @@ End Sub
             println!();
 
             // Display control information
-            if let Some(control) = control_opt {
-                println!("Form name: {}", control.name());
+            if let Some(form_root) = control_opt {
+                println!("Form name: {}", form_root.name());
 
                 // Display form properties
-                if let vb6parse::language::ControlKind::Form {
-                    properties,
-                    controls,
-                    ..
-                } = control.kind()
-                {
-                    println!("Form caption: {:?}", properties.caption);
+                if let vb6parse::language::FormRoot::Form(form) = form_root {
+                    println!("Form caption: {:?}", form.properties.caption);
                     println!(
                         "Form dimensions: {}x{}",
-                        properties.width, properties.height
+                        form.properties.width, form.properties.height
                     );
-                    println!("Number of child controls: {}", controls.len());
+                    println!("Number of child controls: {}", form.controls.len());
 
                     println!("\nChild controls:");
-                    for child in controls {
+                    for child in &form.controls {
                         print_control_info(child, 1);
                     }
                 } else {
-                    println!("Warning: Parsed control is not a Form");
+                    println!("Warning: Parsed form is an MDIForm, not a standard Form");
                 }
             } else {
-                println!("Warning: No control was parsed");
+                println!("Warning: No form was parsed");
             }
 
             println!();
@@ -187,7 +182,6 @@ fn print_control_info(control: &vb6parse::language::Control, indent_level: usize
 /// Get the type name of a control
 fn control_type_name(kind: &vb6parse::language::ControlKind) -> &'static str {
     match kind {
-        vb6parse::language::ControlKind::Form { .. } => "Form",
         vb6parse::language::ControlKind::CommandButton { .. } => "CommandButton",
         vb6parse::language::ControlKind::TextBox { .. } => "TextBox",
         vb6parse::language::ControlKind::Label { .. } => "Label",
@@ -204,7 +198,6 @@ fn control_type_name(kind: &vb6parse::language::ControlKind) -> &'static str {
         vb6parse::language::ControlKind::Shape { .. } => "Shape",
         vb6parse::language::ControlKind::Line { .. } => "Line",
         vb6parse::language::ControlKind::Menu { .. } => "Menu",
-        vb6parse::language::ControlKind::MDIForm { .. } => "MDIForm",
         vb6parse::language::ControlKind::Data { .. } => "Data",
         vb6parse::language::ControlKind::FileListBox { .. } => "FileListBox",
         vb6parse::language::ControlKind::DriveListBox { .. } => "DriveListBox",
@@ -219,8 +212,7 @@ fn get_child_controls(
     kind: &vb6parse::language::ControlKind,
 ) -> Option<&Vec<vb6parse::language::Control>> {
     match kind {
-        vb6parse::language::ControlKind::Form { controls, .. }
-        | vb6parse::language::ControlKind::Frame { controls, .. }
+        vb6parse::language::ControlKind::Frame { controls, .. }
         | vb6parse::language::ControlKind::PictureBox { controls, .. } => Some(controls),
         _ => None,
     }
