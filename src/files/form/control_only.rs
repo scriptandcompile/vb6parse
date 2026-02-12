@@ -40,12 +40,12 @@ use crate::{
 
 /// Result of control-only parsing containing:
 /// - Optional VERSION (5.00, etc.) - may be absent in older files
-/// - Optional FormRoot (Form/MDIForm) - None if parsing failed
+/// - Optional `FormRoot` (`Form`/`MDIForm`) - None if parsing failed
 /// - Remaining `TokenStream` positioned after control block
 ///
 /// Both fields are optional to support partial success:
 /// - VERSION may be missing in older .frm files
-/// - FormRoot may fail to parse while VERSION succeeds
+/// - `FormRoot` may fail to parse while VERSION succeeds
 /// - Failures are collected in the `ParseResult` wrapper
 pub type ControlOnlyResult<'a> = (Option<FileFormatVersion>, Option<FormRoot>, TokenStream<'a>);
 
@@ -72,7 +72,7 @@ pub type ControlOnlyResult<'a> = (Option<FileFormatVersion>, Option<FormRoot>, T
 ///
 /// * `ParseResult<ControlOnlyResult, FormErrorKind>` containing:
 ///   - `Option<FileFormatVersion>` - VERSION if found, None otherwise
-///   - `Option<FormRoot>` - Parsed root form (Form or MDIForm), None if parsing failed
+///   - `Option<FormRoot>` - Parsed root form (`Form` or `MDIForm`), None if parsing failed
 ///   - `TokenStream` - Remaining tokens positioned after control block
 ///   - Failures vector with any warnings/errors encountered
 ///
@@ -129,5 +129,8 @@ pub fn parse_control_from_tokens(
     let remaining_stream = TokenStream::from_tokens(remaining_tokens);
 
     // Return result tuple
-    ParseResult::new(Some((version_opt, form_root_opt, remaining_stream)), failures)
+    ParseResult::new(
+        Some((version_opt, form_root_opt, remaining_stream)),
+        failures,
+    )
 }

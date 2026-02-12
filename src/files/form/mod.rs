@@ -31,7 +31,7 @@ where
 /// Represents a VB6 Form file.
 #[derive(Debug, PartialEq, Clone, Serialize)]
 pub struct FormFile {
-    /// The top-level form root (Form or MDIForm).
+    /// The top-level form root (`Form` or `MDIForm`).
     pub form: FormRoot,
     /// The list of object references in the form file.
     pub objects: Vec<ObjectReference>,
@@ -111,7 +111,7 @@ impl FormFile {
         // The form's name comes from the VB_Name attribute if present,
         // otherwise from the PropertiesName in the Begin statement
         if !attributes.name.is_empty() {
-            *form.name_mut() = attributes.name.clone();
+            form.name_mut().clone_from(&attributes.name);
         }
         // If attributes.name is empty, form.name already has the name from the Begin statement
 
@@ -147,7 +147,7 @@ impl FormFile {
     ///
     /// * `ParseResult<ControlOnlyResult, FormErrorKind>` - A tuple containing:
     ///   - `Option<FileFormatVersion>` - The parsed version
-    ///   - `Option<FormRoot>` - The parsed form root (Form or MDIForm with nested controls)
+    ///   - `Option<FormRoot>` - The parsed form root (`Form` or `MDIForm` with nested controls)
     ///   - `TokenStream` - The remaining token stream positioned after the control
     ///
     /// # Example
