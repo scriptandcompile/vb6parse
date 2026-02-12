@@ -20,11 +20,19 @@ and this project (tries!) to adheres to [Semantic Versioning](https://semver.org
 - Improved module organization for better separation of concerns
 
 ### Fixed
+- Double quote handling in string parsing  
+- Backslash flag handling in strings
+- DateTime literal parsing no longer confused by single # characters
+- Missing EndKeyword in various parsing contexts
 - All C-GETTER violations - removed `get_` prefix from parameterless getters
 - ProjectFile fields are now mostly private (except `project_type`, `other_properties`, `properties`)
 - ParseResult fields are now private with accessor methods
 - FormResourceFile naming consistency (previously had some FormResource references)
 - VB6 Color BGR format handling (was incorrectly using RGB)
+- Form/MDIForm removed from ControlKind enum (now part of FormRoot enum)
+- Parser layer now distinguishes between top-level forms and child controls
+- Examples updated to use FormRoot API instead of ControlKind::Form
+- Token::DateLiteral renamed to Token::DateTimeLiteral for clarity
 
 ### Added
 - "Contributing" section in README.md linking to CONTRIBUTING.md
@@ -35,6 +43,13 @@ and this project (tries!) to adheres to [Semantic Versioning](https://semver.org
 - Comprehensive fuzz testing support with 9 fuzz targets covering all parser layers
 - Fuzz targets for: SourceFile decoding, SourceStream, tokenization, CST parsing, ProjectFile, ClassFile, ModuleFile, FormFile, and FormResourceFile
 - Corpus and artifacts directories for fuzzing with cargo-fuzz and libFuzzer
+- FormRoot type system for type-safe form parsing with Form and MDIForm variants
+- InvalidTopLevelControl error variant for invalid form root elements  
+- parse_properties_block_to_form_root() function for top-level form parsing
+- build_form_root() helper function in parser layer
+- Additional missing keywords to language tokens (18+ new keywords including EndKeyword)
+- Improved DateTime literal parsing to correctly handle date/time literals
+- More comprehensive date/time parsing tests
 - Support for RmDir statements
 - Support for Resume statements
 - Support for Randomize statements
