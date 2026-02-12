@@ -160,7 +160,7 @@
 use std::num::NonZeroUsize;
 
 use crate::io::{SourceFile, SourceStream};
-use crate::language::Token;
+use crate::language::{Form, FormProperties, FormRoot, Token};
 use crate::lexer::{tokenize, TokenStream};
 use crate::parsers::SyntaxKind;
 use crate::CodeErrorKind;
@@ -1141,7 +1141,48 @@ impl<'a> Parser<'a> {
         }
     }
 
+    /// Build `FormRoot` from control type string and properties
+    ///
+    /// This function is used for parsing top-level form elements.
+    /// Only `VB.Form` and `VB.MDIForm` are valid top-level types.
+    fn build_form_root(
+        control_type: &str,
+        control_name: String,
+        tag: String,
+        index: i32,
+        properties: crate::files::common::Properties,
+        child_controls: Vec<crate::language::Control>,
+        menus: Vec<crate::language::MenuControl>,
+    ) -> Result<crate::language::FormRoot, crate::errors::FormErrorKind> {
+        use crate::language::{Form, FormRoot, MDIForm};
+
+        match control_type {
+            "VB.Form" => Ok(FormRoot::Form(Form {
+                name: control_name,
+                tag,
+                index,
+                properties: properties.into(),
+                controls: child_controls,
+                menus,
+            })),
+            "VB.MDIForm" => Ok(FormRoot::MDIForm(MDIForm {
+                name: control_name,
+                tag,
+                index,
+                properties: properties.into(),
+                controls: child_controls,
+                menus,
+            })),
+            _ => Err(crate::errors::FormErrorKind::InvalidTopLevelControl(
+                control_type.to_string(),
+            )),
+        }
+    }
+
     /// Build `ControlKind` from control type string and properties
+    ///
+    /// Note: This function rejects `VB.Form` and `VB.MDIForm` as they are now
+    /// top-level types only and cannot be child controls.
     fn build_control_kind(
         control_type: &str,
         properties: crate::files::common::Properties,
@@ -1152,16 +1193,6 @@ impl<'a> Parser<'a> {
         use crate::language::ControlKind;
 
         match control_type {
-            "VB.Form" => ControlKind::Form {
-                properties: properties.into(),
-                controls: child_controls,
-                menus,
-            },
-            "VB.MDIForm" => ControlKind::MDIForm {
-                properties: properties.into(),
-                controls: child_controls,
-                menus,
-            },
             "VB.CommandButton" => ControlKind::CommandButton {
                 properties: properties.into(),
             },
@@ -1347,6 +1378,139 @@ impl<'a> Parser<'a> {
         let control = Control::new(control_name, tag, index, kind);
 
         crate::ParseResult::new(Some(control), failures)
+    }
+
+    /// Parse properties block directly to `FormRoot` for top-level form elements.
+    ///
+    /// This function is specifically for parsing the top-level form element in
+    /// `.frm`, `.ctl`, and `.dob` files. It enforces that only `VB.Form` or
+    /// `VB.MDIForm` can be used as the root element.
+    ///
+    /// # Returns
+    ///
+    /// A `ParseResult` containing either a `FormRoot` (`Form` or `MDIForm`) or `None`,
+    /// along with any parsing failures encountered.
+    pub(crate) fn parse_properties_block_to_form_root(
+        &mut self,
+    ) -> crate::ParseResult<'a, crate::language::FormRoot, crate::errors::FormErrorKind> {
+        use crate::files::common::Properties;
+
+        self.skip_whitespace();
+
+        // Expect BEGIN keyword
+        if !self.at_token(Token::BeginKeyword) {
+            return crate::ParseResult::new(None, Vec::new());
+        }
+
+        self.consume_advance(); // BEGIN
+        self.skip_whitespace();
+
+        // Parse control type (e.g., "VB.Form" or "VB.MDIForm")
+        let control_type = self.parse_control_type_direct();
+        self.skip_whitespace();
+
+        // Parse control name
+        let control_name = self.parse_control_name_direct();
+        self.skip_whitespace_and_newlines();
+
+        // Parse properties, child controls, and property groups
+        let mut properties = Properties::new();
+        let mut child_controls = Vec::new();
+        let mut menus = Vec::new();
+        let mut failures = Vec::new();
+
+        while !self.is_at_end() && !self.at_token(Token::EndKeyword) {
+            self.skip_whitespace();
+
+            if self.at_token(Token::EndKeyword) {
+                break;
+            }
+
+            if self.at_token(Token::BeginKeyword) {
+                // Nested control (Begin VB.xxx) - use parse_properties_block_to_control for children
+                let child_result = self.parse_properties_block_to_control();
+                let (child_opt, child_failures) = child_result.unpack();
+                failures.extend(child_failures);
+
+                if let Some(child) = child_opt {
+                    // Check if it's a menu control
+                    if matches!(child.kind(), crate::language::ControlKind::Menu { .. }) {
+                        menus.push(Self::control_to_menu(child));
+                    } else {
+                        child_controls.push(child);
+                    }
+                }
+            } else if self.is_begin_property() {
+                // Parse property group (BeginProperty)
+                if let Some(group) = self.parse_property_group_direct() {
+                    // Property groups are not used in Form/MDIForm, but we parse them anyway
+                    // to avoid errors if they appear
+                    drop(group);
+                }
+            } else if self.is_identifier() || self.at_keyword() {
+                // Parse property (Key = Value)
+                if let Some((key, value)) = self.parse_property_direct() {
+                    // Remove surrounding quotes if this is a simple string literal
+                    // BUT NOT if it's a resource reference (contains ":digit" pattern)
+                    let is_resource_reference = value.contains(':')
+                        && value
+                            .split(':')
+                            .next_back()
+                            .is_some_and(|part| part.chars().all(|c| c.is_ascii_digit()));
+
+                    let cleaned_value = if !is_resource_reference
+                        && value.starts_with('"')
+                        && value.ends_with('"')
+                        && value.len() >= 2
+                    {
+                        &value[1..value.len() - 1]
+                    } else {
+                        &value
+                    };
+                    properties.insert(&key, cleaned_value);
+                }
+            } else {
+                // Skip unknown token
+                self.consume_advance();
+            }
+        }
+
+        // Parse END keyword
+        if self.at_token(Token::EndKeyword) {
+            self.consume_advance();
+            self.skip_whitespace_and_newlines();
+        }
+
+        // Extract tag and index from properties
+        let tag = properties.get("Tag").cloned().unwrap_or_default();
+        let index = properties
+            .get("Index")
+            .and_then(|s| s.parse().ok())
+            .unwrap_or(0);
+
+        // Build FormRoot with all components
+        if let Ok(form_root) = Self::build_form_root(
+            &control_type,
+            control_name,
+            tag,
+            index,
+            properties,
+            child_controls,
+            menus,
+        ) {
+            ParseResult::new(Some(form_root), failures)
+        } else {
+            // If invalid top-level control type, return a default Form as fallback
+            let default_form = FormRoot::Form(Form {
+                name: String::new(),
+                tag: String::new(),
+                index: 0,
+                properties: FormProperties::default(),
+                controls: Vec::new(),
+                menus: Vec::new(),
+            });
+            ParseResult::new(Some(default_form), failures)
+        }
     }
 
     /// Parse a complete module/class/form (the top-level structure)
@@ -2287,19 +2451,16 @@ End
         let tokens = token_stream.into_tokens();
 
         let mut parser = Parser::new_direct_extraction(tokens, 0);
-        let (control_opt, failures) = parser.parse_properties_block_to_control().unpack();
+        let (control_opt, failures) = parser.parse_properties_block_to_form_root().unpack();
 
         assert!(failures.is_empty(), "Expected no failures");
-        assert!(control_opt.is_some(), "Expected control to be parsed");
+        assert!(control_opt.is_some(), "Expected form root to be parsed");
 
-        let control = control_opt.unwrap();
-        assert_eq!(control.name(), "Form1");
+        let form_root = control_opt.unwrap();
+        assert_eq!(form_root.name(), "Form1");
 
         // Verify it's a Form
-        assert!(matches!(
-            control.kind(),
-            crate::language::ControlKind::Form { .. }
-        ));
+        assert!(form_root.is_form());
     }
 
     #[test]
@@ -2387,23 +2548,23 @@ End
         let tokens = token_stream.into_tokens();
 
         let mut parser = Parser::new_direct_extraction(tokens, 0);
-        let (control_opt, failures) = parser.parse_properties_block_to_control().unpack();
+        let (form_root_opt, failures) = parser.parse_properties_block_to_form_root().unpack();
 
         assert!(failures.is_empty(), "Should have no failures");
-        assert!(control_opt.is_some());
-        let control = control_opt.unwrap();
-        assert_eq!(control.name(), "Form1");
+        assert!(form_root_opt.is_some());
+        let form_root = form_root_opt.unwrap();
+        assert_eq!(form_root.name(), "Form1");
 
         // Check form has child controls
-        if let crate::language::ControlKind::Form { controls, .. } = control.kind() {
-            assert_eq!(controls.len(), 1);
-            assert_eq!(controls[0].name(), "Command1");
+        if let crate::language::FormRoot::Form(form) = &form_root {
+            assert_eq!(form.controls.len(), 1);
+            assert_eq!(form.controls[0].name(), "Command1");
             assert!(matches!(
-                controls[0].kind(),
+                form.controls[0].kind(),
                 crate::language::ControlKind::CommandButton { .. }
             ));
         } else {
-            panic!("Expected Form control kind");
+            panic!("Expected Form");
         }
     }
 
@@ -2674,16 +2835,18 @@ End
         let tokens = token_stream.into_tokens();
 
         let mut parser = Parser::new_direct_extraction(tokens, 0);
-        let (control_opt, failures) = parser.parse_properties_block_to_control().unpack();
+        let (form_root_opt, failures) = parser.parse_properties_block_to_form_root().unpack();
 
         assert!(failures.is_empty());
-        assert!(control_opt.is_some());
-        let control = control_opt.unwrap();
+        assert!(form_root_opt.is_some());
+        let form_root = form_root_opt.unwrap();
 
         // Verify deep nesting: Form > PictureBox > Frame > Label
-        if let crate::language::ControlKind::Form { controls, .. } = control.kind() {
-            assert_eq!(controls.len(), 1);
-            if let crate::language::ControlKind::PictureBox { controls, .. } = controls[0].kind() {
+        if let crate::language::FormRoot::Form(form) = &form_root {
+            assert_eq!(form.controls.len(), 1);
+            if let crate::language::ControlKind::PictureBox { controls, .. } =
+                form.controls[0].kind()
+            {
                 assert_eq!(controls.len(), 1);
                 if let crate::language::ControlKind::Frame { controls, .. } = controls[0].kind() {
                     assert_eq!(controls.len(), 1);

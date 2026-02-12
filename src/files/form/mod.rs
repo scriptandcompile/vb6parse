@@ -10,7 +10,7 @@ use crate::{
     errors::FormErrorKind,
     files::common::{FileAttributes, FileFormatVersion, ObjectReference},
     io::SourceFile,
-    language::{Control, ControlKind},
+    language::{Form, FormRoot},
     lexer::{tokenize, TokenStream},
     parsers::{
         cst::{parse, ConcreteSyntaxTree},
@@ -31,8 +31,8 @@ where
 /// Represents a VB6 Form file.
 #[derive(Debug, PartialEq, Clone, Serialize)]
 pub struct FormFile {
-    /// The form control and its hierarchy.
-    pub form: Control,
+    /// The top-level form root (`Form` or `MDIForm`).
+    pub form: FormRoot,
     /// The list of object references in the form file.
     pub objects: Vec<ObjectReference>,
     /// The VB6 file format version.
@@ -88,23 +88,21 @@ impl FormFile {
         // Parse Objects directly (no CST overhead)
         let objects = parser.parse_objects_direct();
 
-        // Parse form control directly (no CST overhead)
-        let (control_opt, control_failures) = parser.parse_properties_block_to_control().unpack();
-        all_failures.extend(control_failures);
+        // Parse form root directly (no CST overhead)
+        let (form_root_opt, form_failures) = parser.parse_properties_block_to_form_root().unpack();
+        all_failures.extend(form_failures);
 
-        let mut form = control_opt.unwrap_or_else(|| {
+        let mut form = form_root_opt.unwrap_or_else(|| {
             use crate::language::FormProperties;
 
-            Control::new(
-                String::new(),
-                String::new(),
-                0,
-                ControlKind::Form {
-                    properties: FormProperties::default(),
-                    controls: Vec::new(),
-                    menus: Vec::new(),
-                },
-            )
+            FormRoot::Form(Form {
+                name: String::new(),
+                tag: String::new(),
+                index: 0,
+                properties: FormProperties::default(),
+                controls: Vec::new(),
+                menus: Vec::new(),
+            })
         });
 
         // Parse Attributes directly (no CST overhead)
@@ -113,7 +111,7 @@ impl FormFile {
         // The form's name comes from the VB_Name attribute if present,
         // otherwise from the PropertiesName in the Begin statement
         if !attributes.name.is_empty() {
-            form.set_name(attributes.name.clone());
+            form.name_mut().clone_from(&attributes.name);
         }
         // If attributes.name is empty, form.name already has the name from the Begin statement
 
@@ -149,7 +147,7 @@ impl FormFile {
     ///
     /// * `ParseResult<ControlOnlyResult, FormErrorKind>` - A tuple containing:
     ///   - `Option<FileFormatVersion>` - The parsed version
-    ///   - `Option<Control>` - The parsed form control (with nested controls)
+    ///   - `Option<FormRoot>` - The parsed form root (`Form` or `MDIForm` with nested controls)
     ///   - `TokenStream` - The remaining token stream positioned after the control
     ///
     /// # Example
@@ -356,24 +354,22 @@ End
         assert_eq!(result.version.major, 5);
         assert_eq!(result.version.minor, 0);
         assert_eq!(result.form.name(), "Form_Main");
-        assert!(matches!(result.form.kind(), ControlKind::Form { .. }));
+        assert!(result.form.is_form());
 
-        if let ControlKind::Form {
-            controls,
-            properties,
-            menus,
-        } = result.form.kind()
-        {
-            assert_eq!(controls.len(), 1);
-            assert_eq!(menus.len(), 0);
-            assert_eq!(properties.caption, "Audiostation");
-            assert_eq!(controls[0].name(), "Imagelist_CDDisplay");
-            assert!(matches!(controls[0].kind(), ControlKind::Custom { .. }));
+        if let crate::language::FormRoot::Form(form) = &result.form {
+            assert_eq!(form.controls.len(), 1);
+            assert_eq!(form.menus.len(), 0);
+            assert_eq!(form.properties.caption, "Audiostation");
+            assert_eq!(form.controls[0].name(), "Imagelist_CDDisplay");
+            assert!(matches!(
+                form.controls[0].kind(),
+                crate::language::ControlKind::Custom { .. }
+            ));
 
-            if let ControlKind::Custom {
+            if let crate::language::ControlKind::Custom {
                 properties,
                 property_groups,
-            } = controls[0].kind()
+            } = form.controls[0].kind()
             {
                 assert_eq!(properties.len(), 9);
                 assert_eq!(property_groups.len(), 1);
@@ -463,21 +459,16 @@ End
         assert_eq!(result.version.minor, 0);
 
         assert_eq!(result.form.name(), "frmExampleForm");
-        assert_eq!(result.form.tag(), "");
-        assert_eq!(result.form.index(), 0);
 
-        if let ControlKind::Form {
-            controls,
-            properties,
-            menus,
-        } = result.form.kind()
-        {
-            assert_eq!(controls.len(), 0);
-            assert_eq!(menus.len(), 1);
-            assert_eq!(properties.caption, "example form");
-            assert_eq!(properties.back_color, VB_WINDOW_BACKGROUND);
+        if let crate::language::FormRoot::Form(form) = &result.form {
+            assert_eq!(form.tag, "");
+            assert_eq!(form.index, 0);
+            assert_eq!(form.controls.len(), 0);
+            assert_eq!(form.menus.len(), 1);
+            assert_eq!(form.properties.caption, "example form");
+            assert_eq!(form.properties.back_color, VB_WINDOW_BACKGROUND);
             assert_eq!(
-                *menus,
+                form.menus,
                 vec![MenuControl::new(
                     "mnuFile".into(),
                     String::new(),
@@ -536,17 +527,20 @@ End
 
         assert_eq!(form_file.form.name(), "Form1");
 
-        if let ControlKind::Form { controls, .. } = form_file.form.kind() {
-            assert_eq!(controls.len(), 2);
-            assert_eq!(controls[0].name(), "Command1");
-            assert_eq!(controls[1].name(), "Text1");
+        if let crate::language::FormRoot::Form(form) = &form_file.form {
+            assert_eq!(form.controls.len(), 2);
+            assert_eq!(form.controls[0].name(), "Command1");
+            assert_eq!(form.controls[1].name(), "Text1");
 
             // Check control types
             assert!(matches!(
-                controls[0].kind(),
-                ControlKind::CommandButton { .. }
+                form.controls[0].kind(),
+                crate::language::ControlKind::CommandButton { .. }
             ));
-            assert!(matches!(controls[1].kind(), ControlKind::TextBox { .. }));
+            assert!(matches!(
+                form.controls[1].kind(),
+                crate::language::ControlKind::TextBox { .. }
+            ));
         } else {
             panic!("Expected Form kind");
         }

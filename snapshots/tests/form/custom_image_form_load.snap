@@ -3,1795 +3,1794 @@ source: tests/form.rs
 expression: form_file
 ---
 form:
-  name: frmCustomFilters
-  tag: ""
-  index: 0
-  kind:
-    Form:
-      properties:
-        appearance: ThreeD
-        auto_redraw: Manual
-        back_color:
-          System:
-            index: 5
-        border_style: Sizable
-        caption: Custom Filters - www.tannerhelland.com
-        client_height: 7095
-        client_left: 45
-        client_top: 630
-        client_width: 6255
-        clip_controls: Clipped
-        control_box: Included
-        draw_mode: CopyPen
-        draw_style: Solid
-        draw_width: 1
-        enabled: Enabled
-        fill_color:
-          System:
-            index: 0
-        fill_style: Transparent
-        font_transparent: Transparent
-        fore_color:
-          System:
-            index: 18
-        has_dc: HasContext
-        height: 240
-        help_context_id: 0
-        icon: ~
-        key_preview: false
-        left: 0
-        link_mode: None
-        link_topic: Form1
-        max_button: Included
-        mdi_child: false
-        min_button: Included
-        mouse_icon: ~
-        mouse_pointer: Default
-        moveable: Moveable
-        negotiate_menus: true
-        ole_drop_mode: None
-        palette: ~
-        palette_mode: HalfTone
-        picture: ~
-        right_to_left: LeftToRight
-        scale_height: 473
-        scale_left: 0
-        scale_mode: Twip
-        scale_top: 0
-        scale_width: 417
-        show_in_taskbar: Show
-        start_up_position: WindowsDefault
-        top: 0
-        visible: Visible
-        whats_this_button: Excluded
-        whats_this_help: F1Help
-        width: 240
-        window_state: Normal
-      controls:
-        - name: cmbFilter
-          tag: ""
-          index: 0
-          kind:
-            ComboBox:
-              properties:
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 345
-                help_context_id: 0
-                integral_height: true
-                left: 3240
-                locked: false
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                right_to_left: LeftToRight
-                sorted: false
-                style: DropDownCombo
-                tab_index: 34
-                tab_stop: Included
-                text: Select a filter...
-                tool_tip_text: ""
-                top: 1800
-                visible: Visible
-                whats_this_help_id: 0
-                width: 2775
-        - name: TxtF
-          tag: ""
-          index: 0
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 120
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 30
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 120
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 1
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 720
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 29
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 120
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 2
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 1320
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 28
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 120
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 3
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 1920
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 27
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 120
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 4
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 2520
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 26
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 120
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
+  Form:
+    name: frmCustomFilters
+    tag: ""
+    index: 0
+    properties:
+      appearance: ThreeD
+      auto_redraw: Manual
+      back_color:
+        System:
           index: 5
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 120
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 25
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 480
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 6
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 720
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 24
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 480
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 7
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 1320
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 23
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 480
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 8
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 1920
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 22
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 480
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 9
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 2520
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 21
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 480
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 10
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 120
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 20
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 840
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 11
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 720
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 19
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 840
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 12
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 1320
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 18
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 840
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 13
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 1920
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 17
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 840
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 14
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 2520
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 16
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 840
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 15
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 120
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 15
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 1200
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 16
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 720
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 14
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 1200
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 17
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 1320
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 13
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 1200
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
+      border_style: Sizable
+      caption: Custom Filters - www.tannerhelland.com
+      client_height: 7095
+      client_left: 45
+      client_top: 630
+      client_width: 6255
+      clip_controls: Clipped
+      control_box: Included
+      draw_mode: CopyPen
+      draw_style: Solid
+      draw_width: 1
+      enabled: Enabled
+      fill_color:
+        System:
+          index: 0
+      fill_style: Transparent
+      font_transparent: Transparent
+      fore_color:
+        System:
           index: 18
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 1920
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 12
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 1200
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 19
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 2520
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 11
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 1200
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 20
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 120
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 10
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 1560
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 21
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 720
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 9
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 1560
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 22
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 1320
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 8
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 1560
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 23
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 1920
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 7
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 1560
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtF
-          tag: ""
-          index: 24
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 2520
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 6
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 1560
-                visible: Visible
-                whats_this_help_id: 0
-                width: 375
-        - name: TxtWeight
-          tag: ""
-          index: 0
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 720
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 5
-                tab_stop: Included
-                text: "1"
-                tool_tip_text: ""
-                top: 2040
-                visible: Visible
-                whats_this_help_id: 0
-                width: 495
-        - name: cmdApply
-          tag: ""
-          index: 0
-          kind:
-            CommandButton:
-              properties:
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 15
-                cancel: false
-                caption: Apply Filter
-                causes_validation: "Yes"
-                default: false
-                disabled_picture: ~
-                down_picture: ~
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                height: 495
-                help_context_id: 0
-                left: 3240
-                mask_color:
-                  RGB:
-                    red: 192
-                    green: 192
-                    blue: 192
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                style: Standard
-                tab_index: 4
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 120
-                use_mask_color: DoNotUseMaskColor
-                whats_this_help_id: 0
-                width: 2805
-        - name: TxtBias
-          tag: ""
-          index: 0
-          kind:
-            TextBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 285
-                help_context_id: 0
-                hide_selection: true
-                left: 2160
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                locked: false
-                max_length: 0
-                mouse_icon: ~
-                mouse_pointer: Default
-                multi_line: SingleLine
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                password_char: ~
-                right_to_left: LeftToRight
-                scroll_bars: None
-                tab_index: 3
-                tab_stop: Included
-                text: "0"
-                tool_tip_text: ""
-                top: 2040
-                visible: Visible
-                whats_this_help_id: 0
-                width: 495
-        - name: cmdReset
-          tag: ""
-          index: 0
-          kind:
-            CommandButton:
-              properties:
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 15
-                cancel: false
-                caption: Reset the Image
-                causes_validation: "Yes"
-                default: false
-                disabled_picture: ~
-                down_picture: ~
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                height: 495
-                help_context_id: 0
-                left: 3240
-                mask_color:
-                  RGB:
-                    red: 192
-                    green: 192
-                    blue: 192
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                style: Standard
-                tab_index: 2
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 720
-                use_mask_color: DoNotUseMaskColor
-                whats_this_help_id: 0
-                width: 2775
-        - name: picMain
-          tag: ""
-          index: 0
-          kind:
-            PictureBox:
-              properties:
-                align: None
-                appearance: ThreeD
-                auto_redraw: Manual
-                auto_size: Fixed
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                clip_controls: Clipped
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                draw_mode: CopyPen
-                draw_style: Solid
-                draw_width: 1
-                enabled: Enabled
-                fill_color:
-                  System:
-                    index: 0
-                fill_style: Transparent
-                font_transparent: Transparent
-                fore_color:
-                  System:
-                    index: 8
-                has_dc: HasContext
-                height: 4530
-                help_context_id: 0
-                left: 120
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                mouse_icon: ~
-                mouse_pointer: Default
-                negotiate: false
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                scale_height: 300
-                scale_left: 0
-                scale_mode: Twip
-                scale_top: 0
-                scale_width: 400
-                tab_index: 0
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 2400
-                visible: Visible
-                whats_this_help_id: 0
-                width: 6030
-              controls: []
-        - name: picBack
-          tag: ""
-          index: 0
-          kind:
-            PictureBox:
-              properties:
-                align: None
-                appearance: ThreeD
-                auto_redraw: Manual
-                auto_size: Fixed
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                clip_controls: Clipped
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                draw_mode: CopyPen
-                draw_style: Solid
-                draw_width: 1
-                enabled: Enabled
-                fill_color:
-                  System:
-                    index: 0
-                fill_style: Transparent
-                font_transparent: Transparent
-                fore_color:
-                  System:
-                    index: 8
-                has_dc: HasContext
-                height: 4530
-                help_context_id: 0
-                left: 120
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                mouse_icon: ~
-                mouse_pointer: Default
-                negotiate: false
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                scale_height: 300
-                scale_left: 0
-                scale_mode: Twip
-                scale_top: 0
-                scale_width: 400
-                tab_index: 1
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 2400
-                visible: Visible
-                whats_this_help_id: 0
-                width: 6030
-              controls: []
-        - name: lblCommon
-          tag: ""
-          index: 0
-          kind:
-            Label:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                auto_size: Fixed
-                back_color:
-                  System:
-                    index: 5
-                back_style: Opaque
-                border_style: None
-                caption: "Sample Filters:"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 225
-                left: 3240
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drop_mode: None
-                right_to_left: LeftToRight
-                tab_index: 33
-                tool_tip_text: ""
-                top: 1440
-                use_mnemonic: true
-                visible: Visible
-                whats_this_help_id: 0
-                width: 1245
-                word_wrap: NonWrapping
-        - name: lblScale
-          tag: ""
-          index: 0
-          kind:
-            Label:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                auto_size: Fixed
-                back_color:
-                  System:
-                    index: 15
-                back_style: Opaque
-                border_style: None
-                caption: "Scale:"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 18
-                height: 210
-                left: 120
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drop_mode: None
-                right_to_left: LeftToRight
-                tab_index: 32
-                tool_tip_text: ""
-                top: 2085
-                use_mnemonic: true
-                visible: Visible
-                whats_this_help_id: 0
-                width: 480
-                word_wrap: NonWrapping
-        - name: lblBias
-          tag: ""
-          index: 0
-          kind:
-            Label:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                auto_size: Fixed
-                back_color:
-                  System:
-                    index: 15
-                back_style: Opaque
-                border_style: None
-                caption: "Bias:"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 18
-                height: 210
-                left: 1680
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drop_mode: None
-                right_to_left: LeftToRight
-                tab_index: 31
-                tool_tip_text: ""
-                top: 2085
-                use_mnemonic: true
-                visible: Visible
-                whats_this_help_id: 0
-                width: 360
-                word_wrap: NonWrapping
-      menus:
-        - name: mnuFile
-          tag: ""
-          index: 0
-          properties:
-            caption: "&File"
-            checked: false
-            enabled: Enabled
-            help_context_id: 0
-            negotiate_position: None
-            shortcut: ~
-            visible: Visible
-            window_list: false
-          sub_menus:
-            - name: mnuOpenImage
-              tag: ""
-              index: 0
-              properties:
-                caption: "&Open image"
-                checked: false
-                enabled: Enabled
-                help_context_id: 0
-                negotiate_position: None
-                shortcut: ~
-                visible: Visible
-                window_list: false
-              sub_menus: []
+      has_dc: HasContext
+      height: 240
+      help_context_id: 0
+      icon: ~
+      key_preview: false
+      left: 0
+      link_mode: None
+      link_topic: Form1
+      max_button: Included
+      mdi_child: false
+      min_button: Included
+      mouse_icon: ~
+      mouse_pointer: Default
+      moveable: Moveable
+      negotiate_menus: true
+      ole_drop_mode: None
+      palette: ~
+      palette_mode: HalfTone
+      picture: ~
+      right_to_left: LeftToRight
+      scale_height: 473
+      scale_left: 0
+      scale_mode: Twip
+      scale_top: 0
+      scale_width: 417
+      show_in_taskbar: Show
+      start_up_position: WindowsDefault
+      top: 0
+      visible: Visible
+      whats_this_button: Excluded
+      whats_this_help: F1Help
+      width: 240
+      window_state: Normal
+    controls:
+      - name: cmbFilter
+        tag: ""
+        index: 0
+        kind:
+          ComboBox:
+            properties:
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 345
+              help_context_id: 0
+              integral_height: true
+              left: 3240
+              locked: false
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              right_to_left: LeftToRight
+              sorted: false
+              style: DropDownCombo
+              tab_index: 34
+              tab_stop: Included
+              text: Select a filter...
+              tool_tip_text: ""
+              top: 1800
+              visible: Visible
+              whats_this_help_id: 0
+              width: 2775
+      - name: TxtF
+        tag: ""
+        index: 0
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 120
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 30
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 120
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 1
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 720
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 29
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 120
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 2
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 1320
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 28
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 120
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 3
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 1920
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 27
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 120
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 4
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 2520
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 26
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 120
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 5
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 120
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 25
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 480
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 6
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 720
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 24
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 480
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 7
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 1320
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 23
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 480
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 8
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 1920
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 22
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 480
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 9
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 2520
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 21
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 480
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 10
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 120
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 20
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 840
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 11
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 720
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 19
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 840
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 12
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 1320
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 18
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 840
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 13
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 1920
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 17
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 840
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 14
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 2520
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 16
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 840
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 15
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 120
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 15
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 1200
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 16
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 720
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 14
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 1200
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 17
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 1320
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 13
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 1200
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 18
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 1920
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 12
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 1200
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 19
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 2520
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 11
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 1200
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 20
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 120
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 10
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 1560
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 21
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 720
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 9
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 1560
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 22
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 1320
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 8
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 1560
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 23
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 1920
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 7
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 1560
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtF
+        tag: ""
+        index: 24
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 2520
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 6
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 1560
+              visible: Visible
+              whats_this_help_id: 0
+              width: 375
+      - name: TxtWeight
+        tag: ""
+        index: 0
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 720
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 5
+              tab_stop: Included
+              text: "1"
+              tool_tip_text: ""
+              top: 2040
+              visible: Visible
+              whats_this_help_id: 0
+              width: 495
+      - name: cmdApply
+        tag: ""
+        index: 0
+        kind:
+          CommandButton:
+            properties:
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 15
+              cancel: false
+              caption: Apply Filter
+              causes_validation: "Yes"
+              default: false
+              disabled_picture: ~
+              down_picture: ~
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              height: 495
+              help_context_id: 0
+              left: 3240
+              mask_color:
+                RGB:
+                  red: 192
+                  green: 192
+                  blue: 192
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              style: Standard
+              tab_index: 4
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 120
+              use_mask_color: DoNotUseMaskColor
+              whats_this_help_id: 0
+              width: 2805
+      - name: TxtBias
+        tag: ""
+        index: 0
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 285
+              help_context_id: 0
+              hide_selection: true
+              left: 2160
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 3
+              tab_stop: Included
+              text: "0"
+              tool_tip_text: ""
+              top: 2040
+              visible: Visible
+              whats_this_help_id: 0
+              width: 495
+      - name: cmdReset
+        tag: ""
+        index: 0
+        kind:
+          CommandButton:
+            properties:
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 15
+              cancel: false
+              caption: Reset the Image
+              causes_validation: "Yes"
+              default: false
+              disabled_picture: ~
+              down_picture: ~
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              height: 495
+              help_context_id: 0
+              left: 3240
+              mask_color:
+                RGB:
+                  red: 192
+                  green: 192
+                  blue: 192
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              style: Standard
+              tab_index: 2
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 720
+              use_mask_color: DoNotUseMaskColor
+              whats_this_help_id: 0
+              width: 2775
+      - name: picMain
+        tag: ""
+        index: 0
+        kind:
+          PictureBox:
+            properties:
+              align: None
+              appearance: ThreeD
+              auto_redraw: Manual
+              auto_size: Fixed
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              clip_controls: Clipped
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              draw_mode: CopyPen
+              draw_style: Solid
+              draw_width: 1
+              enabled: Enabled
+              fill_color:
+                System:
+                  index: 0
+              fill_style: Transparent
+              font_transparent: Transparent
+              fore_color:
+                System:
+                  index: 8
+              has_dc: HasContext
+              height: 4530
+              help_context_id: 0
+              left: 120
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              negotiate: false
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              scale_height: 300
+              scale_left: 0
+              scale_mode: Twip
+              scale_top: 0
+              scale_width: 400
+              tab_index: 0
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 2400
+              visible: Visible
+              whats_this_help_id: 0
+              width: 6030
+            controls: []
+      - name: picBack
+        tag: ""
+        index: 0
+        kind:
+          PictureBox:
+            properties:
+              align: None
+              appearance: ThreeD
+              auto_redraw: Manual
+              auto_size: Fixed
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              clip_controls: Clipped
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              draw_mode: CopyPen
+              draw_style: Solid
+              draw_width: 1
+              enabled: Enabled
+              fill_color:
+                System:
+                  index: 0
+              fill_style: Transparent
+              font_transparent: Transparent
+              fore_color:
+                System:
+                  index: 8
+              has_dc: HasContext
+              height: 4530
+              help_context_id: 0
+              left: 120
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              negotiate: false
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              scale_height: 300
+              scale_left: 0
+              scale_mode: Twip
+              scale_top: 0
+              scale_width: 400
+              tab_index: 1
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 2400
+              visible: Visible
+              whats_this_help_id: 0
+              width: 6030
+            controls: []
+      - name: lblCommon
+        tag: ""
+        index: 0
+        kind:
+          Label:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              auto_size: Fixed
+              back_color:
+                System:
+                  index: 5
+              back_style: Opaque
+              border_style: None
+              caption: "Sample Filters:"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 225
+              left: 3240
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              right_to_left: LeftToRight
+              tab_index: 33
+              tool_tip_text: ""
+              top: 1440
+              use_mnemonic: true
+              visible: Visible
+              whats_this_help_id: 0
+              width: 1245
+              word_wrap: NonWrapping
+      - name: lblScale
+        tag: ""
+        index: 0
+        kind:
+          Label:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              auto_size: Fixed
+              back_color:
+                System:
+                  index: 15
+              back_style: Opaque
+              border_style: None
+              caption: "Scale:"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 18
+              height: 210
+              left: 120
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              right_to_left: LeftToRight
+              tab_index: 32
+              tool_tip_text: ""
+              top: 2085
+              use_mnemonic: true
+              visible: Visible
+              whats_this_help_id: 0
+              width: 480
+              word_wrap: NonWrapping
+      - name: lblBias
+        tag: ""
+        index: 0
+        kind:
+          Label:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              auto_size: Fixed
+              back_color:
+                System:
+                  index: 15
+              back_style: Opaque
+              border_style: None
+              caption: "Bias:"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 18
+              height: 210
+              left: 1680
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              right_to_left: LeftToRight
+              tab_index: 31
+              tool_tip_text: ""
+              top: 2085
+              use_mnemonic: true
+              visible: Visible
+              whats_this_help_id: 0
+              width: 360
+              word_wrap: NonWrapping
+    menus:
+      - name: mnuFile
+        tag: ""
+        index: 0
+        properties:
+          caption: "&File"
+          checked: false
+          enabled: Enabled
+          help_context_id: 0
+          negotiate_position: None
+          shortcut: ~
+          visible: Visible
+          window_list: false
+        sub_menus:
+          - name: mnuOpenImage
+            tag: ""
+            index: 0
+            properties:
+              caption: "&Open image"
+              checked: false
+              enabled: Enabled
+              help_context_id: 0
+              negotiate_position: None
+              shortcut: ~
+              visible: Visible
+              window_list: false
+            sub_menus: []
 objects: []
 version:
   major: 5

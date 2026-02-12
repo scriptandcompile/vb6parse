@@ -3,1072 +3,1071 @@ source: tests/form.rs
 expression: form_file
 ---
 form:
-  name: frmMain
-  tag: ""
-  index: 0
-  kind:
-    Form:
-      properties:
-        appearance: ThreeD
-        auto_redraw: Manual
-        back_color:
-          System:
-            index: 5
-        border_style: Sizable
-        caption: Real-time Image Levels - www.tannerhelland.com
-        client_height: 4830
-        client_left: 60
-        client_top: 630
-        client_width: 12375
-        clip_controls: Clipped
-        control_box: Included
-        draw_mode: CopyPen
-        draw_style: Solid
-        draw_width: 1
-        enabled: Enabled
-        fill_color:
-          System:
+  Form:
+    name: frmMain
+    tag: ""
+    index: 0
+    properties:
+      appearance: ThreeD
+      auto_redraw: Manual
+      back_color:
+        System:
+          index: 5
+      border_style: Sizable
+      caption: Real-time Image Levels - www.tannerhelland.com
+      client_height: 4830
+      client_left: 60
+      client_top: 630
+      client_width: 12375
+      clip_controls: Clipped
+      control_box: Included
+      draw_mode: CopyPen
+      draw_style: Solid
+      draw_width: 1
+      enabled: Enabled
+      fill_color:
+        System:
+          index: 0
+      fill_style: Transparent
+      font_transparent: Transparent
+      fore_color:
+        System:
+          index: 18
+      has_dc: HasContext
+      height: 240
+      help_context_id: 0
+      icon: ~
+      key_preview: false
+      left: 0
+      link_mode: None
+      link_topic: Form1
+      max_button: Included
+      mdi_child: false
+      min_button: Included
+      mouse_icon: ~
+      mouse_pointer: Default
+      moveable: Moveable
+      negotiate_menus: true
+      ole_drop_mode: None
+      palette: ~
+      palette_mode: HalfTone
+      picture: ~
+      right_to_left: LeftToRight
+      scale_height: 322
+      scale_left: 0
+      scale_mode: Twip
+      scale_top: 0
+      scale_width: 825
+      show_in_taskbar: Show
+      start_up_position: WindowsDefault
+      top: 0
+      visible: Visible
+      whats_this_button: Excluded
+      whats_this_help: F1Help
+      width: 240
+      window_state: Normal
+    controls:
+      - name: cmdDispHistogram
+        tag: ""
+        index: 0
+        kind:
+          CommandButton:
+            properties:
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 15
+              cancel: false
+              caption: Display Histogram
+              causes_validation: "Yes"
+              default: false
+              disabled_picture: ~
+              down_picture: ~
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              height: 495
+              help_context_id: 0
+              left: 120
+              mask_color:
+                RGB:
+                  red: 192
+                  green: 192
+                  blue: 192
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              style: Standard
+              tab_index: 1
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 120
+              use_mask_color: DoNotUseMaskColor
+              whats_this_help_id: 0
+              width: 6015
+      - name: frmLevels
+        tag: ""
+        index: 0
+        kind:
+          Frame:
+            properties:
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              caption: "Levels:"
+              clip_controls: Clipped
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 18
+              height: 3135
+              help_context_id: 0
+              left: 120
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              right_to_left: LeftToRight
+              tab_index: 2
+              tool_tip_text: ""
+              top: 720
+              visible: Visible
+              whats_this_help_id: 0
+              width: 6015
+            controls:
+              - name: cmdReset
+                tag: ""
+                index: 0
+                kind:
+                  CommandButton:
+                    properties:
+                      appearance: ThreeD
+                      back_color:
+                        System:
+                          index: 15
+                      cancel: false
+                      caption: Reset
+                      causes_validation: "Yes"
+                      default: false
+                      disabled_picture: ~
+                      down_picture: ~
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      height: 375
+                      help_context_id: 0
+                      left: 4560
+                      mask_color:
+                        RGB:
+                          red: 192
+                          green: 192
+                          blue: 192
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      picture: ~
+                      right_to_left: LeftToRight
+                      style: Standard
+                      tab_index: 23
+                      tab_stop: Included
+                      tool_tip_text: ""
+                      top: 2640
+                      use_mask_color: DoNotUseMaskColor
+                      whats_this_help_id: 0
+                      width: 1335
+              - name: hsInM
+                tag: ""
+                index: 0
+                kind:
+                  HScrollBar:
+                    properties:
+                      causes_validation: "Yes"
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      height: 220
+                      help_context_id: 0
+                      large_change: 1
+                      left: 1560
+                      max: 254
+                      min: 1
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      right_to_left: LeftToRight
+                      small_change: 1
+                      tab_index: 18
+                      tab_stop: Included
+                      top: 990
+                      value: 127
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 3855
+              - name: hsInL
+                tag: ""
+                index: 0
+                kind:
+                  HScrollBar:
+                    properties:
+                      causes_validation: "Yes"
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      height: 220
+                      help_context_id: 0
+                      large_change: 1
+                      left: 1560
+                      max: 253
+                      min: 0
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      right_to_left: LeftToRight
+                      small_change: 1
+                      tab_index: 13
+                      tab_stop: Included
+                      top: 735
+                      value: 0
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 3855
+              - name: hsInR
+                tag: ""
+                index: 0
+                kind:
+                  HScrollBar:
+                    properties:
+                      causes_validation: "Yes"
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      height: 220
+                      help_context_id: 0
+                      large_change: 1
+                      left: 1560
+                      max: 255
+                      min: 2
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      right_to_left: LeftToRight
+                      small_change: 1
+                      tab_index: 12
+                      tab_stop: Included
+                      top: 1250
+                      value: 255
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 3855
+              - name: hsOutR
+                tag: ""
+                index: 0
+                kind:
+                  HScrollBar:
+                    properties:
+                      causes_validation: "Yes"
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      height: 220
+                      help_context_id: 0
+                      large_change: 1
+                      left: 1560
+                      max: 255
+                      min: 0
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      right_to_left: LeftToRight
+                      small_change: 1
+                      tab_index: 9
+                      tab_stop: Included
+                      top: 2205
+                      value: 255
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 3855
+              - name: hsOutL
+                tag: ""
+                index: 0
+                kind:
+                  HScrollBar:
+                    properties:
+                      causes_validation: "Yes"
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      height: 220
+                      help_context_id: 0
+                      large_change: 1
+                      left: 1560
+                      max: 255
+                      min: 0
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      right_to_left: LeftToRight
+                      small_change: 1
+                      tab_index: 5
+                      tab_stop: Included
+                      top: 1950
+                      value: 0
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 3855
+              - name: lblRightL
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "2"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 255
+                      left: 1185
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 22
+                      tool_tip_text: ""
+                      top: 1200
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 105
+                      word_wrap: NonWrapping
+              - name: lblMiddleL
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "1"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 255
+                      left: 1185
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 21
+                      tool_tip_text: ""
+                      top: 960
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 105
+                      word_wrap: NonWrapping
+              - name: Label10
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "Midtones:"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 255
+                      left: 120
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 20
+                      tool_tip_text: ""
+                      top: 960
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 870
+                      word_wrap: NonWrapping
+              - name: lblMiddleR
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 5
+                      back_style: Opaque
+                      border_style: None
+                      caption: "254"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 8
+                      height: 255
+                      left: 5520
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 19
+                      tool_tip_text: ""
+                      top: 960
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 315
+                      word_wrap: NonWrapping
+              - name: Label8
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "Left limit:     0"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 255
+                      left: 120
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 17
+                      tool_tip_text: ""
+                      top: 720
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 1185
+                      word_wrap: NonWrapping
+              - name: lblLeftR
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 5
+                      back_style: Opaque
+                      border_style: None
+                      caption: "253"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 8
+                      height: 255
+                      left: 5520
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 16
+                      tool_tip_text: ""
+                      top: 720
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 315
+                      word_wrap: NonWrapping
+              - name: Label6
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "Right limit:"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 255
+                      left: 120
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 15
+                      tool_tip_text: ""
+                      top: 1200
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 915
+                      word_wrap: NonWrapping
+              - name: Label5
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 5
+                      back_style: Opaque
+                      border_style: None
+                      caption: "255"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 8
+                      height: 255
+                      left: 5520
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 14
+                      tool_tip_text: ""
+                      top: 1200
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 315
+                      word_wrap: NonWrapping
+              - name: Label4
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "Input levels:"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 255
+                      left: 120
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 11
+                      tool_tip_text: ""
+                      top: 360
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 1020
+                      word_wrap: NonWrapping
+              - name: Label3
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 5
+                      back_style: Opaque
+                      border_style: None
+                      caption: "255"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 8
+                      height: 255
+                      left: 5520
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 10
+                      tool_tip_text: ""
+                      top: 2160
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 315
+                      word_wrap: NonWrapping
+              - name: Label2
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "Right limit:  0"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 255
+                      left: 120
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 8
+                      tool_tip_text: ""
+                      top: 2160
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 1140
+                      word_wrap: NonWrapping
+              - name: Label1
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 5
+                      back_style: Opaque
+                      border_style: None
+                      caption: "255"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 8
+                      height: 255
+                      left: 5520
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 6
+                      tool_tip_text: ""
+                      top: 1920
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 315
+                      word_wrap: NonWrapping
+              - name: lblOutputL
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "Left limit:    0"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 255
+                      left: 120
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 4
+                      tool_tip_text: ""
+                      top: 1920
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 1125
+                      word_wrap: NonWrapping
+              - name: lblOutputLevels
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "Output levels:"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 255
+                      left: 120
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 3
+                      tool_tip_text: ""
+                      top: 1560
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 1185
+                      word_wrap: NonWrapping
+      - name: picMain
+        tag: ""
+        index: 0
+        kind:
+          PictureBox:
+            properties:
+              align: None
+              appearance: ThreeD
+              auto_redraw: Manual
+              auto_size: Fixed
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              clip_controls: Clipped
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              draw_mode: CopyPen
+              draw_style: Solid
+              draw_width: 1
+              enabled: Enabled
+              fill_color:
+                System:
+                  index: 0
+              fill_style: Transparent
+              font_transparent: Transparent
+              fore_color:
+                System:
+                  index: 8
+              has_dc: HasContext
+              height: 4530
+              help_context_id: 0
+              left: 6240
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              negotiate: false
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              scale_height: 300
+              scale_left: 0
+              scale_mode: Twip
+              scale_top: 0
+              scale_width: 400
+              tab_index: 0
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 120
+              visible: Visible
+              whats_this_help_id: 0
+              width: 6030
+            controls: []
+      - name: picBack
+        tag: ""
+        index: 0
+        kind:
+          PictureBox:
+            properties:
+              align: None
+              appearance: ThreeD
+              auto_redraw: Manual
+              auto_size: Fixed
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              clip_controls: Clipped
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              draw_mode: CopyPen
+              draw_style: Solid
+              draw_width: 1
+              enabled: Enabled
+              fill_color:
+                System:
+                  index: 0
+              fill_style: Transparent
+              font_transparent: Transparent
+              fore_color:
+                System:
+                  index: 8
+              has_dc: HasContext
+              height: 4530
+              help_context_id: 0
+              left: 6240
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              negotiate: false
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              scale_height: 300
+              scale_left: 0
+              scale_mode: Twip
+              scale_top: 0
+              scale_width: 400
+              tab_index: 7
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 120
+              visible: Visible
+              whats_this_help_id: 0
+              width: 6030
+            controls: []
+    menus:
+      - name: mnuFile
+        tag: ""
+        index: 0
+        properties:
+          caption: "&File"
+          checked: false
+          enabled: Enabled
+          help_context_id: 0
+          negotiate_position: None
+          shortcut: ~
+          visible: Visible
+          window_list: false
+        sub_menus:
+          - name: mnuOpenImage
+            tag: ""
             index: 0
-        fill_style: Transparent
-        font_transparent: Transparent
-        fore_color:
-          System:
-            index: 18
-        has_dc: HasContext
-        height: 240
-        help_context_id: 0
-        icon: ~
-        key_preview: false
-        left: 0
-        link_mode: None
-        link_topic: Form1
-        max_button: Included
-        mdi_child: false
-        min_button: Included
-        mouse_icon: ~
-        mouse_pointer: Default
-        moveable: Moveable
-        negotiate_menus: true
-        ole_drop_mode: None
-        palette: ~
-        palette_mode: HalfTone
-        picture: ~
-        right_to_left: LeftToRight
-        scale_height: 322
-        scale_left: 0
-        scale_mode: Twip
-        scale_top: 0
-        scale_width: 825
-        show_in_taskbar: Show
-        start_up_position: WindowsDefault
-        top: 0
-        visible: Visible
-        whats_this_button: Excluded
-        whats_this_help: F1Help
-        width: 240
-        window_state: Normal
-      controls:
-        - name: cmdDispHistogram
-          tag: ""
-          index: 0
-          kind:
-            CommandButton:
-              properties:
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 15
-                cancel: false
-                caption: Display Histogram
-                causes_validation: "Yes"
-                default: false
-                disabled_picture: ~
-                down_picture: ~
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                height: 495
-                help_context_id: 0
-                left: 120
-                mask_color:
-                  RGB:
-                    red: 192
-                    green: 192
-                    blue: 192
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                style: Standard
-                tab_index: 1
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 120
-                use_mask_color: DoNotUseMaskColor
-                whats_this_help_id: 0
-                width: 6015
-        - name: frmLevels
-          tag: ""
-          index: 0
-          kind:
-            Frame:
-              properties:
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                caption: "Levels:"
-                clip_controls: Clipped
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 18
-                height: 3135
-                help_context_id: 0
-                left: 120
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drop_mode: None
-                right_to_left: LeftToRight
-                tab_index: 2
-                tool_tip_text: ""
-                top: 720
-                visible: Visible
-                whats_this_help_id: 0
-                width: 6015
-              controls:
-                - name: cmdReset
-                  tag: ""
-                  index: 0
-                  kind:
-                    CommandButton:
-                      properties:
-                        appearance: ThreeD
-                        back_color:
-                          System:
-                            index: 15
-                        cancel: false
-                        caption: Reset
-                        causes_validation: "Yes"
-                        default: false
-                        disabled_picture: ~
-                        down_picture: ~
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        height: 375
-                        help_context_id: 0
-                        left: 4560
-                        mask_color:
-                          RGB:
-                            red: 192
-                            green: 192
-                            blue: 192
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        picture: ~
-                        right_to_left: LeftToRight
-                        style: Standard
-                        tab_index: 23
-                        tab_stop: Included
-                        tool_tip_text: ""
-                        top: 2640
-                        use_mask_color: DoNotUseMaskColor
-                        whats_this_help_id: 0
-                        width: 1335
-                - name: hsInM
-                  tag: ""
-                  index: 0
-                  kind:
-                    HScrollBar:
-                      properties:
-                        causes_validation: "Yes"
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        height: 220
-                        help_context_id: 0
-                        large_change: 1
-                        left: 1560
-                        max: 254
-                        min: 1
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        right_to_left: LeftToRight
-                        small_change: 1
-                        tab_index: 18
-                        tab_stop: Included
-                        top: 990
-                        value: 127
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 3855
-                - name: hsInL
-                  tag: ""
-                  index: 0
-                  kind:
-                    HScrollBar:
-                      properties:
-                        causes_validation: "Yes"
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        height: 220
-                        help_context_id: 0
-                        large_change: 1
-                        left: 1560
-                        max: 253
-                        min: 0
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        right_to_left: LeftToRight
-                        small_change: 1
-                        tab_index: 13
-                        tab_stop: Included
-                        top: 735
-                        value: 0
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 3855
-                - name: hsInR
-                  tag: ""
-                  index: 0
-                  kind:
-                    HScrollBar:
-                      properties:
-                        causes_validation: "Yes"
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        height: 220
-                        help_context_id: 0
-                        large_change: 1
-                        left: 1560
-                        max: 255
-                        min: 2
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        right_to_left: LeftToRight
-                        small_change: 1
-                        tab_index: 12
-                        tab_stop: Included
-                        top: 1250
-                        value: 255
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 3855
-                - name: hsOutR
-                  tag: ""
-                  index: 0
-                  kind:
-                    HScrollBar:
-                      properties:
-                        causes_validation: "Yes"
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        height: 220
-                        help_context_id: 0
-                        large_change: 1
-                        left: 1560
-                        max: 255
-                        min: 0
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        right_to_left: LeftToRight
-                        small_change: 1
-                        tab_index: 9
-                        tab_stop: Included
-                        top: 2205
-                        value: 255
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 3855
-                - name: hsOutL
-                  tag: ""
-                  index: 0
-                  kind:
-                    HScrollBar:
-                      properties:
-                        causes_validation: "Yes"
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        height: 220
-                        help_context_id: 0
-                        large_change: 1
-                        left: 1560
-                        max: 255
-                        min: 0
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        right_to_left: LeftToRight
-                        small_change: 1
-                        tab_index: 5
-                        tab_stop: Included
-                        top: 1950
-                        value: 0
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 3855
-                - name: lblRightL
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 15
-                        back_style: Opaque
-                        border_style: None
-                        caption: "2"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 18
-                        height: 255
-                        left: 1185
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 22
-                        tool_tip_text: ""
-                        top: 1200
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 105
-                        word_wrap: NonWrapping
-                - name: lblMiddleL
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 15
-                        back_style: Opaque
-                        border_style: None
-                        caption: "1"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 18
-                        height: 255
-                        left: 1185
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 21
-                        tool_tip_text: ""
-                        top: 960
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 105
-                        word_wrap: NonWrapping
-                - name: Label10
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 15
-                        back_style: Opaque
-                        border_style: None
-                        caption: "Midtones:"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 18
-                        height: 255
-                        left: 120
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 20
-                        tool_tip_text: ""
-                        top: 960
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 870
-                        word_wrap: NonWrapping
-                - name: lblMiddleR
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 5
-                        back_style: Opaque
-                        border_style: None
-                        caption: "254"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 8
-                        height: 255
-                        left: 5520
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 19
-                        tool_tip_text: ""
-                        top: 960
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 315
-                        word_wrap: NonWrapping
-                - name: Label8
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 15
-                        back_style: Opaque
-                        border_style: None
-                        caption: "Left limit:     0"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 18
-                        height: 255
-                        left: 120
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 17
-                        tool_tip_text: ""
-                        top: 720
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 1185
-                        word_wrap: NonWrapping
-                - name: lblLeftR
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 5
-                        back_style: Opaque
-                        border_style: None
-                        caption: "253"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 8
-                        height: 255
-                        left: 5520
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 16
-                        tool_tip_text: ""
-                        top: 720
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 315
-                        word_wrap: NonWrapping
-                - name: Label6
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 15
-                        back_style: Opaque
-                        border_style: None
-                        caption: "Right limit:"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 18
-                        height: 255
-                        left: 120
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 15
-                        tool_tip_text: ""
-                        top: 1200
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 915
-                        word_wrap: NonWrapping
-                - name: Label5
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 5
-                        back_style: Opaque
-                        border_style: None
-                        caption: "255"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 8
-                        height: 255
-                        left: 5520
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 14
-                        tool_tip_text: ""
-                        top: 1200
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 315
-                        word_wrap: NonWrapping
-                - name: Label4
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 15
-                        back_style: Opaque
-                        border_style: None
-                        caption: "Input levels:"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 18
-                        height: 255
-                        left: 120
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 11
-                        tool_tip_text: ""
-                        top: 360
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 1020
-                        word_wrap: NonWrapping
-                - name: Label3
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 5
-                        back_style: Opaque
-                        border_style: None
-                        caption: "255"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 8
-                        height: 255
-                        left: 5520
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 10
-                        tool_tip_text: ""
-                        top: 2160
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 315
-                        word_wrap: NonWrapping
-                - name: Label2
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 15
-                        back_style: Opaque
-                        border_style: None
-                        caption: "Right limit:  0"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 18
-                        height: 255
-                        left: 120
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 8
-                        tool_tip_text: ""
-                        top: 2160
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 1140
-                        word_wrap: NonWrapping
-                - name: Label1
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 5
-                        back_style: Opaque
-                        border_style: None
-                        caption: "255"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 8
-                        height: 255
-                        left: 5520
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 6
-                        tool_tip_text: ""
-                        top: 1920
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 315
-                        word_wrap: NonWrapping
-                - name: lblOutputL
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 15
-                        back_style: Opaque
-                        border_style: None
-                        caption: "Left limit:    0"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 18
-                        height: 255
-                        left: 120
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 4
-                        tool_tip_text: ""
-                        top: 1920
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 1125
-                        word_wrap: NonWrapping
-                - name: lblOutputLevels
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 15
-                        back_style: Opaque
-                        border_style: None
-                        caption: "Output levels:"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 18
-                        height: 255
-                        left: 120
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 3
-                        tool_tip_text: ""
-                        top: 1560
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 1185
-                        word_wrap: NonWrapping
-        - name: picMain
-          tag: ""
-          index: 0
-          kind:
-            PictureBox:
-              properties:
-                align: None
-                appearance: ThreeD
-                auto_redraw: Manual
-                auto_size: Fixed
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                clip_controls: Clipped
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                draw_mode: CopyPen
-                draw_style: Solid
-                draw_width: 1
-                enabled: Enabled
-                fill_color:
-                  System:
-                    index: 0
-                fill_style: Transparent
-                font_transparent: Transparent
-                fore_color:
-                  System:
-                    index: 8
-                has_dc: HasContext
-                height: 4530
-                help_context_id: 0
-                left: 6240
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                mouse_icon: ~
-                mouse_pointer: Default
-                negotiate: false
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                scale_height: 300
-                scale_left: 0
-                scale_mode: Twip
-                scale_top: 0
-                scale_width: 400
-                tab_index: 0
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 120
-                visible: Visible
-                whats_this_help_id: 0
-                width: 6030
-              controls: []
-        - name: picBack
-          tag: ""
-          index: 0
-          kind:
-            PictureBox:
-              properties:
-                align: None
-                appearance: ThreeD
-                auto_redraw: Manual
-                auto_size: Fixed
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                clip_controls: Clipped
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                draw_mode: CopyPen
-                draw_style: Solid
-                draw_width: 1
-                enabled: Enabled
-                fill_color:
-                  System:
-                    index: 0
-                fill_style: Transparent
-                font_transparent: Transparent
-                fore_color:
-                  System:
-                    index: 8
-                has_dc: HasContext
-                height: 4530
-                help_context_id: 0
-                left: 6240
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                mouse_icon: ~
-                mouse_pointer: Default
-                negotiate: false
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                scale_height: 300
-                scale_left: 0
-                scale_mode: Twip
-                scale_top: 0
-                scale_width: 400
-                tab_index: 7
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 120
-                visible: Visible
-                whats_this_help_id: 0
-                width: 6030
-              controls: []
-      menus:
-        - name: mnuFile
-          tag: ""
-          index: 0
-          properties:
-            caption: "&File"
-            checked: false
-            enabled: Enabled
-            help_context_id: 0
-            negotiate_position: None
-            shortcut: ~
-            visible: Visible
-            window_list: false
-          sub_menus:
-            - name: mnuOpenImage
-              tag: ""
-              index: 0
-              properties:
-                caption: "&Open Image"
-                checked: false
-                enabled: Enabled
-                help_context_id: 0
-                negotiate_position: None
-                shortcut: ~
-                visible: Visible
-                window_list: false
-              sub_menus: []
+            properties:
+              caption: "&Open Image"
+              checked: false
+              enabled: Enabled
+              help_context_id: 0
+              negotiate_position: None
+              shortcut: ~
+              visible: Visible
+              window_list: false
+            sub_menus: []
 objects: []
 version:
   major: 5
