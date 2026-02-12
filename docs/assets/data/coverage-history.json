@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-02-09T00:12:21Z",
+  "last_updated": "2026-02-12T09:41:18Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T19:53:21Z",
@@ -205,38 +205,72 @@
           "percent": 95.56
         }
       }
+    },
+    {
+      "timestamp": "2026-02-12T09:41:18Z",
+      "commit_sha": "d852da35a3049087ba651bb544fa80164f3249ac",
+      "commit_message": "Merge pull request #16 from scriptandcompile/form_mdi_fix",
+      "coverage": {
+        "line_coverage": 95.46,
+        "function_coverage": 93.61,
+        "region_coverage": 95.52
+      },
+      "tests": {
+        "total": 5676,
+        "lib_tests": 5478,
+        "doc_tests": 103,
+        "integration_tests": 95,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 93557,
+          "total": 98011,
+          "percent": 95.46
+        },
+        "functions": {
+          "covered": 6032,
+          "total": 6444,
+          "percent": 93.61
+        },
+        "regions": {
+          "covered": 149335,
+          "total": 156332,
+          "percent": 95.52
+        }
+      }
     }
   ],
   "coverage_summary": {
     "line_coverage": {
-      "latest": 95.51,
+      "latest": 95.46,
       "trend": "stable",
-      "change_percent": 0.0,
+      "change_percent": 0.05,
       "best": 95.51,
-      "worst": 95.51,
-      "average": 95.51
+      "worst": 95.46,
+      "average": 95.5
     },
     "function_coverage": {
-      "latest": 93.76,
-      "trend": "stable",
-      "change_percent": 0.0,
+      "latest": 93.61,
+      "trend": "degrading",
+      "change_percent": 0.15,
       "best": 93.76,
-      "worst": 93.76,
-      "average": 93.76
+      "worst": 93.61,
+      "average": 93.74
     },
     "region_coverage": {
-      "latest": 95.56,
+      "latest": 95.52,
       "trend": "stable",
-      "change_percent": 0.0,
+      "change_percent": 0.04,
       "best": 95.56,
-      "worst": 95.56,
-      "average": 95.56
+      "worst": 95.52,
+      "average": 95.55
     },
     "test_count": {
-      "latest": 5671,
+      "latest": 5676,
       "trend": "stable",
-      "change_count": 0,
-      "growth_rate": 0.0
+      "change_count": 5,
+      "growth_rate": 0.09
     }
   }
 }
