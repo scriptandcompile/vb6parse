@@ -67,8 +67,8 @@ exclude = [
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-uuid = "1.18.1"
-thiserror = "2.0.17"
+uuid = "1.20.0"
+thiserror = "2.0.18"
 ariadne = "0.6.0"
 image = "0.25.9"
 num_enum = "0.7.5"
@@ -93,8 +93,8 @@ lto = true          # Enable Link Time Optimization
 codegen-units = 1   # Reduce parallel code generation units for better optimization
 
 [target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
-criterion = { version = "0.8.1", features = ["html_reports"] }
-insta = { version = "1.46.0", features = ["yaml"] }
+criterion = { version = "0.8.2", features = ["html_reports"] }
+insta = { version = "1.46.3", features = ["yaml"] }
 
 [target.'cfg(target_arch = "wasm32")'.dev-dependencies]
 criterion = { version = "0.8.1", default-features = false }
