@@ -3,1461 +3,1460 @@ source: tests/form.rs
 expression: form_file
 ---
 form:
-  name: frmMain
-  tag: ""
-  index: 0
-  kind:
-    Form:
-      properties:
-        appearance: ThreeD
-        auto_redraw: Manual
-        back_color:
-          System:
-            index: 5
-        border_style: Sizable
-        caption: Artificial Life Simulator - www.tannerhelland.com
-        client_height: 8700
-        client_left: 60
-        client_top: 450
-        client_width: 12270
-        clip_controls: Clipped
-        control_box: Included
-        draw_mode: CopyPen
-        draw_style: Solid
-        draw_width: 1
-        enabled: Enabled
-        fill_color:
-          System:
-            index: 0
-        fill_style: Transparent
-        font_transparent: Transparent
-        fore_color:
-          System:
-            index: 18
-        has_dc: HasContext
-        height: 240
-        help_context_id: 0
-        icon: ~
-        key_preview: false
-        left: 0
-        link_mode: None
-        link_topic: Form1
-        max_button: Included
-        mdi_child: false
-        min_button: Included
-        mouse_icon: ~
-        mouse_pointer: Default
-        moveable: Moveable
-        negotiate_menus: true
-        ole_drop_mode: None
-        palette: ~
-        palette_mode: HalfTone
-        picture: ~
-        right_to_left: LeftToRight
-        scale_height: 580
-        scale_left: 0
-        scale_mode: Twip
-        scale_top: 0
-        scale_width: 818
-        show_in_taskbar: Show
-        start_up_position: WindowsDefault
-        top: 0
-        visible: Visible
-        whats_this_button: Excluded
-        whats_this_help: F1Help
-        width: 240
-        window_state: Normal
-      controls:
-        - name: picFront
-          tag: ""
+  Form:
+    name: frmMain
+    tag: ""
+    index: 0
+    properties:
+      appearance: ThreeD
+      auto_redraw: Manual
+      back_color:
+        System:
+          index: 5
+      border_style: Sizable
+      caption: Artificial Life Simulator - www.tannerhelland.com
+      client_height: 8700
+      client_left: 60
+      client_top: 450
+      client_width: 12270
+      clip_controls: Clipped
+      control_box: Included
+      draw_mode: CopyPen
+      draw_style: Solid
+      draw_width: 1
+      enabled: Enabled
+      fill_color:
+        System:
           index: 0
-          kind:
-            PictureBox:
-              properties:
-                align: None
-                appearance: ThreeD
-                auto_redraw: Manual
-                auto_size: Fixed
-                back_color:
-                  RGB:
-                    red: 255
-                    green: 255
-                    blue: 255
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                clip_controls: Clipped
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                draw_mode: CopyPen
-                draw_style: Solid
-                draw_width: 2
-                enabled: Enabled
-                fill_color:
-                  RGB:
-                    red: 0
-                    green: 0
-                    blue: 255
-                fill_style: Transparent
-                font_transparent: Transparent
-                fore_color:
-                  RGB:
-                    red: 0
-                    green: 0
-                    blue: 255
-                has_dc: HasContext
-                height: 7530
-                help_context_id: 0
-                left: 120
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                mouse_icon: ~
-                mouse_pointer: Default
-                negotiate: false
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                scale_height: 500
-                scale_left: 0
-                scale_mode: Twip
-                scale_top: 0
-                scale_width: 500
-                tab_index: 27
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 360
-                visible: Visible
-                whats_this_help_id: 0
-                width: 7530
-              controls: []
-        - name: cmdSaveData
-          tag: ""
-          index: 0
-          kind:
-            CommandButton:
-              properties:
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 15
-                cancel: false
-                caption: Save simulation data to file...
-                causes_validation: "Yes"
-                default: false
-                disabled_picture: ~
-                down_picture: ~
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                height: 495
-                help_context_id: 0
-                left: 4920
-                mask_color:
-                  RGB:
-                    red: 192
-                    green: 192
-                    blue: 192
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                style: Standard
-                tab_index: 26
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 8040
-                use_mask_color: DoNotUseMaskColor
-                whats_this_help_id: 0
-                width: 2775
-        - name: chkDisplayDead
-          tag: ""
-          index: 0
-          kind:
-            CheckBox:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                caption: Display dead creatures?
-                causes_validation: "Yes"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                disabled_picture: ~
-                down_picture: ~
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 255
-                help_context_id: 0
-                left: 120
-                mask_color:
-                  RGB:
-                    red: 192
-                    green: 192
-                    blue: 192
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                style: Standard
-                tab_index: 21
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 8160
-                use_mask_color: DoNotUseMaskColor
-                value: Unchecked
-                visible: Visible
-                whats_this_help_id: 0
-                width: 2175
-        - name: frmStartSettings
-          tag: ""
-          index: 0
-          kind:
-            Frame:
-              properties:
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                caption: "Initial Simulation Settings:"
-                clip_controls: Clipped
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 4095
-                help_context_id: 0
-                left: 7800
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drop_mode: None
-                right_to_left: LeftToRight
-                tab_index: 7
-                tool_tip_text: ""
-                top: 1080
-                visible: Visible
-                whats_this_help_id: 0
-                width: 4215
-              controls:
-                - name: txtMutations
-                  tag: ""
-                  index: 0
-                  kind:
-                    TextBox:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        back_color:
-                          System:
-                            index: 5
-                        border_style: FixedSingle
-                        causes_validation: "Yes"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 8
-                        height: 285
-                        help_context_id: 0
-                        hide_selection: true
-                        left: 2400
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        locked: false
-                        max_length: 0
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        multi_line: SingleLine
-                        ole_drag_mode: Manual
-                        ole_drop_mode: None
-                        password_char: ~
-                        right_to_left: LeftToRight
-                        scroll_bars: None
-                        tab_index: 24
-                        tab_stop: Included
-                        text: "15"
-                        tool_tip_text: ""
-                        top: 3690
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 1695
-                - name: txtMutateTurns
-                  tag: ""
-                  index: 0
-                  kind:
-                    TextBox:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        back_color:
-                          System:
-                            index: 5
-                        border_style: FixedSingle
-                        causes_validation: "Yes"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 8
-                        height: 285
-                        help_context_id: 0
-                        hide_selection: true
-                        left: 2040
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        locked: false
-                        max_length: 0
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        multi_line: SingleLine
-                        ole_drag_mode: Manual
-                        ole_drop_mode: None
-                        password_char: ~
-                        right_to_left: LeftToRight
-                        scroll_bars: None
-                        tab_index: 22
-                        tab_stop: Included
-                        text: "750"
-                        tool_tip_text: ""
-                        top: 3330
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 2055
-                - name: chkMultiply
-                  tag: ""
-                  index: 0
-                  kind:
-                    CheckBox:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        back_color:
-                          System:
-                            index: 5
-                        caption: Allow creatures to multiply and mutate
-                        causes_validation: "Yes"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        disabled_picture: ~
-                        down_picture: ~
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 8
-                        height: 255
-                        help_context_id: 0
-                        left: 120
-                        mask_color:
-                          RGB:
-                            red: 192
-                            green: 192
-                            blue: 192
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        picture: ~
-                        right_to_left: LeftToRight
-                        style: Standard
-                        tab_index: 20
-                        tab_stop: Included
-                        tool_tip_text: ""
-                        top: 3000
-                        use_mask_color: DoNotUseMaskColor
-                        value: Unchecked
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 3975
-                - name: txtFoodWorth
-                  tag: ""
-                  index: 0
-                  kind:
-                    TextBox:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        back_color:
-                          System:
-                            index: 5
-                        border_style: FixedSingle
-                        causes_validation: "Yes"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 8
-                        height: 285
-                        help_context_id: 0
-                        hide_selection: true
-                        left: 2640
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        locked: false
-                        max_length: 0
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        multi_line: SingleLine
-                        ole_drag_mode: Manual
-                        ole_drop_mode: None
-                        password_char: ~
-                        right_to_left: LeftToRight
-                        scroll_bars: None
-                        tab_index: 18
-                        tab_stop: Included
-                        text: "35"
-                        tool_tip_text: ""
-                        top: 2490
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 1455
-                - name: txtFoodGen
-                  tag: ""
-                  index: 0
-                  kind:
-                    TextBox:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        back_color:
-                          System:
-                            index: 5
-                        border_style: FixedSingle
-                        causes_validation: "Yes"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 8
-                        height: 285
-                        help_context_id: 0
-                        hide_selection: true
-                        left: 2400
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        locked: false
-                        max_length: 0
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        multi_line: SingleLine
-                        ole_drag_mode: Manual
-                        ole_drop_mode: None
-                        password_char: ~
-                        right_to_left: LeftToRight
-                        scroll_bars: None
-                        tab_index: 16
-                        tab_stop: Included
-                        text: "5"
-                        tool_tip_text: ""
-                        top: 2130
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 1695
-                - name: txtFoodRegen
-                  tag: ""
-                  index: 0
-                  kind:
-                    TextBox:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        back_color:
-                          System:
-                            index: 5
-                        border_style: FixedSingle
-                        causes_validation: "Yes"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 8
-                        height: 285
-                        help_context_id: 0
-                        hide_selection: true
-                        left: 2760
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        locked: false
-                        max_length: 0
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        multi_line: SingleLine
-                        ole_drag_mode: Manual
-                        ole_drop_mode: None
-                        password_char: ~
-                        right_to_left: LeftToRight
-                        scroll_bars: None
-                        tab_index: 14
-                        tab_stop: Included
-                        text: "20"
-                        tool_tip_text: ""
-                        top: 1770
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 1335
-                - name: txtInitialEnergy
-                  tag: ""
-                  index: 0
-                  kind:
-                    TextBox:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        back_color:
-                          System:
-                            index: 5
-                        border_style: FixedSingle
-                        causes_validation: "Yes"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 8
-                        height: 285
-                        help_context_id: 0
-                        hide_selection: true
-                        left: 1440
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        locked: false
-                        max_length: 0
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        multi_line: SingleLine
-                        ole_drag_mode: Manual
-                        ole_drop_mode: None
-                        password_char: ~
-                        right_to_left: LeftToRight
-                        scroll_bars: None
-                        tab_index: 12
-                        tab_stop: Included
-                        text: "500"
-                        tool_tip_text: ""
-                        top: 690
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 2655
-                - name: txtInitialFood
-                  tag: ""
-                  index: 0
-                  kind:
-                    TextBox:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        back_color:
-                          System:
-                            index: 5
-                        border_style: FixedSingle
-                        causes_validation: "Yes"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 8
-                        height: 285
-                        help_context_id: 0
-                        hide_selection: true
-                        left: 1800
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        locked: false
-                        max_length: 0
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        multi_line: SingleLine
-                        ole_drag_mode: Manual
-                        ole_drop_mode: None
-                        password_char: ~
-                        right_to_left: LeftToRight
-                        scroll_bars: None
-                        tab_index: 10
-                        tab_stop: Included
-                        text: "1500"
-                        tool_tip_text: ""
-                        top: 1410
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 2295
-                - name: txtOrganisms
-                  tag: ""
-                  index: 0
-                  kind:
-                    TextBox:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        back_color:
-                          System:
-                            index: 5
-                        border_style: FixedSingle
-                        causes_validation: "Yes"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 8
-                        height: 285
-                        help_context_id: 0
-                        hide_selection: true
-                        left: 1440
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        locked: false
-                        max_length: 0
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        multi_line: SingleLine
-                        ole_drag_mode: Manual
-                        ole_drop_mode: None
-                        password_char: ~
-                        right_to_left: LeftToRight
-                        scroll_bars: None
-                        tab_index: 9
-                        tab_stop: Included
-                        text: "15"
-                        tool_tip_text: ""
-                        top: 330
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 2655
-                - name: Label8
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 15
-                        back_style: Opaque
-                        border_style: None
-                        caption: "New DNA mutates (x) bases:"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 18
-                        height: 195
-                        left: 120
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 25
-                        tool_tip_text: ""
-                        top: 3720
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 2130
-                        word_wrap: NonWrapping
-                - name: Label7
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 15
-                        back_style: Opaque
-                        border_style: None
-                        caption: "Multiply every (x) cycles:"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 18
-                        height: 195
-                        left: 120
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 23
-                        tool_tip_text: ""
-                        top: 3360
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 1800
-                        word_wrap: NonWrapping
-                - name: Line2
-                  tag: ""
-                  index: 0
-                  kind:
-                    Line:
-                      properties:
-                        border_color:
-                          System:
-                            index: 8
-                        border_style: Solid
-                        border_width: 1
-                        draw_mode: CopyPen
-                        visible: Visible
-                        x1: 120
-                        y1: 2880
-                        x2: 3360
-                        y2: 2880
-                - name: Label6
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 15
-                        back_style: Opaque
-                        border_style: None
-                        caption: "Food grants this much energy: "
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 18
-                        height: 195
-                        left: 120
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 19
-                        tool_tip_text: ""
-                        top: 2520
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 2400
-                        word_wrap: NonWrapping
-                - name: Label5
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 15
-                        back_style: Opaque
-                        border_style: None
-                        caption: "Regenerate this much food: "
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 18
-                        height: 195
-                        left: 120
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 17
-                        tool_tip_text: ""
-                        top: 2160
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 2190
-                        word_wrap: NonWrapping
-                - name: Label4
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 15
-                        back_style: Opaque
-                        border_style: None
-                        caption: "Regenerate food every (n) cycles: "
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 18
-                        height: 195
-                        left: 120
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 15
-                        tool_tip_text: ""
-                        top: 1800
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 2550
-                        word_wrap: NonWrapping
-                - name: Label3
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 15
-                        back_style: Opaque
-                        border_style: None
-                        caption: "Initial energy: "
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 18
-                        height: 195
-                        left: 120
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 13
-                        tool_tip_text: ""
-                        top: 720
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 1095
-                        word_wrap: NonWrapping
-                - name: Label2
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 15
-                        back_style: Opaque
-                        border_style: None
-                        caption: "Initial food amount: "
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 18
-                        height: 195
-                        left: 120
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 11
-                        tool_tip_text: ""
-                        top: 1440
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 1590
-                        word_wrap: NonWrapping
-                - name: Line1
-                  tag: ""
-                  index: 0
-                  kind:
-                    Line:
-                      properties:
-                        border_color:
-                          System:
-                            index: 8
-                        border_style: Solid
-                        border_width: 1
-                        draw_mode: CopyPen
-                        visible: Visible
-                        x1: 120
-                        y1: 1200
-                        x2: 4080
-                        y2: 1200
-                - name: Label1
-                  tag: ""
-                  index: 0
-                  kind:
-                    Label:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        auto_size: Fixed
-                        back_color:
-                          System:
-                            index: 15
-                        back_style: Opaque
-                        border_style: None
-                        caption: "# of creatures: "
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 18
-                        height: 195
-                        left: 120
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        tab_index: 8
-                        tool_tip_text: ""
-                        top: 360
-                        use_mnemonic: true
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 1155
-                        word_wrap: NonWrapping
-        - name: frmOrganisms
-          tag: ""
-          index: 0
-          kind:
-            Frame:
-              properties:
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 5
-                border_style: FixedSingle
-                caption: "Select a creature for detailed information:"
-                clip_controls: Clipped
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 3135
-                help_context_id: 0
-                left: 7800
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drop_mode: None
-                right_to_left: LeftToRight
-                tab_index: 4
-                tool_tip_text: ""
-                top: 5400
-                visible: Visible
-                whats_this_help_id: 0
-                width: 4215
-              controls:
-                - name: txtInfo
-                  tag: ""
-                  index: 0
-                  kind:
-                    TextBox:
-                      properties:
-                        alignment: LeftJustify
-                        appearance: ThreeD
-                        back_color:
-                          System:
-                            index: 5
-                        border_style: FixedSingle
-                        causes_validation: "Yes"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 8
-                        height: 2055
-                        help_context_id: 0
-                        hide_selection: true
-                        left: 120
-                        link_item: ""
-                        link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
-                        locked: false
-                        max_length: 0
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        multi_line: SingleLine
-                        ole_drag_mode: Manual
-                        ole_drop_mode: None
-                        password_char: ~
-                        right_to_left: LeftToRight
-                        scroll_bars: None
-                        tab_index: 6
-                        tab_stop: Included
-                        text: ""
-                        tool_tip_text: ""
-                        top: 840
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 3975
-                - name: cmbOrganisms
-                  tag: ""
-                  index: 0
-                  kind:
-                    ComboBox:
-                      properties:
-                        appearance: ThreeD
-                        back_color:
-                          System:
-                            index: 5
-                        causes_validation: "Yes"
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
-                        drag_icon: ~
-                        drag_mode: Manual
-                        enabled: Enabled
-                        fore_color:
-                          System:
-                            index: 8
-                        height: 315
-                        help_context_id: 0
-                        integral_height: true
-                        left: 120
-                        locked: false
-                        mouse_icon: ~
-                        mouse_pointer: Default
-                        ole_drag_mode: Manual
-                        ole_drop_mode: None
-                        right_to_left: LeftToRight
-                        sorted: false
-                        style: DropDownCombo
-                        tab_index: 5
-                        tab_stop: Included
-                        text: Please start the simulator
-                        tool_tip_text: ""
-                        top: 360
-                        visible: Visible
-                        whats_this_help_id: 0
-                        width: 3975
-        - name: cmdStop
-          tag: ""
-          index: 0
-          kind:
-            CommandButton:
-              properties:
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 15
-                cancel: false
-                caption: STOP current simulation
-                causes_validation: "Yes"
-                default: false
-                disabled_picture: ~
-                down_picture: ~
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                height: 615
-                help_context_id: 0
-                left: 9960
-                mask_color:
-                  RGB:
-                    red: 192
-                    green: 192
-                    blue: 192
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                style: Standard
-                tab_index: 3
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 240
-                use_mask_color: DoNotUseMaskColor
-                whats_this_help_id: 0
-                width: 2055
-        - name: cmdStart
-          tag: ""
-          index: 0
-          kind:
-            CommandButton:
-              properties:
-                appearance: ThreeD
-                back_color:
-                  System:
-                    index: 15
-                cancel: false
-                caption: START new simulation
-                causes_validation: "Yes"
-                default: false
-                disabled_picture: ~
-                down_picture: ~
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                height: 615
-                help_context_id: 0
-                left: 7800
-                mask_color:
-                  RGB:
-                    red: 192
-                    green: 192
-                    blue: 192
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                style: Standard
-                tab_index: 2
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 240
-                use_mask_color: DoNotUseMaskColor
-                whats_this_help_id: 0
-                width: 2055
-        - name: picMap
-          tag: ""
-          index: 0
-          kind:
-            PictureBox:
-              properties:
-                align: None
-                appearance: ThreeD
-                auto_redraw: Manual
-                auto_size: Fixed
-                back_color:
-                  RGB:
-                    red: 255
-                    green: 255
-                    blue: 255
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                clip_controls: Clipped
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                draw_mode: CopyPen
-                draw_style: Solid
-                draw_width: 2
-                enabled: Enabled
-                fill_color:
-                  RGB:
-                    red: 224
-                    green: 224
-                    blue: 224
-                fill_style: Transparent
-                font_transparent: Transparent
-                fore_color:
-                  RGB:
-                    red: 0
-                    green: 0
-                    blue: 255
-                has_dc: HasContext
-                height: 7530
-                help_context_id: 0
-                left: 120
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                mouse_icon: ~
-                mouse_pointer: Default
-                negotiate: false
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                scale_height: 500
-                scale_left: 0
-                scale_mode: Twip
-                scale_top: 0
-                scale_width: 500
-                tab_index: 0
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 360
-                visible: Visible
-                whats_this_help_id: 0
-                width: 7530
-              controls: []
-        - name: picFood
-          tag: ""
-          index: 0
-          kind:
-            PictureBox:
-              properties:
-                align: None
-                appearance: ThreeD
-                auto_redraw: Manual
-                auto_size: Fixed
-                back_color:
-                  RGB:
-                    red: 255
-                    green: 255
-                    blue: 255
-                border_style: FixedSingle
-                causes_validation: "Yes"
-                clip_controls: Clipped
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                draw_mode: CopyPen
-                draw_style: Solid
-                draw_width: 2
-                enabled: Enabled
-                fill_color:
-                  RGB:
-                    red: 0
-                    green: 0
-                    blue: 255
-                fill_style: Transparent
-                font_transparent: Transparent
-                fore_color:
-                  RGB:
-                    red: 0
-                    green: 0
-                    blue: 255
-                has_dc: HasContext
-                height: 7530
-                help_context_id: 0
-                left: 120
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                mouse_icon: ~
-                mouse_pointer: Default
-                negotiate: false
-                ole_drag_mode: Manual
-                ole_drop_mode: None
-                picture: ~
-                right_to_left: LeftToRight
-                scale_height: 500
-                scale_left: 0
-                scale_mode: Twip
-                scale_top: 0
-                scale_width: 500
-                tab_index: 28
-                tab_stop: Included
-                tool_tip_text: ""
-                top: 360
-                visible: Visible
-                whats_this_help_id: 0
-                width: 7530
-              controls: []
-        - name: lblTitle
-          tag: ""
-          index: 0
-          kind:
-            Label:
-              properties:
-                alignment: LeftJustify
-                appearance: ThreeD
-                auto_size: Fixed
-                back_color:
-                  System:
-                    index: 5
-                back_style: Opaque
-                border_style: None
-                caption: Press the start button to begin the simulator -------------------------------------------------->
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
-                drag_icon: ~
-                drag_mode: Manual
-                enabled: Enabled
-                fore_color:
-                  System:
-                    index: 8
-                height: 255
-                left: 120
-                link_item: ""
-                link_mode: None
-                link_timeout: 50
-                link_topic: ""
-                mouse_icon: ~
-                mouse_pointer: Default
-                ole_drop_mode: None
-                right_to_left: LeftToRight
-                tab_index: 1
-                tool_tip_text: ""
-                top: 120
-                use_mnemonic: true
-                visible: Visible
-                whats_this_help_id: 0
-                width: 7455
-                word_wrap: NonWrapping
-      menus: []
+      fill_style: Transparent
+      font_transparent: Transparent
+      fore_color:
+        System:
+          index: 18
+      has_dc: HasContext
+      height: 240
+      help_context_id: 0
+      icon: ~
+      key_preview: false
+      left: 0
+      link_mode: None
+      link_topic: Form1
+      max_button: Included
+      mdi_child: false
+      min_button: Included
+      mouse_icon: ~
+      mouse_pointer: Default
+      moveable: Moveable
+      negotiate_menus: true
+      ole_drop_mode: None
+      palette: ~
+      palette_mode: HalfTone
+      picture: ~
+      right_to_left: LeftToRight
+      scale_height: 580
+      scale_left: 0
+      scale_mode: Twip
+      scale_top: 0
+      scale_width: 818
+      show_in_taskbar: Show
+      start_up_position: WindowsDefault
+      top: 0
+      visible: Visible
+      whats_this_button: Excluded
+      whats_this_help: F1Help
+      width: 240
+      window_state: Normal
+    controls:
+      - name: picFront
+        tag: ""
+        index: 0
+        kind:
+          PictureBox:
+            properties:
+              align: None
+              appearance: ThreeD
+              auto_redraw: Manual
+              auto_size: Fixed
+              back_color:
+                RGB:
+                  red: 255
+                  green: 255
+                  blue: 255
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              clip_controls: Clipped
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              draw_mode: CopyPen
+              draw_style: Solid
+              draw_width: 2
+              enabled: Enabled
+              fill_color:
+                RGB:
+                  red: 0
+                  green: 0
+                  blue: 255
+              fill_style: Transparent
+              font_transparent: Transparent
+              fore_color:
+                RGB:
+                  red: 0
+                  green: 0
+                  blue: 255
+              has_dc: HasContext
+              height: 7530
+              help_context_id: 0
+              left: 120
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              negotiate: false
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              scale_height: 500
+              scale_left: 0
+              scale_mode: Twip
+              scale_top: 0
+              scale_width: 500
+              tab_index: 27
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 360
+              visible: Visible
+              whats_this_help_id: 0
+              width: 7530
+            controls: []
+      - name: cmdSaveData
+        tag: ""
+        index: 0
+        kind:
+          CommandButton:
+            properties:
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 15
+              cancel: false
+              caption: Save simulation data to file...
+              causes_validation: "Yes"
+              default: false
+              disabled_picture: ~
+              down_picture: ~
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              height: 495
+              help_context_id: 0
+              left: 4920
+              mask_color:
+                RGB:
+                  red: 192
+                  green: 192
+                  blue: 192
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              style: Standard
+              tab_index: 26
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 8040
+              use_mask_color: DoNotUseMaskColor
+              whats_this_help_id: 0
+              width: 2775
+      - name: chkDisplayDead
+        tag: ""
+        index: 0
+        kind:
+          CheckBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              caption: Display dead creatures?
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              disabled_picture: ~
+              down_picture: ~
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 255
+              help_context_id: 0
+              left: 120
+              mask_color:
+                RGB:
+                  red: 192
+                  green: 192
+                  blue: 192
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              style: Standard
+              tab_index: 21
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 8160
+              use_mask_color: DoNotUseMaskColor
+              value: Unchecked
+              visible: Visible
+              whats_this_help_id: 0
+              width: 2175
+      - name: frmStartSettings
+        tag: ""
+        index: 0
+        kind:
+          Frame:
+            properties:
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              caption: "Initial Simulation Settings:"
+              clip_controls: Clipped
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 4095
+              help_context_id: 0
+              left: 7800
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              right_to_left: LeftToRight
+              tab_index: 7
+              tool_tip_text: ""
+              top: 1080
+              visible: Visible
+              whats_this_help_id: 0
+              width: 4215
+            controls:
+              - name: txtMutations
+                tag: ""
+                index: 0
+                kind:
+                  TextBox:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      back_color:
+                        System:
+                          index: 5
+                      border_style: FixedSingle
+                      causes_validation: "Yes"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 8
+                      height: 285
+                      help_context_id: 0
+                      hide_selection: true
+                      left: 2400
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      locked: false
+                      max_length: 0
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      multi_line: SingleLine
+                      ole_drag_mode: Manual
+                      ole_drop_mode: None
+                      password_char: ~
+                      right_to_left: LeftToRight
+                      scroll_bars: None
+                      tab_index: 24
+                      tab_stop: Included
+                      text: "15"
+                      tool_tip_text: ""
+                      top: 3690
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 1695
+              - name: txtMutateTurns
+                tag: ""
+                index: 0
+                kind:
+                  TextBox:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      back_color:
+                        System:
+                          index: 5
+                      border_style: FixedSingle
+                      causes_validation: "Yes"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 8
+                      height: 285
+                      help_context_id: 0
+                      hide_selection: true
+                      left: 2040
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      locked: false
+                      max_length: 0
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      multi_line: SingleLine
+                      ole_drag_mode: Manual
+                      ole_drop_mode: None
+                      password_char: ~
+                      right_to_left: LeftToRight
+                      scroll_bars: None
+                      tab_index: 22
+                      tab_stop: Included
+                      text: "750"
+                      tool_tip_text: ""
+                      top: 3330
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 2055
+              - name: chkMultiply
+                tag: ""
+                index: 0
+                kind:
+                  CheckBox:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      back_color:
+                        System:
+                          index: 5
+                      caption: Allow creatures to multiply and mutate
+                      causes_validation: "Yes"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      disabled_picture: ~
+                      down_picture: ~
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 8
+                      height: 255
+                      help_context_id: 0
+                      left: 120
+                      mask_color:
+                        RGB:
+                          red: 192
+                          green: 192
+                          blue: 192
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      picture: ~
+                      right_to_left: LeftToRight
+                      style: Standard
+                      tab_index: 20
+                      tab_stop: Included
+                      tool_tip_text: ""
+                      top: 3000
+                      use_mask_color: DoNotUseMaskColor
+                      value: Unchecked
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 3975
+              - name: txtFoodWorth
+                tag: ""
+                index: 0
+                kind:
+                  TextBox:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      back_color:
+                        System:
+                          index: 5
+                      border_style: FixedSingle
+                      causes_validation: "Yes"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 8
+                      height: 285
+                      help_context_id: 0
+                      hide_selection: true
+                      left: 2640
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      locked: false
+                      max_length: 0
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      multi_line: SingleLine
+                      ole_drag_mode: Manual
+                      ole_drop_mode: None
+                      password_char: ~
+                      right_to_left: LeftToRight
+                      scroll_bars: None
+                      tab_index: 18
+                      tab_stop: Included
+                      text: "35"
+                      tool_tip_text: ""
+                      top: 2490
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 1455
+              - name: txtFoodGen
+                tag: ""
+                index: 0
+                kind:
+                  TextBox:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      back_color:
+                        System:
+                          index: 5
+                      border_style: FixedSingle
+                      causes_validation: "Yes"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 8
+                      height: 285
+                      help_context_id: 0
+                      hide_selection: true
+                      left: 2400
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      locked: false
+                      max_length: 0
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      multi_line: SingleLine
+                      ole_drag_mode: Manual
+                      ole_drop_mode: None
+                      password_char: ~
+                      right_to_left: LeftToRight
+                      scroll_bars: None
+                      tab_index: 16
+                      tab_stop: Included
+                      text: "5"
+                      tool_tip_text: ""
+                      top: 2130
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 1695
+              - name: txtFoodRegen
+                tag: ""
+                index: 0
+                kind:
+                  TextBox:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      back_color:
+                        System:
+                          index: 5
+                      border_style: FixedSingle
+                      causes_validation: "Yes"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 8
+                      height: 285
+                      help_context_id: 0
+                      hide_selection: true
+                      left: 2760
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      locked: false
+                      max_length: 0
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      multi_line: SingleLine
+                      ole_drag_mode: Manual
+                      ole_drop_mode: None
+                      password_char: ~
+                      right_to_left: LeftToRight
+                      scroll_bars: None
+                      tab_index: 14
+                      tab_stop: Included
+                      text: "20"
+                      tool_tip_text: ""
+                      top: 1770
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 1335
+              - name: txtInitialEnergy
+                tag: ""
+                index: 0
+                kind:
+                  TextBox:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      back_color:
+                        System:
+                          index: 5
+                      border_style: FixedSingle
+                      causes_validation: "Yes"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 8
+                      height: 285
+                      help_context_id: 0
+                      hide_selection: true
+                      left: 1440
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      locked: false
+                      max_length: 0
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      multi_line: SingleLine
+                      ole_drag_mode: Manual
+                      ole_drop_mode: None
+                      password_char: ~
+                      right_to_left: LeftToRight
+                      scroll_bars: None
+                      tab_index: 12
+                      tab_stop: Included
+                      text: "500"
+                      tool_tip_text: ""
+                      top: 690
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 2655
+              - name: txtInitialFood
+                tag: ""
+                index: 0
+                kind:
+                  TextBox:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      back_color:
+                        System:
+                          index: 5
+                      border_style: FixedSingle
+                      causes_validation: "Yes"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 8
+                      height: 285
+                      help_context_id: 0
+                      hide_selection: true
+                      left: 1800
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      locked: false
+                      max_length: 0
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      multi_line: SingleLine
+                      ole_drag_mode: Manual
+                      ole_drop_mode: None
+                      password_char: ~
+                      right_to_left: LeftToRight
+                      scroll_bars: None
+                      tab_index: 10
+                      tab_stop: Included
+                      text: "1500"
+                      tool_tip_text: ""
+                      top: 1410
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 2295
+              - name: txtOrganisms
+                tag: ""
+                index: 0
+                kind:
+                  TextBox:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      back_color:
+                        System:
+                          index: 5
+                      border_style: FixedSingle
+                      causes_validation: "Yes"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 8
+                      height: 285
+                      help_context_id: 0
+                      hide_selection: true
+                      left: 1440
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      locked: false
+                      max_length: 0
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      multi_line: SingleLine
+                      ole_drag_mode: Manual
+                      ole_drop_mode: None
+                      password_char: ~
+                      right_to_left: LeftToRight
+                      scroll_bars: None
+                      tab_index: 9
+                      tab_stop: Included
+                      text: "15"
+                      tool_tip_text: ""
+                      top: 330
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 2655
+              - name: Label8
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "New DNA mutates (x) bases:"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 195
+                      left: 120
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 25
+                      tool_tip_text: ""
+                      top: 3720
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 2130
+                      word_wrap: NonWrapping
+              - name: Label7
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "Multiply every (x) cycles:"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 195
+                      left: 120
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 23
+                      tool_tip_text: ""
+                      top: 3360
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 1800
+                      word_wrap: NonWrapping
+              - name: Line2
+                tag: ""
+                index: 0
+                kind:
+                  Line:
+                    properties:
+                      border_color:
+                        System:
+                          index: 8
+                      border_style: Solid
+                      border_width: 1
+                      draw_mode: CopyPen
+                      visible: Visible
+                      x1: 120
+                      y1: 2880
+                      x2: 3360
+                      y2: 2880
+              - name: Label6
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "Food grants this much energy: "
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 195
+                      left: 120
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 19
+                      tool_tip_text: ""
+                      top: 2520
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 2400
+                      word_wrap: NonWrapping
+              - name: Label5
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "Regenerate this much food: "
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 195
+                      left: 120
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 17
+                      tool_tip_text: ""
+                      top: 2160
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 2190
+                      word_wrap: NonWrapping
+              - name: Label4
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "Regenerate food every (n) cycles: "
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 195
+                      left: 120
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 15
+                      tool_tip_text: ""
+                      top: 1800
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 2550
+                      word_wrap: NonWrapping
+              - name: Label3
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "Initial energy: "
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 195
+                      left: 120
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 13
+                      tool_tip_text: ""
+                      top: 720
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 1095
+                      word_wrap: NonWrapping
+              - name: Label2
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "Initial food amount: "
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 195
+                      left: 120
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 11
+                      tool_tip_text: ""
+                      top: 1440
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 1590
+                      word_wrap: NonWrapping
+              - name: Line1
+                tag: ""
+                index: 0
+                kind:
+                  Line:
+                    properties:
+                      border_color:
+                        System:
+                          index: 8
+                      border_style: Solid
+                      border_width: 1
+                      draw_mode: CopyPen
+                      visible: Visible
+                      x1: 120
+                      y1: 1200
+                      x2: 4080
+                      y2: 1200
+              - name: Label1
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "# of creatures: "
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 195
+                      left: 120
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 8
+                      tool_tip_text: ""
+                      top: 360
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 1155
+                      word_wrap: NonWrapping
+      - name: frmOrganisms
+        tag: ""
+        index: 0
+        kind:
+          Frame:
+            properties:
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              caption: "Select a creature for detailed information:"
+              clip_controls: Clipped
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 3135
+              help_context_id: 0
+              left: 7800
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              right_to_left: LeftToRight
+              tab_index: 4
+              tool_tip_text: ""
+              top: 5400
+              visible: Visible
+              whats_this_help_id: 0
+              width: 4215
+            controls:
+              - name: txtInfo
+                tag: ""
+                index: 0
+                kind:
+                  TextBox:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      back_color:
+                        System:
+                          index: 5
+                      border_style: FixedSingle
+                      causes_validation: "Yes"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 8
+                      height: 2055
+                      help_context_id: 0
+                      hide_selection: true
+                      left: 120
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      locked: false
+                      max_length: 0
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      multi_line: SingleLine
+                      ole_drag_mode: Manual
+                      ole_drop_mode: None
+                      password_char: ~
+                      right_to_left: LeftToRight
+                      scroll_bars: None
+                      tab_index: 6
+                      tab_stop: Included
+                      text: ""
+                      tool_tip_text: ""
+                      top: 840
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 3975
+              - name: cmbOrganisms
+                tag: ""
+                index: 0
+                kind:
+                  ComboBox:
+                    properties:
+                      appearance: ThreeD
+                      back_color:
+                        System:
+                          index: 5
+                      causes_validation: "Yes"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 8
+                      height: 315
+                      help_context_id: 0
+                      integral_height: true
+                      left: 120
+                      locked: false
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drag_mode: Manual
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      sorted: false
+                      style: DropDownCombo
+                      tab_index: 5
+                      tab_stop: Included
+                      text: Please start the simulator
+                      tool_tip_text: ""
+                      top: 360
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 3975
+      - name: cmdStop
+        tag: ""
+        index: 0
+        kind:
+          CommandButton:
+            properties:
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 15
+              cancel: false
+              caption: STOP current simulation
+              causes_validation: "Yes"
+              default: false
+              disabled_picture: ~
+              down_picture: ~
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              height: 615
+              help_context_id: 0
+              left: 9960
+              mask_color:
+                RGB:
+                  red: 192
+                  green: 192
+                  blue: 192
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              style: Standard
+              tab_index: 3
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 240
+              use_mask_color: DoNotUseMaskColor
+              whats_this_help_id: 0
+              width: 2055
+      - name: cmdStart
+        tag: ""
+        index: 0
+        kind:
+          CommandButton:
+            properties:
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 15
+              cancel: false
+              caption: START new simulation
+              causes_validation: "Yes"
+              default: false
+              disabled_picture: ~
+              down_picture: ~
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              height: 615
+              help_context_id: 0
+              left: 7800
+              mask_color:
+                RGB:
+                  red: 192
+                  green: 192
+                  blue: 192
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              style: Standard
+              tab_index: 2
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 240
+              use_mask_color: DoNotUseMaskColor
+              whats_this_help_id: 0
+              width: 2055
+      - name: picMap
+        tag: ""
+        index: 0
+        kind:
+          PictureBox:
+            properties:
+              align: None
+              appearance: ThreeD
+              auto_redraw: Manual
+              auto_size: Fixed
+              back_color:
+                RGB:
+                  red: 255
+                  green: 255
+                  blue: 255
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              clip_controls: Clipped
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              draw_mode: CopyPen
+              draw_style: Solid
+              draw_width: 2
+              enabled: Enabled
+              fill_color:
+                RGB:
+                  red: 224
+                  green: 224
+                  blue: 224
+              fill_style: Transparent
+              font_transparent: Transparent
+              fore_color:
+                RGB:
+                  red: 0
+                  green: 0
+                  blue: 255
+              has_dc: HasContext
+              height: 7530
+              help_context_id: 0
+              left: 120
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              negotiate: false
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              scale_height: 500
+              scale_left: 0
+              scale_mode: Twip
+              scale_top: 0
+              scale_width: 500
+              tab_index: 0
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 360
+              visible: Visible
+              whats_this_help_id: 0
+              width: 7530
+            controls: []
+      - name: picFood
+        tag: ""
+        index: 0
+        kind:
+          PictureBox:
+            properties:
+              align: None
+              appearance: ThreeD
+              auto_redraw: Manual
+              auto_size: Fixed
+              back_color:
+                RGB:
+                  red: 255
+                  green: 255
+                  blue: 255
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              clip_controls: Clipped
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              draw_mode: CopyPen
+              draw_style: Solid
+              draw_width: 2
+              enabled: Enabled
+              fill_color:
+                RGB:
+                  red: 0
+                  green: 0
+                  blue: 255
+              fill_style: Transparent
+              font_transparent: Transparent
+              fore_color:
+                RGB:
+                  red: 0
+                  green: 0
+                  blue: 255
+              has_dc: HasContext
+              height: 7530
+              help_context_id: 0
+              left: 120
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              negotiate: false
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              scale_height: 500
+              scale_left: 0
+              scale_mode: Twip
+              scale_top: 0
+              scale_width: 500
+              tab_index: 28
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 360
+              visible: Visible
+              whats_this_help_id: 0
+              width: 7530
+            controls: []
+      - name: lblTitle
+        tag: ""
+        index: 0
+        kind:
+          Label:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              auto_size: Fixed
+              back_color:
+                System:
+                  index: 5
+              back_style: Opaque
+              border_style: None
+              caption: Press the start button to begin the simulator -------------------------------------------------->
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 255
+              left: 120
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              right_to_left: LeftToRight
+              tab_index: 1
+              tool_tip_text: ""
+              top: 120
+              use_mnemonic: true
+              visible: Visible
+              whats_this_help_id: 0
+              width: 7455
+              word_wrap: NonWrapping
+    menus: []
 objects: []
 version:
   major: 5
