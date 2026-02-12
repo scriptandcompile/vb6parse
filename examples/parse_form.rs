@@ -77,27 +77,23 @@ Attribute VB_Exposed = False
     println!("Form Version Minor: {}", form_file.version.minor);
     println!("Form Properties:");
 
-    // Extract the properties, controls, and menus from the form kind.
-    let ControlKind::Form {
-        properties,
-        controls,
-        menus,
-    } = form_file.form.kind()
+    // Extract the properties, controls, and menus from the form root.
+    let vb6parse::language::FormRoot::Form(form) = &form_file.form
     else {
-        panic!("Unexpected control kind");
+        panic!("Unexpected form kind - expected Form, got MDIForm");
     };
 
     // Print out the form properties.
-    println!("\tCaption: {:?}", properties.caption);
-    println!("\tBorder Style: {:?}", properties.border_style);
-    println!("\tMax Button: {:?}", properties.max_button);
-    println!("\tMin Button: {:?}", properties.min_button);
-    println!("\tStartup Position: {:?}", properties.start_up_position);
-    println!("\tClient Height: {:?}", properties.client_height);
-    println!("\tClient Width: {:?}", properties.client_width);
-    println!("\tLink Topic: {:?}", properties.link_topic);
-    println!("\tNumber of Controls: {}", controls.len());
-    println!("\tNumber of Menus: {}", menus.len());
+    println!("\tCaption: {:?}", form.properties.caption);
+    println!("\tBorder Style: {:?}", form.properties.border_style);
+    println!("\tMax Button: {:?}", form.properties.max_button);
+    println!("\tMin Button: {:?}", form.properties.min_button);
+    println!("\tStartup Position: {:?}", form.properties.start_up_position);
+    println!("\tClient Height: {:?}", form.properties.client_height);
+    println!("\tClient Width: {:?}", form.properties.client_width);
+    println!("\tLink Topic: {:?}", form.properties.link_topic);
+    println!("\tNumber of Controls: {}", form.controls.len());
+    println!("\tNumber of Menus: {}", form.menus.len());
     println!("Form Attributes:");
     println!("\tName: {:?}", form_file.attributes.name);
     println!(
