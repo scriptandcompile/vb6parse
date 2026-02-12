@@ -1352,7 +1352,7 @@ impl ControlKind {
     ///
     /// Returns `true` if the control kind can contain menus, otherwise `false`.
     ///
-    /// Note: This always returns `false` for `ControlKind` since Form and MDIForm
+    /// Note: This always returns `false` for `ControlKind` since `Form` and `MDIForm`
     /// are now top-level types (`FormRoot`), not control kinds.
     #[must_use]
     pub fn can_contain_menus(&self) -> bool {
@@ -1365,7 +1365,7 @@ impl ControlKind {
     ///
     /// Returns `true` if the control kind has menus, otherwise `false`.
     ///
-    /// Note: This always returns `false` for `ControlKind` since only Form and MDIForm
+    /// Note: This always returns `false` for `ControlKind` since only `Form` and `MDIForm`
     /// can have menus, and they are now top-level types (`FormRoot`), not control kinds.
     #[must_use]
     pub fn has_menu(&self) -> bool {
@@ -1429,7 +1429,7 @@ impl ControlKind {
     ///
     /// An `Option` containing an iterator over menus if the control kind supports menus, otherwise `None`.
     ///
-    /// Note: This always returns `None` for `ControlKind` since only Form and MDIForm
+    /// Note: This always returns `None` for `ControlKind` since only `Form` and `MDIForm`
     /// can have menus, and they are now top-level types (`FormRoot`), not control kinds.
     ///
     /// Example:
@@ -1526,7 +1526,7 @@ impl Control {
     ///
     /// An `Option` containing an iterator over menus if the control supports menus, otherwise `None`.
     ///
-    /// Note: This always returns `None` since only Form and MDIForm can have menus,
+    /// Note: This always returns `None` since only `Form` and `MDIForm` can have menus,
     /// and they are now top-level types (`FormRoot`), not control kinds.
     ///
     /// Example:

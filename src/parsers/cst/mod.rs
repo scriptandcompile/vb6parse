@@ -160,7 +160,7 @@
 use std::num::NonZeroUsize;
 
 use crate::io::{SourceFile, SourceStream};
-use crate::language::Token;
+use crate::language::{Form, FormProperties, FormRoot, Token};
 use crate::lexer::{tokenize, TokenStream};
 use crate::parsers::SyntaxKind;
 use crate::CodeErrorKind;
@@ -1380,7 +1380,7 @@ impl<'a> Parser<'a> {
         crate::ParseResult::new(Some(control), failures)
     }
 
-    /// Parse properties block directly to FormRoot for top-level form elements.
+    /// Parse properties block directly to `FormRoot` for top-level form elements.
     ///
     /// This function is specifically for parsing the top-level form element in
     /// `.frm`, `.ctl`, and `.dob` files. It enforces that only `VB.Form` or
@@ -1388,7 +1388,7 @@ impl<'a> Parser<'a> {
     ///
     /// # Returns
     ///
-    /// A `ParseResult` containing either a `FormRoot` (Form or MDIForm) or None,
+    /// A `ParseResult` containing either a `FormRoot` (`Form` or `MDIForm`) or `None`,
     /// along with any parsing failures encountered.
     pub(crate) fn parse_properties_block_to_form_root(
         &mut self,
@@ -1489,7 +1489,7 @@ impl<'a> Parser<'a> {
             .unwrap_or(0);
 
         // Build FormRoot with all components
-        match Self::build_form_root(
+        if let Ok(form_root) = Self::build_form_root(
             &control_type,
             control_name,
             tag,
@@ -1498,19 +1498,18 @@ impl<'a> Parser<'a> {
             child_controls,
             menus,
         ) {
-            Ok(form_root) => crate::ParseResult::new(Some(form_root), failures),
-            Err(_) => {
-                // If invalid top-level control type, return a default Form as fallback
-                let default_form = crate::language::FormRoot::Form(crate::language::Form {
-                    name: String::new(),
-                    tag: String::new(),
-                    index: 0,
-                    properties: Default::default(),
-                    controls: Vec::new(),
-                    menus: Vec::new(),
-                });
-                crate::ParseResult::new(Some(default_form), failures)
-            }
+            ParseResult::new(Some(form_root), failures)
+        } else {
+            // If invalid top-level control type, return a default Form as fallback
+            let default_form = FormRoot::Form(Form {
+                name: String::new(),
+                tag: String::new(),
+                index: 0,
+                properties: FormProperties::default(),
+                controls: Vec::new(),
+                menus: Vec::new(),
+            });
+            ParseResult::new(Some(default_form), failures)
         }
     }
 
@@ -2845,7 +2844,9 @@ End
         // Verify deep nesting: Form > PictureBox > Frame > Label
         if let crate::language::FormRoot::Form(form) = &form_root {
             assert_eq!(form.controls.len(), 1);
-            if let crate::language::ControlKind::PictureBox { controls, .. } = form.controls[0].kind() {
+            if let crate::language::ControlKind::PictureBox { controls, .. } =
+                form.controls[0].kind()
+            {
                 assert_eq!(controls.len(), 1);
                 if let crate::language::ControlKind::Frame { controls, .. } = controls[0].kind() {
                     assert_eq!(controls.len(), 1);

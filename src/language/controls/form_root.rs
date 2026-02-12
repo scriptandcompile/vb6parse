@@ -16,7 +16,7 @@ use super::form::FormProperties;
 use super::mdiform::MDIFormProperties;
 use super::{Control, MenuControl};
 
-/// Top-level form root - can only be a Form or MDIForm.
+/// Top-level form root - can only be a `Form` or `MDIForm`.
 ///
 /// This enum enforces the VB6 constraint that form files must have either
 /// a standard `VB.Form` or a `VB.MDIForm` as the top-level element.
@@ -55,7 +55,7 @@ pub enum FormRoot {
 }
 
 impl FormRoot {
-    /// Get the form name (works for both Form and MDIForm).
+    /// Get the form name (works for both `Form` and `MDIForm`).
     ///
     /// # Returns
     ///
@@ -139,7 +139,7 @@ impl FormRoot {
         }
     }
 
-    /// Check if this is a standard Form (not an MDIForm).
+    /// Check if this is a standard `Form` (not an `MDIForm`).
     ///
     /// # Returns
     ///
@@ -169,7 +169,7 @@ impl FormRoot {
         matches!(self, FormRoot::Form(_))
     }
 
-    /// Check if this is an MDIForm.
+    /// Check if this is an `MDIForm`.
     ///
     /// # Returns
     ///
@@ -214,7 +214,7 @@ impl Display for FormRoot {
 /// ```
 #[derive(Debug, PartialEq, Clone, Serialize)]
 pub struct Form {
-    /// Form name (from Begin statement or VB_Name attribute).
+    /// Form name (from Begin statement or `VB_Name` attribute).
     pub name: String,
     /// Tag value (arbitrary string data associated with the form).
     pub tag: String,
@@ -265,7 +265,7 @@ impl Display for Form {
 /// ```
 #[derive(Debug, PartialEq, Clone, Serialize)]
 pub struct MDIForm {
-    /// MDI Form name (from Begin statement or VB_Name attribute).
+    /// MDI Form name (from Begin statement or `VB_Name` attribute).
     pub name: String,
     /// Tag value (arbitrary string data associated with the form).
     pub tag: String,
