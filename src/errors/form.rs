@@ -687,6 +687,14 @@ pub enum FormErrorKind {
     #[error("Variable names must be less than 255 characters in VB6.")]
     VariableNameTooLong,
 
+    /// Indicates an invalid control type was used as a top-level form element.
+    ///
+    /// Form files (`.frm`, `.ctl`, `.dob`) must have either `VB.Form` or `VB.MDIForm`
+    /// as the top-level element. Other control types (like `VB.CommandButton`,
+    /// `VB.TextBox`, etc.) can only be child controls.
+    #[error("Invalid top-level control type: '{0}'. Form files must have either 'VB.Form' or 'VB.MDIForm' as the top-level element.")]
+    InvalidTopLevelControl(String),
+
     /// Indicates an internal parser error that should be reported to the developers.
     #[error("Internal Parser Error - please report this issue to the developers.")]
     InternalParseError,
