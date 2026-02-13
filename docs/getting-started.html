@@ -109,11 +109,6 @@ vb6parse = "0.5.1"</code></pre>
                 <h3>Verify installation</h3>
             </div>
             <pre data-lang="bash"><code class="language-bash">cargo build</code></pre>
-            <div class="output-box">
-                Compiling vb6parse v0.5.1<br>
-                Compiling vb6parse-demo v0.1.0<br>
-                Finished dev [unoptimized + debuginfo] target(s)
-            </div>
         </section>
 
         <section id="hello-world">
@@ -125,18 +120,13 @@ vb6parse = "0.5.1"</code></pre>
                 <h3>Create a simple module parser</h3>
                 <p>Replace the contents of <code>src/main.rs</code>:</p>
             </div>
-            <pre data-file="src/main.rs" data-lang="rust" data-github-example="hello_world.rs"><code class="language-rust loading-state">Loading example from GitHub...</code></pre>
+            <pre data-file="examples/docs/hello_world.rs" data-lang="rust" data-github-example="hello_world.rs"><code class="language-rust loading-state">Loading example from GitHub...</code></pre>
 
             <div class="step-card">
                 <span class="step-number">2</span>
                 <h3>Run the example</h3>
             </div>
-            <pre data-file="src/main.rs" data-lang="bash"><code class="language-bash">cargo run</code></pre>
-            <div class="output-box">
-✓ Successfully parsed module: HelloWorld<br>
-  Version: 1.0<br>
-  Has code: true
-            </div>
+            <pre data-lang="bash"><code class="language-bash">cargo run</code></pre>
 
             <div class="tip-box">
                 <strong>💡 Key Concept: ParseResult</strong><br>
@@ -150,23 +140,7 @@ vb6parse = "0.5.1"</code></pre>
             <h2>Parsing VB6 Projects</h2>
             <p>VB6 projects (.vbp files) list all modules, forms, and references. Let's parse one:</p>
 
-            <pre data-file="src/main.rs" data-lang="rust" data-github-example="project_parsing.rs"><code class="language-rust loading-state">Loading example from GitHub...</code></pre>
-
-            <div class="output-box">
-Project Type: Exe<br>
-<br>
-Modules:<br>
-&emsp;&emsp;- Utilities (Utilities.bas)<br>
-&emsp;&emsp;- DataAccess (DataAccess.bas)<br>
-<br>
-Forms:<br>
-&emsp;&emsp;- MainForm.frm<br>
-<br>
-Classes:<br>
-&emsp;&emsp;- DatabaseConnection (DatabaseConnection.cls)<br>
-<br>
-References: 1
-            </div>
+            <pre data-file="examples/docs/project_parsing.rs" data-lang="rust" data-github-example="project_parsing.rs"><code class="language-rust loading-state">Loading example from GitHub...</code></pre>
 
             <div class="warning-box">
                 <strong>⚠️ Important:</strong> ProjectFile only parses the .vbp file itself - it doesn't load 
@@ -178,7 +152,7 @@ References: 1
             <h2>Handling Parse Errors</h2>
             <p>VB6Parse is designed to handle malformed input gracefully. Even with syntax errors, you often get partial results:</p>
 
-            <pre data-file="src/main.rs" data-lang="rust" data-github-example="error_handling.rs"><code class="language-rust loading-state">Loading example from GitHub...</code></pre>
+            <pre data-file="examples/docs/error_handling.rs" data-lang="rust" data-github-example="error_handling.rs"><code class="language-rust loading-state">Loading example from GitHub...</code></pre>
 
             <div class="tip-box">
                 <strong>💡 Best Practice:</strong> Always check both the result and failures. In tools that 
@@ -190,47 +164,14 @@ References: 1
             <h2>Tokenization</h2>
             <p>For lower-level analysis, you can tokenize VB6 code without building a full parse tree:</p>
 
-            <pre data-file="src/main.rs" data-lang="rust" data-github-example="tokenization.rs"><code class="language-rust loading-state">Loading example from GitHub...</code></pre>
-
-            <div class="output-box">
-Tokens found: 9<br>
-  DimKeyword: 'Dim'<br>
-  Whitespace: ' '<br>
-  Identifier: 'x'<br>
-  Whitespace: ' '<br>
-  AsKeyword: 'As'<br>
-  Whitespace: ' '<br>
-  IntegerKeyword: 'Integer'<br>
-  Whitespace: ' '<br>
-  EndOfLineComment: '' Declare a variable'<br>
-            </div>
+            <pre data-file="examples/docs/tokenization.rs" data-lang="rust" data-github-example="tokenization.rs"><code class="language-rust loading-state">Loading example from GitHub...</code></pre>
         </section>
 
         <section id="cst-navigation">
             <h2>Navigating the Concrete Syntax Tree</h2>
             <p>The CST preserves all source information including whitespace and comments, making it perfect for code analysis tools:</p>
 
-            <pre data-file="src/main.rs" data-lang="rust" data-github-example="cst_navigation.rs"><code class="language-rust loading-state">Loading example from GitHub...</code></pre>
-
-            <div class="output-box">
-Total nodes in tree: 51<br>
-Found 1 Dim statements<br>
-Found 5 identifiers<br>
-&emsp;&emsp;- Calculate<br>
-&emsp;&emsp;- result<br>
-&emsp;&emsp;- result<br>
-&emsp;&emsp;- MsgBox<br>
-&emsp;&emsp;- result<br>
-<br>
-Subroutine found:<br>
-&emsp;&emsp;Text:<br>
-'Sub Calculate()<br>
-&emsp;&emsp;&emsp;Dim result As Double<br>
-&emsp;&emsp;&emsp;result = 10 * 5 + 3<br>
-&emsp;&emsp;&emsp;MsgBox result<br>
-End Sub'<br>
-&emsp;&emsp;Children: 9
-            </div>
+            <pre data-file="examples/docs/cst_navigation.rs" data-lang="rust" data-github-example="cst_navigation.rs"><code class="language-rust loading-state">Loading example from GitHub...</code></pre>
 
         </section>
 
@@ -238,16 +179,7 @@ End Sub'<br>
             <h2>Parsing Forms and Controls</h2>
             <p>Forms are the most complex VB6 file type, containing both UI controls and code:</p>
 
-            <pre data-file="src/main.rs" data-lang="rust" data-github-example="form_parsing.rs"><code class="language-rust loading-state">Loading example from GitHub...</code></pre>
-
-<div class="output-box">
-Form: MainForm<br>
-&emsp;&emsp;Caption: My Application<br>
-&emsp;&emsp;Size: 4560x3090<br>
-<br>
-&emsp;Controls:<br>
-&emsp;&emsp;&emsp;- btnSubmit (CommandButton)<br>
-</div>
+            <pre data-file="examples/docs/form_parsing.rs" data-lang="rust" data-github-example="form_parsing.rs"><code class="language-rust loading-state">Loading example from GitHub...</code></pre>
 
         </section>
 
