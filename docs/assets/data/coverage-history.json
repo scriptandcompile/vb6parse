@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-02-12T23:54:35Z",
+  "last_updated": "2026-02-13T22:52:08Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T19:53:21Z",
@@ -273,6 +273,40 @@
           "percent": 95.52
         }
       }
+    },
+    {
+      "timestamp": "2026-02-13T22:52:08Z",
+      "commit_sha": "bbd19508987b53aba0b4b3ddab58a3198ee37349",
+      "commit_message": "Oh look, there was bit rot since the examples hadn't been run before. updated!",
+      "coverage": {
+        "line_coverage": 95.46,
+        "function_coverage": 93.61,
+        "region_coverage": 95.52
+      },
+      "tests": {
+        "total": 5676,
+        "lib_tests": 5478,
+        "doc_tests": 103,
+        "integration_tests": 95,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 93557,
+          "total": 98011,
+          "percent": 95.46
+        },
+        "functions": {
+          "covered": 6032,
+          "total": 6444,
+          "percent": 93.61
+        },
+        "regions": {
+          "covered": 149335,
+          "total": 156332,
+          "percent": 95.52
+        }
+      }
     }
   ],
   "coverage_summary": {
@@ -282,7 +316,7 @@
       "change_percent": 0.0,
       "best": 95.51,
       "worst": 95.46,
-      "average": 95.5
+      "average": 95.49
     },
     "function_coverage": {
       "latest": 93.61,
@@ -290,7 +324,7 @@
       "change_percent": 0.0,
       "best": 93.76,
       "worst": 93.61,
-      "average": 93.72
+      "average": 93.71
     },
     "region_coverage": {
       "latest": 95.52,
