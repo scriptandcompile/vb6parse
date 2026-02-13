@@ -21,8 +21,7 @@ End Sub
     // Step 4: Handle the result
     if let Some(module) = module_opt {
         println!("✓ Successfully parsed module: {}", module.name);
-        println!("  Version: {}", module.version);
-        println!("  Has code: {}", module.cst.debug_tree());
+        println!("  Has code: {}", !module.cst.debug_tree().is_empty());
     }
 
     // Step 5: Display any parsing errors
