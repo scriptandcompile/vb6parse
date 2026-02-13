@@ -12,7 +12,41 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
-    <script>hljs.highlightAll();</script>
+    <script>
+        // Load code examples from GitHub
+        const CDN_BASE = 'https://raw.githubusercontent.com/scriptandcompile/vb6parse/master/examples/docs/';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('pre[data-github-example]').forEach(async (pre) => {
+                const filename = pre.getAttribute('data-github-example');
+                const code = pre.querySelector('code');
+                
+                try {
+                    const response = await fetch(CDN_BASE + filename);
+                    if (!response.ok) throw new Error('Failed to load');
+                    const text = await response.text();
+                    code.textContent = text;
+                    code.classList.remove('loading-state', 'error-fallback');
+                    hljs.highlightElement(code);
+                } catch (error) {
+                    code.textContent = '⚠️ Failed to load example from GitHub.\n\nPlease check your connection or view the example directly at:\nhttps://github.com/scriptandcompile/vb6parse/tree/master/examples/docs/' + filename;
+                    code.classList.remove('loading-state');
+                    code.classList.add('error-fallback');
+                }
+            });
+        });
+    </script>
+    <style>
+        .loading-state {
+            color: #6b7280 !important;
+            font-style: italic;
+        }
+        .error-fallback {
+            border-left: 4px solid #f59e0b !important;
+            background: #fffbeb !important;
+            color: #92400e !important;
+        }
+    </style>
 </head>
 <body>
     <header class="docs-header">
@@ -91,42 +125,7 @@ vb6parse = "0.5.1"</code></pre>
                 <h3>Create a simple module parser</h3>
                 <p>Replace the contents of <code>src/main.rs</code>:</p>
             </div>
-            <pre data-file="src/main.rs" data-lang="rust"><code class="language-rust">use vb6parse::*;
-
-                
-fn main() {
-    // VB6 code to parse
-    let code = r#"Attribute VB_Name = "HelloWorld"
-            
-    Public Sub SayHello()
-        MsgBox "Hello from VB6Parse!"
-    End Sub
-    "#;
-            
-    // Step 1: Create a SourceFile (handles encoding)
-    let source = SourceFile::from_string("HelloWorld.bas", code);
-
-    // Step 2: Parse as a module
-    let result = ModuleFile::parse(&source);
-
-    // Step 3: Unpack the result (separates output from errors)
-    let (module_opt, failures) = result.unpack();
-
-    // Step 4: Handle the result
-    if let Some(module) = module_opt {
-        println!("✓ Successfully parsed module: {}", module.name);
-        println!("  Version: {}", module.name);
-        println!("  Has code: {}", module.cst.debug_tree());
-    }
-
-    // Step 5: Display any parsing errors
-    if !failures.is_empty() {
-        println!("\n⚠ Encountered {} parsing issues:", failures.len());
-        for failure in failures {
-            failure.print();
-        }
-    }
-}</code></pre>
+            <pre data-file="src/main.rs" data-lang="rust" data-github-example="hello_world.rs"><code class="language-rust loading-state">Loading example from GitHub...</code></pre>
 
             <div class="step-card">
                 <span class="step-number">2</span>
@@ -151,47 +150,7 @@ fn main() {
             <h2>Parsing VB6 Projects</h2>
             <p>VB6 projects (.vbp files) list all modules, forms, and references. Let's parse one:</p>
 
-            <pre data-file="src/main.rs" data-lang="rust"><code class="language-rust">use vb6parse::*;
-
-fn main() {
-    let project_content = r#"Type=Exe
-Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
-Object={831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0; MSCOMCTL.OCX
-Module=Utilities; Utilities.bas
-Module=DataAccess; DataAccess.bas
-Form=MainForm.frm
-Class=DatabaseConnection; DatabaseConnection.cls
-"#;
-                
-    let source = SourceFile::from_string("MyProject.vbp", project_content);
-    let result = ProjectFile::parse(&source);
-    let (project, _failures) = result.unpack();
-                
-    if let Some(proj) = project {
-        println!("Project Type: {:?}", proj.project_type);
-                
-        // Iterate over modules
-        println!("\nModules:");
-        for module in proj.modules() {
-            println!("  - {} ({})", module.name, module.path);
-        }
-                
-        // Iterate over forms
-        println!("\nForms:");
-        for form_name in proj.forms() {
-            println!("  - {form_name}");
-        }
-                
-        // Iterate over classes
-        println!("\nClasses:");
-        for class in proj.classes() {
-            println!("  - {} ({})", class.name, class.path);
-        }
-                
-        // Check references
-        println!("\nReferences: {}", proj.references().count());
-    }
-}</code></pre>
+            <pre data-file="src/main.rs" data-lang="rust" data-github-example="project_parsing.rs"><code class="language-rust loading-state">Loading example from GitHub...</code></pre>
 
             <div class="output-box">
 Project Type: Exe<br>
@@ -219,48 +178,7 @@ References: 1
             <h2>Handling Parse Errors</h2>
             <p>VB6Parse is designed to handle malformed input gracefully. Even with syntax errors, you often get partial results:</p>
 
-            <pre data-file="src/main.rs" data-lang="rust"><code class="language-rust">use vb6parse::*;
-
-fn main() {
-    // Malformed VB6 code (missing End Sub, invalid syntax)
-    let bad_code = r#"Attribute VB_Name = "BadModule"
-
-Public Sub BrokenFunction()
-    x = 5 + 
-    ' Missing closing and the expression is incomplete
-
-Public Sub AnotherFunction()
-    MsgBox "This one is fine"
-End Sub
-"#;
-
-    let source = SourceFile::from_string("BadModule.bas", bad_code);
-    let result = ModuleFile::parse(&source);
-    let (module, failures) = result.unpack();
-
-    // We still might get a module!
-    if let Some(module) = module {
-        println!("✓ Parsed module: {}", module.name);
-        println!("  (Despite {} errors)", failures.len());
-    } else {
-        println!("✗ Parsing completely failed");
-    }
-
-    // Always check and handle failures
-    if !failures.is_empty() {
-        println!("\nParsing Issues:");
-        for failure in failures {
-            println!("  Line {}-{}: {:?}", 
-                failure.line_start, 
-                failure.line_end, 
-                failure.kind
-            );
-            
-            // Print the error with source context
-            failure.print();
-        }
-    }
-}</code></pre>
+            <pre data-file="src/main.rs" data-lang="rust" data-github-example="error_handling.rs"><code class="language-rust loading-state">Loading example from GitHub...</code></pre>
 
             <div class="tip-box">
                 <strong>💡 Best Practice:</strong> Always check both the result and failures. In tools that 
@@ -272,23 +190,7 @@ End Sub
             <h2>Tokenization</h2>
             <p>For lower-level analysis, you can tokenize VB6 code without building a full parse tree:</p>
 
-            <pre data-file="src/main.rs" data-lang="rust"><code class="language-rust">use vb6parse::*;
-
-fn main() {
-    let code = "Dim x As Integer ' Declare a variable";
-    let mut source = SourceStream::new("test.bas", code);
-    let result = tokenize(&mut source);
-    let (token_stream, _) = result.unpack();
-                
-    if let Some(tokens) = token_stream {
-        println!("Tokens found: {}", tokens.len());
-                
-        for (text, token) in tokens.tokens().iter() {
-            println!("  {token:?}: '{text}'");
-        }
-    }
-}
-            </code></pre>
+            <pre data-file="src/main.rs" data-lang="rust" data-github-example="tokenization.rs"><code class="language-rust loading-state">Loading example from GitHub...</code></pre>
 
             <div class="output-box">
 Tokens found: 9<br>
@@ -308,42 +210,7 @@ Tokens found: 9<br>
             <h2>Navigating the Concrete Syntax Tree</h2>
             <p>The CST preserves all source information including whitespace and comments, making it perfect for code analysis tools:</p>
 
-            <pre data-file="src/main.rs" data-lang="rust"><code class="language-rust">use vb6parse::*;
-use vb6parse::parsers::SyntaxKind;
-
-fn main() {
-    let code = r#"Sub Calculate()
-    Dim result As Double
-    result = 10 * 5 + 3
-    MsgBox result
-End Sub"#;
-
-    let cst = ConcreteSyntaxTree::from_text("test.bas", code).unwrap();
-    let root = cst.to_serializable().root;
-
-    println!("Total nodes in tree: {}", root.descendants().count());
-    
-    // Find all Dim statements
-    let dims = root.find_all(SyntaxKind::DimStatement);
-    println!("Found {} Dim statements", dims.len());
-    
-    // Find all identifiers
-    let identifiers = root.find_all_if(|n| {
-        n.kind() == SyntaxKind::Identifier
-    });
-    println!("Found {} identifiers", identifiers.len());
-    for id in identifiers {
-        println!("  - {}", id.text());
-    }
-    
-    // Navigate to specific nodes
-    if let Some(sub_stmt) = root.find(SyntaxKind::SubStatement) {
-        println!("\nSubroutine found:");
-        println!("  Text:\n'{}'", sub_stmt.text());
-        println!("  Children: {}", sub_stmt.child_count());
-    }
-}
-</code></pre>
+            <pre data-file="src/main.rs" data-lang="rust" data-github-example="cst_navigation.rs"><code class="language-rust loading-state">Loading example from GitHub...</code></pre>
 
             <div class="output-box">
 Total nodes in tree: 51<br>
@@ -371,76 +238,7 @@ End Sub'<br>
             <h2>Parsing Forms and Controls</h2>
             <p>Forms are the most complex VB6 file type, containing both UI controls and code:</p>
 
-            <pre data-file="src/main.rs" data-lang="rust"><code class="language-rust">use vb6parse::{language::ControlKind, *};
-
-fn main() {
-    let form_content = r#"VERSION 5.00
-Begin VB.Form MainForm 
-   Caption         =   "My Application"
-   ClientHeight    =   3090
-   ClientWidth     =   4560
-   Begin VB.CommandButton btnSubmit 
-      Caption         =   "Submit"
-      Height          =   375
-      Left            =   1680
-      TabIndex        =   0
-      Top             =   1200
-      Width           =   1215
-   End
-End
-Attribute VB_Name = "MainForm"
-
-Private Sub btnSubmit_Click()
-    MsgBox "Button clicked!"
-End Sub
-"#;
-
-    let source = SourceFile::from_string("MainForm.frm", form_content);
-    let result = FormFile::parse(&source);
-    let (form_opt, _failures) = result.unpack();
-
-    let Some(form_file) = form_opt else {
-        println!("Failed to parse the form file.");
-        return;
-    };
-
-    // Access the root form control
-    match form_file.form.kind() {
-        ControlKind::Form {
-            controls: _,
-            menus: _,
-            properties,
-        } => {
-            println!("Form: {}", form_file.attributes.name);
-            println!("  Caption: {}", properties.caption);
-            println!(
-                "  Size: {}x{}",
-                properties.client_width, properties.client_height
-            );
-        }
-        ControlKind::MDIForm {
-            properties,
-            controls: _,
-            menus: _,
-        } => {
-            println!("MDI Form: {}", form_file.attributes.name);
-            println!("  Caption: {}", properties.caption);
-            println!("  Size: {}x{}", properties.width, properties.height);
-        }
-        _ => {
-            println!("Only Form and MDIForm are valid top level controls in a form file.");
-            return;
-        }
-    }
-
-    // Iterate child controls
-    println!("\n  Controls:");
-    if let Some(children) = form_file.form.children() {
-        for child in children {
-            println!("      - {} ({})", child.name(), child.kind());
-        }
-    };
-}</code></pre>
+            <pre data-file="src/main.rs" data-lang="rust" data-github-example="form_parsing.rs"><code class="language-rust loading-state">Loading example from GitHub...</code></pre>
 
 <div class="output-box">
 Form: MainForm<br>
