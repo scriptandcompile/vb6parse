@@ -1,4 +1,3 @@
-use vb6parse::language::ControlKind;
 use vb6parse::*;
 
 fn main() {
@@ -33,39 +32,31 @@ End Sub
     };
 
     // Access the root form control
-    match form_file.form.kind() {
-        ControlKind::Form {
-            controls: _,
-            menus: _,
-            properties,
-        } => {
+    match &form_file.form {
+        vb6parse::language::FormRoot::Form(form) => {
             println!("Form: {}", form_file.attributes.name);
-            println!("  Caption: {}", properties.caption);
+            println!("  Caption: {}", form.properties.caption);
             println!(
                 "  Size: {}x{}",
-                properties.client_width, properties.client_height
+                form.properties.client_width, form.properties.client_height
             );
+
+            // Iterate child controls
+            println!("\n  Controls:");
+            for child in &form.controls {
+                println!("      - {} ({})", child.name(), child.kind());
+            }
         }
-        ControlKind::MDIForm {
-            properties,
-            controls: _,
-            menus: _,
-        } => {
+        vb6parse::language::FormRoot::MDIForm(mdi_form) => {
             println!("MDI Form: {}", form_file.attributes.name);
-            println!("  Caption: {}", properties.caption);
-            println!("  Size: {}x{}", properties.width, properties.height);
-        }
-        _ => {
-            println!("Only Form and MDIForm are valid top level controls in a form file.");
-            return;
+            println!("  Caption: {}", mdi_form.properties.caption);
+            println!("  Size: {}x{}", mdi_form.properties.width, mdi_form.properties.height);
+
+            // Iterate child controls
+            println!("\n  Controls:");
+            for child in &mdi_form.controls {
+                println!("      - {} ({})", child.name(), child.kind());
+            }
         }
     }
-
-    // Iterate child controls
-    println!("\n  Controls:");
-    if let Some(children) = form_file.form.children() {
-        for child in children {
-            println!("      - {} ({})", child.name(), child.kind());
-        }
-    };
 }

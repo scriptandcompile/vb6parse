@@ -132,5 +132,30 @@ harness = false
 name = "form_resources"
 harness = false
 
+# Documentation examples in examples/docs/ subdirectory
+[[example]]
+name = "hello_world"
+path = "examples/docs/hello_world.rs"
+
+[[example]]
+name = "project_parsing"
+path = "examples/docs/project_parsing.rs"
+
+[[example]]
+name = "error_handling"
+path = "examples/docs/error_handling.rs"
+
+[[example]]
+name = "tokenization"
+path = "examples/docs/tokenization.rs"
+
+[[example]]
+name = "cst_navigation_docs"
+path = "examples/docs/cst_navigation.rs"
+
+[[example]]
+name = "form_parsing"
+path = "examples/docs/form_parsing.rs"
+
 [lints.clippy]
 pedantic = "warn"
