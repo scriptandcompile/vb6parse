@@ -7,7 +7,6 @@
 
 use vb6parse::files::FormFile;
 use vb6parse::io::SourceFile;
-use vb6parse::language::ControlKind;
 
 fn main() {
     let input = b"VERSION 5.00
@@ -78,8 +77,7 @@ Attribute VB_Exposed = False
     println!("Form Properties:");
 
     // Extract the properties, controls, and menus from the form root.
-    let vb6parse::language::FormRoot::Form(form) = &form_file.form
-    else {
+    let vb6parse::language::FormRoot::Form(form) = &form_file.form else {
         panic!("Unexpected form kind - expected Form, got MDIForm");
     };
 
@@ -88,7 +86,10 @@ Attribute VB_Exposed = False
     println!("\tBorder Style: {:?}", form.properties.border_style);
     println!("\tMax Button: {:?}", form.properties.max_button);
     println!("\tMin Button: {:?}", form.properties.min_button);
-    println!("\tStartup Position: {:?}", form.properties.start_up_position);
+    println!(
+        "\tStartup Position: {:?}",
+        form.properties.start_up_position
+    );
     println!("\tClient Height: {:?}", form.properties.client_height);
     println!("\tClient Width: {:?}", form.properties.client_width);
     println!("\tLink Topic: {:?}", form.properties.link_topic);
