@@ -50,7 +50,10 @@ End Sub
         vb6parse::language::FormRoot::MDIForm(mdi_form) => {
             println!("MDI Form: {}", form_file.attributes.name);
             println!("  Caption: {}", mdi_form.properties.caption);
-            println!("  Size: {}x{}", mdi_form.properties.width, mdi_form.properties.height);
+            println!(
+                "  Size: {}x{}",
+                mdi_form.properties.width, mdi_form.properties.height
+            );
 
             // Iterate child controls
             println!("\n  Controls:");

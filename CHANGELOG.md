@@ -10,6 +10,7 @@ and this project (tries!) to adheres to [Semantic Versioning](https://semver.org
 ### Changed
 - Removed `winnow` dependency - no longer used in the codebase.
 - Removed `borrow` dependency - no longer used in the codebase.
+- `Getting Started` guide now loads code examples dynamically from GitHub CDN for always-current documentation
 - Renamed `source_file` field to `file_name` in `TokenStream`
 - Made `TokenStream` fields private with accessor methods (`file_name()`, `offset()`)
 - Reorganized module structure: created IO module and Lexer module
@@ -50,6 +51,9 @@ and this project (tries!) to adheres to [Semantic Versioning](https://semver.org
 - Additional missing keywords to language tokens (18+ new keywords including EndKeyword)
 - Improved DateTime literal parsing to correctly handle date/time literals
 - More comprehensive date/time parsing tests
+- Pre-commit hook that runs `cargo check --examples` to prevent example bit-rot
+- Documentation examples in `examples/docs/` directory (hello_world, project_parsing, error_handling, tokenization, cst_navigation, form_parsing)
+- Explicit example declarations in Cargo.toml for examples in subdirectories
 - Support for RmDir statements
 - Support for Resume statements
 - Support for Randomize statements
