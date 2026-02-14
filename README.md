@@ -33,141 +33,16 @@ Add VB6Parse to your `Cargo.toml`:
 vb6parse = "0.5.1"
 ```
 
-### Parse a VB6 Project File
+**📖 [Complete Getting Started Tutorial](https://scriptandcompile.github.io/vb6parse/getting-started.html)** - Step-by-step guide with live examples
 
-```rust
-use vb6parse::*;
+### Quick Links
 
-let input = r#"Type=Exe
-Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#...\stdole2.tlb#OLE Automation
-Module=Module1; Module1.bas
-Form=Form1.frm
-"#;
-
-// Decode source with Windows-1252 encoding (VB6 default)
-let source = SourceFile::from_string("Project1.vbp", input);
-
-// Parse the project
-let result = ProjectFile::parse(&source);
-
-// Handle results
-let (project, failures) = result.unpack();
-
-if let Some(project) = project {
-    println!("Project type: {:?}", project.project_type);
-    println!("Modules: {}", project.modules().count());
-    println!("Forms: {}", project.forms().count());
-}
-
-// Print any parsing errors
-for failure in failures {
-    failure.print();
-}
-```
-
-### Parse a VB6 Module
-
-```rust
-use vb6parse::*;
-
-let code = r#"Attribute VB_Name = "MyModule"
-Public Sub HelloWorld()
-    MsgBox "Hello, World!"
-End Sub
-"#;
-
-let source = SourceFile::from_string("MyModule.bas", code);
-let result = ModuleFile::parse(&source);
-
-let (module, failures) = result.unpack();
-if let Some(module) = module {
-    println!("Module name: {}", module.name);
-}
-```
-
-### Tokenize VB6 Code
-
-```rust
-use vb6parse::*;
-let mut source_stream = SourceStream::new("test.bas", "Dim x As Integer");
-let (token_stream, _failures) = tokenize(&mut source_stream).unpack();
-
-if let Some(tokens) = token_stream {
-    for (text, token) in tokens {
-        println!("{:?}: {:?}", text, token);
-    }
-}
-```
-
-### Parse to Concrete Syntax Tree
-
-```rust
-use vb6parse::*;
-
-let contents = "Sub Test()\n    x = 5\nEnd Sub";
-
-let (tree_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", contents).unpack();
-
-// Print the tree
-if let Some(tree) = tree_opt {
-    println!("{}", tree.debug_tree());
-}
-```
-
-### Navigating the CST
-
-The CST provides rich navigation capabilities for traversing and querying the tree structure:
-
-```rust
-use vb6parse::*;
-use vb6parse::parsers::SyntaxKind;
-
-let source = "Sub Test()\n    Dim x As Integer\n    x = 42\nEnd Sub";
-let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-let root = cst.to_root_node();
-
-// Basic navigation
-let child_count = root.child_count();
-let first = root.first_child();
-
-// Find by kind
-let sub_stmt = root.find(SyntaxKind::SubStatement); // First match
-let all_dims = root.find_all(SyntaxKind::DimStatement); // All matches
-
-// Filter children
-let non_tokens: Vec<_> = root.non_token_children().collect();
-let significant: Vec<_> = root.significant_children().collect();
-
-// Custom search with predicates
-let keywords = root.find_all_if(|n| n.kind().to_string().ends_with("Keyword"));
-let complex = root.find_all_if(|n| !n.is_token() && n.children().len() > 5);
-
-// Iterate all nodes depth-first
-for node in root.descendants() {
-    if node.is_significant() {
-        println!("{:?}: {}", node.kind(), node.text());
-    }
-
-    // Convenience checkers
-    if node.is_comment() || node.is_whitespace() {
-        // Skip trivia
-    }
-}
-```
-
-**Available Navigation Methods:**
-
-Both `ConcreteSyntaxTree` and `CstNode` provide:
-- **Basic:** `child_count()`, `first_child()`, `last_child()`, `child_at()`
-- **By Kind:** `children_by_kind()`, `first_child_by_kind()`, `contains_kind()`
-- **Recursive:** `find()`, `find_all()`
-- **Filtering:** `non_token_children()`, `token_children()`, `significant_children()`
-- **Predicates:** `find_if()`, `find_all_if()`
-- **Traversal:** `descendants()`, `depth_first_iter()`
-
-CstNode also provides: `is_whitespace()`, `is_newline()`, `is_comment()`, `is_trivia()`, `is_significant()`
-
-**See also:** [examples/cst_navigation.rs](examples/cst_navigation.rs) for comprehensive examples.
+- **[Parse a VB6 Module](https://scriptandcompile.github.io/vb6parse/getting-started.html#hello-world)** - First example: parse a simple VB6 module
+- **[Parse VB6 Projects](https://scriptandcompile.github.io/vb6parse/getting-started.html#project-parsing)** - Work with .vbp project files
+- **[Handle Parse Errors](https://scriptandcompile.github.io/vb6parse/getting-started.html#error-handling)** - Graceful error handling
+- **[Tokenize VB6 Code](https://scriptandcompile.github.io/vb6parse/getting-started.html#tokenization)** - Lower-level tokenization
+- **[Navigate the CST](https://scriptandcompile.github.io/vb6parse/getting-started.html#cst-navigation)** - Work with Concrete Syntax Trees
+- **[Parse Forms & Controls](https://scriptandcompile.github.io/vb6parse/getting-started.html#form-parsing)** - Parse VB6 forms
 
 ## API Surface
 
@@ -303,6 +178,10 @@ src/
 
 ## Common Tasks
 
+**For basic usage examples, see the [Getting Started Guide](https://scriptandcompile.github.io/vb6parse/getting-started.html).**
+
+The following examples show advanced use cases and patterns:
+
 ### 1. Extract All Form Controls
 
 ```rust
@@ -362,24 +241,24 @@ fn count_identifiers(code: &str, function_name: &str) -> usize {
 
 ### Error Handling
 
-VB6Parse uses a custom `ParseResult<T, E>` type that separates successful results from recoverable errors:
+VB6Parse uses a custom `ParseResult<T, E>` type that separates successful results from recoverable errors. See the [Error Handling guide](https://scriptandcompile.github.io/vb6parse/getting-started.html#error-handling) for detailed examples.
+
+**Quick Reference:**
 
 ```rust
-use vb6parse::*;
-
 let result = ProjectFile::parse(&source);
 
-// Option 1: Unpack into result and failures
+// Unpack into result and failures
 let (project_opt, failures) = result.unpack();
 
-// Option 2: Check for failures first
+// Check for failures
 if result.has_failures() {
     for failure in result.failures() {
         eprintln!("Error at line {}: {:?}", failure.error_offset, failure.kind);
     }
 }
 
-// Option 3: Convert to Result<T, Vec<ErrorDetails>>
+// Convert to Result<T, Vec<ErrorDetails>>
 let std_result = result.ok_or_errors();
 ```
 
@@ -748,6 +627,17 @@ All examples are located in the [examples/](examples/) directory:
 | [parse_project.rs](examples/parse_project.rs) | Parse project files |
 | [sourcestream.rs](examples/sourcestream.rs) | Work with character streams |
 | [tokenstream.rs](examples/tokenstream.rs) | Tokenize VB6 code |
+
+**Documentation Examples** (used in [Getting Started guide](https://scriptandcompile.github.io/vb6parse/getting-started.html)):
+
+| Example | Description |
+|---------|-------------|
+| [docs/hello_world.rs](examples/docs/hello_world.rs) | First parse example - simple VB6 module |
+| [docs/project_parsing.rs](examples/docs/project_parsing.rs) | Parse VB6 project files (.vbp) |
+| [docs/error_handling.rs](examples/docs/error_handling.rs) | Handle parse errors gracefully |
+| [docs/tokenization.rs](examples/docs/tokenization.rs) | Tokenize VB6 code |
+| [docs/cst_navigation.rs](examples/docs/cst_navigation.rs) | Navigate the Concrete Syntax Tree |
+| [docs/form_parsing.rs](examples/docs/form_parsing.rs) | Parse VB6 forms with controls |
 
 Run any example with:
 

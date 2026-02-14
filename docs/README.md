@@ -23,10 +23,15 @@ The site will be available at: `https://scriptandcompile.github.io/vb6parse`
 ```
 docs/
 ├── index.html - Homepage
-├── getting-started.html - Getting started guide
+├── getting-started.html - Getting started guide (loads examples from GitHub CDN)
 ├── documentation.html - API documentation
 ├── benchmarks.html - Benchmark results page
 ├── coverage.html - Test coverage page
+├── library/ - VB6 Library Reference (generated)
+│   ├── index.html - Library index
+│   ├── search-index.json - Search data
+│   ├── functions/ - Function documentation (generated)
+│   └── statements/ - Statement documentation (generated)
 ├── assets/
 │   ├── css/ - Stylesheets
 │   │   ├── style.css - Main stylesheet
@@ -46,23 +51,31 @@ docs/
 └── README.md - This file
 ```
 
+## Getting Started Examples
+
+The `getting-started.html` page dynamically loads code examples from `examples/docs/` via GitHub CDN. This ensures:
+- Documentation always shows current, working code
+- Examples are verified by pre-commit hooks (`cargo check --examples`)
+- No duplication between docs and repository
+
 ## Updating
 
 When updating the website:
 
 1. Edit HTML files for content changes
-2. Edit CSS files in `assets/css/` for styling changes
+2. Edit CSS files in `assets/css/` for styling changes  
 3. Edit JS files in `assets/js/` for functionality changes
 4. Test locally by opening `index.html` in a browser
-5. Regenerate data files:
-   - Run `./scripts/generate-benchmarks.py` for benchmark data
-   - Run `./scripts/generate-coverage.py` for coverage data
-6. Commit and push changes
-7. GitHub Pages will automatically rebuild
+5. **Getting Started examples:** Edit files in `examples/docs/` (automatically loaded via CDN)
+6. Regenerate data files:
+   - Run `python3 scripts/generate-library-docs.py` for library reference
+   - Run `python3 scripts/generate-benchmarks.py` for benchmark data
+   - Run `python3 scripts/generate-coverage.py` for coverage data
+7. Commit and push changes
+8. GitHub Pages will automatically rebuild
 
 ## Future Enhancements
 
 Potential additions:
-- Coverage reports integration.
-- Benchmark report integration.
-- Interactive examples.
+- More interactive examples
+- WebAssembly-based live parser demo

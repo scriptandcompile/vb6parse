@@ -12,6 +12,7 @@ Here are some other ideas for contributions, categorized by difficulty:
 
 *   **Improve Documentation:**
     *   Add more examples to the `examples/` directory for parsing different VB6 constructs.
+    *   Add documentation examples to `examples/docs/` for the Getting Started guide (loaded dynamically from GitHub).
     *   Expand the documentation for the `language` and `syntax` modules. Many of the enums and structs could benefit from more detailed explanations and examples.
     *   Document the error types in the `errors` module more thoroughly.
     *   Add or improve documentation in `src/syntax/library/functions` and `src/syntax/library/statements` (documentation is automatically published to the website).
@@ -35,6 +36,20 @@ Here are some other ideas for contributions, categorized by difficulty:
 2.  Install the Rust toolchain: `rustup-init.sh`
 3.  Initialize the git submodules: `git submodule update --init --recursive`
 4.  Run the tests to make sure everything is working: `cargo test`
+
+### Pre-commit Hooks
+
+A pre-commit hook ensures all examples compile before commits:
+
+```bash
+# The hook runs automatically before each commit
+# It executes: cargo check --examples
+
+# To run manually:
+cargo check --examples
+```
+
+The hook is located at `.git/hooks/pre-commit` and helps prevent example bit-rot.
 
 ## Documentation Generation
 

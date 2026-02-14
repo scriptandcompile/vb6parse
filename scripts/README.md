@@ -2,6 +2,8 @@
 
 This directory contains scripts for generating documentation, test coverage, and performance benchmark data for the VB6Parse documentation site.
 
+**Note:** The `Getting Started` guide (`docs/getting-started.html`) now loads code examples dynamically from GitHub CDN. Examples in `examples/docs/` are loaded at page load time, ensuring documentation always shows current, working code.
+
 ## Scripts
 
 ### `generate-library-docs.py`
