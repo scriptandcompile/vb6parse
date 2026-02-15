@@ -231,9 +231,9 @@ pub struct ErrorDetails<'a> {
     /// Note: This is a u32 to reflect VB6's 32-bit addressing limitations.
     pub line_end: u32,
     /// The kind of error that occurred.
-    /// Boxed to reduce the size of Result<T, ErrorDetails> on the stack.
+    /// Boxed to reduce the size of `Result<T, ErrorDetails>` on the stack.
     pub kind: Box<ErrorKind>,
-    /// The severity of this diagnostic (Error, Warning, or Note).
+    /// The severity of this diagnostic (`Error`, `Warning`, or `Note`).
     pub severity: Severity,
     /// Additional labeled spans for multi-span diagnostics.
     /// This allows annotating multiple locations in the source code
