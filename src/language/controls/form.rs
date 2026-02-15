@@ -11,7 +11,7 @@ use std::fmt::Display;
 use std::str::FromStr;
 
 use crate::{
-    errors::{FormError, ErrorKind},
+    errors::{ErrorKind, FormError},
     files::common::Properties,
     language::{
         controls::{
@@ -549,12 +549,12 @@ impl Display for ShowInTaskbar {
     }
 }
 
-/// Properties for a `Form` control.
+/// Properties for a `Form`.
 ///
 /// This is used as an enum variant of
-/// [`ControlKind::Form`](crate::language::controls::ControlKind::Form).
+/// [`FormRoot::Form`](crate::language::controls::FormRoot).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`Control`](crate::language::controls::Control) struct.
+/// of the parent [`Form`](crate::language::controls::Form) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct FormProperties {
     /// The appearance of the form.

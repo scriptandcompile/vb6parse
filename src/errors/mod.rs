@@ -1,14 +1,13 @@
 //! Module containing the error types used in the VB6 parser.
 //!
 //! This module is organized by the layer or file type that produces the error:
-//! - [`decode`] - Source file decoding errors (Windows-1252, malformed files)
-//! - [`tokenize`] - Tokenization and basic code parsing errors
 //! - [`resource`] - Form resource file (FRX) parsing errors
 //! - [`class`] - Class file (CLS) specific errors
 //! - [`module`] - Module file (BAS) specific errors
 //! - [`project`] - Project file (VBP) specific errors
 //! - [`form`] - Form file (FRM) specific errors
-//! - [`property`] - Property value validation errors
+//! - [`lexer`] - Lexing errors
+//! - [`source`] - Source file decoding errors
 //!
 //! The [`ErrorDetails`] type is the central error container that wraps any of these
 //! error kinds along with source location information for diagnostic reporting.

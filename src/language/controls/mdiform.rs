@@ -18,12 +18,12 @@ use crate::language::{
 use image::DynamicImage;
 use serde::Serialize;
 
-/// Properties for a `MDIForm` control.
+/// Properties for a `MDIForm`.
 ///
-/// This is used as an enum variant of
-/// [`ControlKind::MDIForm`](crate::language::controls::ControlKind::MDIForm).
+/// This is used as an enum variant of `FormRoot`
+/// [`FormRoot::MDIForm`](crate::language::controls::FormRoot).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`Control`](crate::language::controls::Control) struct.
+/// of the parent [`MDIForm`](crate::language::controls::MDIForm) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct MDIFormProperties {
     /// Appearance of the MDI form.
