@@ -11,7 +11,7 @@ pub mod properties;
 use std::fmt::Display;
 
 use crate::{
-    errors::{ClassError, ErrorKind},
+    errors::ClassError,
     files::{
         class::properties::{ClassHeader, ClassProperties},
         common::{extract_attributes, extract_version},
@@ -121,7 +121,7 @@ impl ClassFile {
         let Some(version) = extract_version(&cst) else {
             let error = source_file
                 .source_stream()
-                .generate_error(ErrorKind::Class(ClassError::VersionKeywordMissing));
+                .generate_error(ClassError::VersionKeywordMissing);
             failures.push(error);
 
             return ParseResult::new(None, failures);

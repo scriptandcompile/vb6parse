@@ -52,14 +52,36 @@ pub use source::SourceFileError;
 /// # Ergonomic Conversions
 ///
 /// All layer-specific error types implement `From` conversion to `ErrorKind`,
-/// allowing automatic conversion:
+/// allowing automatic conversion. The error generation methods on [`SourceStream`]
+/// and [`ErrorDetails::basic()`] accept any type that implements `Into<ErrorKind>`,
+/// so you can pass layer-specific errors directly without wrapping:
 ///
 /// ```rust
-/// use vb6parse::errors::{ErrorKind, LexerError};
+/// use vb6parse::io::SourceStream;
+/// use vb6parse::errors::{ErrorKind, LexerError, ModuleError};
 ///
-/// let lexer_error = LexerError::UnknownToken { token: "???".to_string() };
-/// let error_kind: ErrorKind = lexer_error.into();
+/// let stream = SourceStream::new("test.bas", "Dim x");
+///
+/// // Old way - manual wrapping:
+/// let error1 = stream.generate_error(ErrorKind::Lexer(
+///     LexerError::UnknownToken { token: "???".to_string() }
+/// ));
+///
+/// // New way - automatic conversion:
+/// let error2 = stream.generate_error(
+///     LexerError::UnknownToken { token: "???".to_string() }
+/// );
+///
+/// // Works with all layer-specific error types:
+/// let error3 = stream.generate_error(
+///     ModuleError::AttributeKeywordMissing
+/// );
 /// ```
+///
+/// This also works with [`ErrorDetails::basic()`] and all three `generate_error*`
+/// methods on [`SourceStream`].
+///
+/// [`SourceStream`]: crate::io::SourceStream
 #[derive(thiserror::Error, Debug, Clone, PartialEq, Eq)]
 pub enum ErrorKind {
     /// Lexer and tokenization errors.
@@ -249,23 +271,29 @@ impl<'a> ErrorDetails<'a> {
     ///
     /// This is a convenience constructor for the common case where
     /// only the basic error information is needed.
+    ///
+    /// Accepts any error type that can be converted to `ErrorKind`, including
+    /// layer-specific errors like `LexerError`, `ModuleError`, `ProjectError`, etc.
     #[must_use]
-    pub fn basic(
+    pub fn basic<E>(
         source_name: Box<str>,
         source_content: &'a str,
         error_offset: u32,
         line_start: u32,
         line_end: u32,
-        kind: ErrorKind,
+        kind: E,
         severity: Severity,
-    ) -> ErrorDetails<'a> {
+    ) -> ErrorDetails<'a>
+    where
+        E: Into<ErrorKind>,
+    {
         ErrorDetails {
             source_name,
             source_content,
             error_offset,
             line_start,
             line_end,
-            kind: Box::new(kind),
+            kind: Box::new(kind.into()),
             severity,
             labels: Vec::new(),
             notes: Vec::new(),
@@ -480,5 +508,81 @@ impl ErrorDetails<'_> {
         let text = String::from_utf8(buf.clone())?;
 
         Ok(text)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::io::SourceStream;
+
+    #[test]
+    fn test_automatic_error_conversion() {
+        // Test that layer-specific errors can be automatically converted to ErrorKind
+        // and used with generate_error methods
+
+        let stream = SourceStream::new("test.bas", "Dim x As Integer");
+
+        // Test with LexerError
+        let _error1 = stream.generate_error(LexerError::UnknownToken {
+            token: "???".to_string(),
+        });
+
+        // Test with ModuleError
+        let _error2 = stream.generate_error(ModuleError::AttributeKeywordMissing);
+
+        // Test with ClassError
+        let _error3 = stream.generate_error(ClassError::VersionKeywordMissing);
+
+        // Test with ProjectError
+        let _error4 = stream.generate_error(ProjectError::UnterminatedSectionHeader);
+
+        // Test that ErrorDetails::basic also accepts layer-specific errors
+        let _error5 = ErrorDetails::basic(
+            "test.bas".to_string().into_boxed_str(),
+            "Dim x",
+            0,
+            0,
+            5,
+            FormError::VersionKeywordMissing,
+            Severity::Error,
+        );
+
+        // All of the above should compile without needing manual ErrorKind wrapping
+    }
+
+    #[test]
+    fn test_error_kind_conversion() {
+        // Test that Into<ErrorKind> works for all layer-specific error types
+        let lexer_err: ErrorKind = LexerError::UnknownToken {
+            token: "test".to_string(),
+        }
+        .into();
+        assert!(matches!(lexer_err, ErrorKind::Lexer(_)));
+
+        let module_err: ErrorKind = ModuleError::AttributeKeywordMissing.into();
+        assert!(matches!(module_err, ErrorKind::Module(_)));
+
+        let class_err: ErrorKind = ClassError::VersionKeywordMissing.into();
+        assert!(matches!(class_err, ErrorKind::Class(_)));
+
+        let project_err: ErrorKind = ProjectError::UnterminatedSectionHeader.into();
+        assert!(matches!(project_err, ErrorKind::Project(_)));
+
+        let form_err: ErrorKind = FormError::VersionKeywordMissing.into();
+        assert!(matches!(form_err, ErrorKind::Form(_)));
+
+        let resource_err: ErrorKind = ResourceError::OffsetOutOfBounds {
+            offset: 0,
+            file_length: 10,
+        }
+        .into();
+        assert!(matches!(resource_err, ErrorKind::Resource(_)));
+
+        let source_err: ErrorKind = SourceFileError::Malformed {
+            message: "test".to_string(),
+        }
+        .into();
+        assert!(matches!(source_err, ErrorKind::SourceFile(_)));
     }
 }

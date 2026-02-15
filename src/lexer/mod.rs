@@ -59,7 +59,7 @@ pub use token_stream::TokenStream;
 use phf::{phf_ordered_map, OrderedMap};
 
 use crate::{
-    errors::{ErrorKind, LexerError},
+    errors::LexerError,
     io::SourceStream,
     parsers::{Comparator, ParseResult},
 };
@@ -398,9 +398,9 @@ pub fn tokenize<'a>(input: &mut SourceStream<'a>) -> ParseResult<'a, TokenStream
         }
 
         if let Some(token_text) = input.take_count(1) {
-            let error = input.generate_error(ErrorKind::Lexer(LexerError::UnknownToken {
+            let error = input.generate_error(LexerError::UnknownToken {
                 token: token_text.into(),
-            }));
+            });
 
             failures.push(error);
         }
