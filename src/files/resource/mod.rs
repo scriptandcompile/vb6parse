@@ -9,7 +9,7 @@ use std::collections::HashMap;
 use std::fmt::Display;
 use std::path::Path;
 
-use crate::errors::{ResourceError, ErrorDetails, ErrorKind};
+use crate::errors::{ErrorDetails, ErrorKind, ResourceError};
 use crate::ParseResult;
 
 /// Represents a parsed VB6 Form Resource file (.frx).
@@ -287,7 +287,7 @@ impl FormResourceFile {
                         error_offset: u32::try_from(metadata.offset).unwrap_or(0),
                         line_start: 0,
                         line_end: 0,
-                        kind: err,
+                        kind: Box::new(err),
                         severity: crate::errors::Severity::Error,
                         labels: vec![],
                         notes: vec![],
@@ -378,7 +378,7 @@ impl FormResourceFile {
                         error_offset: u32::try_from(offset).unwrap_or(0),
                         line_start: 0,
                         line_end: 0,
-                        kind: err,
+                        kind: Box::new(err),
                         severity: crate::errors::Severity::Error,
                         labels: vec![],
                         notes: vec![],

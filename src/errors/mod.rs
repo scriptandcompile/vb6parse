@@ -232,7 +232,8 @@ pub struct ErrorDetails<'a> {
     /// Note: This is a u32 to reflect VB6's 32-bit addressing limitations.
     pub line_end: u32,
     /// The kind of error that occurred.
-    pub kind: ErrorKind,
+    /// Boxed to reduce the size of Result<T, ErrorDetails> on the stack.
+    pub kind: Box<ErrorKind>,
     /// The severity of this diagnostic (Error, Warning, or Note).
     pub severity: Severity,
     /// Additional labeled spans for multi-span diagnostics.
@@ -265,7 +266,7 @@ impl<'a> ErrorDetails<'a> {
             error_offset,
             line_start,
             line_end,
-            kind,
+            kind: Box::new(kind),
             severity,
             labels: Vec::new(),
             notes: Vec::new(),
