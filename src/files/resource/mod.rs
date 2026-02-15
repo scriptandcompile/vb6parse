@@ -291,6 +291,7 @@ impl FormResourceFile {
                         line_start: 0,
                         line_end: 0,
                         kind: err,
+                        severity: crate::errors::Severity::Error,
                     });
                 }
             }
@@ -381,6 +382,7 @@ impl FormResourceFile {
                         line_start: 0,
                         line_end: 0,
                         kind: err,
+                        severity: crate::errors::Severity::Error,
                     });
                     // Skip to next byte and try again
                     offset += 1;

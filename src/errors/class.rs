@@ -121,6 +121,7 @@ impl<'a> From<ErrorDetails<'a, CodeErrorKind>> for ErrorDetails<'a, ClassErrorKi
             kind: ClassErrorKind::ClassTokenError {
                 code_error: value.kind,
             },
+            severity: value.severity,
         }
     }
 }

@@ -49,6 +49,7 @@ impl<'a> From<ErrorDetails<'a, CodeErrorKind>> for ErrorDetails<'a, ModuleErrorK
             kind: ModuleErrorKind::ModuleTokenError {
                 code_error: value.kind,
             },
+            severity: value.severity,
         }
     }
 }

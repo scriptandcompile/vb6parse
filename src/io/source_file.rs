@@ -33,7 +33,7 @@ use std::fs;
 use std::path::Path;
 use std::sync::Arc;
 
-use crate::errors::{ErrorDetails, SourceFileErrorKind};
+use crate::errors::{ErrorDetails, Severity, SourceFileErrorKind};
 use crate::io::SourceStream;
 
 use encoding_rs::{mem::utf8_latin1_up_to, CoderResult, WINDOWS_1252};
@@ -155,6 +155,7 @@ impl SourceFile {
             source_name: path.display().to_string().into_boxed_str(),
             line_start: 0,
             line_end: 0,
+            severity: Severity::Error,
         })?;
 
         // Extract the filename from the path
@@ -172,6 +173,7 @@ impl SourceFile {
             source_name: err.source_name,
             line_start: err.line_start,
             line_end: err.line_end,
+            severity: err.severity,
         })
     }
 
@@ -245,6 +247,7 @@ impl SourceFile {
                 source_name: file_name.into_boxed_str(),
                 line_start: 0,
                 line_end: 0,
+                severity: Severity::Error,
             });
         };
 
@@ -304,6 +307,7 @@ Currently, only latin-1 source code is supported.",
                 error_offset: u32::try_from(error_offset).unwrap_or(0),
                 line_start: 0,
                 line_end: u32::try_from(decoded_len).unwrap_or(0),
+                severity: Severity::Error,
             };
 
             return Err(details);
