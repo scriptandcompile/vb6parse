@@ -163,7 +163,6 @@ use crate::io::{SourceFile, SourceStream};
 use crate::language::{Form, FormProperties, FormRoot, Token};
 use crate::lexer::{tokenize, TokenStream};
 use crate::parsers::SyntaxKind;
-use crate::CodeErrorKind;
 use crate::ParseResult;
 
 use rowan::{GreenNode, GreenNodeBuilder, Language};
@@ -252,7 +251,7 @@ impl ConcreteSyntaxTree {
     ///
     /// A result containing the parsed CST or an error.
     #[must_use]
-    pub fn from_source(source_file: &SourceFile) -> ParseResult<'_, Self, CodeErrorKind> {
+    pub fn from_source(source_file: &SourceFile) -> ParseResult<'_, Self> {
         Self::from_text(
             source_file.file_name().to_string(),
             source_file.source_stream().contents,
@@ -269,7 +268,7 @@ impl ConcreteSyntaxTree {
     /// # Returns
     ///
     /// A result containing the parsed CST or an error.
-    pub fn from_text<S>(file_name: S, contents: &str) -> ParseResult<'_, Self, CodeErrorKind>
+    pub fn from_text<S>(file_name: S, contents: &str) -> ParseResult<'_, Self>
     where
         S: Into<String>,
     {
@@ -527,8 +526,7 @@ impl<'a> Parser<'a> {
     /// - `failures`: Empty vec (no errors generated for missing VERSION)
     pub(crate) fn parse_version_direct(
         &mut self,
-    ) -> crate::ParseResult<'a, crate::files::common::FileFormatVersion, crate::errors::FormErrorKind>
-    {
+    ) -> crate::ParseResult<'a, crate::files::common::FileFormatVersion> {
         use crate::files::common::FileFormatVersion;
 
         self.skip_whitespace();
@@ -1153,7 +1151,7 @@ impl<'a> Parser<'a> {
         properties: crate::files::common::Properties,
         child_controls: Vec<crate::language::Control>,
         menus: Vec<crate::language::MenuControl>,
-    ) -> Result<crate::language::FormRoot, crate::errors::FormErrorKind> {
+    ) -> Result<crate::language::FormRoot, crate::errors::ErrorKind> {
         use crate::language::{Form, FormRoot, MDIForm};
 
         match control_type {
@@ -1173,9 +1171,9 @@ impl<'a> Parser<'a> {
                 controls: child_controls,
                 menus,
             })),
-            _ => Err(crate::errors::FormErrorKind::InvalidTopLevelControl(
-                control_type.to_string(),
-            )),
+            _ => Err(crate::errors::ErrorKind::FormInvalidTopLevelControl {
+                control_type: control_type.to_string(),
+            }),
         }
     }
 
@@ -1270,7 +1268,7 @@ impl<'a> Parser<'a> {
     /// Phase 4: Full implementation with nested controls and property groups
     pub(crate) fn parse_properties_block_to_control(
         &mut self,
-    ) -> crate::ParseResult<'a, crate::language::Control, crate::errors::FormErrorKind> {
+    ) -> crate::ParseResult<'a, crate::language::Control> {
         use crate::files::common::Properties;
         use crate::language::Control;
 
@@ -1392,7 +1390,7 @@ impl<'a> Parser<'a> {
     /// along with any parsing failures encountered.
     pub(crate) fn parse_properties_block_to_form_root(
         &mut self,
-    ) -> crate::ParseResult<'a, crate::language::FormRoot, crate::errors::FormErrorKind> {
+    ) -> crate::ParseResult<'a, crate::language::FormRoot> {
         use crate::files::common::Properties;
 
         self.skip_whitespace();

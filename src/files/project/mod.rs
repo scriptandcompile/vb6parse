@@ -16,7 +16,7 @@ use strum::{EnumMessage, IntoEnumIterator};
 use uuid::Uuid;
 
 use crate::{
-    errors::{ErrorDetails, ProjectErrorKind},
+    errors::{ErrorDetails, ErrorKind},
     files::common::ObjectReference,
     files::project::{
         compilesettings::CompilationType,
@@ -198,8 +198,8 @@ impl Display for ProjectClassReference<'_> {
 ///
 /// Contains the parsed `ProjectFile` and any `ProjectErrorKind` errors encountered during parsing.
 ///
-/// This is a type alias for `ParseResult<'a, ProjectFile<'a>, ProjectErrorKind<'a>>`.
-pub type ProjectResult<'a> = ParseResult<'a, ProjectFile<'a>, ProjectErrorKind<'a>>;
+/// This is a type alias for `ParseResult<'a, ProjectFile<'a>>`.
+pub type ProjectResult<'a> = ParseResult<'a, ProjectFile<'a>>;
 
 impl<'a> ProjectFile<'a> {
     ///
@@ -1021,12 +1021,8 @@ impl<'a> ProjectFile<'a> {
 /// Property handlers take a mutable reference to the project being built,
 /// a mutable reference to the input stream, the property name, and a mutable
 /// reference to the failures vector for error collection.
-type PropertyHandler<'a> = fn(
-    &mut ProjectFile<'a>,
-    &mut SourceStream<'a>,
-    &'a str,
-    &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
-);
+type PropertyHandler<'a> =
+    fn(&mut ProjectFile<'a>, &mut SourceStream<'a>, &'a str, &mut Vec<ErrorDetails<'a>>);
 
 /// Registry of property handlers for dispatching property parsing.
 ///
@@ -1145,7 +1141,7 @@ impl<'a> PropertyHandlers<'a> {
         property_name: &'a str,
         project: &mut ProjectFile<'a>,
         input: &mut SourceStream<'a>,
-        failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+        failures: &mut Vec<ErrorDetails<'a>>,
     ) -> bool {
         if let Some(handler) = self.handlers.get(property_name) {
             handler(project, input, property_name, failures);
@@ -1210,7 +1206,7 @@ fn handle_other_property<'a>(
     input: &mut SourceStream<'a>,
     group: &'a str,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     let property_value = match parse_property_value(input, property_name) {
         Ok(property_value) => property_value,
@@ -1240,14 +1236,14 @@ fn handle_unknown_property<'a>(
     input: &mut SourceStream<'a>,
     line_start: usize,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     input.forward_to_next_line();
 
     let e = input.generate_error_at(
         line_start,
-        ProjectErrorKind::ParameterLineUnknown {
-            parameter_line_name: property_name,
+        ErrorKind::ProjectParameterLineUnknown {
+            parameter_line_name: property_name.to_string(),
         },
     );
     failures.push(e);
@@ -1270,7 +1266,7 @@ fn handle_type<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_converted_value(input, property_name) {
         Ok(project_type_value) => project.project_type = project_type_value,
@@ -1282,7 +1278,7 @@ fn handle_designer<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_path_line(input, property_name) {
         Ok(designer) => project.designers.push(designer),
@@ -1294,7 +1290,7 @@ fn handle_reference<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     _property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_reference(input) {
         Ok(reference) => project.references.push(reference),
@@ -1306,7 +1302,7 @@ fn handle_object<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     _property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_object(input) {
         Ok(object) => project.objects.push(object),
@@ -1318,7 +1314,7 @@ fn handle_module<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     _property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_module(input) {
         Ok(module) => project.modules.push(module),
@@ -1330,7 +1326,7 @@ fn handle_class<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     _property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_class(input) {
         Ok(class) => project.classes.push(class),
@@ -1342,7 +1338,7 @@ fn handle_form<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_path_line(input, property_name) {
         Ok(form) => project.forms.push(form),
@@ -1354,7 +1350,7 @@ fn handle_user_control<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_path_line(input, property_name) {
         Ok(user_control) => project.user_controls.push(user_control),
@@ -1366,7 +1362,7 @@ fn handle_user_document<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_path_line(input, property_name) {
         Ok(user_document) => project.user_documents.push(user_document),
@@ -1378,7 +1374,7 @@ fn handle_related_doc<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_path_line(input, property_name) {
         Ok(related_document) => project.related_documents.push(related_document),
@@ -1390,7 +1386,7 @@ fn handle_property_page<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_path_line(input, property_name) {
         Ok(property_page_value) => project.property_pages.push(property_page_value),
@@ -1402,7 +1398,7 @@ fn handle_res_file_32<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_quoted_value(input, property_name) {
         Ok(res_32_file) => project.properties.res_file_32_path = res_32_file,
@@ -1414,7 +1410,7 @@ fn handle_icon_form<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_quoted_value(input, property_name) {
         Ok(icon_form_value) => project.properties.icon_form = icon_form_value,
@@ -1426,7 +1422,7 @@ fn handle_startup<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_optional_quoted_value(input, property_name) {
         Ok(startup_value) => project.properties.startup = startup_value,
@@ -1438,7 +1434,7 @@ fn handle_help_file<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_quoted_value(input, property_name) {
         Ok(help_file) => project.properties.help_file_path = help_file,
@@ -1450,7 +1446,7 @@ fn handle_title<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_quoted_value(input, property_name) {
         Ok(title_value) => project.properties.title = title_value,
@@ -1462,7 +1458,7 @@ fn handle_exe_name_32<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_quoted_value(input, property_name) {
         Ok(exe_32_file_name_value) => project.properties.exe_32_file_name = exe_32_file_name_value,
@@ -1474,7 +1470,7 @@ fn handle_path_32<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_quoted_value(input, property_name) {
         Ok(path_32_value) => project.properties.path_32 = path_32_value,
@@ -1486,7 +1482,7 @@ fn handle_command_32<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_optional_quoted_value(input, property_name) {
         Ok(command_line_arguments_value) => {
@@ -1500,7 +1496,7 @@ fn handle_name<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_optional_quoted_value(input, property_name) {
         Ok(name_value) => project.properties.name = name_value,
@@ -1512,7 +1508,7 @@ fn handle_description<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_quoted_value(input, property_name) {
         Ok(description_value) => project.properties.description = description_value,
@@ -1524,7 +1520,7 @@ fn handle_major_ver<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_numeric(input, property_name) {
         Ok(major_value) => project.properties.version_info.major = major_value,
@@ -1536,7 +1532,7 @@ fn handle_minor_ver<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_numeric(input, property_name) {
         Ok(minor_value) => project.properties.version_info.minor = minor_value,
@@ -1548,7 +1544,7 @@ fn handle_revision_ver<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_numeric(input, property_name) {
         Ok(revision_value) => project.properties.version_info.revision = revision_value,
@@ -1560,7 +1556,7 @@ fn handle_auto_increment_ver<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_numeric(input, property_name) {
         Ok(auto_increment_revision_value) => {
@@ -1574,7 +1570,7 @@ fn handle_version_company_name<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_quoted_value(input, property_name) {
         Ok(company_name_value) => project.properties.version_info.company_name = company_name_value,
@@ -1586,7 +1582,7 @@ fn handle_version_file_description<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_quoted_value(input, property_name) {
         Ok(file_description_value) => {
@@ -1600,7 +1596,7 @@ fn handle_version_legal_copyright<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_quoted_value(input, property_name) {
         Ok(copyright_value) => project.properties.version_info.copyright = copyright_value,
@@ -1612,7 +1608,7 @@ fn handle_version_legal_trademarks<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_quoted_value(input, property_name) {
         Ok(trademark_value) => project.properties.version_info.trademark = trademark_value,
@@ -1624,7 +1620,7 @@ fn handle_version_product_name<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_quoted_value(input, property_name) {
         Ok(product_name_value) => project.properties.version_info.product_name = product_name_value,
@@ -1636,7 +1632,7 @@ fn handle_version_comments<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_quoted_value(input, property_name) {
         Ok(comments_value) => project.properties.version_info.comments = comments_value,
@@ -1648,7 +1644,7 @@ fn handle_help_context_id<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_quoted_value(input, property_name) {
         Ok(help_context_id_value) => project.properties.help_context_id = help_context_id_value,
@@ -1660,7 +1656,7 @@ fn handle_compatible_mode<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_quoted_converted_value(input, property_name) {
         Ok(compatibility_mode_value) => {
@@ -1674,7 +1670,7 @@ fn handle_version_compatible_32<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_quoted_value(input, property_name) {
         Ok(version_32_compatibility_value) => {
@@ -1688,7 +1684,7 @@ fn handle_compatible_exe_32<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_quoted_value(input, property_name) {
         Ok(exe_32_compatible_value) => {
@@ -1702,7 +1698,7 @@ fn handle_dll_base_address<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     _property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_dll_base_address(input) {
         Ok(dll_base_address_value) => project.properties.dll_base_address = dll_base_address_value,
@@ -1714,7 +1710,7 @@ fn handle_remove_unused_control_info<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_converted_value(input, property_name) {
         Ok(unused_control_info_value) => {
@@ -1728,7 +1724,7 @@ fn handle_compilation_type<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_numeric(input, property_name) {
         Ok(compilation_type) => project.properties.compilation_type = compilation_type,
@@ -1740,7 +1736,7 @@ fn handle_optimization_type<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_converted_value(input, property_name) {
         Ok(optimization_type_value) => {
@@ -1757,7 +1753,7 @@ fn handle_favor_pentium_pro<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_converted_value(input, property_name) {
         Ok(favor_pentium_pro_value) => {
@@ -1774,7 +1770,7 @@ fn handle_code_view_debug_info<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_converted_value(input, property_name) {
         Ok(code_view_debug_info_value) => {
@@ -1791,7 +1787,7 @@ fn handle_no_aliasing<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_converted_value(input, property_name) {
         Ok(aliasing_value) => {
@@ -1808,7 +1804,7 @@ fn handle_bounds_check<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_converted_value(input, property_name) {
         Ok(bounds_check_value) => {
@@ -1825,7 +1821,7 @@ fn handle_overflow_check<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_converted_value(input, property_name) {
         Ok(overflow_check_value) => {
@@ -1842,7 +1838,7 @@ fn handle_fl_point_check<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_converted_value(input, property_name) {
         Ok(floating_point_check_value) => {
@@ -1859,7 +1855,7 @@ fn handle_fdiv_check<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_converted_value(input, property_name) {
         Ok(pentium_fdiv_bug_check_value) => {
@@ -1876,7 +1872,7 @@ fn handle_unrounded_fp<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_converted_value(input, property_name) {
         Ok(unrounded_floating_point_value) => {
@@ -1893,7 +1889,7 @@ fn handle_cond_comp<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_quoted_value(input, property_name) {
         Ok(conditional_compile_value) => {
@@ -1907,7 +1903,7 @@ fn handle_start_mode<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_converted_value(input, property_name) {
         Ok(start_mode_value) => project.properties.start_mode = start_mode_value,
@@ -1919,7 +1915,7 @@ fn handle_unattended<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_converted_value(input, property_name) {
         Ok(unattended_value) => project.properties.unattended = unattended_value,
@@ -1931,7 +1927,7 @@ fn handle_retained<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_converted_value(input, property_name) {
         Ok(retained_value) => project.properties.retained = retained_value,
@@ -1943,7 +1939,7 @@ fn handle_thread_per_object<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_numeric::<i16>(input, property_name) {
         Ok(thread_per_object_value) => {
@@ -1961,7 +1957,7 @@ fn handle_max_number_of_threads<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_numeric(input, property_name) {
         Ok(max_number_of_threads_value) => {
@@ -1975,7 +1971,7 @@ fn handle_threading_model<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_converted_value(input, property_name) {
         Ok(threading_model_value) => project.properties.threading_model = threading_model_value,
@@ -1987,7 +1983,7 @@ fn handle_debug_startup_component<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_path_line(input, property_name) {
         Ok(debug_startup_component_value) => {
@@ -2001,7 +1997,7 @@ fn handle_debug_startup_option<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_converted_value(input, property_name) {
         Ok(debug_startup_option_value) => {
@@ -2015,7 +2011,7 @@ fn handle_use_existing_browser<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_converted_value(input, property_name) {
         Ok(use_existing_browser_value) => {
@@ -2029,7 +2025,7 @@ fn handle_no_control_upgrade<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_converted_value(input, property_name) {
         Ok(upgrade_controls_value) => project.properties.upgrade_controls = upgrade_controls_value,
@@ -2041,7 +2037,7 @@ fn handle_server_support_files<'a>(
     project: &mut ProjectFile<'a>,
     input: &mut SourceStream<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    failures: &mut Vec<ErrorDetails<'a>>,
 ) {
     match parse_converted_value(input, property_name) {
         Ok(server_support_files_value) => {
@@ -2053,7 +2049,7 @@ fn handle_server_support_files<'a>(
 
 fn parse_section_header_line<'a>(
     input: &mut SourceStream<'a>,
-) -> Result<Option<&'a str>, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+) -> Result<Option<&'a str>, ErrorDetails<'a>> {
     // We want to grab any section header lines like '[MS Transaction Server]'.
     // Which we will use in parsing 'other properties.'
     let header_start = input.take("[", Comparator::CaseSensitive);
@@ -2066,7 +2062,7 @@ fn parse_section_header_line<'a>(
     // We have a section header line.
     let Some((other_property, _)) = input.take_until("]", Comparator::CaseSensitive) else {
         // We have a section header line but it is not terminated properly.
-        let fail = input.generate_error(ProjectErrorKind::UnterminatedSectionHeader);
+        let fail = input.generate_error(ErrorKind::ProjectUnterminatedSectionHeader);
         input.forward_to_next_line();
 
         return Err(fail);
@@ -2078,9 +2074,7 @@ fn parse_section_header_line<'a>(
     Ok(Some(other_property))
 }
 
-fn parse_property_name<'a>(
-    input: &mut SourceStream<'a>,
-) -> Result<&'a str, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+fn parse_property_name<'a>(input: &mut SourceStream<'a>) -> Result<&'a str, ErrorDetails<'a>> {
     let line_start = input.start_of_line();
 
     // We want to grab the property name.
@@ -2090,7 +2084,7 @@ fn parse_property_name<'a>(
         None => {
             // No property name found, so we can't parse this line.
             // Go to the next line and return the error.
-            let fail = input.generate_error_at(line_start, ProjectErrorKind::PropertyNameNotFound);
+            let fail = input.generate_error_at(line_start, ErrorKind::ProjectPropertyNameNotFound);
             input.forward_to_next_line();
 
             Err(fail)
@@ -2108,7 +2102,7 @@ fn parse_property_name<'a>(
 fn parse_property_value<'a>(
     input: &mut SourceStream<'a>,
     line_type: &'a str,
-) -> Result<&'a str, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+) -> Result<&'a str, ErrorDetails<'a>> {
     // An line starts with the line_type followed by '=', and a value.
     //
     // By this point in the parse the line_type and "=" component should be
@@ -2119,8 +2113,8 @@ fn parse_property_value<'a>(
         // No parameter value found, so we can't parse this line.
         let fail = input.generate_error_at(
             parameter_start,
-            ProjectErrorKind::ParameterValueNotFound {
-                parameter_line_name: line_type,
+            ErrorKind::ProjectParameterValueNotFound {
+                parameter_line_name: line_type.to_string(),
             },
         );
         return Err(fail);
@@ -2130,8 +2124,8 @@ fn parse_property_value<'a>(
         // No parameter value found, so we can't parse this line.
         let fail = input.generate_error_at(
             parameter_start,
-            ProjectErrorKind::ParameterValueNotFound {
-                parameter_line_name: line_type,
+            ErrorKind::ProjectParameterValueNotFound {
+                parameter_line_name: line_type.to_string(),
             },
         );
         return Err(fail);
@@ -2143,7 +2137,7 @@ fn parse_property_value<'a>(
 fn parse_quoted_value<'a>(
     input: &mut SourceStream<'a>,
     line_type: &'a str,
-) -> Result<&'a str, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+) -> Result<&'a str, ErrorDetails<'a>> {
     // An line starts with the line_type followed by '=', and a quoted value.
     //
     // By this point in the parse the line_type and "=" component should be
@@ -2154,8 +2148,8 @@ fn parse_quoted_value<'a>(
         // No parameter value found, so we can't parse this line.
         let fail = input.generate_error_at(
             parameter_start,
-            ProjectErrorKind::ParameterValueNotFound {
-                parameter_line_name: line_type,
+            ErrorKind::ProjectParameterValueNotFound {
+                parameter_line_name: line_type.to_string(),
             },
         );
         return Err(fail);
@@ -2165,8 +2159,8 @@ fn parse_quoted_value<'a>(
         // No startup value found, so we can't parse this line.
         let fail = input.generate_error_at(
             parameter_start,
-            ProjectErrorKind::ParameterValueNotFound {
-                parameter_line_name: line_type,
+            ErrorKind::ProjectParameterValueNotFound {
+                parameter_line_name: line_type.to_string(),
             },
         );
         return Err(fail);
@@ -2180,8 +2174,8 @@ fn parse_quoted_value<'a>(
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start,
-            ProjectErrorKind::ParameterValueMissingOpeningQuote {
-                parameter_line_name: line_type,
+            ErrorKind::ProjectParameterValueMissingOpeningQuote {
+                parameter_line_name: line_type.to_string(),
             },
         );
         return Err(fail);
@@ -2199,8 +2193,8 @@ fn parse_quoted_value<'a>(
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start + parameter_value.len(),
-            ProjectErrorKind::ParameterValueMissingMatchingQuote {
-                parameter_line_name: line_type,
+            ErrorKind::ProjectParameterValueMissingMatchingQuote {
+                parameter_line_name: line_type.to_string(),
             },
         );
         return Err(fail);
@@ -2211,8 +2205,8 @@ fn parse_quoted_value<'a>(
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start,
-            ProjectErrorKind::ParameterValueMissingQuotes {
-                parameter_line_name: line_type,
+            ErrorKind::ProjectParameterValueMissingQuotes {
+                parameter_line_name: line_type.to_string(),
             },
         );
         return Err(fail);
@@ -2226,7 +2220,7 @@ fn parse_quoted_value<'a>(
 fn parse_optional_quoted_value<'a>(
     input: &mut SourceStream<'a>,
     line_type: &'a str,
-) -> Result<&'a str, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+) -> Result<&'a str, ErrorDetails<'a>> {
     // An optional line starts with 'Startup=' (or another such option starting line)
     // and is followed by the quoted value, "!None!", or "(None)", or "!(None)!" to indicate the
     // parameter value is 'None'.
@@ -2239,8 +2233,8 @@ fn parse_optional_quoted_value<'a>(
         // No parameter value found, so we can't parse this line.
         let fail = input.generate_error_at(
             parameter_start,
-            ProjectErrorKind::ParameterValueNotFound {
-                parameter_line_name: line_type,
+            ErrorKind::ProjectParameterValueNotFound {
+                parameter_line_name: line_type.to_string(),
             },
         );
         return Err(fail);
@@ -2250,8 +2244,8 @@ fn parse_optional_quoted_value<'a>(
         // No parameter value found, so we can't parse this line.
         let fail = input.generate_error_at(
             parameter_start,
-            ProjectErrorKind::ParameterValueNotFound {
-                parameter_line_name: line_type,
+            ErrorKind::ProjectParameterValueNotFound {
+                parameter_line_name: line_type.to_string(),
             },
         );
         return Err(fail);
@@ -2276,8 +2270,8 @@ fn parse_optional_quoted_value<'a>(
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start,
-            ProjectErrorKind::ParameterValueMissingOpeningQuote {
-                parameter_line_name: line_type,
+            ErrorKind::ProjectParameterValueMissingOpeningQuote {
+                parameter_line_name: line_type.to_string(),
             },
         );
         return Err(fail);
@@ -2296,8 +2290,8 @@ fn parse_optional_quoted_value<'a>(
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start + parameter_value.len(),
-            ProjectErrorKind::ParameterValueMissingMatchingQuote {
-                parameter_line_name: line_type,
+            ErrorKind::ProjectParameterValueMissingMatchingQuote {
+                parameter_line_name: line_type.to_string(),
             },
         );
         return Err(fail);
@@ -2308,8 +2302,8 @@ fn parse_optional_quoted_value<'a>(
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start,
-            ProjectErrorKind::ParameterValueMissingQuotes {
-                parameter_line_name: line_type,
+            ErrorKind::ProjectParameterValueMissingQuotes {
+                parameter_line_name: line_type.to_string(),
             },
         );
         return Err(fail);
@@ -2322,7 +2316,7 @@ fn parse_optional_quoted_value<'a>(
 fn parse_quoted_converted_value<'a, T>(
     input: &mut SourceStream<'a>,
     line_type: &'a str,
-) -> Result<T, ErrorDetails<'a, ProjectErrorKind<'a>>>
+) -> Result<T, ErrorDetails<'a>>
 where
     T: TryFrom<&'a str, Error = String> + 'a + IntoEnumIterator + EnumMessage + Debug,
 {
@@ -2340,8 +2334,8 @@ where
             // Go to the next line and return the error.
             let fail = input.generate_error_at(
                 parameter_start,
-                ProjectErrorKind::ParameterValueMissingOpeningQuote {
-                    parameter_line_name: line_type,
+                ErrorKind::ProjectParameterValueMissingOpeningQuote {
+                    parameter_line_name: line_type.to_string(),
                 },
             );
             return Err(fail);
@@ -2357,8 +2351,8 @@ where
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start,
-            ProjectErrorKind::ParameterValueMissingOpeningQuote {
-                parameter_line_name: line_type,
+            ErrorKind::ProjectParameterValueMissingOpeningQuote {
+                parameter_line_name: line_type.to_string(),
             },
         );
         return Err(fail);
@@ -2376,8 +2370,8 @@ where
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start + parameter_value.len(),
-            ProjectErrorKind::ParameterValueMissingMatchingQuote {
-                parameter_line_name: line_type,
+            ErrorKind::ProjectParameterValueMissingMatchingQuote {
+                parameter_line_name: line_type.to_string(),
             },
         );
         return Err(fail);
@@ -2388,8 +2382,8 @@ where
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start,
-            ProjectErrorKind::ParameterValueMissingQuotes {
-                parameter_line_name: line_type,
+            ErrorKind::ProjectParameterValueMissingQuotes {
+                parameter_line_name: line_type.to_string(),
             },
         );
         return Err(fail);
@@ -2407,9 +2401,9 @@ where
 
         let fail = input.generate_error_at(
             parameter_start,
-            ProjectErrorKind::ParameterValueInvalid {
-                parameter_line_name: line_type,
-                invalid_value: parameter_value,
+            ErrorKind::ProjectParameterValueInvalid {
+                parameter_line_name: line_type.to_string(),
+                invalid_value: parameter_value.to_string(),
                 valid_value_message,
             },
         );
@@ -2422,7 +2416,7 @@ where
 fn parse_converted_value<'a, T>(
     input: &mut SourceStream<'a>,
     line_type: &'a str,
-) -> Result<T, ErrorDetails<'a, ProjectErrorKind<'a>>>
+) -> Result<T, ErrorDetails<'a>>
 where
     T: TryFrom<&'a str, Error = String> + IntoEnumIterator + EnumMessage + Debug,
 {
@@ -2440,8 +2434,8 @@ where
             // Go to the next line and return the error.
             let fail = input.generate_error_at(
                 parameter_start,
-                ProjectErrorKind::ParameterValueMissingOpeningQuote {
-                    parameter_line_name: line_type,
+                ErrorKind::ProjectParameterValueMissingOpeningQuote {
+                    parameter_line_name: line_type.to_string(),
                 },
             );
             return Err(fail);
@@ -2459,9 +2453,9 @@ where
 
         let fail = input.generate_error_at(
             parameter_start,
-            ProjectErrorKind::ParameterValueInvalid {
-                parameter_line_name: line_type,
-                invalid_value: parameter_value,
+            ErrorKind::ProjectParameterValueInvalid {
+                parameter_line_name: line_type.to_string(),
+                invalid_value: parameter_value.to_string(),
                 valid_value_message,
             },
         );
@@ -2474,7 +2468,7 @@ where
 fn parse_numeric<'a, T>(
     input: &mut SourceStream<'a>,
     line_type: &'a str,
-) -> Result<T, ErrorDetails<'a, ProjectErrorKind<'a>>>
+) -> Result<T, ErrorDetails<'a>>
 where
     T: FromStr,
 {
@@ -2492,8 +2486,8 @@ where
             // Go to the next line and return the error.
             let fail = input.generate_error_at(
                 parameter_start,
-                ProjectErrorKind::ParameterValueMissingOpeningQuote {
-                    parameter_line_name: line_type,
+                ErrorKind::ProjectParameterValueMissingOpeningQuote {
+                    parameter_line_name: line_type.to_string(),
                 },
             );
             return Err(fail);
@@ -2510,9 +2504,9 @@ where
 
         let fail = input.generate_error_at(
             parameter_start,
-            ProjectErrorKind::ParameterValueInvalid {
-                parameter_line_name: line_type,
-                invalid_value: parameter_value,
+            ErrorKind::ProjectParameterValueInvalid {
+                parameter_line_name: line_type.to_string(),
+                invalid_value: parameter_value.to_string(),
                 valid_value_message,
             },
         );
@@ -2524,7 +2518,7 @@ where
 
 fn parse_reference<'a>(
     input: &mut SourceStream<'a>,
-) -> Result<ProjectReference<'a>, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+) -> Result<ProjectReference<'a>, ErrorDetails<'a>> {
     // A Reference line starts with a 'Reference=' and is followed by either a
     // project reference or a compiled reference.
     //
@@ -2545,7 +2539,7 @@ fn parse_reference<'a>(
         // No path found, so we can't parse this line.
         let fail = input.generate_error_at(
             reference_start,
-            ProjectErrorKind::ReferenceProjectPathNotFound,
+            ErrorKind::ProjectReferenceProjectPathNotFound,
         );
         return Err(fail);
     };
@@ -2554,7 +2548,7 @@ fn parse_reference<'a>(
         // No path found, so we can't parse this line.
         let fail = input.generate_error_at(
             reference_start,
-            ProjectErrorKind::ReferenceProjectPathNotFound,
+            ErrorKind::ProjectReferenceProjectPathNotFound,
         );
         return Err(fail);
     }
@@ -2563,7 +2557,9 @@ fn parse_reference<'a>(
         // The path does not start with "*\A", which is not allowed.
         let fail = input.generate_error_at(
             reference_start,
-            ProjectErrorKind::ReferenceProjectPathInvalid { value: path },
+            ErrorKind::ProjectReferenceProjectPathInvalid {
+                value: path.to_string(),
+            },
         );
         return Err(fail);
     }
@@ -2575,7 +2571,7 @@ fn parse_reference<'a>(
 
 fn parse_compiled_reference<'a>(
     input: &mut SourceStream<'a>,
-) -> Result<ProjectReference<'a>, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+) -> Result<ProjectReference<'a>, ErrorDetails<'a>> {
     // A compiled reference starts with "*\\G{" and is followed by a UUID.
     // We have already checked that the input starts with "*\\G{".
     // By this point in the parse the "*\\G{" component should be stripped off.
@@ -2586,7 +2582,7 @@ fn parse_compiled_reference<'a>(
         // No UUID found, so we can't parse this line.
         let fail = input.generate_error_at(
             uuid_start,
-            ProjectErrorKind::ReferenceCompiledUuidMissingMatchingBrace,
+            ErrorKind::ProjectReferenceCompiledUuidMissingMatchingBrace,
         );
         input.forward_to_next_line();
 
@@ -2596,7 +2592,7 @@ fn parse_compiled_reference<'a>(
     let Ok(uuid) = Uuid::parse_str(uuid_text) else {
         // The UUID is not a valid UUID, so we can't parse this line.
         let fail =
-            input.generate_error_at(uuid_start, ProjectErrorKind::ReferenceCompiledUuidInvalid);
+            input.generate_error_at(uuid_start, ErrorKind::ProjectReferenceCompiledUuidInvalid);
         input.forward_to_next_line();
 
         return Err(fail);
@@ -2609,7 +2605,7 @@ fn parse_compiled_reference<'a>(
         // No unknown1 found, so we can't parse this line.
         let fail = input.generate_error_at(
             unknown1_start,
-            ProjectErrorKind::ReferenceCompiledUnknown1Missing,
+            ErrorKind::ProjectReferenceCompiledUnknown1Missing,
         );
         input.forward_to_next_line();
 
@@ -2623,7 +2619,7 @@ fn parse_compiled_reference<'a>(
         // No unknown2 found, so we can't parse this line.
         let fail = input.generate_error_at(
             unknown2_start,
-            ProjectErrorKind::ReferenceCompiledUnknown2Missing,
+            ErrorKind::ProjectReferenceCompiledUnknown2Missing,
         );
         input.forward_to_next_line();
 
@@ -2636,7 +2632,7 @@ fn parse_compiled_reference<'a>(
     let Some((path, _)) = input.take_until("#", Comparator::CaseSensitive) else {
         // No path found, so we can't parse this line.
         let fail =
-            input.generate_error_at(path_start, ProjectErrorKind::ReferenceCompiledPathNotFound);
+            input.generate_error_at(path_start, ErrorKind::ProjectReferenceCompiledPathNotFound);
         input.forward_to_next_line();
 
         return Err(fail);
@@ -2649,7 +2645,7 @@ fn parse_compiled_reference<'a>(
         // No description found, so we can't parse this line.
         let fail = input.generate_error_at(
             description_start,
-            ProjectErrorKind::ReferenceCompiledDescriptionNotFound,
+            ErrorKind::ProjectReferenceCompiledDescriptionNotFound,
         );
         return Err(fail);
     };
@@ -2658,7 +2654,7 @@ fn parse_compiled_reference<'a>(
         // The description contains a '#', which is not allowed.
         let fail = input.generate_error_at(
             description_start,
-            ProjectErrorKind::ReferenceCompiledDescriptionInvalid,
+            ErrorKind::ProjectReferenceCompiledDescriptionInvalid,
         );
         return Err(fail);
     }
@@ -2675,9 +2671,7 @@ fn parse_compiled_reference<'a>(
     Ok(reference)
 }
 
-fn parse_object<'a>(
-    input: &mut SourceStream<'a>,
-) -> Result<ObjectReference, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+fn parse_object<'a>(input: &mut SourceStream<'a>) -> Result<ObjectReference, ErrorDetails<'a>> {
     // An Object line starts with an 'Object=' and is followed by either a
     // compiled object or a project object.
     //
@@ -2698,7 +2692,7 @@ fn parse_object<'a>(
             // No path found, so we can't parse this line.
             let fail = input.generate_error_at(
                 object_path_start,
-                ProjectErrorKind::ObjectProjectPathNotFound,
+                ErrorKind::ProjectObjectProjectPathNotFound,
             );
             input.forward_to_next_line();
 
@@ -2714,7 +2708,7 @@ fn parse_object<'a>(
         // We do not have a compiled object line, so we can't parse this line.
         let fail = input.generate_error_at(
             object_start,
-            ProjectErrorKind::ObjectCompiledMissingOpeningBrace,
+            ErrorKind::ProjectObjectCompiledMissingOpeningBrace,
         );
         input.forward_to_next_line();
 
@@ -2726,7 +2720,7 @@ fn parse_object<'a>(
         // No UUID found, so we can't parse this line.
         let fail = input.generate_error_at(
             object_start,
-            ProjectErrorKind::ObjectCompiledUuidMissingMatchingBrace,
+            ErrorKind::ProjectObjectCompiledUuidMissingMatchingBrace,
         );
         input.forward_to_next_line();
 
@@ -2738,7 +2732,7 @@ fn parse_object<'a>(
     let Ok(uuid) = Uuid::parse_str(uuid_text) else {
         // The UUID is not a valid UUID, so we can't parse this line.
         let fail =
-            input.generate_error_at(object_start, ProjectErrorKind::ObjectCompiledUuidInvalid);
+            input.generate_error_at(object_start, ErrorKind::ProjectObjectCompiledUuidInvalid);
         input.forward_to_next_line();
 
         return Err(fail);
@@ -2754,7 +2748,7 @@ fn parse_object<'a>(
         // No version found, so we can't parse this line.
         let fail = input.generate_error_at(
             version_start,
-            ProjectErrorKind::ObjectCompiledVersionMissing,
+            ErrorKind::ProjectObjectCompiledVersionMissing,
         );
         input.forward_to_next_line();
 
@@ -2765,7 +2759,7 @@ fn parse_object<'a>(
         // The version contains an invalid character, so we can't parse this line.
         let fail = input.generate_error_at(
             version_start + version.len(),
-            ProjectErrorKind::ObjectCompiledVersionInvalid,
+            ErrorKind::ProjectObjectCompiledVersionInvalid,
         );
         input.forward_to_next_line();
 
@@ -2778,7 +2772,7 @@ fn parse_object<'a>(
         // No unknown1 found, so we can't parse this line.
         let fail = input.generate_error_at(
             unknown1_start,
-            ProjectErrorKind::ObjectCompiledUnknown1Missing,
+            ErrorKind::ProjectObjectCompiledUnknown1Missing,
         );
         input.forward_to_next_line();
 
@@ -2793,7 +2787,7 @@ fn parse_object<'a>(
             // No file name found, so we can't parse this line.
             let fail = input.generate_error_at(
                 file_name_start,
-                ProjectErrorKind::ObjectCompiledFileNameNotFound,
+                ErrorKind::ProjectObjectCompiledFileNameNotFound,
             );
             Err(fail)
         }
@@ -2802,7 +2796,7 @@ fn parse_object<'a>(
                 // No file name found, so we can't parse this line.
                 let fail = input.generate_error_at(
                     file_name_start,
-                    ProjectErrorKind::ObjectCompiledFileNameNotFound,
+                    ErrorKind::ProjectObjectCompiledFileNameNotFound,
                 );
                 return Err(fail);
             }
@@ -2819,7 +2813,7 @@ fn parse_object<'a>(
 
 fn parse_module<'a>(
     input: &mut SourceStream<'a>,
-) -> Result<ProjectModuleReference<'a>, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+) -> Result<ProjectModuleReference<'a>, ErrorDetails<'a>> {
     // A Module line starts with a 'Module=' and is followed by a name and a path.
     //
     // By this point in the parse the "Module=" component should be stripped off
@@ -2828,7 +2822,7 @@ fn parse_module<'a>(
 
     let Some((module_name, _)) = input.take_until("; ", Comparator::CaseSensitive) else {
         // No name found, so we can't parse this line.
-        let fail = input.generate_error_at(module_start, ProjectErrorKind::ModuleNameNotFound);
+        let fail = input.generate_error_at(module_start, ErrorKind::ProjectModuleNameNotFound);
         input.forward_to_next_line();
 
         return Err(fail);
@@ -2839,14 +2833,14 @@ fn parse_module<'a>(
     let Some((module_path, _)) = input.take_until_newline() else {
         // No path found, so we can't parse this line.
         let fail =
-            input.generate_error_at(module_path_start, ProjectErrorKind::ModuleFileNameNotFound);
+            input.generate_error_at(module_path_start, ErrorKind::ProjectModuleFileNameNotFound);
         return Err(fail);
     };
 
     if module_path.is_empty() {
         // No path found, so we can't parse this line.
         let fail =
-            input.generate_error_at(module_path_start, ProjectErrorKind::ModuleFileNameNotFound);
+            input.generate_error_at(module_path_start, ErrorKind::ProjectModuleFileNameNotFound);
         return Err(fail);
     }
 
@@ -2859,7 +2853,7 @@ fn parse_module<'a>(
 
 fn parse_class<'a>(
     input: &mut SourceStream<'a>,
-) -> Result<ProjectClassReference<'a>, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+) -> Result<ProjectClassReference<'a>, ErrorDetails<'a>> {
     // A Class line starts with a 'Class=' and is followed by a name and a path.
     //
     // By this point in the parse the "Class=" component should be stripped off
@@ -2868,7 +2862,7 @@ fn parse_class<'a>(
 
     let Some((class_name, _)) = input.take_until("; ", Comparator::CaseSensitive) else {
         // No name found, so we can't parse this line.
-        let fail = input.generate_error_at(class_start, ProjectErrorKind::ClassNameNotFound);
+        let fail = input.generate_error_at(class_start, ErrorKind::ProjectClassNameNotFound);
         input.forward_to_next_line();
 
         return Err(fail);
@@ -2880,14 +2874,14 @@ fn parse_class<'a>(
     let Some((class_path, _)) = input.take_until_newline() else {
         // No path found, so we can't parse this line.
         let fail =
-            input.generate_error_at(class_path_start, ProjectErrorKind::ClassFileNameNotFound);
+            input.generate_error_at(class_path_start, ErrorKind::ProjectClassFileNameNotFound);
         return Err(fail);
     };
 
     if class_path.is_empty() {
         // No path found, so we can't parse this line.
         let fail =
-            input.generate_error_at(class_path_start, ProjectErrorKind::ClassFileNameNotFound);
+            input.generate_error_at(class_path_start, ErrorKind::ProjectClassFileNameNotFound);
 
         return Err(fail);
     }
@@ -2903,7 +2897,7 @@ fn parse_class<'a>(
 fn parse_path_line<'a>(
     input: &mut SourceStream<'a>,
     parameter_line_name: &'a str,
-) -> Result<&'a str, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+) -> Result<&'a str, ErrorDetails<'a>> {
     // A single element line starts with a 'Form=', 'Designer=', or 'RelatedDoc='
     // and is followed by a path to the corresponding file.
     //
@@ -2919,8 +2913,8 @@ fn parse_path_line<'a>(
             // Go to the next line and return the error.
             let fail = input.generate_error_at(
                 path_start,
-                ProjectErrorKind::PathValueNotFound {
-                    parameter_line_name,
+                ErrorKind::ProjectPathValueNotFound {
+                    parameter_line_name: parameter_line_name.to_string(),
                 },
             );
             Err(fail)
@@ -2931,8 +2925,8 @@ fn parse_path_line<'a>(
                 // Go to the next line and return the error.
                 let fail = input.generate_error_at(
                     path_start,
-                    ProjectErrorKind::PathValueNotFound {
-                        parameter_line_name,
+                    ErrorKind::ProjectPathValueNotFound {
+                        parameter_line_name: parameter_line_name.to_string(),
                     },
                 );
                 return Err(fail);
@@ -2943,9 +2937,7 @@ fn parse_path_line<'a>(
     }
 }
 
-fn parse_dll_base_address<'a>(
-    input: &mut SourceStream<'a>,
-) -> Result<u32, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+fn parse_dll_base_address<'a>(input: &mut SourceStream<'a>) -> Result<u32, ErrorDetails<'a>> {
     // A DllBaseAddress line starts with a 'DllBaseAddress=' and is followed by a
     // hexadecimal value.
     //
@@ -2957,7 +2949,7 @@ fn parse_dll_base_address<'a>(
         // No base address found, so we can't parse this line.
         let fail = input.generate_error_at(
             dll_base_address_start,
-            ProjectErrorKind::DllBaseAddressNotFound,
+            ErrorKind::ProjectDllBaseAddressNotFound,
         );
         return Err(fail);
     };
@@ -2966,7 +2958,7 @@ fn parse_dll_base_address<'a>(
         // The base address is empty, so we can't parse this line.
         let fail = input.generate_error_at(
             dll_base_address_start,
-            ProjectErrorKind::DllBaseAddressUnparsableEmpty,
+            ErrorKind::ProjectDllBaseAddressUnparsableEmpty,
         );
         return Err(fail);
     }
@@ -2975,7 +2967,7 @@ fn parse_dll_base_address<'a>(
         // The base address does not start with "&H", so we can't parse this line.
         let fail = input.generate_error_at(
             dll_base_address_start,
-            ProjectErrorKind::DllBaseAddressMissingHexPrefix,
+            ErrorKind::ProjectDllBaseAddressMissingHexPrefix,
         );
         return Err(fail);
     }
@@ -2988,8 +2980,8 @@ fn parse_dll_base_address<'a>(
         // The base address is not a valid hexadecimal value, so we can't parse this line.
         let fail = input.generate_error_at(
             dll_base_address_start,
-            ProjectErrorKind::DllBaseAddressUnparsable {
-                hex_value: trimmed_base_address_hex_text,
+            ErrorKind::ProjectDllBaseAddressUnparsable {
+                hex_value: trimmed_base_address_hex_text.to_string(),
             },
         );
         return Err(fail);
@@ -3000,7 +2992,7 @@ fn parse_dll_base_address<'a>(
 
 #[cfg(test)]
 mod tests {
-    use crate::errors::{ErrorDetails, ProjectErrorKind};
+    use crate::errors::{ErrorDetails, ErrorKind};
     use crate::files::common::ObjectReference;
     use crate::files::project::compilesettings::*;
     use crate::files::project::properties::*;
@@ -3020,12 +3012,12 @@ mod tests {
             .unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompatibilityMode, ErrorDetails<ProjectErrorKind>> =
+        let result: Result<CompatibilityMode, ErrorDetails> =
             parse_quoted_converted_value(&mut input, parameter_name);
 
         assert!(matches!(
             result.err().unwrap().kind,
-            ProjectErrorKind::ParameterValueInvalid { .. }
+            ErrorKind::ProjectParameterValueInvalid { .. }
         ));
     }
 
@@ -3040,7 +3032,7 @@ mod tests {
             .unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompatibilityMode, ErrorDetails<ProjectErrorKind>> =
+        let result: Result<CompatibilityMode, ErrorDetails> =
             parse_quoted_converted_value(&mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompatibilityMode::NoCompatibility);
@@ -3058,7 +3050,7 @@ mod tests {
             .unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompatibilityMode, ErrorDetails<ProjectErrorKind>> =
+        let result: Result<CompatibilityMode, ErrorDetails> =
             parse_quoted_converted_value(&mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompatibilityMode::Project);
@@ -3076,7 +3068,7 @@ mod tests {
             .unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompatibilityMode, ErrorDetails<ProjectErrorKind>> =
+        let result: Result<CompatibilityMode, ErrorDetails> =
             parse_quoted_converted_value(&mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompatibilityMode::CompatibleExe);
@@ -3091,7 +3083,7 @@ mod tests {
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
+        let result: Result<CompileTargetType, ErrorDetails> =
             parse_converted_value(&mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompileTargetType::Exe);
@@ -3106,7 +3098,7 @@ mod tests {
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
+        let result: Result<CompileTargetType, ErrorDetails> =
             parse_converted_value(&mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompileTargetType::OleDll);
@@ -3121,7 +3113,7 @@ mod tests {
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
+        let result: Result<CompileTargetType, ErrorDetails> =
             parse_converted_value(&mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompileTargetType::Control);
@@ -3136,7 +3128,7 @@ mod tests {
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
+        let result: Result<CompileTargetType, ErrorDetails> =
             parse_converted_value(&mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompileTargetType::OleExe);
@@ -3151,7 +3143,7 @@ mod tests {
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
+        let result: Result<CompileTargetType, ErrorDetails> =
             parse_converted_value(&mut input, parameter_name);
 
         assert!(result.is_err());
@@ -3160,7 +3152,7 @@ mod tests {
 
         assert!(matches!(
             error.kind,
-            ProjectErrorKind::ParameterValueInvalid { .. }
+            ErrorKind::ProjectParameterValueInvalid { .. }
         ));
     }
 
@@ -3459,7 +3451,7 @@ mod tests {
         let _ = input.take_ascii_whitespaces();
 
         let line_type = parse_property_name(&mut input).unwrap();
-        let type_result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
+        let type_result: Result<CompileTargetType, ErrorDetails> =
             parse_converted_value(&mut input, line_type);
 
         assert!(type_result.is_ok());

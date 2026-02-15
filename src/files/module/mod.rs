@@ -9,7 +9,7 @@
 use std::fmt::Display;
 
 use crate::{
-    errors::ModuleErrorKind,
+    errors::ErrorKind,
     io::{Comparator, SourceFile},
     lexer::tokenize,
     parsers::{cst::serialize_cst, cst::ConcreteSyntaxTree, ParseResult, SyntaxKind},
@@ -92,7 +92,7 @@ impl ModuleFile {
     /// assert!(module_file.cst.child_count() > 0);
     /// ```
     #[must_use]
-    pub fn parse(source_file: &SourceFile) -> ParseResult<'_, ModuleFile, ModuleErrorKind> {
+    pub fn parse(source_file: &SourceFile) -> ParseResult<'_, ModuleFile> {
         let mut failures = vec![];
         let mut input = source_file.source_stream();
 
@@ -106,21 +106,21 @@ impl ModuleFile {
             .take("Attribute", Comparator::CaseInsensitive)
             .is_none()
         {
-            let error = input.generate_error(ModuleErrorKind::AttributeKeywordMissing);
+            let error = input.generate_error(ErrorKind::ModuleAttributeKeywordMissing);
             failures.push(error);
         }
 
         // Eat however many spaces sits between the attribute and the VB_Name keyword. It doesn't matter how many
         // whitespaces it has as long as we have at least one.
         if input.take_ascii_whitespaces().is_none() {
-            let error = input.generate_error(ModuleErrorKind::MissingWhitespaceInHeader);
+            let error = input.generate_error(ErrorKind::ModuleMissingWhitespaceInHeader);
             failures.push(error);
         }
 
         // Grab the attribute VB_Name keyword. If we don't find it, we should output an error
         // but keep trying to read on.
         if input.take("VB_Name", Comparator::CaseInsensitive).is_none() {
-            let error = input.generate_error(ModuleErrorKind::VBNameAttributeMissing);
+            let error = input.generate_error(ErrorKind::ModuleVBNameAttributeMissing);
             failures.push(error);
         }
 
@@ -131,7 +131,7 @@ impl ModuleFile {
         // Grab the equality symbol. If we don't find it, we should output an error
         // but keep trying to read on.
         if input.take("=", Comparator::CaseInsensitive).is_none() {
-            let error = input.generate_error(ModuleErrorKind::EqualMissing);
+            let error = input.generate_error(ErrorKind::ModuleEqualMissing);
             failures.push(error);
         }
 
@@ -142,7 +142,7 @@ impl ModuleFile {
         // Grab the quote symbol. If we don't find it, we should output an error
         // but keep trying to read on.
         if input.take("\"", Comparator::CaseInsensitive).is_none() {
-            let error = input.generate_error(ModuleErrorKind::VBNameAttributeValueUnquoted);
+            let error = input.generate_error(ErrorKind::ModuleVBNameAttributeValueUnquoted);
             failures.push(error);
         }
 
@@ -150,7 +150,7 @@ impl ModuleFile {
             None => {
                 // Well, it looks like we don't have a quoted value even if it might have a single quote at the start.
                 let Some((vb_name_value, _)) = input.take_until_newline() else {
-                    let error = input.generate_error(ModuleErrorKind::VBNameAttributeValueUnquoted);
+                    let error = input.generate_error(ErrorKind::ModuleVBNameAttributeValueUnquoted);
                     failures.push(error);
 
                     return ParseResult::new(None, failures);
@@ -161,7 +161,7 @@ impl ModuleFile {
                 let token_result = tokenize(&mut stream);
                 let (token_stream_opt, token_failures) = token_result.unpack();
 
-                failures.extend(token_failures.into_iter().map(Into::into));
+                failures.extend(token_failures);
 
                 match token_stream_opt {
                     Some(tokens) => {
@@ -194,7 +194,7 @@ impl ModuleFile {
                 let token_result = tokenize(&mut input);
                 let (token_stream_opt, token_failures) = token_result.unpack();
 
-                failures.extend(token_failures.into_iter().map(Into::into));
+                failures.extend(token_failures);
 
                 match token_stream_opt {
                     Some(tokens) => {

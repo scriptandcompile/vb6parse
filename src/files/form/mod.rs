@@ -7,7 +7,6 @@ use std::vec::Vec;
 use serde::Serialize;
 
 use crate::{
-    errors::FormErrorKind,
     files::common::{FileAttributes, FileFormatVersion, ObjectReference},
     io::SourceFile,
     language::{Form, FormRoot},
@@ -64,10 +63,10 @@ impl FormFile {
     /// * `source_file` - The source file containing the VB6 Form code.
     ///
     /// # Returns
-    /// * `ParseResult<FormFile, FormErrorKind>` - The result of parsing, containing either the `FormFile` or parsing errors.
+    /// * `ParseResult<FormFile>` - The result of parsing, containing either the `FormFile` or parsing errors.
     ///
     #[must_use]
-    pub fn parse(source_file: &SourceFile) -> ParseResult<'_, Self, FormErrorKind> {
+    pub fn parse(source_file: &SourceFile) -> ParseResult<'_, Self> {
         let mut source_stream = source_file.source_stream();
 
         // TODO: Handle errors from tokenization.
@@ -145,7 +144,7 @@ impl FormFile {
     ///
     /// # Returns
     ///
-    /// * `ParseResult<ControlOnlyResult, FormErrorKind>` - A tuple containing:
+    /// * `ParseResult<ControlOnlyResult>` - A tuple containing:
     ///   - `Option<FileFormatVersion>` - The parsed version
     ///   - `Option<FormRoot>` - The parsed form root (`Form` or `MDIForm` with nested controls)
     ///   - `TokenStream` - The remaining token stream positioned after the control
@@ -183,7 +182,7 @@ impl FormFile {
     #[must_use]
     pub fn parse_control_only(
         token_stream: TokenStream<'_>,
-    ) -> ParseResult<'_, control_only::ControlOnlyResult<'_>, FormErrorKind> {
+    ) -> ParseResult<'_, control_only::ControlOnlyResult<'_>> {
         control_only::parse_control_from_tokens(token_stream)
     }
 }

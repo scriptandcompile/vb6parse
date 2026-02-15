@@ -61,7 +61,7 @@ use phf::{phf_ordered_map, OrderedMap};
 use crate::{
     io::SourceStream,
     parsers::{Comparator, ParseResult},
-    CodeErrorKind,
+    ErrorKind,
 };
 
 /// Lookup table for VB6 keywords to their corresponding tokens.
@@ -318,7 +318,7 @@ pub type LineCommentTuple<'a> = (TextTokenTuple<'a>, Option<TextTokenTuple<'a>>)
 /// ```
 pub fn tokenize<'a>(
     input: &mut SourceStream<'a>,
-) -> ParseResult<'a, TokenStream<'a>, CodeErrorKind> {
+) -> ParseResult<'a, TokenStream<'a>> {
     let mut failures = vec![];
     let mut tokens = Vec::new();
 
@@ -400,7 +400,7 @@ pub fn tokenize<'a>(
         }
 
         if let Some(token_text) = input.take_count(1) {
-            let error = input.generate_error(CodeErrorKind::UnknownToken {
+            let error = input.generate_error(ErrorKind::UnknownToken {
                 token: token_text.into(),
             });
 
@@ -430,7 +430,7 @@ pub fn tokenize<'a>(
 /// If the tokenizer encounters any errors, they will be included in the returned `ParseResult`.
 pub fn tokenize_without_whitespaces<'a>(
     input: &mut SourceStream<'a>,
-) -> ParseResult<'a, TokenStream<'a>, CodeErrorKind> {
+) -> ParseResult<'a, TokenStream<'a>> {
     let parse_result = tokenize(input);
 
     if parse_result.has_failures() {

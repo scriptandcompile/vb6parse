@@ -11,7 +11,7 @@ use std::convert::TryFrom;
 use std::fmt::Display;
 use std::str::FromStr;
 
-use crate::errors::FormErrorKind;
+use crate::errors::ErrorKind;
 use crate::files::common::Properties;
 use crate::language::controls::{Activation, Visibility};
 
@@ -244,7 +244,7 @@ pub enum NegotiatePosition {
 }
 
 impl FromStr for NegotiatePosition {
-    type Err = FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
@@ -252,13 +252,13 @@ impl FromStr for NegotiatePosition {
             "1" => Ok(NegotiatePosition::Left),
             "2" => Ok(NegotiatePosition::Middle),
             "3" => Ok(NegotiatePosition::Right),
-            _ => Err(FormErrorKind::InvalidNegotiatePosition(s.to_string())),
+            _ => Err(ErrorKind::FormInvalidNegotiatePosition { value: s.to_string() }),
         }
     }
 }
 
 impl TryFrom<&str> for NegotiatePosition {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         NegotiatePosition::from_str(value)
@@ -674,7 +674,7 @@ impl Display for ShortCut {
 }
 
 impl FromStr for ShortCut {
-    type Err = FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         ShortCut::try_from(s)
@@ -682,9 +682,9 @@ impl FromStr for ShortCut {
 }
 
 impl TryFrom<&str> for ShortCut {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
-    fn try_from(s: &str) -> Result<Self, FormErrorKind> {
+    fn try_from(s: &str) -> Result<Self, ErrorKind> {
         match s {
             "^A" => Ok(ShortCut::CtrlA),
             "^B" => Ok(ShortCut::CtrlB),
@@ -761,7 +761,7 @@ impl TryFrom<&str> for ShortCut {
             "{DEL}" => Ok(ShortCut::Del),
             "+{DEL}" => Ok(ShortCut::ShiftDel),
             "%{BKSP}" => Ok(ShortCut::AltBKsp),
-            _ => Err(FormErrorKind::ShortCutUnparsable),
+            _ => Err(ErrorKind::FormShortCutUnparsable),
         }
     }
 }

@@ -688,7 +688,7 @@ impl<'a> SourceStream<'a> {
     /// Generates an `ErrorDetails` struct for the current offset in the stream
     /// with the provided `error_kind`.
     #[must_use]
-    pub fn generate_error<T: ToString + Debug>(&self, error_kind: T) -> ErrorDetails<'a, T> {
+    pub fn generate_error(&self, error_kind: crate::errors::ErrorKind) -> ErrorDetails<'a> {
         ErrorDetails {
             // Normally we would use usize for offsets, but VB6 was limited to 32-bit addressing.
             // Therefore, we safely cast to u32 here.
@@ -707,11 +707,11 @@ impl<'a> SourceStream<'a> {
     /// Generates an `ErrorDetails` struct for the specified `offset` in the stream
     /// with the provided `error_kind`.
     #[must_use]
-    pub fn generate_error_at<T: ToString + Debug>(
+    pub fn generate_error_at(
         &self,
         offset: usize,
-        error_kind: T,
-    ) -> ErrorDetails<'a, T> {
+        error_kind: crate::errors::ErrorKind,
+    ) -> ErrorDetails<'a> {
         ErrorDetails {
             // Normally we would use usize for offsets, but VB6 was limited to 32-bit addressing.
             // Therefore, we safely cast to u32 here.
@@ -734,13 +734,13 @@ impl<'a> SourceStream<'a> {
     /// and adjusts them if necessary. If the `line_end` exceeds the length of
     /// the contents, it is set to the length of the contents.
     #[must_use]
-    pub fn generate_bounded_error_at<T: ToString + Debug>(
+    pub fn generate_bounded_error_at(
         &self,
         line_start: usize,
         offset: usize,
         line_end: usize,
-        error_kind: T,
-    ) -> ErrorDetails<'a, T> {
+        error_kind: crate::errors::ErrorKind,
+    ) -> ErrorDetails<'a> {
         let mut offsets = [line_start, offset, line_end];
         // Used unstable sort for performance since order of usize primitives is identical to stable sort.
         offsets.sort_unstable();

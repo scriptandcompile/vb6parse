@@ -16,7 +16,7 @@
 //! assert_eq!(color.to_vb_string(), "&H00FF0000&");
 //! ```
 
-use crate::errors::FormErrorKind;
+use crate::errors::ErrorKind;
 
 use std::fmt::Display;
 
@@ -375,7 +375,7 @@ impl Color {
     /// # Errors
     ///
     /// If the input is not a valid hex color of either a
-    /// '&H00BBGGRR&' or '&H800000II&' format, then a `FormErrorKind::HexColorParseError` is returned.
+    /// '&H00BBGGRR&' or '&H800000II&' format, then a `ErrorKind::FormHexColorParseError` is returned.
     ///
     /// The '&H00BBGGRR&' format is a 24-bit RGB color in the order of blue, green, red.
     /// where each element is in hex format.
@@ -390,7 +390,7 @@ impl Color {
     /// # Example
     ///
     /// ```rust
-    /// # fn main() -> Result<(), vb6parse::errors::FormErrorKind> {
+    /// # fn main() -> Result<(), vb6parse::errors::ErrorKind> {
     ///     use vb6parse::language::Color;
     ///
     ///     // Of course, VB6 being as it is...
@@ -404,19 +404,19 @@ impl Color {
     ///     # Ok(())
     /// # }
     /// ```
-    pub fn from_hex(input: &str) -> Result<Color, FormErrorKind> {
+    pub fn from_hex(input: &str) -> Result<Color, ErrorKind> {
         let kind_ascii = &input[2..4];
 
         let kind =
-            u8::from_str_radix(kind_ascii, 16).map_err(|_| FormErrorKind::HexColorParseError)?;
+            u8::from_str_radix(kind_ascii, 16).map_err(|_| ErrorKind::FormHexColorParseError)?;
 
         if kind == 0x80 {
             // System color
             let index = u8::from_str_radix(&input[8..10], 16)
-                .map_err(|_| FormErrorKind::HexColorParseError)?;
+                .map_err(|_| ErrorKind::FormHexColorParseError)?;
             return Ok(Color::system(index));
         } else if kind != 0x00 {
-            return Err(FormErrorKind::HexColorParseError);
+            return Err(ErrorKind::FormHexColorParseError);
         }
 
         let blue_ascii = &input[4..6];
@@ -424,11 +424,11 @@ impl Color {
         let red_ascii = &input[8..10];
 
         let blue =
-            u8::from_str_radix(blue_ascii, 16).map_err(|_| FormErrorKind::HexColorParseError)?;
+            u8::from_str_radix(blue_ascii, 16).map_err(|_| ErrorKind::FormHexColorParseError)?;
         let green =
-            u8::from_str_radix(green_ascii, 16).map_err(|_| FormErrorKind::HexColorParseError)?;
+            u8::from_str_radix(green_ascii, 16).map_err(|_| ErrorKind::FormHexColorParseError)?;
         let red =
-            u8::from_str_radix(red_ascii, 16).map_err(|_| FormErrorKind::HexColorParseError)?;
+            u8::from_str_radix(red_ascii, 16).map_err(|_| ErrorKind::FormHexColorParseError)?;
 
         Ok(Color::new(red, green, blue))
     }

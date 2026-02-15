@@ -11,7 +11,7 @@ pub mod properties;
 use std::fmt::Display;
 
 use crate::{
-    errors::ClassErrorKind,
+    errors::ErrorKind,
     files::{
         class::properties::{ClassHeader, ClassProperties},
         common::{extract_attributes, extract_version},
@@ -99,7 +99,7 @@ impl ClassFile {
     /// assert!(result.has_result());
     /// ```
     #[must_use]
-    pub fn parse(source_file: &SourceFile) -> ParseResult<'_, Self, ClassErrorKind<'_>> {
+    pub fn parse(source_file: &SourceFile) -> ParseResult<'_, Self> {
         let mut input = source_file.source_stream();
 
         let mut failures = vec![];
@@ -108,7 +108,7 @@ impl ClassFile {
         let token_stream_result = tokenize(&mut input);
         let (token_stream_opt, token_failures) = token_stream_result.unpack();
 
-        failures.extend(token_failures.into_iter().map(Into::into));
+        failures.extend(token_failures);
 
         let Some(token_stream) = token_stream_opt else {
             return ParseResult::new(None, failures);
@@ -121,7 +121,7 @@ impl ClassFile {
         let Some(version) = extract_version(&cst) else {
             let error = source_file
                 .source_stream()
-                .generate_error(ClassErrorKind::VersionKeywordMissing);
+                .generate_error(ErrorKind::ClassVersionKeywordMissing);
             failures.push(error);
 
             return ParseResult::new(None, failures);

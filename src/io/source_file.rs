@@ -33,7 +33,7 @@ use std::fs;
 use std::path::Path;
 use std::sync::Arc;
 
-use crate::errors::{ErrorDetails, Severity, SourceFileErrorKind};
+use crate::errors::{ErrorDetails, ErrorKind, Severity};
 use crate::io::SourceStream;
 
 use encoding_rs::{mem::utf8_latin1_up_to, CoderResult, WINDOWS_1252};
@@ -52,7 +52,7 @@ struct SourceContextInner {
 }
 
 impl SourceContext {
-    /// Create from SourceFile - called once per file.
+    /// Create from `SourceFile` - called once per file.
     pub fn new(file_name: impl Into<String>, content: impl Into<String>) -> Self {
         Self {
             inner: Arc::new(SourceContextInner {
@@ -63,16 +63,19 @@ impl SourceContext {
     }
 
     /// file name of the of the source file.
+    #[must_use]
     pub fn file_name(&self) -> &str {
         &self.inner.file_name
     }
 
     /// source file contents
+    #[must_use]
     pub fn content(&self) -> &str {
         &self.inner.file_content
     }
 
     /// Zero-cost slice into the source content.
+    #[must_use]
     pub fn slice(&self, start: u32, end: u32) -> &str {
         let start = start as usize;
         let end = end as usize;
@@ -90,7 +93,7 @@ pub struct SourceFile {
 
 impl AsRef<str> for SourceFile {
     fn as_ref(&self) -> &str {
-        &self.context.content()
+        self.context.content()
     }
 }
 
@@ -140,14 +143,12 @@ impl SourceFile {
     /// }
     ///
     /// ```
-    pub fn from_file<P: AsRef<Path>>(
-        path: P,
-    ) -> Result<Self, ErrorDetails<'static, SourceFileErrorKind>> {
+    pub fn from_file<P: AsRef<Path>>(path: P) -> Result<Self, ErrorDetails<'static>> {
         let path = path.as_ref();
 
         // Read the file contents
         let bytes = fs::read(path).map_err(|io_err| ErrorDetails {
-            kind: SourceFileErrorKind::MalformedSource {
+            kind: ErrorKind::SourceFileMalformed {
                 message: format!("Failed to read file: {io_err}"),
             },
             error_offset: 0,
@@ -184,7 +185,7 @@ impl SourceFile {
     /// Returns the source file name
     #[must_use]
     pub fn file_name(&self) -> &str {
-        &self.context.file_name()
+        self.context.file_name()
     }
 
     /// Creates a `SourceFile` from a file name and source code string.
@@ -228,7 +229,7 @@ impl SourceFile {
     pub fn decode_with_replacement(
         file_name: impl Into<String>,
         source_code: &[u8],
-    ) -> Result<Self, ErrorDetails<'_, SourceFileErrorKind>> {
+    ) -> Result<Self, ErrorDetails<'_>> {
         Self::decode_internal(file_name, source_code, true)
     }
 
@@ -236,14 +237,14 @@ impl SourceFile {
         file_name: impl Into<String>,
         source_code: &[u8],
         allow_replacement: bool,
-    ) -> Result<Self, ErrorDetails<'_, SourceFileErrorKind>> {
+    ) -> Result<Self, ErrorDetails<'_>> {
         let mut decoder = WINDOWS_1252.new_decoder();
 
         let file_name = file_name.into();
 
         let Some(max_len) = decoder.max_utf8_buffer_length(source_code.len()) else {
             return Err(ErrorDetails {
-                kind: SourceFileErrorKind::MalformedSource {
+                kind: ErrorKind::SourceFileMalformed {
                     message: "Failed to decode the source code. '{file_name}' was empty.".into(),
                 },
                 error_offset: 0,
@@ -299,11 +300,10 @@ impl SourceFile {
             };
 
             let details = ErrorDetails {
-                kind: SourceFileErrorKind::MalformedSource {
+                kind: ErrorKind::SourceFileMalformed {
                     message: format!(
-                        r"Failed to decode the source file. '{}' may not use latin-1 (Windows-1252) code page. 
-Currently, only latin-1 source code is supported.",
-                        file_name
+                        r"Failed to decode the source file. '{file_name}' may not use latin-1 (Windows-1252) code page. 
+Currently, only latin-1 source code is supported."
                     ),
                 },
                 source_content: Box::leak(text_up_to_error.into_boxed_str()),
@@ -351,7 +351,7 @@ Currently, only latin-1 source code is supported.",
     pub fn decode(
         file_name: impl Into<String>,
         source_code: &[u8],
-    ) -> Result<Self, ErrorDetails<'_, SourceFileErrorKind>> {
+    ) -> Result<Self, ErrorDetails<'_>> {
         Self::decode_internal(file_name, source_code, false)
     }
 

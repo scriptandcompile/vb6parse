@@ -34,8 +34,7 @@
 //! ```
 
 use crate::{
-    errors::FormErrorKind, files::common::FileFormatVersion, language::FormRoot,
-    lexer::TokenStream, parsers::ParseResult,
+    files::common::FileFormatVersion, language::FormRoot, lexer::TokenStream, parsers::ParseResult,
 };
 
 /// Result of control-only parsing containing:
@@ -70,7 +69,7 @@ pub type ControlOnlyResult<'a> = (Option<FileFormatVersion>, Option<FormRoot>, T
 ///
 /// # Returns
 ///
-/// * `ParseResult<ControlOnlyResult, FormErrorKind>` containing:
+/// * `ParseResult<ControlOnlyResult>` containing:
 ///   - `Option<FileFormatVersion>` - VERSION if found, None otherwise
 ///   - `Option<FormRoot>` - Parsed root form (`Form` or `MDIForm`), None if parsing failed
 ///   - `TokenStream` - Remaining tokens positioned after control block
@@ -106,7 +105,7 @@ pub type ControlOnlyResult<'a> = (Option<FileFormatVersion>, Option<FormRoot>, T
 #[must_use]
 pub fn parse_control_from_tokens(
     token_stream: TokenStream<'_>,
-) -> ParseResult<'_, ControlOnlyResult<'_>, FormErrorKind> {
+) -> ParseResult<'_, ControlOnlyResult<'_>> {
     // Convert TokenStream to tokens vector
     let tokens = token_stream.into_tokens();
 
