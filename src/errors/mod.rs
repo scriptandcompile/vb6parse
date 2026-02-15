@@ -197,7 +197,7 @@ impl DiagnosticLabel {
 ///
 /// Example usage:
 /// ```rust
-/// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity};
+/// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity, LexerError};
 ///
 /// let error_details = ErrorDetails {
 ///     source_name: "example.cls".to_string().into_boxed_str(),
@@ -205,7 +205,7 @@ impl DiagnosticLabel {
 ///     error_offset: 10,
 ///     line_start: 1,
 ///     line_end: 1,
-///     kind: ErrorKind::UnknownToken { token: "???".to_string() },
+///     kind: Box::new(ErrorKind::Lexer(LexerError::UnknownToken { token: "???".to_string() })),
 ///     severity: Severity::Error,
 ///     labels: vec![],
 ///     notes: vec![],
@@ -318,7 +318,7 @@ impl ErrorDetails<'_> {
     ///
     /// Example usage:
     /// ```rust
-    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity};
+    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity, LexerError};
     ///
     /// let error_details = ErrorDetails {
     ///     source_name: "example.cls".to_string().into_boxed_str(),
@@ -326,7 +326,7 @@ impl ErrorDetails<'_> {
     ///     error_offset: 10,
     ///     line_start: 1,
     ///     line_end: 1,
-    ///     kind: ErrorKind::UnknownToken { token: "???".to_string() },
+    ///     kind: Box::new(ErrorKind::Lexer(LexerError::UnknownToken { token: "???".to_string() })),
     ///     severity: Severity::Error,
     ///     labels: vec![],
     ///     notes: vec![],
@@ -383,7 +383,7 @@ impl ErrorDetails<'_> {
     ///
     /// Example usage:
     /// ```rust
-    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity};
+    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity, LexerError};
     ///
     /// let error_details = ErrorDetails {
     ///     source_name: "example.cls".to_string().into_boxed_str(),
@@ -391,9 +391,9 @@ impl ErrorDetails<'_> {
     ///     error_offset: 10,
     ///     line_start: 1,
     ///     line_end: 1,
-    ///     kind: ErrorKind::UnknownToken {
+    ///     kind: Box::new(ErrorKind::Lexer(LexerError::UnknownToken {
     ///         token: "???".to_string(),
-    ///     },
+    ///     })),
     ///     severity: Severity::Error,
     ///     labels: vec![],
     ///     notes: vec![],

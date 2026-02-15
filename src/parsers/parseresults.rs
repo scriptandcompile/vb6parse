@@ -21,7 +21,7 @@ use crate::lexer::TokenStream;
 /// # Examples
 /// ```rust
 /// use vb6parse::parsers::parseresults::Diagnostics;
-/// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity};
+/// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity, LexerError};
 ///
 /// let error = ErrorDetails {
 ///     source_name: "test.bas".to_string().into_boxed_str(),
@@ -29,7 +29,7 @@ use crate::lexer::TokenStream;
 ///     error_offset: 5,
 ///     line_start: 0,
 ///     line_end: 10,
-///     kind: ErrorKind::UnknownToken { token: "???".to_string() },
+///     kind: Box::new(ErrorKind::Lexer(LexerError::UnknownToken { token: "???".to_string() })),
 ///     severity: Severity::Error,
 ///     labels: vec![],
 ///     notes: vec![],
@@ -249,7 +249,7 @@ impl<'a, T> ParseResult<'a, T> {
     /// ```rust
     ///
     /// use vb6parse::parsers::parseresults::ParseResult;
-    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity};
+    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity, LexerError};
     ///
     /// let failure = ErrorDetails {
     ///     source_name: "test.bas".to_string().into_boxed_str(),
@@ -260,7 +260,7 @@ impl<'a, T> ParseResult<'a, T> {
     ///     severity: Severity::Error,
     ///     labels: vec![],
     ///     notes: vec![],
-    ///     kind: ErrorKind::UnknownToken { token: "???".to_string() },
+    ///     kind: Box::new(ErrorKind::Lexer(LexerError::UnknownToken { token: "???".to_string() })),
     /// };
     /// let parse_result: ParseResult<'_, &str> = ParseResult::new(
     ///     None,
@@ -285,7 +285,7 @@ impl<'a, T> ParseResult<'a, T> {
     /// ```rust
     ///
     /// use vb6parse::parsers::parseresults::ParseResult;
-    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity};
+    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity, LexerError};
     ///
     /// let failure = ErrorDetails {
     ///     source_name: "test.bas".to_string().into_boxed_str(),
@@ -296,7 +296,7 @@ impl<'a, T> ParseResult<'a, T> {
     ///     labels: vec![],
     ///     notes: vec![],
     ///     severity: Severity::Error,
-    ///     kind: ErrorKind::UnknownToken { token: "???".to_string() },
+    ///     kind: Box::new(ErrorKind::Lexer(LexerError::UnknownToken { token: "???".to_string() })),
     /// };
     /// let parse_result: ParseResult<'_, &str> = ParseResult::new(
     ///     None,
@@ -321,7 +321,7 @@ impl<'a, T> ParseResult<'a, T> {
     /// ```rust
     ///
     /// use vb6parse::parsers::parseresults::ParseResult;
-    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity};
+    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity, LexerError};
     ///
     /// let failure = ErrorDetails {
     ///     source_name: "test.bas".to_string().into_boxed_str(),
@@ -332,7 +332,7 @@ impl<'a, T> ParseResult<'a, T> {
     ///     labels: vec![],
     ///     notes: vec![],
     ///     severity: Severity::Error,
-    ///     kind: ErrorKind::UnknownToken { token: "???".to_string() },
+    ///     kind: Box::new(ErrorKind::Lexer(LexerError::UnknownToken { token: "???".to_string() })),
     /// };
     /// let failure_result: ParseResult<'_, &str> = ParseResult::new(
     ///     None,
@@ -360,7 +360,7 @@ impl<'a, T> ParseResult<'a, T> {
     /// ```rust
     ///
     /// use vb6parse::parsers::parseresults::ParseResult;
-    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity};
+    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity, LexerError};
     ///
     /// let mut parse_result = ParseResult::new(
     ///     Some("Parsed Successfully"),
@@ -375,7 +375,7 @@ impl<'a, T> ParseResult<'a, T> {
     ///     severity: Severity::Error,
     ///     notes: vec![],
     ///     labels: vec![],
-    ///     kind: ErrorKind::UnknownToken { token: "???".to_string() },
+    ///     kind: Box::new(ErrorKind::Lexer(LexerError::UnknownToken { token: "???".to_string() })),
     /// };
     /// parse_result.push_failure(failure);
     /// assert!(parse_result.has_failures());
@@ -394,7 +394,7 @@ impl<'a, T> ParseResult<'a, T> {
     /// ```rust
     ///
     /// use vb6parse::parsers::parseresults::ParseResult;
-    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity};
+    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity, LexerError};
     ///
     /// let mut parse_result = ParseResult::new(
     ///     Some("Parsed Successfully"),
@@ -410,7 +410,7 @@ impl<'a, T> ParseResult<'a, T> {
     ///         labels: vec![],
     ///         notes: vec![],
     ///         severity: Severity::Error,
-    ///         kind: ErrorKind::UnknownToken { token: "???".to_string() },
+    ///         kind: Box::new(ErrorKind::Lexer(LexerError::UnknownToken { token: "???".to_string() })),
     ///     },
     ///     ErrorDetails {
     ///         source_name: "test.bas".to_string().into_boxed_str(),
@@ -421,7 +421,7 @@ impl<'a, T> ParseResult<'a, T> {
     ///         labels: vec![],
     ///         notes: vec![],
     ///         severity: Severity::Error,
-    ///         kind: ErrorKind::UnknownToken { token: "???".to_string() },
+    ///         kind: Box::new(ErrorKind::Lexer(LexerError::UnknownToken { token: "???".to_string() })),
     ///     },
     /// ];
     /// parse_result.append_failures(&mut failures);
@@ -593,7 +593,7 @@ impl<'a, T> ParseResult<'a, T> {
     /// ```rust
     ///
     /// use vb6parse::parsers::parseresults::ParseResult;
-    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity};
+    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity, LexerError};
     ///
     /// let failure = ErrorDetails {
     ///     source_name: "test.bas".to_string().into_boxed_str(),
@@ -604,7 +604,7 @@ impl<'a, T> ParseResult<'a, T> {
     ///     severity: Severity::Error,
     ///     labels: vec![],
     ///     notes: vec![],
-    ///     kind: ErrorKind::UnknownToken { token: "???".to_string() },
+    ///     kind: Box::new(ErrorKind::Lexer(LexerError::UnknownToken { token: "???".to_string() })),
     /// };
     /// let parse_result: ParseResult<'_, &str> = ParseResult::new(
     ///     Some("Parsed Successfully"),
@@ -756,7 +756,7 @@ impl<'a, T> From<(T, ErrorDetails<'a>)> for ParseResult<'a, T> {
     /// ```rust
     ///
     /// use vb6parse::parsers::parseresults::ParseResult;
-    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity };
+    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity , LexerError};
     ///
     /// let failure = ErrorDetails {
     ///     source_name: "test.bas".to_string().into_boxed_str(),
@@ -767,7 +767,7 @@ impl<'a, T> From<(T, ErrorDetails<'a>)> for ParseResult<'a, T> {
     ///     severity: Severity::Error,
     ///     labels: vec![],
     ///     notes: vec![],
-    ///     kind: ErrorKind::UnknownToken { token: "???".to_string() },
+    ///     kind: Box::new(ErrorKind::Lexer(LexerError::UnknownToken { token: "???".to_string() })),
     /// };
     ///
     /// let parse_pair = ("Parsed Successfully", failure);
@@ -801,7 +801,7 @@ where
     /// ```rust
     ///
     /// use vb6parse::parsers::parseresults::ParseResult;
-    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity};
+    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity, LexerError};
     ///
     /// let failures = vec![
     ///     ErrorDetails {
@@ -813,7 +813,7 @@ where
     ///         labels: vec![],
     ///         severity: Severity::Error,
     ///         notes: vec![],
-    ///         kind: ErrorKind::UnknownToken { token: "???".to_string() },
+    ///         kind: Box::new(ErrorKind::Lexer(LexerError::UnknownToken { token: "???".to_string() })),
     ///     },
     ///     ErrorDetails {
     ///         source_name: "test.bas".to_string().into_boxed_str(),
@@ -824,7 +824,7 @@ where
     ///         labels: vec![],
     ///         severity: Severity::Error,
     ///         notes: vec![],
-    ///         kind: ErrorKind::UnknownToken { token: "???".to_string() },
+    ///         kind: Box::new(ErrorKind::Lexer(LexerError::UnknownToken { token: "???".to_string() })),
     ///     },
     /// ];
     ///
@@ -863,7 +863,7 @@ impl<'a> From<(TokenStream<'a>, Vec<ErrorDetails<'a>>)> for ParseResult<'a, Toke
     /// ```rust
     ///
     /// use vb6parse::parsers::parseresults::ParseResult;
-    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity};
+    /// use vb6parse::errors::{ErrorDetails, ErrorKind, Severity, LexerError};
     /// use vb6parse::lexer::TokenStream;
     ///
     /// let failures = vec![
@@ -876,7 +876,7 @@ impl<'a> From<(TokenStream<'a>, Vec<ErrorDetails<'a>>)> for ParseResult<'a, Toke
     ///         labels: vec![],
     ///         severity: Severity::Error,
     ///         notes: vec![],
-    ///         kind: ErrorKind::UnknownToken { token: "???".to_string() },
+    ///         kind: Box::new(ErrorKind::Lexer(LexerError::UnknownToken { token: "???".to_string() })),
     ///     },
     ///     ErrorDetails {
     ///         source_name: "test.bas".to_string().into_boxed_str(),
@@ -887,7 +887,7 @@ impl<'a> From<(TokenStream<'a>, Vec<ErrorDetails<'a>>)> for ParseResult<'a, Toke
     ///         labels: vec![],
     ///         severity: Severity::Error,
     ///         notes: vec![],
-    ///         kind: ErrorKind::UnknownToken { token: "???".to_string() },
+    ///         kind: Box::new(ErrorKind::Lexer(LexerError::UnknownToken { token: "???".to_string() })),
     ///     },
     /// ];
     ///
