@@ -31,26 +31,66 @@
 use std::fmt::Display;
 use std::fs;
 use std::path::Path;
+use std::sync::Arc;
 
 use crate::errors::{ErrorDetails, SourceFileErrorKind};
 use crate::io::SourceStream;
 
 use encoding_rs::{mem::utf8_latin1_up_to, CoderResult, WINDOWS_1252};
 
+/// Immutable source context shared by all errors from the same file.
+#[derive(Debug, Clone)]
+pub struct SourceContext {
+    inner: Arc<SourceContextInner>,
+}
+
+/// Internal representation of the source context, containing the file name and source content.
+#[derive(Debug, Clone)]
+struct SourceContextInner {
+    file_name: Box<str>,
+    file_content: Box<str>,
+}
+
+impl SourceContext {
+    /// Create from SourceFile - called once per file.
+    pub fn new(file_name: impl Into<String>, content: impl Into<String>) -> Self {
+        Self {
+            inner: Arc::new(SourceContextInner {
+                file_name: file_name.into().into_boxed_str(),
+                file_content: content.into().into_boxed_str(),
+            }),
+        }
+    }
+
+    /// file name of the of the source file.
+    pub fn file_name(&self) -> &str {
+        &self.inner.file_name
+    }
+
+    /// source file contents
+    pub fn content(&self) -> &str {
+        &self.inner.file_content
+    }
+
+    /// Zero-cost slice into the source content.
+    pub fn slice(&self, start: u32, end: u32) -> &str {
+        let start = start as usize;
+        let end = end as usize;
+        &self.inner.file_content[start..end]
+    }
+}
+
 /// Represents a VB6 source file with its content and filename.
 /// This struct provides methods to read and decode source files
 /// using Windows-1252 encoding.
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone)]
 pub struct SourceFile {
-    /// The content of the source file as a `String`.
-    file_content: String,
-    /// The name of the source file.
-    file_name: String,
+    context: SourceContext,
 }
 
 impl AsRef<str> for SourceFile {
     fn as_ref(&self) -> &str {
-        &self.file_content
+        &self.context.content()
     }
 }
 
@@ -59,8 +99,8 @@ impl Display for SourceFile {
         write!(
             f,
             "SourceFile {{ file name: '{}', content len: {} }}",
-            self.file_name,
-            self.file_content.len()
+            self.context.file_name(),
+            self.context.content().len()
         )
     }
 }
@@ -138,7 +178,7 @@ impl SourceFile {
     /// Returns the source file name
     #[must_use]
     pub fn file_name(&self) -> &str {
-        &self.file_name
+        &self.context.file_name()
     }
 
     /// Creates a `SourceFile` from a file name and source code string.
@@ -154,8 +194,7 @@ impl SourceFile {
     #[must_use]
     pub fn from_string(file_name: impl Into<String>, source_code: impl Into<String>) -> Self {
         SourceFile {
-            file_name: file_name.into(),
-            file_content: source_code.into(),
+            context: SourceContext::new(file_name.into(), source_code.into()),
         }
     }
 
@@ -194,6 +233,8 @@ impl SourceFile {
     ) -> Result<Self, ErrorDetails<'_, SourceFileErrorKind>> {
         let mut decoder = WINDOWS_1252.new_decoder();
 
+        let file_name = file_name.into();
+
         let Some(max_len) = decoder.max_utf8_buffer_length(source_code.len()) else {
             return Err(ErrorDetails {
                 kind: SourceFileErrorKind::MalformedSource {
@@ -201,25 +242,25 @@ impl SourceFile {
                 },
                 error_offset: 0,
                 source_content: "",
-                source_name: file_name.into().into_boxed_str(),
+                source_name: file_name.into_boxed_str(),
                 line_start: 0,
                 line_end: 0,
             });
         };
 
-        let file_name = file_name.into();
-        let mut source_file = SourceFile {
-            file_name: file_name.clone(),
-            file_content: String::with_capacity(max_len),
-        };
+        // Create a mutable String to decode into
+        let mut decoded_content = String::with_capacity(max_len);
 
         let last = true;
         let (coder_result, attempted_decode_len, all_processed) =
-            decoder.decode_to_string(source_code, &mut source_file.file_content, last);
+            decoder.decode_to_string(source_code, &mut decoded_content, last);
 
-        if source_file.file_content.len() == source_code.len() {
+        if decoded_content.len() == source_code.len() {
             // It looks like we actually succeeded even if the coder_result might be
             // confused at that.
+            let source_file = SourceFile {
+                context: SourceContext::new(file_name, decoded_content),
+            };
             return Ok(source_file);
         }
 
@@ -230,6 +271,9 @@ impl SourceFile {
             // Looks like we actually succeeded even if the coder_result might be
             // confused at that.
             if attempted_decode_len == decoded_len {
+                let source_file = SourceFile {
+                    context: SourceContext::new(file_name, decoded_content),
+                };
                 return Ok(source_file);
             }
 
@@ -248,8 +292,9 @@ impl SourceFile {
             let details = ErrorDetails {
                 kind: SourceFileErrorKind::MalformedSource {
                     message: format!(
-                        r"Failed to decode the source file. '{file_name}' may not use latin-1 (Windows-1252) code page. 
-Currently, only latin-1 source code is supported."
+                        r"Failed to decode the source file. '{}' may not use latin-1 (Windows-1252) code page. 
+Currently, only latin-1 source code is supported.",
+                        file_name
                     ),
                 },
                 source_content: Box::leak(text_up_to_error.into_boxed_str()),
@@ -264,6 +309,10 @@ Currently, only latin-1 source code is supported."
             return Err(details);
         }
 
+        // Successfully decoded - create SourceFile with the decoded content
+        let source_file = SourceFile {
+            context: SourceContext::new(file_name, decoded_content),
+        };
         Ok(source_file)
     }
 
@@ -304,8 +353,6 @@ Currently, only latin-1 source code is supported."
     /// Returns a `SourceStream` instance.
     #[must_use]
     pub fn source_stream(&'_ self) -> SourceStream<'_> {
-        let source_stream = SourceStream::new(self.file_name.clone(), self.file_content.as_str());
-
-        source_stream
+        SourceStream::new(self.context.file_name(), self.context.content())
     }
 }
