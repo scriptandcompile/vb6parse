@@ -43,7 +43,7 @@ pub enum Shape {
 }
 
 impl TryFrom<&str> for Shape {
-    type Error = crate::errors::FormErrorKind;
+    type Error = crate::errors::ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
@@ -53,15 +53,15 @@ impl TryFrom<&str> for Shape {
             "3" => Ok(Shape::Circle),
             "4" => Ok(Shape::RoundedRectangle),
             "5" => Ok(Shape::RoundSquare),
-            _ => Err(crate::errors::FormErrorKind::InvalidShape(
-                value.to_string(),
-            )),
+            _ => Err(crate::errors::ErrorKind::FormInvalidShape {
+                value: value.to_string(),
+            }),
         }
     }
 }
 
 impl FromStr for Shape {
-    type Err = crate::errors::FormErrorKind;
+    type Err = crate::errors::ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         Shape::try_from(s)

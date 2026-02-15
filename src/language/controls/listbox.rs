@@ -47,21 +47,21 @@ pub enum ListBoxStyle {
 }
 
 impl TryFrom<&str> for ListBoxStyle {
-    type Error = crate::errors::FormErrorKind;
+    type Error = crate::errors::ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
             "0" => Ok(ListBoxStyle::Standard),
             "1" => Ok(ListBoxStyle::Checkbox),
-            _ => Err(crate::errors::FormErrorKind::InvalidListBoxStyle(
-                value.to_string(),
-            )),
+            _ => Err(crate::errors::ErrorKind::FormInvalidListBoxStyle {
+                value: value.to_string(),
+            }),
         }
     }
 }
 
 impl FromStr for ListBoxStyle {
-    type Err = crate::errors::FormErrorKind;
+    type Err = crate::errors::ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         ListBoxStyle::try_from(s)

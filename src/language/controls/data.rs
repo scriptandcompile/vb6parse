@@ -9,7 +9,7 @@
 use std::fmt::Display;
 use std::str::FromStr;
 
-use crate::errors::FormErrorKind;
+use crate::errors::ErrorKind;
 use crate::files::common::Properties;
 use crate::language::controls::{
     Activation, Align, Appearance, DragMode, MousePointer, OLEDropMode, TextDirection, Visibility,
@@ -271,19 +271,19 @@ impl Display for BOFAction {
 }
 
 impl FromStr for BOFAction {
-    type Err = FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
             "0" => Ok(BOFAction::MoveFirst),
             "1" => Ok(BOFAction::Bof),
-            _ => Err(FormErrorKind::InvalidBOFAction(s.to_string())),
+            _ => Err(ErrorKind::FormInvalidBOFAction { value: s.to_string() }),
         }
     }
 }
 
 impl TryFrom<&str> for BOFAction {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         BOFAction::from_str(value)
@@ -364,7 +364,7 @@ impl Display for ConnectionType {
 }
 
 impl FromStr for ConnectionType {
-    type Err = FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
@@ -387,13 +387,13 @@ impl FromStr for ConnectionType {
             "Paradox 4.X" => Ok(ConnectionType::Paradox4X),
             "Paradox 5.X" => Ok(ConnectionType::Paradox5X),
             "Text" => Ok(ConnectionType::Text),
-            _ => Err(FormErrorKind::InvalidConnectionType(s.to_string())),
+            _ => Err(ErrorKind::FormInvalidConnectionType { value: s.to_string() }),
         }
     }
 }
 
 impl TryFrom<&str> for ConnectionType {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         ConnectionType::from_str(value)
@@ -434,20 +434,20 @@ impl Display for DefaultCursorType {
 }
 
 impl FromStr for DefaultCursorType {
-    type Err = FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
             "0" => Ok(DefaultCursorType::Default),
             "1" => Ok(DefaultCursorType::Odbc),
             "2" => Ok(DefaultCursorType::ServerSide),
-            _ => Err(FormErrorKind::InvalidDefaultCursorType(s.to_string())),
+            _ => Err(ErrorKind::FormInvalidDefaultCursorType { value: s.to_string() }),
         }
     }
 }
 
 impl TryFrom<&str> for DefaultCursorType {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         DefaultCursorType::from_str(value)
@@ -483,19 +483,19 @@ impl Display for DatabaseDriverType {
 }
 
 impl FromStr for DatabaseDriverType {
-    type Err = FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
             "1" => Ok(DatabaseDriverType::UseODBC),
             "2" => Ok(DatabaseDriverType::UseJet),
-            _ => Err(FormErrorKind::InvalidDatabaseDriverType(s.to_string())),
+            _ => Err(ErrorKind::FormInvalidDatabaseDriverType { value: s.to_string() }),
         }
     }
 }
 
 impl TryFrom<&str> for DatabaseDriverType {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         DatabaseDriverType::from_str(value)
@@ -539,20 +539,20 @@ impl Display for EOFAction {
 }
 
 impl FromStr for EOFAction {
-    type Err = FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
             "0" => Ok(EOFAction::MoveLast),
             "1" => Ok(EOFAction::Eof),
             "2" => Ok(EOFAction::AddNew),
-            _ => Err(FormErrorKind::InvalidEOFAction(s.to_string())),
+            _ => Err(ErrorKind::FormInvalidEOFAction { value: s.to_string() }),
         }
     }
 }
 
 impl TryFrom<&str> for EOFAction {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         EOFAction::from_str(value)
@@ -591,20 +591,20 @@ impl Display for RecordSetType {
 }
 
 impl FromStr for RecordSetType {
-    type Err = FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
             "0" => Ok(RecordSetType::Table),
             "1" => Ok(RecordSetType::Dynaset),
             "2" => Ok(RecordSetType::Snapshot),
-            _ => Err(FormErrorKind::InvalidRecordSetType(s.to_string())),
+            _ => Err(ErrorKind::FormInvalidRecordSetType { value: s.to_string() }),
         }
     }
 }
 
 impl TryFrom<&str> for RecordSetType {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         RecordSetType::from_str(value)

@@ -212,8 +212,5 @@ pub use crate::files::{ClassFile, FormFile, FormResourceFile, ModuleFile, Projec
 // Syntax Parsers - CST parsing and tree types
 pub use crate::parsers::{parse, ConcreteSyntaxTree, ParseResult, SerializableTree, SyntaxKind};
 
-// Error Types - All error kinds for pattern matching
-pub use crate::errors::{
-    ClassErrorKind, CodeErrorKind, ErrorDetails, FormErrorKind, ModuleErrorKind, ProjectErrorKind,
-    PropertyError, ResourceErrorKind, SourceFileErrorKind,
-};
+// Error Types - New unified error handling (Phase 4)
+pub use crate::errors::{ErrorDetails, ErrorKind, Severity};
