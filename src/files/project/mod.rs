@@ -3040,7 +3040,7 @@ mod tests {
             parse_quoted_converted_value(&mut input, parameter_name);
 
         assert!(matches!(
-            result.err().unwrap().kind,
+            *result.err().unwrap().kind,
             ErrorKind::Project(ProjectError::ParameterValueInvalid { .. })
         ));
     }
@@ -3175,7 +3175,7 @@ mod tests {
         let error = result.err().unwrap();
 
         assert!(matches!(
-            error.kind,
+            *error.kind,
             ErrorKind::Project(ProjectError::ParameterValueInvalid { .. })
         ));
     }
