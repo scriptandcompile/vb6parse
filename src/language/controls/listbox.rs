@@ -11,6 +11,7 @@ use std::fmt::Display;
 use std::str::FromStr;
 
 use crate::{
+    errors::FormError,
     files::common::Properties,
     language::{
         color::{Color, VB_BUTTON_FACE, VB_BUTTON_TEXT},
@@ -53,9 +54,11 @@ impl TryFrom<&str> for ListBoxStyle {
         match value {
             "0" => Ok(ListBoxStyle::Standard),
             "1" => Ok(ListBoxStyle::Checkbox),
-            _ => Err(crate::errors::ErrorKind::FormInvalidListBoxStyle {
-                value: value.to_string(),
-            }),
+            _ => Err(crate::errors::ErrorKind::Form(
+                FormError::InvalidListBoxStyle {
+                    value: value.to_string(),
+                },
+            )),
         }
     }
 }

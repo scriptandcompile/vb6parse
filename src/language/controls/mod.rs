@@ -48,7 +48,7 @@ use std::str::FromStr;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
-use crate::errors::ErrorKind;
+use crate::errors::{FormError, ErrorKind};
 use crate::language::PropertyGroup;
 
 use crate::language::controls::{
@@ -108,7 +108,9 @@ impl TryFrom<&str> for AutoRedraw {
         match value {
             "0" => Ok(AutoRedraw::Manual),
             "-1" => Ok(AutoRedraw::Automatic),
-            _ => Err(ErrorKind::FormInvalidAutoRedraw { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidAutoRedraw {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -165,7 +167,9 @@ impl TryFrom<&str> for TextDirection {
         match value {
             "0" => Ok(TextDirection::LeftToRight),
             "-1" => Ok(TextDirection::RightToLeft),
-            _ => Err(ErrorKind::FormInvalidTextDirection { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidTextDirection {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -238,7 +242,9 @@ impl TryFrom<&str> for AutoSize {
         match value {
             "0" => Ok(AutoSize::Fixed),
             "-1" => Ok(AutoSize::Resize),
-            _ => Err(ErrorKind::FormInvalidAutoSize { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidAutoSize {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -315,7 +321,9 @@ impl TryFrom<&str> for Activation {
         match value {
             "0" => Ok(Activation::Disabled),
             "-1" => Ok(Activation::Enabled),
-            _ => Err(ErrorKind::FormInvalidActivation { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidActivation {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -385,7 +393,9 @@ impl TryFrom<&str> for TabStop {
         match value {
             "0" => Ok(TabStop::ProgrammaticOnly),
             "-1" => Ok(TabStop::Included),
-            _ => Err(ErrorKind::FormInvalidTabStop { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidTabStop {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -424,7 +434,9 @@ impl TryFrom<&str> for Visibility {
         match value {
             "0" => Ok(Visibility::Hidden),
             "-1" => Ok(Visibility::Visible),
-            _ => Err(ErrorKind::FormInvalidVisibility { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidVisibility {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -486,7 +498,9 @@ impl TryFrom<&str> for HasDeviceContext {
         match value {
             "0" => Ok(HasDeviceContext::NoContext),
             "-1" => Ok(HasDeviceContext::HasContext),
-            _ => Err(ErrorKind::FormInvalidHasDeviceContext { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidHasDeviceContext {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -594,7 +608,9 @@ impl TryFrom<&str> for CausesValidation {
         match value {
             "0" => Ok(CausesValidation::No),
             "-1" => Ok(CausesValidation::Yes),
-            _ => Err(ErrorKind::FormInvalidCausesValidation { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidCausesValidation {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -665,7 +681,9 @@ impl TryFrom<&str> for Movability {
         match value {
             "0" => Ok(Movability::Fixed),
             "-1" => Ok(Movability::Moveable),
-            _ => Err(ErrorKind::FormInvalidMovability { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidMovability {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -735,7 +753,9 @@ impl TryFrom<&str> for FontTransparency {
         match value {
             "0" => Ok(FontTransparency::Opaque),
             "-1" => Ok(FontTransparency::Transparent),
-            _ => Err(ErrorKind::FormInvalidFontTransparency { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidFontTransparency {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -807,7 +827,9 @@ impl TryFrom<&str> for WhatsThisHelp {
         match value {
             "0" => Ok(WhatsThisHelp::F1Help),
             "-1" => Ok(WhatsThisHelp::WhatsThisHelp),
-            _ => Err(ErrorKind::FormInvalidWhatsThisHelp { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidWhatsThisHelp {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -886,7 +908,9 @@ impl TryFrom<&str> for FormLinkMode {
         match value {
             "0" => Ok(FormLinkMode::None),
             "1" => Ok(FormLinkMode::Source),
-            _ => Err(ErrorKind::FormInvalidFormLinkMode { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidFormLinkMode {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -957,7 +981,9 @@ impl TryFrom<&str> for WindowState {
             "0" => Ok(WindowState::Normal),
             "1" => Ok(WindowState::Minimized),
             "2" => Ok(WindowState::Maximized),
-            _ => Err(ErrorKind::FormInvalidWindowState { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidWindowState {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -1694,7 +1720,9 @@ impl TryFrom<&str> for Align {
             "2" => Ok(Align::Bottom),
             "3" => Ok(Align::Left),
             "4" => Ok(Align::Right),
-            _ => Err(ErrorKind::FormInvalidAlign { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidAlign {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -1747,7 +1775,9 @@ impl TryFrom<&str> for JustifyAlignment {
         match value {
             "0" => Ok(JustifyAlignment::LeftJustify),
             "1" => Ok(JustifyAlignment::RightJustify),
-            _ => Err(ErrorKind::FormInvalidJustifyAlignment { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidJustifyAlignment {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -1800,7 +1830,9 @@ impl TryFrom<&str> for Alignment {
             "0" => Ok(Alignment::LeftJustify),
             "1" => Ok(Alignment::RightJustify),
             "2" => Ok(Alignment::Center),
-            _ => Err(ErrorKind::FormInvalidAlignment { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidAlignment {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -1851,7 +1883,9 @@ impl TryFrom<&str> for BackStyle {
         match value {
             "0" => Ok(BackStyle::Transparent),
             "1" => Ok(BackStyle::Opaque),
-            _ => Err(ErrorKind::FormInvalidBackStyle { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidBackStyle {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -1916,7 +1950,9 @@ impl TryFrom<&str> for Appearance {
         match value {
             "0" => Ok(Appearance::Flat),
             "1" => Ok(Appearance::ThreeD),
-            _ => Err(ErrorKind::FormInvalidAppearance { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidAppearance {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -1966,7 +2002,9 @@ impl TryFrom<&str> for BorderStyle {
         match value {
             "0" => Ok(BorderStyle::None),
             "1" => Ok(BorderStyle::FixedSingle),
-            _ => Err(ErrorKind::FormInvalidBorderStyle { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidBorderStyle {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -2013,7 +2051,9 @@ impl TryFrom<&str> for DragMode {
         match value {
             "0" => Ok(DragMode::Manual),
             "1" => Ok(DragMode::Automatic),
-            _ => Err(ErrorKind::FormInvalidDragMode { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidDragMode {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -2101,7 +2141,9 @@ impl TryFrom<&str> for DrawMode {
             "14" => Ok(DrawMode::MergePenNot),
             "15" => Ok(DrawMode::MergePen),
             "16" => Ok(DrawMode::Whiteness),
-            _ => Err(ErrorKind::FormInvalidDrawMode { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidDrawMode {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -2175,7 +2217,9 @@ impl TryFrom<&str> for DrawStyle {
             "4" => Ok(DrawStyle::DashDotDot),
             "5" => Ok(DrawStyle::Transparent),
             "6" => Ok(DrawStyle::InsideSolid),
-            _ => Err(ErrorKind::FormInvalidDrawStyle { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidDrawStyle {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -2278,7 +2322,9 @@ impl TryFrom<&str> for MousePointer {
             "14" => Ok(MousePointer::ArrowQuestion),
             "15" => Ok(MousePointer::SizeAll),
             "99" => Ok(MousePointer::Custom),
-            _ => Err(ErrorKind::FormInvalidMousePointer { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidMousePointer {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -2338,7 +2384,9 @@ impl TryFrom<&str> for OLEDragMode {
         match value {
             "0" => Ok(OLEDragMode::Manual),
             "1" => Ok(OLEDragMode::Automatic),
-            _ => Err(ErrorKind::FormInvalidOLEDragMode { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidOLEDragMode {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -2383,7 +2431,9 @@ impl TryFrom<&str> for OLEDropMode {
         match value {
             "0" => Ok(OLEDropMode::None),
             "1" => Ok(OLEDropMode::Manual),
-            _ => Err(ErrorKind::FormInvalidOLEDropMode { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidOLEDropMode {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -2429,7 +2479,9 @@ impl TryFrom<&str> for ClipControls {
         match value {
             "0" => Ok(ClipControls::Unbounded),
             "1" => Ok(ClipControls::Clipped),
-            _ => Err(ErrorKind::FormInvalidClipControls { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidClipControls {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -2475,7 +2527,9 @@ impl TryFrom<&str> for Style {
         match value {
             "0" => Ok(Style::Standard),
             "1" => Ok(Style::Graphical),
-            _ => Err(ErrorKind::FormInvalidStyle { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidStyle {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -2541,7 +2595,9 @@ impl TryFrom<&str> for FillStyle {
             "5" => Ok(FillStyle::DownwardDiagonal),
             "6" => Ok(FillStyle::Cross),
             "7" => Ok(FillStyle::DiagonalCross),
-            _ => Err(ErrorKind::FormInvalidFillStyle { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidFillStyle {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -2616,7 +2672,9 @@ impl TryFrom<&str> for LinkMode {
             "1" => Ok(LinkMode::Automatic),
             "2" => Ok(LinkMode::Manual),
             "3" => Ok(LinkMode::Notify),
-            _ => Err(ErrorKind::FormInvalidLinkMode { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidLinkMode {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -2668,7 +2726,9 @@ impl TryFrom<&str> for MultiSelect {
             "0" => Ok(MultiSelect::None),
             "1" => Ok(MultiSelect::Simple),
             "2" => Ok(MultiSelect::Extended),
-            _ => Err(ErrorKind::FormInvalidMultiSelect { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidMultiSelect {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -2750,7 +2810,9 @@ impl TryFrom<&str> for ScaleMode {
             "8" => Ok(ScaleMode::HiMetric),
             "9" => Ok(ScaleMode::ContainerPosition),
             "10" => Ok(ScaleMode::ContainerSize),
-            _ => Err(ErrorKind::FormInvalidScaleMode { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidScaleMode {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -2808,7 +2870,9 @@ impl TryFrom<&str> for SizeMode {
             "1" => Ok(SizeMode::Stretch),
             "2" => Ok(SizeMode::AutoSize),
             "3" => Ok(SizeMode::Zoom),
-            _ => Err(ErrorKind::FormInvalidSizeMode { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidSizeMode {
+                value: value.to_string(),
+            })),
         }
     }
 }

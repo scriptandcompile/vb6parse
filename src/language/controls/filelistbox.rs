@@ -10,7 +10,7 @@ use std::convert::TryFrom;
 use std::fmt::Display;
 use std::str::FromStr;
 
-use crate::errors::ErrorKind;
+use crate::errors::{FormError, ErrorKind};
 use crate::files::common::Properties;
 use crate::language::color::Color;
 use crate::language::controls::{
@@ -66,7 +66,9 @@ impl TryFrom<&str> for ArchiveAttribute {
         match value {
             "0" => Ok(ArchiveAttribute::Exclude),
             "-1" => Ok(ArchiveAttribute::Include),
-            _ => Err(ErrorKind::FormInvalidArchiveAttribute { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidArchiveAttribute {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -135,7 +137,9 @@ impl TryFrom<&str> for HiddenAttribute {
         match value {
             "0" => Ok(HiddenAttribute::Exclude),
             "-1" => Ok(HiddenAttribute::Include),
-            _ => Err(ErrorKind::FormInvalidHiddenAttribute { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidHiddenAttribute {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -182,7 +186,9 @@ impl TryFrom<&str> for ReadOnlyAttribute {
         match value {
             "0" => Ok(ReadOnlyAttribute::Exclude),
             "-1" => Ok(ReadOnlyAttribute::Include),
-            _ => Err(ErrorKind::FormInvalidReadOnlyAttribute { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidReadOnlyAttribute {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -251,7 +257,9 @@ impl TryFrom<&str> for SystemAttribute {
         match value {
             "0" => Ok(SystemAttribute::Exclude),
             "-1" => Ok(SystemAttribute::Include),
-            _ => Err(ErrorKind::FormInvalidSystemAttribute { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidSystemAttribute {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -319,7 +327,9 @@ impl TryFrom<&str> for NormalAttribute {
         match value {
             "0" => Ok(NormalAttribute::Exclude),
             "-1" => Ok(NormalAttribute::Include),
-            _ => Err(ErrorKind::FormInvalidNormalAttribute { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidNormalAttribute {
+                value: value.to_string(),
+            })),
         }
     }
 }

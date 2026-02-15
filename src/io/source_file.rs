@@ -33,7 +33,7 @@ use std::fs;
 use std::path::Path;
 use std::sync::Arc;
 
-use crate::errors::{ErrorDetails, ErrorKind, Severity};
+use crate::errors::{ErrorDetails, ErrorKind, Severity, SourceFileError};
 use crate::io::SourceStream;
 
 use encoding_rs::{mem::utf8_latin1_up_to, CoderResult, WINDOWS_1252};
@@ -148,9 +148,9 @@ impl SourceFile {
 
         // Read the file contents
         let bytes = fs::read(path).map_err(|io_err| ErrorDetails {
-            kind: ErrorKind::SourceFileMalformed {
+            kind: ErrorKind::SourceFile(SourceFileError::Malformed {
                 message: format!("Failed to read file: {io_err}"),
-            },
+            }),
             error_offset: 0,
             source_content: "",
             source_name: path.display().to_string().into_boxed_str(),
@@ -244,9 +244,9 @@ impl SourceFile {
 
         let Some(max_len) = decoder.max_utf8_buffer_length(source_code.len()) else {
             return Err(ErrorDetails {
-                kind: ErrorKind::SourceFileMalformed {
+                kind: ErrorKind::SourceFile(SourceFileError::Malformed {
                     message: "Failed to decode the source code. '{file_name}' was empty.".into(),
-                },
+                }),
                 error_offset: 0,
                 source_content: "",
                 source_name: file_name.into_boxed_str(),
@@ -300,12 +300,12 @@ impl SourceFile {
             };
 
             let details = ErrorDetails {
-                kind: ErrorKind::SourceFileMalformed {
+                kind: ErrorKind::SourceFile(SourceFileError::Malformed {
                     message: format!(
                         r"Failed to decode the source file. '{file_name}' may not use latin-1 (Windows-1252) code page. 
 Currently, only latin-1 source code is supported."
                     ),
-                },
+                }),
                 source_content: Box::leak(text_up_to_error.into_boxed_str()),
                 source_name: file_name.into_boxed_str(),
                 // Normally we would use usize for offsets, but VB6 was limited to 32-bit addressing.

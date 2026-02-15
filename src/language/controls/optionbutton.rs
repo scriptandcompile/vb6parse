@@ -10,7 +10,7 @@ use std::convert::{From, TryFrom};
 use std::fmt::{Display, Formatter};
 use std::str::FromStr;
 
-use crate::errors::ErrorKind;
+use crate::errors::{FormError, ErrorKind};
 use crate::files::common::Properties;
 use crate::language::controls::{
     Activation, Appearance, CausesValidation, DragMode, JustifyAlignment, MousePointer,
@@ -55,7 +55,9 @@ impl TryFrom<&str> for OptionButtonValue {
         match value {
             "0" => Ok(OptionButtonValue::UnSelected),
             "1" => Ok(OptionButtonValue::Selected),
-            _ => Err(ErrorKind::FormInvalidOptionButtonValue { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidOptionButtonValue {
+                value: value.to_string(),
+            })),
         }
     }
 }

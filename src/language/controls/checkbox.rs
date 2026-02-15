@@ -20,6 +20,7 @@ use std::fmt::Display;
 use std::str::FromStr;
 
 use crate::{
+    errors::FormError,
     files::common::Properties,
     language::{
         controls::{
@@ -74,7 +75,9 @@ impl FromStr for CheckBoxValue {
             "0" | "Unchecked" => Ok(CheckBoxValue::Unchecked),
             "1" | "Checked" => Ok(CheckBoxValue::Checked),
             "2" | "Grayed" => Ok(CheckBoxValue::Grayed),
-            _ => Err(ErrorKind::FormInvalidCheckBoxValue { value: s.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidCheckBoxValue {
+                value: s.to_string(),
+            })),
         }
     }
 }
