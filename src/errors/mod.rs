@@ -38,6 +38,36 @@ pub use property::PropertyError;
 pub use resource::ResourceErrorKind;
 pub use tokenize::CodeErrorKind;
 
+/// Represents the severity level of a parsing diagnostic.
+///
+/// This enum is used to distinguish between different types of issues
+/// encountered during parsing, from informational notes to fatal errors.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub enum Severity {
+    /// Informational message, not a problem.
+    Note,
+    /// Potential issue that should be addressed but doesn't prevent usage.
+    Warning,
+    /// Fatal error that prevents successful parsing or usage.
+    Error,
+}
+
+impl Default for Severity {
+    fn default() -> Self {
+        Severity::Error
+    }
+}
+
+impl Display for Severity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Severity::Note => write!(f, "note"),
+            Severity::Warning => write!(f, "warning"),
+            Severity::Error => write!(f, "error"),
+        }
+    }
+}
+
 /// Contains detailed information about an error that occurred during parsing.
 /// This struct contains the source name, source content, error offset,
 /// line start and end positions, and the kind of error.
@@ -83,6 +113,8 @@ where
     pub line_end: u32,
     /// The kind of error that occurred.
     pub kind: T,
+    /// The severity of this diagnostic (Error, Warning, or Note).
+    pub severity: Severity,
 }
 
 impl<T> Display for ErrorDetails<'_, T>

@@ -639,6 +639,7 @@ impl<'a> SourceStream<'a> {
             line_end: u32::try_from(self.end_of_line()).unwrap_or(0),
             line_start: u32::try_from(self.start_of_line()).unwrap_or(0),
             kind: error_kind,
+            severity: crate::errors::Severity::Error,
         }
     }
 
@@ -659,6 +660,7 @@ impl<'a> SourceStream<'a> {
             line_end: u32::try_from(self.end_of_line_from(offset)).unwrap_or(0),
             line_start: u32::try_from(self.start_of_line_from(offset)).unwrap_or(0),
             kind: error_kind,
+            severity: crate::errors::Severity::Error,
         }
     }
 
@@ -693,6 +695,7 @@ impl<'a> SourceStream<'a> {
             error_offset: u32::try_from(offsets[1]).unwrap_or(0),
             line_end: u32::try_from(offsets[2]).unwrap_or(0),
             kind: error_kind,
+            severity: crate::errors::Severity::Error,
         }
     }
 }
