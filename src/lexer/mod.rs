@@ -59,9 +59,9 @@ pub use token_stream::TokenStream;
 use phf::{phf_ordered_map, OrderedMap};
 
 use crate::{
+    errors::{ErrorKind, LexerError},
     io::SourceStream,
     parsers::{Comparator, ParseResult},
-    ErrorKind,
 };
 
 /// Lookup table for VB6 keywords to their corresponding tokens.
@@ -316,9 +316,7 @@ pub type LineCommentTuple<'a> = (TextTokenTuple<'a>, Option<TextTokenTuple<'a>>)
 /// assert_eq!(tokens[5], (" ", Token::Whitespace));
 /// assert_eq!(tokens[6], ("Integer", Token::IntegerKeyword));
 /// ```
-pub fn tokenize<'a>(
-    input: &mut SourceStream<'a>,
-) -> ParseResult<'a, TokenStream<'a>> {
+pub fn tokenize<'a>(input: &mut SourceStream<'a>) -> ParseResult<'a, TokenStream<'a>> {
     let mut failures = vec![];
     let mut tokens = Vec::new();
 
@@ -400,9 +398,9 @@ pub fn tokenize<'a>(
         }
 
         if let Some(token_text) = input.take_count(1) {
-            let error = input.generate_error(ErrorKind::UnknownToken {
+            let error = input.generate_error(ErrorKind::Lexer(LexerError::UnknownToken {
                 token: token_text.into(),
-            });
+            }));
 
             failures.push(error);
         }

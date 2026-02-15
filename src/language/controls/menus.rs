@@ -11,7 +11,7 @@ use std::convert::TryFrom;
 use std::fmt::Display;
 use std::str::FromStr;
 
-use crate::errors::ErrorKind;
+use crate::errors::{FormError, ErrorKind};
 use crate::files::common::Properties;
 use crate::language::controls::{Activation, Visibility};
 
@@ -252,7 +252,9 @@ impl FromStr for NegotiatePosition {
             "1" => Ok(NegotiatePosition::Left),
             "2" => Ok(NegotiatePosition::Middle),
             "3" => Ok(NegotiatePosition::Right),
-            _ => Err(ErrorKind::FormInvalidNegotiatePosition { value: s.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidNegotiatePosition {
+                value: s.to_string(),
+            })),
         }
     }
 }
@@ -761,7 +763,7 @@ impl TryFrom<&str> for ShortCut {
             "{DEL}" => Ok(ShortCut::Del),
             "+{DEL}" => Ok(ShortCut::ShiftDel),
             "%{BKSP}" => Ok(ShortCut::AltBKsp),
-            _ => Err(ErrorKind::FormShortCutUnparsable),
+            _ => Err(ErrorKind::Form(FormError::ShortCutUnparsable)),
         }
     }
 }

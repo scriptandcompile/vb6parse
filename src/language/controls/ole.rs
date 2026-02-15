@@ -9,7 +9,7 @@
 use std::fmt::Display;
 use std::str::FromStr;
 
-use crate::errors::ErrorKind;
+use crate::errors::{FormError, ErrorKind};
 use crate::files::common::Properties;
 use crate::language::color::Color;
 use crate::language::controls::{
@@ -48,7 +48,9 @@ impl TryFrom<&str> for OLETypeAllowed {
             "0" => Ok(OLETypeAllowed::Link),
             "1" => Ok(OLETypeAllowed::Embedded),
             "2" => Ok(OLETypeAllowed::Either),
-            _ => Err(ErrorKind::FormInvalidOLETypeAllowed { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidOLETypeAllowed {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -100,7 +102,9 @@ impl TryFrom<&str> for UpdateOptions {
             "0" => Ok(UpdateOptions::Automatic),
             "1" => Ok(UpdateOptions::Frozen),
             "2" => Ok(UpdateOptions::Manual),
-            _ => Err(ErrorKind::FormInvalidUpdateOptions { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidUpdateOptions {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -163,7 +167,9 @@ impl TryFrom<&str> for AutoActivate {
             "1" => Ok(AutoActivate::GetFocus),
             "2" => Ok(AutoActivate::DoubleClick),
             "3" => Ok(AutoActivate::Automatic),
-            _ => Err(ErrorKind::FormInvalidAutoActivate { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidAutoActivate {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -214,7 +220,9 @@ impl TryFrom<&str> for DisplayType {
         match value {
             "0" => Ok(DisplayType::Content),
             "1" => Ok(DisplayType::Icon),
-            _ => Err(ErrorKind::FormInvalidDisplayType { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidDisplayType {
+                value: value.to_string(),
+            })),
         }
     }
 }

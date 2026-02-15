@@ -16,7 +16,7 @@ use strum::{EnumMessage, IntoEnumIterator};
 use uuid::Uuid;
 
 use crate::{
-    errors::{ErrorDetails, ErrorKind},
+    errors::{ErrorDetails, ErrorKind, ProjectError},
     files::common::ObjectReference,
     files::project::{
         compilesettings::CompilationType,
@@ -1242,9 +1242,9 @@ fn handle_unknown_property<'a>(
 
     let e = input.generate_error_at(
         line_start,
-        ErrorKind::ProjectParameterLineUnknown {
-            parameter_line_name: property_name.to_string(),
-        },
+        ErrorKind::Project(ProjectError::ParameterLineUnknown {
+            line: property_name.to_string(),
+        }),
     );
     failures.push(e);
 }
@@ -2062,7 +2062,8 @@ fn parse_section_header_line<'a>(
     // We have a section header line.
     let Some((other_property, _)) = input.take_until("]", Comparator::CaseSensitive) else {
         // We have a section header line but it is not terminated properly.
-        let fail = input.generate_error(ErrorKind::ProjectUnterminatedSectionHeader);
+        let fail =
+            input.generate_error(ErrorKind::Project(ProjectError::UnterminatedSectionHeader));
         input.forward_to_next_line();
 
         return Err(fail);
@@ -2084,7 +2085,10 @@ fn parse_property_name<'a>(input: &mut SourceStream<'a>) -> Result<&'a str, Erro
         None => {
             // No property name found, so we can't parse this line.
             // Go to the next line and return the error.
-            let fail = input.generate_error_at(line_start, ErrorKind::ProjectPropertyNameNotFound);
+            let fail = input.generate_error_at(
+                line_start,
+                ErrorKind::Project(ProjectError::PropertyNameNotFound),
+            );
             input.forward_to_next_line();
 
             Err(fail)
@@ -2113,9 +2117,9 @@ fn parse_property_value<'a>(
         // No parameter value found, so we can't parse this line.
         let fail = input.generate_error_at(
             parameter_start,
-            ErrorKind::ProjectParameterValueNotFound {
+            ErrorKind::Project(ProjectError::ParameterValueNotFound {
                 parameter_line_name: line_type.to_string(),
-            },
+            }),
         );
         return Err(fail);
     };
@@ -2124,9 +2128,9 @@ fn parse_property_value<'a>(
         // No parameter value found, so we can't parse this line.
         let fail = input.generate_error_at(
             parameter_start,
-            ErrorKind::ProjectParameterValueNotFound {
+            ErrorKind::Project(ProjectError::ParameterValueNotFound {
                 parameter_line_name: line_type.to_string(),
-            },
+            }),
         );
         return Err(fail);
     }
@@ -2148,9 +2152,9 @@ fn parse_quoted_value<'a>(
         // No parameter value found, so we can't parse this line.
         let fail = input.generate_error_at(
             parameter_start,
-            ErrorKind::ProjectParameterValueNotFound {
+            ErrorKind::Project(ProjectError::ParameterValueNotFound {
                 parameter_line_name: line_type.to_string(),
-            },
+            }),
         );
         return Err(fail);
     };
@@ -2159,9 +2163,9 @@ fn parse_quoted_value<'a>(
         // No startup value found, so we can't parse this line.
         let fail = input.generate_error_at(
             parameter_start,
-            ErrorKind::ProjectParameterValueNotFound {
+            ErrorKind::Project(ProjectError::ParameterValueNotFound {
                 parameter_line_name: line_type.to_string(),
-            },
+            }),
         );
         return Err(fail);
     }
@@ -2174,9 +2178,9 @@ fn parse_quoted_value<'a>(
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start,
-            ErrorKind::ProjectParameterValueMissingOpeningQuote {
+            ErrorKind::Project(ProjectError::ParameterValueMissingOpeningQuote {
                 parameter_line_name: line_type.to_string(),
-            },
+            }),
         );
         return Err(fail);
     }
@@ -2193,9 +2197,9 @@ fn parse_quoted_value<'a>(
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start + parameter_value.len(),
-            ErrorKind::ProjectParameterValueMissingMatchingQuote {
+            ErrorKind::Project(ProjectError::ParameterValueMissingMatchingQuote {
                 parameter_line_name: line_type.to_string(),
-            },
+            }),
         );
         return Err(fail);
     }
@@ -2205,9 +2209,9 @@ fn parse_quoted_value<'a>(
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start,
-            ErrorKind::ProjectParameterValueMissingQuotes {
+            ErrorKind::Project(ProjectError::ParameterValueMissingQuotes {
                 parameter_line_name: line_type.to_string(),
-            },
+            }),
         );
         return Err(fail);
     }
@@ -2233,9 +2237,9 @@ fn parse_optional_quoted_value<'a>(
         // No parameter value found, so we can't parse this line.
         let fail = input.generate_error_at(
             parameter_start,
-            ErrorKind::ProjectParameterValueNotFound {
+            ErrorKind::Project(ProjectError::ParameterValueNotFound {
                 parameter_line_name: line_type.to_string(),
-            },
+            }),
         );
         return Err(fail);
     };
@@ -2244,9 +2248,9 @@ fn parse_optional_quoted_value<'a>(
         // No parameter value found, so we can't parse this line.
         let fail = input.generate_error_at(
             parameter_start,
-            ErrorKind::ProjectParameterValueNotFound {
+            ErrorKind::Project(ProjectError::ParameterValueNotFound {
                 parameter_line_name: line_type.to_string(),
-            },
+            }),
         );
         return Err(fail);
     }
@@ -2270,9 +2274,9 @@ fn parse_optional_quoted_value<'a>(
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start,
-            ErrorKind::ProjectParameterValueMissingOpeningQuote {
+            ErrorKind::Project(ProjectError::ParameterValueMissingOpeningQuote {
                 parameter_line_name: line_type.to_string(),
-            },
+            }),
         );
         return Err(fail);
     }
@@ -2290,9 +2294,9 @@ fn parse_optional_quoted_value<'a>(
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start + parameter_value.len(),
-            ErrorKind::ProjectParameterValueMissingMatchingQuote {
+            ErrorKind::Project(ProjectError::ParameterValueMissingMatchingQuote {
                 parameter_line_name: line_type.to_string(),
-            },
+            }),
         );
         return Err(fail);
     }
@@ -2302,9 +2306,9 @@ fn parse_optional_quoted_value<'a>(
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start,
-            ErrorKind::ProjectParameterValueMissingQuotes {
+            ErrorKind::Project(ProjectError::ParameterValueMissingQuotes {
                 parameter_line_name: line_type.to_string(),
-            },
+            }),
         );
         return Err(fail);
     }
@@ -2334,9 +2338,9 @@ where
             // Go to the next line and return the error.
             let fail = input.generate_error_at(
                 parameter_start,
-                ErrorKind::ProjectParameterValueMissingOpeningQuote {
+                ErrorKind::Project(ProjectError::ParameterValueMissingOpeningQuote {
                     parameter_line_name: line_type.to_string(),
-                },
+                }),
             );
             return Err(fail);
         }
@@ -2351,9 +2355,9 @@ where
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start,
-            ErrorKind::ProjectParameterValueMissingOpeningQuote {
+            ErrorKind::Project(ProjectError::ParameterValueMissingOpeningQuote {
                 parameter_line_name: line_type.to_string(),
-            },
+            }),
         );
         return Err(fail);
     }
@@ -2370,9 +2374,9 @@ where
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start + parameter_value.len(),
-            ErrorKind::ProjectParameterValueMissingMatchingQuote {
+            ErrorKind::Project(ProjectError::ParameterValueMissingMatchingQuote {
                 parameter_line_name: line_type.to_string(),
-            },
+            }),
         );
         return Err(fail);
     }
@@ -2382,9 +2386,9 @@ where
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start,
-            ErrorKind::ProjectParameterValueMissingQuotes {
+            ErrorKind::Project(ProjectError::ParameterValueMissingQuotes {
                 parameter_line_name: line_type.to_string(),
-            },
+            }),
         );
         return Err(fail);
     }
@@ -2401,11 +2405,11 @@ where
 
         let fail = input.generate_error_at(
             parameter_start,
-            ErrorKind::ProjectParameterValueInvalid {
+            ErrorKind::Project(ProjectError::ParameterValueInvalid {
                 parameter_line_name: line_type.to_string(),
                 invalid_value: parameter_value.to_string(),
                 valid_value_message,
-            },
+            }),
         );
         return Err(fail);
     };
@@ -2434,9 +2438,9 @@ where
             // Go to the next line and return the error.
             let fail = input.generate_error_at(
                 parameter_start,
-                ErrorKind::ProjectParameterValueMissingOpeningQuote {
+                ErrorKind::Project(ProjectError::ParameterValueMissingOpeningQuote {
                     parameter_line_name: line_type.to_string(),
-                },
+                }),
             );
             return Err(fail);
         }
@@ -2453,11 +2457,11 @@ where
 
         let fail = input.generate_error_at(
             parameter_start,
-            ErrorKind::ProjectParameterValueInvalid {
+            ErrorKind::Project(ProjectError::ParameterValueInvalid {
                 parameter_line_name: line_type.to_string(),
                 invalid_value: parameter_value.to_string(),
                 valid_value_message,
-            },
+            }),
         );
         return Err(fail);
     };
@@ -2486,9 +2490,9 @@ where
             // Go to the next line and return the error.
             let fail = input.generate_error_at(
                 parameter_start,
-                ErrorKind::ProjectParameterValueMissingOpeningQuote {
+                ErrorKind::Project(ProjectError::ParameterValueMissingOpeningQuote {
                     parameter_line_name: line_type.to_string(),
-                },
+                }),
             );
             return Err(fail);
         }
@@ -2504,11 +2508,11 @@ where
 
         let fail = input.generate_error_at(
             parameter_start,
-            ErrorKind::ProjectParameterValueInvalid {
+            ErrorKind::Project(ProjectError::ParameterValueInvalid {
                 parameter_line_name: line_type.to_string(),
                 invalid_value: parameter_value.to_string(),
                 valid_value_message,
-            },
+            }),
         );
         return Err(fail);
     };
@@ -2539,7 +2543,7 @@ fn parse_reference<'a>(
         // No path found, so we can't parse this line.
         let fail = input.generate_error_at(
             reference_start,
-            ErrorKind::ProjectReferenceProjectPathNotFound,
+            ErrorKind::Project(ProjectError::ReferenceProjectPathNotFound),
         );
         return Err(fail);
     };
@@ -2548,7 +2552,7 @@ fn parse_reference<'a>(
         // No path found, so we can't parse this line.
         let fail = input.generate_error_at(
             reference_start,
-            ErrorKind::ProjectReferenceProjectPathNotFound,
+            ErrorKind::Project(ProjectError::ReferenceProjectPathNotFound),
         );
         return Err(fail);
     }
@@ -2557,9 +2561,9 @@ fn parse_reference<'a>(
         // The path does not start with "*\A", which is not allowed.
         let fail = input.generate_error_at(
             reference_start,
-            ErrorKind::ProjectReferenceProjectPathInvalid {
+            ErrorKind::Project(ProjectError::ReferenceProjectPathInvalid {
                 value: path.to_string(),
-            },
+            }),
         );
         return Err(fail);
     }
@@ -2582,7 +2586,7 @@ fn parse_compiled_reference<'a>(
         // No UUID found, so we can't parse this line.
         let fail = input.generate_error_at(
             uuid_start,
-            ErrorKind::ProjectReferenceCompiledUuidMissingMatchingBrace,
+            ErrorKind::Project(ProjectError::ReferenceCompiledUuidMissingMatchingBrace),
         );
         input.forward_to_next_line();
 
@@ -2591,8 +2595,10 @@ fn parse_compiled_reference<'a>(
 
     let Ok(uuid) = Uuid::parse_str(uuid_text) else {
         // The UUID is not a valid UUID, so we can't parse this line.
-        let fail =
-            input.generate_error_at(uuid_start, ErrorKind::ProjectReferenceCompiledUuidInvalid);
+        let fail = input.generate_error_at(
+            uuid_start,
+            ErrorKind::Project(ProjectError::ReferenceCompiledUuidInvalid),
+        );
         input.forward_to_next_line();
 
         return Err(fail);
@@ -2605,7 +2611,7 @@ fn parse_compiled_reference<'a>(
         // No unknown1 found, so we can't parse this line.
         let fail = input.generate_error_at(
             unknown1_start,
-            ErrorKind::ProjectReferenceCompiledUnknown1Missing,
+            ErrorKind::Project(ProjectError::ReferenceCompiledUnknown1Missing),
         );
         input.forward_to_next_line();
 
@@ -2619,7 +2625,7 @@ fn parse_compiled_reference<'a>(
         // No unknown2 found, so we can't parse this line.
         let fail = input.generate_error_at(
             unknown2_start,
-            ErrorKind::ProjectReferenceCompiledUnknown2Missing,
+            ErrorKind::Project(ProjectError::ReferenceCompiledUnknown2Missing),
         );
         input.forward_to_next_line();
 
@@ -2631,8 +2637,10 @@ fn parse_compiled_reference<'a>(
 
     let Some((path, _)) = input.take_until("#", Comparator::CaseSensitive) else {
         // No path found, so we can't parse this line.
-        let fail =
-            input.generate_error_at(path_start, ErrorKind::ProjectReferenceCompiledPathNotFound);
+        let fail = input.generate_error_at(
+            path_start,
+            ErrorKind::Project(ProjectError::ReferenceCompiledPathNotFound),
+        );
         input.forward_to_next_line();
 
         return Err(fail);
@@ -2645,7 +2653,7 @@ fn parse_compiled_reference<'a>(
         // No description found, so we can't parse this line.
         let fail = input.generate_error_at(
             description_start,
-            ErrorKind::ProjectReferenceCompiledDescriptionNotFound,
+            ErrorKind::Project(ProjectError::ReferenceCompiledDescriptionNotFound),
         );
         return Err(fail);
     };
@@ -2654,7 +2662,7 @@ fn parse_compiled_reference<'a>(
         // The description contains a '#', which is not allowed.
         let fail = input.generate_error_at(
             description_start,
-            ErrorKind::ProjectReferenceCompiledDescriptionInvalid,
+            ErrorKind::Project(ProjectError::ReferenceCompiledDescriptionInvalid),
         );
         return Err(fail);
     }
@@ -2692,7 +2700,7 @@ fn parse_object<'a>(input: &mut SourceStream<'a>) -> Result<ObjectReference, Err
             // No path found, so we can't parse this line.
             let fail = input.generate_error_at(
                 object_path_start,
-                ErrorKind::ProjectObjectProjectPathNotFound,
+                ErrorKind::Project(ProjectError::ObjectProjectPathNotFound),
             );
             input.forward_to_next_line();
 
@@ -2708,7 +2716,7 @@ fn parse_object<'a>(input: &mut SourceStream<'a>) -> Result<ObjectReference, Err
         // We do not have a compiled object line, so we can't parse this line.
         let fail = input.generate_error_at(
             object_start,
-            ErrorKind::ProjectObjectCompiledMissingOpeningBrace,
+            ErrorKind::Project(ProjectError::ObjectCompiledMissingOpeningBrace),
         );
         input.forward_to_next_line();
 
@@ -2720,7 +2728,7 @@ fn parse_object<'a>(input: &mut SourceStream<'a>) -> Result<ObjectReference, Err
         // No UUID found, so we can't parse this line.
         let fail = input.generate_error_at(
             object_start,
-            ErrorKind::ProjectObjectCompiledUuidMissingMatchingBrace,
+            ErrorKind::Project(ProjectError::ObjectCompiledUuidMissingMatchingBrace),
         );
         input.forward_to_next_line();
 
@@ -2731,8 +2739,10 @@ fn parse_object<'a>(input: &mut SourceStream<'a>) -> Result<ObjectReference, Err
 
     let Ok(uuid) = Uuid::parse_str(uuid_text) else {
         // The UUID is not a valid UUID, so we can't parse this line.
-        let fail =
-            input.generate_error_at(object_start, ErrorKind::ProjectObjectCompiledUuidInvalid);
+        let fail = input.generate_error_at(
+            object_start,
+            ErrorKind::Project(ProjectError::ObjectCompiledUuidInvalid),
+        );
         input.forward_to_next_line();
 
         return Err(fail);
@@ -2748,7 +2758,7 @@ fn parse_object<'a>(input: &mut SourceStream<'a>) -> Result<ObjectReference, Err
         // No version found, so we can't parse this line.
         let fail = input.generate_error_at(
             version_start,
-            ErrorKind::ProjectObjectCompiledVersionMissing,
+            ErrorKind::Project(ProjectError::ObjectCompiledVersionMissing),
         );
         input.forward_to_next_line();
 
@@ -2759,7 +2769,7 @@ fn parse_object<'a>(input: &mut SourceStream<'a>) -> Result<ObjectReference, Err
         // The version contains an invalid character, so we can't parse this line.
         let fail = input.generate_error_at(
             version_start + version.len(),
-            ErrorKind::ProjectObjectCompiledVersionInvalid,
+            ErrorKind::Project(ProjectError::ObjectCompiledVersionInvalid),
         );
         input.forward_to_next_line();
 
@@ -2772,7 +2782,7 @@ fn parse_object<'a>(input: &mut SourceStream<'a>) -> Result<ObjectReference, Err
         // No unknown1 found, so we can't parse this line.
         let fail = input.generate_error_at(
             unknown1_start,
-            ErrorKind::ProjectObjectCompiledUnknown1Missing,
+            ErrorKind::Project(ProjectError::ObjectCompiledUnknown1Missing),
         );
         input.forward_to_next_line();
 
@@ -2787,7 +2797,7 @@ fn parse_object<'a>(input: &mut SourceStream<'a>) -> Result<ObjectReference, Err
             // No file name found, so we can't parse this line.
             let fail = input.generate_error_at(
                 file_name_start,
-                ErrorKind::ProjectObjectCompiledFileNameNotFound,
+                ErrorKind::Project(ProjectError::ObjectCompiledFileNameNotFound),
             );
             Err(fail)
         }
@@ -2796,7 +2806,7 @@ fn parse_object<'a>(input: &mut SourceStream<'a>) -> Result<ObjectReference, Err
                 // No file name found, so we can't parse this line.
                 let fail = input.generate_error_at(
                     file_name_start,
-                    ErrorKind::ProjectObjectCompiledFileNameNotFound,
+                    ErrorKind::Project(ProjectError::ObjectCompiledFileNameNotFound),
                 );
                 return Err(fail);
             }
@@ -2822,7 +2832,10 @@ fn parse_module<'a>(
 
     let Some((module_name, _)) = input.take_until("; ", Comparator::CaseSensitive) else {
         // No name found, so we can't parse this line.
-        let fail = input.generate_error_at(module_start, ErrorKind::ProjectModuleNameNotFound);
+        let fail = input.generate_error_at(
+            module_start,
+            ErrorKind::Project(ProjectError::ModuleNameNotFound),
+        );
         input.forward_to_next_line();
 
         return Err(fail);
@@ -2832,15 +2845,19 @@ fn parse_module<'a>(
 
     let Some((module_path, _)) = input.take_until_newline() else {
         // No path found, so we can't parse this line.
-        let fail =
-            input.generate_error_at(module_path_start, ErrorKind::ProjectModuleFileNameNotFound);
+        let fail = input.generate_error_at(
+            module_path_start,
+            ErrorKind::Project(ProjectError::ModuleFileNameNotFound),
+        );
         return Err(fail);
     };
 
     if module_path.is_empty() {
         // No path found, so we can't parse this line.
-        let fail =
-            input.generate_error_at(module_path_start, ErrorKind::ProjectModuleFileNameNotFound);
+        let fail = input.generate_error_at(
+            module_path_start,
+            ErrorKind::Project(ProjectError::ModuleFileNameNotFound),
+        );
         return Err(fail);
     }
 
@@ -2862,7 +2879,10 @@ fn parse_class<'a>(
 
     let Some((class_name, _)) = input.take_until("; ", Comparator::CaseSensitive) else {
         // No name found, so we can't parse this line.
-        let fail = input.generate_error_at(class_start, ErrorKind::ProjectClassNameNotFound);
+        let fail = input.generate_error_at(
+            class_start,
+            ErrorKind::Project(ProjectError::ClassNameNotFound),
+        );
         input.forward_to_next_line();
 
         return Err(fail);
@@ -2873,15 +2893,19 @@ fn parse_class<'a>(
 
     let Some((class_path, _)) = input.take_until_newline() else {
         // No path found, so we can't parse this line.
-        let fail =
-            input.generate_error_at(class_path_start, ErrorKind::ProjectClassFileNameNotFound);
+        let fail = input.generate_error_at(
+            class_path_start,
+            ErrorKind::Project(ProjectError::ClassFileNameNotFound),
+        );
         return Err(fail);
     };
 
     if class_path.is_empty() {
         // No path found, so we can't parse this line.
-        let fail =
-            input.generate_error_at(class_path_start, ErrorKind::ProjectClassFileNameNotFound);
+        let fail = input.generate_error_at(
+            class_path_start,
+            ErrorKind::Project(ProjectError::ClassFileNameNotFound),
+        );
 
         return Err(fail);
     }
@@ -2913,9 +2937,9 @@ fn parse_path_line<'a>(
             // Go to the next line and return the error.
             let fail = input.generate_error_at(
                 path_start,
-                ErrorKind::ProjectPathValueNotFound {
+                ErrorKind::Project(ProjectError::PathValueNotFound {
                     parameter_line_name: parameter_line_name.to_string(),
-                },
+                }),
             );
             Err(fail)
         }
@@ -2925,9 +2949,9 @@ fn parse_path_line<'a>(
                 // Go to the next line and return the error.
                 let fail = input.generate_error_at(
                     path_start,
-                    ErrorKind::ProjectPathValueNotFound {
+                    ErrorKind::Project(ProjectError::PathValueNotFound {
                         parameter_line_name: parameter_line_name.to_string(),
-                    },
+                    }),
                 );
                 return Err(fail);
             }
@@ -2949,7 +2973,7 @@ fn parse_dll_base_address<'a>(input: &mut SourceStream<'a>) -> Result<u32, Error
         // No base address found, so we can't parse this line.
         let fail = input.generate_error_at(
             dll_base_address_start,
-            ErrorKind::ProjectDllBaseAddressNotFound,
+            ErrorKind::Project(ProjectError::DllBaseAddressNotFound),
         );
         return Err(fail);
     };
@@ -2958,7 +2982,7 @@ fn parse_dll_base_address<'a>(input: &mut SourceStream<'a>) -> Result<u32, Error
         // The base address is empty, so we can't parse this line.
         let fail = input.generate_error_at(
             dll_base_address_start,
-            ErrorKind::ProjectDllBaseAddressUnparsableEmpty,
+            ErrorKind::Project(ProjectError::DllBaseAddressUnparsableEmpty),
         );
         return Err(fail);
     }
@@ -2967,7 +2991,7 @@ fn parse_dll_base_address<'a>(input: &mut SourceStream<'a>) -> Result<u32, Error
         // The base address does not start with "&H", so we can't parse this line.
         let fail = input.generate_error_at(
             dll_base_address_start,
-            ErrorKind::ProjectDllBaseAddressMissingHexPrefix,
+            ErrorKind::Project(ProjectError::DllBaseAddressMissingHexPrefix),
         );
         return Err(fail);
     }
@@ -2980,9 +3004,9 @@ fn parse_dll_base_address<'a>(input: &mut SourceStream<'a>) -> Result<u32, Error
         // The base address is not a valid hexadecimal value, so we can't parse this line.
         let fail = input.generate_error_at(
             dll_base_address_start,
-            ErrorKind::ProjectDllBaseAddressUnparsable {
+            ErrorKind::Project(ProjectError::DllBaseAddressUnparsable {
                 hex_value: trimmed_base_address_hex_text.to_string(),
-            },
+            }),
         );
         return Err(fail);
     };
@@ -2992,7 +3016,7 @@ fn parse_dll_base_address<'a>(input: &mut SourceStream<'a>) -> Result<u32, Error
 
 #[cfg(test)]
 mod tests {
-    use crate::errors::{ErrorDetails, ErrorKind};
+    use crate::errors::{ErrorDetails, ErrorKind, ProjectError};
     use crate::files::common::ObjectReference;
     use crate::files::project::compilesettings::*;
     use crate::files::project::properties::*;
@@ -3017,7 +3041,7 @@ mod tests {
 
         assert!(matches!(
             result.err().unwrap().kind,
-            ErrorKind::ProjectParameterValueInvalid { .. }
+            ErrorKind::Project(ProjectError::ParameterValueInvalid { .. })
         ));
     }
 
@@ -3152,7 +3176,7 @@ mod tests {
 
         assert!(matches!(
             error.kind,
-            ErrorKind::ProjectParameterValueInvalid { .. }
+            ErrorKind::Project(ProjectError::ParameterValueInvalid { .. })
         ));
     }
 

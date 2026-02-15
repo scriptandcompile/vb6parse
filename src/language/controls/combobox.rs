@@ -24,7 +24,7 @@ use std::fmt::Display;
 use std::str::FromStr;
 
 use crate::{
-    errors::ErrorKind,
+    errors::{FormError, ErrorKind},
     files::common::Properties,
     language::{
         color::{Color, VB_WINDOW_BACKGROUND, VB_WINDOW_TEXT},
@@ -80,7 +80,9 @@ impl FromStr for ComboBoxStyle {
             "0" | "DropDownCombo" => Ok(ComboBoxStyle::DropDownCombo),
             "1" | "SimpleCombo" => Ok(ComboBoxStyle::SimpleCombo),
             "2" | "DropDownList" => Ok(ComboBoxStyle::DropDownList),
-            _ => Err(ErrorKind::FormInvalidComboBoxStyle { value: s.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidComboBoxStyle {
+                value: s.to_string(),
+            })),
         }
     }
 }

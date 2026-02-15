@@ -11,7 +11,7 @@ use std::fmt::Display;
 use std::str::FromStr;
 
 use crate::{
-    errors::ErrorKind,
+    errors::{FormError, ErrorKind},
     files::common::Properties,
     language::{
         color::{Color, VB_BUTTON_FACE, VB_BUTTON_TEXT},
@@ -66,7 +66,9 @@ impl TryFrom<&str> for WordWrap {
         match value {
             "0" | "NonWrapping" => Ok(WordWrap::NonWrapping),
             "-1" | "Wrapping" => Ok(WordWrap::Wrapping),
-            _ => Err(ErrorKind::FormInvalidWordWrap { value: value.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidWordWrap {
+                value: value.to_string(),
+            })),
         }
     }
 }

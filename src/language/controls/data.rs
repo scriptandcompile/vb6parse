@@ -9,7 +9,7 @@
 use std::fmt::Display;
 use std::str::FromStr;
 
-use crate::errors::ErrorKind;
+use crate::errors::{FormError, ErrorKind};
 use crate::files::common::Properties;
 use crate::language::controls::{
     Activation, Align, Appearance, DragMode, MousePointer, OLEDropMode, TextDirection, Visibility,
@@ -277,7 +277,9 @@ impl FromStr for BOFAction {
         match s {
             "0" => Ok(BOFAction::MoveFirst),
             "1" => Ok(BOFAction::Bof),
-            _ => Err(ErrorKind::FormInvalidBOFAction { value: s.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidBOFAction {
+                value: s.to_string(),
+            })),
         }
     }
 }
@@ -387,7 +389,9 @@ impl FromStr for ConnectionType {
             "Paradox 4.X" => Ok(ConnectionType::Paradox4X),
             "Paradox 5.X" => Ok(ConnectionType::Paradox5X),
             "Text" => Ok(ConnectionType::Text),
-            _ => Err(ErrorKind::FormInvalidConnectionType { value: s.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidConnectionType {
+                value: s.to_string(),
+            })),
         }
     }
 }
@@ -441,7 +445,9 @@ impl FromStr for DefaultCursorType {
             "0" => Ok(DefaultCursorType::Default),
             "1" => Ok(DefaultCursorType::Odbc),
             "2" => Ok(DefaultCursorType::ServerSide),
-            _ => Err(ErrorKind::FormInvalidDefaultCursorType { value: s.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidDefaultCursorType {
+                value: s.to_string(),
+            })),
         }
     }
 }
@@ -489,7 +495,9 @@ impl FromStr for DatabaseDriverType {
         match s {
             "1" => Ok(DatabaseDriverType::UseODBC),
             "2" => Ok(DatabaseDriverType::UseJet),
-            _ => Err(ErrorKind::FormInvalidDatabaseDriverType { value: s.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidDatabaseDriverType {
+                value: s.to_string(),
+            })),
         }
     }
 }
@@ -546,7 +554,9 @@ impl FromStr for EOFAction {
             "0" => Ok(EOFAction::MoveLast),
             "1" => Ok(EOFAction::Eof),
             "2" => Ok(EOFAction::AddNew),
-            _ => Err(ErrorKind::FormInvalidEOFAction { value: s.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidEOFAction {
+                value: s.to_string(),
+            })),
         }
     }
 }
@@ -598,7 +608,9 @@ impl FromStr for RecordSetType {
             "0" => Ok(RecordSetType::Table),
             "1" => Ok(RecordSetType::Dynaset),
             "2" => Ok(RecordSetType::Snapshot),
-            _ => Err(ErrorKind::FormInvalidRecordSetType { value: s.to_string() }),
+            _ => Err(ErrorKind::Form(FormError::InvalidRecordSetType {
+                value: s.to_string(),
+            })),
         }
     }
 }
