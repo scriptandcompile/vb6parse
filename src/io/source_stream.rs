@@ -626,6 +626,65 @@ impl<'a> SourceStream<'a> {
         None
     }
 
+    /// Creates a `Span` at the current position in the stream.
+    ///
+    /// The span will have length 1 and cover the current line.
+    ///
+    /// # Returns
+    ///
+    /// A `Span` representing the current position.
+    #[must_use]
+    pub fn span_here(&self) -> crate::errors::Span {
+        crate::errors::Span {
+            offset: u32::try_from(self.offset()).unwrap_or(0),
+            line_start: u32::try_from(self.start_of_line()).unwrap_or(0),
+            line_end: u32::try_from(self.end_of_line()).unwrap_or(0),
+            length: 1,
+        }
+    }
+
+    /// Creates a `Span` at the specified offset in the stream.
+    ///
+    /// The span will have length 1 and cover the line containing the offset.
+    ///
+    /// # Arguments
+    ///
+    /// * `offset` - The byte offset into the stream.
+    ///
+    /// # Returns
+    ///
+    /// A `Span` representing the specified position.
+    #[must_use]
+    pub fn span_at(&self, offset: usize) -> crate::errors::Span {
+        crate::errors::Span {
+            offset: u32::try_from(offset).unwrap_or(0),
+            line_start: u32::try_from(self.start_of_line_from(offset)).unwrap_or(0),
+            line_end: u32::try_from(self.end_of_line_from(offset)).unwrap_or(0),
+            length: 1,
+        }
+    }
+
+    /// Creates a `Span` covering a range of bytes.
+    ///
+    /// # Arguments
+    ///
+    /// * `start` - The starting byte offset.
+    /// * `end` - The ending byte offset (exclusive).
+    ///
+    /// # Returns
+    ///
+    /// A `Span` representing the specified range.
+    #[must_use]
+    pub fn span_range(&self, start: usize, end: usize) -> crate::errors::Span {
+        let length = end.saturating_sub(start);
+        crate::errors::Span {
+            offset: u32::try_from(start).unwrap_or(0),
+            line_start: u32::try_from(self.start_of_line_from(start)).unwrap_or(0),
+            line_end: u32::try_from(self.end_of_line_from(end.saturating_sub(1))).unwrap_or(0),
+            length: u32::try_from(length).unwrap_or(0),
+        }
+    }
+
     /// Generates an `ErrorDetails` struct for the current offset in the stream
     /// with the provided `error_kind`.
     #[must_use]
@@ -640,6 +699,8 @@ impl<'a> SourceStream<'a> {
             line_start: u32::try_from(self.start_of_line()).unwrap_or(0),
             kind: error_kind,
             severity: crate::errors::Severity::Error,
+            labels: vec![],
+            notes: vec![],
         }
     }
 
@@ -661,6 +722,8 @@ impl<'a> SourceStream<'a> {
             line_start: u32::try_from(self.start_of_line_from(offset)).unwrap_or(0),
             kind: error_kind,
             severity: crate::errors::Severity::Error,
+            labels: vec![],
+            notes: vec![],
         }
     }
 
@@ -696,6 +759,8 @@ impl<'a> SourceStream<'a> {
             line_end: u32::try_from(offsets[2]).unwrap_or(0),
             kind: error_kind,
             severity: crate::errors::Severity::Error,
+            labels: vec![],
+            notes: vec![],
         }
     }
 }

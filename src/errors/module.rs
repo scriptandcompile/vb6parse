@@ -50,6 +50,8 @@ impl<'a> From<ErrorDetails<'a, CodeErrorKind>> for ErrorDetails<'a, ModuleErrorK
                 code_error: value.kind,
             },
             severity: value.severity,
+            labels: value.labels,
+            notes: value.notes,
         }
     }
 }

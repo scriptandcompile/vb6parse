@@ -68,6 +68,76 @@ impl Display for Severity {
     }
 }
 
+/// Represents a span of source code, typically associated with an error or diagnostic.
+///
+/// A span identifies a region in the source code by offset, line numbers, and length.
+/// This is used to highlight the exact location of errors in diagnostic messages.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub struct Span {
+    /// The byte offset into the source content where this span starts.
+    pub offset: u32,
+    /// The starting line number (1-based).
+    pub line_start: u32,
+    /// The ending line number (1-based).
+    pub line_end: u32,
+    /// The length of this span in bytes.
+    pub length: u32,
+}
+
+impl Span {
+    /// Creates a new span.
+    pub fn new(offset: u32, line_start: u32, line_end: u32, length: u32) -> Self {
+        Self {
+            offset,
+            line_start,
+            line_end,
+            length,
+        }
+    }
+
+    /// Creates a zero-length span at offset 0.
+    pub fn zero() -> Self {
+        Self {
+            offset: 0,
+            line_start: 0,
+            line_end: 0,
+            length: 0,
+        }
+    }
+
+    /// Creates a span of length 1 at the given offset and line.
+    pub fn at(offset: u32, line: u32) -> Self {
+        Self {
+            offset,
+            line_start: line,
+            line_end: line,
+            length: 1,
+        }
+    }
+}
+
+/// Represents a labeled span in a multi-span diagnostic.
+///
+/// Labels are used to annotate multiple locations in the source code
+/// within a single error message, providing context for complex errors.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct DiagnosticLabel {
+    /// The span this label refers to.
+    pub span: Span,
+    /// The message to display for this label.
+    pub message: String,
+}
+
+impl DiagnosticLabel {
+    /// Creates a new label.
+    pub fn new(span: Span, message: impl Into<String>) -> Self {
+        Self {
+            span,
+            message: message.into(),
+        }
+    }
+}
+
 /// Contains detailed information about an error that occurred during parsing.
 /// This struct contains the source name, source content, error offset,
 /// line start and end positions, and the kind of error.
@@ -115,6 +185,68 @@ where
     pub kind: T,
     /// The severity of this diagnostic (Error, Warning, or Note).
     pub severity: Severity,
+    /// Additional labeled spans for multi-span diagnostics.
+    /// This allows annotating multiple locations in the source code
+    /// within a single error message.
+    pub labels: Vec<DiagnosticLabel>,
+    /// Additional notes to provide context for this diagnostic.
+    /// These are displayed after the main error message.
+    pub notes: Vec<String>,
+}
+
+impl<T> ErrorDetails<'_, T>
+where
+    T: ToString + Debug,
+{
+    /// Creates a basic ErrorDetails with no labels or notes.
+    ///
+    /// This is a convenience constructor for the common case where
+    /// only the basic error information is needed.
+    pub fn basic(
+        source_name: Box<str>,
+        source_content: &str,
+        error_offset: u32,
+        line_start: u32,
+        line_end: u32,
+        kind: T,
+        severity: Severity,
+    ) -> ErrorDetails<'_, T> {
+        ErrorDetails {
+            source_name,
+            source_content,
+            error_offset,
+            line_start,
+            line_end,
+            kind,
+            severity,
+            labels: Vec::new(),
+            notes: Vec::new(),
+        }
+    }
+
+    /// Adds a labeled span to this error.
+    pub fn with_label(mut self, label: DiagnosticLabel) -> Self {
+        self.labels.push(label);
+        self
+    }
+
+    /// Adds multiple labeled spans to this error.
+    pub fn with_labels(mut self, labels: Vec<DiagnosticLabel>) -> Self {
+        self.labels.extend(labels);
+        self
+    }
+
+    /// Adds a note to this error.
+    pub fn with_note(mut self, note: impl Into<String>) -> Self {
+        self.notes.push(note.into());
+        self
+    }
+
+    /// Adds multiple notes to this error.
+    pub fn with_notes(mut self, notes: Vec<String>) -> Self {
+        self.notes.extend(notes);
+        self
+    }
 }
 
 impl<T> Display for ErrorDetails<'_, T>
@@ -159,25 +291,41 @@ where
             Source::from(self.source_content),
         );
 
-        let report = Report::build(
+        let mut report = Report::build(
             ReportKind::Error,
             (
                 self.source_name.to_string(),
                 self.line_start as usize..=self.line_end as usize,
             ),
-        )
-        .with_message(self.kind.to_string())
+        ).with_message(self.kind.to_string())
         .with_label(
             Label::new((
                 self.source_name.to_string(),
                 self.error_offset as usize..=self.error_offset as usize,
             ))
             .with_message("error here"),
-        )
-        .finish()
-        .print(cache);
+        );
 
-        if let Some(e) = report.err() {
+        // Add additional labeled spans
+        for label in &self.labels {
+            report = report.with_label(
+                Label::new((
+                    self.source_name.to_string(),
+                    label.span.offset as usize
+                        ..=(label.span.offset + label.span.length.max(1) - 1) as usize,
+                ))
+                .with_message(&label.message),
+            );
+        }
+
+        // Add notes
+        for note in &self.notes {
+            report = report.with_note(note);
+        }
+
+        let result = report.finish().print(cache);
+
+        if let Some(e) = result.err() {
             eprint!("Error attempting to build ErrorDetails print message {e:?}");
         }
     }
@@ -206,7 +354,7 @@ where
             Source::from(self.source_content),
         );
 
-        let report = Report::build(
+        let mut report = Report::build(
             ReportKind::Error,
             (
                 self.source_name.to_string(),
@@ -220,11 +368,28 @@ where
                 self.error_offset as usize..=self.error_offset as usize,
             ))
             .with_message("error here"),
-        )
-        .finish()
-        .eprint(cache);
+        );
 
-        if let Some(e) = report.err() {
+        // Add additional labeled spans
+        for label in &self.labels {
+            report = report.with_label(
+                Label::new((
+                    self.source_name.to_string(),
+                    label.span.offset as usize
+                        ..=(label.span.offset + label.span.length.max(1) - 1) as usize,
+                ))
+                .with_message(&label.message),
+            );
+        }
+
+        // Add notes
+        for note in &self.notes {
+            report = report.with_note(note);
+        }
+
+        let result = report.finish().eprint(cache);
+
+        if let Some(e) = result.err() {
             eprint!("Error attempting to build ErrorDetails eprint message {e:?}");
         }
     }

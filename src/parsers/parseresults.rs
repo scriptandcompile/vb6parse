@@ -490,7 +490,13 @@ where
     ///  - A `Vec<ErrorDetails<'a, E>>` containing the errors (Severity::Error).
     ///  - A `Vec<ErrorDetails<'a, E>>` containing the warnings (Severity::Warning and Severity::Note).
     ///
-    pub fn unpack_with_severity(self) -> (Option<T>, Vec<ErrorDetails<'a, E>>, Vec<ErrorDetails<'a, E>>) {
+    pub fn unpack_with_severity(
+        self,
+    ) -> (
+        Option<T>,
+        Vec<ErrorDetails<'a, E>>,
+        Vec<ErrorDetails<'a, E>>,
+    ) {
         let diagnostics = Diagnostics::from_details(self.failures);
         (self.result, diagnostics.errors, diagnostics.warnings)
     }
@@ -503,7 +509,7 @@ where
     ///
     /// * A `Diagnostics` struct containing errors and warnings.
     ///
-    pub fn diagnostics(&self) -> Diagnostics<'a, E> 
+    pub fn diagnostics(&self) -> Diagnostics<'a, E>
     where
         E: Clone,
     {

@@ -292,6 +292,8 @@ impl FormResourceFile {
                         line_end: 0,
                         kind: err,
                         severity: crate::errors::Severity::Error,
+                        labels: vec![],
+                        notes: vec![],
                     });
                 }
             }
@@ -383,6 +385,8 @@ impl FormResourceFile {
                         line_end: 0,
                         kind: err,
                         severity: crate::errors::Severity::Error,
+                        labels: vec![],
+                        notes: vec![],
                     });
                     // Skip to next byte and try again
                     offset += 1;
