@@ -2062,8 +2062,7 @@ fn parse_section_header_line<'a>(
     // We have a section header line.
     let Some((other_property, _)) = input.take_until("]", Comparator::CaseSensitive) else {
         // We have a section header line but it is not terminated properly.
-        let fail =
-            input.generate_error(ErrorKind::Project(ProjectError::UnterminatedSectionHeader));
+        let fail = input.generate_error(ProjectError::UnterminatedSectionHeader);
         input.forward_to_next_line();
 
         return Err(fail);
