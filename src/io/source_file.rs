@@ -156,6 +156,8 @@ impl SourceFile {
             line_start: 0,
             line_end: 0,
             severity: Severity::Error,
+            labels: vec![],
+            notes: vec![],
         })?;
 
         // Extract the filename from the path
@@ -174,6 +176,8 @@ impl SourceFile {
             line_start: err.line_start,
             line_end: err.line_end,
             severity: err.severity,
+            labels: err.labels,
+            notes: err.notes,
         })
     }
 
@@ -248,6 +252,8 @@ impl SourceFile {
                 line_start: 0,
                 line_end: 0,
                 severity: Severity::Error,
+                labels: vec![],
+                notes: vec![],
             });
         };
 
@@ -308,6 +314,8 @@ Currently, only latin-1 source code is supported.",
                 line_start: 0,
                 line_end: u32::try_from(decoded_len).unwrap_or(0),
                 severity: Severity::Error,
+                labels: vec![],
+                notes: vec![],
             };
 
             return Err(details);
