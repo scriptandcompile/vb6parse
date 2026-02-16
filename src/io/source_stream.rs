@@ -15,7 +15,6 @@
 //!
 //! # See Also
 //! - [`SourceFile`](crate::io::SourceFile): for reading and decoding source files
-//! - [`ErrorDetails`]: for error handling details
 
 use std::fmt::Debug;
 
