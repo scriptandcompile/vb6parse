@@ -11,9 +11,12 @@ pub mod properties;
 use std::fmt::Display;
 
 use crate::{
-    errors::ClassError,
+    errors::{ClassError, ParserContext},
     files::{
-        class::properties::{ClassHeader, ClassProperties},
+        class::properties::{
+            ClassHeader, ClassProperties, DataBindingBehavior, DataSourceBehavior, FileUsage,
+            MtsStatus, Persistence,
+        },
         common::{extract_attributes, extract_version},
     },
     io::SourceFile,
@@ -101,19 +104,16 @@ impl ClassFile {
     #[must_use]
     pub fn parse(source_file: &SourceFile) -> ParseResult<'_, Self> {
         let mut input = source_file.source_stream();
-        let mut ctx = crate::errors::ParserContext::new(input.file_name(), input.contents);
-
-        let mut failures = vec![];
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
         // Parse tokens and create CST
         let token_stream_result = tokenize(&mut input);
         let (token_stream_opt, token_failures) = token_stream_result.unpack();
 
-        failures.extend(token_failures);
+        ctx.extend_errors(token_failures);
 
         let Some(token_stream) = token_stream_opt else {
-            failures.extend(ctx.take_errors());
-            return ParseResult::new(None, failures);
+            return ParseResult::new(None, ctx.into_errors());
         };
 
         // Parse CST
@@ -122,9 +122,8 @@ impl ClassFile {
         // Extract version from CST
         let Some(version) = extract_version(&cst) else {
             ctx.error(input.span_here(), ClassError::VersionKeywordMissing);
-            failures.extend(ctx.take_errors());
 
-            return ParseResult::new(None, failures);
+            return ParseResult::new(None, ctx.into_errors());
         };
 
         // Extract properties from CST
@@ -150,23 +149,18 @@ impl ClassFile {
             SyntaxKind::AttributeStatement,
         ]);
 
-        failures.extend(ctx.take_errors());
         ParseResult::new(
             Some(ClassFile {
                 header,
                 cst: filtered_cst,
             }),
-            failures,
+            ctx.into_errors(),
         )
     }
 }
 
 /// Extract `VB6ClassProperties` from `PropertiesBlock` nodes in the CST
-fn extract_properties(cst: &crate::parsers::ConcreteSyntaxTree) -> ClassProperties {
-    use crate::files::class::properties::{
-        DataBindingBehavior, DataSourceBehavior, FileUsage, MtsStatus, Persistence,
-    };
-
+fn extract_properties(cst: &ConcreteSyntaxTree) -> ClassProperties {
     let mut multi_use = FileUsage::MultiUse;
     let mut persistable = Persistence::NotPersistable;
     let mut data_binding_behavior = DataBindingBehavior::None;
