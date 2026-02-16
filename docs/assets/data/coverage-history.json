@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-02-13T22:52:08Z",
+  "last_updated": "2026-02-16T00:12:10Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T19:53:21Z",
@@ -307,6 +307,40 @@
           "percent": 95.52
         }
       }
+    },
+    {
+      "timestamp": "2026-02-16T00:12:10Z",
+      "commit_sha": "05876a868acc69b4d81139a7c65d51b73adda667",
+      "commit_message": "Updated readme/changelog/contributing to be in line with the getting-started.html changes.",
+      "coverage": {
+        "line_coverage": 95.46,
+        "function_coverage": 93.61,
+        "region_coverage": 95.52
+      },
+      "tests": {
+        "total": 5676,
+        "lib_tests": 5478,
+        "doc_tests": 103,
+        "integration_tests": 95,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 93557,
+          "total": 98011,
+          "percent": 95.46
+        },
+        "functions": {
+          "covered": 6032,
+          "total": 6444,
+          "percent": 93.61
+        },
+        "regions": {
+          "covered": 149335,
+          "total": 156332,
+          "percent": 95.52
+        }
+      }
     }
   ],
   "coverage_summary": {
@@ -324,7 +358,7 @@
       "change_percent": 0.0,
       "best": 93.76,
       "worst": 93.61,
-      "average": 93.71
+      "average": 93.7
     },
     "region_coverage": {
       "latest": 95.52,
@@ -332,7 +366,7 @@
       "change_percent": 0.0,
       "best": 95.56,
       "worst": 95.52,
-      "average": 95.55
+      "average": 95.54
     },
     "test_count": {
       "latest": 5676,
