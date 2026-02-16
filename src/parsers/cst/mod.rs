@@ -157,15 +157,24 @@
 //! 3. **Efficient**: Uses rowan's red-green tree architecture for memory efficiency.
 //! 4. **Type-safe**: All syntax kinds are represented as a Rust enum for compile-time safety.
 
+use std::collections::HashMap;
 use std::num::NonZeroUsize;
 
+use crate::errors::{ErrorKind, FormError};
+use crate::files::common::{
+    Creatable, Exposed, FileAttributes, FileFormatVersion, NameSpace, ObjectReference,
+    PreDeclaredID, Properties,
+};
 use crate::io::{SourceFile, SourceStream};
-use crate::language::{Form, FormProperties, FormRoot, Token};
+use crate::language::{
+    Control, ControlKind, Form, FormProperties, FormRoot, MDIForm, MenuControl, MenuProperties,
+    PropertyGroup, Token,
+};
 use crate::lexer::{tokenize, TokenStream};
 use crate::parsers::SyntaxKind;
-use crate::CodeErrorKind;
 use crate::ParseResult;
 
+use either::Either;
 use rowan::{GreenNode, GreenNodeBuilder, Language};
 use serde::Serialize;
 
@@ -252,7 +261,7 @@ impl ConcreteSyntaxTree {
     ///
     /// A result containing the parsed CST or an error.
     #[must_use]
-    pub fn from_source(source_file: &SourceFile) -> ParseResult<'_, Self, CodeErrorKind> {
+    pub fn from_source(source_file: &SourceFile) -> ParseResult<'_, Self> {
         Self::from_text(
             source_file.file_name().to_string(),
             source_file.source_stream().contents,
@@ -269,7 +278,7 @@ impl ConcreteSyntaxTree {
     /// # Returns
     ///
     /// A result containing the parsed CST or an error.
-    pub fn from_text<S>(file_name: S, contents: &str) -> ParseResult<'_, Self, CodeErrorKind>
+    pub fn from_text<S>(file_name: S, contents: &str) -> ParseResult<'_, Self>
     where
         S: Into<String>,
     {
@@ -525,17 +534,12 @@ impl<'a> Parser<'a> {
     /// A `ParseResult` containing:
     /// - `result`: `Some(FileFormatVersion)` if found and valid, `None` if not present or invalid
     /// - `failures`: Empty vec (no errors generated for missing VERSION)
-    pub(crate) fn parse_version_direct(
-        &mut self,
-    ) -> crate::ParseResult<'a, crate::files::common::FileFormatVersion, crate::errors::FormErrorKind>
-    {
-        use crate::files::common::FileFormatVersion;
-
+    pub(crate) fn parse_version_direct(&mut self) -> ParseResult<'a, FileFormatVersion> {
         self.skip_whitespace();
 
         // Check if VERSION keyword is present
         if !self.at_token(Token::VersionKeyword) {
-            return crate::ParseResult::new(None, Vec::new());
+            return ParseResult::new(None, Vec::new());
         }
 
         self.consume_advance(); // VERSION keyword
@@ -575,7 +579,7 @@ impl<'a> Parser<'a> {
         }
         self.skip_whitespace_and_newlines();
 
-        crate::ParseResult::new(version_result, Vec::new())
+        ParseResult::new(version_result, Vec::new())
     }
 
     // ==================== Core Control Extraction Methods ====================
@@ -599,10 +603,7 @@ impl<'a> Parser<'a> {
     }
 
     /// Convert a Menu-typed Control into `MenuControl`
-    fn control_to_menu(control: crate::language::Control) -> crate::language::MenuControl {
-        use crate::language::MenuProperties;
-        use crate::language::{ControlKind, MenuControl};
-
+    fn control_to_menu(control: Control) -> MenuControl {
         let (name, tag, index, kind) = control.into_parts();
 
         if let ControlKind::Menu {
@@ -745,10 +746,7 @@ impl<'a> Parser<'a> {
     }
 
     /// Parse property group directly (BeginProperty...EndProperty)
-    fn parse_property_group_direct(&mut self) -> Option<crate::language::PropertyGroup> {
-        use either::Either;
-        use std::collections::HashMap;
-
+    fn parse_property_group_direct(&mut self) -> Option<PropertyGroup> {
         // Expect BeginProperty identifier
         if !self.is_identifier_text("BeginProperty") {
             return None;
@@ -792,7 +790,7 @@ impl<'a> Parser<'a> {
             self.skip_whitespace_and_newlines();
         }
 
-        Some(crate::language::PropertyGroup {
+        Some(PropertyGroup {
             name,
             guid,
             properties,
@@ -840,7 +838,7 @@ impl<'a> Parser<'a> {
 
     /// Parse Object statements directly (without CST)
     /// Phase 5: Direct extraction of Object references
-    pub(crate) fn parse_objects_direct(&mut self) -> Vec<crate::files::common::ObjectReference> {
+    pub(crate) fn parse_objects_direct(&mut self) -> Vec<ObjectReference> {
         let mut objects = Vec::new();
 
         self.skip_whitespace_and_newlines();
@@ -859,9 +857,7 @@ impl<'a> Parser<'a> {
     /// Parse a single Object statement line
     /// Format: Object = "{UUID}#version#flags"; "filename"
     /// Or:     Object = *\G{UUID}#version#flags; "filename"
-    fn parse_single_object_direct(&mut self) -> Option<crate::files::common::ObjectReference> {
-        use crate::files::common::ObjectReference;
-
+    fn parse_single_object_direct(&mut self) -> Option<ObjectReference> {
         // Expect "Object" keyword
         if !self.at_token(Token::ObjectKeyword) {
             return None;
@@ -976,10 +972,7 @@ impl<'a> Parser<'a> {
 
     /// Parse Attribute statements directly (without CST)
     /// Phase 6: Direct extraction of file attributes
-    pub(crate) fn parse_attributes_direct(&mut self) -> crate::files::common::FileAttributes {
-        use crate::files::common::{Creatable, Exposed, FileAttributes, NameSpace, PreDeclaredID};
-        use std::collections::HashMap;
-
+    pub(crate) fn parse_attributes_direct(&mut self) -> FileAttributes {
         let mut name = String::new();
         let mut global_name_space = NameSpace::Local;
         let mut creatable = Creatable::True;
@@ -1150,12 +1143,10 @@ impl<'a> Parser<'a> {
         control_name: String,
         tag: String,
         index: i32,
-        properties: crate::files::common::Properties,
-        child_controls: Vec<crate::language::Control>,
-        menus: Vec<crate::language::MenuControl>,
-    ) -> Result<crate::language::FormRoot, crate::errors::FormErrorKind> {
-        use crate::language::{Form, FormRoot, MDIForm};
-
+        properties: Properties,
+        child_controls: Vec<Control>,
+        menus: Vec<MenuControl>,
+    ) -> Result<FormRoot, ErrorKind> {
         match control_type {
             "VB.Form" => Ok(FormRoot::Form(Form {
                 name: control_name,
@@ -1173,9 +1164,9 @@ impl<'a> Parser<'a> {
                 controls: child_controls,
                 menus,
             })),
-            _ => Err(crate::errors::FormErrorKind::InvalidTopLevelControl(
-                control_type.to_string(),
-            )),
+            _ => Err(ErrorKind::Form(FormError::InvalidTopLevelControl {
+                control_type: control_type.to_string(),
+            })),
         }
     }
 
@@ -1185,12 +1176,12 @@ impl<'a> Parser<'a> {
     /// top-level types only and cannot be child controls.
     fn build_control_kind(
         control_type: &str,
-        properties: crate::files::common::Properties,
-        child_controls: Vec<crate::language::Control>,
-        menus: Vec<crate::language::MenuControl>,
-        property_groups: Vec<crate::language::PropertyGroup>,
-    ) -> crate::language::ControlKind {
-        use crate::language::ControlKind;
+        properties: Properties,
+        child_controls: Vec<Control>,
+        menus: Vec<MenuControl>,
+        property_groups: Vec<PropertyGroup>,
+    ) -> ControlKind {
+        use ControlKind;
 
         match control_type {
             "VB.CommandButton" => ControlKind::CommandButton {
@@ -1268,17 +1259,12 @@ impl<'a> Parser<'a> {
 
     /// Parse properties block directly to Control without building CST
     /// Phase 4: Full implementation with nested controls and property groups
-    pub(crate) fn parse_properties_block_to_control(
-        &mut self,
-    ) -> crate::ParseResult<'a, crate::language::Control, crate::errors::FormErrorKind> {
-        use crate::files::common::Properties;
-        use crate::language::Control;
-
+    pub(crate) fn parse_properties_block_to_control(&mut self) -> ParseResult<'a, Control> {
         self.skip_whitespace();
 
         // Expect BEGIN keyword
         if !self.at_token(Token::BeginKeyword) {
-            return crate::ParseResult::new(None, Vec::new());
+            return ParseResult::new(None, Vec::new());
         }
 
         self.consume_advance(); // BEGIN
@@ -1314,7 +1300,7 @@ impl<'a> Parser<'a> {
 
                 if let Some(child) = child_opt {
                     // Check if it's a menu control
-                    if matches!(child.kind(), crate::language::ControlKind::Menu { .. }) {
+                    if matches!(child.kind(), ControlKind::Menu { .. }) {
                         menus.push(Self::control_to_menu(child));
                     } else {
                         child_controls.push(child);
@@ -1377,7 +1363,7 @@ impl<'a> Parser<'a> {
 
         let control = Control::new(control_name, tag, index, kind);
 
-        crate::ParseResult::new(Some(control), failures)
+        ParseResult::new(Some(control), failures)
     }
 
     /// Parse properties block directly to `FormRoot` for top-level form elements.
@@ -1390,16 +1376,14 @@ impl<'a> Parser<'a> {
     ///
     /// A `ParseResult` containing either a `FormRoot` (`Form` or `MDIForm`) or `None`,
     /// along with any parsing failures encountered.
-    pub(crate) fn parse_properties_block_to_form_root(
-        &mut self,
-    ) -> crate::ParseResult<'a, crate::language::FormRoot, crate::errors::FormErrorKind> {
-        use crate::files::common::Properties;
+    pub(crate) fn parse_properties_block_to_form_root(&mut self) -> ParseResult<'a, FormRoot> {
+        use Properties;
 
         self.skip_whitespace();
 
         // Expect BEGIN keyword
         if !self.at_token(Token::BeginKeyword) {
-            return crate::ParseResult::new(None, Vec::new());
+            return ParseResult::new(None, Vec::new());
         }
 
         self.consume_advance(); // BEGIN
@@ -1434,7 +1418,7 @@ impl<'a> Parser<'a> {
 
                 if let Some(child) = child_opt {
                     // Check if it's a menu control
-                    if matches!(child.kind(), crate::language::ControlKind::Menu { .. }) {
+                    if matches!(child.kind(), ControlKind::Menu { .. }) {
                         menus.push(Self::control_to_menu(child));
                     } else {
                         child_controls.push(child);
@@ -2027,6 +2011,9 @@ impl<'a> Parser<'a> {
 #[cfg(test)]
 mod tests {
     use super::Parser;
+    use crate::parsers::cst::{
+        ControlKind, Creatable, Exposed, FormRoot, NameSpace, ObjectReference, PreDeclaredID,
+    };
     use crate::*;
 
     #[test]
@@ -2057,8 +2044,6 @@ mod tests {
 
     #[test]
     fn syntax_kind_conversions() {
-        use crate::language::Token;
-
         // Test keyword conversions
         assert_eq!(
             SyntaxKind::from(Token::FunctionKeyword),
@@ -2484,10 +2469,7 @@ End
 
         let control = control_opt.unwrap();
         assert_eq!(control.name(), "Command1");
-        assert!(matches!(
-            control.kind(),
-            crate::language::ControlKind::CommandButton { .. }
-        ));
+        assert!(matches!(control.kind(), ControlKind::CommandButton { .. }));
     }
 
     #[test]
@@ -2509,10 +2491,7 @@ End
         assert!(control_opt.is_some());
         let control = control_opt.unwrap();
         assert_eq!(control.name(), "Text1");
-        assert!(matches!(
-            control.kind(),
-            crate::language::ControlKind::TextBox { .. }
-        ));
+        assert!(matches!(control.kind(), ControlKind::TextBox { .. }));
     }
 
     #[test]
@@ -2556,12 +2535,12 @@ End
         assert_eq!(form_root.name(), "Form1");
 
         // Check form has child controls
-        if let crate::language::FormRoot::Form(form) = &form_root {
+        if let FormRoot::Form(form) = &form_root {
             assert_eq!(form.controls.len(), 1);
             assert_eq!(form.controls[0].name(), "Command1");
             assert!(matches!(
                 form.controls[0].kind(),
-                crate::language::ControlKind::CommandButton { .. }
+                ControlKind::CommandButton { .. }
             ));
         } else {
             panic!("Expected Form");
@@ -2594,7 +2573,7 @@ End
         assert_eq!(control.name(), "Frame1");
 
         // Check frame has 2 child checkboxes
-        if let crate::language::ControlKind::Frame { controls, .. } = control.kind() {
+        if let ControlKind::Frame { controls, .. } = control.kind() {
             assert_eq!(controls.len(), 2);
             assert_eq!(controls[0].name(), "Check1");
             assert_eq!(controls[1].name(), "Check2");
@@ -2628,10 +2607,7 @@ End
 
         // Check for property - CommandButton should have parsed successfully
         // Property groups are stored in Custom control kind, not specific control types
-        assert!(matches!(
-            control.kind(),
-            crate::language::ControlKind::CommandButton { .. }
-        ));
+        assert!(matches!(control.kind(), ControlKind::CommandButton { .. }));
     }
 
     #[test]
@@ -2659,7 +2635,7 @@ End
         assert_eq!(control.name(), "TreeView1");
 
         // Check for Custom control with property groups
-        if let crate::language::ControlKind::Custom {
+        if let ControlKind::Custom {
             property_groups, ..
         } = control.kind()
         {
@@ -2685,7 +2661,7 @@ End
 
         assert_eq!(objects.len(), 1);
         match &objects[0] {
-            crate::files::common::ObjectReference::Compiled {
+            ObjectReference::Compiled {
                 uuid,
                 version,
                 unknown1,
@@ -2699,7 +2675,7 @@ End
                 assert_eq!(unknown1, "0");
                 assert_eq!(file_name, "MyLib.dll");
             }
-            crate::files::common::ObjectReference::Project { .. } => {
+            ObjectReference::Project { .. } => {
                 panic!("Expected Compiled object reference")
             }
         }
@@ -2721,19 +2697,19 @@ Object = "{BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB}#2.0#1"; "Lib2.ocx"
         assert_eq!(objects.len(), 2);
 
         match &objects[0] {
-            crate::files::common::ObjectReference::Compiled { file_name, .. } => {
+            ObjectReference::Compiled { file_name, .. } => {
                 assert_eq!(file_name, "Lib1.dll");
             }
-            crate::files::common::ObjectReference::Project { .. } => {
+            ObjectReference::Project { .. } => {
                 panic!("Expected Compiled object reference")
             }
         }
 
         match &objects[1] {
-            crate::files::common::ObjectReference::Compiled { file_name, .. } => {
+            ObjectReference::Compiled { file_name, .. } => {
                 assert_eq!(file_name, "Lib2.ocx");
             }
-            crate::files::common::ObjectReference::Project { .. } => {
+            ObjectReference::Project { .. } => {
                 panic!("Expected Compiled object reference")
             }
         }
@@ -2752,7 +2728,7 @@ Object = "{BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB}#2.0#1"; "Lib2.ocx"
 
         assert_eq!(objects.len(), 1);
         match &objects[0] {
-            crate::files::common::ObjectReference::Compiled {
+            ObjectReference::Compiled {
                 uuid,
                 version,
                 file_name,
@@ -2765,7 +2741,7 @@ Object = "{BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB}#2.0#1"; "Lib2.ocx"
                 assert_eq!(version, "3.0");
                 assert_eq!(file_name, "Embedded.ocx");
             }
-            crate::files::common::ObjectReference::Project { .. } => {
+            ObjectReference::Project { .. } => {
                 panic!("Expected Compiled object reference")
             }
         }
@@ -2797,7 +2773,7 @@ End
         let control = control_opt.unwrap();
 
         // Check for nested property groups
-        if let crate::language::ControlKind::Custom {
+        if let ControlKind::Custom {
             property_groups, ..
         } = control.kind()
         {
@@ -2842,13 +2818,11 @@ End
         let form_root = form_root_opt.unwrap();
 
         // Verify deep nesting: Form > PictureBox > Frame > Label
-        if let crate::language::FormRoot::Form(form) = &form_root {
+        if let FormRoot::Form(form) = &form_root {
             assert_eq!(form.controls.len(), 1);
-            if let crate::language::ControlKind::PictureBox { controls, .. } =
-                form.controls[0].kind()
-            {
+            if let ControlKind::PictureBox { controls, .. } = form.controls[0].kind() {
                 assert_eq!(controls.len(), 1);
-                if let crate::language::ControlKind::Frame { controls, .. } = controls[0].kind() {
+                if let ControlKind::Frame { controls, .. } = controls[0].kind() {
                     assert_eq!(controls.len(), 1);
                     assert_eq!(controls[0].name(), "Label1");
                 } else {
@@ -2865,8 +2839,6 @@ End
     // Phase 6 Tests: Direct Attribute Parsing
     #[test]
     fn parse_simple_string_attribute() {
-        use crate::files::common::{Creatable, Exposed, NameSpace, PreDeclaredID};
-
         let source = r#"Attribute VB_Name = "Form1"
 "#;
         let mut stream = SourceStream::new("test.frm".to_string(), source);
@@ -2887,8 +2859,6 @@ End
 
     #[test]
     fn parse_boolean_attributes() {
-        use crate::files::common::{Creatable, Exposed, NameSpace, PreDeclaredID};
-
         let source = r"Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = True
@@ -2910,8 +2880,6 @@ Attribute VB_Exposed = False
 
     #[test]
     fn parse_numeric_attribute() {
-        use crate::files::common::PreDeclaredID;
-
         let source = r"Attribute VB_PredeclaredId = -1
 ";
         let mut stream = SourceStream::new("test.frm".to_string(), source);
@@ -2928,8 +2896,6 @@ Attribute VB_Exposed = False
 
     #[test]
     fn parse_multiple_attributes() {
-        use crate::files::common::{Creatable, Exposed, NameSpace, PreDeclaredID};
-
         let source = r#"Attribute VB_Name = "MyForm"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
@@ -2975,8 +2941,6 @@ Attribute VB_Description = "Test"
 
     #[test]
     fn parse_empty_attributes() {
-        use crate::files::common::{Creatable, Exposed, NameSpace, PreDeclaredID};
-
         let source = r"";
         let mut stream = SourceStream::new("test.frm".to_string(), source);
         let (token_stream_opt, _) = tokenize(&mut stream).unpack();

@@ -16,7 +16,7 @@ use strum::{EnumMessage, IntoEnumIterator};
 use uuid::Uuid;
 
 use crate::{
-    errors::{ErrorDetails, ProjectErrorKind},
+    errors::{ParserContext, ProjectError},
     files::common::ObjectReference,
     files::project::{
         compilesettings::CompilationType,
@@ -198,8 +198,8 @@ impl Display for ProjectClassReference<'_> {
 ///
 /// Contains the parsed `ProjectFile` and any `ProjectErrorKind` errors encountered during parsing.
 ///
-/// This is a type alias for `ParseResult<'a, ProjectFile<'a>, ProjectErrorKind<'a>>`.
-pub type ProjectResult<'a> = ParseResult<'a, ProjectFile<'a>, ProjectErrorKind<'a>>;
+/// This is a type alias for `ParseResult<'a, ProjectFile<'a>>`.
+pub type ProjectResult<'a> = ParseResult<'a, ProjectFile<'a>>;
 
 impl<'a> ProjectFile<'a> {
     ///
@@ -877,10 +877,10 @@ impl<'a> ProjectFile<'a> {
     /// ```
     #[must_use]
     pub fn parse(source_file: &'a SourceFile) -> ProjectResult<'a> {
-        let mut failures = vec![];
         let mut project = ProjectFile::new_empty();
         let mut input = source_file.source_stream();
         let mut other_property_group: Option<&str> = None;
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
         let handlers = PropertyHandlers::new();
 
         while !input.is_empty() {
@@ -892,49 +892,43 @@ impl<'a> ProjectFile<'a> {
             let line_start = input.start_of_line();
 
             // Handle section headers
-            match parse_section_header_line(&mut input) {
-                Ok(Some(section_header)) => {
-                    handle_section_header(&mut project, section_header, &mut other_property_group);
+            match parse_section_header_line(&mut ctx, &mut input) {
+                Some(SectionHeaderDetection::HeaderName(section_header)) => {
+                    handle_section_header(
+                        &mut ctx,
+                        &mut project,
+                        section_header,
+                        &mut other_property_group,
+                    );
                     continue;
                 }
-                Ok(None) => {
+                Some(SectionHeaderDetection::MalformedHeader) => {
+                    continue;
+                }
+                None => {
                     // Not a section header line, parse the line as a normal
                     // VB6 project property line.
-                }
-                Err(e) => {
-                    failures.push(e);
-                    continue;
                 }
             }
 
             // Parse property name
-            let property_name = match parse_property_name(&mut input) {
-                Ok(property_name) => property_name,
-                Err(e) => {
-                    failures.push(e);
-                    continue;
-                }
+            let Some(property_name) = parse_property_name(&mut ctx, &mut input) else {
+                continue;
             };
 
             // Handle third-party properties
             if let Some(group) = other_property_group {
-                handle_other_property(
-                    &mut project,
-                    &mut input,
-                    group,
-                    property_name,
-                    &mut failures,
-                );
+                handle_other_property(&mut ctx, &mut input, &mut project, group, property_name);
                 continue;
             }
 
             // Dispatch to appropriate handler
-            if !handlers.handle(property_name, &mut project, &mut input, &mut failures) {
-                handle_unknown_property(&mut input, line_start, property_name, &mut failures);
+            if !handlers.handle(&mut ctx, &mut input, &mut project, property_name) {
+                handle_unknown_property(&mut ctx, &mut input, line_start, property_name);
             }
         }
 
-        ParseResult::new(Some(project), failures)
+        ParseResult::new(Some(project), ctx.into_errors())
     }
 
     /// Gets a collection of references to all sub-project references in the project.
@@ -1021,12 +1015,8 @@ impl<'a> ProjectFile<'a> {
 /// Property handlers take a mutable reference to the project being built,
 /// a mutable reference to the input stream, the property name, and a mutable
 /// reference to the failures vector for error collection.
-type PropertyHandler<'a> = fn(
-    &mut ProjectFile<'a>,
-    &mut SourceStream<'a>,
-    &'a str,
-    &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
-);
+type PropertyHandler<'a> =
+    fn(&mut ParserContext<'a>, &mut SourceStream<'a>, &mut ProjectFile<'a>, &'a str);
 
 /// Registry of property handlers for dispatching property parsing.
 ///
@@ -1142,13 +1132,13 @@ impl<'a> PropertyHandlers<'a> {
     /// Returns `true` if the property was handled, `false` if no handler was found.
     fn handle(
         &self,
-        property_name: &'a str,
-        project: &mut ProjectFile<'a>,
+        ctx: &mut ParserContext<'a>,
         input: &mut SourceStream<'a>,
-        failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+        project: &mut ProjectFile<'a>,
+        property_name: &'a str,
     ) -> bool {
         if let Some(handler) = self.handlers.get(property_name) {
-            handler(project, input, property_name, failures);
+            handler(ctx, input, project, property_name);
             true
         } else {
             false
@@ -1181,6 +1171,7 @@ fn skip_empty_lines(input: &mut SourceStream) -> bool {
 /// * `section_header` - The name of the section (without brackets)
 /// * `other_property_group` - Mutable reference to track the current section
 fn handle_section_header<'a>(
+    _ctx: &mut ParserContext<'a>,
     project: &mut ProjectFile<'a>,
     section_header: &'a str,
     other_property_group: &mut Option<&'a str>,
@@ -1206,18 +1197,14 @@ fn handle_section_header<'a>(
 /// * `property_name` - The name of the property
 /// * `failures` - Vector to collect any parsing errors
 fn handle_other_property<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     group: &'a str,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    let property_value = match parse_property_value(input, property_name) {
-        Ok(property_value) => property_value,
-        Err(e) => {
-            failures.push(e);
-            return;
-        }
+    let Some(property_value) = parse_property_value(ctx, input, property_name) else {
+        return;
     };
 
     if let Some(map) = project.other_properties.get_mut(group) {
@@ -1237,20 +1224,19 @@ fn handle_other_property<'a>(
 /// * `property_name` - The unrecognized property name
 /// * `failures` - Vector to collect the error
 fn handle_unknown_property<'a>(
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
     line_start: usize,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
     input.forward_to_next_line();
 
-    let e = input.generate_error_at(
-        line_start,
-        ProjectErrorKind::ParameterLineUnknown {
-            parameter_line_name: property_name,
+    ctx.error(
+        input.span_at(line_start),
+        ProjectError::ParameterLineUnknown {
+            line: property_name.to_string(),
         },
     );
-    failures.push(e);
 }
 
 // ============================================================================
@@ -1267,820 +1253,725 @@ fn handle_unknown_property<'a>(
 // enabling the parser to report multiple errors in a single pass.
 
 fn handle_type<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_converted_value(input, property_name) {
-        Ok(project_type_value) => project.project_type = project_type_value,
-        Err(e) => failures.push(e),
+    if let Some(project_type_value) = parse_converted_value(ctx, input, property_name) {
+        project.project_type = project_type_value;
     }
 }
 
 fn handle_designer<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_path_line(input, property_name) {
-        Ok(designer) => project.designers.push(designer),
-        Err(e) => failures.push(e),
+    if let Some(designer) = parse_path_line(ctx, input, property_name) {
+        project.designers.push(designer);
     }
 }
 
 fn handle_reference<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     _property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_reference(input) {
-        Ok(reference) => project.references.push(reference),
-        Err(e) => failures.push(e),
+    if let Some(reference) = parse_reference(ctx, input) {
+        project.references.push(reference);
     }
 }
 
 fn handle_object<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     _property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_object(input) {
-        Ok(object) => project.objects.push(object),
-        Err(e) => failures.push(e),
+    if let Some(object) = parse_object(ctx, input) {
+        project.objects.push(object);
     }
 }
 
 fn handle_module<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     _property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_module(input) {
-        Ok(module) => project.modules.push(module),
-        Err(e) => failures.push(e),
+    if let Some(module) = parse_module(ctx, input) {
+        project.modules.push(module);
     }
 }
 
 fn handle_class<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     _property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_class(input) {
-        Ok(class) => project.classes.push(class),
-        Err(e) => failures.push(e),
+    if let Some(class) = parse_class(ctx, input) {
+        project.classes.push(class);
     }
 }
 
 fn handle_form<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_path_line(input, property_name) {
-        Ok(form) => project.forms.push(form),
-        Err(e) => failures.push(e),
+    if let Some(form) = parse_path_line(ctx, input, property_name) {
+        project.forms.push(form);
     }
 }
 
 fn handle_user_control<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_path_line(input, property_name) {
-        Ok(user_control) => project.user_controls.push(user_control),
-        Err(e) => failures.push(e),
+    if let Some(user_control) = parse_path_line(ctx, input, property_name) {
+        project.user_controls.push(user_control);
     }
 }
 
 fn handle_user_document<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_path_line(input, property_name) {
-        Ok(user_document) => project.user_documents.push(user_document),
-        Err(e) => failures.push(e),
+    if let Some(user_document) = parse_path_line(ctx, input, property_name) {
+        project.user_documents.push(user_document);
     }
 }
 
 fn handle_related_doc<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_path_line(input, property_name) {
-        Ok(related_document) => project.related_documents.push(related_document),
-        Err(e) => failures.push(e),
+    if let Some(related_document) = parse_path_line(ctx, input, property_name) {
+        project.related_documents.push(related_document);
     }
 }
 
 fn handle_property_page<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_path_line(input, property_name) {
-        Ok(property_page_value) => project.property_pages.push(property_page_value),
-        Err(e) => failures.push(e),
+    if let Some(property_page_value) = parse_path_line(ctx, input, property_name) {
+        project.property_pages.push(property_page_value);
     }
 }
 
 fn handle_res_file_32<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_quoted_value(input, property_name) {
-        Ok(res_32_file) => project.properties.res_file_32_path = res_32_file,
-        Err(e) => failures.push(e),
+    if let Some(res_32_file) = parse_quoted_value(ctx, input, property_name) {
+        project.properties.res_file_32_path = res_32_file;
     }
 }
 
 fn handle_icon_form<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_quoted_value(input, property_name) {
-        Ok(icon_form_value) => project.properties.icon_form = icon_form_value,
-        Err(e) => failures.push(e),
+    if let Some(icon_form_value) = parse_quoted_value(ctx, input, property_name) {
+        project.properties.icon_form = icon_form_value;
     }
 }
 
 fn handle_startup<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_optional_quoted_value(input, property_name) {
-        Ok(startup_value) => project.properties.startup = startup_value,
-        Err(e) => failures.push(e),
+    if let Some(startup_value) = parse_optional_quoted_value(ctx, input, property_name) {
+        project.properties.startup = startup_value;
     }
 }
 
 fn handle_help_file<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_quoted_value(input, property_name) {
-        Ok(help_file) => project.properties.help_file_path = help_file,
-        Err(e) => failures.push(e),
+    if let Some(help_file) = parse_quoted_value(ctx, input, property_name) {
+        project.properties.help_file_path = help_file;
     }
 }
 
 fn handle_title<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_quoted_value(input, property_name) {
-        Ok(title_value) => project.properties.title = title_value,
-        Err(e) => failures.push(e),
+    if let Some(title_value) = parse_quoted_value(ctx, input, property_name) {
+        project.properties.title = title_value;
     }
 }
 
 fn handle_exe_name_32<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_quoted_value(input, property_name) {
-        Ok(exe_32_file_name_value) => project.properties.exe_32_file_name = exe_32_file_name_value,
-        Err(e) => failures.push(e),
+    if let Some(exe_32_file_name_value) = parse_quoted_value(ctx, input, property_name) {
+        project.properties.exe_32_file_name = exe_32_file_name_value;
     }
 }
 
 fn handle_path_32<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_quoted_value(input, property_name) {
-        Ok(path_32_value) => project.properties.path_32 = path_32_value,
-        Err(e) => failures.push(e),
+    if let Some(path_32_value) = parse_quoted_value(ctx, input, property_name) {
+        project.properties.path_32 = path_32_value;
     }
 }
 
 fn handle_command_32<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_optional_quoted_value(input, property_name) {
-        Ok(command_line_arguments_value) => {
-            project.properties.command_line_arguments = command_line_arguments_value;
-        }
-        Err(e) => failures.push(e),
+    if let Some(command_line_arguments_value) =
+        parse_optional_quoted_value(ctx, input, property_name)
+    {
+        project.properties.command_line_arguments = command_line_arguments_value;
     }
 }
 
 fn handle_name<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_optional_quoted_value(input, property_name) {
-        Ok(name_value) => project.properties.name = name_value,
-        Err(e) => failures.push(e),
+    if let Some(name_value) = parse_optional_quoted_value(ctx, input, property_name) {
+        project.properties.name = name_value;
     }
 }
 
 fn handle_description<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_quoted_value(input, property_name) {
-        Ok(description_value) => project.properties.description = description_value,
-        Err(e) => failures.push(e),
+    if let Some(description_value) = parse_quoted_value(ctx, input, property_name) {
+        project.properties.description = description_value;
     }
 }
 
 fn handle_major_ver<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_numeric(input, property_name) {
-        Ok(major_value) => project.properties.version_info.major = major_value,
-        Err(e) => failures.push(e),
+    if let Some(major_value) = parse_numeric(ctx, input, property_name) {
+        project.properties.version_info.major = major_value;
     }
 }
 
 fn handle_minor_ver<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_numeric(input, property_name) {
-        Ok(minor_value) => project.properties.version_info.minor = minor_value,
-        Err(e) => failures.push(e),
+    if let Some(minor_value) = parse_numeric(ctx, input, property_name) {
+        project.properties.version_info.minor = minor_value;
     }
 }
 
 fn handle_revision_ver<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_numeric(input, property_name) {
-        Ok(revision_value) => project.properties.version_info.revision = revision_value,
-        Err(e) => failures.push(e),
+    if let Some(revision_value) = parse_numeric(ctx, input, property_name) {
+        project.properties.version_info.revision = revision_value;
     }
 }
 
 fn handle_auto_increment_ver<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_numeric(input, property_name) {
-        Ok(auto_increment_revision_value) => {
-            project.properties.version_info.auto_increment_revision = auto_increment_revision_value;
-        }
-        Err(e) => failures.push(e),
+    if let Some(auto_increment_revision_value) = parse_numeric(ctx, input, property_name) {
+        project.properties.version_info.auto_increment_revision = auto_increment_revision_value;
     }
 }
 
 fn handle_version_company_name<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_quoted_value(input, property_name) {
-        Ok(company_name_value) => project.properties.version_info.company_name = company_name_value,
-        Err(e) => failures.push(e),
+    if let Some(company_name_value) = parse_quoted_value(ctx, input, property_name) {
+        project.properties.version_info.company_name = company_name_value;
     }
 }
 
 fn handle_version_file_description<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_quoted_value(input, property_name) {
-        Ok(file_description_value) => {
-            project.properties.version_info.file_description = file_description_value;
-        }
-        Err(e) => failures.push(e),
+    if let Some(file_description_value) = parse_quoted_value(ctx, input, property_name) {
+        project.properties.version_info.file_description = file_description_value;
     }
 }
 
 fn handle_version_legal_copyright<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_quoted_value(input, property_name) {
-        Ok(copyright_value) => project.properties.version_info.copyright = copyright_value,
-        Err(e) => failures.push(e),
+    if let Some(copyright_value) = parse_quoted_value(ctx, input, property_name) {
+        project.properties.version_info.copyright = copyright_value;
     }
 }
 
 fn handle_version_legal_trademarks<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_quoted_value(input, property_name) {
-        Ok(trademark_value) => project.properties.version_info.trademark = trademark_value,
-        Err(e) => failures.push(e),
+    if let Some(trademark_value) = parse_quoted_value(ctx, input, property_name) {
+        project.properties.version_info.trademark = trademark_value;
     }
 }
 
 fn handle_version_product_name<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_quoted_value(input, property_name) {
-        Ok(product_name_value) => project.properties.version_info.product_name = product_name_value,
-        Err(e) => failures.push(e),
+    if let Some(product_name_value) = parse_quoted_value(ctx, input, property_name) {
+        project.properties.version_info.product_name = product_name_value;
     }
 }
 
 fn handle_version_comments<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_quoted_value(input, property_name) {
-        Ok(comments_value) => project.properties.version_info.comments = comments_value,
-        Err(e) => failures.push(e),
+    if let Some(comments_value) = parse_quoted_value(ctx, input, property_name) {
+        project.properties.version_info.comments = comments_value;
     }
 }
 
 fn handle_help_context_id<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_quoted_value(input, property_name) {
-        Ok(help_context_id_value) => project.properties.help_context_id = help_context_id_value,
-        Err(e) => failures.push(e),
+    if let Some(help_context_id_value) = parse_quoted_value(ctx, input, property_name) {
+        project.properties.help_context_id = help_context_id_value;
     }
 }
 
 fn handle_compatible_mode<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_quoted_converted_value(input, property_name) {
-        Ok(compatibility_mode_value) => {
-            project.properties.compatibility_mode = compatibility_mode_value;
-        }
-        Err(e) => failures.push(e),
+    if let Some(compatibility_mode_value) = parse_quoted_converted_value(ctx, input, property_name)
+    {
+        project.properties.compatibility_mode = compatibility_mode_value;
     }
 }
 
 fn handle_version_compatible_32<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_quoted_value(input, property_name) {
-        Ok(version_32_compatibility_value) => {
-            project.properties.version_32_compatibility = version_32_compatibility_value;
-        }
-        Err(e) => failures.push(e),
+    if let Some(version_32_compatibility_value) = parse_quoted_value(ctx, input, property_name) {
+        project.properties.version_32_compatibility = version_32_compatibility_value;
     }
 }
 
 fn handle_compatible_exe_32<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_quoted_value(input, property_name) {
-        Ok(exe_32_compatible_value) => {
-            project.properties.exe_32_compatible = exe_32_compatible_value;
-        }
-        Err(e) => failures.push(e),
+    if let Some(exe_32_compatible_value) = parse_quoted_value(ctx, input, property_name) {
+        project.properties.exe_32_compatible = exe_32_compatible_value;
     }
 }
 
 fn handle_dll_base_address<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     _property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_dll_base_address(input) {
-        Ok(dll_base_address_value) => project.properties.dll_base_address = dll_base_address_value,
-        Err(e) => failures.push(e),
+    if let Some(dll_base_address_value) = parse_dll_base_address(ctx, input) {
+        project.properties.dll_base_address = dll_base_address_value;
     }
 }
 
 fn handle_remove_unused_control_info<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_converted_value(input, property_name) {
-        Ok(unused_control_info_value) => {
-            project.properties.unused_control_info = unused_control_info_value;
-        }
-        Err(e) => failures.push(e),
+    if let Some(unused_control_info_value) = parse_converted_value(ctx, input, property_name) {
+        project.properties.unused_control_info = unused_control_info_value;
     }
 }
 
 fn handle_compilation_type<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_numeric(input, property_name) {
-        Ok(compilation_type) => project.properties.compilation_type = compilation_type,
-        Err(e) => failures.push(e),
+    if let Some(compilation_type) = parse_numeric(ctx, input, property_name) {
+        project.properties.compilation_type = compilation_type;
     }
 }
 
 fn handle_optimization_type<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_converted_value(input, property_name) {
-        Ok(optimization_type_value) => {
-            project.properties.compilation_type = project
-                .properties
-                .compilation_type
-                .update_optimization_type(optimization_type_value);
-        }
-        Err(e) => failures.push(e),
+    if let Some(optimization_type_value) = parse_converted_value(ctx, input, property_name) {
+        project.properties.compilation_type = project
+            .properties
+            .compilation_type
+            .update_optimization_type(optimization_type_value);
     }
 }
 
 fn handle_favor_pentium_pro<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_converted_value(input, property_name) {
-        Ok(favor_pentium_pro_value) => {
-            project.properties.compilation_type = project
-                .properties
-                .compilation_type
-                .update_favor_pentium_pro(favor_pentium_pro_value);
-        }
-        Err(e) => failures.push(e),
+    if let Some(favor_pentium_pro_value) = parse_converted_value(ctx, input, property_name) {
+        project.properties.compilation_type = project
+            .properties
+            .compilation_type
+            .update_favor_pentium_pro(favor_pentium_pro_value);
     }
 }
 
 fn handle_code_view_debug_info<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_converted_value(input, property_name) {
-        Ok(code_view_debug_info_value) => {
-            project.properties.compilation_type = project
-                .properties
-                .compilation_type
-                .update_code_view_debug_info(code_view_debug_info_value);
-        }
-        Err(e) => failures.push(e),
+    if let Some(code_view_debug_info_value) = parse_converted_value(ctx, input, property_name) {
+        project.properties.compilation_type = project
+            .properties
+            .compilation_type
+            .update_code_view_debug_info(code_view_debug_info_value);
     }
 }
 
 fn handle_no_aliasing<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_converted_value(input, property_name) {
-        Ok(aliasing_value) => {
-            project.properties.compilation_type = project
-                .properties
-                .compilation_type
-                .update_aliasing(aliasing_value);
-        }
-        Err(e) => failures.push(e),
+    if let Some(aliasing_value) = parse_converted_value(ctx, input, property_name) {
+        project.properties.compilation_type = project
+            .properties
+            .compilation_type
+            .update_aliasing(aliasing_value);
     }
 }
 
 fn handle_bounds_check<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_converted_value(input, property_name) {
-        Ok(bounds_check_value) => {
-            project.properties.compilation_type = project
-                .properties
-                .compilation_type
-                .update_bounds_check(bounds_check_value);
-        }
-        Err(e) => failures.push(e),
+    if let Some(bounds_check_value) = parse_converted_value(ctx, input, property_name) {
+        project.properties.compilation_type = project
+            .properties
+            .compilation_type
+            .update_bounds_check(bounds_check_value);
     }
 }
 
 fn handle_overflow_check<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_converted_value(input, property_name) {
-        Ok(overflow_check_value) => {
-            project.properties.compilation_type = project
-                .properties
-                .compilation_type
-                .update_overflow_check(overflow_check_value);
-        }
-        Err(e) => failures.push(e),
+    if let Some(overflow_check_value) = parse_converted_value(ctx, input, property_name) {
+        project.properties.compilation_type = project
+            .properties
+            .compilation_type
+            .update_overflow_check(overflow_check_value);
     }
 }
 
 fn handle_fl_point_check<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_converted_value(input, property_name) {
-        Ok(floating_point_check_value) => {
-            project.properties.compilation_type = project
-                .properties
-                .compilation_type
-                .update_floating_point_check(floating_point_check_value);
-        }
-        Err(e) => failures.push(e),
+    if let Some(floating_point_check_value) = parse_converted_value(ctx, input, property_name) {
+        project.properties.compilation_type = project
+            .properties
+            .compilation_type
+            .update_floating_point_check(floating_point_check_value);
     }
 }
 
 fn handle_fdiv_check<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_converted_value(input, property_name) {
-        Ok(pentium_fdiv_bug_check_value) => {
-            project.properties.compilation_type = project
-                .properties
-                .compilation_type
-                .update_pentium_fdiv_bug_check(pentium_fdiv_bug_check_value);
-        }
-        Err(e) => failures.push(e),
+    if let Some(pentium_fdiv_bug_check_value) = parse_converted_value(ctx, input, property_name) {
+        project.properties.compilation_type = project
+            .properties
+            .compilation_type
+            .update_pentium_fdiv_bug_check(pentium_fdiv_bug_check_value);
     }
 }
 
 fn handle_unrounded_fp<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_converted_value(input, property_name) {
-        Ok(unrounded_floating_point_value) => {
-            project.properties.compilation_type = project
-                .properties
-                .compilation_type
-                .update_unrounded_floating_point(unrounded_floating_point_value);
-        }
-        Err(e) => failures.push(e),
+    if let Some(unrounded_floating_point_value) = parse_converted_value(ctx, input, property_name) {
+        project.properties.compilation_type = project
+            .properties
+            .compilation_type
+            .update_unrounded_floating_point(unrounded_floating_point_value);
     }
 }
 
 fn handle_cond_comp<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_quoted_value(input, property_name) {
-        Ok(conditional_compile_value) => {
-            project.properties.conditional_compile = conditional_compile_value;
-        }
-        Err(e) => failures.push(e),
+    if let Some(conditional_compile_value) = parse_quoted_value(ctx, input, property_name) {
+        project.properties.conditional_compile = conditional_compile_value;
     }
 }
 
 fn handle_start_mode<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_converted_value(input, property_name) {
-        Ok(start_mode_value) => project.properties.start_mode = start_mode_value,
-        Err(e) => failures.push(e),
+    if let Some(start_mode_value) = parse_converted_value(ctx, input, property_name) {
+        project.properties.start_mode = start_mode_value;
     }
 }
 
 fn handle_unattended<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_converted_value(input, property_name) {
-        Ok(unattended_value) => project.properties.unattended = unattended_value,
-        Err(e) => failures.push(e),
+    if let Some(unattended_value) = parse_converted_value(ctx, input, property_name) {
+        project.properties.unattended = unattended_value;
     }
 }
 
 fn handle_retained<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_converted_value(input, property_name) {
-        Ok(retained_value) => project.properties.retained = retained_value,
-        Err(e) => failures.push(e),
+    if let Some(retained_value) = parse_converted_value(ctx, input, property_name) {
+        project.properties.retained = retained_value;
     }
 }
 
 fn handle_thread_per_object<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_numeric::<i16>(input, property_name) {
-        Ok(thread_per_object_value) => {
-            if thread_per_object_value <= 0 {
-                project.properties.thread_per_object = 0;
-            } else {
-                project.properties.thread_per_object = thread_per_object_value.cast_unsigned();
-            }
+    if let Some(thread_per_object_value) = parse_numeric::<i16>(ctx, input, property_name) {
+        if thread_per_object_value <= 0 {
+            project.properties.thread_per_object = 0;
+        } else {
+            project.properties.thread_per_object = thread_per_object_value.cast_unsigned();
         }
-        Err(e) => failures.push(e),
     }
 }
 
 fn handle_max_number_of_threads<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_numeric(input, property_name) {
-        Ok(max_number_of_threads_value) => {
-            project.properties.max_number_of_threads = max_number_of_threads_value;
-        }
-        Err(e) => failures.push(e),
+    if let Some(max_number_of_threads_value) = parse_numeric(ctx, input, property_name) {
+        project.properties.max_number_of_threads = max_number_of_threads_value;
     }
 }
 
 fn handle_threading_model<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_converted_value(input, property_name) {
-        Ok(threading_model_value) => project.properties.threading_model = threading_model_value,
-        Err(e) => failures.push(e),
+    if let Some(threading_model_value) = parse_converted_value(ctx, input, property_name) {
+        project.properties.threading_model = threading_model_value;
     }
 }
 
 fn handle_debug_startup_component<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_path_line(input, property_name) {
-        Ok(debug_startup_component_value) => {
-            project.properties.debug_startup_component = debug_startup_component_value;
-        }
-        Err(e) => failures.push(e),
+    if let Some(debug_startup_component_value) = parse_path_line(ctx, input, property_name) {
+        project.properties.debug_startup_component = debug_startup_component_value;
     }
 }
 
 fn handle_debug_startup_option<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_converted_value(input, property_name) {
-        Ok(debug_startup_option_value) => {
-            project.properties.debug_startup_option = debug_startup_option_value;
-        }
-        Err(e) => failures.push(e),
+    if let Some(debug_startup_option_value) = parse_converted_value(ctx, input, property_name) {
+        project.properties.debug_startup_option = debug_startup_option_value;
     }
 }
 
 fn handle_use_existing_browser<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_converted_value(input, property_name) {
-        Ok(use_existing_browser_value) => {
-            project.properties.use_existing_browser = use_existing_browser_value;
-        }
-        Err(e) => failures.push(e),
+    if let Some(use_existing_browser_value) = parse_converted_value(ctx, input, property_name) {
+        project.properties.use_existing_browser = use_existing_browser_value;
     }
 }
 
 fn handle_no_control_upgrade<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_converted_value(input, property_name) {
-        Ok(upgrade_controls_value) => project.properties.upgrade_controls = upgrade_controls_value,
-        Err(e) => failures.push(e),
+    if let Some(upgrade_controls_value) = parse_converted_value(ctx, input, property_name) {
+        project.properties.upgrade_controls = upgrade_controls_value;
     }
 }
 
 fn handle_server_support_files<'a>(
-    project: &mut ProjectFile<'a>,
+    ctx: &mut ParserContext,
     input: &mut SourceStream<'a>,
+    project: &mut ProjectFile<'a>,
     property_name: &'a str,
-    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
 ) {
-    match parse_converted_value(input, property_name) {
-        Ok(server_support_files_value) => {
-            project.properties.server_support_files = server_support_files_value;
-        }
-        Err(e) => failures.push(e),
+    if let Some(server_support_files_value) = parse_converted_value(ctx, input, property_name) {
+        project.properties.server_support_files = server_support_files_value;
     }
 }
 
+enum SectionHeaderDetection<'a> {
+    HeaderName(&'a str),
+    MalformedHeader,
+}
+
 fn parse_section_header_line<'a>(
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
-) -> Result<Option<&'a str>, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+) -> Option<SectionHeaderDetection<'a>> {
+    let line_start = input.start_of_line();
+
     // We want to grab any section header lines like '[MS Transaction Server]'.
     // Which we will use in parsing 'other properties.'
-    let header_start = input.take("[", Comparator::CaseSensitive);
-
-    if header_start.is_none() {
-        // No section header line, so we can continue parsing.
-        return Ok(None);
-    }
+    let _header_start = input.take("[", Comparator::CaseSensitive)?;
 
     // We have a section header line.
     let Some((other_property, _)) = input.take_until("]", Comparator::CaseSensitive) else {
         // We have a section header line but it is not terminated properly.
-        let fail = input.generate_error(ProjectErrorKind::UnterminatedSectionHeader);
+        ctx.error(
+            input.span_at(line_start),
+            ProjectError::UnterminatedSectionHeader,
+        );
         input.forward_to_next_line();
 
-        return Err(fail);
+        return Some(SectionHeaderDetection::MalformedHeader);
     };
 
     let _ = input.take("]", Comparator::CaseSensitive);
     input.forward_to_next_line();
 
-    Ok(Some(other_property))
+    Some(SectionHeaderDetection::HeaderName(other_property))
 }
 
 fn parse_property_name<'a>(
+    ctx: &mut ParserContext,
     input: &mut SourceStream<'a>,
-) -> Result<&'a str, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+) -> Option<&'a str> {
     let line_start = input.start_of_line();
 
     // We want to grab the property name.
@@ -2090,25 +1981,29 @@ fn parse_property_name<'a>(
         None => {
             // No property name found, so we can't parse this line.
             // Go to the next line and return the error.
-            let fail = input.generate_error_at(line_start, ProjectErrorKind::PropertyNameNotFound);
+            ctx.error(
+                input.span_at(line_start),
+                ProjectError::PropertyNameNotFound,
+            );
             input.forward_to_next_line();
 
-            Err(fail)
+            None
         }
         Some((property_name, _)) => {
             // We only need the property name not the split on '=' value so we only
             // return the first of the pair in the line split.
             let _ = input.take("=", Comparator::CaseSensitive);
 
-            Ok(property_name)
+            Some(property_name)
         }
     }
 }
 
 fn parse_property_value<'a>(
+    ctx: &mut ParserContext,
     input: &mut SourceStream<'a>,
     line_type: &'a str,
-) -> Result<&'a str, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+) -> Option<&'a str> {
     // An line starts with the line_type followed by '=', and a value.
     //
     // By this point in the parse the line_type and "=" component should be
@@ -2117,33 +2012,34 @@ fn parse_property_value<'a>(
 
     let Some((parameter_value, _)) = input.take_until_newline() else {
         // No parameter value found, so we can't parse this line.
-        let fail = input.generate_error_at(
-            parameter_start,
-            ProjectErrorKind::ParameterValueNotFound {
-                parameter_line_name: line_type,
+        ctx.error(
+            input.span_at(parameter_start),
+            ProjectError::ParameterValueNotFound {
+                parameter_line_name: line_type.to_string(),
             },
         );
-        return Err(fail);
+        return None;
     };
 
     if parameter_value.is_empty() {
         // No parameter value found, so we can't parse this line.
-        let fail = input.generate_error_at(
-            parameter_start,
-            ProjectErrorKind::ParameterValueNotFound {
-                parameter_line_name: line_type,
+        ctx.error(
+            input.span_at(parameter_start),
+            ProjectError::ParameterValueNotFound {
+                parameter_line_name: line_type.to_string(),
             },
         );
-        return Err(fail);
+        return None;
     }
 
-    Ok(parameter_value)
+    Some(parameter_value)
 }
 
 fn parse_quoted_value<'a>(
+    ctx: &mut ParserContext,
     input: &mut SourceStream<'a>,
     line_type: &'a str,
-) -> Result<&'a str, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+) -> Option<&'a str> {
     // An line starts with the line_type followed by '=', and a quoted value.
     //
     // By this point in the parse the line_type and "=" component should be
@@ -2152,24 +2048,25 @@ fn parse_quoted_value<'a>(
 
     let Some((parameter_value, _)) = input.take_until_newline() else {
         // No parameter value found, so we can't parse this line.
-        let fail = input.generate_error_at(
-            parameter_start,
-            ProjectErrorKind::ParameterValueNotFound {
-                parameter_line_name: line_type,
+        ctx.error(
+            input.span_at(parameter_start),
+            ProjectError::ParameterValueNotFound {
+                parameter_line_name: line_type.to_string(),
             },
         );
-        return Err(fail);
+
+        return None;
     };
 
     if parameter_value.is_empty() {
         // No startup value found, so we can't parse this line.
-        let fail = input.generate_error_at(
-            parameter_start,
-            ProjectErrorKind::ParameterValueNotFound {
-                parameter_line_name: line_type,
+        ctx.error(
+            input.span_at(parameter_start),
+            ProjectError::ParameterValueNotFound {
+                parameter_line_name: line_type.to_string(),
             },
         );
-        return Err(fail);
+        return None;
     }
 
     let start_quote_found = parameter_value.starts_with('"');
@@ -2178,13 +2075,14 @@ fn parse_quoted_value<'a>(
     if !start_quote_found && end_quote_found {
         // The value ends with a quote but does not start with one.
         // This is an error, so we return an error.
-        let fail = input.generate_error_at(
-            parameter_start,
-            ProjectErrorKind::ParameterValueMissingOpeningQuote {
-                parameter_line_name: line_type,
+        ctx.error(
+            input.span_at(parameter_start),
+            ProjectError::ParameterValueMissingOpeningQuote {
+                parameter_line_name: line_type.to_string(),
             },
         );
-        return Err(fail);
+
+        return None;
     }
 
     // we have to check the length like this because if we have only a single
@@ -2197,36 +2095,37 @@ fn parse_quoted_value<'a>(
     if start_without_end || start_with_length_one {
         // The value starts with a quote but does not end with one.
         // This is an error, so we return an error.
-        let fail = input.generate_error_at(
-            parameter_start + parameter_value.len(),
-            ProjectErrorKind::ParameterValueMissingMatchingQuote {
-                parameter_line_name: line_type,
+        ctx.error(
+            input.span_at(parameter_start),
+            ProjectError::ParameterValueMissingMatchingQuote {
+                parameter_line_name: line_type.to_string(),
             },
         );
-        return Err(fail);
+        return None;
     }
 
     if !start_quote_found && !end_quote_found {
         // The startup value does not start or end with a quote.
         // This is an error, so we return an error.
-        let fail = input.generate_error_at(
-            parameter_start,
-            ProjectErrorKind::ParameterValueMissingQuotes {
-                parameter_line_name: line_type,
+        ctx.error(
+            input.span_at(parameter_start),
+            ProjectError::ParameterValueMissingQuotes {
+                parameter_line_name: line_type.to_string(),
             },
         );
-        return Err(fail);
+        return None;
     }
 
     let parameter_value = &parameter_value[1..parameter_value.len() - 1];
 
-    Ok(parameter_value)
+    Some(parameter_value)
 }
 
 fn parse_optional_quoted_value<'a>(
+    ctx: &mut ParserContext,
     input: &mut SourceStream<'a>,
     line_type: &'a str,
-) -> Result<&'a str, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+) -> Option<&'a str> {
     // An optional line starts with 'Startup=' (or another such option starting line)
     // and is followed by the quoted value, "!None!", or "(None)", or "!(None)!" to indicate the
     // parameter value is 'None'.
@@ -2237,24 +2136,24 @@ fn parse_optional_quoted_value<'a>(
 
     let Some((parameter_value, _)) = input.take_until_newline() else {
         // No parameter value found, so we can't parse this line.
-        let fail = input.generate_error_at(
-            parameter_start,
-            ProjectErrorKind::ParameterValueNotFound {
-                parameter_line_name: line_type,
+        ctx.error(
+            input.span_at(parameter_start),
+            ProjectError::ParameterValueNotFound {
+                parameter_line_name: line_type.to_string(),
             },
         );
-        return Err(fail);
+        return None;
     };
 
     if parameter_value.is_empty() {
         // No parameter value found, so we can't parse this line.
-        let fail = input.generate_error_at(
-            parameter_start,
-            ProjectErrorKind::ParameterValueNotFound {
-                parameter_line_name: line_type,
+        ctx.error(
+            input.span_at(parameter_start),
+            ProjectError::ParameterValueNotFound {
+                parameter_line_name: line_type.to_string(),
             },
         );
-        return Err(fail);
+        return None;
     }
 
     if parameter_value == "\"(None)\""
@@ -2265,7 +2164,7 @@ fn parse_optional_quoted_value<'a>(
         || parameter_value == "!(None)!"
     {
         // The parameter has a value of None.
-        return Ok("");
+        return Some("");
     }
 
     let start_quote_found = parameter_value.starts_with('"');
@@ -2274,13 +2173,13 @@ fn parse_optional_quoted_value<'a>(
     if !start_quote_found && end_quote_found {
         // The value ends with a quote but does not start with one.
         // This is an error, so we return an error.
-        let fail = input.generate_error_at(
-            parameter_start,
-            ProjectErrorKind::ParameterValueMissingOpeningQuote {
-                parameter_line_name: line_type,
+        ctx.error(
+            input.span_at(parameter_start),
+            ProjectError::ParameterValueMissingOpeningQuote {
+                parameter_line_name: line_type.to_string(),
             },
         );
-        return Err(fail);
+        return None;
     }
 
     // we have to check the length like this because if we have only a single
@@ -2294,35 +2193,36 @@ fn parse_optional_quoted_value<'a>(
     if start_without_end || start_with_end_length_one {
         // The value starts with a quote but does not end with one.
         // This is an error, so we return an error.
-        let fail = input.generate_error_at(
-            parameter_start + parameter_value.len(),
-            ProjectErrorKind::ParameterValueMissingMatchingQuote {
-                parameter_line_name: line_type,
+        ctx.error(
+            input.span_at(parameter_start),
+            ProjectError::ParameterValueMissingMatchingQuote {
+                parameter_line_name: line_type.to_string(),
             },
         );
-        return Err(fail);
+        return None;
     }
 
     if !start_quote_found && !end_quote_found {
         // The parameter value does not start or end with a quote.
         // This is an error, so we return an error.
-        let fail = input.generate_error_at(
-            parameter_start,
-            ProjectErrorKind::ParameterValueMissingQuotes {
-                parameter_line_name: line_type,
+        ctx.error(
+            input.span_at(parameter_start),
+            ProjectError::ParameterValueMissingQuotes {
+                parameter_line_name: line_type.to_string(),
             },
         );
-        return Err(fail);
+        return None;
     }
 
     let parameter_value = &parameter_value[1..parameter_value.len() - 1];
-    Ok(parameter_value)
+    Some(parameter_value)
 }
 
 fn parse_quoted_converted_value<'a, T>(
+    ctx: &mut ParserContext,
     input: &mut SourceStream<'a>,
     line_type: &'a str,
-) -> Result<T, ErrorDetails<'a, ProjectErrorKind<'a>>>
+) -> Option<T>
 where
     T: TryFrom<&'a str, Error = String> + 'a + IntoEnumIterator + EnumMessage + Debug,
 {
@@ -2338,13 +2238,13 @@ where
         None => {
             // No type text found, so we can't parse this line.
             // Go to the next line and return the error.
-            let fail = input.generate_error_at(
-                parameter_start,
-                ProjectErrorKind::ParameterValueMissingOpeningQuote {
-                    parameter_line_name: line_type,
+            ctx.error(
+                input.span_at(parameter_start),
+                ProjectError::ParameterValueMissingOpeningQuote {
+                    parameter_line_name: line_type.to_string(),
                 },
             );
-            return Err(fail);
+            return None;
         }
         Some((parameter_value, _)) => parameter_value,
     };
@@ -2355,13 +2255,13 @@ where
     if !start_quote_found && end_quote_found {
         // The value ends with a quote but does not start with one.
         // This is an error, so we return an error.
-        let fail = input.generate_error_at(
-            parameter_start,
-            ProjectErrorKind::ParameterValueMissingOpeningQuote {
-                parameter_line_name: line_type,
+        ctx.error(
+            input.span_at(parameter_start),
+            ProjectError::ParameterValueMissingOpeningQuote {
+                parameter_line_name: line_type.to_string(),
             },
         );
-        return Err(fail);
+        return None;
     }
 
     // we have to check the length like this because if we have only a single
@@ -2374,25 +2274,25 @@ where
     if start_without_end || start_with_parameter_length_one {
         // The value starts with a quote but does not end with one.
         // This is an error, so we return an error.
-        let fail = input.generate_error_at(
-            parameter_start + parameter_value.len(),
-            ProjectErrorKind::ParameterValueMissingMatchingQuote {
-                parameter_line_name: line_type,
+        ctx.error(
+            input.span_at(parameter_start),
+            ProjectError::ParameterValueMissingMatchingQuote {
+                parameter_line_name: line_type.to_string(),
             },
         );
-        return Err(fail);
+        return None;
     }
 
     if !start_quote_found && !end_quote_found {
         // The value does not start or end with a quote.
         // This is an error, so we return an error.
-        let fail = input.generate_error_at(
-            parameter_start,
-            ProjectErrorKind::ParameterValueMissingQuotes {
-                parameter_line_name: line_type,
+        ctx.error(
+            input.span_at(parameter_start),
+            ProjectError::ParameterValueMissingQuotes {
+                parameter_line_name: line_type.to_string(),
             },
         );
-        return Err(fail);
+        return None;
     }
 
     // trim off the quote characters.
@@ -2405,24 +2305,25 @@ where
             .collect::<Vec<_>>()
             .join(", ");
 
-        let fail = input.generate_error_at(
-            parameter_start,
-            ProjectErrorKind::ParameterValueInvalid {
-                parameter_line_name: line_type,
-                invalid_value: parameter_value,
+        ctx.error(
+            input.span_at(parameter_start),
+            ProjectError::ParameterValueInvalid {
+                parameter_line_name: line_type.to_string(),
+                invalid_value: parameter_value.to_string(),
                 valid_value_message,
             },
         );
-        return Err(fail);
+        return None;
     };
 
-    Ok(value)
+    Some(value)
 }
 
 fn parse_converted_value<'a, T>(
+    ctx: &mut ParserContext,
     input: &mut SourceStream<'a>,
     line_type: &'a str,
-) -> Result<T, ErrorDetails<'a, ProjectErrorKind<'a>>>
+) -> Option<T>
 where
     T: TryFrom<&'a str, Error = String> + IntoEnumIterator + EnumMessage + Debug,
 {
@@ -2438,13 +2339,13 @@ where
         None => {
             // No type text found, so we can't parse this line.
             // Go to the next line and return the error.
-            let fail = input.generate_error_at(
-                parameter_start,
-                ProjectErrorKind::ParameterValueMissingOpeningQuote {
-                    parameter_line_name: line_type,
+            ctx.error(
+                input.span_at(parameter_start),
+                ProjectError::ParameterValueMissingOpeningQuote {
+                    parameter_line_name: line_type.to_string(),
                 },
             );
-            return Err(fail);
+            return None;
         }
         Some((parameter_value, _)) => parameter_value,
     };
@@ -2457,24 +2358,25 @@ where
             .collect::<Vec<_>>()
             .join(", ");
 
-        let fail = input.generate_error_at(
-            parameter_start,
-            ProjectErrorKind::ParameterValueInvalid {
-                parameter_line_name: line_type,
-                invalid_value: parameter_value,
+        ctx.error(
+            input.span_at(parameter_start),
+            ProjectError::ParameterValueInvalid {
+                parameter_line_name: line_type.to_string(),
+                invalid_value: parameter_value.to_string(),
                 valid_value_message,
             },
         );
-        return Err(fail);
+        return None;
     };
 
-    Ok(value)
+    Some(value)
 }
 
 fn parse_numeric<'a, T>(
+    ctx: &mut ParserContext,
     input: &mut SourceStream<'a>,
     line_type: &'a str,
-) -> Result<T, ErrorDetails<'a, ProjectErrorKind<'a>>>
+) -> Option<T>
 where
     T: FromStr,
 {
@@ -2490,13 +2392,13 @@ where
         None => {
             // No type text found, so we can't parse this line.
             // Go to the next line and return the error.
-            let fail = input.generate_error_at(
-                parameter_start,
-                ProjectErrorKind::ParameterValueMissingOpeningQuote {
-                    parameter_line_name: line_type,
+            ctx.error(
+                input.span_at(parameter_start),
+                ProjectError::ParameterValueMissingOpeningQuote {
+                    parameter_line_name: line_type.to_string(),
                 },
             );
-            return Err(fail);
+            return None;
         }
         Some((parameter_value, _)) => parameter_value,
     };
@@ -2507,24 +2409,24 @@ where
             "Failed attempting to parse as {0}. '{parameter_value}' is not a valid {0}",
             std::any::type_name::<T>()
         );
-
-        let fail = input.generate_error_at(
-            parameter_start,
-            ProjectErrorKind::ParameterValueInvalid {
-                parameter_line_name: line_type,
-                invalid_value: parameter_value,
+        ctx.error(
+            input.span_at(parameter_start),
+            ProjectError::ParameterValueInvalid {
+                parameter_line_name: line_type.to_string(),
+                invalid_value: parameter_value.to_string(),
                 valid_value_message,
             },
         );
-        return Err(fail);
+        return None;
     };
 
-    Ok(value)
+    Some(value)
 }
 
 fn parse_reference<'a>(
+    ctx: &mut ParserContext,
     input: &mut SourceStream<'a>,
-) -> Result<ProjectReference<'a>, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+) -> Option<ProjectReference<'a>> {
     // A Reference line starts with a 'Reference=' and is followed by either a
     // project reference or a compiled reference.
     //
@@ -2537,45 +2439,48 @@ fn parse_reference<'a>(
     if input.peek(compiled_reference_signature.len()) == Some(compiled_reference_signature) {
         let _ = input.take(compiled_reference_signature, Comparator::CaseSensitive);
         // This is a compiled reference.
-        return parse_compiled_reference(input);
+        return parse_compiled_reference(ctx, input);
     }
 
     // This is a project reference, but not a compiled reference.
     let Some((path, _)) = input.take_until_newline() else {
         // No path found, so we can't parse this line.
-        let fail = input.generate_error_at(
-            reference_start,
-            ProjectErrorKind::ReferenceProjectPathNotFound,
+        ctx.error(
+            input.span_at(reference_start),
+            ProjectError::ReferenceProjectPathNotFound,
         );
-        return Err(fail);
+        return None;
     };
 
     if path.is_empty() {
         // No path found, so we can't parse this line.
-        let fail = input.generate_error_at(
-            reference_start,
-            ProjectErrorKind::ReferenceProjectPathNotFound,
+        ctx.error(
+            input.span_at(reference_start),
+            ProjectError::ReferenceProjectPathNotFound,
         );
-        return Err(fail);
+        return None;
     }
 
     if !path.starts_with("*\\A") {
         // The path does not start with "*\A", which is not allowed.
-        let fail = input.generate_error_at(
-            reference_start,
-            ProjectErrorKind::ReferenceProjectPathInvalid { value: path },
+        ctx.error(
+            input.span_at(reference_start),
+            ProjectError::ReferenceProjectPathInvalid {
+                value: path.to_string(),
+            },
         );
-        return Err(fail);
+        return None;
     }
 
     let path = &path[3..]; // Strip off the "*\A" prefix
 
-    Ok(ProjectReference::SubProject { path })
+    Some(ProjectReference::SubProject { path })
 }
 
 fn parse_compiled_reference<'a>(
+    ctx: &mut ParserContext,
     input: &mut SourceStream<'a>,
-) -> Result<ProjectReference<'a>, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+) -> Option<ProjectReference<'a>> {
     // A compiled reference starts with "*\\G{" and is followed by a UUID.
     // We have already checked that the input starts with "*\\G{".
     // By this point in the parse the "*\\G{" component should be stripped off.
@@ -2584,22 +2489,24 @@ fn parse_compiled_reference<'a>(
     // This is a compiled reference.
     let Some((uuid_text, _)) = input.take_until("}#", Comparator::CaseSensitive) else {
         // No UUID found, so we can't parse this line.
-        let fail = input.generate_error_at(
-            uuid_start,
-            ProjectErrorKind::ReferenceCompiledUuidMissingMatchingBrace,
+        ctx.error(
+            input.span_at(uuid_start),
+            ProjectError::ReferenceCompiledUuidMissingMatchingBrace,
         );
         input.forward_to_next_line();
 
-        return Err(fail);
+        return None;
     };
 
     let Ok(uuid) = Uuid::parse_str(uuid_text) else {
         // The UUID is not a valid UUID, so we can't parse this line.
-        let fail =
-            input.generate_error_at(uuid_start, ProjectErrorKind::ReferenceCompiledUuidInvalid);
+        ctx.error(
+            input.span_at(uuid_start),
+            ProjectError::ReferenceCompiledUuidInvalid,
+        );
         input.forward_to_next_line();
 
-        return Err(fail);
+        return None;
     };
 
     let _ = input.take("}#", Comparator::CaseSensitive);
@@ -2607,13 +2514,13 @@ fn parse_compiled_reference<'a>(
 
     let Some((unknown1, _)) = input.take_until("#", Comparator::CaseSensitive) else {
         // No unknown1 found, so we can't parse this line.
-        let fail = input.generate_error_at(
-            unknown1_start,
-            ProjectErrorKind::ReferenceCompiledUnknown1Missing,
+        ctx.error(
+            input.span_at(unknown1_start),
+            ProjectError::ReferenceCompiledUnknown1Missing,
         );
         input.forward_to_next_line();
 
-        return Err(fail);
+        return None;
     };
 
     let _ = input.take("#", Comparator::CaseSensitive);
@@ -2621,13 +2528,13 @@ fn parse_compiled_reference<'a>(
 
     let Some((unknown2, _)) = input.take_until("#", Comparator::CaseSensitive) else {
         // No unknown2 found, so we can't parse this line.
-        let fail = input.generate_error_at(
-            unknown2_start,
-            ProjectErrorKind::ReferenceCompiledUnknown2Missing,
+        ctx.error(
+            input.span_at(unknown2_start),
+            ProjectError::ReferenceCompiledUnknown2Missing,
         );
         input.forward_to_next_line();
 
-        return Err(fail);
+        return None;
     };
 
     let _ = input.take("#", Comparator::CaseSensitive);
@@ -2635,11 +2542,13 @@ fn parse_compiled_reference<'a>(
 
     let Some((path, _)) = input.take_until("#", Comparator::CaseSensitive) else {
         // No path found, so we can't parse this line.
-        let fail =
-            input.generate_error_at(path_start, ProjectErrorKind::ReferenceCompiledPathNotFound);
+        ctx.error(
+            input.span_at(path_start),
+            ProjectError::ReferenceCompiledPathNotFound,
+        );
         input.forward_to_next_line();
 
-        return Err(fail);
+        return None;
     };
 
     let _ = input.take("#", Comparator::CaseSensitive);
@@ -2647,20 +2556,20 @@ fn parse_compiled_reference<'a>(
 
     let Some((description, _)) = input.take_until_newline() else {
         // No description found, so we can't parse this line.
-        let fail = input.generate_error_at(
-            description_start,
-            ProjectErrorKind::ReferenceCompiledDescriptionNotFound,
+        ctx.error(
+            input.span_at(description_start),
+            ProjectError::ReferenceCompiledDescriptionNotFound,
         );
-        return Err(fail);
+        return None;
     };
 
     if description.contains('#') {
         // The description contains a '#', which is not allowed.
-        let fail = input.generate_error_at(
-            description_start,
-            ProjectErrorKind::ReferenceCompiledDescriptionInvalid,
+        ctx.error(
+            input.span_at(description_start),
+            ProjectError::ReferenceCompiledDescriptionInvalid,
         );
-        return Err(fail);
+        return None;
     }
 
     // We have a compiled reference.
@@ -2672,12 +2581,10 @@ fn parse_compiled_reference<'a>(
         description,
     };
 
-    Ok(reference)
+    Some(reference)
 }
 
-fn parse_object<'a>(
-    input: &mut SourceStream<'a>,
-) -> Result<ObjectReference, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+fn parse_object(ctx: &mut ParserContext, input: &mut SourceStream) -> Option<ObjectReference> {
     // An Object line starts with an 'Object=' and is followed by either a
     // compiled object or a project object.
     //
@@ -2696,52 +2603,54 @@ fn parse_object<'a>(
 
         let Some((path, _)) = input.take_until("\"", Comparator::CaseSensitive) else {
             // No path found, so we can't parse this line.
-            let fail = input.generate_error_at(
-                object_path_start,
-                ProjectErrorKind::ObjectProjectPathNotFound,
+            ctx.error(
+                input.span_at(object_path_start),
+                ProjectError::ObjectProjectPathNotFound,
             );
             input.forward_to_next_line();
 
-            return Err(fail);
+            return None;
         };
         input.forward_to_next_line();
 
-        return Ok(ObjectReference::Project { path: path.into() });
+        return Some(ObjectReference::Project { path: path.into() });
     }
 
     // It looks like we have a compiled object line instead. Hopefully.
     if input.peek(1) != Some("{") {
         // We do not have a compiled object line, so we can't parse this line.
-        let fail = input.generate_error_at(
-            object_start,
-            ProjectErrorKind::ObjectCompiledMissingOpeningBrace,
+        ctx.error(
+            input.span_at(object_start),
+            ProjectError::ObjectCompiledMissingOpeningBrace,
         );
         input.forward_to_next_line();
 
-        return Err(fail);
+        return None;
     }
     let _ = input.take("{", Comparator::CaseSensitive);
 
     let Some((uuid_text, _)) = input.take_until("}", Comparator::CaseSensitive) else {
         // No UUID found, so we can't parse this line.
-        let fail = input.generate_error_at(
-            object_start,
-            ProjectErrorKind::ObjectCompiledUuidMissingMatchingBrace,
+        ctx.error(
+            input.span_at(object_start),
+            ProjectError::ObjectCompiledUuidMissingMatchingBrace,
         );
         input.forward_to_next_line();
 
-        return Err(fail);
+        return None;
     };
 
     let _ = input.take("}", Comparator::CaseSensitive);
 
     let Ok(uuid) = Uuid::parse_str(uuid_text) else {
         // The UUID is not a valid UUID, so we can't parse this line.
-        let fail =
-            input.generate_error_at(object_start, ProjectErrorKind::ObjectCompiledUuidInvalid);
+        ctx.error(
+            input.span_at(object_start),
+            ProjectError::ObjectCompiledUuidInvalid,
+        );
         input.forward_to_next_line();
 
-        return Err(fail);
+        return None;
     };
 
     let _ = input.take("#", Comparator::CaseSensitive);
@@ -2752,37 +2661,37 @@ fn parse_object<'a>(
         Comparator::CaseSensitive,
     ) else {
         // No version found, so we can't parse this line.
-        let fail = input.generate_error_at(
-            version_start,
-            ProjectErrorKind::ObjectCompiledVersionMissing,
+        ctx.error(
+            input.span_at(version_start),
+            ProjectError::ObjectCompiledVersionMissing,
         );
         input.forward_to_next_line();
 
-        return Err(fail);
+        return None;
     };
 
     if invalid_version_character != "#" {
         // The version contains an invalid character, so we can't parse this line.
-        let fail = input.generate_error_at(
-            version_start + version.len(),
-            ProjectErrorKind::ObjectCompiledVersionInvalid,
+        ctx.error(
+            input.span_at(version_start + version.len()),
+            ProjectError::ObjectCompiledVersionInvalid,
         );
         input.forward_to_next_line();
 
-        return Err(fail);
+        return None;
     }
     let _ = input.take("#", Comparator::CaseSensitive);
     let unknown1_start = input.offset();
 
     let Some((unknown1, _)) = input.take_until("; ", Comparator::CaseSensitive) else {
         // No unknown1 found, so we can't parse this line.
-        let fail = input.generate_error_at(
-            unknown1_start,
-            ProjectErrorKind::ObjectCompiledUnknown1Missing,
+        ctx.error(
+            input.span_at(unknown1_start),
+            ProjectError::ObjectCompiledUnknown1Missing,
         );
         input.forward_to_next_line();
 
-        return Err(fail);
+        return None;
     };
     let _ = input.take("; ", Comparator::CaseSensitive);
     let file_name_start = input.offset();
@@ -2791,23 +2700,23 @@ fn parse_object<'a>(
     match file_name {
         None => {
             // No file name found, so we can't parse this line.
-            let fail = input.generate_error_at(
-                file_name_start,
-                ProjectErrorKind::ObjectCompiledFileNameNotFound,
+            ctx.error(
+                input.span_at(file_name_start),
+                ProjectError::ObjectCompiledFileNameNotFound,
             );
-            Err(fail)
+            None
         }
         Some((file_name, _)) => {
             if file_name.is_empty() {
                 // No file name found, so we can't parse this line.
-                let fail = input.generate_error_at(
-                    file_name_start,
-                    ProjectErrorKind::ObjectCompiledFileNameNotFound,
+                ctx.error(
+                    input.span_at(file_name_start),
+                    ProjectError::ObjectCompiledFileNameNotFound,
                 );
-                return Err(fail);
+                return None;
             }
 
-            Ok(ObjectReference::Compiled {
+            Some(ObjectReference::Compiled {
                 uuid,
                 version: version.into(),
                 unknown1: unknown1.into(),
@@ -2818,8 +2727,9 @@ fn parse_object<'a>(
 }
 
 fn parse_module<'a>(
+    ctx: &mut ParserContext,
     input: &mut SourceStream<'a>,
-) -> Result<ProjectModuleReference<'a>, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+) -> Option<ProjectModuleReference<'a>> {
     // A Module line starts with a 'Module=' and is followed by a name and a path.
     //
     // By this point in the parse the "Module=" component should be stripped off
@@ -2828,38 +2738,46 @@ fn parse_module<'a>(
 
     let Some((module_name, _)) = input.take_until("; ", Comparator::CaseSensitive) else {
         // No name found, so we can't parse this line.
-        let fail = input.generate_error_at(module_start, ProjectErrorKind::ModuleNameNotFound);
+        ctx.error(
+            input.span_at(module_start),
+            ProjectError::ModuleNameNotFound,
+        );
         input.forward_to_next_line();
 
-        return Err(fail);
+        return None;
     };
     let _ = input.take("; ", Comparator::CaseSensitive);
     let module_path_start = input.offset();
 
     let Some((module_path, _)) = input.take_until_newline() else {
         // No path found, so we can't parse this line.
-        let fail =
-            input.generate_error_at(module_path_start, ProjectErrorKind::ModuleFileNameNotFound);
-        return Err(fail);
+        ctx.error(
+            input.span_at(module_path_start),
+            ProjectError::ModuleFileNameNotFound,
+        );
+        return None;
     };
 
     if module_path.is_empty() {
         // No path found, so we can't parse this line.
-        let fail =
-            input.generate_error_at(module_path_start, ProjectErrorKind::ModuleFileNameNotFound);
-        return Err(fail);
+        ctx.error(
+            input.span_at(module_path_start),
+            ProjectError::ModuleFileNameNotFound,
+        );
+        return None;
     }
 
     let module = ProjectModuleReference {
         name: module_name,
         path: module_path,
     };
-    Ok(module)
+    Some(module)
 }
 
 fn parse_class<'a>(
+    ctx: &mut ParserContext,
     input: &mut SourceStream<'a>,
-) -> Result<ProjectClassReference<'a>, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+) -> Option<ProjectClassReference<'a>> {
     // A Class line starts with a 'Class=' and is followed by a name and a path.
     //
     // By this point in the parse the "Class=" component should be stripped off
@@ -2868,10 +2786,10 @@ fn parse_class<'a>(
 
     let Some((class_name, _)) = input.take_until("; ", Comparator::CaseSensitive) else {
         // No name found, so we can't parse this line.
-        let fail = input.generate_error_at(class_start, ProjectErrorKind::ClassNameNotFound);
+        ctx.error(input.span_at(class_start), ProjectError::ClassNameNotFound);
         input.forward_to_next_line();
 
-        return Err(fail);
+        return None;
     };
 
     let _ = input.take("; ", Comparator::CaseSensitive);
@@ -2879,17 +2797,20 @@ fn parse_class<'a>(
 
     let Some((class_path, _)) = input.take_until_newline() else {
         // No path found, so we can't parse this line.
-        let fail =
-            input.generate_error_at(class_path_start, ProjectErrorKind::ClassFileNameNotFound);
-        return Err(fail);
+        ctx.error(
+            input.span_at(class_path_start),
+            ProjectError::ClassFileNameNotFound,
+        );
+        return None;
     };
 
     if class_path.is_empty() {
         // No path found, so we can't parse this line.
-        let fail =
-            input.generate_error_at(class_path_start, ProjectErrorKind::ClassFileNameNotFound);
-
-        return Err(fail);
+        ctx.error(
+            input.span_at(class_path_start),
+            ProjectError::ClassFileNameNotFound,
+        );
+        return None;
     }
 
     let class = ProjectClassReference {
@@ -2897,13 +2818,14 @@ fn parse_class<'a>(
         path: class_path,
     };
 
-    Ok(class)
+    Some(class)
 }
 
 fn parse_path_line<'a>(
+    ctx: &mut ParserContext,
     input: &mut SourceStream<'a>,
     parameter_line_name: &'a str,
-) -> Result<&'a str, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+) -> Option<&'a str> {
     // A single element line starts with a 'Form=', 'Designer=', or 'RelatedDoc='
     // and is followed by a path to the corresponding file.
     //
@@ -2917,35 +2839,33 @@ fn parse_path_line<'a>(
         None => {
             // No file_path text found, so we can't parse this line.
             // Go to the next line and return the error.
-            let fail = input.generate_error_at(
-                path_start,
-                ProjectErrorKind::PathValueNotFound {
-                    parameter_line_name,
+            ctx.error(
+                input.span_at(path_start),
+                ProjectError::PathValueNotFound {
+                    parameter_line_name: parameter_line_name.to_string(),
                 },
             );
-            Err(fail)
+            None
         }
         Some((file_path, _)) => {
             if file_path.is_empty() {
                 // No file_path text found, so we can't parse this line.
                 // Go to the next line and return the error.
-                let fail = input.generate_error_at(
-                    path_start,
-                    ProjectErrorKind::PathValueNotFound {
-                        parameter_line_name,
+                ctx.error(
+                    input.span_at(path_start),
+                    ProjectError::PathValueNotFound {
+                        parameter_line_name: parameter_line_name.to_string(),
                     },
                 );
-                return Err(fail);
+                return None;
             }
 
-            Ok(file_path)
+            Some(file_path)
         }
     }
 }
 
-fn parse_dll_base_address<'a>(
-    input: &mut SourceStream<'a>,
-) -> Result<u32, ErrorDetails<'a, ProjectErrorKind<'a>>> {
+fn parse_dll_base_address(ctx: &mut ParserContext, input: &mut SourceStream) -> Option<u32> {
     // A DllBaseAddress line starts with a 'DllBaseAddress=' and is followed by a
     // hexadecimal value.
     //
@@ -2955,29 +2875,29 @@ fn parse_dll_base_address<'a>(
 
     let Some((base_address_hex_text, _)) = input.take_until_newline() else {
         // No base address found, so we can't parse this line.
-        let fail = input.generate_error_at(
-            dll_base_address_start,
-            ProjectErrorKind::DllBaseAddressNotFound,
+        ctx.error(
+            input.span_at(dll_base_address_start),
+            ProjectError::DllBaseAddressNotFound,
         );
-        return Err(fail);
+        return None;
     };
 
     if base_address_hex_text.is_empty() {
         // The base address is empty, so we can't parse this line.
-        let fail = input.generate_error_at(
-            dll_base_address_start,
-            ProjectErrorKind::DllBaseAddressUnparsableEmpty,
+        ctx.error(
+            input.span_at(dll_base_address_start),
+            ProjectError::DllBaseAddressUnparsableEmpty,
         );
-        return Err(fail);
+        return None;
     }
 
     if !base_address_hex_text.starts_with("&H") {
         // The base address does not start with "&H", so we can't parse this line.
-        let fail = input.generate_error_at(
-            dll_base_address_start,
-            ProjectErrorKind::DllBaseAddressMissingHexPrefix,
+        ctx.error(
+            input.span_at(dll_base_address_start),
+            ProjectError::DllBaseAddressMissingHexPrefix,
         );
-        return Err(fail);
+        return None;
     }
 
     let dll_base_address_start = dll_base_address_start + 2; // Skip the "&H" prefix
@@ -2986,21 +2906,21 @@ fn parse_dll_base_address<'a>(
 
     let Ok(dll_base_address) = u32::from_str_radix(trimmed_base_address_hex_text, 16) else {
         // The base address is not a valid hexadecimal value, so we can't parse this line.
-        let fail = input.generate_error_at(
-            dll_base_address_start,
-            ProjectErrorKind::DllBaseAddressUnparsable {
-                hex_value: trimmed_base_address_hex_text,
+        ctx.error(
+            input.span_at(dll_base_address_start),
+            ProjectError::DllBaseAddressUnparsable {
+                hex_value: trimmed_base_address_hex_text.to_string(),
             },
         );
-        return Err(fail);
+        return None;
     };
 
-    Ok(dll_base_address)
+    Some(dll_base_address)
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::errors::{ErrorDetails, ProjectErrorKind};
+    use crate::errors::{ErrorKind, ParserContext, ProjectError};
     use crate::files::common::ObjectReference;
     use crate::files::project::compilesettings::*;
     use crate::files::project::properties::*;
@@ -3020,12 +2940,17 @@ mod tests {
             .unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompatibilityMode, ErrorDetails<ProjectErrorKind>> =
-            parse_quoted_converted_value(&mut input, parameter_name);
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
+        let _compatibility_mode: Option<CompatibilityMode> =
+            parse_quoted_converted_value(&mut ctx, &mut input, parameter_name);
+
+        let errors = ctx.errors();
+
+        assert_eq!(errors.len(), 1);
         assert!(matches!(
-            result.err().unwrap().kind,
-            ProjectErrorKind::ParameterValueInvalid { .. }
+            *errors[0].kind,
+            ErrorKind::Project(ProjectError::ParameterValueInvalid { .. })
         ));
     }
 
@@ -3040,8 +2965,10 @@ mod tests {
             .unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompatibilityMode, ErrorDetails<ProjectErrorKind>> =
-            parse_quoted_converted_value(&mut input, parameter_name);
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
+
+        let result: Option<CompatibilityMode> =
+            parse_quoted_converted_value(&mut ctx, &mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompatibilityMode::NoCompatibility);
     }
@@ -3058,8 +2985,10 @@ mod tests {
             .unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompatibilityMode, ErrorDetails<ProjectErrorKind>> =
-            parse_quoted_converted_value(&mut input, parameter_name);
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
+
+        let result: Option<CompatibilityMode> =
+            parse_quoted_converted_value(&mut ctx, &mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompatibilityMode::Project);
     }
@@ -3076,8 +3005,10 @@ mod tests {
             .unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompatibilityMode, ErrorDetails<ProjectErrorKind>> =
-            parse_quoted_converted_value(&mut input, parameter_name);
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
+
+        let result: Option<CompatibilityMode> =
+            parse_quoted_converted_value(&mut ctx, &mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompatibilityMode::CompatibleExe);
     }
@@ -3091,8 +3022,10 @@ mod tests {
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
-            parse_converted_value(&mut input, parameter_name);
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
+
+        let result: Option<CompileTargetType> =
+            parse_converted_value(&mut ctx, &mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompileTargetType::Exe);
     }
@@ -3106,8 +3039,10 @@ mod tests {
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
-            parse_converted_value(&mut input, parameter_name);
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
+
+        let result: Option<CompileTargetType> =
+            parse_converted_value(&mut ctx, &mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompileTargetType::OleDll);
     }
@@ -3121,8 +3056,10 @@ mod tests {
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
-            parse_converted_value(&mut input, parameter_name);
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
+
+        let result: Option<CompileTargetType> =
+            parse_converted_value(&mut ctx, &mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompileTargetType::Control);
     }
@@ -3136,8 +3073,10 @@ mod tests {
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
-            parse_converted_value(&mut input, parameter_name);
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
+
+        let result: Option<CompileTargetType> =
+            parse_converted_value(&mut ctx, &mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompileTargetType::OleExe);
     }
@@ -3151,16 +3090,19 @@ mod tests {
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
-            parse_converted_value(&mut input, parameter_name);
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
-        assert!(result.is_err());
+        let result: Option<CompileTargetType> =
+            parse_converted_value(&mut ctx, &mut input, parameter_name);
 
-        let error = result.err().unwrap();
+        assert!(result.is_none());
 
+        let errors = ctx.errors();
+
+        assert_eq!(errors.len(), 1);
         assert!(matches!(
-            error.kind,
-            ProjectErrorKind::ParameterValueInvalid { .. }
+            *errors[0].kind,
+            ErrorKind::Project(ProjectError::ParameterValueInvalid { .. })
         ));
     }
 
@@ -3173,7 +3115,9 @@ mod tests {
         let _ = input.take("Reference", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result = parse_reference(&mut input);
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
+
+        let result = parse_reference(&mut ctx, &mut input);
 
         let expected_uuid = Uuid::parse_str("000440D8-E9ED-4435-A9A2-06B05387BB16").unwrap();
 
@@ -3208,14 +3152,9 @@ mod tests {
         let _ = input.take("Reference", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result = parse_reference(&mut input);
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
-        if result.is_err() {
-            if let Some(error) = result.err() {
-                error.print();
-            }
-            panic!("Failed to parse reference line");
-        }
+        let result = parse_reference(&mut ctx, &mut input);
 
         assert!(input.is_empty());
         assert_eq!(
@@ -3233,7 +3172,9 @@ mod tests {
         let _ = input.take("Module", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result = parse_module(&mut input).unwrap();
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
+
+        let result = parse_module(&mut ctx, &mut input).unwrap();
 
         assert!(input.is_empty());
         assert_eq!(result.name, "modDBAssist");
@@ -3252,7 +3193,9 @@ mod tests {
         let _ = input.take("Class", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result = parse_class(&mut input).unwrap();
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
+
+        let result = parse_class(&mut ctx, &mut input).unwrap();
 
         assert!(input.is_empty());
         assert_eq!(result.name, "CStatusBarClass");
@@ -3271,14 +3214,9 @@ mod tests {
         let _ = input.take("Object", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result = parse_object(&mut input);
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
-        if result.is_err() {
-            if let Some(error) = result.err() {
-                error.print();
-            }
-            panic!("Failed to parse object line");
-        }
+        let result = parse_object(&mut ctx, &mut input);
 
         let object = result.unwrap();
 
@@ -3458,19 +3396,21 @@ mod tests {
 
         let _ = input.take_ascii_whitespaces();
 
-        let line_type = parse_property_name(&mut input).unwrap();
-        let type_result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
-            parse_converted_value(&mut input, line_type);
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
-        assert!(type_result.is_ok());
+        let line_type = parse_property_name(&mut ctx, &mut input).unwrap();
+        let type_result: Option<CompileTargetType> =
+            parse_converted_value(&mut ctx, &mut input, line_type);
+
+        assert!(type_result.is_some());
         assert_eq!(type_result.unwrap(), CompileTargetType::Exe);
 
         let _ = input.take_ascii_whitespaces();
 
-        let _ = parse_property_name(&mut input).unwrap();
-        let reference_result = parse_reference(&mut input);
+        let _ = parse_property_name(&mut ctx, &mut input).unwrap();
+        let reference_result = parse_reference(&mut ctx, &mut input);
 
-        assert!(reference_result.is_ok());
+        assert!(reference_result.is_some());
         let reference = reference_result.unwrap();
         assert_eq!(
             reference,

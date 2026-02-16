@@ -15,11 +15,8 @@
 //!
 //! # See Also
 //! - [`SourceFile`](crate::io::SourceFile): for reading and decoding source files
-//! - [`ErrorDetails`]: for error handling details
 
 use std::fmt::Debug;
-
-use crate::errors::ErrorDetails;
 
 /// A structure representing a stream of characters from a source file.
 /// It holds the file name, the contents of the file, and an offset
@@ -626,73 +623,62 @@ impl<'a> SourceStream<'a> {
         None
     }
 
-    /// Generates an `ErrorDetails` struct for the current offset in the stream
-    /// with the provided `error_kind`.
-    #[must_use]
-    pub fn generate_error<T: ToString + Debug>(&self, error_kind: T) -> ErrorDetails<'a, T> {
-        ErrorDetails {
-            // Normally we would use usize for offsets, but VB6 was limited to 32-bit addressing.
-            // Therefore, we safely cast to u32 here.
-            error_offset: u32::try_from(self.offset()).unwrap_or(0),
-            source_name: self.file_name.clone().into_boxed_str(),
-            source_content: self.contents,
-            line_end: u32::try_from(self.end_of_line()).unwrap_or(0),
-            line_start: u32::try_from(self.start_of_line()).unwrap_or(0),
-            kind: error_kind,
-        }
-    }
-
-    /// Generates an `ErrorDetails` struct for the specified `offset` in the stream
-    /// with the provided `error_kind`.
-    #[must_use]
-    pub fn generate_error_at<T: ToString + Debug>(
-        &self,
-        offset: usize,
-        error_kind: T,
-    ) -> ErrorDetails<'a, T> {
-        ErrorDetails {
-            // Normally we would use usize for offsets, but VB6 was limited to 32-bit addressing.
-            // Therefore, we safely cast to u32 here.
-            error_offset: u32::try_from(offset).unwrap_or(0),
-            source_name: self.file_name.clone().into_boxed_str(),
-            source_content: self.contents,
-            line_end: u32::try_from(self.end_of_line_from(offset)).unwrap_or(0),
-            line_start: u32::try_from(self.start_of_line_from(offset)).unwrap_or(0),
-            kind: error_kind,
-        }
-    }
-
-    /// Generates an `ErrorDetails` struct for the specified line start, offset,
-    /// and line end in the stream with the provided `error_kind`.
+    /// Creates a `Span` at the current position in the stream.
     ///
-    /// The method ensures that the provided offsets are in the correct order
-    /// and adjusts them if necessary. If the `line_end` exceeds the length of
-    /// the contents, it is set to the length of the contents.
+    /// The span will have length 1 and cover the current line.
+    ///
+    /// # Returns
+    ///
+    /// A `Span` representing the current position.
     #[must_use]
-    pub fn generate_bounded_error_at<T: ToString + Debug>(
-        &self,
-        line_start: usize,
-        offset: usize,
-        line_end: usize,
-        error_kind: T,
-    ) -> ErrorDetails<'a, T> {
-        let mut offsets = [line_start, offset, line_end];
-        // Used unstable sort for performance since order of usize primitives is identical to stable sort.
-        offsets.sort_unstable();
-
-        if offsets[2] > self.contents.len() {
-            offsets[2] = self.contents.len();
+    pub fn span_here(&self) -> crate::errors::Span {
+        crate::errors::Span {
+            offset: u32::try_from(self.offset()).unwrap_or(0),
+            line_start: u32::try_from(self.start_of_line()).unwrap_or(0),
+            line_end: u32::try_from(self.end_of_line()).unwrap_or(0),
+            length: 1,
         }
+    }
 
-        ErrorDetails {
-            source_name: self.file_name.clone().into_boxed_str(),
-            source_content: self.contents,
-            // Normally we would use usize for offsets, but VB6 was limited to 32-bit addressing.
-            // Therefore, we safely cast to u32 here.
-            line_start: u32::try_from(offsets[0]).unwrap_or(0),
-            error_offset: u32::try_from(offsets[1]).unwrap_or(0),
-            line_end: u32::try_from(offsets[2]).unwrap_or(0),
-            kind: error_kind,
+    /// Creates a `Span` at the specified offset in the stream.
+    ///
+    /// The span will have length 1 and cover the line containing the offset.
+    ///
+    /// # Arguments
+    ///
+    /// * `offset` - The byte offset into the stream.
+    ///
+    /// # Returns
+    ///
+    /// A `Span` representing the specified position.
+    #[must_use]
+    pub fn span_at(&self, offset: usize) -> crate::errors::Span {
+        crate::errors::Span {
+            offset: u32::try_from(offset).unwrap_or(0),
+            line_start: u32::try_from(self.start_of_line_from(offset)).unwrap_or(0),
+            line_end: u32::try_from(self.end_of_line_from(offset)).unwrap_or(0),
+            length: 1,
+        }
+    }
+
+    /// Creates a `Span` covering a range of bytes.
+    ///
+    /// # Arguments
+    ///
+    /// * `start` - The starting byte offset.
+    /// * `end` - The ending byte offset (exclusive).
+    ///
+    /// # Returns
+    ///
+    /// A `Span` representing the specified range.
+    #[must_use]
+    pub fn span_range(&self, start: usize, end: usize) -> crate::errors::Span {
+        let length = end.saturating_sub(start);
+        crate::errors::Span {
+            offset: u32::try_from(start).unwrap_or(0),
+            line_start: u32::try_from(self.start_of_line_from(start)).unwrap_or(0),
+            line_end: u32::try_from(self.end_of_line_from(end.saturating_sub(1))).unwrap_or(0),
+            length: u32::try_from(length).unwrap_or(0),
         }
     }
 }

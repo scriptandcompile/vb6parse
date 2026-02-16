@@ -9,7 +9,7 @@
 use std::fmt::Display;
 
 use crate::{
-    errors::ModuleErrorKind,
+    errors::{ModuleError, ParserContext},
     io::{Comparator, SourceFile},
     lexer::tokenize,
     parsers::{cst::serialize_cst, cst::ConcreteSyntaxTree, ParseResult, SyntaxKind},
@@ -92,9 +92,9 @@ impl ModuleFile {
     /// assert!(module_file.cst.child_count() > 0);
     /// ```
     #[must_use]
-    pub fn parse(source_file: &SourceFile) -> ParseResult<'_, ModuleFile, ModuleErrorKind> {
-        let mut failures = vec![];
+    pub fn parse(source_file: &SourceFile) -> ParseResult<'_, ModuleFile> {
         let mut input = source_file.source_stream();
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
         // Eat however many spaces starts the files. It doesn't matter how many
         // whitespaces it has, zero or many.
@@ -106,22 +106,19 @@ impl ModuleFile {
             .take("Attribute", Comparator::CaseInsensitive)
             .is_none()
         {
-            let error = input.generate_error(ModuleErrorKind::AttributeKeywordMissing);
-            failures.push(error);
+            ctx.error(input.span_here(), ModuleError::AttributeKeywordMissing);
         }
 
         // Eat however many spaces sits between the attribute and the VB_Name keyword. It doesn't matter how many
         // whitespaces it has as long as we have at least one.
         if input.take_ascii_whitespaces().is_none() {
-            let error = input.generate_error(ModuleErrorKind::MissingWhitespaceInHeader);
-            failures.push(error);
+            ctx.error(input.span_here(), ModuleError::MissingWhitespaceInHeader);
         }
 
         // Grab the attribute VB_Name keyword. If we don't find it, we should output an error
         // but keep trying to read on.
         if input.take("VB_Name", Comparator::CaseInsensitive).is_none() {
-            let error = input.generate_error(ModuleErrorKind::VBNameAttributeMissing);
-            failures.push(error);
+            ctx.error(input.span_here(), ModuleError::VBNameAttributeMissing);
         }
 
         // Eat however many spaces starts the files. It doesn't matter how many
@@ -131,8 +128,7 @@ impl ModuleFile {
         // Grab the equality symbol. If we don't find it, we should output an error
         // but keep trying to read on.
         if input.take("=", Comparator::CaseInsensitive).is_none() {
-            let error = input.generate_error(ModuleErrorKind::EqualMissing);
-            failures.push(error);
+            ctx.error(input.span_here(), ModuleError::EqualMissing);
         }
 
         // Eat however many spaces starts the files. It doesn't matter how many
@@ -142,18 +138,16 @@ impl ModuleFile {
         // Grab the quote symbol. If we don't find it, we should output an error
         // but keep trying to read on.
         if input.take("\"", Comparator::CaseInsensitive).is_none() {
-            let error = input.generate_error(ModuleErrorKind::VBNameAttributeValueUnquoted);
-            failures.push(error);
+            ctx.error(input.span_here(), ModuleError::VBNameAttributeValueUnquoted);
         }
 
         match input.take_until("\"", Comparator::CaseInsensitive) {
             None => {
                 // Well, it looks like we don't have a quoted value even if it might have a single quote at the start.
                 let Some((vb_name_value, _)) = input.take_until_newline() else {
-                    let error = input.generate_error(ModuleErrorKind::VBNameAttributeValueUnquoted);
-                    failures.push(error);
+                    ctx.error(input.span_here(), ModuleError::VBNameAttributeValueUnquoted);
 
-                    return ParseResult::new(None, failures);
+                    return ParseResult::new(None, ctx.into_errors());
                 };
 
                 // Parse the entire source file as CST
@@ -161,24 +155,23 @@ impl ModuleFile {
                 let token_result = tokenize(&mut stream);
                 let (token_stream_opt, token_failures) = token_result.unpack();
 
-                failures.extend(token_failures.into_iter().map(Into::into));
+                ctx.extend_errors(token_failures);
 
-                match token_stream_opt {
-                    Some(tokens) => {
-                        let cst = crate::parsers::cst::parse(tokens);
+                if let Some(tokens) = token_stream_opt {
+                    let cst = crate::parsers::cst::parse(tokens);
 
-                        // Filter out nodes that are already extracted to avoid duplication
-                        let filtered_cst = cst.without_kinds(&[SyntaxKind::AttributeStatement]);
+                    // Filter out nodes that are already extracted to avoid duplication
+                    let filtered_cst = cst.without_kinds(&[SyntaxKind::AttributeStatement]);
 
-                        ParseResult::new(
-                            Some(ModuleFile {
-                                name: vb_name_value.to_string(),
-                                cst: filtered_cst,
-                            }),
-                            failures,
-                        )
-                    }
-                    None => ParseResult::new(None, failures),
+                    ParseResult::new(
+                        Some(ModuleFile {
+                            name: vb_name_value.to_string(),
+                            cst: filtered_cst,
+                        }),
+                        ctx.into_errors(),
+                    )
+                } else {
+                    ParseResult::new(None, ctx.into_errors())
                 }
             }
             Some((vb_name_value, _)) => {
@@ -194,24 +187,23 @@ impl ModuleFile {
                 let token_result = tokenize(&mut input);
                 let (token_stream_opt, token_failures) = token_result.unpack();
 
-                failures.extend(token_failures.into_iter().map(Into::into));
+                ctx.extend_errors(token_failures);
 
-                match token_stream_opt {
-                    Some(tokens) => {
-                        let cst = crate::parsers::cst::parse(tokens);
+                if let Some(tokens) = token_stream_opt {
+                    let cst = crate::parsers::cst::parse(tokens);
 
-                        // Filter out nodes that are already extracted to avoid duplication
-                        let filtered_cst = cst.without_kinds(&[SyntaxKind::AttributeStatement]);
+                    // Filter out nodes that are already extracted to avoid duplication
+                    let filtered_cst = cst.without_kinds(&[SyntaxKind::AttributeStatement]);
 
-                        ParseResult::new(
-                            Some(ModuleFile {
-                                name: vb_name_value.to_string(),
-                                cst: filtered_cst,
-                            }),
-                            failures,
-                        )
-                    }
-                    None => ParseResult::new(None, failures),
+                    ParseResult::new(
+                        Some(ModuleFile {
+                            name: vb_name_value.to_string(),
+                            cst: filtered_cst,
+                        }),
+                        ctx.into_errors(),
+                    )
+                } else {
+                    ParseResult::new(None, ctx.into_errors())
                 }
             }
         }

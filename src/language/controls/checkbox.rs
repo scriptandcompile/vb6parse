@@ -20,6 +20,7 @@ use std::fmt::Display;
 use std::str::FromStr;
 
 use crate::{
+    errors::FormError,
     files::common::Properties,
     language::{
         controls::{
@@ -28,7 +29,7 @@ use crate::{
         },
         Color, VB_BUTTON_FACE, VB_BUTTON_TEXT,
     },
-    FormErrorKind,
+    ErrorKind,
 };
 
 use image::DynamicImage;
@@ -67,20 +68,22 @@ impl Display for CheckBoxValue {
 }
 
 impl FromStr for CheckBoxValue {
-    type Err = FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
             "0" | "Unchecked" => Ok(CheckBoxValue::Unchecked),
             "1" | "Checked" => Ok(CheckBoxValue::Checked),
             "2" | "Grayed" => Ok(CheckBoxValue::Grayed),
-            _ => Err(FormErrorKind::InvalidCheckBoxValue(s.to_string())),
+            _ => Err(ErrorKind::Form(FormError::InvalidCheckBoxValue {
+                value: s.to_string(),
+            })),
         }
     }
 }
 
 impl TryFrom<&str> for CheckBoxValue {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         CheckBoxValue::from_str(value)

@@ -9,7 +9,7 @@
 use std::fmt::Display;
 use std::str::FromStr;
 
-use crate::errors::FormErrorKind;
+use crate::errors::{FormError, ErrorKind};
 use crate::files::common::Properties;
 use crate::language::color::Color;
 use crate::language::controls::{
@@ -41,20 +41,22 @@ pub enum OLETypeAllowed {
 }
 
 impl TryFrom<&str> for OLETypeAllowed {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
             "0" => Ok(OLETypeAllowed::Link),
             "1" => Ok(OLETypeAllowed::Embedded),
             "2" => Ok(OLETypeAllowed::Either),
-            _ => Err(FormErrorKind::InvalidOLETypeAllowed(value.to_string())),
+            _ => Err(ErrorKind::Form(FormError::InvalidOLETypeAllowed {
+                value: value.to_string(),
+            })),
         }
     }
 }
 
 impl FromStr for OLETypeAllowed {
-    type Err = FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         OLETypeAllowed::try_from(s)
@@ -93,20 +95,22 @@ pub enum UpdateOptions {
 }
 
 impl TryFrom<&str> for UpdateOptions {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
             "0" => Ok(UpdateOptions::Automatic),
             "1" => Ok(UpdateOptions::Frozen),
             "2" => Ok(UpdateOptions::Manual),
-            _ => Err(FormErrorKind::InvalidUpdateOptions(value.to_string())),
+            _ => Err(ErrorKind::Form(FormError::InvalidUpdateOptions {
+                value: value.to_string(),
+            })),
         }
     }
 }
 
 impl FromStr for UpdateOptions {
-    type Err = FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         UpdateOptions::try_from(s)
@@ -155,7 +159,7 @@ pub enum AutoActivate {
 }
 
 impl TryFrom<&str> for AutoActivate {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
@@ -163,13 +167,15 @@ impl TryFrom<&str> for AutoActivate {
             "1" => Ok(AutoActivate::GetFocus),
             "2" => Ok(AutoActivate::DoubleClick),
             "3" => Ok(AutoActivate::Automatic),
-            _ => Err(FormErrorKind::InvalidAutoActivate(value.to_string())),
+            _ => Err(ErrorKind::Form(FormError::InvalidAutoActivate {
+                value: value.to_string(),
+            })),
         }
     }
 }
 
 impl FromStr for AutoActivate {
-    type Err = FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         AutoActivate::try_from(s)
@@ -208,19 +214,21 @@ pub enum DisplayType {
 }
 
 impl TryFrom<&str> for DisplayType {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
             "0" => Ok(DisplayType::Content),
             "1" => Ok(DisplayType::Icon),
-            _ => Err(FormErrorKind::InvalidDisplayType(value.to_string())),
+            _ => Err(ErrorKind::Form(FormError::InvalidDisplayType {
+                value: value.to_string(),
+            })),
         }
     }
 }
 
 impl FromStr for DisplayType {
-    type Err = FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         DisplayType::try_from(s)

@@ -1,126 +1,100 @@
-//! Errors related to VB6 class file (.cls) parsing.
-//!
-//! This module contains error types for issues that occur during:
-//! - Class file header parsing (VERSION, BEGIN, CLASS keywords)
-//! - Class-specific attribute validation
-//! - Class code body parsing
+//! Class file (.cls) parsing errors.
 
-use crate::errors::{CodeErrorKind, ErrorDetails};
-
-/// Errors related to class file parsing.
+/// Errors that can occur during class file parsing.
 #[derive(thiserror::Error, Debug, Clone, PartialEq, Eq)]
-pub enum ClassErrorKind<'a> {
-    /// Indicates that the 'VERSION' keyword is missing from the class file header.
+pub enum ClassError {
+    /// The 'VERSION' keyword is missing from the class file header.
     #[error("The 'VERSION' keyword is missing from the class file header.")]
     VersionKeywordMissing,
 
-    /// Indicates that the 'BEGIN' keyword is missing from the class file header.
+    /// The 'BEGIN' keyword is missing from the class file header.
     #[error("The 'BEGIN' keyword is missing from the class file header.")]
     BeginKeywordMissing,
 
-    /// Indicates that the 'Class' keyword is missing from the class file header.
+    /// The 'Class' keyword is missing from the class file header.
     #[error("The 'Class' keyword is missing from the class file header.")]
-    ClassKeywordMissing,
+    KeywordMissing,
 
-    /// Indicates that there is missing whitespace between the 'VERSION' keyword and the major version number.
+    /// Missing whitespace between 'VERSION' keyword and major version number.
     #[error(
         "After the 'VERSION' keyword there should be a space before the major version number."
     )]
     WhitespaceMissingBetweenVersionAndMajorVersionNumber,
 
-    /// Indicates that the 'VERSION' keyword is not fully uppercase.
+    /// The 'VERSION' keyword is not fully uppercase.
     #[error("The 'VERSION' keyword should be in uppercase to be fully compatible with Microsoft's VB6 IDE.")]
     VersionKeywordNotFullyUppercase {
         /// The text of the 'VERSION' keyword as found in the source.
-        version_text: &'a str,
+        version_text: String,
     },
 
-    /// Indicates that the 'CLASS' keyword is not fully uppercase.
+    /// The 'CLASS' keyword is not fully uppercase.
     #[error("The 'CLASS' keyword should be in uppercase to be fully compatible with Microsoft's VB6 IDE.")]
-    ClassKeywordNotFullyUppercase {
+    KeywordNotFullyUppercase {
         /// The text of the 'CLASS' keyword as found in the source.
-        class_text: &'a str,
+        class_text: String,
     },
 
-    /// Indicates that the 'BEGIN' keyword is not fully uppercase.
+    /// The 'BEGIN' keyword is not fully uppercase.
     #[error("The 'BEGIN' keyword should be in uppercase to be fully compatible with Microsoft's VB6 IDE.")]
     BeginKeywordNotFullyUppercase {
         /// The text of the 'BEGIN' keyword as found in the source.
-        begin_text: &'a str,
+        begin_text: String,
     },
 
-    /// Indicates that the 'END' keyword is not fully uppercase.
+    /// The 'END' keyword is not fully uppercase.
     #[error(
         "The 'END' keyword should be in uppercase to be fully compatible with Microsoft's VB6 IDE."
     )]
     EndKeywordNotFullyUppercase {
         /// The text of the 'END' keyword as found in the source.
-        end_text: &'a str,
+        end_text: String,
     },
 
-    /// Indicates that the 'BEGIN' keyword should be on its own line.
+    /// The 'BEGIN' keyword should be on its own line.
     #[error("The 'BEGIN' keyword should stand alone on its own line.")]
     BeginKeywordShouldBeStandAlone,
 
-    /// Indicates that the 'END' keyword should be on its own line.
+    /// The 'END' keyword should be on its own line.
     #[error("The 'END' keyword should stand alone on its own line.")]
     EndKeywordShouldBeStandAlone,
 
-    /// Indicates that the major version number could not be parsed.
+    /// Unable to parse the major version number.
     #[error("Unable to parse the major version number. Following the 'VERSION' keyword should be a major version number, a '.', and a minor version number.")]
     UnableToParseMajorVersionNumber,
 
-    /// Indicates that the major version text could not be converted to a number.
+    /// Unable to convert the major version text to a number.
     #[error("Unable to convert the major version text to a number. Following the 'VERSION' keyword should be a major version number, a '.', and a minor version number.")]
     UnableToConvertMajorVersionNumber,
 
-    /// Indicates that the minor version number could not be parsed.
+    /// Unable to parse the minor version number.
     #[error("Unable to parse the minor version number. Following the 'VERSION' keyword should be a major version number, a '.', and a minor version number.")]
     UnableToParseMinorVersionNumber,
 
-    /// Indicates that the minor version text could not be converted to a number.
+    /// Unable to convert the minor version text to a number.
     #[error("Unable to convert the minor version text to a number. Following the 'VERSION' keyword should be a major version number, a '.', and a minor version number.")]
     UnableToConvertMinorVersionNumber,
 
-    /// Indicates that the period divider between major and minor version digits is missing.
+    /// The period divider between major and minor version digits is missing.
     #[error("The '.' divider between major and minor version digits is missing.")]
     MissingPeriodDividerBetweenMajorAndMinorVersion,
 
-    /// Indicates that there is missing whitespace between minor version digits and 'CLASS' keyword.
+    /// Missing whitespace between minor version digits and 'CLASS' keyword.
     #[error("Missing whitespace between minor version digits and 'CLASS' keyword. This may not be compliant with Microsoft's VB6 IDE.")]
     MissingWhitespaceAfterMinorVersion,
 
-    /// Indicates that there is incorrect whitespace between minor version digits and 'CLASS' keyword.
+    /// Incorrect whitespace between minor version digits and 'CLASS' keyword.
     #[error("Between the minor version digits and the 'CLASS' keyword should be a single ASCII space. This may not be compliant with Microsoft's VB6 IDE.")]
     IncorrectWhitespaceAfterMinorVersion,
 
-    /// Indicates that whitespace was used to divide between major and minor version numbers.
+    /// Whitespace was used to divide between major and minor version numbers.
     #[error("Whitespace was used to divide between major and minor version information. This may not be compliant with Microsoft's VB6 IDE.")]
     WhitespaceDividerBetweenMajorAndMinorVersionNumbers,
 
-    /// Indicates that there was an error parsing VB6 tokens.
-    #[error("There was an error parsing the VB6 tokens.")]
-    ClassTokenError {
-        /// The underlying code error that occurred.
-        code_error: CodeErrorKind,
+    /// CST parsing error in class file.
+    #[error("CST parsing error: {message}")]
+    CSTError {
+        /// Error message from CST parsing.
+        message: String,
     },
-
-    /// Indicates that there was an error parsing the CST.
-    #[error("CST parsing error: {0}")]
-    CSTError(String),
-}
-
-impl<'a> From<ErrorDetails<'a, CodeErrorKind>> for ErrorDetails<'a, ClassErrorKind<'a>> {
-    fn from(value: ErrorDetails<'a, CodeErrorKind>) -> Self {
-        ErrorDetails {
-            source_content: value.source_content,
-            source_name: value.source_name,
-            error_offset: value.error_offset,
-            line_start: value.line_start,
-            line_end: value.line_end,
-            kind: ClassErrorKind::ClassTokenError {
-                code_error: value.kind,
-            },
-        }
-    }
 }

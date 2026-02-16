@@ -11,7 +11,7 @@ use std::fmt::Display;
 use std::str::FromStr;
 
 use crate::{
-    errors::FormErrorKind,
+    errors::{FormError, ErrorKind},
     files::common::Properties,
     language::{
         color::{Color, VB_BUTTON_FACE, VB_BUTTON_TEXT},
@@ -52,7 +52,7 @@ pub enum WordWrap {
 }
 
 impl FromStr for WordWrap {
-    type Err = crate::errors::FormErrorKind;
+    type Err = crate::errors::ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         WordWrap::try_from(s)
@@ -60,19 +60,21 @@ impl FromStr for WordWrap {
 }
 
 impl TryFrom<&str> for WordWrap {
-    type Error = crate::errors::FormErrorKind;
+    type Error = crate::errors::ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
             "0" | "NonWrapping" => Ok(WordWrap::NonWrapping),
             "-1" | "Wrapping" => Ok(WordWrap::Wrapping),
-            _ => Err(FormErrorKind::InvalidWordWrap(value.to_string())),
+            _ => Err(ErrorKind::Form(FormError::InvalidWordWrap {
+                value: value.to_string(),
+            })),
         }
     }
 }
 
 impl TryFrom<bool> for WordWrap {
-    type Error = crate::errors::FormErrorKind;
+    type Error = crate::errors::ErrorKind;
 
     fn try_from(value: bool) -> Result<Self, Self::Error> {
         if value {
