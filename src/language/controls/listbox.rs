@@ -11,6 +11,7 @@ use std::fmt::Display;
 use std::str::FromStr;
 
 use crate::{
+    errors::FormError,
     files::common::Properties,
     language::{
         color::{Color, VB_BUTTON_FACE, VB_BUTTON_TEXT},
@@ -47,21 +48,23 @@ pub enum ListBoxStyle {
 }
 
 impl TryFrom<&str> for ListBoxStyle {
-    type Error = crate::errors::FormErrorKind;
+    type Error = crate::errors::ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
             "0" => Ok(ListBoxStyle::Standard),
             "1" => Ok(ListBoxStyle::Checkbox),
-            _ => Err(crate::errors::FormErrorKind::InvalidListBoxStyle(
-                value.to_string(),
+            _ => Err(crate::errors::ErrorKind::Form(
+                FormError::InvalidListBoxStyle {
+                    value: value.to_string(),
+                },
             )),
         }
     }
 }
 
 impl FromStr for ListBoxStyle {
-    type Err = crate::errors::FormErrorKind;
+    type Err = crate::errors::ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         ListBoxStyle::try_from(s)

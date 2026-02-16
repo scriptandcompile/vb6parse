@@ -9,7 +9,7 @@ use std::collections::HashMap;
 use std::fmt::Display;
 use std::path::Path;
 
-use crate::errors::{ErrorDetails, ResourceErrorKind};
+use crate::errors::{ErrorDetails, ErrorKind, ResourceError};
 use crate::ParseResult;
 
 /// Represents a parsed VB6 Form Resource file (.frx).
@@ -262,10 +262,7 @@ impl FormResourceFile {
     /// # Ok::<(), std::io::Error>(())
     /// ```
     #[must_use]
-    pub fn parse(
-        file_name: &str,
-        buffer: Vec<u8>,
-    ) -> ParseResult<'static, Self, ResourceErrorKind> {
+    pub fn parse(file_name: &str, buffer: Vec<u8>) -> ParseResult<'static, Self> {
         let mut failures = Vec::new();
         let mut entries = HashMap::new();
         let file_name_box = file_name.to_string().into_boxed_str();
@@ -290,7 +287,10 @@ impl FormResourceFile {
                         error_offset: u32::try_from(metadata.offset).unwrap_or(0),
                         line_start: 0,
                         line_end: 0,
-                        kind: err,
+                        kind: Box::new(err),
+                        severity: crate::errors::Severity::Error,
+                        labels: vec![],
+                        notes: vec![],
                     });
                 }
             }
@@ -333,9 +333,7 @@ impl FormResourceFile {
     /// let resource_file = result.unwrap_or_fail();
     /// # Ok::<(), std::io::Error>(())
     /// ```
-    pub fn from_file<P: AsRef<Path>>(
-        file_path: P,
-    ) -> std::io::Result<ParseResult<'static, Self, ResourceErrorKind>> {
+    pub fn from_file<P: AsRef<Path>>(file_path: P) -> std::io::Result<ParseResult<'static, Self>> {
         let path = file_path.as_ref();
         let bytes = std::fs::read(path)?;
         let file_name = path
@@ -358,7 +356,7 @@ impl FormResourceFile {
     /// A vector of metadata for each discovered entry
     fn scan_entries(
         buffer: &[u8],
-        failures: &mut Vec<ErrorDetails<'static, ResourceErrorKind>>,
+        failures: &mut Vec<ErrorDetails<'static>>,
         file_name: &str,
     ) -> Vec<ResourceEntryMetadata> {
         let mut entries = Vec::new();
@@ -380,7 +378,10 @@ impl FormResourceFile {
                         error_offset: u32::try_from(offset).unwrap_or(0),
                         line_start: 0,
                         line_end: 0,
-                        kind: err,
+                        kind: Box::new(err),
+                        severity: crate::errors::Severity::Error,
+                        labels: vec![],
+                        notes: vec![],
                     });
                     // Skip to next byte and try again
                     offset += 1;
@@ -395,27 +396,24 @@ impl FormResourceFile {
     ///
     /// Detects the entry type based on header signatures and calculates
     /// the total size including header. Does not parse the entry data.
-    fn identify_entry(
-        buffer: &[u8],
-        offset: usize,
-    ) -> Result<ResourceEntryMetadata, ResourceErrorKind> {
+    fn identify_entry(buffer: &[u8], offset: usize) -> Result<ResourceEntryMetadata, ErrorKind> {
         if offset >= buffer.len() {
-            return Err(ResourceErrorKind::OffsetOutOfBounds {
+            return Err(ErrorKind::Resource(ResourceError::OffsetOutOfBounds {
                 offset,
                 file_length: buffer.len(),
-            });
+            }));
         }
 
         // Check for Record12ByteHeader (12-byte header with "lt\0\0" signature)
         if offset + 12 <= buffer.len() && &buffer[offset + 4..offset + 8] == b"lt\0\0" {
-            let size_buffer_1 = buffer[offset..offset + 4]
-                .try_into()
-                .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+            let size_buffer_1 = buffer[offset..offset + 4].try_into().map_err(|_| {
+                ErrorKind::Resource(ResourceError::BufferConversionError { offset })
+            })?;
             let buffer_size_1 = u32::from_le_bytes(size_buffer_1) as usize;
 
-            let size_buffer_2 = buffer[offset + 8..offset + 12]
-                .try_into()
-                .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+            let size_buffer_2 = buffer[offset + 8..offset + 12].try_into().map_err(|_| {
+                ErrorKind::Resource(ResourceError::BufferConversionError { offset })
+            })?;
             let buffer_size_2 = u32::from_le_bytes(size_buffer_2) as usize;
 
             // Check for empty record special case
@@ -438,9 +436,9 @@ impl FormResourceFile {
 
         // Check for Record3ByteHeader (0xFF header)
         if buffer[offset] == 0xFF && offset + 3 <= buffer.len() {
-            let size_buffer = buffer[offset + 1..offset + 3]
-                .try_into()
-                .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+            let size_buffer = buffer[offset + 1..offset + 3].try_into().map_err(|_| {
+                ErrorKind::Resource(ResourceError::BufferConversionError { offset })
+            })?;
             let mut record_size = u16::from_le_bytes(size_buffer) as usize;
 
             // Handle VB6 IDE off-by-one bug
@@ -461,34 +459,36 @@ impl FormResourceFile {
             let signature = &buffer[offset + 2..offset + 4];
             if signature == [0x03, 0x00] || signature == [0x07, 0x00] {
                 // Calculate total size by scanning list items
-                let count_buffer = buffer[offset..offset + 2]
-                    .try_into()
-                    .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+                let count_buffer = buffer[offset..offset + 2].try_into().map_err(|_| {
+                    ErrorKind::Resource(ResourceError::BufferConversionError { offset })
+                })?;
                 let item_count = u16::from_le_bytes(count_buffer) as usize;
 
                 let mut current_offset = offset + 4;
                 for _ in 0..item_count {
                     if current_offset + 2 > buffer.len() {
-                        return Err(ResourceErrorKind::CorruptedListItems {
+                        return Err(ErrorKind::Resource(ResourceError::CorruptedListItems {
                             offset,
                             details: "Item header out of bounds".to_string(),
-                        });
+                        }));
                     }
 
                     let item_size_buffer = buffer[current_offset..current_offset + 2]
                         .try_into()
-                        .map_err(|_| ResourceErrorKind::BufferConversionError {
-                            offset: current_offset,
+                        .map_err(|_| {
+                            ErrorKind::Resource(ResourceError::BufferConversionError {
+                                offset: current_offset,
+                            })
                         })?;
                     let item_size = u16::from_le_bytes(item_size_buffer) as usize;
 
                     current_offset += 2 + item_size;
 
                     if current_offset > buffer.len() {
-                        return Err(ResourceErrorKind::CorruptedListItems {
+                        return Err(ErrorKind::Resource(ResourceError::CorruptedListItems {
                             offset,
                             details: "Item data out of bounds".to_string(),
-                        });
+                        }));
                     }
                 }
 
@@ -503,9 +503,9 @@ impl FormResourceFile {
 
         // Check for Record4ByteHeader (4-byte header with null bytes)
         if offset + 4 <= buffer.len() && buffer[offset..offset + 4].contains(&0u8) {
-            let size_buffer = buffer[offset..offset + 4]
-                .try_into()
-                .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+            let size_buffer = buffer[offset..offset + 4].try_into().map_err(|_| {
+                ErrorKind::Resource(ResourceError::BufferConversionError { offset })
+            })?;
             let record_size = u32::from_le_bytes(size_buffer) as usize;
 
             let total_size = 4 + record_size;
@@ -536,7 +536,7 @@ impl FormResourceFile {
     fn parse_entry(
         buffer: &[u8],
         metadata: &ResourceEntryMetadata,
-    ) -> Result<ResourceEntry, ResourceErrorKind> {
+    ) -> Result<ResourceEntry, ErrorKind> {
         match metadata.entry_type {
             ResourceEntryType::Record12ByteHeader => Self::parse_binary_blob(buffer, metadata),
             ResourceEntryType::Record3ByteHeader => Self::parse_16bit_record(buffer, metadata),
@@ -553,35 +553,35 @@ impl FormResourceFile {
     fn parse_binary_blob(
         buffer: &[u8],
         metadata: &ResourceEntryMetadata,
-    ) -> Result<ResourceEntry, ResourceErrorKind> {
+    ) -> Result<ResourceEntry, ErrorKind> {
         let offset = metadata.offset;
 
         // Verify we have enough bytes for the header
         if offset + 12 > buffer.len() {
-            return Err(ResourceErrorKind::HeaderReadError {
+            return Err(ErrorKind::Resource(ResourceError::HeaderReadError {
                 offset,
                 reason: "Not enough bytes for 12-byte header".to_string(),
-            });
+            }));
         }
 
         // Verify signature
         let signature = &buffer[offset + 4..offset + 8];
         if signature != b"lt\0\0" {
-            return Err(ResourceErrorKind::InvalidData {
+            return Err(ErrorKind::Resource(ResourceError::InvalidData {
                 offset,
                 details: format!("Invalid signature: {signature:?}"),
-            });
+            }));
         }
 
         // Extract sizes
         let size_buffer_1 = buffer[offset..offset + 4]
             .try_into()
-            .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+            .map_err(|_| ErrorKind::Resource(ResourceError::BufferConversionError { offset }))?;
         let buffer_size_1 = u32::from_le_bytes(size_buffer_1) as usize;
 
         let size_buffer_2 = buffer[offset + 8..offset + 12]
             .try_into()
-            .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+            .map_err(|_| ErrorKind::Resource(ResourceError::BufferConversionError { offset }))?;
         let buffer_size_2 = u32::from_le_bytes(size_buffer_2) as usize;
 
         // Check for empty record special case
@@ -591,21 +591,21 @@ impl FormResourceFile {
 
         // Verify size consistency
         if buffer_size_2 != buffer_size_1 - 8 {
-            return Err(ResourceErrorKind::SizeMismatch {
+            return Err(ErrorKind::Resource(ResourceError::SizeMismatch {
                 offset,
                 expected: buffer_size_1 - 8,
                 actual: buffer_size_2,
-            });
+            }));
         }
 
         let data_start = offset + 12;
         let data_end = data_start + buffer_size_2;
 
         if data_end > buffer.len() {
-            return Err(ResourceErrorKind::OffsetOutOfBounds {
+            return Err(ErrorKind::Resource(ResourceError::OffsetOutOfBounds {
                 offset: data_end,
                 file_length: buffer.len(),
-            });
+            }));
         }
 
         Ok(ResourceEntry::Record12ByteHeader {
@@ -617,27 +617,27 @@ impl FormResourceFile {
     fn parse_16bit_record(
         buffer: &[u8],
         metadata: &ResourceEntryMetadata,
-    ) -> Result<ResourceEntry, ResourceErrorKind> {
+    ) -> Result<ResourceEntry, ErrorKind> {
         let offset = metadata.offset;
 
         if offset + 3 > buffer.len() {
-            return Err(ResourceErrorKind::HeaderReadError {
+            return Err(ErrorKind::Resource(ResourceError::HeaderReadError {
                 offset,
                 reason: "Not enough bytes for 16-bit header".to_string(),
-            });
+            }));
         }
 
         // Verify 0xFF marker
         if buffer[offset] != 0xFF {
-            return Err(ResourceErrorKind::InvalidData {
+            return Err(ErrorKind::Resource(ResourceError::InvalidData {
                 offset,
                 details: format!("Expected 0xFF marker, got 0x{:02X}", buffer[offset]),
-            });
+            }));
         }
 
         let size_buffer = buffer[offset + 1..offset + 3]
             .try_into()
-            .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+            .map_err(|_| ErrorKind::Resource(ResourceError::BufferConversionError { offset }))?;
         let mut record_size = u16::from_le_bytes(size_buffer) as usize;
 
         // Handle VB6 IDE off-by-one bug
@@ -649,10 +649,10 @@ impl FormResourceFile {
         let data_end = data_start + record_size;
 
         if data_end > buffer.len() {
-            return Err(ResourceErrorKind::OffsetOutOfBounds {
+            return Err(ErrorKind::Resource(ResourceError::OffsetOutOfBounds {
                 offset: data_end,
                 file_length: buffer.len(),
-            });
+            }));
         }
 
         Ok(ResourceEntry::Record3ByteHeader {
@@ -664,28 +664,28 @@ impl FormResourceFile {
     fn parse_list_items(
         buffer: &[u8],
         metadata: &ResourceEntryMetadata,
-    ) -> Result<ResourceEntry, ResourceErrorKind> {
+    ) -> Result<ResourceEntry, ErrorKind> {
         let offset = metadata.offset;
 
         if offset + 4 > buffer.len() {
-            return Err(ResourceErrorKind::HeaderReadError {
+            return Err(ErrorKind::Resource(ResourceError::HeaderReadError {
                 offset,
                 reason: "Not enough bytes for list header".to_string(),
-            });
+            }));
         }
 
         let count_buffer = buffer[offset..offset + 2]
             .try_into()
-            .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+            .map_err(|_| ErrorKind::Resource(ResourceError::BufferConversionError { offset }))?;
         let item_count = u16::from_le_bytes(count_buffer) as usize;
 
         // Verify signature
         let signature = &buffer[offset + 2..offset + 4];
         if signature != [0x03, 0x00] && signature != [0x07, 0x00] {
-            return Err(ResourceErrorKind::InvalidData {
+            return Err(ErrorKind::Resource(ResourceError::InvalidData {
                 offset,
                 details: format!("Invalid list signature: {signature:?}"),
-            });
+            }));
         }
 
         let mut items = Vec::with_capacity(item_count);
@@ -693,16 +693,18 @@ impl FormResourceFile {
 
         for item_idx in 0..item_count {
             if current_offset + 2 > buffer.len() {
-                return Err(ResourceErrorKind::CorruptedListItems {
+                return Err(ErrorKind::Resource(ResourceError::CorruptedListItems {
                     offset,
                     details: format!("Item {item_idx} header out of bounds"),
-                });
+                }));
             }
 
             let item_size_buffer = buffer[current_offset..current_offset + 2]
                 .try_into()
-                .map_err(|_| ResourceErrorKind::BufferConversionError {
-                    offset: current_offset,
+                .map_err(|_| {
+                    ErrorKind::Resource(ResourceError::BufferConversionError {
+                        offset: current_offset,
+                    })
                 })?;
             let item_size = u16::from_le_bytes(item_size_buffer) as usize;
 
@@ -710,10 +712,10 @@ impl FormResourceFile {
             let item_end = item_start + item_size;
 
             if item_end > buffer.len() {
-                return Err(ResourceErrorKind::CorruptedListItems {
+                return Err(ErrorKind::Resource(ResourceError::CorruptedListItems {
                     offset,
                     details: format!("Item {item_idx} data out of bounds"),
-                });
+                }));
             }
 
             let item_bytes = &buffer[item_start..item_end];
@@ -730,29 +732,29 @@ impl FormResourceFile {
     fn parse_text_data(
         buffer: &[u8],
         metadata: &ResourceEntryMetadata,
-    ) -> Result<ResourceEntry, ResourceErrorKind> {
+    ) -> Result<ResourceEntry, ErrorKind> {
         let offset = metadata.offset;
 
         if offset + 4 > buffer.len() {
-            return Err(ResourceErrorKind::HeaderReadError {
+            return Err(ErrorKind::Resource(ResourceError::HeaderReadError {
                 offset,
                 reason: "Not enough bytes for 4-byte header".to_string(),
-            });
+            }));
         }
 
         let size_buffer = buffer[offset..offset + 4]
             .try_into()
-            .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+            .map_err(|_| ErrorKind::Resource(ResourceError::BufferConversionError { offset }))?;
         let record_size = u32::from_le_bytes(size_buffer) as usize;
 
         let data_start = offset + 4;
         let data_end = data_start + record_size;
 
         if data_end > buffer.len() {
-            return Err(ResourceErrorKind::OffsetOutOfBounds {
+            return Err(ErrorKind::Resource(ResourceError::OffsetOutOfBounds {
                 offset: data_end,
                 file_length: buffer.len(),
-            });
+            }));
         }
 
         // Store raw bytes - caller can decode as needed
@@ -765,14 +767,14 @@ impl FormResourceFile {
     fn parse_8bit_record(
         buffer: &[u8],
         metadata: &ResourceEntryMetadata,
-    ) -> Result<ResourceEntry, ResourceErrorKind> {
+    ) -> Result<ResourceEntry, ErrorKind> {
         let offset = metadata.offset;
 
         if offset >= buffer.len() {
-            return Err(ResourceErrorKind::HeaderReadError {
+            return Err(ErrorKind::Resource(ResourceError::HeaderReadError {
                 offset,
                 reason: "Offset at end of file".to_string(),
-            });
+            }));
         }
 
         let mut record_size = buffer[offset] as usize;
@@ -786,10 +788,10 @@ impl FormResourceFile {
         let data_end = data_start + record_size;
 
         if data_end > buffer.len() {
-            return Err(ResourceErrorKind::OffsetOutOfBounds {
+            return Err(ErrorKind::Resource(ResourceError::OffsetOutOfBounds {
                 offset: data_end,
                 file_length: buffer.len(),
-            });
+            }));
         }
 
         Ok(ResourceEntry::Record1ByteHeader {

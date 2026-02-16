@@ -11,6 +11,7 @@ use std::fmt::Display;
 use std::str::FromStr;
 
 use crate::{
+    errors::{ErrorKind, FormError},
     files::common::Properties,
     language::{
         controls::{
@@ -104,22 +105,22 @@ pub enum PaletteMode {
 }
 
 impl TryFrom<&str> for PaletteMode {
-    type Error = crate::errors::FormErrorKind;
+    type Error = crate::errors::ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
             "0" => Ok(PaletteMode::HalfTone),
             "1" => Ok(PaletteMode::UseZOrder),
             "2" => Ok(PaletteMode::Custom),
-            _ => Err(crate::errors::FormErrorKind::InvalidPaletteMode(
-                value.to_string(),
-            )),
+            _ => Err(ErrorKind::Form(FormError::InvalidPaletteMode {
+                value: value.to_string(),
+            })),
         }
     }
 }
 
 impl FromStr for PaletteMode {
-    type Err = crate::errors::FormErrorKind;
+    type Err = crate::errors::ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         PaletteMode::try_from(s)
@@ -171,7 +172,7 @@ pub enum FormBorderStyle {
 }
 
 impl TryFrom<&str> for FormBorderStyle {
-    type Error = crate::errors::FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
@@ -181,15 +182,15 @@ impl TryFrom<&str> for FormBorderStyle {
             "3" => Ok(FormBorderStyle::FixedDialog),
             "4" => Ok(FormBorderStyle::FixedToolWindow),
             "5" => Ok(FormBorderStyle::SizableToolWindow),
-            _ => Err(crate::errors::FormErrorKind::InvalidFormBorderStyle(
-                value.to_string(),
-            )),
+            _ => Err(ErrorKind::Form(FormError::InvalidFormBorderStyle {
+                value: value.to_string(),
+            })),
         }
     }
 }
 
 impl FromStr for FormBorderStyle {
-    type Err = crate::errors::FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         FormBorderStyle::try_from(s)
@@ -235,21 +236,21 @@ pub enum ControlBox {
 }
 
 impl TryFrom<&str> for ControlBox {
-    type Error = crate::errors::FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
             "0" => Ok(ControlBox::Excluded),
             "-1" => Ok(ControlBox::Included),
-            _ => Err(crate::errors::FormErrorKind::InvalidControlBox(
-                value.to_string(),
-            )),
+            _ => Err(ErrorKind::Form(FormError::InvalidControlBox {
+                value: value.to_string(),
+            })),
         }
     }
 }
 
 impl TryFrom<bool> for ControlBox {
-    type Error = crate::errors::FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: bool) -> Result<Self, Self::Error> {
         if value {
@@ -261,7 +262,7 @@ impl TryFrom<bool> for ControlBox {
 }
 
 impl FromStr for ControlBox {
-    type Err = crate::errors::FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         ControlBox::try_from(s)
@@ -303,21 +304,21 @@ pub enum MaxButton {
 }
 
 impl TryFrom<&str> for MaxButton {
-    type Error = crate::errors::FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
             "0" => Ok(MaxButton::Excluded),
             "-1" => Ok(MaxButton::Included),
-            _ => Err(crate::errors::FormErrorKind::InvalidMaxButton(
-                value.to_string(),
-            )),
+            _ => Err(ErrorKind::Form(FormError::InvalidMaxButton {
+                value: value.to_string(),
+            })),
         }
     }
 }
 
 impl TryFrom<bool> for MaxButton {
-    type Error = crate::errors::FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: bool) -> Result<Self, Self::Error> {
         if value {
@@ -329,7 +330,7 @@ impl TryFrom<bool> for MaxButton {
 }
 
 impl FromStr for MaxButton {
-    type Err = crate::errors::FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         MaxButton::try_from(s)
@@ -371,21 +372,21 @@ pub enum MinButton {
 }
 
 impl FromStr for MinButton {
-    type Err = crate::errors::FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
             "0" => Ok(MinButton::Excluded),
             "-1" => Ok(MinButton::Included),
-            _ => Err(crate::errors::FormErrorKind::InvalidMinButton(
-                s.to_string(),
-            )),
+            _ => Err(ErrorKind::Form(FormError::InvalidMinButton {
+                value: s.to_string(),
+            })),
         }
     }
 }
 
 impl TryFrom<bool> for MinButton {
-    type Error = crate::errors::FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: bool) -> Result<Self, Self::Error> {
         if value {
@@ -397,15 +398,15 @@ impl TryFrom<bool> for MinButton {
 }
 
 impl TryFrom<&str> for MinButton {
-    type Error = crate::errors::FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
             "0" => Ok(MinButton::Excluded),
             "-1" => Ok(MinButton::Included),
-            _ => Err(crate::errors::FormErrorKind::InvalidMinButton(
-                value.to_string(),
-            )),
+            _ => Err(ErrorKind::Form(FormError::InvalidMinButton {
+                value: value.to_string(),
+            })),
         }
     }
 }
@@ -445,21 +446,21 @@ pub enum WhatsThisButton {
 }
 
 impl TryFrom<&str> for WhatsThisButton {
-    type Error = crate::errors::FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
             "0" => Ok(WhatsThisButton::Excluded),
             "-1" => Ok(WhatsThisButton::Included),
-            _ => Err(crate::errors::FormErrorKind::InvalidWhatsThisButton(
-                value.to_string(),
-            )),
+            _ => Err(ErrorKind::Form(FormError::InvalidWhatsThisButton {
+                value: value.to_string(),
+            })),
         }
     }
 }
 
 impl TryFrom<bool> for WhatsThisButton {
-    type Error = crate::errors::FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: bool) -> Result<Self, Self::Error> {
         if value {
@@ -505,21 +506,21 @@ pub enum ShowInTaskbar {
 }
 
 impl TryFrom<&str> for ShowInTaskbar {
-    type Error = crate::errors::FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
             "0" => Ok(ShowInTaskbar::Hide),
             "-1" => Ok(ShowInTaskbar::Show),
-            _ => Err(crate::errors::FormErrorKind::InvalidShowInTaskbar(
-                value.to_string(),
-            )),
+            _ => Err(ErrorKind::Form(FormError::InvalidShowInTaskbar {
+                value: value.to_string(),
+            })),
         }
     }
 }
 
 impl FromStr for ShowInTaskbar {
-    type Err = crate::errors::FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         ShowInTaskbar::try_from(s)
@@ -527,7 +528,7 @@ impl FromStr for ShowInTaskbar {
 }
 
 impl TryFrom<bool> for ShowInTaskbar {
-    type Error = crate::errors::FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: bool) -> Result<Self, Self::Error> {
         if value {
@@ -548,12 +549,12 @@ impl Display for ShowInTaskbar {
     }
 }
 
-/// Properties for a `Form` control.
+/// Properties for a `Form`.
 ///
 /// This is used as an enum variant of
-/// [`ControlKind::Form`](crate::language::controls::ControlKind::Form).
+/// [`FormRoot::Form`](crate::language::controls::FormRoot).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`Control`](crate::language::controls::Control) struct.
+/// of the parent [`Form`](crate::language::controls::Form) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct FormProperties {
     /// The appearance of the form.

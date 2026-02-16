@@ -10,7 +10,7 @@ use std::convert::TryFrom;
 use std::fmt::Display;
 use std::str::FromStr;
 
-use crate::errors::FormErrorKind;
+use crate::errors::{FormError, ErrorKind};
 use crate::files::common::Properties;
 use crate::language::color::Color;
 use crate::language::controls::{
@@ -60,19 +60,21 @@ impl Display for ArchiveAttribute {
 }
 
 impl TryFrom<&str> for ArchiveAttribute {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
             "0" => Ok(ArchiveAttribute::Exclude),
             "-1" => Ok(ArchiveAttribute::Include),
-            _ => Err(FormErrorKind::InvalidArchiveAttribute(value.to_string())),
+            _ => Err(ErrorKind::Form(FormError::InvalidArchiveAttribute {
+                value: value.to_string(),
+            })),
         }
     }
 }
 
 impl TryFrom<bool> for ArchiveAttribute {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: bool) -> Result<Self, Self::Error> {
         if value {
@@ -84,7 +86,7 @@ impl TryFrom<bool> for ArchiveAttribute {
 }
 
 impl FromStr for ArchiveAttribute {
-    type Err = FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         ArchiveAttribute::try_from(s)
@@ -129,19 +131,21 @@ impl Display for HiddenAttribute {
 }
 
 impl TryFrom<&str> for HiddenAttribute {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
             "0" => Ok(HiddenAttribute::Exclude),
             "-1" => Ok(HiddenAttribute::Include),
-            _ => Err(FormErrorKind::InvalidHiddenAttribute(value.to_string())),
+            _ => Err(ErrorKind::Form(FormError::InvalidHiddenAttribute {
+                value: value.to_string(),
+            })),
         }
     }
 }
 
 impl FromStr for HiddenAttribute {
-    type Err = FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         HiddenAttribute::try_from(s)
@@ -176,19 +180,21 @@ pub enum ReadOnlyAttribute {
 }
 
 impl TryFrom<&str> for ReadOnlyAttribute {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
             "0" => Ok(ReadOnlyAttribute::Exclude),
             "-1" => Ok(ReadOnlyAttribute::Include),
-            _ => Err(FormErrorKind::InvalidReadOnlyAttribute(value.to_string())),
+            _ => Err(ErrorKind::Form(FormError::InvalidReadOnlyAttribute {
+                value: value.to_string(),
+            })),
         }
     }
 }
 
 impl TryFrom<bool> for ReadOnlyAttribute {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: bool) -> Result<Self, Self::Error> {
         if value {
@@ -200,7 +206,7 @@ impl TryFrom<bool> for ReadOnlyAttribute {
 }
 
 impl FromStr for ReadOnlyAttribute {
-    type Err = FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         ReadOnlyAttribute::try_from(s)
@@ -245,19 +251,21 @@ pub enum SystemAttribute {
 }
 
 impl TryFrom<&str> for SystemAttribute {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
             "0" => Ok(SystemAttribute::Exclude),
             "-1" => Ok(SystemAttribute::Include),
-            _ => Err(FormErrorKind::InvalidSystemAttribute(value.to_string())),
+            _ => Err(ErrorKind::Form(FormError::InvalidSystemAttribute {
+                value: value.to_string(),
+            })),
         }
     }
 }
 
 impl TryFrom<bool> for SystemAttribute {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: bool) -> Result<Self, Self::Error> {
         if value {
@@ -269,7 +277,7 @@ impl TryFrom<bool> for SystemAttribute {
 }
 
 impl FromStr for SystemAttribute {
-    type Err = FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         SystemAttribute::try_from(s)
@@ -313,19 +321,21 @@ pub enum NormalAttribute {
 }
 
 impl TryFrom<&str> for NormalAttribute {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
             "0" => Ok(NormalAttribute::Exclude),
             "-1" => Ok(NormalAttribute::Include),
-            _ => Err(FormErrorKind::InvalidNormalAttribute(value.to_string())),
+            _ => Err(ErrorKind::Form(FormError::InvalidNormalAttribute {
+                value: value.to_string(),
+            })),
         }
     }
 }
 
 impl TryFrom<bool> for NormalAttribute {
-    type Error = FormErrorKind;
+    type Error = ErrorKind;
 
     fn try_from(value: bool) -> Result<Self, Self::Error> {
         if value {
@@ -337,7 +347,7 @@ impl TryFrom<bool> for NormalAttribute {
 }
 
 impl FromStr for NormalAttribute {
-    type Err = FormErrorKind;
+    type Err = ErrorKind;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         NormalAttribute::try_from(s)

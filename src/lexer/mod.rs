@@ -59,9 +59,9 @@ pub use token_stream::TokenStream;
 use phf::{phf_ordered_map, OrderedMap};
 
 use crate::{
+    errors::LexerError,
     io::SourceStream,
     parsers::{Comparator, ParseResult},
-    CodeErrorKind,
 };
 
 /// Lookup table for VB6 keywords to their corresponding tokens.
@@ -316,11 +316,10 @@ pub type LineCommentTuple<'a> = (TextTokenTuple<'a>, Option<TextTokenTuple<'a>>)
 /// assert_eq!(tokens[5], (" ", Token::Whitespace));
 /// assert_eq!(tokens[6], ("Integer", Token::IntegerKeyword));
 /// ```
-pub fn tokenize<'a>(
-    input: &mut SourceStream<'a>,
-) -> ParseResult<'a, TokenStream<'a>, CodeErrorKind> {
+pub fn tokenize<'a>(input: &mut SourceStream<'a>) -> ParseResult<'a, TokenStream<'a>> {
     let mut failures = vec![];
     let mut tokens = Vec::new();
+    let mut ctx = crate::errors::ParserContext::new(input.file_name(), input.contents);
 
     // Always start from the beginning of the source file.
     // Some files may have already been partially parsed (eg, to extract
@@ -400,14 +399,16 @@ pub fn tokenize<'a>(
         }
 
         if let Some(token_text) = input.take_count(1) {
-            let error = input.generate_error(CodeErrorKind::UnknownToken {
-                token: token_text.into(),
-            });
-
-            failures.push(error);
+            ctx.error(
+                input.span_here(),
+                LexerError::UnknownToken {
+                    token: token_text.into(),
+                },
+            );
         }
     }
 
+    failures.extend(ctx.take_errors());
     let token_stream = TokenStream::new(input.file_name.clone(), tokens);
     (token_stream, failures).into()
 }
@@ -430,7 +431,7 @@ pub fn tokenize<'a>(
 /// If the tokenizer encounters any errors, they will be included in the returned `ParseResult`.
 pub fn tokenize_without_whitespaces<'a>(
     input: &mut SourceStream<'a>,
-) -> ParseResult<'a, TokenStream<'a>, CodeErrorKind> {
+) -> ParseResult<'a, TokenStream<'a>> {
     let parse_result = tokenize(input);
 
     if parse_result.has_failures() {

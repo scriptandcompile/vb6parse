@@ -31,26 +31,69 @@
 use std::fmt::Display;
 use std::fs;
 use std::path::Path;
+use std::sync::Arc;
 
-use crate::errors::{ErrorDetails, SourceFileErrorKind};
+use crate::errors::{ErrorDetails, ErrorKind, Severity, SourceFileError};
 use crate::io::SourceStream;
 
 use encoding_rs::{mem::utf8_latin1_up_to, CoderResult, WINDOWS_1252};
 
+/// Immutable source context shared by all errors from the same file.
+#[derive(Debug, Clone)]
+pub struct SourceContext {
+    inner: Arc<SourceContextInner>,
+}
+
+/// Internal representation of the source context, containing the file name and source content.
+#[derive(Debug, Clone)]
+struct SourceContextInner {
+    file_name: Box<str>,
+    file_content: Box<str>,
+}
+
+impl SourceContext {
+    /// Create from `SourceFile` - called once per file.
+    pub fn new(file_name: impl Into<String>, content: impl Into<String>) -> Self {
+        Self {
+            inner: Arc::new(SourceContextInner {
+                file_name: file_name.into().into_boxed_str(),
+                file_content: content.into().into_boxed_str(),
+            }),
+        }
+    }
+
+    /// file name of the of the source file.
+    #[must_use]
+    pub fn file_name(&self) -> &str {
+        &self.inner.file_name
+    }
+
+    /// source file contents
+    #[must_use]
+    pub fn content(&self) -> &str {
+        &self.inner.file_content
+    }
+
+    /// Zero-cost slice into the source content.
+    #[must_use]
+    pub fn slice(&self, start: u32, end: u32) -> &str {
+        let start = start as usize;
+        let end = end as usize;
+        &self.inner.file_content[start..end]
+    }
+}
+
 /// Represents a VB6 source file with its content and filename.
 /// This struct provides methods to read and decode source files
 /// using Windows-1252 encoding.
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone)]
 pub struct SourceFile {
-    /// The content of the source file as a `String`.
-    file_content: String,
-    /// The name of the source file.
-    file_name: String,
+    context: SourceContext,
 }
 
 impl AsRef<str> for SourceFile {
     fn as_ref(&self) -> &str {
-        &self.file_content
+        self.context.content()
     }
 }
 
@@ -59,8 +102,8 @@ impl Display for SourceFile {
         write!(
             f,
             "SourceFile {{ file name: '{}', content len: {} }}",
-            self.file_name,
-            self.file_content.len()
+            self.context.file_name(),
+            self.context.content().len()
         )
     }
 }
@@ -100,21 +143,22 @@ impl SourceFile {
     /// }
     ///
     /// ```
-    pub fn from_file<P: AsRef<Path>>(
-        path: P,
-    ) -> Result<Self, ErrorDetails<'static, SourceFileErrorKind>> {
+    pub fn from_file<P: AsRef<Path>>(path: P) -> Result<Self, ErrorDetails<'static>> {
         let path = path.as_ref();
 
         // Read the file contents
         let bytes = fs::read(path).map_err(|io_err| ErrorDetails {
-            kind: SourceFileErrorKind::MalformedSource {
+            kind: Box::new(ErrorKind::SourceFile(SourceFileError::Malformed {
                 message: format!("Failed to read file: {io_err}"),
-            },
+            })),
             error_offset: 0,
             source_content: "",
             source_name: path.display().to_string().into_boxed_str(),
             line_start: 0,
             line_end: 0,
+            severity: Severity::Error,
+            labels: vec![],
+            notes: vec![],
         })?;
 
         // Extract the filename from the path
@@ -132,13 +176,16 @@ impl SourceFile {
             source_name: err.source_name,
             line_start: err.line_start,
             line_end: err.line_end,
+            severity: err.severity,
+            labels: err.labels,
+            notes: err.notes,
         })
     }
 
     /// Returns the source file name
     #[must_use]
     pub fn file_name(&self) -> &str {
-        &self.file_name
+        self.context.file_name()
     }
 
     /// Creates a `SourceFile` from a file name and source code string.
@@ -154,8 +201,7 @@ impl SourceFile {
     #[must_use]
     pub fn from_string(file_name: impl Into<String>, source_code: impl Into<String>) -> Self {
         SourceFile {
-            file_name: file_name.into(),
-            file_content: source_code.into(),
+            context: SourceContext::new(file_name.into(), source_code.into()),
         }
     }
 
@@ -183,7 +229,7 @@ impl SourceFile {
     pub fn decode_with_replacement(
         file_name: impl Into<String>,
         source_code: &[u8],
-    ) -> Result<Self, ErrorDetails<'_, SourceFileErrorKind>> {
+    ) -> Result<Self, ErrorDetails<'_>> {
         Self::decode_internal(file_name, source_code, true)
     }
 
@@ -191,35 +237,40 @@ impl SourceFile {
         file_name: impl Into<String>,
         source_code: &[u8],
         allow_replacement: bool,
-    ) -> Result<Self, ErrorDetails<'_, SourceFileErrorKind>> {
+    ) -> Result<Self, ErrorDetails<'_>> {
         let mut decoder = WINDOWS_1252.new_decoder();
+
+        let file_name = file_name.into();
 
         let Some(max_len) = decoder.max_utf8_buffer_length(source_code.len()) else {
             return Err(ErrorDetails {
-                kind: SourceFileErrorKind::MalformedSource {
+                kind: Box::new(ErrorKind::SourceFile(SourceFileError::Malformed {
                     message: "Failed to decode the source code. '{file_name}' was empty.".into(),
-                },
+                })),
                 error_offset: 0,
                 source_content: "",
-                source_name: file_name.into().into_boxed_str(),
+                source_name: file_name.into_boxed_str(),
                 line_start: 0,
                 line_end: 0,
+                severity: Severity::Error,
+                labels: vec![],
+                notes: vec![],
             });
         };
 
-        let file_name = file_name.into();
-        let mut source_file = SourceFile {
-            file_name: file_name.clone(),
-            file_content: String::with_capacity(max_len),
-        };
+        // Create a mutable String to decode into
+        let mut decoded_content = String::with_capacity(max_len);
 
         let last = true;
         let (coder_result, attempted_decode_len, all_processed) =
-            decoder.decode_to_string(source_code, &mut source_file.file_content, last);
+            decoder.decode_to_string(source_code, &mut decoded_content, last);
 
-        if source_file.file_content.len() == source_code.len() {
+        if decoded_content.len() == source_code.len() {
             // It looks like we actually succeeded even if the coder_result might be
             // confused at that.
+            let source_file = SourceFile {
+                context: SourceContext::new(file_name, decoded_content),
+            };
             return Ok(source_file);
         }
 
@@ -230,6 +281,9 @@ impl SourceFile {
             // Looks like we actually succeeded even if the coder_result might be
             // confused at that.
             if attempted_decode_len == decoded_len {
+                let source_file = SourceFile {
+                    context: SourceContext::new(file_name, decoded_content),
+                };
                 return Ok(source_file);
             }
 
@@ -246,12 +300,12 @@ impl SourceFile {
             };
 
             let details = ErrorDetails {
-                kind: SourceFileErrorKind::MalformedSource {
+                kind: Box::new(ErrorKind::SourceFile(SourceFileError::Malformed {
                     message: format!(
                         r"Failed to decode the source file. '{file_name}' may not use latin-1 (Windows-1252) code page. 
 Currently, only latin-1 source code is supported."
                     ),
-                },
+                })),
                 source_content: Box::leak(text_up_to_error.into_boxed_str()),
                 source_name: file_name.into_boxed_str(),
                 // Normally we would use usize for offsets, but VB6 was limited to 32-bit addressing.
@@ -259,11 +313,18 @@ Currently, only latin-1 source code is supported."
                 error_offset: u32::try_from(error_offset).unwrap_or(0),
                 line_start: 0,
                 line_end: u32::try_from(decoded_len).unwrap_or(0),
+                severity: Severity::Error,
+                labels: vec![],
+                notes: vec![],
             };
 
             return Err(details);
         }
 
+        // Successfully decoded - create SourceFile with the decoded content
+        let source_file = SourceFile {
+            context: SourceContext::new(file_name, decoded_content),
+        };
         Ok(source_file)
     }
 
@@ -290,7 +351,7 @@ Currently, only latin-1 source code is supported."
     pub fn decode(
         file_name: impl Into<String>,
         source_code: &[u8],
-    ) -> Result<Self, ErrorDetails<'_, SourceFileErrorKind>> {
+    ) -> Result<Self, ErrorDetails<'_>> {
         Self::decode_internal(file_name, source_code, false)
     }
 
@@ -304,8 +365,6 @@ Currently, only latin-1 source code is supported."
     /// Returns a `SourceStream` instance.
     #[must_use]
     pub fn source_stream(&'_ self) -> SourceStream<'_> {
-        let source_stream = SourceStream::new(self.file_name.clone(), self.file_content.as_str());
-
-        source_stream
+        SourceStream::new(self.context.file_name(), self.context.content())
     }
 }
