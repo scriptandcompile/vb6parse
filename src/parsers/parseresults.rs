@@ -719,6 +719,11 @@ impl<'a, T> ParseResult<'a, T> {
     /// * `Ok(T)` if there is a successful result.
     /// * `Err(Diagnostics)` if there is no result or there are failures.
     ///
+    /// # Errors
+    ///
+    /// Returns a `Diagnostics` struct containing all failures if there is no successful
+    /// result or if there are any failures.
+    ///
     /// # Examples
     /// ```rust
     /// use vb6parse::parsers::parseresults::ParseResult;
@@ -735,10 +740,9 @@ impl<'a, T> ParseResult<'a, T> {
     /// }
     /// ```
     pub fn into_result(self) -> Result<T, Diagnostics<'a>> {
-        if self.has_failures() || self.result.is_none() {
-            Err(Diagnostics::from_details(self.failures))
-        } else {
-            Ok(self.result.unwrap())
+        match self.result {
+            None => Err(Diagnostics::from_details(self.failures)),
+            Some(t) => Ok(t),
         }
     }
 }
