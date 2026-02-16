@@ -93,7 +93,6 @@ impl ModuleFile {
     /// ```
     #[must_use]
     pub fn parse(source_file: &SourceFile) -> ParseResult<'_, ModuleFile> {
-        let mut failures = vec![];
         let mut input = source_file.source_stream();
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
@@ -147,9 +146,8 @@ impl ModuleFile {
                 // Well, it looks like we don't have a quoted value even if it might have a single quote at the start.
                 let Some((vb_name_value, _)) = input.take_until_newline() else {
                     ctx.error(input.span_here(), ModuleError::VBNameAttributeValueUnquoted);
-                    failures.extend(ctx.take_errors());
 
-                    return ParseResult::new(None, failures);
+                    return ParseResult::new(None, ctx.into_errors());
                 };
 
                 // Parse the entire source file as CST
@@ -157,7 +155,7 @@ impl ModuleFile {
                 let token_result = tokenize(&mut stream);
                 let (token_stream_opt, token_failures) = token_result.unpack();
 
-                failures.extend(token_failures);
+                ctx.extend_errors(token_failures);
 
                 if let Some(tokens) = token_stream_opt {
                     let cst = crate::parsers::cst::parse(tokens);
@@ -165,17 +163,15 @@ impl ModuleFile {
                     // Filter out nodes that are already extracted to avoid duplication
                     let filtered_cst = cst.without_kinds(&[SyntaxKind::AttributeStatement]);
 
-                    failures.extend(ctx.take_errors());
                     ParseResult::new(
                         Some(ModuleFile {
                             name: vb_name_value.to_string(),
                             cst: filtered_cst,
                         }),
-                        failures,
+                        ctx.into_errors(),
                     )
                 } else {
-                    failures.extend(ctx.take_errors());
-                    ParseResult::new(None, failures)
+                    ParseResult::new(None, ctx.into_errors())
                 }
             }
             Some((vb_name_value, _)) => {
@@ -191,7 +187,7 @@ impl ModuleFile {
                 let token_result = tokenize(&mut input);
                 let (token_stream_opt, token_failures) = token_result.unpack();
 
-                failures.extend(token_failures);
+                ctx.extend_errors(token_failures);
 
                 if let Some(tokens) = token_stream_opt {
                     let cst = crate::parsers::cst::parse(tokens);
@@ -199,17 +195,15 @@ impl ModuleFile {
                     // Filter out nodes that are already extracted to avoid duplication
                     let filtered_cst = cst.without_kinds(&[SyntaxKind::AttributeStatement]);
 
-                    failures.extend(ctx.take_errors());
                     ParseResult::new(
                         Some(ModuleFile {
                             name: vb_name_value.to_string(),
                             cst: filtered_cst,
                         }),
-                        failures,
+                        ctx.into_errors(),
                     )
                 } else {
-                    failures.extend(ctx.take_errors());
-                    ParseResult::new(None, failures)
+                    ParseResult::new(None, ctx.into_errors())
                 }
             }
         }
