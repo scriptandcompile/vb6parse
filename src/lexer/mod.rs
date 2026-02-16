@@ -319,6 +319,7 @@ pub type LineCommentTuple<'a> = (TextTokenTuple<'a>, Option<TextTokenTuple<'a>>)
 pub fn tokenize<'a>(input: &mut SourceStream<'a>) -> ParseResult<'a, TokenStream<'a>> {
     let mut failures = vec![];
     let mut tokens = Vec::new();
+    let mut ctx = crate::errors::ParserContext::new(input.file_name(), input.contents);
 
     // Always start from the beginning of the source file.
     // Some files may have already been partially parsed (eg, to extract
@@ -398,14 +399,16 @@ pub fn tokenize<'a>(input: &mut SourceStream<'a>) -> ParseResult<'a, TokenStream
         }
 
         if let Some(token_text) = input.take_count(1) {
-            let error = input.generate_error(LexerError::UnknownToken {
-                token: token_text.into(),
-            });
-
-            failures.push(error);
+            ctx.error(
+                input.span_here(),
+                LexerError::UnknownToken {
+                    token: token_text.into(),
+                },
+            );
         }
     }
 
+    failures.extend(ctx.take_errors());
     let token_stream = TokenStream::new(input.file_name.clone(), tokens);
     (token_stream, failures).into()
 }

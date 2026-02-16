@@ -52,36 +52,27 @@ pub use source::SourceFileError;
 /// # Ergonomic Conversions
 ///
 /// All layer-specific error types implement `From` conversion to `ErrorKind`,
-/// allowing automatic conversion. The error generation methods on [`SourceStream`]
-/// and [`ErrorDetails::basic()`] accept any type that implements `Into<ErrorKind>`,
-/// so you can pass layer-specific errors directly without wrapping:
+/// allowing automatic conversion. The [`ParserContext`] and [`ErrorDetails::basic()`]
+/// accept any type that implements `Into<ErrorKind>`, so you can pass layer-specific
+/// errors directly without wrapping:
 ///
 /// ```rust
 /// use vb6parse::io::SourceStream;
-/// use vb6parse::errors::{ErrorKind, LexerError, ModuleError};
+/// use vb6parse::errors::{ParserContext, ErrorKind, LexerError, ModuleError};
 ///
 /// let stream = SourceStream::new("test.bas", "Dim x");
+/// let mut ctx = ParserContext::new(stream.file_name(), stream.contents);
 ///
-/// // Old way - manual wrapping:
-/// let error1 = stream.generate_error(ErrorKind::Lexer(
-///     LexerError::UnknownToken { token: "???".to_string() }
-/// ));
-///
-/// // New way - automatic conversion:
-/// let error2 = stream.generate_error(
-///     LexerError::UnknownToken { token: "???".to_string() }
-/// );
+/// // Automatic conversion from layer-specific errors:
+/// ctx.error(stream.span_here(), LexerError::UnknownToken {
+///     token: "???".to_string()
+/// });
 ///
 /// // Works with all layer-specific error types:
-/// let error3 = stream.generate_error(
-///     ModuleError::AttributeKeywordMissing
-/// );
+/// ctx.error(stream.span_here(), ModuleError::AttributeKeywordMissing);
 /// ```
 ///
-/// This also works with [`ErrorDetails::basic()`] and all three `generate_error*`
-/// methods on [`SourceStream`].
-///
-/// [`SourceStream`]: crate::io::SourceStream
+/// [`ParserContext`]: crate::errors::ParserContext
 #[derive(thiserror::Error, Debug, Clone, PartialEq, Eq)]
 pub enum ErrorKind {
     /// Lexer and tokenization errors.
@@ -511,6 +502,176 @@ impl ErrorDetails<'_> {
     }
 }
 
+/// A context for creating errors during parsing.
+///
+/// `ParserContext` centralizes error creation and collection during parsing operations.
+/// Instead of having error generation methods on `SourceStream`, parsers should use
+/// `ParserContext` to create and accumulate errors and warnings.
+///
+/// # Example
+/// ```rust
+/// use vb6parse::errors::{ParserContext, LexerError};
+/// use vb6parse::io::SourceStream;
+///
+/// let stream = SourceStream::new("test.bas", "Dim x As Integer");
+/// let mut ctx = ParserContext::new(stream.file_name(), stream.contents);
+///
+/// // Create an error at a specific span
+/// let span = stream.span_here();
+/// ctx.error(span, LexerError::UnknownToken { token: "???".to_string() });
+///
+/// // Check if any errors occurred
+/// if ctx.has_errors() {
+///     println!("Found {} errors", ctx.error_count());
+/// }
+/// ```
+#[derive(Debug)]
+pub struct ParserContext<'a> {
+    file_name: String,
+    contents: &'a str,
+    errors: Vec<ErrorDetails<'a>>,
+}
+
+impl<'a> ParserContext<'a> {
+    /// Create a new parser context for the given file.
+    ///
+    /// # Arguments
+    /// * `file_name` - The name of the source file being parsed
+    /// * `contents` - The contents of the source file
+    pub fn new<S: Into<String>>(file_name: S, contents: &'a str) -> Self {
+        Self {
+            file_name: file_name.into(),
+            contents,
+            errors: Vec::new(),
+        }
+    }
+
+    /// Create an error at the given span with the specified error kind.
+    ///
+    /// Accepts any error type that can be converted to `ErrorKind`, including
+    /// layer-specific errors like `LexerError`, `ModuleError`, `ProjectError`, etc.
+    ///
+    /// # Arguments
+    /// * `span` - The location of the error in the source
+    /// * `kind` - The error kind (automatically converted to `ErrorKind`)
+    pub fn error<E>(&mut self, span: Span, kind: E)
+    where
+        E: Into<ErrorKind>,
+    {
+        let error = ErrorDetails {
+            source_name: self.file_name.clone().into_boxed_str(),
+            source_content: self.contents,
+            error_offset: span.offset,
+            line_start: span.line_start,
+            line_end: span.line_end,
+            kind: Box::new(kind.into()),
+            severity: Severity::Error,
+            labels: vec![],
+            notes: vec![],
+        };
+        self.errors.push(error);
+    }
+
+    /// Create an error at the given span and return it for further customization.
+    ///
+    /// This allows adding labels, notes, or changing severity before the error
+    /// is added to the context.
+    ///
+    /// # Arguments
+    /// * `span` - The location of the error in the source
+    /// * `kind` - The error kind (automatically converted to `ErrorKind`)
+    ///
+    /// # Returns
+    /// An `ErrorDetails` that can be customized with `.with_label()`, `.with_note()`, etc.
+    ///
+    /// # Example
+    /// ```rust
+    /// use vb6parse::errors::{ParserContext, DiagnosticLabel, LexerError, Span};
+    ///
+    /// let mut ctx = ParserContext::new("test.bas", "Dim x");
+    /// let span = Span::at(0, 1);
+    /// let label_span = Span::at(4, 1);
+    ///
+    /// let error = ctx.error_with(span, LexerError::UnknownToken { token: "x".to_string() })
+    ///     .with_label(DiagnosticLabel::new(label_span, "here"))
+    ///     .with_note("Consider using 'Integer' instead");
+    ///
+    /// ctx.push_error(error);
+    /// ```
+    pub fn error_with<E>(&self, span: Span, kind: E) -> ErrorDetails<'a>
+    where
+        E: Into<ErrorKind>,
+    {
+        ErrorDetails {
+            source_name: self.file_name.clone().into_boxed_str(),
+            source_content: self.contents,
+            error_offset: span.offset,
+            line_start: span.line_start,
+            line_end: span.line_end,
+            kind: Box::new(kind.into()),
+            severity: Severity::Error,
+            labels: vec![],
+            notes: vec![],
+        }
+    }
+
+    /// Manually push a pre-constructed error to the context.
+    ///
+    /// This is useful when you've built an error with additional labels or notes
+    /// using `error_with()` or `ErrorDetails::basic()`.
+    pub fn push_error(&mut self, error: ErrorDetails<'a>) {
+        self.errors.push(error);
+    }
+
+    /// Extend the error list with multiple errors.
+    pub fn extend_errors(&mut self, errors: impl IntoIterator<Item = ErrorDetails<'a>>) {
+        self.errors.extend(errors);
+    }
+
+    /// Check if any errors have been recorded.
+    #[must_use]
+    pub fn has_errors(&self) -> bool {
+        !self.errors.is_empty()
+    }
+
+    /// Get the number of errors recorded.
+    #[must_use]
+    pub fn error_count(&self) -> usize {
+        self.errors.len()
+    }
+
+    /// Get a reference to all errors.
+    #[must_use]
+    pub fn errors(&self) -> &[ErrorDetails<'a>] {
+        &self.errors
+    }
+
+    /// Take all errors, leaving the context empty.
+    ///
+    /// This allows collecting errors without consuming the context.
+    pub fn take_errors(&mut self) -> Vec<ErrorDetails<'a>> {
+        std::mem::take(&mut self.errors)
+    }
+
+    /// Consume the context and return all errors.
+    #[must_use]
+    pub fn into_errors(self) -> Vec<ErrorDetails<'a>> {
+        self.errors
+    }
+
+    /// Get the file name.
+    #[must_use]
+    pub fn file_name(&self) -> &str {
+        &self.file_name
+    }
+
+    /// Get the contents.
+    #[must_use]
+    pub fn contents(&self) -> &'a str {
+        self.contents
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -519,23 +680,27 @@ mod tests {
     #[test]
     fn test_automatic_error_conversion() {
         // Test that layer-specific errors can be automatically converted to ErrorKind
-        // and used with generate_error methods
+        // and used with ParserContext
 
         let stream = SourceStream::new("test.bas", "Dim x As Integer");
+        let mut ctx = ParserContext::new(stream.file_name(), stream.contents);
 
         // Test with LexerError
-        let _error1 = stream.generate_error(LexerError::UnknownToken {
-            token: "???".to_string(),
-        });
+        ctx.error(
+            stream.span_here(),
+            LexerError::UnknownToken {
+                token: "???".to_string(),
+            },
+        );
 
         // Test with ModuleError
-        let _error2 = stream.generate_error(ModuleError::AttributeKeywordMissing);
+        ctx.error(stream.span_here(), ModuleError::AttributeKeywordMissing);
 
         // Test with ClassError
-        let _error3 = stream.generate_error(ClassError::VersionKeywordMissing);
+        ctx.error(stream.span_here(), ClassError::VersionKeywordMissing);
 
         // Test with ProjectError
-        let _error4 = stream.generate_error(ProjectError::UnterminatedSectionHeader);
+        ctx.error(stream.span_here(), ProjectError::UnterminatedSectionHeader);
 
         // Test that ErrorDetails::basic also accepts layer-specific errors
         let _error5 = ErrorDetails::basic(
@@ -548,7 +713,9 @@ mod tests {
             Severity::Error,
         );
 
-        // All of the above should compile without needing manual ErrorKind wrapping
+        // Verify errors were collected
+        assert_eq!(ctx.error_count(), 4);
+        assert!(ctx.has_errors());
     }
 
     #[test]

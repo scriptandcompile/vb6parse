@@ -101,6 +101,7 @@ impl ClassFile {
     #[must_use]
     pub fn parse(source_file: &SourceFile) -> ParseResult<'_, Self> {
         let mut input = source_file.source_stream();
+        let mut ctx = crate::errors::ParserContext::new(input.file_name(), input.contents);
 
         let mut failures = vec![];
 
@@ -111,6 +112,7 @@ impl ClassFile {
         failures.extend(token_failures);
 
         let Some(token_stream) = token_stream_opt else {
+            failures.extend(ctx.take_errors());
             return ParseResult::new(None, failures);
         };
 
@@ -119,10 +121,8 @@ impl ClassFile {
 
         // Extract version from CST
         let Some(version) = extract_version(&cst) else {
-            let error = source_file
-                .source_stream()
-                .generate_error(ClassError::VersionKeywordMissing);
-            failures.push(error);
+            ctx.error(input.span_here(), ClassError::VersionKeywordMissing);
+            failures.extend(ctx.take_errors());
 
             return ParseResult::new(None, failures);
         };
@@ -142,7 +142,7 @@ impl ClassFile {
         // Filter out nodes that are already extracted to avoid duplication
         // For class files, we remove:
         // - VersionStatement (already in header.version)
-        // - PropertiesBlock (BEGIN...END - already in header.properties)
+        // - PropertiesBlock (BEGIN...END - already in header. properties)
         // - AttributeStatement nodes (already in header.attributes)
         let filtered_cst = cst.without_kinds(&[
             SyntaxKind::VersionStatement,
@@ -150,6 +150,7 @@ impl ClassFile {
             SyntaxKind::AttributeStatement,
         ]);
 
+        failures.extend(ctx.take_errors());
         ParseResult::new(
             Some(ClassFile {
                 header,
