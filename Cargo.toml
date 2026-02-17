@@ -3,7 +3,7 @@ authors = ["ScriptAndCompile"]
 name = "vb6parse"
 homepage = "https://github.com/scriptandcompile/vb6parse"
 documentation = "https://docs.rs/vb6parse"
-version = "0.5.1"
+version = "1.0.0"
 edition = "2021"
 license = "MIT"
 description = "vb6parse is a library for parsing and analyzing VB6 code, from projects, to controls, to modules, and forms."
@@ -67,7 +67,7 @@ exclude = [
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-uuid = "1.20.0"
+uuid = "1.21.0"
 thiserror = "2.0.18"
 ariadne = "0.6.0"
 image = "0.25.9"

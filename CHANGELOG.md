@@ -7,6 +7,8 @@ and this project (tries!) to adheres to [Semantic Versioning](https://semver.org
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-02-16
+
 ### Changed
 - Removed `winnow` dependency - no longer used in the codebase.
 - Removed `borrow` dependency - no longer used in the codebase.
@@ -226,7 +228,8 @@ and this project (tries!) to adheres to [Semantic Versioning](https://semver.org
 - Criterion benchmarking support
 - Comprehensive error types for different VB6 file types
 
-[Unreleased]: https://github.com/scriptandcompile/vb6parse/compare/v0.5.1...HEAD
+[Unreleased]: https://github.com/scriptandcompile/vb6parse/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/scriptandcompile/vb6parse/releases/tag/v1.0.0
 [0.5.1]: https://github.com/scriptandcompile/vb6parse/releases/tag/v0.5.1
 [0.5.0]: https://github.com/scriptandcompile/vb6parse/releases/tag/v0.5.0
 [0.4.1]: https://github.com/scriptandcompile/vb6parse/releases/tag/v0.4.1
