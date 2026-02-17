@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-02-16T23:05:51Z",
+  "last_updated": "2026-02-17T02:25:38Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T19:53:21Z",
@@ -375,38 +375,72 @@
           "percent": 95.46
         }
       }
+    },
+    {
+      "timestamp": "2026-02-17T02:25:38Z",
+      "commit_sha": "3ef36ef604f6fae11d67412b402aad6cf2b3041c",
+      "commit_message": "update to 1.0!",
+      "coverage": {
+        "line_coverage": 95.22,
+        "function_coverage": 93.04,
+        "region_coverage": 95.46
+      },
+      "tests": {
+        "total": 5685,
+        "lib_tests": 5480,
+        "doc_tests": 110,
+        "integration_tests": 95,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 93672,
+          "total": 98374,
+          "percent": 95.22
+        },
+        "functions": {
+          "covered": 6046,
+          "total": 6498,
+          "percent": 93.04
+        },
+        "regions": {
+          "covered": 149641,
+          "total": 156764,
+          "percent": 95.46
+        }
+      }
     }
   ],
   "coverage_summary": {
     "line_coverage": {
       "latest": 95.22,
-      "trend": "degrading",
-      "change_percent": 0.24,
+      "trend": "stable",
+      "change_percent": 0.0,
       "best": 95.51,
       "worst": 95.22,
-      "average": 95.47
+      "average": 95.44
     },
     "function_coverage": {
       "latest": 93.04,
-      "trend": "degrading",
-      "change_percent": 0.57,
+      "trend": "stable",
+      "change_percent": 0.0,
       "best": 93.76,
       "worst": 93.04,
-      "average": 93.64
+      "average": 93.59
     },
     "region_coverage": {
       "latest": 95.46,
       "trend": "stable",
-      "change_percent": 0.06,
+      "change_percent": 0.0,
       "best": 95.56,
       "worst": 95.46,
-      "average": 95.54
+      "average": 95.53
     },
     "test_count": {
       "latest": 5685,
-      "trend": "growing",
-      "change_count": 9,
-      "growth_rate": 0.16
+      "trend": "stable",
+      "change_count": 0,
+      "growth_rate": 0.0
     }
   }
 }
