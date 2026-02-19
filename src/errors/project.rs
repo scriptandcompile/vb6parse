@@ -107,42 +107,78 @@ pub enum ProjectError {
     ClassFileNameNotFound,
 
     /// Path value not found.
-    #[error("'{parameter_line_name}' line is invalid. Expected a '{parameter_line_name}' path after the equal sign '='. Found a newline or the end of the file instead.")]
+    #[error("The '{parameter_line_name}' line is invalid. Expected a '{parameter_line_name}' path after the equal sign '='. Found a newline or the end of the file instead.")]
     PathValueNotFound {
         /// The parameter line name.
         parameter_line_name: String,
     },
 
+    /// Parameter value not found, End of File.
+    #[error("The '{parameter_line_name}' line is invalid. Expected a double quoted '{parameter_line_name}' value after the equal sign '='. Found the end of the file instead. Only {valid_value_message} are valid values for '{parameter_line_name}'")]
+    ParameterValueNotFoundEOF {
+        /// The parameter line name.
+        parameter_line_name: String,
+        /// Valid values message.
+        valid_value_message: String,
+    },
+
     /// Parameter value not found.
-    #[error("'{parameter_line_name}' line is invalid. Expected a quoted '{parameter_line_name}' value after the equal sign '='. Found a newline or the end of the file instead.")]
+    #[error("The '{parameter_line_name}' line is invalid. Expected a quoted '{parameter_line_name}' value after the equal sign '='. Found a newline instead.")]
     ParameterValueNotFound {
         /// The parameter line name.
         parameter_line_name: String,
     },
 
+    /// Parameter value not found. Parameter type has a default.
+    #[error("The '{parameter_line_name}' line is invalid. Expected a quoted '{parameter_line_name}' value after the equal sign '='. Found a newline instead. Only {valid_value_message} are valid values for '{parameter_line_name}'")]
+    ParameterWithDefaultValueNotFound {
+        /// The parameter line name.
+        parameter_line_name: String,
+        /// Valid values message.
+        valid_value_message: String,
+    },
+
     /// Parameter value missing opening quote.
-    #[error("'{parameter_line_name}' line is invalid. '{parameter_line_name}' is missing an opening quote. Expected a closing quote for the '{parameter_line_name}' value.")]
+    #[error("The '{parameter_line_name}' line is invalid. '{parameter_line_name}' is missing an opening quote. Expected an opening quote for the '{parameter_line_name}' value.")]
     ParameterValueMissingOpeningQuote {
         /// The parameter line name.
         parameter_line_name: String,
     },
 
     /// Parameter value missing matching quote.
-    #[error("'{parameter_line_name}' line is invalid. '{parameter_line_name}' is missing a matching quote. Expected a closing quote for the '{parameter_line_name}' value.")]
-    ParameterValueMissingMatchingQuote {
+    #[error("The '{parameter_line_name}' line is invalid. '{parameter_line_name}' is missing a closing quote. Expected a closing quote for the '{parameter_line_name}' value.")]
+    ParameterValueMissingClosingQuote {
+        /// The parameter line name.
+        parameter_line_name: String,
+    },
+
+    /// Parameter value is just a double qoute character and is missing a value
+    #[error("The '{parameter_line_name}' line is invalid. '{parameter_line_name}' is missing a value and a closing quote. Only {valid_value_message} are valid values for '{parameter_line_name}'.")]
+    ParameterValueMissingClosingQuoteAndValue {
+        /// The parameter line name.
+        parameter_line_name: String,
+        /// Valid value message.
+        valid_value_message: String,
+    },
+
+    /// Parameter value missing quotes.
+    #[error("The '{parameter_line_name}' line is invalid. '{parameter_line_name}' is missing both opening and closing quotes. Expected a double quoted '{parameter_line_name}' value after the equal sign '='.")]
+    ParameterWithoutDefaultValueMissingQuotes {
         /// The parameter line name.
         parameter_line_name: String,
     },
 
     /// Parameter value missing quotes.
-    #[error("'{parameter_line_name}' line is invalid. '{parameter_line_name}' is missing both opening and closing quotes. Expected a quoted '{parameter_line_name}' value after the equal sign '='.")]
+    #[error("The '{parameter_line_name}' line is invalid. '{parameter_line_name}' is missing both opening and closing quotes. Expected a double quoted '{parameter_line_name}' value after the equal sign '='. Only {valid_value_message} are valid values for '{parameter_line_name}'.")]
     ParameterValueMissingQuotes {
         /// The parameter line name.
         parameter_line_name: String,
+        /// Valid value message.
+        valid_value_message: String,
     },
 
     /// Parameter value is invalid.
-    #[error("'{parameter_line_name}' line is invalid. '{invalid_value}' is not a valid value for '{parameter_line_name}'. Only {valid_value_message} are valid values for '{parameter_line_name}'.")]
+    #[error("The '{parameter_line_name}' line is invalid. '{invalid_value}' is not a valid value for '{parameter_line_name}'. Only {valid_value_message} are valid values for '{parameter_line_name}'.")]
     ParameterValueInvalid {
         /// The parameter line name.
         parameter_line_name: String,

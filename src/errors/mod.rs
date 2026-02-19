@@ -365,25 +365,27 @@ impl ErrorDetails<'_> {
                 self.line_start as usize..=self.line_end as usize,
             ),
         )
-        .with_message(self.kind.to_string())
-        .with_label(
-            Label::new((
-                self.source_name.to_string(),
-                self.error_offset as usize..=self.error_offset as usize,
-            ))
-            .with_message("error here"),
-        );
+        .with_message(self.kind.to_string());
 
-        // Add additional labeled spans
-        for label in &self.labels {
+        // Add custom labels if provided, otherwise add a default label
+        if self.labels.is_empty() {
+            let span_start = self.error_offset as usize;
+            let span_end = self.error_offset as usize;
+
             report = report.with_label(
-                Label::new((
-                    self.source_name.to_string(),
-                    label.span.offset as usize
-                        ..=(label.span.offset + label.span.length.max(1) - 1) as usize,
-                ))
-                .with_message(&label.message),
+                Label::new((self.source_name.to_string(), span_start..=span_end))
+                    .with_message("error here"),
             );
+        } else {
+            for label in &self.labels {
+                let span_start = label.span.offset as usize;
+                let span_end = (label.span.offset + label.span.length.max(1) - 1) as usize;
+
+                report = report.with_label(
+                    Label::new((self.source_name.to_string(), span_start..=span_end))
+                        .with_message(&label.message),
+                );
+            }
         }
 
         // Add notes
@@ -432,25 +434,28 @@ impl ErrorDetails<'_> {
                 self.line_start as usize..=self.line_end as usize,
             ),
         )
-        .with_message(format!("{:?}", self.kind))
-        .with_label(
-            Label::new((
-                self.source_name.to_string(),
-                self.error_offset as usize..=self.error_offset as usize,
-            ))
-            .with_message("error here"),
-        );
+        .with_message(format!("{:?}", self.kind));
 
-        // Add additional labeled spans
-        for label in &self.labels {
+        // Add custom labels if provided, otherwise add a default label
+        if self.labels.is_empty() {
             report = report.with_label(
                 Label::new((
                     self.source_name.to_string(),
-                    label.span.offset as usize
-                        ..=(label.span.offset + label.span.length.max(1) - 1) as usize,
+                    self.error_offset as usize..=self.error_offset as usize,
                 ))
-                .with_message(&label.message),
+                .with_message("error here"),
             );
+        } else {
+            for label in &self.labels {
+                report = report.with_label(
+                    Label::new((
+                        self.source_name.to_string(),
+                        label.span.offset as usize
+                            ..=(label.span.offset + label.span.length.max(1) - 1) as usize,
+                    ))
+                    .with_message(&label.message),
+                );
+            }
         }
 
         // Add notes
@@ -478,23 +483,38 @@ impl ErrorDetails<'_> {
 
         let mut buf = Vec::new();
 
-        let _ = Report::build(
+        let mut report = Report::build(
             ReportKind::Error,
             (
                 self.source_name.to_string(),
                 self.line_start as usize..=self.line_end as usize,
             ),
         )
-        .with_message(self.kind.to_string())
-        .with_label(
-            Label::new((
-                self.source_name.to_string(),
-                self.error_offset as usize..=self.error_offset as usize,
-            ))
-            .with_message("error here"),
-        )
-        .finish()
-        .write(cache, &mut buf);
+        .with_message(self.kind.to_string());
+
+        // Add custom labels if provided, otherwise add a default label
+        if self.labels.is_empty() {
+            report = report.with_label(
+                Label::new((
+                    self.source_name.to_string(),
+                    self.error_offset as usize..=self.error_offset as usize,
+                ))
+                .with_message("error here"),
+            );
+        } else {
+            for label in &self.labels {
+                report = report.with_label(
+                    Label::new((
+                        self.source_name.to_string(),
+                        label.span.offset as usize
+                            ..=(label.span.offset + label.span.length.max(1) - 1) as usize,
+                    ))
+                    .with_message(&label.message),
+                );
+            }
+        }
+
+        let _ = report.finish().write(cache, &mut buf);
 
         let text = String::from_utf8(buf.clone())?;
 

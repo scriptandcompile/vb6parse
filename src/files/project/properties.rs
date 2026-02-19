@@ -2,6 +2,7 @@
 //! Contains settings such as startup mode, threading model, version information, and more.
 //!
 
+use num_enum::IntoPrimitive;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 use strum_macros::{EnumIter, EnumMessage};
@@ -128,6 +129,7 @@ pub struct ProjectProperties<'a> {
     Serialize,
     Default,
     TryFromPrimitive,
+    IntoPrimitive,
     EnumIter,
     EnumMessage,
     Hash,
@@ -171,6 +173,7 @@ impl TryFrom<&str> for Retained {
     Serialize,
     Default,
     TryFromPrimitive,
+    IntoPrimitive,
     EnumIter,
     EnumMessage,
     Hash,
@@ -214,6 +217,7 @@ impl TryFrom<&str> for ExistingBrowser {
     Serialize,
     Default,
     TryFromPrimitive,
+    IntoPrimitive,
     EnumIter,
     EnumMessage,
     Hash,
@@ -261,6 +265,7 @@ impl TryFrom<&str> for StartMode {
     Serialize,
     Default,
     TryFromPrimitive,
+    IntoPrimitive,
     EnumIter,
     EnumMessage,
     Hash,
@@ -301,6 +306,7 @@ impl TryFrom<&str> for InteractionMode {
     Serialize,
     Default,
     TryFromPrimitive,
+    IntoPrimitive,
     EnumIter,
     EnumMessage,
     Hash,
@@ -344,6 +350,7 @@ impl TryFrom<&str> for ServerSupportFiles {
     Serialize,
     Default,
     TryFromPrimitive,
+    IntoPrimitive,
     EnumIter,
     EnumMessage,
     Hash,
@@ -384,6 +391,7 @@ impl TryFrom<&str> for UpgradeControls {
     Serialize,
     Default,
     TryFromPrimitive,
+    IntoPrimitive,
     EnumIter,
     EnumMessage,
     Hash,
@@ -430,6 +438,7 @@ impl TryFrom<&str> for UnusedControlInfo {
     Hash,
     PartialOrd,
     Ord,
+    IntoPrimitive,
 )]
 #[repr(i16)]
 pub enum CompatibilityMode {
@@ -482,6 +491,7 @@ impl TryFrom<&str> for CompatibilityMode {
     Serialize,
     Default,
     TryFromPrimitive,
+    IntoPrimitive,
     EnumIter,
     EnumMessage,
     Hash,
@@ -615,6 +625,7 @@ impl TryFrom<&str> for CompileTargetType {
     Serialize,
     Default,
     TryFromPrimitive,
+    IntoPrimitive,
     EnumIter,
     EnumMessage,
     Hash,
