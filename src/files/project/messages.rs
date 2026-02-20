@@ -45,7 +45,7 @@ where
     }
 }
 
-pub fn parameter_optional_value_not_found_eof_error<'a>(
+pub fn parameter_optional_missing_value_eof_error<'a>(
     ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
     line_type: &'a str,
@@ -249,6 +249,40 @@ pub(crate) fn parameter_with_default_missing_quotes_error<'a, T>(
             format!("'{line_type}' value must be contained within double qoutes."),
         ))
         .with_note(note_message);
+    ctx.push_error(error);
+}
+
+pub(crate) fn parameter_with_default_invalid_value_error<'a, T>(
+    ctx: &mut ParserContext<'a>,
+    input: &mut SourceStream<'a>,
+    line_type: &'a str,
+    parameter_start: usize,
+    parameter_value: &'a str,
+) where
+    T: 'a
+        + TryFrom<&'a str, Error = String>
+        + IntoEnumIterator
+        + EnumMessage
+        + Debug
+        + Into<i16>
+        + Default
+        + Copy,
+{
+    // We have a parameter value that is invalid, so we return an error.
+    let valid_value_message = format_valid_enum_values::<T>();
+
+    let value_span = input.span_at(parameter_start + 1);
+    let error = ctx
+        .error_with(
+            value_span,
+            ProjectError::ParameterValueInvalid {
+                parameter_line_name: line_type.to_string(),
+                invalid_value: parameter_value.to_string(),
+                valid_value_message,
+            },
+        )
+        .with_label(DiagnosticLabel::new(value_span, "invalid value"))
+        .with_note("Change the quoted value to one of the valid values.");
     ctx.push_error(error);
 }
 

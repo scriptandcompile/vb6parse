@@ -24,7 +24,7 @@ use crate::{
         messages::{
             format_valid_enum_values, parameter_missing_value_and_closing_quote_error,
             parameter_missing_value_opening_quote_error,
-            parameter_optional_value_not_found_eof_error,
+            parameter_optional_missing_value_eof_error, parameter_with_default_invalid_value_error,
             parameter_with_default_missing_quotes_error,
             parameter_with_default_missing_value_and_closing_quote_error,
             parameter_with_default_missing_value_eof_error,
@@ -2146,7 +2146,7 @@ fn parse_optional_quoted_value<'a>(
     let parameter_start = input.offset();
 
     let Some((parameter_value, _)) = input.take_until_newline() else {
-        parameter_optional_value_not_found_eof_error(ctx, input, line_type, parameter_start);
+        parameter_optional_missing_value_eof_error(ctx, input, line_type, parameter_start);
         return None;
     };
 
@@ -2351,22 +2351,13 @@ where
     let parameter_value = &parameter_value[1..parameter_value.len() - 1];
 
     let Ok(value) = T::try_from(parameter_value) else {
-        // We have a parameter value that is invalid, so we return an error.
-        let valid_value_message = format_valid_enum_values::<T>();
-
-        let value_span = input.span_at(parameter_start + 1);
-        let error = ctx
-            .error_with(
-                value_span,
-                ProjectError::ParameterValueInvalid {
-                    parameter_line_name: line_type.to_string(),
-                    invalid_value: parameter_value.to_string(),
-                    valid_value_message,
-                },
-            )
-            .with_label(DiagnosticLabel::new(value_span, "invalid value"))
-            .with_note("Change the quoted value to one of the valid values.");
-        ctx.push_error(error);
+        parameter_with_default_invalid_value_error::<T>(
+            ctx,
+            input,
+            line_type,
+            parameter_start,
+            parameter_value,
+        );
         return None;
     };
 
