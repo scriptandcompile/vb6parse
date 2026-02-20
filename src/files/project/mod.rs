@@ -22,9 +22,9 @@ use crate::{
     files::project::{
         compilesettings::CompilationType,
         messages::{
-            format_valid_enum_values, optional_parameter_value_not_found_eof_error,
-            parameter_missing_value_and_closing_quote_error,
+            format_valid_enum_values, parameter_missing_value_and_closing_quote_error,
             parameter_missing_value_opening_quote_error,
+            parameter_optional_value_not_found_eof_error,
             parameter_with_default_missing_quotes_error,
             parameter_with_default_missing_value_and_closing_quote_error,
             parameter_with_default_missing_value_eof_error,
@@ -2146,7 +2146,7 @@ fn parse_optional_quoted_value<'a>(
     let parameter_start = input.offset();
 
     let Some((parameter_value, _)) = input.take_until_newline() else {
-        optional_parameter_value_not_found_eof_error(ctx, input, line_type, parameter_start);
+        parameter_optional_value_not_found_eof_error(ctx, input, line_type, parameter_start);
         return None;
     };
 
