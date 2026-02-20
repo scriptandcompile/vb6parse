@@ -1955,9 +1955,15 @@ fn parse_section_header_line<'a>(
     // We have a section header line.
     let Some((other_property, _)) = input.take_until("]", Comparator::CaseSensitive) else {
         // We have a section header line but it is not terminated properly.
-        ctx.error(
-            input.span_at(line_start),
-            ProjectError::UnterminatedSectionHeader,
+        let unterminated_value = input.take_until_newline().map(|(v, _)| v).unwrap_or("");
+        report_parameter_error::<DummyEnumType>(
+            ctx,
+            input,
+            "",
+            line_start + 1, // +1 to skip the '[' character
+            &ParameterErrorKind::UnterminatedSectionHeader {
+                value: unterminated_value,
+            },
         );
         input.forward_to_next_line();
 
