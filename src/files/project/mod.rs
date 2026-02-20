@@ -17,16 +17,17 @@ use strum::{EnumMessage, IntoEnumIterator};
 use uuid::Uuid;
 
 use crate::{
-    errors::{DiagnosticLabel, ParserContext, ProjectError},
+    errors::{ParserContext, ProjectError},
     files::common::ObjectReference,
     files::project::{
         compilesettings::CompilationType,
         messages::{
-            format_valid_enum_values, parameter_missing_value_and_closing_quote_error,
+            parameter_missing_value_and_closing_quote_error,
             parameter_missing_value_opening_quote_error,
             parameter_optional_missing_value_eof_error, parameter_with_default_invalid_value_error,
             parameter_with_default_missing_quotes_error,
             parameter_with_default_missing_value_and_closing_quote_error,
+            parameter_with_default_missing_value_and_quotes_error,
             parameter_with_default_missing_value_eof_error,
         },
         properties::{CompileTargetType, ProjectProperties},
@@ -2316,34 +2317,12 @@ where
     }
 
     if !start_quote_found && !end_quote_found && !parameter_length_one {
-        // The value does not start or end with a quote but there *is* a number here.
-        // this is not the same as not having an start or end and having a length of zero.
-        // this is likely something like 'CompatibleMode=' and needs to show the default vale.
-
-        // We do not have a valid parameter value, so we return an error.
-        let valid_value_message = format_valid_enum_values::<T>();
-
-        // We don't have a value or qoutes.
-        // show the user an example with the default value.
-
-        let default_value = T::default().into();
-        let note_message = format!("{line_type}=\"{default_value}\"");
-
-        let value_span = input.span_at(parameter_start);
-        let error = ctx
-            .error_with(
-                value_span,
-                ProjectError::ParameterWithDefaultValueNotFound {
-                    parameter_line_name: line_type.to_string(),
-                    valid_value_message,
-                },
-            )
-            .with_label(DiagnosticLabel::new(
-                value_span,
-                format!("'{line_type}' value must be one of the valid values contained within double qoutes."),
-            ))
-            .with_note(note_message);
-        ctx.push_error(error);
+        parameter_with_default_missing_value_and_quotes_error::<T>(
+            ctx,
+            input,
+            line_type,
+            parameter_start,
+        );
         return None;
     }
 
