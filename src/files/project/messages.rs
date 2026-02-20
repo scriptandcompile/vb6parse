@@ -57,20 +57,19 @@ pub fn parameter_optional_missing_value_eof_error<'a>(
     let value_span = input.span_range(parameter_start - 1, parameter_start);
     // We don't have a value so we want the valid values.
     let valid_value_message = "Text string values are valid here as well as !None!, (None), !(None)!, \"(None)\", \"!None!\", or \"!(None)!\" to indicate no value is selected.".to_string();
-    let error = ctx
-        .error_with(
-            value_span,
-            ProjectError::ParameterWithDefaultValueNotFoundEOF {
-                parameter_line_name: line_type.to_string(),
-                valid_value_message,
-            },
-        )
-        .with_label(DiagnosticLabel::new(
-            value_span,
-            format!("'{line_type}' must have a double quoted value and end with a newline."),
-        ))
-        .with_note(format!("{line_type}=\"!None!\""));
-    ctx.push_error(error);
+    ctx.error_with(
+        value_span,
+        ProjectError::ParameterWithDefaultValueNotFoundEOF {
+            parameter_line_name: line_type.to_string(),
+            valid_value_message,
+        },
+    )
+    .with_label(DiagnosticLabel::new(
+        value_span,
+        format!("'{line_type}' must have a double quoted value and end with a newline."),
+    ))
+    .with_note(format!("{line_type}=\"!None!\""))
+    .emit(ctx);
 }
 
 pub fn parameter_with_default_missing_value_eof_error<'a, T>(
@@ -94,20 +93,19 @@ pub fn parameter_with_default_missing_value_eof_error<'a, T>(
     let value_span = input.span_range(parameter_start - 1, parameter_start);
     // We don't have a value so we want the valid values.
     let valid_value_message = format_valid_enum_values::<T>();
-    let error = ctx
-        .error_with(
-            value_span,
-            ProjectError::ParameterWithDefaultValueNotFoundEOF {
-                parameter_line_name: line_type.to_string(),
-                valid_value_message,
-            },
-        )
-        .with_label(DiagnosticLabel::new(
-            value_span,
-            format!("'{line_type}' must have a double qouted value and end with a newline."),
-        )) // only a start quote in the note since we already have the end quote value.
-        .with_note(format!("{line_type}=\"{}\"", T::default().into()));
-    ctx.push_error(error);
+    ctx.error_with(
+        value_span,
+        ProjectError::ParameterWithDefaultValueNotFoundEOF {
+            parameter_line_name: line_type.to_string(),
+            valid_value_message,
+        },
+    )
+    .with_label(DiagnosticLabel::new(
+        value_span,
+        format!("'{line_type}' must have a double qouted value and end with a newline."),
+    )) // only a start quote in the note since we already have the end quote value.
+    .with_note(format!("{line_type}=\"{}\"", T::default().into()))
+    .emit(ctx);
 }
 
 pub fn parameter_missing_value_opening_quote_error<'a>(
@@ -120,19 +118,18 @@ pub fn parameter_missing_value_opening_quote_error<'a>(
     // The value ends with a quote but does not start with one.
     // This is an error, so we return an error.
     let value_span = input.span_range(parameter_start, parameter_start + parameter_value.len());
-    let error = ctx
-        .error_with(
-            value_span,
-            ProjectError::ParameterValueMissingOpeningQuote {
-                parameter_line_name: line_type.to_string(),
-            },
-        )
-        .with_label(DiagnosticLabel::new(
-            value_span,
-            format!("'{line_type}' value must be surrounded by double quotes."),
-        )) // only a start quote in the note since we already have the end quote value.
-        .with_note(format!("{line_type}=\"{parameter_value}"));
-    ctx.push_error(error);
+    ctx.error_with(
+        value_span,
+        ProjectError::ParameterValueMissingOpeningQuote {
+            parameter_line_name: line_type.to_string(),
+        },
+    )
+    .with_label(DiagnosticLabel::new(
+        value_span,
+        format!("'{line_type}' value must be surrounded by double quotes."),
+    )) // only a start quote in the note since we already have the end quote value.
+    .with_note(format!("{line_type}=\"{parameter_value}"))
+    .emit(ctx);
 }
 
 pub fn parameter_with_default_missing_value_and_closing_quote_error<'a, T>(
@@ -159,20 +156,19 @@ pub fn parameter_with_default_missing_value_and_closing_quote_error<'a, T>(
     let default_value = T::default().into();
     let note_message = format!("{line_type}=\"{default_value}\"");
 
-    let error = ctx
-        .error_with(
-            value_span,
-            ProjectError::ParameterValueMissingClosingQuoteAndValue {
-                parameter_line_name: line_type.to_string(),
-                valid_value_message,
-            },
-        )
-        .with_label(DiagnosticLabel::new(
-            value_span,
-            format!("'{line_type}' value must be surrounded by double quotes."),
-        )) // only an end quote in the note since we already have the start quote value.
-        .with_note(note_message);
-    ctx.push_error(error);
+    ctx.error_with(
+        value_span,
+        ProjectError::ParameterValueMissingClosingQuoteAndValue {
+            parameter_line_name: line_type.to_string(),
+            valid_value_message,
+        },
+    )
+    .with_label(DiagnosticLabel::new(
+        value_span,
+        format!("'{line_type}' value must be surrounded by double quotes."),
+    )) // only an end quote in the note since we already have the start quote value.
+    .with_note(note_message)
+    .emit(ctx);
 }
 
 pub(crate) fn parameter_missing_value_and_closing_quote_error<'a>(
@@ -185,19 +181,18 @@ pub(crate) fn parameter_missing_value_and_closing_quote_error<'a>(
     // The value ends with a quote but does not start with one.
     // This is an error, so we return an error.
     let value_span = input.span_range(parameter_start, parameter_start + parameter_value.len());
-    let error = ctx
-        .error_with(
-            value_span,
-            ProjectError::ParameterValueMissingClosingQuote {
-                parameter_line_name: line_type.to_string(),
-            },
-        )
-        .with_label(DiagnosticLabel::new(
-            value_span,
-            format!("'{line_type}' value must be surrounded by double quotes."),
-        )) // only an end quote in the note since we already have the start quote value.
-        .with_note(format!("{line_type}={parameter_value}\""));
-    ctx.push_error(error);
+    ctx.error_with(
+        value_span,
+        ProjectError::ParameterValueMissingClosingQuote {
+            parameter_line_name: line_type.to_string(),
+        },
+    )
+    .with_label(DiagnosticLabel::new(
+        value_span,
+        format!("'{line_type}' value must be surrounded by double quotes."),
+    )) // only an end quote in the note since we already have the start quote value.
+    .with_note(format!("{line_type}={parameter_value}\""))
+    .emit(ctx);
 }
 
 pub(crate) fn parameter_with_default_missing_quotes_error<'a, T>(
@@ -236,20 +231,19 @@ pub(crate) fn parameter_with_default_missing_quotes_error<'a, T>(
     };
 
     let value_span = input.span_at(parameter_start);
-    let error = ctx
-        .error_with(
-            value_span,
-            ProjectError::ParameterValueMissingQuotes {
-                parameter_line_name: line_type.to_string(),
-                valid_value_message,
-            },
-        )
-        .with_label(DiagnosticLabel::new(
-            value_span,
-            format!("'{line_type}' value must be contained within double qoutes."),
-        ))
-        .with_note(note_message);
-    ctx.push_error(error);
+    ctx.error_with(
+        value_span,
+        ProjectError::ParameterValueMissingQuotes {
+            parameter_line_name: line_type.to_string(),
+            valid_value_message,
+        },
+    )
+    .with_label(DiagnosticLabel::new(
+        value_span,
+        format!("'{line_type}' value must be contained within double qoutes."),
+    ))
+    .with_note(note_message)
+    .emit(ctx);
 }
 
 pub(crate) fn parameter_with_default_invalid_value_error<'a, T>(
@@ -272,18 +266,17 @@ pub(crate) fn parameter_with_default_invalid_value_error<'a, T>(
     let valid_value_message = format_valid_enum_values::<T>();
 
     let value_span = input.span_at(parameter_start + 1);
-    let error = ctx
-        .error_with(
-            value_span,
-            ProjectError::ParameterValueInvalid {
-                parameter_line_name: line_type.to_string(),
-                invalid_value: parameter_value.to_string(),
-                valid_value_message,
-            },
-        )
-        .with_label(DiagnosticLabel::new(value_span, "invalid value"))
-        .with_note("Change the quoted value to one of the valid values.");
-    ctx.push_error(error);
+    ctx.error_with(
+        value_span,
+        ProjectError::ParameterValueInvalid {
+            parameter_line_name: line_type.to_string(),
+            invalid_value: parameter_value.to_string(),
+            valid_value_message,
+        },
+    )
+    .with_label(DiagnosticLabel::new(value_span, "invalid value"))
+    .with_note("Change the quoted value to one of the valid values.")
+    .emit(ctx);
 }
 
 pub(crate) fn parameter_with_default_missing_value_and_quotes_error<'a, T>(
@@ -315,20 +308,21 @@ pub(crate) fn parameter_with_default_missing_value_and_quotes_error<'a, T>(
     let note_message = format!("{line_type}=\"{default_value}\"");
 
     let value_span = input.span_at(parameter_start);
-    let error = ctx
-        .error_with(
-            value_span,
-            ProjectError::ParameterWithDefaultValueNotFound {
-                parameter_line_name: line_type.to_string(),
-                valid_value_message,
-            },
-        )
-        .with_label(DiagnosticLabel::new(
-            value_span,
-            format!("'{line_type}' value must be one of the valid values contained within double qoutes."),
-        ))
-        .with_note(note_message);
-    ctx.push_error(error);
+    ctx.error_with(
+        value_span,
+        ProjectError::ParameterWithDefaultValueNotFound {
+            parameter_line_name: line_type.to_string(),
+            valid_value_message,
+        },
+    )
+    .with_label(DiagnosticLabel::new(
+        value_span,
+        format!(
+            "'{line_type}' value must be one of the valid values contained within double qoutes."
+        ),
+    ))
+    .with_note(note_message)
+    .emit(ctx);
 }
 
 #[cfg(test)]

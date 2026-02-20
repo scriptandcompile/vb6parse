@@ -318,6 +318,28 @@ impl<'a> ErrorDetails<'a> {
         self.notes.extend(notes);
         self
     }
+
+    /// Emit this error by pushing it to the provided parser context.
+    ///
+    /// This is a terminal operation that consumes the error and adds it
+    /// to the context's error collection.
+    ///
+    /// # Example
+    /// ```rust
+    /// use vb6parse::errors::{ParserContext, DiagnosticLabel, LexerError, Span};
+    ///
+    /// let mut ctx = ParserContext::new("test.bas", "Dim x");
+    /// let span = Span::at(0, 1);
+    /// let label_span = Span::at(4, 1);
+    ///
+    /// ctx.error_with(span, LexerError::UnknownToken { token: "x".to_string() })
+    ///     .with_label(DiagnosticLabel::new(label_span, "here"))
+    ///     .with_note("Consider using 'Integer' instead")
+    ///     .emit(&mut ctx);
+    /// ```
+    pub fn emit(self, ctx: &mut ParserContext<'a>) {
+        ctx.push_error(self);
+    }
 }
 
 impl Display for ErrorDetails<'_> {
@@ -612,11 +634,10 @@ impl<'a> ParserContext<'a> {
     /// let span = Span::at(0, 1);
     /// let label_span = Span::at(4, 1);
     ///
-    /// let error = ctx.error_with(span, LexerError::UnknownToken { token: "x".to_string() })
+    /// ctx.error_with(span, LexerError::UnknownToken { token: "x".to_string() })
     ///     .with_label(DiagnosticLabel::new(label_span, "here"))
-    ///     .with_note("Consider using 'Integer' instead");
-    ///
-    /// ctx.push_error(error);
+    ///     .with_note("Consider using 'Integer' instead")
+    ///     .emit(&mut ctx);
     /// ```
     pub fn error_with<E>(&self, span: Span, kind: E) -> ErrorDetails<'a>
     where
