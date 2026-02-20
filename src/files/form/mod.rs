@@ -194,6 +194,8 @@ mod tests {
     use crate::files::common::extract_version;
     use crate::io::SourceFile;
     use crate::SyntaxKind;
+
+    use assert_matches::assert_matches;
     use either::Either;
 
     #[test]
@@ -360,10 +362,10 @@ End
             assert_eq!(form.menus.len(), 0);
             assert_eq!(form.properties.caption, "Audiostation");
             assert_eq!(form.controls[0].name(), "Imagelist_CDDisplay");
-            assert!(matches!(
+            assert_matches!(
                 form.controls[0].kind(),
                 crate::language::ControlKind::Custom { .. }
-            ));
+            );
 
             if let crate::language::ControlKind::Custom {
                 properties,
@@ -532,14 +534,14 @@ End
             assert_eq!(form.controls[1].name(), "Text1");
 
             // Check control types
-            assert!(matches!(
+            assert_matches!(
                 form.controls[0].kind(),
                 crate::language::ControlKind::CommandButton { .. }
-            ));
-            assert!(matches!(
+            );
+            assert_matches!(
                 form.controls[1].kind(),
                 crate::language::ControlKind::TextBox { .. }
-            ));
+            );
         } else {
             panic!("Expected Form kind");
         }

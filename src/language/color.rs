@@ -16,7 +16,7 @@
 //! assert_eq!(color.to_vb_string(), "&H00FF0000&");
 //! ```
 
-use crate::errors::{FormError, ErrorKind};
+use crate::errors::{ErrorKind, FormError};
 
 use std::fmt::Display;
 
@@ -348,13 +348,14 @@ impl Color {
     /// # Example
     ///
     /// ```rust
-    /// use std::matches;
+    /// use assert_matches::assert_matches;
+    ///
     ///
     /// use vb6parse::language::Color;
     ///
     /// let color = Color::rgb(0xFF, 0x33, 0x12);
     ///
-    /// assert!(matches!(color, Color::RGB { .. } ));
+    /// assert_matches!(color, Color::RGB { .. } );
     /// assert_eq!(color, Color::RGB { red: 0xFF, green: 0x33, blue: 0x12 });
     /// ```
     #[must_use]
@@ -391,6 +392,8 @@ impl Color {
     ///
     /// ```rust
     /// # fn main() -> Result<(), vb6parse::errors::ErrorKind> {
+    ///     use assert_matches::assert_matches;
+    ///
     ///     use vb6parse::language::Color;
     ///
     ///     // Of course, VB6 being as it is...
@@ -399,7 +402,7 @@ impl Color {
     ///     let mut input = "&H00BBCCFF&";
     ///     let color = Color::from_hex(&input)?;
     ///
-    ///     assert!(matches!(color, Color::RGB { .. } ));
+    ///     assert_matches!(color, Color::RGB { .. } );
     ///     assert_eq!(color, Color::RGB { red: 0xFF, green: 0xCC, blue: 0xBB });
     ///     # Ok(())
     /// # }

@@ -2981,6 +2981,8 @@ mod tests {
     use crate::files::project::ProjectReference;
     use crate::io::{Comparator, SourceFile, SourceStream};
     use crate::ProjectFile;
+
+    use assert_matches::assert_matches;
     use uuid::Uuid;
 
     #[test]
@@ -3171,10 +3173,10 @@ mod tests {
         let errors = ctx.errors();
 
         assert_eq!(errors.len(), 1);
-        assert!(matches!(
+        assert_matches!(
             *errors[0].kind,
             ErrorKind::Project(ProjectError::ParameterValueInvalid { .. })
-        ));
+        );
     }
 
     #[test]
@@ -3194,7 +3196,7 @@ mod tests {
 
         assert!(input.is_empty());
         let result = result.unwrap();
-        assert!(matches!(result, ProjectReference::Compiled { .. }));
+        assert_matches!(result, ProjectReference::Compiled { .. });
 
         match result {
             ProjectReference::Compiled {
@@ -3427,7 +3429,7 @@ mod tests {
             "server_support_files check"
         );
         assert_eq!(project.properties.conditional_compile, "");
-        assert!(matches!(
+        assert_matches!(
             project.properties.compilation_type,
             CompilationType::NativeCode(NativeCodeSettings {
                 optimization_type: OptimizationType::FavorFastCode,
@@ -3440,7 +3442,7 @@ mod tests {
                 pentium_fdiv_bug_check: PentiumFDivBugCheck::CheckPentiumFDivBug,
                 unrounded_floating_point: UnroundedFloatingPoint::DoNotAllow
             })
-        ));
+        );
         assert_eq!(project.properties.start_mode, StartMode::StandAlone);
         assert_eq!(project.properties.unattended, InteractionMode::Interactive);
         assert_eq!(project.properties.retained, Retained::UnloadOnExit);
