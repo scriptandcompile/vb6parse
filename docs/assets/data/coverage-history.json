@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-02-20T06:03:45Z",
+  "last_updated": "2026-02-20T21:02:14Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T19:53:21Z",
@@ -443,24 +443,58 @@
           "percent": 95.46
         }
       }
+    },
+    {
+      "timestamp": "2026-02-20T21:02:14Z",
+      "commit_sha": "5419c3e2e0719a38404fb51069d188e379695ae3",
+      "commit_message": "Merge branch 'master' of https://github.com/scriptandcompile/vb6parse",
+      "coverage": {
+        "line_coverage": 95.19,
+        "function_coverage": 93.05,
+        "region_coverage": 95.46
+      },
+      "tests": {
+        "total": 5697,
+        "lib_tests": 5491,
+        "doc_tests": 111,
+        "integration_tests": 95,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 94192,
+          "total": 98955,
+          "percent": 95.19
+        },
+        "functions": {
+          "covered": 6067,
+          "total": 6520,
+          "percent": 93.05
+        },
+        "regions": {
+          "covered": 150495,
+          "total": 157650,
+          "percent": 95.46
+        }
+      }
     }
   ],
   "coverage_summary": {
     "line_coverage": {
       "latest": 95.19,
       "trend": "stable",
-      "change_percent": 0.03,
+      "change_percent": 0.0,
       "best": 95.51,
       "worst": 95.19,
-      "average": 95.43
+      "average": 95.41
     },
     "function_coverage": {
       "latest": 93.05,
       "trend": "stable",
-      "change_percent": 0.01,
+      "change_percent": 0.0,
       "best": 93.76,
       "worst": 93.04,
-      "average": 93.55
+      "average": 93.51
     },
     "region_coverage": {
       "latest": 95.46,
@@ -472,9 +506,9 @@
     },
     "test_count": {
       "latest": 5697,
-      "trend": "growing",
-      "change_count": 12,
-      "growth_rate": 0.21
+      "trend": "stable",
+      "change_count": 0,
+      "growth_rate": 0.0
     }
   }
 }
