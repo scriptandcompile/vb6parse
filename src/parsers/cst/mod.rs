@@ -2016,6 +2016,8 @@ mod tests {
     };
     use crate::*;
 
+    use assert_matches::assert_matches;
+
     #[test]
     fn parse_single_quote_comment() {
         let code = "' This is a comment\nSub Main()\n";
@@ -2469,7 +2471,7 @@ End
 
         let control = control_opt.unwrap();
         assert_eq!(control.name(), "Command1");
-        assert!(matches!(control.kind(), ControlKind::CommandButton { .. }));
+        assert_matches!(control.kind(), ControlKind::CommandButton { .. });
     }
 
     #[test]
@@ -2491,7 +2493,7 @@ End
         assert!(control_opt.is_some());
         let control = control_opt.unwrap();
         assert_eq!(control.name(), "Text1");
-        assert!(matches!(control.kind(), ControlKind::TextBox { .. }));
+        assert_matches!(control.kind(), ControlKind::TextBox { .. });
     }
 
     #[test]
@@ -2538,10 +2540,7 @@ End
         if let FormRoot::Form(form) = &form_root {
             assert_eq!(form.controls.len(), 1);
             assert_eq!(form.controls[0].name(), "Command1");
-            assert!(matches!(
-                form.controls[0].kind(),
-                ControlKind::CommandButton { .. }
-            ));
+            assert_matches!(form.controls[0].kind(), ControlKind::CommandButton { .. });
         } else {
             panic!("Expected Form");
         }
@@ -2607,7 +2606,7 @@ End
 
         // Check for property - CommandButton should have parsed successfully
         // Property groups are stored in Custom control kind, not specific control types
-        assert!(matches!(control.kind(), ControlKind::CommandButton { .. }));
+        assert_matches!(control.kind(), ControlKind::CommandButton { .. });
     }
 
     #[test]

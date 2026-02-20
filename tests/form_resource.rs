@@ -1,5 +1,7 @@
 use vb6parse::files::resource::{FormResourceFile, ResourceEntry};
 
+use assert_matches::assert_matches;
+
 #[test]
 fn audiostation_about_frx() {
     let result = FormResourceFile::from_file(
@@ -17,7 +19,7 @@ fn audiostation_about_frx() {
 
     // Offset 0x00 - Empty icon placeholder
     assert_eq!(entries[0].0, 0x00);
-    assert!(matches!(entries[0].1, ResourceEntry::Empty { .. }));
+    assert_matches!(entries[0].1, ResourceEntry::Empty { .. });
 
     // Offset 0x0C - Picture Record12ByteHeader (775 bytes)
     assert_eq!(entries[1].0, 0x0C);
@@ -63,7 +65,7 @@ fn audiostation_busy_frx() {
 
     assert_eq!(entries.len(), 1);
     assert_eq!(entries[0].0, 0x00);
-    assert!(matches!(entries[0].1, ResourceEntry::Empty { .. }));
+    assert_matches!(entries[0].1, ResourceEntry::Empty { .. });
 }
 
 #[test]
@@ -83,7 +85,7 @@ fn audiostation_init_frx() {
 
     // Offset 0x00 - Empty
     assert_eq!(entries[0].0, 0x00);
-    assert!(matches!(entries[0].1, ResourceEntry::Empty { .. }));
+    assert_matches!(entries[0].1, ResourceEntry::Empty { .. });
 
     // Offset 0x0C - Record4ByteHeader (large image, 113643 bytes, contains PNG signature)
     assert_eq!(entries[1].0, 0x0C);
@@ -211,7 +213,7 @@ fn audiostation_normalize_frx() {
 
     assert_eq!(entries.len(), 1);
     assert_eq!(entries[0].0, 0x00);
-    assert!(matches!(entries[0].1, ResourceEntry::Empty { .. }));
+    assert_matches!(entries[0].1, ResourceEntry::Empty { .. });
 }
 
 #[test]
@@ -231,7 +233,7 @@ fn audiostation_open_dialog_frx() {
 
     // Offset 0x00 - Empty
     assert_eq!(entries[0].0, 0x00);
-    assert!(matches!(entries[0].1, ResourceEntry::Empty { .. }));
+    assert_matches!(entries[0].1, ResourceEntry::Empty { .. });
 
     // Entry 1: Offset 0x0C - Record4ByteHeader (24 bytes, cursor/icon data)
     assert_eq!(entries[1].0, 0x0C);
@@ -273,7 +275,7 @@ fn audiostation_playlist_frx() {
 
     assert_eq!(entries.len(), 1);
     assert_eq!(entries[0].0, 0x00);
-    assert!(matches!(entries[0].1, ResourceEntry::Empty { .. }));
+    assert_matches!(entries[0].1, ResourceEntry::Empty { .. });
 }
 
 #[test]
@@ -291,7 +293,7 @@ fn audiostation_plugins_frx() {
 
     assert_eq!(entries.len(), 1);
     assert_eq!(entries[0].0, 0x00);
-    assert!(matches!(entries[0].1, ResourceEntry::Empty { .. }));
+    assert_matches!(entries[0].1, ResourceEntry::Empty { .. });
 }
 
 #[test]
@@ -309,7 +311,7 @@ fn audiostation_settings_recorder_frx() {
 
     assert_eq!(entries.len(), 1);
     assert_eq!(entries[0].0, 0x00);
-    assert!(matches!(entries[0].1, ResourceEntry::Empty { .. }));
+    assert_matches!(entries[0].1, ResourceEntry::Empty { .. });
 }
 
 #[test]
@@ -329,7 +331,7 @@ fn audiostation_settings_record_frx() {
 
     // Offset 0x00 - Empty
     assert_eq!(entries[0].0, 0x00);
-    assert!(matches!(entries[0].1, ResourceEntry::Empty { .. }));
+    assert_matches!(entries[0].1, ResourceEntry::Empty { .. });
 
     // Offset 0x0C - ListItems (3 items, all "0")
     assert_eq!(entries[1].0, 0x0C);
@@ -391,7 +393,7 @@ fn audiostation_streams_frx() {
 
     assert_eq!(entries.len(), 1);
     assert_eq!(entries[0].0, 0x00);
-    assert!(matches!(entries[0].1, ResourceEntry::Empty { .. }));
+    assert_matches!(entries[0].1, ResourceEntry::Empty { .. });
 }
 
 #[test]
@@ -411,7 +413,7 @@ fn audiostation_track_properties_frx() {
 
     // Offset 0x00 - Empty
     assert_eq!(entries[0].0, 0x00);
-    assert!(matches!(entries[0].1, ResourceEntry::Empty { .. }));
+    assert_matches!(entries[0].1, ResourceEntry::Empty { .. });
 
     // Offset 0x0C - Record1ByteHeader (20 bytes)
     assert_eq!(entries[1].0, 0x0C);

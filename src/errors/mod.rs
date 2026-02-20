@@ -696,6 +696,7 @@ impl<'a> ParserContext<'a> {
 mod tests {
     use super::*;
     use crate::io::SourceStream;
+    use assert_matches::assert_matches;
 
     #[test]
     fn test_automatic_error_conversion() {
@@ -745,31 +746,31 @@ mod tests {
             token: "test".to_string(),
         }
         .into();
-        assert!(matches!(lexer_err, ErrorKind::Lexer(_)));
+        assert_matches!(lexer_err, ErrorKind::Lexer(_));
 
         let module_err: ErrorKind = ModuleError::AttributeKeywordMissing.into();
-        assert!(matches!(module_err, ErrorKind::Module(_)));
+        assert_matches!(module_err, ErrorKind::Module(_));
 
         let class_err: ErrorKind = ClassError::VersionKeywordMissing.into();
-        assert!(matches!(class_err, ErrorKind::Class(_)));
+        assert_matches!(class_err, ErrorKind::Class(_));
 
         let project_err: ErrorKind = ProjectError::UnterminatedSectionHeader.into();
-        assert!(matches!(project_err, ErrorKind::Project(_)));
+        assert_matches!(project_err, ErrorKind::Project(_));
 
         let form_err: ErrorKind = FormError::VersionKeywordMissing.into();
-        assert!(matches!(form_err, ErrorKind::Form(_)));
+        assert_matches!(form_err, ErrorKind::Form(_));
 
         let resource_err: ErrorKind = ResourceError::OffsetOutOfBounds {
             offset: 0,
             file_length: 10,
         }
         .into();
-        assert!(matches!(resource_err, ErrorKind::Resource(_)));
+        assert_matches!(resource_err, ErrorKind::Resource(_));
 
         let source_err: ErrorKind = SourceFileError::Malformed {
             message: "test".to_string(),
         }
         .into();
-        assert!(matches!(source_err, ErrorKind::SourceFile(_)));
+        assert_matches!(source_err, ErrorKind::SourceFile(_));
     }
 }
