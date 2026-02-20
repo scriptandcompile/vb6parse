@@ -21,15 +21,7 @@ use crate::{
     files::common::ObjectReference,
     files::project::{
         compilesettings::CompilationType,
-        messages::{
-            parameter_missing_value_and_closing_quote_error,
-            parameter_missing_value_opening_quote_error,
-            parameter_optional_missing_value_eof_error, parameter_with_default_invalid_value_error,
-            parameter_with_default_missing_quotes_error,
-            parameter_with_default_missing_value_and_closing_quote_error,
-            parameter_with_default_missing_value_and_quotes_error,
-            parameter_with_default_missing_value_eof_error,
-        },
+        messages::{report_parameter_error, DummyEnumType, ParameterErrorKind},
         properties::{CompileTargetType, ProjectProperties},
     },
     io::{Comparator, SourceFile, SourceStream},
@@ -1979,7 +1971,7 @@ fn parse_section_header_line<'a>(
 }
 
 fn parse_property_name<'a>(
-    ctx: &mut ParserContext,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
 ) -> Option<&'a str> {
     let line_start = input.start_of_line();
@@ -1991,9 +1983,12 @@ fn parse_property_name<'a>(
         None => {
             // No property name found, so we can't parse this line.
             // Go to the next line and return the error.
-            ctx.error(
-                input.span_at(line_start),
-                ProjectError::PropertyNameNotFound,
+            report_parameter_error::<DummyEnumType>(
+                ctx,
+                input,
+                "",
+                line_start,
+                &ParameterErrorKind::PropertyNameNotFound,
             );
             input.forward_to_next_line();
 
@@ -2010,7 +2005,7 @@ fn parse_property_name<'a>(
 }
 
 fn parse_property_value<'a>(
-    ctx: &mut ParserContext,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
     line_type: &'a str,
 ) -> Option<&'a str> {
@@ -2022,22 +2017,24 @@ fn parse_property_value<'a>(
 
     let Some((parameter_value, _)) = input.take_until_newline() else {
         // No parameter value found, so we can't parse this line.
-        ctx.error(
-            input.span_at(parameter_start),
-            ProjectError::ParameterValueNotFound {
-                parameter_line_name: line_type.to_string(),
-            },
+        report_parameter_error::<DummyEnumType>(
+            ctx,
+            input,
+            line_type,
+            parameter_start,
+            &ParameterErrorKind::MissingValueEof,
         );
         return None;
     };
 
     if parameter_value.is_empty() {
         // No parameter value found, so we can't parse this line.
-        ctx.error(
-            input.span_at(parameter_start),
-            ProjectError::ParameterValueNotFound {
-                parameter_line_name: line_type.to_string(),
-            },
+        report_parameter_error::<DummyEnumType>(
+            ctx,
+            input,
+            line_type,
+            parameter_start,
+            &ParameterErrorKind::EmptyValue,
         );
         return None;
     }
@@ -2046,7 +2043,7 @@ fn parse_property_value<'a>(
 }
 
 fn parse_quoted_value<'a>(
-    ctx: &mut ParserContext,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
     line_type: &'a str,
 ) -> Option<&'a str> {
@@ -2058,11 +2055,12 @@ fn parse_quoted_value<'a>(
 
     let Some((parameter_value, _)) = input.take_until_newline() else {
         // No parameter value found, so we can't parse this line.
-        ctx.error(
-            input.span_at(parameter_start),
-            ProjectError::ParameterValueNotFound {
-                parameter_line_name: line_type.to_string(),
-            },
+        report_parameter_error::<DummyEnumType>(
+            ctx,
+            input,
+            line_type,
+            parameter_start,
+            &ParameterErrorKind::MissingValueEof,
         );
 
         return None;
@@ -2070,11 +2068,12 @@ fn parse_quoted_value<'a>(
 
     if parameter_value.is_empty() {
         // No startup value found, so we can't parse this line.
-        ctx.error(
-            input.span_at(parameter_start),
-            ProjectError::ParameterValueNotFound {
-                parameter_line_name: line_type.to_string(),
-            },
+        report_parameter_error::<DummyEnumType>(
+            ctx,
+            input,
+            line_type,
+            parameter_start,
+            &ParameterErrorKind::EmptyValue,
         );
         return None;
     }
@@ -2085,10 +2084,13 @@ fn parse_quoted_value<'a>(
     if !start_quote_found && end_quote_found {
         // The value ends with a quote but does not start with one.
         // This is an error, so we return an error.
-        ctx.error(
-            input.span_at(parameter_start),
-            ProjectError::ParameterValueMissingOpeningQuote {
-                parameter_line_name: line_type.to_string(),
+        report_parameter_error::<DummyEnumType>(
+            ctx,
+            input,
+            line_type,
+            parameter_start,
+            &ParameterErrorKind::MissingOpeningQuote {
+                value: parameter_value,
             },
         );
 
@@ -2105,10 +2107,13 @@ fn parse_quoted_value<'a>(
     if start_without_end || start_with_length_one {
         // The value starts with a quote but does not end with one.
         // This is an error, so we return an error.
-        ctx.error(
-            input.span_at(parameter_start),
-            ProjectError::ParameterValueMissingClosingQuote {
-                parameter_line_name: line_type.to_string(),
+        report_parameter_error::<DummyEnumType>(
+            ctx,
+            input,
+            line_type,
+            parameter_start,
+            &ParameterErrorKind::MissingClosingQuote {
+                value: parameter_value,
             },
         );
         return None;
@@ -2118,11 +2123,12 @@ fn parse_quoted_value<'a>(
         // The startup value does not start or end with a quote.
         // This is an error, so we return an error.
 
-        ctx.error(
-            input.span_at(parameter_start),
-            ProjectError::ParameterWithoutDefaultValueMissingQuotes {
-                parameter_line_name: line_type.to_string(),
-            },
+        report_parameter_error::<DummyEnumType>(
+            ctx,
+            input,
+            line_type,
+            parameter_start,
+            &ParameterErrorKind::MissingBothQuotes,
         );
         return None;
     }
@@ -2147,17 +2153,24 @@ fn parse_optional_quoted_value<'a>(
     let parameter_start = input.offset();
 
     let Some((parameter_value, _)) = input.take_until_newline() else {
-        parameter_optional_missing_value_eof_error(ctx, input, line_type, parameter_start);
+        report_parameter_error::<DummyEnumType>(
+            ctx,
+            input,
+            line_type,
+            parameter_start,
+            &ParameterErrorKind::OptionalMissingValueEof,
+        );
         return None;
     };
 
     if parameter_value.is_empty() {
         // No parameter value found, so we can't parse this line.
-        ctx.error(
-            input.span_at(parameter_start),
-            ProjectError::ParameterValueNotFound {
-                parameter_line_name: line_type.to_string(),
-            },
+        report_parameter_error::<DummyEnumType>(
+            ctx,
+            input,
+            line_type,
+            parameter_start,
+            &ParameterErrorKind::EmptyValue,
         );
         return None;
     }
@@ -2170,7 +2183,7 @@ fn parse_optional_quoted_value<'a>(
         || parameter_value == "!(None)!"
     {
         // The parameter has a value of None.
-        return Some("");
+        return None;
     }
 
     let start_quote_found = parameter_value.starts_with('"');
@@ -2179,10 +2192,13 @@ fn parse_optional_quoted_value<'a>(
     if !start_quote_found && end_quote_found {
         // The value ends with a quote but does not start with one.
         // This is an error, so we return an error.
-        ctx.error(
-            input.span_at(parameter_start),
-            ProjectError::ParameterValueMissingOpeningQuote {
-                parameter_line_name: line_type.to_string(),
+        report_parameter_error::<DummyEnumType>(
+            ctx,
+            input,
+            line_type,
+            parameter_start,
+            &ParameterErrorKind::MissingOpeningQuote {
+                value: parameter_value,
             },
         );
         return None;
@@ -2199,10 +2215,13 @@ fn parse_optional_quoted_value<'a>(
     if start_without_end || start_with_end_length_one {
         // The value starts with a quote but does not end with one.
         // This is an error, so we return an error.
-        ctx.error(
-            input.span_at(parameter_start),
-            ProjectError::ParameterValueMissingClosingQuote {
-                parameter_line_name: line_type.to_string(),
+        report_parameter_error::<DummyEnumType>(
+            ctx,
+            input,
+            line_type,
+            parameter_start,
+            &ParameterErrorKind::MissingClosingQuote {
+                value: parameter_value,
             },
         );
         return None;
@@ -2212,11 +2231,12 @@ fn parse_optional_quoted_value<'a>(
         // The parameter value does not start or end with a quote.
         // This is an error, so we return an error.
 
-        ctx.error(
-            input.span_at(parameter_start),
-            ProjectError::ParameterWithoutDefaultValueMissingQuotes {
-                parameter_line_name: line_type.to_string(),
-            },
+        report_parameter_error::<DummyEnumType>(
+            ctx,
+            input,
+            line_type,
+            parameter_start,
+            &ParameterErrorKind::MissingBothQuotes,
         );
         return None;
     }
@@ -2250,13 +2270,13 @@ where
 
     let parameter_value = match text_to_newline {
         None => {
-            parameter_with_default_missing_value_eof_error::<T>(
+            report_parameter_error::<T>(
                 ctx,
                 input,
                 line_type,
                 parameter_start,
+                &ParameterErrorKind::MissingValueEofWithDefault(std::marker::PhantomData),
             );
-
             return None;
         }
         Some((parameter_value, _)) => parameter_value,
@@ -2266,12 +2286,14 @@ where
     let end_quote_found = parameter_value.ends_with('"');
 
     if !start_quote_found && end_quote_found {
-        parameter_missing_value_opening_quote_error(
+        report_parameter_error::<DummyEnumType>(
             ctx,
             input,
             line_type,
             parameter_start,
-            parameter_value,
+            &ParameterErrorKind::MissingOpeningQuote {
+                value: parameter_value,
+            },
         );
         return None;
     }
@@ -2284,44 +2306,53 @@ where
     let parameter_length_one = parameter_value.len() == 1;
 
     if start_and_end_qoute && parameter_length_one {
-        parameter_with_default_missing_value_and_closing_quote_error::<T>(
+        report_parameter_error::<T>(
             ctx,
             input,
             line_type,
             parameter_start,
-            parameter_value,
+            &ParameterErrorKind::MissingValueAndClosingQuote {
+                value: parameter_value,
+                _phantom: std::marker::PhantomData,
+            },
         );
         return None;
     }
 
     if start_quote_found && !end_quote_found {
-        parameter_missing_value_and_closing_quote_error(
+        report_parameter_error::<DummyEnumType>(
             ctx,
             input,
             line_type,
             parameter_start,
-            parameter_value,
+            &ParameterErrorKind::MissingClosingQuote {
+                value: parameter_value,
+            },
         );
         return None;
     }
 
     if !start_quote_found && !end_quote_found && parameter_length_one {
-        parameter_with_default_missing_quotes_error::<T>(
+        report_parameter_error::<T>(
             ctx,
             input,
             line_type,
             parameter_start,
-            parameter_value,
+            &ParameterErrorKind::MissingQuotesWithDefault {
+                value: parameter_value,
+                _phantom: std::marker::PhantomData,
+            },
         );
         return None;
     }
 
     if !start_quote_found && !end_quote_found && !parameter_length_one {
-        parameter_with_default_missing_value_and_quotes_error::<T>(
+        report_parameter_error::<T>(
             ctx,
             input,
             line_type,
             parameter_start,
+            &ParameterErrorKind::MissingValueAndQuotes(std::marker::PhantomData),
         );
         return None;
     }
@@ -2330,12 +2361,15 @@ where
     let parameter_value = &parameter_value[1..parameter_value.len() - 1];
 
     let Ok(value) = T::try_from(parameter_value) else {
-        parameter_with_default_invalid_value_error::<T>(
+        report_parameter_error::<T>(
             ctx,
             input,
             line_type,
             parameter_start,
-            parameter_value,
+            &ParameterErrorKind::InvalidValue {
+                value: parameter_value,
+                _phantom: std::marker::PhantomData,
+            },
         );
         return None;
     };
