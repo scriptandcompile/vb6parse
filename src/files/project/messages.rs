@@ -45,7 +45,7 @@ where
     }
 }
 
-pub fn optional_parameter_value_not_found_eof_error<'a>(
+pub fn parameter_optional_value_not_found_eof_error<'a>(
     ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
     line_type: &'a str,
