@@ -136,7 +136,7 @@ impl<'a> SourceStream<'a> {
     pub fn end_of_line_from(&self, offset: usize) -> usize {
         // Find the next newline character after the current offset
         if let Some(pos) = self.contents[offset..].find('\n') {
-            self.offset + pos // Return the position of the newline character
+            offset + pos // Return the position of the newline character
         } else {
             self.contents.len() // If no newline found, return the end of the stream
         }
