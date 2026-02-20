@@ -81,6 +81,8 @@ pub enum ParameterErrorKind<'a, T> {
     MissingBothQuotes,
     /// Property name not found (no '=' delimiter)
     PropertyNameNotFound,
+    /// Unterminated section header (missing closing ']')
+    UnterminatedSectionHeader { value: &'a str },
 }
 
 /// Reports a parameter error based on the error kind.
@@ -277,7 +279,27 @@ pub fn report_parameter_error<'a, T>(
         }
         ParameterErrorKind::PropertyNameNotFound => {
             let value_span = input.span_at(parameter_start);
-            ctx.error(value_span, ProjectError::PropertyNameNotFound);
+            let end_of_line = input.end_of_line();
+            let end_span = input.span_range(parameter_start, end_of_line);
+            ctx.error_with(value_span, ProjectError::PropertyNameNotFound)
+                .with_label(DiagnosticLabel::new(
+                    end_span,
+                    "'=' and related value missing.",
+                ))
+                .emit(ctx);
+        }
+        ParameterErrorKind::UnterminatedSectionHeader { value } => {
+            let value_span = input.span_at(parameter_start);
+            let end_offset = parameter_start + value.len();
+            let end_span = input.span_range(end_offset, end_offset + 1);
+
+            ctx.error_with(value_span, ProjectError::UnterminatedSectionHeader)
+                .with_label(DiagnosticLabel::new(
+                    end_span,
+                    "section header must be terminated with ']'",
+                ))
+                .with_note(format!("[{value}]"))
+                .emit(ctx);
         }
     }
 }
@@ -431,7 +453,7 @@ mod tests {
         assert_eq!(errors[0].severity, Severity::Error);
         assert_eq!(errors[0].labels.len(), 1);
         assert_eq!(errors[0].labels[0].span.line_start, 0);
-        assert_eq!(errors[0].labels[0].span.line_end, 18);
+        assert_eq!(errors[0].labels[0].span.line_end, 16);
         assert_eq!(errors[0].labels[0].span.offset, 15);
         assert_eq!(errors[0].labels[0].span.length, 1);
         assert_eq!(
@@ -468,7 +490,7 @@ mod tests {
         assert_eq!(errors[0].labels.len(), 1);
         assert_eq!(errors[0].labels[0].span.line_start, 0);
 
-        assert_eq!(errors[0].labels[0].span.line_end, 21);
+        assert_eq!(errors[0].labels[0].span.line_end, 18);
         assert_eq!(errors[0].labels[0].span.offset, 16);
         assert_eq!(errors[0].labels[0].span.length, 1);
         assert_eq!(errors[0].labels[0].message, "invalid value");
@@ -505,7 +527,7 @@ mod tests {
         assert_eq!(errors[0].labels.len(), 1);
         assert_eq!(errors[0].labels[0].span.line_start, 0);
 
-        assert_eq!(errors[0].labels[0].span.line_end, 18);
+        assert_eq!(errors[0].labels[0].span.line_end, 16);
         assert_eq!(errors[0].labels[0].span.offset, 15);
         assert_eq!(errors[0].labels[0].span.length, 1);
         assert_eq!(
@@ -542,7 +564,7 @@ mod tests {
         assert_eq!(errors[0].labels.len(), 1);
         assert_eq!(errors[0].labels[0].span.line_start, 0);
 
-        assert_eq!(errors[0].labels[0].span.line_end, 18);
+        assert_eq!(errors[0].labels[0].span.line_end, 16);
         assert_eq!(errors[0].labels[0].span.offset, 15);
         assert_eq!(errors[0].labels[0].span.length, 1);
         assert_eq!(
@@ -579,7 +601,7 @@ mod tests {
         assert_eq!(errors[0].labels.len(), 1);
         assert_eq!(errors[0].labels[0].span.line_start, 0);
 
-        assert_eq!(errors[0].labels[0].span.line_end, 16);
+        assert_eq!(errors[0].labels[0].span.line_end, 15);
         assert_eq!(errors[0].labels[0].span.offset, 15);
         assert_eq!(errors[0].labels[0].span.length, 1);
         assert_eq!(
@@ -615,7 +637,7 @@ mod tests {
         assert_eq!(errors[0].severity, Severity::Error);
         assert_eq!(errors[0].labels.len(), 1);
         assert_eq!(errors[0].labels[0].span.line_start, 0);
-        assert_eq!(errors[0].labels[0].span.line_end, 19);
+        assert_eq!(errors[0].labels[0].span.line_end, 17);
         assert_eq!(errors[0].labels[0].span.offset, 15);
         assert_eq!(errors[0].labels[0].span.length, 2);
         assert_eq!(
@@ -651,7 +673,7 @@ mod tests {
         assert_eq!(errors[0].severity, Severity::Error);
         assert_eq!(errors[0].labels.len(), 1);
         assert_eq!(errors[0].labels[0].span.line_start, 0);
-        assert_eq!(errors[0].labels[0].span.line_end, 19);
+        assert_eq!(errors[0].labels[0].span.line_end, 17);
         assert_eq!(errors[0].labels[0].span.offset, 15);
         assert_eq!(errors[0].labels[0].span.length, 2);
         assert_eq!(
@@ -685,7 +707,54 @@ mod tests {
         assert_eq!(errors[0].line_start, 0);
         assert_eq!(errors[0].line_end, 25);
         assert_eq!(errors[0].error_offset, 0);
-        assert_eq!(errors[0].labels.len(), 0);
+        assert_eq!(errors[0].labels.len(), 1);
+        assert_eq!(errors[0].labels[0].span.line_start, 0);
+        assert_eq!(errors[0].labels[0].span.length, 25);
+        assert_eq!(errors[0].labels[0].span.line_end, 25);
+        assert_eq!(errors[0].labels[0].span.offset, 0);
+        assert_eq!(
+            errors[0].labels[0].message,
+            "'=' and related value missing."
+        );
         assert_eq!(errors[0].notes.len(), 0);
+    }
+
+    #[test]
+    fn unterminated_section_header() {
+        use crate::files::project::parse_section_header_line;
+
+        let mut input = SourceStream::new("", "[MS Transaction Server\n");
+
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
+
+        let result = parse_section_header_line(&mut ctx, &mut input);
+
+        let errors = ctx.errors();
+
+        errors[0].print();
+
+        assert_eq!(errors.len(), 1);
+        assert_matches!(
+            *errors[0].kind,
+            ErrorKind::Project(ProjectError::UnterminatedSectionHeader)
+        );
+        assert_eq!(errors[0].severity, Severity::Error);
+        // Should return MalformedHeader
+        assert!(matches!(
+            result,
+            Some(crate::files::project::SectionHeaderDetection::MalformedHeader)
+        ));
+        assert_eq!(errors[0].line_start, 0);
+        assert_eq!(errors[0].line_end, 22);
+        assert_eq!(errors[0].error_offset, 1);
+        // Should have one label pointing to where ']' should be
+        assert_eq!(errors[0].labels.len(), 1);
+        assert_eq!(
+            errors[0].labels[0].message,
+            "section header must be terminated with ']'"
+        );
+        // Should have one note showing the corrected line
+        assert_eq!(errors[0].notes.len(), 1);
+        assert_eq!(errors[0].notes[0], "[MS Transaction Server]");
     }
 }
