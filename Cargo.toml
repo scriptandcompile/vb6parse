@@ -95,6 +95,7 @@ codegen-units = 1   # Reduce parallel code generation units for better optimizat
 [target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
 criterion = { version = "0.8.2", features = ["html_reports"] }
 insta = { version = "1.46.3", features = ["yaml"] }
+assert_matches = { version = "1.5.0" }
 
 [target.'cfg(target_arch = "wasm32")'.dev-dependencies]
 criterion = { version = "0.8.1", default-features = false }
