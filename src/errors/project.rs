@@ -115,7 +115,7 @@ pub enum ProjectError {
 
     /// Parameter value not found, End of File.
     #[error("The '{parameter_line_name}' line is invalid. Expected a double quoted '{parameter_line_name}' value after the equal sign '='. Found the end of the file instead. Only {valid_value_message} are valid values for '{parameter_line_name}'")]
-    ParameterValueNotFoundEOF {
+    ParameterWithDefaultValueNotFoundEOF {
         /// The parameter line name.
         parameter_line_name: String,
         /// Valid values message.

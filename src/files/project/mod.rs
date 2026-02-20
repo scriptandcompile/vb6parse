@@ -4,6 +4,7 @@
 //! user controls, user documents, properties, and other related information from the Project file.
 //!
 pub mod compilesettings;
+mod messages;
 pub mod properties;
 
 use std::collections::HashMap;
@@ -20,6 +21,14 @@ use crate::{
     files::common::ObjectReference,
     files::project::{
         compilesettings::CompilationType,
+        messages::{
+            format_valid_enum_values, optional_parameter_value_not_found_eof_error,
+            parameter_missing_value_and_closing_quote_error,
+            parameter_missing_value_opening_quote_error,
+            parameter_with_default_missing_quotes_error,
+            parameter_with_default_missing_value_and_closing_quote_error,
+            parameter_with_default_missing_value_eof_error,
+        },
         properties::{CompileTargetType, ProjectProperties},
     },
     io::{Comparator, SourceFile, SourceStream},
@@ -2123,26 +2132,21 @@ fn parse_quoted_value<'a>(
 }
 
 fn parse_optional_quoted_value<'a>(
-    ctx: &mut ParserContext,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
     line_type: &'a str,
 ) -> Option<&'a str> {
     // An optional line starts with 'Startup=' (or another such option starting line)
-    // and is followed by the quoted value, "!None!", or "(None)", or "!(None)!" to indicate the
-    // parameter value is 'None'.
+    // and is followed by the quoted value, "!None!", "(None)", "!(None)!",
+    // "\"(None)\"", "\"!None!\"", or "\"!(None)!\""
+    // to indicate the parameter value is 'None'.
     //
     // By this point in the parse the "Startup=" component should be stripped off
     // since that is how we knew to use this particular parse.
     let parameter_start = input.offset();
 
     let Some((parameter_value, _)) = input.take_until_newline() else {
-        // No parameter value found, so we can't parse this line.
-        ctx.error(
-            input.span_at(parameter_start),
-            ProjectError::ParameterValueNotFound {
-                parameter_line_name: line_type.to_string(),
-            },
-        );
+        optional_parameter_value_not_found_eof_error(ctx, input, line_type, parameter_start);
         return None;
     };
 
@@ -2220,46 +2224,8 @@ fn parse_optional_quoted_value<'a>(
     Some(parameter_value)
 }
 
-/// Formats all valid values for an enum type as a string.
-///
-/// Returns a comma-separated list of valid enum values in the format:
-/// ```text
-/// 'numeric value' "message"
-/// ```
-/// for each variant, with the final variant
-/// being appended with:
-/// ```text
-/// ", and 'numeric value' "message"
-/// ```
-/// This makes it slightly nicer to read.
-///
-/// Long live the Oxford comma!
-///
-/// # Example
-/// For an enum with values 0, 1, 2 this should return:
-/// `'0' "No Compatibility", '1' "Project Compatibility", and '2' "Compatible Exe Mode"`
-fn format_valid_enum_values<T>() -> String
-where
-    T: IntoEnumIterator + EnumMessage + Debug + Into<i16> + Copy,
-{
-    match T::iter()
-        .map(|v| {
-            let numeric: i16 = v.into();
-            format!("'{:?}' {:#?}", numeric, v.get_message().unwrap_or(""))
-        })
-        .collect::<Vec<_>>()
-        .split_last()
-    {
-        Some((last, elements)) => {
-            format!("{}, and {}", elements.join(", "), last)
-        } // we shoiuld never get a 'None' here since all
-        // the enums should have multiple variants with values, but...
-        None => String::new(),
-    }
-}
-
 fn parse_quoted_converted_value<'a, T>(
-    ctx: &mut ParserContext,
+    ctx: &mut ParserContext<'a>,
     input: &mut SourceStream<'a>,
     line_type: &'a str,
 ) -> Option<T>
@@ -2283,28 +2249,13 @@ where
 
     let parameter_value = match text_to_newline {
         None => {
-            // The input ends right after the equal!
-            // weird error and indicates the system is basically done, but still need to
-            // spit out a reasonable error message.
-            let value_span = input.span_range(parameter_start - 1, parameter_start);
-            // We don't have a value so we want the valid values.
-            let valid_value_message = format_valid_enum_values::<T>();
-            let error = ctx
-                .error_with(
-                    value_span,
-                    ProjectError::ParameterValueNotFoundEOF {
-                        parameter_line_name: line_type.to_string(),
-                        valid_value_message,
-                    },
-                )
-                .with_label(DiagnosticLabel::new(
-                    value_span,
-                    format!(
-                        "'{line_type}' must have a double qouted value and end with a newline."
-                    ),
-                )) // only a start quote in the note since we already have the end quote value.
-                .with_note(format!("{line_type}=\"{}\"", T::default().into()));
-            ctx.push_error(error);
+            parameter_with_default_missing_value_eof_error::<T>(
+                ctx,
+                input,
+                line_type,
+                parameter_start,
+            );
+
             return None;
         }
         Some((parameter_value, _)) => parameter_value,
@@ -2314,22 +2265,13 @@ where
     let end_quote_found = parameter_value.ends_with('"');
 
     if !start_quote_found && end_quote_found {
-        // The value ends with a quote but does not start with one.
-        // This is an error, so we return an error.
-        let value_span = input.span_range(parameter_start, parameter_start + parameter_value.len());
-        let error = ctx
-            .error_with(
-                value_span,
-                ProjectError::ParameterValueMissingOpeningQuote {
-                    parameter_line_name: line_type.to_string(),
-                },
-            )
-            .with_label(DiagnosticLabel::new(
-                value_span,
-                format!("'{line_type}' value must be surrounded by double quotes."),
-            )) // only a start quote in the note since we already have the end quote value.
-            .with_note(format!("{line_type}=\"{parameter_value}"));
-        ctx.push_error(error);
+        parameter_missing_value_opening_quote_error(
+            ctx,
+            input,
+            line_type,
+            parameter_start,
+            parameter_value,
+        );
         return None;
     }
 
@@ -2341,86 +2283,35 @@ where
     let parameter_length_one = parameter_value.len() == 1;
 
     if start_and_end_qoute && parameter_length_one {
-        // The value starts with a quote and is only a single character wide. This means the entire
-        // parameter value consists of a single double qoute character: '"'
-        let value_span = input.span_range(parameter_start, parameter_start + parameter_value.len());
-        // We do not have a valid parameter value, so we return an error.
-        let valid_value_message = format_valid_enum_values::<T>();
-        let default_value = T::default().into();
-        let note_message = format!("{line_type}=\"{default_value}\"");
-
-        let error = ctx
-            .error_with(
-                value_span,
-                ProjectError::ParameterValueMissingClosingQuoteAndValue {
-                    parameter_line_name: line_type.to_string(),
-                    valid_value_message,
-                },
-            )
-            .with_label(DiagnosticLabel::new(
-                value_span,
-                format!("'{line_type}' value must be surrounded by double quotes."),
-            )) // only an end quote in the note since we already have the start quote value.
-            .with_note(note_message);
-        ctx.push_error(error);
+        parameter_with_default_missing_value_and_closing_quote_error::<T>(
+            ctx,
+            input,
+            line_type,
+            parameter_start,
+            parameter_value,
+        );
         return None;
     }
 
     if start_quote_found && !end_quote_found {
-        // The value ends with a quote but does not start with one.
-        // This is an error, so we return an error.
-        let value_span = input.span_range(parameter_start, parameter_start + parameter_value.len());
-        let error = ctx
-            .error_with(
-                value_span,
-                ProjectError::ParameterValueMissingClosingQuote {
-                    parameter_line_name: line_type.to_string(),
-                },
-            )
-            .with_label(DiagnosticLabel::new(
-                value_span,
-                format!("'{line_type}' value must be surrounded by double quotes."),
-            )) // only an end quote in the note since we already have the start quote value.
-            .with_note(format!("{line_type}={parameter_value}\""));
-        ctx.push_error(error);
+        parameter_missing_value_and_closing_quote_error(
+            ctx,
+            input,
+            line_type,
+            parameter_start,
+            parameter_value,
+        );
         return None;
     }
 
     if !start_quote_found && !end_quote_found && parameter_length_one {
-        // The value does not start or end with a quote but there *is* a number here.
-        // this is not the same as not having an start or end and having a length of zero.
-        // this is likely something like 'CompatibleMode=1' and needs to mention the
-        // double qouting.
-
-        // We do not have a valid parameter value, so we return an error.
-        let valid_value_message = format_valid_enum_values::<T>();
-
-        // We have a value, but it's not qouted. If the value makes sense
-        // for this conversion, we should have the note show the qouted values.
-        // if it's an invalid value, show the user an example with the default
-        // value.
-        let note_message = if T::try_from(parameter_value).is_ok() {
-            format!("{line_type}=\"{parameter_value}\"")
-        } else {
-            let default_value = T::default().into();
-            format!("{line_type}=\"{default_value}\"")
-        };
-
-        let value_span = input.span_at(parameter_start);
-        let error = ctx
-            .error_with(
-                value_span,
-                ProjectError::ParameterValueMissingQuotes {
-                    parameter_line_name: line_type.to_string(),
-                    valid_value_message,
-                },
-            )
-            .with_label(DiagnosticLabel::new(
-                value_span,
-                format!("'{line_type}' value must be contained within double qoutes."),
-            ))
-            .with_note(note_message);
-        ctx.push_error(error);
+        parameter_with_default_missing_quotes_error::<T>(
+            ctx,
+            input,
+            line_type,
+            parameter_start,
+            parameter_value,
+        );
         return None;
     }
 
@@ -3083,7 +2974,7 @@ fn parse_dll_base_address(ctx: &mut ParserContext, input: &mut SourceStream) -> 
 
 #[cfg(test)]
 mod tests {
-    use crate::errors::{ErrorKind, ParserContext, ProjectError, Severity};
+    use crate::errors::{ErrorKind, ParserContext, ProjectError};
     use crate::files::common::ObjectReference;
     use crate::files::project::compilesettings::*;
     use crate::files::project::properties::*;
@@ -3091,263 +2982,6 @@ mod tests {
     use crate::io::{Comparator, SourceFile, SourceStream};
     use crate::ProjectFile;
     use uuid::Uuid;
-
-    #[test]
-    fn compatibility_mode_eof_after_equal() {
-        use crate::files::project::parse_quoted_converted_value;
-
-        let mut input = SourceStream::new("", "CompatibleMode=");
-
-        let parameter_name = input
-            .take("CompatibleMode", Comparator::CaseSensitive)
-            .unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
-
-        let mut ctx = ParserContext::new(input.file_name(), input.contents);
-
-        let _compatibility_mode: Option<CompatibilityMode> =
-            parse_quoted_converted_value(&mut ctx, &mut input, parameter_name);
-
-        let errors = ctx.errors();
-
-        assert_eq!(errors.len(), 1);
-        assert!(matches!(
-            *errors[0].kind,
-            ErrorKind::Project(ProjectError::ParameterValueNotFoundEOF { .. })
-        ));
-        assert_eq!(errors[0].severity, Severity::Error);
-        assert_eq!(errors[0].labels.len(), 1);
-        assert_eq!(errors[0].labels[0].span.line_start, 0);
-
-        assert_eq!(errors[0].labels[0].span.line_end, 15);
-        assert_eq!(errors[0].labels[0].span.offset, 14);
-        assert_eq!(errors[0].labels[0].span.length, 1);
-        assert_eq!(
-            errors[0].labels[0].message,
-            "'CompatibleMode' must have a double qouted value and end with a newline."
-        );
-        assert_eq!(errors[0].notes[0], "CompatibleMode=\"1\"");
-    }
-
-    #[test]
-    fn compatibility_mode_is_invalid() {
-        use crate::files::project::parse_quoted_converted_value;
-
-        let mut input = SourceStream::new("", "CompatibleMode=\"5\"\n");
-
-        let parameter_name = input
-            .take("CompatibleMode", Comparator::CaseSensitive)
-            .unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
-
-        let mut ctx = ParserContext::new(input.file_name(), input.contents);
-
-        let _compatibility_mode: Option<CompatibilityMode> =
-            parse_quoted_converted_value(&mut ctx, &mut input, parameter_name);
-
-        let errors = ctx.errors();
-
-        assert_eq!(errors.len(), 1);
-        assert!(matches!(
-            *errors[0].kind,
-            ErrorKind::Project(ProjectError::ParameterValueInvalid { .. })
-        ));
-        assert_eq!(errors[0].severity, Severity::Error);
-        assert_eq!(errors[0].labels.len(), 1);
-        assert_eq!(errors[0].labels[0].span.line_start, 0);
-
-        assert_eq!(errors[0].labels[0].span.line_end, 21);
-        assert_eq!(errors[0].labels[0].span.offset, 16);
-        assert_eq!(errors[0].labels[0].span.length, 1);
-        assert_eq!(errors[0].labels[0].message, "invalid value");
-        assert_eq!(
-            errors[0].notes[0],
-            "Change the quoted value to one of the valid values."
-        );
-    }
-
-    #[test]
-    fn compatibility_mode_without_qoutes() {
-        use crate::files::project::parse_quoted_converted_value;
-
-        let mut input = SourceStream::new("", "CompatibleMode=0\n");
-
-        let parameter_name = input
-            .take("CompatibleMode", Comparator::CaseSensitive)
-            .unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
-
-        let mut ctx = ParserContext::new(input.file_name(), input.contents);
-
-        let _compatibility_mode: Option<CompatibilityMode> =
-            parse_quoted_converted_value(&mut ctx, &mut input, parameter_name);
-
-        let errors = ctx.errors();
-
-        assert_eq!(errors.len(), 1);
-        assert!(matches!(
-            *errors[0].kind,
-            ErrorKind::Project(ProjectError::ParameterValueMissingQuotes { .. })
-        ));
-        assert_eq!(errors[0].severity, Severity::Error);
-        assert_eq!(errors[0].labels.len(), 1);
-        assert_eq!(errors[0].labels[0].span.line_start, 0);
-
-        assert_eq!(errors[0].labels[0].span.line_end, 18);
-        assert_eq!(errors[0].labels[0].span.offset, 15);
-        assert_eq!(errors[0].labels[0].span.length, 1);
-        assert_eq!(
-            errors[0].labels[0].message,
-            "'CompatibleMode' value must be contained within double qoutes."
-        );
-        assert_eq!(errors[0].notes[0], "CompatibleMode=\"0\"");
-    }
-
-    #[test]
-    fn compatibility_mode_invalid_without_qoutes() {
-        use crate::files::project::parse_quoted_converted_value;
-
-        let mut input = SourceStream::new("", "CompatibleMode=5\n");
-
-        let parameter_name = input
-            .take("CompatibleMode", Comparator::CaseSensitive)
-            .unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
-
-        let mut ctx = ParserContext::new(input.file_name(), input.contents);
-
-        let _compatibility_mode: Option<CompatibilityMode> =
-            parse_quoted_converted_value(&mut ctx, &mut input, parameter_name);
-
-        let errors = ctx.errors();
-
-        assert_eq!(errors.len(), 1);
-        assert!(matches!(
-            *errors[0].kind,
-            ErrorKind::Project(ProjectError::ParameterValueMissingQuotes { .. })
-        ));
-        assert_eq!(errors[0].severity, Severity::Error);
-        assert_eq!(errors[0].labels.len(), 1);
-        assert_eq!(errors[0].labels[0].span.line_start, 0);
-
-        assert_eq!(errors[0].labels[0].span.line_end, 18);
-        assert_eq!(errors[0].labels[0].span.offset, 15);
-        assert_eq!(errors[0].labels[0].span.length, 1);
-        assert_eq!(
-            errors[0].labels[0].message,
-            "'CompatibleMode' value must be contained within double qoutes."
-        ); // Since the unqouted value is invalid, we should show a note with the default for 'CompatibleMode'
-        assert_eq!(errors[0].notes[0], "CompatibleMode=\"1\"");
-    }
-
-    #[test]
-    fn compatibility_mode_without_value() {
-        use crate::files::project::parse_quoted_converted_value;
-
-        let mut input = SourceStream::new("", "CompatibleMode=\n");
-
-        let parameter_name = input
-            .take("CompatibleMode", Comparator::CaseSensitive)
-            .unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
-
-        let mut ctx = ParserContext::new(input.file_name(), input.contents);
-
-        let _compatibility_mode: Option<CompatibilityMode> =
-            parse_quoted_converted_value(&mut ctx, &mut input, parameter_name);
-
-        let errors = ctx.errors();
-
-        assert_eq!(errors.len(), 1);
-        assert!(matches!(
-            *errors[0].kind,
-            ErrorKind::Project(ProjectError::ParameterWithDefaultValueNotFound { .. })
-        ));
-        assert_eq!(errors[0].severity, Severity::Error);
-        assert_eq!(errors[0].labels.len(), 1);
-        assert_eq!(errors[0].labels[0].span.line_start, 0);
-
-        assert_eq!(errors[0].labels[0].span.line_end, 16);
-        assert_eq!(errors[0].labels[0].span.offset, 15);
-        assert_eq!(errors[0].labels[0].span.length, 1);
-        assert_eq!(
-            errors[0].labels[0].message,
-            "'CompatibleMode' value must be one of the valid values contained within double qoutes."
-        );
-        assert_eq!(errors[0].notes[0], "CompatibleMode=\"1\"");
-    }
-
-    #[test]
-    fn compatibility_mode_without_end_qoute() {
-        use crate::files::project::parse_quoted_converted_value;
-
-        let mut input = SourceStream::new("", "CompatibleMode=\"1\n");
-
-        let parameter_name = input
-            .take("CompatibleMode", Comparator::CaseSensitive)
-            .unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
-
-        let mut ctx = ParserContext::new(input.file_name(), input.contents);
-
-        let _compatibility_mode: Option<CompatibilityMode> =
-            parse_quoted_converted_value(&mut ctx, &mut input, parameter_name);
-
-        let errors = ctx.errors();
-
-        assert_eq!(errors.len(), 1);
-        assert!(matches!(
-            *errors[0].kind,
-            ErrorKind::Project(ProjectError::ParameterValueMissingClosingQuote { .. })
-        ));
-        assert_eq!(errors[0].severity, Severity::Error);
-        assert_eq!(errors[0].labels.len(), 1);
-        assert_eq!(errors[0].labels[0].span.line_start, 0);
-        assert_eq!(errors[0].labels[0].span.line_end, 19);
-        assert_eq!(errors[0].labels[0].span.offset, 15);
-        assert_eq!(errors[0].labels[0].span.length, 2);
-        assert_eq!(
-            errors[0].labels[0].message,
-            "'CompatibleMode' value must be surrounded by double quotes."
-        );
-        assert_eq!(errors[0].notes[0], "CompatibleMode=\"1\"");
-    }
-
-    #[test]
-    fn compatibility_mode_without_start_qoute() {
-        use crate::files::project::parse_quoted_converted_value;
-
-        let mut input = SourceStream::new("", "CompatibleMode=2\"\n");
-
-        let parameter_name = input
-            .take("CompatibleMode", Comparator::CaseSensitive)
-            .unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
-
-        let mut ctx = ParserContext::new(input.file_name(), input.contents);
-
-        let _compatibility_mode: Option<CompatibilityMode> =
-            parse_quoted_converted_value(&mut ctx, &mut input, parameter_name);
-
-        let errors = ctx.errors();
-
-        assert_eq!(errors.len(), 1);
-        assert!(matches!(
-            *errors[0].kind,
-            ErrorKind::Project(ProjectError::ParameterValueMissingOpeningQuote { .. })
-        ));
-        assert_eq!(errors[0].severity, Severity::Error);
-        assert_eq!(errors[0].labels.len(), 1);
-        assert_eq!(errors[0].labels[0].span.line_start, 0);
-        assert_eq!(errors[0].labels[0].span.line_end, 19);
-        assert_eq!(errors[0].labels[0].span.offset, 15);
-        assert_eq!(errors[0].labels[0].span.length, 2);
-        assert_eq!(
-            errors[0].labels[0].message,
-            "'CompatibleMode' value must be surrounded by double quotes."
-        );
-        assert_eq!(errors[0].notes[0], "CompatibleMode=\"2\"");
-    }
 
     #[test]
     fn compatibility_mode_is_no_compatibility() {
@@ -3415,6 +3049,36 @@ mod tests {
 
         assert_eq!(errors.len(), 0);
         assert_eq!(result.unwrap(), CompatibilityMode::CompatibleExe);
+    }
+
+    //-------------------------------------------
+    //
+    // parse_optional_quoted_value testing:
+    //
+    // All these are properties which can either be
+    // 'None', as in not set, or can be set to a
+    // string value.
+    //
+    //-------------------------------------------
+
+    #[test]
+    fn startup_is_something_exe() {
+        use crate::files::project::parse_optional_quoted_value;
+        use crate::io::{Comparator, SourceStream};
+
+        let mut input = SourceStream::new("", "Startup=\"something.exe\"\n");
+
+        let parameter_name = input.take("Startup", Comparator::CaseSensitive).unwrap();
+        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+
+        let mut ctx = ParserContext::new(input.file_name(), input.contents);
+
+        let result = parse_optional_quoted_value(&mut ctx, &mut input, parameter_name);
+
+        let errors = ctx.errors();
+
+        assert_eq!(errors.len(), 0);
+        assert_eq!(result.unwrap(), "something.exe");
     }
 
     #[test]
