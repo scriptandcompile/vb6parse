@@ -19,6 +19,15 @@ pub enum FormError {
         value: String,
     },
 
+    /// The `PropertyGroup` name is invalid (or missing).
+    #[error("The `PropertyGroup` name is invalid: expected '{expected}', found '{found}'.")]
+    InvalidPropertyGroupName {
+        /// The expected name of the `PropertyGroup`.
+        expected: String,
+        /// The actual name of the `PropertyGroup` that was found.
+        found: String,
+    },
+
     /// The `BOFAction` property has an invalid value.
     #[error("The `BOFAction` value is invalid: '{value}'. Only 0 (MoveFirst), or 1 (BOF) are valid values.")]
     InvalidBOFAction {

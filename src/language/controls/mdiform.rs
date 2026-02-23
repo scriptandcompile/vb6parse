@@ -9,7 +9,7 @@
 use crate::files::common::Properties;
 use crate::language::{
     controls::{
-        Activation, Appearance, FormLinkMode, MousePointer, Movability, OLEDropMode,
+        Activation, Appearance, Font, FormLinkMode, MousePointer, Movability, OLEDropMode,
         ReferenceOrValue, StartUpPosition, TextDirection, Visibility, WhatsThisHelp, WindowState,
     },
     Color, VB_APPLICATION_WORKSPACE,
@@ -36,6 +36,8 @@ pub struct MDIFormProperties {
     pub caption: String,
     /// Enabled state of the MDI form.
     pub enabled: Activation,
+    /// The font style for the form.
+    pub font: Option<Font>,
     /// Height of the MDI form.
     pub height: i32,
     /// Help context ID of the MDI form.
@@ -91,6 +93,9 @@ impl Serialize for MDIFormProperties {
         state.serialize_field("back_color", &self.back_color)?;
         state.serialize_field("caption", &self.caption)?;
         state.serialize_field("enabled", &self.enabled)?;
+
+        state.serialize_field("font", &self.font)?;
+
         state.serialize_field("height", &self.height)?;
         state.serialize_field("help_context_id", &self.help_context_id)?;
 
@@ -133,8 +138,7 @@ impl Default for MDIFormProperties {
             back_color: VB_APPLICATION_WORKSPACE,
             caption: String::new(),
             enabled: Activation::Enabled,
-            // TODO: process font
-            //font
+            font: Some(Font::default()),
             height: 3600,
             help_context_id: 0,
             icon: None,
@@ -173,7 +177,7 @@ impl From<Properties> for MDIFormProperties {
         };
         mdi_form_prop.enabled = prop.get_property("Enabled", mdi_form_prop.enabled);
 
-        // Font - group
+        // Font - group handled within extraction logic
 
         mdi_form_prop.height = prop.get_i32("Height", mdi_form_prop.height);
         mdi_form_prop.help_context_id =

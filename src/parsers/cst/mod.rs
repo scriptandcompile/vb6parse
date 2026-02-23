@@ -167,8 +167,11 @@ use crate::files::common::{
 };
 use crate::io::{SourceFile, SourceStream};
 use crate::language::{
-    Control, ControlKind, Form, FormProperties, FormRoot, MDIForm, MenuControl, MenuProperties,
-    PropertyGroup, Token,
+    CheckBoxProperties, ComboBoxProperties, CommandButtonProperties, Control, ControlKind,
+    DataProperties, DirListBoxProperties, DriveListBoxProperties, FileListBoxProperties, Font,
+    Form, FormProperties, FormRoot, FrameProperties, LabelProperties, ListBoxProperties, MDIForm,
+    MDIFormProperties, MenuControl, MenuProperties, OptionButtonProperties, PictureBoxProperties,
+    PropertyGroup, TextBoxProperties, Token,
 };
 use crate::lexer::{tokenize, TokenStream};
 use crate::parsers::SyntaxKind;
@@ -233,6 +236,28 @@ impl Language for VB6Language {
     fn kind_to_raw(kind: Self::Kind) -> rowan::SyntaxKind {
         kind.to_raw()
     }
+}
+
+/// Extract typed property groups from a Vec<PropertyGroup>
+fn extract_property_groups(groups: &[PropertyGroup]) -> ExtractedGroups {
+    let mut font = None;
+
+    for group in groups {
+        if group.name.eq_ignore_ascii_case("Font") {
+            if let Ok(f) = Font::try_from(group) {
+                font = Some(f);
+            }
+        }
+        // Future: handle other property group types (Images, etc.)
+    }
+
+    ExtractedGroups { font }
+}
+
+/// Struct to hold extracted property groups for a control
+struct ExtractedGroups {
+    font: Option<Font>,
+    // Future: add other property group types
 }
 
 /// A Concrete Syntax Tree for VB6 code.
@@ -1144,26 +1169,45 @@ impl<'a> Parser<'a> {
         tag: String,
         index: i32,
         properties: Properties,
+        groups: Vec<PropertyGroup>,
         child_controls: Vec<Control>,
         menus: Vec<MenuControl>,
     ) -> Result<FormRoot, ErrorKind> {
         match control_type {
-            "VB.Form" => Ok(FormRoot::Form(Form {
-                name: control_name,
-                tag,
-                index,
-                properties: properties.into(),
-                controls: child_controls,
-                menus,
-            })),
-            "VB.MDIForm" => Ok(FormRoot::MDIForm(MDIForm {
-                name: control_name,
-                tag,
-                index,
-                properties: properties.into(),
-                controls: child_controls,
-                menus,
-            })),
+            "VB.Form" => {
+                let mut form_properties: FormProperties = properties.into();
+                // Override with property group if present
+                let extracted_groups = extract_property_groups(&groups);
+                if let Some(font) = extracted_groups.font {
+                    form_properties.font = Some(font);
+                }
+
+                Ok(FormRoot::Form(Form {
+                    name: control_name,
+                    tag,
+                    index,
+                    properties: form_properties,
+                    controls: child_controls,
+                    menus,
+                }))
+            }
+            "VB.MDIForm" => {
+                let mut mdi_form_properties: MDIFormProperties = properties.into();
+                // Override with property group if present
+                let extracted_groups = extract_property_groups(&groups);
+                if let Some(font) = extracted_groups.font {
+                    mdi_form_properties.font = Some(font);
+                }
+
+                Ok(FormRoot::MDIForm(MDIForm {
+                    name: control_name,
+                    tag,
+                    index,
+                    properties: mdi_form_properties,
+                    controls: child_controls,
+                    menus,
+                }))
+            }
             _ => Err(ErrorKind::Form(FormError::InvalidTopLevelControl {
                 control_type: control_type.to_string(),
             })),
@@ -1182,35 +1226,72 @@ impl<'a> Parser<'a> {
         property_groups: Vec<PropertyGroup>,
     ) -> ControlKind {
         use ControlKind;
+        // Extract typed property groups
+        let groups = extract_property_groups(&property_groups);
 
         match control_type {
-            "VB.CommandButton" => ControlKind::CommandButton {
-                properties: properties.into(),
-            },
-            "VB.Data" => ControlKind::Data {
-                properties: properties.into(),
-            },
-            "VB.TextBox" => ControlKind::TextBox {
-                properties: properties.into(),
-            },
-            "VB.Label" => ControlKind::Label {
-                properties: properties.into(),
-            },
-            "VB.CheckBox" => ControlKind::CheckBox {
-                properties: properties.into(),
-            },
+            "VB.CommandButton" => {
+                let mut props: CommandButtonProperties = properties.into();
+                // Override with property group if present
+                if let Some(font) = groups.font {
+                    props.font = Some(font);
+                }
+                ControlKind::CommandButton { properties: props }
+            }
+            "VB.Data" => {
+                let mut props: DataProperties = properties.into();
+                // Override with property group if present
+                if let Some(font) = groups.font {
+                    props.font = Some(font);
+                }
+                ControlKind::Data { properties: props }
+            }
+            "VB.TextBox" => {
+                let mut props: TextBoxProperties = properties.into();
+                // Override with property group if present
+                if let Some(font) = groups.font {
+                    props.font = Some(font);
+                }
+                ControlKind::TextBox { properties: props }
+            }
+            "VB.Label" => {
+                let mut props: LabelProperties = properties.into();
+                // Override with property group if present
+                if let Some(font) = groups.font {
+                    props.font = Some(font);
+                }
+                ControlKind::Label { properties: props }
+            }
+            "VB.CheckBox" => {
+                let mut props: CheckBoxProperties = properties.into();
+                // Override with property group if present
+                if let Some(font) = groups.font {
+                    props.font = Some(font);
+                }
+                ControlKind::CheckBox { properties: props }
+            }
             "VB.Line" => ControlKind::Line {
                 properties: properties.into(),
             },
             "VB.Shape" => ControlKind::Shape {
                 properties: properties.into(),
             },
-            "VB.ListBox" => ControlKind::ListBox {
-                properties: properties.into(),
-            },
-            "VB.ComboBox" => ControlKind::ComboBox {
-                properties: properties.into(),
-            },
+            "VB.ListBox" => {
+                let mut props: ListBoxProperties = properties.into();
+                // Override with property group if present
+                if let Some(font) = groups.font {
+                    props.font = Some(font);
+                }
+                ControlKind::ListBox { properties: props }
+            }
+            "VB.ComboBox" => {
+                let mut props: ComboBoxProperties = properties.into();
+                // Override with property group if present
+                if let Some(font) = groups.font {
+                    props.font = Some(font);
+                }
+                ControlKind::ComboBox { properties: props }
+            }
             "VB.Timer" => ControlKind::Timer {
                 properties: properties.into(),
             },
@@ -1220,29 +1301,63 @@ impl<'a> Parser<'a> {
             "VB.VScrollBar" => ControlKind::VScrollBar {
                 properties: properties.into(),
             },
-            "VB.Frame" => ControlKind::Frame {
-                properties: properties.into(),
-                controls: child_controls,
-            },
-            "VB.PictureBox" => ControlKind::PictureBox {
-                properties: properties.into(),
-                controls: child_controls,
-            },
-            "VB.FileListBox" => ControlKind::FileListBox {
-                properties: properties.into(),
-            },
-            "VB.DirListBox" => ControlKind::DirListBox {
-                properties: properties.into(),
-            },
-            "VB.DriveListBox" => ControlKind::DriveListBox {
-                properties: properties.into(),
-            },
+            "VB.Frame" => {
+                let mut props: FrameProperties = properties.into();
+                // Override with property group if present
+                if let Some(font) = groups.font {
+                    props.font = Some(font);
+                }
+                ControlKind::Frame {
+                    properties: props,
+                    controls: child_controls,
+                }
+            }
+            "VB.PictureBox" => {
+                let mut props: PictureBoxProperties = properties.into();
+                // Override with property group if present
+                if let Some(font) = groups.font {
+                    props.font = Some(font);
+                }
+                ControlKind::PictureBox {
+                    properties: props,
+                    controls: child_controls,
+                }
+            }
+            "VB.FileListBox" => {
+                let mut props: FileListBoxProperties = properties.into();
+                // Override with property group if present
+                if let Some(font) = groups.font {
+                    props.font = Some(font);
+                }
+                ControlKind::FileListBox { properties: props }
+            }
+            "VB.DirListBox" => {
+                let mut props: DirListBoxProperties = properties.into();
+                // Override with property group if present
+                if let Some(font) = groups.font {
+                    props.font = Some(font);
+                }
+                ControlKind::DirListBox { properties: props }
+            }
+            "VB.DriveListBox" => {
+                let mut props: DriveListBoxProperties = properties.into();
+                // Override with property group if present
+                if let Some(font) = groups.font {
+                    props.font = Some(font);
+                }
+                ControlKind::DriveListBox { properties: props }
+            }
             "VB.Image" => ControlKind::Image {
                 properties: properties.into(),
             },
-            "VB.OptionButton" => ControlKind::OptionButton {
-                properties: properties.into(),
-            },
+            "VB.OptionButton" => {
+                let mut props: OptionButtonProperties = properties.into();
+                // Override with property group if present
+                if let Some(font) = groups.font {
+                    props.font = Some(font);
+                }
+                ControlKind::OptionButton { properties: props }
+            }
             "VB.OLE" => ControlKind::Ole {
                 properties: properties.into(),
             },
@@ -1379,6 +1494,8 @@ impl<'a> Parser<'a> {
     pub(crate) fn parse_properties_block_to_form_root(&mut self) -> ParseResult<'a, FormRoot> {
         use Properties;
 
+        let mut groups = Vec::new();
+
         self.skip_whitespace();
 
         // Expect BEGIN keyword
@@ -1429,7 +1546,7 @@ impl<'a> Parser<'a> {
                 if let Some(group) = self.parse_property_group_direct() {
                     // Property groups are not used in Form/MDIForm, but we parse them anyway
                     // to avoid errors if they appear
-                    drop(group);
+                    groups.push(group);
                 }
             } else if self.is_identifier() || self.at_keyword() {
                 // Parse property (Key = Value)
@@ -1479,6 +1596,7 @@ impl<'a> Parser<'a> {
             tag,
             index,
             properties,
+            groups,
             child_controls,
             menus,
         ) {

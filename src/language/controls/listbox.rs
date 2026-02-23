@@ -16,7 +16,7 @@ use crate::{
     language::{
         color::{Color, VB_BUTTON_FACE, VB_BUTTON_TEXT},
         controls::{
-            Activation, Appearance, CausesValidation, DragMode, MousePointer, MultiSelect,
+            Activation, Appearance, CausesValidation, DragMode, Font, MousePointer, MultiSelect,
             OLEDragMode, OLEDropMode, ReferenceOrValue, TabStop, TextDirection, Visibility,
         },
     },
@@ -111,6 +111,8 @@ pub struct ListBoxProperties {
     pub drag_mode: DragMode,
     /// Enabled state of the list box.
     pub enabled: Activation,
+    /// The font style for the form.
+    pub font: Option<Font>,
     /// Foreground color of the list box.
     pub fore_color: Color,
     /// Height of the list box.
@@ -171,6 +173,7 @@ impl Default for ListBoxProperties {
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
+            font: Some(Font::default()),
             fore_color: VB_BUTTON_TEXT,
             height: 30,
             help_context_id: 0,

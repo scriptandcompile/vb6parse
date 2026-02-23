@@ -7,8 +7,8 @@
 //!
 use crate::files::common::Properties;
 use crate::language::controls::{
-    Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDragMode, OLEDropMode,
-    ReferenceOrValue, TabStop, Visibility,
+    Activation, Appearance, CausesValidation, DragMode, Font, MousePointer, OLEDragMode,
+    OLEDropMode, ReferenceOrValue, TabStop, Visibility,
 };
 use crate::language::Color;
 
@@ -35,6 +35,8 @@ pub struct DirListBoxProperties {
     pub drag_mode: DragMode,
     /// Whether the `DirListBox` is enabled.
     pub enabled: Activation,
+    /// The font style for the form.
+    pub font: Option<Font>,
     /// The foreground color of the `DirListBox`.
     pub fore_color: Color,
     /// The height of the `DirListBox`.
@@ -76,6 +78,7 @@ impl Default for DirListBoxProperties {
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
+            font: Some(Font::default()),
             fore_color: Color::System { index: 8 },
             height: 3195,
             help_context_id: 0,

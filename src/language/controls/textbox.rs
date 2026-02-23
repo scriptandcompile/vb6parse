@@ -11,14 +11,14 @@ use std::fmt::{Display, Formatter};
 use std::str::FromStr;
 
 use crate::{
-    errors::{FormError, ErrorKind},
+    errors::{ErrorKind, FormError},
     files::common::Properties,
     language::{
         color::{Color, VB_WINDOW_BACKGROUND, VB_WINDOW_TEXT},
         controls::{
-            Activation, Alignment, Appearance, BorderStyle, CausesValidation, DragMode, LinkMode,
-            MousePointer, OLEDragMode, OLEDropMode, ReferenceOrValue, TabStop, TextDirection,
-            Visibility,
+            Activation, Alignment, Appearance, BorderStyle, CausesValidation, DragMode, Font,
+            LinkMode, MousePointer, OLEDragMode, OLEDropMode, ReferenceOrValue, TabStop,
+            TextDirection, Visibility,
         },
     },
 };
@@ -184,6 +184,8 @@ pub struct TextBoxProperties {
     pub drag_mode: DragMode,
     /// Indicates whether the control is enabled.
     pub enabled: Activation,
+    /// The font style for the form.
+    pub font: Option<Font>,
     /// Foreground color of the text box.
     pub fore_color: Color,
     /// Height of the text box control.
@@ -255,6 +257,7 @@ impl Default for TextBoxProperties {
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
+            font: Some(Font::default()),
             fore_color: VB_WINDOW_TEXT,
             height: 30,
             help_context_id: 0,

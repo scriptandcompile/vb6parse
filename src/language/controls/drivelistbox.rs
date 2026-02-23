@@ -8,7 +8,7 @@
 
 use crate::files::common::Properties;
 use crate::language::controls::{
-    Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDropMode,
+    Activation, Appearance, CausesValidation, DragMode, Font, MousePointer, OLEDropMode,
     ReferenceOrValue, TabStop, Visibility,
 };
 use crate::language::Color;
@@ -36,6 +36,8 @@ pub struct DriveListBoxProperties {
     pub drag_mode: DragMode,
     /// Whether the `DriveListBox` is enabled.
     pub enabled: Activation,
+    /// The font style for the form.
+    pub font: Option<Font>,
     /// The foreground color of the `DriveListBox`.
     pub fore_color: Color,
     /// The height of the `DriveListBox`.
@@ -75,6 +77,7 @@ impl Default for DriveListBoxProperties {
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
+            font: Some(Font::default()),
             fore_color: Color::System { index: 8 },
             height: 319,
             help_context_id: 0,

@@ -11,8 +11,8 @@ use crate::{
     language::{
         color::{Color, VB_BUTTON_FACE, VB_BUTTON_TEXT},
         controls::{
-            Activation, Appearance, BorderStyle, ClipControls, DragMode, MousePointer, OLEDropMode,
-            ReferenceOrValue, TextDirection, Visibility,
+            Activation, Appearance, BorderStyle, ClipControls, DragMode, Font, MousePointer,
+            OLEDropMode, ReferenceOrValue, TextDirection, Visibility,
         },
     },
 };
@@ -44,6 +44,8 @@ pub struct FrameProperties {
     pub drag_mode: DragMode,
     /// Enabled state of the frame.
     pub enabled: Activation,
+    /// The font style for the form.
+    pub font: Option<Font>,
     /// Foreground color of the frame.
     pub fore_color: Color,
     /// Height of the frame.
@@ -85,6 +87,7 @@ impl Default for FrameProperties {
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
+            font: Some(Font::default()),
             fore_color: VB_BUTTON_TEXT,
             height: 30,
             help_context_id: 0,
