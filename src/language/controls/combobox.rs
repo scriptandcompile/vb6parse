@@ -24,12 +24,12 @@ use std::fmt::Display;
 use std::str::FromStr;
 
 use crate::{
-    errors::{FormError, ErrorKind},
+    errors::{ErrorKind, FormError},
     files::common::Properties,
     language::{
         color::{Color, VB_WINDOW_BACKGROUND, VB_WINDOW_TEXT},
         controls::{
-            Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDragMode,
+            Activation, Appearance, CausesValidation, DragMode, Font, MousePointer, OLEDragMode,
             OLEDropMode, ReferenceOrValue, TabStop, TextDirection, Visibility,
         },
     },
@@ -123,6 +123,8 @@ pub struct ComboBoxProperties {
     pub drag_mode: DragMode,
     /// Whether the combo box is enabled.
     pub enabled: Activation,
+    /// The font style for the form.
+    pub font: Option<Font>,
     /// The foreground color of the combo box.
     pub fore_color: Color,
     /// The height of the combo box.
@@ -184,6 +186,7 @@ impl Default for ComboBoxProperties {
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
+            font: Some(Font::default()),
             fore_color: VB_WINDOW_TEXT,
             height: 30,
             help_context_id: 0,

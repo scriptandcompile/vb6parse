@@ -23,7 +23,7 @@ use crate::{
     language::{
         color::{Color, VB_BUTTON_FACE},
         controls::{
-            Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDropMode,
+            Activation, Appearance, CausesValidation, DragMode, Font, MousePointer, OLEDropMode,
             ReferenceOrValue, Style, TabStop, TextDirection, UseMaskColor,
         },
     },
@@ -62,6 +62,8 @@ pub struct CommandButtonProperties {
     pub drag_mode: DragMode,
     /// Indicates if the button is enabled.
     pub enabled: Activation,
+    /// The font style for the form.
+    pub font: Option<Font>,
     /// The height of the command button.
     pub height: i32,
     /// The help context ID of the command button.
@@ -112,6 +114,7 @@ impl Default for CommandButtonProperties {
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
+            font: Some(Font::default()),
             height: 30,
             help_context_id: 0,
             left: 30,
