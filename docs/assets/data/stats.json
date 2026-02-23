@@ -4,7 +4,7 @@
   "doc_tests": 111,
   "integration_tests": 95,
   "fuzz_targets": 9,
-  "line_coverage": 95.19,
-  "function_coverage": 93.05,
-  "region_coverage": 95.46
+  "line_coverage": 95.14,
+  "function_coverage": 92.94,
+  "region_coverage": 95.39
 }
