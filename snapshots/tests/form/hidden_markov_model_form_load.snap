@@ -1,5 +1,5 @@
 ---
-source: tests/form.rs
+source: vb6parse/tests/form.rs
 expression: form_file
 ---
 form:
@@ -31,6 +31,14 @@ form:
         System:
           index: 0
       fill_style: Transparent
+      font:
+        name: "\"Tahoma\""
+        size: 8.25
+        charset: 0
+        weight: 400
+        underline: false
+        italic: false
+        strikethrough: false
       font_transparent: Transparent
       fore_color:
         System:

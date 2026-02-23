@@ -11,12 +11,12 @@ use std::fmt::Display;
 use std::str::FromStr;
 
 use crate::{
-    errors::{FormError, ErrorKind},
+    errors::{ErrorKind, FormError},
     files::common::Properties,
     language::{
         color::{Color, VB_BUTTON_FACE, VB_BUTTON_TEXT},
         controls::{
-            Activation, Alignment, Appearance, AutoSize, BackStyle, BorderStyle, DragMode,
+            Activation, Alignment, Appearance, AutoSize, BackStyle, BorderStyle, DragMode, Font,
             LinkMode, MousePointer, OLEDropMode, ReferenceOrValue, TextDirection, Visibility,
         },
     },
@@ -131,6 +131,8 @@ pub struct LabelProperties {
     pub drag_mode: DragMode,
     /// Enabled state of the label.
     pub enabled: Activation,
+    /// The font style for the form.
+    pub font: Option<Font>,
     /// Foreground color of the label.
     pub fore_color: Color,
     /// Height of the label.
@@ -188,6 +190,7 @@ impl Default for LabelProperties {
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
+            font: Some(Font::default()),
             fore_color: VB_BUTTON_TEXT,
             height: 30,
             left: 30,

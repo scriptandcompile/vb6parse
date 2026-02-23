@@ -24,8 +24,9 @@ use crate::{
     files::common::Properties,
     language::{
         controls::{
-            Activation, Appearance, CausesValidation, DragMode, JustifyAlignment, MousePointer,
-            OLEDropMode, ReferenceOrValue, Style, TabStop, TextDirection, UseMaskColor, Visibility,
+            Activation, Appearance, CausesValidation, DragMode, Font, JustifyAlignment,
+            MousePointer, OLEDropMode, ReferenceOrValue, Style, TabStop, TextDirection,
+            UseMaskColor, Visibility,
         },
         Color, VB_BUTTON_FACE, VB_BUTTON_TEXT,
     },
@@ -126,6 +127,8 @@ pub struct CheckBoxProperties {
     pub drag_mode: DragMode,
     /// Whether the checkbox control is enabled.
     pub enabled: Activation,
+    /// The font style for the form.
+    pub font: Option<Font>,
     /// Foreground color of the checkbox control.
     pub fore_color: Color,
     /// Height of the checkbox control.
@@ -185,6 +188,7 @@ impl Default for CheckBoxProperties {
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
+            font: Some(Font::default()),
             fore_color: VB_BUTTON_TEXT,
             height: 30,
             help_context_id: 0,

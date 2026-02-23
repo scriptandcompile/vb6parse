@@ -10,8 +10,11 @@
 
 pub mod header;
 pub mod properties;
+pub mod property_group_conversions;
 pub mod references;
 
 pub use header::*;
 pub use properties::*;
+// Property group conversions are now implemented using standard TryFrom/From traits
+// No exports needed from property_group_conversions module
 pub use references::*;
