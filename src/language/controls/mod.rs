@@ -89,16 +89,16 @@ pub struct Font {
     pub name: String,
     /// The Size property determines the height, in points, of displayed text.
     ///
-    /// Default value is 8.25
+    /// Default value is 8.0
     pub size: f32,
     /// Which character set to use. 0 is English and the only one currently supported.
     ///
     /// Default value is 0
-    pub charset: u32,
+    pub charset: i32,
     /// The Weight property determines the darkness of the text.
     ///
     /// Default value is 400
-    pub weight: u32,
+    pub weight: i32,
     /// Should the text be underlined.
     ///
     /// Default value is false

@@ -93,6 +93,9 @@ impl Serialize for MDIFormProperties {
         state.serialize_field("back_color", &self.back_color)?;
         state.serialize_field("caption", &self.caption)?;
         state.serialize_field("enabled", &self.enabled)?;
+
+        state.serialize_field("font", &self.font)?;
+
         state.serialize_field("height", &self.height)?;
         state.serialize_field("help_context_id", &self.help_context_id)?;
 
@@ -174,7 +177,7 @@ impl From<Properties> for MDIFormProperties {
         };
         mdi_form_prop.enabled = prop.get_property("Enabled", mdi_form_prop.enabled);
 
-        // Font - group
+        // Font - group handled within extraction logic
 
         mdi_form_prop.height = prop.get_i32("Height", mdi_form_prop.height);
         mdi_form_prop.help_context_id =
