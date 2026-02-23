@@ -691,6 +691,9 @@ impl Serialize for FormProperties {
         state.serialize_field("enabled", &self.enabled)?;
         state.serialize_field("fill_color", &self.fill_color)?;
         state.serialize_field("fill_style", &self.fill_style)?;
+
+        state.serialize_field("font", &self.font)?;
+
         state.serialize_field("font_transparent", &self.font_transparent)?;
         state.serialize_field("fore_color", &self.fore_color)?;
         state.serialize_field("has_dc", &self.has_dc)?;
