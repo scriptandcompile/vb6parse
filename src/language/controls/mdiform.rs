@@ -9,7 +9,7 @@
 use crate::files::common::Properties;
 use crate::language::{
     controls::{
-        Activation, Appearance, FormLinkMode, MousePointer, Movability, OLEDropMode,
+        Activation, Appearance, Font, FormLinkMode, MousePointer, Movability, OLEDropMode,
         ReferenceOrValue, StartUpPosition, TextDirection, Visibility, WhatsThisHelp, WindowState,
     },
     Color, VB_APPLICATION_WORKSPACE,
@@ -36,6 +36,8 @@ pub struct MDIFormProperties {
     pub caption: String,
     /// Enabled state of the MDI form.
     pub enabled: Activation,
+    /// The font style for the form.
+    pub font: Option<Font>,
     /// Height of the MDI form.
     pub height: i32,
     /// Help context ID of the MDI form.
@@ -133,8 +135,7 @@ impl Default for MDIFormProperties {
             back_color: VB_APPLICATION_WORKSPACE,
             caption: String::new(),
             enabled: Activation::Enabled,
-            // TODO: process font
-            //font
+            font: Some(Font::default()),
             height: 3600,
             help_context_id: 0,
             icon: None,

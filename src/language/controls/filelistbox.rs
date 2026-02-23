@@ -10,12 +10,12 @@ use std::convert::TryFrom;
 use std::fmt::Display;
 use std::str::FromStr;
 
-use crate::errors::{FormError, ErrorKind};
+use crate::errors::{ErrorKind, FormError};
 use crate::files::common::Properties;
 use crate::language::color::Color;
 use crate::language::controls::{
-    Activation, Appearance, CausesValidation, DragMode, MousePointer, MultiSelect, OLEDragMode,
-    OLEDropMode, ReferenceOrValue, TabStop, Visibility,
+    Activation, Appearance, CausesValidation, DragMode, Font, MousePointer, MultiSelect,
+    OLEDragMode, OLEDropMode, ReferenceOrValue, TabStop, Visibility,
 };
 
 use image::DynamicImage;
@@ -386,6 +386,8 @@ pub struct FileListBoxProperties {
     pub drag_mode: DragMode,
     /// Whether the `FileListBox` is enabled.
     pub enabled: Activation,
+    /// The font style for the form.
+    pub font: Option<Font>,
     /// The foreground color of the `FileListBox`.
     pub fore_color: Color,
     /// The height of the `FileListBox`.
@@ -440,6 +442,7 @@ impl Default for FileListBoxProperties {
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
+            font: Some(Font::default()),
             fore_color: Color::System { index: 8 },
             height: 1260,
             help_context_id: 0,

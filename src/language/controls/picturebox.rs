@@ -12,7 +12,7 @@ use crate::{
         color::{Color, VB_BUTTON_FACE, VB_BUTTON_TEXT, VB_SCROLL_BARS},
         controls::{
             Activation, Align, Appearance, AutoRedraw, AutoSize, BorderStyle, CausesValidation,
-            ClipControls, DragMode, DrawMode, DrawStyle, FillStyle, FontTransparency,
+            ClipControls, DragMode, DrawMode, DrawStyle, FillStyle, Font, FontTransparency,
             HasDeviceContext, LinkMode, MousePointer, OLEDragMode, OLEDropMode, ReferenceOrValue,
             ScaleMode, TabStop, TextDirection, Visibility,
         },
@@ -66,6 +66,8 @@ pub struct PictureBoxProperties {
     pub draw_width: i32,
     /// Indicates whether the `PictureBox` is enabled.
     pub enabled: Activation,
+    /// The font style for the form.
+    pub font: Option<Font>,
     /// Fill color of the `PictureBox`.
     pub fill_color: Color,
     /// Fill style of the `PictureBox`.
@@ -153,6 +155,7 @@ impl Default for PictureBoxProperties {
             enabled: Activation::Enabled,
             fill_color: VB_SCROLL_BARS,
             fill_style: FillStyle::Transparent,
+            font: Some(Font::default()),
             font_transparent: FontTransparency::Transparent,
             fore_color: VB_BUTTON_TEXT,
             has_dc: HasDeviceContext::HasContext,

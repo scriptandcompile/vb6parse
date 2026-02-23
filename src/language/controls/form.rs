@@ -15,7 +15,7 @@ use crate::{
     files::common::Properties,
     language::{
         controls::{
-            Activation, Appearance, AutoRedraw, ClipControls, DrawMode, DrawStyle, FillStyle,
+            Activation, Appearance, AutoRedraw, ClipControls, DrawMode, DrawStyle, FillStyle, Font,
             FontTransparency, HasDeviceContext, MousePointer, Movability, OLEDropMode,
             ReferenceOrValue, ScaleMode, StartUpPosition, TextDirection, Visibility, WhatsThisHelp,
             WindowState,
@@ -591,6 +591,8 @@ pub struct FormProperties {
     pub fill_color: Color,
     /// The fill style of the form.
     pub fill_style: FillStyle,
+    /// The font style for the form.
+    pub font: Option<Font>,
     /// The font transparency of the form.
     pub font_transparent: FontTransparency,
     /// The foreground color of the form.
@@ -762,6 +764,7 @@ impl Default for FormProperties {
             fill_color: VB_SCROLL_BARS,
             fill_style: FillStyle::Transparent,
             font_transparent: FontTransparency::Transparent,
+            font: Some(Font::default()),
             fore_color: VB_BUTTON_TEXT,
             has_dc: HasDeviceContext::HasContext,
             height: 240,

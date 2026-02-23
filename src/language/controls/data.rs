@@ -9,10 +9,11 @@
 use std::fmt::Display;
 use std::str::FromStr;
 
-use crate::errors::{FormError, ErrorKind};
+use crate::errors::{ErrorKind, FormError};
 use crate::files::common::Properties;
 use crate::language::controls::{
-    Activation, Align, Appearance, DragMode, MousePointer, OLEDropMode, TextDirection, Visibility,
+    Activation, Align, Appearance, DragMode, Font, MousePointer, OLEDropMode, TextDirection,
+    Visibility,
 };
 use crate::language::Color;
 
@@ -56,6 +57,8 @@ pub struct DataProperties {
     pub eof_action: EOFAction,
     /// Whether the Data control is exclusive.
     pub exclusive: bool,
+    /// The font style for the form.
+    pub font: Option<Font>,
     /// Foreground color of the Data control.
     pub fore_color: Color,
     /// Height of the Data control.
@@ -109,6 +112,7 @@ impl Default for DataProperties {
             enabled: Activation::Enabled,
             eof_action: EOFAction::MoveLast,
             exclusive: false,
+            font: Some(Font::default()),
             fore_color: Color::System { index: 8 },
             height: 1215,
             left: 480,

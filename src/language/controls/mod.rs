@@ -48,7 +48,7 @@ use std::str::FromStr;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
-use crate::errors::{FormError, ErrorKind};
+use crate::errors::{ErrorKind, FormError};
 use crate::language::PropertyGroup;
 
 use crate::language::controls::{
@@ -77,6 +77,55 @@ use crate::language::controls::{
 
 // Re-export form root types at the controls module level
 pub use form_root::{Form, FormRoot, MDIForm};
+
+/// The `Font` defines the characteristics of the text used by a control or form.
+///
+/// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/font-object-microsoft-forms)
+#[derive(Debug, PartialEq, Clone, Serialize, PartialOrd)]
+pub struct Font {
+    /// The name of the font.
+    ///
+    /// Default value is "MS Sans Serif".
+    pub name: String,
+    /// The Size property determines the height, in points, of displayed text.
+    ///
+    /// Default value is 8.25
+    pub size: f32,
+    /// Which character set to use. 0 is English and the only one currently supported.
+    ///
+    /// Default value is 0
+    pub charset: u32,
+    /// The Weight property determines the darkness of the text.
+    ///
+    /// Default value is 400
+    pub weight: u32,
+    /// Should the text be underlined.
+    ///
+    /// Default value is false
+    pub underline: bool,
+    /// Should the text be italic.
+    ///
+    /// Default value is false
+    pub italic: bool,
+    /// Should the text have a strikethrough.
+    ///
+    /// Default value is false
+    pub strikethrough: bool,
+}
+
+impl Default for Font {
+    fn default() -> Self {
+        Font {
+            name: "MS Sans Serif".to_string(),
+            size: 8.0,
+            charset: 0,
+            weight: 400,
+            underline: false,
+            italic: false,
+            strikethrough: false,
+        }
+    }
+}
 
 /// `AutoRedraw` determines if the control is redrawn automatically when something is
 /// moved in front of it or if it is redrawn manually.
