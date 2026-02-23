@@ -7,6 +7,10 @@ and this project (tries!) to adheres to [Semantic Versioning](https://semver.org
 
 ## [Unreleased]
 
+### Added
+- Font PropertyGroup parsing support in both CST and token-based control loading
+- Standard Rust `TryFrom`/`From` trait implementations for `PropertyGroup` conversions (replaced custom traits)
+
 ## [1.0.0] - 2026-02-16
 
 ### Changed
