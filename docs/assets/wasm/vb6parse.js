@@ -86,18 +86,18 @@ export function tokenize_vb6_code(code) {
 function __wbg_get_imports() {
     const import0 = {
         __proto__: null,
-        __wbg_Error_ecbf49c1b9d07c30: function(arg0, arg1) {
+        __wbg_Error_dbcd8782dbb273a2: function(arg0, arg1) {
             const ret = Error(getStringFromWasm0(arg0, arg1));
             return ret;
         },
-        __wbg___wbindgen_debug_string_43c7ccb034739216: function(arg0, arg1) {
+        __wbg___wbindgen_debug_string_6cf0badf0b90f6ef: function(arg0, arg1) {
             const ret = debugString(arg1);
             const ptr1 = passStringToWasm0(ret, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
             const len1 = WASM_VECTOR_LEN;
             getDataViewMemory0().setInt32(arg0 + 4 * 1, len1, true);
             getDataViewMemory0().setInt32(arg0 + 4 * 0, ptr1, true);
         },
-        __wbg___wbindgen_throw_df03e93053e0f4bc: function(arg0, arg1) {
+        __wbg___wbindgen_throw_89ca9e2c67795ec1: function(arg0, arg1) {
             throw new Error(getStringFromWasm0(arg0, arg1));
         },
         __wbg_error_a6fa202b58aa1cd3: function(arg0, arg1) {
@@ -115,19 +115,19 @@ function __wbg_get_imports() {
             const ret = new Error();
             return ret;
         },
-        __wbg_new_62f131e968c83d75: function() {
+        __wbg_new_6feff3e11e4d0799: function() {
             const ret = new Object();
             return ret;
         },
-        __wbg_new_66075f8c2ea6575e: function() {
+        __wbg_new_ff7f9cc4c9a4a0cf: function() {
             const ret = new Array();
             return ret;
         },
+        __wbg_set_601f3e1d081df3ac: function(arg0, arg1, arg2) {
+            arg0[arg1 >>> 0] = arg2;
+        },
         __wbg_set_6be42768c690e380: function(arg0, arg1, arg2) {
             arg0[arg1] = arg2;
-        },
-        __wbg_set_7bf9e2df46e7632c: function(arg0, arg1, arg2) {
-            arg0[arg1 >>> 0] = arg2;
         },
         __wbg_stack_3b0d974bbf31e44f: function(arg0, arg1) {
             const ret = arg1.stack;
