@@ -1169,7 +1169,7 @@ impl<'a> Parser<'a> {
         tag: String,
         index: i32,
         properties: Properties,
-        groups: Vec<PropertyGroup>,
+        groups: &[PropertyGroup],
         child_controls: Vec<Control>,
         menus: Vec<MenuControl>,
     ) -> Result<FormRoot, ErrorKind> {
@@ -1177,7 +1177,7 @@ impl<'a> Parser<'a> {
             "VB.Form" => {
                 let mut form_properties: FormProperties = properties.into();
                 // Override with property group if present
-                let extracted_groups = extract_property_groups(&groups);
+                let extracted_groups = extract_property_groups(groups);
                 if let Some(font) = extracted_groups.font {
                     form_properties.font = Some(font);
                 }
@@ -1194,7 +1194,7 @@ impl<'a> Parser<'a> {
             "VB.MDIForm" => {
                 let mut mdi_form_properties: MDIFormProperties = properties.into();
                 // Override with property group if present
-                let extracted_groups = extract_property_groups(&groups);
+                let extracted_groups = extract_property_groups(groups);
                 if let Some(font) = extracted_groups.font {
                     mdi_form_properties.font = Some(font);
                 }
@@ -1596,7 +1596,7 @@ impl<'a> Parser<'a> {
             tag,
             index,
             properties,
-            groups,
+            &groups,
             child_controls,
             menus,
         ) {
