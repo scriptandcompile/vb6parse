@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-02-23T22:36:12Z",
+  "last_updated": "2026-02-24T08:05:36Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T19:53:21Z",
@@ -545,32 +545,66 @@
           "percent": 95.39
         }
       }
+    },
+    {
+      "timestamp": "2026-02-24T08:05:36Z",
+      "commit_sha": "c9354ae33bfbac8f23fd38ef53efd66627b1925d",
+      "commit_message": "Fixed clippy warning about using vec instead of slice when it isn't consumed.",
+      "coverage": {
+        "line_coverage": 95.14,
+        "function_coverage": 92.94,
+        "region_coverage": 95.39
+      },
+      "tests": {
+        "total": 5697,
+        "lib_tests": 5491,
+        "doc_tests": 111,
+        "integration_tests": 95,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 94331,
+          "total": 99151,
+          "percent": 95.14
+        },
+        "functions": {
+          "covered": 6080,
+          "total": 6542,
+          "percent": 92.94
+        },
+        "regions": {
+          "covered": 150707,
+          "total": 157992,
+          "percent": 95.39
+        }
+      }
     }
   ],
   "coverage_summary": {
     "line_coverage": {
       "latest": 95.14,
       "trend": "stable",
-      "change_percent": 0.05,
+      "change_percent": 0.0,
       "best": 95.51,
       "worst": 95.14,
-      "average": 95.38
+      "average": 95.36
     },
     "function_coverage": {
       "latest": 92.94,
-      "trend": "degrading",
-      "change_percent": 0.11,
+      "trend": "stable",
+      "change_percent": 0.0,
       "best": 93.76,
       "worst": 92.94,
-      "average": 93.45
+      "average": 93.42
     },
     "region_coverage": {
       "latest": 95.39,
       "trend": "stable",
-      "change_percent": 0.07,
+      "change_percent": 0.0,
       "best": 95.56,
       "worst": 95.39,
-      "average": 95.51
+      "average": 95.5
     },
     "test_count": {
       "latest": 5697,
