@@ -61,7 +61,18 @@
 //! use vb6parse::parsers::SyntaxKind;
 //!
 //! let source = "Sub Test()\nEnd Sub\n";
-//! let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+//! let (cst_opt, failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+//!
+//! if !failures.is_empty() {
+//!   eprintln!("Errors during parsing:");
+//!   for failure in failures {
+//!       failure.print();
+//!   }
+//!   panic!("Failed to parse source code.");
+//! }
+//!
+//! let cst = cst_opt.expect("Failed to parse source");
+//!
 //!
 //! // Access root-level children
 //! println!("Child count: {}", cst.child_count());
@@ -79,7 +90,9 @@
 //! # use vb6parse::ConcreteSyntaxTree;
 //! # use vb6parse::parsers::SyntaxKind;
 //! # let source = "Sub Test()\nDim x\nEnd Sub\n";
-//! # let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+//! # let (cst_opt, failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+//! # let cst = cst_opt.expect("Failed to parse source");
+//!
 //! let root = cst.to_serializable().root;
 //!
 //! // Direct children
@@ -2157,7 +2170,7 @@ mod tests {
         assert!(cst.contains_kind(SyntaxKind::EndOfLineComment));
         assert!(cst.contains_kind(SyntaxKind::SubStatement));
 
-        let first = cst.first_child().unwrap();
+        let first = cst.first_child().expect("Expected first child");
         assert_eq!(first.kind(), SyntaxKind::EndOfLineComment);
         assert!(first.is_token());
     }
@@ -2212,7 +2225,8 @@ mod tests {
     #[test]
     fn parse_empty_stream() {
         let source = "";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("Failed to parse source");
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         assert_eq!(cst.child_count(), 0);
@@ -2221,7 +2235,8 @@ mod tests {
     #[test]
     fn parse_rem_comment() {
         let source = "REM This is a REM comment\nSub Test()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("Failed to parse source");
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         // Should have 2 children: the REM comment and the SubStatement
@@ -2237,7 +2252,8 @@ mod tests {
     #[test]
     fn parse_mixed_comments() {
         let source = "' Single quote comment\nREM REM comment\nSub Test()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("Failed to parse source");
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         // Should have 5 children: EndOfLineComment, Newline, RemComment, Newline, SubStatement
@@ -2260,7 +2276,8 @@ mod tests {
     #[test]
     fn cst_with_comments() {
         let source = "' This is a comment\nSub Main()\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("Failed to parse source");
 
         // Now has 3 children: comment token, newline token, SubStatement
         assert_eq!(cst.child_count(), 3);
@@ -2271,7 +2288,8 @@ mod tests {
     #[test]
     fn cst_serializable_tree() {
         let source = "Sub Test()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("Failed to parse source");
 
         // Convert to serializable format
         let serializable = cst.to_serializable();
@@ -2292,7 +2310,8 @@ mod tests {
     #[test]
     fn cst_serializable_with_insta() {
         let source = "Dim x As Integer\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("Failed to parse source");
         let serializable = cst.to_serializable();
 
         // Example of using with insta (commented out to not create snapshot files in normal test runs)
@@ -2301,8 +2320,6 @@ mod tests {
         // Verify it's serializable by checking structure
         assert!(!serializable.root.children().is_empty());
     }
-
-    // Phase 1 Tests: Parser Modes and Constructors
 
     #[test]
     fn parser_mode_full_cst_default() {
@@ -2356,8 +2373,6 @@ mod tests {
         assert_eq!(parser.pos, 3);
     }
 
-    // Phase 2 Tests: VERSION Parsing
-
     #[test]
     fn parse_version_direct_with_version() {
         let source = "VERSION 5.00\nSub Test()\nEnd Sub\n";
@@ -2370,7 +2385,7 @@ mod tests {
         let (version_opt, failures) = parser.parse_version_direct().unpack();
 
         assert!(version_opt.is_some());
-        let version = version_opt.unwrap();
+        let version = version_opt.expect("Expected version to be parsed");
         assert_eq!(version.major, 5);
         assert_eq!(version.minor, 0);
         assert!(failures.is_empty());
@@ -2403,7 +2418,7 @@ mod tests {
         let (version_opt, failures) = parser.parse_version_direct().unpack();
 
         assert!(version_opt.is_some());
-        let version = version_opt.unwrap();
+        let version = version_opt.expect("Expected version to be parsed");
         assert_eq!(version.major, 1);
         assert_eq!(version.minor, 0);
         assert!(failures.is_empty());
@@ -2421,7 +2436,7 @@ mod tests {
         let (version_opt, _failures) = parser.parse_version_direct().unpack();
 
         assert!(version_opt.is_some());
-        let version = version_opt.unwrap();
+        let version = version_opt.expect("Expected version to be parsed");
         assert_eq!(version.major, 1);
         assert_eq!(version.minor, 0);
     }
@@ -2438,7 +2453,7 @@ mod tests {
         let (version_opt, _failures) = parser.parse_version_direct().unpack();
 
         assert!(version_opt.is_some());
-        let version = version_opt.unwrap();
+        let version = version_opt.expect("Expected version to be parsed");
         assert_eq!(version.major, 5);
         assert_eq!(version.minor, 0);
     }
@@ -2484,7 +2499,7 @@ mod tests {
             match expected {
                 Some((major, minor)) => {
                     assert!(version_opt.is_some(), "Expected version for: {source}");
-                    let version = version_opt.unwrap();
+                    let version = version_opt.expect("Expected version to be parsed");
                     assert_eq!(version.major, major, "Major mismatch for: {source}");
                     assert_eq!(version.minor, minor, "Minor mismatch for: {source}");
                 }
@@ -2494,8 +2509,6 @@ mod tests {
             }
         }
     }
-
-    // Phase 3 Tests: Core Control Extraction
 
     #[test]
     fn parse_control_type_direct_simple() {
@@ -2537,7 +2550,7 @@ mod tests {
         let property = parser.parse_property_direct();
 
         assert!(property.is_some());
-        let (key, value) = property.unwrap();
+        let (key, value) = property.expect("Expected property to be parsed");
         assert_eq!(key, "Caption");
         assert_eq!(value, "\"Hello World\"");
     }
@@ -2561,7 +2574,7 @@ End
         assert!(failures.is_empty(), "Expected no failures");
         assert!(control_opt.is_some(), "Expected form root to be parsed");
 
-        let form_root = control_opt.unwrap();
+        let form_root = control_opt.expect("Expected form root to be parsed");
         assert_eq!(form_root.name(), "Form1");
 
         // Verify it's a Form
@@ -2587,7 +2600,7 @@ End
         assert!(failures.is_empty());
         assert!(control_opt.is_some());
 
-        let control = control_opt.unwrap();
+        let control = control_opt.expect("Expected control to be parsed");
         assert_eq!(control.name(), "Command1");
         assert_matches!(control.kind(), ControlKind::CommandButton { .. });
     }
@@ -2609,7 +2622,7 @@ End
         let (control_opt, _failures) = parser.parse_properties_block_to_control().unpack();
 
         assert!(control_opt.is_some());
-        let control = control_opt.unwrap();
+        let control = control_opt.expect("Expected control to be parsed");
         assert_eq!(control.name(), "Text1");
         assert_matches!(control.kind(), ControlKind::TextBox { .. });
     }
@@ -2628,8 +2641,6 @@ End
         // Should return None when BEGIN is missing
         assert!(control_opt.is_none());
     }
-
-    // Phase 4 Tests: Nested Controls and Property Groups
 
     #[test]
     fn parse_form_with_nested_control() {
@@ -2651,7 +2662,7 @@ End
 
         assert!(failures.is_empty(), "Should have no failures");
         assert!(form_root_opt.is_some());
-        let form_root = form_root_opt.unwrap();
+        let form_root = form_root_opt.expect("Expected form root to be parsed");
         assert_eq!(form_root.name(), "Form1");
 
         // Check form has child controls
@@ -2686,7 +2697,7 @@ End
 
         assert!(failures.is_empty());
         assert!(control_opt.is_some());
-        let control = control_opt.unwrap();
+        let control = control_opt.expect("Expected control to be parsed");
         assert_eq!(control.name(), "Frame1");
 
         // Check frame has 2 child checkboxes
@@ -2719,7 +2730,7 @@ End
 
         assert!(failures.is_empty());
         assert!(control_opt.is_some());
-        let control = control_opt.unwrap();
+        let control = control_opt.expect("Expected control to be parsed");
         assert_eq!(control.name(), "Command1");
 
         // Check for property - CommandButton should have parsed successfully
@@ -2748,7 +2759,7 @@ End
 
         assert!(failures.is_empty());
         assert!(control_opt.is_some());
-        let control = control_opt.unwrap();
+        let control = control_opt.expect("Expected control to be parsed");
         assert_eq!(control.name(), "TreeView1");
 
         // Check for Custom control with property groups
@@ -2764,7 +2775,6 @@ End
         }
     }
 
-    // Phase 5 Tests: Direct Object Parsing
     #[test]
     fn parse_simple_object_statement() {
         let source = r#"Object = "{12345678-1234-1234-1234-123456789ABC}#1.0#0"; "MyLib.dll""#;
@@ -2887,7 +2897,7 @@ End
 
         assert!(failures.is_empty());
         assert!(control_opt.is_some());
-        let control = control_opt.unwrap();
+        let control = control_opt.expect("Expected control to be parsed");
 
         // Check for nested property groups
         if let ControlKind::Custom {
@@ -2932,7 +2942,7 @@ End
 
         assert!(failures.is_empty());
         assert!(form_root_opt.is_some());
-        let form_root = form_root_opt.unwrap();
+        let form_root = form_root_opt.expect("Expected form root to be parsed");
 
         // Verify deep nesting: Form > PictureBox > Frame > Label
         if let FormRoot::Form(form) = &form_root {
@@ -2953,7 +2963,6 @@ End
         }
     }
 
-    // Phase 6 Tests: Direct Attribute Parsing
     #[test]
     fn parse_simple_string_attribute() {
         let source = r#"Attribute VB_Name = "Form1"
@@ -3089,7 +3098,7 @@ Attribute VB_Description = "Test"
         let property = parser.parse_property_direct();
 
         assert!(property.is_some());
-        let (key, value) = property.unwrap();
+        let (key, value) = property.expect("Expected property to be parsed");
         assert_eq!(key, "Caption");
         assert_eq!(value, r#"$"Gradient.frx":0000"#);
     }

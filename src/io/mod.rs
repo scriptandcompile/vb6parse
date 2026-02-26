@@ -15,8 +15,9 @@
 //! ```no_run
 //! use vb6parse::io::SourceFile;
 //!
-//! let bytes = std::fs::read("MyProject.vbp").unwrap();
-//! let source = SourceFile::decode_with_replacement("MyProject.vbp", &bytes).unwrap();
+//! let bytes = std::fs::read("MyProject.vbp").expect("Failed to read project file");
+//! let source = SourceFile::decode_with_replacement("MyProject.vbp", &bytes)
+//!     .expect("Failed to decode source file");
 //! let stream = source.source_stream();
 //! // Use stream for parsing...
 //! ```
