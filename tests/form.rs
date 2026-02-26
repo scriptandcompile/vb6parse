@@ -15,17 +15,17 @@ fn artificial_life_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
 
         panic!("Failed to parse 'frmMain.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
 
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
@@ -48,16 +48,16 @@ fn blacklight_effect_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'Blacklight.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -80,16 +80,16 @@ fn brightness_effect_part_1_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'Brightness.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -113,16 +113,16 @@ fn brightness_effect_part_2_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'Brightness2.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -145,16 +145,16 @@ fn brightness_effect_part_3_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'Brightness3.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -178,16 +178,16 @@ fn brightness_effect_part_4_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'Brightness.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -209,16 +209,16 @@ fn color_shift_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'ShiftColors.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -240,16 +240,16 @@ fn colorize_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'Colorize.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -271,16 +271,16 @@ fn contrast_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'Contrast.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -302,16 +302,16 @@ fn curves_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'Curves.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -333,16 +333,16 @@ fn custom_image_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'CustomFilters.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -364,16 +364,16 @@ fn diffuse_effect_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'Diffuse.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -395,16 +395,16 @@ fn edge_detection_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'EdgeDetection.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -426,16 +426,16 @@ fn emboss_engrave_effect_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'EmbossEngrave.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -466,7 +466,16 @@ fn fill_image_region_form_load() {
         panic!("Failed to parse 'frmFill.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
+
+    if !failures.is_empty() {
+        for failure in failures {
+            failure.eprint();
+        }
+        panic!("Failed to parse 'frmFill.frm' form file");
+    }
+
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -488,16 +497,16 @@ fn fire_effect_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'frmFire.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -519,16 +528,16 @@ fn game_physics_basic_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'formPhysics.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -550,16 +559,16 @@ fn gradient_2d_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'Gradient.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -581,16 +590,16 @@ fn grayscale_effect_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'Grayscale.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -612,16 +621,16 @@ fn hidden_markov_model_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'frmHMM.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -643,16 +652,16 @@ fn histograms_advanced_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'Histogram.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -674,16 +683,16 @@ fn histograms_basic_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'Histogram.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -705,16 +714,16 @@ fn levels_effect_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'Main.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -736,16 +745,16 @@ fn mandelbrot_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'Mandelbrot.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -767,16 +776,16 @@ fn map_editor_2d_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'Main Editor.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -798,16 +807,16 @@ fn nature_effects_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'NatureFilters.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -829,16 +838,16 @@ fn randomize_effects_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'RandomizationFX.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -860,16 +869,16 @@ fn scanner_twain_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'frmScanner.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -891,16 +900,16 @@ fn screen_capture_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'FormScreenCapture.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -922,16 +931,16 @@ fn sepia_effect_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'Sepia.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -953,16 +962,16 @@ fn threshold_effect_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'Threshold.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);
@@ -984,16 +993,16 @@ fn transparency_2d_form_load() {
         }
     };
 
-    let form_result = FormFile::parse(&source_file);
+    let (form_file_opt, failures) = FormFile::parse(&source_file).unpack();
 
-    if form_result.has_failures() {
-        for failure in form_result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.eprint();
         }
         panic!("Failed to parse 'frmTransparency.frm' form file");
     }
 
-    let form_file = form_result.unwrap();
+    let form_file = form_file_opt.expect("Form should be present.");
     let mut settings = insta::Settings::clone_current();
     settings.set_snapshot_path("../snapshots/tests/form");
     settings.set_prepend_module_to_snapshot(false);

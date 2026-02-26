@@ -9,7 +9,7 @@ use serde::Serialize;
 use crate::{
     files::common::{FileAttributes, FileFormatVersion, ObjectReference},
     io::SourceFile,
-    language::{Form, FormRoot},
+    language::FormRoot,
     lexer::{tokenize, TokenStream},
     parsers::{
         cst::{parse, ConcreteSyntaxTree},
@@ -69,15 +69,16 @@ impl FormFile {
     pub fn parse(source_file: &SourceFile) -> ParseResult<'_, Self> {
         let mut source_stream = source_file.source_stream();
 
-        // TODO: Handle errors from tokenization.
-        let token_stream = tokenize(&mut source_stream).unwrap();
+        let (token_stream_opt, failures) = tokenize(&mut source_stream).unpack();
+        let mut all_failures = Vec::new();
+        all_failures.extend(failures);
 
-        // Phase 7: Use direct extraction instead of building full CST first
+        let Some(token_stream) = token_stream_opt else {
+            return ParseResult::new(None, all_failures);
+        };
+
         let tokens = token_stream.into_tokens();
         let mut parser = crate::parsers::cst::Parser::new_direct_extraction(tokens, 0);
-
-        // Collect all parsing failures
-        let mut all_failures = Vec::new();
 
         // Parse VERSION directly (no CST overhead)
         let (version_opt, version_failures) = parser.parse_version_direct().unpack();
@@ -91,18 +92,9 @@ impl FormFile {
         let (form_root_opt, form_failures) = parser.parse_properties_block_to_form_root().unpack();
         all_failures.extend(form_failures);
 
-        let mut form = form_root_opt.unwrap_or_else(|| {
-            use crate::language::FormProperties;
-
-            FormRoot::Form(Form {
-                name: String::new(),
-                tag: String::new(),
-                index: 0,
-                properties: FormProperties::default(),
-                controls: Vec::new(),
-                menus: Vec::new(),
-            })
-        });
+        let Some(mut form) = form_root_opt else {
+            return ParseResult::new(None, all_failures);
+        };
 
         // Parse Attributes directly (no CST overhead)
         let attributes = parser.parse_attributes_direct();
@@ -203,12 +195,21 @@ mod tests {
         // Test VERSION 5.00 (typical form version)
         let source = "VERSION 5.00\nBegin VB.Form Form1\nEnd\n";
         let mut source_stream = crate::SourceStream::new("test.frm", source);
-        let token_stream = tokenize(&mut source_stream).unwrap();
+        let (token_stream_opt, failures) = tokenize(&mut source_stream).unpack();
+
+        if !failures.is_empty() {
+            eprintln!("Tokenization failures:");
+            for failure in failures {
+                eprintln!("  - {:?}", failure);
+            }
+        }
+
+        let token_stream = token_stream_opt.expect("Expected token stream from tokenization.");
         let cst = parse(token_stream);
 
         let version = extract_version(&cst);
         assert!(version.is_some());
-        let version = version.unwrap();
+        let version = version.expect("Version should be present if it's Some.");
         assert_eq!(version.major, 5);
         assert_eq!(version.minor, 0);
     }
@@ -218,12 +219,21 @@ mod tests {
         // Test VERSION 1.0 CLASS (typical class version)
         let source = "VERSION 1.0 CLASS\nBegin\nEnd\n";
         let mut source_stream = crate::SourceStream::new("test.cls", source);
-        let token_stream = tokenize(&mut source_stream).unwrap();
+        let (token_stream_opt, failures) = tokenize(&mut source_stream).unpack();
+
+        if !failures.is_empty() {
+            eprintln!("Tokenization failures:");
+            for failure in failures {
+                eprintln!("  - {:?}", failure);
+            }
+        }
+
+        let token_stream = token_stream_opt.expect("Expected token stream from tokenization.");
         let cst = parse(token_stream);
 
         let version = extract_version(&cst);
         assert!(version.is_some());
-        let version = version.unwrap();
+        let version = version.expect("Version should be present if it's Some.");
         assert_eq!(version.major, 1);
         assert_eq!(version.minor, 0);
     }
@@ -233,7 +243,16 @@ mod tests {
         // Test without VERSION statement
         let source = "Begin VB.Form Form1\nEnd\n";
         let mut source_stream = crate::SourceStream::new("test.frm", source);
-        let token_stream = tokenize(&mut source_stream).unwrap();
+        let (token_stream_opt, failures) = tokenize(&mut source_stream).unpack();
+
+        if !failures.is_empty() {
+            eprintln!("Tokenization failures:");
+            for failure in failures {
+                eprintln!("  - {:?}", failure);
+            }
+        }
+
+        let token_stream = token_stream_opt.expect("Expected token stream from tokenization.");
         let cst = parse(token_stream);
 
         let version = extract_version(&cst);
@@ -250,7 +269,17 @@ Begin VB.Form Form1
 End
 "#;
         let mut source_stream = crate::SourceStream::new("test.frm", source);
-        let token_stream = tokenize(&mut source_stream).unwrap();
+
+        let (token_stream_opt, failures) = tokenize(&mut source_stream).unpack();
+
+        if !failures.is_empty() {
+            eprintln!("Tokenization failures:");
+            for failure in failures {
+                eprintln!("  - {:?}", failure);
+            }
+        }
+
+        let token_stream = token_stream_opt.expect("Expected token stream from tokenization.");
         let cst = parse(token_stream);
 
         // Verify we have VersionStatement
@@ -344,7 +373,8 @@ End
     Attribute VB_Name = \"Form_Main\"\r
     ";
 
-        let source_file = SourceFile::decode_with_replacement("form_parse.frm", input).unwrap();
+        let source_file = SourceFile::decode_with_replacement("form_parse.frm", input)
+            .expect("Expected source file");
         let (parse_result_opt, _failures) = FormFile::parse(&source_file).unpack();
 
         assert!(parse_result_opt.is_some());
@@ -519,8 +549,8 @@ Begin VB.Form Form1
 End
 "#;
 
-        let source_file =
-            SourceFile::decode_with_replacement("test.frm", input.as_bytes()).unwrap();
+        let source_file = SourceFile::decode_with_replacement("test.frm", input.as_bytes())
+            .expect("Unable to decode the sourcefile with replacements.");
         let (result_opt, _failures) = FormFile::parse(&source_file).unpack();
 
         assert!(result_opt.is_some());

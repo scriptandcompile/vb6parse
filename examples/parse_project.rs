@@ -66,8 +66,8 @@ AutoRefresh=1
     // The filename is provided for reference in error messages.
     // In a real application, use the actual filename.
     // Decode with replacement to handle any invalid characters gracefully.
-    let source_file =
-        SourceFile::decode_with_replacement("Project1.vbp", input.as_bytes()).unwrap();
+    let source_file = SourceFile::decode_with_replacement("Project1.vbp", input.as_bytes())
+        .expect("Unable to decode the sourcefile with replacements.");
 
     // Parse the project file from the decoded source file.
     let project = ProjectFile::parse(&source_file).unwrap_or_fail();
