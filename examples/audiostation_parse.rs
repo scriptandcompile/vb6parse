@@ -25,12 +25,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Parse the project file
     let project_parse_result = ProjectFile::parse(&project_source);
 
-    if project_parse_result.has_failures() {
-        for failure in project_parse_result.failures() {
+    let (project_opt, failures) = project_parse_result.unpack();
+
+    if !failures.is_empty() {
+        eprintln!("Failure while parsing project file. Errors:");
+        for failure in failures {
             failure.print();
         }
     }
-    let project = project_parse_result.unwrap();
+
+    let project = project_opt.expect("Project should be present.");
 
     println!("Project Title: {}", project.properties.title);
     println!("Startup Object: {}", project.properties.startup);
@@ -63,12 +67,18 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 .expect("Failed to decode module source file.");
 
         let module_parse_result = vb6parse::ModuleFile::parse(&module_source);
-        if module_parse_result.has_failures() {
-            for failure in module_parse_result.failures() {
+
+        let (module_file_opt, failures) = module_parse_result.unpack();
+
+        if !failures.is_empty() {
+            eprintln!("Failure while parsing module file. Errors:");
+            for failure in failures {
                 failure.print();
             }
         }
-        let module_file = module_parse_result.unwrap();
+
+        let module_file = module_file_opt.expect("Module should be present.");
+
         let cst = &module_file.cst;
 
         println!("\nCST for module '{module_path}':");

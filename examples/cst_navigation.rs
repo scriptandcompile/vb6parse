@@ -23,7 +23,7 @@ End Function
 ";
 
     let result = ConcreteSyntaxTree::from_text("example.bas", source);
-    let cst = result.unwrap();
+    let cst = result.unwrap_or_fail();
     let root = cst.to_serializable().root;
 
     println!("=== CST Navigation Examples ===\n");

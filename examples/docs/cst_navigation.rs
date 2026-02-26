@@ -8,7 +8,9 @@ fn main() {
     MsgBox result
 End Sub"#;
 
-    let cst = ConcreteSyntaxTree::from_text("test.bas", code).unwrap();
+    let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", code).unpack();
+    let cst = cst_opt.expect("Failed to parse the input code.");
+
     let root = cst.to_serializable().root;
 
     println!("Total nodes in tree: {}", root.descendants().count());

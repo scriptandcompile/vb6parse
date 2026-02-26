@@ -11,7 +11,8 @@
 //!! # Example
 //! ```rust
 //! use vb6parse::language::Color;
-//! let color = Color::from_hex("&H00FF0000&").unwrap();
+//! let color = Color::from_hex("&H00FF0000&")
+//!     .expect("Failed to parse color");
 //! assert_eq!(color, Color::RGB { red: 0x00, green: 0x00, blue: 0xFF });
 //! assert_eq!(color.to_vb_string(), "&H00FF0000&");
 //! ```
