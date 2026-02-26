@@ -1,4 +1,4 @@
-use vb6parse::{errors::project, *};
+use vb6parse::*;
 
 #[test]
 fn artificial_life_project_load() {
