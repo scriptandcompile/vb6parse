@@ -380,7 +380,8 @@ Option Explicit
     Attribute VB_PredeclaredId = False\r
     Attribute VB_Exposed = False";
 
-        let sourcefile = SourceFile::decode_with_replacement("test.cls", input).unwrap();
+        let sourcefile = SourceFile::decode_with_replacement("test.cls", input)
+            .expect("Unabled to decode source file with replacement.");
 
         let result = ClassFile::parse(&sourcefile);
 
@@ -399,13 +400,15 @@ Option Explicit
         };
 
         let mut source_stream = source_file.source_stream();
-        let token_stream = tokenize(&mut source_stream).unwrap();
+        let (token_stream_opt, _failures) = tokenize(&mut source_stream).unpack();
+        let token_stream = token_stream_opt.expect("Failed to tokenize the input.");
+
         let cst = parse(token_stream);
 
         let version = extract_version(&cst);
 
         assert!(version.is_some());
-        let version = version.unwrap();
+        let version = version.expect("Version should be present if it's Some.");
         assert_eq!(version.major, 1);
         assert_eq!(version.minor, 0);
     }
@@ -423,7 +426,8 @@ Option Explicit
         };
 
         let mut source_stream = source_file.source_stream();
-        let token_stream = tokenize(&mut source_stream).unwrap();
+        let (token_stream_opt, _failures) = tokenize(&mut source_stream).unpack();
+        let token_stream = token_stream_opt.expect("Failed to tokenize the input.");
         let cst = parse(token_stream);
 
         let version = extract_version(&cst);

@@ -161,7 +161,9 @@ pub fn parse_vb6_code(
 
     let (token_stream_opt, _failures) = tokenize(&mut source_stream).unpack();
 
-    let token_stream = token_stream_opt.unwrap();
+    let Some(token_stream) = token_stream_opt else {
+        return Err(JsError::new("Failed to tokenize the input code."));
+    };
 
     let tokens = produce_tokens(token_stream.clone());
 
@@ -273,7 +275,9 @@ pub fn tokenize_vb6_code(code: &str) -> Result<JsValue, JsError> {
 
     let (token_stream_opt, _failures) = tokenize(&mut source_stream).unpack();
 
-    let token_stream = token_stream_opt.unwrap();
+    let Some(token_stream) = token_stream_opt else {
+        return Err(JsError::new("Failed to tokenize the input code."));
+    };
 
     let tokens = produce_tokens(token_stream);
 

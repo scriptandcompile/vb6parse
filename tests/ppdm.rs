@@ -6,19 +6,20 @@ use vb6parse::*;
 fn ppdm_project_load() {
     let project_file_bytes = include_bytes!("./data/ppdm/ppdm.vbp").as_slice();
 
-    let source_file = SourceFile::decode_with_replacement("ppdm.vbp", project_file_bytes).unwrap();
+    let source_file = SourceFile::decode_with_replacement("ppdm.vbp", project_file_bytes)
+        .expect("Failed to decode project file");
 
-    let result = ProjectFile::parse(&source_file);
+    let (project_file_opt, failures) = ProjectFile::parse(&source_file).unpack();
 
-    if result.has_failures() {
-        for failure in result.failures() {
+    if !failures.is_empty() {
+        for failure in failures {
             failure.print();
         }
 
         panic!("Project parse had failures");
     }
 
-    let project = result.unwrap();
+    let project = project_file_opt.expect("Project should be present.");
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references().collect::<Vec<_>>().len(), 15);

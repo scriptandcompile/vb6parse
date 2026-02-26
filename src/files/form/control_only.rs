@@ -15,7 +15,8 @@
 //! use vb6parse::{SourceFile, tokenize, FormFile};
 //!
 //! let source_bytes = b"VERSION 5.00\nBegin VB.Form Form1\n   Caption = \"Test\"\nEnd\n";
-//! let source = SourceFile::decode_with_replacement("test.frm", source_bytes).unwrap();
+//! let source = SourceFile::decode_with_replacement("test.frm", source_bytes)
+//!     .expect("Unable to decode the sourcefile with replacements.");
 //! let mut source_stream = source.source_stream();
 //! let result = tokenize(&mut source_stream);
 //! let (token_stream, _failures) = result.unpack();
@@ -82,7 +83,8 @@ pub type ControlOnlyResult<'a> = (Option<FileFormatVersion>, Option<FormRoot>, T
 /// use vb6parse::files::form::control_only::parse_control_from_tokens;
 ///
 /// let source_bytes = b"VERSION 5.00\nBegin VB.Form Form1\nEnd\n";
-/// let source = SourceFile::decode_with_replacement("test.frm", source_bytes).unwrap();
+/// let source = SourceFile::decode_with_replacement("test.frm", source_bytes)
+///     .expect("Unable to decode the sourcefile with replacements.");
 /// let mut source_stream = source.source_stream();
 /// let result = tokenize(&mut source_stream);
 /// let (token_stream, _failures) = result.unpack();

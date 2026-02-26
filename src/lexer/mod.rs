@@ -7,15 +7,20 @@
 //! use vb6parse::language::Token;
 //! use vb6parse::lexer::tokenize;
 //! use vb6parse::io::SourceStream;
+//!
 //! let mut input = SourceStream::new("test.bas", "Dim x As Integer");
-//! let result = tokenize(&mut input);
-//! if result.has_failures() {
-//!    for failure in result.failures() {
+//! let (result_opt, failures) = tokenize(&mut input).unpack();
+//!
+//! if !failures.is_empty() {
+//!   eprintln!("Errors during tokenization:");
+//!   for failure in failures  {
 //!       failure.print();
 //!   }
 //!   panic!("Failed to parse vb6 code.");
 //! }
-//! let tokens = result.unwrap();
+//!
+//! let tokens = result_opt.expect("Tokens should be present.");
+//!
 //! assert_eq!(tokens.len(), 7);
 //! assert_eq!(tokens[0], ("Dim", Token::DimKeyword));
 //! assert_eq!(tokens[1], (" ", Token::Whitespace));

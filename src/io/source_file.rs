@@ -11,7 +11,8 @@
 //! ```no_run
 //! use vb6parse::io::SourceFile;
 //!
-//! let source_file = SourceFile::from_file("path/to/module.bas").unwrap();
+//! let source_file = SourceFile::from_file("path/to/module.bas")
+//!     .expect("Failed to read source file");
 //! ```
 //!
 //! # Errors

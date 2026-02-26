@@ -745,7 +745,8 @@ impl<'a> ProjectFile<'a> {
     /// assert_eq!(other_props.len(), 1);
     /// assert!(other_props.contains_key("ThirdPartySection"));
     ///
-    /// let third_party_props = other_props.get("ThirdPartySection").unwrap();
+    /// let third_party_props = other_props.get("ThirdPartySection")
+    ///     .expect("Expected 'ThirdPartySection' to be present in other properties.");
     /// assert_eq!(third_party_props.len(), 1);
     /// assert_eq!(third_party_props.get("CustomProperty1").unwrap(), &"Value1");
     /// ```
@@ -3003,8 +3004,10 @@ mod tests {
 
         let parameter_name = input
             .take("CompatibleMode", Comparator::CaseSensitive)
-            .unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+            .expect("Expected to find 'CompatibleMode' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'CompatibleMode'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
@@ -3026,8 +3029,10 @@ mod tests {
 
         let parameter_name = input
             .take("CompatibleMode", Comparator::CaseSensitive)
-            .unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+            .expect("Expected to find 'CompatibleMode' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'CompatibleMode'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
@@ -3049,8 +3054,10 @@ mod tests {
 
         let parameter_name = input
             .take("CompatibleMode", Comparator::CaseSensitive)
-            .unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+            .expect("Expected to find 'CompatibleMode' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'CompatibleMode'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
@@ -3080,8 +3087,12 @@ mod tests {
 
         let mut input = SourceStream::new("", "Startup=\"something.exe\"\n");
 
-        let parameter_name = input.take("Startup", Comparator::CaseSensitive).unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+        let parameter_name = input
+            .take("Startup", Comparator::CaseSensitive)
+            .expect("Expected to find 'Startup' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'Startup'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
@@ -3099,8 +3110,12 @@ mod tests {
 
         let mut input = SourceStream::new("", "Type=Exe\n");
 
-        let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+        let parameter_name = input
+            .take("Type", Comparator::CaseSensitive)
+            .expect("Expected to find 'Type' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'Type'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
@@ -3119,8 +3134,12 @@ mod tests {
 
         let mut input = SourceStream::new("", "Type=OleDll\r\n");
 
-        let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+        let parameter_name = input
+            .take("Type", Comparator::CaseSensitive)
+            .expect("Expected to find 'Type' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'Type'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
@@ -3136,8 +3155,12 @@ mod tests {
 
         let mut input = SourceStream::new("", "Type=Control\n");
 
-        let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+        let parameter_name = input
+            .take("Type", Comparator::CaseSensitive)
+            .expect("Expected to find 'Type' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'Type'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
@@ -3153,8 +3176,12 @@ mod tests {
 
         let mut input = SourceStream::new("", "Type=OleExe\n");
 
-        let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+        let parameter_name = input
+            .take("Type", Comparator::CaseSensitive)
+            .expect("Expected to find 'Type' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'Type'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
@@ -3170,8 +3197,12 @@ mod tests {
 
         let mut input = SourceStream::new("", "Type=blah\r\n");
 
-        let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+        let parameter_name = input
+            .take("Type", Comparator::CaseSensitive)
+            .expect("Expected to find 'Type' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'Type'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
@@ -3195,17 +3226,22 @@ mod tests {
 
         let mut input = SourceStream::new("", "Reference=*\\G{000440D8-E9ED-4435-A9A2-06B05387BB16}#c.0#0#..\\DBCommon\\Libs\\VbIntellisenseFix.dll#VbIntellisenseFix\r\n");
 
-        let _ = input.take("Reference", Comparator::CaseSensitive).unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+        let _ = input
+            .take("Reference", Comparator::CaseSensitive)
+            .expect("Expected to find 'Reference' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'Reference'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
         let result = parse_reference(&mut ctx, &mut input);
 
-        let expected_uuid = Uuid::parse_str("000440D8-E9ED-4435-A9A2-06B05387BB16").unwrap();
+        let expected_uuid = Uuid::parse_str("000440D8-E9ED-4435-A9A2-06B05387BB16")
+            .expect("Expected to parse UUID");
 
         assert!(input.is_empty());
-        let result = result.unwrap();
+        let result = result.expect("Expected to successfully parse reference line");
         assert_matches!(result, ProjectReference::Compiled { .. });
 
         match result {
@@ -3232,8 +3268,12 @@ mod tests {
 
         let mut input = SourceStream::new("", "Reference=*\\Atest.vbp\r\n");
 
-        let _ = input.take("Reference", Comparator::CaseSensitive).unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+        let _ = input
+            .take("Reference", Comparator::CaseSensitive)
+            .expect("Expected to find 'Reference' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'Reference'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
@@ -3241,7 +3281,7 @@ mod tests {
 
         assert!(input.is_empty());
         assert_eq!(
-            result.unwrap(),
+            result.expect("Expected to successfully parse reference line"),
             ProjectReference::SubProject { path: "test.vbp" }
         );
     }
@@ -3252,12 +3292,17 @@ mod tests {
 
         let mut input = SourceStream::new("", "Module=modDBAssist; ..\\DBCommon\\DBAssist.bas\r\n");
 
-        let _ = input.take("Module", Comparator::CaseSensitive).unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+        let _ = input
+            .take("Module", Comparator::CaseSensitive)
+            .expect("Expected to find 'Module' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'Module'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
-        let result = parse_module(&mut ctx, &mut input).unwrap();
+        let result =
+            parse_module(&mut ctx, &mut input).expect("Expected to successfully parse module line");
 
         assert!(input.is_empty());
         assert_eq!(result.name, "modDBAssist");
@@ -3273,12 +3318,17 @@ mod tests {
             "Class=CStatusBarClass; ..\\DBCommon\\CStatusBarClass.cls\r\n",
         );
 
-        let _ = input.take("Class", Comparator::CaseSensitive).unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+        let _ = input
+            .take("Class", Comparator::CaseSensitive)
+            .expect("Expected to find 'Class' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'Class'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
-        let result = parse_class(&mut ctx, &mut input).unwrap();
+        let result =
+            parse_class(&mut ctx, &mut input).expect("Expected to successfully parse class line");
 
         assert!(input.is_empty());
         assert_eq!(result.name, "CStatusBarClass");
@@ -3294,14 +3344,18 @@ mod tests {
             "Object={00020430-0000-0000-C000-000000000046}#2.0#0; stdole2.tlb\r\n",
         );
 
-        let _ = input.take("Object", Comparator::CaseSensitive).unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+        let _ = input
+            .take("Object", Comparator::CaseSensitive)
+            .expect("Expected to find 'Object' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'Object'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
         let result = parse_object(&mut ctx, &mut input);
 
-        let object = result.unwrap();
+        let object = result.expect("Expected to successfully parse object line");
 
         assert!(input.is_empty());
         match object {
@@ -3311,8 +3365,8 @@ mod tests {
                 unknown1,
                 file_name,
             } => {
-                let expected_uuid =
-                    Uuid::parse_str("00020430-0000-0000-C000-000000000046").unwrap();
+                let expected_uuid = Uuid::parse_str("00020430-0000-0000-C000-000000000046")
+                    .expect("Expected to parse UUID");
                 assert_eq!(uuid, expected_uuid);
                 assert_eq!(version, "2.0");
                 assert_eq!(unknown1, "0");
@@ -3379,19 +3433,24 @@ mod tests {
      AutoRefresh=1
 "#;
 
-        let project_source_file = SourceFile::decode("project1.vbp", input.as_bytes()).unwrap();
+        let project_source_file = SourceFile::decode("project1.vbp", input.as_bytes())
+            .expect("Expected to successfully decode project source file");
 
         let result = ProjectFile::parse(&project_source_file);
 
-        if result.has_failures() {
-            for failure in result.failures() {
+        let (project_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in &failures {
                 failure.print();
             }
 
             panic!("Project parse had failures");
         }
 
-        let project = result.unwrap();
+        assert!(failures.is_empty(), "Expected no failures, but found some");
+
+        let project = project_opt.expect("Expected to successfully parse project file");
 
         assert_eq!(project.project_type, CompileTargetType::Exe);
         assert_eq!(project.references.len(), 1);
@@ -3481,20 +3540,24 @@ mod tests {
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
-        let line_type = parse_property_name(&mut ctx, &mut input).unwrap();
+        let line_type =
+            parse_property_name(&mut ctx, &mut input).expect("Expected to parse property name");
         let type_result: Option<CompileTargetType> =
             parse_converted_value(&mut ctx, &mut input, line_type);
 
         assert!(type_result.is_some());
-        assert_eq!(type_result.unwrap(), CompileTargetType::Exe);
+        assert_eq!(
+            type_result.expect("Expected to parse compile target type"),
+            CompileTargetType::Exe
+        );
 
         let _ = input.take_ascii_whitespaces();
 
-        let _ = parse_property_name(&mut ctx, &mut input).unwrap();
+        let _ = parse_property_name(&mut ctx, &mut input).expect("Expected to parse property name");
         let reference_result = parse_reference(&mut ctx, &mut input);
 
         assert!(reference_result.is_some());
-        let reference = reference_result.unwrap();
+        let reference = reference_result.expect("Expected to parse reference");
         assert_eq!(
             reference,
             ProjectReference::Compiled {
@@ -3573,15 +3636,17 @@ mod tests {
 
         let result = ProjectFile::parse(&project_source_file);
 
-        if result.has_failures() {
-            for failure in result.failures() {
+        let (project_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in &failures {
                 failure.print();
             }
 
             panic!("Project parse had failures");
         }
 
-        let project = result.unwrap();
+        let project = project_opt.expect("Expected to successfully parse project file");
 
         match project.properties.compilation_type {
             CompilationType::PCode => {}
@@ -3734,15 +3799,18 @@ mod tests {
 
         let result = ProjectFile::parse(&project_source_file);
 
-        if result.has_failures() {
-            for failure in result.failures() {
+        let (project_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in &failures {
                 failure.print();
             }
 
             panic!("Project parse had failures");
         }
+        assert!(failures.is_empty(), "Expected no failures, but found some");
 
-        let project = result.unwrap();
+        let project = project_opt.expect("Expected to successfully parse project file");
 
         assert_eq!(project.project_type, CompileTargetType::Exe);
         assert_eq!(project.references.len(), 1);

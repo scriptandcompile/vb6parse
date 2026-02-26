@@ -363,8 +363,12 @@ mod tests {
 
         let mut input = SourceStream::new("", "Startup=");
 
-        let parameter_name = input.take("Startup", Comparator::CaseSensitive).unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+        let parameter_name = input
+            .take("Startup", Comparator::CaseSensitive)
+            .expect("Expected to find 'Startup' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'Startup'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
@@ -398,8 +402,10 @@ mod tests {
 
         let parameter_name = input
             .take("CompatibleMode", Comparator::CaseSensitive)
-            .unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+            .expect("Expected to find 'CompatibleMode' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'CompatibleMode'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
@@ -435,8 +441,10 @@ mod tests {
 
         let parameter_name = input
             .take("CompatibleMode", Comparator::CaseSensitive)
-            .unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+            .expect("Expected to find 'CompatibleMode' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'CompatibleMode'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
@@ -471,8 +479,10 @@ mod tests {
 
         let parameter_name = input
             .take("CompatibleMode", Comparator::CaseSensitive)
-            .unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+            .expect("Expected to find 'CompatibleMode' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'CompatibleMode'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
@@ -508,8 +518,10 @@ mod tests {
 
         let parameter_name = input
             .take("CompatibleMode", Comparator::CaseSensitive)
-            .unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+            .expect("Expected to find 'CompatibleMode' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'CompatibleMode'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
@@ -545,8 +557,10 @@ mod tests {
 
         let parameter_name = input
             .take("CompatibleMode", Comparator::CaseSensitive)
-            .unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+            .expect("Expected to find 'CompatibleMode' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'CompatibleMode'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
@@ -582,8 +596,10 @@ mod tests {
 
         let parameter_name = input
             .take("CompatibleMode", Comparator::CaseSensitive)
-            .unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+            .expect("Expected to find 'CompatibleMode' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'CompatibleMode'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
@@ -619,8 +635,10 @@ mod tests {
 
         let parameter_name = input
             .take("CompatibleMode", Comparator::CaseSensitive)
-            .unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+            .expect("Expected to find 'CompatibleMode' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'CompatibleMode'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 
@@ -655,8 +673,10 @@ mod tests {
 
         let parameter_name = input
             .take("CompatibleMode", Comparator::CaseSensitive)
-            .unwrap();
-        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+            .expect("Expected to find 'CompatibleMode' parameter");
+        let _ = input
+            .take("=", Comparator::CaseSensitive)
+            .expect("Expected to find '=' after 'CompatibleMode'");
 
         let mut ctx = ParserContext::new(input.file_name(), input.contents);
 

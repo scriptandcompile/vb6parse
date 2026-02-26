@@ -15,9 +15,27 @@ fn main() {
 End Function
 ";
 
-    let source_file = SourceFile::decode_with_replacement("test.bas", source).unwrap();
+    let source_file = SourceFile::decode_with_replacement("test.bas", source)
+        .expect("Unable to decode the sourcefile with replacements.");
     let mut stream = source_file.source_stream();
-    let tokens = tokenize(&mut stream).unwrap();
+    let (tokens_opt, errors, warnings) = tokenize(&mut stream).unpack_with_severity();
+
+    if !errors.is_empty() {
+        eprintln!("Errors during tokenization:");
+        for error in errors {
+            error.print();
+        }
+    }
+
+    if !warnings.is_empty() {
+        eprintln!("Warnings during tokenization:");
+        for warning in warnings {
+            warning.print();
+        }
+    }
+
+    let tokens = tokens_opt.expect("Tokens should be present.");
+
     let cst = parse(tokens);
 
     println!("Full CST structure:");
