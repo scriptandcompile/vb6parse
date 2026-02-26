@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-02-24T08:05:36Z",
+  "last_updated": "2026-02-26T10:48:15Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T19:53:21Z",
@@ -579,16 +579,50 @@
           "percent": 95.39
         }
       }
+    },
+    {
+      "timestamp": "2026-02-26T10:48:15Z",
+      "commit_sha": "fe71f6aa6eb67c1bc539d5ed4e5a394ed4de6618",
+      "commit_message": "Merge pull request #19 from scriptandcompile/unwrap_to_expect_or_unpack",
+      "coverage": {
+        "line_coverage": 95.13,
+        "function_coverage": 92.94,
+        "region_coverage": 95.39
+      },
+      "tests": {
+        "total": 5697,
+        "lib_tests": 5491,
+        "doc_tests": 111,
+        "integration_tests": 95,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 94452,
+          "total": 99284,
+          "percent": 95.13
+        },
+        "functions": {
+          "covered": 6079,
+          "total": 6541,
+          "percent": 92.94
+        },
+        "regions": {
+          "covered": 150946,
+          "total": 158249,
+          "percent": 95.39
+        }
+      }
     }
   ],
   "coverage_summary": {
     "line_coverage": {
-      "latest": 95.14,
+      "latest": 95.13,
       "trend": "stable",
-      "change_percent": 0.0,
+      "change_percent": 0.01,
       "best": 95.51,
-      "worst": 95.14,
-      "average": 95.36
+      "worst": 95.13,
+      "average": 95.35
     },
     "function_coverage": {
       "latest": 92.94,
@@ -596,7 +630,7 @@
       "change_percent": 0.0,
       "best": 93.76,
       "worst": 92.94,
-      "average": 93.42
+      "average": 93.39
     },
     "region_coverage": {
       "latest": 95.39,
@@ -604,7 +638,7 @@
       "change_percent": 0.0,
       "best": 95.56,
       "worst": 95.39,
-      "average": 95.5
+      "average": 95.49
     },
     "test_count": {
       "latest": 5697,
