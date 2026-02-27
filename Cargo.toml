@@ -3,7 +3,7 @@ authors = ["ScriptAndCompile"]
 name = "vb6parse"
 homepage = "https://github.com/scriptandcompile/vb6parse"
 documentation = "https://docs.rs/vb6parse"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021"
 license = "MIT"
 description = "vb6parse is a library for parsing and analyzing VB6 code, from projects, to controls, to modules, and forms."
@@ -72,8 +72,8 @@ thiserror = "2.0.18"
 ariadne = "0.6.0"
 image = "0.25.9"
 num_enum = "0.7.5"
-strum = "0.27.2"
-strum_macros = "0.27.2"
+strum = "0.28.0"
+strum_macros = "0.28.0"
 encoding_rs = "0.8.35"
 either = { version = "1.15.0", features = ["serde"] }
 serde = { version = "1.0.228", features = ["derive"] }
@@ -82,9 +82,9 @@ rowan = "0.16.1"
 
 # WASM-specific dependencies - only compiled for wasm32 target
 [target.'cfg(target_arch = "wasm32")'.dependencies]
-wasm-bindgen = "0.2.108"
-serde-wasm-bindgen = "0.6"
-console_error_panic_hook = "0.1"
+wasm-bindgen = "0.2.114"
+serde-wasm-bindgen = "0.6.5"
+console_error_panic_hook = "0.1.7"
 serde_json = "1.0.149"
 
 [profile.release]
@@ -100,7 +100,7 @@ assert_matches = { version = "1.5.0" }
 [target.'cfg(target_arch = "wasm32")'.dev-dependencies]
 criterion = { version = "0.8.1", default-features = false }
 insta = { version = "1.46.0", features = ["yaml"] }
-wasm-bindgen-test = "0.3.58"
+wasm-bindgen-test = "0.3.64"
 
 
 
