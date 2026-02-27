@@ -30,7 +30,7 @@ Add VB6Parse to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-vb6parse = "1.0.0"
+vb6parse = "1.0.1"
 ```
 
 **📖 [Complete Getting Started Tutorial](https://scriptandcompile.github.io/vb6parse/getting-started.html)** - Step-by-step guide with live examples
