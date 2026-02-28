@@ -268,40 +268,28 @@ pub(crate) fn extract_attributes(cst: &crate::parsers::ConcreteSyntaxTree) -> Fi
             }
 
             match child.kind() {
-                SyntaxKind::Identifier => {
-                    if !found_equals {
-                        // This is the attribute key (e.g., "VB_Name")
-                        key = child.text().trim().to_string();
-                    }
+                SyntaxKind::Identifier if !found_equals => {
+                    // This is the attribute key (e.g., "VB_Name")
+                    key = child.text().trim().to_string();
                 }
                 SyntaxKind::EqualityOperator => {
                     found_equals = true;
                 }
-                SyntaxKind::StringLiteral => {
-                    if found_equals {
-                        // This is the string value - remove surrounding quotes
-                        value = child.text().trim().trim_matches('"').to_string();
-                    }
+                SyntaxKind::StringLiteral if found_equals => {
+                    // This is the string value - remove surrounding quotes
+                    value = child.text().trim().trim_matches('"').to_string();
                 }
-                SyntaxKind::TrueKeyword => {
-                    if found_equals {
-                        value = "True".to_string();
-                    }
+                SyntaxKind::TrueKeyword if found_equals => {
+                    value = "True".to_string();
                 }
-                SyntaxKind::FalseKeyword => {
-                    if found_equals {
-                        value = "False".to_string();
-                    }
+                SyntaxKind::FalseKeyword if found_equals => {
+                    value = "False".to_string();
                 }
-                SyntaxKind::IntegerLiteral | SyntaxKind::LongLiteral => {
-                    if found_equals {
-                        value = child.text().trim().to_string();
-                    }
+                SyntaxKind::IntegerLiteral | SyntaxKind::LongLiteral if found_equals => {
+                    value = child.text().trim().to_string();
                 }
-                SyntaxKind::SubtractionOperator => {
-                    if found_equals && value.is_empty() {
-                        value.push('-');
-                    }
+                SyntaxKind::SubtractionOperator if found_equals && value.is_empty() => {
+                    value.push('-');
                 }
                 // Skip the "Attribute" keyword and whitespace/newline tokens
                 _ => {}

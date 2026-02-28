@@ -1132,7 +1132,7 @@ impl<T> Display for ReferenceOrValue<T> {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
             ReferenceOrValue::Reference { filename, offset } => {
-                write!(f, "Reference {{ filename: {filename}, offset: {offset} }}",)
+                write!(f, "Reference {{ filename: {filename}, offset: {offset} }}")
             }
             ReferenceOrValue::Value(_) => write!(f, "Value"),
         }
