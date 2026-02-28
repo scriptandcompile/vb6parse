@@ -5,7 +5,7 @@
     "ScriptAndCompile"
   ],
   "description": "vb6parse is a library for parsing and analyzing VB6 code, from projects, to controls, to modules, and forms.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "repository": {
     "type": "git",
