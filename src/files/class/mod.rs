@@ -207,20 +207,18 @@ fn extract_properties(cst: &ConcreteSyntaxTree) -> ClassProperties {
                 SyntaxKind::EqualityOperator => {
                     found_equals = true;
                 }
-                SyntaxKind::PropertyValue => {
+                SyntaxKind::PropertyValue if found_equals => {
                     // This is a nested node, get all its text
-                    if found_equals {
-                        for val_child in child.children() {
-                            if val_child.is_token() {
-                                match val_child.kind() {
-                                    SyntaxKind::IntegerLiteral | SyntaxKind::LongLiteral => {
-                                        value.push_str(val_child.text().trim());
-                                    }
-                                    SyntaxKind::SubtractionOperator => {
-                                        value.push('-');
-                                    }
-                                    _ => {}
+                    for val_child in child.children() {
+                        if val_child.is_token() {
+                            match val_child.kind() {
+                                SyntaxKind::IntegerLiteral | SyntaxKind::LongLiteral => {
+                                    value.push_str(val_child.text().trim());
                                 }
+                                SyntaxKind::SubtractionOperator => {
+                                    value.push('-');
+                                }
+                                _ => {}
                             }
                         }
                     }
