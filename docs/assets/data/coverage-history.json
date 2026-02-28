@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-02-26T10:48:15Z",
+  "last_updated": "2026-02-28T02:50:44Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T19:53:21Z",
@@ -613,16 +613,50 @@
           "percent": 95.39
         }
       }
+    },
+    {
+      "timestamp": "2026-02-28T02:50:44Z",
+      "commit_sha": "9482a1cd77eb6cbf4c0ca0f9829e8e15c07618d5",
+      "commit_message": "updated to new rust, updated clippy, now including inner if in match arm.",
+      "coverage": {
+        "line_coverage": 95.13,
+        "function_coverage": 92.94,
+        "region_coverage": 95.39
+      },
+      "tests": {
+        "total": 5697,
+        "lib_tests": 5491,
+        "doc_tests": 111,
+        "integration_tests": 95,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 94452,
+          "total": 99283,
+          "percent": 95.13
+        },
+        "functions": {
+          "covered": 6079,
+          "total": 6541,
+          "percent": 92.94
+        },
+        "regions": {
+          "covered": 150948,
+          "total": 158245,
+          "percent": 95.39
+        }
+      }
     }
   ],
   "coverage_summary": {
     "line_coverage": {
       "latest": 95.13,
       "trend": "stable",
-      "change_percent": 0.01,
+      "change_percent": 0.0,
       "best": 95.51,
       "worst": 95.13,
-      "average": 95.35
+      "average": 95.34
     },
     "function_coverage": {
       "latest": 92.94,
@@ -630,7 +664,7 @@
       "change_percent": 0.0,
       "best": 93.76,
       "worst": 92.94,
-      "average": 93.39
+      "average": 93.37
     },
     "region_coverage": {
       "latest": 95.39,
