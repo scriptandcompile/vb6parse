@@ -2,11 +2,6 @@
 	path = tests/data/vb6-code
 	url = https://github.com/tannerhelland/vb6-code
 
-
-[submodule "tests/data/ADM-TSC-Tools-ALM-QC"]
-	path = tests/data/ADM-TSC-Tools-ALM-QC
-	url = https://github.com/MicroFocus/ADM-TSC-Tools-ALM-QC.git
-
 [submodule "tests/data/ao-server"]
 	path = tests/data/ao-server
 	url = https://github.com/ao-libre/ao-server.git

@@ -14,7 +14,6 @@ categories = ["development-tools", "parsing", "parser-implementations"]
 
 # exclude the test data files from the package
 exclude = [
-    "tests/data/ADM-TSC-Tools-ALM-QC/*",
     "tests/data/audiostation/*",
     "tests/data/Binary-metamorphosis/*",
     "tests/data/Bitrate-calculator/*",
