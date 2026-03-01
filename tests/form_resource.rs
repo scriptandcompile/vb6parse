@@ -8,3 +8,6 @@ mod audiostation;
 
 #[path = "form_resource/binary_metamorphosis.rs"]
 mod binary_metamorphosis;
+
+#[path = "form_resource/bitrate_calculator.rs"]
+mod bitrate_calculator;
