@@ -31,10 +31,28 @@ use std::collections::HashMap;
 /// [`ControlKind::CustomControl`](crate::language::controls::ControlKind::Custom).
 /// tag, name, and index are not included in this struct, but instead are part
 /// of the parent [`Control`](crate::language::controls::Control) struct.
-#[derive(Debug, PartialEq, Clone, Default, serde::Serialize)]
+#[derive(Debug, PartialEq, Clone, Default)]
 pub struct CustomControlProperties {
     /// A store for the properties of the custom control.
     pub property_store: HashMap<String, String>,
+}
+
+impl serde::Serialize for CustomControlProperties {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        
+        let mut state = serializer.serialize_struct("CustomControlProperties", 1)?;
+        
+        // Sort the properties by key for deterministic serialization
+        let sorted_properties: std::collections::BTreeMap<_, _> = 
+            self.property_store.iter().collect();
+        
+        state.serialize_field("property_store", &sorted_properties)?;
+        state.end()
+    }
 }
 
 impl From<Properties> for CustomControlProperties {

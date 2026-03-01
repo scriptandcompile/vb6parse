@@ -96,7 +96,12 @@ impl Serialize for PropertyGroup {
             state.serialize_field("guid", &"None")?;
         }
 
-        state.serialize_field("properties", &self.properties)?;
+        // Sort properties by key for deterministic serialization
+        let mut sorted_properties: Vec<_> = self.properties.iter().collect();
+        sorted_properties.sort_by_key(|(k, _)| *k);
+        let sorted_map: std::collections::BTreeMap<_, _> = sorted_properties.into_iter().collect();
+        
+        state.serialize_field("properties", &sorted_map)?;
 
         state.end()
     }
