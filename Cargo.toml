@@ -19,7 +19,6 @@ exclude = [
     "tests/data/Bitrate-calculator/*",
     "tests/data/CdiuBeatUpEditor/*",
     "tests/data/ChessBrainVB/*",
-    "tests/data/CoolWind2D-GameEngine-CHS/*",
     "tests/data/DevOps/*",
     "tests/data/Discrete-Probability-Detector-in-VB6/*",
     "tests/data/Endless-runner-Game_VB6.0/*",
@@ -97,8 +96,8 @@ insta = { version = "1.46.3", features = ["yaml"] }
 assert_matches = { version = "1.5.0" }
 
 [target.'cfg(target_arch = "wasm32")'.dev-dependencies]
-criterion = { version = "0.8.1", default-features = false }
-insta = { version = "1.46.0", features = ["yaml"] }
+criterion = { version = "0.8.2", default-features = false }
+insta = { version = "1.46.3", features = ["yaml"] }
 wasm-bindgen-test = "0.3.64"
 
 
