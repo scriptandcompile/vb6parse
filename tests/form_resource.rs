@@ -17,3 +17,6 @@ mod cdiu_beat_up_editor;
 
 #[path = "form_resource/chess_brain_vb.rs"]
 mod chess_brain_vb;
+
+#[path = "form_resource/discrete_probability_detector.rs"]
+mod discrete_probability_detector;
