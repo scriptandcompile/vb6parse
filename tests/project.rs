@@ -5,3 +5,6 @@ mod vb6_code;
 
 #[path = "project/audiostation.rs"]
 mod audiostation;
+
+#[path = "project/binary_metamorphosis.rs"]
+mod binary_metamorphosis;
