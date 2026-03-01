@@ -28,6 +28,27 @@ use crate::{
     parsers::ParseResult,
 };
 
+/// Helper function to serialize nested HashMap with sorted keys for deterministic output
+fn serialize_sorted_nested_hashmap<S>(
+    map: &HashMap<&str, HashMap<&str, &str>>,
+    serializer: S,
+) -> Result<S::Ok, S::Error>
+where
+    S: serde::Serializer,
+{
+    use serde::ser::SerializeMap;
+    let mut sorted_outer: Vec<_> = map.iter().collect();
+    sorted_outer.sort_by_key(|(k, _)| *k);
+
+    let mut map_serializer = serializer.serialize_map(Some(sorted_outer.len()))?;
+    for (key, inner_map) in sorted_outer {
+        let mut sorted_inner: Vec<_> = inner_map.iter().collect();
+        sorted_inner.sort_by_key(|(k, _)| *k);
+        map_serializer.serialize_entry(key, &sorted_inner.iter().copied().collect::<HashMap<_, _>>())?;
+    }
+    map_serializer.end()
+}
+
 /// Represents a VB6 Project file.
 ///
 /// Contains information about the project's type, references, objects, modules, classes, forms,
@@ -57,6 +78,7 @@ pub struct ProjectFile<'a> {
     /// The list of user documents in the project.
     user_documents: Vec<&'a str>,
     /// Other properties grouped by section headers.
+    #[serde(serialize_with = "serialize_sorted_nested_hashmap")]
     pub other_properties: HashMap<&'a str, HashMap<&'a str, &'a str>>,
     /// The project properties.
     pub properties: ProjectProperties<'a>,
