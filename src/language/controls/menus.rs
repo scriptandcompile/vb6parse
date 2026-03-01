@@ -11,7 +11,7 @@ use std::convert::TryFrom;
 use std::fmt::Display;
 use std::str::FromStr;
 
-use crate::errors::{FormError, ErrorKind};
+use crate::errors::{ErrorKind, FormError};
 use crate::files::common::Properties;
 use crate::language::controls::{Activation, Visibility};
 

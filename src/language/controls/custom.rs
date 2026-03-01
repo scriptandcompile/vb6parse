@@ -43,13 +43,13 @@ impl serde::Serialize for CustomControlProperties {
         S: serde::Serializer,
     {
         use serde::ser::SerializeStruct;
-        
+
         let mut state = serializer.serialize_struct("CustomControlProperties", 1)?;
-        
+
         // Sort the properties by key for deterministic serialization
-        let sorted_properties: std::collections::BTreeMap<_, _> = 
+        let sorted_properties: std::collections::BTreeMap<_, _> =
             self.property_store.iter().collect();
-        
+
         state.serialize_field("property_store", &sorted_properties)?;
         state.end()
     }

@@ -100,7 +100,7 @@ impl Serialize for PropertyGroup {
         let mut sorted_properties: Vec<_> = self.properties.iter().collect();
         sorted_properties.sort_by_key(|(k, _)| *k);
         let sorted_map: std::collections::BTreeMap<_, _> = sorted_properties.into_iter().collect();
-        
+
         state.serialize_field("properties", &sorted_map)?;
 
         state.end()
