@@ -1,5 +1,5 @@
 ---
-source: tests/module.rs
+source: vb6parse/tests/module/vb6_code.rs
 expression: subs_module_file
 ---
 name: Declaration_Module

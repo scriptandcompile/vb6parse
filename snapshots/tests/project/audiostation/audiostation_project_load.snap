@@ -1,0 +1,169 @@
+---
+source: vb6parse/tests/project/audiostation.rs
+expression: project
+---
+project_type: Exe
+references:
+  - uuid: 00020430-0000-0000-c000-000000000046
+    unknown1: "2.0"
+    unknown2: "0"
+    path: "..\\..\\..\\Windows\\SysWOW64\\stdole2.tlb"
+    description: OLE Automation
+  - uuid: 420b2830-e718-11cf-893d-00a0c9054228
+    unknown1: "1.0"
+    unknown2: "0"
+    path: "..\\..\\..\\Windows\\SysWOW64\\scrrun.dll"
+    description: Microsoft Scripting Runtime
+  - uuid: f935dc20-1cf0-11d0-adb9-00c04fd58a0b
+    unknown1: "1.0"
+    unknown2: "0"
+    path: "..\\..\\..\\Windows\\SysWOW64\\wshom.ocx"
+    description: Windows Script Host Object Model
+  - uuid: f5078f18-c551-11d3-89b9-0000f81fe221
+    unknown1: "6.0"
+    unknown2: "0"
+    path: "..\\..\\..\\Windows\\System32\\msxml6.dll"
+    description: "Microsoft XML, v6.0"
+objects:
+  - uuid: 0a362340-2e5e-11d3-85bf-00105ac8b715
+    version: "1.0"
+    unknown1: "0"
+    file_name: isDigitalLibrary.ocx
+  - uuid: c5412da5-2e2f-11d3-85bf-00105ac8b715
+    version: "1.0"
+    unknown1: "0"
+    file_name: isAnalogLibrary.ocx
+  - uuid: 831fdd16-0c5c-11d2-a9fc-0000f8754da1
+    version: "2.0"
+    unknown1: "0"
+    file_name: mscomctl.ocx
+  - uuid: f9043c88-f6f2-101a-a3c9-08002b2f49fb
+    version: "1.2"
+    unknown1: "0"
+    file_name: ComDlg32.OCX
+  - uuid: bf3128d8-55b8-11d4-8ed4-00e07d815373
+    version: "1.0"
+    unknown1: "0"
+    file_name: MBPrgBar.ocx
+  - uuid: 5f5c69a3-5434-4a28-b392-38259f02830a
+    version: "1.0"
+    unknown1: "0"
+    file_name: DataInter.ocx
+  - uuid: 6b7e6392-850a-101b-afc0-4210102a8da7
+    version: "1.3"
+    unknown1: "0"
+    file_name: Comctl32.ocx
+  - uuid: 40f6d89d-d6bf-4ead-b885-e1869bdf4e31
+    version: "41.0"
+    unknown1: "0"
+    file_name: AdioLibrary.ocx
+  - uuid: 966cf34c-191f-4fb6-bf33-c8db07c6a40d
+    version: "1.0"
+    unknown1: "0"
+    file_name: DigitBox.ocx
+modules:
+  - name: modEnums
+    path: "src\\Modules\\modEnums.bas"
+  - name: modMain
+    path: "src\\Modules\\modMain.bas"
+  - name: modLanguage
+    path: "..\\..\\_Extensions\\ModLanguage.bas"
+  - name: modArgs
+    path: "src\\Modules\\modArgs.bas"
+  - name: modOS
+    path: "src\\Modules\\modOS.bas"
+  - name: modMusPlayer
+    path: "src\\Modules\\modMusPlayer.bas"
+  - name: modSidPlayer
+    path: "src\\Modules\\modSidPlayer.bas"
+  - name: modVolume
+    path: "src\\Modules\\modVolume.bas"
+classes:
+  - name: clsStringBuilder
+    path: "src\\Classes\\clsStringBuilder.cls"
+  - name: clsSibraSoft
+    path: "..\\..\\_Extensions\\SibraSoft.cls"
+  - name: clsStringExtensions
+    path: "..\\..\\_Extensions\\StringExtensions.cls"
+  - name: clsSmartBuffer
+    path: "src\\Classes\\clsSmartBuffer.cls"
+  - name: clsDialogExtensions
+    path: "..\\..\\_Extensions\\DialogExtensions.cls"
+  - name: clsLogger
+    path: "src\\Classes\\clsLogger.cls"
+  - name: mdlVolumeChannel
+    path: "src\\Classes\\mdlVolumeChannel.cls"
+related_documents: []
+property_pages: []
+designers: []
+forms:
+  - "src\\Forms\\Form_About.frm"
+  - "src\\Forms\\Form_Busy.frm"
+  - "src\\Forms\\Form_Main.frm"
+  - "src\\Forms\\Form_Playlist.frm"
+  - "src\\Forms\\Form_Settings_Record.frm"
+  - "src\\Forms\\Form_Track_Properties.frm"
+  - "src\\Forms\\Form_System.frm"
+  - "src\\Forms\\Form_Streams.frm"
+  - "src\\Forms\\Form_Normalize.frm"
+  - "src\\Forms\\Form_Settings_Recorder.frm"
+user_controls:
+  - "src\\Controls\\ButtonBig.ctl"
+  - "src\\Controls\\Hyperlink.ctl"
+  - "src\\Controls\\MixSlider.ctl"
+  - "src\\Controls\\ShellPipe.ctl"
+user_documents: []
+other_properties:
+  CodeSMART:
+    Task_UID: 11_08_20_22_33_04
+properties:
+  unused_control_info: Remove
+  upgrade_controls: Upgrade
+  res_file_32_path: ""
+  icon_form: Form_Main
+  startup: Sub Main
+  help_file_path: ""
+  title: Audiostation
+  exe_32_file_name: Audiostation.exe
+  exe_32_compatible: ""
+  dll_base_address: 0
+  path_32: ""
+  command_line_arguments: ""
+  name: Audiostation
+  description: The old school media player
+  debug_startup_component: ""
+  help_context_id: "0"
+  compatibility_mode: NoCompatibility
+  version_32_compatibility: ""
+  version_info:
+    major: 2
+    minor: 4
+    revision: 2023
+    auto_increment_revision: 0
+    company_name: Sibra-Soft
+    file_description: ""
+    copyright: ""
+    trademark: ""
+    product_name: Audiostation
+    comments: ""
+  server_support_files: Local
+  conditional_compile: ""
+  compilation_type:
+    NativeCode:
+      optimization_type: FavorFastCode
+      favor_pentium_pro: "False"
+      code_view_debug_info: NotCreated
+      aliasing: AssumeAliasing
+      bounds_check: CheckBounds
+      overflow_check: CheckOverflow
+      floating_point_check: CheckFloatingPointError
+      pentium_fdiv_bug_check: CheckPentiumFDivBug
+      unrounded_floating_point: DoNotAllow
+  start_mode: StandAlone
+  unattended: Interactive
+  retained: UnloadOnExit
+  thread_per_object: 0
+  threading_model: ApartmentThreaded
+  max_number_of_threads: 1
+  debug_startup_option: WaitForComponentCreation
+  use_existing_browser: Use

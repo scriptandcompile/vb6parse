@@ -1,0 +1,2181 @@
+---
+source: vb6parse/tests/module/audiostation.rs
+expression: module_file
+---
+name: modMain
+cst:
+  root:
+    kind: Root
+    children:
+      - kind: EndOfLineComment
+        text: "'///////////////////////////////////////////////////////////////"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'// FileName        : modMain.bas"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'// FileType        : Microsoft Visual Basic 6 - Module"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'// Author          : Alex van den Berg"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'// Created         : 04-10-2021"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'// Last Modified   : 05-11-2023"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'// Copyright       : Sibra-Soft"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'// Description     : Main application module"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'////////////////////////////////////////////////////////////////"
+      - kind: Newline
+        text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: OptionStatement
+        children:
+          - kind: OptionKeyword
+            text: Option
+          - kind: Whitespace
+            text: " "
+          - kind: ExplicitKeyword
+            text: Explicit
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: ConfigFile
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: IsDebuggig
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: StrExt
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: NewKeyword
+            text: New
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: clsStringExtensions
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Extensions
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: NewKeyword
+            text: New
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: clsSibraSoft
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Dialogs
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: NewKeyword
+            text: New
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: clsDialogExtensions
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: AppLog
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: NewKeyword
+            text: New
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: clsLogger
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: StreamUrl
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: StreamName
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: CurrentMediaPlayerTrackNr
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: CurrentMidiPlayerTrackNr
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Main
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: CallStatement
+                children:
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: ApplicationConstructor
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: OpenFile
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: MediaFile
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: StringKeyword
+                text: String
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: LastTrackAdded
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: LongKeyword
+                    text: Long
+                  - kind: Newline
+                    text: "\n"
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: TrackNr
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: LongKeyword
+                    text: Long
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: LabelStatement
+                children:
+                  - kind: BeginKeyword
+                    text: Begin
+                  - kind: ColonOperator
+                    text: ":"
+                  - kind: Newline
+                    text: "\n"
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: UnaryExpression
+                    children:
+                      - kind: NotKeyword
+                        text: Not
+                      - kind: Whitespace
+                        text: " "
+                      - kind: CallExpression
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Extensions
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: FileExists
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: MediaFile
+                          - kind: RightParenthesis
+                            text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ExitStatement
+                    children:
+                      - kind: ExitKeyword
+                        text: Exit
+                      - kind: Whitespace
+                        text: " "
+                      - kind: SubKeyword
+                        text: Sub
+                      - kind: Newline
+                        text: "\n"
+                  - kind: Newline
+                    text: "\n"
+              - kind: CallStatement
+                children:
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: AppLog
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: LogInfo
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: StringLiteral
+                    text: "\"Load file: \""
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: MediaFile
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: WithStatement
+                children:
+                  - kind: WithKeyword
+                    text: With
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Form_Main
+                  - kind: Newline
+                    text: "\n"
+                  - kind: StatementList
+                    children:
+                      - kind: SelectCaseStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: SelectKeyword
+                            text: Select
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CaseKeyword
+                            text: Case
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: LCase
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Right
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: MediaFile
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: NumericLiteralExpression
+                                                    children:
+                                                      - kind: IntegerLiteral
+                                                        text: "3"
+                                          - kind: RightParenthesis
+                                            text: )
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\n"
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: CaseClause
+                            children:
+                              - kind: CaseKeyword
+                                text: Case
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"mp3\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"wav\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"mp2\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"cda\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"wma\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"m4a\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"ogg\""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EndOfLineComment
+                                text: "' Media files"
+                              - kind: Newline
+                                text: "\n"
+                              - kind: StatementList
+                                children:
+                                  - kind: Whitespace
+                                    text: "            "
+                                  - kind: AssignmentStatement
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: TrackNr
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: PeriodOperator
+                                            text: "."
+                                  - kind: CallStatement
+                                    children:
+                                      - kind: Identifier
+                                        text: AdioMediaPlaylist
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: AddFile
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: Identifier
+                                        text: MediaFile
+                                      - kind: RightParenthesis
+                                        text: )
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: nR
+                                      - kind: Newline
+                                        text: "\n"
+                                  - kind: CallStatement
+                                    children:
+                                      - kind: Whitespace
+                                        text: "            "
+                                      - kind: CallKeyword
+                                        text: Call
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: AdioMediaPlaylist
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: GetTrack
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: Identifier
+                                        text: PLS_GOTO
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Identifier
+                                        text: TrackNr
+                                      - kind: RightParenthesis
+                                        text: )
+                                      - kind: Newline
+                                        text: "\n"
+                                  - kind: Whitespace
+                                    text: "            "
+                                  - kind: Newline
+                                    text: "\n"
+                                  - kind: Whitespace
+                                    text: "        "
+                          - kind: CaseClause
+                            children:
+                              - kind: CaseKeyword
+                                text: Case
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"mid\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"kar\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"mus\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"sid\""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EndOfLineComment
+                                text: "' Midi files"
+                              - kind: Newline
+                                text: "\n"
+                              - kind: StatementList
+                                children:
+                                  - kind: Whitespace
+                                    text: "            "
+                                  - kind: AssignmentStatement
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: TrackNr
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: PeriodOperator
+                                            text: "."
+                                  - kind: CallStatement
+                                    children:
+                                      - kind: Identifier
+                                        text: AdioMidiPlaylist
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: AddFile
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: Identifier
+                                        text: MediaFile
+                                      - kind: RightParenthesis
+                                        text: )
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: nR
+                                      - kind: Newline
+                                        text: "\n"
+                                  - kind: CallStatement
+                                    children:
+                                      - kind: Whitespace
+                                        text: "            "
+                                      - kind: CallKeyword
+                                        text: Call
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: AdioMidiPlaylist
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: GetTrack
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: Identifier
+                                        text: PLS_GOTO
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Identifier
+                                        text: TrackNr
+                                      - kind: RightParenthesis
+                                        text: )
+                                      - kind: Newline
+                                        text: "\n"
+                                  - kind: Whitespace
+                                    text: "            "
+                                  - kind: Newline
+                                    text: "\n"
+                                  - kind: Whitespace
+                                    text: "        "
+                          - kind: CaseClause
+                            children:
+                              - kind: CaseKeyword
+                                text: Case
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"apl\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"wpl\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"m3u\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"pls\""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EndOfLineComment
+                                text: "'Playlist files"
+                              - kind: Newline
+                                text: "\n"
+                              - kind: StatementList
+                                children:
+                                  - kind: Whitespace
+                                    text: "            "
+                                  - kind: AssignmentStatement
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Screen
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: MousePointer
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: vbHourglass
+                                      - kind: Newline
+                                        text: "\n"
+                                  - kind: Whitespace
+                                    text: "            "
+                                  - kind: Newline
+                                    text: "\n"
+                                  - kind: Whitespace
+                                    text: "            "
+                                  - kind: AssignmentStatement
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Form_Playlist
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: FormType
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Mp3Player
+                                      - kind: Newline
+                                        text: "\n"
+                                  - kind: SelectCaseStatement
+                                    children:
+                                      - kind: Whitespace
+                                        text: "            "
+                                      - kind: SelectKeyword
+                                        text: Select
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: CaseKeyword
+                                        text: Case
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: LCase
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: CallExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: Right
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: MediaFile
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: NumericLiteralExpression
+                                                                children:
+                                                                  - kind: IntegerLiteral
+                                                                    text: "3"
+                                                      - kind: RightParenthesis
+                                                        text: )
+                                          - kind: RightParenthesis
+                                            text: )
+                                      - kind: Newline
+                                        text: "\n"
+                                      - kind: Whitespace
+                                        text: "                "
+                                      - kind: CaseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: StringLiteral
+                                            text: "\"apl\""
+                                          - kind: ColonOperator
+                                            text: ":"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: CallKeyword
+                                            text: Call
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: AdioMediaPlaylist
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: LoadPlaylist
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: Identifier
+                                            text: MediaFile
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: PLAYLIST_APL
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: Whitespace
+                                                text: "                "
+                                      - kind: CaseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: StringLiteral
+                                            text: "\"m3u\""
+                                          - kind: ColonOperator
+                                            text: ":"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: CallKeyword
+                                            text: Call
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: AdioMediaPlaylist
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: LoadPlaylist
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: Identifier
+                                            text: MediaFile
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: PLAYLIST_M3U
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: Whitespace
+                                                text: "                "
+                                      - kind: CaseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: StringLiteral
+                                            text: "\"pls\""
+                                          - kind: ColonOperator
+                                            text: ":"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: CallKeyword
+                                            text: Call
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: AdioMediaPlaylist
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: LoadPlaylist
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: Identifier
+                                            text: MediaFile
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: PLAYLIST_PLS
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: Whitespace
+                                                text: "                "
+                                      - kind: CaseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: StringLiteral
+                                            text: "\"wpl\""
+                                          - kind: ColonOperator
+                                            text: ":"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: CallKeyword
+                                            text: Call
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: AdioMediaPlaylist
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: LoadPlaylist
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: Identifier
+                                            text: MediaFile
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: PLAYLIST_WPL
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: Whitespace
+                                                text: "            "
+                                      - kind: EndKeyword
+                                        text: End
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: SelectKeyword
+                                        text: Select
+                                      - kind: Newline
+                                        text: "\n"
+                                  - kind: Whitespace
+                                    text: "            "
+                                  - kind: Newline
+                                    text: "\n"
+                                  - kind: Whitespace
+                                    text: "            "
+                                  - kind: CallStatement
+                                    children:
+                                      - kind: Identifier
+                                        text: Form_Playlist
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Show
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Identifier
+                                        text: Form_Main
+                                      - kind: Newline
+                                        text: "\n"
+                                  - kind: Whitespace
+                                    text: "    "
+                          - kind: CaseElseClause
+                            children:
+                              - kind: CaseKeyword
+                                text: Case
+                              - kind: Whitespace
+                                text: " "
+                              - kind: ElseKeyword
+                                text: Else
+                              - kind: Newline
+                                text: "\n"
+                              - kind: StatementList
+                                children:
+                                  - kind: Whitespace
+                                    text: "        "
+                                  - kind: EndOfLineComment
+                                    text: "'Check if it's a file that needs to be converted"
+                                  - kind: Newline
+                                    text: "\n"
+                                  - kind: SelectCaseStatement
+                                    children:
+                                      - kind: Whitespace
+                                        text: "        "
+                                      - kind: SelectKeyword
+                                        text: Select
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: CaseKeyword
+                                        text: Case
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: LCase
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: CallExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: Right
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: MediaFile
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: NumericLiteralExpression
+                                                                children:
+                                                                  - kind: IntegerLiteral
+                                                                    text: "3"
+                                                      - kind: RightParenthesis
+                                                        text: )
+                                          - kind: RightParenthesis
+                                            text: )
+                                      - kind: Newline
+                                        text: "\n"
+                                      - kind: Whitespace
+                                        text: "            "
+                                      - kind: CaseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: StringLiteral
+                                            text: "\"aac\""
+                                          - kind: ColonOperator
+                                            text: ":"
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: Whitespace
+                                                text: "            "
+                                      - kind: CaseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: StringLiteral
+                                            text: "\"act\""
+                                          - kind: ColonOperator
+                                            text: ":"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EndOfLineComment
+                                            text: "'Call ModConvert.Convert(MediaFile, [Voice File Format], MP3): GoTo Begin"
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: Whitespace
+                                                text: "            "
+                                      - kind: CaseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: StringLiteral
+                                            text: "\"caf\""
+                                          - kind: ColonOperator
+                                            text: ":"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EndOfLineComment
+                                            text: "'Call ModConvert.Convert(MediaFile, [Apple Core Format], MP3): GoTo Begin"
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: Whitespace
+                                                text: "            "
+                                      - kind: CaseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: StringLiteral
+                                            text: "\"omo\""
+                                          - kind: ColonOperator
+                                            text: ":"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EndOfLineComment
+                                            text: "'Call ModConvert.Convert(MediaFile, [Sony OpenMG Audio], MP3): GoTo Begin"
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: Whitespace
+                                                text: "            "
+                                      - kind: CaseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: StringLiteral
+                                            text: "\"s64\""
+                                          - kind: ColonOperator
+                                            text: ":"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EndOfLineComment
+                                            text: "'Call ModConvert.Convert(MediaFile, [Sony Wave64], MP3): GoTo Begin"
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: Whitespace
+                                                text: "            "
+                                      - kind: CaseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: StringLiteral
+                                            text: "\"voc\""
+                                          - kind: ColonOperator
+                                            text: ":"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EndOfLineComment
+                                            text: "'Call ModConvert.Convert(MediaFile, [Voice File Format], MP3): GoTo Begin"
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: Whitespace
+                                                text: "        "
+                                      - kind: EndKeyword
+                                        text: End
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: SelectKeyword
+                                        text: Select
+                                      - kind: Newline
+                                        text: "\n"
+                                  - kind: Whitespace
+                                    text: "    "
+                                  - kind: Newline
+                                    text: "\n"
+                                  - kind: Whitespace
+                                    text: "        "
+                                  - kind: EndOfLineComment
+                                    text: "'Check if it's a file that needs to be converted"
+                                  - kind: Newline
+                                    text: "\n"
+                                  - kind: SelectCaseStatement
+                                    children:
+                                      - kind: Whitespace
+                                        text: "        "
+                                      - kind: SelectKeyword
+                                        text: Select
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: CaseKeyword
+                                        text: Case
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: LCase
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: CallExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: Right
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: MediaFile
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: NumericLiteralExpression
+                                                                children:
+                                                                  - kind: IntegerLiteral
+                                                                    text: "2"
+                                                      - kind: RightParenthesis
+                                                        text: )
+                                          - kind: RightParenthesis
+                                            text: )
+                                      - kind: Newline
+                                        text: "\n"
+                                      - kind: Whitespace
+                                        text: "            "
+                                      - kind: CaseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: StringLiteral
+                                            text: "\"ra\""
+                                          - kind: ColonOperator
+                                            text: ":"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EndOfLineComment
+                                            text: "'Call ModConvert.Convert(MediaFile, [Real Audio], MP3): GoTo Begin"
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: Whitespace
+                                                text: "            "
+                                      - kind: CaseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: StringLiteral
+                                            text: "\"rm\""
+                                          - kind: ColonOperator
+                                            text: ":"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EndOfLineComment
+                                            text: "'Call ModConvert.Convert(MediaFile, [Real Media], MP3): GoTo Begin"
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: Whitespace
+                                                text: "    "
+                                              - kind: Newline
+                                                text: "\n"
+                                              - kind: Whitespace
+                                                text: "            "
+                                      - kind: CaseElseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: ElseKeyword
+                                            text: Else
+                                          - kind: ColonOperator
+                                            text: ":"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: MsgBox
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: GetTranslation
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: IntegerLiteral
+                                            text: "1057"
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: vbExclamation
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: Whitespace
+                                                text: "        "
+                                      - kind: EndKeyword
+                                        text: End
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: SelectKeyword
+                                        text: Select
+                                      - kind: Newline
+                                        text: "\n"
+                                  - kind: Whitespace
+                                    text: "    "
+                          - kind: EndKeyword
+                            text: End
+                          - kind: Whitespace
+                            text: " "
+                          - kind: SelectKeyword
+                            text: Select
+                          - kind: Newline
+                            text: "\n"
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: WithKeyword
+                    text: With
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: ApplicationConstructor
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: MediaFile
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringKeyword
+                    text: String
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: CallStatement
+                children:
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: argProcessCMDLine
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: ChDriveStatement
+                children:
+                  - kind: ChDriveKeyword
+                    text: ChDrive
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: App
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: Path
+                  - kind: Newline
+                    text: "\n"
+              - kind: ChDirStatement
+                children:
+                  - kind: ChDirKeyword
+                    text: ChDir
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: App
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: Path
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: EndOfLineComment
+                text: "' Create folders that are used by the application"
+              - kind: Newline
+                text: "\n"
+              - kind: CallStatement
+                children:
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Extensions
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: CreateFolderIfNotExists
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: Identifier
+                    text: Environ$
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: StringLiteral
+                    text: "\"AppData\""
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\"\\Audiostation\""
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Newline
+                    text: "\n"
+              - kind: CallStatement
+                children:
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Extensions
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: CreateFolderIfNotExists
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: Identifier
+                    text: Environ$
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: StringLiteral
+                    text: "\"AppData\""
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\"\\Audiostation\\temp\\\""
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Newline
+                    text: "\n"
+              - kind: CallStatement
+                children:
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Extensions
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: CreateFolderIfNotExists
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: Identifier
+                    text: Environ$
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: StringLiteral
+                    text: "\"AppData\""
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\"\\Audiostation\\logs\\\""
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: EndOfLineComment
+                text: "' Set the folder for the application logfiles"
+              - kind: Newline
+                text: "\n"
+              - kind: CallStatement
+                children:
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: AppLog
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: Init
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: Identifier
+                    text: Environ$
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: StringLiteral
+                    text: "\"AppData\""
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\"\\Audiostation\\logs\\\""
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: EndOfLineComment
+                text: "' Get the settings file"
+              - kind: Newline
+                text: "\n"
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: ConfigFile
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: CallExpression
+                        children:
+                          - kind: Identifier
+                            text: Environ$
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"AppData\""
+                          - kind: RightParenthesis
+                            text: )
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Ampersand
+                        text: "&"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: StringLiteralExpression
+                        children:
+                          - kind: StringLiteral
+                            text: "\"\\Audiostation\\settings.ini\""
+                  - kind: Newline
+                    text: "\n"
+              - kind: CallStatement
+                children:
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: AppLog
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: LogInfo
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: StringLiteral
+                    text: "\"Application config file set: \""
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: ConfigFile
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: EndOfLineComment
+                text: "' Set the current application langauge"
+              - kind: Newline
+                text: "\n"
+              - kind: CallStatement
+                children:
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: SetLanguage
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: Identifier
+                    text: Extensions
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: INIRead
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: StringLiteral
+                    text: "\"main\""
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\"Langauge\""
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: ConfigFile
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\"english\""
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: EndOfLineComment
+                text: "' Get the loaded file"
+              - kind: Newline
+                text: "\n"
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: CallExpression
+                        children:
+                          - kind: Identifier
+                            text: UBound
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: modArgs
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: argv
+                          - kind: RightParenthesis
+                            text: )
+                      - kind: Whitespace
+                        text: " "
+                      - kind: GreaterThanOperator
+                        text: ">"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "0"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: ColonOperator
+                    text: ":"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AssignmentStatement
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: MediaFile
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: CallExpression
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: modArgs
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: argv
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "1"
+                          - kind: RightParenthesis
+                            text: )
+                      - kind: Newline
+                        text: "\n"
+                  - kind: IfStatement
+                    children:
+                      - kind: IfKeyword
+                        text: If
+                      - kind: Whitespace
+                        text: " "
+                      - kind: UnaryExpression
+                        children:
+                          - kind: NotKeyword
+                            text: Not
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Extensions
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: FileExists
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: MediaFile
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ThenKeyword
+                        text: Then
+                      - kind: Whitespace
+                        text: " "
+                      - kind: GotoStatement
+                        children:
+                          - kind: GotoKeyword
+                            text: GoTo
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: Einde
+                          - kind: Newline
+                            text: "\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: MediaFile
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"\""
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: ColonOperator
+                            text: ":"
+                          - kind: GotoStatement
+                            children:
+                              - kind: Whitespace
+                                text: " "
+                              - kind: GotoKeyword
+                                text: GoTo
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: Einde
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Newline
+                            text: "\n"
+                      - kind: EndOfLineComment
+                        text: "' Make sure to load the file in the last instance of the application"
+                      - kind: Newline
+                        text: "\n"
+                  - kind: IfStatement
+                    children:
+                      - kind: IfKeyword
+                        text: If
+                      - kind: Whitespace
+                        text: " "
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: Identifier
+                            text: App
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: PrevInstance
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ThenKeyword
+                        text: Then
+                      - kind: Newline
+                        text: "\n"
+                      - kind: StatementList
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: CallStatement
+                            children:
+                              - kind: Identifier
+                                text: Form_System
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: DataInter
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Connect
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IntegerLiteral
+                                text: "15448"
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: CallStatement
+                            children:
+                              - kind: Identifier
+                                text: Form_System
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: DataInter
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: SendData
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"OpenFile~\""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: MediaFile
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: Unknown
+                            text: End
+                          - kind: Newline
+                            text: "\n"
+                      - kind: ElseClause
+                        children:
+                          - kind: ElseKeyword
+                            text: Else
+                          - kind: Newline
+                            text: "\n"
+                          - kind: StatementList
+                            children:
+                              - kind: CallStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "    "
+                                  - kind: CallKeyword
+                                    text: Call
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: OpenFile
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: Identifier
+                                    text: MediaFile
+                                  - kind: RightParenthesis
+                                    text: )
+                                  - kind: Newline
+                                    text: "\n"
+                              - kind: GotoStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "    "
+                                  - kind: GotoKeyword
+                                    text: GoTo
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: Einde
+                                  - kind: Newline
+                                    text: "\n"
+                      - kind: EndKeyword
+                        text: End
+                      - kind: Whitespace
+                        text: " "
+                      - kind: IfKeyword
+                        text: If
+                      - kind: Newline
+                        text: "\n"
+                  - kind: Newline
+                    text: "\n"
+              - kind: ExitStatement
+                children:
+                  - kind: ExitKeyword
+                    text: Exit
+                  - kind: Whitespace
+                    text: " "
+                  - kind: SubKeyword
+                    text: Sub
+                  - kind: Newline
+                    text: "\n"
+              - kind: LabelStatement
+                children:
+                  - kind: Identifier
+                    text: Einde
+                  - kind: ColonOperator
+                    text: ":"
+                  - kind: Newline
+                    text: "\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: Form_Main
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: Show
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"

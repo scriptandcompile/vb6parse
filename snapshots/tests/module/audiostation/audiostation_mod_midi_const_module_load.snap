@@ -1,0 +1,3811 @@
+---
+source: vb6parse/tests/module/audiostation.rs
+expression: module_file
+---
+name: ModConstMidi
+cst:
+  root:
+    kind: Root
+    children:
+      - kind: OptionStatement
+        children:
+          - kind: OptionKeyword
+            text: Option
+          - kind: Whitespace
+            text: " "
+          - kind: ExplicitKeyword
+            text: Explicit
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "' State Constants"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDISTATE_CLOSED
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "0"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDISTATE_OPENED
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' use <> MIDISTATE_CLOSED instead"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDISTATE_STARTED
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "2"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDISTATE_STOPPED
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "3"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDISTATE_PAUSED
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "4"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' use <> MIDISTATE_STARTED and QueueTimeCurrent <> 0"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDISTATE_OPEN
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' for backward compatibility"
+          - kind: Newline
+            text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "' MidiIn actions"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIIN_NONE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "0"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIIN_OPEN
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIIN_CLOSE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "2"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIIN_RESET
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "3"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIIN_START
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "4"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIIN_STOP
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "5"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIIN_REMOVE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "6"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIIN_QUEUE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "7"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' (see 1.00.515)"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIIN_SORT
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "8"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' (see 1.00.515)"
+          - kind: Newline
+            text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "' MidiOut actions"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOUT_NONE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "0"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOUT_OPEN
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOUT_CLOSE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "2"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOUT_RESET
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "3"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOUT_START
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "4"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOUT_STOP
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "5"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOUT_QUEUE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "6"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOUT_SEND
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "7"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOUT_TIMER
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "8"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOUT_PAUSE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "9"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOUT_REMOVE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "10"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' new in midiio version 2.00.302"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOUT_READ
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "11"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' new in midiio version 1.20.115"
+          - kind: Newline
+            text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "' Midi Message Status"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMESSAGESTATE_NONE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "0"
+          - kind: Whitespace
+            text: "     "
+          - kind: EndOfLineComment
+            text: "' permanently disabled, no message (default when array cleared)"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMESSAGESTATE_ENABLED
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Whitespace
+            text: "   "
+          - kind: EndOfLineComment
+            text: "' enable message"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMESSAGESTATE_DISABLED
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "2"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' disabled message temporarily by user"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMESSAGESTATE_DISABLED2
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "3"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' reserved"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMESSAGESTATE_DISABLED3
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "4"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' reserved"
+          - kind: Newline
+            text: "\n"
+      - kind: EndOfLineComment
+        text: "'Public Const MIDIMESSAGESTATE_DISABLEDX ...  ' disabled message temporarily by user"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "' anything that is not enabled, will be considered disabled"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "' Midi Message Pointer"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "0"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' reserved"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_MESSAGE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' in/out"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_DATA1
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "2"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' in/out"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_DATA2
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "3"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' in/out"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_TIME
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "4"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' in/out"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_MESSAGETAG
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "5"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' out"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_MESSAGESTATE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "6"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' out"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_TIMEOPEN
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "10"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' in/out (readonly)"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_DAYOPEN
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "11"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' in/out (readonly)"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_TIMETEMPO
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "12"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' out (readonly)"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_TIMESTARTOPEN
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "13"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' out (readonly)"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_TIMECURRENTOPEN
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "14"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' out (readonly)"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_TIMEACTUALOPEN
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "15"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' out (readonly)"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_TIMERELTO2
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "16"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' in (readonly)"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_TIMERELTO3
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "17"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' in (readonly)"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_TIMERELTO4
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "18"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' in (readonly)"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_ERROR
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "30"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' in (readonly)"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_ERRORLATE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "31"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' in (readonly)"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_ERRORLONG
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "32"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' in (readonly)"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_ERRORCOUNT
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "33"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' in (readonly)"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIMP_UBOUND
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "40"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' may increase in future versions"
+          - kind: Newline
+            text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "' MidiOut device types"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "' (WARNING: Not an accurate representation of devices"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "' returned by the DeviceType property because different"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "' depending on operating system and sound card.)"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOUT_PORT
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "0"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOUT_SQUARESYNTH
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOUT_FMSYNTH
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "2"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOUT_MIDIMAPPER
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "3"
+          - kind: Newline
+            text: "\n"
+      - kind: EndOfLineComment
+        text: "'Public Const MIDIOUT_NONE = ..."
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'Public Const MIDIOUT_WAVESYNTH = ..."
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'Public Const MIDIOUT_DEFAULT = ..."
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "' SendNoteOff actions"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOFF_ANO
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOFF_ASO
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "2"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOFF_EACH
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "3"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIOFF_RECENT
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "4"
+          - kind: Newline
+            text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "' MidiFile actions"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIFILE_NONE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "0"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIFILE_OPEN
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIFILE_CLOSE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "2"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIFILE_CREATE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "3"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIFILE_SAVE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "4"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIFILE_CLEAR
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "5"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIFILE_INSERT_MESSAGE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "6"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIFILE_MODIFY_MESSAGE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "7"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIFILE_DELETE_MESSAGE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "8"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIFILE_INSERT_TRACK
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "9"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIFILE_DELETE_TRACK
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "10"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDIFILE_SAVE_AS
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "11"
+          - kind: Newline
+            text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "' Standard MIDI File Meta Event Constants"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: META
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HFF
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: META_SEQUENCE_NUMBER
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H0
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: META_TEXT
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H1
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: META_COPYRIGHT
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H2
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: META_NAME
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H3
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: META_INST_NAME
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H4
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: META_LYRIC
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H5
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: META_MARKER
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H6
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: META_CUE_POINT
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H7
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: META_CHAN_PREFIX
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H20
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: META_EOT
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H2F
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: META_TEMPO
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H51
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: META_SMPTE_OFFSET
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H54
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: META_TIME_SIG
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H58
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: META_KEY_SIG
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H59
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: META_SEQ_SPECIFIC
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H7F
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MAX_META_EVENT
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H7F
+          - kind: Newline
+            text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "' Standard MIDI status messages"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: note_off
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H80
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: note_on
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H90
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: POLY_KEY_PRESS
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HA0
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: CONTROLLER_CHANGE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HB0
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: program_change
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HC0
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: CHANNEL_PRESSURE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HD0
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: pitch_bend
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HE0
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SYSEX
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HF0
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MTC_QFRAME
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HF1
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MTC_SNGPTR
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HF2
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MTC_SNGSEL
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HF3
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MTC_TUNE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HF6
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: EOX
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HF7
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDI_CLOCK
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HF8
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDI_START
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HFA
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDI_CONTINUE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HFB
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MIDI_STOP
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HFC
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: ACTIVE_SENSE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HFE
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SYSTEM_RESET
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HFF
+          - kind: Newline
+            text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "' Standard CONTROLLER_CHANGE, MIDI Controller Numbers Constants"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MOD_WHEEL
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: BREATH_CONTROLLER
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "2"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FOOT_CONTROLLER
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "4"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: PORTAMENTO_TIME
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "5"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MAIN_VOLUME
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "7"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: BALANCE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "8"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: pan
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "10"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: EXPRESS_CONTROLLER
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "11"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: DAMPER_PEDAL
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "64"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' also known as, sustain"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: PORTAMENTO
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "65"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SOSTENUTO
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "66"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SOFT_PEDAL
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "67"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: HOLD_2
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "69"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: EXTERNAL_FX_DEPTH
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "91"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TREMELO_DEPTH
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "92"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: CHORUS_DEPTH
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "93"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: DETUNE_DEPTH
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "94"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: PHASER_DEPTH
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "95"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: DATA_INCREMENT
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "96"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: DATA_DECREMENT
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "97"
+          - kind: Newline
+            text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "' MIDI Filter Property Constants"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILTER_MTC
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HF1
+          - kind: Whitespace
+            text: "          "
+          - kind: EndOfLineComment
+            text: "'filter Frame, MTC_QFRAME"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILTER_SNGPTR
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HF2
+          - kind: Whitespace
+            text: "       "
+          - kind: EndOfLineComment
+            text: "'filter Song Position Pointer, MTC_SNGPTR"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILTER_SNGSEL
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HF3
+          - kind: Whitespace
+            text: "       "
+          - kind: EndOfLineComment
+            text: "'filter Song Select, MTC_SNGSEL"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILTER_F4
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HF4
+          - kind: Whitespace
+            text: "           "
+          - kind: EndOfLineComment
+            text: "'filter undefined"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILTER_F5
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HF5
+          - kind: Whitespace
+            text: "           "
+          - kind: EndOfLineComment
+            text: "'filter undefined"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILTER_TUNE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HF6
+          - kind: Whitespace
+            text: "         "
+          - kind: EndOfLineComment
+            text: "'filter Tune Request, MTC_TUNE"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILTER_CLOCK
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HF8
+          - kind: Whitespace
+            text: "        "
+          - kind: EndOfLineComment
+            text: "'filter MIDI Clock, MIDI_CLOCK"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILTER_F9
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HF9
+          - kind: Whitespace
+            text: "           "
+          - kind: EndOfLineComment
+            text: "'filter undefined"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILTER_START
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HFA
+          - kind: Whitespace
+            text: "        "
+          - kind: EndOfLineComment
+            text: "'filter MIDI Start, MIDI_START"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILTER_CONT
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HFB
+          - kind: Whitespace
+            text: "         "
+          - kind: EndOfLineComment
+            text: "'filter MIDI Continue, MIDI_CONT"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILTER_STOP
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HFC
+          - kind: Whitespace
+            text: "         "
+          - kind: EndOfLineComment
+            text: "'filter MIDI Stop, MIDI_STOP"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILTER_FD
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HFD
+          - kind: Whitespace
+            text: "           "
+          - kind: EndOfLineComment
+            text: "'filter undefined"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILTER_ACTIVE_SENSE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HFE
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "'filter Active Sensing, ACTIVE_SENSE"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILTER_RESET
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HFF
+          - kind: Whitespace
+            text: "        "
+          - kind: EndOfLineComment
+            text: "'filter System Reset, SYSTEM_RESET"
+          - kind: Newline
+            text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "' Common constants"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TOTAL_MIDI_CHANNELS
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "16"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MB_MSECPERDAY
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "86400000"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' (24*60*60*1000)"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MB_SECPERDAY
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "86400"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' (24*60*60)"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MB_VERY_OLD_TIME
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: SubtractionOperator
+            text: "-"
+          - kind: IntegerLiteral
+            text: "86400000"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' very old time to send fast ignoring message time"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MB_LONGDAYUBOUNDLESS
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "24"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' in days, less than 24.8, limit of long data type"
+          - kind: Newline
+            text: "\n"
+      - kind: EndOfLineComment
+        text: "' Check less than the maximum before objects"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "' themselves have a chance to throw an error"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "' and interrupt the program unexpectedly."
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MB_TESTERROREVENT
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: SubtractionOperator
+            text: "-"
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' optional to use with ErrorRaise()"
+          - kind: Newline
+            text: "\n"

@@ -1,0 +1,582 @@
+---
+source: vb6parse/tests/class/audiostation.rs
+expression: class
+---
+header:
+  version:
+    major: 1
+    minor: 0
+  properties:
+    multi_use: MultiUse
+    persistable: NotPersistable
+    data_binding_behavior: None
+    data_source_behavior: None
+    mts_transaction_mode: NotAnMTSObject
+  attributes:
+    name: clsLogger
+    global_name_space: Local
+    creatable: "True"
+    predeclared_id: "False"
+    exposed: "False"
+    description: ~
+    ext_key: {}
+cst:
+  root:
+    kind: Root
+    children:
+      - kind: EndOfLineComment
+        text: "'///////////////////////////////////////////////////////////////"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'// FileName        : Logger.cls"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'// FileType        : Microsoft Visual Basic 6 - Class Module"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'// Author          : Alex van den Berg"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'// Created         : 26-06-2023"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'// Last Modified   : 05-11-2023"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'// Copyright       : Sibra-Soft"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'// Description     : Sibra-Soft application logger class"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'////////////////////////////////////////////////////////////////"
+      - kind: Newline
+        text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: OptionStatement
+        children:
+          - kind: OptionKeyword
+            text: Option
+          - kind: Whitespace
+            text: " "
+          - kind: ExplicitKeyword
+            text: Explicit
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: DimKeyword
+            text: Dim
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FileNum
+          - kind: Newline
+            text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Init
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: Folder
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: StringKeyword
+                text: String
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: FileNum
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: FreeFile
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: OpenStatement
+                children:
+                  - kind: OpenKeyword
+                    text: Open
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Folder
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\"\\audiostation.log\""
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ForKeyword
+                    text: For
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AppendKeyword
+                    text: Append
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: FileNum
+                  - kind: Newline
+                    text: "\n"
+              - kind: PrintStatement
+                children:
+                  - kind: PrintKeyword
+                    text: Print
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Octothorpe
+                    text: "#"
+                  - kind: Identifier
+                    text: FileNum
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Date$
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\" \""
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: TimeKeyword
+                    text: Time
+                  - kind: DollarSign
+                    text: $
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: LogError
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: Message
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: StringKeyword
+                text: String
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: PrintStatement
+                children:
+                  - kind: PrintKeyword
+                    text: Print
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Octothorpe
+                    text: "#"
+                  - kind: Identifier
+                    text: FileNum
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Date$
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: vbTab
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: TimeKeyword
+                    text: Time
+                  - kind: DollarSign
+                    text: $
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: vbTab
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\"[ERROR]\""
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: vbTab
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Message
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: LogWarning
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: Message
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: StringKeyword
+                text: String
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: PrintStatement
+                children:
+                  - kind: PrintKeyword
+                    text: Print
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Octothorpe
+                    text: "#"
+                  - kind: Identifier
+                    text: FileNum
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Date$
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: vbTab
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: TimeKeyword
+                    text: Time
+                  - kind: DollarSign
+                    text: $
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: vbTab
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\"[WARN]\""
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: vbTab
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Message
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: LogInfo
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: Message
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: StringKeyword
+                text: String
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: PrintStatement
+                children:
+                  - kind: PrintKeyword
+                    text: Print
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Octothorpe
+                    text: "#"
+                  - kind: Identifier
+                    text: FileNum
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Date$
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: vbTab
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: TimeKeyword
+                    text: Time
+                  - kind: DollarSign
+                    text: $
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: vbTab
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\"[INFO]\""
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: vbTab
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Message
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: CloseLog
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: CloseStatement
+                children:
+                  - kind: CloseKeyword
+                    text: Close
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: FileNum
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
