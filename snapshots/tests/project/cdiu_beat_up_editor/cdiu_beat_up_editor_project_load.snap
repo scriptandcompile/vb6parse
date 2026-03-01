@@ -1,0 +1,136 @@
+---
+source: vb6parse/tests/project/cdiu_beat_up_editor.rs
+expression: project
+---
+project_type: Exe
+references:
+  - uuid: 420b2830-e718-11cf-893d-00a0c9054228
+    unknown1: "1.0"
+    unknown2: "0"
+    path: "..\\..\\..\\..\\Windows\\SysWOW64\\scrrun.dll"
+    description: Microsoft Scripting Runtime
+  - uuid: 3050f1c5-98b5-11cf-bb82-00aa00bdce0b
+    unknown1: "4.0"
+    unknown2: "0"
+    path: "..\\..\\..\\..\\Windows\\SysWOW64\\mshtml.tlb"
+    description: Microsoft HTML Object Library
+  - uuid: eab22ac0-30c1-11cf-a7eb-0000c05bae0b
+    unknown1: "1.1"
+    unknown2: "0"
+    path: "..\\..\\..\\..\\Windows\\SysWOW64\\ieframe.dll"
+    description: Microsoft Internet Controls
+  - uuid: 00020430-0000-0000-c000-000000000046
+    unknown1: "2.0"
+    unknown2: "0"
+    path: "..\\..\\..\\..\\Windows\\SysWOW64\\stdole2.tlb"
+    description: OLE Automation
+  - uuid: e1211242-8e94-11d1-8808-00c04fc2c603
+    unknown1: "1.0"
+    unknown2: "0"
+    path: dx8vb.dll
+    description: DirectX 8 for Visual Basic Type Library
+objects:
+  - uuid: 5e9e78a0-531b-11cf-91f6-c2863c385e30
+    version: "1.0"
+    unknown1: "0"
+    file_name: MSFLXGRD.OCX
+  - uuid: 831fdd16-0c5c-11d2-a9fc-0000f8754da1
+    version: "2.0"
+    unknown1: "0"
+    file_name: mscomctl.ocx
+modules:
+  - name: cma1
+    path: cma1.bas
+  - name: FMod
+    path: fmod.bas
+  - name: cma2
+    path: cma2.bas
+  - name: cma3
+    path: cma3.bas
+  - name: cma4
+    path: cma4.bas
+  - name: cma5
+    path: cma5.bas
+  - name: cma6
+    path: cma6.bas
+  - name: cdiu_12
+    path: cdiu_12.bas
+  - name: MCPU_PRoc
+    path: MCPU_Proc.bas
+  - name: other_do
+    path: other_do.bas
+  - name: cq
+    path: icecopymemory.bas
+  - name: cma7
+    path: cma7.bas
+classes:
+  - name: cCommonDialog
+    path: cCommonDialog.cls
+  - name: GCommonDialog
+    path: GCommonDialog.cls
+  - name: clsCryptoAPIandCompression
+    path: clsCryptoAPIandCompression.cls
+related_documents: []
+property_pages: []
+designers: []
+forms:
+  - test.frm
+  - systemRead.frm
+  - OpenRoom.frm
+  - ChatBox.frm
+user_controls: []
+user_documents: []
+other_properties:
+  MS Transaction Server:
+    AutoRefresh: "1"
+properties:
+  unused_control_info: Remove
+  upgrade_controls: Upgrade
+  res_file_32_path: Project1.RES
+  icon_form: cmt
+  startup: cmt
+  help_file_path: ""
+  title: Project1
+  exe_32_file_name: CdiuBeatupEditor36.exe
+  exe_32_compatible: ""
+  dll_base_address: 0
+  path_32: _release
+  command_line_arguments: "/admin:iamsiuyi"
+  name: Project1
+  description: ""
+  debug_startup_component: ""
+  help_context_id: "0"
+  compatibility_mode: NoCompatibility
+  version_32_compatibility: ""
+  version_info:
+    major: 3
+    minor: 6
+    revision: 0
+    auto_increment_revision: 0
+    company_name: CdiuCompany
+    file_description: ""
+    copyright: ""
+    trademark: ""
+    product_name: ""
+    comments: ""
+  server_support_files: Local
+  conditional_compile: ""
+  compilation_type:
+    NativeCode:
+      optimization_type: FavorSmallCode
+      favor_pentium_pro: "False"
+      code_view_debug_info: NotCreated
+      aliasing: AssumeAliasing
+      bounds_check: CheckBounds
+      overflow_check: CheckOverflow
+      floating_point_check: CheckFloatingPointError
+      pentium_fdiv_bug_check: CheckPentiumFDivBug
+      unrounded_floating_point: DoNotAllow
+  start_mode: StandAlone
+  unattended: Interactive
+  retained: UnloadOnExit
+  thread_per_object: 0
+  threading_model: ApartmentThreaded
+  max_number_of_threads: 1
+  debug_startup_option: WaitForComponentCreation
+  use_existing_browser: Use

@@ -11,3 +11,6 @@ mod binary_metamorphosis;
 
 #[path = "class/bitrate_calculator.rs"]
 mod bitrate_calculator;
+
+#[path = "class/cdiu_beat_up_editor.rs"]
+mod cdiu_beat_up_editor;
