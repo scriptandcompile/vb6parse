@@ -1,0 +1,184 @@
+---
+source: vb6parse/tests/class/environment.rs
+expression: class
+---
+header:
+  version:
+    major: 1
+    minor: 0
+  properties:
+    multi_use: MultiUse
+    persistable: NotPersistable
+    data_binding_behavior: None
+    data_source_behavior: None
+    mts_transaction_mode: NotAnMTSObject
+  attributes:
+    name: ErrorBag
+    global_name_space: Local
+    creatable: "True"
+    predeclared_id: "False"
+    exposed: "True"
+    description: ~
+    ext_key: {}
+cst:
+  root:
+    kind: Root
+    children:
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Description
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Number
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: LastDllNumber
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: SubStatement
+        children:
+          - kind: FriendKeyword
+            text: Friend
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: CopyErr
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: Whitespace
+                text: "    "
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: Description
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: MemberAccessExpression
+                    children:
+                      - kind: Identifier
+                        text: Err
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: Description
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: Number
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: MemberAccessExpression
+                    children:
+                      - kind: Identifier
+                        text: Err
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: Number
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: LastDllNumber
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: MemberAccessExpression
+                    children:
+                      - kind: Identifier
+                        text: Err
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: LastDllError
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"

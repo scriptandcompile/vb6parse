@@ -1,0 +1,4110 @@
+---
+source: vb6parse/tests/class/environment.rs
+expression: class
+---
+header:
+  version:
+    major: 1
+    minor: 0
+  properties:
+    multi_use: MultiUse
+    persistable: NotPersistable
+    data_binding_behavior: None
+    data_source_behavior: None
+    mts_transaction_mode: NotAnMTSObject
+  attributes:
+    name: counter
+    global_name_space: Local
+    creatable: "True"
+    predeclared_id: "False"
+    exposed: "False"
+    description: ~
+    ext_key: {}
+cst:
+  root:
+    kind: Root
+    children:
+      - kind: OptionStatement
+        children:
+          - kind: OptionKeyword
+            text: Option
+          - kind: Whitespace
+            text: " "
+          - kind: ExplicitKeyword
+            text: Explicit
+          - kind: Newline
+            text: "\r\n"
+      - kind: ImplementsStatement
+        children:
+          - kind: ImplementsKeyword
+            text: Implements
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface
+          - kind: Newline
+            text: "\r\n"
+      - kind: Whitespace
+        text: "   "
+      - kind: TypeStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: TypeKeyword
+            text: Type
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SECURITY_ATTRIBUTES
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "           "
+          - kind: Identifier
+            text: nLength
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "           "
+          - kind: Identifier
+            text: lpSecurityDescriptor
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "           "
+          - kind: Identifier
+            text: bInheritHandle
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "   "
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: TypeKeyword
+            text: Type
+          - kind: Newline
+            text: "\r\n"
+      - kind: Whitespace
+        text: "   "
+      - kind: Newline
+        text: "\r\n"
+      - kind: Whitespace
+        text: "    "
+      - kind: DimStatement
+        children:
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SECURITY_DESCRIPTOR_MIN_LENGTH
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: ParenthesizedExpression
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: NumericLiteralExpression
+                children:
+                  - kind: IntegerLiteral
+                    text: "20"
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+      - kind: Whitespace
+        text: "    "
+      - kind: DimStatement
+        children:
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SECURITY_DESCRIPTOR_REVISION
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: ParenthesizedExpression
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: NumericLiteralExpression
+                children:
+                  - kind: IntegerLiteral
+                    text: "1"
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: DimKeyword
+            text: Dim
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: jobnameID
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+      - kind: EndOfLineComment
+        text: "' load code or just use it as a counter"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "' load code first time"
+      - kind: Newline
+        text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: DimKeyword
+            text: Dim
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: m_duration
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: DimKeyword
+            text: Dim
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: m_now
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: DimKeyword
+            text: Dim
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: mYspace
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+      - kind: Whitespace
+        text: "    "
+      - kind: DimStatement
+        children:
+          - kind: DimKeyword
+            text: Dim
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: myholdtime
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: CurrencyKeyword
+            text: Currency
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: DimKeyword
+            text: Dim
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: mycode
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: DimKeyword
+            text: Dim
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MyMode
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: DimKeyword
+            text: Dim
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: mybusy
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: hPipe
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: pipename
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
+          - kind: Whitespace
+            text: "  "
+          - kind: EndOfLineComment
+            text: "'= \"\\\\.\\pipe\\bigtest\""
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: mytarget
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: myBUFvar
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: res
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: myBase
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface
+          - kind: Newline
+            text: "\r\n"
+      - kind: DeclareStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: DeclareKeyword
+            text: Declare
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: timeGetTime
+          - kind: Whitespace
+            text: " "
+          - kind: LibKeyword
+            text: Lib
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"kernel32.dll\""
+          - kind: Whitespace
+            text: " "
+          - kind: AliasKeyword
+            text: Alias
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"GetTickCount\""
+          - kind: Whitespace
+            text: " "
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: myProcess
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: basetask
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: PropertyStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Whitespace
+            text: " "
+          - kind: GetKeyword
+            text: Get
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface_Process
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: basetask
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: SetStatement
+                children:
+                  - kind: SetKeyword
+                    text: Set
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: TaskInterface_Process
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: myProcess
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: PropertyStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Whitespace
+            text: " "
+          - kind: SetKeyword
+            text: Set
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface_Process
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: aProcess
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: basetask
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: SetStatement
+                children:
+                  - kind: SetKeyword
+                    text: Set
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: myProcess
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: aProcess
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: SetStatement
+                children:
+                  - kind: SetKeyword
+                    text: Set
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: myProcess
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: Process
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: myBase
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Newline
+            text: "\r\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Class_Terminate
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: hPipe
+                      - kind: Whitespace
+                        text: " "
+                      - kind: InequalityOperator
+                        text: "<>"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "0"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\r\n"
+                  - kind: StatementList
+                    children:
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: res
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: DisconnectNamedPipe
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: hPipe
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: CloseHandle
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hPipe
+                          - kind: Newline
+                            text: "\r\n"
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: PropertyStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Whitespace
+            text: " "
+          - kind: LetKeyword
+            text: Let
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface_interval
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: RHS
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: CurrencyKeyword
+                text: Currency
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: m_now
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: timeGetTime
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: m_duration
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: CallExpression
+                    children:
+                      - kind: Identifier
+                        text: Signed
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: RHS
+                      - kind: RightParenthesis
+                        text: )
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: mYspace
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: m_duration
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: PropertyStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Whitespace
+            text: " "
+          - kind: GetKeyword
+            text: Get
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface_interval
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: CurrencyKeyword
+            text: Currency
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: EndOfLineComment
+                text: "'"
+              - kind: Newline
+                text: "\r\n"
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: TaskInterface_interval
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: mYspace
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "' IMPLEMENTED PROPERTIES"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: PropertyStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Whitespace
+            text: " "
+          - kind: SetKeyword
+            text: Set
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface_Owner
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: RHS
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: ObjectKeyword
+                text: Object
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: EndOfLineComment
+                text: "' Usage: Private Property Set TaskInterface_Owner(RHS As Form)"
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "  "
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "  "
+              - kind: EndOfLineComment
+                text: "'Validating type"
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "  "
+              - kind: EndOfLineComment
+                text: "'If TypeOf RHS Is Form Then"
+              - kind: Newline
+                text: "\r\n"
+              - kind: SetStatement
+                children:
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: SetKeyword
+                    text: Set
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: myBase
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: Owner
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: RHS
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "  "
+              - kind: EndOfLineComment
+                text: "'Else"
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "   "
+              - kind: EndOfLineComment
+                text: "' Error tmTypeMisMatch"
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "  "
+              - kind: EndOfLineComment
+                text: "'End If"
+              - kind: Newline
+                text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "' IMPLEMENTED METHODS"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface_Parameters
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: ParamArrayKeyword
+                text: ParamArray
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: Values
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: VariantKeyword
+                text: Variant
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: EndOfLineComment
+                text: "'' Usage: Private Sub TaskInterface_Parameters(Color As Long, Count As Long)"
+              - kind: Newline
+                text: "\r\n"
+              - kind: OnErrorStatement
+                children:
+                  - kind: OnKeyword
+                    text: "On"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ErrorKeyword
+                    text: Error
+                  - kind: Whitespace
+                    text: " "
+                  - kind: GotoKeyword
+                    text: GoTo
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: poulos
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "  "
+              - kind: EndOfLineComment
+                text: "' Verifing parameter count"
+              - kind: Newline
+                text: "\r\n"
+              - kind: IfStatement
+                children:
+                  - kind: Whitespace
+                    text: "  "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: CallExpression
+                        children:
+                          - kind: Identifier
+                            text: UBound
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Values
+                          - kind: RightParenthesis
+                            text: )
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "4"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\r\n"
+                  - kind: StatementList
+                    children:
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: OnErrorStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: OnKeyword
+                            text: "On"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ErrorKeyword
+                            text: Error
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ResumeKeyword
+                            text: Resume
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NextKeyword
+                            text: Next
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "   "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: jobnameID
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: CLng
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Values
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: NumericLiteralExpression
+                                                    children:
+                                                      - kind: IntegerLiteral
+                                                        text: "0"
+                                          - kind: RightParenthesis
+                                            text: )
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EndOfLineComment
+                        text: "' this is the hanlde"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "   "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: mYspace
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: Signed
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Values
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: NumericLiteralExpression
+                                                    children:
+                                                      - kind: IntegerLiteral
+                                                        text: "1"
+                                          - kind: RightParenthesis
+                                            text: )
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EndOfLineComment
+                        text: "'"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: pipename
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"\\\\.\\pipe\\\""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: CallExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Values
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "2"
+                                      - kind: RightParenthesis
+                                        text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: AdditionOperator
+                                    text: +
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: CallExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: ChrW$
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "0"
+                                      - kind: RightParenthesis
+                                        text: )
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: EndOfLineComment
+                        text: "'pipename = validpipename(CStr(Values(2)))"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "   "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: myholdtime
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: Signed
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Values
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: NumericLiteralExpression
+                                                    children:
+                                                      - kind: IntegerLiteral
+                                                        text: "3"
+                                          - kind: RightParenthesis
+                                            text: )
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "   "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: m_now
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: timeGetTime
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: m_duration
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: myholdtime
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "   "
+                      - kind: Unknown
+                        text: mytarget
+                      - kind: Unknown
+                        text: $
+                      - kind: Whitespace
+                        text: " "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: EqualityOperator
+                                text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: Values
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "4"
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "   "
+                      - kind: EndOfLineComment
+                        text: "' AND A VARIABLE....TO PLACE DATA"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "   "
+                      - kind: DimStatement
+                        children:
+                          - kind: DimKeyword
+                            text: Dim
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: openMode
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: pipeMode
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: DimStatement
+                        children:
+                          - kind: DimKeyword
+                            text: Dim
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: SA
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: SECURITY_ATTRIBUTES
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: EndOfLineComment
+                        text: "'Create the named pipe"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "   "
+                      - kind: DimStatement
+                        children:
+                          - kind: ConstKeyword
+                            text: Const
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: GMEM_FIXED
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Ampersand
+                                text: "&"
+                          - kind: Identifier
+                            text: H0
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: DimStatement
+                        children:
+                          - kind: ConstKeyword
+                            text: Const
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: GMEM_ZEROINIT
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Ampersand
+                                text: "&"
+                          - kind: Identifier
+                            text: H40
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: DimStatement
+                        children:
+                          - kind: ConstKeyword
+                            text: Const
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: GPTR
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ParenthesizedExpression
+                            children:
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: GMEM_FIXED
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: OrKeyword
+                                    text: Or
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: GMEM_ZEROINIT
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: DimStatement
+                        children:
+                          - kind: DimKeyword
+                            text: Dim
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: pSD
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: pSD
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: GlobalAlloc
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: GPTR
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: SECURITY_DESCRIPTOR_MIN_LENGTH
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "      "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: res
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: InitializeSecurityDescriptor
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: pSD
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: SECURITY_DESCRIPTOR_REVISION
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "      "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: res
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: SetSecurityDescriptorDacl
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: pSD
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: UnaryExpression
+                                        children:
+                                          - kind: SubtractionOperator
+                                            text: "-"
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "1"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "      "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: SA
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: nLength
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: LenB
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: SA
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "      "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: SA
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: lpSecurityDescriptor
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: pSD
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "      "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: SA
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: bInheritHandle
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BooleanLiteralExpression
+                            children:
+                              - kind: TrueKeyword
+                                text: "True"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: openMode
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: PIPE_ACCESS_INBOUND
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EndOfLineComment
+                        text: "'PIPE_ACCESS_DUPLEX ' Or WRITE_DAC ' PIPE_ACCESS_DUPLEX | WRITE_DAC"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: pipeMode
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: PIPE_NOWAIT
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: OrKeyword
+                                    text: Or
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: PIPE_TYPE_BYTE
+                              - kind: Whitespace
+                                text: " "
+                              - kind: OrKeyword
+                                text: Or
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: PIPE_READMODE_BYTE
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: hPipe
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: CreateNamedPipe
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: StrPtr
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: pipename
+                                          - kind: RightParenthesis
+                                            text: )
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: openMode
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: pipeMode
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "10"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "10000"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "2000"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "400"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: SA
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: INVALID_HANDLE_VALUE
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: hPipe
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Newline
+                            text: "\r\n"
+                          - kind: StatementList
+                            children:
+                              - kind: AssignmentStatement
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: myBase
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Done
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: BooleanLiteralExpression
+                                    children:
+                                      - kind: TrueKeyword
+                                        text: "True"
+                              - kind: Unknown
+                                text: ":"
+                              - kind: ExitStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ExitKeyword
+                                    text: Exit
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: SubKeyword
+                                    text: Sub
+                                  - kind: Newline
+                                    text: "\r\n"
+                          - kind: EndKeyword
+                            text: End
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Err
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Number
+                              - kind: Whitespace
+                                text: " "
+                              - kind: GreaterThanOperator
+                                text: ">"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "0"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Newline
+                            text: "\r\n"
+                          - kind: StatementList
+                            children:
+                              - kind: OnErrorStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "      "
+                                  - kind: OnKeyword
+                                    text: "On"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ErrorKeyword
+                                    text: Error
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: GotoKeyword
+                                    text: GoTo
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IntegerLiteral
+                                    text: "0"
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: Newline
+                                text: "\r\n"
+                              - kind: Whitespace
+                                text: "    "
+                          - kind: EndKeyword
+                            text: End
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: OnErrorStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: OnKeyword
+                            text: "On"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ErrorKeyword
+                            text: Error
+                          - kind: Whitespace
+                            text: " "
+                          - kind: GotoKeyword
+                            text: GoTo
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "0"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: EndOfLineComment
+                        text: "' do something"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "  "
+                  - kind: ElseClause
+                    children:
+                      - kind: ElseKeyword
+                        text: Else
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: StatementList
+                        children:
+                          - kind: LabelStatement
+                            children:
+                              - kind: Identifier
+                                text: poulos
+                              - kind: ColonOperator
+                                text: ":"
+                              - kind: Newline
+                                text: "\r\n"
+                          - kind: Newline
+                            text: "\r\n"
+                          - kind: Whitespace
+                            text: "  "
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "  "
+              - kind: Newline
+                text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"
+      - kind: FunctionStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: BytesToStr
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: ab
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: ByteKeyword
+                text: Byte
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: Whitespace
+                text: "    "
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: BytesToStr
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: CallExpression
+                    children:
+                      - kind: Identifier
+                        text: ab
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children: []
+                      - kind: RightParenthesis
+                        text: )
+              - kind: Whitespace
+                text: " "
+              - kind: EndOfLineComment
+                text: "'StrConv(ab, vbUnicode)"
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Newline
+                text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Newline
+            text: "\r\n"
+      - kind: FunctionStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface_Tick
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: Whitespace
+                text: " "
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: X
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IntegerKeyword
+                    text: Integer
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: mycnt
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: LongKeyword
+                    text: Long
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: lpBuffer
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: NumericLiteralExpression
+                    children:
+                      - kind: IntegerLiteral
+                        text: "2048"
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ByteKeyword
+                    text: Byte
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: OnErrorStatement
+                children:
+                  - kind: OnKeyword
+                    text: "On"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ErrorKeyword
+                    text: Error
+                  - kind: Whitespace
+                    text: " "
+                  - kind: GotoKeyword
+                    text: GoTo
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: there
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: CallExpression
+                        children:
+                          - kind: Identifier
+                            text: UnsignedSub
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: timeGetTime
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: m_now
+                          - kind: RightParenthesis
+                            text: )
+                      - kind: Whitespace
+                        text: " "
+                      - kind: GreaterThanOperator
+                        text: ">"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: m_duration
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\r\n"
+                  - kind: StatementList
+                    children:
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: TaskInterface_Tick
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BooleanLiteralExpression
+                            children:
+                              - kind: TrueKeyword
+                                text: "True"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: m_now
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: timeGetTime
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "   "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: m_duration
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: mYspace
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "   "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: hPipe
+                              - kind: Whitespace
+                                text: " "
+                              - kind: InequalityOperator
+                                text: "<>"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "0"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Newline
+                            text: "\r\n"
+                          - kind: StatementList
+                            children:
+                              - kind: Whitespace
+                                text: "  "
+                              - kind: EndOfLineComment
+                                text: "' mybuf$ = String$(2001, Chr(0))"
+                              - kind: Newline
+                                text: "\r\n"
+                              - kind: IfStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "   "
+                                  - kind: IfKeyword
+                                    text: If
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: CallExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: ConnectNamedPipe
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: hPipe
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: ByValKeyword
+                                                    text: ByVal
+                                          - kind: Whitespace
+                                            text: " "
+                                  - kind: AssignmentStatement
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: RightParenthesis
+                                                text: )
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EqualityOperator
+                                            text: "="
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "0"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ThenKeyword
+                                    text: Then
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: IfStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "    "
+                                  - kind: IfKeyword
+                                    text: If
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: GetLastError
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: ERROR_PIPE_LISTENING
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ThenKeyword
+                                    text: Then
+                                  - kind: Newline
+                                    text: "\r\n"
+                                  - kind: StatementList
+                                    children:
+                                      - kind: Newline
+                                        text: "\r\n"
+                                      - kind: ExitStatement
+                                        children:
+                                          - kind: Whitespace
+                                            text: "    "
+                                          - kind: ExitKeyword
+                                            text: Exit
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: FunctionKeyword
+                                            text: Function
+                                          - kind: Newline
+                                            text: "\r\n"
+                                      - kind: Whitespace
+                                        text: "    "
+                                  - kind: EndKeyword
+                                    text: End
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IfKeyword
+                                    text: If
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: Whitespace
+                                text: "   "
+                          - kind: ElseClause
+                            children:
+                              - kind: ElseKeyword
+                                text: Else
+                              - kind: Newline
+                                text: "\r\n"
+                              - kind: StatementList
+                                children:
+                                  - kind: ExitStatement
+                                    children:
+                                      - kind: Whitespace
+                                        text: "   "
+                                      - kind: ExitKeyword
+                                        text: Exit
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: FunctionKeyword
+                                        text: Function
+                                      - kind: Newline
+                                        text: "\r\n"
+                                  - kind: Whitespace
+                                    text: "   "
+                          - kind: EndKeyword
+                            text: End
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: EraseStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: EraseKeyword
+                            text: Erase
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: lpBuffer
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: res
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: ReadFile
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: hPipe
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: lpBuffer
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: NumericLiteralExpression
+                                                    children:
+                                                      - kind: IntegerLiteral
+                                                        text: "0"
+                                          - kind: RightParenthesis
+                                            text: )
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "2043"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: mycnt
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: ByValKeyword
+                                            text: ByVal
+                                  - kind: Whitespace
+                                    text: " "
+                      - kind: Unknown
+                        text: 0&
+                      - kind: Unknown
+                        text: )
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "  "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: res
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "1"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Newline
+                            text: "\r\n"
+                          - kind: StatementList
+                            children:
+                              - kind: Newline
+                                text: "\r\n"
+                              - kind: IfStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "  "
+                                  - kind: IfKeyword
+                                    text: If
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: mycnt
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: GreaterThanOperator
+                                        text: ">"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ThenKeyword
+                                    text: Then
+                                  - kind: Newline
+                                    text: "\r\n"
+                                  - kind: StatementList
+                                    children:
+                                      - kind: Newline
+                                        text: "\r\n"
+                                      - kind: Whitespace
+                                        text: "  "
+                                      - kind: Newline
+                                        text: "\r\n"
+                                      - kind: Whitespace
+                                        text: "    "
+                                      - kind: CallStatement
+                                        children:
+                                          - kind: Identifier
+                                            text: Thing
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: mytarget
+                                          - kind: DollarSign
+                                            text: $
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: Left$
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: Identifier
+                                            text: BytesToStr
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: Identifier
+                                            text: lpBuffer
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: mycnt
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: DivisionOperator
+                                            text: /
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IntegerLiteral
+                                            text: "2"
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: Newline
+                                            text: "\r\n"
+                                      - kind: Whitespace
+                                        text: "    "
+                                      - kind: CallStatement
+                                        children:
+                                          - kind: Identifier
+                                            text: DisconnectNamedPipe
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: hPipe
+                                          - kind: Newline
+                                            text: "\r\n"
+                                      - kind: Whitespace
+                                        text: "  "
+                                  - kind: EndKeyword
+                                    text: End
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IfKeyword
+                                    text: If
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: Whitespace
+                                text: "  "
+                          - kind: ElseIfClause
+                            children:
+                              - kind: ElseIfKeyword
+                                text: ElseIf
+                              - kind: Whitespace
+                                text: " "
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: GetLastError
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: ERROR_NO_DATA
+                              - kind: Whitespace
+                                text: " "
+                              - kind: ThenKeyword
+                                text: Then
+                              - kind: Newline
+                                text: "\r\n"
+                              - kind: StatementList
+                                children:
+                                  - kind: Whitespace
+                                    text: "  "
+                                  - kind: EndOfLineComment
+                                    text: "''Stop"
+                                  - kind: Newline
+                                    text: "\r\n"
+                                  - kind: Whitespace
+                                    text: "  "
+                                  - kind: EndOfLineComment
+                                    text: "' ERROR_NO_DATA"
+                                  - kind: Newline
+                                    text: "\r\n"
+                                  - kind: Whitespace
+                                    text: "  "
+                                  - kind: Newline
+                                    text: "\r\n"
+                                  - kind: Whitespace
+                                    text: "  "
+                          - kind: EndKeyword
+                            text: End
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: EndOfLineComment
+                        text: "' ByVal stringbuffer, 10, numread, 0"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "   "
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "   "
+              - kind: Unknown
+                text: End
+              - kind: IfStatement
+                children:
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Newline
+                        text: "\r\n"
+                  - kind: Whitespace
+                    text: "   "
+                  - kind: ExitStatement
+                    children:
+                      - kind: ExitKeyword
+                        text: Exit
+                      - kind: Whitespace
+                        text: " "
+                      - kind: FunctionKeyword
+                        text: Function
+                      - kind: Newline
+                        text: "\r\n"
+                  - kind: Identifier
+                    text: there
+                  - kind: ColonOperator
+                    text: ":"
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: AssignmentStatement
+                children:
+                  - kind: MemberAccessExpression
+                    children:
+                      - kind: Identifier
+                        text: myBase
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: Done
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BooleanLiteralExpression
+                    children:
+                      - kind: TrueKeyword
+                        text: "True"
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "' DELEGATED PROPERTIES"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: PropertyStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Whitespace
+            text: " "
+          - kind: LetKeyword
+            text: Let
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface_Done
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: RHS
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: BooleanKeyword
+                text: Boolean
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: Whitespace
+                text: "  "
+              - kind: AssignmentStatement
+                children:
+                  - kind: MemberAccessExpression
+                    children:
+                      - kind: Identifier
+                        text: myBase
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: Done
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: RHS
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: PropertyStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Whitespace
+            text: " "
+          - kind: GetKeyword
+            text: Get
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface_Done
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: OnErrorStatement
+                children:
+                  - kind: OnKeyword
+                    text: "On"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ErrorKeyword
+                    text: Error
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ResumeKeyword
+                    text: Resume
+                  - kind: Whitespace
+                    text: " "
+                  - kind: NextKeyword
+                    text: Next
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: " "
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: TaskInterface_Done
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: MemberAccessExpression
+                    children:
+                      - kind: Identifier
+                        text: myBase
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: Done
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: PropertyStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Whitespace
+            text: " "
+          - kind: GetKeyword
+            text: Get
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface_Owner
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: ObjectKeyword
+            text: Object
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: SetStatement
+                children:
+                  - kind: Whitespace
+                    text: " "
+                  - kind: SetKeyword
+                    text: Set
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: TaskInterface_Owner
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: myBase
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: Owner
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: PropertyStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Whitespace
+            text: " "
+          - kind: LetKeyword
+            text: Let
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface_Priority
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: Value
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: PriorityLevel
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: Whitespace
+                text: "  "
+              - kind: AssignmentStatement
+                children:
+                  - kind: MemberAccessExpression
+                    children:
+                      - kind: Identifier
+                        text: myBase
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: Priority
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: Value
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: PropertyStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Whitespace
+            text: " "
+          - kind: GetKeyword
+            text: Get
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface_Priority
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: PriorityLevel
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: OnErrorStatement
+                children:
+                  - kind: OnKeyword
+                    text: "On"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ErrorKeyword
+                    text: Error
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ResumeKeyword
+                    text: Resume
+                  - kind: Whitespace
+                    text: " "
+                  - kind: NextKeyword
+                    text: Next
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "  "
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: TaskInterface_Priority
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: MemberAccessExpression
+                    children:
+                      - kind: Identifier
+                        text: myBase
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: Priority
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Newline
+            text: "\r\n"
+      - kind: PropertyStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Whitespace
+            text: " "
+          - kind: LetKeyword
+            text: Let
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface_ID
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: RHS
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: RHS
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: jobnameID
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\r\n"
+                  - kind: StatementList
+                    children:
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: myBase
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Done
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BooleanLiteralExpression
+                            children:
+                              - kind: TrueKeyword
+                                text: "True"
+                          - kind: Newline
+                            text: "\r\n"
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: PropertyStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Whitespace
+            text: " "
+          - kind: GetKeyword
+            text: Get
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface_ID
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: TaskInterface_ID
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: jobnameID
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Newline
+            text: "\r\n"
+      - kind: PropertyStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Whitespace
+            text: " "
+          - kind: LetKeyword
+            text: Let
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface_busy
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: RHS
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: BooleanKeyword
+                text: Boolean
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: mybusy
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: RHS
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: PropertyStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Whitespace
+            text: " "
+          - kind: GetKeyword
+            text: Get
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface_busy
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: TaskInterface_busy
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: mybusy
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Newline
+            text: "\r\n"
+      - kind: PropertyStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Whitespace
+            text: " "
+          - kind: GetKeyword
+            text: Get
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface_CodeData
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: TaskInterface_CodeData
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: vbNullString
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "' DELEGATED METHODS"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TaskInterface_Dispose
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: Action
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: DisposeAction
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: OnErrorStatement
+                children:
+                  - kind: OnKeyword
+                    text: "On"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ErrorKeyword
+                    text: Error
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ResumeKeyword
+                    text: Resume
+                  - kind: Whitespace
+                    text: " "
+                  - kind: NextKeyword
+                    text: Next
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "  "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: myBase
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: Dispose
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Action
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: SetStatement
+                children:
+                  - kind: Whitespace
+                    text: "  "
+                  - kind: SetKeyword
+                    text: Set
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: myBase
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Nothing
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "' PRIVATE ROUTINES"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Class_Initialize
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: SetStatement
+                children:
+                  - kind: Whitespace
+                    text: "  "
+                  - kind: SetKeyword
+                    text: Set
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: myBase
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: NewKeyword
+                    text: New
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: TaskBase
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: EndOfLineComment
+                text: "'"
+              - kind: Newline
+                text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"

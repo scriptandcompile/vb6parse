@@ -23,3 +23,6 @@ mod discrete_probability_detector;
 
 #[path = "project/endless_runner_game_vb6_0.rs"]
 mod endless_runner_game_vb6_0;
+
+#[path = "project/environment.rs"]
+mod environment;
