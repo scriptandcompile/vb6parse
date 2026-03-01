@@ -14,3 +14,6 @@ mod bitrate_calculator;
 
 #[path = "module/cdiu_beat_up_editor.rs"]
 mod cdiu_beat_up_editor;
+
+#[path = "module/chess_brain_vb.rs"]
+mod chess_brain_vb;

@@ -1,0 +1,4713 @@
+---
+source: vb6parse/tests/module/chess_brain_vb.rs
+expression: module
+---
+name: basConst
+cst:
+  root:
+    kind: Root
+    children:
+      - kind: EndOfLineComment
+        text: "'=================================================="
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'= basConst:"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'= definition of constants"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'=================================================="
+      - kind: Newline
+        text: "\r\n"
+      - kind: OptionStatement
+        children:
+          - kind: OptionKeyword
+            text: Option
+          - kind: Whitespace
+            text: " "
+          - kind: ExplicitKeyword
+            text: Explicit
+          - kind: Newline
+            text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'--------------------------------------------------"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "' INI file"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'--------------------------------------------------"
+      - kind: Newline
+        text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: INI_FILE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"ChessBrainVB.ini\""
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: CONTEMPT_KEY
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"CONTEMPT\""
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: LOG_PV_KEY
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"LOGPV\""
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: USE_BOOK_KEY
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"OPENING_BOOK\""
+          - kind: Newline
+            text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'--------------------------------------------------"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'Piece definition"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'--------------------------------------------------"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'White pieces      \"(Board(x) AND 1) = WCOL\"  WCOL = 1"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'Black pieces      \"(Board(x) AND 1) = BCOL\"  BCOL = 0"
+      - kind: Newline
+        text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FRAME
+          - kind: Whitespace
+            text: "                   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "0"
+          - kind: Whitespace
+            text: "     "
+          - kind: EndOfLineComment
+            text: "' frame of board array"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: WPAWN
+          - kind: Whitespace
+            text: "                   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Whitespace
+            text: "     "
+          - kind: EndOfLineComment
+            text: "' piece numbers for each piece and color"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: BPAWN
+          - kind: Whitespace
+            text: "                   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "2"
+          - kind: Whitespace
+            text: "     "
+          - kind: EndOfLineComment
+            text: "' white pawn"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: WKNIGHT
+          - kind: Whitespace
+            text: "                 "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "3"
+          - kind: Whitespace
+            text: "     "
+          - kind: EndOfLineComment
+            text: "' black pawn"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: BKNIGHT
+          - kind: Whitespace
+            text: "                 "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "4"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: WBISHOP
+          - kind: Whitespace
+            text: "                 "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "5"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: BBISHOP
+          - kind: Whitespace
+            text: "                 "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "6"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: WROOK
+          - kind: Whitespace
+            text: "                   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "7"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: BROOK
+          - kind: Whitespace
+            text: "                   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "8"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: WQUEEN
+          - kind: Whitespace
+            text: "                  "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "9"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: BQUEEN
+          - kind: Whitespace
+            text: "                  "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "10"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: WKING
+          - kind: Whitespace
+            text: "                   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "11"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: BKING
+          - kind: Whitespace
+            text: "                   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "12"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: NO_PIECE
+          - kind: Whitespace
+            text: "                "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "13"
+          - kind: Whitespace
+            text: "   "
+          - kind: EndOfLineComment
+            text: "' empty field"
+          - kind: Newline
+            text: "\r\n"
+      - kind: EndOfLineComment
+        text: "' skip 14, WEP-Piece needs bit 1 set for white color logic"
+      - kind: Newline
+        text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: WEP_PIECE
+          - kind: Whitespace
+            text: "               "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "15"
+          - kind: Whitespace
+            text: "  "
+          - kind: EndOfLineComment
+            text: "' en passant dummy piece white"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: BEP_PIECE
+          - kind: Whitespace
+            text: "               "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "16"
+          - kind: Whitespace
+            text: "  "
+          - kind: EndOfLineComment
+            text: "' en passant dummy piece black"
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: ENPASSANT_WMOVE
+          - kind: Whitespace
+            text: "         "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Whitespace
+            text: "   "
+          - kind: EndOfLineComment
+            text: "' white pawn moves 2 rows > creates WEP_PIECE"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: ENPASSANT_BMOVE
+          - kind: Whitespace
+            text: "         "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "2"
+          - kind: Whitespace
+            text: "   "
+          - kind: EndOfLineComment
+            text: "' black pawn moves 2 rows > creates BEP_PIECE"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: ENPASSANT_CAPTURE
+          - kind: Whitespace
+            text: "       "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "3"
+          - kind: Whitespace
+            text: "   "
+          - kind: EndOfLineComment
+            text: "' en passant captures dummy piece WEP_PIECE or BEP_PIECE"
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'--- start positions"
+      - kind: Newline
+        text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: WKING_START
+          - kind: Whitespace
+            text: "             "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "25"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: BKING_START
+          - kind: Whitespace
+            text: "             "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "95"
+          - kind: Newline
+            text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'--- Piece color ( (piece AND 1 )= WCOL => bit 1 set = White)"
+      - kind: Newline
+        text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: WCOL
+          - kind: Whitespace
+            text: "                    "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: BCOL
+          - kind: Whitespace
+            text: "                    "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "0"
+          - kind: Newline
+            text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'--- Squares on board"
+      - kind: Newline
+        text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_A1
+          - kind: Whitespace
+            text: "                   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "21"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_B1
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "22"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_C1
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "23"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_D1
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "24"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_E1
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "25"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_F1
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "26"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_G1
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "27"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_H1
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "28"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_A2
+          - kind: Whitespace
+            text: "                   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "31"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_B2
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "32"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_C2
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "33"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_D2
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "34"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_E2
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "35"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_F2
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "36"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_G2
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "37"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_H2
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "38"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_A3
+          - kind: Whitespace
+            text: "                   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "41"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_B3
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "42"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_C3
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "43"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_D3
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "44"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_E3
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "45"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_F3
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "46"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_G3
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "47"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_H3
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "48"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_A4
+          - kind: Whitespace
+            text: "                   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "51"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_B4
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "52"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_C4
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "53"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_D4
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "54"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_E4
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "55"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_F4
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "56"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_G4
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "57"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_H4
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "58"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_A5
+          - kind: Whitespace
+            text: "                   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "61"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_B5
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "62"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_C5
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "63"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_D5
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "64"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_E5
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "65"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_F5
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "66"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_G5
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "67"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_H5
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "68"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_A6
+          - kind: Whitespace
+            text: "                   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "71"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_B6
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "72"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_C6
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "73"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_D6
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "74"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_E6
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "75"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_F6
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "76"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_G6
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "77"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_H6
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "78"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_A7
+          - kind: Whitespace
+            text: "                   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "81"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_B7
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "82"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_C7
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "83"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_D7
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "84"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_E7
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "85"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_F7
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "86"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_G7
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "87"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_H7
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "88"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_A8
+          - kind: Whitespace
+            text: "                   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "91"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_B8
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "92"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_C8
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "93"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_D8
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "94"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_E8
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "95"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_F8
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "96"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_G8
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "97"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_H8
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "98"
+          - kind: Newline
+            text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'--- Move directions"
+      - kind: Newline
+        text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_UP
+          - kind: Whitespace
+            text: "                   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "10"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_DOWN
+          - kind: Whitespace
+            text: "                 "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: SubtractionOperator
+            text: "-"
+          - kind: IntegerLiteral
+            text: "10"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_RIGHT
+          - kind: Whitespace
+            text: "                "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_LEFT
+          - kind: Whitespace
+            text: "                 "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: SubtractionOperator
+            text: "-"
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_UP_RIGHT
+          - kind: Whitespace
+            text: "             "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "11"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_UP_LEFT
+          - kind: Whitespace
+            text: "              "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "9"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_DOWN_RIGHT
+          - kind: Whitespace
+            text: "           "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: SubtractionOperator
+            text: "-"
+          - kind: IntegerLiteral
+            text: "9"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SQ_DOWN_LEFT
+          - kind: Whitespace
+            text: "            "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: SubtractionOperator
+            text: "-"
+          - kind: IntegerLiteral
+            text: "11"
+          - kind: Newline
+            text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'--- Files A-H"
+      - kind: Newline
+        text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILE_A
+          - kind: Whitespace
+            text: "                  "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILE_B
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "2"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILE_C
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "3"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILE_D
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "4"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILE_E
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "5"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILE_F
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "6"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILE_G
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "7"
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: FILE_H
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: NumericLiteralExpression
+            children:
+              - kind: IntegerLiteral
+                text: "8"
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'--- Score values"
+      - kind: Newline
+        text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MATE0
+          - kind: Whitespace
+            text: "                   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "100000"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MATE_IN_MAX_PLY
+          - kind: Whitespace
+            text: "         "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "100000"
+          - kind: Whitespace
+            text: " "
+          - kind: SubtractionOperator
+            text: "-"
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1000"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: VALUE_INFINITE
+          - kind: Whitespace
+            text: "          "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "111111"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: VALUE_NONE
+          - kind: Whitespace
+            text: "              "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "333333"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: VALUE_KNOWN_WIN
+          - kind: Whitespace
+            text: "         "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "10000"
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'--------------------------------------------------"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "' Array dimensions"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'--------------------------------------------------"
+      - kind: Newline
+        text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MAX_BOARD
+          - kind: Whitespace
+            text: "               "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "119"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MAX_MOVES
+          - kind: Whitespace
+            text: "               "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "250"
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' max moves for a position"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MAX_GAME_MOVES
+          - kind: Whitespace
+            text: "          "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "999"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MAX_PV
+          - kind: Whitespace
+            text: "                  "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "255"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: LIGHTNING_DEPTH
+          - kind: Whitespace
+            text: "         "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "3"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MAX_DEPTH
+          - kind: Whitespace
+            text: "               "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "150"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: NO_FIXED_DEPTH
+          - kind: Whitespace
+            text: "          "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1000"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: PV_NODE
+          - kind: Whitespace
+            text: "                 "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: TrueKeyword
+            text: "True"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: NON_PV_NODE
+          - kind: Whitespace
+            text: "             "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: FalseKeyword
+            text: "False"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: QS_CHECKS
+          - kind: Whitespace
+            text: "               "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: TrueKeyword
+            text: "True"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: QS_NO_CHECKS
+          - kind: Whitespace
+            text: "            "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: FalseKeyword
+            text: "False"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: GENERATE_ALL_MOVES
+          - kind: Whitespace
+            text: "      "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: FalseKeyword
+            text: "False"
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'-- Depth constants"
+      - kind: Newline
+        text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: DEPTH_ZERO
+          - kind: Whitespace
+            text: "              "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "0"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: DEPTH_QS_CHECKS
+          - kind: Whitespace
+            text: "         "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "0"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: DEPTH_QS_NO_CHECKS
+          - kind: Whitespace
+            text: "      "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: SubtractionOperator
+            text: "-"
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: DEPTH_QS_RECAPTURES
+          - kind: Whitespace
+            text: "     "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: SubtractionOperator
+            text: "-"
+          - kind: IntegerLiteral
+            text: "5"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: DEPTH_NONE
+          - kind: Whitespace
+            text: "              "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: SubtractionOperator
+            text: "-"
+          - kind: IntegerLiteral
+            text: "6"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: DEPTH_MAX
+          - kind: Whitespace
+            text: "               "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "50"
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'--- Move ordering value groups"
+      - kind: Newline
+        text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MOVE_ORDER_QUIETS
+          - kind: Whitespace
+            text: "       "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: SubtractionOperator
+            text: "-"
+          - kind: IntegerLiteral
+            text: "30000"
+          - kind: Newline
+            text: "\r\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MOVE_ORDER_BAD_CAPTURES
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: SubtractionOperator
+            text: "-"
+          - kind: IntegerLiteral
+            text: "60000"
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'--------------------------------------------------"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "' Structure types"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'--------------------------------------------------"
+      - kind: Newline
+        text: "\r\n"
+      - kind: TypeStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: TypeKeyword
+            text: Type
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TMOVE
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: From
+          - kind: Whitespace
+            text: "             "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerKeyword
+            text: Integer
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: Target
+          - kind: Whitespace
+            text: "           "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerKeyword
+            text: Integer
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: Piece
+          - kind: Whitespace
+            text: "            "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerKeyword
+            text: Integer
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: Captured
+          - kind: Whitespace
+            text: "         "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerKeyword
+            text: Integer
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: EnPassant
+          - kind: Whitespace
+            text: "        "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerKeyword
+            text: Integer
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: Promoted
+          - kind: Whitespace
+            text: "         "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerKeyword
+            text: Integer
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: Castle
+          - kind: Whitespace
+            text: "           "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerKeyword
+            text: Integer
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' enumCastleFlag"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: CapturedNumber
+          - kind: Whitespace
+            text: "   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerKeyword
+            text: Integer
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: OrderValue
+          - kind: Whitespace
+            text: "       "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: SeeValue
+          - kind: Whitespace
+            text: "         "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: IsLegal
+          - kind: Whitespace
+            text: "          "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: IsChecking
+          - kind: Whitespace
+            text: "       "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Newline
+            text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: TypeKeyword
+            text: Type
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: TypeStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: TypeKeyword
+            text: Type
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TMatchInfo
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' for future use in GUI"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: EngRating
+          - kind: Whitespace
+            text: "   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: Opponent
+          - kind: Whitespace
+            text: "    "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: OppRating
+          - kind: Whitespace
+            text: "   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: OppComputer
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Newline
+            text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: TypeKeyword
+            text: Type
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EnumStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: enumColor
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: COL_WHITE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: COL_BLACK
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "0"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: COL_NOPIECE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: SubtractionOperator
+            text: "-"
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Newline
+            text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EnumStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: enumPieceType
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: NO_PIECE_TYPE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "0"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: PT_PAWN
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: PT_KNIGHT
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "2"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: PT_BISHOP
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "3"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: PT_ROOK
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "4"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: PT_QUEEN
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "5"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: PT_KING
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "6"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: ALL_PIECES
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "7"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: PIECE_TYPE_NB
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "8"
+          - kind: Newline
+            text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: TypeStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: TypeKeyword
+            text: Type
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TMovePicker
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' data fields for move picker logic"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: CurrMoveNum
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: EndMoves
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: BestMove
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TMOVE
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: bBestMoveChecked
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: bBestMoveDone
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Whitespace
+            text: "  "
+          - kind: EndOfLineComment
+            text: "' Moves are not generated before BestMove was tried"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: PrevMove
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TMOVE
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: ThreatMove
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TMOVE
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: LegalMovesOutOfCheck
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: bMovesGenerated
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: bCapturesOnly
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' for QSearch"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: GenerateQSChecksCnt
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' number of ply in QSearch where checks are generated"
+          - kind: Newline
+            text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: TypeKeyword
+            text: Type
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: TypeStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: TypeKeyword
+            text: Type
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: TScore
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' final score = mg+eg scaled by game phase"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: MG
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' Midgame score"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: EG
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' Endgame score"
+          - kind: Newline
+            text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: TypeKeyword
+            text: Type
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EnumStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: enumCastleFlag
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: NO_CASTLE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "0"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: WHITEOO
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: WHITEOOO
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "2"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: BLACKOO
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "3"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: BLACKOOO
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "4"
+          - kind: Newline
+            text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EnumStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: enumEndOfGame
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "' Game result"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: NO_MATE
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "0"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: WHITE_WON
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: BLACK_WON
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "2"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: DRAW_RESULT
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "3"
+          - kind: Newline
+            text: "\r\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: DRAW3REP_RESULT
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "4"
+          - kind: Newline
+            text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
