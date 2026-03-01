@@ -19,7 +19,6 @@ exclude = [
     "tests/data/Bitrate-calculator/*",
     "tests/data/CdiuBeatUpEditor/*",
     "tests/data/ChessBrainVB/*",
-    "tests/data/DevOps/*",
     "tests/data/Discrete-Probability-Detector-in-VB6/*",
     "tests/data/Endless-runner-Game_VB6.0/*",
     "tests/data/Environment/*",
