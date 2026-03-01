@@ -20,3 +20,6 @@ mod chess_brain_vb;
 
 #[path = "form_resource/discrete_probability_detector.rs"]
 mod discrete_probability_detector;
+
+#[path = "form_resource/endless_runner_game_vb6_0.rs"]
+mod endless_runner_game_vb6_0;
