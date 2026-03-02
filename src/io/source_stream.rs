@@ -60,20 +60,25 @@ impl<'a> SourceStream<'a> {
         self.offset = 0;
     }
 
-    /// Moves the offset forward by `count` characters in the stream.
+    /// Moves the offset forward by `count` bytes in the stream.
     ///
     /// If the `count` exceeds the length of the contents, the offset
     /// is set to the end of the contents.
     ///
     /// Note:
-    /// This method moves the offset by characters, not bytes. It respects
-    /// UTF-8 character boundaries.
+    /// This method moves the offset by bytes. If the resulting offset
+    /// would not be at a UTF-8 character boundary, the offset is adjusted
+    /// to the next valid character boundary.
     pub fn forward(&mut self, count: usize) {
-        let end_offset = self.offset + count;
+        let mut end_offset = self.offset + count;
 
         if end_offset > self.contents.len() {
             self.offset = self.contents.len();
         } else {
+            // Ensure we're at a character boundary
+            while end_offset < self.contents.len() && !self.contents.is_char_boundary(end_offset) {
+                end_offset += 1;
+            }
             self.offset = end_offset;
         }
     }
@@ -155,6 +160,9 @@ impl<'a> SourceStream<'a> {
         let end_offset = self.offset + count;
 
         if end_offset > self.contents.len() {
+            None
+        } else if !self.contents.is_char_boundary(end_offset) {
+            // Cannot peek this many bytes without splitting a multi-byte UTF-8 character
             None
         } else {
             Some(&self.contents[self.offset..end_offset])
@@ -259,15 +267,23 @@ impl<'a> SourceStream<'a> {
     ///
     /// If the requested number of characters exceeds the remaining characters
     /// in the stream, it returns `None`.
+    /// Takes the next `count` bytes from the stream and advances the offset.
+    ///
+    /// Returns `None` if the requested count exceeds the remaining contents
+    /// or if taking that many bytes would not end at a UTF-8 character boundary.
     #[must_use]
     pub fn take_count(&mut self, count: usize) -> Option<&'a str> {
         let end_offset = self.offset + count;
 
         if end_offset > self.contents.len() {
             None
+        } else if !self.contents.is_char_boundary(self.offset) || !self.contents.is_char_boundary(end_offset) {
+            // Cannot take this many bytes without splitting a multi-byte UTF-8 character
+            None
         } else {
+            let result = &self.contents[self.offset..end_offset];
             self.offset = end_offset;
-            Some(&self.contents[self.offset..end_offset])
+            Some(result)
         }
     }
 
@@ -304,6 +320,14 @@ impl<'a> SourceStream<'a> {
                 return None;
             }
 
+            // Check if the end of the potential slice is a char boundary
+            if !self.contents.is_char_boundary(end_offset + compare_len) {
+                // Skip to next character if this would split a multi-byte character
+                let current_char = self.contents[end_offset..].chars().next()?;
+                end_offset += current_char.len_utf8();
+                continue;
+            }
+
             let slice = &self.contents[end_offset..end_offset + compare_len];
             let matches = match case_sensitive {
                 Comparator::CaseSensitive => slice.eq(compare),
@@ -315,7 +339,9 @@ impl<'a> SourceStream<'a> {
                 self.offset = end_offset;
                 return Some((result, slice));
             }
-            end_offset += 1;
+            // Advance by one character's UTF-8 byte length
+            let current_char = self.contents[end_offset..].chars().next()?;
+            end_offset += current_char.len_utf8();
         }
 
         None
@@ -337,24 +363,46 @@ impl<'a> SourceStream<'a> {
         let content_len = self.contents.len();
 
         while end_offset < content_len {
-            if compare_set.iter().any(|&s| match case_sensitive {
-                Comparator::CaseSensitive => s.eq(&self.contents[end_offset..end_offset + s.len()]),
-                Comparator::CaseInsensitive => {
-                    s.eq_ignore_ascii_case(&self.contents[end_offset..end_offset + s.len()])
+            // Check if any string in compare_set matches at the current position
+            let mut matched_len = None;
+            for &s in compare_set {
+                if end_offset + s.len() <= content_len {
+                    let slice = &self.contents[end_offset..end_offset + s.len()];
+                    let matches = match case_sensitive {
+                        Comparator::CaseSensitive => slice.eq(s),
+                        Comparator::CaseInsensitive => slice.eq_ignore_ascii_case(s),
+                    };
+                    if matches {
+                        matched_len = Some(s.len());
+                        break;
+                    }
                 }
-            }) {
-                end_offset += 1;
+            }
+            
+            if let Some(len) = matched_len {
+                // A string matched, advance by its length
+                end_offset += len;
             } else {
+                // No string matched, return the result
                 let result = &self.contents[self.offset..end_offset];
                 self.offset = end_offset;
-                return Some((result, &self.contents[end_offset..=end_offset]));
+                // Get the next character that didn't match
+                let current_char = self.contents[end_offset..].chars().next()?;
+                let char_end = end_offset + current_char.len_utf8();
+                return Some((result, &self.contents[end_offset..char_end]));
             }
         }
 
         if end_offset > self.offset {
             let result = &self.contents[self.offset..end_offset];
             self.offset = end_offset;
-            Some((result, &self.contents[end_offset..=end_offset]))
+            // Get the character at end_offset if available
+            if let Some(c) = self.contents[end_offset..].chars().next() {
+                let char_end = end_offset + c.len_utf8();
+                Some((result, &self.contents[end_offset..char_end]))
+            } else {
+                Some((result, ""))
+            }
         } else {
             None
         }
@@ -567,15 +615,15 @@ impl<'a> SourceStream<'a> {
     /// Note: This method does not consume the character if it is not a punctuation
     /// character nor does it consume multiple punctuation characters.
     pub fn take_ascii_punctuation(&mut self) -> Option<&'a str> {
-        self.peek(1).and_then(|peek| {
-            if peek.chars().next()?.is_ascii_punctuation() {
-                let result = &self.contents[self.offset..=self.offset];
-                self.offset += 1;
-                Some(result)
-            } else {
-                None
-            }
-        })
+        let current_char = self.contents[self.offset..].chars().next()?;
+        if current_char.is_ascii_punctuation() {
+            let char_len = current_char.len_utf8();
+            let result = &self.contents[self.offset..self.offset + char_len];
+            self.offset += char_len;
+            Some(result)
+        } else {
+            None
+        }
     }
 
     /// Takes characters from the stream until a linux/windows newline or the end of
