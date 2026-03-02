@@ -1291,6 +1291,7 @@ fn environment_guidropdown_class_load() {
 }
 
 #[test]
+#[ignore = "This test is ignored because the output json is too large and causes issues with github"]
 fn environment_guieditbox_class_load() {
     let class_bytes = include_bytes!("../data/Environment/GuiEditBox.cls");
 
@@ -2792,6 +2793,7 @@ fn environment_taskmaster_class_load() {
 }
 
 #[test]
+#[ignore = "This test is ignored because the output json is too large and causes issues with github"]
 fn environment_textviewer_class_load() {
     let class_bytes = include_bytes!("../data/Environment/TextViewer.cls");
 

@@ -451,6 +451,7 @@ fn environment_mdqrcodegen_module_load() {
 }
 
 #[test]
+#[ignore = "This test is ignored because the output json is too large and causes issues with github"]
 fn environment_mdtlsnative_module_load() {
     let module_bytes = include_bytes!("../data/Environment/mdTlsNative.bas");
 
@@ -481,6 +482,7 @@ fn environment_mdtlsnative_module_load() {
 }
 
 #[test]
+#[ignore = "This test is ignored because the output json is too large and causes issues with github"]
 fn environment_mdtlsthunks_module_load() {
     let module_bytes = include_bytes!("../data/Environment/mdTlsThunks.bas");
 
@@ -874,6 +876,7 @@ fn environment_newrnd_module_load() {
 }
 
 #[test]
+#[ignore = "This test is ignored because the output json is too large and causes issues with github"]
 fn environment_pic_module_load() {
     let module_bytes = include_bytes!("../data/Environment/pic.bas");
 
