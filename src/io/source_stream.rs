@@ -277,7 +277,9 @@ impl<'a> SourceStream<'a> {
 
         if end_offset > self.contents.len() {
             None
-        } else if !self.contents.is_char_boundary(self.offset) || !self.contents.is_char_boundary(end_offset) {
+        } else if !self.contents.is_char_boundary(self.offset)
+            || !self.contents.is_char_boundary(end_offset)
+        {
             // Cannot take this many bytes without splitting a multi-byte UTF-8 character
             None
         } else {
@@ -378,7 +380,7 @@ impl<'a> SourceStream<'a> {
                     }
                 }
             }
-            
+
             if let Some(len) = matched_len {
                 // A string matched, advance by its length
                 end_offset += len;

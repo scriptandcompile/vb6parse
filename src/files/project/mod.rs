@@ -44,7 +44,10 @@ where
     for (key, inner_map) in sorted_outer {
         let mut sorted_inner: Vec<_> = inner_map.iter().collect();
         sorted_inner.sort_by_key(|(k, _)| *k);
-        map_serializer.serialize_entry(key, &sorted_inner.iter().copied().collect::<HashMap<_, _>>())?;
+        map_serializer.serialize_entry(
+            key,
+            &sorted_inner.iter().copied().collect::<HashMap<_, _>>(),
+        )?;
     }
     map_serializer.end()
 }
