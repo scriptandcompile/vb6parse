@@ -2,7 +2,8 @@ use vb6parse::*;
 
 #[test]
 fn chess_brain_vb_hashmap_class_load() {
-    let class_bytes = include_bytes!("../data/ChessBrainVB/ChessBrainVB_V4_03a/Source/Modules/HashMap.cls");
+    let class_bytes =
+        include_bytes!("../data/ChessBrainVB/ChessBrainVB_V4_03a/Source/Modules/HashMap.cls");
 
     let result = SourceFile::decode_with_replacement("HashMap.cls", class_bytes);
 

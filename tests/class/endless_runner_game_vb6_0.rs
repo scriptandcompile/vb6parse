@@ -2,7 +2,8 @@ use vb6parse::*;
 
 #[test]
 fn endless_runner_game_vb6_0_game_class_load() {
-    let class_bytes = include_bytes!("../data/Endless-runner-Game_VB6.0/Endless runner project files/game.cls");
+    let class_bytes =
+        include_bytes!("../data/Endless-runner-Game_VB6.0/Endless runner project files/game.cls");
 
     let result = SourceFile::decode_with_replacement("game.cls", class_bytes);
 
@@ -32,7 +33,8 @@ fn endless_runner_game_vb6_0_game_class_load() {
 
 #[test]
 fn endless_runner_game_vb6_0_game2_class_load() {
-    let class_bytes = include_bytes!("../data/Endless-runner-Game_VB6.0/Endless runner project files/game2.cls");
+    let class_bytes =
+        include_bytes!("../data/Endless-runner-Game_VB6.0/Endless runner project files/game2.cls");
 
     let result = SourceFile::decode_with_replacement("game2.cls", class_bytes);
 

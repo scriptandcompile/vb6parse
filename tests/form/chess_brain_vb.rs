@@ -3,7 +3,8 @@ use vb6parse::io::SourceFile;
 
 #[test]
 fn chess_brain_vb_debugmain_form_load() {
-    let form_file_bytes = include_bytes!("../data/ChessBrainVB/ChessBrainVB_V4_03a/Source/Forms/DebugMain.frm");
+    let form_file_bytes =
+        include_bytes!("../data/ChessBrainVB/ChessBrainVB_V4_03a/Source/Forms/DebugMain.frm");
 
     let source_file = SourceFile::decode_with_replacement("DebugMain.frm", form_file_bytes);
 
@@ -34,7 +35,8 @@ fn chess_brain_vb_debugmain_form_load() {
 
 #[test]
 fn chess_brain_vb_frmchessx_form_load() {
-    let form_file_bytes = include_bytes!("../data/ChessBrainVB/ChessBrainVB_V4_03a/Source/Forms/frmChessX.frm");
+    let form_file_bytes =
+        include_bytes!("../data/ChessBrainVB/ChessBrainVB_V4_03a/Source/Forms/frmChessX.frm");
 
     let source_file = SourceFile::decode_with_replacement("frmChessX.frm", form_file_bytes);
 
@@ -65,7 +67,8 @@ fn chess_brain_vb_frmchessx_form_load() {
 
 #[test]
 fn chess_brain_vb_main_form_load() {
-    let form_file_bytes = include_bytes!("../data/ChessBrainVB/ChessBrainVB_V4_03a/Source/Forms/Main.frm");
+    let form_file_bytes =
+        include_bytes!("../data/ChessBrainVB/ChessBrainVB_V4_03a/Source/Forms/Main.frm");
 
     let source_file = SourceFile::decode_with_replacement("Main.frm", form_file_bytes);
 

@@ -2,7 +2,9 @@ use vb6parse::*;
 
 #[test]
 fn endless_runner_game_vb6_0_module1_module_load() {
-    let module_bytes = include_bytes!("../data/Endless-runner-Game_VB6.0/Endless runner project files/Module1.bas");
+    let module_bytes = include_bytes!(
+        "../data/Endless-runner-Game_VB6.0/Endless runner project files/Module1.bas"
+    );
 
     let result = SourceFile::decode_with_replacement("Module1.bas", module_bytes);
 

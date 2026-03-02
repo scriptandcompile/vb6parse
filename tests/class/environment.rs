@@ -31,7 +31,6 @@ fn environment_asynccall_class_load() {
 }
 
 #[test]
-#[ignore = "Fails because of char boundary bug. end byte index 42662 is not a char boundary; it is inside 'Å' (bytes 42661..42663)"]
 fn environment_basecollection_class_load() {
     let class_bytes = include_bytes!("../data/Environment/BaseCollection.cls");
 
@@ -62,7 +61,6 @@ fn environment_basecollection_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_basetask_class_load() {
     let class_bytes = include_bytes!("../data/Environment/basetask.cls");
 
@@ -93,7 +91,6 @@ fn environment_basetask_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_callback2_class_load() {
     let class_bytes = include_bytes!("../data/Environment/CallBack2.cls");
 
@@ -184,7 +181,6 @@ fn environment_casyncsocket_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_cdibsection_class_load() {
     let class_bytes = include_bytes!("../data/Environment/cDIBSection.cls");
 
@@ -395,7 +391,6 @@ fn environment_clsfie_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_clsosinfo_class_load() {
     let class_bytes = include_bytes!("../data/Environment/clsOSInfo.cls");
 
@@ -486,7 +481,6 @@ fn environment_cninepatch_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_codeblock_class_load() {
     let class_bytes = include_bytes!("../data/Environment/CodeBlock.cls");
 
@@ -577,7 +571,6 @@ fn environment_comevents_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_comshinkevent_class_load() {
     let class_bytes = include_bytes!("../data/Environment/ComShinkEvent.cls");
 
@@ -608,7 +601,6 @@ fn environment_comshinkevent_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_comshinkeventnew_class_load() {
     let class_bytes = include_bytes!("../data/Environment/ComShinkEventNew.cls");
 
@@ -639,7 +631,6 @@ fn environment_comshinkeventnew_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_constantclass_class_load() {
     let class_bytes = include_bytes!("../data/Environment/constantclass.cls");
 
@@ -790,7 +781,6 @@ fn environment_cregistry_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_ctlsclient1_class_load() {
     let class_bytes = include_bytes!("../data/Environment/cTlsClient1.cls");
 
@@ -1091,7 +1081,6 @@ fn environment_extcontrol_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_fastcollection_class_load() {
     let class_bytes = include_bytes!("../data/Environment/FastCollection.cls");
 
@@ -1302,7 +1291,6 @@ fn environment_guidropdown_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_guieditbox_class_load() {
     let class_bytes = include_bytes!("../data/Environment/GuiEditBox.cls");
 
@@ -1333,7 +1321,6 @@ fn environment_guieditbox_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_guiimage_class_load() {
     let class_bytes = include_bytes!("../data/Environment/GuiImage.cls");
 
@@ -1364,7 +1351,7 @@ fn environment_guiimage_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
+#[ignore = "test takes an extremely long time. this may be a stack overflow / recursion issue."]
 fn environment_guilistbox_class_load() {
     let class_bytes = include_bytes!("../data/Environment/GuiListBox.cls");
 
@@ -1785,7 +1772,6 @@ fn environment_lambda_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_lexar_class_load() {
     let class_bytes = include_bytes!("../data/Environment/Lexar.cls");
 
@@ -1846,7 +1832,6 @@ fn environment_longhash_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_marray_class_load() {
     let class_bytes = include_bytes!("../data/Environment/mArray.cls");
 
@@ -1907,7 +1892,6 @@ fn environment_math_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_memblock_class_load() {
     let class_bytes = include_bytes!("../data/Environment/MemBlock.cls");
 
@@ -2028,7 +2012,6 @@ fn environment_mhandler_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_mk2base_class_load() {
     let class_bytes = include_bytes!("../data/Environment/Mk2Base.cls");
 
@@ -2119,7 +2102,6 @@ fn environment_mstiva2_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_mstiva_class_load() {
     let class_bytes = include_bytes!("../data/Environment/mStiva.cls");
 
@@ -2210,7 +2192,6 @@ fn environment_musicbox_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_mutex_class_load() {
     let class_bytes = include_bytes!("../data/Environment/Mutex.cls");
 
@@ -2301,7 +2282,6 @@ fn environment_mydoc_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_myprocess_class_load() {
     let class_bytes = include_bytes!("../data/Environment/MyProcess.cls");
 
@@ -2362,7 +2342,6 @@ fn environment_mytextbox_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_pppplight_class_load() {
     let class_bytes = include_bytes!("../data/Environment/ppppLight.cls");
 
@@ -2393,7 +2372,6 @@ fn environment_pppplight_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_propreference_class_load() {
     let class_bytes = include_bytes!("../data/Environment/PropReference.cls");
 
@@ -2574,7 +2552,6 @@ fn environment_sbhash_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_serialport_class_load() {
     let class_bytes = include_bytes!("../data/Environment/SerialPort.cls");
 
@@ -2665,7 +2642,6 @@ fn environment_sinkevent_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_socket_class_load() {
     let class_bytes = include_bytes!("../data/Environment/Socket.cls");
 
@@ -2726,7 +2702,6 @@ fn environment_spbuffer_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_stdcallfunction_class_load() {
     let class_bytes = include_bytes!("../data/Environment/stdCallFunction.cls");
 
@@ -2817,7 +2792,6 @@ fn environment_taskmaster_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_textviewer_class_load() {
     let class_bytes = include_bytes!("../data/Environment/TextViewer.cls");
 
@@ -2938,7 +2912,6 @@ fn environment_xmlmono_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_xmlmonointernal_class_load() {
     let class_bytes = include_bytes!("../data/Environment/XmlMonoInternal.cls");
 
@@ -2999,7 +2972,6 @@ fn environment_xmlnode_class_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_ziptool_class_load() {
     let class_bytes = include_bytes!("../data/Environment/ZipTool.cls");
 

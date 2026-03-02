@@ -1,11 +1,7 @@
 use vb6parse::files::FormFile;
 use vb6parse::io::SourceFile;
 
-// Note: This test is ignored due to a bug in the parser's error reporting logic
-// when handling multi-byte UTF-8 characters (© symbol)
-// Error: "end byte index 1738 is not a char boundary; it is inside '©' (bytes 1737..1739)"
 #[test]
-#[ignore]
 fn bitrate_calculator_about_form_load() {
     let form_file_bytes =
         include_bytes!("../data/Bitrate-calculator/Windows/Source-code/frmAbout.frm");
@@ -37,10 +33,7 @@ fn bitrate_calculator_about_form_load() {
     insta::assert_yaml_snapshot!(form_file);
 }
 
-// Note: This test is ignored due to a bug in the parser's error reporting logic
-// when handling multi-byte UTF-8 characters
 #[test]
-#[ignore]
 fn bitrate_calculator_main_form_load() {
     let form_file_bytes =
         include_bytes!("../data/Bitrate-calculator/Windows/Source-code/frmMain.frm");

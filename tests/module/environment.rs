@@ -1,6 +1,5 @@
 use vb6parse::*;
 
-
 #[test]
 fn environment_activex_module_load() {
     let module_bytes = include_bytes!("../data/Environment/ActiveX.bas");
@@ -62,7 +61,6 @@ fn environment_changeres_module_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_dbx_module_load() {
     let module_bytes = include_bytes!("../data/Environment/dbX.bas");
 
@@ -93,7 +91,6 @@ fn environment_dbx_module_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_dc_module_load() {
     let module_bytes = include_bytes!("../data/Environment/dc.bas");
 
@@ -154,7 +151,6 @@ fn environment_eduardocircle_module_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_fcall_module_load() {
     let module_bytes = include_bytes!("../data/Environment/Fcall.bas");
 
@@ -245,7 +241,6 @@ fn environment_globalvars_module_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_gpp1_module_load() {
     let module_bytes = include_bytes!("../data/Environment/gpp1.bas");
 
@@ -336,7 +331,6 @@ fn environment_isprinter_module_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_jpg_module_load() {
     let module_bytes = include_bytes!("../data/Environment/jpg.bas");
 
@@ -397,7 +391,6 @@ fn environment_libmemory_module_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_mdlidispatch_module_load() {
     let module_bytes = include_bytes!("../data/Environment/mdlIDispatch.bas");
 
@@ -578,7 +571,6 @@ fn environment_mhlsrgb_module_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_modgdiplusresize_module_load() {
     let module_bytes = include_bytes!("../data/Environment/modGDIPlusResize.bas");
 
@@ -609,7 +601,6 @@ fn environment_modgdiplusresize_module_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_modobjectextender_module_load() {
     let module_bytes = include_bytes!("../data/Environment/modObjectExtender.bas");
 
@@ -640,7 +631,7 @@ fn environment_modobjectextender_module_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
+#[ignore = "Stack overflow in take_until_not()"]
 fn environment_mod_text_module_load() {
     let module_bytes = include_bytes!("../data/Environment/Mod_Text.bas");
 
@@ -731,7 +722,7 @@ fn environment_modtypeinfo_module_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
+#[ignore = "stack overflow issue"]
 fn environment_module10_module_load() {
     let module_bytes = include_bytes!("../data/Environment/Module10.bas");
 
@@ -762,7 +753,6 @@ fn environment_module10_module_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_module12_module_load() {
     let module_bytes = include_bytes!("../data/Environment/Module12.bas");
 
@@ -793,7 +783,7 @@ fn environment_module12_module_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
+#[ignore = "stack overflow issue"]
 fn environment_mod_util_module_load() {
     let module_bytes = include_bytes!("../data/Environment/Mod_Util.bas");
 
@@ -884,7 +874,6 @@ fn environment_newrnd_module_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_pic_module_load() {
     let module_bytes = include_bytes!("../data/Environment/pic.bas");
 
@@ -915,7 +904,6 @@ fn environment_pic_module_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_pipe_module_load() {
     let module_bytes = include_bytes!("../data/Environment/pipe.bas");
 
@@ -946,7 +934,6 @@ fn environment_pipe_module_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_servermod_module_load() {
     let module_bytes = include_bytes!("../data/Environment/ServerMod.bas");
 

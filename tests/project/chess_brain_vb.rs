@@ -2,7 +2,8 @@ use vb6parse::*;
 
 #[test]
 fn chess_brain_vb_chessbrainvb_project_load() {
-    let project_file_bytes = include_bytes!("../data/ChessBrainVB/ChessBrainVB_V4_03a/Source/ChessBrainVB.vbp");
+    let project_file_bytes =
+        include_bytes!("../data/ChessBrainVB/ChessBrainVB_V4_03a/Source/ChessBrainVB.vbp");
 
     let result = SourceFile::decode_with_replacement("ChessBrainVB.vbp", project_file_bytes);
 
@@ -32,7 +33,8 @@ fn chess_brain_vb_chessbrainvb_project_load() {
 
 #[test]
 fn chess_brain_vb_chessbrainvb_debug_project_load() {
-    let project_file_bytes = include_bytes!("../data/ChessBrainVB/ChessBrainVB_V4_03a/Source/ChessBrainVB_debug.vbp");
+    let project_file_bytes =
+        include_bytes!("../data/ChessBrainVB/ChessBrainVB_V4_03a/Source/ChessBrainVB_debug.vbp");
 
     let result = SourceFile::decode_with_replacement("ChessBrainVB_debug.vbp", project_file_bytes);
 
@@ -62,7 +64,8 @@ fn chess_brain_vb_chessbrainvb_debug_project_load() {
 
 #[test]
 fn chess_brain_vb_chessbrainvb_pcode_project_load() {
-    let project_file_bytes = include_bytes!("../data/ChessBrainVB/ChessBrainVB_V4_03a/Source/ChessBrainVB_PCode.vbp");
+    let project_file_bytes =
+        include_bytes!("../data/ChessBrainVB/ChessBrainVB_V4_03a/Source/ChessBrainVB_PCode.vbp");
 
     let result = SourceFile::decode_with_replacement("ChessBrainVB_PCode.vbp", project_file_bytes);
 

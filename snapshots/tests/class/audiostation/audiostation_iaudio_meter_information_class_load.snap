@@ -1,0 +1,4794 @@
+---
+source: vb6parse/tests/class/audiostation.rs
+expression: class
+---
+header:
+  version:
+    major: 1
+    minor: 0
+  properties:
+    multi_use: MultiUse
+    persistable: NotPersistable
+    data_binding_behavior: None
+    data_source_behavior: None
+    mts_transaction_mode: NotAnMTSObject
+  attributes:
+    name: AudioMeter
+    global_name_space: Local
+    creatable: "True"
+    predeclared_id: "False"
+    exposed: "False"
+    description: ~
+    ext_key: {}
+cst:
+  root:
+    kind: Root
+    children:
+      - kind: OptionStatement
+        children:
+          - kind: OptionKeyword
+            text: Option
+          - kind: Whitespace
+            text: " "
+          - kind: ExplicitKeyword
+            text: Explicit
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: DeclareStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: DeclareKeyword
+            text: Declare
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: OleInitialize
+          - kind: Whitespace
+            text: " "
+          - kind: LibKeyword
+            text: Lib
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"ole32.dll\""
+          - kind: Whitespace
+            text: " "
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: pvReserved
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: Any
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+      - kind: DeclareStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: DeclareKeyword
+            text: Declare
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: OleUninitialize
+          - kind: Whitespace
+            text: " "
+          - kind: LibKeyword
+            text: Lib
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"ole32.dll\""
+          - kind: Whitespace
+            text: " "
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+      - kind: DeclareStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: DeclareKeyword
+            text: Declare
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: CLSIDFromString
+          - kind: Whitespace
+            text: " "
+          - kind: LibKeyword
+            text: Lib
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"ole32.dll\""
+          - kind: Whitespace
+            text: " "
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: lpsz
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: StringKeyword
+                text: String
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: pclsid
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: UUID
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+      - kind: DeclareStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: DeclareKeyword
+            text: Declare
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: IIDFromString
+          - kind: Whitespace
+            text: " "
+          - kind: LibKeyword
+            text: Lib
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"ole32.dll\""
+          - kind: Whitespace
+            text: " "
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: lpsz
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: StringKeyword
+                text: String
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: lpiid
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: UUID
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+      - kind: DeclareStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: DeclareKeyword
+            text: Declare
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: CoCreateInstance
+          - kind: Whitespace
+            text: " "
+          - kind: LibKeyword
+            text: Lib
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"ole32.dll\""
+          - kind: Whitespace
+            text: " "
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: rclsid
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: UUID
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: pUnkOuter
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: dwClsContext
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: riid
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: UUID
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: ppv
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: Any
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: DeclareStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: DeclareKeyword
+            text: Declare
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: CallWindowProc
+          - kind: Whitespace
+            text: " "
+          - kind: LibKeyword
+            text: Lib
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"user32\""
+          - kind: Whitespace
+            text: " "
+          - kind: AliasKeyword
+            text: Alias
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"CallWindowProcA\""
+          - kind: Whitespace
+            text: " "
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: lpPrevWndFunc
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: hwnd
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: MSG
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: wParam
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: lParam
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+      - kind: DeclareStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: DeclareKeyword
+            text: Declare
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: PutMem2
+          - kind: Whitespace
+            text: " "
+          - kind: LibKeyword
+            text: Lib
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"msvbvm60\""
+          - kind: Whitespace
+            text: " "
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: pWORDDst
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: NewValue
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+      - kind: DeclareStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: DeclareKeyword
+            text: Declare
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: PutMem4
+          - kind: Whitespace
+            text: " "
+          - kind: LibKeyword
+            text: Lib
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"msvbvm60\""
+          - kind: Whitespace
+            text: " "
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: pDWORDDst
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: NewValue
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+      - kind: DeclareStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: DeclareKeyword
+            text: Declare
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: GetMem4
+          - kind: Whitespace
+            text: " "
+          - kind: LibKeyword
+            text: Lib
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"msvbvm60\""
+          - kind: Whitespace
+            text: " "
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: pDWORDSrc
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: pDWORDDst
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+      - kind: DeclareStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: DeclareKeyword
+            text: Declare
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: GlobalAlloc
+          - kind: Whitespace
+            text: " "
+          - kind: LibKeyword
+            text: Lib
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"kernel32\""
+          - kind: Whitespace
+            text: " "
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: wFlags
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: dwBytes
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+      - kind: DeclareStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: DeclareKeyword
+            text: Declare
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: GlobalFree
+          - kind: Whitespace
+            text: " "
+          - kind: LibKeyword
+            text: Lib
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"kernel32\""
+          - kind: Whitespace
+            text: " "
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: hMem
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: DeclareStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: DeclareKeyword
+            text: Declare
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: GetVersion
+          - kind: Whitespace
+            text: " "
+          - kind: LibKeyword
+            text: Lib
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"kernel32\""
+          - kind: Whitespace
+            text: " "
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: GMEM_FIXED
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H0
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: asmPUSH_imm32
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: ByteKeyword
+            text: Byte
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H68
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: asmRET_imm16
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: ByteKeyword
+            text: Byte
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HC2
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: asmCALL_rel32
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: ByteKeyword
+            text: Byte
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: HE8
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: CLSCTX_INPROC_SERVER
+          - kind: Whitespace
+            text: "                      "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H1
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: CLSCTX_ALL
+          - kind: Whitespace
+            text: "                                "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: Ampersand
+            text: "&"
+          - kind: Identifier
+            text: H0
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: UUIDOF_MMDeviceEnumerator
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"{bcde0395-e52f-467c-8e3d-c4579291692e}\""
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: UUIDOF_IMMDeviceEnumerator
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"{a95664d2-9614-4f35-a746-de8db63617e6}\""
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: UUIDOF_IAudioMeterInformation
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"{C02216F6-8C67-4B5B-9D00-D008E73E0064}\""
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: TypeStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: TypeKeyword
+            text: Type
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: UUID
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: Data1
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: Data2
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerKeyword
+            text: Integer
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: Data3
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerKeyword
+            text: Integer
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: Data4
+          - kind: LeftParenthesis
+            text: (
+          - kind: IntegerLiteral
+            text: "0"
+          - kind: Whitespace
+            text: " "
+          - kind: ToKeyword
+            text: To
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "7"
+          - kind: RightParenthesis
+            text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: ByteKeyword
+            text: Byte
+          - kind: Newline
+            text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: TypeKeyword
+            text: Type
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: EnumStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: IUnknown_Exports
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: QueryInterface
+          - kind: Unknown
+            text: "]"
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "0"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: AddRef
+          - kind: Unknown
+            text: "]"
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: Release
+          - kind: Unknown
+            text: "]"
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "2"
+          - kind: Newline
+            text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: EnumStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: ERole
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: eConsole
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: eMultimedia
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: eCommunications
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: EnumStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: EDataFlow
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: eRender
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: eCapture
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: eAll
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: EnumStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: IMMDeviceEnumerator_Exports
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: EnumAudioEndpoints
+          - kind: Unknown
+            text: "]"
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "3"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: GetDefaultAudioEndpoint
+          - kind: Unknown
+            text: "]"
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "4"
+          - kind: Whitespace
+            text: "               "
+          - kind: EndOfLineComment
+            text: "'params=3"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: GetDevice
+          - kind: Unknown
+            text: "]"
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "5"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: RegisterEndpointNotificationCallback
+          - kind: Unknown
+            text: "]"
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "6"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: UnregisterEndpointNotificationCallback
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: EnumStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: IAudioMeterInformation_Exports
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: GetPeakValue
+          - kind: Unknown
+            text: "]"
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "3"
+          - kind: Whitespace
+            text: "                          "
+          - kind: EndOfLineComment
+            text: "'params=1"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: GetMeteringChannelCount
+          - kind: Unknown
+            text: "]"
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "4"
+          - kind: Whitespace
+            text: "               "
+          - kind: EndOfLineComment
+            text: "'params=1"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: GetChannelsPeakValues
+          - kind: Unknown
+            text: "]"
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "5"
+          - kind: Whitespace
+            text: "                 "
+          - kind: EndOfLineComment
+            text: "'params=2"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: QueryHardwareSupport
+          - kind: Unknown
+            text: "]"
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "6"
+          - kind: Newline
+            text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: EnumStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: IMMDevice_Exports
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: Activate
+          - kind: Unknown
+            text: "]"
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "3"
+          - kind: Whitespace
+            text: "                              "
+          - kind: EndOfLineComment
+            text: "'params=4"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: OpenPropertyStore
+          - kind: Unknown
+            text: "]"
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "4"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: GetId
+          - kind: Unknown
+            text: "]"
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "5"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: GetState
+          - kind: Unknown
+            text: "]"
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "6"
+          - kind: Newline
+            text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: c_lngObjDevEnumerator
+          - kind: Whitespace
+            text: "                           "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: c_lngObjIMMDevice
+          - kind: Whitespace
+            text: "                               "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: c_lngObjAudioMeterInformation
+          - kind: Whitespace
+            text: "                   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: c_blnInitialized
+          - kind: Whitespace
+            text: "                                "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'    // Get enumerator for audio endpoint devices."
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'    hr = CoCreateInstance(__uuidof(MMDeviceEnumerator),"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'                          NULL, CLSCTX_INPROC_SERVER,"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'                          __uuidof(IMMDeviceEnumerator),"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'                          (void**)&pEnumerator);"
+      - kind: Newline
+        text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'    // Get peak meter for default audio-rendering device."
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'    hr = pEnumerator->GetDefaultAudioEndpoint(eRender, eConsole, &pDevice);"
+      - kind: Newline
+        text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'    hr = pDevice->Activate(__uuidof(IAudioMeterInformation),"
+      - kind: Newline
+        text: "\n"
+      - kind: EndOfLineComment
+        text: "'                           CLSCTX_ALL, NULL, (void**)&pMeterInfo);"
+      - kind: Newline
+        text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Class_Initialize
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: Whitespace
+                text: "    "
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: uuidMMDeviceEnumerator
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: UUID
+                  - kind: Newline
+                    text: "\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: uuidIMMDeviceEnumerator
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: UUID
+                  - kind: Newline
+                    text: "\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: uuidIAudioMeterInformation
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: UUID
+                  - kind: Newline
+                    text: "\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Newline
+                text: "\n"
+              - kind: IfStatement
+                children:
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: IsVista
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\n"
+                  - kind: StatementList
+                    children:
+                      - kind: CallStatement
+                        children:
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: CallKeyword
+                            text: Call
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: IIDFromString
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: StrConv
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: UUIDOF_MMDeviceEnumerator
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: vbUnicode
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: uuidMMDeviceEnumerator
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\n"
+                      - kind: CallStatement
+                        children:
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: CallKeyword
+                            text: Call
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: IIDFromString
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: StrConv
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: UUIDOF_IMMDeviceEnumerator
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: vbUnicode
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: uuidIMMDeviceEnumerator
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\n"
+                      - kind: CallStatement
+                        children:
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: CallKeyword
+                            text: Call
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: IIDFromString
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: StrConv
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: UUIDOF_IAudioMeterInformation
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: vbUnicode
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: uuidIAudioMeterInformation
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: Newline
+                        text: "\n"
+                      - kind: CallStatement
+                        children:
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: CallKeyword
+                            text: Call
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: CoCreateInstance
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: uuidMMDeviceEnumerator
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "0"
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: CLSCTX_INPROC_SERVER
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: uuidIMMDeviceEnumerator
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: c_lngObjDevEnumerator
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: UnaryExpression
+                            children:
+                              - kind: NotKeyword
+                                text: Not
+                              - kind: Whitespace
+                                text: " "
+                              - kind: ParenthesizedExpression
+                                children:
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: c_lngObjDevEnumerator
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                                  - kind: RightParenthesis
+                                    text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Newline
+                            text: "\n"
+                          - kind: StatementList
+                            children:
+                              - kind: CallStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "            "
+                                  - kind: CallKeyword
+                                    text: Call
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: CallInterface
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: Identifier
+                                    text: c_lngObjDevEnumerator
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: LeftSquareBracket
+                                    text: "["
+                                  - kind: Identifier
+                                    text: GetDefaultAudioEndpoint
+                                  - kind: RightSquareBracket
+                                    text: "]"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IntegerLiteral
+                                    text: "3"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: LeftSquareBracket
+                                    text: "["
+                                  - kind: Identifier
+                                    text: eRender
+                                  - kind: RightSquareBracket
+                                    text: "]"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: LeftSquareBracket
+                                    text: "["
+                                  - kind: Identifier
+                                    text: eConsole
+                                  - kind: RightSquareBracket
+                                    text: "]"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: VarPtr
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: Identifier
+                                    text: c_lngObjIMMDevice
+                                  - kind: RightParenthesis
+                                    text: )
+                                  - kind: RightParenthesis
+                                    text: )
+                                  - kind: Newline
+                                    text: "\n"
+                              - kind: IfStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "            "
+                                  - kind: IfKeyword
+                                    text: If
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: UnaryExpression
+                                    children:
+                                      - kind: NotKeyword
+                                        text: Not
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: ParenthesizedExpression
+                                        children:
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: c_lngObjIMMDevice
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: EqualityOperator
+                                                text: "="
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "0"
+                                          - kind: RightParenthesis
+                                            text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ThenKeyword
+                                    text: Then
+                                  - kind: Newline
+                                    text: "\n"
+                                  - kind: StatementList
+                                    children:
+                                      - kind: CallStatement
+                                        children:
+                                          - kind: Whitespace
+                                            text: "                "
+                                          - kind: CallKeyword
+                                            text: Call
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: CallInterface
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: Identifier
+                                            text: c_lngObjIMMDevice
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: LeftSquareBracket
+                                            text: "["
+                                          - kind: Identifier
+                                            text: Activate
+                                          - kind: RightSquareBracket
+                                            text: "]"
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IntegerLiteral
+                                            text: "4"
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: VarPtr
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: Identifier
+                                            text: uuidIAudioMeterInformation
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: CLSCTX_ALL
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: VarPtr
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: Identifier
+                                            text: c_lngObjAudioMeterInformation
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: Newline
+                                            text: "\n"
+                                      - kind: Whitespace
+                                        text: "                "
+                                      - kind: AssignmentStatement
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: c_blnInitialized
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EqualityOperator
+                                            text: "="
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: UnaryExpression
+                                            children:
+                                              - kind: NotKeyword
+                                                text: Not
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: ParenthesizedExpression
+                                                children:
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: BinaryExpression
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: c_lngObjAudioMeterInformation
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: EqualityOperator
+                                                        text: "="
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: NumericLiteralExpression
+                                                        children:
+                                                          - kind: IntegerLiteral
+                                                            text: "0"
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                          - kind: Newline
+                                            text: "\n"
+                                      - kind: Whitespace
+                                        text: "            "
+                                  - kind: EndKeyword
+                                    text: End
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IfKeyword
+                                    text: If
+                                  - kind: Newline
+                                    text: "\n"
+                              - kind: Whitespace
+                                text: "        "
+                          - kind: EndKeyword
+                            text: End
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Class_Terminate
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: IfStatement
+                children:
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: IsVista
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\n"
+                  - kind: StatementList
+                    children:
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: UnaryExpression
+                            children:
+                              - kind: NotKeyword
+                                text: Not
+                              - kind: Whitespace
+                                text: " "
+                              - kind: ParenthesizedExpression
+                                children:
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: c_lngObjDevEnumerator
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                                  - kind: RightParenthesis
+                                    text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallStatement
+                            children:
+                              - kind: CallKeyword
+                                text: Call
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: CallInterface
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: Identifier
+                                text: c_lngObjDevEnumerator
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: LeftSquareBracket
+                                text: "["
+                              - kind: Identifier
+                                text: Release
+                              - kind: RightSquareBracket
+                                text: "]"
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IntegerLiteral
+                                text: "0"
+                              - kind: RightParenthesis
+                                text: )
+                              - kind: Newline
+                                text: "\n"
+                          - kind: IfStatement
+                            children:
+                              - kind: Whitespace
+                                text: "        "
+                              - kind: IfKeyword
+                                text: If
+                              - kind: Whitespace
+                                text: " "
+                              - kind: UnaryExpression
+                                children:
+                                  - kind: NotKeyword
+                                    text: Not
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ParenthesizedExpression
+                                    children:
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: c_lngObjIMMDevice
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EqualityOperator
+                                            text: "="
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "0"
+                                      - kind: RightParenthesis
+                                        text: )
+                              - kind: Whitespace
+                                text: " "
+                              - kind: ThenKeyword
+                                text: Then
+                              - kind: Whitespace
+                                text: " "
+                              - kind: CallStatement
+                                children:
+                                  - kind: CallKeyword
+                                    text: Call
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: CallInterface
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: Identifier
+                                    text: c_lngObjIMMDevice
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: LeftSquareBracket
+                                    text: "["
+                                  - kind: Identifier
+                                    text: Release
+                                  - kind: RightSquareBracket
+                                    text: "]"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IntegerLiteral
+                                    text: "0"
+                                  - kind: RightParenthesis
+                                    text: )
+                                  - kind: Newline
+                                    text: "\n"
+                              - kind: IfStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "        "
+                                  - kind: IfKeyword
+                                    text: If
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: UnaryExpression
+                                    children:
+                                      - kind: NotKeyword
+                                        text: Not
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: ParenthesizedExpression
+                                        children:
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: c_lngObjAudioMeterInformation
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: EqualityOperator
+                                                text: "="
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "0"
+                                          - kind: RightParenthesis
+                                            text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ThenKeyword
+                                    text: Then
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: CallStatement
+                                    children:
+                                      - kind: CallKeyword
+                                        text: Call
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Identifier
+                                        text: CallInterface
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: Identifier
+                                        text: c_lngObjAudioMeterInformation
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: LeftSquareBracket
+                                        text: "["
+                                      - kind: Identifier
+                                        text: Release
+                                      - kind: RightSquareBracket
+                                        text: "]"
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: IntegerLiteral
+                                        text: "0"
+                                      - kind: RightParenthesis
+                                        text: )
+                                      - kind: Newline
+                                        text: "\n"
+                                  - kind: Whitespace
+                                    text: "    "
+                                  - kind: EndKeyword
+                                    text: End
+                                  - kind: IfStatement
+                                    children:
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: IfKeyword
+                                        text: If
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Newline
+                                            text: "\n"
+                                      - kind: EndKeyword
+                                        text: End
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: SubKeyword
+                                        text: Sub
+                                      - kind: Newline
+                                        text: "\n"
+                                  - kind: Newline
+                                    text: "\n"
+                              - kind: PrivateKeyword
+                                text: Private
+                              - kind: Whitespace
+                                text: " "
+                              - kind: FunctionKeyword
+                                text: Function
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: IsVista
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: RightParenthesis
+                                text: )
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AsKeyword
+                                text: As
+                              - kind: Whitespace
+                                text: " "
+                              - kind: BooleanKeyword
+                                text: Boolean
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: IsVista
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: ParenthesizedExpression
+                                children:
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ParenthesizedExpression
+                                    children:
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ParenthesizedExpression
+                                        children:
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: CallExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: GetVersion
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
+                                                    children: []
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: AndKeyword
+                                                text: And
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Ampersand
+                                                    text: "&"
+                          - kind: Identifier
+                            text: HFFFF
+                          - kind: Ampersand
+                            text: "&"
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ModKeyword
+                            text: Mod
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "256"
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: GreaterThanOrEqualOperator
+                            text: ">="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "6"
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Unknown
+                        text: End
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Unknown
+                        text: Function
+                      - kind: Newline
+                        text: "\n"
+                      - kind: Newline
+                        text: "\n"
+                      - kind: DimStatement
+                        children:
+                          - kind: PublicKeyword
+                            text: Public
+                          - kind: Whitespace
+                            text: " "
+                          - kind: FunctionKeyword
+                            text: Function
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: GetPeak
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: SingleKeyword
+                            text: Single
+                          - kind: Newline
+                            text: "\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: IsVista
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Newline
+                            text: "\n"
+                          - kind: StatementList
+                            children:
+                              - kind: IfStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "        "
+                                  - kind: IfKeyword
+                                    text: If
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: c_blnInitialized
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ThenKeyword
+                                    text: Then
+                                  - kind: Newline
+                                    text: "\n"
+                                  - kind: StatementList
+                                    children:
+                                      - kind: CallStatement
+                                        children:
+                                          - kind: Whitespace
+                                            text: "            "
+                                          - kind: CallKeyword
+                                            text: Call
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: CallInterface
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: Identifier
+                                            text: c_lngObjAudioMeterInformation
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: LeftSquareBracket
+                                            text: "["
+                                          - kind: Identifier
+                                            text: GetPeakValue
+                                          - kind: RightSquareBracket
+                                            text: "]"
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IntegerLiteral
+                                            text: "1"
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: VarPtr
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: Identifier
+                                            text: GetPeak
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: Newline
+                                            text: "\n"
+                                      - kind: Whitespace
+                                        text: "        "
+                                  - kind: EndKeyword
+                                    text: End
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IfKeyword
+                                    text: If
+                                  - kind: Newline
+                                    text: "\n"
+                              - kind: Whitespace
+                                text: "    "
+                          - kind: EndKeyword
+                            text: End
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Unknown
+                        text: End
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Unknown
+                        text: Function
+                      - kind: Newline
+                        text: "\n"
+                      - kind: Newline
+                        text: "\n"
+                      - kind: DimStatement
+                        children:
+                          - kind: PublicKeyword
+                            text: Public
+                          - kind: Whitespace
+                            text: " "
+                          - kind: FunctionKeyword
+                            text: Function
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: GetChannelPeak
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: lngChannel
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: SingleKeyword
+                            text: Single
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: DimStatement
+                        children:
+                          - kind: DimKeyword
+                            text: Dim
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: lngChannels
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: DimStatement
+                        children:
+                          - kind: DimKeyword
+                            text: Dim
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: sngChannels
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: SingleKeyword
+                            text: Single
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: Newline
+                        text: "\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: IsVista
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Newline
+                            text: "\n"
+                          - kind: StatementList
+                            children:
+                              - kind: IfStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "        "
+                                  - kind: IfKeyword
+                                    text: If
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: c_blnInitialized
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ThenKeyword
+                                    text: Then
+                                  - kind: Newline
+                                    text: "\n"
+                                  - kind: StatementList
+                                    children:
+                                      - kind: CallStatement
+                                        children:
+                                          - kind: Whitespace
+                                            text: "            "
+                                          - kind: CallKeyword
+                                            text: Call
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: CallInterface
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: Identifier
+                                            text: c_lngObjAudioMeterInformation
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: LeftSquareBracket
+                                            text: "["
+                                          - kind: Identifier
+                                            text: GetMeteringChannelCount
+                                          - kind: RightSquareBracket
+                                            text: "]"
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IntegerLiteral
+                                            text: "1"
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: VarPtr
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: Identifier
+                                            text: lngChannels
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: Newline
+                                            text: "\n"
+                                      - kind: ReDimStatement
+                                        children:
+                                          - kind: Whitespace
+                                            text: "            "
+                                          - kind: ReDimKeyword
+                                            text: ReDim
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: sngChannels
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: Identifier
+                                            text: lngChannels
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: Newline
+                                            text: "\n"
+                                      - kind: CallStatement
+                                        children:
+                                          - kind: Whitespace
+                                            text: "            "
+                                          - kind: CallKeyword
+                                            text: Call
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: CallInterface
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: Identifier
+                                            text: c_lngObjAudioMeterInformation
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: LeftSquareBracket
+                                            text: "["
+                                          - kind: Identifier
+                                            text: GetChannelsPeakValues
+                                          - kind: RightSquareBracket
+                                            text: "]"
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IntegerLiteral
+                                            text: "2"
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: lngChannels
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: VarPtr
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: Identifier
+                                            text: sngChannels
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: Newline
+                                            text: "\n"
+                                      - kind: Whitespace
+                                        text: "            "
+                                      - kind: AssignmentStatement
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: GetChannelPeak
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EqualityOperator
+                                            text: "="
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: CallExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: sngChannels
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: lngChannel
+                                              - kind: RightParenthesis
+                                                text: )
+                                          - kind: Newline
+                                            text: "\n"
+                                      - kind: Whitespace
+                                        text: "        "
+                                  - kind: EndKeyword
+                                    text: End
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IfKeyword
+                                    text: If
+                                  - kind: Newline
+                                    text: "\n"
+                              - kind: Whitespace
+                                text: "    "
+                          - kind: EndKeyword
+                            text: End
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Unknown
+                        text: End
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Unknown
+                        text: Function
+                      - kind: Newline
+                        text: "\n"
+                      - kind: Newline
+                        text: "\n"
+                      - kind: DimStatement
+                        children:
+                          - kind: PrivateKeyword
+                            text: Private
+                          - kind: Whitespace
+                            text: " "
+                          - kind: FunctionKeyword
+                            text: Function
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: CallInterface
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: pInterface
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: Member
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: ParamsCount
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: OptionalKeyword
+                            text: Optional
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: p1
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "0"
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: OptionalKeyword
+                            text: Optional
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: p2
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "0"
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: OptionalKeyword
+                            text: Optional
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: p3
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "0"
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: OptionalKeyword
+                            text: Optional
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: p4
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "0"
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: OptionalKeyword
+                            text: Optional
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: p5
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "0"
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: OptionalKeyword
+                            text: Optional
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: p6
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "0"
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: OptionalKeyword
+                            text: Optional
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: p7
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "0"
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: OptionalKeyword
+                            text: Optional
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: p8
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "0"
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: OptionalKeyword
+                            text: Optional
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: p9
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "0"
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: OptionalKeyword
+                            text: Optional
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: p10
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "0"
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: DimStatement
+                        children:
+                          - kind: DimKeyword
+                            text: Dim
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: I
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: t
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: DimStatement
+                        children:
+                          - kind: DimKeyword
+                            text: Dim
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hGlobal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hGlobalOffset
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: Newline
+                        text: "\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "  "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: ParamsCount
+                              - kind: Whitespace
+                                text: " "
+                              - kind: LessThanOperator
+                                text: "<"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "0"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: err
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: Raise
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "5"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EndOfLineComment
+                            text: "'invalid call"
+                          - kind: Newline
+                            text: "\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "  "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: pInterface
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "0"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: err
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: Raise
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "5"
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: Newline
+                        text: "\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: hGlobal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: GlobalAlloc
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: GMEM_FIXED
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: BinaryExpression
+                                                children:
+                                                  - kind: BinaryExpression
+                                                    children:
+                                                      - kind: BinaryExpression
+                                                        children:
+                                                          - kind: NumericLiteralExpression
+                                                            children:
+                                                              - kind: IntegerLiteral
+                                                                text: "5"
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: MultiplicationOperator
+                                                            text: "*"
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: ParamsCount
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: AdditionOperator
+                                                        text: +
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: NumericLiteralExpression
+                                                        children:
+                                                          - kind: IntegerLiteral
+                                                            text: "5"
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: AdditionOperator
+                                                    text: +
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: NumericLiteralExpression
+                                                    children:
+                                                      - kind: IntegerLiteral
+                                                        text: "5"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: AdditionOperator
+                                                text: +
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "3"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: AdditionOperator
+                                            text: +
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "1"
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "  "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: hGlobal
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "0"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: err
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: Raise
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "7"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EndOfLineComment
+                            text: "'insuff. memory"
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: hGlobalOffset
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: hGlobal
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: Newline
+                        text: "\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "  "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: ParamsCount
+                              - kind: Whitespace
+                                text: " "
+                              - kind: GreaterThanOperator
+                                text: ">"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "0"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Newline
+                            text: "\n"
+                          - kind: StatementList
+                            children:
+                              - kind: Whitespace
+                                text: "    "
+                              - kind: AssignmentStatement
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: t
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: CallExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: VarPtr
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: p1
+                                      - kind: RightParenthesis
+                                        text: )
+                                  - kind: Newline
+                                    text: "\n"
+                              - kind: ForStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "    "
+                                  - kind: ForKeyword
+                                    text: For
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: I
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: ParamsCount
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: SubtractionOperator
+                                        text: "-"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "1"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ToKeyword
+                                    text: To
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "0"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: StepKeyword
+                                    text: Step
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: UnaryExpression
+                                    children:
+                                      - kind: SubtractionOperator
+                                        text: "-"
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "1"
+                                  - kind: Newline
+                                    text: "\n"
+                                  - kind: StatementList
+                                    children:
+                                      - kind: CallStatement
+                                        children:
+                                          - kind: Whitespace
+                                            text: "      "
+                                          - kind: CallKeyword
+                                            text: Call
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: PutMem2
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: Identifier
+                                            text: hGlobalOffset
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: asmPUSH_imm32
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: Newline
+                                            text: "\n"
+                                      - kind: Whitespace
+                                        text: "      "
+                                      - kind: AssignmentStatement
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: hGlobalOffset
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EqualityOperator
+                                            text: "="
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: hGlobalOffset
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: AdditionOperator
+                                                text: +
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "1"
+                                          - kind: Newline
+                                            text: "\n"
+                                      - kind: CallStatement
+                                        children:
+                                          - kind: Whitespace
+                                            text: "      "
+                                          - kind: CallKeyword
+                                            text: Call
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: GetMem4
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: Identifier
+                                            text: t
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: AdditionOperator
+                                            text: +
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: I
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: MultiplicationOperator
+                                            text: "*"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IntegerLiteral
+                                            text: "4"
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: hGlobalOffset
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: Newline
+                                            text: "\n"
+                                      - kind: Whitespace
+                                        text: "      "
+                                      - kind: AssignmentStatement
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: hGlobalOffset
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EqualityOperator
+                                            text: "="
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: hGlobalOffset
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: AdditionOperator
+                                                text: +
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "4"
+                                          - kind: Newline
+                                            text: "\n"
+                                      - kind: Whitespace
+                                        text: "    "
+                                  - kind: NextKeyword
+                                    text: Next
+                                  - kind: Newline
+                                    text: "\n"
+                              - kind: Whitespace
+                                text: "  "
+                          - kind: EndKeyword
+                            text: End
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: Newline
+                        text: "\n"
+                      - kind: CallStatement
+                        children:
+                          - kind: Whitespace
+                            text: "  "
+                          - kind: CallKeyword
+                            text: Call
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: PutMem2
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: hGlobalOffset
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: asmPUSH_imm32
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: hGlobalOffset
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: hGlobalOffset
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AdditionOperator
+                                text: +
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "1"
+                          - kind: Newline
+                            text: "\n"
+                      - kind: CallStatement
+                        children:
+                          - kind: Whitespace
+                            text: "  "
+                          - kind: CallKeyword
+                            text: Call
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: PutMem4
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: hGlobalOffset
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: pInterface
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: hGlobalOffset
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: hGlobalOffset
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AdditionOperator
+                                text: +
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "4"
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: Newline
+                        text: "\n"
+                      - kind: CallStatement
+                        children:
+                          - kind: Whitespace
+                            text: "  "
+                          - kind: CallKeyword
+                            text: Call
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: PutMem2
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: hGlobalOffset
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: asmCALL_rel32
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: hGlobalOffset
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: hGlobalOffset
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AdditionOperator
+                                text: +
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "1"
+                          - kind: Newline
+                            text: "\n"
+                      - kind: CallStatement
+                        children:
+                          - kind: Whitespace
+                            text: "  "
+                          - kind: CallKeyword
+                            text: Call
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: GetMem4
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: pInterface
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: VarPtr
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: t
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Whitespace
+                            text: "     "
+                          - kind: EndOfLineComment
+                            text: "'äåðåôåðåíñ: íàõîäèì ïîëîæåíèå vTable"
+                          - kind: Newline
+                            text: "\n"
+                      - kind: CallStatement
+                        children:
+                          - kind: Whitespace
+                            text: "  "
+                          - kind: CallKeyword
+                            text: Call
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: GetMem4
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: t
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AdditionOperator
+                            text: +
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: Member
+                          - kind: Whitespace
+                            text: " "
+                          - kind: MultiplicationOperator
+                            text: "*"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "4"
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: VarPtr
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: t
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EndOfLineComment
+                            text: "'ñìåùåíèå ïî vTable, ïîñëå ÷åãî äåðåôåðåíñ îíîãî"
+                          - kind: Newline
+                            text: "\n"
+                      - kind: CallStatement
+                        children:
+                          - kind: Whitespace
+                            text: "  "
+                          - kind: CallKeyword
+                            text: Call
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: PutMem4
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: hGlobalOffset
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: t
+                          - kind: Whitespace
+                            text: " "
+                          - kind: SubtractionOperator
+                            text: "-"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hGlobalOffset
+                          - kind: Whitespace
+                            text: " "
+                          - kind: SubtractionOperator
+                            text: "-"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "4"
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: hGlobalOffset
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: hGlobalOffset
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AdditionOperator
+                                text: +
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "4"
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "   "
+                      - kind: Newline
+                        text: "\n"
+                      - kind: CallStatement
+                        children:
+                          - kind: Whitespace
+                            text: "  "
+                          - kind: CallKeyword
+                            text: Call
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: PutMem4
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: hGlobalOffset
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Ampersand
+                            text: "&"
+                          - kind: Identifier
+                            text: H10C2
+                          - kind: Ampersand
+                            text: "&"
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: EndOfLineComment
+                            text: "'ret 0x0010"
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: Newline
+                        text: "\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: CallInterface
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: CallWindowProc
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: hGlobal
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: Newline
+                        text: "\n"
+                      - kind: CallStatement
+                        children:
+                          - kind: Whitespace
+                            text: "  "
+                          - kind: CallKeyword
+                            text: Call
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: GlobalFree
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: hGlobal
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Unknown
+                        text: End
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Unknown
+                        text: Function
+                      - kind: Newline
+                        text: "\n"
+                      - kind: Newline
+                        text: "\n"

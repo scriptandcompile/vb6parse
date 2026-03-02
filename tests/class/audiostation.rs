@@ -157,7 +157,6 @@ fn audiostation_file_io_class_load() {
 }
 
 #[test]
-#[ignore = "currently an error with sourcestream dealing with non-ascii character boundaries in utf-8 replacements"] // end byte index 7802 is not a char boundary; it is inside 'ä' (bytes 7801..7803)
 fn audiostation_iaudio_meter_information_class_load() {
     let file_path =
         "./tests/data/audiostation/Audiostation/src/Classes/clsIAudioMeterInformation.cls";

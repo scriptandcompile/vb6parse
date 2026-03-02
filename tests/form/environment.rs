@@ -64,11 +64,11 @@ fn environment_colordialog_form_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_fileselectordialog_form_load() {
     let form_file_bytes = include_bytes!("../data/Environment/FileSelectorDialog.frm");
 
-    let source_file = SourceFile::decode_with_replacement("FileSelectorDialog.frm", form_file_bytes);
+    let source_file =
+        SourceFile::decode_with_replacement("FileSelectorDialog.frm", form_file_bytes);
 
     let source_file = match source_file {
         Ok(source_file) => source_file,
@@ -96,7 +96,6 @@ fn environment_fileselectordialog_form_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_fontdialog1_form_load() {
     let form_file_bytes = include_bytes!("../data/Environment/FontDialog1.frm");
 
@@ -128,7 +127,6 @@ fn environment_fontdialog1_form_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_fontdialog_form_load() {
     let form_file_bytes = include_bytes!("../data/Environment/FontDialog.frm");
 
@@ -191,7 +189,6 @@ fn environment_frmabout_form_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_guim2000_form_load() {
     let form_file_bytes = include_bytes!("../data/Environment/GuiM2000.frm");
 
@@ -223,7 +220,6 @@ fn environment_guim2000_form_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_help_form_load() {
     let form_file_bytes = include_bytes!("../data/Environment/help.frm");
 
@@ -286,7 +282,6 @@ fn environment_layer_form_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_loadfile_form_load() {
     let form_file_bytes = include_bytes!("../data/Environment/LoadFile.frm");
 
@@ -349,7 +344,6 @@ fn environment_mform1_form_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_mypopup_form_load() {
     let form_file_bytes = include_bytes!("../data/Environment/MyPopUp.frm");
 
@@ -443,7 +437,6 @@ fn environment_small_form_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_test_form_load() {
     let form_file_bytes = include_bytes!("../data/Environment/TEST.frm");
 
@@ -506,7 +499,6 @@ fn environment_testme_form_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_textp0_form_load() {
     let form_file_bytes = include_bytes!("../data/Environment/TextP0.frm");
 
@@ -538,7 +530,6 @@ fn environment_textp0_form_load() {
 }
 
 #[test]
-#[ignore = "Fails due to char boundary parsing bug in source_stream.rs. Parser attempts to slice multi-byte UTF-8 characters at invalid byte boundaries."]
 fn environment_tweakprive_form_load() {
     let form_file_bytes = include_bytes!("../data/Environment/tweakprive.frm");
 
