@@ -28,11 +28,11 @@ End Sub
 
     insta::assert_yaml_snapshot!("missing_comma_between_parameters_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
-    insta::assert_yaml_snapshot!("missing_comma_between_parameters_failures", failure_messages);
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    insta::assert_yaml_snapshot!(
+        "missing_comma_between_parameters_failures",
+        failure_messages
+    );
 }
 
 /// Test trailing comma in parameter list
@@ -63,10 +63,7 @@ End Function
 
     insta::assert_yaml_snapshot!("trailing_comma_in_parameters_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
     insta::assert_yaml_snapshot!("trailing_comma_in_parameters_failures", failure_messages);
 }
 
@@ -98,10 +95,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("missing_parameter_after_comma_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
     insta::assert_yaml_snapshot!("missing_parameter_after_comma_failures", failure_messages);
 }
 
@@ -133,10 +127,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("duplicate_byval_modifier_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
     insta::assert_yaml_snapshot!("duplicate_byval_modifier_failures", failure_messages);
 }
 
@@ -168,10 +159,7 @@ End Function
 
     insta::assert_yaml_snapshot!("conflicting_byval_byref_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
     insta::assert_yaml_snapshot!("conflicting_byval_byref_failures", failure_messages);
 }
 
@@ -203,10 +191,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("optional_before_required_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
     insta::assert_yaml_snapshot!("optional_before_required_failures", failure_messages);
 }
 
@@ -238,10 +223,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("paramarray_not_last_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
     insta::assert_yaml_snapshot!("paramarray_not_last_failures", failure_messages);
 }
 
@@ -273,10 +255,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("paramarray_with_byval_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
     insta::assert_yaml_snapshot!("paramarray_with_byval_failures", failure_messages);
 }
 
@@ -308,10 +287,7 @@ End Function
 
     insta::assert_yaml_snapshot!("multiple_consecutive_commas_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
     insta::assert_yaml_snapshot!("multiple_consecutive_commas_failures", failure_messages);
 }
 
@@ -343,10 +319,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("parameter_missing_as_keyword_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
     insta::assert_yaml_snapshot!("parameter_missing_as_keyword_failures", failure_messages);
 }
 
@@ -378,10 +351,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("optional_byval_with_default_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
     insta::assert_yaml_snapshot!("optional_byval_with_default_failures", failure_messages);
 }
 
@@ -413,10 +383,7 @@ End Function
 
     insta::assert_yaml_snapshot!("duplicate_optional_modifier_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
     insta::assert_yaml_snapshot!("duplicate_optional_modifier_failures", failure_messages);
 }
 
@@ -448,10 +415,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("paramarray_without_parentheses_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
     insta::assert_yaml_snapshot!("paramarray_without_parentheses_failures", failure_messages);
 }
 
@@ -483,9 +447,9 @@ End Sub
 
     insta::assert_yaml_snapshot!("parameter_type_character_with_as_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
-    insta::assert_yaml_snapshot!("parameter_type_character_with_as_failures", failure_messages);
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    insta::assert_yaml_snapshot!(
+        "parameter_type_character_with_as_failures",
+        failure_messages
+    );
 }
