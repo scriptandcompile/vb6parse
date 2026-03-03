@@ -97,6 +97,26 @@ Tests for malformed declaration statements in VB6:
 
 **Current Behavior**: The parser uses resilient parsing and does NOT report failures for invalid declarations. It attempts to parse what tokens are present and creates CST structures that may include incomplete or malformed nodes. Missing identifiers result in nodes without the expected identifier children. Duplicate modifiers are both included in the CST.
 
+### Invalid Control Flow (`invalid_control_flow.rs`)
+
+Tests for control flow statements used in invalid contexts in VB6:
+- `Exit Sub` outside of a subroutine
+- `Exit Function` outside of a function (e.g., in Sub)
+- `Exit Property` outside of a property (e.g., in Function)
+- `Exit For` outside of a For loop
+- `Exit Do` outside of a Do loop (e.g., in While loop)
+- `GoTo` with missing label
+- `GoSub` with missing label
+- `On Error` with missing destination
+- `On Error GoTo` with missing target
+- `Resume` without On Error context
+- Nested `Exit` statements in wrong context (Exit Sub inside loops)
+- `Return` statement in module (only valid in class event handlers)
+- `Stop` statement with arguments (should have none)
+- `On Error Resume` with invalid combination
+
+**Current Behavior**: The parser uses resilient parsing and does NOT report failures for control flow statements in invalid contexts. Exit statements are parsed as valid statements regardless of their surrounding context. Missing labels/targets after GoTo/GoSub/On Error result in incomplete statement nodes. These contextual errors would need to be caught by semantic analysis.
+
 ## Test Structure
 
 Each test follows this pattern:
