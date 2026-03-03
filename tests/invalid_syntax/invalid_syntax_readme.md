@@ -78,6 +78,25 @@ Tests for malformed literal values in VB6:
 
 **Current Behavior**: The parser's tokenizer handles most invalid literals. String and date literals may be parsed as unclosed tokens. Invalid numeric formats are typically tokenized as separate tokens or identifiers. All failure snapshots are empty arrays, indicating resilient tokenization.
 
+### Invalid Declarations (`invalid_declarations.rs`)
+
+Tests for malformed declaration statements in VB6:
+- Missing identifier in `Dim` statement
+- Missing type annotation after `As`
+- Missing function return type after `As`
+- Missing subroutine/function name
+- Duplicate visibility modifiers (`Public Public`)
+- Conflicting visibility modifiers (`Public Private`)
+- Missing array bounds in declaration
+- Missing constant value after `=`
+- Missing member name in `Type` definition
+- Missing parameter name in function signature
+- Missing default value after `=` in Optional parameter
+- Duplicate `Static` modifiers
+- Missing enum member value after `=`
+
+**Current Behavior**: The parser uses resilient parsing and does NOT report failures for invalid declarations. It attempts to parse what tokens are present and creates CST structures that may include incomplete or malformed nodes. Missing identifiers result in nodes without the expected identifier children. Duplicate modifiers are both included in the CST.
+
 ## Test Structure
 
 Each test follows this pattern:

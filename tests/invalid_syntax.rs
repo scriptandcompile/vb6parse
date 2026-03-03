@@ -13,3 +13,6 @@ mod mismatched_keywords;
 
 #[path = "invalid_syntax/invalid_literals.rs"]
 mod invalid_literals;
+
+#[path = "invalid_syntax/invalid_declarations.rs"]
+mod invalid_declarations;
