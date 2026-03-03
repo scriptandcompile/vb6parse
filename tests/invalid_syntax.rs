@@ -1,0 +1,6 @@
+// Invalid syntax tests - organized by error category
+// These tests verify that the parser handles invalid syntax gracefully,
+// producing reasonable CST structures and meaningful error messages
+
+#[path = "invalid_syntax/missing_end.rs"]
+mod missing_end;

@@ -1,0 +1,5 @@
+---
+source: vb6parse/tests/invalid_syntax/missing_end.rs
+expression: failure_messages
+---
+[]

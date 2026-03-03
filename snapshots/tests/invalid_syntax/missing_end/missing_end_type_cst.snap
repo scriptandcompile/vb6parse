@@ -1,0 +1,47 @@
+---
+source: vb6parse/tests/invalid_syntax/missing_end.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: TypeStatement
+      children:
+        - kind: TypeKeyword
+          text: Type
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Point
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: Identifier
+          text: X
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: LongKeyword
+          text: Long
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: Identifier
+          text: Y
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: LongKeyword
+          text: Long
+        - kind: Newline
+          text: "\n"
