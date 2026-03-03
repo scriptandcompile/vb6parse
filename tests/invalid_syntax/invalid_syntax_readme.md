@@ -33,6 +33,19 @@ Tests for missing closing keywords like:
 
 **Current Behavior**: The parser uses resilient parsing and does NOT report failures for missing End statements. It automatically closes constructs at EOF or when another construct begins. The CST structures are reasonable and complete.
 
+### Missing Required Keywords (`missing_keywords.rs`)
+
+Tests for missing required keywords in VB6 statements:
+- Missing `Then` in If statement
+- Missing `To` in For loop
+- Missing `As` in Dim statement
+- Missing `=` in Const declaration
+- Missing `Case` in Select Case statement
+- Missing `Loop` in Do statement
+- Missing `Next` in For loop
+
+**Current Behavior**: The parser uses resilient parsing and does NOT report failures for missing required keywords. It attempts to parse what it can and creates reasonable CST structures. In most cases, it treats subsequent tokens as part of the statement or as new statements.
+
 ## Test Structure
 
 Each test follows this pattern:
@@ -101,8 +114,11 @@ To add a new category of syntax errors:
 These tests provide a baseline for future work on error reporting:
 
 - [ ] Add error reporting for missing End statements
+- [ ] Add error reporting for missing required keywords
 - [ ] Add tests for mismatched keywords (e.g., `End Function` after `Sub`)
 - [ ] Add tests for invalid expressions
 - [ ] Add tests for invalid declarations
 - [ ] Add tests for invalid control flow
+- [ ] Add tests for duplicate declarations
+- [ ] Add tests for invalid label usage
 - [ ] Ensure error messages are helpful and point to the right location

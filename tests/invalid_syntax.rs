@@ -4,3 +4,6 @@
 
 #[path = "invalid_syntax/missing_end.rs"]
 mod missing_end;
+
+#[path = "invalid_syntax/missing_keywords.rs"]
+mod missing_keywords;
