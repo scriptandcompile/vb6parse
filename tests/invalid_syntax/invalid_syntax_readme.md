@@ -117,6 +117,26 @@ Tests for control flow statements used in invalid contexts in VB6:
 
 **Current Behavior**: The parser uses resilient parsing and does NOT report failures for control flow statements in invalid contexts. Exit statements are parsed as valid statements regardless of their surrounding context. Missing labels/targets after GoTo/GoSub/On Error result in incomplete statement nodes. These contextual errors would need to be caught by semantic analysis.
 
+### Invalid Parameter Lists (`invalid_parameter_list.rs`)
+
+Tests for malformed parameter lists in subroutines, functions, and properties:
+- Missing comma between parameters
+- Trailing comma in parameter list
+- Missing parameter after comma
+- Duplicate `ByVal` modifier
+- Conflicting `ByVal` and `ByRef` modifiers
+- `Optional` parameter before required parameter
+- `ParamArray` not as last parameter
+- `ParamArray` with `ByVal` modifier (not allowed)
+- Multiple consecutive commas
+- Parameter missing `As` keyword
+- `Optional` parameter with missing default value after `=`
+- Duplicate `Optional` modifier
+- `ParamArray` without array parentheses `()`
+- Parameter with type character (`%`, `$`, etc.) and `As` clause (redundant)
+
+**Current Behavior**: The parser uses resilient parsing and does NOT report failures for invalid parameter lists. Missing commas may cause parameters to be parsed as separate identifiers or expressions. Duplicate modifiers are typically both included in the CST. Missing elements result in incomplete parameter nodes. Parameter ordering rules (Optional after required, ParamArray last) and modifier conflicts would need to be validated by semantic analysis.
+
 ## Test Structure
 
 Each test follows this pattern:

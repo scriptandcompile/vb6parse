@@ -1,0 +1,5 @@
+---
+source: vb6parse/tests/invalid_syntax/invalid_parameter_list.rs
+expression: failure_messages
+---
+[]
