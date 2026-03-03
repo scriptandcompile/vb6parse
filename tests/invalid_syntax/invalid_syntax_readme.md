@@ -62,6 +62,22 @@ Tests for mismatched opening and closing keywords in VB6 constructs:
 
 **Current Behavior**: The parser uses resilient parsing and does NOT report failures for mismatched keywords. It treats the mismatched end keyword as closing the construct, creating a valid CST structure despite the semantic mismatch.
 
+### Invalid Literals (`invalid_literals.rs`)
+
+Tests for malformed literal values in VB6:
+- Unclosed string literal
+- String with incomplete quote escape
+- Multiple decimal points in numeric literal
+- Invalid hexadecimal literal (non-hex digits)
+- Invalid octal literal (invalid digits)
+- Invalid date literal (bad month value)
+- Unclosed date literal
+- Invalid scientific notation (missing exponent)
+- Invalid number suffix
+- Number with leading zeros
+
+**Current Behavior**: The parser's tokenizer handles most invalid literals. String and date literals may be parsed as unclosed tokens. Invalid numeric formats are typically tokenized as separate tokens or identifiers. All failure snapshots are empty arrays, indicating resilient tokenization.
+
 ## Test Structure
 
 Each test follows this pattern:

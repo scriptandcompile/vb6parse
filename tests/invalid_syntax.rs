@@ -10,3 +10,6 @@ mod missing_keywords;
 
 #[path = "invalid_syntax/mismatched_keywords.rs"]
 mod mismatched_keywords;
+
+#[path = "invalid_syntax/invalid_literals.rs"]
+mod invalid_literals;
