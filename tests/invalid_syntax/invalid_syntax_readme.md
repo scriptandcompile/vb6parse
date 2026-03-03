@@ -46,6 +46,22 @@ Tests for missing required keywords in VB6 statements:
 
 **Current Behavior**: The parser uses resilient parsing and does NOT report failures for missing required keywords. It attempts to parse what it can and creates reasonable CST structures. In most cases, it treats subsequent tokens as part of the statement or as new statements.
 
+### Mismatched Keywords (`mismatched_keywords.rs`)
+
+Tests for mismatched opening and closing keywords in VB6 constructs:
+- `Sub` with `End Function`
+- `Function` with `End Sub`
+- `Property Get` with `End Sub`
+- `Property Let` with `End Function`
+- `If` with `End Select`
+- `Select Case` with `End If`
+- `For` with `Wend` (should be `Next`)
+- `Do While` with `Next` (should be `Loop`)
+- `While` with `Loop` (should be `Wend`)
+- `Type` with `End Enum` (should be `End Type`)
+
+**Current Behavior**: The parser uses resilient parsing and does NOT report failures for mismatched keywords. It treats the mismatched end keyword as closing the construct, creating a valid CST structure despite the semantic mismatch.
+
 ## Test Structure
 
 Each test follows this pattern:

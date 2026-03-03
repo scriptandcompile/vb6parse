@@ -7,3 +7,6 @@ mod missing_end;
 
 #[path = "invalid_syntax/missing_keywords.rs"]
 mod missing_keywords;
+
+#[path = "invalid_syntax/mismatched_keywords.rs"]
+mod mismatched_keywords;

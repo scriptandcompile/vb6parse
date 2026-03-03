@@ -30,10 +30,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("missing_then_in_if_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
     insta::assert_yaml_snapshot!("missing_then_in_if_failures", failure_messages);
 }
 
@@ -67,10 +64,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("missing_to_in_for_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
     insta::assert_yaml_snapshot!("missing_to_in_for_failures", failure_messages);
 }
 
@@ -102,10 +96,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("missing_as_in_dim_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
     insta::assert_yaml_snapshot!("missing_as_in_dim_failures", failure_messages);
 }
 
@@ -137,10 +128,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("missing_equals_in_const_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
     insta::assert_yaml_snapshot!("missing_equals_in_const_failures", failure_messages);
 }
 
@@ -177,10 +165,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("missing_case_in_select_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
     insta::assert_yaml_snapshot!("missing_case_in_select_failures", failure_messages);
 }
 
@@ -213,10 +198,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("missing_loop_in_do_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
     insta::assert_yaml_snapshot!("missing_loop_in_do_failures", failure_messages);
 }
 
@@ -249,9 +231,6 @@ End Sub
 
     insta::assert_yaml_snapshot!("missing_next_in_for_cst", tree);
 
-    let failure_messages: Vec<String> = failures
-        .iter()
-        .map(|f| format!("{:?}", f))
-        .collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
     insta::assert_yaml_snapshot!("missing_next_in_for_failures", failure_messages);
 }
