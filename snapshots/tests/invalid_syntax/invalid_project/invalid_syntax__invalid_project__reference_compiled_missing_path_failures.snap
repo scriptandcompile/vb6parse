@@ -1,5 +1,0 @@
----
-source: vb6parse/tests/invalid_syntax/invalid_project.rs
-expression: failure_messages
----
-- "ErrorDetails { source_name: \"test.vbp\", source_content: \"Type=Exe\\nReference=*\\\\G{00020430-0000-0000-C000-000000000046}#2.0#0#\\n\", error_offset: 67, line_start: 9, line_end: 67, kind: Project(ReferenceCompiledPathNotFound), severity: Error, labels: [], notes: [] }"

@@ -820,6 +820,7 @@ impl From<Token> for SyntaxKind {
             Token::LenKeyword => SyntaxKind::LenKeyword,
             Token::MeKeyword => SyntaxKind::MeKeyword,
             Token::NullKeyword => SyntaxKind::NullKeyword,
+            Token::NothingKeyword => SyntaxKind::NothingKeyword,
             Token::ParamArrayKeyword => SyntaxKind::ParamArrayKeyword,
             Token::DollarSign => SyntaxKind::DollarSign,
             Token::Underscore => SyntaxKind::Underscore,

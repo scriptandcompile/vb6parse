@@ -1,5 +1,0 @@
----
-source: vb6parse/tests/invalid_syntax/invalid_project.rs
-expression: failure_messages
----
-- "ErrorDetails { source_name: \"test.vbp\", source_content: \"Type=InvalidType\\n\", error_offset: 5, line_start: 0, line_end: 16, kind: Project(ParameterValueInvalid { parameter_line_name: \"Type\", invalid_value: \"InvalidType\", valid_value_message: \"'Exe' (A Standard Exe), 'Control' (A UserControl), 'OleExe' (Ole Exe), 'OleDll' (Ole Dll)\" }), severity: Error, labels: [], notes: [] }"

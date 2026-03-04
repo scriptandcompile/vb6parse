@@ -1,9 +1,0 @@
----
-source: vb6parse/tests/module/endless_runner_game_vb6_0.rs
-expression: module
----
-name: Module1
-cst:
-  root:
-    kind: Root
-    children: []

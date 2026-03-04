@@ -1,5 +1,0 @@
----
-source: vb6parse/tests/invalid_syntax/mismatched_keywords.rs
-expression: failure_messages
----
-[]

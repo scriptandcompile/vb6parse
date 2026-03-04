@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/type_checking/isobject.rs
+source: vb6parse/src/syntax/library/functions/type_checking/isobject.rs
 expression: tree
 ---
 root:
@@ -77,7 +77,7 @@ root:
                               text: " "
                             - kind: IdentifierExpression
                               children:
-                                - kind: Identifier
+                                - kind: NothingKeyword
                                   text: Nothing
                 - kind: Whitespace
                   text: " "

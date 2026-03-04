@@ -1,5 +1,0 @@
----
-source: vb6parse/tests/invalid_syntax/invalid_project.rs
-expression: failure_messages
----
-- "ErrorDetails { source_name: \"test.vbp\", source_content: \"Type=Exe\\nRetained=\\\"5\\\"\\n\", error_offset: 18, line_start: 9, line_end: 21, kind: Project(ParameterValueInvalid { parameter_line_name: \"Retained\", invalid_value: \"\\\"5\\\"\", valid_value_message: \"'UnloadOnExit' (Unload the DLL when no longer in use), 'RetainedInMemory' (Retain the DLL in memory)\" }), severity: Error, labels: [], notes: [] }"

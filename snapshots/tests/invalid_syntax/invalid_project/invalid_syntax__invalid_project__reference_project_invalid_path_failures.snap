@@ -1,5 +1,0 @@
----
-source: vb6parse/tests/invalid_syntax/invalid_project.rs
-expression: failure_messages
----
-- "ErrorDetails { source_name: \"test.vbp\", source_content: \"Type=Exe\\nReference=\\\"C:\\\\InvalidPath\\\\Project.vbp\\\"\\n\", error_offset: 19, line_start: 9, line_end: 47, kind: Project(ReferenceProjectPathInvalid { value: \"\\\"C:\\\\InvalidPath\\\\Project.vbp\\\"\" }), severity: Error, labels: [], notes: [] }"

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/objects/getobject.rs
+source: vb6parse/src/syntax/library/functions/objects/getobject.rs
 expression: tree
 ---
 root:
@@ -51,7 +51,7 @@ root:
                   text: Is
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
+                - kind: NothingKeyword
                   text: Nothing
                 - kind: Newline
                   text: "\n"

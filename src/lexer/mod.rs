@@ -170,6 +170,7 @@ static KEYWORD_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, Token> = phf_ordered
     "Not" => Token::NotKeyword,
     "Output" => Token::OutputKeyword,
     "Null" => Token::NullKeyword,
+    "Nothing" => Token::NothingKeyword,
     "Object" => Token::ObjectKeyword,
     "On" => Token::OnKeyword,
     "Open" => Token::OpenKeyword,

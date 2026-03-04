@@ -1,5 +1,0 @@
----
-source: vb6parse/tests/invalid_syntax/invalid_project.rs
-expression: failure_messages
----
-- "ErrorDetails { source_name: \"test.vbp\", source_content: \"Type=OleDll\\nDllBaseAddress=\\n\", error_offset: 27, line_start: 12, line_end: 27, kind: Project(DllBaseAddressUnparsableEmpty), severity: Error, labels: [], notes: [] }"

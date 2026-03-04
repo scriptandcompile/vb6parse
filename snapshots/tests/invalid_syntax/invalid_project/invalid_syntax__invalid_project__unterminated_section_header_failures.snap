@@ -1,5 +1,0 @@
----
-source: vb6parse/tests/invalid_syntax/invalid_project.rs
-expression: failure_messages
----
-- "ErrorDetails { source_name: \"test.vbp\", source_content: \"Type=Exe\\n[MS Transaction Server\\nAutoRefresh=1\\n\", error_offset: 10, line_start: 9, line_end: 31, kind: Project(UnterminatedSectionHeader), severity: Error, labels: [DiagnosticLabel { span: Span { offset: 31, line_start: 9, line_end: 31, length: 1 }, message: \"section header must be terminated with ']'\" }], notes: [\"[MS Transaction Server]\"] }"

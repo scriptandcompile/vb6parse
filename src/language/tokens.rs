@@ -1057,6 +1057,15 @@ pub enum Token {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445190(v=vs.60))
     NullKeyword,
+    /// Represents the 'Nothing' keyword.
+    ///
+    /// The Nothing keyword is used to disassociate an object variable from an
+    /// actual object. It can be assigned to object variables using the Set
+    /// statement, and can be used for comparison to determine if an object
+    /// variable references an actual object.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445187(v=vs.60))
+    NothingKeyword,
     /// Represents the `ParamArray` keyword.
     ///
     /// The `ParamArray` keyword is used in these contexts:

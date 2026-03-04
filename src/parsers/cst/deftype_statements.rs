@@ -64,19 +64,19 @@ impl Parser<'_> {
         self.consume_whitespace();
 
         // Consume the DefType keyword (DefBool, DefByte, DefInt, etc.)
-        // TODO: Validate that the keyword is one of the valid DefType keywords
+        // Note: The tokenizer already validated this is a valid DefType keyword token.
         self.consume_token();
 
         // Consume any whitespace after DefType keyword
         self.consume_whitespace();
-
-        // TODO: Validate letter ranges
 
         // Parse letter ranges until newline
         // Letter ranges can be:
         // - Single letter: A
         // - Range: A-Z
         // - Multiple ranges separated by commas: A, M-Z
+        // Note: Range validation (e.g., ensuring A <= Z in A-Z) is deferred to semantic analysis.
+        // The CST preserves the exact source structure without semantic validation.
         loop {
             // Check if we've reached the end of the line
             if self.at_token(Token::Newline) || self.is_at_end() {
