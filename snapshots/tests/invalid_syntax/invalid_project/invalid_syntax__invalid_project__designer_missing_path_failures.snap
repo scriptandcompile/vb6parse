@@ -1,0 +1,5 @@
+---
+source: vb6parse/tests/invalid_syntax/invalid_project.rs
+expression: failure_messages
+---
+- "ErrorDetails { source_name: \"test.vbp\", source_content: \"Type=Exe\\nDesigner=\\n\", error_offset: 18, line_start: 9, line_end: 18, kind: Project(PathValueNotFound { parameter_line_name: \"Designer\" }), severity: Error, labels: [], notes: [] }"

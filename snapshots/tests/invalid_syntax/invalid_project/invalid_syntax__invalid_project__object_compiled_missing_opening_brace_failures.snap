@@ -1,0 +1,5 @@
+---
+source: vb6parse/tests/invalid_syntax/invalid_project.rs
+expression: failure_messages
+---
+- "ErrorDetails { source_name: \"test.vbp\", source_content: \"Type=Exe\\nObject=00020430-0000-0000-C000-000000000046}#2.0#0; stdole2.tlb\\n\", error_offset: 16, line_start: 9, line_end: 72, kind: Project(ObjectCompiledMissingOpeningBrace), severity: Error, labels: [], notes: [] }"

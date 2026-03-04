@@ -1,0 +1,5 @@
+---
+source: vb6parse/tests/invalid_syntax/invalid_project.rs
+expression: failure_messages
+---
+- "ErrorDetails { source_name: \"test.vbp\", source_content: \"Type=Exe\\nReference=*\\\\G{00020430-0000-0000-C000-000000000046}#\\n\", error_offset: 61, line_start: 9, line_end: 61, kind: Project(ReferenceCompiledUnknown1Missing), severity: Error, labels: [], notes: [] }"

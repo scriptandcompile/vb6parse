@@ -22,3 +22,6 @@ mod invalid_control_flow;
 
 #[path = "invalid_syntax/invalid_parameter_list.rs"]
 mod invalid_parameter_list;
+
+#[path = "invalid_syntax/invalid_project.rs"]
+mod invalid_project;

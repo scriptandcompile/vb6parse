@@ -1,0 +1,5 @@
+---
+source: vb6parse/tests/invalid_syntax/invalid_project.rs
+expression: failure_messages
+---
+- "ErrorDetails { source_name: \"test.vbp\", source_content: \"Type=Exe\\nTitle=\\\"MyProject\\n\", error_offset: 15, line_start: 9, line_end: 25, kind: Project(ParameterValueMissingClosingQuote { parameter_line_name: \"Title\" }), severity: Error, labels: [DiagnosticLabel { span: Span { offset: 15, line_start: 9, line_end: 25, length: 10 }, message: \"'Title' value must be surrounded by double quotes.\" }], notes: [\"Title=\\\"MyProject\\\"\"] }"

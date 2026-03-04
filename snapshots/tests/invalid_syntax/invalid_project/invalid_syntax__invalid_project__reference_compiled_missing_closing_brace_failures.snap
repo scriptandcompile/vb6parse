@@ -1,0 +1,5 @@
+---
+source: vb6parse/tests/invalid_syntax/invalid_project.rs
+expression: failure_messages
+---
+- "ErrorDetails { source_name: \"test.vbp\", source_content: \"Type=Exe\\nReference=*\\\\G{00020430-0000-0000-C000-000000000046#2.0#0#C:\\\\Windows\\\\System32\\\\stdole2.tlb#OLE Automation\\n\", error_offset: 23, line_start: 9, line_end: 112, kind: Project(ReferenceCompiledUuidMissingMatchingBrace), severity: Error, labels: [], notes: [] }"
