@@ -213,9 +213,11 @@ mod property_statements;
 mod select_statements;
 mod sub_statements;
 mod type_statements;
+pub mod visitor;
 
 // Re-export navigation types
 pub use navigation::CstNode;
+pub use visitor::{walk_node, walk_node_mut, Visitor, VisitorMut};
 
 /// A serializable representation of the CST for snapshot testing.
 ///
