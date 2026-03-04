@@ -28,7 +28,7 @@ use crate::{
     parsers::ParseResult,
 };
 
-/// Helper function to serialize nested HashMap with sorted keys for deterministic output
+/// Helper function to serialize nested `HashMap` with sorted keys for deterministic output
 fn serialize_sorted_nested_hashmap<S>(
     map: &HashMap<&str, HashMap<&str, &str>>,
     serializer: S,
