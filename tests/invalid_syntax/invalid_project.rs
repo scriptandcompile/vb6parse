@@ -77,7 +77,10 @@ Reference=*\G{00020430-0000-0000-C000-000000000046#2.0#0#C:\Windows\System32\std
     settings.set_snapshot_path("../../snapshots/tests/invalid_syntax/invalid_project");
     settings.bind(|| {
         let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
-        insta::assert_yaml_snapshot!("reference_compiled_missing_closing_brace_failures", failure_messages);
+        insta::assert_yaml_snapshot!(
+            "reference_compiled_missing_closing_brace_failures",
+            failure_messages
+        );
     });
 }
 
@@ -115,7 +118,10 @@ Reference=*\G{00020430-0000-0000-C000-000000000046}#
     settings.set_snapshot_path("../../snapshots/tests/invalid_syntax/invalid_project");
     settings.bind(|| {
         let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
-        insta::assert_yaml_snapshot!("reference_compiled_missing_unknown1_failures", failure_messages);
+        insta::assert_yaml_snapshot!(
+            "reference_compiled_missing_unknown1_failures",
+            failure_messages
+        );
     });
 }
 
@@ -191,7 +197,10 @@ Object=00020430-0000-0000-C000-000000000046}#2.0#0; stdole2.tlb
     settings.set_snapshot_path("../../snapshots/tests/invalid_syntax/invalid_project");
     settings.bind(|| {
         let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
-        insta::assert_yaml_snapshot!("object_compiled_missing_opening_brace_failures", failure_messages);
+        insta::assert_yaml_snapshot!(
+            "object_compiled_missing_opening_brace_failures",
+            failure_messages
+        );
     });
 }
 
@@ -210,7 +219,10 @@ Object={00020430-0000-0000-C000-000000000046#2.0#0; stdole2.tlb
     settings.set_snapshot_path("../../snapshots/tests/invalid_syntax/invalid_project");
     settings.bind(|| {
         let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
-        insta::assert_yaml_snapshot!("object_compiled_missing_closing_brace_failures", failure_messages);
+        insta::assert_yaml_snapshot!(
+            "object_compiled_missing_closing_brace_failures",
+            failure_messages
+        );
     });
 }
 
@@ -286,7 +298,10 @@ Object={00020430-0000-0000-C000-000000000046}#2.0#0;
     settings.set_snapshot_path("../../snapshots/tests/invalid_syntax/invalid_project");
     settings.bind(|| {
         let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
-        insta::assert_yaml_snapshot!("object_compiled_missing_filename_failures", failure_messages);
+        insta::assert_yaml_snapshot!(
+            "object_compiled_missing_filename_failures",
+            failure_messages
+        );
     });
 }
 
@@ -495,7 +510,10 @@ DllBaseAddress=11000000
     settings.set_snapshot_path("../../snapshots/tests/invalid_syntax/invalid_project");
     settings.bind(|| {
         let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
-        insta::assert_yaml_snapshot!("dllbaseaddress_missing_hex_prefix_failures", failure_messages);
+        insta::assert_yaml_snapshot!(
+            "dllbaseaddress_missing_hex_prefix_failures",
+            failure_messages
+        );
     });
 }
 
