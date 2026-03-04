@@ -1,0 +1,5 @@
+---
+source: vb6parse/tests/invalid_syntax/invalid_project.rs
+expression: failure_messages
+---
+- "ErrorDetails { source_name: \"test.vbp\", source_content: \"Type=Exe\\n=SomeValue\\n\", error_offset: 9, line_start: 9, line_end: 19, kind: Project(ParameterLineUnknown { line: \"\" }), severity: Error, labels: [], notes: [] }"

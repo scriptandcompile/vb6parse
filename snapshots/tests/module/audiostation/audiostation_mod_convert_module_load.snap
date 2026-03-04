@@ -1,0 +1,561 @@
+---
+source: vb6parse/tests/module/audiostation.rs
+expression: module_file
+---
+name: ModConvert
+cst:
+  root:
+    kind: Root
+    children:
+      - kind: EnumStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: ConvertFrom
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: Real
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Media
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: Real
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Audio
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: Voice
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: File
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Format
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: Apple
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Core
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Format
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: Sony
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Wave64
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: OGG
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: Westwood
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Studios
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Audio
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: Sony
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: OpenMG
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Audio
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: Raw
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Flac
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: Creative
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Voice
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: Windows
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Media
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: Media4A
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: EnumStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: convertto
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: MP3
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: WAV
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: FunctionStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Convert
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: ConvFilename
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: StringKeyword
+                text: String
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: ConvFrom
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: ConvertFrom
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: convTo
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: convertto
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: CurrentFilename
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringKeyword
+                    text: String
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: CurrentFilename
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: CallExpression
+                    children:
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: Identifier
+                            text: Extensions
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: GetFileNameFromFilePath
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: ConvFilename
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: BooleanLiteralExpression
+                                children:
+                                  - kind: FalseKeyword
+                                    text: "False"
+                      - kind: RightParenthesis
+                        text: )
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: CallStatement
+                children:
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Extensions
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: ShellAndWait
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: StringLiteral
+                    text: "\"ffmpeg.exe\""
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\"-i \""
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Chr
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: IntegerLiteral
+                    text: "34"
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: ConvFilename
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Chr
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: IntegerLiteral
+                    text: "34"
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\" \""
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: App
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: path
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\"\\temp\\\""
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: CurrentFilename
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\".mp3\""
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Newline
+                    text: "\n"
+              - kind: CallStatement
+                children:
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Settings
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: WriteSetting
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: StringLiteral
+                    text: "\"Sibra-Soft\""
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\"Audiostation\""
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\"CheckFile\""
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: App
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: path
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\"\\temp\\\""
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: CurrentFilename
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Ampersand
+                    text: "&"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\".mp3\""
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Newline
+            text: "\n"

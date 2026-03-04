@@ -1,0 +1,496 @@
+---
+source: vb6parse/tests/form/endless_runner_game_vb6_0.rs
+expression: form_file
+---
+form:
+  Form:
+    name: Form12
+    tag: ""
+    index: 0
+    properties:
+      appearance: ThreeD
+      auto_redraw: Manual
+      back_color:
+        System:
+          index: 15
+      border_style: Sizable
+      caption: Form12
+      client_height: 3015
+      client_left: 120
+      client_top: 465
+      client_width: 4560
+      clip_controls: Clipped
+      control_box: Included
+      draw_mode: CopyPen
+      draw_style: Solid
+      draw_width: 1
+      enabled: Enabled
+      fill_color:
+        System:
+          index: 0
+      fill_style: Transparent
+      font:
+        name: MS Sans Serif
+        size: 8
+        charset: 0
+        weight: 400
+        underline: false
+        italic: false
+        strikethrough: false
+      font_transparent: Transparent
+      fore_color:
+        System:
+          index: 18
+      has_dc: HasContext
+      height: 240
+      help_context_id: 0
+      icon: ~
+      key_preview: false
+      left: 0
+      link_mode: None
+      link_topic: Form12
+      max_button: Included
+      mdi_child: false
+      min_button: Included
+      mouse_icon: ~
+      mouse_pointer: Default
+      moveable: Moveable
+      negotiate_menus: true
+      ole_drop_mode: None
+      palette: ~
+      palette_mode: HalfTone
+      picture: ~
+      right_to_left: LeftToRight
+      scale_height: 15615
+      scale_left: 0
+      scale_mode: Twip
+      scale_top: 0
+      scale_width: 28560
+      show_in_taskbar: Show
+      start_up_position: WindowsDefault
+      top: 0
+      visible: Visible
+      whats_this_button: Excluded
+      whats_this_help: F1Help
+      width: 240
+      window_state: Normal
+    controls:
+      - name: timer5
+        tag: ""
+        index: 0
+        kind:
+          Timer:
+            properties:
+              enabled: Enabled
+              interval: 100
+              left: 13920
+              top: 0
+      - name: image4
+        tag: ""
+        index: 0
+        kind:
+          PictureBox:
+            properties:
+              align: None
+              appearance: ThreeD
+              auto_redraw: Manual
+              auto_size: Fixed
+              back_color:
+                System:
+                  index: 15
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              clip_controls: Clipped
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              draw_mode: CopyPen
+              draw_style: Solid
+              draw_width: 1
+              enabled: Enabled
+              fill_color:
+                System:
+                  index: 0
+              fill_style: Transparent
+              font_transparent: Transparent
+              fore_color:
+                System:
+                  index: 18
+              has_dc: HasContext
+              height: 5895
+              help_context_id: 0
+              left: 13800
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              negotiate: false
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              scale_height: 5835
+              scale_left: 0
+              scale_mode: Twip
+              scale_top: 0
+              scale_width: 14235
+              tab_index: 1
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 2400
+              visible: Visible
+              whats_this_help_id: 0
+              width: 14295
+            controls: []
+      - name: image3
+        tag: ""
+        index: 0
+        kind:
+          PictureBox:
+            properties:
+              align: None
+              appearance: ThreeD
+              auto_redraw: Manual
+              auto_size: Fixed
+              back_color:
+                System:
+                  index: 15
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              clip_controls: Clipped
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              draw_mode: CopyPen
+              draw_style: Solid
+              draw_width: 1
+              enabled: Enabled
+              fill_color:
+                System:
+                  index: 0
+              fill_style: Transparent
+              font_transparent: Transparent
+              fore_color:
+                System:
+                  index: 18
+              has_dc: HasContext
+              height: 5895
+              help_context_id: 0
+              left: 120
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              negotiate: false
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              scale_height: 5835
+              scale_left: 0
+              scale_mode: Twip
+              scale_top: 0
+              scale_width: 13395
+              tab_index: 0
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 2400
+              visible: Visible
+              whats_this_help_id: 0
+              width: 13455
+            controls: []
+      - name: Image9
+        tag: ""
+        index: 0
+        kind:
+          Image:
+            properties:
+              appearance: ThreeD
+              border_style: None
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              height: 3255
+              left: 720
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              picture: ~
+              stretch: false
+              tool_tip_text: ""
+              top: 10080
+              visible: Visible
+              whats_this_help_id: 0
+              width: 2535
+      - name: Image11
+        tag: ""
+        index: 0
+        kind:
+          Image:
+            properties:
+              appearance: ThreeD
+              border_style: None
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              height: 3735
+              left: 15600
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              picture: ~
+              stretch: false
+              tool_tip_text: ""
+              top: 9240
+              visible: Visible
+              whats_this_help_id: 0
+              width: 4215
+      - name: image8
+        tag: ""
+        index: 0
+        kind:
+          Image:
+            properties:
+              appearance: ThreeD
+              border_style: None
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              height: 3495
+              left: 9600
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              picture: ~
+              stretch: false
+              tool_tip_text: ""
+              top: 9360
+              visible: Visible
+              whats_this_help_id: 0
+              width: 4215
+      - name: image7
+        tag: ""
+        index: 0
+        kind:
+          Image:
+            properties:
+              appearance: ThreeD
+              border_style: None
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              height: 2655
+              left: 3600
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              picture: ~
+              stretch: false
+              tool_tip_text: ""
+              top: 9600
+              visible: Visible
+              whats_this_help_id: 0
+              width: 2655
+    menus: []
+objects: []
+version:
+  major: 5
+  minor: 0
+attributes:
+  name: Form12
+  global_name_space: Local
+  creatable: "False"
+  predeclared_id: "True"
+  exposed: "False"
+  description: ~
+  ext_key: {}
+cst:
+  root:
+    kind: Root
+    children:
+      - kind: DimStatement
+        children:
+          - kind: DimKeyword
+            text: Dim
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: re
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: NewKeyword
+            text: New
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Form10
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: formload
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: EndOfLineComment
+                text: "'Form12.image1 = Form10.image1"
+              - kind: Newline
+                text: "\r\n"
+              - kind: EndOfLineComment
+                text: "'Form12.image2 = Form10.image2"
+              - kind: Newline
+                text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: re
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: backmov
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: re
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: timer5_Timer
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: re
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: timer5
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: timer5_Timer
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: Whitespace
+                text: " "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: re
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: backmov
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: EndOfLineComment
+                text: "'Call backmov"
+              - kind: Newline
+                text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"

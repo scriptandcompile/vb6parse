@@ -1,0 +1,1242 @@
+---
+source: vb6parse/tests/form/audiostation.rs
+expression: form_file
+---
+form:
+  Form:
+    name: Form_Settings_Recorder
+    tag: "1041"
+    index: 0
+    properties:
+      appearance: ThreeD
+      auto_redraw: Manual
+      back_color:
+        RGB:
+          red: 192
+          green: 192
+          blue: 192
+      border_style: Sizable
+      caption: "-"
+      client_height: 3045
+      client_left: 2760
+      client_top: 3750
+      client_width: 6525
+      clip_controls: Clipped
+      control_box: Included
+      draw_mode: CopyPen
+      draw_style: Solid
+      draw_width: 1
+      enabled: Enabled
+      fill_color:
+        System:
+          index: 0
+      fill_style: Transparent
+      font:
+        name: "\"Verdana\""
+        size: 8.25
+        charset: 0
+        weight: 400
+        underline: false
+        italic: false
+        strikethrough: false
+      font_transparent: Transparent
+      fore_color:
+        System:
+          index: 18
+      has_dc: HasContext
+      height: 240
+      help_context_id: 0
+      icon: ~
+      key_preview: false
+      left: 0
+      link_mode: None
+      link_topic: Form1
+      max_button: Included
+      mdi_child: false
+      min_button: Included
+      mouse_icon: ~
+      mouse_pointer: Default
+      moveable: Moveable
+      negotiate_menus: true
+      ole_drop_mode: None
+      palette: ~
+      palette_mode: HalfTone
+      picture: ~
+      right_to_left: LeftToRight
+      scale_height: 3045
+      scale_left: 0
+      scale_mode: Twip
+      scale_top: 0
+      scale_width: 6525
+      show_in_taskbar: Show
+      start_up_position: WindowsDefault
+      top: 0
+      visible: Visible
+      whats_this_button: Excluded
+      whats_this_help: F1Help
+      width: 240
+      window_state: Normal
+    controls:
+      - name: Frame1
+        tag: ""
+        index: 0
+        kind:
+          Frame:
+            properties:
+              appearance: ThreeD
+              back_color:
+                RGB:
+                  red: 192
+                  green: 192
+                  blue: 192
+              border_style: FixedSingle
+              caption: " T(1018) "
+              clip_controls: Clipped
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 18
+              height: 2175
+              help_context_id: 0
+              left: 120
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              right_to_left: LeftToRight
+              tab_index: 0
+              tool_tip_text: ""
+              top: 120
+              visible: Visible
+              whats_this_help_id: 0
+              width: 6255
+            controls:
+              - name: Option_Mp3File
+                tag: ""
+                index: 0
+                kind:
+                  OptionButton:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      back_color:
+                        RGB:
+                          red: 192
+                          green: 192
+                          blue: 192
+                      caption: Mp3 File
+                      causes_validation: "Yes"
+                      disabled_picture: ~
+                      down_picture: ~
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 255
+                      help_context_id: 0
+                      left: 3120
+                      mask_color:
+                        RGB:
+                          red: 192
+                          green: 192
+                          blue: 192
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      picture: ~
+                      right_to_left: LeftToRight
+                      style: Standard
+                      tab_index: 7
+                      tab_stop: Included
+                      tool_tip_text: ""
+                      top: 1440
+                      use_mask_color: DoNotUseMaskColor
+                      value: UnSelected
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 1215
+              - name: Option_WaveFile
+                tag: ""
+                index: 0
+                kind:
+                  OptionButton:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      back_color:
+                        RGB:
+                          red: 192
+                          green: 192
+                          blue: 192
+                      caption: Wave File
+                      causes_validation: "Yes"
+                      disabled_picture: ~
+                      down_picture: ~
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 255
+                      help_context_id: 0
+                      left: 1680
+                      mask_color:
+                        RGB:
+                          red: 192
+                          green: 192
+                          blue: 192
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      picture: ~
+                      right_to_left: LeftToRight
+                      style: Standard
+                      tab_index: 6
+                      tab_stop: Included
+                      tool_tip_text: ""
+                      top: 1440
+                      use_mask_color: DoNotUseMaskColor
+                      value: UnSelected
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 1215
+              - name: Combox_Rate
+                tag: ""
+                index: 0
+                kind:
+                  ComboBox:
+                    properties:
+                      appearance: ThreeD
+                      back_color:
+                        System:
+                          index: 5
+                      causes_validation: "Yes"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 8
+                      height: 315
+                      help_context_id: 0
+                      integral_height: true
+                      left: 1680
+                      locked: false
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drag_mode: Manual
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      sorted: false
+                      style: DropDownCombo
+                      tab_index: 4
+                      tab_stop: Included
+                      text: ""
+                      tool_tip_text: ""
+                      top: 840
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 1815
+              - name: Combox_InputDevice
+                tag: ""
+                index: 0
+                kind:
+                  ComboBox:
+                    properties:
+                      appearance: ThreeD
+                      back_color:
+                        System:
+                          index: 5
+                      causes_validation: "Yes"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 8
+                      height: 315
+                      help_context_id: 0
+                      integral_height: true
+                      left: 1680
+                      locked: false
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drag_mode: Manual
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      sorted: false
+                      style: DropDownCombo
+                      tab_index: 2
+                      tab_stop: Included
+                      text: ""
+                      tool_tip_text: ""
+                      top: 480
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 4335
+              - name: Label3
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "Output:"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 195
+                      left: 240
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 5
+                      tool_tip_text: ""
+                      top: 1440
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 645
+                      word_wrap: NonWrapping
+              - name: Label2
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "Rate:"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 195
+                      left: 240
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 3
+                      tool_tip_text: ""
+                      top: 900
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 465
+                      word_wrap: NonWrapping
+              - name: Label1
+                tag: ""
+                index: 0
+                kind:
+                  Label:
+                    properties:
+                      alignment: LeftJustify
+                      appearance: ThreeD
+                      auto_size: Fixed
+                      back_color:
+                        System:
+                          index: 15
+                      back_style: Opaque
+                      border_style: None
+                      caption: "Input device:"
+                      data_field: ""
+                      data_format: ""
+                      data_member: ""
+                      data_source: ""
+                      drag_icon: ~
+                      drag_mode: Manual
+                      enabled: Enabled
+                      fore_color:
+                        System:
+                          index: 18
+                      height: 195
+                      left: 240
+                      link_item: ""
+                      link_mode: None
+                      link_timeout: 50
+                      link_topic: ""
+                      mouse_icon: ~
+                      mouse_pointer: Default
+                      ole_drop_mode: None
+                      right_to_left: LeftToRight
+                      tab_index: 1
+                      tool_tip_text: ""
+                      top: 540
+                      use_mnemonic: true
+                      visible: Visible
+                      whats_this_help_id: 0
+                      width: 1140
+                      word_wrap: NonWrapping
+      - name: Button_Cancel
+        tag: "1004"
+        index: 0
+        kind:
+          Custom:
+            properties:
+              property_store:
+                Caption: T(1037)
+                ExtentX: "2090"
+                ExtentY: "688"
+                Height: "390"
+                Left: "3330"
+                TabIndex: "8"
+                Tag: "1004"
+                TextAlignment: "0"
+                Top: "2520"
+                Width: "1185"
+            property_groups: []
+      - name: Button_Save
+        tag: "1004"
+        index: 0
+        kind:
+          Custom:
+            properties:
+              property_store:
+                Caption: T(1017)
+                ExtentX: "2090"
+                ExtentY: "688"
+                Height: "390"
+                Left: "2040"
+                TabIndex: "9"
+                Tag: "1004"
+                TextAlignment: "0"
+                Top: "2520"
+                Width: "1185"
+            property_groups: []
+    menus: []
+objects: []
+version:
+  major: 5
+  minor: 0
+attributes:
+  name: Form_Settings_Recorder
+  global_name_space: Local
+  creatable: "False"
+  predeclared_id: "True"
+  exposed: "False"
+  description: ~
+  ext_key: {}
+cst:
+  root:
+    kind: Root
+    children:
+      - kind: OptionStatement
+        children:
+          - kind: OptionKeyword
+            text: Option
+          - kind: Whitespace
+            text: " "
+          - kind: ExplicitKeyword
+            text: Explicit
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: DimKeyword
+            text: Dim
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Init
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Newline
+            text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Button_Cancel_Click
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: UnloadStatement
+                children:
+                  - kind: UnloadKeyword
+                    text: Unload
+                  - kind: Whitespace
+                    text: " "
+                  - kind: MeKeyword
+                    text: Me
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Button_Save_Click
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: CallStatement
+                children:
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Extensions
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: INIWrite
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: StringLiteral
+                    text: "\"main\""
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\"RecordingDeviceId\""
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Combox_InputDevice
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: ListIndex
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: ConfigFile
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Newline
+                    text: "\n"
+              - kind: CallStatement
+                children:
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Extensions
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: INIWrite
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: StringLiteral
+                    text: "\"main\""
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\"RecordingRate\""
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Combox_Rate
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: TextKeyword
+                    text: Text
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: ConfigFile
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: Form_Main
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: DataInter
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: SendData
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteral
+                    text: "\"Done\""
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: Unknown
+                text: End
+              - kind: Newline
+                text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Form_Load
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: DefaultDevice
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IntegerKeyword
+                    text: Integer
+                  - kind: Newline
+                    text: "\n"
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: SavedDevice
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IntegerKeyword
+                    text: Integer
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: CallStatement
+                children:
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: TranslateFormAndControls
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: MeKeyword
+                    text: Me
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: WithStatement
+                children:
+                  - kind: WithKeyword
+                    text: With
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Combox_Rate
+                  - kind: Newline
+                    text: "\n"
+                  - kind: StatementList
+                    children:
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: Unknown
+                        text: "."
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: AddItem
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteral
+                            text: "\"96000\""
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: Unknown
+                        text: "."
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: AddItem
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteral
+                            text: "\"48000\""
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: Unknown
+                        text: "."
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: AddItem
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteral
+                            text: "\"44100\""
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: Unknown
+                        text: "."
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: AddItem
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteral
+                            text: "\"32000\""
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: Unknown
+                        text: "."
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: AddItem
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteral
+                            text: "\"22050\""
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: Newline
+                        text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: PeriodOperator
+                                text: "."
+                          - kind: BinaryExpression
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: TextKeyword
+                                    text: Text
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: CallExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Extensions
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: INIRead
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: StringLiteralExpression
+                                            children:
+                                              - kind: StringLiteral
+                                                text: "\"main\""
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: StringLiteralExpression
+                                            children:
+                                              - kind: StringLiteral
+                                                text: "\"RecordingRate\""
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: ConfigFile
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: StringLiteralExpression
+                                            children:
+                                              - kind: StringLiteral
+                                                text: "\"44100\""
+                                  - kind: RightParenthesis
+                                    text: )
+                          - kind: Newline
+                            text: "\n"
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: WithKeyword
+                    text: With
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: EndOfLineComment
+                text: "' Get record devices"
+              - kind: Newline
+                text: "\n"
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Device
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: mdlAdioDevice
+                  - kind: Newline
+                    text: "\n"
+              - kind: ForEachStatement
+                children:
+                  - kind: ForKeyword
+                    text: For
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EachKeyword
+                    text: Each
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Device
+                  - kind: Whitespace
+                    text: " "
+                  - kind: InKeyword
+                    text: In
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Form_Main
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: AdioCore
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: GetListOfDevices
+                  - kind: Newline
+                    text: "\n"
+                  - kind: StatementList
+                    children:
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Device
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: dInput
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AndKeyword
+                                text: And
+                              - kind: Whitespace
+                                text: " "
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Device
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: dIsLoopback
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Newline
+                            text: "\n"
+                          - kind: StatementList
+                            children:
+                              - kind: Whitespace
+                                text: "        "
+                              - kind: CallStatement
+                                children:
+                                  - kind: Identifier
+                                    text: Combox_InputDevice
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: AddItem
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: Device
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: dName
+                                  - kind: Newline
+                                    text: "\n"
+                              - kind: Whitespace
+                                text: "        "
+                              - kind: AssignmentStatement
+                                children:
+                                  - kind: CallExpression
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Combox_InputDevice
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: ItemData
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: MemberAccessExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: Combox_InputDevice
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: NewIndex
+                                      - kind: RightParenthesis
+                                        text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Device
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: dId
+                                  - kind: Newline
+                                    text: "\n"
+                              - kind: Whitespace
+                                text: "    "
+                          - kind: EndKeyword
+                            text: End
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Newline
+                            text: "\n"
+                  - kind: NextKeyword
+                    text: Next
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: EndOfLineComment
+                text: "' Select the default or saved device"
+              - kind: Newline
+                text: "\n"
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: Identifier
+                            text: Combox_InputDevice
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: ListCount
+                      - kind: Whitespace
+                        text: " "
+                      - kind: GreaterThanOperator
+                        text: ">"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "0"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: ColonOperator
+                    text: ":"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AssignmentStatement
+                    children:
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: Identifier
+                            text: Combox_InputDevice
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: ListIndex
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: CallExpression
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Extensions
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: INIRead
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"main\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"RecordingDeviceId\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: ConfigFile
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "0"
+                          - kind: RightParenthesis
+                            text: )
+                      - kind: Newline
+                        text: "\n"
+                  - kind: Newline
+                    text: "\n"
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: Init
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BooleanLiteralExpression
+                    children:
+                      - kind: FalseKeyword
+                        text: "False"
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"

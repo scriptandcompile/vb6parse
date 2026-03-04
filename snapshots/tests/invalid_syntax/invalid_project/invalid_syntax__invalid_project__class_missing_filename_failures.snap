@@ -1,0 +1,5 @@
+---
+source: vb6parse/tests/invalid_syntax/invalid_project.rs
+expression: failure_messages
+---
+- "ErrorDetails { source_name: \"test.vbp\", source_content: \"Type=Exe\\nClass=Class1; \\n\", error_offset: 23, line_start: 9, line_end: 23, kind: Project(ClassFileNameNotFound), severity: Error, labels: [], notes: [] }"

@@ -1,0 +1,1179 @@
+---
+source: vb6parse/tests/module/audiostation.rs
+expression: module_file
+---
+name: modOS
+cst:
+  root:
+    kind: Root
+    children:
+      - kind: OptionStatement
+        children:
+          - kind: OptionKeyword
+            text: Option
+          - kind: Whitespace
+            text: " "
+          - kind: ExplicitKeyword
+            text: Explicit
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: DeclareStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: DeclareKeyword
+            text: Declare
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: GetVersionEx
+          - kind: Whitespace
+            text: " "
+          - kind: LibKeyword
+            text: Lib
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"kernel32\""
+          - kind: Whitespace
+            text: " "
+          - kind: AliasKeyword
+            text: Alias
+          - kind: Whitespace
+            text: " "
+          - kind: StringLiteral
+            text: "\"GetVersionExA\""
+          - kind: Whitespace
+            text: " "
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: lpVersionInformation
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: OSVERSIONINFO
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: VerMarjor
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: TypeStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: TypeKeyword
+            text: Type
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: OSVERSIONINFO
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: OSVSize
+          - kind: Whitespace
+            text: "         "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: dwVerMajor
+          - kind: Whitespace
+            text: "      "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: dwVerMinor
+          - kind: Whitespace
+            text: "      "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: dwBuildNumber
+          - kind: Whitespace
+            text: "   "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: PlatformID
+          - kind: Whitespace
+            text: "      "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "  "
+          - kind: Identifier
+            text: szCSDVersion
+          - kind: Whitespace
+            text: "    "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
+          - kind: Whitespace
+            text: " "
+          - kind: MultiplicationOperator
+            text: "*"
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "128"
+          - kind: Newline
+            text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: TypeKeyword
+            text: Type
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: VER_PLATFORM_WIN32s
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "0"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: VER_PLATFORM_WIN32_WINDOWS
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "1"
+          - kind: Newline
+            text: "\n"
+      - kind: DimStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: ConstKeyword
+            text: Const
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: VER_PLATFORM_WIN32_NT
+          - kind: Whitespace
+            text: " "
+          - kind: EqualityOperator
+            text: "="
+          - kind: Whitespace
+            text: " "
+          - kind: IntegerLiteral
+            text: "2"
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: FunctionStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: GetWindowsVersion
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: osv
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: OSVERSIONINFO
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: AssignmentStatement
+                children:
+                  - kind: MemberAccessExpression
+                    children:
+                      - kind: Identifier
+                        text: osv
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: OSVSize
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: CallExpression
+                    children:
+                      - kind: LenKeyword
+                        text: Len
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: osv
+                      - kind: RightParenthesis
+                        text: )
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: CallExpression
+                        children:
+                          - kind: Identifier
+                            text: GetVersionEx
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: osv
+                          - kind: RightParenthesis
+                            text: )
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "1"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\n"
+                  - kind: StatementList
+                    children:
+                      - kind: SelectCaseStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: SelectKeyword
+                            text: Select
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CaseKeyword
+                            text: Case
+                          - kind: Whitespace
+                            text: " "
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: osv
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: PlatformID
+                          - kind: Newline
+                            text: "\n"
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: CaseClause
+                            children:
+                              - kind: CaseKeyword
+                                text: Case
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: VER_PLATFORM_WIN32s
+                              - kind: Newline
+                                text: "\n"
+                              - kind: StatementList
+                                children:
+                                  - kind: Whitespace
+                                    text: "            "
+                                  - kind: AssignmentStatement
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: GetWindowsVersion
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"Win32s on Windows 3.1\""
+                                      - kind: Newline
+                                        text: "\n"
+                                  - kind: Whitespace
+                                    text: "        "
+                          - kind: CaseClause
+                            children:
+                              - kind: CaseKeyword
+                                text: Case
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: VER_PLATFORM_WIN32_NT
+                              - kind: Newline
+                                text: "\n"
+                              - kind: StatementList
+                                children:
+                                  - kind: Whitespace
+                                    text: "            "
+                                  - kind: AssignmentStatement
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: GetWindowsVersion
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"Windows NT\""
+                                      - kind: Newline
+                                        text: "\n"
+                                  - kind: Whitespace
+                                    text: "            "
+                                  - kind: Newline
+                                    text: "\n"
+                                  - kind: Whitespace
+                                    text: "            "
+                                  - kind: AssignmentStatement
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: VerMarjor
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: osv
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: dwVerMajor
+                                      - kind: Newline
+                                        text: "\n"
+                                  - kind: Whitespace
+                                    text: "            "
+                                  - kind: Newline
+                                    text: "\n"
+                                  - kind: SelectCaseStatement
+                                    children:
+                                      - kind: Whitespace
+                                        text: "            "
+                                      - kind: SelectKeyword
+                                        text: Select
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: CaseKeyword
+                                        text: Case
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: osv
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: dwVerMajor
+                                      - kind: Newline
+                                        text: "\n"
+                                      - kind: Whitespace
+                                        text: "                "
+                                      - kind: CaseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IntegerLiteral
+                                            text: "3"
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: Whitespace
+                                                text: "                    "
+                                              - kind: AssignmentStatement
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: GetWindowsVersion
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: EqualityOperator
+                                                    text: "="
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"Windows NT 3.5\""
+                                                  - kind: Newline
+                                                    text: "\n"
+                                              - kind: Whitespace
+                                                text: "                "
+                                      - kind: CaseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IntegerLiteral
+                                            text: "4"
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: Whitespace
+                                                text: "                    "
+                                              - kind: AssignmentStatement
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: GetWindowsVersion
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: EqualityOperator
+                                                    text: "="
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"Windows NT 4.0\""
+                                                  - kind: Newline
+                                                    text: "\n"
+                                              - kind: Whitespace
+                                                text: "                "
+                                      - kind: CaseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IntegerLiteral
+                                            text: "5"
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: SelectCaseStatement
+                                                children:
+                                                  - kind: Whitespace
+                                                    text: "                    "
+                                                  - kind: SelectKeyword
+                                                    text: Select
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: CaseKeyword
+                                                    text: Case
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: MemberAccessExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: osv
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: Identifier
+                                                        text: dwVerMinor
+                                                  - kind: Newline
+                                                    text: "\n"
+                                                  - kind: Whitespace
+                                                    text: "                        "
+                                                  - kind: CaseClause
+                                                    children:
+                                                      - kind: CaseKeyword
+                                                        text: Case
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: IntegerLiteral
+                                                        text: "0"
+                                                      - kind: Newline
+                                                        text: "\n"
+                                                      - kind: StatementList
+                                                        children:
+                                                          - kind: Whitespace
+                                                            text: "                            "
+                                                          - kind: AssignmentStatement
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: GetWindowsVersion
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: EqualityOperator
+                                                                text: "="
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"Windows 2000\""
+                                                              - kind: Newline
+                                                                text: "\n"
+                                                          - kind: Whitespace
+                                                            text: "                        "
+                                                  - kind: CaseClause
+                                                    children:
+                                                      - kind: CaseKeyword
+                                                        text: Case
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: IntegerLiteral
+                                                        text: "1"
+                                                      - kind: Newline
+                                                        text: "\n"
+                                                      - kind: StatementList
+                                                        children:
+                                                          - kind: Whitespace
+                                                            text: "                            "
+                                                          - kind: AssignmentStatement
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: GetWindowsVersion
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: EqualityOperator
+                                                                text: "="
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"Windows XP\""
+                                                              - kind: Newline
+                                                                text: "\n"
+                                                          - kind: Whitespace
+                                                            text: "                        "
+                                                  - kind: CaseClause
+                                                    children:
+                                                      - kind: CaseKeyword
+                                                        text: Case
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: IntegerLiteral
+                                                        text: "2"
+                                                      - kind: Newline
+                                                        text: "\n"
+                                                      - kind: StatementList
+                                                        children:
+                                                          - kind: Whitespace
+                                                            text: "                            "
+                                                          - kind: AssignmentStatement
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: GetWindowsVersion
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: EqualityOperator
+                                                                text: "="
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"Windows Server 2003\""
+                                                              - kind: Newline
+                                                                text: "\n"
+                                                          - kind: Whitespace
+                                                            text: "                    "
+                                                  - kind: EndKeyword
+                                                    text: End
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: SelectKeyword
+                                                    text: Select
+                                                  - kind: Newline
+                                                    text: "\n"
+                                              - kind: Whitespace
+                                                text: "                "
+                                      - kind: CaseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IntegerLiteral
+                                            text: "6"
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: SelectCaseStatement
+                                                children:
+                                                  - kind: Whitespace
+                                                    text: "                    "
+                                                  - kind: SelectKeyword
+                                                    text: Select
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: CaseKeyword
+                                                    text: Case
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: MemberAccessExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: osv
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: Identifier
+                                                        text: dwVerMinor
+                                                  - kind: Newline
+                                                    text: "\n"
+                                                  - kind: Whitespace
+                                                    text: "                        "
+                                                  - kind: CaseClause
+                                                    children:
+                                                      - kind: CaseKeyword
+                                                        text: Case
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: IntegerLiteral
+                                                        text: "0"
+                                                      - kind: Newline
+                                                        text: "\n"
+                                                      - kind: StatementList
+                                                        children:
+                                                          - kind: Whitespace
+                                                            text: "                            "
+                                                          - kind: AssignmentStatement
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: GetWindowsVersion
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: EqualityOperator
+                                                                text: "="
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"Windows Vista/Server 2008\""
+                                                              - kind: Newline
+                                                                text: "\n"
+                                                          - kind: Whitespace
+                                                            text: "                        "
+                                                  - kind: CaseClause
+                                                    children:
+                                                      - kind: CaseKeyword
+                                                        text: Case
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: IntegerLiteral
+                                                        text: "1"
+                                                      - kind: Newline
+                                                        text: "\n"
+                                                      - kind: StatementList
+                                                        children:
+                                                          - kind: Whitespace
+                                                            text: "                            "
+                                                          - kind: AssignmentStatement
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: GetWindowsVersion
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: EqualityOperator
+                                                                text: "="
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"Windows 7/Server 2008 R2\""
+                                                              - kind: Newline
+                                                                text: "\n"
+                                                          - kind: Whitespace
+                                                            text: "                        "
+                                                  - kind: CaseClause
+                                                    children:
+                                                      - kind: CaseKeyword
+                                                        text: Case
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: IntegerLiteral
+                                                        text: "2"
+                                                      - kind: Newline
+                                                        text: "\n"
+                                                      - kind: StatementList
+                                                        children:
+                                                          - kind: Whitespace
+                                                            text: "                            "
+                                                          - kind: AssignmentStatement
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: GetWindowsVersion
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: EqualityOperator
+                                                                text: "="
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"Windows 8/Server 2012\""
+                                                              - kind: Newline
+                                                                text: "\n"
+                                                          - kind: Whitespace
+                                                            text: "                        "
+                                                  - kind: CaseClause
+                                                    children:
+                                                      - kind: CaseKeyword
+                                                        text: Case
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: IntegerLiteral
+                                                        text: "3"
+                                                      - kind: Newline
+                                                        text: "\n"
+                                                      - kind: StatementList
+                                                        children:
+                                                          - kind: Whitespace
+                                                            text: "                            "
+                                                          - kind: AssignmentStatement
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: GetWindowsVersion
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: EqualityOperator
+                                                                text: "="
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"Windows 8.1/Server 2012 R2\""
+                                                              - kind: Newline
+                                                                text: "\n"
+                                                          - kind: Whitespace
+                                                            text: "                    "
+                                                  - kind: EndKeyword
+                                                    text: End
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: SelectKeyword
+                                                    text: Select
+                                                  - kind: Newline
+                                                    text: "\n"
+                                              - kind: Whitespace
+                                                text: "            "
+                                      - kind: EndKeyword
+                                        text: End
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: SelectKeyword
+                                        text: Select
+                                      - kind: Newline
+                                        text: "\n"
+                                  - kind: Whitespace
+                                    text: "    "
+                                  - kind: Newline
+                                    text: "\n"
+                                  - kind: Whitespace
+                                    text: "        "
+                          - kind: CaseClause
+                            children:
+                              - kind: CaseKeyword
+                                text: Case
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: VER_PLATFORM_WIN32_WINDOWS
+                              - kind: ColonOperator
+                                text: ":"
+                              - kind: Newline
+                                text: "\n"
+                              - kind: StatementList
+                                children:
+                                  - kind: SelectCaseStatement
+                                    children:
+                                      - kind: Whitespace
+                                        text: "            "
+                                      - kind: SelectKeyword
+                                        text: Select
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: CaseKeyword
+                                        text: Case
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: osv
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: dwVerMinor
+                                      - kind: Newline
+                                        text: "\n"
+                                      - kind: Whitespace
+                                        text: "                "
+                                      - kind: CaseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: Whitespace
+                                                text: "                    "
+                                              - kind: AssignmentStatement
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: GetWindowsVersion
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: EqualityOperator
+                                                    text: "="
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"Windows 95\""
+                                                  - kind: Newline
+                                                    text: "\n"
+                                              - kind: Whitespace
+                                                text: "                "
+                                      - kind: CaseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IntegerLiteral
+                                            text: "90"
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: Whitespace
+                                                text: "                    "
+                                              - kind: AssignmentStatement
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: GetWindowsVersion
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: EqualityOperator
+                                                    text: "="
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"Windows Me\""
+                                                  - kind: Newline
+                                                    text: "\n"
+                                              - kind: Whitespace
+                                                text: "                "
+                                      - kind: CaseElseClause
+                                        children:
+                                          - kind: CaseKeyword
+                                            text: Case
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: ElseKeyword
+                                            text: Else
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: Whitespace
+                                                text: "                    "
+                                              - kind: AssignmentStatement
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: GetWindowsVersion
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: EqualityOperator
+                                                    text: "="
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"Windows 98\""
+                                                  - kind: Newline
+                                                    text: "\n"
+                                              - kind: Whitespace
+                                                text: "            "
+                                      - kind: EndKeyword
+                                        text: End
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: SelectKeyword
+                                        text: Select
+                                      - kind: Newline
+                                        text: "\n"
+                                  - kind: Whitespace
+                                    text: "    "
+                          - kind: EndKeyword
+                            text: End
+                          - kind: Whitespace
+                            text: " "
+                          - kind: SelectKeyword
+                            text: Select
+                          - kind: Newline
+                            text: "\n"
+                  - kind: ElseClause
+                    children:
+                      - kind: ElseKeyword
+                        text: Else
+                      - kind: Newline
+                        text: "\n"
+                      - kind: StatementList
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: GetWindowsVersion
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"Unable to identify your version of Windows.\""
+                              - kind: Newline
+                                text: "\n"
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: Newline
+        text: "\n"

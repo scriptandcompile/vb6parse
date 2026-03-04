@@ -1,0 +1,61 @@
+---
+source: vb6parse/tests/module/audiostation.rs
+expression: module_file
+---
+name: modEnums
+cst:
+  root:
+    kind: Root
+    children:
+      - kind: EnumStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: enumMidiMediaType
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: Midi
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Identifier
+            text: sID
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: Whitespace
+            text: "    "
+          - kind: Unknown
+            text: "["
+          - kind: Unknown
+            text: Beep
+          - kind: Unknown
+            text: "]"
+          - kind: Newline
+            text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: EnumKeyword
+            text: Enum
+          - kind: Newline
+            text: "\n"

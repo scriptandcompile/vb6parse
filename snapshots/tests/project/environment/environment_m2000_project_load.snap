@@ -1,0 +1,340 @@
+---
+source: vb6parse/tests/project/environment.rs
+expression: project
+---
+project_type: OleDll
+references:
+  - uuid: 00020430-0000-0000-c000-000000000046
+    unknown1: "2.0"
+    unknown2: "0"
+    path: "..\\..\\..\\..\\Windows\\SysWOW64\\stdole2.tlb"
+    description: OLE Automation
+  - uuid: 3050f1c5-98b5-11cf-bb82-00aa00bdce0b
+    unknown1: "4.0"
+    unknown2: "0"
+    path: "..\\..\\..\\..\\Windows\\SysWOW64\\mshtml.tlb"
+    description: Microsoft HTML Object Library
+  - uuid: 54bc8460-c769-11d2-8350-444553540004
+    unknown1: "2.0"
+    unknown2: "0"
+    path: Idispatch.tlb
+    description: IDispatch Interface - Eduardo Morcillo
+objects:
+  - uuid: eab22ac0-30c1-11cf-a7eb-0000c05bae0b
+    version: "1.1"
+    unknown1: "0"
+    file_name: ieframe.dll
+modules:
+  - name: globalvars
+    path: globalvars.bas
+  - name: helpmod
+    path: helpmod.bas
+  - name: Module6
+    path: changeres.bas
+  - name: databaseX
+    path: dbX.bas
+  - name: Module3
+    path: dc.bas
+  - name: gpp1
+    path: gpp1.bas
+  - name: AnyPrinter
+    path: IsPrinter.bas
+  - name: Module5
+    path: jpg.bas
+  - name: Module2
+    path: Mod_Util.bas
+  - name: PicHandler
+    path: pic.bas
+  - name: Module4
+    path: pipe.bas
+  - name: mHLSRGB
+    path: mHLSRGB.bas
+  - name: Fcall
+    path: Fcall.bas
+  - name: mdlIDispatch
+    path: mdlIDispatch.bas
+  - name: Module1
+    path: Mod_Text.bas
+  - name: Module7
+    path: sleep.bas
+  - name: modObjectExtender
+    path: modObjectExtender.bas
+  - name: modUnregCOM
+    path: modTrickUnregCOM.bas
+  - name: Module8
+    path: newRND.bas
+  - name: Module9
+    path: monitor.bas
+  - name: modGDIPlusResize
+    path: modGDIPlusResize.bas
+  - name: Module10
+    path: Module10.bas
+  - name: GetAdaptsInfo
+    path: GetAdaptsInfo.bas
+  - name: Module11
+    path: EduardoCircle.bas
+  - name: mdQRCodegen
+    path: mdQRCodegen.bas
+  - name: Module12
+    path: Module12.bas
+  - name: LibMemory
+    path: LibMemory.bas
+  - name: mdTlsThunks
+    path: mdTlsThunks.bas
+classes:
+  - name: cDIBSection
+    path: cDIBSection.cls
+  - name: clsProfiler
+    path: clsProfiler.cls
+  - name: coder
+    path: coder.cls
+  - name: counter
+    path: counter.cls
+  - name: cRegistry
+    path: cRegistry.cls
+  - name: TaskInterface
+    path: ITask.cls
+  - name: mArray
+    path: mArray.cls
+  - name: MovieModule
+    path: MovieModule.cls
+  - name: mStiva
+    path: mStiva.cls
+  - name: mThreadref
+    path: mThreadref.cls
+  - name: MusicBox
+    path: MusicBox.cls
+  - name: MyProcess
+    path: MyProcess.cls
+  - name: RecordMci
+    path: RecordMci.cls
+  - name: TaskBase
+    path: TaskBase.cls
+  - name: TaskMaster
+    path: TaskMaster.cls
+  - name: VarItem
+    path: VarItem.cls
+  - name: FileSelector
+    path: FileSelector.cls
+  - name: Document
+    path: myDoc.cls
+  - name: recDir
+    path: RecDir.cls
+  - name: TextViewer
+    path: TextViewer.cls
+  - name: dropdownlist
+    path: dropdownlist.cls
+  - name: myTextBox
+    path: myTextBox.cls
+  - name: myCheckBox
+    path: checkbox.cls
+  - name: myButton
+    path: myButton.cls
+  - name: InterPress
+    path: InterPress.cls
+  - name: ExifRead
+    path: ExifRead.cls
+  - name: Group
+    path: Group.cls
+  - name: stdCallFunction
+    path: stdCallFunction.cls
+  - name: PropReference
+    path: PropReference.cls
+  - name: cJpeg
+    path: cJpeg.cls
+  - name: Hash
+    path: Hash.cls
+  - name: sbHash
+    path: sbHash.cls
+  - name: mEvent
+    path: mEvent.cls
+  - name: GuiButton
+    path: GuiButton.cls
+  - name: GuiTextBox
+    path: GuiTextBox.cls
+  - name: GuiCheckBox
+    path: GuiCheckBox.cls
+  - name: GuiEditBox
+    path: GuiEditBox.cls
+  - name: GuiListBox
+    path: GuiListBox.cls
+  - name: GuiDropDown
+    path: GuiDropDown.cls
+  - name: lambda
+    path: lambda.cls
+  - name: FastCollection
+    path: FastCollection.cls
+  - name: basetask
+    path: basetask.cls
+  - name: mHandler
+    path: mHandler.cls
+  - name: MemBlock
+    path: MemBlock.cls
+  - name: callback
+    path: callback.cls
+  - name: CallBack2
+    path: CallBack2.cls
+  - name: ComShinkEvent
+    path: ComShinkEvent.cls
+  - name: LongHash
+    path: LongHash.cls
+  - name: Constant
+    path: constantclass.cls
+  - name: idHash
+    path: idHash.cls
+  - name: clsOSInfo
+    path: clsOSInfo.cls
+  - name: Math
+    path: Math.cls
+  - name: ThreadsClass
+    path: ThreadsClass.cls
+  - name: Enumeration
+    path: Enumeration.cls
+  - name: mStiva2
+    path: mStiva2.cls
+  - name: Mutex
+    path: Mutex.cls
+  - name: safeforms
+    path: safeforms.cls
+  - name: cHttpDownload
+    path: cHttpDownload.cls
+  - name: cTlsClient
+    path: cTlsClient1.cls
+  - name: Mk2Base
+    path: Mk2Base.cls
+  - name: ShellPipe
+    path: ShellPipe.cls
+  - name: SPBuffer
+    path: SPBuffer.cls
+  - name: SerialPort
+    path: SerialPort.cls
+  - name: MetaDc
+    path: MetaDc.cls
+  - name: cZipArchive
+    path: cZipArchive.cls
+  - name: ZipTool
+    path: ZipTool.cls
+  - name: XmlMonoInternal
+    path: XmlMonoInternal.cls
+  - name: XmlMono
+    path: XmlMono.cls
+  - name: XmlNode
+    path: XmlNode.cls
+  - name: JsonArray
+    path: JsonArray.cls
+  - name: JsonObject
+    path: JsonObject.cls
+  - name: mIndexes
+    path: Indexes.cls
+  - name: ErrorBag
+    path: ErrorBag.cls
+  - name: SinkEvent
+    path: SinkEvent.cls
+  - name: cTlsSocket
+    path: cTlsSocket.cls
+  - name: clsHttpsRequest
+    path: HttpsRequest.cls
+  - name: cAsyncSocket
+    path: cAsyncSocket.cls
+  - name: CodeBlock
+    path: CodeBlock.cls
+  - name: Lexar
+    path: Lexar.cls
+  - name: GuiImage
+    path: GuiImage.cls
+  - name: ExtControl
+    path: ExtControl.cls
+  - name: cNinePatch
+    path: cNinePatch.cls
+  - name: RefArray
+    path: RefArray.cls
+  - name: HashList
+    path: HashList.cls
+  - name: iBoxArray
+    path: iBoxArray.cls
+  - name: ppppLight
+    path: ppppLight.cls
+  - name: cRateLimiter
+    path: cRateLimiter.cls
+  - name: IControlIndex
+    path: IControlIndex.cls
+related_documents: []
+property_pages: []
+designers: []
+forms:
+  - Avi.frm
+  - help.frm
+  - SMALL.frm
+  - tweakprive.frm
+  - TEST.frm
+  - FileSelectorDialog.frm
+  - FontDialog1.frm
+  - ColorDialog.frm
+  - NeoMsgBox.frm
+  - MyPopUp.frm
+  - GuiM2000.frm
+  - TextP0.frm
+  - layer.frm
+user_controls:
+  - glis4.ctl
+  - ucPieChart.ctl
+  - ucChartArea.ctl
+  - ctxNineButton.ctl
+  - ShapeEx.ctl
+  - ucRadialProgress.ctl
+  - ctxWinsock.ctl
+user_documents: []
+other_properties:
+  MS Transaction Server:
+    AutoRefresh: "1"
+properties:
+  unused_control_info: Retain
+  upgrade_controls: Upgrade
+  res_file_32_path: M2000.RES
+  icon_form: ""
+  startup: ""
+  help_file_path: ""
+  title: M2000
+  exe_32_file_name: M2000.dll
+  exe_32_compatible: m2000.exe
+  dll_base_address: 1342177280
+  path_32: ""
+  command_line_arguments: ""
+  name: M2000
+  description: ""
+  debug_startup_component: ""
+  help_context_id: "0"
+  compatibility_mode: NoCompatibility
+  version_32_compatibility: ""
+  version_info:
+    major: 12
+    minor: 35
+    revision: 0
+    auto_increment_revision: 0
+    company_name: georgekarras.blogspot.com
+    file_description: M2000 Interpreter
+    copyright: "George Karras, Kallitha Attikis, Greece"
+    trademark: Open Source Software
+    product_name: Mathitis 2000 (Pupil 2000)
+    comments: M2000 Environment and Interpreter.
+  server_support_files: Remote
+  conditional_compile: ""
+  compilation_type:
+    NativeCode:
+      optimization_type: FavorFastCode
+      favor_pentium_pro: "False"
+      code_view_debug_info: NotCreated
+      aliasing: AssumeAliasing
+      bounds_check: NoBoundsCheck
+      overflow_check: NoOverflowCheck
+      floating_point_check: NoFloatingPointErrorCheck
+      pentium_fdiv_bug_check: NoPentiumFDivBugCheck
+      unrounded_floating_point: Allow
+  start_mode: Automation
+  unattended: Interactive
+  retained: UnloadOnExit
+  thread_per_object: 0
+  threading_model: ApartmentThreaded
+  max_number_of_threads: 20
+  debug_startup_option: WaitForComponentCreation
+  use_existing_browser: DoNotUse

@@ -1,0 +1,19 @@
+---
+source: vb6parse/tests/invalid_syntax/invalid_control_flow.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: ExitStatement
+      children:
+        - kind: ExitKeyword
+          text: Exit
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
