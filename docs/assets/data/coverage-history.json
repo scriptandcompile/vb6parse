@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-04T02:42:10Z",
+  "last_updated": "2026-03-04T06:42:34Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T19:53:21Z",
@@ -749,38 +749,72 @@
           "percent": 96.17
         }
       }
+    },
+    {
+      "timestamp": "2026-03-04T06:42:34Z",
+      "commit_sha": "7ac0dcdb5b1d3f2c7cf7e9a5a29c1cf5cf812a90",
+      "commit_message": "Merge branch 'master' of https://github.com/scriptandcompile/vb6parse",
+      "coverage": {
+        "line_coverage": 95.93,
+        "function_coverage": 93.4,
+        "region_coverage": 96.17
+      },
+      "tests": {
+        "total": 6137,
+        "lib_tests": 5491,
+        "doc_tests": 111,
+        "integration_tests": 535,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 95297,
+          "total": 99339,
+          "percent": 95.93
+        },
+        "functions": {
+          "covered": 6109,
+          "total": 6541,
+          "percent": 93.4
+        },
+        "regions": {
+          "covered": 152289,
+          "total": 158359,
+          "percent": 96.17
+        }
+      }
     }
   ],
   "coverage_summary": {
     "line_coverage": {
       "latest": 95.93,
-      "trend": "improving",
-      "change_percent": 0.12,
+      "trend": "stable",
+      "change_percent": 0.0,
       "best": 95.93,
       "worst": 95.13,
-      "average": 95.38
+      "average": 95.4
     },
     "function_coverage": {
       "latest": 93.4,
       "trend": "stable",
-      "change_percent": 0.04,
+      "change_percent": 0.0,
       "best": 93.76,
       "worst": 92.94,
       "average": 93.35
     },
     "region_coverage": {
       "latest": 96.17,
-      "trend": "improving",
-      "change_percent": 0.12,
+      "trend": "stable",
+      "change_percent": 0.0,
       "best": 96.17,
       "worst": 95.39,
-      "average": 95.54
+      "average": 95.57
     },
     "test_count": {
       "latest": 6137,
-      "trend": "growing",
-      "change_count": 29,
-      "growth_rate": 0.47
+      "trend": "stable",
+      "change_count": 0,
+      "growth_rate": 0.0
     }
   }
 }
