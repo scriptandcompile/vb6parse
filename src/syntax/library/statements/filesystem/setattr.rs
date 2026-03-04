@@ -687,8 +687,6 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
-        // TODO: need to fix so it captchers strings correctly. I completely forgot that
-        // VB6 uses twin double qoutes for escaping not backslash. Oopsie!
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();

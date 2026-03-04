@@ -1,5 +1,5 @@
 ---
-source: tests/keyword_identifiers.rs
+source: vb6parse/tests/keyword_identifiers.rs
 expression: tree
 ---
 root:

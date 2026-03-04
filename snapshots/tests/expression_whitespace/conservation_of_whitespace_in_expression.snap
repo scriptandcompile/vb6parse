@@ -1,5 +1,5 @@
 ---
-source: tests/expression_whitespace.rs
+source: vb6parse/tests/expression_whitespace.rs
 expression: tree
 ---
 root:

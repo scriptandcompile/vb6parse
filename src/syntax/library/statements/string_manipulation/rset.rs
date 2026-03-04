@@ -560,7 +560,7 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
-        // TODO: This one is definitely incorrect. It looks like it's getting borked up with 'text' and the 'Text' Keyword.
+        // Note: 'text' is tokenized as TextKeyword but is valid in identifier positions (is_identifier_like).
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();

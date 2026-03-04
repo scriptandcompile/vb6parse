@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/objects/set.rs
+source: vb6parse/src/syntax/statements/objects/set.rs
 expression: tree
 ---
 root:
@@ -89,7 +89,7 @@ root:
                   text: "="
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
+                - kind: NothingKeyword
                   text: Nothing
                 - kind: Newline
                   text: "\n"

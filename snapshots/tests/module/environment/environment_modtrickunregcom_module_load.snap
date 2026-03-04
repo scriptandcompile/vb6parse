@@ -6763,7 +6763,7 @@ cst:
                                     text: "="
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Identifier
+                                  - kind: NothingKeyword
                                     text: Nothing
                                   - kind: Newline
                                     text: "\r\n"
@@ -8229,7 +8229,7 @@ cst:
                         text: "="
                       - kind: Whitespace
                         text: " "
-                      - kind: Identifier
+                      - kind: NothingKeyword
                         text: Nothing
                       - kind: ColonOperator
                         text: ":"
@@ -8363,7 +8363,7 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
+                  - kind: NothingKeyword
                     text: Nothing
                   - kind: Newline
                     text: "\r\n"
@@ -11449,7 +11449,7 @@ cst:
                                                                         text: "="
                                                                       - kind: Whitespace
                                                                         text: " "
-                                                                      - kind: Identifier
+                                                                      - kind: NothingKeyword
                                                                         text: Nothing
                                                                       - kind: Newline
                                                                         text: "\r\n"
@@ -11469,7 +11469,7 @@ cst:
                                                                         text: "="
                                                                       - kind: Whitespace
                                                                         text: " "
-                                                                      - kind: Identifier
+                                                                      - kind: NothingKeyword
                                                                         text: Nothing
                                                                       - kind: Newline
                                                                         text: "\r\n"
@@ -13423,7 +13423,7 @@ cst:
                                                                                                     text: "="
                                                                                                   - kind: Whitespace
                                                                                                     text: " "
-                                                                                                  - kind: Identifier
+                                                                                                  - kind: NothingKeyword
                                                                                                     text: Nothing
                                                                                                   - kind: Newline
                                                                                                     text: "\r\n"
@@ -13443,7 +13443,7 @@ cst:
                                                                                                     text: "="
                                                                                                   - kind: Whitespace
                                                                                                     text: " "
-                                                                                                  - kind: Identifier
+                                                                                                  - kind: NothingKeyword
                                                                                                     text: Nothing
                                                                                                   - kind: Newline
                                                                                                     text: "\r\n"
@@ -13931,7 +13931,7 @@ cst:
                                                                                                         text: " "
                                                                                                       - kind: IdentifierExpression
                                                                                                         children:
-                                                                                                          - kind: Identifier
+                                                                                                          - kind: NothingKeyword
                                                                                                             text: Nothing
                                                                                                   - kind: Whitespace
                                                                                                     text: " "
@@ -14243,7 +14243,7 @@ cst:
                                                                                                             children:
                                                                                                               - kind: IdentifierExpression
                                                                                                                 children:
-                                                                                                                  - kind: Identifier
+                                                                                                                  - kind: NothingKeyword
                                                                                                                     text: Nothing
                                                                                                           - kind: Comma
                                                                                                             text: ","
@@ -14839,7 +14839,7 @@ cst:
                                                                                                         text: " "
                                                                                                       - kind: IdentifierExpression
                                                                                                         children:
-                                                                                                          - kind: Identifier
+                                                                                                          - kind: NothingKeyword
                                                                                                             text: Nothing
                                                                                                   - kind: Whitespace
                                                                                                     text: " "
@@ -16213,7 +16213,7 @@ cst:
                                                                                                     text: "="
                                                                                                   - kind: Whitespace
                                                                                                     text: " "
-                                                                                                  - kind: Identifier
+                                                                                                  - kind: NothingKeyword
                                                                                                     text: Nothing
                                                                                                   - kind: Newline
                                                                                                     text: "\r\n"
@@ -26593,7 +26593,7 @@ cst:
                                                                                                                     text: "="
                                                                                                                   - kind: Whitespace
                                                                                                                     text: " "
-                                                                                                                  - kind: Identifier
+                                                                                                                  - kind: NothingKeyword
                                                                                                                     text: Nothing
                                                                                                                   - kind: Newline
                                                                                                                     text: "\r\n"
@@ -26795,7 +26795,7 @@ cst:
                                                                                                     text: "="
                                                                                                   - kind: Whitespace
                                                                                                     text: " "
-                                                                                                  - kind: Identifier
+                                                                                                  - kind: NothingKeyword
                                                                                                     text: Nothing
                                                                                                   - kind: Newline
                                                                                                     text: "\r\n"

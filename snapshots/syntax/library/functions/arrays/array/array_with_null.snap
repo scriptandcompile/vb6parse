@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/arrays/array.rs
+source: vb6parse/src/syntax/library/functions/arrays/array.rs
 expression: tree
 ---
 root:
@@ -71,7 +71,7 @@ root:
                           children:
                             - kind: IdentifierExpression
                               children:
-                                - kind: Identifier
+                                - kind: NothingKeyword
                                   text: Nothing
                     - kind: RightParenthesis
                       text: )

@@ -1,5 +1,5 @@
 ---
-source: src/parsers/cst/property_statements.rs
+source: vb6parse/src/parsers/cst/property_statements.rs
 expression: tree
 ---
 root:
@@ -91,7 +91,7 @@ root:
                           text: " "
                         - kind: IdentifierExpression
                           children:
-                            - kind: Identifier
+                            - kind: NothingKeyword
                               text: Nothing
                 - kind: Whitespace
                   text: " "

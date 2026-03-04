@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/resources/loadpicture.rs
+source: vb6parse/src/syntax/library/functions/resources/loadpicture.rs
 expression: tree
 ---
 root:
@@ -55,7 +55,7 @@ root:
               text: " "
             - kind: IdentifierExpression
               children:
-                - kind: Identifier
+                - kind: NothingKeyword
                   text: Nothing
         - kind: Whitespace
           text: " "
