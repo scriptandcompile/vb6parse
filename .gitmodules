@@ -58,10 +58,6 @@
 	path = tests/data/Genomin
 	url = https://github.com/Gagniuc/Genomin.git
 
-[submodule "tests/data/KORG_Read_pcg"]
-	path = tests/data/KORG_Read_pcg
-	url = https://github.com/OlimilO1402/KORG_Read_pcg.git
-
 [submodule "tests/data/Markov-Chains-VB6"]
 	path = tests/data/Markov-Chains-VB6
 	url = https://github.com/Gagniuc/Markov-Chains-VB6.git

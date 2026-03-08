@@ -24,7 +24,6 @@ exclude = [
     "tests/data/Environment/*",
     "tests/data/framework-vb6/*",
     "tests/data/Genomin/*",
-    "tests/data/KORG_Read_pcg/*",
     "tests/data/Markov-Chains-VB6/*",
     "tests/data/Mix-two-signals-by-using-Spectral-Forecast-in-VB6-app-v1.0/*",
     "tests/data/Mix-two-signals-by-using-Spectral-Forecast-in-VB6-app-v2.0/*",
