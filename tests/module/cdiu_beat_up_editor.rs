@@ -30,10 +30,7 @@ fn cdiu_beat_up_editor_cdiu_12_module_load() {
     insta::assert_yaml_snapshot!(module);
 }
 
-// Note: This test is ignored due to a bug in the parser's error reporting logic
-// when handling multi-byte UTF-8 characters
 #[test]
-#[ignore]
 fn cdiu_beat_up_editor_cma1_module_load() {
     let module_bytes = include_bytes!("../data/CdiuBeatUpEditor/cma1.bas");
 
@@ -63,10 +60,7 @@ fn cdiu_beat_up_editor_cma1_module_load() {
     insta::assert_yaml_snapshot!(module);
 }
 
-// Note: This test is ignored due to a bug in the parser's error reporting logic
-// when handling multi-byte UTF-8 characters
 #[test]
-#[ignore]
 fn cdiu_beat_up_editor_cma2_module_load() {
     let module_bytes = include_bytes!("../data/CdiuBeatUpEditor/cma2.bas");
 
@@ -96,10 +90,7 @@ fn cdiu_beat_up_editor_cma2_module_load() {
     insta::assert_yaml_snapshot!(module);
 }
 
-// Note: This test is ignored due to a bug in the parser's error reporting logic
-// when handling multi-byte UTF-8 characters
 #[test]
-#[ignore]
 fn cdiu_beat_up_editor_cma3_module_load() {
     let module_bytes = include_bytes!("../data/CdiuBeatUpEditor/cma3.bas");
 
@@ -129,10 +120,7 @@ fn cdiu_beat_up_editor_cma3_module_load() {
     insta::assert_yaml_snapshot!(module);
 }
 
-// Note: This test is ignored due to a bug in the parser's error reporting logic
-// when handling multi-byte UTF-8 characters
 #[test]
-#[ignore]
 fn cdiu_beat_up_editor_cma4_module_load() {
     let module_bytes = include_bytes!("../data/CdiuBeatUpEditor/cma4.bas");
 
@@ -162,10 +150,7 @@ fn cdiu_beat_up_editor_cma4_module_load() {
     insta::assert_yaml_snapshot!(module);
 }
 
-// Note: This test is ignored due to a bug in the parser's error reporting logic
-// when handling multi-byte UTF-8 characters
 #[test]
-#[ignore]
 fn cdiu_beat_up_editor_cma5_module_load() {
     let module_bytes = include_bytes!("../data/CdiuBeatUpEditor/cma5.bas");
 
@@ -225,10 +210,7 @@ fn cdiu_beat_up_editor_cma6_module_load() {
     insta::assert_yaml_snapshot!(module);
 }
 
-// Note: This test is ignored due to a bug in the parser's error reporting logic
-// when handling multi-byte UTF-8 characters
 #[test]
-#[ignore]
 fn cdiu_beat_up_editor_cma7_module_load() {
     let module_bytes = include_bytes!("../data/CdiuBeatUpEditor/cma7.bas");
 
@@ -348,10 +330,8 @@ fn cdiu_beat_up_editor_mcpu_proc_module_load() {
     insta::assert_yaml_snapshot!(module);
 }
 
-// Note: This test is ignored due to a bug in the parser's error reporting logic
-// when handling multi-byte UTF-8 characters
 #[test]
-#[ignore]
+#[ignore = "Having an issue with this test generating an assert issue on the yaml snapshot for some reason."]
 fn cdiu_beat_up_editor_other_do_module_load() {
     let module_bytes = include_bytes!("../data/CdiuBeatUpEditor/other_do.bas");
 

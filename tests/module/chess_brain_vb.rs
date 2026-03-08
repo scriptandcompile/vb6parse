@@ -248,10 +248,8 @@ fn chess_brain_vb_epd_module_load() {
     insta::assert_yaml_snapshot!(module);
 }
 
-// Note: This test is ignored due to a stack overflow when parsing or serializing
-// this large 180K module file with complex nested structures
 #[test]
-#[ignore]
+#[ignore = "Failing due to a stack overflow in the parser."]
 fn chess_brain_vb_eval_module_load() {
     let module_bytes =
         include_bytes!("../data/ChessBrainVB/ChessBrainVB_V4_03a/Source/Modules/Eval.bas");

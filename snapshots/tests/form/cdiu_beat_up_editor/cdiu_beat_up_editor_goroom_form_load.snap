@@ -1,0 +1,3018 @@
+---
+source: vb6parse/tests/form/cdiu_beat_up_editor.rs
+expression: form_file
+---
+form:
+  Form:
+    name: GoRoom
+    tag: ""
+    index: 0
+    properties:
+      appearance: ThreeD
+      auto_redraw: Manual
+      back_color:
+        System:
+          index: 15
+      border_style: Sizable
+      caption: ¶i¤J©Ð¶¡
+      client_height: 1500
+      client_left: 45
+      client_top: 435
+      client_width: 6240
+      clip_controls: Clipped
+      control_box: Included
+      draw_mode: CopyPen
+      draw_style: Solid
+      draw_width: 1
+      enabled: Enabled
+      fill_color:
+        System:
+          index: 0
+      fill_style: Transparent
+      font:
+        name: MS Sans Serif
+        size: 8
+        charset: 0
+        weight: 400
+        underline: false
+        italic: false
+        strikethrough: false
+      font_transparent: Transparent
+      fore_color:
+        System:
+          index: 18
+      has_dc: HasContext
+      height: 240
+      help_context_id: 0
+      icon: ~
+      key_preview: false
+      left: 0
+      link_mode: None
+      link_topic: Form1
+      max_button: Included
+      mdi_child: false
+      min_button: Included
+      mouse_icon: ~
+      mouse_pointer: Default
+      moveable: Moveable
+      negotiate_menus: true
+      ole_drop_mode: None
+      palette: ~
+      palette_mode: HalfTone
+      picture: ~
+      right_to_left: LeftToRight
+      scale_height: 1500
+      scale_left: 0
+      scale_mode: Twip
+      scale_top: 0
+      scale_width: 6240
+      show_in_taskbar: Show
+      start_up_position: WindowsDefault
+      top: 0
+      visible: Visible
+      whats_this_button: Excluded
+      whats_this_help: F1Help
+      width: 240
+      window_state: Normal
+    controls:
+      - name: GoRoomPw
+        tag: ""
+        index: 0
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 375
+              help_context_id: 0
+              hide_selection: true
+              left: 1440
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: "*"
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 2
+              tab_stop: Included
+              text: ""
+              tool_tip_text: ""
+              top: 840
+              visible: Visible
+              whats_this_help_id: 0
+              width: 3015
+      - name: GoRoomButton
+        tag: ""
+        index: 0
+        kind:
+          CommandButton:
+            properties:
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 15
+              cancel: false
+              caption: ¶i¤J©Ð¶¡
+              causes_validation: "Yes"
+              default: false
+              disabled_picture: ~
+              down_picture: ~
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              height: 1215
+              help_context_id: 0
+              left: 4680
+              mask_color:
+                RGB:
+                  red: 192
+                  green: 192
+                  blue: 192
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              picture: ~
+              right_to_left: LeftToRight
+              style: Standard
+              tab_index: 1
+              tab_stop: Included
+              tool_tip_text: ""
+              top: 120
+              use_mask_color: DoNotUseMaskColor
+              whats_this_help_id: 0
+              width: 1455
+      - name: GoRoomName
+        tag: ""
+        index: 0
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 375
+              help_context_id: 0
+              hide_selection: true
+              left: 1440
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 0
+              tab_stop: Included
+              text: ""
+              tool_tip_text: ""
+              top: 240
+              visible: Visible
+              whats_this_help_id: 0
+              width: 3015
+      - name: Go_RoomNumber
+        tag: ""
+        index: 0
+        kind:
+          Label:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              auto_size: Fixed
+              back_color:
+                System:
+                  index: 15
+              back_style: Opaque
+              border_style: None
+              caption: ©Ð¶¡½s¸¹
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 18
+              height: 180
+              left: 120
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              right_to_left: LeftToRight
+              tab_index: 4
+              tool_tip_text: ""
+              top: 240
+              use_mnemonic: true
+              visible: Visible
+              whats_this_help_id: 0
+              width: 720
+              word_wrap: NonWrapping
+      - name: Go_RoomPw
+        tag: ""
+        index: 0
+        kind:
+          Label:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              auto_size: Fixed
+              back_color:
+                System:
+                  index: 15
+              back_style: Opaque
+              border_style: None
+              caption: ©Ð¶¡±K½X
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 18
+              height: 180
+              left: 120
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              mouse_icon: ~
+              mouse_pointer: Default
+              ole_drop_mode: None
+              right_to_left: LeftToRight
+              tab_index: 3
+              tool_tip_text: ""
+              top: 840
+              use_mnemonic: true
+              visible: Visible
+              whats_this_help_id: 0
+              width: 720
+              word_wrap: NonWrapping
+    menus: []
+objects: []
+version:
+  major: 5
+  minor: 0
+attributes:
+  name: GoRoom
+  global_name_space: Local
+  creatable: "False"
+  predeclared_id: "True"
+  exposed: "False"
+  description: ~
+  ext_key: {}
+cst:
+  root:
+    kind: Root
+    children:
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Form_Load
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: Newline
+                text: "\n"
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: SetLG
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: GoRoomButton_Click
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: Newline
+                text: "\n"
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Check
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: VbMsgBoxResult
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: SaveFile
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringKeyword
+                    text: String
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: Admin
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: BooleanLiteralExpression
+                        children:
+                          - kind: FalseKeyword
+                            text: "False"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Whitespace
+                    text: " "
+                  - kind: OnErrorStatement
+                    children:
+                      - kind: OnKeyword
+                        text: "On"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ErrorKeyword
+                        text: Error
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ResumeKeyword
+                        text: Resume
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NextKeyword
+                        text: Next
+                      - kind: Newline
+                        text: "\n"
+                  - kind: Newline
+                    text: "\n"
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: TotalBeat
+                      - kind: Whitespace
+                        text: " "
+                      - kind: GreaterThanOperator
+                        text: ">"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "0"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\n"
+                  - kind: StatementList
+                    children:
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: CallExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: cma2
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: CheckCombo
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: TotalBeat
+                                  - kind: RightParenthesis
+                                    text: )
+                              - kind: Whitespace
+                                text: " "
+                              - kind: GreaterThanOperator
+                                text: ">"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "0"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Newline
+                            text: "\n"
+                          - kind: StatementList
+                            children:
+                              - kind: Whitespace
+                                text: "        "
+                              - kind: AssignmentStatement
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Check
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: CallExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: MsgBox
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: CallExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: IIf
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: BinaryExpression
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: Language
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: EqualityOperator
+                                                                text: "="
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: NumericLiteralExpression
+                                                                children:
+                                                                  - kind: IntegerLiteral
+                                                                    text: "0"
+                                                      - kind: Comma
+                                                        text: ","
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: StringLiteralExpression
+                                                            children:
+                                                              - kind: StringLiteral
+                                                                text: "\"ÀÉ®×¬O§_»Ý­nÀx¦s?\""
+                                                      - kind: Comma
+                                                        text: ","
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: StringLiteralExpression
+                                                            children:
+                                                              - kind: StringLiteral
+                                                                text: "\"Do You Need To Save?\""
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: vbYesNoCancel
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: CallExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: IIf
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: BinaryExpression
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: Language
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: EqualityOperator
+                                                                text: "="
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: NumericLiteralExpression
+                                                                children:
+                                                                  - kind: IntegerLiteral
+                                                                    text: "0"
+                                                      - kind: Comma
+                                                        text: ","
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: StringLiteralExpression
+                                                            children:
+                                                              - kind: StringLiteral
+                                                                text: "\"¨t²Î°T®§\""
+                                                      - kind: Comma
+                                                        text: ","
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: StringLiteralExpression
+                                                            children:
+                                                              - kind: StringLiteral
+                                                                text: "\"System Info\""
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                      - kind: RightParenthesis
+                                        text: )
+                                  - kind: Newline
+                                    text: "\n"
+                              - kind: Whitespace
+                                text: "    "
+                          - kind: ElseClause
+                            children:
+                              - kind: ElseKeyword
+                                text: Else
+                              - kind: Newline
+                                text: "\n"
+                              - kind: StatementList
+                                children:
+                                  - kind: Whitespace
+                                    text: "        "
+                                  - kind: CallStatement
+                                    children:
+                                      - kind: Identifier
+                                        text: GoRoomDo
+                                      - kind: Newline
+                                        text: "\n"
+                                  - kind: Whitespace
+                                    text: "    "
+                          - kind: EndKeyword
+                            text: End
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Newline
+                            text: "\n"
+                  - kind: ElseClause
+                    children:
+                      - kind: ElseKeyword
+                        text: Else
+                      - kind: Newline
+                        text: "\n"
+                      - kind: StatementList
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: CallStatement
+                            children:
+                              - kind: Identifier
+                                text: GoRoomDo
+                              - kind: Newline
+                                text: "\n"
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: Check
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: vbYes
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\n"
+                  - kind: StatementList
+                    children:
+                      - kind: Newline
+                        text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: SaveFile
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: cma2
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: OpenFile
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"cdiu\""
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"Save\""
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Newline
+                        text: "\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: SaveFile
+                              - kind: Whitespace
+                                text: " "
+                              - kind: InequalityOperator
+                                text: "<>"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"\""
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: cma3
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: CbeOut
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: SaveFile
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Newline
+                        text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: GoRoomDo
+                          - kind: Newline
+                            text: "\n"
+                  - kind: ElseIfClause
+                    children:
+                      - kind: ElseIfKeyword
+                        text: ElseIf
+                      - kind: Whitespace
+                        text: " "
+                      - kind: BinaryExpression
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: Check
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: vbNo
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ThenKeyword
+                        text: Then
+                      - kind: Newline
+                        text: "\n"
+                      - kind: StatementList
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: CallStatement
+                            children:
+                              - kind: Identifier
+                                text: GoRoomDo
+                              - kind: Newline
+                                text: "\n"
+                  - kind: ElseIfClause
+                    children:
+                      - kind: ElseIfKeyword
+                        text: ElseIf
+                      - kind: Whitespace
+                        text: " "
+                      - kind: BinaryExpression
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: Check
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: vbCancel
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ThenKeyword
+                        text: Then
+                      - kind: Newline
+                        text: "\n"
+                      - kind: StatementList
+                        children:
+                          - kind: ExitStatement
+                            children:
+                              - kind: Whitespace
+                                text: "    "
+                              - kind: ExitKeyword
+                                text: Exit
+                              - kind: Whitespace
+                                text: " "
+                              - kind: SubKeyword
+                                text: Sub
+                              - kind: Newline
+                                text: "\n"
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: GoRoomDo
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: Newline
+                text: "\n"
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Result
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringKeyword
+                    text: String
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Show
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringKeyword
+                    text: String
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: ShowA
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringKeyword
+                    text: String
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: RoomPassword
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: CallExpression
+                    children:
+                      - kind: Identifier
+                        text: IIf
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: GoRoom
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: GoRoomPw
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: TextKeyword
+                                        text: Text
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: InequalityOperator
+                                    text: "<>"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"\""
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: GoRoom
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: GoRoomPw
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: TextKeyword
+                                    text: Text
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"9898x9898\""
+                      - kind: RightParenthesis
+                        text: )
+                  - kind: Newline
+                    text: "\n"
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: RoomNumber
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: CallExpression
+                    children:
+                      - kind: Identifier
+                        text: IIf
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: GoRoom
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: GoRoomName
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: TextKeyword
+                                        text: Text
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: InequalityOperator
+                                    text: "<>"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"\""
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: GoRoom
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: GoRoomName
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: TextKeyword
+                                    text: Text
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"0\""
+                      - kind: RightParenthesis
+                        text: )
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: Result
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: CallExpression
+                    children:
+                      - kind: Identifier
+                        text: GetData2
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: BinaryExpression
+                                                children:
+                                                  - kind: BinaryExpression
+                                                    children:
+                                                      - kind: BinaryExpression
+                                                        children:
+                                                          - kind: CallExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: GetLink
+                                                              - kind: LeftParenthesis
+                                                                text: (
+                                                              - kind: ArgumentList
+                                                                children:
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: StringLiteralExpression
+                                                                        children:
+                                                                          - kind: StringLiteral
+                                                                            text: "\"584444400A1F1F4747471E445245401E5E55441F535459451F575F425F5F5D1E4058400F454355420D\""
+                                                              - kind: RightParenthesis
+                                                                text: )
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: AdditionOperator
+                                                            text: +
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: CallExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: GetCode
+                                                              - kind: LeftParenthesis
+                                                                text: (
+                                                              - kind: ArgumentList
+                                                                children:
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: IdentifierExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: User
+                                                              - kind: RightParenthesis
+                                                                text: )
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: AdditionOperator
+                                                        text: +
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: CallExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: GetLink
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: StringLiteralExpression
+                                                                    children:
+                                                                      - kind: StringLiteral
+                                                                        text: "\"16425F5F5D0D\""
+                                                          - kind: RightParenthesis
+                                                            text: )
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: AdditionOperator
+                                                    text: +
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: CallExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: GetCode
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: CallExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: CStr
+                                                                  - kind: LeftParenthesis
+                                                                    text: (
+                                                                  - kind: ArgumentList
+                                                                    children:
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: IdentifierExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: RoomNumber
+                                                                  - kind: RightParenthesis
+                                                                    text: )
+                                                      - kind: RightParenthesis
+                                                        text: )
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: AdditionOperator
+                                                text: +
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: CallExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: GetLink
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: StringLiteralExpression
+                                                            children:
+                                                              - kind: StringLiteral
+                                                                text: "\"16425F5F5D40470D\""
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: AdditionOperator
+                                            text: +
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: CallExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: GetCode
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: RoomPassword
+                                              - kind: RightParenthesis
+                                                text: )
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: AdditionOperator
+                                        text: +
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: GetLink
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"165859540D\""
+                                          - kind: RightParenthesis
+                                            text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: AdditionOperator
+                                    text: +
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: CallExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: GetCode
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: GetHardId
+                                      - kind: RightParenthesis
+                                        text: )
+                      - kind: RightParenthesis
+                        text: )
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: Result
+                      - kind: Whitespace
+                        text: " "
+                      - kind: InequalityOperator
+                        text: "<>"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: StringLiteralExpression
+                        children:
+                          - kind: StringLiteral
+                            text: "\"0\""
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\n"
+                  - kind: StatementList
+                    children:
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: Room
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BooleanLiteralExpression
+                            children:
+                              - kind: TrueKeyword
+                                text: "True"
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Newline
+                        text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: RoomNumber
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: Val
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: GoRoom
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: GoRoomName
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: TextKeyword
+                                            text: Text
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: GoRoomButton
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Enabled
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BooleanLiteralExpression
+                            children:
+                              - kind: FalseKeyword
+                                text: "False"
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: GoRoomName
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Enabled
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BooleanLiteralExpression
+                            children:
+                              - kind: FalseKeyword
+                                text: "False"
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: GoRoomPw
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Enabled
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BooleanLiteralExpression
+                            children:
+                              - kind: FalseKeyword
+                                text: "False"
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: ChatBox
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: ShowRoomNumber
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Caption
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: GoRoom
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: GoRoomName
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: TextKeyword
+                                text: Text
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: ChatBox
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: ShowRoomName
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Caption
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: CallExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Split
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: Result
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: StringLiteralExpression
+                                            children:
+                                              - kind: StringLiteral
+                                                text: "\"999bbb999\""
+                                  - kind: RightParenthesis
+                                    text: )
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: ChatBox
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: ShowRoomName
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Caption
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: GetDCode
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: ChatBox
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: ShowRoomName
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: Caption
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: ChatBox
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: ShowRoomName
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Caption
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"9898x9898\""
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: ChatBox
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: ShowRoomName
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Caption
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"\""
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: ChatBox
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: ShowRoomHost
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Caption
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: CallExpression
+                                children:
+                                  - kind: CallExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Split
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: Result
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
+                                                children:
+                                                  - kind: StringLiteral
+                                                    text: "\"999bbb999\""
+                                      - kind: RightParenthesis
+                                        text: )
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "1"
+                                  - kind: RightParenthesis
+                                    text: )
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Roomid
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: CallExpression
+                                    children:
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Split
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: Result
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"999bbb999\""
+                                          - kind: RightParenthesis
+                                            text: )
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "2"
+                                      - kind: RightParenthesis
+                                        text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: SubtractionOperator
+                                    text: "-"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "1"
+                              - kind: Newline
+                                text: "\n"
+                          - kind: IfStatement
+                            children:
+                              - kind: Whitespace
+                                text: "    "
+                              - kind: IfKeyword
+                                text: If
+                              - kind: Whitespace
+                                text: " "
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: ChatBox
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: ShowRoomHost
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Caption
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: User
+                              - kind: Whitespace
+                                text: " "
+                              - kind: ThenKeyword
+                                text: Then
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AssignmentStatement
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: ChatBox
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: StartButton
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Visible
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: BooleanLiteralExpression
+                                    children:
+                                      - kind: TrueKeyword
+                                        text: "True"
+                                  - kind: Newline
+                                    text: "\n"
+                              - kind: Whitespace
+                                text: "    "
+                              - kind: Identifier
+                                text: GoRoom
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Hide
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: GoRoom
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Enabled
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: BooleanLiteralExpression
+                                children:
+                                  - kind: FalseKeyword
+                                    text: "False"
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: cma1
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: CloseSound
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: cma4
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: UnloadD3D
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: cma6
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: UnloadDI
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: Newline
+                        text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: ChatBox
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: Show
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: ChatBox
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: UpdateTextShow
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: cmt
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Enabled
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BooleanLiteralExpression
+                            children:
+                              - kind: FalseKeyword
+                                text: "False"
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: cmt
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: Hide
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: ChatBox
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: UpdateText
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Enabled
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BooleanLiteralExpression
+                            children:
+                              - kind: TrueKeyword
+                                text: "True"
+                          - kind: Newline
+                            text: "\n"
+                      - kind: UnloadStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: UnloadKeyword
+                            text: Unload
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: GoRoom
+                          - kind: Newline
+                            text: "\n"
+                  - kind: ElseClause
+                    children:
+                      - kind: ElseKeyword
+                        text: Else
+                      - kind: Newline
+                        text: "\n"
+                      - kind: StatementList
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: MsgBox
+                              - kind: Whitespace
+                                text: " "
+                              - kind: CallExpression
+                                children:
+                                  - kind: Identifier
+                                    text: IIf
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: Language
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: EqualityOperator
+                                                text: "="
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "0"
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: StringLiteralExpression
+                                            children:
+                                              - kind: StringLiteral
+                                                text: "\"±K½X¿ù»~\""
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: StringLiteralExpression
+                                            children:
+                                              - kind: StringLiteral
+                                                text: "\"Password Wrong\""
+                                  - kind: RightParenthesis
+                                    text: )
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Comma
+                                    text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: vbYes
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Comma
+                                    text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: CallExpression
+                                children:
+                                  - kind: Identifier
+                                    text: IIf
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: Language
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: EqualityOperator
+                                                text: "="
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "0"
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: StringLiteralExpression
+                                            children:
+                                              - kind: StringLiteral
+                                                text: "\"¨t²Î°T®§\""
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: StringLiteralExpression
+                                            children:
+                                              - kind: StringLiteral
+                                                text: "\"System Info\""
+                                  - kind: RightParenthesis
+                                    text: )
+                              - kind: Newline
+                                text: "\n"
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: GoRoom
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: GoRoomName
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: TextKeyword
+                            text: Text
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: StringLiteralExpression
+                        children:
+                          - kind: StringLiteral
+                            text: "\"\""
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AssignmentStatement
+                    children:
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: GoRoom
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: GoRoomName
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: TextKeyword
+                            text: Text
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "0"
+                      - kind: Newline
+                        text: "\n"
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: GoRoomName_KeyDown
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: KeyCode
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: IntegerKeyword
+                text: Integer
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: Shift
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: IntegerKeyword
+                text: Integer
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: Newline
+                text: "\n"
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: KeyCode
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "13"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: GoRoomPw
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: SetFocus
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: GoRoomPw_KeyDown
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: KeyCode
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: IntegerKeyword
+                text: Integer
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: Shift
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: IntegerKeyword
+                text: Integer
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: Newline
+                text: "\n"
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: KeyCode
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "13"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: GoRoomButton_Click
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SetLG
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: Newline
+                text: "\n"
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: Admin
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: BooleanLiteralExpression
+                        children:
+                          - kind: FalseKeyword
+                            text: "False"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Whitespace
+                    text: " "
+                  - kind: OnErrorStatement
+                    children:
+                      - kind: OnKeyword
+                        text: "On"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ErrorKeyword
+                        text: Error
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ResumeKeyword
+                        text: Resume
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NextKeyword
+                        text: Next
+                      - kind: Newline
+                        text: "\n"
+                  - kind: Newline
+                    text: "\n"
+              - kind: IfStatement
+                children:
+                  - kind: Whitespace
+                    text: "        "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: Language
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "0"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\n"
+                  - kind: StatementList
+                    children:
+                      - kind: Whitespace
+                        text: "            "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: GoRoom
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Caption
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"¶i¤J©Ð¶¡\""
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "            "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: GoRoom
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Go_RoomNumber
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Caption
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"©Ð¶¡½s¸¹\""
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "            "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: GoRoom
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Go_RoomPw
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Caption
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"©Ð¶¡±K½X\""
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "            "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: GoRoom
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: GoRoomButton
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Caption
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"¶i¤J©Ð¶¡\""
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Newline
+                        text: "\n"
+                      - kind: Whitespace
+                        text: "        "
+                  - kind: ElseIfClause
+                    children:
+                      - kind: ElseIfKeyword
+                        text: ElseIf
+                      - kind: Whitespace
+                        text: " "
+                      - kind: BinaryExpression
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: Language
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ThenKeyword
+                        text: Then
+                      - kind: Newline
+                        text: "\n"
+                      - kind: StatementList
+                        children:
+                          - kind: Whitespace
+                            text: "            "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: GoRoom
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Caption
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"Go Room\""
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "            "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: GoRoom
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Go_RoomNumber
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Caption
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"Room Number\""
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "            "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: GoRoom
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Go_RoomPw
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Caption
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"Room Password\""
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "            "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: GoRoom
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: GoRoomButton
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Caption
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"Go Room\""
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Newline
+                            text: "\n"
+                          - kind: Whitespace
+                            text: "        "
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"

@@ -1,9 +1,6 @@
 use vb6parse::*;
 
-// Note: This test is ignored due to a bug in the parser's error reporting logic
-// when handling multi-byte UTF-8 characters
 #[test]
-#[ignore]
 fn bitrate_calculator_global_module_load() {
     let module_bytes =
         include_bytes!("../data/Bitrate-calculator/Windows/Source-code/modGlobal.bas");
@@ -34,10 +31,7 @@ fn bitrate_calculator_global_module_load() {
     insta::assert_yaml_snapshot!(module);
 }
 
-// Note: This test is ignored due to a bug in the parser's error reporting logic
-// when handling multi-byte UTF-8 characters
 #[test]
-#[ignore]
 fn bitrate_calculator_hook_wheel_mouse_module_load() {
     let module_bytes =
         include_bytes!("../data/Bitrate-calculator/Windows/Source-code/modHookWheelMouse.bas");

@@ -30,10 +30,7 @@ fn cdiu_beat_up_editor_ccommondialog_class_load() {
     insta::assert_yaml_snapshot!(class);
 }
 
-// Note: This test is ignored due to a bug in the parser's error reporting logic
-// when handling multi-byte UTF-8 characters
 #[test]
-#[ignore]
 fn cdiu_beat_up_editor_clscryptoapiandcompression_class_load() {
     let class_bytes = include_bytes!("../data/CdiuBeatUpEditor/clsCryptoAPIandCompression.cls");
 

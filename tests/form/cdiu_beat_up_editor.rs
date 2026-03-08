@@ -1,10 +1,7 @@
 use vb6parse::files::FormFile;
 use vb6parse::io::SourceFile;
 
-// Note: This test is ignored due to a bug in the parser's error reporting logic
-// when handling multi-byte UTF-8 characters
 #[test]
-#[ignore]
 fn cdiu_beat_up_editor_chatbox_form_load() {
     let form_file_bytes = include_bytes!("../data/CdiuBeatUpEditor/ChatBox.frm");
 
@@ -35,10 +32,7 @@ fn cdiu_beat_up_editor_chatbox_form_load() {
     insta::assert_yaml_snapshot!(form_file);
 }
 
-// Note: This test is ignored due to a bug in the parser's error reporting logic
-// when handling multi-byte UTF-8 characters
 #[test]
-#[ignore]
 fn cdiu_beat_up_editor_goroom_form_load() {
     let form_file_bytes = include_bytes!("../data/CdiuBeatUpEditor/GoRoom.frm");
 
@@ -69,10 +63,7 @@ fn cdiu_beat_up_editor_goroom_form_load() {
     insta::assert_yaml_snapshot!(form_file);
 }
 
-// Note: This test is ignored due to a bug in the parser's error reporting logic
-// when handling multi-byte UTF-8 characters
 #[test]
-#[ignore]
 fn cdiu_beat_up_editor_openroom_form_load() {
     let form_file_bytes = include_bytes!("../data/CdiuBeatUpEditor/OpenRoom.frm");
 
@@ -103,10 +94,7 @@ fn cdiu_beat_up_editor_openroom_form_load() {
     insta::assert_yaml_snapshot!(form_file);
 }
 
-// Note: This test is ignored due to a bug in the parser's error reporting logic
-// when handling multi-byte UTF-8 characters
 #[test]
-#[ignore]
 fn cdiu_beat_up_editor_systemread_form_load() {
     let form_file_bytes = include_bytes!("../data/CdiuBeatUpEditor/systemRead.frm");
 
@@ -137,10 +125,7 @@ fn cdiu_beat_up_editor_systemread_form_load() {
     insta::assert_yaml_snapshot!(form_file);
 }
 
-// Note: This test is ignored due to a bug in the parser's error reporting logic
-// when handling multi-byte UTF-8 characters
 #[test]
-#[ignore]
 fn cdiu_beat_up_editor_test_form_load() {
     let form_file_bytes = include_bytes!("../data/CdiuBeatUpEditor/test.frm");
 

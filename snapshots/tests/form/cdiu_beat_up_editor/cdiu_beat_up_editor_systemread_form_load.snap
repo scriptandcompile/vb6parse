@@ -1,0 +1,143 @@
+---
+source: vb6parse/tests/form/cdiu_beat_up_editor.rs
+expression: form_file
+---
+form:
+  Form:
+    name: systemRead
+    tag: ""
+    index: 0
+    properties:
+      appearance: ThreeD
+      auto_redraw: Manual
+      back_color:
+        System:
+          index: 15
+      border_style: Sizable
+      caption: ¨t²Î°T®§
+      client_height: 6390
+      client_left: 45
+      client_top: 435
+      client_width: 7605
+      clip_controls: Clipped
+      control_box: Included
+      draw_mode: CopyPen
+      draw_style: Solid
+      draw_width: 1
+      enabled: Enabled
+      fill_color:
+        System:
+          index: 0
+      fill_style: Transparent
+      font:
+        name: MS Sans Serif
+        size: 8
+        charset: 0
+        weight: 400
+        underline: false
+        italic: false
+        strikethrough: false
+      font_transparent: Transparent
+      fore_color:
+        System:
+          index: 18
+      has_dc: HasContext
+      height: 240
+      help_context_id: 0
+      icon: ~
+      key_preview: false
+      left: 0
+      link_mode: None
+      link_topic: Form1
+      max_button: Included
+      mdi_child: false
+      min_button: Included
+      mouse_icon: ~
+      mouse_pointer: Default
+      moveable: Moveable
+      negotiate_menus: true
+      ole_drop_mode: None
+      palette: ~
+      palette_mode: HalfTone
+      picture: ~
+      right_to_left: LeftToRight
+      scale_height: 6390
+      scale_left: 0
+      scale_mode: Twip
+      scale_top: 0
+      scale_width: 7605
+      show_in_taskbar: Show
+      start_up_position: WindowsDefault
+      top: 0
+      visible: Visible
+      whats_this_button: Excluded
+      whats_this_help: F1Help
+      width: 240
+      window_state: Normal
+    controls:
+      - name: ShowText
+        tag: ""
+        index: 0
+        kind:
+          TextBox:
+            properties:
+              alignment: LeftJustify
+              appearance: ThreeD
+              back_color:
+                System:
+                  index: 5
+              border_style: FixedSingle
+              causes_validation: "Yes"
+              data_field: ""
+              data_format: ""
+              data_member: ""
+              data_source: ""
+              drag_icon: ~
+              drag_mode: Manual
+              enabled: Enabled
+              fore_color:
+                System:
+                  index: 8
+              height: 6135
+              help_context_id: 0
+              hide_selection: true
+              left: 120
+              link_item: ""
+              link_mode: None
+              link_timeout: 50
+              link_topic: ""
+              locked: false
+              max_length: 0
+              mouse_icon: ~
+              mouse_pointer: Default
+              multi_line: SingleLine
+              ole_drag_mode: Manual
+              ole_drop_mode: None
+              password_char: ~
+              right_to_left: LeftToRight
+              scroll_bars: None
+              tab_index: 0
+              tab_stop: Included
+              text: ""
+              tool_tip_text: ""
+              top: 120
+              visible: Visible
+              whats_this_help_id: 0
+              width: 7335
+    menus: []
+objects: []
+version:
+  major: 5
+  minor: 0
+attributes:
+  name: systemRead
+  global_name_space: Local
+  creatable: "False"
+  predeclared_id: "True"
+  exposed: "False"
+  description: ~
+  ext_key: {}
+cst:
+  root:
+    kind: Root
+    children: []
