@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-08T04:49:20Z",
+  "last_updated": "2026-03-09T00:13:33Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T19:53:21Z",
@@ -851,6 +851,40 @@
           "percent": 96.05
         }
       }
+    },
+    {
+      "timestamp": "2026-03-09T00:13:33Z",
+      "commit_sha": "8f9a954f3741149949ab06f304b03ee56247e41e",
+      "commit_message": "Update benchmark data [skip ci]",
+      "coverage": {
+        "line_coverage": 95.85,
+        "function_coverage": 92.87,
+        "region_coverage": 96.05
+      },
+      "tests": {
+        "total": 6150,
+        "lib_tests": 5496,
+        "doc_tests": 119,
+        "integration_tests": 535,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 95428,
+          "total": 99555,
+          "percent": 95.85
+        },
+        "functions": {
+          "covered": 6135,
+          "total": 6606,
+          "percent": 92.87
+        },
+        "regions": {
+          "covered": 152526,
+          "total": 158799,
+          "percent": 96.05
+        }
+      }
     }
   ],
   "coverage_summary": {
@@ -860,7 +894,7 @@
       "change_percent": 0.0,
       "best": 95.93,
       "worst": 95.13,
-      "average": 95.44
+      "average": 95.45
     },
     "function_coverage": {
       "latest": 92.87,
@@ -868,7 +902,7 @@
       "change_percent": 0.0,
       "best": 93.76,
       "worst": 92.87,
-      "average": 93.31
+      "average": 93.3
     },
     "region_coverage": {
       "latest": 96.05,
@@ -876,7 +910,7 @@
       "change_percent": 0.0,
       "best": 96.17,
       "worst": 95.39,
-      "average": 95.61
+      "average": 95.62
     },
     "test_count": {
       "latest": 6150,
