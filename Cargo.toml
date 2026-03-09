@@ -63,7 +63,7 @@ exclude = [
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-uuid = "1.21.0"
+uuid = "1.22.0"
 thiserror = "2.0.18"
 ariadne = "0.6.0"
 image = "0.25.9"
