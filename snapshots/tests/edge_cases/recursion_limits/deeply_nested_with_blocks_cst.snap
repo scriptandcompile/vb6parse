@@ -1,0 +1,659 @@
+---
+source: vb6parse/tests/edge_cases/recursion_limits.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: WithStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: WithKeyword
+                  text: With
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: obj0
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: WithStatement
+                      children:
+                        - kind: Whitespace
+                          text: "        "
+                        - kind: WithKeyword
+                          text: With
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Identifier
+                          text: obj1
+                        - kind: Newline
+                          text: "\n"
+                        - kind: StatementList
+                          children:
+                            - kind: WithStatement
+                              children:
+                                - kind: Whitespace
+                                  text: "            "
+                                - kind: WithKeyword
+                                  text: With
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Identifier
+                                  text: obj2
+                                - kind: Newline
+                                  text: "\n"
+                                - kind: StatementList
+                                  children:
+                                    - kind: WithStatement
+                                      children:
+                                        - kind: Whitespace
+                                          text: "                "
+                                        - kind: WithKeyword
+                                          text: With
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: Identifier
+                                          text: obj3
+                                        - kind: Newline
+                                          text: "\n"
+                                        - kind: StatementList
+                                          children:
+                                            - kind: WithStatement
+                                              children:
+                                                - kind: Whitespace
+                                                  text: "                    "
+                                                - kind: WithKeyword
+                                                  text: With
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: Identifier
+                                                  text: obj4
+                                                - kind: Newline
+                                                  text: "\n"
+                                                - kind: StatementList
+                                                  children:
+                                                    - kind: WithStatement
+                                                      children:
+                                                        - kind: Whitespace
+                                                          text: "                        "
+                                                        - kind: WithKeyword
+                                                          text: With
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: Identifier
+                                                          text: obj5
+                                                        - kind: Newline
+                                                          text: "\n"
+                                                        - kind: StatementList
+                                                          children:
+                                                            - kind: WithStatement
+                                                              children:
+                                                                - kind: Whitespace
+                                                                  text: "                            "
+                                                                - kind: WithKeyword
+                                                                  text: With
+                                                                - kind: Whitespace
+                                                                  text: " "
+                                                                - kind: Identifier
+                                                                  text: obj6
+                                                                - kind: Newline
+                                                                  text: "\n"
+                                                                - kind: StatementList
+                                                                  children:
+                                                                    - kind: WithStatement
+                                                                      children:
+                                                                        - kind: Whitespace
+                                                                          text: "                                "
+                                                                        - kind: WithKeyword
+                                                                          text: With
+                                                                        - kind: Whitespace
+                                                                          text: " "
+                                                                        - kind: Identifier
+                                                                          text: obj7
+                                                                        - kind: Newline
+                                                                          text: "\n"
+                                                                        - kind: StatementList
+                                                                          children:
+                                                                            - kind: WithStatement
+                                                                              children:
+                                                                                - kind: Whitespace
+                                                                                  text: "                                    "
+                                                                                - kind: WithKeyword
+                                                                                  text: With
+                                                                                - kind: Whitespace
+                                                                                  text: " "
+                                                                                - kind: Identifier
+                                                                                  text: obj8
+                                                                                - kind: Newline
+                                                                                  text: "\n"
+                                                                                - kind: StatementList
+                                                                                  children:
+                                                                                    - kind: WithStatement
+                                                                                      children:
+                                                                                        - kind: Whitespace
+                                                                                          text: "                                        "
+                                                                                        - kind: WithKeyword
+                                                                                          text: With
+                                                                                        - kind: Whitespace
+                                                                                          text: " "
+                                                                                        - kind: Identifier
+                                                                                          text: obj9
+                                                                                        - kind: Newline
+                                                                                          text: "\n"
+                                                                                        - kind: StatementList
+                                                                                          children:
+                                                                                            - kind: WithStatement
+                                                                                              children:
+                                                                                                - kind: Whitespace
+                                                                                                  text: "                                            "
+                                                                                                - kind: WithKeyword
+                                                                                                  text: With
+                                                                                                - kind: Whitespace
+                                                                                                  text: " "
+                                                                                                - kind: Identifier
+                                                                                                  text: obj10
+                                                                                                - kind: Newline
+                                                                                                  text: "\n"
+                                                                                                - kind: StatementList
+                                                                                                  children:
+                                                                                                    - kind: WithStatement
+                                                                                                      children:
+                                                                                                        - kind: Whitespace
+                                                                                                          text: "                                                "
+                                                                                                        - kind: WithKeyword
+                                                                                                          text: With
+                                                                                                        - kind: Whitespace
+                                                                                                          text: " "
+                                                                                                        - kind: Identifier
+                                                                                                          text: obj11
+                                                                                                        - kind: Newline
+                                                                                                          text: "\n"
+                                                                                                        - kind: StatementList
+                                                                                                          children:
+                                                                                                            - kind: WithStatement
+                                                                                                              children:
+                                                                                                                - kind: Whitespace
+                                                                                                                  text: "                                                    "
+                                                                                                                - kind: WithKeyword
+                                                                                                                  text: With
+                                                                                                                - kind: Whitespace
+                                                                                                                  text: " "
+                                                                                                                - kind: Identifier
+                                                                                                                  text: obj12
+                                                                                                                - kind: Newline
+                                                                                                                  text: "\n"
+                                                                                                                - kind: StatementList
+                                                                                                                  children:
+                                                                                                                    - kind: WithStatement
+                                                                                                                      children:
+                                                                                                                        - kind: Whitespace
+                                                                                                                          text: "                                                        "
+                                                                                                                        - kind: WithKeyword
+                                                                                                                          text: With
+                                                                                                                        - kind: Whitespace
+                                                                                                                          text: " "
+                                                                                                                        - kind: Identifier
+                                                                                                                          text: obj13
+                                                                                                                        - kind: Newline
+                                                                                                                          text: "\n"
+                                                                                                                        - kind: StatementList
+                                                                                                                          children:
+                                                                                                                            - kind: WithStatement
+                                                                                                                              children:
+                                                                                                                                - kind: Whitespace
+                                                                                                                                  text: "                                                            "
+                                                                                                                                - kind: WithKeyword
+                                                                                                                                  text: With
+                                                                                                                                - kind: Whitespace
+                                                                                                                                  text: " "
+                                                                                                                                - kind: Identifier
+                                                                                                                                  text: obj14
+                                                                                                                                - kind: Newline
+                                                                                                                                  text: "\n"
+                                                                                                                                - kind: StatementList
+                                                                                                                                  children:
+                                                                                                                                    - kind: WithStatement
+                                                                                                                                      children:
+                                                                                                                                        - kind: Whitespace
+                                                                                                                                          text: "                                                                "
+                                                                                                                                        - kind: WithKeyword
+                                                                                                                                          text: With
+                                                                                                                                        - kind: Whitespace
+                                                                                                                                          text: " "
+                                                                                                                                        - kind: Identifier
+                                                                                                                                          text: obj15
+                                                                                                                                        - kind: Newline
+                                                                                                                                          text: "\n"
+                                                                                                                                        - kind: StatementList
+                                                                                                                                          children:
+                                                                                                                                            - kind: WithStatement
+                                                                                                                                              children:
+                                                                                                                                                - kind: Whitespace
+                                                                                                                                                  text: "                                                                    "
+                                                                                                                                                - kind: WithKeyword
+                                                                                                                                                  text: With
+                                                                                                                                                - kind: Whitespace
+                                                                                                                                                  text: " "
+                                                                                                                                                - kind: Identifier
+                                                                                                                                                  text: obj16
+                                                                                                                                                - kind: Newline
+                                                                                                                                                  text: "\n"
+                                                                                                                                                - kind: StatementList
+                                                                                                                                                  children:
+                                                                                                                                                    - kind: WithStatement
+                                                                                                                                                      children:
+                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                          text: "                                                                        "
+                                                                                                                                                        - kind: WithKeyword
+                                                                                                                                                          text: With
+                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                          text: " "
+                                                                                                                                                        - kind: Identifier
+                                                                                                                                                          text: obj17
+                                                                                                                                                        - kind: Newline
+                                                                                                                                                          text: "\n"
+                                                                                                                                                        - kind: StatementList
+                                                                                                                                                          children:
+                                                                                                                                                            - kind: WithStatement
+                                                                                                                                                              children:
+                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                  text: "                                                                            "
+                                                                                                                                                                - kind: WithKeyword
+                                                                                                                                                                  text: With
+                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                  text: " "
+                                                                                                                                                                - kind: Identifier
+                                                                                                                                                                  text: obj18
+                                                                                                                                                                - kind: Newline
+                                                                                                                                                                  text: "\n"
+                                                                                                                                                                - kind: StatementList
+                                                                                                                                                                  children:
+                                                                                                                                                                    - kind: WithStatement
+                                                                                                                                                                      children:
+                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                          text: "                                                                                "
+                                                                                                                                                                        - kind: WithKeyword
+                                                                                                                                                                          text: With
+                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                          text: " "
+                                                                                                                                                                        - kind: Identifier
+                                                                                                                                                                          text: obj19
+                                                                                                                                                                        - kind: Newline
+                                                                                                                                                                          text: "\n"
+                                                                                                                                                                        - kind: StatementList
+                                                                                                                                                                          children:
+                                                                                                                                                                            - kind: WithStatement
+                                                                                                                                                                              children:
+                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                  text: "                                                                                    "
+                                                                                                                                                                                - kind: WithKeyword
+                                                                                                                                                                                  text: With
+                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                  text: " "
+                                                                                                                                                                                - kind: Identifier
+                                                                                                                                                                                  text: obj20
+                                                                                                                                                                                - kind: Newline
+                                                                                                                                                                                  text: "\n"
+                                                                                                                                                                                - kind: StatementList
+                                                                                                                                                                                  children:
+                                                                                                                                                                                    - kind: WithStatement
+                                                                                                                                                                                      children:
+                                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                                          text: "                                                                                        "
+                                                                                                                                                                                        - kind: WithKeyword
+                                                                                                                                                                                          text: With
+                                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                                          text: " "
+                                                                                                                                                                                        - kind: Identifier
+                                                                                                                                                                                          text: obj21
+                                                                                                                                                                                        - kind: Newline
+                                                                                                                                                                                          text: "\n"
+                                                                                                                                                                                        - kind: StatementList
+                                                                                                                                                                                          children:
+                                                                                                                                                                                            - kind: WithStatement
+                                                                                                                                                                                              children:
+                                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                                  text: "                                                                                            "
+                                                                                                                                                                                                - kind: WithKeyword
+                                                                                                                                                                                                  text: With
+                                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                                  text: " "
+                                                                                                                                                                                                - kind: Identifier
+                                                                                                                                                                                                  text: obj22
+                                                                                                                                                                                                - kind: Newline
+                                                                                                                                                                                                  text: "\n"
+                                                                                                                                                                                                - kind: StatementList
+                                                                                                                                                                                                  children:
+                                                                                                                                                                                                    - kind: WithStatement
+                                                                                                                                                                                                      children:
+                                                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                                                          text: "                                                                                                "
+                                                                                                                                                                                                        - kind: WithKeyword
+                                                                                                                                                                                                          text: With
+                                                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                                                          text: " "
+                                                                                                                                                                                                        - kind: Identifier
+                                                                                                                                                                                                          text: obj23
+                                                                                                                                                                                                        - kind: Newline
+                                                                                                                                                                                                          text: "\n"
+                                                                                                                                                                                                        - kind: StatementList
+                                                                                                                                                                                                          children:
+                                                                                                                                                                                                            - kind: WithStatement
+                                                                                                                                                                                                              children:
+                                                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                                                  text: "                                                                                                    "
+                                                                                                                                                                                                                - kind: WithKeyword
+                                                                                                                                                                                                                  text: With
+                                                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                                                  text: " "
+                                                                                                                                                                                                                - kind: Identifier
+                                                                                                                                                                                                                  text: obj24
+                                                                                                                                                                                                                - kind: Newline
+                                                                                                                                                                                                                  text: "\n"
+                                                                                                                                                                                                                - kind: StatementList
+                                                                                                                                                                                                                  children:
+                                                                                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                                                                                      text: "                                                                                                        "
+                                                                                                                                                                                                                    - kind: AssignmentStatement
+                                                                                                                                                                                                                      children:
+                                                                                                                                                                                                                        - kind: IdentifierExpression
+                                                                                                                                                                                                                          children:
+                                                                                                                                                                                                                            - kind: PeriodOperator
+                                                                                                                                                                                                                              text: "."
+                                                                                                                                                                                                                        - kind: BinaryExpression
+                                                                                                                                                                                                                          children:
+                                                                                                                                                                                                                            - kind: IdentifierExpression
+                                                                                                                                                                                                                              children:
+                                                                                                                                                                                                                                - kind: PropertyKeyword
+                                                                                                                                                                                                                                  text: Property
+                                                                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                                                                              text: " "
+                                                                                                                                                                                                                            - kind: EqualityOperator
+                                                                                                                                                                                                                              text: "="
+                                                                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                                                                              text: " "
+                                                                                                                                                                                                                            - kind: NumericLiteralExpression
+                                                                                                                                                                                                                              children:
+                                                                                                                                                                                                                                - kind: IntegerLiteral
+                                                                                                                                                                                                                                  text: "1"
+                                                                                                                                                                                                                        - kind: Newline
+                                                                                                                                                                                                                          text: "\n"
+                                                                                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                                                                                      text: "                                                                                                    "
+                                                                                                                                                                                                                - kind: EndKeyword
+                                                                                                                                                                                                                  text: End
+                                                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                                                  text: " "
+                                                                                                                                                                                                                - kind: WithKeyword
+                                                                                                                                                                                                                  text: With
+                                                                                                                                                                                                                - kind: Newline
+                                                                                                                                                                                                                  text: "\n"
+                                                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                                                              text: "                                                                                                "
+                                                                                                                                                                                                        - kind: EndKeyword
+                                                                                                                                                                                                          text: End
+                                                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                                                          text: " "
+                                                                                                                                                                                                        - kind: WithKeyword
+                                                                                                                                                                                                          text: With
+                                                                                                                                                                                                        - kind: Newline
+                                                                                                                                                                                                          text: "\n"
+                                                                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                                                                      text: "                                                                                            "
+                                                                                                                                                                                                - kind: EndKeyword
+                                                                                                                                                                                                  text: End
+                                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                                  text: " "
+                                                                                                                                                                                                - kind: WithKeyword
+                                                                                                                                                                                                  text: With
+                                                                                                                                                                                                - kind: Newline
+                                                                                                                                                                                                  text: "\n"
+                                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                                              text: "                                                                                        "
+                                                                                                                                                                                        - kind: EndKeyword
+                                                                                                                                                                                          text: End
+                                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                                          text: " "
+                                                                                                                                                                                        - kind: WithKeyword
+                                                                                                                                                                                          text: With
+                                                                                                                                                                                        - kind: Newline
+                                                                                                                                                                                          text: "\n"
+                                                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                                                      text: "                                                                                    "
+                                                                                                                                                                                - kind: EndKeyword
+                                                                                                                                                                                  text: End
+                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                  text: " "
+                                                                                                                                                                                - kind: WithKeyword
+                                                                                                                                                                                  text: With
+                                                                                                                                                                                - kind: Newline
+                                                                                                                                                                                  text: "\n"
+                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                              text: "                                                                                "
+                                                                                                                                                                        - kind: EndKeyword
+                                                                                                                                                                          text: End
+                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                          text: " "
+                                                                                                                                                                        - kind: WithKeyword
+                                                                                                                                                                          text: With
+                                                                                                                                                                        - kind: Newline
+                                                                                                                                                                          text: "\n"
+                                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                                      text: "                                                                            "
+                                                                                                                                                                - kind: EndKeyword
+                                                                                                                                                                  text: End
+                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                  text: " "
+                                                                                                                                                                - kind: WithKeyword
+                                                                                                                                                                  text: With
+                                                                                                                                                                - kind: Newline
+                                                                                                                                                                  text: "\n"
+                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                              text: "                                                                        "
+                                                                                                                                                        - kind: EndKeyword
+                                                                                                                                                          text: End
+                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                          text: " "
+                                                                                                                                                        - kind: WithKeyword
+                                                                                                                                                          text: With
+                                                                                                                                                        - kind: Newline
+                                                                                                                                                          text: "\n"
+                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                      text: "                                                                    "
+                                                                                                                                                - kind: EndKeyword
+                                                                                                                                                  text: End
+                                                                                                                                                - kind: Whitespace
+                                                                                                                                                  text: " "
+                                                                                                                                                - kind: WithKeyword
+                                                                                                                                                  text: With
+                                                                                                                                                - kind: Newline
+                                                                                                                                                  text: "\n"
+                                                                                                                                            - kind: Whitespace
+                                                                                                                                              text: "                                                                "
+                                                                                                                                        - kind: EndKeyword
+                                                                                                                                          text: End
+                                                                                                                                        - kind: Whitespace
+                                                                                                                                          text: " "
+                                                                                                                                        - kind: WithKeyword
+                                                                                                                                          text: With
+                                                                                                                                        - kind: Newline
+                                                                                                                                          text: "\n"
+                                                                                                                                    - kind: Whitespace
+                                                                                                                                      text: "                                                            "
+                                                                                                                                - kind: EndKeyword
+                                                                                                                                  text: End
+                                                                                                                                - kind: Whitespace
+                                                                                                                                  text: " "
+                                                                                                                                - kind: WithKeyword
+                                                                                                                                  text: With
+                                                                                                                                - kind: Newline
+                                                                                                                                  text: "\n"
+                                                                                                                            - kind: Whitespace
+                                                                                                                              text: "                                                        "
+                                                                                                                        - kind: EndKeyword
+                                                                                                                          text: End
+                                                                                                                        - kind: Whitespace
+                                                                                                                          text: " "
+                                                                                                                        - kind: WithKeyword
+                                                                                                                          text: With
+                                                                                                                        - kind: Newline
+                                                                                                                          text: "\n"
+                                                                                                                    - kind: Whitespace
+                                                                                                                      text: "                                                    "
+                                                                                                                - kind: EndKeyword
+                                                                                                                  text: End
+                                                                                                                - kind: Whitespace
+                                                                                                                  text: " "
+                                                                                                                - kind: WithKeyword
+                                                                                                                  text: With
+                                                                                                                - kind: Newline
+                                                                                                                  text: "\n"
+                                                                                                            - kind: Whitespace
+                                                                                                              text: "                                                "
+                                                                                                        - kind: EndKeyword
+                                                                                                          text: End
+                                                                                                        - kind: Whitespace
+                                                                                                          text: " "
+                                                                                                        - kind: WithKeyword
+                                                                                                          text: With
+                                                                                                        - kind: Newline
+                                                                                                          text: "\n"
+                                                                                                    - kind: Whitespace
+                                                                                                      text: "                                            "
+                                                                                                - kind: EndKeyword
+                                                                                                  text: End
+                                                                                                - kind: Whitespace
+                                                                                                  text: " "
+                                                                                                - kind: WithKeyword
+                                                                                                  text: With
+                                                                                                - kind: Newline
+                                                                                                  text: "\n"
+                                                                                            - kind: Whitespace
+                                                                                              text: "                                        "
+                                                                                        - kind: EndKeyword
+                                                                                          text: End
+                                                                                        - kind: Whitespace
+                                                                                          text: " "
+                                                                                        - kind: WithKeyword
+                                                                                          text: With
+                                                                                        - kind: Newline
+                                                                                          text: "\n"
+                                                                                    - kind: Whitespace
+                                                                                      text: "                                    "
+                                                                                - kind: EndKeyword
+                                                                                  text: End
+                                                                                - kind: Whitespace
+                                                                                  text: " "
+                                                                                - kind: WithKeyword
+                                                                                  text: With
+                                                                                - kind: Newline
+                                                                                  text: "\n"
+                                                                            - kind: Whitespace
+                                                                              text: "                                "
+                                                                        - kind: EndKeyword
+                                                                          text: End
+                                                                        - kind: Whitespace
+                                                                          text: " "
+                                                                        - kind: WithKeyword
+                                                                          text: With
+                                                                        - kind: Newline
+                                                                          text: "\n"
+                                                                    - kind: Whitespace
+                                                                      text: "                            "
+                                                                - kind: EndKeyword
+                                                                  text: End
+                                                                - kind: Whitespace
+                                                                  text: " "
+                                                                - kind: WithKeyword
+                                                                  text: With
+                                                                - kind: Newline
+                                                                  text: "\n"
+                                                            - kind: Whitespace
+                                                              text: "                        "
+                                                        - kind: EndKeyword
+                                                          text: End
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: WithKeyword
+                                                          text: With
+                                                        - kind: Newline
+                                                          text: "\n"
+                                                    - kind: Whitespace
+                                                      text: "                    "
+                                                - kind: EndKeyword
+                                                  text: End
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: WithKeyword
+                                                  text: With
+                                                - kind: Newline
+                                                  text: "\n"
+                                            - kind: Whitespace
+                                              text: "                "
+                                        - kind: EndKeyword
+                                          text: End
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: WithKeyword
+                                          text: With
+                                        - kind: Newline
+                                          text: "\n"
+                                    - kind: Whitespace
+                                      text: "            "
+                                - kind: EndKeyword
+                                  text: End
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: WithKeyword
+                                  text: With
+                                - kind: Newline
+                                  text: "\n"
+                            - kind: Whitespace
+                              text: "        "
+                        - kind: EndKeyword
+                          text: End
+                        - kind: Whitespace
+                          text: " "
+                        - kind: WithKeyword
+                          text: With
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: WithKeyword
+                  text: With
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

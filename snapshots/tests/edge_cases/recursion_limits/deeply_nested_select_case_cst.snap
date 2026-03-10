@@ -1,0 +1,893 @@
+---
+source: vb6parse/tests/edge_cases/recursion_limits.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SelectCaseStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SelectKeyword
+                  text: Select
+                - kind: Whitespace
+                  text: " "
+                - kind: CaseKeyword
+                  text: Case
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: x0
+                - kind: Newline
+                  text: "\n"
+                - kind: Whitespace
+                  text: "        "
+                - kind: CaseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IntegerLiteral
+                      text: "1"
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: SelectCaseStatement
+                          children:
+                            - kind: Whitespace
+                              text: "        "
+                            - kind: SelectKeyword
+                              text: Select
+                            - kind: Whitespace
+                              text: " "
+                            - kind: CaseKeyword
+                              text: Case
+                            - kind: Whitespace
+                              text: " "
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: x1
+                            - kind: Newline
+                              text: "\n"
+                            - kind: Whitespace
+                              text: "            "
+                            - kind: CaseClause
+                              children:
+                                - kind: CaseKeyword
+                                  text: Case
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: IntegerLiteral
+                                  text: "1"
+                                - kind: Newline
+                                  text: "\n"
+                                - kind: StatementList
+                                  children:
+                                    - kind: SelectCaseStatement
+                                      children:
+                                        - kind: Whitespace
+                                          text: "            "
+                                        - kind: SelectKeyword
+                                          text: Select
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: CaseKeyword
+                                          text: Case
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: x2
+                                        - kind: Newline
+                                          text: "\n"
+                                        - kind: Whitespace
+                                          text: "                "
+                                        - kind: CaseClause
+                                          children:
+                                            - kind: CaseKeyword
+                                              text: Case
+                                            - kind: Whitespace
+                                              text: " "
+                                            - kind: IntegerLiteral
+                                              text: "1"
+                                            - kind: Newline
+                                              text: "\n"
+                                            - kind: StatementList
+                                              children:
+                                                - kind: SelectCaseStatement
+                                                  children:
+                                                    - kind: Whitespace
+                                                      text: "                "
+                                                    - kind: SelectKeyword
+                                                      text: Select
+                                                    - kind: Whitespace
+                                                      text: " "
+                                                    - kind: CaseKeyword
+                                                      text: Case
+                                                    - kind: Whitespace
+                                                      text: " "
+                                                    - kind: IdentifierExpression
+                                                      children:
+                                                        - kind: Identifier
+                                                          text: x3
+                                                    - kind: Newline
+                                                      text: "\n"
+                                                    - kind: Whitespace
+                                                      text: "                    "
+                                                    - kind: CaseClause
+                                                      children:
+                                                        - kind: CaseKeyword
+                                                          text: Case
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: IntegerLiteral
+                                                          text: "1"
+                                                        - kind: Newline
+                                                          text: "\n"
+                                                        - kind: StatementList
+                                                          children:
+                                                            - kind: SelectCaseStatement
+                                                              children:
+                                                                - kind: Whitespace
+                                                                  text: "                    "
+                                                                - kind: SelectKeyword
+                                                                  text: Select
+                                                                - kind: Whitespace
+                                                                  text: " "
+                                                                - kind: CaseKeyword
+                                                                  text: Case
+                                                                - kind: Whitespace
+                                                                  text: " "
+                                                                - kind: IdentifierExpression
+                                                                  children:
+                                                                    - kind: Identifier
+                                                                      text: x4
+                                                                - kind: Newline
+                                                                  text: "\n"
+                                                                - kind: Whitespace
+                                                                  text: "                        "
+                                                                - kind: CaseClause
+                                                                  children:
+                                                                    - kind: CaseKeyword
+                                                                      text: Case
+                                                                    - kind: Whitespace
+                                                                      text: " "
+                                                                    - kind: IntegerLiteral
+                                                                      text: "1"
+                                                                    - kind: Newline
+                                                                      text: "\n"
+                                                                    - kind: StatementList
+                                                                      children:
+                                                                        - kind: SelectCaseStatement
+                                                                          children:
+                                                                            - kind: Whitespace
+                                                                              text: "                        "
+                                                                            - kind: SelectKeyword
+                                                                              text: Select
+                                                                            - kind: Whitespace
+                                                                              text: " "
+                                                                            - kind: CaseKeyword
+                                                                              text: Case
+                                                                            - kind: Whitespace
+                                                                              text: " "
+                                                                            - kind: IdentifierExpression
+                                                                              children:
+                                                                                - kind: Identifier
+                                                                                  text: x5
+                                                                            - kind: Newline
+                                                                              text: "\n"
+                                                                            - kind: Whitespace
+                                                                              text: "                            "
+                                                                            - kind: CaseClause
+                                                                              children:
+                                                                                - kind: CaseKeyword
+                                                                                  text: Case
+                                                                                - kind: Whitespace
+                                                                                  text: " "
+                                                                                - kind: IntegerLiteral
+                                                                                  text: "1"
+                                                                                - kind: Newline
+                                                                                  text: "\n"
+                                                                                - kind: StatementList
+                                                                                  children:
+                                                                                    - kind: SelectCaseStatement
+                                                                                      children:
+                                                                                        - kind: Whitespace
+                                                                                          text: "                            "
+                                                                                        - kind: SelectKeyword
+                                                                                          text: Select
+                                                                                        - kind: Whitespace
+                                                                                          text: " "
+                                                                                        - kind: CaseKeyword
+                                                                                          text: Case
+                                                                                        - kind: Whitespace
+                                                                                          text: " "
+                                                                                        - kind: IdentifierExpression
+                                                                                          children:
+                                                                                            - kind: Identifier
+                                                                                              text: x6
+                                                                                        - kind: Newline
+                                                                                          text: "\n"
+                                                                                        - kind: Whitespace
+                                                                                          text: "                                "
+                                                                                        - kind: CaseClause
+                                                                                          children:
+                                                                                            - kind: CaseKeyword
+                                                                                              text: Case
+                                                                                            - kind: Whitespace
+                                                                                              text: " "
+                                                                                            - kind: IntegerLiteral
+                                                                                              text: "1"
+                                                                                            - kind: Newline
+                                                                                              text: "\n"
+                                                                                            - kind: StatementList
+                                                                                              children:
+                                                                                                - kind: SelectCaseStatement
+                                                                                                  children:
+                                                                                                    - kind: Whitespace
+                                                                                                      text: "                                "
+                                                                                                    - kind: SelectKeyword
+                                                                                                      text: Select
+                                                                                                    - kind: Whitespace
+                                                                                                      text: " "
+                                                                                                    - kind: CaseKeyword
+                                                                                                      text: Case
+                                                                                                    - kind: Whitespace
+                                                                                                      text: " "
+                                                                                                    - kind: IdentifierExpression
+                                                                                                      children:
+                                                                                                        - kind: Identifier
+                                                                                                          text: x7
+                                                                                                    - kind: Newline
+                                                                                                      text: "\n"
+                                                                                                    - kind: Whitespace
+                                                                                                      text: "                                    "
+                                                                                                    - kind: CaseClause
+                                                                                                      children:
+                                                                                                        - kind: CaseKeyword
+                                                                                                          text: Case
+                                                                                                        - kind: Whitespace
+                                                                                                          text: " "
+                                                                                                        - kind: IntegerLiteral
+                                                                                                          text: "1"
+                                                                                                        - kind: Newline
+                                                                                                          text: "\n"
+                                                                                                        - kind: StatementList
+                                                                                                          children:
+                                                                                                            - kind: SelectCaseStatement
+                                                                                                              children:
+                                                                                                                - kind: Whitespace
+                                                                                                                  text: "                                    "
+                                                                                                                - kind: SelectKeyword
+                                                                                                                  text: Select
+                                                                                                                - kind: Whitespace
+                                                                                                                  text: " "
+                                                                                                                - kind: CaseKeyword
+                                                                                                                  text: Case
+                                                                                                                - kind: Whitespace
+                                                                                                                  text: " "
+                                                                                                                - kind: IdentifierExpression
+                                                                                                                  children:
+                                                                                                                    - kind: Identifier
+                                                                                                                      text: x8
+                                                                                                                - kind: Newline
+                                                                                                                  text: "\n"
+                                                                                                                - kind: Whitespace
+                                                                                                                  text: "                                        "
+                                                                                                                - kind: CaseClause
+                                                                                                                  children:
+                                                                                                                    - kind: CaseKeyword
+                                                                                                                      text: Case
+                                                                                                                    - kind: Whitespace
+                                                                                                                      text: " "
+                                                                                                                    - kind: IntegerLiteral
+                                                                                                                      text: "1"
+                                                                                                                    - kind: Newline
+                                                                                                                      text: "\n"
+                                                                                                                    - kind: StatementList
+                                                                                                                      children:
+                                                                                                                        - kind: SelectCaseStatement
+                                                                                                                          children:
+                                                                                                                            - kind: Whitespace
+                                                                                                                              text: "                                        "
+                                                                                                                            - kind: SelectKeyword
+                                                                                                                              text: Select
+                                                                                                                            - kind: Whitespace
+                                                                                                                              text: " "
+                                                                                                                            - kind: CaseKeyword
+                                                                                                                              text: Case
+                                                                                                                            - kind: Whitespace
+                                                                                                                              text: " "
+                                                                                                                            - kind: IdentifierExpression
+                                                                                                                              children:
+                                                                                                                                - kind: Identifier
+                                                                                                                                  text: x9
+                                                                                                                            - kind: Newline
+                                                                                                                              text: "\n"
+                                                                                                                            - kind: Whitespace
+                                                                                                                              text: "                                            "
+                                                                                                                            - kind: CaseClause
+                                                                                                                              children:
+                                                                                                                                - kind: CaseKeyword
+                                                                                                                                  text: Case
+                                                                                                                                - kind: Whitespace
+                                                                                                                                  text: " "
+                                                                                                                                - kind: IntegerLiteral
+                                                                                                                                  text: "1"
+                                                                                                                                - kind: Newline
+                                                                                                                                  text: "\n"
+                                                                                                                                - kind: StatementList
+                                                                                                                                  children:
+                                                                                                                                    - kind: SelectCaseStatement
+                                                                                                                                      children:
+                                                                                                                                        - kind: Whitespace
+                                                                                                                                          text: "                                            "
+                                                                                                                                        - kind: SelectKeyword
+                                                                                                                                          text: Select
+                                                                                                                                        - kind: Whitespace
+                                                                                                                                          text: " "
+                                                                                                                                        - kind: CaseKeyword
+                                                                                                                                          text: Case
+                                                                                                                                        - kind: Whitespace
+                                                                                                                                          text: " "
+                                                                                                                                        - kind: IdentifierExpression
+                                                                                                                                          children:
+                                                                                                                                            - kind: Identifier
+                                                                                                                                              text: x10
+                                                                                                                                        - kind: Newline
+                                                                                                                                          text: "\n"
+                                                                                                                                        - kind: Whitespace
+                                                                                                                                          text: "                                                "
+                                                                                                                                        - kind: CaseClause
+                                                                                                                                          children:
+                                                                                                                                            - kind: CaseKeyword
+                                                                                                                                              text: Case
+                                                                                                                                            - kind: Whitespace
+                                                                                                                                              text: " "
+                                                                                                                                            - kind: IntegerLiteral
+                                                                                                                                              text: "1"
+                                                                                                                                            - kind: Newline
+                                                                                                                                              text: "\n"
+                                                                                                                                            - kind: StatementList
+                                                                                                                                              children:
+                                                                                                                                                - kind: SelectCaseStatement
+                                                                                                                                                  children:
+                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                      text: "                                                "
+                                                                                                                                                    - kind: SelectKeyword
+                                                                                                                                                      text: Select
+                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                      text: " "
+                                                                                                                                                    - kind: CaseKeyword
+                                                                                                                                                      text: Case
+                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                      text: " "
+                                                                                                                                                    - kind: IdentifierExpression
+                                                                                                                                                      children:
+                                                                                                                                                        - kind: Identifier
+                                                                                                                                                          text: x11
+                                                                                                                                                    - kind: Newline
+                                                                                                                                                      text: "\n"
+                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                      text: "                                                    "
+                                                                                                                                                    - kind: CaseClause
+                                                                                                                                                      children:
+                                                                                                                                                        - kind: CaseKeyword
+                                                                                                                                                          text: Case
+                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                          text: " "
+                                                                                                                                                        - kind: IntegerLiteral
+                                                                                                                                                          text: "1"
+                                                                                                                                                        - kind: Newline
+                                                                                                                                                          text: "\n"
+                                                                                                                                                        - kind: StatementList
+                                                                                                                                                          children:
+                                                                                                                                                            - kind: SelectCaseStatement
+                                                                                                                                                              children:
+                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                  text: "                                                    "
+                                                                                                                                                                - kind: SelectKeyword
+                                                                                                                                                                  text: Select
+                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                  text: " "
+                                                                                                                                                                - kind: CaseKeyword
+                                                                                                                                                                  text: Case
+                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                  text: " "
+                                                                                                                                                                - kind: IdentifierExpression
+                                                                                                                                                                  children:
+                                                                                                                                                                    - kind: Identifier
+                                                                                                                                                                      text: x12
+                                                                                                                                                                - kind: Newline
+                                                                                                                                                                  text: "\n"
+                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                  text: "                                                        "
+                                                                                                                                                                - kind: CaseClause
+                                                                                                                                                                  children:
+                                                                                                                                                                    - kind: CaseKeyword
+                                                                                                                                                                      text: Case
+                                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                                      text: " "
+                                                                                                                                                                    - kind: IntegerLiteral
+                                                                                                                                                                      text: "1"
+                                                                                                                                                                    - kind: Newline
+                                                                                                                                                                      text: "\n"
+                                                                                                                                                                    - kind: StatementList
+                                                                                                                                                                      children:
+                                                                                                                                                                        - kind: SelectCaseStatement
+                                                                                                                                                                          children:
+                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                              text: "                                                        "
+                                                                                                                                                                            - kind: SelectKeyword
+                                                                                                                                                                              text: Select
+                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                              text: " "
+                                                                                                                                                                            - kind: CaseKeyword
+                                                                                                                                                                              text: Case
+                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                              text: " "
+                                                                                                                                                                            - kind: IdentifierExpression
+                                                                                                                                                                              children:
+                                                                                                                                                                                - kind: Identifier
+                                                                                                                                                                                  text: x13
+                                                                                                                                                                            - kind: Newline
+                                                                                                                                                                              text: "\n"
+                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                              text: "                                                            "
+                                                                                                                                                                            - kind: CaseClause
+                                                                                                                                                                              children:
+                                                                                                                                                                                - kind: CaseKeyword
+                                                                                                                                                                                  text: Case
+                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                  text: " "
+                                                                                                                                                                                - kind: IntegerLiteral
+                                                                                                                                                                                  text: "1"
+                                                                                                                                                                                - kind: Newline
+                                                                                                                                                                                  text: "\n"
+                                                                                                                                                                                - kind: StatementList
+                                                                                                                                                                                  children:
+                                                                                                                                                                                    - kind: SelectCaseStatement
+                                                                                                                                                                                      children:
+                                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                                          text: "                                                            "
+                                                                                                                                                                                        - kind: SelectKeyword
+                                                                                                                                                                                          text: Select
+                                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                                          text: " "
+                                                                                                                                                                                        - kind: CaseKeyword
+                                                                                                                                                                                          text: Case
+                                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                                          text: " "
+                                                                                                                                                                                        - kind: IdentifierExpression
+                                                                                                                                                                                          children:
+                                                                                                                                                                                            - kind: Identifier
+                                                                                                                                                                                              text: x14
+                                                                                                                                                                                        - kind: Newline
+                                                                                                                                                                                          text: "\n"
+                                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                                          text: "                                                                "
+                                                                                                                                                                                        - kind: CaseClause
+                                                                                                                                                                                          children:
+                                                                                                                                                                                            - kind: CaseKeyword
+                                                                                                                                                                                              text: Case
+                                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                                              text: " "
+                                                                                                                                                                                            - kind: IntegerLiteral
+                                                                                                                                                                                              text: "1"
+                                                                                                                                                                                            - kind: Newline
+                                                                                                                                                                                              text: "\n"
+                                                                                                                                                                                            - kind: StatementList
+                                                                                                                                                                                              children:
+                                                                                                                                                                                                - kind: SelectCaseStatement
+                                                                                                                                                                                                  children:
+                                                                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                                                                      text: "                                                                "
+                                                                                                                                                                                                    - kind: SelectKeyword
+                                                                                                                                                                                                      text: Select
+                                                                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                                                                      text: " "
+                                                                                                                                                                                                    - kind: CaseKeyword
+                                                                                                                                                                                                      text: Case
+                                                                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                                                                      text: " "
+                                                                                                                                                                                                    - kind: IdentifierExpression
+                                                                                                                                                                                                      children:
+                                                                                                                                                                                                        - kind: Identifier
+                                                                                                                                                                                                          text: x15
+                                                                                                                                                                                                    - kind: Newline
+                                                                                                                                                                                                      text: "\n"
+                                                                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                                                                      text: "                                                                    "
+                                                                                                                                                                                                    - kind: CaseClause
+                                                                                                                                                                                                      children:
+                                                                                                                                                                                                        - kind: CaseKeyword
+                                                                                                                                                                                                          text: Case
+                                                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                                                          text: " "
+                                                                                                                                                                                                        - kind: IntegerLiteral
+                                                                                                                                                                                                          text: "1"
+                                                                                                                                                                                                        - kind: Newline
+                                                                                                                                                                                                          text: "\n"
+                                                                                                                                                                                                        - kind: StatementList
+                                                                                                                                                                                                          children:
+                                                                                                                                                                                                            - kind: SelectCaseStatement
+                                                                                                                                                                                                              children:
+                                                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                                                  text: "                                                                    "
+                                                                                                                                                                                                                - kind: SelectKeyword
+                                                                                                                                                                                                                  text: Select
+                                                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                                                  text: " "
+                                                                                                                                                                                                                - kind: CaseKeyword
+                                                                                                                                                                                                                  text: Case
+                                                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                                                  text: " "
+                                                                                                                                                                                                                - kind: IdentifierExpression
+                                                                                                                                                                                                                  children:
+                                                                                                                                                                                                                    - kind: Identifier
+                                                                                                                                                                                                                      text: x16
+                                                                                                                                                                                                                - kind: Newline
+                                                                                                                                                                                                                  text: "\n"
+                                                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                                                  text: "                                                                        "
+                                                                                                                                                                                                                - kind: CaseClause
+                                                                                                                                                                                                                  children:
+                                                                                                                                                                                                                    - kind: CaseKeyword
+                                                                                                                                                                                                                      text: Case
+                                                                                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                                                                                      text: " "
+                                                                                                                                                                                                                    - kind: IntegerLiteral
+                                                                                                                                                                                                                      text: "1"
+                                                                                                                                                                                                                    - kind: Newline
+                                                                                                                                                                                                                      text: "\n"
+                                                                                                                                                                                                                    - kind: StatementList
+                                                                                                                                                                                                                      children:
+                                                                                                                                                                                                                        - kind: SelectCaseStatement
+                                                                                                                                                                                                                          children:
+                                                                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                                                                              text: "                                                                        "
+                                                                                                                                                                                                                            - kind: SelectKeyword
+                                                                                                                                                                                                                              text: Select
+                                                                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                                                                              text: " "
+                                                                                                                                                                                                                            - kind: CaseKeyword
+                                                                                                                                                                                                                              text: Case
+                                                                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                                                                              text: " "
+                                                                                                                                                                                                                            - kind: IdentifierExpression
+                                                                                                                                                                                                                              children:
+                                                                                                                                                                                                                                - kind: Identifier
+                                                                                                                                                                                                                                  text: x17
+                                                                                                                                                                                                                            - kind: Newline
+                                                                                                                                                                                                                              text: "\n"
+                                                                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                                                                              text: "                                                                            "
+                                                                                                                                                                                                                            - kind: CaseClause
+                                                                                                                                                                                                                              children:
+                                                                                                                                                                                                                                - kind: CaseKeyword
+                                                                                                                                                                                                                                  text: Case
+                                                                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                                                                  text: " "
+                                                                                                                                                                                                                                - kind: IntegerLiteral
+                                                                                                                                                                                                                                  text: "1"
+                                                                                                                                                                                                                                - kind: Newline
+                                                                                                                                                                                                                                  text: "\n"
+                                                                                                                                                                                                                                - kind: StatementList
+                                                                                                                                                                                                                                  children:
+                                                                                                                                                                                                                                    - kind: SelectCaseStatement
+                                                                                                                                                                                                                                      children:
+                                                                                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                                                                                          text: "                                                                            "
+                                                                                                                                                                                                                                        - kind: SelectKeyword
+                                                                                                                                                                                                                                          text: Select
+                                                                                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                                                                                          text: " "
+                                                                                                                                                                                                                                        - kind: CaseKeyword
+                                                                                                                                                                                                                                          text: Case
+                                                                                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                                                                                          text: " "
+                                                                                                                                                                                                                                        - kind: IdentifierExpression
+                                                                                                                                                                                                                                          children:
+                                                                                                                                                                                                                                            - kind: Identifier
+                                                                                                                                                                                                                                              text: x18
+                                                                                                                                                                                                                                        - kind: Newline
+                                                                                                                                                                                                                                          text: "\n"
+                                                                                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                                                                                          text: "                                                                                "
+                                                                                                                                                                                                                                        - kind: CaseClause
+                                                                                                                                                                                                                                          children:
+                                                                                                                                                                                                                                            - kind: CaseKeyword
+                                                                                                                                                                                                                                              text: Case
+                                                                                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                                                                                              text: " "
+                                                                                                                                                                                                                                            - kind: IntegerLiteral
+                                                                                                                                                                                                                                              text: "1"
+                                                                                                                                                                                                                                            - kind: Newline
+                                                                                                                                                                                                                                              text: "\n"
+                                                                                                                                                                                                                                            - kind: StatementList
+                                                                                                                                                                                                                                              children:
+                                                                                                                                                                                                                                                - kind: SelectCaseStatement
+                                                                                                                                                                                                                                                  children:
+                                                                                                                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                                                                                                                      text: "                                                                                "
+                                                                                                                                                                                                                                                    - kind: SelectKeyword
+                                                                                                                                                                                                                                                      text: Select
+                                                                                                                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                                                                                                                      text: " "
+                                                                                                                                                                                                                                                    - kind: CaseKeyword
+                                                                                                                                                                                                                                                      text: Case
+                                                                                                                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                                                                                                                      text: " "
+                                                                                                                                                                                                                                                    - kind: IdentifierExpression
+                                                                                                                                                                                                                                                      children:
+                                                                                                                                                                                                                                                        - kind: Identifier
+                                                                                                                                                                                                                                                          text: x19
+                                                                                                                                                                                                                                                    - kind: Newline
+                                                                                                                                                                                                                                                      text: "\n"
+                                                                                                                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                                                                                                                      text: "                                                                                    "
+                                                                                                                                                                                                                                                    - kind: CaseClause
+                                                                                                                                                                                                                                                      children:
+                                                                                                                                                                                                                                                        - kind: CaseKeyword
+                                                                                                                                                                                                                                                          text: Case
+                                                                                                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                                                                                                          text: " "
+                                                                                                                                                                                                                                                        - kind: IntegerLiteral
+                                                                                                                                                                                                                                                          text: "1"
+                                                                                                                                                                                                                                                        - kind: Newline
+                                                                                                                                                                                                                                                          text: "\n"
+                                                                                                                                                                                                                                                        - kind: StatementList
+                                                                                                                                                                                                                                                          children:
+                                                                                                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                                                                                                              text: "                                                                                        "
+                                                                                                                                                                                                                                                            - kind: AssignmentStatement
+                                                                                                                                                                                                                                                              children:
+                                                                                                                                                                                                                                                                - kind: IdentifierExpression
+                                                                                                                                                                                                                                                                  children:
+                                                                                                                                                                                                                                                                    - kind: Identifier
+                                                                                                                                                                                                                                                                      text: y
+                                                                                                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                                                                                                  text: " "
+                                                                                                                                                                                                                                                                - kind: EqualityOperator
+                                                                                                                                                                                                                                                                  text: "="
+                                                                                                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                                                                                                  text: " "
+                                                                                                                                                                                                                                                                - kind: NumericLiteralExpression
+                                                                                                                                                                                                                                                                  children:
+                                                                                                                                                                                                                                                                    - kind: IntegerLiteral
+                                                                                                                                                                                                                                                                      text: "1"
+                                                                                                                                                                                                                                                                - kind: Newline
+                                                                                                                                                                                                                                                                  text: "\n"
+                                                                                                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                                                                                                              text: "                                                                                "
+                                                                                                                                                                                                                                                    - kind: EndKeyword
+                                                                                                                                                                                                                                                      text: End
+                                                                                                                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                                                                                                                      text: " "
+                                                                                                                                                                                                                                                    - kind: SelectKeyword
+                                                                                                                                                                                                                                                      text: Select
+                                                                                                                                                                                                                                                    - kind: Newline
+                                                                                                                                                                                                                                                      text: "\n"
+                                                                                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                                                                                  text: "                                                                            "
+                                                                                                                                                                                                                                        - kind: EndKeyword
+                                                                                                                                                                                                                                          text: End
+                                                                                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                                                                                          text: " "
+                                                                                                                                                                                                                                        - kind: SelectKeyword
+                                                                                                                                                                                                                                          text: Select
+                                                                                                                                                                                                                                        - kind: Newline
+                                                                                                                                                                                                                                          text: "\n"
+                                                                                                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                                                                                                      text: "                                                                        "
+                                                                                                                                                                                                                            - kind: EndKeyword
+                                                                                                                                                                                                                              text: End
+                                                                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                                                                              text: " "
+                                                                                                                                                                                                                            - kind: SelectKeyword
+                                                                                                                                                                                                                              text: Select
+                                                                                                                                                                                                                            - kind: Newline
+                                                                                                                                                                                                                              text: "\n"
+                                                                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                                                                          text: "                                                                    "
+                                                                                                                                                                                                                - kind: EndKeyword
+                                                                                                                                                                                                                  text: End
+                                                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                                                  text: " "
+                                                                                                                                                                                                                - kind: SelectKeyword
+                                                                                                                                                                                                                  text: Select
+                                                                                                                                                                                                                - kind: Newline
+                                                                                                                                                                                                                  text: "\n"
+                                                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                                                              text: "                                                                "
+                                                                                                                                                                                                    - kind: EndKeyword
+                                                                                                                                                                                                      text: End
+                                                                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                                                                      text: " "
+                                                                                                                                                                                                    - kind: SelectKeyword
+                                                                                                                                                                                                      text: Select
+                                                                                                                                                                                                    - kind: Newline
+                                                                                                                                                                                                      text: "\n"
+                                                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                                                  text: "                                                            "
+                                                                                                                                                                                        - kind: EndKeyword
+                                                                                                                                                                                          text: End
+                                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                                          text: " "
+                                                                                                                                                                                        - kind: SelectKeyword
+                                                                                                                                                                                          text: Select
+                                                                                                                                                                                        - kind: Newline
+                                                                                                                                                                                          text: "\n"
+                                                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                                                      text: "                                                        "
+                                                                                                                                                                            - kind: EndKeyword
+                                                                                                                                                                              text: End
+                                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                                              text: " "
+                                                                                                                                                                            - kind: SelectKeyword
+                                                                                                                                                                              text: Select
+                                                                                                                                                                            - kind: Newline
+                                                                                                                                                                              text: "\n"
+                                                                                                                                                                        - kind: Whitespace
+                                                                                                                                                                          text: "                                                    "
+                                                                                                                                                                - kind: EndKeyword
+                                                                                                                                                                  text: End
+                                                                                                                                                                - kind: Whitespace
+                                                                                                                                                                  text: " "
+                                                                                                                                                                - kind: SelectKeyword
+                                                                                                                                                                  text: Select
+                                                                                                                                                                - kind: Newline
+                                                                                                                                                                  text: "\n"
+                                                                                                                                                            - kind: Whitespace
+                                                                                                                                                              text: "                                                "
+                                                                                                                                                    - kind: EndKeyword
+                                                                                                                                                      text: End
+                                                                                                                                                    - kind: Whitespace
+                                                                                                                                                      text: " "
+                                                                                                                                                    - kind: SelectKeyword
+                                                                                                                                                      text: Select
+                                                                                                                                                    - kind: Newline
+                                                                                                                                                      text: "\n"
+                                                                                                                                                - kind: Whitespace
+                                                                                                                                                  text: "                                            "
+                                                                                                                                        - kind: EndKeyword
+                                                                                                                                          text: End
+                                                                                                                                        - kind: Whitespace
+                                                                                                                                          text: " "
+                                                                                                                                        - kind: SelectKeyword
+                                                                                                                                          text: Select
+                                                                                                                                        - kind: Newline
+                                                                                                                                          text: "\n"
+                                                                                                                                    - kind: Whitespace
+                                                                                                                                      text: "                                        "
+                                                                                                                            - kind: EndKeyword
+                                                                                                                              text: End
+                                                                                                                            - kind: Whitespace
+                                                                                                                              text: " "
+                                                                                                                            - kind: SelectKeyword
+                                                                                                                              text: Select
+                                                                                                                            - kind: Newline
+                                                                                                                              text: "\n"
+                                                                                                                        - kind: Whitespace
+                                                                                                                          text: "                                    "
+                                                                                                                - kind: EndKeyword
+                                                                                                                  text: End
+                                                                                                                - kind: Whitespace
+                                                                                                                  text: " "
+                                                                                                                - kind: SelectKeyword
+                                                                                                                  text: Select
+                                                                                                                - kind: Newline
+                                                                                                                  text: "\n"
+                                                                                                            - kind: Whitespace
+                                                                                                              text: "                                "
+                                                                                                    - kind: EndKeyword
+                                                                                                      text: End
+                                                                                                    - kind: Whitespace
+                                                                                                      text: " "
+                                                                                                    - kind: SelectKeyword
+                                                                                                      text: Select
+                                                                                                    - kind: Newline
+                                                                                                      text: "\n"
+                                                                                                - kind: Whitespace
+                                                                                                  text: "                            "
+                                                                                        - kind: EndKeyword
+                                                                                          text: End
+                                                                                        - kind: Whitespace
+                                                                                          text: " "
+                                                                                        - kind: SelectKeyword
+                                                                                          text: Select
+                                                                                        - kind: Newline
+                                                                                          text: "\n"
+                                                                                    - kind: Whitespace
+                                                                                      text: "                        "
+                                                                            - kind: EndKeyword
+                                                                              text: End
+                                                                            - kind: Whitespace
+                                                                              text: " "
+                                                                            - kind: SelectKeyword
+                                                                              text: Select
+                                                                            - kind: Newline
+                                                                              text: "\n"
+                                                                        - kind: Whitespace
+                                                                          text: "                    "
+                                                                - kind: EndKeyword
+                                                                  text: End
+                                                                - kind: Whitespace
+                                                                  text: " "
+                                                                - kind: SelectKeyword
+                                                                  text: Select
+                                                                - kind: Newline
+                                                                  text: "\n"
+                                                            - kind: Whitespace
+                                                              text: "                "
+                                                    - kind: EndKeyword
+                                                      text: End
+                                                    - kind: Whitespace
+                                                      text: " "
+                                                    - kind: SelectKeyword
+                                                      text: Select
+                                                    - kind: Newline
+                                                      text: "\n"
+                                                - kind: Whitespace
+                                                  text: "            "
+                                        - kind: EndKeyword
+                                          text: End
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: SelectKeyword
+                                          text: Select
+                                        - kind: Newline
+                                          text: "\n"
+                                    - kind: Whitespace
+                                      text: "        "
+                            - kind: EndKeyword
+                              text: End
+                            - kind: Whitespace
+                              text: " "
+                            - kind: SelectKeyword
+                              text: Select
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: SelectKeyword
+                  text: Select
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

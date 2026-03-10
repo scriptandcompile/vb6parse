@@ -1,0 +1,865 @@
+---
+source: vb6parse/tests/edge_cases/recursion_limits.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: IfStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: IfKeyword
+                  text: If
+                - kind: Whitespace
+                  text: " "
+                - kind: BinaryExpression
+                  children:
+                    - kind: ParenthesizedExpression
+                      children:
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: BinaryExpression
+                          children:
+                            - kind: ParenthesizedExpression
+                              children:
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: BinaryExpression
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: a
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: AdditionOperator
+                                      text: +
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: b
+                                - kind: RightParenthesis
+                                  text: )
+                            - kind: Whitespace
+                              text: " "
+                            - kind: MultiplicationOperator
+                              text: "*"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: ParenthesizedExpression
+                              children:
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: BinaryExpression
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: c
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: AdditionOperator
+                                      text: +
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: d
+                                - kind: RightParenthesis
+                                  text: )
+                        - kind: RightParenthesis
+                          text: )
+                    - kind: Whitespace
+                      text: " "
+                    - kind: GreaterThanOperator
+                      text: ">"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: ParenthesizedExpression
+                      children:
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: BinaryExpression
+                          children:
+                            - kind: ParenthesizedExpression
+                              children:
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: BinaryExpression
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: e
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: SubtractionOperator
+                                      text: "-"
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: f
+                                - kind: RightParenthesis
+                                  text: )
+                            - kind: Whitespace
+                              text: " "
+                            - kind: DivisionOperator
+                              text: /
+                            - kind: Whitespace
+                              text: " "
+                            - kind: ParenthesizedExpression
+                              children:
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: BinaryExpression
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: g
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: SubtractionOperator
+                                      text: "-"
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: h
+                                - kind: RightParenthesis
+                                  text: )
+                        - kind: RightParenthesis
+                          text: )
+                - kind: Whitespace
+                  text: " "
+                - kind: ThenKeyword
+                  text: Then
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: ForStatement
+                      children:
+                        - kind: Whitespace
+                          text: "        "
+                        - kind: ForKeyword
+                          text: For
+                        - kind: Whitespace
+                          text: " "
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: i
+                        - kind: Whitespace
+                          text: " "
+                        - kind: EqualityOperator
+                          text: "="
+                        - kind: Whitespace
+                          text: " "
+                        - kind: ParenthesizedExpression
+                          children:
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: BinaryExpression
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: x
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: MultiplicationOperator
+                                  text: "*"
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: y
+                            - kind: RightParenthesis
+                              text: )
+                        - kind: Whitespace
+                          text: " "
+                        - kind: ToKeyword
+                          text: To
+                        - kind: Whitespace
+                          text: " "
+                        - kind: ParenthesizedExpression
+                          children:
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: BinaryExpression
+                              children:
+                                - kind: ParenthesizedExpression
+                                  children:
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: BinaryExpression
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: z
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: AdditionOperator
+                                          text: +
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: w
+                                    - kind: RightParenthesis
+                                      text: )
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: MultiplicationOperator
+                                  text: "*"
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: NumericLiteralExpression
+                                  children:
+                                    - kind: IntegerLiteral
+                                      text: "2"
+                            - kind: RightParenthesis
+                              text: )
+                        - kind: Newline
+                          text: "\n"
+                        - kind: StatementList
+                          children:
+                            - kind: IfStatement
+                              children:
+                                - kind: Whitespace
+                                  text: "            "
+                                - kind: IfKeyword
+                                  text: If
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: ParenthesizedExpression
+                                  children:
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: BinaryExpression
+                                      children:
+                                        - kind: ParenthesizedExpression
+                                          children:
+                                            - kind: LeftParenthesis
+                                              text: (
+                                            - kind: BinaryExpression
+                                              children:
+                                                - kind: ParenthesizedExpression
+                                                  children:
+                                                    - kind: LeftParenthesis
+                                                      text: (
+                                                    - kind: BinaryExpression
+                                                      children:
+                                                        - kind: IdentifierExpression
+                                                          children:
+                                                            - kind: Identifier
+                                                              text: p
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: AndKeyword
+                                                          text: And
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: IdentifierExpression
+                                                          children:
+                                                            - kind: Identifier
+                                                              text: q
+                                                    - kind: RightParenthesis
+                                                      text: )
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: OrKeyword
+                                                  text: Or
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: ParenthesizedExpression
+                                                  children:
+                                                    - kind: LeftParenthesis
+                                                      text: (
+                                                    - kind: BinaryExpression
+                                                      children:
+                                                        - kind: IdentifierExpression
+                                                          children:
+                                                            - kind: Identifier
+                                                              text: r
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: AndKeyword
+                                                          text: And
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: IdentifierExpression
+                                                          children:
+                                                            - kind: Identifier
+                                                              text: s
+                                                    - kind: RightParenthesis
+                                                      text: )
+                                            - kind: RightParenthesis
+                                              text: )
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: AndKeyword
+                                          text: And
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: ParenthesizedExpression
+                                          children:
+                                            - kind: LeftParenthesis
+                                              text: (
+                                            - kind: BinaryExpression
+                                              children:
+                                                - kind: ParenthesizedExpression
+                                                  children:
+                                                    - kind: LeftParenthesis
+                                                      text: (
+                                                    - kind: BinaryExpression
+                                                      children:
+                                                        - kind: IdentifierExpression
+                                                          children:
+                                                            - kind: Identifier
+                                                              text: t
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: OrKeyword
+                                                          text: Or
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: IdentifierExpression
+                                                          children:
+                                                            - kind: Identifier
+                                                              text: u
+                                                    - kind: RightParenthesis
+                                                      text: )
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: AndKeyword
+                                                  text: And
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: ParenthesizedExpression
+                                                  children:
+                                                    - kind: LeftParenthesis
+                                                      text: (
+                                                    - kind: BinaryExpression
+                                                      children:
+                                                        - kind: IdentifierExpression
+                                                          children:
+                                                            - kind: Identifier
+                                                              text: v
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: OrKeyword
+                                                          text: Or
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: IdentifierExpression
+                                                          children:
+                                                            - kind: Identifier
+                                                              text: w
+                                                    - kind: RightParenthesis
+                                                      text: )
+                                            - kind: RightParenthesis
+                                              text: )
+                                    - kind: RightParenthesis
+                                      text: )
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: ThenKeyword
+                                  text: Then
+                                - kind: Newline
+                                  text: "\n"
+                                - kind: StatementList
+                                  children:
+                                    - kind: Whitespace
+                                      text: "                "
+                                    - kind: AssignmentStatement
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: result
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: EqualityOperator
+                                          text: "="
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: ParenthesizedExpression
+                                          children:
+                                            - kind: LeftParenthesis
+                                              text: (
+                                            - kind: BinaryExpression
+                                              children:
+                                                - kind: ParenthesizedExpression
+                                                  children:
+                                                    - kind: LeftParenthesis
+                                                      text: (
+                                                    - kind: BinaryExpression
+                                                      children:
+                                                        - kind: IdentifierExpression
+                                                          children:
+                                                            - kind: Identifier
+                                                              text: a
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: AdditionOperator
+                                                          text: +
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: ParenthesizedExpression
+                                                          children:
+                                                            - kind: LeftParenthesis
+                                                              text: (
+                                                            - kind: BinaryExpression
+                                                              children:
+                                                                - kind: IdentifierExpression
+                                                                  children:
+                                                                    - kind: Identifier
+                                                                      text: b
+                                                                - kind: Whitespace
+                                                                  text: " "
+                                                                - kind: MultiplicationOperator
+                                                                  text: "*"
+                                                                - kind: Whitespace
+                                                                  text: " "
+                                                                - kind: ParenthesizedExpression
+                                                                  children:
+                                                                    - kind: LeftParenthesis
+                                                                      text: (
+                                                                    - kind: BinaryExpression
+                                                                      children:
+                                                                        - kind: IdentifierExpression
+                                                                          children:
+                                                                            - kind: Identifier
+                                                                              text: c
+                                                                        - kind: Whitespace
+                                                                          text: " "
+                                                                        - kind: AdditionOperator
+                                                                          text: +
+                                                                        - kind: Whitespace
+                                                                          text: " "
+                                                                        - kind: ParenthesizedExpression
+                                                                          children:
+                                                                            - kind: LeftParenthesis
+                                                                              text: (
+                                                                            - kind: BinaryExpression
+                                                                              children:
+                                                                                - kind: IdentifierExpression
+                                                                                  children:
+                                                                                    - kind: Identifier
+                                                                                      text: d
+                                                                                - kind: Whitespace
+                                                                                  text: " "
+                                                                                - kind: MultiplicationOperator
+                                                                                  text: "*"
+                                                                                - kind: Whitespace
+                                                                                  text: " "
+                                                                                - kind: IdentifierExpression
+                                                                                  children:
+                                                                                    - kind: Identifier
+                                                                                      text: e
+                                                                            - kind: RightParenthesis
+                                                                              text: )
+                                                                    - kind: RightParenthesis
+                                                                      text: )
+                                                            - kind: RightParenthesis
+                                                              text: )
+                                                    - kind: RightParenthesis
+                                                      text: )
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: SubtractionOperator
+                                                  text: "-"
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: ParenthesizedExpression
+                                                  children:
+                                                    - kind: LeftParenthesis
+                                                      text: (
+                                                    - kind: BinaryExpression
+                                                      children:
+                                                        - kind: ParenthesizedExpression
+                                                          children:
+                                                            - kind: LeftParenthesis
+                                                              text: (
+                                                            - kind: BinaryExpression
+                                                              children:
+                                                                - kind: IdentifierExpression
+                                                                  children:
+                                                                    - kind: Identifier
+                                                                      text: f
+                                                                - kind: Whitespace
+                                                                  text: " "
+                                                                - kind: MultiplicationOperator
+                                                                  text: "*"
+                                                                - kind: Whitespace
+                                                                  text: " "
+                                                                - kind: ParenthesizedExpression
+                                                                  children:
+                                                                    - kind: LeftParenthesis
+                                                                      text: (
+                                                                    - kind: BinaryExpression
+                                                                      children:
+                                                                        - kind: IdentifierExpression
+                                                                          children:
+                                                                            - kind: Identifier
+                                                                              text: g
+                                                                        - kind: Whitespace
+                                                                          text: " "
+                                                                        - kind: AdditionOperator
+                                                                          text: +
+                                                                        - kind: Whitespace
+                                                                          text: " "
+                                                                        - kind: IdentifierExpression
+                                                                          children:
+                                                                            - kind: Identifier
+                                                                              text: h
+                                                                    - kind: RightParenthesis
+                                                                      text: )
+                                                            - kind: RightParenthesis
+                                                              text: )
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: DivisionOperator
+                                                          text: /
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: IdentifierExpression
+                                                          children:
+                                                            - kind: Identifier
+                                                              text: i
+                                                    - kind: RightParenthesis
+                                                      text: )
+                                            - kind: RightParenthesis
+                                              text: )
+                                        - kind: Newline
+                                          text: "\n"
+                                    - kind: WhileStatement
+                                      children:
+                                        - kind: Whitespace
+                                          text: "                "
+                                        - kind: WhileKeyword
+                                          text: While
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: ParenthesizedExpression
+                                          children:
+                                            - kind: LeftParenthesis
+                                              text: (
+                                            - kind: BinaryExpression
+                                              children:
+                                                - kind: IdentifierExpression
+                                                  children:
+                                                    - kind: Identifier
+                                                      text: x
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: GreaterThanOperator
+                                                  text: ">"
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: ParenthesizedExpression
+                                                  children:
+                                                    - kind: LeftParenthesis
+                                                      text: (
+                                                    - kind: BinaryExpression
+                                                      children:
+                                                        - kind: ParenthesizedExpression
+                                                          children:
+                                                            - kind: LeftParenthesis
+                                                              text: (
+                                                            - kind: BinaryExpression
+                                                              children:
+                                                                - kind: IdentifierExpression
+                                                                  children:
+                                                                    - kind: Identifier
+                                                                      text: y
+                                                                - kind: Whitespace
+                                                                  text: " "
+                                                                - kind: MultiplicationOperator
+                                                                  text: "*"
+                                                                - kind: Whitespace
+                                                                  text: " "
+                                                                - kind: IdentifierExpression
+                                                                  children:
+                                                                    - kind: Identifier
+                                                                      text: z
+                                                            - kind: RightParenthesis
+                                                              text: )
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: AdditionOperator
+                                                          text: +
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: ParenthesizedExpression
+                                                          children:
+                                                            - kind: LeftParenthesis
+                                                              text: (
+                                                            - kind: BinaryExpression
+                                                              children:
+                                                                - kind: IdentifierExpression
+                                                                  children:
+                                                                    - kind: Identifier
+                                                                      text: w
+                                                                - kind: Whitespace
+                                                                  text: " "
+                                                                - kind: DivisionOperator
+                                                                  text: /
+                                                                - kind: Whitespace
+                                                                  text: " "
+                                                                - kind: NumericLiteralExpression
+                                                                  children:
+                                                                    - kind: IntegerLiteral
+                                                                      text: "2"
+                                                            - kind: RightParenthesis
+                                                              text: )
+                                                    - kind: RightParenthesis
+                                                      text: )
+                                            - kind: RightParenthesis
+                                              text: )
+                                        - kind: Newline
+                                          text: "\n"
+                                        - kind: StatementList
+                                          children:
+                                            - kind: DoStatement
+                                              children:
+                                                - kind: Whitespace
+                                                  text: "                    "
+                                                - kind: DoKeyword
+                                                  text: Do
+                                                - kind: Newline
+                                                  text: "\n"
+                                                - kind: StatementList
+                                                  children:
+                                                    - kind: Whitespace
+                                                      text: "                        "
+                                                    - kind: AssignmentStatement
+                                                      children:
+                                                        - kind: IdentifierExpression
+                                                          children:
+                                                            - kind: Identifier
+                                                              text: x
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: EqualityOperator
+                                                          text: "="
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: BinaryExpression
+                                                          children:
+                                                            - kind: IdentifierExpression
+                                                              children:
+                                                                - kind: Identifier
+                                                                  text: x
+                                                            - kind: Whitespace
+                                                              text: " "
+                                                            - kind: SubtractionOperator
+                                                              text: "-"
+                                                            - kind: Whitespace
+                                                              text: " "
+                                                            - kind: ParenthesizedExpression
+                                                              children:
+                                                                - kind: LeftParenthesis
+                                                                  text: (
+                                                                - kind: BinaryExpression
+                                                                  children:
+                                                                    - kind: ParenthesizedExpression
+                                                                      children:
+                                                                        - kind: LeftParenthesis
+                                                                          text: (
+                                                                        - kind: BinaryExpression
+                                                                          children:
+                                                                            - kind: IdentifierExpression
+                                                                              children:
+                                                                                - kind: Identifier
+                                                                                  text: a
+                                                                            - kind: Whitespace
+                                                                              text: " "
+                                                                            - kind: AdditionOperator
+                                                                              text: +
+                                                                            - kind: Whitespace
+                                                                              text: " "
+                                                                            - kind: IdentifierExpression
+                                                                              children:
+                                                                                - kind: Identifier
+                                                                                  text: b
+                                                                        - kind: RightParenthesis
+                                                                          text: )
+                                                                    - kind: Whitespace
+                                                                      text: " "
+                                                                    - kind: MultiplicationOperator
+                                                                      text: "*"
+                                                                    - kind: Whitespace
+                                                                      text: " "
+                                                                    - kind: ParenthesizedExpression
+                                                                      children:
+                                                                        - kind: LeftParenthesis
+                                                                          text: (
+                                                                        - kind: BinaryExpression
+                                                                          children:
+                                                                            - kind: IdentifierExpression
+                                                                              children:
+                                                                                - kind: Identifier
+                                                                                  text: c
+                                                                            - kind: Whitespace
+                                                                              text: " "
+                                                                            - kind: AdditionOperator
+                                                                              text: +
+                                                                            - kind: Whitespace
+                                                                              text: " "
+                                                                            - kind: IdentifierExpression
+                                                                              children:
+                                                                                - kind: Identifier
+                                                                                  text: d
+                                                                        - kind: RightParenthesis
+                                                                          text: )
+                                                                - kind: RightParenthesis
+                                                                  text: )
+                                                        - kind: Newline
+                                                          text: "\n"
+                                                    - kind: Whitespace
+                                                      text: "                    "
+                                                - kind: LoopKeyword
+                                                  text: Loop
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: UntilKeyword
+                                                  text: Until
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: ParenthesizedExpression
+                                                  children:
+                                                    - kind: LeftParenthesis
+                                                      text: (
+                                                    - kind: BinaryExpression
+                                                      children:
+                                                        - kind: IdentifierExpression
+                                                          children:
+                                                            - kind: Identifier
+                                                              text: x
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: LessThanOperator
+                                                          text: "<"
+                                                        - kind: Whitespace
+                                                          text: " "
+                                                        - kind: ParenthesizedExpression
+                                                          children:
+                                                            - kind: LeftParenthesis
+                                                              text: (
+                                                            - kind: BinaryExpression
+                                                              children:
+                                                                - kind: ParenthesizedExpression
+                                                                  children:
+                                                                    - kind: LeftParenthesis
+                                                                      text: (
+                                                                    - kind: BinaryExpression
+                                                                      children:
+                                                                        - kind: IdentifierExpression
+                                                                          children:
+                                                                            - kind: Identifier
+                                                                              text: y
+                                                                        - kind: Whitespace
+                                                                          text: " "
+                                                                        - kind: AdditionOperator
+                                                                          text: +
+                                                                        - kind: Whitespace
+                                                                          text: " "
+                                                                        - kind: IdentifierExpression
+                                                                          children:
+                                                                            - kind: Identifier
+                                                                              text: z
+                                                                    - kind: RightParenthesis
+                                                                      text: )
+                                                                - kind: Whitespace
+                                                                  text: " "
+                                                                - kind: DivisionOperator
+                                                                  text: /
+                                                                - kind: Whitespace
+                                                                  text: " "
+                                                                - kind: NumericLiteralExpression
+                                                                  children:
+                                                                    - kind: IntegerLiteral
+                                                                      text: "2"
+                                                            - kind: RightParenthesis
+                                                              text: )
+                                                    - kind: RightParenthesis
+                                                      text: )
+                                                - kind: Newline
+                                                  text: "\n"
+                                            - kind: Whitespace
+                                              text: "                "
+                                        - kind: WendKeyword
+                                          text: Wend
+                                        - kind: Newline
+                                          text: "\n"
+                                    - kind: Whitespace
+                                      text: "            "
+                                - kind: EndKeyword
+                                  text: End
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: IfKeyword
+                                  text: If
+                                - kind: Newline
+                                  text: "\n"
+                            - kind: Whitespace
+                              text: "        "
+                        - kind: NextKeyword
+                          text: Next
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Identifier
+                          text: i
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: IfKeyword
+                  text: If
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
