@@ -25,16 +25,13 @@ fn deeply_nested_controls() {
     assert!(result.is_some());
 }
 
-/// Test that extremely deeply nested controls respect depth limits
+/// Test that extremely deeply nested controls are handled.
 ///
-/// **Note**: This test is marked `ignore` because current depth limiting provides
-/// protection for reasonable depths (up to ~900 levels) but extremely deep nesting
-/// (1100+) can still overflow due to the recursive nature of the parser. We need to
-/// convert to iterative parsing for complete protection.
+/// With iterative parsing using explicit stacks, this now handles
+/// arbitrary nesting depths (1100+ levels) without stack overflow.
 #[test]
-#[ignore = "Current depth limiting doesn't fully prevent stack overflow at extreme depths (1100+)"]
 fn extremely_nested_controls_depth_limit() {
-    // Create a form with nesting that exceeds the limit (1000)
+    // Create a form with nesting that exceeds limits (1000)
     let mut form = String::from("Begin VB.Form Form1\n");
     let depth = 1100; // Exceeds MAX_CONTROL_DEPTH of 1000
 
@@ -48,10 +45,12 @@ fn extremely_nested_controls_depth_limit() {
 
     form.push_str("End\n");
 
-    // Should parse but with limited depth (gracefully handles overflow)
+    // Should parse successfully with iterative parsing
     let source = SourceFile::from_string("test.frm", form);
-    let _result = FormFile::parse(&source);
-    // Phase 2 iterative parsing will handle this case properly
+    let (result, _errors) = FormFile::parse(&source).unpack();
+
+    // Verify we successfully parsed despite extreme nesting
+    assert!(result.is_some());
 }
 
 /// Test that deeply nested expressions don't cause stack overflow
@@ -131,7 +130,7 @@ fn nested_property_groups() {
     form.push_str("  Begin VB.Label Label1\n");
 
     // Create nested property groups
-    let depth = 10; // Test with 10 levels (limit is 100)
+    let depth = 10; // Test with 10 levels (Phase 1 limit was 100)
     for i in 0..depth {
         form.push_str(&format!("    BeginProperty PropGroup{}\n", i));
         form.push_str("      Name = \"Test\"\n");
@@ -145,6 +144,32 @@ fn nested_property_groups() {
     form.push_str("End\n");
 
     // Should parse without crashing
+    let source = SourceFile::from_string("test.frm", form);
+    let (result, _errors) = FormFile::parse(&source).unpack();
+    assert!(result.is_some());
+}
+
+/// Test that extremely deeply nested property groups are handled by Phase 2
+#[test]
+fn extremely_nested_property_groups() {
+    let mut form = String::from("Begin VB.Form Form1\n");
+    form.push_str("  Begin VB.Label Label1\n");
+
+    // Create extremely nested property groups - exceeds Phase 1 limit of 100
+    let depth = 150;
+    for i in 0..depth {
+        form.push_str(&format!("    BeginProperty PropGroup{}\n", i));
+        form.push_str("      Name = \"Test\"\n");
+    }
+
+    for _ in 0..depth {
+        form.push_str("    EndProperty\n");
+    }
+
+    form.push_str("  End\n");
+    form.push_str("End\n");
+
+    // Should parse without crashing thanks to Phase 2 iterative parsing
     let source = SourceFile::from_string("test.frm", form);
     let (result, _errors) = FormFile::parse(&source).unpack();
     assert!(result.is_some());

@@ -522,6 +522,76 @@ impl DepthCounters {
     }
 }
 
+/// Frame for control parsing with explicit stack (Phase 2)
+/// Holds the state for parsing a single control at any nesting level
+#[derive(Debug)]
+struct ControlParseFrame {
+    control_type: String,
+    control_name: String,
+    properties: Properties,
+    child_controls: Vec<Control>,
+    menus: Vec<MenuControl>,
+    property_groups: Vec<PropertyGroup>,
+}
+
+impl ControlParseFrame {
+    fn new(control_type: String, control_name: String) -> Self {
+        Self {
+            control_type,
+            control_name,
+            properties: Properties::new(),
+            child_controls: Vec::new(),
+            menus: Vec::new(),
+            property_groups: Vec::new(),
+        }
+    }
+
+    fn into_control(self) -> Control {
+        let tag = self.properties.get("Tag").cloned().unwrap_or_default();
+        let index = self
+            .properties
+            .get("Index")
+            .and_then(|s| s.parse().ok())
+            .unwrap_or(0);
+
+        let kind = Parser::build_control_kind(
+            &self.control_type,
+            self.properties,
+            self.child_controls,
+            self.menus,
+            self.property_groups,
+        );
+
+        Control::new(self.control_name, tag, index, kind)
+    }
+}
+
+/// Frame for property group parsing with explicit stack (Phase 2)
+#[derive(Debug)]
+struct PropertyGroupFrame {
+    name: String,
+    guid: Option<uuid::Uuid>,
+    properties: HashMap<String, Either<String, PropertyGroup>>,
+}
+
+impl PropertyGroupFrame {
+    fn new(name: String, guid: Option<uuid::Uuid>) -> Self {
+        Self {
+            name,
+            guid,
+            properties: HashMap::new(),
+        }
+    }
+
+    fn into_property_group(self) -> PropertyGroup {
+        PropertyGroup {
+            name: self.name,
+            guid: self.guid,
+            properties: self.properties,
+        }
+    }
+}
+
 /// Internal parser state for building the CST
 pub(crate) struct Parser<'a> {
     pub(crate) tokens: Vec<(&'a str, Token)>,
@@ -563,31 +633,11 @@ impl<'a> Parser<'a> {
         Ok(())
     }
 
-    /// Check if control depth limit would be exceeded
-    pub(crate) fn check_control_depth(&self) -> Result<(), FormError> {
-        if self.depth_counters.control >= DepthCounters::MAX_CONTROL_DEPTH {
-            return Err(FormError::ControlDepthExceeded {
-                max_depth: DepthCounters::MAX_CONTROL_DEPTH,
-            });
-        }
-        Ok(())
-    }
-
     /// Check if statement depth limit would be exceeded
     pub(crate) fn check_statement_depth(&self) -> Result<(), FormError> {
         if self.depth_counters.statement >= DepthCounters::MAX_STATEMENT_DEPTH {
             return Err(FormError::StatementDepthExceeded {
                 max_depth: DepthCounters::MAX_STATEMENT_DEPTH,
-            });
-        }
-        Ok(())
-    }
-
-    /// Check if property group depth limit would be exceeded
-    pub(crate) fn check_property_group_depth(&self) -> Result<(), FormError> {
-        if self.depth_counters.property_group >= DepthCounters::MAX_PROPERTY_GROUP_DEPTH {
-            return Err(FormError::PropertyGroupDepthExceeded {
-                max_depth: DepthCounters::MAX_PROPERTY_GROUP_DEPTH,
             });
         }
         Ok(())
@@ -854,68 +904,92 @@ impl<'a> Parser<'a> {
     }
 
     /// Parse property group directly (BeginProperty...EndProperty)
+    /// Parse property group with iterative implementation (Phase 2)
     fn parse_property_group_direct(&mut self) -> Option<PropertyGroup> {
-        // Check depth limit before recursing
-        if self.check_property_group_depth().is_err() {
-            // Return None to skip this property group - error already recorded at higher level
-            return None;
-        }
-
-        // Increment depth counter
-        self.depth_counters.property_group += 1;
-
         // Expect BeginProperty identifier
         if !self.is_identifier_text("BeginProperty") {
-            self.depth_counters.property_group -= 1; // Decrement before return
             return None;
         }
 
         self.consume_advance(); // BeginProperty
         self.skip_whitespace();
 
-        // Parse property group name and optional GUID
+        // Parse initial property group name and GUID
         let (name, guid) = self.parse_property_group_name_direct();
         self.skip_whitespace_and_newlines();
 
-        // Parse nested properties and property groups
-        let mut properties = HashMap::new();
+        // Use explicit stack instead of recursion
+        let mut stack: Vec<PropertyGroupFrame> = Vec::new();
+        stack.push(PropertyGroupFrame::new(name, guid));
 
-        while !self.is_at_end() && !self.is_identifier_text("EndProperty") {
+        // Iteratively process property groups
+        while let Some(current_frame) = stack.last_mut() {
             self.skip_whitespace();
 
-            if self.is_identifier_text("EndProperty") {
-                break;
+            if self.is_at_end() || self.is_identifier_text("EndProperty") {
+                // Finished this property group
+                if self.is_identifier_text("EndProperty") {
+                    self.consume_advance();
+                    self.skip_whitespace_and_newlines();
+                }
+
+                let finished_frame = stack.pop().unwrap();
+                let prop_group = finished_frame.into_property_group();
+
+                // Add to parent if exists, or return as result
+                if let Some(parent_frame) = stack.last_mut() {
+                    parent_frame
+                        .properties
+                        .insert(prop_group.name.clone(), Either::Right(prop_group));
+                } else {
+                    // This is the root property group - return it
+                    return Some(prop_group);
+                }
+                continue;
             }
 
             if self.is_identifier_text("BeginProperty") {
-                // Nested property group
-                if let Some(nested_group) = self.parse_property_group_direct() {
-                    properties.insert(nested_group.name.clone(), Either::Right(nested_group));
+                // Start parsing nested property group - push new frame
+                self.consume_advance(); // BeginProperty
+                self.skip_whitespace();
+
+                let (nested_name, nested_guid) = self.parse_property_group_name_direct();
+                self.skip_whitespace_and_newlines();
+
+                // Check depth limit
+                if stack.len() >= DepthCounters::MAX_PROPERTY_GROUP_DEPTH {
+                    // Skip this nested property group
+                    let mut depth = 1;
+                    while !self.is_at_end() && depth > 0 {
+                        if self.is_identifier_text("BeginProperty") {
+                            depth += 1;
+                            self.consume_advance();
+                        } else if self.is_identifier_text("EndProperty") {
+                            depth -= 1;
+                            self.consume_advance();
+                        } else {
+                            self.consume_advance();
+                        }
+                    }
+                    continue;
                 }
-            } else if self.is_identifier() || self.at_keyword() {
+
+                stack.push(PropertyGroupFrame::new(nested_name, nested_guid));
+                continue;
+            }
+
+            if self.is_identifier() || self.at_keyword() {
                 // Regular property
                 if let Some((key, value)) = self.parse_property_direct() {
-                    properties.insert(key, Either::Left(value));
+                    current_frame.properties.insert(key, Either::Left(value));
                 }
             } else {
                 self.consume_advance();
             }
         }
 
-        // Parse EndProperty
-        if self.is_identifier_text("EndProperty") {
-            self.consume_advance();
-            self.skip_whitespace_and_newlines();
-        }
-
-        // Decrement depth counter before returning
-        self.depth_counters.property_group -= 1;
-
-        Some(PropertyGroup {
-            name,
-            guid,
-            properties,
-        })
+        // Should not reach here
+        None
     }
 
     /// Parse property group name and extract optional GUID
@@ -1469,69 +1543,94 @@ impl<'a> Parser<'a> {
     }
 
     /// Parse properties block directly to Control without building CST
-    /// Phase 4: Full implementation with nested controls and property groups
+    /// Phase 2: Iterative implementation with explicit stack (no recursion)
     pub(crate) fn parse_properties_block_to_control(&mut self) -> ParseResult<'a, Control> {
-        // Check depth limit before recursing
-        if self.check_control_depth().is_err() {
-            // Return empty result to prevent stack overflow
-            // TODO: Add proper error reporting with source context
-            return ParseResult::new(None, Vec::new());
-        }
-
-        // Increment depth counter
-        self.depth_counters.control += 1;
-
         self.skip_whitespace();
 
         // Expect BEGIN keyword
         if !self.at_token(Token::BeginKeyword) {
-            self.depth_counters.control -= 1; // Decrement before return
             return ParseResult::new(None, Vec::new());
         }
 
         self.consume_advance(); // BEGIN
         self.skip_whitespace();
 
-        // Parse control type (e.g., "VB.Form")
+        // Parse control type and name for initial frame
         let control_type = self.parse_control_type_direct();
         self.skip_whitespace();
-
-        // Parse control name
         let control_name = self.parse_control_name_direct();
         self.skip_whitespace_and_newlines();
 
-        // Parse properties, child controls, and property groups
-        let mut properties = Properties::new();
-        let mut child_controls = Vec::new();
-        let mut menus = Vec::new();
-        let mut property_groups = Vec::new();
-        let mut failures = Vec::new();
+        // Use explicit stack instead of recursion
+        let mut stack: Vec<ControlParseFrame> = Vec::new();
+        let failures = Vec::new();
 
-        while !self.is_at_end() && !self.at_token(Token::EndKeyword) {
+        // Push initial frame
+        stack.push(ControlParseFrame::new(control_type, control_name));
+
+        // Iteratively process frames
+        while let Some(current_frame) = stack.last_mut() {
             self.skip_whitespace();
 
-            if self.at_token(Token::EndKeyword) {
-                break;
+            if self.is_at_end() || self.at_token(Token::EndKeyword) {
+                // Finished this control - pop and finalize
+                if self.at_token(Token::EndKeyword) {
+                    self.consume_advance();
+                    self.skip_whitespace_and_newlines();
+                }
+
+                let finished_frame = stack.pop().unwrap();
+                let control = finished_frame.into_control();
+
+                // Add to parent if exists, or return as result
+                if let Some(parent_frame) = stack.last_mut() {
+                    // Check if it's a menu control
+                    if matches!(control.kind(), ControlKind::Menu { .. }) {
+                        parent_frame.menus.push(Self::control_to_menu(control));
+                    } else {
+                        parent_frame.child_controls.push(control);
+                    }
+                } else {
+                    // This is the root control - return it
+                    return ParseResult::new(Some(control), failures);
+                }
+                continue;
             }
 
             if self.at_token(Token::BeginKeyword) {
-                // Nested control (Begin VB.xxx)
-                let child_result = self.parse_properties_block_to_control();
-                let (child_opt, child_failures) = child_result.unpack();
-                failures.extend(child_failures);
+                // Start parsing nested control - push new frame to stack
+                self.consume_advance(); // BEGIN
+                self.skip_whitespace();
 
-                if let Some(child) = child_opt {
-                    // Check if it's a menu control
-                    if matches!(child.kind(), ControlKind::Menu { .. }) {
-                        menus.push(Self::control_to_menu(child));
-                    } else {
-                        child_controls.push(child);
+                let nested_type = self.parse_control_type_direct();
+                self.skip_whitespace();
+                let nested_name = self.parse_control_name_direct();
+                self.skip_whitespace_and_newlines();
+
+                // Check depth limit
+                if stack.len() >= DepthCounters::MAX_CONTROL_DEPTH {
+                    // Skip this nested control and its children
+                    // Find matching End keyword
+                    let mut depth = 1;
+                    while !self.is_at_end() && depth > 0 {
+                        if self.at_token(Token::BeginKeyword) {
+                            depth += 1;
+                        } else if self.at_token(Token::EndKeyword) {
+                            depth -= 1;
+                        }
+                        self.consume_advance();
                     }
+                    continue;
                 }
-            } else if self.is_begin_property() {
-                // Parse property group (BeginProperty)
+
+                stack.push(ControlParseFrame::new(nested_type, nested_name));
+                continue;
+            }
+
+            if self.is_begin_property() {
+                // Parse property group (now iterative)
                 if let Some(group) = self.parse_property_group_direct() {
-                    property_groups.push(group);
+                    current_frame.property_groups.push(group);
                 }
             } else if self.is_identifier() || self.at_keyword() {
                 // Parse property (Key = Value)
@@ -1553,7 +1652,7 @@ impl<'a> Parser<'a> {
                     } else {
                         &value
                     };
-                    properties.insert(&key, cleaned_value);
+                    current_frame.properties.insert(&key, cleaned_value);
                 }
             } else {
                 // Skip unknown token
@@ -1561,34 +1660,8 @@ impl<'a> Parser<'a> {
             }
         }
 
-        // Parse END keyword
-        if self.at_token(Token::EndKeyword) {
-            self.consume_advance();
-            self.skip_whitespace_and_newlines();
-        }
-
-        // Extract tag and index from properties
-        let tag = properties.get("Tag").cloned().unwrap_or_default();
-        let index = properties
-            .get("Index")
-            .and_then(|s| s.parse().ok())
-            .unwrap_or(0);
-
-        // Build control kind with all components
-        let kind = Self::build_control_kind(
-            &control_type,
-            properties,
-            child_controls,
-            menus,
-            property_groups,
-        );
-
-        let control = Control::new(control_name, tag, index, kind);
-
-        // Decrement depth counter before returning
-        self.depth_counters.control -= 1;
-
-        ParseResult::new(Some(control), failures)
+        // Should not reach here
+        ParseResult::new(None, failures)
     }
 
     /// Parse properties block directly to `FormRoot` for top-level form elements.
