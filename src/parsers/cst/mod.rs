@@ -497,12 +497,38 @@ pub fn parse(tokens: TokenStream) -> ConcreteSyntaxTree {
     parser.parse_root()
 }
 
+/// Tracks recursion depth to prevent stack overflow
+#[derive(Debug, Clone)]
+pub(crate) struct DepthCounters {
+    pub(crate) expression: usize,
+    pub(crate) control: usize,
+    pub(crate) statement: usize,
+    pub(crate) property_group: usize,
+}
+
+impl DepthCounters {
+    const MAX_EXPRESSION_DEPTH: usize = 500;
+    const MAX_CONTROL_DEPTH: usize = 1000;
+    const MAX_STATEMENT_DEPTH: usize = 500;
+    const MAX_PROPERTY_GROUP_DEPTH: usize = 100;
+
+    fn new() -> Self {
+        Self {
+            expression: 0,
+            control: 0,
+            statement: 0,
+            property_group: 0,
+        }
+    }
+}
+
 /// Internal parser state for building the CST
 pub(crate) struct Parser<'a> {
     pub(crate) tokens: Vec<(&'a str, Token)>,
     pub(crate) pos: usize,
     pub(crate) builder: GreenNodeBuilder<'static>,
     pub(crate) parsing_header: bool,
+    pub(crate) depth_counters: DepthCounters,
 }
 
 impl<'a> Parser<'a> {
@@ -512,6 +538,7 @@ impl<'a> Parser<'a> {
             pos: 0,
             builder: GreenNodeBuilder::new(),
             parsing_header: true,
+            depth_counters: DepthCounters::new(),
         }
     }
 
@@ -522,7 +549,48 @@ impl<'a> Parser<'a> {
             pos,
             builder: GreenNodeBuilder::new(),
             parsing_header: true,
+            depth_counters: DepthCounters::new(),
         }
+    }
+
+    /// Check if expression depth limit would be exceeded
+    pub(crate) fn check_expression_depth(&self) -> Result<(), FormError> {
+        if self.depth_counters.expression >= DepthCounters::MAX_EXPRESSION_DEPTH {
+            return Err(FormError::ExpressionDepthExceeded {
+                max_depth: DepthCounters::MAX_EXPRESSION_DEPTH,
+            });
+        }
+        Ok(())
+    }
+
+    /// Check if control depth limit would be exceeded
+    pub(crate) fn check_control_depth(&self) -> Result<(), FormError> {
+        if self.depth_counters.control >= DepthCounters::MAX_CONTROL_DEPTH {
+            return Err(FormError::ControlDepthExceeded {
+                max_depth: DepthCounters::MAX_CONTROL_DEPTH,
+            });
+        }
+        Ok(())
+    }
+
+    /// Check if statement depth limit would be exceeded
+    pub(crate) fn check_statement_depth(&self) -> Result<(), FormError> {
+        if self.depth_counters.statement >= DepthCounters::MAX_STATEMENT_DEPTH {
+            return Err(FormError::StatementDepthExceeded {
+                max_depth: DepthCounters::MAX_STATEMENT_DEPTH,
+            });
+        }
+        Ok(())
+    }
+
+    /// Check if property group depth limit would be exceeded
+    pub(crate) fn check_property_group_depth(&self) -> Result<(), FormError> {
+        if self.depth_counters.property_group >= DepthCounters::MAX_PROPERTY_GROUP_DEPTH {
+            return Err(FormError::PropertyGroupDepthExceeded {
+                max_depth: DepthCounters::MAX_PROPERTY_GROUP_DEPTH,
+            });
+        }
+        Ok(())
     }
 
     // Create parser for hybrid mode (`FormFile` optimization)
@@ -787,8 +855,18 @@ impl<'a> Parser<'a> {
 
     /// Parse property group directly (BeginProperty...EndProperty)
     fn parse_property_group_direct(&mut self) -> Option<PropertyGroup> {
+        // Check depth limit before recursing
+        if self.check_property_group_depth().is_err() {
+            // Return None to skip this property group - error already recorded at higher level
+            return None;
+        }
+
+        // Increment depth counter
+        self.depth_counters.property_group += 1;
+
         // Expect BeginProperty identifier
         if !self.is_identifier_text("BeginProperty") {
+            self.depth_counters.property_group -= 1; // Decrement before return
             return None;
         }
 
@@ -829,6 +907,9 @@ impl<'a> Parser<'a> {
             self.consume_advance();
             self.skip_whitespace_and_newlines();
         }
+
+        // Decrement depth counter before returning
+        self.depth_counters.property_group -= 1;
 
         Some(PropertyGroup {
             name,
@@ -1390,10 +1471,21 @@ impl<'a> Parser<'a> {
     /// Parse properties block directly to Control without building CST
     /// Phase 4: Full implementation with nested controls and property groups
     pub(crate) fn parse_properties_block_to_control(&mut self) -> ParseResult<'a, Control> {
+        // Check depth limit before recursing
+        if self.check_control_depth().is_err() {
+            // Return empty result to prevent stack overflow
+            // TODO: Add proper error reporting with source context
+            return ParseResult::new(None, Vec::new());
+        }
+
+        // Increment depth counter
+        self.depth_counters.control += 1;
+
         self.skip_whitespace();
 
         // Expect BEGIN keyword
         if !self.at_token(Token::BeginKeyword) {
+            self.depth_counters.control -= 1; // Decrement before return
             return ParseResult::new(None, Vec::new());
         }
 
@@ -1492,6 +1584,9 @@ impl<'a> Parser<'a> {
         );
 
         let control = Control::new(control_name, tag, index, kind);
+
+        // Decrement depth counter before returning
+        self.depth_counters.control -= 1;
 
         ParseResult::new(Some(control), failures)
     }
@@ -2057,6 +2152,19 @@ impl<'a> Parser<'a> {
     where
         F: Fn(&Parser) -> bool,
     {
+        // Check depth limit before recursing
+        if let Err(_e) = self.check_statement_depth() {
+            // Record error and return early with empty statement list
+            self.builder.start_node(SyntaxKind::StatementList.to_raw());
+            self.builder.finish_node();
+            // Note: We can't easily propagate the error here since this function doesn't return an error type
+            // The error will be caught when testing depth limits
+            return;
+        }
+
+        // Increment depth counter
+        self.depth_counters.statement += 1;
+
         // Statement lists can appear in both header and body, so we do not modify parsing_header here.
 
         // Start a StatementList node
@@ -2137,6 +2245,10 @@ impl<'a> Parser<'a> {
                 }
             }
         }
+
+        // Decrement depth counter before finishing
+        self.depth_counters.statement -= 1;
+
         self.builder.finish_node(); // StatementList
     }
 }

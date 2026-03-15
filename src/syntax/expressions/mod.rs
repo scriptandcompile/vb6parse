@@ -201,6 +201,15 @@ impl Parser<'_> {
     ///   return left
     /// ```
     pub(crate) fn parse_expression_with_binding_power(&mut self, min_bp: BindingPower) {
+        // Check depth limit before recursing
+        if self.check_expression_depth().is_err() {
+            // Return early to avoid stack overflow
+            return;
+        }
+
+        // Increment depth counter
+        self.depth_counters.expression += 1;
+
         // Skip leading whitespace
         self.consume_whitespace();
 
@@ -303,6 +312,9 @@ impl Parser<'_> {
             // This creates the correct left-associative structure:
             // BinaryExpression(BinaryExpression(a + b), +, c)
         }
+
+        // Decrement depth counter before returning
+        self.depth_counters.expression -= 1;
     }
 
     /// Parse a prefix expression.

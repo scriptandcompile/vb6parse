@@ -852,6 +852,34 @@ pub enum FormError {
         control_type: String,
     },
 
+    /// Expression nesting depth exceeded.
+    #[error("Expression nesting depth exceeded (maximum: {max_depth}). Deep nesting can cause stack overflow.")]
+    ExpressionDepthExceeded {
+        /// The maximum allowed depth.
+        max_depth: usize,
+    },
+
+    /// Control nesting depth exceeded.
+    #[error("Control nesting depth exceeded (maximum: {max_depth}). Deep nesting can cause stack overflow.")]
+    ControlDepthExceeded {
+        /// The maximum allowed depth.
+        max_depth: usize,
+    },
+
+    /// Statement nesting depth exceeded.
+    #[error("Statement nesting depth exceeded (maximum: {max_depth}). Deep nesting can cause stack overflow.")]
+    StatementDepthExceeded {
+        /// The maximum allowed depth.
+        max_depth: usize,
+    },
+
+    /// Property group nesting depth exceeded.
+    #[error("Property group nesting depth exceeded (maximum: {max_depth}). Deep nesting can cause stack overflow.")]
+    PropertyGroupDepthExceeded {
+        /// The maximum allowed depth.
+        max_depth: usize,
+    },
+
     /// Internal Parser Error.
     #[error("Internal Parser Error - please report this issue to the developers.")]
     InternalParseError,
