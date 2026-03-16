@@ -30,103 +30,82 @@ impl Parser<'_> {
     /// ├─ `End` keyword
     /// └─ `If` keyword
     ///
-    pub(super) fn parse_if_statement(&mut self) {
+    pub(crate) fn parse_if_statement(&mut self) {
+        self.parsing_header = false;
+
         self.builder.start_node(SyntaxKind::IfStatement.to_raw());
-
-        // Consume any leading whitespace
         self.consume_whitespace();
-
-        // Consume "If" keyword
-        self.consume_token();
-
-        // Skip any leading whitespace
+        self.consume_token(); // If
         self.consume_whitespace();
-
-        // Parse the conditional expression
         self.parse_expression();
-
-        // Consume whitespace before Then
         self.consume_whitespace();
 
-        // Consume "Then" if present
         if self.at_token(Token::ThenKeyword) {
             self.consume_token();
         }
-
-        // Consume any whitespace after Then
         self.consume_whitespace();
 
-        // Check if this is a single-line If statement (has code on the same line after Then)
+        // Check if single-line If
         let is_single_line = !self.at_token(Token::Newline) && !self.is_at_end();
 
         if is_single_line {
-            // Single-line If: parse the inline statement(s)
-            // We parse until we hit a newline or reach a colon (which could indicate Else on same line)
+            // Single-line If: parse inline statements
             while !self.is_at_end() && !self.at_token(Token::Newline) {
-                // Check for inline Else (: Else or just Else on same line)
                 if self.at_token(Token::ElseKeyword) {
                     break;
                 }
 
-                // Try control flow statements first (Exit, GoTo, etc. can appear inline)
                 if self.is_control_flow_keyword() {
                     self.parse_control_flow_statement();
                     continue;
                 }
-
-                // Try built-in library statements
                 if self.is_library_statement_keyword() {
                     self.parse_library_statement();
                     continue;
                 }
-
-                // Try variable declaration statements
                 if self.is_variable_declaration_keyword() {
                     self.parse_array_statement();
                     continue;
                 }
-
-                // Try to parse using centralized statement dispatcher
                 if self.is_statement_keyword() {
                     self.parse_statement();
                     continue;
                 }
 
-                // Handle other inline constructs
                 match self.current_token() {
-                    Some(Token::Whitespace | Token::EndOfLineComment | Token::RemComment) => {
-                        self.consume_token();
-                    }
-                    Some(Token::ColonOperator) => {
-                        // Colon can separate statements or precede Else
+                    Some(
+                        Token::Whitespace
+                        | Token::EndOfLineComment
+                        | Token::RemComment
+                        | Token::ColonOperator,
+                    ) => {
                         self.consume_token();
                     }
                     _ => {
-                        // Check for Let statement (optional assignment keyword)
                         if self.at_token(Token::LetKeyword) {
                             self.parse_let_statement();
-                        // Check if this looks like an assignment
                         } else if self.is_at_assignment() {
                             self.parse_assignment_statement();
                         } else {
-                            // Consume as unknown
                             self.consume_token();
                         }
                     }
                 }
             }
 
-            // Consume the newline
-            if self.at_token(Token::Newline) {
-                self.consume_token();
-            }
-        } else {
-            // Multi-line If: consume newline after Then
             if self.at_token(Token::Newline) {
                 self.consume_token();
             }
 
-            // Parse body until "End If", "Else", or "ElseIf"
+            self.builder.finish_node(); // IfStatement
+        } else {
+            // Multi-line If: parse body and ElseIf/Else clauses
+            if self.at_token(Token::Newline) {
+                self.consume_token();
+            }
+
+            // Parse If body - the recursive call here is now safe because
+            // parse_statement_list handles control flow iteratively
             self.parse_statement_list(|parser| {
                 (parser.at_token(Token::EndKeyword)
                     && parser.peek_next_keyword() == Some(Token::IfKeyword))
@@ -137,97 +116,61 @@ impl Parser<'_> {
             // Handle ElseIf and Else clauses
             while !self.is_at_end() {
                 if self.at_token(Token::ElseIfKeyword) {
-                    // Parse ElseIf clause
-                    self.parse_elseif_clause();
+                    self.builder.start_node(SyntaxKind::ElseIfClause.to_raw());
+                    self.consume_token(); // ElseIf
+                    self.consume_whitespace();
+                    self.parse_expression();
+                    self.consume_whitespace();
+
+                    if self.at_token(Token::ThenKeyword) {
+                        self.consume_token();
+                    }
+                    self.consume_whitespace();
+
+                    if self.at_token(Token::Newline) {
+                        self.consume_token();
+                    }
+
+                    // Parse ElseIf body
+                    self.parse_statement_list(|parser| {
+                        parser.at_token(Token::ElseIfKeyword)
+                            || parser.at_token(Token::ElseKeyword)
+                            || (parser.at_token(Token::EndKeyword)
+                                && parser.peek_next_keyword() == Some(Token::IfKeyword))
+                    });
+
+                    self.builder.finish_node(); // ElseIfClause
                 } else if self.at_token(Token::ElseKeyword) {
-                    // Parse Else clause
-                    self.parse_else_clause();
+                    self.builder.start_node(SyntaxKind::ElseClause.to_raw());
+                    self.consume_token(); // Else
+                    self.consume_whitespace();
+
+                    if self.at_token(Token::Newline) {
+                        self.consume_token();
+                    }
+
+                    // Parse Else body
+                    self.parse_statement_list(|parser| {
+                        parser.at_token(Token::EndKeyword)
+                            && parser.peek_next_keyword() == Some(Token::IfKeyword)
+                    });
+
+                    self.builder.finish_node(); // ElseClause
                 } else {
                     break;
                 }
             }
 
-            // Consume "End If" and trailing tokens
+            // Consume "End If"
             if self.at_token(Token::EndKeyword) {
-                // Consume "End"
                 self.consume_token();
-
-                // Consume any whitespace between "End" and "If"
                 self.consume_whitespace();
-
-                // Consume "If"
-                self.consume_token();
-
-                // Consume until newline
+                self.consume_token(); // If
                 self.consume_until_after(Token::Newline);
             }
+
+            self.builder.finish_node(); // IfStatement
         }
-
-        self.builder.finish_node(); // IfStatement
-    }
-
-    /// Parse an `ElseIf` clause: `ElseIf` condition `Then` ...
-    pub(super) fn parse_elseif_clause(&mut self) {
-        self.builder.start_node(SyntaxKind::ElseIfClause.to_raw());
-
-        // Consume `ElseIf` keyword
-        self.consume_token();
-
-        // Consume any whitespace after `ElseIf`
-        self.consume_whitespace();
-
-        // Parse the conditional expression
-        self.parse_expression();
-
-        // Consume whitespace before Then
-        self.consume_whitespace();
-
-        // Consume `Then` if present
-        if self.at_token(Token::ThenKeyword) {
-            self.consume_token();
-        }
-
-        // Consume any whitespace after Then
-        self.consume_whitespace();
-
-        // Consume the newline after Then
-        if self.at_token(Token::Newline) {
-            self.consume_token();
-        }
-
-        // Parse body until `End If`, `Else`, or another `ElseIf`
-        self.parse_statement_list(|parser| {
-            parser.at_token(Token::ElseIfKeyword)
-                || parser.at_token(Token::ElseKeyword)
-                || (parser.at_token(Token::EndKeyword)
-                    && parser.peek_next_keyword() == Some(Token::IfKeyword))
-        });
-
-        self.builder.finish_node(); // ElseIfClause
-    }
-
-    /// Parse an `Else` clause: `Else` ...
-    pub(super) fn parse_else_clause(&mut self) {
-        self.builder.start_node(SyntaxKind::ElseClause.to_raw());
-
-        // Consume `Else` keyword
-        self.consume_token();
-
-        // Consume any whitespace after `Else`
-        self.consume_whitespace();
-
-        // Consume the newline after `Else`
-        if self.at_token(Token::Newline) {
-            self.consume_token();
-        }
-
-        // Parse body until `End If`
-        self.parse_statement_list(|parser| {
-            parser.at_token(Token::EndKeyword)
-                && parser.peek_next_keyword() == Some(Token::IfKeyword)
-        });
-
-        self.builder.finish_node(); // `ElseClause`
     }
 }
 

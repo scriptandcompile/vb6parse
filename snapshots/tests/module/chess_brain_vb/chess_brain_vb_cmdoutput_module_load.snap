@@ -3249,8 +3249,10 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: sa
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: sa
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList
@@ -3631,8 +3633,10 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: si
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: si
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList

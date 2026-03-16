@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/environment/getautoserversettings.rs
+source: vb6parse/src/syntax/library/functions/environment/getautoserversettings.rs
 expression: tree
 ---
 root:
@@ -11,8 +11,10 @@ root:
           text: With
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: serverConfig
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: serverConfig
         - kind: Newline
           text: "\n"
         - kind: StatementList

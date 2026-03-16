@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/system_interaction/sendkeys.rs
+source: vb6parse/src/syntax/library/statements/system_interaction/sendkeys.rs
 expression: tree
 ---
 root:
@@ -13,8 +13,10 @@ root:
           text: With
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: automation
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: automation
         - kind: Newline
           text: "\n"
         - kind: StatementList

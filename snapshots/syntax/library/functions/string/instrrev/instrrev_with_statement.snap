@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/instrrev.rs
+source: vb6parse/src/syntax/library/functions/string/instrrev.rs
 expression: tree
 ---
 root:
@@ -33,8 +33,10 @@ root:
                   text: With
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: pathInfo
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: pathInfo
                 - kind: Newline
                   text: "\n"
                 - kind: StatementList

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/replace.rs
+source: vb6parse/src/syntax/library/functions/string/replace.rs
 expression: tree
 ---
 root:
@@ -13,8 +13,10 @@ root:
           text: With
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: document
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: document
         - kind: Newline
           text: "\n"
         - kind: StatementList

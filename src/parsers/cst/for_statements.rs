@@ -6,10 +6,11 @@
 //! - Step clauses
 //! - Nested loops
 
+use super::Parser;
 use crate::language::Token;
 use crate::parsers::SyntaxKind;
 
-use super::Parser;
+use std::num::NonZeroUsize;
 
 impl Parser<'_> {
     /// Parse a For...Next statement.
@@ -18,72 +19,88 @@ impl Parser<'_> {
     /// - For counter = start To end [Step step]...Next [counter]
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/fornext-statement)
-    pub(super) fn parse_for_statement(&mut self) {
-        // if we are now parsing a for statement, we are no longer in the header.
+    pub(crate) fn parse_for_statement(&mut self) {
         self.parsing_header = false;
 
-        self.builder.start_node(SyntaxKind::ForStatement.to_raw());
+        // Check if For Each
+        let is_for_each = {
+            let next_kw = if self.at_token(Token::Whitespace) {
+                let keyword_count = NonZeroUsize::new(2)
+                    .expect("Should be impossible to fail to create NonZeroUsize for 2");
+                self.peek_next_count_keywords(keyword_count).nth(1)
+            } else {
+                self.peek_next_keyword()
+            };
+            next_kw == Some(Token::EachKeyword)
+        };
 
-        // Consume any leading whitespace
-        self.consume_whitespace();
-
-        // Consume "For" keyword
-        self.consume_token();
-
-        // Parse counter variable (lvalue)
-        self.parse_lvalue();
-
-        self.consume_whitespace();
-
-        // Consume "="
-        if self.at_token(Token::EqualityOperator) {
-            self.consume_token();
-        }
-
-        self.consume_whitespace();
-
-        // Parse start value
-        self.parse_expression();
-
-        self.consume_whitespace();
-
-        // Consume "To" keyword if present
-        if self.at_token(Token::ToKeyword) {
-            self.consume_token();
-
+        if is_for_each {
+            self.builder
+                .start_node(SyntaxKind::ForEachStatement.to_raw());
             self.consume_whitespace();
-
-            // Parse end value
-            self.parse_expression();
-
+            self.consume_token(); // For
             self.consume_whitespace();
+            self.consume_token(); // Each
+            self.consume_until_after(Token::Newline);
 
-            // Consume "Step" keyword if present
-            if self.at_token(Token::StepKeyword) {
+            self.parse_statement_list(|parser| parser.at_token(Token::NextKeyword));
+
+            if self.at_token(Token::NextKeyword) {
                 self.consume_token();
+                self.consume_until_after(Token::Newline);
+            }
 
+            self.builder.finish_node(); // ForEachStatement
+        } else {
+            self.builder.start_node(SyntaxKind::ForStatement.to_raw());
+            self.consume_whitespace();
+            self.consume_token(); // For
+
+            // Parse counter variable (lvalue)
+            self.parse_lvalue();
+            self.consume_whitespace();
+
+            // Consume "="
+            if self.at_token(Token::EqualityOperator) {
+                self.consume_token();
+            }
+            self.consume_whitespace();
+
+            // Parse start value
+            self.parse_expression();
+            self.consume_whitespace();
+
+            // Consume "To" keyword if present
+            if self.at_token(Token::ToKeyword) {
+                self.consume_token();
                 self.consume_whitespace();
 
-                // Parse step value
+                // Parse end value
                 self.parse_expression();
+                self.consume_whitespace();
+
+                // Consume "Step" keyword if present
+                if self.at_token(Token::StepKeyword) {
+                    self.consume_token();
+                    self.consume_whitespace();
+
+                    // Parse step value
+                    self.parse_expression();
+                }
             }
-        }
 
-        // Consume newline after For line
-        self.consume_until_after(Token::Newline);
-
-        // Parse the loop body until "Next"
-        self.parse_statement_list(|parser| parser.at_token(Token::NextKeyword));
-
-        // Consume "Next" keyword
-        if self.at_token(Token::NextKeyword) {
-            self.consume_token();
-
-            // Consume everything until newline (optional counter variable)
+            // Consume newline after For line
             self.consume_until_after(Token::Newline);
-        }
 
-        self.builder.finish_node(); // ForStatement
+            self.parse_statement_list(|parser| parser.at_token(Token::NextKeyword));
+
+            if self.at_token(Token::NextKeyword) {
+                self.consume_token();
+                self.consume_until_after(Token::Newline);
+            }
+
+            self.builder.finish_node(); // ForStatement
+        }
     }
 
     /// Parse a For Each...Next statement.

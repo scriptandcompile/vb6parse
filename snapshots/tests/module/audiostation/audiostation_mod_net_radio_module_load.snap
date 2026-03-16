@@ -1483,8 +1483,10 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Form_Main
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: Form_Main
                   - kind: Newline
                     text: "\n"
                   - kind: StatementList

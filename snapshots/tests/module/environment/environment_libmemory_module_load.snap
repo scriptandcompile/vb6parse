@@ -11237,8 +11237,10 @@ cst:
                                             text: With
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Identifier
-                                            text: sArrByte
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: sArrByte
                                           - kind: Newline
                                             text: "\r\n"
                                           - kind: StatementList
@@ -14521,8 +14523,10 @@ cst:
                                         text: With
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Identifier
-                                        text: sArr
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: sArr
                                       - kind: Newline
                                         text: "\r\n"
                                       - kind: StatementList
@@ -16055,8 +16059,10 @@ cst:
                                                                 text: With
                                                               - kind: Whitespace
                                                                 text: " "
-                                                              - kind: Identifier
-                                                                text: sArr
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: sArr
                                                               - kind: Newline
                                                                 text: "\r\n"
                                                               - kind: StatementList

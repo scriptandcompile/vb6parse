@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/minute.rs
+source: vb6parse/src/syntax/library/functions/datetime/minute.rs
 expression: tree
 ---
 root:
@@ -15,8 +15,10 @@ root:
           text: With
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: appointmentRecord
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: appointmentRecord
         - kind: Newline
           text: "\n"
         - kind: StatementList

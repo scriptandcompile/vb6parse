@@ -2273,8 +2273,10 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: f
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: f
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList
@@ -2817,14 +2819,22 @@ cst:
                             text: With
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: rcMonitors
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: Identifier
-                            text: n
-                          - kind: RightParenthesis
-                            text: )
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: rcMonitors
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: n
+                              - kind: RightParenthesis
+                                text: )
                           - kind: Newline
                             text: "\r\n"
                           - kind: StatementList
@@ -3415,14 +3425,22 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: ScrInfo
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: dwData
-                  - kind: RightParenthesis
-                    text: )
+                  - kind: CallExpression
+                    children:
+                      - kind: Identifier
+                        text: ScrInfo
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: dwData
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList

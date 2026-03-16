@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/interaction/msgbox.rs
+source: vb6parse/src/syntax/library/functions/interaction/msgbox.rs
 expression: tree
 ---
 root:
@@ -13,8 +13,10 @@ root:
           text: With
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: currentRecord
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: currentRecord
         - kind: Newline
           text: "\n"
         - kind: StatementList

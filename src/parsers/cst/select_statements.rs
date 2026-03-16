@@ -24,88 +24,59 @@ impl Parser<'_> {
     ///   End Select
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/select-case-statement)
-    pub(super) fn parse_select_case_statement(&mut self) {
-        // if we are now parsing a select case statement, we are no longer in the header.
+    pub(crate) fn parse_select_case_statement(&mut self) {
         self.parsing_header = false;
 
         self.builder
             .start_node(SyntaxKind::SelectCaseStatement.to_raw());
-
-        // Consume any leading whitespace
+        self.consume_whitespace();
+        self.consume_token(); // Select
         self.consume_whitespace();
 
-        // Consume "Select" keyword
-        self.consume_token();
-
-        // Consume any whitespace between "Select" and "Case"
-        self.consume_whitespace();
-
-        // Consume "Case" keyword
         if self.at_token(Token::CaseKeyword) {
             self.consume_token();
         }
 
         self.consume_whitespace();
-
-        // Parse the test expression
         self.parse_expression();
-
-        // Consume newline
         self.consume_until_after(Token::Newline);
 
-        // Parse Case clauses until "End Select"
+        // Parse Case clauses
         while !self.is_at_end() {
-            // Check for "End Select"
             if self.at_token(Token::EndKeyword)
                 && self.peek_next_keyword() == Some(Token::SelectKeyword)
             {
                 break;
             }
 
-            // Check for "Case" keyword
             if self.at_token(Token::CaseKeyword) {
-                // Check if this is "Case Else"
-                let is_case_else = self.peek_next_keyword() == Some(Token::ElseKeyword);
+                // Check for Case Else
+                let is_case_else = {
+                    let next = self.peek_next_keyword();
+                    next == Some(Token::ElseKeyword)
+                };
 
                 if is_case_else {
-                    // Parse Case Else clause
                     self.builder.start_node(SyntaxKind::CaseElseClause.to_raw());
-
-                    // Consume "Case"
-                    self.consume_token();
-
-                    // Consume any whitespace between "Case" and "Else"
+                    self.consume_token(); // Case
                     self.consume_whitespace();
-
-                    // Consume "Else"
-                    if self.at_token(Token::ElseKeyword) {
-                        self.consume_token();
-                    }
-
-                    // Consume until newline
+                    self.consume_token(); // Else
                     self.consume_until_after(Token::Newline);
 
-                    // Parse statements in Case Else until next Case or End Select
                     self.parse_statement_list(|parser| {
-                        (parser.at_token(Token::CaseKeyword))
+                        parser.at_token(Token::CaseKeyword)
                             || (parser.at_token(Token::EndKeyword)
                                 && parser.peek_next_keyword() == Some(Token::SelectKeyword))
                     });
 
                     self.builder.finish_node(); // CaseElseClause
                 } else {
-                    // Parse regular Case clause
                     self.builder.start_node(SyntaxKind::CaseClause.to_raw());
-
-                    // Consume "Case"
-                    self.consume_token();
-
-                    // Consume the case expression(s) until newline
+                    self.consume_token(); // Case
                     self.consume_until_after(Token::Newline);
 
-                    // Parse statements in Case until next Case or End Select
                     self.parse_statement_list(|parser| {
-                        (parser.at_token(Token::CaseKeyword))
+                        parser.at_token(Token::CaseKeyword)
                             || (parser.at_token(Token::EndKeyword)
                                 && parser.peek_next_keyword() == Some(Token::SelectKeyword))
                     });
@@ -113,23 +84,16 @@ impl Parser<'_> {
                     self.builder.finish_node(); // CaseClause
                 }
             } else {
-                // Consume whitespace, newlines, and comments
+                // Consume unknown tokens
                 self.consume_token();
             }
         }
 
-        // Consume "End Select" and trailing tokens
+        // Consume End Select
         if self.at_token(Token::EndKeyword) {
-            // Consume "End"
             self.consume_token();
-
-            // Consume any whitespace between "End" and "Select"
             self.consume_whitespace();
-
-            // Consume "Select"
-            self.consume_token();
-
-            // Consume until newline (including it)
+            self.consume_token(); // Select
             self.consume_until_after(Token::Newline);
         }
 

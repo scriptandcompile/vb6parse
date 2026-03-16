@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/system_interaction/stop.rs
+source: vb6parse/src/syntax/library/statements/system_interaction/stop.rs
 expression: tree
 ---
 root:
@@ -13,8 +13,10 @@ root:
           text: With
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: objData
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: objData
         - kind: Newline
           text: "\n"
         - kind: StatementList

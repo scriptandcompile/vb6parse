@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/second.rs
+source: vb6parse/src/syntax/library/functions/datetime/second.rs
 expression: tree
 ---
 root:
@@ -13,8 +13,10 @@ root:
           text: With
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: timeData
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: timeData
         - kind: Newline
           text: "\n"
         - kind: StatementList

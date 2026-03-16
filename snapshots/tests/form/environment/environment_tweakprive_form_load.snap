@@ -14479,8 +14479,10 @@ cst:
                                                                             text: With
                                                                           - kind: Whitespace
                                                                             text: " "
-                                                                          - kind: Identifier
-                                                                            text: checkbox1
+                                                                          - kind: IdentifierExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: checkbox1
                                                                           - kind: Newline
                                                                             text: "\r\n"
                                                                           - kind: StatementList
@@ -14661,8 +14663,10 @@ cst:
                                                                             text: With
                                                                           - kind: Whitespace
                                                                             text: " "
-                                                                          - kind: Identifier
-                                                                            text: checkbox2
+                                                                          - kind: IdentifierExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: checkbox2
                                                                           - kind: Newline
                                                                             text: "\r\n"
                                                                           - kind: StatementList

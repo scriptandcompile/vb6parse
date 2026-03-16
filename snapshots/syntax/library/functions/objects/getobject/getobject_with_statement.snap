@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/objects/getobject.rs
+source: vb6parse/src/syntax/library/functions/objects/getobject.rs
 expression: tree
 ---
 root:
@@ -11,14 +11,22 @@ root:
           text: With
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: GetObject
-        - kind: LeftParenthesis
-          text: (
-        - kind: StringLiteral
-          text: "\"C:\\data.xls\""
-        - kind: RightParenthesis
-          text: )
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: GetObject
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"C:\\data.xls\""
+            - kind: RightParenthesis
+              text: )
         - kind: Newline
           text: "\n"
         - kind: StatementList

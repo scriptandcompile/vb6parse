@@ -19119,8 +19119,10 @@ cst:
                                                                                                             text: With
                                                                                                           - kind: Whitespace
                                                                                                             text: " "
-                                                                                                          - kind: Identifier
-                                                                                                            text: m1
+                                                                                                          - kind: IdentifierExpression
+                                                                                                            children:
+                                                                                                              - kind: Identifier
+                                                                                                                text: m1
                                                                                                           - kind: Newline
                                                                                                             text: "\r\n"
                                                                                                           - kind: StatementList
@@ -19575,8 +19577,10 @@ cst:
                                                                                                             text: With
                                                                                                           - kind: Whitespace
                                                                                                             text: " "
-                                                                                                          - kind: Identifier
-                                                                                                            text: t
+                                                                                                          - kind: IdentifierExpression
+                                                                                                            children:
+                                                                                                              - kind: Identifier
+                                                                                                                text: t
                                                                                                           - kind: Newline
                                                                                                             text: "\r\n"
                                                                                                           - kind: StatementList
@@ -20673,8 +20677,10 @@ cst:
                                                                                                             text: With
                                                                                                           - kind: Whitespace
                                                                                                             text: " "
-                                                                                                          - kind: Identifier
-                                                                                                            text: m1
+                                                                                                          - kind: IdentifierExpression
+                                                                                                            children:
+                                                                                                              - kind: Identifier
+                                                                                                                text: m1
                                                                                                           - kind: Newline
                                                                                                             text: "\r\n"
                                                                                                           - kind: StatementList

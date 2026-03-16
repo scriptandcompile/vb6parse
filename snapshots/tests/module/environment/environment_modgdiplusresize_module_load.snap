@@ -26525,20 +26525,34 @@ cst:
                             text: With
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: players
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: Identifier
-                            text: GetCode
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: Identifier
-                            text: Scr
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: RightParenthesis
-                            text: )
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: players
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: GetCode
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: Scr
+                                          - kind: RightParenthesis
+                                            text: )
+                              - kind: RightParenthesis
+                                text: )
                           - kind: Newline
                             text: "\r\n"
                           - kind: StatementList
@@ -27595,20 +27609,34 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: players
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: GetCode
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: Scr
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: RightParenthesis
-                    text: )
+                  - kind: CallExpression
+                    children:
+                      - kind: Identifier
+                        text: players
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: CallExpression
+                                children:
+                                  - kind: Identifier
+                                    text: GetCode
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: Scr
+                                  - kind: RightParenthesis
+                                    text: )
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList
@@ -29853,20 +29881,34 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: players
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: GetCode
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: Scr
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: RightParenthesis
-                    text: )
+                  - kind: CallExpression
+                    children:
+                      - kind: Identifier
+                        text: players
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: CallExpression
+                                children:
+                                  - kind: Identifier
+                                    text: GetCode
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: Scr
+                                  - kind: RightParenthesis
+                                    text: )
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList
@@ -41701,8 +41743,10 @@ cst:
                                                                                 text: With
                                                                               - kind: Whitespace
                                                                                 text: " "
-                                                                              - kind: Identifier
-                                                                                text: IID_IDispatch
+                                                                              - kind: IdentifierExpression
+                                                                                children:
+                                                                                  - kind: Identifier
+                                                                                    text: IID_IDispatch
                                                                               - kind: Newline
                                                                                 text: "\r\n"
                                                                               - kind: StatementList
@@ -42197,8 +42241,10 @@ cst:
                                                                                 text: With
                                                                               - kind: Whitespace
                                                                                 text: " "
-                                                                              - kind: Identifier
-                                                                                text: tPictDesc
+                                                                              - kind: IdentifierExpression
+                                                                                children:
+                                                                                  - kind: Identifier
+                                                                                    text: tPictDesc
                                                                               - kind: Newline
                                                                                 text: "\r\n"
                                                                               - kind: StatementList
@@ -42347,8 +42393,10 @@ cst:
                                                                                 text: With
                                                                               - kind: Whitespace
                                                                                 text: " "
-                                                                              - kind: Identifier
-                                                                                text: IID_IPicture
+                                                                              - kind: IdentifierExpression
+                                                                                children:
+                                                                                  - kind: Identifier
+                                                                                    text: IID_IPicture
                                                                               - kind: Newline
                                                                                 text: "\r\n"
                                                                               - kind: StatementList

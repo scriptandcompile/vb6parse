@@ -543,8 +543,10 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: c
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: c
                   - kind: Newline
                     text: "\n"
                   - kind: StatementList

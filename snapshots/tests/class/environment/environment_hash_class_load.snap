@@ -1698,8 +1698,10 @@ cst:
                                 text: With
                               - kind: Whitespace
                                 text: " "
-                              - kind: Identifier
-                                text: ditem
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: ditem
                               - kind: Newline
                                 text: "\r\n"
                               - kind: StatementList
@@ -5598,14 +5600,22 @@ cst:
                                                     text: With
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: Identifier
-                                                    text: PriveSpace
-                                                  - kind: LeftParenthesis
-                                                    text: (
-                                                  - kind: Identifier
-                                                    text: k
-                                                  - kind: RightParenthesis
-                                                    text: )
+                                                  - kind: CallExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: PriveSpace
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: k
+                                                      - kind: RightParenthesis
+                                                        text: )
                                                   - kind: Newline
                                                     text: "\r\n"
                                                   - kind: StatementList
@@ -5936,60 +5946,44 @@ cst:
                                                                     text: " "
                                                                   - kind: WithKeyword
                                                                     text: With
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Newline
+                                                                        text: "\r\n"
+                                                                  - kind: Whitespace
+                                                                    text: "     "
+                                                                  - kind: Identifier
+                                                                    text: k
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: EqualityOperator
+                                                                    text: "="
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: Identifier
+                                                                    text: PriveSpace
+                                                                  - kind: LeftParenthesis
+                                                                    text: (
+                                                                  - kind: Identifier
+                                                                    text: k
+                                                                  - kind: RightParenthesis
+                                                                    text: )
+                                                                  - kind: PeriodOperator
+                                                                    text: "."
+                                                                  - kind: Identifier
+                                                                    text: Pleft
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: SubtractionOperator
+                                                                    text: "-"
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: IntegerLiteral
+                                                                    text: "1"
                                                                   - kind: Newline
                                                                     text: "\r\n"
                                                                   - kind: StatementList
                                                                     children:
-                                                                      - kind: Whitespace
-                                                                        text: "     "
-                                                                      - kind: AssignmentStatement
-                                                                        children:
-                                                                          - kind: IdentifierExpression
-                                                                            children:
-                                                                              - kind: Identifier
-                                                                                text: k
-                                                                          - kind: Whitespace
-                                                                            text: " "
-                                                                          - kind: EqualityOperator
-                                                                            text: "="
-                                                                          - kind: Whitespace
-                                                                            text: " "
-                                                                          - kind: BinaryExpression
-                                                                            children:
-                                                                              - kind: MemberAccessExpression
-                                                                                children:
-                                                                                  - kind: CallExpression
-                                                                                    children:
-                                                                                      - kind: Identifier
-                                                                                        text: PriveSpace
-                                                                                      - kind: LeftParenthesis
-                                                                                        text: (
-                                                                                      - kind: ArgumentList
-                                                                                        children:
-                                                                                          - kind: Argument
-                                                                                            children:
-                                                                                              - kind: IdentifierExpression
-                                                                                                children:
-                                                                                                  - kind: Identifier
-                                                                                                    text: k
-                                                                                      - kind: RightParenthesis
-                                                                                        text: )
-                                                                                  - kind: PeriodOperator
-                                                                                    text: "."
-                                                                                  - kind: Identifier
-                                                                                    text: Pleft
-                                                                              - kind: Whitespace
-                                                                                text: " "
-                                                                              - kind: SubtractionOperator
-                                                                                text: "-"
-                                                                              - kind: Whitespace
-                                                                                text: " "
-                                                                              - kind: NumericLiteralExpression
-                                                                                children:
-                                                                                  - kind: IntegerLiteral
-                                                                                    text: "1"
-                                                                          - kind: Newline
-                                                                            text: "\r\n"
                                                                       - kind: Unknown
                                                                         text: Loop
                                                                       - kind: Whitespace
@@ -6256,14 +6250,22 @@ cst:
                                                                             text: With
                                                                           - kind: Whitespace
                                                                             text: " "
-                                                                          - kind: Identifier
-                                                                            text: PriveSpace
-                                                                          - kind: LeftParenthesis
-                                                                            text: (
-                                                                          - kind: Identifier
-                                                                            text: a
-                                                                          - kind: RightParenthesis
-                                                                            text: )
+                                                                          - kind: CallExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: PriveSpace
+                                                                              - kind: LeftParenthesis
+                                                                                text: (
+                                                                              - kind: ArgumentList
+                                                                                children:
+                                                                                  - kind: Argument
+                                                                                    children:
+                                                                                      - kind: IdentifierExpression
+                                                                                        children:
+                                                                                          - kind: Identifier
+                                                                                            text: a
+                                                                              - kind: RightParenthesis
+                                                                                text: )
                                                                           - kind: Newline
                                                                             text: "\r\n"
                                                                           - kind: StatementList
@@ -6764,14 +6766,22 @@ cst:
                                                                             text: With
                                                                           - kind: Whitespace
                                                                             text: " "
-                                                                          - kind: Identifier
-                                                                            text: PriveSpace
-                                                                          - kind: LeftParenthesis
-                                                                            text: (
-                                                                          - kind: Identifier
-                                                                            text: a
-                                                                          - kind: RightParenthesis
-                                                                            text: )
+                                                                          - kind: CallExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: PriveSpace
+                                                                              - kind: LeftParenthesis
+                                                                                text: (
+                                                                              - kind: ArgumentList
+                                                                                children:
+                                                                                  - kind: Argument
+                                                                                    children:
+                                                                                      - kind: IdentifierExpression
+                                                                                        children:
+                                                                                          - kind: Identifier
+                                                                                            text: a
+                                                                              - kind: RightParenthesis
+                                                                                text: )
                                                                           - kind: Newline
                                                                             text: "\r\n"
                                                                           - kind: StatementList

@@ -16684,8 +16684,10 @@ cst:
                             text: With
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: udtBI
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: udtBI
                           - kind: Newline
                             text: "\n"
                           - kind: StatementList

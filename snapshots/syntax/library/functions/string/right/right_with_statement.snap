@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/right.rs
+source: vb6parse/src/syntax/library/functions/string/right.rs
 expression: tree
 ---
 root:
@@ -13,8 +13,10 @@ root:
           text: With
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: TextBox1
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: TextBox1
         - kind: Newline
           text: "\n"
         - kind: StatementList

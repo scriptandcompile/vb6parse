@@ -7021,8 +7021,10 @@ cst:
                                                             text: With
                                                           - kind: Whitespace
                                                             text: " "
-                                                          - kind: Identifier
-                                                            text: GetFncInfo
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: GetFncInfo
                                                           - kind: Newline
                                                             text: "\r\n"
                                                           - kind: StatementList

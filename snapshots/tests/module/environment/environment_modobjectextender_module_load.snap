@@ -4961,8 +4961,10 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: sink
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: sink
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList

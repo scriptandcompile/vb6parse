@@ -7551,22 +7551,34 @@ cst:
                                                                         text: With
                                                                       - kind: Whitespace
                                                                         text: " "
-                                                                      - kind: Identifier
-                                                                        text: HashTable
-                                                                      - kind: LeftParenthesis
-                                                                        text: (
-                                                                      - kind: Identifier
-                                                                        text: ClusterIndex
-                                                                      - kind: Whitespace
-                                                                        text: " "
-                                                                      - kind: AdditionOperator
-                                                                        text: +
-                                                                      - kind: Whitespace
-                                                                        text: " "
-                                                                      - kind: Identifier
-                                                                        text: i
-                                                                      - kind: RightParenthesis
-                                                                        text: )
+                                                                      - kind: CallExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: HashTable
+                                                                          - kind: LeftParenthesis
+                                                                            text: (
+                                                                          - kind: ArgumentList
+                                                                            children:
+                                                                              - kind: Argument
+                                                                                children:
+                                                                                  - kind: BinaryExpression
+                                                                                    children:
+                                                                                      - kind: IdentifierExpression
+                                                                                        children:
+                                                                                          - kind: Identifier
+                                                                                            text: ClusterIndex
+                                                                                      - kind: Whitespace
+                                                                                        text: " "
+                                                                                      - kind: AdditionOperator
+                                                                                        text: +
+                                                                                      - kind: Whitespace
+                                                                                        text: " "
+                                                                                      - kind: IdentifierExpression
+                                                                                        children:
+                                                                                          - kind: Identifier
+                                                                                            text: i
+                                                                          - kind: RightParenthesis
+                                                                            text: )
                                                                       - kind: Newline
                                                                         text: "\r\n"
                                                                       - kind: StatementList
@@ -8257,16 +8269,18 @@ cst:
                                                                                     text: " "
                                                                                   - kind: WithKeyword
                                                                                     text: With
+                                                                                  - kind: IdentifierExpression
+                                                                                    children:
+                                                                                      - kind: Newline
+                                                                                        text: "\r\n"
+                                                                                  - kind: Whitespace
+                                                                                    text: "  "
+                                                                                  - kind: NextKeyword
+                                                                                    text: Next
                                                                                   - kind: Newline
                                                                                     text: "\r\n"
                                                                                   - kind: StatementList
                                                                                     children:
-                                                                                      - kind: Whitespace
-                                                                                        text: "  "
-                                                                                      - kind: Unknown
-                                                                                        text: Next
-                                                                                      - kind: Newline
-                                                                                        text: "\r\n"
                                                                                       - kind: Whitespace
                                                                                         text: " "
                                                                                       - kind: Newline
@@ -8283,14 +8297,22 @@ cst:
                                                                                             text: With
                                                                                           - kind: Whitespace
                                                                                             text: " "
-                                                                                          - kind: Identifier
-                                                                                            text: HashTable
-                                                                                          - kind: LeftParenthesis
-                                                                                            text: (
-                                                                                          - kind: Identifier
-                                                                                            text: ReplaceIndex
-                                                                                          - kind: RightParenthesis
-                                                                                            text: )
+                                                                                          - kind: CallExpression
+                                                                                            children:
+                                                                                              - kind: Identifier
+                                                                                                text: HashTable
+                                                                                              - kind: LeftParenthesis
+                                                                                                text: (
+                                                                                              - kind: ArgumentList
+                                                                                                children:
+                                                                                                  - kind: Argument
+                                                                                                    children:
+                                                                                                      - kind: IdentifierExpression
+                                                                                                        children:
+                                                                                                          - kind: Identifier
+                                                                                                            text: ReplaceIndex
+                                                                                              - kind: RightParenthesis
+                                                                                                text: )
                                                                                           - kind: Newline
                                                                                             text: "\r\n"
                                                                                           - kind: StatementList
@@ -8815,12 +8837,14 @@ cst:
                                                                                                         text: " "
                                                                                                       - kind: WithKeyword
                                                                                                         text: With
+                                                                                                      - kind: IdentifierExpression
+                                                                                                        children:
+                                                                                                          - kind: Newline
+                                                                                                            text: "\r\n"
                                                                                                       - kind: Newline
                                                                                                         text: "\r\n"
                                                                                                       - kind: StatementList
                                                                                                         children:
-                                                                                                          - kind: Newline
-                                                                                                            text: "\r\n"
                                                                                                           - kind: Unknown
                                                                                                             text: End
                                                                                                           - kind: Whitespace
@@ -9933,22 +9957,34 @@ cst:
                                                                                                                             text: With
                                                                                                                           - kind: Whitespace
                                                                                                                             text: " "
-                                                                                                                          - kind: Identifier
-                                                                                                                            text: HashTable
-                                                                                                                          - kind: LeftParenthesis
-                                                                                                                            text: (
-                                                                                                                          - kind: Identifier
-                                                                                                                            text: IndexKey
-                                                                                                                          - kind: Whitespace
-                                                                                                                            text: " "
-                                                                                                                          - kind: AdditionOperator
-                                                                                                                            text: +
-                                                                                                                          - kind: Whitespace
-                                                                                                                            text: " "
-                                                                                                                          - kind: Identifier
-                                                                                                                            text: i
-                                                                                                                          - kind: RightParenthesis
-                                                                                                                            text: )
+                                                                                                                          - kind: CallExpression
+                                                                                                                            children:
+                                                                                                                              - kind: Identifier
+                                                                                                                                text: HashTable
+                                                                                                                              - kind: LeftParenthesis
+                                                                                                                                text: (
+                                                                                                                              - kind: ArgumentList
+                                                                                                                                children:
+                                                                                                                                  - kind: Argument
+                                                                                                                                    children:
+                                                                                                                                      - kind: BinaryExpression
+                                                                                                                                        children:
+                                                                                                                                          - kind: IdentifierExpression
+                                                                                                                                            children:
+                                                                                                                                              - kind: Identifier
+                                                                                                                                                text: IndexKey
+                                                                                                                                          - kind: Whitespace
+                                                                                                                                            text: " "
+                                                                                                                                          - kind: AdditionOperator
+                                                                                                                                            text: +
+                                                                                                                                          - kind: Whitespace
+                                                                                                                                            text: " "
+                                                                                                                                          - kind: IdentifierExpression
+                                                                                                                                            children:
+                                                                                                                                              - kind: Identifier
+                                                                                                                                                text: i
+                                                                                                                              - kind: RightParenthesis
+                                                                                                                                text: )
                                                                                                                           - kind: Newline
                                                                                                                             text: "\r\n"
                                                                                                                           - kind: StatementList

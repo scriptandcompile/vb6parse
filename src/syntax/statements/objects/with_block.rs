@@ -66,36 +66,24 @@ impl Parser<'_> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/with-statement)
     pub(crate) fn parse_with_statement(&mut self) {
-        // if we are now parsing a with statement, we are no longer in the header.
         self.parsing_header = false;
 
         self.builder.start_node(SyntaxKind::WithStatement.to_raw());
         self.consume_whitespace();
-
-        // Consume "With" keyword
-        self.consume_token();
-
-        // Consume everything until newline (the object expression)
+        self.consume_token(); // With
+        self.consume_whitespace();
+        self.parse_expression();
         self.consume_until_after(Token::Newline);
 
-        // Parse the body until "End With"
         self.parse_statement_list(|parser| {
             parser.at_token(Token::EndKeyword)
                 && parser.peek_next_keyword() == Some(Token::WithKeyword)
         });
 
-        // Consume "End With" and trailing tokens
         if self.at_token(Token::EndKeyword) {
-            // Consume "End"
             self.consume_token();
-
-            // Consume any whitespace between "End" and "With"
             self.consume_whitespace();
-
-            // Consume "With"
-            self.consume_token();
-
-            // Consume until newline (including it)
+            self.consume_token(); // With
             self.consume_until_after(Token::Newline);
         }
 

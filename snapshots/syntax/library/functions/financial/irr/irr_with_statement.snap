@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/financial/irr.rs
+source: vb6parse/src/syntax/library/functions/financial/irr.rs
 expression: tree
 ---
 root:
@@ -33,8 +33,10 @@ root:
                   text: With
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: project
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: project
                 - kind: Newline
                   text: "\n"
                 - kind: StatementList

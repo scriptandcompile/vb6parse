@@ -3139,8 +3139,10 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: HTMLdoc
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: HTMLdoc
                   - kind: Newline
                     text: "\n"
                   - kind: StatementList
@@ -3153,8 +3155,10 @@ cst:
                             text: With
                           - kind: Whitespace
                             text: " "
-                          - kind: PeriodOperator
-                            text: "."
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: PeriodOperator
+                                text: "."
                           - kind: Identifier
                             text: body
                           - kind: Newline

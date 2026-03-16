@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/objects/with_block.rs
+source: vb6parse/src/syntax/statements/objects/with_block.rs
 expression: tree
 ---
 root:
@@ -33,12 +33,16 @@ root:
                   text: With
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: GetObject
-                - kind: LeftParenthesis
-                  text: (
-                - kind: RightParenthesis
-                  text: )
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: GetObject
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children: []
+                    - kind: RightParenthesis
+                      text: )
                 - kind: Newline
                   text: "\n"
                 - kind: StatementList

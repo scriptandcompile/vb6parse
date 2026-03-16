@@ -31,8 +31,10 @@ root:
                   text: With
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: obj0
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: obj0
                 - kind: Newline
                   text: "\n"
                 - kind: StatementList
@@ -45,8 +47,10 @@ root:
                           text: With
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: obj1
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: obj1
                         - kind: Newline
                           text: "\n"
                         - kind: StatementList
@@ -59,8 +63,10 @@ root:
                                   text: With
                                 - kind: Whitespace
                                   text: " "
-                                - kind: Identifier
-                                  text: obj2
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: obj2
                                 - kind: Newline
                                   text: "\n"
                                 - kind: StatementList
@@ -73,8 +79,10 @@ root:
                                           text: With
                                         - kind: Whitespace
                                           text: " "
-                                        - kind: Identifier
-                                          text: obj3
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: obj3
                                         - kind: Newline
                                           text: "\n"
                                         - kind: StatementList
@@ -87,8 +95,10 @@ root:
                                                   text: With
                                                 - kind: Whitespace
                                                   text: " "
-                                                - kind: Identifier
-                                                  text: obj4
+                                                - kind: IdentifierExpression
+                                                  children:
+                                                    - kind: Identifier
+                                                      text: obj4
                                                 - kind: Newline
                                                   text: "\n"
                                                 - kind: StatementList
@@ -101,8 +111,10 @@ root:
                                                           text: With
                                                         - kind: Whitespace
                                                           text: " "
-                                                        - kind: Identifier
-                                                          text: obj5
+                                                        - kind: IdentifierExpression
+                                                          children:
+                                                            - kind: Identifier
+                                                              text: obj5
                                                         - kind: Newline
                                                           text: "\n"
                                                         - kind: StatementList
@@ -115,8 +127,10 @@ root:
                                                                   text: With
                                                                 - kind: Whitespace
                                                                   text: " "
-                                                                - kind: Identifier
-                                                                  text: obj6
+                                                                - kind: IdentifierExpression
+                                                                  children:
+                                                                    - kind: Identifier
+                                                                      text: obj6
                                                                 - kind: Newline
                                                                   text: "\n"
                                                                 - kind: StatementList
@@ -129,8 +143,10 @@ root:
                                                                           text: With
                                                                         - kind: Whitespace
                                                                           text: " "
-                                                                        - kind: Identifier
-                                                                          text: obj7
+                                                                        - kind: IdentifierExpression
+                                                                          children:
+                                                                            - kind: Identifier
+                                                                              text: obj7
                                                                         - kind: Newline
                                                                           text: "\n"
                                                                         - kind: StatementList
@@ -143,8 +159,10 @@ root:
                                                                                   text: With
                                                                                 - kind: Whitespace
                                                                                   text: " "
-                                                                                - kind: Identifier
-                                                                                  text: obj8
+                                                                                - kind: IdentifierExpression
+                                                                                  children:
+                                                                                    - kind: Identifier
+                                                                                      text: obj8
                                                                                 - kind: Newline
                                                                                   text: "\n"
                                                                                 - kind: StatementList
@@ -157,8 +175,10 @@ root:
                                                                                           text: With
                                                                                         - kind: Whitespace
                                                                                           text: " "
-                                                                                        - kind: Identifier
-                                                                                          text: obj9
+                                                                                        - kind: IdentifierExpression
+                                                                                          children:
+                                                                                            - kind: Identifier
+                                                                                              text: obj9
                                                                                         - kind: Newline
                                                                                           text: "\n"
                                                                                         - kind: StatementList
@@ -171,8 +191,10 @@ root:
                                                                                                   text: With
                                                                                                 - kind: Whitespace
                                                                                                   text: " "
-                                                                                                - kind: Identifier
-                                                                                                  text: obj10
+                                                                                                - kind: IdentifierExpression
+                                                                                                  children:
+                                                                                                    - kind: Identifier
+                                                                                                      text: obj10
                                                                                                 - kind: Newline
                                                                                                   text: "\n"
                                                                                                 - kind: StatementList
@@ -185,8 +207,10 @@ root:
                                                                                                           text: With
                                                                                                         - kind: Whitespace
                                                                                                           text: " "
-                                                                                                        - kind: Identifier
-                                                                                                          text: obj11
+                                                                                                        - kind: IdentifierExpression
+                                                                                                          children:
+                                                                                                            - kind: Identifier
+                                                                                                              text: obj11
                                                                                                         - kind: Newline
                                                                                                           text: "\n"
                                                                                                         - kind: StatementList
@@ -199,8 +223,10 @@ root:
                                                                                                                   text: With
                                                                                                                 - kind: Whitespace
                                                                                                                   text: " "
-                                                                                                                - kind: Identifier
-                                                                                                                  text: obj12
+                                                                                                                - kind: IdentifierExpression
+                                                                                                                  children:
+                                                                                                                    - kind: Identifier
+                                                                                                                      text: obj12
                                                                                                                 - kind: Newline
                                                                                                                   text: "\n"
                                                                                                                 - kind: StatementList
@@ -213,8 +239,10 @@ root:
                                                                                                                           text: With
                                                                                                                         - kind: Whitespace
                                                                                                                           text: " "
-                                                                                                                        - kind: Identifier
-                                                                                                                          text: obj13
+                                                                                                                        - kind: IdentifierExpression
+                                                                                                                          children:
+                                                                                                                            - kind: Identifier
+                                                                                                                              text: obj13
                                                                                                                         - kind: Newline
                                                                                                                           text: "\n"
                                                                                                                         - kind: StatementList
@@ -227,8 +255,10 @@ root:
                                                                                                                                   text: With
                                                                                                                                 - kind: Whitespace
                                                                                                                                   text: " "
-                                                                                                                                - kind: Identifier
-                                                                                                                                  text: obj14
+                                                                                                                                - kind: IdentifierExpression
+                                                                                                                                  children:
+                                                                                                                                    - kind: Identifier
+                                                                                                                                      text: obj14
                                                                                                                                 - kind: Newline
                                                                                                                                   text: "\n"
                                                                                                                                 - kind: StatementList
@@ -241,8 +271,10 @@ root:
                                                                                                                                           text: With
                                                                                                                                         - kind: Whitespace
                                                                                                                                           text: " "
-                                                                                                                                        - kind: Identifier
-                                                                                                                                          text: obj15
+                                                                                                                                        - kind: IdentifierExpression
+                                                                                                                                          children:
+                                                                                                                                            - kind: Identifier
+                                                                                                                                              text: obj15
                                                                                                                                         - kind: Newline
                                                                                                                                           text: "\n"
                                                                                                                                         - kind: StatementList
@@ -255,8 +287,10 @@ root:
                                                                                                                                                   text: With
                                                                                                                                                 - kind: Whitespace
                                                                                                                                                   text: " "
-                                                                                                                                                - kind: Identifier
-                                                                                                                                                  text: obj16
+                                                                                                                                                - kind: IdentifierExpression
+                                                                                                                                                  children:
+                                                                                                                                                    - kind: Identifier
+                                                                                                                                                      text: obj16
                                                                                                                                                 - kind: Newline
                                                                                                                                                   text: "\n"
                                                                                                                                                 - kind: StatementList
@@ -269,8 +303,10 @@ root:
                                                                                                                                                           text: With
                                                                                                                                                         - kind: Whitespace
                                                                                                                                                           text: " "
-                                                                                                                                                        - kind: Identifier
-                                                                                                                                                          text: obj17
+                                                                                                                                                        - kind: IdentifierExpression
+                                                                                                                                                          children:
+                                                                                                                                                            - kind: Identifier
+                                                                                                                                                              text: obj17
                                                                                                                                                         - kind: Newline
                                                                                                                                                           text: "\n"
                                                                                                                                                         - kind: StatementList
@@ -283,8 +319,10 @@ root:
                                                                                                                                                                   text: With
                                                                                                                                                                 - kind: Whitespace
                                                                                                                                                                   text: " "
-                                                                                                                                                                - kind: Identifier
-                                                                                                                                                                  text: obj18
+                                                                                                                                                                - kind: IdentifierExpression
+                                                                                                                                                                  children:
+                                                                                                                                                                    - kind: Identifier
+                                                                                                                                                                      text: obj18
                                                                                                                                                                 - kind: Newline
                                                                                                                                                                   text: "\n"
                                                                                                                                                                 - kind: StatementList
@@ -297,8 +335,10 @@ root:
                                                                                                                                                                           text: With
                                                                                                                                                                         - kind: Whitespace
                                                                                                                                                                           text: " "
-                                                                                                                                                                        - kind: Identifier
-                                                                                                                                                                          text: obj19
+                                                                                                                                                                        - kind: IdentifierExpression
+                                                                                                                                                                          children:
+                                                                                                                                                                            - kind: Identifier
+                                                                                                                                                                              text: obj19
                                                                                                                                                                         - kind: Newline
                                                                                                                                                                           text: "\n"
                                                                                                                                                                         - kind: StatementList
@@ -311,8 +351,10 @@ root:
                                                                                                                                                                                   text: With
                                                                                                                                                                                 - kind: Whitespace
                                                                                                                                                                                   text: " "
-                                                                                                                                                                                - kind: Identifier
-                                                                                                                                                                                  text: obj20
+                                                                                                                                                                                - kind: IdentifierExpression
+                                                                                                                                                                                  children:
+                                                                                                                                                                                    - kind: Identifier
+                                                                                                                                                                                      text: obj20
                                                                                                                                                                                 - kind: Newline
                                                                                                                                                                                   text: "\n"
                                                                                                                                                                                 - kind: StatementList
@@ -325,8 +367,10 @@ root:
                                                                                                                                                                                           text: With
                                                                                                                                                                                         - kind: Whitespace
                                                                                                                                                                                           text: " "
-                                                                                                                                                                                        - kind: Identifier
-                                                                                                                                                                                          text: obj21
+                                                                                                                                                                                        - kind: IdentifierExpression
+                                                                                                                                                                                          children:
+                                                                                                                                                                                            - kind: Identifier
+                                                                                                                                                                                              text: obj21
                                                                                                                                                                                         - kind: Newline
                                                                                                                                                                                           text: "\n"
                                                                                                                                                                                         - kind: StatementList
@@ -339,8 +383,10 @@ root:
                                                                                                                                                                                                   text: With
                                                                                                                                                                                                 - kind: Whitespace
                                                                                                                                                                                                   text: " "
-                                                                                                                                                                                                - kind: Identifier
-                                                                                                                                                                                                  text: obj22
+                                                                                                                                                                                                - kind: IdentifierExpression
+                                                                                                                                                                                                  children:
+                                                                                                                                                                                                    - kind: Identifier
+                                                                                                                                                                                                      text: obj22
                                                                                                                                                                                                 - kind: Newline
                                                                                                                                                                                                   text: "\n"
                                                                                                                                                                                                 - kind: StatementList
@@ -353,8 +399,10 @@ root:
                                                                                                                                                                                                           text: With
                                                                                                                                                                                                         - kind: Whitespace
                                                                                                                                                                                                           text: " "
-                                                                                                                                                                                                        - kind: Identifier
-                                                                                                                                                                                                          text: obj23
+                                                                                                                                                                                                        - kind: IdentifierExpression
+                                                                                                                                                                                                          children:
+                                                                                                                                                                                                            - kind: Identifier
+                                                                                                                                                                                                              text: obj23
                                                                                                                                                                                                         - kind: Newline
                                                                                                                                                                                                           text: "\n"
                                                                                                                                                                                                         - kind: StatementList
@@ -367,8 +415,10 @@ root:
                                                                                                                                                                                                                   text: With
                                                                                                                                                                                                                 - kind: Whitespace
                                                                                                                                                                                                                   text: " "
-                                                                                                                                                                                                                - kind: Identifier
-                                                                                                                                                                                                                  text: obj24
+                                                                                                                                                                                                                - kind: IdentifierExpression
+                                                                                                                                                                                                                  children:
+                                                                                                                                                                                                                    - kind: Identifier
+                                                                                                                                                                                                                      text: obj24
                                                                                                                                                                                                                 - kind: Newline
                                                                                                                                                                                                                   text: "\n"
                                                                                                                                                                                                                 - kind: StatementList

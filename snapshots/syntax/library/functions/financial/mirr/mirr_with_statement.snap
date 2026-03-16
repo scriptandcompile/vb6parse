@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/financial/mirr.rs
+source: vb6parse/src/syntax/library/functions/financial/mirr.rs
 expression: tree
 ---
 root:
@@ -13,8 +13,10 @@ root:
           text: With
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: investmentRecord
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: investmentRecord
         - kind: Newline
           text: "\n"
         - kind: StatementList

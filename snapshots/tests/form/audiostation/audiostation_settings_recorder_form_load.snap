@@ -764,8 +764,10 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Combox_Rate
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: Combox_Rate
                   - kind: Newline
                     text: "\n"
                   - kind: StatementList

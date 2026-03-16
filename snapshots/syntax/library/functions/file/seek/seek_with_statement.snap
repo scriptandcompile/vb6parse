@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/file/seek.rs
+source: vb6parse/src/syntax/library/functions/file/seek.rs
 expression: tree
 ---
 root:
@@ -33,8 +33,10 @@ root:
                   text: With
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: FileManager
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: FileManager
                 - kind: Newline
                   text: "\n"
                 - kind: StatementList

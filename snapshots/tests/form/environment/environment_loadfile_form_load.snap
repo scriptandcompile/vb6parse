@@ -1265,8 +1265,10 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: mySelector
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: mySelector
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList
@@ -1381,8 +1383,10 @@ cst:
                             text: With
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: gList1
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: gList1
                           - kind: Newline
                             text: "\r\n"
                           - kind: StatementList
@@ -2383,8 +2387,10 @@ cst:
                                 text: With
                               - kind: Whitespace
                                 text: " "
-                              - kind: Identifier
-                                text: gList1
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: gList1
                               - kind: Newline
                                 text: "\r\n"
                               - kind: StatementList
@@ -3385,8 +3391,10 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: mySelector
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: mySelector
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList
@@ -6457,8 +6465,10 @@ cst:
                                     text: With
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Identifier
-                                    text: mySelector
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: mySelector
                                   - kind: Newline
                                     text: "\r\n"
                                   - kind: StatementList
@@ -6819,24 +6829,24 @@ cst:
                                                         text: " "
                                                       - kind: WithKeyword
                                                         text: With
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Newline
+                                                            text: "\r\n"
+                                                      - kind: ElseIfKeyword
+                                                        text: ElseIf
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Identifier
+                                                        text: FolderOnly
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: ThenKeyword
+                                                        text: Then
                                                       - kind: Newline
                                                         text: "\r\n"
                                                       - kind: StatementList
                                                         children:
-                                                          - kind: Unknown
-                                                            text: ElseIf
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: CallStatement
-                                                            children:
-                                                              - kind: Identifier
-                                                                text: FolderOnly
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: ThenKeyword
-                                                                text: Then
-                                                              - kind: Newline
-                                                                text: "\r\n"
                                                           - kind: IfStatement
                                                             children:
                                                               - kind: IfKeyword
@@ -8805,8 +8815,10 @@ cst:
                                                                                                             text: With
                                                                                                           - kind: Whitespace
                                                                                                             text: " "
-                                                                                                          - kind: Identifier
-                                                                                                            text: mySelector
+                                                                                                          - kind: IdentifierExpression
+                                                                                                            children:
+                                                                                                              - kind: Identifier
+                                                                                                                text: mySelector
                                                                                                           - kind: Newline
                                                                                                             text: "\r\n"
                                                                                                           - kind: StatementList

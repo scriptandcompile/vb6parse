@@ -34970,8 +34970,10 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: q
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: q
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList
@@ -35534,8 +35536,10 @@ cst:
                                     text: With
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Identifier
-                                    text: q
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: q
                                   - kind: Newline
                                     text: "\r\n"
                                   - kind: StatementList
@@ -35940,8 +35944,10 @@ cst:
                                         text: With
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Identifier
-                                        text: q
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: q
                                       - kind: Newline
                                         text: "\r\n"
                                       - kind: StatementList

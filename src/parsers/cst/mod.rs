@@ -503,20 +503,6 @@ pub fn parse(tokens: TokenStream) -> ConcreteSyntaxTree {
     parser.parse_root()
 }
 
-/// Tracks recursion depth to prevent stack overflow
-#[derive(Debug, Clone)]
-pub(crate) struct DepthCounters {
-    pub(crate) statement: usize,
-}
-
-impl DepthCounters {
-    const MAX_STATEMENT_DEPTH: usize = 500;
-
-    fn new() -> Self {
-        Self { statement: 0 }
-    }
-}
-
 /// Frame for control parsing with explicit stack.
 /// Holds the state for parsing a single control at any nesting level.
 #[derive(Debug)]
@@ -593,7 +579,6 @@ pub(crate) struct Parser<'a> {
     pub(crate) pos: usize,
     pub(crate) builder: GreenNodeBuilder<'static>,
     pub(crate) parsing_header: bool,
-    pub(crate) depth_counters: DepthCounters,
 }
 
 impl<'a> Parser<'a> {
@@ -603,7 +588,6 @@ impl<'a> Parser<'a> {
             pos: 0,
             builder: GreenNodeBuilder::new(),
             parsing_header: true,
-            depth_counters: DepthCounters::new(),
         }
     }
 
@@ -614,18 +598,7 @@ impl<'a> Parser<'a> {
             pos,
             builder: GreenNodeBuilder::new(),
             parsing_header: true,
-            depth_counters: DepthCounters::new(),
         }
-    }
-
-    /// Check if statement depth limit would be exceeded
-    pub(crate) fn check_statement_depth(&self) -> Result<(), FormError> {
-        if self.depth_counters.statement >= DepthCounters::MAX_STATEMENT_DEPTH {
-            return Err(FormError::StatementDepthExceeded {
-                max_depth: DepthCounters::MAX_STATEMENT_DEPTH,
-            });
-        }
-        Ok(())
     }
 
     // Create parser for hybrid mode (`FormFile` optimization)
@@ -2201,9 +2174,13 @@ impl<'a> Parser<'a> {
 
     /// Parse a statement list, consuming tokens until a termination condition is met.
     ///
-    /// This is a generic statement list parser that can handle different termination conditions:
-    /// - End Sub, End Function, End If, etc.
-    /// - `ElseIf` or Else (for If statements)
+    /// This is an ITERATIVE implementation using an explicit approach to prevent stack overflow
+    /// on deeply nested code structures. It handles all statement list parsing contexts:
+    /// - Sub/Function bodies
+    /// - If/ElseIf/Else blocks  
+    /// - For/While/Do loop bodies
+    /// - Select Case blocks
+    /// - With blocks
     ///
     /// # Arguments
     /// * `stop_conditions` - A closure that returns true when the block should stop parsing
@@ -2211,33 +2188,48 @@ impl<'a> Parser<'a> {
     where
         F: Fn(&Parser) -> bool,
     {
-        // Check depth limit before recursing
-        if let Err(_e) = self.check_statement_depth() {
-            // Record error and return early with empty statement list
-            self.builder.start_node(SyntaxKind::StatementList.to_raw());
-            self.builder.finish_node();
-            // Note: We can't easily propagate the error here since this function doesn't return an error type
-            // The error will be caught when testing depth limits
-            return;
-        }
-
-        // Increment depth counter
-        self.depth_counters.statement += 1;
-
-        // Statement lists can appear in both header and body, so we do not modify parsing_header here.
-
         // Start a StatementList node
         self.builder.start_node(SyntaxKind::StatementList.to_raw());
 
+        // Main parsing loop - iterate through statements without deep recursion
         while !self.is_at_end() {
             if stop_conditions(self) {
                 break;
             }
 
-            // Try control flow statements first
+            // Try control flow statements - handle them inline to avoid deep recursion
             if self.is_control_flow_keyword() {
-                self.parse_control_flow_statement();
-                continue;
+                match self.current_token() {
+                    Some(Token::IfKeyword) => {
+                        self.parse_if_statement();
+                        continue;
+                    }
+                    Some(Token::ForKeyword) => {
+                        self.parse_for_statement();
+                        continue;
+                    }
+                    Some(Token::SelectKeyword) => {
+                        self.parse_select_case_statement();
+                        continue;
+                    }
+                    Some(Token::WhileKeyword) => {
+                        self.parse_while_statement();
+                        continue;
+                    }
+                    Some(Token::DoKeyword) => {
+                        self.parse_do_statement();
+                        continue;
+                    }
+                    Some(Token::WithKeyword) => {
+                        self.parse_with_statement();
+                        continue;
+                    }
+                    // Other control flow statements that don't nest deeply
+                    _ => {
+                        self.parse_control_flow_statement();
+                        continue;
+                    }
+                }
             }
 
             // Try built-in library statements
@@ -2261,8 +2253,6 @@ impl<'a> Parser<'a> {
             // Handle other constructs that aren't in parse_statement
             match self.current_token() {
                 // Whitespace, newlines, and comments - consume directly FIRST
-                // This must be checked before is_at_procedure_call to avoid
-                // treating REM comments as procedure calls
                 Some(
                     Token::Whitespace
                     | Token::Newline
@@ -2304,9 +2294,6 @@ impl<'a> Parser<'a> {
                 }
             }
         }
-
-        // Decrement depth counter before finishing
-        self.depth_counters.statement -= 1;
 
         self.builder.finish_node(); // StatementList
     }

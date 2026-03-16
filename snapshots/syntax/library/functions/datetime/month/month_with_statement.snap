@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/month.rs
+source: vb6parse/src/syntax/library/functions/datetime/month.rs
 expression: tree
 ---
 root:
@@ -13,8 +13,10 @@ root:
           text: With
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: employeeRecord
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: employeeRecord
         - kind: Newline
           text: "\n"
         - kind: StatementList

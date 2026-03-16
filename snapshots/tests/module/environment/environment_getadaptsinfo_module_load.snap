@@ -1797,14 +1797,22 @@ cst:
                                                     text: With
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: Identifier
-                                                    text: AdaptersInfo
-                                                  - kind: LeftParenthesis
-                                                    text: (
-                                                  - kind: Identifier
-                                                    text: lngAdapterCount
-                                                  - kind: RightParenthesis
-                                                    text: )
+                                                  - kind: CallExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: AdaptersInfo
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: lngAdapterCount
+                                                      - kind: RightParenthesis
+                                                        text: )
                                                   - kind: Newline
                                                     text: "\r\n"
                                                   - kind: StatementList

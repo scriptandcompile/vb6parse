@@ -1847,8 +1847,10 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Callback
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: Callback
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList
@@ -2001,8 +2003,10 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: pbox
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: pbox
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList
@@ -5517,12 +5521,14 @@ cst:
                                     text: With
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Identifier
-                                    text: pbox
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: Identifier
-                                    text: Parent
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: pbox
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Parent
                                   - kind: Newline
                                     text: "\r\n"
                                   - kind: StatementList
@@ -19677,14 +19683,22 @@ cst:
                                                     text: With
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: Identifier
-                                                    text: players
-                                                  - kind: LeftParenthesis
-                                                    text: (
-                                                  - kind: Identifier
-                                                    text: prive
-                                                  - kind: RightParenthesis
-                                                    text: )
+                                                  - kind: CallExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: players
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: prive
+                                                      - kind: RightParenthesis
+                                                        text: )
                                                   - kind: Newline
                                                     text: "\r\n"
                                                   - kind: StatementList

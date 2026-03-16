@@ -1685,12 +1685,14 @@ cst:
                             text: With
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: Info
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: EventParameters
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Info
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: EventParameters
                           - kind: Newline
                             text: "\r\n"
                           - kind: StatementList

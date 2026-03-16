@@ -15115,8 +15115,10 @@ cst:
                                                                 text: With
                                                               - kind: Whitespace
                                                                 text: " "
-                                                              - kind: Identifier
-                                                                text: UniStr
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: UniStr
                                                               - kind: Newline
                                                                 text: "\r\n"
                                                               - kind: StatementList
@@ -15249,8 +15251,10 @@ cst:
                                                                 text: With
                                                               - kind: Whitespace
                                                                 text: " "
-                                                              - kind: Identifier
-                                                                text: OA
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: OA
                                                               - kind: Newline
                                                                 text: "\r\n"
                                                               - kind: StatementList

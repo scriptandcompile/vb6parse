@@ -24,64 +24,37 @@ impl Parser<'_> {
     /// - Do...Loop (infinite loop, requires Exit Do)
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/doloop-statement)
-    pub(super) fn parse_do_statement(&mut self) {
-        // if we are now parsing a do statement, we are no longer in the header.
+    pub(crate) fn parse_do_statement(&mut self) {
         self.parsing_header = false;
 
         self.builder.start_node(SyntaxKind::DoStatement.to_raw());
-
-        // Consume any leading whitespace
+        self.consume_whitespace();
+        self.consume_token(); // Do
         self.consume_whitespace();
 
-        // Consume "Do" keyword
-        self.consume_token();
-
-        // Consume whitespace after Do
-        self.consume_whitespace();
-
-        // Check if we have While or Until after Do
-        let has_top_condition =
-            self.at_token(Token::WhileKeyword) || self.at_token(Token::UntilKeyword);
-
-        if has_top_condition {
-            // Consume While or Until
+        // Check for While/Until after Do
+        if self.at_token(Token::WhileKeyword) || self.at_token(Token::UntilKeyword) {
             self.consume_token();
-
-            // Consume any whitespace after While or Until
             self.consume_whitespace();
-
-            // Parse condition - consume everything until newline
             self.parse_expression();
         }
 
-        // Consume newline after Do line
         if self.at_token(Token::Newline) {
             self.consume_token();
         }
 
-        // Parse the loop body until "Loop"
         self.parse_statement_list(|parser| parser.at_token(Token::LoopKeyword));
 
-        // Consume "Loop" keyword
         if self.at_token(Token::LoopKeyword) {
             self.consume_token();
-
-            // Consume whitespace after Loop
             self.consume_whitespace();
 
-            // Check if we have While or Until after Loop
             if self.at_token(Token::WhileKeyword) || self.at_token(Token::UntilKeyword) {
-                // Consume While or Until
                 self.consume_token();
-
-                // Consume any whitespace after While or Until
                 self.consume_whitespace();
-
-                // Parse condition - consume everything until newline
                 self.parse_expression();
             }
 
-            // Consume newline after Loop
             if self.at_token(Token::Newline) {
                 self.consume_token();
             }
@@ -145,22 +118,13 @@ impl Parser<'_> {
     ///
     /// The condition is evaluated before each iteration. If the condition is
     /// initially false, the loop body will not execute at all.
-    pub(super) fn parse_while_statement(&mut self) {
-        // if we are now parsing a while statement, we are no longer in the header.
+    pub(crate) fn parse_while_statement(&mut self) {
         self.parsing_header = false;
 
         self.builder.start_node(SyntaxKind::WhileStatement.to_raw());
-
-        // Consume any leading whitespace
         self.consume_whitespace();
-
-        // Consume "While" keyword
-        self.consume_token();
-
-        // Consume whitespace after While
+        self.consume_token(); // While
         self.consume_whitespace();
-
-        // Parse condition - consume everything until newline
         self.parse_expression();
 
         // Consume newline after While line
@@ -168,14 +132,11 @@ impl Parser<'_> {
             self.consume_token();
         }
 
-        // Parse the loop body until "Wend"
         self.parse_statement_list(|parser| parser.at_token(Token::WendKeyword));
 
-        // Consume "Wend" keyword
         if self.at_token(Token::WendKeyword) {
             self.consume_token();
 
-            // Consume newline after Wend
             if self.at_token(Token::Newline) {
                 self.consume_token();
             }

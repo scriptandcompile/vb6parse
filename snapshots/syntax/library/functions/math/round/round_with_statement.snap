@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/math/round.rs
+source: vb6parse/src/syntax/library/functions/math/round.rs
 expression: tree
 ---
 root:
@@ -13,8 +13,10 @@ root:
           text: With
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: calculation
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: calculation
         - kind: Newline
           text: "\n"
         - kind: StatementList

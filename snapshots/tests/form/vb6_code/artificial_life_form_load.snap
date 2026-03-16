@@ -2309,8 +2309,10 @@ cst:
                             text: With
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: txtInfo
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: txtInfo
                           - kind: Newline
                             text: "\r\n"
                           - kind: StatementList

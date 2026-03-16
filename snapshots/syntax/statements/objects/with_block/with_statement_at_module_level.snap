@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/objects/with_block.rs
+source: vb6parse/src/syntax/statements/objects/with_block.rs
 expression: tree
 ---
 root:
@@ -13,8 +13,10 @@ root:
           text: With
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: globalObject
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: globalObject
         - kind: Newline
           text: "\n"
         - kind: StatementList

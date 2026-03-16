@@ -2942,8 +2942,10 @@ cst:
                                         text: With
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Identifier
-                                        text: eventlist
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: eventlist
                                       - kind: Newline
                                         text: "\r\n"
                                       - kind: StatementList
@@ -3246,8 +3248,10 @@ cst:
                                         text: With
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Identifier
-                                        text: eventlist
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: eventlist
                                       - kind: Newline
                                         text: "\r\n"
                                       - kind: StatementList
@@ -3738,8 +3742,10 @@ cst:
                                             text: With
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Identifier
-                                            text: eventlist
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: eventlist
                                           - kind: Newline
                                             text: "\r\n"
                                           - kind: StatementList
@@ -3898,18 +3904,20 @@ cst:
                                                                     text: " "
                                                                   - kind: WithKeyword
                                                                     text: With
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Newline
+                                                                        text: "\r\n"
+                                                                  - kind: EndKeyword
+                                                                    text: End
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: FunctionKeyword
+                                                                    text: Function
                                                                   - kind: Newline
                                                                     text: "\r\n"
                                                                   - kind: StatementList
                                                                     children:
-                                                                      - kind: Unknown
-                                                                        text: End
-                                                                      - kind: Whitespace
-                                                                        text: " "
-                                                                      - kind: Unknown
-                                                                        text: Function
-                                                                      - kind: Newline
-                                                                        text: "\r\n"
                                                                       - kind: Newline
                                                                         text: "\r\n"
                                                                       - kind: DimStatement

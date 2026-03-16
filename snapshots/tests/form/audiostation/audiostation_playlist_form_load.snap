@@ -5012,8 +5012,10 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: CommonDialog
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: CommonDialog
                   - kind: Newline
                     text: "\n"
                   - kind: StatementList
@@ -5580,12 +5582,14 @@ cst:
                                     text: " "
                                   - kind: WithKeyword
                                     text: With
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Newline
+                                        text: "\n"
                                   - kind: Newline
                                     text: "\n"
                                   - kind: StatementList
                                     children:
-                                      - kind: Newline
-                                        text: "\n"
                                       - kind: CallStatement
                                         children:
                                           - kind: CallKeyword
@@ -5860,8 +5864,10 @@ cst:
                                             text: With
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Identifier
-                                            text: CommonDialog
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: CommonDialog
                                           - kind: Newline
                                             text: "\n"
                                           - kind: StatementList
@@ -6482,12 +6488,14 @@ cst:
                                                                     text: " "
                                                                   - kind: WithKeyword
                                                                     text: With
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Newline
+                                                                        text: "\n"
                                                                   - kind: Newline
                                                                     text: "\n"
                                                                   - kind: StatementList
                                                                     children:
-                                                                      - kind: Newline
-                                                                        text: "\n"
                                                                       - kind: ExitStatement
                                                                         children:
                                                                           - kind: ExitKeyword
@@ -6986,8 +6994,10 @@ cst:
                                                                                     text: With
                                                                                   - kind: Whitespace
                                                                                     text: " "
-                                                                                  - kind: Identifier
-                                                                                    text: Form_Main
+                                                                                  - kind: IdentifierExpression
+                                                                                    children:
+                                                                                      - kind: Identifier
+                                                                                        text: Form_Main
                                                                                   - kind: Newline
                                                                                     text: "\n"
                                                                                   - kind: StatementList
@@ -8658,8 +8668,10 @@ cst:
                                                                             text: With
                                                                           - kind: Whitespace
                                                                             text: " "
-                                                                          - kind: Identifier
-                                                                            text: CommonDialog
+                                                                          - kind: IdentifierExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: CommonDialog
                                                                           - kind: Newline
                                                                             text: "\n"
                                                                           - kind: StatementList
@@ -9022,12 +9034,14 @@ cst:
                                                                                         text: " "
                                                                                       - kind: WithKeyword
                                                                                         text: With
+                                                                                      - kind: IdentifierExpression
+                                                                                        children:
+                                                                                          - kind: Newline
+                                                                                            text: "\n"
                                                                                       - kind: Newline
                                                                                         text: "\n"
                                                                                       - kind: StatementList
                                                                                         children:
-                                                                                          - kind: Newline
-                                                                                            text: "\n"
                                                                                           - kind: CallStatement
                                                                                             children:
                                                                                               - kind: CallKeyword
@@ -9226,8 +9240,10 @@ cst:
                                                                                                 text: With
                                                                                               - kind: Whitespace
                                                                                                 text: " "
-                                                                                              - kind: Identifier
-                                                                                                text: CommonDialog
+                                                                                              - kind: IdentifierExpression
+                                                                                                children:
+                                                                                                  - kind: Identifier
+                                                                                                    text: CommonDialog
                                                                                               - kind: Newline
                                                                                                 text: "\n"
                                                                                               - kind: StatementList
@@ -9406,12 +9422,14 @@ cst:
                                                                                                             text: " "
                                                                                                           - kind: WithKeyword
                                                                                                             text: With
+                                                                                                          - kind: IdentifierExpression
+                                                                                                            children:
+                                                                                                              - kind: Newline
+                                                                                                                text: "\n"
                                                                                                           - kind: Newline
                                                                                                             text: "\n"
                                                                                                           - kind: StatementList
                                                                                                             children:
-                                                                                                              - kind: Newline
-                                                                                                                text: "\n"
                                                                                                               - kind: LabelStatement
                                                                                                                 children:
                                                                                                                   - kind: Identifier

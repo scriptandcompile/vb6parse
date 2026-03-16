@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/graphics/partition.rs
+source: vb6parse/src/syntax/library/functions/graphics/partition.rs
 expression: tree
 ---
 root:
@@ -13,8 +13,10 @@ root:
           text: With
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: analyzer
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: analyzer
         - kind: Newline
           text: "\n"
         - kind: StatementList

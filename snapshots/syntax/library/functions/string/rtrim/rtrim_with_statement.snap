@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/rtrim.rs
+source: vb6parse/src/syntax/library/functions/string/rtrim.rs
 expression: tree
 ---
 root:
@@ -15,8 +15,10 @@ root:
           text: With
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: record
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: record
         - kind: Newline
           text: "\n"
         - kind: StatementList

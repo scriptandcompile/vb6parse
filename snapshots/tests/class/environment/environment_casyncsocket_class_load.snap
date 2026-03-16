@@ -10964,8 +10964,10 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: LastError
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: LastError
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList
@@ -32144,14 +32146,22 @@ cst:
                             text: With
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: uInfo
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: Identifier
-                            text: lIdx
-                          - kind: RightParenthesis
-                            text: )
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: uInfo
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: lIdx
+                              - kind: RightParenthesis
+                                text: )
                           - kind: Newline
                             text: "\r\n"
                           - kind: StatementList
@@ -42474,14 +42484,22 @@ cst:
                             text: With
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: m_uWindowState
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: IntegerLiteral
-                            text: "0"
-                          - kind: RightParenthesis
-                            text: )
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: m_uWindowState
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                              - kind: RightParenthesis
+                                text: )
                           - kind: Newline
                             text: "\r\n"
                           - kind: StatementList
@@ -43198,18 +43216,18 @@ cst:
                                                 text: " "
                                               - kind: WithKeyword
                                                 text: With
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Newline
+                                                    text: "\r\n"
+                                              - kind: Identifier
+                                                text: QH
+                                              - kind: ColonOperator
+                                                text: ":"
                                               - kind: Newline
                                                 text: "\r\n"
                                               - kind: StatementList
                                                 children:
-                                                  - kind: LabelStatement
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: QH
-                                                      - kind: ColonOperator
-                                                        text: ":"
-                                                      - kind: Newline
-                                                        text: "\r\n"
                                                   - kind: Whitespace
                                                     text: "    "
                                                   - kind: AssignmentStatement
@@ -43454,14 +43472,22 @@ cst:
                                                         text: With
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: Identifier
-                                                        text: m_uWindowState
-                                                      - kind: LeftParenthesis
-                                                        text: (
-                                                      - kind: IntegerLiteral
-                                                        text: "0"
-                                                      - kind: RightParenthesis
-                                                        text: )
+                                                      - kind: CallExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: m_uWindowState
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: NumericLiteralExpression
+                                                                    children:
+                                                                      - kind: IntegerLiteral
+                                                                        text: "0"
+                                                          - kind: RightParenthesis
+                                                            text: )
                                                       - kind: Newline
                                                         text: "\r\n"
                                                       - kind: StatementList
@@ -43980,14 +44006,22 @@ cst:
                                                         text: With
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: Identifier
-                                                        text: m_uWindowState
-                                                      - kind: LeftParenthesis
-                                                        text: (
-                                                      - kind: IntegerLiteral
-                                                        text: "0"
-                                                      - kind: RightParenthesis
-                                                        text: )
+                                                      - kind: CallExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: m_uWindowState
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: NumericLiteralExpression
+                                                                    children:
+                                                                      - kind: IntegerLiteral
+                                                                        text: "0"
+                                                          - kind: RightParenthesis
+                                                            text: )
                                                       - kind: Newline
                                                         text: "\r\n"
                                                       - kind: StatementList

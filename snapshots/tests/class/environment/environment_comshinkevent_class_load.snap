@@ -5898,8 +5898,10 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: SafeArray
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: SafeArray
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList

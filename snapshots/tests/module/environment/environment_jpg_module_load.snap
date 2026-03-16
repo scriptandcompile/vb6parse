@@ -3155,8 +3155,10 @@ cst:
                                         text: With
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Identifier
-                                        text: cDib
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: cDib
                                       - kind: Newline
                                         text: "\r\n"
                                       - kind: StatementList
@@ -3975,8 +3977,10 @@ cst:
                                                 text: With
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: Identifier
-                                                text: tSA
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: tSA
                                               - kind: Newline
                                                 text: "\r\n"
                                               - kind: StatementList
@@ -4317,8 +4321,10 @@ cst:
                                                 text: With
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: Identifier
-                                                text: tSA1
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: tSA1
                                               - kind: Newline
                                                 text: "\r\n"
                                               - kind: StatementList
@@ -6337,8 +6343,10 @@ cst:
                                                                         text: With
                                                                       - kind: Whitespace
                                                                         text: " "
-                                                                      - kind: Identifier
-                                                                        text: tSA
+                                                                      - kind: IdentifierExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: tSA
                                                                       - kind: Newline
                                                                         text: "\r\n"
                                                                       - kind: StatementList
@@ -6679,8 +6687,10 @@ cst:
                                                                         text: With
                                                                       - kind: Whitespace
                                                                         text: " "
-                                                                      - kind: Identifier
-                                                                        text: tSA1
+                                                                      - kind: IdentifierExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: tSA1
                                                                       - kind: Newline
                                                                         text: "\r\n"
                                                                       - kind: StatementList
@@ -8805,8 +8815,10 @@ cst:
                                                                                                             text: With
                                                                                                           - kind: Whitespace
                                                                                                             text: " "
-                                                                                                          - kind: Identifier
-                                                                                                            text: tSA
+                                                                                                          - kind: IdentifierExpression
+                                                                                                            children:
+                                                                                                              - kind: Identifier
+                                                                                                                text: tSA
                                                                                                           - kind: Newline
                                                                                                             text: "\r\n"
                                                                                                           - kind: StatementList
@@ -9147,8 +9159,10 @@ cst:
                                                                                                             text: With
                                                                                                           - kind: Whitespace
                                                                                                             text: " "
-                                                                                                          - kind: Identifier
-                                                                                                            text: tSA1
+                                                                                                          - kind: IdentifierExpression
+                                                                                                            children:
+                                                                                                              - kind: Identifier
+                                                                                                                text: tSA1
                                                                                                           - kind: Newline
                                                                                                             text: "\r\n"
                                                                                                           - kind: StatementList

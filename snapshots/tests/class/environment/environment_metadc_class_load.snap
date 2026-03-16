@@ -6349,8 +6349,10 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: uDesc
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: uDesc
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList
@@ -7829,8 +7831,10 @@ cst:
                     text: With
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: m_font
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: m_font
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList
