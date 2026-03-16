@@ -1,143 +1,7 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-09T00:13:33Z",
+  "last_updated": "2026-03-16T00:15:57Z",
   "snapshots": [
-    {
-      "timestamp": "2026-02-06T19:53:21Z",
-      "commit_sha": "d06949e1b94c99afb32129406db59db99000017c",
-      "commit_message": "Update benchmark data [skip ci]",
-      "coverage": {
-        "line_coverage": 95.51,
-        "function_coverage": 93.76,
-        "region_coverage": 95.56
-      },
-      "tests": {
-        "total": 5671,
-        "lib_tests": 5478,
-        "doc_tests": 98,
-        "integration_tests": 95,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 93474,
-          "total": 97867,
-          "percent": 95.51
-        },
-        "functions": {
-          "covered": 6028,
-          "total": 6429,
-          "percent": 93.76
-        },
-        "regions": {
-          "covered": 149215,
-          "total": 156141,
-          "percent": 95.56
-        }
-      }
-    },
-    {
-      "timestamp": "2026-02-06T19:58:33Z",
-      "commit_sha": "09cddb9ff7408a55d140a6c6aa935fae2dcb4fa1",
-      "commit_message": "First step to historical coverage, updated coverage generating python script.",
-      "coverage": {
-        "line_coverage": 95.51,
-        "function_coverage": 93.76,
-        "region_coverage": 95.56
-      },
-      "tests": {
-        "total": 5671,
-        "lib_tests": 5478,
-        "doc_tests": 98,
-        "integration_tests": 95,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 93474,
-          "total": 97867,
-          "percent": 95.51
-        },
-        "functions": {
-          "covered": 6028,
-          "total": 6429,
-          "percent": 93.76
-        },
-        "regions": {
-          "covered": 149215,
-          "total": 156141,
-          "percent": 95.56
-        }
-      }
-    },
-    {
-      "timestamp": "2026-02-06T20:07:18Z",
-      "commit_sha": "09cddb9ff7408a55d140a6c6aa935fae2dcb4fa1",
-      "commit_message": "First step to historical coverage, updated coverage generating python script.",
-      "coverage": {
-        "line_coverage": 95.51,
-        "function_coverage": 93.76,
-        "region_coverage": 95.56
-      },
-      "tests": {
-        "total": 5671,
-        "lib_tests": 5478,
-        "doc_tests": 98,
-        "integration_tests": 95,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 93474,
-          "total": 97867,
-          "percent": 95.51
-        },
-        "functions": {
-          "covered": 6028,
-          "total": 6429,
-          "percent": 93.76
-        },
-        "regions": {
-          "covered": 149215,
-          "total": 156141,
-          "percent": 95.56
-        }
-      }
-    },
-    {
-      "timestamp": "2026-02-06T20:34:11Z",
-      "commit_sha": "e378c37b7f1fb7a8bc774829f5d4950718896a01",
-      "commit_message": "Merge pull request #13 from scriptandcompile/coverage_historical",
-      "coverage": {
-        "line_coverage": 95.51,
-        "function_coverage": 93.76,
-        "region_coverage": 95.56
-      },
-      "tests": {
-        "total": 5671,
-        "lib_tests": 5478,
-        "doc_tests": 98,
-        "integration_tests": 95,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 93474,
-          "total": 97867,
-          "percent": 95.51
-        },
-        "functions": {
-          "covered": 6028,
-          "total": 6429,
-          "percent": 93.76
-        },
-        "regions": {
-          "covered": 149215,
-          "total": 156141,
-          "percent": 95.56
-        }
-      }
-    },
     {
       "timestamp": "2026-02-06T21:29:13Z",
       "commit_sha": "91e478305e1c69019290fb9d7b74a02646de715f",
@@ -169,74 +33,6 @@
           "covered": 149215,
           "total": 156141,
           "percent": 95.56
-        }
-      }
-    },
-    {
-      "timestamp": "2026-02-09T00:12:21Z",
-      "commit_sha": "9d9408e2edc2ce4ad6637fdf545cd7d814bc4d3e",
-      "commit_message": "Update coverage data [skip ci]",
-      "coverage": {
-        "line_coverage": 95.51,
-        "function_coverage": 93.76,
-        "region_coverage": 95.56
-      },
-      "tests": {
-        "total": 5671,
-        "lib_tests": 5478,
-        "doc_tests": 98,
-        "integration_tests": 95,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 93474,
-          "total": 97867,
-          "percent": 95.51
-        },
-        "functions": {
-          "covered": 6028,
-          "total": 6429,
-          "percent": 93.76
-        },
-        "regions": {
-          "covered": 149215,
-          "total": 156141,
-          "percent": 95.56
-        }
-      }
-    },
-    {
-      "timestamp": "2026-02-12T09:41:18Z",
-      "commit_sha": "d852da35a3049087ba651bb544fa80164f3249ac",
-      "commit_message": "Merge pull request #16 from scriptandcompile/form_mdi_fix",
-      "coverage": {
-        "line_coverage": 95.46,
-        "function_coverage": 93.61,
-        "region_coverage": 95.52
-      },
-      "tests": {
-        "total": 5676,
-        "lib_tests": 5478,
-        "doc_tests": 103,
-        "integration_tests": 95,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 93557,
-          "total": 98011,
-          "percent": 95.46
-        },
-        "functions": {
-          "covered": 6032,
-          "total": 6444,
-          "percent": 93.61
-        },
-        "regions": {
-          "covered": 149335,
-          "total": 156332,
-          "percent": 95.52
         }
       }
     },
@@ -885,6 +681,40 @@
           "percent": 96.05
         }
       }
+    },
+    {
+      "timestamp": "2026-03-16T00:15:57Z",
+      "commit_sha": "f01779ce82e97e0e56bb7477cc133806d041a692",
+      "commit_message": "Update benchmark data [skip ci]",
+      "coverage": {
+        "line_coverage": 95.85,
+        "function_coverage": 92.87,
+        "region_coverage": 96.05
+      },
+      "tests": {
+        "total": 6150,
+        "lib_tests": 5496,
+        "doc_tests": 119,
+        "integration_tests": 535,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 95428,
+          "total": 99555,
+          "percent": 95.85
+        },
+        "functions": {
+          "covered": 6135,
+          "total": 6606,
+          "percent": 92.87
+        },
+        "regions": {
+          "covered": 152526,
+          "total": 158799,
+          "percent": 96.05
+        }
+      }
     }
   ],
   "coverage_summary": {
@@ -894,7 +724,7 @@
       "change_percent": 0.0,
       "best": 95.93,
       "worst": 95.13,
-      "average": 95.45
+      "average": 95.46
     },
     "function_coverage": {
       "latest": 92.87,
@@ -902,7 +732,7 @@
       "change_percent": 0.0,
       "best": 93.76,
       "worst": 92.87,
-      "average": 93.3
+      "average": 93.15
     },
     "region_coverage": {
       "latest": 96.05,
@@ -910,7 +740,7 @@
       "change_percent": 0.0,
       "best": 96.17,
       "worst": 95.39,
-      "average": 95.62
+      "average": 95.66
     },
     "test_count": {
       "latest": 6150,
