@@ -219,6 +219,12 @@ pub mod visitor;
 pub use navigation::CstNode;
 pub use visitor::{walk_node, walk_node_mut, Visitor, VisitorMut};
 
+/// Maximum depth for nested property groups to prevent stack overflow.
+const MAX_PROPERTY_GROUP_DEPTH: usize = 100;
+
+/// Maximum depth for nested controls to prevent stack overflow.
+const MAX_CONTROL_DEPTH: usize = 1000;
+
 /// A serializable representation of the CST for snapshot testing.
 ///
 /// This struct wraps the tree structure in a way that can be serialized
@@ -500,30 +506,19 @@ pub fn parse(tokens: TokenStream) -> ConcreteSyntaxTree {
 /// Tracks recursion depth to prevent stack overflow
 #[derive(Debug, Clone)]
 pub(crate) struct DepthCounters {
-    pub(crate) expression: usize,
-    pub(crate) control: usize,
     pub(crate) statement: usize,
-    pub(crate) property_group: usize,
 }
 
 impl DepthCounters {
-    const MAX_EXPRESSION_DEPTH: usize = 500;
-    const MAX_CONTROL_DEPTH: usize = 1000;
     const MAX_STATEMENT_DEPTH: usize = 500;
-    const MAX_PROPERTY_GROUP_DEPTH: usize = 100;
 
     fn new() -> Self {
-        Self {
-            expression: 0,
-            control: 0,
-            statement: 0,
-            property_group: 0,
-        }
+        Self { statement: 0 }
     }
 }
 
-/// Frame for control parsing with explicit stack (Phase 2)
-/// Holds the state for parsing a single control at any nesting level
+/// Frame for control parsing with explicit stack.
+/// Holds the state for parsing a single control at any nesting level.
 #[derive(Debug)]
 struct ControlParseFrame {
     control_type: String,
@@ -566,7 +561,7 @@ impl ControlParseFrame {
     }
 }
 
-/// Frame for property group parsing with explicit stack (Phase 2)
+/// Frame for property group parsing with explicit stack.
 #[derive(Debug)]
 struct PropertyGroupFrame {
     name: String,
@@ -621,16 +616,6 @@ impl<'a> Parser<'a> {
             parsing_header: true,
             depth_counters: DepthCounters::new(),
         }
-    }
-
-    /// Check if expression depth limit would be exceeded
-    pub(crate) fn check_expression_depth(&self) -> Result<(), FormError> {
-        if self.depth_counters.expression >= DepthCounters::MAX_EXPRESSION_DEPTH {
-            return Err(FormError::ExpressionDepthExceeded {
-                max_depth: DepthCounters::MAX_EXPRESSION_DEPTH,
-            });
-        }
-        Ok(())
     }
 
     /// Check if statement depth limit would be exceeded
@@ -957,7 +942,8 @@ impl<'a> Parser<'a> {
                 self.skip_whitespace_and_newlines();
 
                 // Check depth limit
-                if stack.len() >= DepthCounters::MAX_PROPERTY_GROUP_DEPTH {
+
+                if stack.len() >= MAX_PROPERTY_GROUP_DEPTH {
                     // Skip this nested property group
                     let mut depth = 1;
                     while !self.is_at_end() && depth > 0 {
@@ -1608,7 +1594,7 @@ impl<'a> Parser<'a> {
                 self.skip_whitespace_and_newlines();
 
                 // Check depth limit
-                if stack.len() >= DepthCounters::MAX_CONTROL_DEPTH {
+                if stack.len() >= MAX_CONTROL_DEPTH {
                     // Skip this nested control and its children
                     // Find matching End keyword
                     let mut depth = 1;

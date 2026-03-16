@@ -75,6 +75,38 @@
 use crate::language::Token;
 use crate::parsers::cst::Parser;
 use crate::parsers::SyntaxKind;
+use rowan::Checkpoint;
+
+/// Frame for iterative expression parsing.
+/// Tracks the state of expression parsing to eliminate recursion.
+#[derive(Debug, Clone)]
+enum ExprParseFrame {
+    /// Parse a prefix expression and start the infix loop
+    ParsePrefix {
+        min_bp: BindingPower,
+        lhs_checkpoint: Checkpoint,
+    },
+    /// Finish processing infix operators after parsing RHS
+    InfixLoop {
+        min_bp: BindingPower,
+        lhs_checkpoint: Checkpoint,
+    },
+    /// Finish a binary expression node
+    FinishBinary {
+        min_bp: BindingPower,
+        lhs_checkpoint: Checkpoint,
+    },
+    /// Finish a unary expression node and continue with outer infix loop
+    FinishUnary {
+        min_bp: BindingPower,
+        lhs_checkpoint: Checkpoint,
+    },
+    /// Finish a parenthesized expression node and continue with outer infix loop
+    FinishParenthesized {
+        min_bp: BindingPower,
+        lhs_checkpoint: Checkpoint,
+    },
+}
 
 /// Operator binding power (precedence) levels.
 ///
@@ -176,163 +208,195 @@ impl Parser<'_> {
 
     /// Parse an expression with a minimum binding power.
     ///
-    /// This is the core of the Pratt parser. It:
-    /// 1. Parses a prefix expression (literal, identifier, unary op, etc.)
-    /// 2. Checks if the next token is an infix operator
-    /// 3. If the operator's binding power is >= the minimum, parse it as infix
-    /// 4. Continue until we encounter an operator with lower binding power
+    /// This is the core of the Pratt parser, implemented iteratively to prevent
+    /// stack overflow on deeply nested expressions.
     ///
     /// # Parameters
     ///
     /// - `min_bp`: The minimum binding power required for an operator to be parsed.
     ///   Operators with lower binding power will end the current expression.
     ///
-    /// # Pratt Parsing Algorithm
+    /// # Implementation Note
     ///
-    /// The algorithm works as follows:
-    ///
-    /// ```text
-    /// parse_expr(min_bp):
-    ///   left = parse_prefix()
-    ///   while peek_operator() has bp >= min_bp:
-    ///     op = consume_operator()
-    ///     right = parse_expr(op.right_bp)
-    ///     left = make_binary(left, op, right)
-    ///   return left
-    /// ```
+    /// This uses an explicit frame stack instead of recursion to handle arbitrary
+    /// nesting depth without stack overflow.
     pub(crate) fn parse_expression_with_binding_power(&mut self, min_bp: BindingPower) {
-        // Check depth limit before recursing
-        if self.check_expression_depth().is_err() {
-            // Return early to avoid stack overflow
-            return;
-        }
+        // Use iterative approach with explicit stack
+        // This prevents stack overflow on deeply nested expressions
 
-        // Increment depth counter
-        self.depth_counters.expression += 1;
+        let mut frame_stack: Vec<ExprParseFrame> = Vec::new();
 
-        // Skip leading whitespace
+        // Start with the initial frame
         self.consume_whitespace();
+        let initial_checkpoint = self.builder.checkpoint();
+        frame_stack.push(ExprParseFrame::ParsePrefix {
+            min_bp,
+            lhs_checkpoint: initial_checkpoint,
+        });
 
-        // Create a checkpoint BEFORE parsing the prefix - allows wrapping the entire left side
-        let lhs_checkpoint = self.builder.checkpoint();
+        while let Some(frame) = frame_stack.pop() {
+            match frame {
+                ExprParseFrame::ParsePrefix {
+                    min_bp,
+                    lhs_checkpoint,
+                } => {
+                    // Parse a prefix expression (simplified non-recursive version)
+                    let pushes_frames = self.parse_prefix_expression_nonrecursive(
+                        &mut frame_stack,
+                        min_bp,
+                        lhs_checkpoint,
+                    );
 
-        // Parse the prefix expression (left-hand side)
-        // Returns true if it was a bare identifier (no postfix operators)
-        let is_bare_identifier = self.parse_prefix_expression();
-
-        // If we have a bare identifier, wrap it in IdentifierExpression immediately
-        // This ensures that identifiers are always wrapped, even when part of a binary expression
-        if is_bare_identifier {
-            self.builder
-                .start_node_at(lhs_checkpoint, SyntaxKind::IdentifierExpression.to_raw());
-            self.builder.finish_node();
-        }
-
-        // Parse infix operators with sufficient binding power
-        loop {
-            // Peek ahead to check for operators WITHOUT consuming whitespace yet
-            // This prevents whitespace from being consumed when we stop parsing
-
-            // Temporarily skip whitespace to check for operators
-            let saved_pos = self.pos;
-            loop {
-                match self.current_token() {
-                    Some(Token::Whitespace) => {
-                        self.pos += 1;
+                    // Only push InfixLoop if no frames were pushed (meaning we parsed a simple prefix)
+                    // If frames were pushed, those frames will handle pushing InfixLoop when they're done
+                    if !pushes_frames {
+                        // Now handle infix operators
+                        frame_stack.push(ExprParseFrame::InfixLoop {
+                            min_bp,
+                            lhs_checkpoint,
+                        });
                     }
-                    Some(Token::Underscore) => {
-                        // Check for line continuation
-                        let mut lookahead = 1;
-                        let mut is_continuation = false;
-                        while let Some((_, token)) = self.tokens.get(self.pos + lookahead) {
-                            if *token == Token::Whitespace {
-                                lookahead += 1;
-                            } else if *token == Token::Newline {
-                                is_continuation = true;
-                                break;
-                            } else {
-                                break;
+                }
+                ExprParseFrame::InfixLoop {
+                    min_bp,
+                    lhs_checkpoint,
+                } => {
+                    // Try to parse infix operators iteratively
+                    // Save position for lookahead
+                    let saved_pos = self.pos;
+
+                    // Skip whitespace to check for operators
+                    loop {
+                        match self.current_token() {
+                            Some(Token::Whitespace) => {
+                                self.pos += 1;
                             }
-                        }
+                            Some(Token::Underscore) => {
+                                // Check for line continuation
+                                let mut lookahead = 1;
+                                let mut is_continuation = false;
+                                while let Some((_, token)) = self.tokens.get(self.pos + lookahead) {
+                                    if *token == Token::Whitespace {
+                                        lookahead += 1;
+                                    } else if *token == Token::Newline {
+                                        is_continuation = true;
+                                        break;
+                                    } else {
+                                        break;
+                                    }
+                                }
 
-                        if is_continuation {
-                            // Skip underscore, whitespace, and newline
-                            self.pos += lookahead + 1; // +1 for newline
-                        } else {
-                            break;
+                                if is_continuation {
+                                    self.pos += lookahead + 1;
+                                } else {
+                                    break;
+                                }
+                            }
+                            _ => break,
                         }
                     }
-                    _ => break,
+
+                    // Check if we're at the end or at a delimiter
+                    if self.is_at_end() || self.is_at_expression_delimiter() {
+                        self.pos = saved_pos;
+                        continue; // Continue to next frame, don't break entire loop
+                    }
+
+                    // Get the binding power of the next operator
+                    let binding_power = self.get_infix_binding_power();
+                    self.pos = saved_pos;
+
+                    let Some((left_bp, right_bp)) = binding_power else {
+                        continue; // Continue to next frame, don't break entire loop
+                    };
+
+                    // If the operator doesn't bind tightly enough, stop
+                    if left_bp < min_bp {
+                        continue; // Continue to next frame, don't break entire loop
+                    }
+
+                    // Now actually consume the whitespace
+                    self.consume_whitespace();
+
+                    // Wrap the left-hand side in a BinaryExpression
+                    self.builder
+                        .start_node_at(lhs_checkpoint, SyntaxKind::BinaryExpression.to_raw());
+
+                    // Consume the operator
+                    self.consume_token();
+
+                    // Skip whitespace after operator
+                    self.consume_whitespace();
+
+                    // Parse the right-hand side - push frames instead of recursing
+                    let rhs_checkpoint = self.builder.checkpoint();
+
+                    // After parsing RHS, we need to finish binary, then continue infix loop
+                    frame_stack.push(ExprParseFrame::FinishBinary {
+                        min_bp,
+                        lhs_checkpoint,
+                    });
+                    frame_stack.push(ExprParseFrame::ParsePrefix {
+                        min_bp: right_bp,
+                        lhs_checkpoint: rhs_checkpoint,
+                    });
+                }
+                ExprParseFrame::FinishBinary {
+                    min_bp,
+                    lhs_checkpoint,
+                } => {
+                    // Finish the binary expression node
+                    self.builder.finish_node();
+
+                    // Continue with infix loop to check for more operators
+                    frame_stack.push(ExprParseFrame::InfixLoop {
+                        min_bp,
+                        lhs_checkpoint,
+                    });
+                }
+                ExprParseFrame::FinishUnary {
+                    min_bp,
+                    lhs_checkpoint,
+                } => {
+                    self.builder.finish_node();
+
+                    // After finishing unary expression, continue with outer infix loop
+                    frame_stack.push(ExprParseFrame::InfixLoop {
+                        min_bp,
+                        lhs_checkpoint,
+                    });
+                }
+                ExprParseFrame::FinishParenthesized {
+                    min_bp,
+                    lhs_checkpoint,
+                } => {
+                    // Consume ")"
+                    self.consume_whitespace();
+                    if self.at_token(Token::RightParenthesis) {
+                        self.consume_token();
+                    }
+                    self.builder.finish_node();
+
+                    // After finishing parenthesized expression, continue with outer infix loop
+                    frame_stack.push(ExprParseFrame::InfixLoop {
+                        min_bp,
+                        lhs_checkpoint,
+                    });
                 }
             }
-
-            // Check if we're at the end or at a delimiter
-            if self.is_at_end() || self.is_at_expression_delimiter() {
-                // Restore position and stop
-                self.pos = saved_pos;
-                break;
-            }
-
-            // Get the binding power of the next operator
-            let binding_power = self.get_infix_binding_power();
-
-            // Restore position (we haven't consumed the whitespace yet)
-            self.pos = saved_pos;
-
-            let Some((left_bp, right_bp)) = binding_power else {
-                // Not an infix operator, we're done
-                break;
-            };
-
-            // If the operator doesn't bind tightly enough, stop
-            if left_bp < min_bp {
-                break;
-            }
-
-            // Now actually consume the whitespace
-            self.consume_whitespace();
-
-            // Wrap the left-hand side in a BinaryExpression
-            self.builder
-                .start_node_at(lhs_checkpoint, SyntaxKind::BinaryExpression.to_raw());
-
-            // Consume the operator
-            self.consume_token();
-
-            // Skip whitespace after operator
-            self.consume_whitespace();
-
-            // Parse the right-hand side
-            self.parse_expression_with_binding_power(right_bp);
-
-            // Finish the BinaryExpression
-            self.builder.finish_node();
-
-            // DON'T update checkpoint - use the original one for nested binary expressions
-            // This creates the correct left-associative structure:
-            // BinaryExpression(BinaryExpression(a + b), +, c)
         }
-
-        // Decrement depth counter before returning
-        self.depth_counters.expression -= 1;
     }
 
-    /// Parse a prefix expression.
+    /// Parse a prefix expression without recursion.
     ///
-    /// Prefix expressions are those that start an expression:
-    ///     - Literals: `42`, `"hello"`, `True`, `Nothing`
-    ///     - Identifiers: `myVar`, `MyClass`
-    ///     - Parenthesized: `(expression)`
-    ///     - Unary operators: `-x`, `Not flag`, `AddressOf proc`
-    ///     - Object creation: `New ClassName`
-    ///     - Type checking: `TypeOf obj Is type`
-    ///
-    /// # Returns
-    ///
-    /// * `True` if a bare identifier was parsed (needs wrapping in `IdentifierExpression` if not part of binary expression).
-    /// * `False` otherwise.
-    ///
-    fn parse_prefix_expression(&mut self) -> bool {
+    /// This version pushes frames onto the stack instead of making recursive calls.
+    /// Returns true if frames were pushed (meaning caller shouldn't push `InfixLoop` yet).
+    fn parse_prefix_expression_nonrecursive(
+        &mut self,
+        frame_stack: &mut Vec<ExprParseFrame>,
+        min_bp: BindingPower,
+        lhs_checkpoint: Checkpoint,
+    ) -> bool {
         // Skip any leading whitespace
         self.consume_whitespace();
 
@@ -340,30 +404,75 @@ impl Parser<'_> {
         let checkpoint = self.builder.checkpoint();
 
         let mut is_identifier = false;
+        let mut pushed_frames = false;
 
         match self.current_token() {
-            // Unary minus
+            // Unary minus - needs to parse operand
             Some(Token::SubtractionOperator) => {
-                self.parse_unary_expression(BindingPower::UNARY);
+                self.builder
+                    .start_node(SyntaxKind::UnaryExpression.to_raw());
+                self.consume_token();
+                self.consume_whitespace();
+
+                // Push frames: FinishUnary (with outer context), then ParsePrefix for operand
+                frame_stack.push(ExprParseFrame::FinishUnary {
+                    min_bp,
+                    lhs_checkpoint,
+                });
+
+                let operand_checkpoint = self.builder.checkpoint();
+                frame_stack.push(ExprParseFrame::ParsePrefix {
+                    min_bp: BindingPower::UNARY,
+                    lhs_checkpoint: operand_checkpoint,
+                });
+                pushed_frames = true;
             }
-            // Logical NOT
+            // Logical NOT - needs to parse operand
             Some(Token::NotKeyword) => {
-                self.parse_unary_expression(BindingPower::NOT);
+                self.builder
+                    .start_node(SyntaxKind::UnaryExpression.to_raw());
+                self.consume_token();
+                self.consume_whitespace();
+
+                frame_stack.push(ExprParseFrame::FinishUnary {
+                    min_bp,
+                    lhs_checkpoint,
+                });
+
+                let operand_checkpoint = self.builder.checkpoint();
+                frame_stack.push(ExprParseFrame::ParsePrefix {
+                    min_bp: BindingPower::NOT,
+                    lhs_checkpoint: operand_checkpoint,
+                });
+                pushed_frames = true;
             }
             // AddressOf operator
             Some(Token::AddressOfKeyword) => {
                 self.parse_addressof_expression();
             }
-            // TypeOf operator
-            // TypeOf is handled as a regular keyword that can be an identifier
-            // The actual TypeOf expression is parsed when we see the pattern
             // New operator
             Some(Token::NewKeyword) => {
                 self.parse_new_expression();
             }
-            // Parenthesized expression
+            // Parenthesized expression - needs to parse inner expression
             Some(Token::LeftParenthesis) => {
-                self.parse_parenthesized_expression();
+                self.builder
+                    .start_node(SyntaxKind::ParenthesizedExpression.to_raw());
+                self.consume_token();
+                self.consume_whitespace();
+
+                // Push frames: FinishParenthesized, then ParsePrefix for inner
+                frame_stack.push(ExprParseFrame::FinishParenthesized {
+                    min_bp,
+                    lhs_checkpoint,
+                });
+
+                let inner_checkpoint = self.builder.checkpoint();
+                frame_stack.push(ExprParseFrame::ParsePrefix {
+                    min_bp: BindingPower::NONE,
+                    lhs_checkpoint: inner_checkpoint,
+                });
+                pushed_frames = true;
             }
             // Numeric literals
             Some(
@@ -384,7 +493,6 @@ impl Parser<'_> {
             Some(Token::NullKeyword | Token::EmptyKeyword) => {
                 self.parse_special_literal();
             }
-            // Date literal
             Some(Token::DateTimeLiteral) => {
                 self.parse_date_literal();
             }
@@ -395,12 +503,20 @@ impl Parser<'_> {
             }
         }
 
-        // Parse postfix operators using the checkpoint
-        // Returns true if any postfix operators were found
-        let has_postfix = self.parse_postfix_operators_with_checkpoint(checkpoint);
+        // If we didn't push frames (simple prefix), handle postfix and identifier wrapping
+        if !pushed_frames {
+            // Parse postfix operators using the checkpoint
+            let has_postfix = self.parse_postfix_operators_with_checkpoint(checkpoint);
 
-        // Return true if this was an identifier without postfix operators
-        is_identifier && !has_postfix
+            // If this was a bare identifier without postfix, wrap it
+            if is_identifier && !has_postfix {
+                self.builder
+                    .start_node_at(lhs_checkpoint, SyntaxKind::IdentifierExpression.to_raw());
+                self.builder.finish_node();
+            }
+        }
+
+        pushed_frames
     }
 
     /// Parse an identifier or a function/method call expression.
@@ -444,31 +560,6 @@ impl Parser<'_> {
         // Don't wrap in a node here - let parse_postfix_operators handle it
     }
 
-    /// Parse a unary expression.
-    ///
-    /// Unary expressions have a single operator followed by an operand:
-    /// - Negation: `-x`
-    /// - Logical NOT: `Not flag`
-    ///
-    /// # Parameters
-    ///
-    /// - `bp`: The binding power of the unary operator
-    fn parse_unary_expression(&mut self, bp: BindingPower) {
-        self.builder
-            .start_node(SyntaxKind::UnaryExpression.to_raw());
-
-        // Consume the operator (-, Not)
-        self.consume_token();
-
-        // Skip whitespace after operator
-        self.consume_whitespace();
-
-        // Parse the operand with the operator's binding power
-        self.parse_expression_with_binding_power(bp);
-
-        self.builder.finish_node();
-    }
-
     /// Parse an `AddressOf` expression.
     ///
     /// Syntax: `AddressOf procedureName`
@@ -508,33 +599,6 @@ impl Parser<'_> {
 
         // Parse the class name (identifier)
         if self.is_identifier() || self.at_keyword() {
-            self.consume_token();
-        }
-
-        self.builder.finish_node();
-    }
-
-    /// Parse a parenthesized expression.
-    ///
-    /// Syntax: `(expression)`
-    fn parse_parenthesized_expression(&mut self) {
-        self.builder
-            .start_node(SyntaxKind::ParenthesizedExpression.to_raw());
-
-        // Consume "("
-        self.consume_token();
-
-        // Skip whitespace
-        self.consume_whitespace();
-
-        // Parse the inner expression
-        self.parse_expression();
-
-        // Skip whitespace before ")"
-        self.consume_whitespace();
-
-        // Consume ")"
-        if self.at_token(Token::RightParenthesis) {
             self.consume_token();
         }
 
