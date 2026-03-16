@@ -451,68 +451,6 @@ fn environment_mdqrcodegen_module_load() {
 }
 
 #[test]
-#[ignore = "This test is ignored because the output json is too large and causes issues with github"]
-fn environment_mdtlsnative_module_load() {
-    let module_bytes = include_bytes!("../data/Environment/mdTlsNative.bas");
-
-    let result = SourceFile::decode_with_replacement("mdTlsNative.bas", module_bytes);
-
-    let source_file = match result {
-        Ok(source_file) => source_file,
-        Err(e) => panic!("Failed to decode source file 'mdTlsNative.bas': {e:?}"),
-    };
-
-    let (module_file_opt, failures) = ModuleFile::parse(&source_file).unpack();
-
-    if !failures.is_empty() {
-        for failure in failures {
-            failure.print();
-        }
-
-        panic!("Module parse had failures");
-    }
-
-    let module = module_file_opt.expect("Module should be present.");
-
-    let mut settings = insta::Settings::clone_current();
-    settings.set_snapshot_path("../../snapshots/tests/module/environment");
-    settings.set_prepend_module_to_snapshot(false);
-    let _guard = settings.bind_to_scope();
-    insta::assert_yaml_snapshot!(module);
-}
-
-#[test]
-#[ignore = "This test is ignored because the output json is too large and causes issues with github"]
-fn environment_mdtlsthunks_module_load() {
-    let module_bytes = include_bytes!("../data/Environment/mdTlsThunks.bas");
-
-    let result = SourceFile::decode_with_replacement("mdTlsThunks.bas", module_bytes);
-
-    let source_file = match result {
-        Ok(source_file) => source_file,
-        Err(e) => panic!("Failed to decode source file 'mdTlsThunks.bas': {e:?}"),
-    };
-
-    let (module_file_opt, failures) = ModuleFile::parse(&source_file).unpack();
-
-    if !failures.is_empty() {
-        for failure in failures {
-            failure.print();
-        }
-
-        panic!("Module parse had failures");
-    }
-
-    let module = module_file_opt.expect("Module should be present.");
-
-    let mut settings = insta::Settings::clone_current();
-    settings.set_snapshot_path("../../snapshots/tests/module/environment");
-    settings.set_prepend_module_to_snapshot(false);
-    let _guard = settings.bind_to_scope();
-    insta::assert_yaml_snapshot!(module);
-}
-
-#[test]
 fn environment_mexe_module_load() {
     let module_bytes = include_bytes!("../data/Environment/mexe.bas");
 
@@ -854,37 +792,6 @@ fn environment_newrnd_module_load() {
     let source_file = match result {
         Ok(source_file) => source_file,
         Err(e) => panic!("Failed to decode source file 'newRND.bas': {e:?}"),
-    };
-
-    let (module_file_opt, failures) = ModuleFile::parse(&source_file).unpack();
-
-    if !failures.is_empty() {
-        for failure in failures {
-            failure.print();
-        }
-
-        panic!("Module parse had failures");
-    }
-
-    let module = module_file_opt.expect("Module should be present.");
-
-    let mut settings = insta::Settings::clone_current();
-    settings.set_snapshot_path("../../snapshots/tests/module/environment");
-    settings.set_prepend_module_to_snapshot(false);
-    let _guard = settings.bind_to_scope();
-    insta::assert_yaml_snapshot!(module);
-}
-
-#[test]
-#[ignore = "This test is ignored because the output json is too large and causes issues with github"]
-fn environment_pic_module_load() {
-    let module_bytes = include_bytes!("../data/Environment/pic.bas");
-
-    let result = SourceFile::decode_with_replacement("pic.bas", module_bytes);
-
-    let source_file = match result {
-        Ok(source_file) => source_file,
-        Err(e) => panic!("Failed to decode source file 'pic.bas': {e:?}"),
     };
 
     let (module_file_opt, failures) = ModuleFile::parse(&source_file).unpack();

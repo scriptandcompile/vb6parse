@@ -331,7 +331,7 @@ fn cdiu_beat_up_editor_mcpu_proc_module_load() {
 }
 
 #[test]
-#[ignore = "Having an issue with this test generating an assert issue on the yaml snapshot for some reason."]
+#[ignore = "generates an assert issue on the yaml snapshot for some reason. insta review bug"]
 fn cdiu_beat_up_editor_other_do_module_load() {
     let module_bytes = include_bytes!("../data/CdiuBeatUpEditor/other_do.bas");
 

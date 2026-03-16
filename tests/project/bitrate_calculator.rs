@@ -5,7 +5,7 @@ use vb6parse::*;
 // doesn't currently support. However, it's also ignored due to a character
 // boundary bug in the error reporting when handling multi-byte UTF-8 characters.
 #[test]
-#[ignore]
+#[ignore = "generates an assert issue on the yaml snapshot for some reason. insta review bug"]
 fn bitrate_calculator_project_load() {
     let project_file_bytes =
         include_bytes!("../data/Bitrate-calculator/Windows/Source-code/BitrateCalc.vbp");

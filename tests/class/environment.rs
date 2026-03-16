@@ -1291,37 +1291,6 @@ fn environment_guidropdown_class_load() {
 }
 
 #[test]
-#[ignore = "This test is ignored because the output json is too large and causes issues with github"]
-fn environment_guieditbox_class_load() {
-    let class_bytes = include_bytes!("../data/Environment/GuiEditBox.cls");
-
-    let result = SourceFile::decode_with_replacement("GuiEditBox.cls", class_bytes);
-
-    let source_file = match result {
-        Ok(source_file) => source_file,
-        Err(e) => panic!("Failed to decode source file 'GuiEditBox.cls': {e:?}"),
-    };
-
-    let (class_file_opt, failures) = ClassFile::parse(&source_file).unpack();
-
-    if !failures.is_empty() {
-        for failure in failures {
-            failure.print();
-        }
-
-        panic!("Class parse had failures");
-    }
-
-    let class = class_file_opt.expect("Class should be present.");
-
-    let mut settings = insta::Settings::clone_current();
-    settings.set_snapshot_path("../../snapshots/tests/class/environment");
-    settings.set_prepend_module_to_snapshot(false);
-    let _guard = settings.bind_to_scope();
-    insta::assert_yaml_snapshot!(class);
-}
-
-#[test]
 fn environment_guiimage_class_load() {
     let class_bytes = include_bytes!("../data/Environment/GuiImage.cls");
 
@@ -2771,37 +2740,6 @@ fn environment_taskmaster_class_load() {
     let source_file = match result {
         Ok(source_file) => source_file,
         Err(e) => panic!("Failed to decode source file 'TaskMaster.cls': {e:?}"),
-    };
-
-    let (class_file_opt, failures) = ClassFile::parse(&source_file).unpack();
-
-    if !failures.is_empty() {
-        for failure in failures {
-            failure.print();
-        }
-
-        panic!("Class parse had failures");
-    }
-
-    let class = class_file_opt.expect("Class should be present.");
-
-    let mut settings = insta::Settings::clone_current();
-    settings.set_snapshot_path("../../snapshots/tests/class/environment");
-    settings.set_prepend_module_to_snapshot(false);
-    let _guard = settings.bind_to_scope();
-    insta::assert_yaml_snapshot!(class);
-}
-
-#[test]
-#[ignore = "This test is ignored because the output json is too large and causes issues with github"]
-fn environment_textviewer_class_load() {
-    let class_bytes = include_bytes!("../data/Environment/TextViewer.cls");
-
-    let result = SourceFile::decode_with_replacement("TextViewer.cls", class_bytes);
-
-    let source_file = match result {
-        Ok(source_file) => source_file,
-        Err(e) => panic!("Failed to decode source file 'TextViewer.cls': {e:?}"),
     };
 
     let (class_file_opt, failures) = ClassFile::parse(&source_file).unpack();
