@@ -1,5 +1,5 @@
 ---
-source: src/parsers/cst/if_statements.rs
+source: vb6parse/src/parsers/cst/if_statements.rs
 expression: tree
 ---
 root:
@@ -63,8 +63,10 @@ root:
                       text: " "
                     - kind: Identifier
                       text: Label1
-                    - kind: Newline
-                      text: "\n"
+                - kind: Newline
+                  text: "\n"
+            - kind: LabelStatement
+              children:
                 - kind: Identifier
                   text: Label1
                 - kind: ColonOperator

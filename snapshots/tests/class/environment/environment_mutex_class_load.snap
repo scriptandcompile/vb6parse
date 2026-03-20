@@ -390,12 +390,12 @@ cst:
                     text: Then
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: exist
-                  - kind: ColonOperator
-                    text: ":"
-                  - kind: ExitStatement
+                  - kind: CallStatement
                     children:
+                      - kind: Identifier
+                        text: exist
+                      - kind: ColonOperator
+                        text: ":"
                       - kind: Whitespace
                         text: " "
                       - kind: ExitKeyword
@@ -406,6 +406,8 @@ cst:
                         text: Function
                       - kind: Newline
                         text: "\r\n"
+              - kind: DimStatement
+                children:
                   - kind: DimKeyword
                     text: Dim
                   - kind: Whitespace
@@ -548,14 +550,14 @@ cst:
                     text: Then
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Mymutexs
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: AddKey2
-                  - kind: NameStatement
+                  - kind: CallStatement
                     children:
+                      - kind: Identifier
+                        text: Mymutexs
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: AddKey2
                       - kind: Whitespace
                         text: " "
                       - kind: NameKeyword
@@ -580,34 +582,36 @@ cst:
                         text: Function
                       - kind: Newline
                         text: "\r\n"
-                  - kind: IfStatement
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
                     children:
-                      - kind: IfKeyword
-                        text: If
-                      - kind: Whitespace
-                        text: " "
-                      - kind: BinaryExpression
+                      - kind: IdentifierExpression
                         children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: LastError
-                          - kind: Whitespace
-                            text: " "
-                          - kind: EqualityOperator
-                            text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: ERROR_ALREADY_EXISTS
+                          - kind: Identifier
+                            text: LastError
                       - kind: Whitespace
                         text: " "
-                      - kind: ThenKeyword
-                        text: Then
+                      - kind: EqualityOperator
+                        text: "="
                       - kind: Whitespace
                         text: " "
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: ERROR_ALREADY_EXISTS
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Whitespace
+                    text: " "
+                  - kind: CallStatement
+                    children:
                       - kind: Identifier
                         text: CloseHandle
                       - kind: Whitespace
@@ -820,12 +824,12 @@ cst:
                     text: Then
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: notexist
-                  - kind: ColonOperator
-                    text: ":"
-                  - kind: ExitStatement
+                  - kind: CallStatement
                     children:
+                      - kind: Identifier
+                        text: notexist
+                      - kind: ColonOperator
+                        text: ":"
                       - kind: Whitespace
                         text: " "
                       - kind: ExitKeyword
@@ -836,6 +840,8 @@ cst:
                         text: Sub
                       - kind: Newline
                         text: "\r\n"
+              - kind: CallStatement
+                children:
                   - kind: Identifier
                     text: ReleaseMutex
                   - kind: Whitespace

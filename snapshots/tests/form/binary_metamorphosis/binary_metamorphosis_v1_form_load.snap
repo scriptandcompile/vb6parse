@@ -3324,629 +3324,635 @@ cst:
                                     text: ","
                           - kind: Whitespace
                             text: " "
-                  - kind: TrueKeyword
-                    text: "True"
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: TrueKeyword
-                    text: "True"
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"EXE files (*.exe, *.bin, *.jpg)|*.exe;*.bin;*.jpg|All files|*.*\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"Open a EXE file\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Form1
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: hWnd
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "0"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "            "
-              - kind: AssignmentStatement
-                children:
-                  - kind: MemberAccessExpression
+                  - kind: CallStatement
                     children:
+                      - kind: TrueKeyword
+                        text: "True"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: TrueKeyword
+                        text: "True"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: StringLiteral
+                        text: "\"EXE files (*.exe, *.bin, *.jpg)|*.exe;*.bin;*.jpg|All files|*.*\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: StringLiteral
+                        text: "\"Open a EXE file\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: StringLiteral
+                        text: "\"\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
                       - kind: Identifier
-                        text: Text_path
+                        text: Form1
                       - kind: PeriodOperator
                         text: "."
-                      - kind: TextKeyword
-                        text: Text
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IdentifierExpression
-                    children:
                       - kind: Identifier
-                        text: sFile
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "        "
-              - kind: Unknown
-                text: End
-              - kind: IfStatement
-                children:
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IfKeyword
-                    text: If
-                  - kind: IdentifierExpression
-                    children:
+                        text: hWnd
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: IntegerLiteral
+                        text: "0"
+                      - kind: RightParenthesis
+                        text: )
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ThenKeyword
+                        text: Then
                       - kind: Newline
                         text: "\r\n"
                   - kind: Whitespace
-                    text: "    "
-                  - kind: Newline
-                    text: "\r\n"
-                  - kind: StatementList
+                    text: "            "
+                  - kind: AssignmentStatement
                     children:
-                      - kind: Unknown
-                        text: End
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: Identifier
+                            text: Text_path
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: TextKeyword
+                            text: Text
                       - kind: Whitespace
                         text: " "
-                      - kind: Unknown
-                        text: Sub
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: DimStatement
-                        children:
-                          - kind: PrivateKeyword
-                            text: Private
-                          - kind: Whitespace
-                            text: " "
-                          - kind: SubKeyword
-                            text: Sub
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Row_hex_size_Change
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: Convert_to_VB_Click
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Unknown
-                        text: End
+                      - kind: EqualityOperator
+                        text: "="
                       - kind: Whitespace
                         text: " "
-                      - kind: Unknown
-                        text: Sub
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: DimStatement
+                      - kind: IdentifierExpression
                         children:
-                          - kind: PrivateKeyword
-                            text: Private
+                          - kind: Identifier
+                            text: sFile
+                      - kind: Newline
+                        text: "\r\n"
+                  - kind: Whitespace
+                    text: "        "
+                  - kind: EndKeyword
+                    text: End
+                  - kind: IfStatement
+                    children:
+                      - kind: Whitespace
+                        text: " "
+                      - kind: IfKeyword
+                        text: If
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: StatementList
+                        children:
+                          - kind: Unknown
+                            text: End
                           - kind: Whitespace
                             text: " "
-                          - kind: SubKeyword
+                          - kind: Unknown
                             text: Sub
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Save_BAS_Click
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: RightParenthesis
-                            text: )
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: DimStatement
-                        children:
-                          - kind: DimKeyword
-                            text: Dim
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: fname
-                          - kind: Whitespace
-                            text: " "
-                          - kind: AsKeyword
-                            text: As
-                          - kind: Whitespace
-                            text: " "
-                          - kind: StringKeyword
-                            text: String
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: DimStatement
-                        children:
-                          - kind: DimKeyword
-                            text: Dim
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: CC
-                          - kind: Whitespace
-                            text: " "
-                          - kind: AsKeyword
-                            text: As
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: cCommonDialog
                           - kind: Newline
                             text: "\r\n"
-                      - kind: SetStatement
-                        children:
+                          - kind: DimStatement
+                            children:
+                              - kind: PrivateKeyword
+                                text: Private
+                              - kind: Whitespace
+                                text: " "
+                              - kind: SubKeyword
+                                text: Sub
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: Row_hex_size_Change
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: RightParenthesis
+                                text: )
+                              - kind: Newline
+                                text: "\r\n"
                           - kind: Whitespace
                             text: "    "
-                          - kind: SetKeyword
-                            text: Set
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: CC
-                          - kind: Whitespace
-                            text: " "
-                          - kind: EqualityOperator
-                            text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: NewKeyword
-                            text: New
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: cCommonDialog
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: AssignmentStatement
-                        children:
-                          - kind: IdentifierExpression
+                          - kind: CallStatement
                             children:
                               - kind: Identifier
-                                text: fname
+                                text: Convert_to_VB_Click
+                              - kind: Newline
+                                text: "\r\n"
+                          - kind: Unknown
+                            text: End
                           - kind: Whitespace
                             text: " "
-                          - kind: EqualityOperator
-                            text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: BinaryExpression
+                          - kind: Unknown
+                            text: Sub
+                          - kind: Newline
+                            text: "\r\n"
+                          - kind: Newline
+                            text: "\r\n"
+                          - kind: Newline
+                            text: "\r\n"
+                          - kind: DimStatement
                             children:
-                              - kind: CallExpression
+                              - kind: PrivateKeyword
+                                text: Private
+                              - kind: Whitespace
+                                text: " "
+                              - kind: SubKeyword
+                                text: Sub
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: Save_BAS_Click
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: RightParenthesis
+                                text: )
+                              - kind: Newline
+                                text: "\r\n"
+                          - kind: Newline
+                            text: "\r\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: DimStatement
+                            children:
+                              - kind: DimKeyword
+                                text: Dim
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: fname
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AsKeyword
+                                text: As
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringKeyword
+                                text: String
+                              - kind: Newline
+                                text: "\r\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: DimStatement
+                            children:
+                              - kind: DimKeyword
+                                text: Dim
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: CC
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AsKeyword
+                                text: As
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: cCommonDialog
+                              - kind: Newline
+                                text: "\r\n"
+                          - kind: SetStatement
+                            children:
+                              - kind: Whitespace
+                                text: "    "
+                              - kind: SetKeyword
+                                text: Set
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: CC
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NewKeyword
+                                text: New
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: cCommonDialog
+                              - kind: Newline
+                                text: "\r\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: Newline
+                            text: "\r\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: fname
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: BinaryExpression
                                 children:
                                   - kind: CallExpression
                                     children:
-                                      - kind: Identifier
-                                        text: Split
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Split
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: MemberAccessExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: File_name
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: TextKeyword
+                                                        text: Text
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\".\""
+                                          - kind: RightParenthesis
+                                            text: )
                                       - kind: LeftParenthesis
                                         text: (
                                       - kind: ArgumentList
                                         children:
                                           - kind: Argument
                                             children:
-                                              - kind: MemberAccessExpression
+                                              - kind: NumericLiteralExpression
                                                 children:
-                                                  - kind: Identifier
-                                                    text: File_name
-                                                  - kind: PeriodOperator
-                                                    text: "."
-                                                  - kind: TextKeyword
-                                                    text: Text
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Argument
-                                            children:
-                                              - kind: StringLiteralExpression
-                                                children:
-                                                  - kind: StringLiteral
-                                                    text: "\".\""
+                                                  - kind: IntegerLiteral
+                                                    text: "0"
                                       - kind: RightParenthesis
                                         text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Ampersand
+                                    text: "&"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\".bas\""
+                              - kind: Newline
+                                text: "\r\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: Newline
+                            text: "\r\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: DimStatement
+                            children:
+                              - kind: DimKeyword
+                                text: Dim
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: CurEnvFile
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AsKeyword
+                                text: As
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringKeyword
+                                text: String
+                              - kind: Newline
+                                text: "\r\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: Newline
+                            text: "\r\n"
+                          - kind: IfStatement
+                            children:
+                              - kind: Whitespace
+                                text: "    "
+                              - kind: IfKeyword
+                                text: If
+                              - kind: Whitespace
+                                text: " "
+                              - kind: CallExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: CC
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: VBGetSaveFileName
                                   - kind: LeftParenthesis
                                     text: (
                                   - kind: ArgumentList
                                     children:
                                       - kind: Argument
                                         children:
-                                          - kind: NumericLiteralExpression
+                                          - kind: IdentifierExpression
                                             children:
-                                              - kind: IntegerLiteral
-                                                text: "0"
-                                  - kind: RightParenthesis
-                                    text: )
+                                              - kind: Identifier
+                                                text: fname
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: CurEnvFile
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Comma
+                                                text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                              - kind: StringLiteral
+                                text: "\"BAS file save (*.bas)|*.bas;|All files|*.*\""
+                              - kind: Comma
+                                text: ","
                               - kind: Whitespace
                                 text: " "
-                              - kind: Ampersand
-                                text: "&"
+                              - kind: Comma
+                                text: ","
                               - kind: Whitespace
                                 text: " "
-                              - kind: StringLiteralExpression
-                                children:
-                                  - kind: StringLiteral
-                                    text: "\".bas\""
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: DimStatement
-                        children:
-                          - kind: DimKeyword
-                            text: Dim
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: CurEnvFile
-                          - kind: Whitespace
-                            text: " "
-                          - kind: AsKeyword
-                            text: As
-                          - kind: Whitespace
-                            text: " "
-                          - kind: StringKeyword
-                            text: String
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: IfStatement
-                        children:
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: IfKeyword
-                            text: If
-                          - kind: Whitespace
-                            text: " "
-                          - kind: CallExpression
-                            children:
-                              - kind: MemberAccessExpression
+                              - kind: StringLiteral
+                                text: "\"\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"bla bla\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\".bas\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: CallStatement
                                 children:
                                   - kind: Identifier
-                                    text: CC
+                                    text: Form1
                                   - kind: PeriodOperator
                                     text: "."
                                   - kind: Identifier
-                                    text: VBGetSaveFileName
-                              - kind: LeftParenthesis
-                                text: (
-                              - kind: ArgumentList
+                                    text: hWnd
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IntegerLiteral
+                                    text: "0"
+                                  - kind: RightParenthesis
+                                    text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ThenKeyword
+                                    text: Then
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: Whitespace
+                                text: "        "
+                              - kind: AssignmentStatement
                                 children:
-                                  - kind: Argument
+                                  - kind: IdentifierExpression
                                     children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: fname
+                                      - kind: Identifier
+                                        text: file1
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: FreeFile
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: OpenStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "        "
+                                  - kind: OpenKeyword
+                                    text: Open
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: CurEnvFile
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ForKeyword
+                                    text: For
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: AppendKeyword
+                                    text: Append
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: AsKeyword
+                                    text: As
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: file1
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: PrintStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "        "
+                                  - kind: PrintKeyword
+                                    text: Print
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Octothorpe
+                                    text: "#"
+                                  - kind: Identifier
+                                    text: file1
                                   - kind: Comma
                                     text: ","
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Argument
+                                  - kind: Identifier
+                                    text: BAS_CONTENT
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: CloseStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "        "
+                                  - kind: CloseKeyword
+                                    text: Close
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Octothorpe
+                                    text: "#"
+                                  - kind: Identifier
+                                    text: file1
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: Whitespace
+                                text: "    "
+                              - kind: EndKeyword
+                                text: End
+                              - kind: IfStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IfKeyword
+                                    text: If
+                                  - kind: IdentifierExpression
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: Newline
+                                        text: "\r\n"
+                                  - kind: Whitespace
+                                    text: "        "
+                                  - kind: Newline
+                                    text: "\r\n"
+                                  - kind: StatementList
+                                    children:
+                                      - kind: Unknown
+                                        text: End
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Unknown
+                                        text: Sub
+                                      - kind: Newline
+                                        text: "\r\n"
+                                      - kind: Newline
+                                        text: "\r\n"
+                                      - kind: Newline
+                                        text: "\r\n"
+                                      - kind: DimStatement
                                         children:
+                                          - kind: PrivateKeyword
+                                            text: Private
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: SubKeyword
+                                            text: Sub
+                                          - kind: Whitespace
+                                            text: " "
                                           - kind: Identifier
-                                            text: CurEnvFile
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
+                                            text: Timer_Row_hex_size_Timer
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: Newline
+                                            text: "\r\n"
+                                      - kind: Whitespace
+                                        text: "    "
+                                      - kind: AssignmentStatement
                                         children:
-                                          - kind: Comma
-                                            text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                          - kind: StringLiteral
-                            text: "\"BAS file save (*.bas)|*.bas;|All files|*.*\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: StringLiteral
-                            text: "\"\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: StringLiteral
-                            text: "\"bla bla\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: StringLiteral
-                            text: "\".bas\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Form1
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: hWnd
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IntegerLiteral
-                            text: "0"
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ThenKeyword
-                            text: Then
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Whitespace
-                        text: "        "
-                      - kind: AssignmentStatement
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: file1
-                          - kind: Whitespace
-                            text: " "
-                          - kind: EqualityOperator
-                            text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: FreeFile
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: OpenStatement
-                        children:
-                          - kind: Whitespace
-                            text: "        "
-                          - kind: OpenKeyword
-                            text: Open
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: CurEnvFile
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ForKeyword
-                            text: For
-                          - kind: Whitespace
-                            text: " "
-                          - kind: AppendKeyword
-                            text: Append
-                          - kind: Whitespace
-                            text: " "
-                          - kind: AsKeyword
-                            text: As
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: file1
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: PrintStatement
-                        children:
-                          - kind: Whitespace
-                            text: "        "
-                          - kind: PrintKeyword
-                            text: Print
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Octothorpe
-                            text: "#"
-                          - kind: Identifier
-                            text: file1
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: BAS_CONTENT
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: CloseStatement
-                        children:
-                          - kind: Whitespace
-                            text: "        "
-                          - kind: CloseKeyword
-                            text: Close
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Octothorpe
-                            text: "#"
-                          - kind: Identifier
-                            text: file1
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                  - kind: EndKeyword
-                    text: End
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IfKeyword
-                    text: If
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "        "
-              - kind: Newline
-                text: "\r\n"
-          - kind: EndKeyword
-            text: End
-          - kind: Whitespace
-            text: " "
-          - kind: SubKeyword
-            text: Sub
-          - kind: Newline
-            text: "\r\n"
-      - kind: Newline
-        text: "\r\n"
-      - kind: Newline
-        text: "\r\n"
-      - kind: SubStatement
-        children:
-          - kind: PrivateKeyword
-            text: Private
-          - kind: Whitespace
-            text: " "
-          - kind: SubKeyword
-            text: Sub
-          - kind: Whitespace
-            text: " "
-          - kind: Identifier
-            text: Timer_Row_hex_size_Timer
-          - kind: ParameterList
-            children:
-              - kind: LeftParenthesis
-                text: (
-              - kind: RightParenthesis
-                text: )
-          - kind: Newline
-            text: "\r\n"
-          - kind: StatementList
-            children:
-              - kind: Whitespace
-                text: "    "
-              - kind: AssignmentStatement
-                children:
-                  - kind: MemberAccessExpression
-                    children:
-                      - kind: Identifier
-                        text: size_row_c
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: Caption
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: BinaryExpression
-                    children:
-                      - kind: MemberAccessExpression
-                        children:
-                          - kind: Identifier
-                            text: Row_hex_size
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: Value
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Ampersand
-                        text: "&"
-                      - kind: Whitespace
-                        text: " "
-                      - kind: StringLiteralExpression
-                        children:
-                          - kind: StringLiteral
-                            text: "\" chr\""
-                  - kind: Newline
-                    text: "\r\n"
-          - kind: EndKeyword
-            text: End
-          - kind: Whitespace
-            text: " "
-          - kind: SubKeyword
-            text: Sub
-          - kind: Newline
-            text: "\r\n"
-      - kind: Newline
-        text: "\r\n"
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: size_row_c
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: Caption
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EqualityOperator
+                                            text: "="
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: MemberAccessExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: Row_hex_size
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: Value
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Ampersand
+                                                text: "&"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: StringLiteralExpression
+                                                children:
+                                                  - kind: StringLiteral
+                                                    text: "\" chr\""
+                                          - kind: Newline
+                                            text: "\r\n"
+                                      - kind: Unknown
+                                        text: End
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Unknown
+                                        text: Sub
+                                      - kind: Newline
+                                        text: "\r\n"
+                                      - kind: Newline
+                                        text: "\r\n"

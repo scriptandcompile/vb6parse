@@ -927,14 +927,16 @@ cst:
                     text: Then
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: glistN
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: PrepareClick
-                  - kind: Newline
-                    text: "\r\n"
+                  - kind: CallStatement
+                    children:
+                      - kind: Identifier
+                        text: glistN
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: PrepareClick
+                      - kind: Newline
+                        text: "\r\n"
           - kind: EndKeyword
             text: End
           - kind: Whitespace
@@ -1019,18 +1021,20 @@ cst:
                     text: Then
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: mCallback
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Press
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Index
-                  - kind: Newline
-                    text: "\r\n"
+                  - kind: CallStatement
+                    children:
+                      - kind: Identifier
+                        text: mCallback
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: Press
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: Index
+                      - kind: Newline
+                        text: "\r\n"
           - kind: EndKeyword
             text: End
           - kind: Whitespace
@@ -1237,24 +1241,26 @@ cst:
                     text: Then
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: mCallback
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Press
+                  - kind: CallStatement
+                    children:
+                      - kind: Identifier
+                        text: mCallback
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: Press
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: Index
+                      - kind: Newline
+                        text: "\r\n"
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Index
+                  - kind: EndOfLineComment
+                    text: "'   End If"
                   - kind: Newline
                     text: "\r\n"
-              - kind: Whitespace
-                text: " "
-              - kind: EndOfLineComment
-                text: "'   End If"
-              - kind: Newline
-                text: "\r\n"
           - kind: EndKeyword
             text: End
           - kind: Whitespace

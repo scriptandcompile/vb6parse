@@ -382,14 +382,16 @@ cst:
                             text: Then
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: QueryPerformanceFrequency
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: CountsPerSecond
-                          - kind: Newline
-                            text: "\r\n"
+                          - kind: CallStatement
+                            children:
+                              - kind: Identifier
+                                text: QueryPerformanceFrequency
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: CountsPerSecond
+                              - kind: Newline
+                                text: "\r\n"
                       - kind: AssignmentStatement
                         children:
                           - kind: IdentifierExpression
@@ -632,55 +634,19 @@ cst:
                             text: Then
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: QueryPerformanceFrequency
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: CountsPerSecond
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Whitespace
-                        text: "      "
-                      - kind: AssignmentStatement
-                        children:
-                          - kind: IdentifierExpression
+                          - kind: CallStatement
                             children:
                               - kind: Identifier
-                                text: c
-                          - kind: Whitespace
-                            text: " "
-                          - kind: EqualityOperator
-                            text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: BinaryExpression
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: b
+                                text: QueryPerformanceFrequency
                               - kind: Whitespace
                                 text: " "
-                              - kind: SubtractionOperator
-                                text: "-"
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: a
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: IfStatement
-                        children:
+                              - kind: Identifier
+                                text: CountsPerSecond
+                              - kind: Newline
+                                text: "\r\n"
                           - kind: Whitespace
                             text: "      "
-                          - kind: IfKeyword
-                            text: If
-                          - kind: Whitespace
-                            text: " "
-                          - kind: BinaryExpression
+                          - kind: AssignmentStatement
                             children:
                               - kind: IdentifierExpression
                                 children:
@@ -692,26 +658,38 @@ cst:
                                 text: "="
                               - kind: Whitespace
                                 text: " "
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "0"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ThenKeyword
-                            text: Then
-                          - kind: Newline
-                            text: "\r\n"
-                          - kind: StatementList
-                            children:
-                              - kind: Whitespace
-                                text: "         "
-                              - kind: AssignmentStatement
+                              - kind: BinaryExpression
                                 children:
                                   - kind: IdentifierExpression
                                     children:
                                       - kind: Identifier
-                                        text: getAPIOverhead
+                                        text: b
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: SubtractionOperator
+                                    text: "-"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: a
+                              - kind: Newline
+                                text: "\r\n"
+                          - kind: IfStatement
+                            children:
+                              - kind: Whitespace
+                                text: "      "
+                              - kind: IfKeyword
+                                text: If
+                              - kind: Whitespace
+                                text: " "
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: c
                                   - kind: Whitespace
                                     text: " "
                                   - kind: EqualityOperator
@@ -722,22 +700,14 @@ cst:
                                     children:
                                       - kind: IntegerLiteral
                                         text: "0"
-                                  - kind: Newline
-                                    text: "\r\n"
                               - kind: Whitespace
-                                text: "      "
-                          - kind: ElseClause
-                            children:
-                              - kind: ElseKeyword
-                                text: Else
+                                text: " "
+                              - kind: ThenKeyword
+                                text: Then
                               - kind: Newline
                                 text: "\r\n"
                               - kind: StatementList
                                 children:
-                                  - kind: Whitespace
-                                    text: "      "
-                                  - kind: Newline
-                                    text: "\r\n"
                                   - kind: Whitespace
                                     text: "         "
                                   - kind: AssignmentStatement
@@ -752,66 +722,96 @@ cst:
                                         text: "="
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IdentifierExpression
+                                      - kind: NumericLiteralExpression
                                         children:
-                                          - kind: Identifier
-                                            text: c
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: EndOfLineComment
-                                    text: "'"
-                                  - kind: Newline
-                                    text: "\r\n"
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                                      - kind: Newline
+                                        text: "\r\n"
                                   - kind: Whitespace
                                     text: "      "
-                          - kind: EndKeyword
-                            text: End
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IfKeyword
-                            text: If
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Whitespace
-                        text: "   "
-                  - kind: ElseClause
-                    children:
-                      - kind: ElseKeyword
-                        text: Else
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: StatementList
-                        children:
-                          - kind: Whitespace
-                            text: "      "
-                          - kind: AssignmentStatement
-                            children:
-                              - kind: IdentifierExpression
+                              - kind: ElseClause
                                 children:
-                                  - kind: Identifier
-                                    text: getAPIOverhead
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: UnaryExpression
-                                children:
-                                  - kind: SubtractionOperator
-                                    text: "-"
-                                  - kind: NumericLiteralExpression
+                                  - kind: ElseKeyword
+                                    text: Else
+                                  - kind: Newline
+                                    text: "\r\n"
+                                  - kind: StatementList
                                     children:
-                                      - kind: IntegerLiteral
-                                        text: "1"
+                                      - kind: Whitespace
+                                        text: "      "
+                                      - kind: Newline
+                                        text: "\r\n"
+                                      - kind: Whitespace
+                                        text: "         "
+                                      - kind: AssignmentStatement
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: getAPIOverhead
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EqualityOperator
+                                            text: "="
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: c
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EndOfLineComment
+                                        text: "'"
+                                      - kind: Newline
+                                        text: "\r\n"
+                                      - kind: Whitespace
+                                        text: "      "
+                              - kind: EndKeyword
+                                text: End
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IfKeyword
+                                text: If
                               - kind: Newline
                                 text: "\r\n"
                           - kind: Whitespace
-                            text: "     "
+                            text: "   "
+                          - kind: ElseKeyword
+                            text: Else
                           - kind: Newline
                             text: "\r\n"
+                      - kind: Whitespace
+                        text: "      "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: getAPIOverhead
                           - kind: Whitespace
-                            text: "   "
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: UnaryExpression
+                            children:
+                              - kind: SubtractionOperator
+                                text: "-"
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "   "
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace

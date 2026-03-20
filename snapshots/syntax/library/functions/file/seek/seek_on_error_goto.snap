@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/file/seek.rs
+source: vb6parse/src/syntax/library/functions/file/seek.rs
 expression: tree
 ---
 root:
@@ -107,8 +107,8 @@ root:
                   text: " "
                 - kind: SubKeyword
                   text: Sub
-                - kind: Newline
-                  text: "\n"
+            - kind: Newline
+              text: "\n"
             - kind: LabelStatement
               children:
                 - kind: Identifier

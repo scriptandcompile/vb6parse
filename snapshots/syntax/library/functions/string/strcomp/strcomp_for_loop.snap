@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/strcomp.rs
+source: vb6parse/src/syntax/library/functions/string/strcomp.rs
 expression: tree
 ---
 root:
@@ -171,8 +171,8 @@ root:
                                   text: " "
                                 - kind: ForKeyword
                                   text: For
-                                - kind: Newline
-                                  text: "\n"
+                            - kind: Newline
+                              text: "\n"
                             - kind: Whitespace
                               text: "        "
                         - kind: EndKeyword

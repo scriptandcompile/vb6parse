@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/system_interaction/stop.rs
+source: vb6parse/src/syntax/library/statements/system_interaction/stop.rs
 expression: tree
 ---
 root:
@@ -137,8 +137,8 @@ root:
                           text: " "
                         - kind: FunctionKeyword
                           text: Function
-                        - kind: Newline
-                          text: "\n"
+                    - kind: Newline
+                      text: "\n"
                     - kind: Whitespace
                       text: "    "
                 - kind: EndKeyword

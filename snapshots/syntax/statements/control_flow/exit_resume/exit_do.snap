@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/control_flow/exit_resume.rs
+source: vb6parse/src/syntax/statements/control_flow/exit_resume.rs
 expression: tree
 ---
 root:
@@ -73,11 +73,23 @@ root:
                               text: " "
                             - kind: DoKeyword
                               text: Do
-                            - kind: Newline
-                              text: "\n"
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: AssignmentStatement
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: x
                         - kind: Whitespace
-                          text: "        "
-                        - kind: AssignmentStatement
+                          text: " "
+                        - kind: EqualityOperator
+                          text: "="
+                        - kind: Whitespace
+                          text: " "
+                        - kind: BinaryExpression
                           children:
                             - kind: IdentifierExpression
                               children:
@@ -85,39 +97,27 @@ root:
                                   text: x
                             - kind: Whitespace
                               text: " "
-                            - kind: EqualityOperator
-                              text: "="
+                            - kind: AdditionOperator
+                              text: +
                             - kind: Whitespace
                               text: " "
-                            - kind: BinaryExpression
+                            - kind: NumericLiteralExpression
                               children:
-                                - kind: IdentifierExpression
-                                  children:
-                                    - kind: Identifier
-                                      text: x
-                                - kind: Whitespace
-                                  text: " "
-                                - kind: AdditionOperator
-                                  text: +
-                                - kind: Whitespace
-                                  text: " "
-                                - kind: NumericLiteralExpression
-                                  children:
-                                    - kind: IntegerLiteral
-                                      text: "1"
-                            - kind: Newline
-                              text: "\n"
-                        - kind: Whitespace
-                          text: "    "
-                        - kind: LoopKeyword
-                          text: Loop
+                                - kind: IntegerLiteral
+                                  text: "1"
                         - kind: Newline
                           text: "\n"
-                    - kind: Unknown
-                      text: End
                     - kind: Whitespace
-                      text: " "
-                    - kind: Unknown
-                      text: Sub
-                    - kind: Newline
-                      text: "\n"
+                      text: "    "
+                - kind: LoopKeyword
+                  text: Loop
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

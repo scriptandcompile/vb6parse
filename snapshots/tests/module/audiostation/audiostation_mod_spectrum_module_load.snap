@@ -141,8 +141,8 @@ cst:
                     text: " "
                   - kind: FunctionKeyword
                     text: Function
-                  - kind: Newline
-                    text: "\n"
+              - kind: Newline
+                text: "\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier
@@ -1059,66 +1059,128 @@ cst:
                                         text: b1
                               - kind: Newline
                                 text: "\n"
-                          - kind: NextKeyword
-                            text: Next
-                          - kind: Whitespace
-                            text: " "
+                  - kind: NextKeyword
+                    text: Next
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: X
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: ResetSpectrum
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: I
+                  - kind: Comma
+                    text: ","
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: C
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IntegerKeyword
+                    text: Integer
+                  - kind: Newline
+                    text: "\n"
+              - kind: ForStatement
+                children:
+                  - kind: ForKeyword
+                    text: For
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: I
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: NumericLiteralExpression
+                    children:
+                      - kind: IntegerLiteral
+                        text: "0"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ToKeyword
+                    text: To
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Form_Main
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: VU_Spectrum
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
-                            text: X
-                          - kind: Newline
-                            text: "\n"
-                      - kind: Unknown
-                        text: End
+                            text: RowCount
                       - kind: Whitespace
                         text: " "
-                      - kind: Unknown
-                        text: Sub
-                      - kind: Newline
-                        text: "\n"
-                      - kind: DimStatement
+                      - kind: SubtractionOperator
+                        text: "-"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
                         children:
-                          - kind: PublicKeyword
-                            text: Public
-                          - kind: Whitespace
-                            text: " "
-                          - kind: SubKeyword
-                            text: Sub
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: ResetSpectrum
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Newline
-                            text: "\n"
-                      - kind: DimStatement
-                        children:
-                          - kind: DimKeyword
-                            text: Dim
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: I
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: C
-                          - kind: Whitespace
-                            text: " "
-                          - kind: AsKeyword
-                            text: As
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IntegerKeyword
-                            text: Integer
-                          - kind: Newline
-                            text: "\n"
+                          - kind: IntegerLiteral
+                            text: "1"
+                  - kind: Newline
+                    text: "\n"
+                  - kind: StatementList
+                    children:
                       - kind: ForStatement
                         children:
+                          - kind: Whitespace
+                            text: "    "
                           - kind: ForKeyword
                             text: For
                           - kind: Whitespace
@@ -1126,7 +1188,7 @@ cst:
                           - kind: IdentifierExpression
                             children:
                               - kind: Identifier
-                                text: I
+                                text: C
                           - kind: Whitespace
                             text: " "
                           - kind: EqualityOperator
@@ -1158,7 +1220,7 @@ cst:
                                   - kind: PeriodOperator
                                     text: "."
                                   - kind: Identifier
-                                    text: RowCount
+                                    text: ColCount
                               - kind: Whitespace
                                 text: " "
                               - kind: SubtractionOperator
@@ -1173,220 +1235,10 @@ cst:
                             text: "\n"
                           - kind: StatementList
                             children:
-                              - kind: ForStatement
-                                children:
-                                  - kind: Whitespace
-                                    text: "    "
-                                  - kind: ForKeyword
-                                    text: For
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: C
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: EqualityOperator
-                                    text: "="
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: NumericLiteralExpression
-                                    children:
-                                      - kind: IntegerLiteral
-                                        text: "0"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: ToKeyword
-                                    text: To
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: MemberAccessExpression
-                                        children:
-                                          - kind: MemberAccessExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: Form_Main
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: VU_Spectrum
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: ColCount
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: SubtractionOperator
-                                        text: "-"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "1"
-                                  - kind: Newline
-                                    text: "\n"
-                                  - kind: StatementList
-                                    children:
-                                      - kind: CallStatement
-                                        children:
-                                          - kind: Whitespace
-                                            text: "        "
-                                          - kind: CallKeyword
-                                            text: Call
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Identifier
-                                            text: Form_Main
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: VU_Spectrum
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: SetIndicatorActive
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: Identifier
-                                            text: I
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Identifier
-                                            text: C
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: FalseKeyword
-                                            text: "False"
-                                          - kind: RightParenthesis
-                                            text: )
-                                          - kind: Newline
-                                            text: "\n"
-                                      - kind: Whitespace
-                                        text: "    "
-                                  - kind: NextKeyword
-                                    text: Next
-                                  - kind: Newline
-                                    text: "\n"
-                          - kind: NextKeyword
-                            text: Next
-                          - kind: Newline
-                            text: "\n"
-                      - kind: Unknown
-                        text: End
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Unknown
-                        text: Sub
-                      - kind: Newline
-                        text: "\n"
-                      - kind: DimStatement
-                        children:
-                          - kind: PrivateKeyword
-                            text: Private
-                          - kind: Whitespace
-                            text: " "
-                          - kind: SubKeyword
-                            text: Sub
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: SetSpectrumBar
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: Identifier
-                            text: Row
-                          - kind: Whitespace
-                            text: " "
-                          - kind: AsKeyword
-                            text: As
-                          - kind: Whitespace
-                            text: " "
-                          - kind: LongKeyword
-                            text: Long
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Col
-                          - kind: Whitespace
-                            text: " "
-                          - kind: AsKeyword
-                            text: As
-                          - kind: Whitespace
-                            text: " "
-                          - kind: LongKeyword
-                            text: Long
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Newline
-                            text: "\n"
-                      - kind: DimStatement
-                        children:
-                          - kind: DimKeyword
-                            text: Dim
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: I
-                          - kind: Whitespace
-                            text: " "
-                          - kind: AsKeyword
-                            text: As
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IntegerKeyword
-                            text: Integer
-                          - kind: Newline
-                            text: "\n"
-                      - kind: Newline
-                        text: "\n"
-                      - kind: ForStatement
-                        children:
-                          - kind: ForKeyword
-                            text: For
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: I
-                          - kind: Whitespace
-                            text: " "
-                          - kind: EqualityOperator
-                            text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: Row
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ToKeyword
-                            text: To
-                          - kind: Whitespace
-                            text: " "
-                          - kind: NumericLiteralExpression
-                            children:
-                              - kind: IntegerLiteral
-                                text: "13"
-                          - kind: Newline
-                            text: "\n"
-                          - kind: StatementList
-                            children:
                               - kind: CallStatement
                                 children:
                                   - kind: Whitespace
-                                    text: "    "
+                                    text: "        "
                                   - kind: CallKeyword
                                     text: Call
                                   - kind: Whitespace
@@ -1410,26 +1262,182 @@ cst:
                                   - kind: Whitespace
                                     text: " "
                                   - kind: Identifier
-                                    text: Col
+                                    text: C
                                   - kind: Comma
                                     text: ","
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: TrueKeyword
-                                    text: "True"
+                                  - kind: FalseKeyword
+                                    text: "False"
                                   - kind: RightParenthesis
                                     text: )
                                   - kind: Newline
                                     text: "\n"
+                              - kind: Whitespace
+                                text: "    "
                           - kind: NextKeyword
                             text: Next
                           - kind: Newline
                             text: "\n"
-                      - kind: Unknown
-                        text: End
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Unknown
-                        text: Sub
-                      - kind: Newline
-                        text: "\n"
+                  - kind: NextKeyword
+                    text: Next
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: SetSpectrumBar
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: Row
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: Col
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: I
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IntegerKeyword
+                    text: Integer
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: ForStatement
+                children:
+                  - kind: ForKeyword
+                    text: For
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: I
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: Row
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ToKeyword
+                    text: To
+                  - kind: Whitespace
+                    text: " "
+                  - kind: NumericLiteralExpression
+                    children:
+                      - kind: IntegerLiteral
+                        text: "13"
+                  - kind: Newline
+                    text: "\n"
+                  - kind: StatementList
+                    children:
+                      - kind: CallStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: CallKeyword
+                            text: Call
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: Form_Main
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: VU_Spectrum
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: SetIndicatorActive
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: I
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: Col
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: TrueKeyword
+                            text: "True"
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\n"
+                  - kind: NextKeyword
+                    text: Next
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"

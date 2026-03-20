@@ -1437,10 +1437,10 @@ cst:
                         text: " "
                       - kind: SubKeyword
                         text: Sub
-                      - kind: Newline
-                        text: "\n"
                   - kind: Newline
                     text: "\n"
+              - kind: Newline
+                text: "\n"
               - kind: AssignmentStatement
                 children:
                   - kind: IdentifierExpression
@@ -1577,10 +1577,10 @@ cst:
                         text: " "
                       - kind: SubKeyword
                         text: Sub
-                      - kind: Newline
-                        text: "\n"
                   - kind: Newline
                     text: "\n"
+              - kind: Newline
+                text: "\n"
               - kind: CallStatement
                 children:
                   - kind: Identifier

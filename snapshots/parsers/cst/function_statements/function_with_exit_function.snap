@@ -1,5 +1,5 @@
 ---
-source: src/parsers/cst/function_statements.rs
+source: vb6parse/src/parsers/cst/function_statements.rs
 expression: tree
 ---
 root:
@@ -83,8 +83,8 @@ root:
                           text: " "
                         - kind: FunctionKeyword
                           text: Function
-                        - kind: Newline
-                          text: "\n"
+                    - kind: Newline
+                      text: "\n"
                     - kind: Whitespace
                       text: "    "
                 - kind: EndKeyword

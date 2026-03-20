@@ -2507,14 +2507,14 @@ cst:
                                         text: ucsSckStream
                           - kind: RightParenthesis
                             text: )
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Unknown
+                text: )
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: Then
+              - kind: Newline
+                text: "\r\n"
               - kind: Whitespace
                 text: "        "
               - kind: CallStatement
@@ -2541,8 +2541,8 @@ cst:
                     text: " "
                   - kind: Identifier
                     text: QH
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: Unknown
@@ -2567,8 +2567,10 @@ cst:
                         text: " "
                       - kind: SubKeyword
                         text: Sub
-                      - kind: Newline
-                        text: "\r\n"
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: LabelStatement
+                children:
                   - kind: Identifier
                     text: QH
                   - kind: ColonOperator
@@ -2673,8 +2675,8 @@ cst:
                     text: " "
                   - kind: SubKeyword
                     text: Sub
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier
@@ -2705,8 +2707,8 @@ cst:
                     text: " "
                   - kind: Identifier
                     text: QH
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: Unknown
                 text: End
               - kind: Whitespace
@@ -3109,8 +3111,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -3199,40 +3201,42 @@ cst:
                                                         text: "["
                                   - kind: Underscore
                                     text: _
-                                  - kind: Identifier
-                                    text: ucsSfdResolve
-                                  - kind: RightSquareBracket
-                                    text: "]"
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
-                                    text: m_lResolveTimeout
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
-                                    text: ucsRdsUninitialized
-                                  - kind: RightParenthesis
-                                    text: )
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: ThenKeyword
-                                    text: Then
-                                  - kind: Newline
-                                    text: "\r\n"
-                              - kind: GotoStatement
-                                children:
-                                  - kind: Whitespace
-                                    text: "                "
-                                  - kind: GotoKeyword
-                                    text: GoTo
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
-                                    text: QH
+                                  - kind: CallStatement
+                                    children:
+                                      - kind: Identifier
+                                        text: ucsSfdResolve
+                                      - kind: RightSquareBracket
+                                        text: "]"
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Identifier
+                                        text: m_lResolveTimeout
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Identifier
+                                        text: ucsRdsUninitialized
+                                      - kind: RightParenthesis
+                                        text: )
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: ThenKeyword
+                                        text: Then
+                                      - kind: Newline
+                                        text: "\r\n"
+                                  - kind: GotoStatement
+                                    children:
+                                      - kind: Whitespace
+                                        text: "                "
+                                      - kind: GotoKeyword
+                                        text: GoTo
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Identifier
+                                        text: QH
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -3313,8 +3317,8 @@ cst:
                                     text: " "
                                   - kind: Identifier
                                     text: QH
-                                  - kind: Newline
-                                    text: "\r\n"
+                              - kind: Newline
+                                text: "\r\n"
                               - kind: Whitespace
                                 text: "            "
                           - kind: EndKeyword
@@ -3393,8 +3397,8 @@ cst:
                                     text: " "
                                   - kind: Identifier
                                     text: QH
-                                  - kind: Newline
-                                    text: "\r\n"
+                              - kind: Newline
+                                text: "\r\n"
                               - kind: Whitespace
                                 text: "            "
                           - kind: EndKeyword
@@ -3473,8 +3477,8 @@ cst:
                                     text: " "
                                   - kind: Identifier
                                     text: QH
-                                  - kind: Newline
-                                    text: "\r\n"
+                              - kind: Newline
+                                text: "\r\n"
                               - kind: Whitespace
                                 text: "            "
                           - kind: EndKeyword
@@ -3521,8 +3525,10 @@ cst:
                         text: " "
                       - kind: SubKeyword
                         text: Sub
-                      - kind: Newline
-                        text: "\r\n"
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: LabelStatement
+                children:
                   - kind: Identifier
                     text: QH
                   - kind: ColonOperator
@@ -3635,8 +3641,8 @@ cst:
                     text: " "
                   - kind: SubKeyword
                     text: Sub
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier
@@ -3667,8 +3673,8 @@ cst:
                     text: " "
                   - kind: Identifier
                     text: QH
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: Unknown
                 text: End
               - kind: Whitespace
@@ -4523,8 +4529,8 @@ cst:
                                                     text: " "
                                                   - kind: Identifier
                                                     text: QH
-                                                  - kind: Newline
-                                                    text: "\r\n"
+                                              - kind: Newline
+                                                text: "\r\n"
                                               - kind: Whitespace
                                                 text: "            "
                                           - kind: EndKeyword
@@ -4653,8 +4659,8 @@ cst:
                                                     text: " "
                                                   - kind: DoKeyword
                                                     text: Do
-                                                  - kind: Newline
-                                                    text: "\r\n"
+                                              - kind: Newline
+                                                text: "\r\n"
                                               - kind: Whitespace
                                                 text: "            "
                                           - kind: EndKeyword
@@ -4691,8 +4697,8 @@ cst:
                                             text: " "
                                           - kind: Identifier
                                             text: QH
-                                          - kind: Newline
-                                            text: "\r\n"
+                                      - kind: Newline
+                                        text: "\r\n"
                                       - kind: Whitespace
                                         text: "        "
                                   - kind: EndKeyword
@@ -4757,8 +4763,8 @@ cst:
                                             text: " "
                                           - kind: Identifier
                                             text: QH
-                                          - kind: Newline
-                                            text: "\r\n"
+                                      - kind: Newline
+                                        text: "\r\n"
                                       - kind: Whitespace
                                         text: "        "
                                   - kind: EndKeyword
@@ -5591,8 +5597,8 @@ cst:
                             text: " "
                           - kind: SubKeyword
                             text: Sub
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -5633,8 +5639,8 @@ cst:
                     text: " "
                   - kind: SubKeyword
                     text: Sub
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier
@@ -5779,8 +5785,8 @@ cst:
                             text: " "
                           - kind: SubKeyword
                             text: Sub
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -5849,8 +5855,8 @@ cst:
                     text: " "
                   - kind: SubKeyword
                     text: Sub
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier
@@ -6015,8 +6021,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -6269,8 +6275,8 @@ cst:
                                     text: " "
                                   - kind: Identifier
                                     text: QH
-                                  - kind: Newline
-                                    text: "\r\n"
+                              - kind: Newline
+                                text: "\r\n"
                               - kind: Whitespace
                                 text: "        "
                           - kind: EndKeyword
@@ -6503,8 +6509,8 @@ cst:
                     text: " "
                   - kind: SubKeyword
                     text: Sub
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier
@@ -6697,8 +6703,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -6805,8 +6811,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -7181,8 +7187,8 @@ cst:
                                 text: " "
                               - kind: Identifier
                                 text: QH
-                              - kind: Newline
-                                text: "\r\n"
+                          - kind: Newline
+                            text: "\r\n"
                           - kind: Whitespace
                             text: "    "
                   - kind: ElseIfClause
@@ -7291,8 +7297,8 @@ cst:
                                 text: " "
                               - kind: Identifier
                                 text: QH
-                              - kind: Newline
-                                text: "\r\n"
+                          - kind: Newline
+                            text: "\r\n"
                           - kind: Whitespace
                             text: "    "
                   - kind: EndKeyword
@@ -7343,8 +7349,8 @@ cst:
                     text: " "
                   - kind: SubKeyword
                     text: Sub
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier
@@ -7489,8 +7495,8 @@ cst:
                             text: " "
                           - kind: SubKeyword
                             text: Sub
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -7523,8 +7529,8 @@ cst:
                     text: " "
                   - kind: SubKeyword
                     text: Sub
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier
@@ -7689,8 +7695,8 @@ cst:
                     text: " "
                   - kind: SubKeyword
                     text: Sub
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier

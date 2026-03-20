@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/control_flow/jump.rs
+source: vb6parse/src/syntax/statements/control_flow/jump.rs
 expression: tree
 ---
 root:
@@ -67,8 +67,8 @@ root:
                               text: " "
                             - kind: Identifier
                               text: Handler1
-                            - kind: Newline
-                              text: "\n"
+                        - kind: Newline
+                          text: "\n"
                         - kind: Whitespace
                           text: "        "
                 - kind: CaseClause
@@ -93,8 +93,8 @@ root:
                               text: " "
                             - kind: Identifier
                               text: Handler2
-                            - kind: Newline
-                              text: "\n"
+                        - kind: Newline
+                          text: "\n"
                         - kind: Whitespace
                           text: "    "
                 - kind: EndKeyword
@@ -115,8 +115,8 @@ root:
                   text: " "
                 - kind: SubKeyword
                   text: Sub
-                - kind: Newline
-                  text: "\n"
+            - kind: Newline
+              text: "\n"
             - kind: LabelStatement
               children:
                 - kind: Identifier
@@ -131,8 +131,8 @@ root:
                   text: "    "
                 - kind: ReturnKeyword
                   text: Return
-                - kind: Newline
-                  text: "\n"
+            - kind: Newline
+              text: "\n"
             - kind: LabelStatement
               children:
                 - kind: Identifier
@@ -147,8 +147,8 @@ root:
                   text: "    "
                 - kind: ReturnKeyword
                   text: Return
-                - kind: Newline
-                  text: "\n"
+            - kind: Newline
+              text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

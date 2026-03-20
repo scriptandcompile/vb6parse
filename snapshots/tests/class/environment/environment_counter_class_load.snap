@@ -2132,8 +2132,8 @@ cst:
                                     text: " "
                                   - kind: SubKeyword
                                     text: Sub
-                                  - kind: Newline
-                                    text: "\r\n"
+                              - kind: Newline
+                                text: "\r\n"
                           - kind: EndKeyword
                             text: End
                           - kind: Whitespace
@@ -2656,28 +2656,24 @@ cst:
                                                     text: ByVal
                                           - kind: Whitespace
                                             text: " "
+                                  - kind: IntegerLiteral
+                                    text: "0"
+                                  - kind: RightParenthesis
+                                    text: )
+                                  - kind: Whitespace
+                                    text: " "
                                   - kind: AssignmentStatement
                                     children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: EqualityOperator
+                                            text: "="
+                                      - kind: Whitespace
+                                        text: " "
                                       - kind: NumericLiteralExpression
                                         children:
                                           - kind: IntegerLiteral
                                             text: "0"
-                                      - kind: BinaryExpression
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: RightParenthesis
-                                                text: )
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: EqualityOperator
-                                            text: "="
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: NumericLiteralExpression
-                                            children:
-                                              - kind: IntegerLiteral
-                                                text: "0"
                                   - kind: Whitespace
                                     text: " "
                                   - kind: ThenKeyword
@@ -2728,8 +2724,8 @@ cst:
                                             text: " "
                                           - kind: FunctionKeyword
                                             text: Function
-                                          - kind: Newline
-                                            text: "\r\n"
+                                      - kind: Newline
+                                        text: "\r\n"
                                       - kind: Whitespace
                                         text: "    "
                                   - kind: EndKeyword
@@ -2760,8 +2756,8 @@ cst:
                                         text: " "
                                       - kind: FunctionKeyword
                                         text: Function
-                                      - kind: Newline
-                                        text: "\r\n"
+                                  - kind: Newline
+                                    text: "\r\n"
                                   - kind: Whitespace
                                     text: "   "
                           - kind: EndKeyword
@@ -3120,8 +3116,10 @@ cst:
                         text: " "
                       - kind: FunctionKeyword
                         text: Function
-                      - kind: Newline
-                        text: "\r\n"
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: LabelStatement
+                children:
                   - kind: Identifier
                     text: there
                   - kind: ColonOperator

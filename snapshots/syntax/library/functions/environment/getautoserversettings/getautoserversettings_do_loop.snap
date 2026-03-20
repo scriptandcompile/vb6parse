@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/environment/getautoserversettings.rs
+source: vb6parse/src/syntax/library/functions/environment/getautoserversettings.rs
 expression: tree
 ---
 root:
@@ -125,7 +125,7 @@ root:
                       text: " "
                     - kind: DoKeyword
                       text: Do
-                    - kind: Newline
-                      text: "\n"
-                - kind: LoopKeyword
-                  text: Loop
+                - kind: Newline
+                  text: "\n"
+        - kind: LoopKeyword
+          text: Loop

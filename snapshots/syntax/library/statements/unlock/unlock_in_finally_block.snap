@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/file_operations/unlock.rs
+source: vb6parse/src/syntax/library/statements/file_operations/unlock.rs
 expression: tree
 ---
 root:
@@ -127,8 +127,8 @@ root:
                   text: " "
                 - kind: SubKeyword
                   text: Sub
-                - kind: Newline
-                  text: "\n"
+            - kind: Newline
+              text: "\n"
             - kind: LabelStatement
               children:
                 - kind: Identifier

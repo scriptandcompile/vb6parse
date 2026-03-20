@@ -31,8 +31,8 @@ root:
                   text: "    "
                 - kind: ReturnKeyword
                   text: Return
-                - kind: Newline
-                  text: "\n"
+            - kind: Newline
+              text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

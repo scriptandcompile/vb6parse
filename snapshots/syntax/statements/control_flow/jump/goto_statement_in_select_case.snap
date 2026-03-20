@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/control_flow/jump.rs
+source: vb6parse/src/syntax/statements/control_flow/jump.rs
 expression: tree
 ---
 root:
@@ -67,8 +67,8 @@ root:
                               text: " "
                             - kind: Identifier
                               text: Handler1
-                            - kind: Newline
-                              text: "\n"
+                        - kind: Newline
+                          text: "\n"
                         - kind: Whitespace
                           text: "        "
                 - kind: CaseClause
@@ -93,8 +93,8 @@ root:
                               text: " "
                             - kind: Identifier
                               text: Handler2
-                            - kind: Newline
-                              text: "\n"
+                        - kind: Newline
+                          text: "\n"
                         - kind: Whitespace
                           text: "    "
                 - kind: EndKeyword

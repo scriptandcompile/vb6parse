@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/objects/typename.rs
+source: vb6parse/src/syntax/library/functions/objects/typename.rs
 expression: tree
 ---
 root:
@@ -77,18 +77,20 @@ root:
                   text: Then
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: Err
-                - kind: PeriodOperator
-                  text: "."
-                - kind: Identifier
-                  text: Raise
-                - kind: Whitespace
-                  text: " "
-                - kind: IntegerLiteral
-                  text: "5"
-                - kind: Newline
-                  text: "\n"
+                - kind: CallStatement
+                  children:
+                    - kind: Identifier
+                      text: Err
+                    - kind: PeriodOperator
+                      text: "."
+                    - kind: Identifier
+                      text: Raise
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IntegerLiteral
+                      text: "5"
+                    - kind: Newline
+                      text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

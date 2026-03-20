@@ -2425,8 +2425,8 @@ cst:
                                 text: " "
                               - kind: FunctionKeyword
                                 text: Function
-                              - kind: Newline
-                                text: "\r\n"
+                          - kind: Newline
+                            text: "\r\n"
                           - kind: Whitespace
                             text: "            "
                           - kind: Newline

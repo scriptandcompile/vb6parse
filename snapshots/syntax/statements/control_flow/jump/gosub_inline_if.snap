@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/control_flow/jump.rs
+source: vb6parse/src/syntax/statements/control_flow/jump.rs
 expression: tree
 ---
 root:
@@ -51,20 +51,22 @@ root:
                       text: " "
                     - kind: Identifier
                       text: Initialize
-                    - kind: Newline
-                      text: "\n"
-                - kind: ExitStatement
-                  children:
-                    - kind: Whitespace
-                      text: "    "
-                    - kind: ExitKeyword
-                      text: Exit
-                    - kind: Whitespace
-                      text: " "
-                    - kind: SubKeyword
-                      text: Sub
-                    - kind: Newline
-                      text: "\n"
+                - kind: Newline
+                  text: "\n"
+            - kind: ExitStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: ExitKeyword
+                  text: Exit
+                - kind: Whitespace
+                  text: " "
+                - kind: SubKeyword
+                  text: Sub
+            - kind: Newline
+              text: "\n"
+            - kind: LabelStatement
+              children:
                 - kind: Identifier
                   text: Initialize
                 - kind: ColonOperator
@@ -97,8 +99,8 @@ root:
                   text: "    "
                 - kind: ReturnKeyword
                   text: Return
-                - kind: Newline
-                  text: "\n"
+            - kind: Newline
+              text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

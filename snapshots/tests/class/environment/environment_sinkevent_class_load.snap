@@ -380,62 +380,64 @@ cst:
                         text: "\r\n"
                   - kind: Whitespace
                     text: "    "
-                  - kind: Identifier
-                    text: SwapString2Variant
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: b
-                  - kind: DollarSign
-                    text: $
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: a
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: RaiseEventStatement
-                children:
+                  - kind: CallStatement
+                    children:
+                      - kind: Identifier
+                        text: SwapString2Variant
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: b
+                      - kind: DollarSign
+                        text: $
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: a
+                      - kind: Newline
+                        text: "\r\n"
+                  - kind: RaiseEventStatement
+                    children:
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: RaiseEventKeyword
+                        text: RaiseEvent
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: GetString
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: Identifier
+                        text: b
+                      - kind: DollarSign
+                        text: $
+                      - kind: RightParenthesis
+                        text: )
+                      - kind: Newline
+                        text: "\r\n"
                   - kind: Whitespace
                     text: "    "
-                  - kind: RaiseEventKeyword
-                    text: RaiseEvent
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: GetString
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: b
-                  - kind: DollarSign
-                    text: $
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "    "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: SwapString2Variant
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: b
-                  - kind: DollarSign
-                    text: $
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: a
-                  - kind: Newline
-                    text: "\r\n"
+                  - kind: CallStatement
+                    children:
+                      - kind: Identifier
+                        text: SwapString2Variant
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: b
+                      - kind: DollarSign
+                        text: $
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: a
+                      - kind: Newline
+                        text: "\r\n"
           - kind: EndKeyword
             text: End
           - kind: Whitespace

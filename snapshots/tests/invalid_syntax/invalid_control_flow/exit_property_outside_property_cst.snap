@@ -43,8 +43,8 @@ root:
                   text: " "
                 - kind: PropertyKeyword
                   text: Property
-                - kind: Newline
-                  text: "\n"
+            - kind: Newline
+              text: "\n"
             - kind: Whitespace
               text: "    "
             - kind: AssignmentStatement

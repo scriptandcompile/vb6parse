@@ -47,7 +47,7 @@ impl Parser<'_> {
         self.consume_token();
 
         // Consume everything until newline (the label name)
-        self.consume_until_after(Token::Newline);
+        self.consume_until(Token::Newline);
 
         self.builder.finish_node(); // GoSubStatement
     }
@@ -88,11 +88,6 @@ impl Parser<'_> {
         // Consume "Return" keyword
         self.consume_token();
 
-        // Consume the newline
-        if self.at_token(Token::Newline) {
-            self.consume_token();
-        }
-
         self.builder.finish_node(); // ReturnStatement
     }
 
@@ -113,7 +108,7 @@ impl Parser<'_> {
         self.consume_token();
 
         // Consume everything until newline (the label name)
-        self.consume_until_after(Token::Newline);
+        self.consume_until(Token::Newline);
 
         self.builder.finish_node(); // GotoStatement
     }

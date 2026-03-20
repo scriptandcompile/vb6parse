@@ -107,12 +107,14 @@ impl Parser<'_> {
             return false;
         }
 
-        // Look ahead through the tokens to find an = operator before a newline
+        // Look ahead through the tokens to find an = operator at depth 0 before a newline
         // We need to skip: identifiers, periods, parentheses, array indices, etc.
         // Note: In VB6, keywords can be used as property/member names (e.g., obj.Property = value)
         // and also as variable names (e.g., text = "hello")
         let mut last_was_period = false;
         let mut at_start = true;
+        let mut paren_depth: i32 = 0;
+        let mut seen_other_operator = false;
 
         for (_text, token) in self.tokens.iter().skip(self.pos) {
             match token {
@@ -120,9 +122,20 @@ impl Parser<'_> {
                     // Reached end of line without finding assignment
                     return false;
                 }
-                Token::EqualityOperator => {
-                    // Found an = operator - this is likely an assignment
-                    return true;
+                Token::LeftParenthesis => {
+                    paren_depth += 1;
+                    last_was_period = false;
+                    at_start = false;
+                }
+                Token::RightParenthesis => {
+                    paren_depth = paren_depth.saturating_sub(1);
+                    last_was_period = false;
+                    at_start = false;
+                }
+                Token::EqualityOperator if paren_depth == 0 => {
+                    // Found an = operator at depth 0
+                    // If we've seen other operators (like >=, And, Or), this is part of an expression, not assignment
+                    return !seen_other_operator;
                 }
                 Token::PeriodOperator => {
                     last_was_period = true;
@@ -131,13 +144,41 @@ impl Parser<'_> {
                 // Skip tokens that could appear in the left-hand side of an assignment
                 Token::Whitespace => {}
                 Token::Identifier
-                | Token::LeftParenthesis
-                | Token::RightParenthesis
                 | Token::IntegerLiteral
                 | Token::LongLiteral
                 | Token::SingleLiteral
                 | Token::DoubleLiteral
                 | Token::Comma => {
+                    last_was_period = false;
+                    at_start = false;
+                }
+                // If we're inside parentheses, = operators are part of expressions, not assignments
+                Token::EqualityOperator if paren_depth > 0 => {
+                    // This is part of an expression, not an assignment
+                    last_was_period = false;
+                    at_start = false;
+                }
+                // Track operators that indicate we're in an expression context
+                Token::AndKeyword
+                | Token::OrKeyword
+                | Token::XorKeyword
+                | Token::EqvKeyword
+                | Token::ImpKeyword
+                | Token::ModKeyword
+                | Token::NotKeyword
+                | Token::LessThanOperator
+                | Token::GreaterThanOperator
+                | Token::LessThanOrEqualOperator
+                | Token::GreaterThanOrEqualOperator
+                | Token::InequalityOperator
+                | Token::AdditionOperator
+                | Token::SubtractionOperator
+                | Token::MultiplicationOperator
+                | Token::DivisionOperator
+                | Token::BackwardSlashOperator
+                | Token::ExponentiationOperator
+                | Token::Ampersand => {
+                    seen_other_operator = true;
                     last_was_period = false;
                     at_start = false;
                 }
@@ -150,7 +191,7 @@ impl Parser<'_> {
                 _ if at_start && token.is_keyword() => {
                     at_start = false;
                 }
-                // If we hit other operators, it's not an assignment
+                // If we hit other unexpected tokens, it's not an assignment
                 _ => {
                     return false;
                 }

@@ -3544,34 +3544,36 @@ cst:
                     text: Then
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Extensions
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: RegUnReg
-                  - kind: Whitespace
-                    text: " "
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: App
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: path
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"\\audio_sniffer.dll\""
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Newline
-                    text: "\n"
+                  - kind: CallStatement
+                    children:
+                      - kind: Identifier
+                        text: Extensions
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: RegUnReg
+                      - kind: Whitespace
+                        text: " "
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: Identifier
+                        text: App
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: path
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Ampersand
+                        text: "&"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: StringLiteral
+                        text: "\"\\audio_sniffer.dll\""
+                      - kind: RightParenthesis
+                        text: )
+                      - kind: Newline
+                        text: "\n"
               - kind: IfStatement
                 children:
                   - kind: IfKeyword
@@ -3644,36 +3646,38 @@ cst:
                     text: Then
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Extensions
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: RegUnReg
-                  - kind: Whitespace
-                    text: " "
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: App
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: path
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"\\audio_sniffer-x64.dll\""
-                  - kind: RightParenthesis
-                    text: )
+                  - kind: CallStatement
+                    children:
+                      - kind: Identifier
+                        text: Extensions
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: RegUnReg
+                      - kind: Whitespace
+                        text: " "
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: Identifier
+                        text: App
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: path
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Ampersand
+                        text: "&"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: StringLiteral
+                        text: "\"\\audio_sniffer-x64.dll\""
+                      - kind: RightParenthesis
+                        text: )
+                      - kind: Newline
+                        text: "\n"
                   - kind: Newline
                     text: "\n"
-              - kind: Newline
-                text: "\n"
               - kind: AssignmentStatement
                 children:
                   - kind: MemberAccessExpression

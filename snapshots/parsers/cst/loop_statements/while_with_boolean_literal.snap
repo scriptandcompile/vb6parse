@@ -1,5 +1,5 @@
 ---
-source: src/parsers/cst/loop_statements.rs
+source: vb6parse/src/parsers/cst/loop_statements.rs
 expression: tree
 ---
 root:
@@ -67,19 +67,19 @@ root:
                               text: " "
                             - kind: SubKeyword
                               text: Sub
-                            - kind: Newline
-                              text: "\n"
-                        - kind: Whitespace
-                          text: "    "
-                        - kind: WendKeyword
-                          text: Wend
                         - kind: Newline
                           text: "\n"
-                    - kind: Unknown
-                      text: End
                     - kind: Whitespace
-                      text: " "
-                    - kind: Unknown
-                      text: Sub
-                    - kind: Newline
-                      text: "\n"
+                      text: "    "
+                - kind: WendKeyword
+                  text: Wend
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

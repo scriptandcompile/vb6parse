@@ -1258,36 +1258,38 @@ cst:
                     text: ":"
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: MsgBox
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: GetTranslation
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: IntegerLiteral
-                    text: "1065"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbExclamation
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AdditionOperator
-                    text: +
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbOKOnly
+                  - kind: CallStatement
+                    children:
+                      - kind: Identifier
+                        text: MsgBox
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: GetTranslation
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: IntegerLiteral
+                        text: "1065"
+                      - kind: RightParenthesis
+                        text: )
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: vbExclamation
+                      - kind: Whitespace
+                        text: " "
+                      - kind: AdditionOperator
+                        text: +
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: vbOKOnly
+                      - kind: Newline
+                        text: "\n"
                   - kind: Newline
                     text: "\n"
-              - kind: Newline
-                text: "\n"
               - kind: CallStatement
                 children:
                   - kind: CallKeyword
@@ -2156,13 +2158,43 @@ cst:
                             text: )
                       - kind: Newline
                         text: "\n"
-                  - kind: IfStatement
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
                     children:
-                      - kind: IfKeyword
-                        text: If
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: Identifier
+                            text: Combox_CDRomDrive
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: ListCount
                       - kind: Whitespace
                         text: " "
-                      - kind: BinaryExpression
+                      - kind: GreaterThanOperator
+                        text: ">"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "0"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\n"
+                  - kind: StatementList
+                    children:
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
                         children:
                           - kind: MemberAccessExpression
                             children:
@@ -2171,21 +2203,71 @@ cst:
                               - kind: PeriodOperator
                                 text: "."
                               - kind: Identifier
-                                text: ListCount
+                                text: ListIndex
                           - kind: Whitespace
                             text: " "
-                          - kind: GreaterThanOperator
-                            text: ">"
+                          - kind: EqualityOperator
+                            text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: NumericLiteralExpression
+                          - kind: CallExpression
                             children:
-                              - kind: IntegerLiteral
-                                text: "0"
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ThenKeyword
-                        text: Then
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Extensions
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: INIRead
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"main\""
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"CDDeviceId\""
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: ConfigFile
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\n"
+                  - kind: ElseClause
+                    children:
+                      - kind: ElseKeyword
+                        text: Else
                       - kind: Newline
                         text: "\n"
                       - kind: StatementList
@@ -2201,133 +2283,53 @@ cst:
                                   - kind: PeriodOperator
                                     text: "."
                                   - kind: Identifier
-                                    text: ListIndex
+                                    text: Enabled
                               - kind: Whitespace
                                 text: " "
                               - kind: EqualityOperator
                                 text: "="
                               - kind: Whitespace
                                 text: " "
-                              - kind: CallExpression
+                              - kind: BooleanLiteralExpression
                                 children:
-                                  - kind: MemberAccessExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: Extensions
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: INIRead
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: StringLiteralExpression
-                                            children:
-                                              - kind: StringLiteral
-                                                text: "\"main\""
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Argument
-                                        children:
-                                          - kind: StringLiteralExpression
-                                            children:
-                                              - kind: StringLiteral
-                                                text: "\"CDDeviceId\""
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: ConfigFile
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Argument
-                                        children:
-                                          - kind: NumericLiteralExpression
-                                            children:
-                                              - kind: IntegerLiteral
-                                                text: "0"
-                                  - kind: RightParenthesis
-                                    text: )
+                                  - kind: FalseKeyword
+                                    text: "False"
                               - kind: Newline
                                 text: "\n"
-                      - kind: ElseClause
-                        children:
-                          - kind: ElseKeyword
-                            text: Else
-                          - kind: Newline
-                            text: "\n"
-                          - kind: StatementList
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: AssignmentStatement
                             children:
-                              - kind: Whitespace
-                                text: "    "
-                              - kind: AssignmentStatement
+                              - kind: MemberAccessExpression
                                 children:
-                                  - kind: MemberAccessExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: Combox_CDRomDrive
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: Enabled
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: EqualityOperator
-                                    text: "="
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: BooleanLiteralExpression
-                                    children:
-                                      - kind: FalseKeyword
-                                        text: "False"
-                                  - kind: Newline
-                                    text: "\n"
+                                  - kind: Identifier
+                                    text: Label_CDRomCombox
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Enabled
                               - kind: Whitespace
-                                text: "    "
-                              - kind: AssignmentStatement
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: BooleanLiteralExpression
                                 children:
-                                  - kind: MemberAccessExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: Label_CDRomCombox
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: Enabled
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: EqualityOperator
-                                    text: "="
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: BooleanLiteralExpression
-                                    children:
-                                      - kind: FalseKeyword
-                                        text: "False"
-                                  - kind: Newline
-                                    text: "\n"
-                      - kind: EndKeyword
-                        text: End
-                      - kind: Whitespace
-                        text: " "
-                      - kind: IfKeyword
-                        text: If
-                      - kind: Newline
-                        text: "\n"
+                                  - kind: FalseKeyword
+                                    text: "False"
+                              - kind: Newline
+                                text: "\n"
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
                   - kind: Newline
                     text: "\n"
+              - kind: Newline
+                text: "\n"
               - kind: AssignmentStatement
                 children:
                   - kind: MemberAccessExpression

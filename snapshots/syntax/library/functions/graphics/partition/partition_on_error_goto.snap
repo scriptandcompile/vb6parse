@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/graphics/partition.rs
+source: vb6parse/src/syntax/library/functions/graphics/partition.rs
 expression: tree
 ---
 root:
@@ -137,8 +137,8 @@ root:
                   text: " "
                 - kind: SubKeyword
                   text: Sub
-                - kind: Newline
-                  text: "\n"
+            - kind: Newline
+              text: "\n"
             - kind: LabelStatement
               children:
                 - kind: Identifier

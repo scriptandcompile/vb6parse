@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/runtime_state/date.rs
+source: vb6parse/src/syntax/library/statements/runtime_state/date.rs
 expression: tree
 ---
 root:
@@ -79,14 +79,16 @@ root:
                   text: Then
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: MsgBox
-                - kind: Whitespace
-                  text: " "
-                - kind: StringLiteral
-                  text: "\"Invalid date\""
-                - kind: Newline
-                  text: "\n"
+                - kind: CallStatement
+                  children:
+                    - kind: Identifier
+                      text: MsgBox
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteral
+                      text: "\"Invalid date\""
+                    - kind: Newline
+                      text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

@@ -407,8 +407,8 @@ cst:
                             text: " "
                           - kind: FunctionKeyword
                             text: Function
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "  "
                   - kind: EndKeyword
@@ -2131,8 +2131,8 @@ cst:
                                         text: " "
                                       - kind: FunctionKeyword
                                         text: Function
-                                      - kind: Newline
-                                        text: "\r\n"
+                                  - kind: Newline
+                                    text: "\r\n"
                                   - kind: Whitespace
                                     text: "  "
                           - kind: EndKeyword
@@ -2853,8 +2853,8 @@ cst:
                                                 text: " "
                                               - kind: ForKeyword
                                                 text: For
-                                              - kind: Newline
-                                                text: "\r\n"
+                                          - kind: Newline
+                                            text: "\r\n"
                                           - kind: Whitespace
                                             text: "    "
                                   - kind: EndKeyword
@@ -7827,11 +7827,11 @@ cst:
                                                                                                                                             text: "28"
                                                                                                                                       - kind: Newline
                                                                                                                                         text: "\r\n"
-                                                                                                                                  - kind: EndKeyword
-                                                                                                                                    text: End
-                                                                                                                                  - kind: Whitespace
-                                                                                                                                    text: " "
-                                                                                                                                  - kind: SubKeyword
-                                                                                                                                    text: Sub
-                                                                                                                                  - kind: Newline
-                                                                                                                                    text: "\r\n"
+                                                                                                                              - kind: Unknown
+                                                                                                                                text: End
+                                                                                                                              - kind: Whitespace
+                                                                                                                                text: " "
+                                                                                                                              - kind: Unknown
+                                                                                                                                text: Sub
+                                                                                                                              - kind: Newline
+                                                                                                                                text: "\r\n"

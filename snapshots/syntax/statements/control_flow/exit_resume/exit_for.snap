@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/control_flow/exit_resume.rs
+source: vb6parse/src/syntax/statements/control_flow/exit_resume.rs
 expression: tree
 ---
 root:
@@ -99,19 +99,19 @@ root:
                               text: " "
                             - kind: ForKeyword
                               text: For
-                            - kind: Newline
-                              text: "\n"
-                        - kind: Whitespace
-                          text: "    "
-                        - kind: NextKeyword
-                          text: Next
                         - kind: Newline
                           text: "\n"
-                    - kind: Unknown
-                      text: End
                     - kind: Whitespace
-                      text: " "
-                    - kind: Unknown
-                      text: Sub
-                    - kind: Newline
-                      text: "\n"
+                      text: "    "
+                - kind: NextKeyword
+                  text: Next
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

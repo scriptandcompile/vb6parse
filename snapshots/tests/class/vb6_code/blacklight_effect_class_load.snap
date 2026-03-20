@@ -2002,6 +2002,8 @@ cst:
                                         children:
                                           - kind: PeriodOperator
                                             text: "."
+                      - kind: CallStatement
+                        children:
                           - kind: Identifier
                             text: bmHeight
                           - kind: Newline
@@ -2608,6 +2610,8 @@ cst:
                                         children:
                                           - kind: PeriodOperator
                                             text: "."
+                      - kind: CallStatement
+                        children:
                           - kind: Identifier
                             text: bmHeight
                           - kind: Newline

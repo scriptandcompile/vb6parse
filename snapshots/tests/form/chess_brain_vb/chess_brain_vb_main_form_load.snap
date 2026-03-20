@@ -1865,8 +1865,8 @@ cst:
                     text: " "
                   - kind: SubKeyword
                     text: Sub
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier

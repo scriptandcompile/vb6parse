@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/file_operations/close.rs
+source: vb6parse/src/syntax/library/statements/file_operations/close.rs
 expression: tree
 ---
 root:
@@ -55,11 +55,11 @@ root:
                       text: fileNum
                     - kind: Newline
                       text: "\n"
-                - kind: EndKeyword
-                  text: End
-                - kind: Whitespace
-                  text: " "
-                - kind: SubKeyword
-                  text: Sub
-                - kind: Newline
-                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

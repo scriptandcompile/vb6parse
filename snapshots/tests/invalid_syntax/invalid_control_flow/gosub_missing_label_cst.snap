@@ -31,8 +31,8 @@ root:
                   text: "    "
                 - kind: GoSubKeyword
                   text: GoSub
-                - kind: Newline
-                  text: "\n"
+            - kind: Newline
+              text: "\n"
             - kind: ExitStatement
               children:
                 - kind: Whitespace
@@ -43,8 +43,8 @@ root:
                   text: " "
                 - kind: SubKeyword
                   text: Sub
-                - kind: Newline
-                  text: "\n"
+            - kind: Newline
+              text: "\n"
             - kind: LabelStatement
               children:
                 - kind: Identifier

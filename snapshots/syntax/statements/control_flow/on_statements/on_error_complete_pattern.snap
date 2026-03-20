@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/control_flow/on_statements.rs
+source: vb6parse/src/syntax/statements/control_flow/on_statements.rs
 expression: tree
 ---
 root:
@@ -123,8 +123,8 @@ root:
                   text: " "
                 - kind: SubKeyword
                   text: Sub
-                - kind: Newline
-                  text: "\n"
+            - kind: Newline
+              text: "\n"
             - kind: Whitespace
               text: "    "
             - kind: Newline

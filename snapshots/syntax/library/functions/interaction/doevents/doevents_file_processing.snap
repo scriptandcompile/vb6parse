@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/interaction/doevents.rs
+source: vb6parse/src/syntax/library/functions/interaction/doevents.rs
 expression: tree
 ---
 root:
@@ -147,10 +147,12 @@ root:
                   text: Then
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: DoEvents
-                - kind: Newline
-                  text: "\n"
+                - kind: CallStatement
+                  children:
+                    - kind: Identifier
+                      text: DoEvents
+                    - kind: Newline
+                      text: "\n"
         - kind: LoopKeyword
           text: Loop
         - kind: Newline

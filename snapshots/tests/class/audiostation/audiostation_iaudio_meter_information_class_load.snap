@@ -2842,6 +2842,8 @@ cst:
                                                 children:
                                                   - kind: Ampersand
                                                     text: "&"
+                      - kind: CallStatement
+                        children:
                           - kind: Identifier
                             text: HFFFF
                           - kind: Ampersand
@@ -3812,68 +3814,70 @@ cst:
                             text: Then
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: err
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: Raise
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IntegerLiteral
-                            text: "5"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: EndOfLineComment
-                            text: "'invalid call"
-                          - kind: Newline
-                            text: "\n"
-                      - kind: IfStatement
-                        children:
+                          - kind: CallStatement
+                            children:
+                              - kind: Identifier
+                                text: err
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Raise
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IntegerLiteral
+                                text: "5"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EndOfLineComment
+                                text: "'invalid call"
+                              - kind: Newline
+                                text: "\n"
+                          - kind: IfStatement
+                            children:
+                              - kind: Whitespace
+                                text: "  "
+                              - kind: IfKeyword
+                                text: If
+                              - kind: Whitespace
+                                text: " "
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: pInterface
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "0"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: ThenKeyword
+                                text: Then
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: err
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Raise
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IntegerLiteral
+                                text: "5"
+                              - kind: Newline
+                                text: "\n"
                           - kind: Whitespace
                             text: "  "
-                          - kind: IfKeyword
-                            text: If
-                          - kind: Whitespace
-                            text: " "
-                          - kind: BinaryExpression
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: pInterface
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "0"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ThenKeyword
-                            text: Then
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: err
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: Raise
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IntegerLiteral
-                            text: "5"
                           - kind: Newline
                             text: "\n"
-                      - kind: Whitespace
-                        text: "  "
-                      - kind: Newline
-                        text: "\n"
                       - kind: Whitespace
                         text: "  "
                       - kind: AssignmentStatement
@@ -4006,46 +4010,48 @@ cst:
                             text: Then
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: err
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: Raise
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IntegerLiteral
-                            text: "7"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: EndOfLineComment
-                            text: "'insuff. memory"
-                          - kind: Newline
-                            text: "\n"
-                      - kind: Whitespace
-                        text: "  "
-                      - kind: AssignmentStatement
-                        children:
-                          - kind: IdentifierExpression
+                          - kind: CallStatement
                             children:
                               - kind: Identifier
-                                text: hGlobalOffset
-                          - kind: Whitespace
-                            text: " "
-                          - kind: EqualityOperator
-                            text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IdentifierExpression
-                            children:
+                                text: err
+                              - kind: PeriodOperator
+                                text: "."
                               - kind: Identifier
-                                text: hGlobal
+                                text: Raise
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IntegerLiteral
+                                text: "7"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EndOfLineComment
+                                text: "'insuff. memory"
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "  "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: hGlobalOffset
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: hGlobal
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "  "
                           - kind: Newline
                             text: "\n"
-                      - kind: Whitespace
-                        text: "  "
-                      - kind: Newline
-                        text: "\n"
                       - kind: IfStatement
                         children:
                           - kind: Whitespace

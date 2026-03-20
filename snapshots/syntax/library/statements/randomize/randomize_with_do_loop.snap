@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/runtime_state/randomize.rs
+source: vb6parse/src/syntax/library/statements/runtime_state/randomize.rs
 expression: tree
 ---
 root:
@@ -111,19 +111,19 @@ root:
                               text: " "
                             - kind: DoKeyword
                               text: Do
-                            - kind: Newline
-                              text: "\n"
-                        - kind: Whitespace
-                          text: "    "
-                        - kind: LoopKeyword
-                          text: Loop
                         - kind: Newline
                           text: "\n"
-                    - kind: Unknown
-                      text: End
                     - kind: Whitespace
-                      text: " "
-                    - kind: Unknown
-                      text: Sub
-                    - kind: Newline
-                      text: "\n"
+                      text: "    "
+                - kind: LoopKeyword
+                  text: Loop
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

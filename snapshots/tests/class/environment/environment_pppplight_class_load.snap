@@ -2102,22 +2102,22 @@ cst:
                                         text: TypeOf
                               - kind: Whitespace
                                 text: " "
-                              - kind: Identifier
-                                text: GroupRef
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IsKeyword
-                                text: Is
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: mHandler
-                              - kind: Whitespace
-                                text: " "
-                              - kind: ThenKeyword
-                                text: Then
-                              - kind: GotoStatement
+                              - kind: CallStatement
                                 children:
+                                  - kind: Identifier
+                                    text: GroupRef
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IsKeyword
+                                    text: Is
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: mHandler
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ThenKeyword
+                                    text: Then
                                   - kind: Whitespace
                                     text: " "
                                   - kind: GotoKeyword
@@ -2128,6 +2128,8 @@ cst:
                                     text: e1245
                                   - kind: Newline
                                     text: "\r\n"
+                          - kind: DimStatement
+                            children:
                               - kind: DimKeyword
                                 text: Dim
                               - kind: Whitespace
@@ -2726,324 +2728,92 @@ cst:
                                         text: TypeOf
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Identifier
-                                    text: GroupRef
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IsKeyword
-                                    text: Is
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
-                                    text: mHandler
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: ThenKeyword
-                                    text: Then
-                                  - kind: Newline
-                                    text: "\r\n"
-                              - kind: Whitespace
-                                text: "        "
-                              - kind: DimStatement
-                                children:
-                                  - kind: DimKeyword
-                                    text: Dim
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
-                                    text: usehandler
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: AsKeyword
-                                    text: As
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
-                                    text: mHandler
-                                  - kind: Newline
-                                    text: "\r\n"
-                              - kind: SetStatement
-                                children:
-                                  - kind: Whitespace
-                                    text: "        "
-                                  - kind: SetKeyword
-                                    text: Set
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
-                                    text: usehandler
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: EqualityOperator
-                                    text: "="
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
-                                    text: GroupRef
-                                  - kind: Newline
-                                    text: "\r\n"
-                              - kind: IfStatement
-                                children:
-                                  - kind: Whitespace
-                                    text: "        "
-                                  - kind: IfKeyword
-                                    text: If
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: BinaryExpression
+                                  - kind: CallStatement
                                     children:
-                                      - kind: MemberAccessExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: usehandler
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: t1
+                                      - kind: Identifier
+                                        text: GroupRef
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: IsKeyword
+                                        text: Is
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Identifier
+                                        text: mHandler
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: ThenKeyword
+                                        text: Then
+                                      - kind: Newline
+                                        text: "\r\n"
+                                  - kind: Whitespace
+                                    text: "        "
+                                  - kind: CallStatement
+                                    children:
+                                      - kind: DimKeyword
+                                        text: Dim
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Identifier
+                                        text: usehandler
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: AsKeyword
+                                        text: As
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Identifier
+                                        text: mHandler
+                                      - kind: Newline
+                                        text: "\r\n"
+                                  - kind: SetStatement
+                                    children:
+                                      - kind: Whitespace
+                                        text: "        "
+                                      - kind: SetKeyword
+                                        text: Set
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Identifier
+                                        text: usehandler
                                       - kind: Whitespace
                                         text: " "
                                       - kind: EqualityOperator
                                         text: "="
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "1"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: ThenKeyword
-                                    text: Then
-                                  - kind: Newline
-                                    text: "\r\n"
-                                  - kind: StatementList
-                                    children:
-                                      - kind: Whitespace
-                                        text: "            "
-                                      - kind: AssignmentStatement
-                                        children:
-                                          - kind: MemberAccessExpression
-                                            children:
-                                              - kind: MemberAccessExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: usehandler
-                                                  - kind: PeriodOperator
-                                                    text: "."
-                                                  - kind: Identifier
-                                                    text: objref
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: Index
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: EqualityOperator
-                                            text: "="
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: CallExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: Abs
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: ArgumentList
-                                                children:
-                                                  - kind: Argument
-                                                    children:
-                                                      - kind: BinaryExpression
-                                                        children:
-                                                          - kind: IdentifierExpression
-                                                            children:
-                                                              - kind: Identifier
-                                                                text: curitem
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: AdditionOperator
-                                                            text: +
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: NumericLiteralExpression
-                                                            children:
-                                                              - kind: IntegerLiteral
-                                                                text: "100"
-                                              - kind: RightParenthesis
-                                                text: )
-                                          - kind: Newline
-                                            text: "\r\n"
-                                      - kind: Whitespace
-                                        text: "            "
-                                      - kind: AssignmentStatement
-                                        children:
-                                          - kind: MemberAccessExpression
-                                            children:
-                                              - kind: MemberAccessExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: usehandler
-                                                  - kind: PeriodOperator
-                                                    text: "."
-                                                  - kind: Identifier
-                                                    text: objref
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: Done
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: EqualityOperator
-                                            text: "="
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: BooleanLiteralExpression
-                                            children:
-                                              - kind: TrueKeyword
-                                                text: "True"
-                                          - kind: Newline
-                                            text: "\r\n"
-                                      - kind: SetStatement
-                                        children:
-                                          - kind: Whitespace
-                                            text: "            "
-                                          - kind: SetKeyword
-                                            text: Set
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Identifier
-                                            text: usehandler
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: objref
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: ValueObj
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: EqualityOperator
-                                            text: "="
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Identifier
-                                            text: item
-                                          - kind: Newline
-                                            text: "\r\n"
-                                      - kind: ExitStatement
-                                        children:
-                                          - kind: Whitespace
-                                            text: "            "
-                                          - kind: ExitKeyword
-                                            text: Exit
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: PropertyKeyword
-                                            text: Property
-                                          - kind: Newline
-                                            text: "\r\n"
-                                      - kind: Whitespace
-                                        text: "           "
+                                      - kind: Identifier
+                                        text: GroupRef
                                       - kind: Newline
                                         text: "\r\n"
-                                      - kind: Whitespace
-                                        text: "        "
-                                  - kind: EndKeyword
-                                    text: End
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IfKeyword
-                                    text: If
-                                  - kind: Newline
-                                    text: "\r\n"
-                              - kind: Whitespace
-                                text: "    "
-                          - kind: ElseIfClause
-                            children:
-                              - kind: ElseIfKeyword
-                                text: ElseIf
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BinaryExpression
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: curitem
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: EqualityOperator
-                                    text: "="
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: UnaryExpression
-                                    children:
-                                      - kind: SubtractionOperator
-                                        text: "-"
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "2"
-                              - kind: Whitespace
-                                text: " "
-                              - kind: ThenKeyword
-                                text: Then
-                              - kind: Newline
-                                text: "\r\n"
-                              - kind: StatementList
-                                children:
                                   - kind: IfStatement
                                     children:
                                       - kind: Whitespace
-                                        text: "    "
+                                        text: "        "
                                       - kind: IfKeyword
                                         text: If
                                       - kind: Whitespace
                                         text: " "
                                       - kind: BinaryExpression
                                         children:
-                                          - kind: CallExpression
+                                          - kind: MemberAccessExpression
                                             children:
                                               - kind: Identifier
-                                                text: Typename
-                                              - kind: DollarSign
-                                                text: $
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: ArgumentList
-                                                children:
-                                                  - kind: Argument
-                                                    children:
-                                                      - kind: IdentifierExpression
-                                                        children:
-                                                          - kind: Identifier
-                                                            text: item
-                                              - kind: RightParenthesis
-                                                text: )
+                                                text: usehandler
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: t1
                                           - kind: Whitespace
                                             text: " "
                                           - kind: EqualityOperator
                                             text: "="
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: CallExpression
+                                          - kind: NumericLiteralExpression
                                             children:
-                                              - kind: Identifier
-                                                text: Typename
-                                              - kind: DollarSign
-                                                text: $
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: ArgumentList
-                                                children:
-                                                  - kind: Argument
-                                                    children:
-                                                      - kind: IdentifierExpression
-                                                        children:
-                                                          - kind: Identifier
-                                                            text: GroupRef
-                                              - kind: RightParenthesis
-                                                text: )
+                                              - kind: IntegerLiteral
+                                                text: "1"
                                       - kind: Whitespace
                                         text: " "
                                       - kind: ThenKeyword
@@ -3052,16 +2822,108 @@ cst:
                                         text: "\r\n"
                                       - kind: StatementList
                                         children:
+                                          - kind: Whitespace
+                                            text: "            "
+                                          - kind: AssignmentStatement
+                                            children:
+                                              - kind: MemberAccessExpression
+                                                children:
+                                                  - kind: MemberAccessExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: usehandler
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: Identifier
+                                                        text: objref
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: Index
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: EqualityOperator
+                                                text: "="
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: CallExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: Abs
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: BinaryExpression
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: curitem
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: AdditionOperator
+                                                                text: +
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: NumericLiteralExpression
+                                                                children:
+                                                                  - kind: IntegerLiteral
+                                                                    text: "100"
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                              - kind: Newline
+                                                text: "\r\n"
+                                          - kind: Whitespace
+                                            text: "            "
+                                          - kind: AssignmentStatement
+                                            children:
+                                              - kind: MemberAccessExpression
+                                                children:
+                                                  - kind: MemberAccessExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: usehandler
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: Identifier
+                                                        text: objref
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: Done
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: EqualityOperator
+                                                text: "="
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: BooleanLiteralExpression
+                                                children:
+                                                  - kind: TrueKeyword
+                                                    text: "True"
+                                              - kind: Newline
+                                                text: "\r\n"
                                           - kind: SetStatement
                                             children:
                                               - kind: Whitespace
-                                                text: "    "
+                                                text: "            "
                                               - kind: SetKeyword
                                                 text: Set
                                               - kind: Whitespace
                                                 text: " "
                                               - kind: Identifier
-                                                text: GroupRef
+                                                text: usehandler
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: objref
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: ValueObj
                                               - kind: Whitespace
                                                 text: " "
                                               - kind: EqualityOperator
@@ -3072,24 +2934,24 @@ cst:
                                                 text: item
                                               - kind: Newline
                                                 text: "\r\n"
-                                          - kind: Whitespace
-                                            text: "    "
-                                          - kind: Newline
-                                            text: "\r\n"
                                           - kind: ExitStatement
                                             children:
                                               - kind: Whitespace
-                                                text: "    "
+                                                text: "            "
                                               - kind: ExitKeyword
                                                 text: Exit
                                               - kind: Whitespace
                                                 text: " "
                                               - kind: PropertyKeyword
                                                 text: Property
-                                              - kind: Newline
-                                                text: "\r\n"
+                                          - kind: Newline
+                                            text: "\r\n"
                                           - kind: Whitespace
-                                            text: "    "
+                                            text: "           "
+                                          - kind: Newline
+                                            text: "\r\n"
+                                          - kind: Whitespace
+                                            text: "        "
                                       - kind: EndKeyword
                                         text: End
                                       - kind: Whitespace
@@ -3100,6 +2962,144 @@ cst:
                                         text: "\r\n"
                                   - kind: Whitespace
                                     text: "    "
+                                  - kind: ElseIfKeyword
+                                    text: ElseIf
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: AssignmentStatement
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: curitem
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: UnaryExpression
+                                        children:
+                                          - kind: SubtractionOperator
+                                            text: "-"
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "2"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ThenKeyword
+                                    text: Then
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: IfStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "    "
+                                  - kind: IfKeyword
+                                    text: If
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Typename
+                                          - kind: DollarSign
+                                            text: $
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: item
+                                          - kind: RightParenthesis
+                                            text: )
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Typename
+                                          - kind: DollarSign
+                                            text: $
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: GroupRef
+                                          - kind: RightParenthesis
+                                            text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ThenKeyword
+                                    text: Then
+                                  - kind: Newline
+                                    text: "\r\n"
+                                  - kind: StatementList
+                                    children:
+                                      - kind: SetStatement
+                                        children:
+                                          - kind: Whitespace
+                                            text: "    "
+                                          - kind: SetKeyword
+                                            text: Set
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: GroupRef
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EqualityOperator
+                                            text: "="
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: item
+                                          - kind: Newline
+                                            text: "\r\n"
+                                      - kind: Whitespace
+                                        text: "    "
+                                      - kind: Newline
+                                        text: "\r\n"
+                                      - kind: ExitStatement
+                                        children:
+                                          - kind: Whitespace
+                                            text: "    "
+                                          - kind: ExitKeyword
+                                            text: Exit
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: PropertyKeyword
+                                            text: Property
+                                      - kind: Newline
+                                        text: "\r\n"
+                                      - kind: Whitespace
+                                        text: "    "
+                                  - kind: EndKeyword
+                                    text: End
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IfKeyword
+                                    text: If
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: Whitespace
+                                text: "    "
                           - kind: EndKeyword
                             text: End
                           - kind: Whitespace
@@ -3406,22 +3406,22 @@ cst:
                                                 text: TypeOf
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Identifier
-                                        text: GroupRef
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IsKeyword
-                                        text: Is
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: mHandler
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: ThenKeyword
-                                        text: Then
-                                      - kind: GotoStatement
+                                      - kind: CallStatement
                                         children:
+                                          - kind: Identifier
+                                            text: GroupRef
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IsKeyword
+                                            text: Is
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: mHandler
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: ThenKeyword
+                                            text: Then
                                           - kind: Whitespace
                                             text: " "
                                           - kind: GotoKeyword
@@ -3432,6 +3432,8 @@ cst:
                                             text: e1245
                                           - kind: Newline
                                             text: "\r\n"
+                                  - kind: DimStatement
+                                    children:
                                       - kind: DimKeyword
                                         text: Dim
                                       - kind: Whitespace
@@ -4248,22 +4250,22 @@ cst:
                                                             text: TypeOf
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: Identifier
-                                                    text: GroupRef
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: IsKeyword
-                                                    text: Is
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: Identifier
-                                                    text: mHandler
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: ThenKeyword
-                                                    text: Then
-                                                  - kind: GotoStatement
+                                                  - kind: CallStatement
                                                     children:
+                                                      - kind: Identifier
+                                                        text: GroupRef
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: IsKeyword
+                                                        text: Is
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Identifier
+                                                        text: mHandler
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: ThenKeyword
+                                                        text: Then
                                                       - kind: Whitespace
                                                         text: " "
                                                       - kind: GotoKeyword
@@ -4274,36 +4276,46 @@ cst:
                                                         text: e1245
                                                       - kind: Newline
                                                         text: "\r\n"
-                                                  - kind: GotoStatement
-                                                    children:
-                                                      - kind: GotoKeyword
-                                                        text: GoTo
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: Identifier
-                                                        text: a123
-                                                      - kind: Newline
-                                                        text: "\r\n"
-                                                  - kind: ElseIfKeyword
-                                                    text: ElseIf
+                                              - kind: GotoStatement
+                                                children:
+                                                  - kind: GotoKeyword
+                                                    text: GoTo
                                                   - kind: Whitespace
                                                     text: " "
                                                   - kind: Identifier
+                                                    text: a123
+                                              - kind: Newline
+                                                text: "\r\n"
+                                      - kind: ElseIfClause
+                                        children:
+                                          - kind: ElseIfKeyword
+                                            text: ElseIf
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
                                                     text: curitem
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: LessThanOperator
-                                                    text: "<"
-                                                  - kind: Whitespace
-                                                    text: " "
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: LessThanOperator
+                                                text: "<"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
                                                   - kind: IntegerLiteral
                                                     text: "0"
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: ThenKeyword
-                                                    text: Then
-                                                  - kind: Newline
-                                                    text: "\r\n"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: ThenKeyword
+                                            text: Then
+                                          - kind: Newline
+                                            text: "\r\n"
+                                          - kind: StatementList
+                                            children:
                                               - kind: IfStatement
                                                 children:
                                                   - kind: IfKeyword
@@ -4322,22 +4334,22 @@ cst:
                                                             text: TypeOf
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: Identifier
-                                                    text: GroupRef
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: IsKeyword
-                                                    text: Is
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: Identifier
-                                                    text: mHandler
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: ThenKeyword
-                                                    text: Then
-                                                  - kind: GotoStatement
+                                                  - kind: CallStatement
                                                     children:
+                                                      - kind: Identifier
+                                                        text: GroupRef
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: IsKeyword
+                                                        text: Is
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Identifier
+                                                        text: mHandler
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: ThenKeyword
+                                                        text: Then
                                                       - kind: Whitespace
                                                         text: " "
                                                       - kind: GotoKeyword
@@ -4348,6 +4360,8 @@ cst:
                                                         text: e1245
                                                       - kind: Newline
                                                         text: "\r\n"
+                                              - kind: LabelStatement
+                                                children:
                                                   - kind: Identifier
                                                     text: a123
                                                   - kind: ColonOperator
@@ -4474,8 +4488,8 @@ cst:
                                                             text: " "
                                                           - kind: FunctionKeyword
                                                             text: Function
-                                                          - kind: Newline
-                                                            text: "\r\n"
+                                                      - kind: Newline
+                                                        text: "\r\n"
                                                   - kind: EndKeyword
                                                     text: End
                                                   - kind: Whitespace

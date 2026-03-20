@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/formatnumber.rs
+source: vb6parse/src/syntax/library/functions/string/formatnumber.rs
 expression: tree
 ---
 root:
@@ -85,8 +85,8 @@ root:
           text: " "
         - kind: FunctionKeyword
           text: Function
-        - kind: Newline
-          text: "\n"
+    - kind: Newline
+      text: "\n"
     - kind: LabelStatement
       children:
         - kind: Identifier

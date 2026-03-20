@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/file/eof.rs
+source: vb6parse/src/syntax/library/functions/file/eof.rs
 expression: tree
 ---
 root:
@@ -163,8 +163,8 @@ root:
                           text: " "
                         - kind: DoKeyword
                           text: Do
-                        - kind: Newline
-                          text: "\n"
+                    - kind: Newline
+                      text: "\n"
                     - kind: Whitespace
                       text: "    "
                 - kind: EndKeyword

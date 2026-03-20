@@ -1,5 +1,5 @@
 ---
-source: src/parsers/cst/if_statements.rs
+source: vb6parse/src/parsers/cst/if_statements.rs
 expression: tree
 ---
 root:
@@ -85,11 +85,11 @@ root:
                           text: )
                     - kind: Newline
                       text: "\n"
-                - kind: EndKeyword
-                  text: End
-                - kind: Whitespace
-                  text: " "
-                - kind: SubKeyword
-                  text: Sub
-                - kind: Newline
-                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

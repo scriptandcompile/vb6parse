@@ -427,10 +427,10 @@ cst:
                         text: " "
                       - kind: SubKeyword
                         text: Sub
-                      - kind: Newline
-                        text: "\n"
                   - kind: Newline
                     text: "\n"
+              - kind: Newline
+                text: "\n"
               - kind: CallStatement
                 children:
                   - kind: CallKeyword
@@ -1923,226 +1923,226 @@ cst:
                             text: )
                       - kind: Newline
                         text: "\n"
-                  - kind: IfStatement
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: UnaryExpression
                     children:
-                      - kind: IfKeyword
-                        text: If
+                      - kind: NotKeyword
+                        text: Not
                       - kind: Whitespace
                         text: " "
-                      - kind: UnaryExpression
+                      - kind: CallExpression
                         children:
-                          - kind: NotKeyword
-                            text: Not
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Extensions
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: FileExists
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: MediaFile
+                          - kind: RightParenthesis
+                            text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Whitespace
+                    text: " "
+                  - kind: GotoStatement
+                    children:
+                      - kind: GotoKeyword
+                        text: GoTo
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: Einde
+                  - kind: Newline
+                    text: "\n"
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: MediaFile
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: StringLiteralExpression
+                        children:
+                          - kind: StringLiteral
+                            text: "\"\""
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: ColonOperator
+                    text: ":"
+                  - kind: GotoStatement
+                    children:
+                      - kind: Whitespace
+                        text: " "
+                      - kind: GotoKeyword
+                        text: GoTo
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: Einde
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: EndOfLineComment
+                text: "' Make sure to load the file in the last instance of the application"
+              - kind: Newline
+                text: "\n"
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: MemberAccessExpression
+                    children:
+                      - kind: Identifier
+                        text: App
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: PrevInstance
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\n"
+                  - kind: StatementList
+                    children:
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: Form_System
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: DataInter
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: Connect
                           - kind: Whitespace
                             text: " "
-                          - kind: CallExpression
-                            children:
-                              - kind: MemberAccessExpression
-                                children:
-                                  - kind: Identifier
-                                    text: Extensions
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: Identifier
-                                    text: FileExists
-                              - kind: LeftParenthesis
-                                text: (
-                              - kind: ArgumentList
-                                children:
-                                  - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: MediaFile
-                              - kind: RightParenthesis
-                                text: )
+                          - kind: IntegerLiteral
+                            text: "15448"
+                          - kind: Newline
+                            text: "\n"
                       - kind: Whitespace
-                        text: " "
-                      - kind: ThenKeyword
-                        text: Then
-                      - kind: Whitespace
-                        text: " "
-                      - kind: GotoStatement
+                        text: "    "
+                      - kind: CallStatement
                         children:
-                          - kind: GotoKeyword
-                            text: GoTo
+                          - kind: Identifier
+                            text: Form_System
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: DataInter
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: SendData
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteral
+                            text: "\"OpenFile~\""
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Ampersand
+                            text: "&"
                           - kind: Whitespace
                             text: " "
                           - kind: Identifier
-                            text: Einde
+                            text: MediaFile
                           - kind: Newline
                             text: "\n"
-                      - kind: IfStatement
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: Unknown
+                        text: End
+                      - kind: Newline
+                        text: "\n"
+                  - kind: ElseClause
+                    children:
+                      - kind: ElseKeyword
+                        text: Else
+                      - kind: Newline
+                        text: "\n"
+                      - kind: StatementList
                         children:
-                          - kind: IfKeyword
-                            text: If
-                          - kind: Whitespace
-                            text: " "
-                          - kind: BinaryExpression
+                          - kind: CallStatement
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: MediaFile
+                              - kind: Whitespace
+                                text: "    "
+                              - kind: CallKeyword
+                                text: Call
                               - kind: Whitespace
                                 text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: StringLiteralExpression
-                                children:
-                                  - kind: StringLiteral
-                                    text: "\"\""
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ThenKeyword
-                            text: Then
-                          - kind: ColonOperator
-                            text: ":"
+                              - kind: Identifier
+                                text: OpenFile
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: Identifier
+                                text: MediaFile
+                              - kind: RightParenthesis
+                                text: )
+                              - kind: Newline
+                                text: "\n"
                           - kind: GotoStatement
                             children:
                               - kind: Whitespace
-                                text: " "
+                                text: "    "
                               - kind: GotoKeyword
                                 text: GoTo
                               - kind: Whitespace
                                 text: " "
                               - kind: Identifier
                                 text: Einde
-                              - kind: Newline
-                                text: "\n"
                           - kind: Newline
                             text: "\n"
-                      - kind: EndOfLineComment
-                        text: "' Make sure to load the file in the last instance of the application"
-                      - kind: Newline
-                        text: "\n"
-                  - kind: IfStatement
-                    children:
-                      - kind: IfKeyword
-                        text: If
-                      - kind: Whitespace
-                        text: " "
-                      - kind: MemberAccessExpression
-                        children:
-                          - kind: Identifier
-                            text: App
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: PrevInstance
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ThenKeyword
-                        text: Then
-                      - kind: Newline
-                        text: "\n"
-                      - kind: StatementList
-                        children:
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: CallStatement
-                            children:
-                              - kind: Identifier
-                                text: Form_System
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: DataInter
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: Connect
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IntegerLiteral
-                                text: "15448"
-                              - kind: Newline
-                                text: "\n"
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: CallStatement
-                            children:
-                              - kind: Identifier
-                                text: Form_System
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: DataInter
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: SendData
-                              - kind: Whitespace
-                                text: " "
-                              - kind: StringLiteral
-                                text: "\"OpenFile~\""
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Ampersand
-                                text: "&"
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: MediaFile
-                              - kind: Newline
-                                text: "\n"
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: Unknown
-                            text: End
-                          - kind: Newline
-                            text: "\n"
-                      - kind: ElseClause
-                        children:
-                          - kind: ElseKeyword
-                            text: Else
-                          - kind: Newline
-                            text: "\n"
-                          - kind: StatementList
-                            children:
-                              - kind: CallStatement
-                                children:
-                                  - kind: Whitespace
-                                    text: "    "
-                                  - kind: CallKeyword
-                                    text: Call
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
-                                    text: OpenFile
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: Identifier
-                                    text: MediaFile
-                                  - kind: RightParenthesis
-                                    text: )
-                                  - kind: Newline
-                                    text: "\n"
-                              - kind: GotoStatement
-                                children:
-                                  - kind: Whitespace
-                                    text: "    "
-                                  - kind: GotoKeyword
-                                    text: GoTo
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
-                                    text: Einde
-                                  - kind: Newline
-                                    text: "\n"
-                      - kind: EndKeyword
-                        text: End
-                      - kind: Whitespace
-                        text: " "
-                      - kind: IfKeyword
-                        text: If
-                      - kind: Newline
-                        text: "\n"
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
                   - kind: Newline
                     text: "\n"
+              - kind: Newline
+                text: "\n"
               - kind: ExitStatement
                 children:
                   - kind: ExitKeyword
@@ -2151,8 +2151,8 @@ cst:
                     text: " "
                   - kind: SubKeyword
                     text: Sub
-                  - kind: Newline
-                    text: "\n"
+              - kind: Newline
+                text: "\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier

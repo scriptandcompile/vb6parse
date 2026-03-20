@@ -2150,8 +2150,8 @@ cst:
                                                                     text: " "
                                                                   - kind: ForKeyword
                                                                     text: For
-                                                                  - kind: Newline
-                                                                    text: "\n"
+                                                              - kind: Newline
+                                                                text: "\n"
                                                               - kind: Whitespace
                                                                 text: "                    "
                                                           - kind: EndKeyword
@@ -2428,8 +2428,8 @@ cst:
                                                 text: " "
                                               - kind: FunctionKeyword
                                                 text: Function
-                                              - kind: Newline
-                                                text: "\n"
+                                          - kind: Newline
+                                            text: "\n"
                                           - kind: Whitespace
                                             text: "        "
                                   - kind: EndKeyword
@@ -2488,8 +2488,8 @@ cst:
                                 text: " "
                               - kind: FunctionKeyword
                                 text: Function
-                              - kind: Newline
-                                text: "\n"
+                          - kind: Newline
+                            text: "\n"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace

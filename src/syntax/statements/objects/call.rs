@@ -130,35 +130,51 @@ impl Parser<'_> {
         }
 
         // Look ahead to see if there's an assignment operator
-        // If there's an =, it's an assignment, not a procedure call
+        // If there's an = at depth 0 (not inside parentheses) AND we haven't seen other operators,
+        // it's an assignment, not a procedure call
+        let mut paren_depth: i32 = 0;
+        let mut seen_other_operator = false;
         for (_text, token) in self.tokens.iter().skip(self.pos) {
             match token {
                 Token::Newline | Token::EndOfLineComment | Token::RemComment => {
                     // Reached end of line without finding assignment - this is a procedure call
                     return true;
                 }
-                Token::EqualityOperator => {
-                    // Found = operator - this is an assignment, not a procedure call
-                    return false;
+                Token::LeftParenthesis => {
+                    paren_depth += 1;
                 }
-                // Procedure calls can have various tokens before newline
-                Token::Identifier
-                | Token::LeftParenthesis
-                | Token::RightParenthesis
-                | Token::Comma
-                | Token::PeriodOperator
-                | Token::StringLiteral
-                | Token::IntegerLiteral
-                | Token::LongLiteral
-                | Token::SingleLiteral
-                | Token::DoubleLiteral => {
-                    // These can all appear in procedure calls, continue looking
+                Token::RightParenthesis => {
+                    paren_depth = paren_depth.saturating_sub(1);
                 }
-                // If it's a keyword, it could be an argument
-                _ if token.is_keyword() => {
-                    // Keywords can be used as arguments (e.g., True, False, Nothing)
+                Token::EqualityOperator if paren_depth == 0 => {
+                    // Found = operator at depth 0
+                    // If we've seen other operators (like >=, And, Or), this is part of an expression in a procedure call
+                    // Otherwise, it's an assignment
+                    return seen_other_operator;
                 }
-                // Whitespace or Anything else could indicate it's not a simple procedure call
+                // Track operators that indicate we're in an expression context
+                Token::AndKeyword
+                | Token::OrKeyword
+                | Token::XorKeyword
+                | Token::EqvKeyword
+                | Token::ImpKeyword
+                | Token::ModKeyword
+                | Token::NotKeyword
+                | Token::LessThanOperator
+                | Token::GreaterThanOperator
+                | Token::LessThanOrEqualOperator
+                | Token::GreaterThanOrEqualOperator
+                | Token::InequalityOperator
+                | Token::AdditionOperator
+                | Token::SubtractionOperator
+                | Token::MultiplicationOperator
+                | Token::DivisionOperator
+                | Token::BackwardSlashOperator
+                | Token::ExponentiationOperator
+                | Token::Ampersand => {
+                    seen_other_operator = true;
+                }
+                // All other tokens can appear in procedure calls, continue looking
                 _ => {}
             }
         }

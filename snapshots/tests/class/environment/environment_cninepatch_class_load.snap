@@ -4244,8 +4244,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -4306,8 +4306,8 @@ cst:
                     text: " "
                   - kind: FunctionKeyword
                     text: Function
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier
@@ -4506,8 +4506,8 @@ cst:
                     text: " "
                   - kind: FunctionKeyword
                     text: Function
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier
@@ -4702,8 +4702,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -4764,8 +4764,8 @@ cst:
                     text: " "
                   - kind: FunctionKeyword
                     text: Function
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier
@@ -6024,8 +6024,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -6232,8 +6232,8 @@ cst:
                     text: " "
                   - kind: FunctionKeyword
                     text: Function
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier
@@ -6710,8 +6710,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -6798,8 +6798,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -6914,8 +6914,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -6980,8 +6980,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -7076,8 +7076,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -7676,8 +7676,8 @@ cst:
                                     text: " "
                                   - kind: Identifier
                                     text: QH
-                                  - kind: Newline
-                                    text: "\r\n"
+                              - kind: Newline
+                                text: "\r\n"
                               - kind: Whitespace
                                 text: "        "
                           - kind: EndKeyword
@@ -7900,8 +7900,8 @@ cst:
                                             text: " "
                                           - kind: Identifier
                                             text: QH
-                                          - kind: Newline
-                                            text: "\r\n"
+                                      - kind: Newline
+                                        text: "\r\n"
                                       - kind: Whitespace
                                         text: "            "
                                   - kind: EndKeyword
@@ -8324,8 +8324,8 @@ cst:
                                                     text: " "
                                                   - kind: Identifier
                                                     text: QH
-                                                  - kind: Newline
-                                                    text: "\r\n"
+                                              - kind: Newline
+                                                text: "\r\n"
                                               - kind: Whitespace
                                                 text: "                "
                                           - kind: EndKeyword
@@ -8622,8 +8622,8 @@ cst:
                                                     text: " "
                                                   - kind: Identifier
                                                     text: QH
-                                                  - kind: Newline
-                                                    text: "\r\n"
+                                              - kind: Newline
+                                                text: "\r\n"
                                               - kind: Whitespace
                                                 text: "                "
                                           - kind: EndKeyword
@@ -8738,8 +8738,8 @@ cst:
                                                     text: " "
                                                   - kind: Identifier
                                                     text: QH
-                                                  - kind: Newline
-                                                    text: "\r\n"
+                                              - kind: Newline
+                                                text: "\r\n"
                                               - kind: Whitespace
                                                 text: "                "
                                           - kind: EndKeyword
@@ -9026,8 +9026,8 @@ cst:
                                                         text: " "
                                                       - kind: Identifier
                                                         text: QH
-                                                      - kind: Newline
-                                                        text: "\r\n"
+                                                  - kind: Newline
+                                                    text: "\r\n"
                                                   - kind: Whitespace
                                                     text: "                "
                                               - kind: EndKeyword
@@ -9132,8 +9132,8 @@ cst:
                                             text: " "
                                           - kind: Identifier
                                             text: QH
-                                          - kind: Newline
-                                            text: "\r\n"
+                                      - kind: Newline
+                                        text: "\r\n"
                                       - kind: Whitespace
                                         text: "            "
                                   - kind: EndKeyword
@@ -9272,8 +9272,8 @@ cst:
                                     text: " "
                                   - kind: Identifier
                                     text: QH
-                                  - kind: Newline
-                                    text: "\r\n"
+                              - kind: Newline
+                                text: "\r\n"
                               - kind: Whitespace
                                 text: "        "
                           - kind: EndKeyword
@@ -9680,8 +9680,8 @@ cst:
                     text: " "
                   - kind: FunctionKeyword
                     text: Function
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier
@@ -10122,8 +10122,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -10208,8 +10208,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -10364,8 +10364,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -10464,8 +10464,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -10580,8 +10580,8 @@ cst:
                     text: " "
                   - kind: FunctionKeyword
                     text: Function
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier
@@ -10852,40 +10852,42 @@ cst:
                     text: ","
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: PixelFormat32bppARGB
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: uData
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: InequalityOperator
-                    text: "<>"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "0"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: GotoStatement
-                children:
-                  - kind: Whitespace
-                    text: "        "
-                  - kind: GotoKeyword
-                    text: GoTo
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: QH
+                  - kind: CallStatement
+                    children:
+                      - kind: Identifier
+                        text: PixelFormat32bppARGB
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: uData
+                      - kind: RightParenthesis
+                        text: )
+                      - kind: Whitespace
+                        text: " "
+                      - kind: InequalityOperator
+                        text: "<>"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: IntegerLiteral
+                        text: "0"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ThenKeyword
+                        text: Then
+                      - kind: Newline
+                        text: "\r\n"
+                  - kind: GotoStatement
+                    children:
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: GotoKeyword
+                        text: GoTo
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: QH
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -11200,8 +11202,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -11330,8 +11332,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -12356,8 +12358,8 @@ cst:
                     text: " "
                   - kind: FunctionKeyword
                     text: Function
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier
@@ -12490,8 +12492,8 @@ cst:
                     text: " "
                   - kind: FunctionKeyword
                     text: Function
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier
@@ -12736,8 +12738,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -12812,8 +12814,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -12888,8 +12890,8 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: QH
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -13332,8 +13334,8 @@ cst:
                     text: " "
                   - kind: FunctionKeyword
                     text: Function
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier
@@ -14156,8 +14158,8 @@ cst:
                                     text: " "
                                   - kind: Identifier
                                     text: AppendPart
-                                  - kind: Newline
-                                    text: "\r\n"
+                              - kind: Newline
+                                text: "\r\n"
                               - kind: Whitespace
                                 text: "            "
                               - kind: AssignmentStatement
@@ -14224,8 +14226,8 @@ cst:
                     text: " "
                   - kind: Identifier
                     text: AppendPart
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: EndOfLineComment
@@ -14262,8 +14264,8 @@ cst:
                     text: " "
                   - kind: FunctionKeyword
                     text: Function
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: LabelStatement
                 children:
                   - kind: Identifier
@@ -14682,8 +14684,8 @@ cst:
                     text: "    "
                   - kind: ReturnKeyword
                     text: Return
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
           - kind: EndKeyword
             text: End
           - kind: Whitespace

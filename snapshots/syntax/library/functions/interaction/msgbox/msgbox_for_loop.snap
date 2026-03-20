@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/interaction/msgbox.rs
+source: vb6parse/src/syntax/library/functions/interaction/msgbox.rs
 expression: tree
 ---
 root:
@@ -101,13 +101,13 @@ root:
                       text: " "
                     - kind: ForKeyword
                       text: For
-                    - kind: Newline
-                      text: "\n"
-                - kind: NextKeyword
-                  text: Next
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: i
                 - kind: Newline
                   text: "\n"
+        - kind: NextKeyword
+          text: Next
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: i
+        - kind: Newline
+          text: "\n"

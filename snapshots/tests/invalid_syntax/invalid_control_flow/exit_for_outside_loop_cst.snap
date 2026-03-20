@@ -35,8 +35,8 @@ root:
                   text: " "
                 - kind: ForKeyword
                   text: For
-                - kind: Newline
-                  text: "\n"
+            - kind: Newline
+              text: "\n"
             - kind: Whitespace
               text: "    "
             - kind: DimStatement

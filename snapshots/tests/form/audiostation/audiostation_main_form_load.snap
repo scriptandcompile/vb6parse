@@ -9228,72 +9228,76 @@ cst:
                             text: Value
                       - kind: Newline
                         text: "\n"
-                  - kind: EndKeyword
-                    text: End
-                  - kind: Whitespace
-                    text: " "
-                  - kind: SubKeyword
-                    text: Sub
-                  - kind: Newline
-                    text: "\n"
-              - kind: Newline
-                text: "\n"
-              - kind: DimStatement
-                children:
-                  - kind: PrivateKeyword
-                    text: Private
-                  - kind: Whitespace
-                    text: " "
-                  - kind: SubKeyword
-                    text: Sub
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: AdioCDPlayer_DeviceFound
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: Id
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: LongKeyword
-                    text: Long
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: DriveName
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringKeyword
-                    text: String
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: DriveLetter
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringKeyword
-                    text: String
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Newline
-                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: AdioCDPlayer_DeviceFound
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: Id
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: DriveName
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: StringKeyword
+                text: String
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: DriveLetter
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: StringKeyword
+                text: String
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
               - kind: CallStatement
                 children:
                   - kind: CallKeyword
@@ -9788,8 +9792,8 @@ cst:
                                     text: " "
                                   - kind: SubKeyword
                                     text: Sub
-                                  - kind: Newline
-                                    text: "\n"
+                              - kind: Newline
+                                text: "\n"
                               - kind: Whitespace
                                 text: "    "
                           - kind: ElseClause
@@ -9826,8 +9830,8 @@ cst:
                                         text: " "
                                       - kind: SubKeyword
                                         text: Sub
-                                      - kind: Newline
-                                        text: "\n"
+                                  - kind: Newline
+                                    text: "\n"
                                   - kind: Whitespace
                                     text: "    "
                           - kind: EndKeyword
@@ -10528,10 +10532,10 @@ cst:
                         text: " "
                       - kind: SubKeyword
                         text: Sub
-                      - kind: Newline
-                        text: "\n"
                   - kind: Newline
                     text: "\n"
+              - kind: Newline
+                text: "\n"
               - kind: AssignmentStatement
                 children:
                   - kind: MemberAccessExpression
@@ -11198,236 +11202,236 @@ cst:
                     text: "\n"
                   - kind: Whitespace
                     text: "    "
-                  - kind: EndOfLineComment
-                    text: "'Case 0: Call AdioCDPlayer.PreviousTrack"
+              - kind: EndOfLineComment
+                text: "'Case 0: Call AdioCDPlayer.PreviousTrack"
+              - kind: Newline
+                text: "\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Unknown
+                text: Case
+              - kind: Whitespace
+                text: " "
+              - kind: LabelStatement
+                children:
+                  - kind: IntegerLiteral
+                    text: "1"
+                  - kind: ColonOperator
+                    text: ":"
+              - kind: CallStatement
+                children:
+                  - kind: Whitespace
+                    text: " "
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: AdioCDPlayer
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: SeekBySeconds
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: Identifier
+                    text: AdioRewind
+                  - kind: RightParenthesis
+                    text: )
                   - kind: Newline
                     text: "\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Unknown
+                text: Case
+              - kind: Whitespace
+                text: " "
+              - kind: LabelStatement
+                children:
+                  - kind: IntegerLiteral
+                    text: "2"
+                  - kind: ColonOperator
+                    text: ":"
+              - kind: CallStatement
+                children:
                   - kind: Whitespace
-                    text: "    "
-                  - kind: CaseClause
-                    children:
-                      - kind: CaseKeyword
-                        text: Case
-                      - kind: Whitespace
-                        text: " "
-                      - kind: IntegerLiteral
-                        text: "1"
-                      - kind: ColonOperator
-                        text: ":"
-                      - kind: Whitespace
-                        text: " "
-                      - kind: CallKeyword
-                        text: Call
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: AdioCDPlayer
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: SeekBySeconds
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: Identifier
-                        text: AdioRewind
-                      - kind: RightParenthesis
-                        text: )
-                      - kind: Newline
-                        text: "\n"
-                      - kind: StatementList
-                        children:
-                          - kind: Whitespace
-                            text: "    "
-                  - kind: CaseClause
-                    children:
-                      - kind: CaseKeyword
-                        text: Case
-                      - kind: Whitespace
-                        text: " "
-                      - kind: IntegerLiteral
-                        text: "2"
-                      - kind: ColonOperator
-                        text: ":"
-                      - kind: Whitespace
-                        text: " "
-                      - kind: CallKeyword
-                        text: Call
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: AdioCDPlayer
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: StopPlay
-                      - kind: Newline
-                        text: "\n"
-                      - kind: StatementList
-                        children:
-                          - kind: Whitespace
-                            text: "    "
-                  - kind: CaseClause
-                    children:
-                      - kind: CaseKeyword
-                        text: Case
-                      - kind: Whitespace
-                        text: " "
-                      - kind: IntegerLiteral
-                        text: "3"
-                      - kind: ColonOperator
-                        text: ":"
-                      - kind: Whitespace
-                        text: " "
-                      - kind: CallKeyword
-                        text: Call
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: AdioCDPlayer
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: StartPlay
-                      - kind: Newline
-                        text: "\n"
-                      - kind: StatementList
-                        children:
-                          - kind: Whitespace
-                            text: "    "
-                  - kind: CaseClause
-                    children:
-                      - kind: CaseKeyword
-                        text: Case
-                      - kind: Whitespace
-                        text: " "
-                      - kind: IntegerLiteral
-                        text: "4"
-                      - kind: ColonOperator
-                        text: ":"
-                      - kind: Whitespace
-                        text: " "
-                      - kind: CallKeyword
-                        text: Call
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: AdioCDPlayer
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: PausePlay
-                      - kind: Newline
-                        text: "\n"
-                      - kind: StatementList
-                        children:
-                          - kind: Whitespace
-                            text: "    "
-                  - kind: CaseClause
-                    children:
-                      - kind: CaseKeyword
-                        text: Case
-                      - kind: Whitespace
-                        text: " "
-                      - kind: IntegerLiteral
-                        text: "5"
-                      - kind: ColonOperator
-                        text: ":"
-                      - kind: Whitespace
-                        text: " "
-                      - kind: CallKeyword
-                        text: Call
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: AdioCDPlayer
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: SeekBySeconds
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: Identifier
-                        text: AdioForward
-                      - kind: RightParenthesis
-                        text: )
-                      - kind: Newline
-                        text: "\n"
-                      - kind: StatementList
-                        children:
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: EndOfLineComment
-                            text: "'Case 6: Call MediaPlayer_CD.NextTrack"
-                          - kind: Newline
-                            text: "\n"
-                          - kind: Whitespace
-                            text: "    "
-                  - kind: CaseClause
-                    children:
-                      - kind: CaseKeyword
-                        text: Case
-                      - kind: Whitespace
-                        text: " "
-                      - kind: IntegerLiteral
-                        text: "7"
-                      - kind: ColonOperator
-                        text: ":"
-                      - kind: Whitespace
-                        text: " "
-                      - kind: CallKeyword
-                        text: Call
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: AdioCDPlayer
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: OpenDoor
-                      - kind: Newline
-                        text: "\n"
-                      - kind: StatementList
-                        children: []
-                  - kind: EndKeyword
-                    text: End
+                    text: " "
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: AdioCDPlayer
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: StopPlay
+                  - kind: Newline
+                    text: "\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Unknown
+                text: Case
+              - kind: Whitespace
+                text: " "
+              - kind: LabelStatement
+                children:
+                  - kind: IntegerLiteral
+                    text: "3"
+                  - kind: ColonOperator
+                    text: ":"
+              - kind: CallStatement
+                children:
+                  - kind: Whitespace
+                    text: " "
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: AdioCDPlayer
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: StartPlay
+                  - kind: Newline
+                    text: "\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Unknown
+                text: Case
+              - kind: Whitespace
+                text: " "
+              - kind: LabelStatement
+                children:
+                  - kind: IntegerLiteral
+                    text: "4"
+                  - kind: ColonOperator
+                    text: ":"
+              - kind: CallStatement
+                children:
+                  - kind: Whitespace
+                    text: " "
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: AdioCDPlayer
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: PausePlay
+                  - kind: Newline
+                    text: "\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Unknown
+                text: Case
+              - kind: Whitespace
+                text: " "
+              - kind: LabelStatement
+                children:
+                  - kind: IntegerLiteral
+                    text: "5"
+                  - kind: ColonOperator
+                    text: ":"
+              - kind: CallStatement
+                children:
+                  - kind: Whitespace
+                    text: " "
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: AdioCDPlayer
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: SeekBySeconds
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: Identifier
+                    text: AdioForward
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Newline
+                    text: "\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'Case 6: Call MediaPlayer_CD.NextTrack"
+              - kind: Newline
+                text: "\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Unknown
+                text: Case
+              - kind: Whitespace
+                text: " "
+              - kind: LabelStatement
+                children:
+                  - kind: IntegerLiteral
+                    text: "7"
+                  - kind: ColonOperator
+                    text: ":"
+              - kind: CallStatement
+                children:
+                  - kind: Whitespace
+                    text: " "
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: AdioCDPlayer
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: OpenDoor
+                  - kind: Newline
+                    text: "\n"
+              - kind: Unknown
+                text: End
+              - kind: SelectCaseStatement
+                children:
                   - kind: Whitespace
                     text: " "
                   - kind: SelectKeyword
                     text: Select
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Newline
+                        text: "\n"
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: SubKeyword
+                    text: Sub
                   - kind: Newline
                     text: "\n"
-          - kind: EndKeyword
-            text: End
-          - kind: Whitespace
-            text: " "
-          - kind: SubKeyword
-            text: Sub
-          - kind: Newline
-            text: "\n"
-      - kind: Newline
-        text: "\n"
-      - kind: SubStatement
-        children:
-          - kind: PrivateKeyword
-            text: Private
-          - kind: Whitespace
-            text: " "
-          - kind: SubKeyword
-            text: Sub
-          - kind: Whitespace
-            text: " "
-          - kind: Identifier
-            text: Button_CDRandom_Click
-          - kind: ParameterList
-            children:
-              - kind: LeftParenthesis
-                text: (
-              - kind: RightParenthesis
-                text: )
-          - kind: Newline
-            text: "\n"
-          - kind: StatementList
-            children:
+                  - kind: Newline
+                    text: "\n"
+              - kind: DimStatement
+                children:
+                  - kind: PrivateKeyword
+                    text: Private
+                  - kind: Whitespace
+                    text: " "
+                  - kind: SubKeyword
+                    text: Sub
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Button_CDRandom_Click
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Newline
+                    text: "\n"
               - kind: IfStatement
                 children:
                   - kind: IfKeyword
@@ -14546,6 +14550,8 @@ cst:
                                                         text: "\n"
                                                       - kind: Newline
                                                         text: "\n"
+                                                  - kind: DimStatement
+                                                    children:
                                                       - kind: PrivateKeyword
                                                         text: Private
                                                       - kind: Whitespace
@@ -14562,22 +14568,30 @@ cst:
                                                         text: )
                                                       - kind: Newline
                                                         text: "\n"
-                                                      - kind: Identifier
-                                                        text: Form_Playlist
-                                                      - kind: PeriodOperator
-                                                        text: "."
-                                                      - kind: Identifier
-                                                        text: FormType
+                                                  - kind: AssignmentStatement
+                                                    children:
+                                                      - kind: MemberAccessExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: Form_Playlist
+                                                          - kind: PeriodOperator
+                                                            text: "."
+                                                          - kind: Identifier
+                                                            text: FormType
                                                       - kind: Whitespace
                                                         text: " "
                                                       - kind: EqualityOperator
                                                         text: "="
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: Identifier
-                                                        text: Mp3Player
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: Mp3Player
                                                       - kind: Newline
                                                         text: "\n"
+                                                  - kind: CallStatement
+                                                    children:
                                                       - kind: Identifier
                                                         text: Form_Playlist
                                                       - kind: PeriodOperator
@@ -14594,16 +14608,18 @@ cst:
                                                         text: Me
                                                       - kind: Newline
                                                         text: "\n"
-                                                      - kind: EndKeyword
-                                                        text: End
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: SubKeyword
-                                                        text: Sub
-                                                      - kind: Newline
-                                                        text: "\n"
-                                                      - kind: Newline
-                                                        text: "\n"
+                                                  - kind: Unknown
+                                                    text: End
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Unknown
+                                                    text: Sub
+                                                  - kind: Newline
+                                                    text: "\n"
+                                                  - kind: Newline
+                                                    text: "\n"
+                                                  - kind: DimStatement
+                                                    children:
                                                       - kind: PrivateKeyword
                                                         text: Private
                                                       - kind: Whitespace
@@ -14620,22 +14636,30 @@ cst:
                                                         text: )
                                                       - kind: Newline
                                                         text: "\n"
-                                                      - kind: Identifier
-                                                        text: Form_Playlist
-                                                      - kind: PeriodOperator
-                                                        text: "."
-                                                      - kind: Identifier
-                                                        text: FormType
+                                                  - kind: AssignmentStatement
+                                                    children:
+                                                      - kind: MemberAccessExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: Form_Playlist
+                                                          - kind: PeriodOperator
+                                                            text: "."
+                                                          - kind: Identifier
+                                                            text: FormType
                                                       - kind: Whitespace
                                                         text: " "
                                                       - kind: EqualityOperator
                                                         text: "="
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: Identifier
-                                                        text: MidiPlayer
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: MidiPlayer
                                                       - kind: Newline
                                                         text: "\n"
+                                                  - kind: CallStatement
+                                                    children:
                                                       - kind: Identifier
                                                         text: Form_Playlist
                                                       - kind: PeriodOperator
@@ -14652,16 +14676,18 @@ cst:
                                                         text: Me
                                                       - kind: Newline
                                                         text: "\n"
-                                                      - kind: EndKeyword
-                                                        text: End
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: SubKeyword
-                                                        text: Sub
-                                                      - kind: Newline
-                                                        text: "\n"
-                                                      - kind: Newline
-                                                        text: "\n"
+                                                  - kind: Unknown
+                                                    text: End
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Unknown
+                                                    text: Sub
+                                                  - kind: Newline
+                                                    text: "\n"
+                                                  - kind: Newline
+                                                    text: "\n"
+                                                  - kind: DimStatement
+                                                    children:
                                                       - kind: PrivateKeyword
                                                         text: Private
                                                       - kind: Whitespace
@@ -14678,6 +14704,8 @@ cst:
                                                         text: )
                                                       - kind: Newline
                                                         text: "\n"
+                                                  - kind: CallStatement
+                                                    children:
                                                       - kind: Identifier
                                                         text: Form_Settings
                                                       - kind: PeriodOperator
@@ -14696,16 +14724,18 @@ cst:
                                                         text: Me
                                                       - kind: Newline
                                                         text: "\n"
-                                                      - kind: EndKeyword
-                                                        text: End
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: SubKeyword
-                                                        text: Sub
-                                                      - kind: Newline
-                                                        text: "\n"
-                                                      - kind: Newline
-                                                        text: "\n"
+                                                  - kind: Unknown
+                                                    text: End
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Unknown
+                                                    text: Sub
+                                                  - kind: Newline
+                                                    text: "\n"
+                                                  - kind: Newline
+                                                    text: "\n"
+                                                  - kind: DimStatement
+                                                    children:
                                                       - kind: PrivateKeyword
                                                         text: Private
                                                       - kind: Whitespace
@@ -14722,6 +14752,8 @@ cst:
                                                         text: )
                                                       - kind: Newline
                                                         text: "\n"
+                                                  - kind: CallStatement
+                                                    children:
                                                       - kind: Identifier
                                                         text: Form_Settings
                                                       - kind: PeriodOperator
@@ -14740,16 +14772,18 @@ cst:
                                                         text: Me
                                                       - kind: Newline
                                                         text: "\n"
-                                                      - kind: EndKeyword
-                                                        text: End
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: SubKeyword
-                                                        text: Sub
-                                                      - kind: Newline
-                                                        text: "\n"
-                                                      - kind: Newline
-                                                        text: "\n"
+                                                  - kind: Unknown
+                                                    text: End
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Unknown
+                                                    text: Sub
+                                                  - kind: Newline
+                                                    text: "\n"
+                                                  - kind: Newline
+                                                    text: "\n"
+                                                  - kind: DimStatement
+                                                    children:
                                                       - kind: PrivateKeyword
                                                         text: Private
                                                       - kind: Whitespace
@@ -14776,6 +14810,8 @@ cst:
                                                         text: )
                                                       - kind: Newline
                                                         text: "\n"
+                                                  - kind: CallStatement
+                                                    children:
                                                       - kind: CallKeyword
                                                         text: Call
                                                       - kind: Whitespace
@@ -14802,48 +14838,64 @@ cst:
                                                         text: )
                                                       - kind: Newline
                                                         text: "\n"
-                                                      - kind: Newline
-                                                        text: "\n"
+                                                  - kind: Newline
+                                                    text: "\n"
+                                                  - kind: SelectCaseStatement
+                                                    children:
                                                       - kind: SelectKeyword
                                                         text: Select
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: CaseClause
+                                                      - kind: CaseKeyword
+                                                        text: Case
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: CallExpression
                                                         children:
-                                                          - kind: CaseKeyword
-                                                            text: Case
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: Identifier
-                                                            text: StrExt
-                                                          - kind: PeriodOperator
-                                                            text: "."
-                                                          - kind: Identifier
-                                                            text: SplitStr
+                                                          - kind: MemberAccessExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: StrExt
+                                                              - kind: PeriodOperator
+                                                                text: "."
+                                                              - kind: Identifier
+                                                                text: SplitStr
                                                           - kind: LeftParenthesis
                                                             text: (
-                                                          - kind: Identifier
-                                                            text: Data
-                                                          - kind: Comma
-                                                            text: ","
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: StringLiteral
-                                                            text: "\"~\""
-                                                          - kind: Comma
-                                                            text: ","
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: IntegerLiteral
-                                                            text: "0"
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: Data
+                                                              - kind: Comma
+                                                                text: ","
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: StringLiteralExpression
+                                                                    children:
+                                                                      - kind: StringLiteral
+                                                                        text: "\"~\""
+                                                              - kind: Comma
+                                                                text: ","
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: NumericLiteralExpression
+                                                                    children:
+                                                                      - kind: IntegerLiteral
+                                                                        text: "0"
                                                           - kind: RightParenthesis
                                                             text: )
-                                                          - kind: Newline
-                                                            text: "\n"
-                                                          - kind: StatementList
-                                                            children:
-                                                              - kind: Whitespace
-                                                                text: "    "
+                                                      - kind: Newline
+                                                        text: "\n"
+                                                      - kind: Whitespace
+                                                        text: "    "
                                                       - kind: CaseClause
                                                         children:
                                                           - kind: CaseKeyword
@@ -22780,8 +22832,8 @@ cst:
                                                         text: " "
                                                       - kind: SubKeyword
                                                         text: Sub
-                                                      - kind: Newline
-                                                        text: "\n"
+                                                  - kind: Newline
+                                                    text: "\n"
                                                   - kind: Newline
                                                     text: "\n"
                                                   - kind: LabelStatement

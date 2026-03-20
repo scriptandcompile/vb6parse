@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/environment/environ_dollar.rs
+source: vb6parse/src/syntax/library/functions/environment/environ_dollar.rs
 expression: tree
 ---
 root:
@@ -105,11 +105,11 @@ root:
                           text: "\"localhost\""
                     - kind: Newline
                       text: "\n"
-                - kind: EndKeyword
-                  text: End
-                - kind: Whitespace
-                  text: " "
-                - kind: SubKeyword
-                  text: Sub
-                - kind: Newline
-                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

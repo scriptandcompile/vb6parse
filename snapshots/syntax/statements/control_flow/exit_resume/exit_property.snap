@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/control_flow/exit_resume.rs
+source: vb6parse/src/syntax/statements/control_flow/exit_resume.rs
 expression: tree
 ---
 root:
@@ -73,8 +73,8 @@ root:
                   text: " "
                 - kind: PropertyKeyword
                   text: Property
-                - kind: Newline
-                  text: "\n"
+            - kind: Newline
+              text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

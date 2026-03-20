@@ -45,12 +45,14 @@ root:
                   text: "\n"
                 - kind: Whitespace
                   text: "        "
-                - kind: IntegerLiteral
-                  text: "1"
-                - kind: Newline
-                  text: "\n"
-                - kind: Whitespace
-                  text: "            "
+            - kind: Unknown
+              text: "1"
+            - kind: Newline
+              text: "\n"
+            - kind: Whitespace
+              text: "            "
+            - kind: CallStatement
+              children:
                 - kind: Identifier
                   text: Debug
                 - kind: PeriodOperator
@@ -63,51 +65,51 @@ root:
                   text: "\"One\""
                 - kind: Newline
                   text: "\n"
+            - kind: Whitespace
+              text: "        "
+            - kind: Unknown
+              text: Case
+            - kind: Whitespace
+              text: " "
+            - kind: Unknown
+              text: "2"
+            - kind: Newline
+              text: "\n"
+            - kind: Whitespace
+              text: "            "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: Debug
+                - kind: PeriodOperator
+                  text: "."
+                - kind: PrintKeyword
+                  text: Print
                 - kind: Whitespace
-                  text: "        "
-                - kind: CaseClause
-                  children:
-                    - kind: CaseKeyword
-                      text: Case
-                    - kind: Whitespace
-                      text: " "
-                    - kind: IntegerLiteral
-                      text: "2"
-                    - kind: Newline
-                      text: "\n"
-                    - kind: StatementList
-                      children:
-                        - kind: Whitespace
-                          text: "            "
-                        - kind: CallStatement
-                          children:
-                            - kind: Identifier
-                              text: Debug
-                            - kind: PeriodOperator
-                              text: "."
-                            - kind: PrintKeyword
-                              text: Print
-                            - kind: Whitespace
-                              text: " "
-                            - kind: StringLiteral
-                              text: "\"Two\""
-                            - kind: Newline
-                              text: "\n"
-                        - kind: Whitespace
-                          text: "    "
-                - kind: EndKeyword
-                  text: End
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Two\""
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: Unknown
+              text: End
+            - kind: SelectCaseStatement
+              children:
                 - kind: Whitespace
                   text: " "
                 - kind: SelectKeyword
                   text: Select
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Newline
+                      text: "\n"
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: SubKeyword
+                  text: Sub
                 - kind: Newline
                   text: "\n"
-        - kind: EndKeyword
-          text: End
-        - kind: Whitespace
-          text: " "
-        - kind: SubKeyword
-          text: Sub
-        - kind: Newline
-          text: "\n"

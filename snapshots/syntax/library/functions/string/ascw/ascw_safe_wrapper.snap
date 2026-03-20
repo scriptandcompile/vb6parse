@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/ascw.rs
+source: vb6parse/src/syntax/library/functions/string/ascw.rs
 expression: tree
 ---
 root:
@@ -121,8 +121,8 @@ root:
                           text: " "
                         - kind: FunctionKeyword
                           text: Function
-                        - kind: Newline
-                          text: "\n"
+                    - kind: Newline
+                      text: "\n"
                     - kind: Whitespace
                       text: "    "
                 - kind: EndKeyword

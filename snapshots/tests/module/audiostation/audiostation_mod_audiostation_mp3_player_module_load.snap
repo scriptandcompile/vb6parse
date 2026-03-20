@@ -1447,18 +1447,106 @@ cst:
                         text: " "
                       - kind: SubKeyword
                         text: Sub
-                      - kind: Newline
-                        text: "\n"
-                  - kind: IfStatement
+                  - kind: Newline
+                    text: "\n"
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
                     children:
-                      - kind: IfKeyword
-                        text: If
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: CurrentTrackNumber
                       - kind: Whitespace
                         text: " "
-                      - kind: BinaryExpression
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: MemberAccessExpression
                         children:
-                          - kind: IdentifierExpression
+                          - kind: MemberAccessExpression
                             children:
+                              - kind: Identifier
+                                text: MediaPlaylist
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: StorageContainer
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: count
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: ColonOperator
+                    text: ":"
+                  - kind: ExitStatement
+                    children:
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ExitKeyword
+                        text: Exit
+                      - kind: Whitespace
+                        text: " "
+                      - kind: SubKeyword
+                        text: Sub
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: TrackNumber
+                      - kind: Whitespace
+                        text: " "
+                      - kind: GreaterThanOperator
+                        text: ">"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "0"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\n"
+                  - kind: StatementList
+                    children:
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: EndOfLineComment
+                        text: "'Track number is set by parameter"
+                      - kind: Newline
+                        text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: AudiostationMP3Player
+                              - kind: PeriodOperator
+                                text: "."
                               - kind: Identifier
                                 text: CurrentTrackNumber
                           - kind: Whitespace
@@ -1467,74 +1555,390 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: MemberAccessExpression
-                            children:
-                              - kind: MemberAccessExpression
-                                children:
-                                  - kind: Identifier
-                                    text: MediaPlaylist
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: Identifier
-                                    text: StorageContainer
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: count
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ThenKeyword
-                        text: Then
-                      - kind: ColonOperator
-                        text: ":"
-                      - kind: ExitStatement
-                        children:
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ExitKeyword
-                            text: Exit
-                          - kind: Whitespace
-                            text: " "
-                          - kind: SubKeyword
-                            text: Sub
-                          - kind: Newline
-                            text: "\n"
-                      - kind: Newline
-                        text: "\n"
-                  - kind: IfStatement
-                    children:
-                      - kind: IfKeyword
-                        text: If
-                      - kind: Whitespace
-                        text: " "
-                      - kind: BinaryExpression
-                        children:
                           - kind: IdentifierExpression
                             children:
                               - kind: Identifier
                                 text: TrackNumber
-                          - kind: Whitespace
-                            text: " "
-                          - kind: GreaterThanOperator
-                            text: ">"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: NumericLiteralExpression
-                            children:
-                              - kind: IntegerLiteral
-                                text: "0"
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ThenKeyword
-                        text: Then
+                          - kind: Newline
+                            text: "\n"
+                  - kind: ElseClause
+                    children:
+                      - kind: ElseKeyword
+                        text: Else
                       - kind: Newline
                         text: "\n"
                       - kind: StatementList
                         children:
                           - kind: Whitespace
                             text: "    "
+                          - kind: DimStatement
+                            children:
+                              - kind: DimKeyword
+                                text: Dim
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: NextTrackNumber
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AsKeyword
+                                text: As
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IntegerKeyword
+                                text: Integer
+                              - kind: Newline
+                                text: "\n"
+                          - kind: RandomizeStatement
+                            children:
+                              - kind: Whitespace
+                                text: "    "
+                              - kind: RandomizeKeyword
+                                text: Randomize
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: Newline
+                            text: "\n"
+                          - kind: IfStatement
+                            children:
+                              - kind: Whitespace
+                                text: "    "
+                              - kind: IfKeyword
+                                text: If
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Force
+                              - kind: Whitespace
+                                text: " "
+                              - kind: ThenKeyword
+                                text: Then
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AssignmentStatement
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: NextTrackNumber
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: AudiostationMP3Player
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: CurrentTrackNumber
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: AdditionOperator
+                                        text: +
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "1"
+                              - kind: ColonOperator
+                                text: ":"
+                              - kind: GotoStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: GotoKeyword
+                                    text: GoTo
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: DoNext
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: Newline
+                            text: "\n"
+                          - kind: SelectCaseStatement
+                            children:
+                              - kind: Whitespace
+                                text: "    "
+                              - kind: SelectKeyword
+                                text: Select
+                              - kind: Whitespace
+                                text: " "
+                              - kind: CaseKeyword
+                                text: Case
+                              - kind: Whitespace
+                                text: " "
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: AudiostationMP3Player
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: MediaPlayMode
+                              - kind: Newline
+                                text: "\n"
+                              - kind: Whitespace
+                                text: "        "
+                              - kind: CaseClause
+                                children:
+                                  - kind: CaseKeyword
+                                    text: Case
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: enumPlayMode
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Shuffle
+                                  - kind: ColonOperator
+                                    text: ":"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: NextTrackNumber
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: Extensions
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: RandomNumber
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: IntegerLiteral
+                                    text: "1"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: MediaPlaylist
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: StorageContainer
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: count
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: SubtractionOperator
+                                    text: "-"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IntegerLiteral
+                                    text: "1"
+                                  - kind: RightParenthesis
+                                    text: )
+                                  - kind: Newline
+                                    text: "\n"
+                                  - kind: StatementList
+                                    children:
+                                      - kind: Whitespace
+                                        text: "        "
+                              - kind: CaseClause
+                                children:
+                                  - kind: CaseKeyword
+                                    text: Case
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: enumPlayMode
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: PlaySingleTrack
+                                  - kind: ColonOperator
+                                    text: ":"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ExitKeyword
+                                    text: Exit
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: SubKeyword
+                                    text: Sub
+                                  - kind: Newline
+                                    text: "\n"
+                                  - kind: StatementList
+                                    children:
+                                      - kind: Whitespace
+                                        text: "        "
+                              - kind: CaseClause
+                                children:
+                                  - kind: CaseKeyword
+                                    text: Case
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: enumPlayMode
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: AutoNextTrack
+                                  - kind: Newline
+                                    text: "\n"
+                                  - kind: StatementList
+                                    children:
+                                      - kind: IfStatement
+                                        children:
+                                          - kind: Whitespace
+                                            text: "            "
+                                          - kind: IfKeyword
+                                            text: If
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: MediaPlaylistMode
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: EqualityOperator
+                                                text: "="
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: RepeatSingleTrack
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: ThenKeyword
+                                            text: Then
+                                          - kind: Newline
+                                            text: "\n"
+                                          - kind: StatementList
+                                            children:
+                                              - kind: Whitespace
+                                                text: "                "
+                                              - kind: AssignmentStatement
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: NextTrackNumber
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: EqualityOperator
+                                                    text: "="
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: MemberAccessExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: AudiostationMP3Player
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: Identifier
+                                                        text: CurrentTrackNumber
+                                                  - kind: Newline
+                                                    text: "\n"
+                                              - kind: Whitespace
+                                                text: "            "
+                                          - kind: ElseClause
+                                            children:
+                                              - kind: ElseKeyword
+                                                text: Else
+                                              - kind: Newline
+                                                text: "\n"
+                                              - kind: StatementList
+                                                children:
+                                                  - kind: Whitespace
+                                                    text: "                "
+                                                  - kind: AssignmentStatement
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: NextTrackNumber
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: EqualityOperator
+                                                        text: "="
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: BinaryExpression
+                                                        children:
+                                                          - kind: MemberAccessExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: AudiostationMP3Player
+                                                              - kind: PeriodOperator
+                                                                text: "."
+                                                              - kind: Identifier
+                                                                text: CurrentTrackNumber
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: AdditionOperator
+                                                            text: +
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: NumericLiteralExpression
+                                                            children:
+                                                              - kind: IntegerLiteral
+                                                                text: "1"
+                                                      - kind: Newline
+                                                        text: "\n"
+                                                  - kind: Whitespace
+                                                    text: "            "
+                                          - kind: EndKeyword
+                                            text: End
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IfKeyword
+                                            text: If
+                                          - kind: Newline
+                                            text: "\n"
+                                      - kind: Whitespace
+                                        text: "    "
+                              - kind: EndKeyword
+                                text: End
+                              - kind: Whitespace
+                                text: " "
+                              - kind: SelectKeyword
+                                text: Select
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: Newline
+                            text: "\n"
+                          - kind: LabelStatement
+                            children:
+                              - kind: Identifier
+                                text: DoNext
+                              - kind: ColonOperator
+                                text: ":"
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "    "
                           - kind: EndOfLineComment
-                            text: "'Track number is set by parameter"
+                            text: "'Auto select track number"
                           - kind: Newline
                             text: "\n"
                           - kind: Whitespace
@@ -1558,423 +1962,19 @@ cst:
                               - kind: IdentifierExpression
                                 children:
                                   - kind: Identifier
-                                    text: TrackNumber
-                              - kind: Newline
-                                text: "\n"
-                      - kind: ElseClause
-                        children:
-                          - kind: ElseKeyword
-                            text: Else
-                          - kind: Newline
-                            text: "\n"
-                          - kind: StatementList
-                            children:
-                              - kind: Whitespace
-                                text: "    "
-                              - kind: DimStatement
-                                children:
-                                  - kind: DimKeyword
-                                    text: Dim
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
                                     text: NextTrackNumber
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: AsKeyword
-                                    text: As
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IntegerKeyword
-                                    text: Integer
-                                  - kind: Newline
-                                    text: "\n"
-                              - kind: RandomizeStatement
-                                children:
-                                  - kind: Whitespace
-                                    text: "    "
-                                  - kind: RandomizeKeyword
-                                    text: Randomize
-                                  - kind: Newline
-                                    text: "\n"
-                              - kind: Whitespace
-                                text: "    "
                               - kind: Newline
                                 text: "\n"
-                              - kind: IfStatement
-                                children:
-                                  - kind: Whitespace
-                                    text: "    "
-                                  - kind: IfKeyword
-                                    text: If
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: Force
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: ThenKeyword
-                                    text: Then
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: AssignmentStatement
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: NextTrackNumber
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: BinaryExpression
-                                        children:
-                                          - kind: MemberAccessExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: AudiostationMP3Player
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: CurrentTrackNumber
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: AdditionOperator
-                                            text: +
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: NumericLiteralExpression
-                                            children:
-                                              - kind: IntegerLiteral
-                                                text: "1"
-                                  - kind: ColonOperator
-                                    text: ":"
-                                  - kind: GotoStatement
-                                    children:
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: GotoKeyword
-                                        text: GoTo
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: DoNext
-                                      - kind: Newline
-                                        text: "\n"
-                                  - kind: Whitespace
-                                    text: "    "
-                                  - kind: Newline
-                                    text: "\n"
-                              - kind: SelectCaseStatement
-                                children:
-                                  - kind: Whitespace
-                                    text: "    "
-                                  - kind: SelectKeyword
-                                    text: Select
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: CaseKeyword
-                                    text: Case
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: MemberAccessExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: AudiostationMP3Player
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: MediaPlayMode
-                                  - kind: Newline
-                                    text: "\n"
-                                  - kind: Whitespace
-                                    text: "        "
-                                  - kind: CaseClause
-                                    children:
-                                      - kind: CaseKeyword
-                                        text: Case
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: enumPlayMode
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: Shuffle
-                                      - kind: ColonOperator
-                                        text: ":"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: NextTrackNumber
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: Extensions
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: RandomNumber
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: IntegerLiteral
-                                        text: "1"
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: MediaPlaylist
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: StorageContainer
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: count
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: SubtractionOperator
-                                        text: "-"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IntegerLiteral
-                                        text: "1"
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: Newline
-                                        text: "\n"
-                                      - kind: StatementList
-                                        children:
-                                          - kind: Whitespace
-                                            text: "        "
-                                  - kind: CaseClause
-                                    children:
-                                      - kind: CaseKeyword
-                                        text: Case
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: enumPlayMode
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: PlaySingleTrack
-                                      - kind: ColonOperator
-                                        text: ":"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: ExitKeyword
-                                        text: Exit
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: SubKeyword
-                                        text: Sub
-                                      - kind: Newline
-                                        text: "\n"
-                                      - kind: StatementList
-                                        children:
-                                          - kind: Whitespace
-                                            text: "        "
-                                  - kind: CaseClause
-                                    children:
-                                      - kind: CaseKeyword
-                                        text: Case
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: enumPlayMode
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: AutoNextTrack
-                                      - kind: Newline
-                                        text: "\n"
-                                      - kind: StatementList
-                                        children:
-                                          - kind: IfStatement
-                                            children:
-                                              - kind: Whitespace
-                                                text: "            "
-                                              - kind: IfKeyword
-                                                text: If
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: BinaryExpression
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: MediaPlaylistMode
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: EqualityOperator
-                                                    text: "="
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: RepeatSingleTrack
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: ThenKeyword
-                                                text: Then
-                                              - kind: Newline
-                                                text: "\n"
-                                              - kind: StatementList
-                                                children:
-                                                  - kind: Whitespace
-                                                    text: "                "
-                                                  - kind: AssignmentStatement
-                                                    children:
-                                                      - kind: IdentifierExpression
-                                                        children:
-                                                          - kind: Identifier
-                                                            text: NextTrackNumber
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: EqualityOperator
-                                                        text: "="
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: MemberAccessExpression
-                                                        children:
-                                                          - kind: Identifier
-                                                            text: AudiostationMP3Player
-                                                          - kind: PeriodOperator
-                                                            text: "."
-                                                          - kind: Identifier
-                                                            text: CurrentTrackNumber
-                                                      - kind: Newline
-                                                        text: "\n"
-                                                  - kind: Whitespace
-                                                    text: "            "
-                                              - kind: ElseClause
-                                                children:
-                                                  - kind: ElseKeyword
-                                                    text: Else
-                                                  - kind: Newline
-                                                    text: "\n"
-                                                  - kind: StatementList
-                                                    children:
-                                                      - kind: Whitespace
-                                                        text: "                "
-                                                      - kind: AssignmentStatement
-                                                        children:
-                                                          - kind: IdentifierExpression
-                                                            children:
-                                                              - kind: Identifier
-                                                                text: NextTrackNumber
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: EqualityOperator
-                                                            text: "="
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: BinaryExpression
-                                                            children:
-                                                              - kind: MemberAccessExpression
-                                                                children:
-                                                                  - kind: Identifier
-                                                                    text: AudiostationMP3Player
-                                                                  - kind: PeriodOperator
-                                                                    text: "."
-                                                                  - kind: Identifier
-                                                                    text: CurrentTrackNumber
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: AdditionOperator
-                                                                text: +
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: NumericLiteralExpression
-                                                                children:
-                                                                  - kind: IntegerLiteral
-                                                                    text: "1"
-                                                          - kind: Newline
-                                                            text: "\n"
-                                                      - kind: Whitespace
-                                                        text: "            "
-                                              - kind: EndKeyword
-                                                text: End
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: IfKeyword
-                                                text: If
-                                              - kind: Newline
-                                                text: "\n"
-                                          - kind: Whitespace
-                                            text: "    "
-                                  - kind: EndKeyword
-                                    text: End
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: SelectKeyword
-                                    text: Select
-                                  - kind: Newline
-                                    text: "\n"
-                              - kind: Whitespace
-                                text: "    "
-                              - kind: Newline
-                                text: "\n"
-                              - kind: LabelStatement
-                                children:
-                                  - kind: Identifier
-                                    text: DoNext
-                                  - kind: ColonOperator
-                                    text: ":"
-                                  - kind: Newline
-                                    text: "\n"
-                              - kind: Whitespace
-                                text: "    "
-                              - kind: EndOfLineComment
-                                text: "'Auto select track number"
-                              - kind: Newline
-                                text: "\n"
-                              - kind: Whitespace
-                                text: "    "
-                              - kind: AssignmentStatement
-                                children:
-                                  - kind: MemberAccessExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: AudiostationMP3Player
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: CurrentTrackNumber
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: EqualityOperator
-                                    text: "="
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: NextTrackNumber
-                                  - kind: Newline
-                                    text: "\n"
-                      - kind: EndKeyword
-                        text: End
-                      - kind: Whitespace
-                        text: " "
-                      - kind: IfKeyword
-                        text: If
-                      - kind: Newline
-                        text: "\n"
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
                   - kind: Newline
                     text: "\n"
+              - kind: Newline
+                text: "\n"
               - kind: AssignmentStatement
                 children:
                   - kind: MemberAccessExpression
@@ -2197,10 +2197,10 @@ cst:
                         text: " "
                       - kind: SubKeyword
                         text: Sub
-                      - kind: Newline
-                        text: "\n"
                   - kind: Newline
                     text: "\n"
+              - kind: Newline
+                text: "\n"
               - kind: AssignmentStatement
                 children:
                   - kind: MemberAccessExpression

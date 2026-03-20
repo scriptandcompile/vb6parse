@@ -1279,8 +1279,8 @@ cst:
                                     text: " "
                                   - kind: FunctionKeyword
                                     text: Function
-                                  - kind: Newline
-                                    text: "\n"
+                              - kind: Newline
+                                text: "\n"
                               - kind: Whitespace
                                 text: "    "
                           - kind: EndKeyword

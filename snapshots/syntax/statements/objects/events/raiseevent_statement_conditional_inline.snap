@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/objects/events.rs
+source: vb6parse/src/syntax/statements/objects/events.rs
 expression: tree
 ---
 root:
@@ -65,11 +65,11 @@ root:
                       text: NotReady
                     - kind: Newline
                       text: "\n"
-                - kind: EndKeyword
-                  text: End
-                - kind: Whitespace
-                  text: " "
-                - kind: SubKeyword
-                  text: Sub
-                - kind: Newline
-                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/type_checking/isarray.rs
+source: vb6parse/src/syntax/library/functions/type_checking/isarray.rs
 expression: tree
 ---
 root:
@@ -73,8 +73,8 @@ root:
                           text: " "
                         - kind: SubKeyword
                           text: Sub
-                        - kind: Newline
-                          text: "\n"
+                    - kind: Newline
+                      text: "\n"
                     - kind: Whitespace
                       text: "    "
                 - kind: EndKeyword

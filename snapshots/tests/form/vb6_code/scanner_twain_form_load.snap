@@ -1505,8 +1505,8 @@ cst:
                             text: " "
                           - kind: SubKeyword
                             text: Sub
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -2237,8 +2237,8 @@ cst:
                                 text: " "
                               - kind: Identifier
                                 text: ScanError
-                              - kind: Newline
-                                text: "\r\n"
+                          - kind: Newline
+                            text: "\r\n"
                           - kind: Whitespace
                             text: "    "
                   - kind: EndKeyword
@@ -2263,8 +2263,8 @@ cst:
                     text: " "
                   - kind: SubKeyword
                     text: Sub
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
               - kind: Newline
                 text: "\r\n"
               - kind: EndOfLineComment
@@ -2771,8 +2771,8 @@ cst:
                                 text: " "
                               - kind: SubKeyword
                                 text: Sub
-                              - kind: Newline
-                                text: "\r\n"
+                          - kind: Newline
+                            text: "\r\n"
                           - kind: Whitespace
                             text: "    "
                   - kind: EndKeyword

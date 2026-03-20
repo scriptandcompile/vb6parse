@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/file_operations/open.rs
+source: vb6parse/src/syntax/library/statements/file_operations/open.rs
 expression: tree
 ---
 root:
@@ -71,11 +71,11 @@ root:
                       text: "1"
                     - kind: Newline
                       text: "\n"
-                - kind: EndKeyword
-                  text: End
-                - kind: Whitespace
-                  text: " "
-                - kind: SubKeyword
-                  text: Sub
-                - kind: Newline
-                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

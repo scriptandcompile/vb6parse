@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/control_flow/jump.rs
+source: vb6parse/src/syntax/statements/control_flow/jump.rs
 expression: tree
 ---
 root:
@@ -107,8 +107,8 @@ root:
                           text: " "
                         - kind: Identifier
                           text: StartLoop
-                        - kind: Newline
-                          text: "\n"
+                    - kind: Newline
+                      text: "\n"
                     - kind: Whitespace
                       text: "    "
                 - kind: EndKeyword

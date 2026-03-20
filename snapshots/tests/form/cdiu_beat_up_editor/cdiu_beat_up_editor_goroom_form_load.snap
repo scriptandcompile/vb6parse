@@ -850,20 +850,22 @@ cst:
                             text: Then
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: cma3
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: CbeOut
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: SaveFile
+                          - kind: CallStatement
+                            children:
+                              - kind: Identifier
+                                text: cma3
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: CbeOut
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: SaveFile
+                              - kind: Newline
+                                text: "\n"
                           - kind: Newline
                             text: "\n"
-                      - kind: Newline
-                        text: "\n"
                       - kind: Whitespace
                         text: "    "
                       - kind: CallStatement
@@ -950,8 +952,8 @@ cst:
                                 text: " "
                               - kind: SubKeyword
                                 text: Sub
-                              - kind: Newline
-                                text: "\n"
+                          - kind: Newline
+                            text: "\n"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace
@@ -2226,130 +2228,78 @@ cst:
                         children:
                           - kind: Whitespace
                             text: "    "
-                          - kind: AssignmentStatement
+                          - kind: CallStatement
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: MsgBox
+                              - kind: Identifier
+                                text: MsgBox
                               - kind: Whitespace
                                 text: " "
-                              - kind: CallExpression
-                                children:
-                                  - kind: Identifier
-                                    text: IIf
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: BinaryExpression
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: Language
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: EqualityOperator
-                                                text: "="
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: NumericLiteralExpression
-                                                children:
-                                                  - kind: IntegerLiteral
-                                                    text: "0"
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Argument
-                                        children:
-                                          - kind: StringLiteralExpression
-                                            children:
-                                              - kind: StringLiteral
-                                                text: "\"±K½X¿ù»~\""
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Argument
-                                        children:
-                                          - kind: StringLiteralExpression
-                                            children:
-                                              - kind: StringLiteral
-                                                text: "\"Password Wrong\""
-                                  - kind: RightParenthesis
-                                    text: )
-                          - kind: AssignmentStatement
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Comma
-                                    text: ","
+                              - kind: Identifier
+                                text: IIf
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: Identifier
+                                text: Language
                               - kind: Whitespace
                                 text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: vbYes
-                          - kind: AssignmentStatement
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Comma
-                                    text: ","
+                              - kind: EqualityOperator
+                                text: "="
                               - kind: Whitespace
                                 text: " "
-                              - kind: CallExpression
-                                children:
-                                  - kind: Identifier
-                                    text: IIf
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: BinaryExpression
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: Language
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: EqualityOperator
-                                                text: "="
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: NumericLiteralExpression
-                                                children:
-                                                  - kind: IntegerLiteral
-                                                    text: "0"
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Argument
-                                        children:
-                                          - kind: StringLiteralExpression
-                                            children:
-                                              - kind: StringLiteral
-                                                text: "\"¨t²Î°T®§\""
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Argument
-                                        children:
-                                          - kind: StringLiteralExpression
-                                            children:
-                                              - kind: StringLiteral
-                                                text: "\"System Info\""
-                                  - kind: RightParenthesis
-                                    text: )
+                              - kind: IntegerLiteral
+                                text: "0"
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"±K½X¿ù»~\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"Password Wrong\""
+                              - kind: RightParenthesis
+                                text: )
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: vbYes
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: IIf
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: Identifier
+                                text: Language
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IntegerLiteral
+                                text: "0"
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"¨t²Î°T®§\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteral
+                                text: "\"System Info\""
+                              - kind: RightParenthesis
+                                text: )
                               - kind: Newline
                                 text: "\n"
                   - kind: EndKeyword
@@ -2516,16 +2466,18 @@ cst:
                     text: Then
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: GoRoomPw
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: SetFocus
+                  - kind: CallStatement
+                    children:
+                      - kind: Identifier
+                        text: GoRoomPw
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: SetFocus
+                      - kind: Newline
+                        text: "\n"
                   - kind: Newline
                     text: "\n"
-              - kind: Newline
-                text: "\n"
           - kind: EndKeyword
             text: End
           - kind: Whitespace
@@ -2612,12 +2564,14 @@ cst:
                     text: Then
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: GoRoomButton_Click
+                  - kind: CallStatement
+                    children:
+                      - kind: Identifier
+                        text: GoRoomButton_Click
+                      - kind: Newline
+                        text: "\n"
                   - kind: Newline
                     text: "\n"
-              - kind: Newline
-                text: "\n"
           - kind: EndKeyword
             text: End
           - kind: Whitespace

@@ -476,8 +476,6 @@ impl<'a, T> ParseResult<'a, T> {
 
     /// Unpacks the parse result into its components with errors and warnings separated.
     ///
-    /// This is the Phase 2 method that separates errors from warnings.
-    ///
     /// # Returns
     ///
     /// * A tuple containing:

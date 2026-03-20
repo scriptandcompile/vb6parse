@@ -2026,8 +2026,8 @@ cst:
                             text: " "
                           - kind: SubKeyword
                             text: Sub
-                          - kind: Newline
-                            text: "\n"
+                      - kind: Newline
+                        text: "\n"
                       - kind: Whitespace
                         text: "  "
                   - kind: EndKeyword
@@ -2250,8 +2250,8 @@ cst:
                             text: " "
                           - kind: SubKeyword
                             text: Sub
-                          - kind: Newline
-                            text: "\n"
+                      - kind: Newline
+                        text: "\n"
                       - kind: Whitespace
                         text: "  "
                   - kind: EndKeyword
@@ -2496,8 +2496,8 @@ cst:
                             text: " "
                           - kind: SubKeyword
                             text: Sub
-                          - kind: Newline
-                            text: "\n"
+                      - kind: Newline
+                        text: "\n"
                       - kind: Whitespace
                         text: "  "
                   - kind: EndKeyword

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/environment/environ.rs
+source: vb6parse/src/syntax/library/functions/environment/environ.rs
 expression: tree
 ---
 root:
@@ -111,10 +111,12 @@ root:
                       text: " "
                     - kind: ForKeyword
                       text: For
-                    - kind: Newline
-                      text: "\n"
-                - kind: Whitespace
-                  text: "    "
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
                 - kind: Identifier
                   text: ProcessVar
                 - kind: Whitespace

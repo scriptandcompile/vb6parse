@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/interaction/command_dollar.rs
+source: vb6parse/src/syntax/library/functions/interaction/command_dollar.rs
 expression: tree
 ---
 root:
@@ -117,13 +117,13 @@ root:
                       text: " "
                     - kind: FunctionKeyword
                       text: Function
-                    - kind: Newline
-                      text: "\n"
-                - kind: EndKeyword
-                  text: End
-                - kind: Whitespace
-                  text: " "
-                - kind: FunctionKeyword
-                  text: Function
                 - kind: Newline
                   text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Newline
+          text: "\n"

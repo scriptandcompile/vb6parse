@@ -1128,42 +1128,46 @@ cst:
                             text: "\r\n"
                       - kind: Newline
                         text: "\r\n"
-                  - kind: EndKeyword
-                    text: End
-                  - kind: Whitespace
-                    text: " "
-                  - kind: SubKeyword
-                    text: Sub
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Newline
-                text: "\r\n"
-              - kind: EndOfLineComment
-                text: "'Two possible methods for creating a new creature:"
-              - kind: Newline
-                text: "\r\n"
-              - kind: EndOfLineComment
-                text: "'1: Create a creature with random DNA"
-              - kind: Newline
-                text: "\r\n"
-              - kind: DimStatement
-                children:
-                  - kind: PublicKeyword
-                    text: Public
-                  - kind: Whitespace
-                    text: " "
-                  - kind: SubKeyword
-                    text: Sub
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: CreateRandom
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Newline
-                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'Two possible methods for creating a new creature:"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'1: Create a creature with random DNA"
+      - kind: Newline
+        text: "\r\n"
+      - kind: SubStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: CreateRandom
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
               - kind: Newline
                 text: "\r\n"
               - kind: Whitespace
@@ -2434,14 +2438,16 @@ cst:
                             text: Next
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: i
+                          - kind: CallStatement
+                            children:
+                              - kind: Identifier
+                                text: i
+                              - kind: Newline
+                                text: "\r\n"
+                          - kind: Whitespace
+                            text: "    "
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: Newline
-                        text: "\r\n"
                       - kind: Unknown
                         text: End
                       - kind: Whitespace
@@ -2592,14 +2598,16 @@ cst:
                                     text: Next
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Identifier
-                                    text: i
+                                  - kind: CallStatement
+                                    children:
+                                      - kind: Identifier
+                                        text: i
+                                      - kind: Newline
+                                        text: "\r\n"
+                                  - kind: Whitespace
+                                    text: "    "
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Whitespace
-                                text: "    "
-                              - kind: Newline
-                                text: "\r\n"
                               - kind: Whitespace
                                 text: "    "
                               - kind: EndOfLineComment
@@ -2790,14 +2798,16 @@ cst:
                                             text: Next
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Identifier
-                                            text: i
+                                          - kind: CallStatement
+                                            children:
+                                              - kind: Identifier
+                                                text: i
+                                              - kind: Newline
+                                                text: "\r\n"
+                                          - kind: Whitespace
+                                            text: "    "
                                           - kind: Newline
                                             text: "\r\n"
-                                      - kind: Whitespace
-                                        text: "    "
-                                      - kind: Newline
-                                        text: "\r\n"
                                       - kind: Whitespace
                                         text: "    "
                                       - kind: EndOfLineComment
@@ -5178,8 +5188,8 @@ cst:
                                                                     text: " "
                                                                   - kind: Identifier
                                                                     text: noMoreSearch
-                                                                  - kind: Newline
-                                                                    text: "\r\n"
+                                                              - kind: Newline
+                                                                text: "\r\n"
                                                               - kind: Whitespace
                                                                 text: "        "
                                                           - kind: EndKeyword
@@ -5280,8 +5290,8 @@ cst:
                                                     text: " "
                                                   - kind: SubKeyword
                                                     text: Sub
-                                                  - kind: Newline
-                                                    text: "\r\n"
+                                              - kind: Newline
+                                                text: "\r\n"
                                               - kind: Whitespace
                                                 text: "        "
                                               - kind: Newline
@@ -5528,28 +5538,28 @@ cst:
                                                     text: n1
                                           - kind: Whitespace
                                             text: " "
-                                      - kind: Unknown
-                                        text: Else
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: AssignmentStatement
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: lThan
+                                          - kind: ElseKeyword
+                                            text: Else
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: EqualityOperator
-                                            text: "="
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: IdentifierExpression
+                                          - kind: AssignmentStatement
                                             children:
-                                              - kind: Identifier
-                                                text: n2
-                                          - kind: Newline
-                                            text: "\r\n"
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: lThan
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: EqualityOperator
+                                                text: "="
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: n2
+                                              - kind: Newline
+                                                text: "\r\n"
                                       - kind: Unknown
                                         text: End
                                       - kind: Whitespace
@@ -5676,28 +5686,28 @@ cst:
                                                     text: n1
                                           - kind: Whitespace
                                             text: " "
-                                      - kind: Unknown
-                                        text: Else
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: AssignmentStatement
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: gThan
+                                          - kind: ElseKeyword
+                                            text: Else
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: EqualityOperator
-                                            text: "="
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: IdentifierExpression
+                                          - kind: AssignmentStatement
                                             children:
-                                              - kind: Identifier
-                                                text: n2
-                                          - kind: Newline
-                                            text: "\r\n"
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: gThan
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: EqualityOperator
+                                                text: "="
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: n2
+                                              - kind: Newline
+                                                text: "\r\n"
                                       - kind: Unknown
                                         text: End
                                       - kind: Whitespace

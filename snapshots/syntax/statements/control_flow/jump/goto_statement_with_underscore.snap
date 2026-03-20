@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/control_flow/jump.rs
+source: vb6parse/src/syntax/statements/control_flow/jump.rs
 expression: tree
 ---
 root:
@@ -35,8 +35,8 @@ root:
                   text: " "
                 - kind: Identifier
                   text: Error_Handler
-                - kind: Newline
-                  text: "\n"
+            - kind: Newline
+              text: "\n"
             - kind: LabelStatement
               children:
                 - kind: Identifier

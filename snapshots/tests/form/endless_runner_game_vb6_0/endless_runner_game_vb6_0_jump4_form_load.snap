@@ -5246,46 +5246,40 @@ cst:
                 text: ElseIf
               - kind: Whitespace
                 text: " "
+              - kind: Unknown
+                text: (
               - kind: AssignmentStatement
                 children:
-                  - kind: ParenthesizedExpression
+                  - kind: MemberAccessExpression
                     children:
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: BinaryExpression
-                        children:
-                          - kind: MemberAccessExpression
-                            children:
-                              - kind: Identifier
-                                text: obs1
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: Left
-                          - kind: Whitespace
-                            text: " "
-                          - kind: EqualityOperator
-                            text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: MemberAccessExpression
-                            children:
-                              - kind: Identifier
-                                text: Image1
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: Left
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: Identifier
+                        text: obs1
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: Left
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: MemberAccessExpression
                     children:
-                      - kind: ThenKeyword
-                        text: Then
-                  - kind: Newline
-                    text: "\r\n"
+                      - kind: Identifier
+                        text: Image1
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: Left
+              - kind: Unknown
+                text: )
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: Then
+              - kind: Newline
+                text: "\r\n"
               - kind: AssignmentStatement
                 children:
                   - kind: MemberAccessExpression
@@ -5550,34 +5544,38 @@ cst:
                         text: If
                       - kind: Newline
                         text: "\r\n"
-                  - kind: EndKeyword
-                    text: End
-                  - kind: Whitespace
-                    text: " "
-                  - kind: SubKeyword
-                    text: Sub
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Newline
-                text: "\r\n"
-              - kind: DimStatement
-                children:
-                  - kind: PrivateKeyword
-                    text: Private
-                  - kind: Whitespace
-                    text: " "
-                  - kind: SubKeyword
-                    text: Sub
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Timer7_Timer
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Newline
-                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Timer7_Timer
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
               - kind: AssignmentStatement
                 children:
                   - kind: MemberAccessExpression

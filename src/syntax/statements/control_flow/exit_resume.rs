@@ -116,11 +116,6 @@ impl Parser<'_> {
             self.consume_token();
         }
 
-        // Consume the newline
-        if self.at_token(Token::Newline) {
-            self.consume_token();
-        }
-
         self.builder.finish_node(); // ExitStatement
     }
 }

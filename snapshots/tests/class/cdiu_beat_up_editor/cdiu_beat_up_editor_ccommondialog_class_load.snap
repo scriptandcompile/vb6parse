@@ -4278,8 +4278,8 @@ cst:
                                                 text: " "
                                               - kind: SubKeyword
                                                 text: Sub
-                                              - kind: Newline
-                                                text: "\n"
+                                          - kind: Newline
+                                            text: "\n"
                                           - kind: Whitespace
                                             text: "         "
                                       - kind: EndKeyword
@@ -11704,42 +11704,46 @@ cst:
                             text: )
                       - kind: Newline
                         text: "\n"
-                  - kind: EndKeyword
-                    text: End
-                  - kind: Whitespace
-                    text: " "
-                  - kind: FunctionKeyword
-                    text: Function
-                  - kind: Newline
-                    text: "\n"
-              - kind: Newline
-                text: "\n"
-              - kind: DimStatement
-                children:
-                  - kind: PrivateKeyword
-                    text: Private
-                  - kind: Whitespace
-                    text: " "
-                  - kind: FunctionKeyword
-                    text: Function
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: LastApiError
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringKeyword
-                    text: String
-                  - kind: Newline
-                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: FunctionStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: LastApiError
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
               - kind: Whitespace
                 text: "    "
               - kind: AssignmentStatement
@@ -12506,14 +12510,16 @@ cst:
                     text: Then
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: FreeLibrary
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: m_lhInstance
-                  - kind: Newline
-                    text: "\n"
+                  - kind: CallStatement
+                    children:
+                      - kind: Identifier
+                        text: FreeLibrary
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: m_lhInstance
+                      - kind: Newline
+                        text: "\n"
           - kind: EndKeyword
             text: End
           - kind: Whitespace

@@ -783,44 +783,44 @@ cst:
                         text: " "
                       - kind: SubKeyword
                         text: Sub
-                      - kind: Newline
-                        text: "\n"
-                  - kind: Whitespace
-                    text: "    "
-                  - kind: AssignmentStatement
-                    children:
-                      - kind: IdentifierExpression
-                        children:
-                          - kind: Identifier
-                            text: tmpMeta
-                      - kind: Whitespace
-                        text: " "
-                      - kind: EqualityOperator
-                        text: "="
-                      - kind: Whitespace
-                        text: " "
-                      - kind: CallExpression
-                        children:
-                          - kind: Identifier
-                            text: VBStrFromAnsiPtr
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: META
-                          - kind: RightParenthesis
-                            text: )
-                      - kind: Newline
-                        text: "\n"
-                  - kind: Whitespace
-                    text: "    "
                   - kind: Newline
                     text: "\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: tmpMeta
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: CallExpression
+                    children:
+                      - kind: Identifier
+                        text: VBStrFromAnsiPtr
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: META
+                      - kind: RightParenthesis
+                        text: )
+                  - kind: Newline
+                    text: "\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Newline
+                text: "\n"
               - kind: IfStatement
                 children:
                   - kind: Whitespace
@@ -1681,8 +1681,8 @@ cst:
                             text: " "
                           - kind: SubKeyword
                             text: Sub
-                          - kind: Newline
-                            text: "\n"
+                      - kind: Newline
+                        text: "\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -1773,8 +1773,8 @@ cst:
                             text: " "
                           - kind: SubKeyword
                             text: Sub
-                          - kind: Newline
-                            text: "\n"
+                      - kind: Newline
+                        text: "\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -1843,10 +1843,10 @@ cst:
                         text: " "
                       - kind: SubKeyword
                         text: Sub
-                      - kind: Newline
-                        text: "\n"
                   - kind: Newline
                     text: "\n"
+              - kind: Newline
+                text: "\n"
               - kind: IfStatement
                 children:
                   - kind: Whitespace

@@ -3458,8 +3458,10 @@ cst:
                         text: " "
                       - kind: SubKeyword
                         text: Sub
-                      - kind: Newline
-                        text: "\r\n"
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: DimStatement
+                children:
                   - kind: DimKeyword
                     text: Dim
                   - kind: Whitespace
@@ -4106,8 +4108,8 @@ cst:
                                                 text: " "
                                               - kind: SubKeyword
                                                 text: Sub
-                                              - kind: Newline
-                                                text: "\r\n"
+                                          - kind: Newline
+                                            text: "\r\n"
                                       - kind: EndKeyword
                                         text: End
                                       - kind: Whitespace
@@ -4292,62 +4294,62 @@ cst:
                         text: Sub
                       - kind: Newline
                         text: "\r\n"
-                  - kind: ForStatement
+              - kind: ForStatement
+                children:
+                  - kind: ForKeyword
+                    text: For
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
                     children:
-                      - kind: ForKeyword
-                        text: For
-                      - kind: Whitespace
-                        text: " "
-                      - kind: IdentifierExpression
-                        children:
-                          - kind: Identifier
-                            text: num
-                      - kind: Whitespace
-                        text: " "
-                      - kind: EqualityOperator
-                        text: "="
-                      - kind: Whitespace
-                        text: " "
-                      - kind: NumericLiteralExpression
-                        children:
-                          - kind: IntegerLiteral
-                            text: "1"
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ToKeyword
-                        text: To
-                      - kind: Whitespace
-                        text: " "
-                      - kind: IdentifierExpression
-                        children:
-                          - kind: Identifier
-                            text: items
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: StatementList
-                        children:
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: CallStatement
-                            children:
-                              - kind: Identifier
-                                text: mstack
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: RemComment
-                                text: Remove 1
-                              - kind: Newline
-                                text: "\r\n"
-                      - kind: NextKeyword
-                        text: Next
-                      - kind: Whitespace
-                        text: " "
                       - kind: Identifier
                         text: num
-                      - kind: Newline
-                        text: "\r\n"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: NumericLiteralExpression
+                    children:
+                      - kind: IntegerLiteral
+                        text: "1"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ToKeyword
+                    text: To
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: items
                   - kind: Newline
                     text: "\r\n"
+                  - kind: StatementList
+                    children:
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: mstack
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: RemComment
+                            text: Remove 1
+                          - kind: Newline
+                            text: "\r\n"
+                  - kind: NextKeyword
+                    text: Next
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: num
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
           - kind: EndKeyword
             text: End
           - kind: Whitespace

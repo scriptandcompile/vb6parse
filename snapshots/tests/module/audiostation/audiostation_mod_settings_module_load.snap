@@ -3041,8 +3041,8 @@ cst:
                     text: " "
                   - kind: SubKeyword
                     text: Sub
-                  - kind: Newline
-                    text: "\n"
+              - kind: Newline
+                text: "\n"
               - kind: Newline
                 text: "\n"
               - kind: LabelStatement
@@ -4005,8 +4005,8 @@ cst:
                                     text: " "
                                   - kind: FunctionKeyword
                                     text: Function
-                                  - kind: Newline
-                                    text: "\n"
+                              - kind: Newline
+                                text: "\n"
                               - kind: Whitespace
                                 text: "        "
                           - kind: ElseClause
@@ -4239,8 +4239,8 @@ cst:
                             text: " "
                           - kind: FunctionKeyword
                             text: Function
-                          - kind: Newline
-                            text: "\n"
+                      - kind: Newline
+                        text: "\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -4851,8 +4851,8 @@ cst:
                     text: " "
                   - kind: FunctionKeyword
                     text: Function
-                  - kind: Newline
-                    text: "\n"
+              - kind: Newline
+                text: "\n"
               - kind: Newline
                 text: "\n"
               - kind: LabelStatement

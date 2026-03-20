@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/file_operations/kill.rs
+source: vb6parse/src/syntax/library/statements/file_operations/kill.rs
 expression: tree
 ---
 root:
@@ -53,11 +53,11 @@ root:
                       text: "\"temp.dat\""
                     - kind: Newline
                       text: "\n"
-                - kind: EndKeyword
-                  text: End
-                - kind: Whitespace
-                  text: " "
-                - kind: SubKeyword
-                  text: Sub
-                - kind: Newline
-                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

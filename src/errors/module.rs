@@ -22,4 +22,13 @@ pub enum ModuleError {
     /// The `VB_Name` attribute value is unquoted.
     #[error("The 'VB_Name' attribute is unquoted.")]
     VBNameAttributeValueUnquoted,
+
+    /// Control flow nesting exceeds maximum depth
+    #[error("Control flow nesting depth ({depth}) exceeds maximum allowed depth ({max_depth})")]
+    NestingTooDeep {
+        /// The actual nesting depth encountered
+        depth: usize,
+        /// The maximum allowed nesting depth
+        max_depth: usize,
+    },
 }

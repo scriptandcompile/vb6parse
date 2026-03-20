@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/string_manipulation/lset.rs
+source: vb6parse/src/syntax/library/statements/string_manipulation/lset.rs
 expression: tree
 ---
 root:
@@ -61,11 +61,11 @@ root:
                       text: value
                     - kind: Newline
                       text: "\n"
-                - kind: EndKeyword
-                  text: End
-                - kind: Whitespace
-                  text: " "
-                - kind: SubKeyword
-                  text: Sub
-                - kind: Newline
-                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

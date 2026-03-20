@@ -25715,31 +25715,21 @@ cst:
                         children:
                           - kind: Ampersand
                             text: "&"
-                  - kind: Identifier
-                    text: H8000
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Newline
-                    text: "\n"
-              - kind: Whitespace
-                text: "    "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
+                  - kind: CallStatement
                     children:
                       - kind: Identifier
-                        text: MakeLong
+                        text: H8000
+                      - kind: Ampersand
+                        text: "&"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ThenKeyword
+                        text: Then
+                      - kind: Newline
+                        text: "\n"
                   - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: BinaryExpression
+                    text: "    "
+                  - kind: AssignmentStatement
                     children:
                       - kind: IdentifierExpression
                         children:
@@ -25747,14 +25737,22 @@ cst:
                             text: MakeLong
                       - kind: Whitespace
                         text: " "
-                      - kind: OrKeyword
-                        text: Or
+                      - kind: EqualityOperator
+                        text: "="
                       - kind: Whitespace
                         text: " "
-                      - kind: ParenthesizedExpression
+                      - kind: BinaryExpression
                         children:
-                          - kind: LeftParenthesis
-                            text: (
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: MakeLong
+                          - kind: Whitespace
+                            text: " "
+                          - kind: OrKeyword
+                            text: Or
+                          - kind: Whitespace
+                            text: " "
                           - kind: ParenthesizedExpression
                             children:
                               - kind: LeftParenthesis
@@ -25763,22 +25761,26 @@ cst:
                                 children:
                                   - kind: LeftParenthesis
                                     text: (
-                                  - kind: BinaryExpression
+                                  - kind: ParenthesizedExpression
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: BinaryExpression
                                         children:
-                                          - kind: Identifier
-                                            text: HiWord
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: AndKeyword
-                                        text: And
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Ampersand
-                                            text: "&"
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: HiWord
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: AndKeyword
+                                            text: And
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Ampersand
+                                                text: "&"
               - kind: CallStatement
                 children:
                   - kind: Identifier

@@ -31,8 +31,8 @@ root:
                   text: "    "
                 - kind: GotoKeyword
                   text: GoTo
-                - kind: Newline
-                  text: "\n"
+            - kind: Newline
+              text: "\n"
             - kind: Whitespace
               text: "    "
             - kind: CallStatement

@@ -1,5 +1,5 @@
 ---
-source: src/parsers/cst/assignment.rs
+source: vb6parse/src/parsers/cst/assignment.rs
 expression: tree
 ---
 root:
@@ -65,11 +65,11 @@ root:
                           text: "5"
                     - kind: Newline
                       text: "\n"
-                - kind: EndKeyword
-                  text: End
-                - kind: Whitespace
-                  text: " "
-                - kind: SubKeyword
-                  text: Sub
-                - kind: Newline
-                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
