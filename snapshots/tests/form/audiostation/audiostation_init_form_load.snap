@@ -1492,92 +1492,102 @@ cst:
                     text: Move
                   - kind: Whitespace
                     text: " "
-                  - kind: LeftParenthesis
-                    text: (
                   - kind: ArgumentList
                     children:
                       - kind: Argument
                         children:
                           - kind: BinaryExpression
                             children:
-                              - kind: MemberAccessExpression
+                              - kind: ParenthesizedExpression
                                 children:
-                                  - kind: Identifier
-                                    text: Screen
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: WidthKeyword
-                                    text: Width
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Screen
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: WidthKeyword
+                                            text: Width
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: SubtractionOperator
+                                        text: "-"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: MeKeyword
+                                            text: Me
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: WidthKeyword
+                                            text: Width
+                                  - kind: RightParenthesis
+                                    text: )
                               - kind: Whitespace
                                 text: " "
-                              - kind: SubtractionOperator
-                                text: "-"
+                              - kind: BackwardSlashOperator
+                                text: "\\"
                               - kind: Whitespace
                                 text: " "
-                              - kind: MemberAccessExpression
+                              - kind: NumericLiteralExpression
                                 children:
-                                  - kind: MeKeyword
-                                    text: Me
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: WidthKeyword
-                                    text: Width
-                  - kind: RightParenthesis
-                    text: )
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "\\"
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "2"
-              - kind: Unknown
-                text: ","
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: (
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: Screen
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Height
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ArgumentList
-                    children:
+                                  - kind: IntegerLiteral
+                                    text: "2"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
                       - kind: Argument
                         children:
-                          - kind: UnaryExpression
+                          - kind: BinaryExpression
                             children:
-                              - kind: SubtractionOperator
-                                text: "-"
+                              - kind: ParenthesizedExpression
+                                children:
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Screen
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: Height
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: SubtractionOperator
+                                        text: "-"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: MeKeyword
+                                            text: Me
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: Height
+                                  - kind: RightParenthesis
+                                    text: )
                               - kind: Whitespace
                                 text: " "
-                              - kind: MemberAccessExpression
+                              - kind: BackwardSlashOperator
+                                text: "\\"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
                                 children:
-                                  - kind: MeKeyword
-                                    text: Me
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: Identifier
-                                    text: Height
-              - kind: Unknown
-                text: )
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "\\"
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "2"
-              - kind: Newline
-                text: "\n"
+                                  - kind: IntegerLiteral
+                                    text: "2"
+                  - kind: Newline
+                    text: "\n"
               - kind: Whitespace
                 text: "    "
               - kind: Newline
@@ -4214,34 +4224,36 @@ cst:
                         text: RegUnReg
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
                       - kind: ArgumentList
                         children:
                           - kind: Argument
                             children:
-                              - kind: BinaryExpression
+                              - kind: ParenthesizedExpression
                                 children:
-                                  - kind: MemberAccessExpression
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: BinaryExpression
                                     children:
-                                      - kind: Identifier
-                                        text: App
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: path
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Ampersand
-                                    text: "&"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: StringLiteralExpression
-                                    children:
-                                      - kind: StringLiteral
-                                        text: "\"\\audio_sniffer.dll\""
-                      - kind: RightParenthesis
-                        text: )
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: App
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: path
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Ampersand
+                                        text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"\\audio_sniffer.dll\""
+                                  - kind: RightParenthesis
+                                    text: )
                       - kind: Newline
                         text: "\n"
               - kind: IfStatement
@@ -4326,34 +4338,36 @@ cst:
                         text: RegUnReg
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
                       - kind: ArgumentList
                         children:
                           - kind: Argument
                             children:
-                              - kind: BinaryExpression
+                              - kind: ParenthesizedExpression
                                 children:
-                                  - kind: MemberAccessExpression
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: BinaryExpression
                                     children:
-                                      - kind: Identifier
-                                        text: App
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: path
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Ampersand
-                                    text: "&"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: StringLiteralExpression
-                                    children:
-                                      - kind: StringLiteral
-                                        text: "\"\\audio_sniffer-x64.dll\""
-                      - kind: RightParenthesis
-                        text: )
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: App
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: path
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Ampersand
+                                        text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"\\audio_sniffer-x64.dll\""
+                                  - kind: RightParenthesis
+                                    text: )
                       - kind: Newline
                         text: "\n"
                   - kind: Newline
@@ -5092,34 +5106,36 @@ cst:
                                 text: Shell
                               - kind: Whitespace
                                 text: " "
-                              - kind: LeftParenthesis
-                                text: (
                               - kind: ArgumentList
                                 children:
                                   - kind: Argument
                                     children:
-                                      - kind: BinaryExpression
+                                      - kind: ParenthesizedExpression
                                         children:
-                                          - kind: MemberAccessExpression
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: BinaryExpression
                                             children:
-                                              - kind: Identifier
-                                                text: App
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: path
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Ampersand
-                                            text: "&"
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: StringLiteralExpression
-                                            children:
-                                              - kind: StringLiteral
-                                                text: "\"\\AudioStation.exe\""
-                              - kind: RightParenthesis
-                                text: )
+                                              - kind: MemberAccessExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: App
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: path
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Ampersand
+                                                text: "&"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: StringLiteralExpression
+                                                children:
+                                                  - kind: StringLiteral
+                                                    text: "\"\\AudioStation.exe\""
+                                          - kind: RightParenthesis
+                                            text: )
                               - kind: Newline
                                 text: "\n"
                           - kind: Whitespace

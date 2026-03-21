@@ -9172,14 +9172,14 @@ cst:
                     text: Shell
                   - kind: Whitespace
                     text: " "
-                  - kind: LeftParenthesis
-                    text: (
                   - kind: ArgumentList
                     children:
                       - kind: Argument
                         children:
-                          - kind: BinaryExpression
+                          - kind: ParenthesizedExpression
                             children:
+                              - kind: LeftParenthesis
+                                text: (
                               - kind: BinaryExpression
                                 children:
                                   - kind: BinaryExpression
@@ -9198,144 +9198,148 @@ cst:
                                                             children:
                                                               - kind: BinaryExpression
                                                                 children:
-                                                                  - kind: StringLiteralExpression
+                                                                  - kind: BinaryExpression
                                                                     children:
-                                                                      - kind: StringLiteral
-                                                                        text: "\"cmd.exe /c EVENTCREATE /T \""
+                                                                      - kind: StringLiteralExpression
+                                                                        children:
+                                                                          - kind: StringLiteral
+                                                                            text: "\"cmd.exe /c EVENTCREATE /T \""
+                                                                      - kind: Whitespace
+                                                                        text: " "
+                                                                      - kind: Ampersand
+                                                                        text: "&"
+                                                                      - kind: Whitespace
+                                                                        text: " "
+                                                                      - kind: IdentifierExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: strErrorType
                                                                   - kind: Whitespace
                                                                     text: " "
                                                                   - kind: Ampersand
                                                                     text: "&"
                                                                   - kind: Whitespace
                                                                     text: " "
-                                                                  - kind: IdentifierExpression
+                                                                  - kind: StringLiteralExpression
                                                                     children:
-                                                                      - kind: Identifier
-                                                                        text: strErrorType
+                                                                      - kind: StringLiteral
+                                                                        text: "\" /ID \""
                                                               - kind: Whitespace
                                                                 text: " "
                                                               - kind: Ampersand
                                                                 text: "&"
                                                               - kind: Whitespace
                                                                 text: " "
-                                                              - kind: StringLiteralExpression
+                                                              - kind: IdentifierExpression
                                                                 children:
-                                                                  - kind: StringLiteral
-                                                                    text: "\" /ID \""
+                                                                  - kind: Identifier
+                                                                    text: ErrorCode
                                                           - kind: Whitespace
                                                             text: " "
                                                           - kind: Ampersand
                                                             text: "&"
                                                           - kind: Whitespace
                                                             text: " "
-                                                          - kind: IdentifierExpression
+                                                          - kind: StringLiteralExpression
                                                             children:
-                                                              - kind: Identifier
-                                                                text: ErrorCode
+                                                              - kind: StringLiteral
+                                                                text: "\" /L \""
                                                       - kind: Whitespace
                                                         text: " "
                                                       - kind: Ampersand
                                                         text: "&"
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: StringLiteralExpression
+                                                      - kind: IdentifierExpression
                                                         children:
-                                                          - kind: StringLiteral
-                                                            text: "\" /L \""
+                                                          - kind: Identifier
+                                                            text: msgLog
                                                   - kind: Whitespace
                                                     text: " "
                                                   - kind: Ampersand
                                                     text: "&"
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: IdentifierExpression
+                                                  - kind: StringLiteralExpression
                                                     children:
-                                                      - kind: Identifier
-                                                        text: msgLog
+                                                      - kind: StringLiteral
+                                                        text: "\" /D \""
                                               - kind: Whitespace
                                                 text: " "
                                               - kind: Ampersand
                                                 text: "&"
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: StringLiteralExpression
+                                              - kind: CallExpression
                                                 children:
-                                                  - kind: StringLiteral
-                                                    text: "\" /D \""
+                                                  - kind: Identifier
+                                                    text: Chr
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: NumericLiteralExpression
+                                                            children:
+                                                              - kind: IntegerLiteral
+                                                                text: "34"
+                                                  - kind: RightParenthesis
+                                                    text: )
                                           - kind: Whitespace
                                             text: " "
                                           - kind: Ampersand
                                             text: "&"
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: CallExpression
+                                          - kind: IdentifierExpression
                                             children:
                                               - kind: Identifier
-                                                text: Chr
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: ArgumentList
-                                                children:
-                                                  - kind: Argument
-                                                    children:
-                                                      - kind: NumericLiteralExpression
-                                                        children:
-                                                          - kind: IntegerLiteral
-                                                            text: "34"
-                                              - kind: RightParenthesis
-                                                text: )
+                                                text: MsgDescription
                                       - kind: Whitespace
                                         text: " "
                                       - kind: Ampersand
                                         text: "&"
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IdentifierExpression
+                                      - kind: CallExpression
                                         children:
                                           - kind: Identifier
-                                            text: MsgDescription
+                                            text: Chr
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: NumericLiteralExpression
+                                                    children:
+                                                      - kind: IntegerLiteral
+                                                        text: "34"
+                                          - kind: RightParenthesis
+                                            text: )
                                   - kind: Whitespace
                                     text: " "
                                   - kind: Ampersand
                                     text: "&"
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: CallExpression
+                                  - kind: StringLiteralExpression
                                     children:
-                                      - kind: Identifier
-                                        text: Chr
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: NumericLiteralExpression
-                                                children:
-                                                  - kind: IntegerLiteral
-                                                    text: "34"
-                                      - kind: RightParenthesis
-                                        text: )
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Ampersand
-                                text: "&"
-                              - kind: Whitespace
-                                text: " "
-                              - kind: StringLiteralExpression
-                                children:
-                                  - kind: StringLiteral
-                                    text: "\" /so fonvex.exe\""
-                  - kind: RightParenthesis
-                    text: )
-              - kind: Unknown
-                text: ","
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: vbHide
+                                      - kind: StringLiteral
+                                        text: "\" /so fonvex.exe\""
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: vbHide
                   - kind: Newline
                     text: "\n"
           - kind: EndKeyword

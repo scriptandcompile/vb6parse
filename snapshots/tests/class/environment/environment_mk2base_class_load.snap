@@ -1844,30 +1844,38 @@ cst:
                             text: PushDim
                           - kind: Whitespace
                             text: " "
-                          - kind: LeftParenthesis
-                            text: (
                           - kind: ArgumentList
                             children:
                               - kind: Argument
                                 children:
-                                  - kind: NumericLiteralExpression
+                                  - kind: ParenthesizedExpression
                                     children:
-                                      - kind: IntegerLiteral
-                                        text: "30"
-                          - kind: RightParenthesis
-                            text: )
-                      - kind: Unknown
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Unknown
-                        text: (
-                      - kind: Unknown
-                        text: "0"
-                      - kind: Unknown
-                        text: )
-                      - kind: Whitespace
-                        text: "  "
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "30"
+                                      - kind: RightParenthesis
+                                        text: )
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: ParenthesizedExpression
+                                    children:
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                                      - kind: RightParenthesis
+                                        text: )
+                              - kind: Whitespace
+                                text: "  "
                       - kind: EndOfLineComment
                         text: "' 30 items, of anytype, we have many spare items"
                       - kind: Newline
@@ -3580,30 +3588,38 @@ cst:
                                     text: PushDim
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: LeftParenthesis
-                                    text: (
                                   - kind: ArgumentList
                                     children:
                                       - kind: Argument
                                         children:
-                                          - kind: NumericLiteralExpression
+                                          - kind: ParenthesizedExpression
                                             children:
-                                              - kind: IntegerLiteral
-                                                text: "10"
-                                  - kind: RightParenthesis
-                                    text: )
-                              - kind: Unknown
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Unknown
-                                text: (
-                              - kind: Unknown
-                                text: "0"
-                              - kind: Unknown
-                                text: )
-                              - kind: Whitespace
-                                text: "  "
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "10"
+                                              - kind: RightParenthesis
+                                                text: )
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: ParenthesizedExpression
+                                            children:
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "0"
+                                              - kind: RightParenthesis
+                                                text: )
+                                      - kind: Whitespace
+                                        text: "  "
                               - kind: EndOfLineComment
                                 text: "' 10 items"
                               - kind: Newline
@@ -4656,30 +4672,38 @@ cst:
                                     text: PushDim
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: LeftParenthesis
-                                    text: (
                                   - kind: ArgumentList
                                     children:
                                       - kind: Argument
                                         children:
-                                          - kind: IdentifierExpression
+                                          - kind: ParenthesizedExpression
                                             children:
-                                              - kind: Identifier
-                                                text: acc
-                                  - kind: RightParenthesis
-                                    text: )
-                              - kind: Unknown
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Unknown
-                                text: (
-                              - kind: Unknown
-                                text: "0"
-                              - kind: Unknown
-                                text: )
-                              - kind: Newline
-                                text: "\r\n"
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: acc
+                                              - kind: RightParenthesis
+                                                text: )
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: ParenthesizedExpression
+                                            children:
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "0"
+                                              - kind: RightParenthesis
+                                                text: )
+                                  - kind: Newline
+                                    text: "\r\n"
                               - kind: Whitespace
                                 text: "    "
                               - kind: CallStatement
@@ -5016,128 +5040,136 @@ cst:
                                                     text: PushDim
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: LeftParenthesis
-                                                    text: (
                                                   - kind: ArgumentList
                                                     children:
                                                       - kind: Argument
                                                         children:
-                                                          - kind: MemberAccessExpression
+                                                          - kind: ParenthesizedExpression
                                                             children:
-                                                              - kind: Identifier
-                                                                text: fieldlist
-                                                              - kind: PeriodOperator
-                                                                text: "."
-                                                              - kind: Identifier
-                                                                text: count
-                                                  - kind: RightParenthesis
-                                                    text: )
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: IntegerLiteral
-                                                text: "0"
-                                              - kind: RightParenthesis
-                                                text: )
-                                              - kind: Newline
-                                                text: "\r\n"
-                                          - kind: Whitespace
-                                            text: "    "
-                                          - kind: CallStatement
-                                            children:
-                                              - kind: Identifier
-                                                text: pppp2
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: PushEnd
-                                              - kind: Newline
-                                                text: "\r\n"
-                                          - kind: SetStatement
-                                            children:
+                                                              - kind: LeftParenthesis
+                                                                text: (
+                                                              - kind: MemberAccessExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: fieldlist
+                                                                  - kind: PeriodOperator
+                                                                    text: "."
+                                                                  - kind: Identifier
+                                                                    text: count
+                                                              - kind: RightParenthesis
+                                                                text: )
+                                                      - kind: Comma
+                                                        text: ","
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: ParenthesizedExpression
+                                                            children:
+                                                              - kind: LeftParenthesis
+                                                                text: (
+                                                              - kind: NumericLiteralExpression
+                                                                children:
+                                                                  - kind: IntegerLiteral
+                                                                    text: "0"
+                                                              - kind: RightParenthesis
+                                                                text: )
+                                                  - kind: Newline
+                                                    text: "\r\n"
                                               - kind: Whitespace
                                                 text: "    "
-                                              - kind: SetKeyword
-                                                text: Set
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: pppp
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: item
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: IntegerLiteral
-                                                text: "18"
-                                              - kind: RightParenthesis
-                                                text: )
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: EqualityOperator
-                                                text: "="
-                                              - kind: Whitespace
-                                                text: " "
                                               - kind: Identifier
                                                 text: pppp2
+                                              - kind: CallStatement
+                                                children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: PushEnd
+                                                  - kind: Newline
+                                                    text: "\r\n"
+                                              - kind: SetStatement
+                                                children:
+                                                  - kind: Whitespace
+                                                    text: "    "
+                                                  - kind: SetKeyword
+                                                    text: Set
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Identifier
+                                                    text: pppp
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: item
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: IntegerLiteral
+                                                    text: "18"
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: EqualityOperator
+                                                    text: "="
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Identifier
+                                                    text: pppp2
+                                                  - kind: Whitespace
+                                                    text: "  "
+                                                  - kind: EndOfLineComment
+                                                    text: "' accumulator"
+                                                  - kind: Newline
+                                                    text: "\r\n"
                                               - kind: Whitespace
-                                                text: "  "
+                                                text: "    "
+                                              - kind: AssignmentStatement
+                                                children:
+                                                  - kind: CallExpression
+                                                    children:
+                                                      - kind: MemberAccessExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: pppp
+                                                          - kind: PeriodOperator
+                                                            text: "."
+                                                          - kind: Identifier
+                                                            text: item
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: NumericLiteralExpression
+                                                                children:
+                                                                  - kind: IntegerLiteral
+                                                                    text: "21"
+                                                      - kind: RightParenthesis
+                                                        text: )
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: EqualityOperator
+                                                    text: "="
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: NumericLiteralExpression
+                                                    children:
+                                                      - kind: IntegerLiteral
+                                                        text: "0"
+                                              - kind: Whitespace
+                                                text: " "
                                               - kind: EndOfLineComment
-                                                text: "' accumulator"
+                                                text: "' no records yet"
                                               - kind: Newline
                                                 text: "\r\n"
                                           - kind: Whitespace
                                             text: "    "
-                                          - kind: AssignmentStatement
-                                            children:
-                                              - kind: CallExpression
-                                                children:
-                                                  - kind: MemberAccessExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: pppp
-                                                      - kind: PeriodOperator
-                                                        text: "."
-                                                      - kind: Identifier
-                                                        text: item
-                                                  - kind: LeftParenthesis
-                                                    text: (
-                                                  - kind: ArgumentList
-                                                    children:
-                                                      - kind: Argument
-                                                        children:
-                                                          - kind: NumericLiteralExpression
-                                                            children:
-                                                              - kind: IntegerLiteral
-                                                                text: "21"
-                                                  - kind: RightParenthesis
-                                                    text: )
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: EqualityOperator
-                                                text: "="
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: NumericLiteralExpression
-                                                children:
-                                                  - kind: IntegerLiteral
-                                                    text: "0"
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: EndOfLineComment
-                                            text: "' no records yet"
+                                          - kind: ElseKeyword
+                                            text: Else
                                           - kind: Newline
                                             text: "\r\n"
-                                      - kind: Whitespace
-                                        text: "    "
-                                      - kind: Unknown
-                                        text: Else
-                                      - kind: Newline
-                                        text: "\r\n"
                                       - kind: Whitespace
                                         text: "        "
                                       - kind: EndOfLineComment

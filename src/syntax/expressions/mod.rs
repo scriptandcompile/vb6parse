@@ -386,18 +386,56 @@ impl Parser<'_> {
                     min_bp,
                     lhs_checkpoint,
                 } => {
-                    // Consume ")"
+                    // Check for comma - in VB6, parentheses can contain comma-separated expressions
+                    // This is used in graphics methods like Line: Picture1.Line (x1, y1)-(x2, y2)
                     self.consume_whitespace();
-                    if self.at_token(Token::RightParenthesis) {
-                        self.consume_token();
-                    }
-                    self.builder.finish_node();
 
-                    // After finishing parenthesized expression, continue with postfix then infix
-                    frame_stack.push(ExprParseFrame::ParsePostfix {
-                        min_bp,
-                        lhs_checkpoint,
-                    });
+                    if self.at_token(Token::Comma) {
+                        // Consume comma and any whitespace
+                        self.consume_token();
+                        self.consume_whitespace();
+
+                        // Check if there's another expression or if we hit the closing paren
+                        if !self.at_token(Token::RightParenthesis) && !self.is_at_end() {
+                            // Parse the next expression in the comma-separated list
+                            // Push this frame again to handle more commas after the next expression
+                            frame_stack.push(ExprParseFrame::FinishParenthesized {
+                                min_bp,
+                                lhs_checkpoint,
+                            });
+
+                            // Parse the next expression
+                            let inner_checkpoint = self.builder.checkpoint();
+                            frame_stack.push(ExprParseFrame::ParsePrefix {
+                                min_bp: BindingPower::NONE,
+                                lhs_checkpoint: inner_checkpoint,
+                            });
+                        } else {
+                            // Trailing comma before closing paren - just finish
+                            if self.at_token(Token::RightParenthesis) {
+                                self.consume_token();
+                            }
+                            self.builder.finish_node();
+
+                            // Continue with postfix then infix
+                            frame_stack.push(ExprParseFrame::ParsePostfix {
+                                min_bp,
+                                lhs_checkpoint,
+                            });
+                        }
+                    } else {
+                        //No comma - just finish the parenthesized expression
+                        if self.at_token(Token::RightParenthesis) {
+                            self.consume_token();
+                        }
+                        self.builder.finish_node();
+
+                        // After finishing parenthesized expression, continue with postfix then infix
+                        frame_stack.push(ExprParseFrame::ParsePostfix {
+                            min_bp,
+                            lhs_checkpoint,
+                        });
+                    }
                 }
                 ExprParseFrame::ParsePostfix {
                     min_bp,

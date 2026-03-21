@@ -3044,20 +3044,22 @@ cst:
                         text: GetID3v2Tags
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
                       - kind: ArgumentList
                         children:
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: ParenthesizedExpression
                                 children:
-                                  - kind: Identifier
-                                    text: Tag2
-                      - kind: RightParenthesis
-                        text: )
-                  - kind: Whitespace
-                    text: " "
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Tag2
+                                  - kind: RightParenthesis
+                                    text: )
+                          - kind: Whitespace
+                            text: " "
                   - kind: EndOfLineComment
                     text: "'Pass the Id3v2 TagId to the GetID3v2Tag1 function"
                   - kind: Newline

@@ -663,22 +663,24 @@ cst:
                     text: Discrete_Probability_Detector
                   - kind: Whitespace
                     text: " "
-                  - kind: LeftParenthesis
-                    text: (
                   - kind: ArgumentList
                     children:
                       - kind: Argument
                         children:
-                          - kind: MemberAccessExpression
+                          - kind: ParenthesizedExpression
                             children:
-                              - kind: Identifier
-                                text: InP
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: TextKeyword
-                                text: Text
-                  - kind: RightParenthesis
-                    text: )
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: InP
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: TextKeyword
+                                    text: Text
+                              - kind: RightParenthesis
+                                text: )
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword

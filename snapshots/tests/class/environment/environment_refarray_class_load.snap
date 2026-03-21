@@ -5024,8 +5024,6 @@ cst:
                                                                                                                 text: MemCopy
                                                                                                               - kind: Whitespace
                                                                                                                 text: " "
-                                                                                                              - kind: LeftParenthesis
-                                                                                                                text: (
                                                                                                               - kind: ArgumentList
                                                                                                                 children:
                                                                                                                   - kind: Argument
@@ -5034,28 +5032,32 @@ cst:
                                                                                                                         children:
                                                                                                                           - kind: LeftParenthesis
                                                                                                                             text: (
-                                                                                                                          - kind: BinaryExpression
+                                                                                                                          - kind: ParenthesizedExpression
                                                                                                                             children:
-                                                                                                                              - kind: CallExpression
+                                                                                                                              - kind: LeftParenthesis
+                                                                                                                                text: (
+                                                                                                                              - kind: BinaryExpression
                                                                                                                                 children:
-                                                                                                                                  - kind: Identifier
-                                                                                                                                    text: ArrPtr
-                                                                                                                                  - kind: LeftParenthesis
-                                                                                                                                    text: (
-                                                                                                                                  - kind: ArgumentList
-                                                                                                                                    children: []
-                                                                                                                                  - kind: RightParenthesis
-                                                                                                                                    text: )
-                                                                                                                              - kind: Whitespace
-                                                                                                                                text: " "
-                                                                                                                              - kind: XorKeyword
-                                                                                                                                text: Xor
-                                                                                                                              - kind: Whitespace
-                                                                                                                                text: " "
-                                                                                                                              - kind: IdentifierExpression
-                                                                                                                                children:
-                                                                                                                                  - kind: Ampersand
-                                                                                                                                    text: "&"
+                                                                                                                                  - kind: CallExpression
+                                                                                                                                    children:
+                                                                                                                                      - kind: Identifier
+                                                                                                                                        text: ArrPtr
+                                                                                                                                      - kind: LeftParenthesis
+                                                                                                                                        text: (
+                                                                                                                                      - kind: ArgumentList
+                                                                                                                                        children: []
+                                                                                                                                      - kind: RightParenthesis
+                                                                                                                                        text: )
+                                                                                                                                  - kind: Whitespace
+                                                                                                                                    text: " "
+                                                                                                                                  - kind: XorKeyword
+                                                                                                                                    text: Xor
+                                                                                                                                  - kind: Whitespace
+                                                                                                                                    text: " "
+                                                                                                                                  - kind: IdentifierExpression
+                                                                                                                                    children:
+                                                                                                                                      - kind: Ampersand
+                                                                                                                                        text: "&"
                                                                                                           - kind: CallStatement
                                                                                                             children:
                                                                                                               - kind: Identifier
@@ -5792,8 +5794,6 @@ cst:
                                                                                                         text: MemCopy
                                                                                                       - kind: Whitespace
                                                                                                         text: " "
-                                                                                                      - kind: LeftParenthesis
-                                                                                                        text: (
                                                                                                       - kind: ArgumentList
                                                                                                         children:
                                                                                                           - kind: Argument
@@ -5802,28 +5802,32 @@ cst:
                                                                                                                 children:
                                                                                                                   - kind: LeftParenthesis
                                                                                                                     text: (
-                                                                                                                  - kind: BinaryExpression
+                                                                                                                  - kind: ParenthesizedExpression
                                                                                                                     children:
-                                                                                                                      - kind: CallExpression
+                                                                                                                      - kind: LeftParenthesis
+                                                                                                                        text: (
+                                                                                                                      - kind: BinaryExpression
                                                                                                                         children:
-                                                                                                                          - kind: Identifier
-                                                                                                                            text: ArrPtr
-                                                                                                                          - kind: LeftParenthesis
-                                                                                                                            text: (
-                                                                                                                          - kind: ArgumentList
-                                                                                                                            children: []
-                                                                                                                          - kind: RightParenthesis
-                                                                                                                            text: )
-                                                                                                                      - kind: Whitespace
-                                                                                                                        text: " "
-                                                                                                                      - kind: XorKeyword
-                                                                                                                        text: Xor
-                                                                                                                      - kind: Whitespace
-                                                                                                                        text: " "
-                                                                                                                      - kind: IdentifierExpression
-                                                                                                                        children:
-                                                                                                                          - kind: Ampersand
-                                                                                                                            text: "&"
+                                                                                                                          - kind: CallExpression
+                                                                                                                            children:
+                                                                                                                              - kind: Identifier
+                                                                                                                                text: ArrPtr
+                                                                                                                              - kind: LeftParenthesis
+                                                                                                                                text: (
+                                                                                                                              - kind: ArgumentList
+                                                                                                                                children: []
+                                                                                                                              - kind: RightParenthesis
+                                                                                                                                text: )
+                                                                                                                          - kind: Whitespace
+                                                                                                                            text: " "
+                                                                                                                          - kind: XorKeyword
+                                                                                                                            text: Xor
+                                                                                                                          - kind: Whitespace
+                                                                                                                            text: " "
+                                                                                                                          - kind: IdentifierExpression
+                                                                                                                            children:
+                                                                                                                              - kind: Ampersand
+                                                                                                                                text: "&"
                                                                                                   - kind: CallStatement
                                                                                                     children:
                                                                                                       - kind: Identifier
@@ -7968,8 +7972,6 @@ cst:
                                                                                                             text: ByVal
                                                                                                           - kind: Whitespace
                                                                                                             text: " "
-                                                                                                          - kind: LeftParenthesis
-                                                                                                            text: (
                                                                                                           - kind: ArgumentList
                                                                                                             children:
                                                                                                               - kind: Argument
@@ -7978,34 +7980,38 @@ cst:
                                                                                                                     children:
                                                                                                                       - kind: LeftParenthesis
                                                                                                                         text: (
-                                                                                                                      - kind: BinaryExpression
+                                                                                                                      - kind: ParenthesizedExpression
                                                                                                                         children:
-                                                                                                                          - kind: CallExpression
+                                                                                                                          - kind: LeftParenthesis
+                                                                                                                            text: (
+                                                                                                                          - kind: BinaryExpression
                                                                                                                             children:
-                                                                                                                              - kind: Identifier
-                                                                                                                                text: VarPtr
-                                                                                                                              - kind: LeftParenthesis
-                                                                                                                                text: (
-                                                                                                                              - kind: ArgumentList
+                                                                                                                              - kind: CallExpression
                                                                                                                                 children:
-                                                                                                                                  - kind: Argument
+                                                                                                                                  - kind: Identifier
+                                                                                                                                    text: VarPtr
+                                                                                                                                  - kind: LeftParenthesis
+                                                                                                                                    text: (
+                                                                                                                                  - kind: ArgumentList
                                                                                                                                     children:
-                                                                                                                                      - kind: IdentifierExpression
+                                                                                                                                      - kind: Argument
                                                                                                                                         children:
-                                                                                                                                          - kind: Identifier
-                                                                                                                                            text: that
-                                                                                                                              - kind: RightParenthesis
-                                                                                                                                text: )
-                                                                                                                          - kind: Whitespace
-                                                                                                                            text: " "
-                                                                                                                          - kind: XorKeyword
-                                                                                                                            text: Xor
-                                                                                                                          - kind: Whitespace
-                                                                                                                            text: " "
-                                                                                                                          - kind: IdentifierExpression
-                                                                                                                            children:
-                                                                                                                              - kind: Ampersand
-                                                                                                                                text: "&"
+                                                                                                                                          - kind: IdentifierExpression
+                                                                                                                                            children:
+                                                                                                                                              - kind: Identifier
+                                                                                                                                                text: that
+                                                                                                                                  - kind: RightParenthesis
+                                                                                                                                    text: )
+                                                                                                                              - kind: Whitespace
+                                                                                                                                text: " "
+                                                                                                                              - kind: XorKeyword
+                                                                                                                                text: Xor
+                                                                                                                              - kind: Whitespace
+                                                                                                                                text: " "
+                                                                                                                              - kind: IdentifierExpression
+                                                                                                                                children:
+                                                                                                                                  - kind: Ampersand
+                                                                                                                                    text: "&"
                                                                                                       - kind: CallStatement
                                                                                                         children:
                                                                                                           - kind: Identifier
@@ -9732,8 +9738,6 @@ cst:
                                                                                                                                                     text: MemCopy
                                                                                                                                                   - kind: Whitespace
                                                                                                                                                     text: " "
-                                                                                                                                                  - kind: LeftParenthesis
-                                                                                                                                                    text: (
                                                                                                                                                   - kind: ArgumentList
                                                                                                                                                     children:
                                                                                                                                                       - kind: Argument
@@ -9742,34 +9746,38 @@ cst:
                                                                                                                                                             children:
                                                                                                                                                               - kind: LeftParenthesis
                                                                                                                                                                 text: (
-                                                                                                                                                              - kind: BinaryExpression
+                                                                                                                                                              - kind: ParenthesizedExpression
                                                                                                                                                                 children:
-                                                                                                                                                                  - kind: CallExpression
+                                                                                                                                                                  - kind: LeftParenthesis
+                                                                                                                                                                    text: (
+                                                                                                                                                                  - kind: BinaryExpression
                                                                                                                                                                     children:
-                                                                                                                                                                      - kind: Identifier
-                                                                                                                                                                        text: VarPtr
-                                                                                                                                                                      - kind: LeftParenthesis
-                                                                                                                                                                        text: (
-                                                                                                                                                                      - kind: ArgumentList
+                                                                                                                                                                      - kind: CallExpression
                                                                                                                                                                         children:
-                                                                                                                                                                          - kind: Argument
+                                                                                                                                                                          - kind: Identifier
+                                                                                                                                                                            text: VarPtr
+                                                                                                                                                                          - kind: LeftParenthesis
+                                                                                                                                                                            text: (
+                                                                                                                                                                          - kind: ArgumentList
                                                                                                                                                                             children:
-                                                                                                                                                                              - kind: IdentifierExpression
+                                                                                                                                                                              - kind: Argument
                                                                                                                                                                                 children:
-                                                                                                                                                                                  - kind: Identifier
-                                                                                                                                                                                    text: Value
-                                                                                                                                                                      - kind: RightParenthesis
-                                                                                                                                                                        text: )
-                                                                                                                                                                  - kind: Whitespace
-                                                                                                                                                                    text: " "
-                                                                                                                                                                  - kind: XorKeyword
-                                                                                                                                                                    text: Xor
-                                                                                                                                                                  - kind: Whitespace
-                                                                                                                                                                    text: " "
-                                                                                                                                                                  - kind: IdentifierExpression
-                                                                                                                                                                    children:
-                                                                                                                                                                      - kind: Ampersand
-                                                                                                                                                                        text: "&"
+                                                                                                                                                                                  - kind: IdentifierExpression
+                                                                                                                                                                                    children:
+                                                                                                                                                                                      - kind: Identifier
+                                                                                                                                                                                        text: Value
+                                                                                                                                                                          - kind: RightParenthesis
+                                                                                                                                                                            text: )
+                                                                                                                                                                      - kind: Whitespace
+                                                                                                                                                                        text: " "
+                                                                                                                                                                      - kind: XorKeyword
+                                                                                                                                                                        text: Xor
+                                                                                                                                                                      - kind: Whitespace
+                                                                                                                                                                        text: " "
+                                                                                                                                                                      - kind: IdentifierExpression
+                                                                                                                                                                        children:
+                                                                                                                                                                          - kind: Ampersand
+                                                                                                                                                                            text: "&"
                                                                                                                                               - kind: CallStatement
                                                                                                                                                 children:
                                                                                                                                                   - kind: Identifier
@@ -10160,8 +10168,6 @@ cst:
                                                                                                                                             text: MemCopy
                                                                                                                                           - kind: Whitespace
                                                                                                                                             text: " "
-                                                                                                                                          - kind: LeftParenthesis
-                                                                                                                                            text: (
                                                                                                                                           - kind: ArgumentList
                                                                                                                                             children:
                                                                                                                                               - kind: Argument
@@ -10170,34 +10176,38 @@ cst:
                                                                                                                                                     children:
                                                                                                                                                       - kind: LeftParenthesis
                                                                                                                                                         text: (
-                                                                                                                                                      - kind: BinaryExpression
+                                                                                                                                                      - kind: ParenthesizedExpression
                                                                                                                                                         children:
-                                                                                                                                                          - kind: CallExpression
+                                                                                                                                                          - kind: LeftParenthesis
+                                                                                                                                                            text: (
+                                                                                                                                                          - kind: BinaryExpression
                                                                                                                                                             children:
-                                                                                                                                                              - kind: Identifier
-                                                                                                                                                                text: VarPtr
-                                                                                                                                                              - kind: LeftParenthesis
-                                                                                                                                                                text: (
-                                                                                                                                                              - kind: ArgumentList
+                                                                                                                                                              - kind: CallExpression
                                                                                                                                                                 children:
-                                                                                                                                                                  - kind: Argument
+                                                                                                                                                                  - kind: Identifier
+                                                                                                                                                                    text: VarPtr
+                                                                                                                                                                  - kind: LeftParenthesis
+                                                                                                                                                                    text: (
+                                                                                                                                                                  - kind: ArgumentList
                                                                                                                                                                     children:
-                                                                                                                                                                      - kind: IdentifierExpression
+                                                                                                                                                                      - kind: Argument
                                                                                                                                                                         children:
-                                                                                                                                                                          - kind: Identifier
-                                                                                                                                                                            text: Value
-                                                                                                                                                              - kind: RightParenthesis
-                                                                                                                                                                text: )
-                                                                                                                                                          - kind: Whitespace
-                                                                                                                                                            text: " "
-                                                                                                                                                          - kind: XorKeyword
-                                                                                                                                                            text: Xor
-                                                                                                                                                          - kind: Whitespace
-                                                                                                                                                            text: " "
-                                                                                                                                                          - kind: IdentifierExpression
-                                                                                                                                                            children:
-                                                                                                                                                              - kind: Ampersand
-                                                                                                                                                                text: "&"
+                                                                                                                                                                          - kind: IdentifierExpression
+                                                                                                                                                                            children:
+                                                                                                                                                                              - kind: Identifier
+                                                                                                                                                                                text: Value
+                                                                                                                                                                  - kind: RightParenthesis
+                                                                                                                                                                    text: )
+                                                                                                                                                              - kind: Whitespace
+                                                                                                                                                                text: " "
+                                                                                                                                                              - kind: XorKeyword
+                                                                                                                                                                text: Xor
+                                                                                                                                                              - kind: Whitespace
+                                                                                                                                                                text: " "
+                                                                                                                                                              - kind: IdentifierExpression
+                                                                                                                                                                children:
+                                                                                                                                                                  - kind: Ampersand
+                                                                                                                                                                    text: "&"
                                                                                                                                       - kind: CallStatement
                                                                                                                                         children:
                                                                                                                                           - kind: Identifier
@@ -10758,8 +10768,6 @@ cst:
                                                                                                                                                     text: MemCopy
                                                                                                                                                   - kind: Whitespace
                                                                                                                                                     text: " "
-                                                                                                                                                  - kind: LeftParenthesis
-                                                                                                                                                    text: (
                                                                                                                                                   - kind: ArgumentList
                                                                                                                                                     children:
                                                                                                                                                       - kind: Argument
@@ -10768,34 +10776,38 @@ cst:
                                                                                                                                                             children:
                                                                                                                                                               - kind: LeftParenthesis
                                                                                                                                                                 text: (
-                                                                                                                                                              - kind: BinaryExpression
+                                                                                                                                                              - kind: ParenthesizedExpression
                                                                                                                                                                 children:
-                                                                                                                                                                  - kind: CallExpression
+                                                                                                                                                                  - kind: LeftParenthesis
+                                                                                                                                                                    text: (
+                                                                                                                                                                  - kind: BinaryExpression
                                                                                                                                                                     children:
-                                                                                                                                                                      - kind: Identifier
-                                                                                                                                                                        text: VarPtr
-                                                                                                                                                                      - kind: LeftParenthesis
-                                                                                                                                                                        text: (
-                                                                                                                                                                      - kind: ArgumentList
+                                                                                                                                                                      - kind: CallExpression
                                                                                                                                                                         children:
-                                                                                                                                                                          - kind: Argument
+                                                                                                                                                                          - kind: Identifier
+                                                                                                                                                                            text: VarPtr
+                                                                                                                                                                          - kind: LeftParenthesis
+                                                                                                                                                                            text: (
+                                                                                                                                                                          - kind: ArgumentList
                                                                                                                                                                             children:
-                                                                                                                                                                              - kind: IdentifierExpression
+                                                                                                                                                                              - kind: Argument
                                                                                                                                                                                 children:
-                                                                                                                                                                                  - kind: Identifier
-                                                                                                                                                                                    text: Value
-                                                                                                                                                                      - kind: RightParenthesis
-                                                                                                                                                                        text: )
-                                                                                                                                                                  - kind: Whitespace
-                                                                                                                                                                    text: " "
-                                                                                                                                                                  - kind: XorKeyword
-                                                                                                                                                                    text: Xor
-                                                                                                                                                                  - kind: Whitespace
-                                                                                                                                                                    text: " "
-                                                                                                                                                                  - kind: IdentifierExpression
-                                                                                                                                                                    children:
-                                                                                                                                                                      - kind: Ampersand
-                                                                                                                                                                        text: "&"
+                                                                                                                                                                                  - kind: IdentifierExpression
+                                                                                                                                                                                    children:
+                                                                                                                                                                                      - kind: Identifier
+                                                                                                                                                                                        text: Value
+                                                                                                                                                                          - kind: RightParenthesis
+                                                                                                                                                                            text: )
+                                                                                                                                                                      - kind: Whitespace
+                                                                                                                                                                        text: " "
+                                                                                                                                                                      - kind: XorKeyword
+                                                                                                                                                                        text: Xor
+                                                                                                                                                                      - kind: Whitespace
+                                                                                                                                                                        text: " "
+                                                                                                                                                                      - kind: IdentifierExpression
+                                                                                                                                                                        children:
+                                                                                                                                                                          - kind: Ampersand
+                                                                                                                                                                            text: "&"
                                                                                                                                               - kind: CallStatement
                                                                                                                                                 children:
                                                                                                                                                   - kind: Identifier

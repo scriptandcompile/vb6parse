@@ -2872,30 +2872,32 @@ cst:
                     text: Assert
                   - kind: Whitespace
                     text: " "
-                  - kind: LeftParenthesis
-                    text: (
                   - kind: ArgumentList
                     children:
                       - kind: Argument
                         children:
-                          - kind: BinaryExpression
+                          - kind: ParenthesizedExpression
                             children:
-                              - kind: IdentifierExpression
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: BinaryExpression
                                 children:
-                                  - kind: Identifier
-                                    text: InIDECheck
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BooleanLiteralExpression
-                                children:
-                                  - kind: TrueKeyword
-                                    text: "True"
-                  - kind: RightParenthesis
-                    text: )
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: InIDECheck
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: BooleanLiteralExpression
+                                    children:
+                                      - kind: TrueKeyword
+                                        text: "True"
+                              - kind: RightParenthesis
+                                text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: AssignmentStatement
@@ -4470,18 +4472,20 @@ cst:
                                             text: IEUP
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: LeftParenthesis
-                                            text: (
                                           - kind: ArgumentList
                                             children:
                                               - kind: Argument
                                                 children:
-                                                  - kind: StringLiteralExpression
+                                                  - kind: ParenthesizedExpression
                                                     children:
-                                                      - kind: StringLiteral
-                                                        text: "\"\""
-                                          - kind: RightParenthesis
-                                            text: )
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: StringLiteralExpression
+                                                        children:
+                                                          - kind: StringLiteral
+                                                            text: "\"\""
+                                                      - kind: RightParenthesis
+                                                        text: )
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace

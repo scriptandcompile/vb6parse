@@ -2707,32 +2707,34 @@ cst:
                             text: Assert
                           - kind: Whitespace
                             text: " "
-                          - kind: LeftParenthesis
-                            text: (
                           - kind: ArgumentList
                             children:
                               - kind: Argument
                                 children:
-                                  - kind: BinaryExpression
+                                  - kind: ParenthesizedExpression
                                     children:
-                                      - kind: NumericLiteralExpression
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: BinaryExpression
                                         children:
-                                          - kind: IntegerLiteral
-                                            text: "0"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: DivisionOperator
-                                        text: /
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "0"
-                          - kind: RightParenthesis
-                            text: )
-                      - kind: Whitespace
-                        text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "0"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: DivisionOperator
+                                            text: /
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "0"
+                                      - kind: RightParenthesis
+                                        text: )
+                              - kind: Whitespace
+                                text: " "
                       - kind: EndOfLineComment
                         text: "' crash by generating a division by zero error in debug mode"
                       - kind: Newline

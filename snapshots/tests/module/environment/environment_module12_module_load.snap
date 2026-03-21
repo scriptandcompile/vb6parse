@@ -5445,18 +5445,20 @@ cst:
                             text: CloseHandle
                           - kind: Whitespace
                             text: " "
-                          - kind: LeftParenthesis
-                            text: (
                           - kind: ArgumentList
                             children:
                               - kind: Argument
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: ParenthesizedExpression
                                     children:
-                                      - kind: Identifier
-                                        text: lFile
-                          - kind: RightParenthesis
-                            text: )
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: lFile
+                                      - kind: RightParenthesis
+                                        text: )
                           - kind: Newline
                             text: "\r\n"
                       - kind: ExitStatement
@@ -6947,18 +6949,20 @@ cst:
                                     text: CloseHandle
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: LeftParenthesis
-                                    text: (
                                   - kind: ArgumentList
                                     children:
                                       - kind: Argument
                                         children:
-                                          - kind: IdentifierExpression
+                                          - kind: ParenthesizedExpression
                                             children:
-                                              - kind: Identifier
-                                                text: lFile
-                                  - kind: RightParenthesis
-                                    text: )
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: lFile
+                                              - kind: RightParenthesis
+                                                text: )
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: ExitStatement
@@ -7491,18 +7495,20 @@ cst:
                     text: CloseHandle
                   - kind: Whitespace
                     text: " "
-                  - kind: LeftParenthesis
-                    text: (
                   - kind: ArgumentList
                     children:
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
+                          - kind: ParenthesizedExpression
                             children:
-                              - kind: Identifier
-                                text: lFile
-                  - kind: RightParenthesis
-                    text: )
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: lFile
+                              - kind: RightParenthesis
+                                text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: ExitStatement
@@ -7619,18 +7625,20 @@ cst:
                                     text: CloseHandle
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: LeftParenthesis
-                                    text: (
                                   - kind: ArgumentList
                                     children:
                                       - kind: Argument
                                         children:
-                                          - kind: IdentifierExpression
+                                          - kind: ParenthesizedExpression
                                             children:
-                                              - kind: Identifier
-                                                text: lFile
-                                  - kind: RightParenthesis
-                                    text: )
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: lFile
+                                              - kind: RightParenthesis
+                                                text: )
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace

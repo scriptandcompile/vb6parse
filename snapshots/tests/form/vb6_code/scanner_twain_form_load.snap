@@ -2781,22 +2781,24 @@ cst:
                             text: TWAIN_SelectImageSource
                           - kind: Whitespace
                             text: " "
-                          - kind: LeftParenthesis
-                            text: (
                           - kind: ArgumentList
                             children:
                               - kind: Argument
                                 children:
-                                  - kind: MemberAccessExpression
+                                  - kind: ParenthesizedExpression
                                     children:
-                                      - kind: Identifier
-                                        text: frmScanner
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: hWnd
-                          - kind: RightParenthesis
-                            text: )
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: frmScanner
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: hWnd
+                                      - kind: RightParenthesis
+                                        text: )
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace

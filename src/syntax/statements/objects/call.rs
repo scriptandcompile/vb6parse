@@ -93,10 +93,27 @@ impl Parser<'_> {
         self.parse_call_target();
 
         // Parse arguments (with or without parentheses)
+        // Check if there's whitespace before the parenthesis - this is important for VB6's graphics methods.
+        // In VB6:
+        // - `MySub()` - zero argument call with immediate parentheses
+        // - `MySub(x, y)` - call with parentheses enclosing arguments
+        // - `MySub x, y` - call without parentheses
+        // - `MySub (x, y)` - call with SPACE before paren means first arg is parenthesized expression
+        // - `Picture1.Line (x1, y1)-(x2, y2)` - graphics method with special coordinate syntax
+
+        // Check for whitespace BEFORE consuming it
+        let has_whitespace_before_paren = self.at_token(Token::Whitespace);
         self.consume_whitespace();
+
         if self.at_token(Token::LeftParenthesis) {
-            // Arguments with parentheses
-            self.parse_parenthesized_arguments();
+            if has_whitespace_before_paren {
+                // Space before parenthesis means the parentheses are part of argument expressions
+                // This handles graphics methods like Line: Picture1.Line (x, y)-(x2, y2)
+                self.parse_unparenthesized_arguments();
+            } else {
+                // No space means parentheses delimit the argument list
+                self.parse_parenthesized_arguments();
+            }
         } else if !self.at_token(Token::Newline) && !self.is_at_end() {
             // Arguments without parentheses (VB6 allows this for Sub calls)
             self.parse_unparenthesized_arguments();
@@ -128,17 +145,46 @@ impl Parser<'_> {
         }
 
         // Handle member access chains (obj.prop.method)
-        while !self.is_at_end() && !self.at_token(Token::Newline) {
-            self.consume_whitespace();
-
-            if self.at_token(Token::PeriodOperator) {
-                self.consume_token();
-                self.consume_whitespace();
-
-                // Consume the member name
-                if self.is_identifier() || self.at_keyword() {
-                    self.consume_token();
+        // Note: We peek ahead to see if there's a period, but we DON'T consume trailing whitespace
+        // at the end of the call target. This allows parse_procedure_call to check for whitespace
+        // before arguments to distinguish between `MySub()` and `MySub ()`
+        loop {
+            // Check if next non-whitespace token is a period
+            let mut lookahead = 0;
+            let mut found_whitespace = false;
+            while let Some((_, token)) = self.tokens.get(self.pos + lookahead) {
+                if *token == Token::Whitespace {
+                    lookahead += 1;
+                    found_whitespace = true;
                 } else {
+                    break;
+                }
+            }
+
+            // If we found a period after optional whitespace, consume the whitespace and period
+            if let Some((_, token)) = self.tokens.get(self.pos + lookahead) {
+                if *token == Token::PeriodOperator {
+                    // Consume any whitespace before the period
+                    if found_whitespace {
+                        for _ in 0..lookahead {
+                            self.consume_token();
+                        }
+                    }
+
+                    // Consume the period
+                    self.consume_token();
+
+                    // Consume whitespace after the period
+                    self.consume_whitespace();
+
+                    // Consume the member name
+                    if self.is_identifier() || self.at_keyword() {
+                        self.consume_token();
+                    } else {
+                        break;
+                    }
+                } else {
+                    // Not a period, stop here without consuming trailing whitespace
                     break;
                 }
             } else {

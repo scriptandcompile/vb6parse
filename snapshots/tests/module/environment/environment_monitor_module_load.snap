@@ -2579,74 +2579,66 @@ cst:
                     text: Scale
                   - kind: Whitespace
                     text: " "
-                  - kind: LeftParenthesis
-                    text: (
                   - kind: ArgumentList
                     children:
                       - kind: Argument
                         children:
-                          - kind: MemberAccessExpression
+                          - kind: BinaryExpression
                             children:
-                              - kind: Identifier
-                                text: rcVS
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: Left
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Argument
-                        children:
-                          - kind: MemberAccessExpression
-                            children:
-                              - kind: Identifier
-                                text: rcVS
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: top
-                  - kind: RightParenthesis
-                    text: )
-              - kind: Unknown
-                text: "-"
-              - kind: Unknown
-                text: (
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: rcVS
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Right
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Comma
-                                text: ","
-                      - kind: Whitespace
-                        text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: rcVS
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Bottom
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: RightParenthesis
-                                text: )
+                              - kind: ParenthesizedExpression
+                                children:
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: rcVS
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Left
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: rcVS
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: top
+                                  - kind: RightParenthesis
+                                    text: )
+                              - kind: SubtractionOperator
+                                text: "-"
+                              - kind: ParenthesizedExpression
+                                children:
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: rcVS
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Right
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: rcVS
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Bottom
+                                  - kind: RightParenthesis
+                                    text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace

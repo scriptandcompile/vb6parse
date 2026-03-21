@@ -1392,34 +1392,36 @@ cst:
                         text: CreateFolder
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
                       - kind: ArgumentList
                         children:
                           - kind: Argument
                             children:
-                              - kind: BinaryExpression
+                              - kind: ParenthesizedExpression
                                 children:
-                                  - kind: MemberAccessExpression
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: BinaryExpression
                                     children:
-                                      - kind: Identifier
-                                        text: App
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: Path
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: AdditionOperator
-                                    text: +
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: StringLiteralExpression
-                                    children:
-                                      - kind: StringLiteral
-                                        text: "\"\\Game\\\""
-                      - kind: RightParenthesis
-                        text: )
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: App
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: Path
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: AdditionOperator
+                                        text: +
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"\\Game\\\""
+                                  - kind: RightParenthesis
+                                    text: )
                       - kind: Newline
                         text: "\n"
                   - kind: Newline

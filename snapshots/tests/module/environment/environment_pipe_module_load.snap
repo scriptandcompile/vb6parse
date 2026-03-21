@@ -14917,58 +14917,58 @@ cst:
                     text: PlaySound
                   - kind: Whitespace
                     text: " "
-                  - kind: LeftParenthesis
-                    text: (
                   - kind: ArgumentList
                     children:
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
+                          - kind: ParenthesizedExpression
                             children:
-                              - kind: Identifier
-                                text: f
-                  - kind: RightParenthesis
-                    text: )
-              - kind: Unknown
-                text: ","
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
-                children:
-                  - kind: ByValKeyword
-                    text: ByVal
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: NumericLiteralExpression
-                            children:
-                              - kind: LongLiteral
-                                text: 0&
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: f
+                              - kind: RightParenthesis
+                                text: )
                       - kind: Comma
                         text: ","
                       - kind: Whitespace
                         text: " "
                       - kind: Argument
                         children:
-                          - kind: BinaryExpression
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: SND_MEMORY
-                              - kind: Whitespace
-                                text: " "
+                              - kind: ByValKeyword
+                                text: ByVal
+                      - kind: Whitespace
+                        text: " "
+              - kind: Unknown
+                text: 0&
+              - kind: Unknown
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: SND_MEMORY
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
                               - kind: OrKeyword
                                 text: Or
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: SND_ASYNC
+                      - kind: Whitespace
+                        text: " "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: SND_ASYNC
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword

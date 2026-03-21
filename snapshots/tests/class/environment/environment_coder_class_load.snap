@@ -341,38 +341,28 @@ cst:
                                         children:
                                           - kind: Identifier
                                             text: item
-                                  - kind: IdentifierExpression
-                                    children:
                                       - kind: Comma
                                         text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: i
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Comma
-                                                text: ","
                                       - kind: Whitespace
                                         text: " "
-                              - kind: Unknown
-                                text: "1"
-                              - kind: Unknown
-                                text: )
-                              - kind: Whitespace
-                                text: " "
-                              - kind: AssignmentStatement
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: EqualityOperator
-                                        text: "="
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: i
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "1"
+                                      - kind: RightParenthesis
+                                        text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
                                   - kind: Whitespace
                                     text: " "
                                   - kind: CallExpression
@@ -623,38 +613,28 @@ cst:
                                             children:
                                               - kind: Identifier
                                                 text: item
-                                      - kind: IdentifierExpression
-                                        children:
                                           - kind: Comma
                                             text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: i
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Comma
-                                                    text: ","
                                           - kind: Whitespace
                                             text: " "
-                                  - kind: Unknown
-                                    text: "1"
-                                  - kind: Unknown
-                                    text: )
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: AssignmentStatement
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: EqualityOperator
-                                            text: "="
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: i
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "1"
+                                          - kind: RightParenthesis
+                                            text: )
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
                                       - kind: Whitespace
                                         text: " "
                                       - kind: CallExpression
@@ -1527,38 +1507,28 @@ cst:
                                 children:
                                   - kind: Identifier
                                     text: Key
-                          - kind: IdentifierExpression
-                            children:
                               - kind: Comma
                                 text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: i
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Comma
-                                        text: ","
                               - kind: Whitespace
                                 text: " "
-                      - kind: Unknown
-                        text: "2"
-                      - kind: Unknown
-                        text: )
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AssignmentStatement
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: EqualityOperator
-                                text: "="
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: i
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "2"
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
                           - kind: Whitespace
                             text: " "
                           - kind: CallExpression
@@ -4571,38 +4541,28 @@ cst:
                                 children:
                                   - kind: Identifier
                                     text: item
-                          - kind: IdentifierExpression
-                            children:
                               - kind: Comma
                                 text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: i
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Comma
-                                        text: ","
                               - kind: Whitespace
                                 text: " "
-                      - kind: Unknown
-                        text: "1"
-                      - kind: Unknown
-                        text: )
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AssignmentStatement
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: EqualityOperator
-                                text: "="
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: i
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "1"
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
                           - kind: Whitespace
                             text: " "
                           - kind: CallExpression

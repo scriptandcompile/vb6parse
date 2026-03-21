@@ -2655,58 +2655,50 @@ cst:
                                     text: Line
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: LeftParenthesis
-                                    text: (
                                   - kind: ArgumentList
                                     children:
                                       - kind: Argument
                                         children:
-                                          - kind: IdentifierExpression
+                                          - kind: BinaryExpression
                                             children:
-                                              - kind: Identifier
-                                                text: LastX
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: LastY
-                                  - kind: RightParenthesis
-                                    text: )
-                              - kind: Unknown
-                                text: "-"
-                              - kind: Unknown
-                                text: (
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: x
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Comma
-                                                text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: y
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: RightParenthesis
-                                                text: )
+                                              - kind: ParenthesizedExpression
+                                                children:
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: LastX
+                                                  - kind: Comma
+                                                    text: ","
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: LastY
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                              - kind: SubtractionOperator
+                                                text: "-"
+                                              - kind: ParenthesizedExpression
+                                                children:
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: x
+                                                  - kind: Comma
+                                                    text: ","
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: y
+                                                  - kind: RightParenthesis
+                                                    text: )
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -2805,58 +2797,50 @@ cst:
                                         text: Line
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: LeftParenthesis
-                                        text: (
                                       - kind: ArgumentList
                                         children:
                                           - kind: Argument
                                             children:
-                                              - kind: IdentifierExpression
+                                              - kind: BinaryExpression
                                                 children:
-                                                  - kind: Identifier
-                                                    text: x
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: tHeight
-                                      - kind: RightParenthesis
-                                        text: )
-                                  - kind: Unknown
-                                    text: "-"
-                                  - kind: Unknown
-                                    text: (
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: x
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Comma
-                                                    text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: y
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: RightParenthesis
-                                                    text: )
+                                                  - kind: ParenthesizedExpression
+                                                    children:
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: x
+                                                      - kind: Comma
+                                                        text: ","
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: tHeight
+                                                      - kind: RightParenthesis
+                                                        text: )
+                                                  - kind: SubtractionOperator
+                                                    text: "-"
+                                                  - kind: ParenthesizedExpression
+                                                    children:
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: x
+                                                      - kind: Comma
+                                                        text: ","
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: y
+                                                      - kind: RightParenthesis
+                                                        text: )
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace
