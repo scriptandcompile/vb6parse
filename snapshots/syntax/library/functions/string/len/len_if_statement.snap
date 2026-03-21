@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/len.rs
+source: vb6parse/src/syntax/library/functions/string/len.rs
 expression: tree
 ---
 root:
@@ -77,8 +77,14 @@ root:
                           text: MsgBox
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"Too short\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Too short\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

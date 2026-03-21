@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/type_checking/isobject.rs
+source: vb6parse/src/syntax/library/functions/type_checking/isobject.rs
 expression: tree
 ---
 root:
@@ -37,20 +37,38 @@ root:
                   text: Add
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: IsObject
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: items
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: i
-                - kind: RightParenthesis
-                  text: )
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: IsObject
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: CallExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: items
+                                        - kind: LeftParenthesis
+                                          text: (
+                                        - kind: ArgumentList
+                                          children:
+                                            - kind: Argument
+                                              children:
+                                                - kind: IdentifierExpression
+                                                  children:
+                                                    - kind: Identifier
+                                                      text: i
+                                        - kind: RightParenthesis
+                                          text: )
+                            - kind: RightParenthesis
+                              text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

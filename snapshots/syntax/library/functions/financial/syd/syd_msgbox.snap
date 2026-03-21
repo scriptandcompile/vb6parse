@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/financial/syd.rs
+source: vb6parse/src/syntax/library/functions/financial/syd.rs
 expression: tree
 ---
 root:
@@ -33,52 +33,90 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Depreciation: $\""
-                - kind: Whitespace
-                  text: " "
-                - kind: Ampersand
-                  text: "&"
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: Format$
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: SYD
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: cost
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: salvage
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: life
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: year
-                - kind: RightParenthesis
-                  text: )
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: StringLiteral
-                  text: "\"#,##0.00\""
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: BinaryExpression
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Depreciation: $\""
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Ampersand
+                              text: "&"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: Format$
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: CallExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: SYD
+                                            - kind: LeftParenthesis
+                                              text: (
+                                            - kind: ArgumentList
+                                              children:
+                                                - kind: Argument
+                                                  children:
+                                                    - kind: IdentifierExpression
+                                                      children:
+                                                        - kind: Identifier
+                                                          text: cost
+                                                - kind: Comma
+                                                  text: ","
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: Argument
+                                                  children:
+                                                    - kind: IdentifierExpression
+                                                      children:
+                                                        - kind: Identifier
+                                                          text: salvage
+                                                - kind: Comma
+                                                  text: ","
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: Argument
+                                                  children:
+                                                    - kind: IdentifierExpression
+                                                      children:
+                                                        - kind: Identifier
+                                                          text: life
+                                                - kind: Comma
+                                                  text: ","
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: Argument
+                                                  children:
+                                                    - kind: IdentifierExpression
+                                                      children:
+                                                        - kind: Identifier
+                                                          text: year
+                                            - kind: RightParenthesis
+                                              text: )
+                                    - kind: Comma
+                                      text: ","
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: Argument
+                                      children:
+                                        - kind: StringLiteralExpression
+                                          children:
+                                            - kind: StringLiteral
+                                              text: "\"#,##0.00\""
+                                - kind: RightParenthesis
+                                  text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

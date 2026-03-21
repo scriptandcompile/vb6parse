@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/math/log.rs
+source: vb6parse/src/syntax/library/functions/math/log.rs
 expression: tree
 ---
 root:
@@ -59,8 +59,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Greater than 1\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Greater than 1\""
                 - kind: Newline
                   text: "\n"
             - kind: Whitespace

@@ -511,10 +511,10 @@ cst:
                     text: ResetMidiVU
                   - kind: Whitespace
                     text: " "
-                  - kind: EndOfLineComment
-                    text: "' Set all vu meters to 0"
-                  - kind: Newline
-                    text: "\n"
+              - kind: EndOfLineComment
+                text: "' Set all vu meters to 0"
+              - kind: Newline
+                text: "\n"
               - kind: IfStatement
                 children:
                   - kind: IfKeyword
@@ -843,62 +843,100 @@ cst:
                                             text: Shell
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Identifier
-                                            text: App
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: path
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Ampersand
-                                            text: "&"
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: StringLiteral
-                                            text: "\"\\support\\sidplayer\\sid_player.exe \""
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Ampersand
-                                            text: "&"
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Identifier
-                                            text: Chr
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: IntegerLiteral
-                                            text: "34"
-                                          - kind: RightParenthesis
-                                            text: )
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Ampersand
-                                            text: "&"
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Identifier
-                                            text: FileName
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Ampersand
-                                            text: "&"
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Identifier
-                                            text: Chr
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: IntegerLiteral
-                                            text: "34"
-                                          - kind: RightParenthesis
-                                            text: )
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Identifier
-                                            text: vbHide
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: BinaryExpression
+                                                    children:
+                                                      - kind: BinaryExpression
+                                                        children:
+                                                          - kind: BinaryExpression
+                                                            children:
+                                                              - kind: BinaryExpression
+                                                                children:
+                                                                  - kind: MemberAccessExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: App
+                                                                      - kind: PeriodOperator
+                                                                        text: "."
+                                                                      - kind: Identifier
+                                                                        text: path
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: Ampersand
+                                                                    text: "&"
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: StringLiteralExpression
+                                                                    children:
+                                                                      - kind: StringLiteral
+                                                                        text: "\"\\support\\sidplayer\\sid_player.exe \""
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: Ampersand
+                                                                text: "&"
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: CallExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: Chr
+                                                                  - kind: LeftParenthesis
+                                                                    text: (
+                                                                  - kind: ArgumentList
+                                                                    children:
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: NumericLiteralExpression
+                                                                            children:
+                                                                              - kind: IntegerLiteral
+                                                                                text: "34"
+                                                                  - kind: RightParenthesis
+                                                                    text: )
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Ampersand
+                                                            text: "&"
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: FileName
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Ampersand
+                                                        text: "&"
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: CallExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: Chr
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: NumericLiteralExpression
+                                                                    children:
+                                                                      - kind: IntegerLiteral
+                                                                        text: "34"
+                                                          - kind: RightParenthesis
+                                                            text: )
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: vbHide
                                           - kind: Newline
                                             text: "\n"
                                       - kind: Whitespace
@@ -921,8 +959,14 @@ cst:
                                             text: Pause
                                           - kind: LeftParenthesis
                                             text: (
-                                          - kind: IntegerLiteral
-                                            text: "500"
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: NumericLiteralExpression
+                                                    children:
+                                                      - kind: IntegerLiteral
+                                                        text: "500"
                                           - kind: RightParenthesis
                                             text: )
                                           - kind: Newline
@@ -1031,8 +1075,14 @@ cst:
                                             text: MsgBox
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: StringLiteral
-                                            text: "\"Start beep player\""
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"Start beep player\""
                                           - kind: Newline
                                             text: "\n"
                                       - kind: Whitespace
@@ -1093,8 +1143,14 @@ cst:
                                             text: OpenFile
                                           - kind: LeftParenthesis
                                             text: (
-                                          - kind: Identifier
-                                            text: FileName
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: FileName
                                           - kind: RightParenthesis
                                             text: )
                                           - kind: Newline
@@ -1229,26 +1285,44 @@ cst:
                             text: PostMessage
                           - kind: LeftParenthesis
                             text: (
-                          - kind: Identifier
-                            text: ConsoleWindow
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: WM_CLOSE
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: LongLiteral
-                            text: 0&
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: LongLiteral
-                            text: 0&
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: ConsoleWindow
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: WM_CLOSE
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: LongLiteral
+                                        text: 0&
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: LongLiteral
+                                        text: 0&
                           - kind: RightParenthesis
                             text: )
                           - kind: Newline

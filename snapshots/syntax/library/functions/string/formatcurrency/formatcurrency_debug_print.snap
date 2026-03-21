@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/formatcurrency.rs
+source: vb6parse/src/syntax/library/functions/string/formatcurrency.rs
 expression: tree
 ---
 root:
@@ -17,13 +17,25 @@ root:
           text: Print
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: FormatCurrency
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: price
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: FormatCurrency
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: price
+                    - kind: RightParenthesis
+                      text: )
         - kind: Newline
           text: "\n"

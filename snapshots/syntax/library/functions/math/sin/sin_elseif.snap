@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/math/sin.rs
+source: vb6parse/src/syntax/library/functions/math/sin.rs
 expression: tree
 ---
 root:
@@ -77,8 +77,14 @@ root:
                           text: MsgBox
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"High\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"High\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace
@@ -133,8 +139,14 @@ root:
                               text: MsgBox
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Medium\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Medium\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace
@@ -155,8 +167,14 @@ root:
                               text: MsgBox
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Low\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Low\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/instrrev.rs
+source: vb6parse/src/syntax/library/functions/string/instrrev.rs
 expression: tree
 ---
 root:
@@ -33,28 +33,48 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Position: \""
-                - kind: Whitespace
-                  text: " "
-                - kind: Ampersand
-                  text: "&"
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: InStrRev
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: path
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: StringLiteral
-                  text: "\"\\\""
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: BinaryExpression
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Position: \""
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Ampersand
+                              text: "&"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: InStrRev
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: path
+                                    - kind: Comma
+                                      text: ","
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: Argument
+                                      children:
+                                        - kind: StringLiteralExpression
+                                          children:
+                                            - kind: StringLiteral
+                                              text: "\"\\\""
+                                - kind: RightParenthesis
+                                  text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

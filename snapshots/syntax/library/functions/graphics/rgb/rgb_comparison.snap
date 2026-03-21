@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/graphics/rgb.rs
+source: vb6parse/src/syntax/library/functions/graphics/rgb.rs
 expression: tree
 ---
 root:
@@ -109,8 +109,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Colors match\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Colors match\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/system_interaction/stop.rs
+source: vb6parse/src/syntax/library/statements/system_interaction/stop.rs
 expression: tree
 ---
 root:
@@ -81,8 +81,14 @@ root:
                   text: ProcessItem
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: item
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: item
                 - kind: Newline
                   text: "\n"
         - kind: NextKeyword

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/dateadd.rs
+source: vb6parse/src/syntax/library/functions/datetime/dateadd.rs
 expression: tree
 ---
 root:
@@ -13,33 +13,57 @@ root:
           text: MsgBox
         - kind: Whitespace
           text: " "
-        - kind: StringLiteral
-          text: "\"Next week: \""
-        - kind: Whitespace
-          text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: DateAdd
-        - kind: LeftParenthesis
-          text: (
-        - kind: StringLiteral
-          text: "\"ww\""
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "1"
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: DateKeyword
-          text: Date
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: BinaryExpression
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Next week: \""
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: DateAdd
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"ww\""
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: NumericLiteralExpression
+                                  children:
+                                    - kind: IntegerLiteral
+                                      text: "1"
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: DateKeyword
+                                      text: Date
+                        - kind: RightParenthesis
+                          text: )
         - kind: Newline
           text: "\n"

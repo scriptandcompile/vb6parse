@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/objects/call.rs
+source: vb6parse/src/syntax/statements/objects/call.rs
 expression: tree
 ---
 root:
@@ -33,6 +33,8 @@ root:
                   text: DoSomething
                 - kind: LeftParenthesis
                   text: (
+                - kind: ArgumentList
+                  children: []
                 - kind: RightParenthesis
                   text: )
                 - kind: Newline

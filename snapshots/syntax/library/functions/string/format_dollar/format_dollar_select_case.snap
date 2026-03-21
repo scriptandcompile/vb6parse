@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/format_dollar.rs
+source: vb6parse/src/syntax/library/functions/string/format_dollar.rs
 expression: tree
 ---
 root:
@@ -111,8 +111,14 @@ root:
                               text: Print
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Empty\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Empty\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace

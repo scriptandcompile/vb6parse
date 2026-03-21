@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/interaction/input.rs
+source: vb6parse/src/syntax/library/functions/interaction/input.rs
 expression: tree
 ---
 root:
@@ -67,8 +67,14 @@ root:
               children:
                 - kind: Identifier
                   text: fileNum
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: RightParenthesis
+                              text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

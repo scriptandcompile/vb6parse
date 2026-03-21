@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/len.rs
+source: vb6parse/src/syntax/library/functions/string/len.rs
 expression: tree
 ---
 root:
@@ -105,26 +105,46 @@ root:
                           text: Print
                         - kind: Whitespace
                           text: " "
-                        - kind: MidKeyword
-                          text: Mid
-                        - kind: LeftParenthesis
-                          text: (
-                        - kind: TextKeyword
-                          text: text
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
-                        - kind: Identifier
-                          text: i
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
-                        - kind: IntegerLiteral
-                          text: "1"
-                        - kind: RightParenthesis
-                          text: )
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: CallExpression
+                                  children:
+                                    - kind: MidKeyword
+                                      text: Mid
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: IdentifierExpression
+                                              children:
+                                                - kind: TextKeyword
+                                                  text: text
+                                        - kind: Comma
+                                          text: ","
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: Argument
+                                          children:
+                                            - kind: IdentifierExpression
+                                              children:
+                                                - kind: Identifier
+                                                  text: i
+                                        - kind: Comma
+                                          text: ","
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: Argument
+                                          children:
+                                            - kind: NumericLiteralExpression
+                                              children:
+                                                - kind: IntegerLiteral
+                                                  text: "1"
+                                    - kind: RightParenthesis
+                                      text: )
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

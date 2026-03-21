@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/file/fileattr.rs
+source: vb6parse/src/syntax/library/functions/file/fileattr.rs
 expression: tree
 ---
 root:
@@ -17,31 +17,57 @@ root:
           text: Add
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: FileAttr
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: i
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "2"
-        - kind: RightParenthesis
-          text: )
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: CStr
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: i
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: FileAttr
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: i
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "2"
+                    - kind: RightParenthesis
+                      text: )
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: CStr
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: i
+                    - kind: RightParenthesis
+                      text: )
         - kind: Newline
           text: "\n"

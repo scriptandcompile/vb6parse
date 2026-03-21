@@ -61,22 +61,28 @@ root:
               children:
                 - kind: Identifier
                   text: FullData
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: IntegerLiteral
-                  text: "1"
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: IntegerLiteral
-                  text: "10"
-                - kind: RightParenthesis
-                  text: )
-                - kind: Newline
-                  text: "\n"
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Comma
+                              text: ","
+                    - kind: Whitespace
+                      text: " "
+            - kind: Unknown
+              text: "1"
+            - kind: Unknown
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Unknown
+              text: "10"
+            - kind: Unknown
+              text: )
+            - kind: Newline
+              text: "\n"
             - kind: Whitespace
               text: "            "
         - kind: EndKeyword

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/conversion/hex_dollar.rs
+source: vb6parse/src/syntax/library/functions/conversion/hex_dollar.rs
 expression: tree
 ---
 root:
@@ -131,24 +131,32 @@ root:
                   text: Len
                 - kind: LeftParenthesis
                   text: (
-                - kind: Identifier
-                  text: hexStr
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: hexStr
                 - kind: RightParenthesis
                   text: )
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: StringLiteral
-                  text: "\"0\""
-                - kind: RightParenthesis
-                  text: )
-                - kind: Whitespace
-                  text: " "
-                - kind: Ampersand
-                  text: "&"
-                - kind: Whitespace
-                  text: " "
+            - kind: Unknown
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Unknown
+              text: "\"0\""
+            - kind: Unknown
+              text: )
+            - kind: Whitespace
+              text: " "
+            - kind: Unknown
+              text: "&"
+            - kind: Whitespace
+              text: " "
+            - kind: CallStatement
+              children:
                 - kind: Identifier
                   text: hexStr
                 - kind: Newline

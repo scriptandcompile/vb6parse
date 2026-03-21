@@ -59,34 +59,52 @@ root:
               children:
                 - kind: Identifier
                   text: Value
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: PeriodOperator
-                  text: "."
-                - kind: Identifier
-                  text: MinVal
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: PeriodOperator
-                  text: "."
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: MemberAccessExpression
+                          children:
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: PeriodOperator
+                              text: "."
+                            - kind: Identifier
+                              text: MinVal
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: PeriodOperator
+                              text: "."
+            - kind: CallStatement
+              children:
                 - kind: Identifier
                   text: MaxVal
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: PeriodOperator
-                  text: "."
-                - kind: Identifier
-                  text: Interval
-                - kind: RightParenthesis
-                  text: )
-                - kind: Newline
-                  text: "\n"
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: MemberAccessExpression
+                          children:
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: PeriodOperator
+                              text: "."
+                            - kind: Identifier
+                              text: Interval
+            - kind: Unknown
+              text: )
+            - kind: Newline
+              text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

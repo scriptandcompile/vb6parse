@@ -15,13 +15,23 @@ root:
           text: Print
         - kind: Whitespace
           text: " "
-        - kind: StringLiteral
-          text: "\"File number: \""
-        - kind: Whitespace
-          text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: FreeFile
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: BinaryExpression
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"File number: \""
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: FreeFile

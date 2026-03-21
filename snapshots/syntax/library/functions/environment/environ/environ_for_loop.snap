@@ -121,8 +121,14 @@ root:
                   text: ProcessVar
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: envVar
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: envVar
                 - kind: Newline
                   text: "\n"
         - kind: NextKeyword

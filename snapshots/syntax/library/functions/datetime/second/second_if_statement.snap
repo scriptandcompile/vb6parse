@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/second.rs
+source: vb6parse/src/syntax/library/functions/datetime/second.rs
 expression: tree
 ---
 root:
@@ -57,8 +57,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"New minute!\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"New minute!\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

@@ -61,8 +61,14 @@ root:
               children:
                 - kind: Identifier
                   text: StartTime
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: RightParenthesis
+                              text: )
                 - kind: Newline
                   text: "\n"
             - kind: Whitespace

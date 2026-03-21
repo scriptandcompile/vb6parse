@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/interaction/input.rs
+source: vb6parse/src/syntax/library/functions/interaction/input.rs
 expression: tree
 ---
 root:
@@ -37,26 +37,42 @@ root:
                   text: ProcessData
                 - kind: LeftParenthesis
                   text: (
-                - kind: InputKeyword
-                  text: Input
-                - kind: LeftParenthesis
-                  text: (
-                - kind: IntegerLiteral
-                  text: "100"
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: Octothorpe
-                  text: "#"
-                - kind: IntegerLiteral
-                  text: "1"
-                - kind: RightParenthesis
-                  text: )
-                - kind: RightParenthesis
-                  text: )
-                - kind: Newline
-                  text: "\n"
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: InputKeyword
+                              text: Input
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: NumericLiteralExpression
+                                      children:
+                                        - kind: IntegerLiteral
+                                          text: "100"
+                                - kind: Comma
+                                  text: ","
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Octothorpe
+                                          text: "#"
+            - kind: Unknown
+              text: "1"
+            - kind: Unknown
+              text: )
+            - kind: Unknown
+              text: )
+            - kind: Newline
+              text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

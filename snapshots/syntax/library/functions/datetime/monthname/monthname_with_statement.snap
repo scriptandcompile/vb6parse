@@ -69,18 +69,28 @@ root:
               children:
                 - kind: Identifier
                   text: ReportDate
-                - kind: RightParenthesis
-                  text: )
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: TrueKeyword
-                  text: "True"
-                - kind: RightParenthesis
-                  text: )
-                - kind: Newline
-                  text: "\n"
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: RightParenthesis
+                              text: )
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Argument
+                      children:
+                        - kind: BooleanLiteralExpression
+                          children:
+                            - kind: TrueKeyword
+                              text: "True"
+            - kind: Unknown
+              text: )
+            - kind: Newline
+              text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

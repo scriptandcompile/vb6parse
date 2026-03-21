@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/type_checking/ismissing.rs
+source: vb6parse/src/syntax/library/functions/type_checking/ismissing.rs
 expression: tree
 ---
 root:
@@ -51,22 +51,38 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Missing: \""
-                - kind: Whitespace
-                  text: " "
-                - kind: Ampersand
-                  text: "&"
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: IsMissing
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: arg
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: BinaryExpression
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Missing: \""
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Ampersand
+                              text: "&"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: IsMissing
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: arg
+                                - kind: RightParenthesis
+                                  text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

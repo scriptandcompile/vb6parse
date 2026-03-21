@@ -800,22 +800,32 @@ cst:
                     text: BASS_ChannelGetInfo
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: handle
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: info
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: handle
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: info
                   - kind: RightParenthesis
                     text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EndOfLineComment
-                    text: "' stereo/mono, 8/16 bit flags"
-                  - kind: Newline
-                    text: "\n"
+              - kind: Whitespace
+                text: " "
+              - kind: EndOfLineComment
+                text: "' stereo/mono, 8/16 bit flags"
+              - kind: Newline
+                text: "\n"
               - kind: Newline
                 text: "\n"
               - kind: Whitespace
@@ -1200,14 +1210,24 @@ cst:
                     text: BASS_ChannelGetInfo
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: handle
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: info
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: handle
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: info
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -1410,14 +1430,24 @@ cst:
                     text: BASS_ChannelGetInfo
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: handle
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: info
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: handle
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: info
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -1676,20 +1706,34 @@ cst:
                     text: BASS_ChannelGetAttribute
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: handle
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: BASS_ATTRIB_FREQ
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: freq
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: handle
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: BASS_ATTRIB_FREQ
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: freq
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -1790,8 +1834,14 @@ cst:
                     text: BASS_GetInfo
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: bi
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: bi
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline

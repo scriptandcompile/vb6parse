@@ -24977,14 +24977,24 @@ cst:
                     text: ConvCStringToVBString
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: szBuffer
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: lpString
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: szBuffer
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: lpString
                   - kind: Newline
                     text: "\n"
               - kind: Whitespace
@@ -25157,26 +25167,44 @@ cst:
                     text: CopyMemory
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: GetSingleFromPointer
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ByValKeyword
-                    text: ByVal
-                  - kind: Whitespace
-                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: GetSingleFromPointer
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: ByValKeyword
+                                text: ByVal
+                      - kind: Whitespace
+                        text: " "
+              - kind: CallStatement
+                children:
                   - kind: Identifier
                     text: lpSingle
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "4"
-                  - kind: Newline
-                    text: "\n"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Comma
+                                text: ","
+                      - kind: Whitespace
+                        text: " "
+              - kind: Unknown
+                text: "4"
+              - kind: Newline
+                text: "\n"
           - kind: EndKeyword
             text: End
           - kind: Whitespace
@@ -25415,40 +25443,72 @@ cst:
                     text: CopyMemory
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Spectrum
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: IntegerLiteral
-                    text: "0"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ByValKeyword
-                    text: ByVal
-                  - kind: Whitespace
-                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: Spectrum
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: ByValKeyword
+                                text: ByVal
+                      - kind: Whitespace
+                        text: " "
+              - kind: CallStatement
+                children:
                   - kind: Identifier
                     text: lpSpectrum
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Comma
+                                text: ","
+                      - kind: Whitespace
+                        text: " "
+              - kind: CallStatement
+                children:
                   - kind: Identifier
                     text: nrOfVals
                   - kind: Whitespace
                     text: " "
-                  - kind: MultiplicationOperator
-                    text: "*"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "4"
-                  - kind: Newline
-                    text: "\n"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: MultiplicationOperator
+                                text: "*"
+                      - kind: Whitespace
+                        text: " "
+              - kind: Unknown
+                text: "4"
+              - kind: Newline
+                text: "\n"
           - kind: EndKeyword
             text: End
           - kind: Whitespace

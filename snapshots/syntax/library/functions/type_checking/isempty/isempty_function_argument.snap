@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/type_checking/isempty.rs
+source: vb6parse/src/syntax/library/functions/type_checking/isempty.rs
 expression: tree
 ---
 root:
@@ -37,14 +37,26 @@ root:
                   text: ValidateParameter
                 - kind: LeftParenthesis
                   text: (
-                - kind: Identifier
-                  text: IsEmpty
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: optionalParam
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: IsEmpty
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: optionalParam
+                            - kind: RightParenthesis
+                              text: )
                 - kind: RightParenthesis
                   text: )
                 - kind: Newline

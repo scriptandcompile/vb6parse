@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/interaction/msgbox.rs
+source: vb6parse/src/syntax/library/functions/interaction/msgbox.rs
 expression: tree
 ---
 root:
@@ -13,19 +13,33 @@ root:
           text: MsgBox
         - kind: Whitespace
           text: " "
-        - kind: StringLiteral
-          text: "\"Error occurred\""
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: vbCritical
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: StringLiteral
-          text: "\"Error\""
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: StringLiteralExpression
+                  children:
+                    - kind: StringLiteral
+                      text: "\"Error occurred\""
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: vbCritical
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: StringLiteralExpression
+                  children:
+                    - kind: StringLiteral
+                      text: "\"Error\""
         - kind: Newline
           text: "\n"

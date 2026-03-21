@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/interaction/msgbox.rs
+source: vb6parse/src/syntax/library/functions/interaction/msgbox.rs
 expression: tree
 ---
 root:
@@ -17,20 +17,36 @@ root:
           text: LogUserChoice
         - kind: LeftParenthesis
           text: (
-        - kind: Identifier
-          text: MsgBox
-        - kind: LeftParenthesis
-          text: (
-        - kind: StringLiteral
-          text: "\"Save changes?\""
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: vbYesNoCancel
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: MsgBox
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Save changes?\""
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: vbYesNoCancel
+                    - kind: RightParenthesis
+                      text: )
         - kind: RightParenthesis
           text: )
         - kind: Newline

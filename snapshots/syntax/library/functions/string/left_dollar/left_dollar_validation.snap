@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/left_dollar.rs
+source: vb6parse/src/syntax/library/functions/string/left_dollar.rs
 expression: tree
 ---
 root:
@@ -107,8 +107,14 @@ root:
                           text: processImage
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: fileName
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: fileName
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

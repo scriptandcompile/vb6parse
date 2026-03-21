@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/math/log.rs
+source: vb6parse/src/syntax/library/functions/math/log.rs
 expression: tree
 ---
 root:
@@ -15,22 +15,38 @@ root:
           text: MsgBox
         - kind: Whitespace
           text: " "
-        - kind: StringLiteral
-          text: "\"Log(100) = \""
-        - kind: Whitespace
-          text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: Log
-        - kind: LeftParenthesis
-          text: (
-        - kind: IntegerLiteral
-          text: "100"
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: BinaryExpression
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Log(100) = \""
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: Log
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: NumericLiteralExpression
+                                  children:
+                                    - kind: IntegerLiteral
+                                      text: "100"
+                        - kind: RightParenthesis
+                          text: )
         - kind: Newline
           text: "\n"
     - kind: Whitespace

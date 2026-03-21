@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/strcomp.rs
+source: vb6parse/src/syntax/library/functions/string/strcomp.rs
 expression: tree
 ---
 root:
@@ -57,16 +57,32 @@ root:
                   text: obj
                 - kind: PeriodOperator
                   text: "."
-                - kind: CompareKeyword
-                  text: Compare
-                - kind: Whitespace
-                  text: " "
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: CompareKeyword
+                              text: Compare
+                    - kind: Whitespace
+                      text: " "
+            - kind: CallStatement
+              children:
                 - kind: Identifier
                   text: str1
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Comma
+                              text: ","
+                    - kind: Whitespace
+                      text: " "
+            - kind: CallStatement
+              children:
                 - kind: Identifier
                   text: str2
                 - kind: Newline

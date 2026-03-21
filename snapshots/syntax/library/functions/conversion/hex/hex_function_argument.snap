@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/conversion/hex.rs
+source: vb6parse/src/syntax/library/functions/conversion/hex.rs
 expression: tree
 ---
 root:
@@ -33,14 +33,26 @@ root:
                   text: DisplayHexValue
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: Hex
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: colorValue
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: Hex
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: colorValue
+                            - kind: RightParenthesis
+                              text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

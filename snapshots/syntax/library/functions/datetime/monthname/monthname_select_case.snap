@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/monthname.rs
+source: vb6parse/src/syntax/library/functions/datetime/monthname.rs
 expression: tree
 ---
 root:
@@ -91,8 +91,14 @@ root:
                       text: MsgBox
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Q1\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Q1\""
                     - kind: Newline
                       text: "\n"
                 - kind: Whitespace
@@ -129,8 +135,14 @@ root:
                       text: MsgBox
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Q2\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Q2\""
                     - kind: Newline
                       text: "\n"
         - kind: EndKeyword

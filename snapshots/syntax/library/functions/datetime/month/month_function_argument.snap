@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/month.rs
+source: vb6parse/src/syntax/library/functions/datetime/month.rs
 expression: tree
 ---
 root:
@@ -17,14 +17,26 @@ root:
           text: ProcessMonth
         - kind: LeftParenthesis
           text: (
-        - kind: Identifier
-          text: Month
-        - kind: LeftParenthesis
-          text: (
-        - kind: DateKeyword
-          text: Date
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: Month
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: DateKeyword
+                                  text: Date
+                    - kind: RightParenthesis
+                      text: )
         - kind: RightParenthesis
           text: )
         - kind: Newline

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/type_checking/isnull.rs
+source: vb6parse/src/syntax/library/functions/type_checking/isnull.rs
 expression: tree
 ---
 root:
@@ -37,14 +37,28 @@ root:
                   text: ValidateField
                 - kind: LeftParenthesis
                   text: (
-                - kind: Identifier
-                  text: IsNull
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: rs
-                - kind: ExclamationMark
-                  text: "!"
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: IsNull
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: rs
+                                        - kind: ExclamationMark
+                                          text: "!"
+            - kind: NameStatement
+              children:
                 - kind: NameKeyword
                   text: Name
                 - kind: RightParenthesis

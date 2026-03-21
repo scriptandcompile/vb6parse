@@ -895,32 +895,58 @@ cst:
                     text: CopyMemory
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: VarPtr
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: udtlParamStuct
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: lParam
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: LenB
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: udtlParamStuct
-                  - kind: RightParenthesis
-                    text: )
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: VarPtr
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: udtlParamStuct
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: lParam
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: LenB
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: udtlParamStuct
+                              - kind: RightParenthesis
+                                text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1277,14 +1303,24 @@ cst:
                                     text: CtrlHookedEvent
                                   - kind: LeftParenthesis
                                     text: (
-                                  - kind: Identifier
-                                    text: CtrlFocused
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
-                                    text: iSign
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: CtrlFocused
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: iSign
                                   - kind: RightParenthesis
                                     text: )
                                   - kind: Newline
@@ -1389,8 +1425,14 @@ cst:
                 children:
                   - kind: Identifier
                     text: lParam
-                  - kind: RightParenthesis
-                    text: )
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: RightParenthesis
+                                text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Newline
@@ -1527,24 +1569,46 @@ cst:
                         children:
                           - kind: Identifier
                             text: MouseProc
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Comma
+                                        text: ","
+                              - kind: Whitespace
+                                text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: Identifier
                             text: App
                           - kind: PeriodOperator
                             text: "."
                           - kind: Identifier
                             text: hInstance
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Comma
+                                        text: ","
+                              - kind: Whitespace
+                                text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: Identifier
                             text: GetCurrentThreadId
-                          - kind: RightParenthesis
-                            text: )
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: RightParenthesis
+                                        text: )
                           - kind: Newline
                             text: "\r\n"
                       - kind: Newline
@@ -1641,8 +1705,14 @@ cst:
                             text: UnhookWindowsHookEx
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: plHooking
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: plHooking
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace

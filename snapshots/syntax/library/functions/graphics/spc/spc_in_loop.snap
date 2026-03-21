@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/graphics/spc.rs
+source: vb6parse/src/syntax/library/functions/graphics/spc.rs
 expression: tree
 ---
 root:
@@ -93,36 +93,58 @@ root:
                           text: Print
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: i
-                        - kind: Semicolon
-                          text: ;
-                        - kind: Whitespace
-                          text: " "
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: i
+                    - kind: Unknown
+                      text: ;
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallStatement
+                      children:
                         - kind: Identifier
                           text: Spc
                         - kind: LeftParenthesis
                           text: (
-                        - kind: IntegerLiteral
-                          text: "5"
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: NumericLiteralExpression
+                                  children:
+                                    - kind: IntegerLiteral
+                                      text: "5"
                         - kind: RightParenthesis
                           text: )
-                        - kind: Semicolon
-                          text: ;
-                        - kind: Whitespace
-                          text: " "
+                    - kind: Unknown
+                      text: ;
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallStatement
+                      children:
                         - kind: Identifier
                           text: i
                         - kind: Whitespace
                           text: " "
-                        - kind: MultiplicationOperator
-                          text: "*"
-                        - kind: Whitespace
-                          text: " "
-                        - kind: IntegerLiteral
-                          text: "10"
-                        - kind: Newline
-                          text: "\n"
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: MultiplicationOperator
+                                      text: "*"
+                            - kind: Whitespace
+                              text: " "
+                    - kind: Unknown
+                      text: "10"
+                    - kind: Newline
+                      text: "\n"
                     - kind: Whitespace
                       text: "    "
                 - kind: NextKeyword

@@ -181,20 +181,30 @@ root:
                           text: MsgBox
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"Error: \""
-                        - kind: Whitespace
-                          text: " "
-                        - kind: Ampersand
-                          text: "&"
-                        - kind: Whitespace
-                          text: " "
-                        - kind: Identifier
-                          text: Err
-                        - kind: PeriodOperator
-                          text: "."
-                        - kind: Identifier
-                          text: Description
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: BinaryExpression
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Error: \""
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: Ampersand
+                                      text: "&"
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: MemberAccessExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: Err
+                                        - kind: PeriodOperator
+                                          text: "."
+                                        - kind: Identifier
+                                          text: Description
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

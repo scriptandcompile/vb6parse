@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/objects/call.rs
+source: vb6parse/src/syntax/statements/objects/call.rs
 expression: tree
 ---
 root:
@@ -15,56 +15,88 @@ root:
           text: Calculate
         - kind: LeftParenthesis
           text: (
-        - kind: Identifier
-          text: x
-        - kind: Whitespace
-          text: " "
-        - kind: AdditionOperator
-          text: +
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: y
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: z
-        - kind: Whitespace
-          text: " "
-        - kind: MultiplicationOperator
-          text: "*"
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "2"
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: a
-        - kind: Whitespace
-          text: " "
-        - kind: SubtractionOperator
-          text: "-"
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: b
-        - kind: RightParenthesis
-          text: )
-        - kind: Whitespace
-          text: " "
-        - kind: DivisionOperator
-          text: /
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: c
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: BinaryExpression
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: x
+                    - kind: Whitespace
+                      text: " "
+                    - kind: AdditionOperator
+                      text: +
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: y
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: BinaryExpression
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: z
+                    - kind: Whitespace
+                      text: " "
+                    - kind: MultiplicationOperator
+                      text: "*"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "2"
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: BinaryExpression
+                  children:
+                    - kind: ParenthesizedExpression
+                      children:
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: BinaryExpression
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: a
+                            - kind: Whitespace
+                              text: " "
+                            - kind: SubtractionOperator
+                              text: "-"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: b
+                        - kind: RightParenthesis
+                          text: )
+                    - kind: Whitespace
+                      text: " "
+                    - kind: DivisionOperator
+                      text: /
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: c
         - kind: RightParenthesis
           text: )
         - kind: Newline

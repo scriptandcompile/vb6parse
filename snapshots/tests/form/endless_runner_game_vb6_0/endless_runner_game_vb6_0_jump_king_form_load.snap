@@ -4702,10 +4702,10 @@ cst:
                     text: backmov
                   - kind: Whitespace
                     text: "                             "
-                  - kind: EndOfLineComment
-                    text: "'timer control for smooth movement"
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: EndOfLineComment
+                text: "'timer control for smooth movement"
+              - kind: Newline
+                text: "\r\n"
               - kind: CallStatement
                 children:
                   - kind: CallKeyword
@@ -8394,34 +8394,48 @@ cst:
                     text: obs1
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: i
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: i
                   - kind: RightParenthesis
                     text: )
+              - kind: CallStatement
+                children:
                   - kind: PeriodOperator
                     text: "."
                   - kind: Identifier
                     text: Left
                   - kind: Whitespace
                     text: " "
-                  - kind: GreaterThanOperator
-                    text: ">"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "9240"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Whitespace
-                    text: "   "
-                  - kind: EndOfLineComment
-                    text: "'<"
-                  - kind: Newline
-                    text: "\r\n"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: GreaterThanOperator
+                                text: ">"
+                      - kind: Whitespace
+                        text: " "
+              - kind: Unknown
+                text: "9240"
+              - kind: Unknown
+                text: )
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: Then
+              - kind: Whitespace
+                text: "   "
+              - kind: EndOfLineComment
+                text: "'<"
+              - kind: Newline
+                text: "\r\n"
               - kind: AssignmentStatement
                 children:
                   - kind: MemberAccessExpression

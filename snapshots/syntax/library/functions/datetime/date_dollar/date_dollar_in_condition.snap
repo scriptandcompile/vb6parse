@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/date_dollar.rs
+source: vb6parse/src/syntax/library/functions/datetime/date_dollar.rs
 expression: tree
 ---
 root:
@@ -65,8 +65,14 @@ root:
                           text: MsgBox
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"Christmas!\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Christmas!\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

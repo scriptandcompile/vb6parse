@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/math/sgn.rs
+source: vb6parse/src/syntax/library/functions/math/sgn.rs
 expression: tree
 ---
 root:
@@ -77,8 +77,14 @@ root:
                               text: MsgBox
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Increased\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Increased\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace
@@ -105,8 +111,14 @@ root:
                               text: MsgBox
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Decreased\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Decreased\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace
@@ -131,8 +143,14 @@ root:
                               text: MsgBox
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"No change\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"No change\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace

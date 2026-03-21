@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/datevalue.rs
+source: vb6parse/src/syntax/library/functions/datetime/datevalue.rs
 expression: tree
 ---
 root:
@@ -57,8 +57,14 @@ root:
                       text: MsgBox
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Today\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Today\""
                     - kind: Newline
                       text: "\n"
                 - kind: Whitespace
@@ -83,8 +89,14 @@ root:
                       text: MsgBox
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Other day\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Other day\""
                     - kind: Newline
                       text: "\n"
         - kind: EndKeyword

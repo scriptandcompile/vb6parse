@@ -111,8 +111,14 @@ cst:
                     text: AddToPlaylist
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: Files
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: Files
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -705,8 +711,14 @@ cst:
                     text: AddToPlaylist
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: Files
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: Files
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -1033,8 +1045,14 @@ cst:
                                             text: Print
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: StringLiteral
-                                            text: "\"Playlist Type: M3U\""
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"Playlist Type: M3U\""
                                           - kind: Newline
                                             text: "\n"
                                       - kind: Whitespace
@@ -1113,16 +1131,26 @@ cst:
                                                         text: Print
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: StringLiteral
-                                                        text: "\"Info Data: \""
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: Ampersand
-                                                        text: "&"
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: Identifier
-                                                        text: TextLine
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: BinaryExpression
+                                                                children:
+                                                                  - kind: StringLiteralExpression
+                                                                    children:
+                                                                      - kind: StringLiteral
+                                                                        text: "\"Info Data: \""
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: Ampersand
+                                                                    text: "&"
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: TextLine
                                                       - kind: Newline
                                                         text: "\n"
                                                   - kind: Whitespace
@@ -1247,8 +1275,14 @@ cst:
                     text: AddToPlaylist
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: Files
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: Files
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -1547,8 +1581,14 @@ cst:
                             text: AddToPlaylist
                           - kind: LeftParenthesis
                             text: (
-                          - kind: Identifier
-                            text: FileToAdd
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: FileToAdd
                           - kind: RightParenthesis
                             text: )
                           - kind: Newline

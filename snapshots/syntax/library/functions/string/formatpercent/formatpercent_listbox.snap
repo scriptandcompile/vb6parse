@@ -15,31 +15,57 @@ root:
           text: AddItem
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: FormatPercent
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: values
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: i
-        - kind: RightParenthesis
-          text: )
-        - kind: Whitespace
-          text: " "
-        - kind: DivisionOperator
-          text: /
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: total
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "1"
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: FormatPercent
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: BinaryExpression
+                              children:
+                                - kind: CallExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: values
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: IdentifierExpression
+                                              children:
+                                                - kind: Identifier
+                                                  text: i
+                                    - kind: RightParenthesis
+                                      text: )
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: DivisionOperator
+                                  text: /
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: total
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "1"
+                    - kind: RightParenthesis
+                      text: )

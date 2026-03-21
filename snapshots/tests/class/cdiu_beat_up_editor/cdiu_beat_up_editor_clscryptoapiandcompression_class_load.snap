@@ -3842,40 +3842,58 @@ cst:
                                 text: Raise
                               - kind: Whitespace
                                 text: " "
-                              - kind: Identifier
-                                text: Err
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: LastDllError
-                              - kind: Comma
-                                text: ","
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Err
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: LastDllError
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Comma
+                                            text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                      - kind: Unknown
+                        text: "\"DLL error code shown above.  Error during CryptAcquireContext for a new key container.\""
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Unknown
+                        text: "&"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: vbCrLf
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Ampersand
+                                        text: "&"
                               - kind: Whitespace
                                 text: " "
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: StringLiteral
-                                text: "\"DLL error code shown above.  Error during CryptAcquireContext for a new key container.\""
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Ampersand
-                                text: "&"
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: vbCrLf
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Ampersand
-                                text: "&"
-                              - kind: Whitespace
-                                text: " "
-                              - kind: StringLiteral
-                                text: "\"A container with this name probably already exists.\""
-                              - kind: Newline
-                                text: "\n"
+                      - kind: Unknown
+                        text: "\"A container with this name probably already exists.\""
+                      - kind: Newline
+                        text: "\n"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace
@@ -3958,8 +3976,14 @@ cst:
                         text: CryptDestroyKey
                       - kind: Whitespace
                         text: " "
-                      - kind: Identifier
-                        text: hSessionKey
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: hSessionKey
                       - kind: Newline
                         text: "\n"
                   - kind: Newline
@@ -4002,8 +4026,14 @@ cst:
                         text: CryptDestroyKey
                       - kind: Whitespace
                         text: " "
-                      - kind: Identifier
-                        text: hKeyPair
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: hKeyPair
                       - kind: Newline
                         text: "\n"
                   - kind: Newline
@@ -4046,14 +4076,24 @@ cst:
                         text: CryptReleaseContext
                       - kind: Whitespace
                         text: " "
-                      - kind: Identifier
-                        text: hCryptProv
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: IntegerLiteral
-                        text: "0"
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: hCryptProv
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "0"
                       - kind: Newline
                         text: "\n"
                   - kind: Newline
@@ -4214,14 +4254,20 @@ cst:
                     text: SessionKeyFromPassword
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Key
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EndOfLineComment
-                    text: "'get a session key derived from the password"
-                  - kind: Newline
-                    text: "\n"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: Key
+                      - kind: Whitespace
+                        text: " "
+              - kind: EndOfLineComment
+                text: "'get a session key derived from the password"
+              - kind: Newline
+                text: "\n"
               - kind: Newline
                 text: "\n"
               - kind: Newline
@@ -4354,26 +4400,36 @@ cst:
                         text: Raise
                       - kind: Whitespace
                         text: " "
-                      - kind: Identifier
-                        text: Err
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: LastDllError
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: StringLiteral
-                        text: "\"DLL error code shown above. Could not set the SALT.\""
-                      - kind: Newline
-                        text: "\n"
-                  - kind: Newline
-                    text: "\n"
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Err
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: LastDllError
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Comma
+                                    text: ","
+                          - kind: Whitespace
+                            text: " "
+              - kind: Unknown
+                text: "\"DLL error code shown above. Could not set the SALT.\""
+              - kind: Newline
+                text: "\n"
+              - kind: Newline
+                text: "\n"
               - kind: EndOfLineComment
                 text: "'Encrypt or decrypt depending on the Encrypt parameter"
               - kind: Newline
@@ -4546,119 +4602,45 @@ cst:
                                 text: Raise
                               - kind: Whitespace
                                 text: " "
-                              - kind: Identifier
-                                text: Err
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: LastDllError
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: StringLiteral
-                                text: "\"DLL error code shown above. Error during CryptEncrypt.\""
-                              - kind: Newline
-                                text: "\n"
-                          - kind: ElseKeyword
-                            text: Else
-                          - kind: Newline
-                            text: "\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: AssignmentStatement
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: lngReturnValue
-                          - kind: Whitespace
-                            text: " "
-                          - kind: EqualityOperator
-                            text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: CallExpression
-                            children:
-                              - kind: Identifier
-                                text: CryptDecryptB
-                              - kind: LeftParenthesis
-                                text: (
                               - kind: ArgumentList
                                 children:
                                   - kind: Argument
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: MemberAccessExpression
                                         children:
                                           - kind: Identifier
-                                            text: hSessionKey
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Argument
-                                    children:
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "0"
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Argument
-                                    children:
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "1"
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Argument
-                                    children:
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "0"
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: TextKeyword
-                                            text: Text
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
+                                            text: Err
+                                          - kind: PeriodOperator
+                                            text: "."
                                           - kind: Identifier
-                                            text: lngLength
-                              - kind: RightParenthesis
-                                text: )
-                          - kind: Newline
-                            text: "\n"
-                      - kind: IfStatement
+                                            text: LastDllError
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Comma
+                                            text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                      - kind: Unknown
+                        text: "\"DLL error code shown above. Error during CryptEncrypt.\""
+                      - kind: Newline
+                        text: "\n"
+                  - kind: ElseClause
+                    children:
+                      - kind: ElseKeyword
+                        text: Else
+                      - kind: Newline
+                        text: "\n"
+                      - kind: StatementList
                         children:
                           - kind: Whitespace
                             text: "    "
-                          - kind: IfKeyword
-                            text: If
-                          - kind: Whitespace
-                            text: " "
-                          - kind: BinaryExpression
+                          - kind: AssignmentStatement
                             children:
                               - kind: IdentifierExpression
                                 children:
@@ -4670,44 +4652,142 @@ cst:
                                 text: "="
                               - kind: Whitespace
                                 text: " "
-                              - kind: NumericLiteralExpression
+                              - kind: CallExpression
                                 children:
-                                  - kind: IntegerLiteral
-                                    text: "0"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ThenKeyword
-                            text: Then
-                          - kind: Whitespace
-                            text: " "
-                          - kind: CallStatement
-                            children:
-                              - kind: Identifier
-                                text: Err
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: Raise
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: Err
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: LastDllError
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: StringLiteral
-                                text: "\"DLL error code shown above. Error during CryptDecrypt.\""
+                                  - kind: Identifier
+                                    text: CryptDecryptB
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: hSessionKey
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "0"
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "1"
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "0"
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: TextKeyword
+                                                text: Text
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: lngLength
+                                  - kind: RightParenthesis
+                                    text: )
                               - kind: Newline
                                 text: "\n"
+                          - kind: IfStatement
+                            children:
+                              - kind: Whitespace
+                                text: "    "
+                              - kind: IfKeyword
+                                text: If
+                              - kind: Whitespace
+                                text: " "
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: lngReturnValue
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "0"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: ThenKeyword
+                                text: Then
+                              - kind: Whitespace
+                                text: " "
+                              - kind: CallStatement
+                                children:
+                                  - kind: Identifier
+                                    text: Err
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Raise
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: Err
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: LastDllError
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Comma
+                                                text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                          - kind: Unknown
+                            text: "\"DLL error code shown above. Error during CryptDecrypt.\""
+                          - kind: Newline
+                            text: "\n"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace
@@ -4756,8 +4836,14 @@ cst:
                         text: CryptDestroyKey
                       - kind: Whitespace
                         text: " "
-                      - kind: Identifier
-                        text: hSessionKey
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: hSessionKey
                       - kind: Newline
                         text: "\n"
                   - kind: Newline
@@ -5038,28 +5124,38 @@ cst:
                         text: Raise
                       - kind: Whitespace
                         text: " "
-                      - kind: Identifier
-                        text: Err
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: LastDllError
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: StringLiteral
-                        text: "\"DLL error code shown above. Could not create a Hash Object (CryptCreateHash API)\""
-                      - kind: Newline
-                        text: "\n"
-                  - kind: EndOfLineComment
-                    text: "'can use CALG_MD5 to get a 128-bit hash.  CALG_SHA returns a 160-bit hash (more secure)."
-                  - kind: Newline
-                    text: "\n"
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Err
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: LastDllError
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Comma
+                                    text: ","
+                          - kind: Whitespace
+                            text: " "
+              - kind: Unknown
+                text: "\"DLL error code shown above. Could not create a Hash Object (CryptCreateHash API)\""
+              - kind: Newline
+                text: "\n"
+              - kind: EndOfLineComment
+                text: "'can use CALG_MD5 to get a 128-bit hash.  CALG_SHA returns a 160-bit hash (more secure)."
+              - kind: Newline
+                text: "\n"
               - kind: Newline
                 text: "\n"
               - kind: EndOfLineComment
@@ -5176,28 +5272,38 @@ cst:
                         text: Raise
                       - kind: Whitespace
                         text: " "
-                      - kind: Identifier
-                        text: Err
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: LastDllError
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: StringLiteral
-                        text: "\"DLL error code shown above. Could not calculate a Hash Value (CryptHashData API)\""
-                      - kind: Newline
-                        text: "\n"
-                  - kind: EndOfLineComment
-                    text: "'A hash is a 'fingerprint' of any string."
-                  - kind: Newline
-                    text: "\n"
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Err
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: LastDllError
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Comma
+                                    text: ","
+                          - kind: Whitespace
+                            text: " "
+              - kind: Unknown
+                text: "\"DLL error code shown above. Could not calculate a Hash Value (CryptHashData API)\""
+              - kind: Newline
+                text: "\n"
+              - kind: EndOfLineComment
+                text: "'A hash is a 'fingerprint' of any string."
+              - kind: Newline
+                text: "\n"
               - kind: EndOfLineComment
                 text: "'Hashes are extremely useful for determining whether a"
               - kind: Newline
@@ -5470,26 +5576,36 @@ cst:
                         text: Raise
                       - kind: Whitespace
                         text: " "
-                      - kind: Identifier
-                        text: Err
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: LastDllError
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: StringLiteral
-                        text: "\"DLL error code shown above. Could not lngReturnValuerieve the hash value\""
-                      - kind: Newline
-                        text: "\n"
-                  - kind: Newline
-                    text: "\n"
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Err
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: LastDllError
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Comma
+                                    text: ","
+                          - kind: Whitespace
+                            text: " "
+              - kind: Unknown
+                text: "\"DLL error code shown above. Could not lngReturnValuerieve the hash value\""
+              - kind: Newline
+                text: "\n"
+              - kind: Newline
+                text: "\n"
               - kind: EndOfLineComment
                 text: "'Set certain values to add more flexibility and security."
               - kind: Newline
@@ -5564,8 +5680,14 @@ cst:
                         text: CryptDestroyKey
                       - kind: Whitespace
                         text: " "
-                      - kind: Identifier
-                        text: hSessionKey
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: hSessionKey
                       - kind: Newline
                         text: "\n"
                   - kind: Newline
@@ -5682,26 +5804,36 @@ cst:
                         text: Raise
                       - kind: Whitespace
                         text: " "
-                      - kind: Identifier
-                        text: Err
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: LastDllError
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: StringLiteral
-                        text: "\"DLL error code shown above. Could not create a session key (CryptDeriveKey API)\""
-                      - kind: Newline
-                        text: "\n"
-                  - kind: Newline
-                    text: "\n"
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Err
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: LastDllError
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Comma
+                                    text: ","
+                          - kind: Whitespace
+                            text: " "
+              - kind: Unknown
+                text: "\"DLL error code shown above. Could not create a session key (CryptDeriveKey API)\""
+              - kind: Newline
+                text: "\n"
+              - kind: Newline
+                text: "\n"
               - kind: EndOfLineComment
                 text: "'Destroy the hash object"
               - kind: Newline
@@ -5740,8 +5872,14 @@ cst:
                         text: CryptDestroyHash
                       - kind: Whitespace
                         text: " "
-                      - kind: Identifier
-                        text: hHash
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: hHash
                       - kind: Newline
                         text: "\n"
                   - kind: Newline
@@ -6222,32 +6360,58 @@ cst:
                     text: CopyMemory
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: TheData
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: IntegerLiteral
-                    text: "0"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: arrByteArray
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: IntegerLiteral
-                    text: "0"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: lngBufferSize
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: TheData
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: arrByteArray
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: lngBufferSize
                   - kind: Newline
                     text: "\n"
               - kind: Newline
@@ -6778,32 +6942,58 @@ cst:
                     text: CopyMemory
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: TheData
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: IntegerLiteral
-                    text: "0"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: arrByteArray
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: IntegerLiteral
-                    text: "0"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: lngBufferSize
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: TheData
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: arrByteArray
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: lngBufferSize
                   - kind: Newline
                     text: "\n"
               - kind: Newline
@@ -8028,32 +8218,58 @@ cst:
                     text: CopyMemory
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: TheData
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: IntegerLiteral
-                    text: "0"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: arrByteArray
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: IntegerLiteral
-                    text: "0"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: lngBufferSize
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: TheData
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: arrByteArray
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: lngBufferSize
                   - kind: Newline
                     text: "\n"
               - kind: Newline
@@ -8584,32 +8800,58 @@ cst:
                     text: CopyMemory
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: TheData
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: IntegerLiteral
-                    text: "0"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: arrByteArray
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: IntegerLiteral
-                    text: "0"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: lngBufferSize
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: TheData
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: arrByteArray
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: lngBufferSize
                   - kind: Newline
                     text: "\n"
               - kind: Newline

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/financial/sln.rs
+source: vb6parse/src/syntax/library/functions/financial/sln.rs
 expression: tree
 ---
 root:
@@ -13,8 +13,14 @@ root:
           text: Class
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: Asset
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: Asset
         - kind: Newline
           text: "\n"
     - kind: Whitespace

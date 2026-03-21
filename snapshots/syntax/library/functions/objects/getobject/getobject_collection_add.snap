@@ -15,21 +15,33 @@ root:
           text: Add
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: GetObject
-        - kind: LeftParenthesis
-          text: (
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: StringLiteral
-          text: "\"Excel.Application\""
-        - kind: RightParenthesis
-          text: )
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: StringLiteral
-          text: "\"Excel\""
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: GetObject
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Comma
+                                  text: ","
+                        - kind: Whitespace
+                          text: " "
+    - kind: Unknown
+      text: "\"Excel.Application\""
+    - kind: Unknown
+      text: )
+    - kind: Unknown
+      text: ","
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "\"Excel\""

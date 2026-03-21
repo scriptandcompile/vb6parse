@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/objects/call.rs
+source: vb6parse/src/syntax/statements/objects/call.rs
 expression: tree
 ---
 root:
@@ -15,8 +15,14 @@ root:
           text: ShowMessage
         - kind: LeftParenthesis
           text: (
-        - kind: StringLiteral
-          text: "\"Hello, World!\""
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: StringLiteralExpression
+                  children:
+                    - kind: StringLiteral
+                      text: "\"Hello, World!\""
         - kind: RightParenthesis
           text: )
         - kind: Newline

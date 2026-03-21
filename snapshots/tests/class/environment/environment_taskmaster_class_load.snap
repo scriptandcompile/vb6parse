@@ -2628,20 +2628,30 @@ cst:
                                     text: Add
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Identifier
-                                    text: NewTask
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IntegerLiteral
-                                    text: "1"
-                                  - kind: Newline
-                                    text: "\r\n"
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: NewTask
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Comma
+                                                text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                              - kind: Unknown
+                                text: "1"
+                              - kind: Newline
+                                text: "\r\n"
                               - kind: Whitespace
                                 text: "    "
                           - kind: ElseClause
@@ -2664,8 +2674,14 @@ cst:
                                         text: Add
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Identifier
-                                        text: NewTask
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: NewTask
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace
@@ -2740,26 +2756,40 @@ cst:
                                         text: Add
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Identifier
-                                        text: NewTask
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: myMasterList
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: count
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: NewTask
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Comma
+                                                    text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: MemberAccessExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: myMasterList
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: count
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace
@@ -2784,8 +2814,14 @@ cst:
                                             text: Add
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Identifier
-                                            text: NewTask
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: NewTask
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace
@@ -3648,8 +3684,14 @@ cst:
                                         text: Dispose
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Identifier
-                                        text: tmAllTasks
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: tmAllTasks
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace
@@ -3660,8 +3702,14 @@ cst:
                                         text: ThrowOne
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Identifier
-                                        text: Mes
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: Mes
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace
@@ -3886,8 +3934,14 @@ cst:
                                                 text: Dispose
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: Identifier
-                                                text: tmAllTasks
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: tmAllTasks
                                               - kind: Newline
                                                 text: "\r\n"
                                           - kind: Whitespace
@@ -3898,8 +3952,14 @@ cst:
                                                 text: ThrowOne
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: Identifier
-                                                text: Mes
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: Mes
                                               - kind: Newline
                                                 text: "\r\n"
                                           - kind: Whitespace
@@ -4068,12 +4128,18 @@ cst:
                                                     text: MergeBottom
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: Identifier
-                                                    text: bs
-                                                  - kind: PeriodOperator
-                                                    text: "."
-                                                  - kind: Identifier
-                                                    text: soros
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: MemberAccessExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: bs
+                                                              - kind: PeriodOperator
+                                                                text: "."
+                                                              - kind: Identifier
+                                                                text: soros
                                                   - kind: Newline
                                                     text: "\r\n"
                                               - kind: Whitespace
@@ -4234,8 +4300,14 @@ cst:
                                                 text: Dispose
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: Identifier
-                                                text: tmAllTasks
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: tmAllTasks
                                               - kind: Newline
                                                 text: "\r\n"
                                           - kind: Whitespace
@@ -4246,8 +4318,14 @@ cst:
                                                 text: ThrowOne
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: Identifier
-                                                text: Mes
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: Mes
                                               - kind: Newline
                                                 text: "\r\n"
                                           - kind: Whitespace
@@ -4416,12 +4494,18 @@ cst:
                                                     text: MergeBottom
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: Identifier
-                                                    text: bs
-                                                  - kind: PeriodOperator
-                                                    text: "."
-                                                  - kind: Identifier
-                                                    text: soros
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: MemberAccessExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: bs
+                                                              - kind: PeriodOperator
+                                                                text: "."
+                                                              - kind: Identifier
+                                                                text: soros
                                                   - kind: Newline
                                                     text: "\r\n"
                                               - kind: Whitespace
@@ -4898,18 +4982,32 @@ cst:
                             text: myMasterList
                           - kind: LeftParenthesis
                             text: (
-                          - kind: IntegerLiteral
-                            text: "1"
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "1"
                           - kind: RightParenthesis
                             text: )
+                      - kind: CallStatement
+                        children:
                           - kind: PeriodOperator
                             text: "."
                           - kind: Identifier
                             text: Dispose
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: tmAllTasks
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: tmAllTasks
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -4978,18 +5076,32 @@ cst:
                             text: myRunningList
                           - kind: LeftParenthesis
                             text: (
-                          - kind: IntegerLiteral
-                            text: "1"
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "1"
                           - kind: RightParenthesis
                             text: )
+                      - kind: CallStatement
+                        children:
                           - kind: PeriodOperator
                             text: "."
                           - kind: Identifier
                             text: Dispose
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: tmAllTasks
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: tmAllTasks
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -5378,8 +5490,14 @@ cst:
                                             text: AddTask
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Identifier
-                                            text: this
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: this
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: ExitStatement
@@ -5432,18 +5550,28 @@ cst:
                                         text: AddTask
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Identifier
-                                        text: this
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: this
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: Priority
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: this
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: MemberAccessExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: this
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: Priority
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: ExitStatement
@@ -5480,8 +5608,14 @@ cst:
                             text: Add
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: this
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: this
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -5820,8 +5954,14 @@ cst:
                                     text: Dispose
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Identifier
-                                    text: tmThisTask
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: tmThisTask
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -5868,18 +6008,28 @@ cst:
                                                 text: AddTask
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: Identifier
-                                                text: this
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: this
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: Priority
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: this
+                                                  - kind: Comma
+                                                    text: ","
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: MemberAccessExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: this
+                                                          - kind: PeriodOperator
+                                                            text: "."
+                                                          - kind: Identifier
+                                                            text: Priority
                                               - kind: Newline
                                                 text: "\r\n"
                                           - kind: IfStatement
@@ -5962,8 +6112,14 @@ cst:
                                                     text: Dispose
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: Identifier
-                                                    text: tmThisTask
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: tmThisTask
                                                   - kind: Newline
                                                     text: "\r\n"
                                               - kind: Whitespace
@@ -6008,8 +6164,14 @@ cst:
                                 text: Dispose
                               - kind: Whitespace
                                 text: " "
-                              - kind: Identifier
-                                text: tmThisTask
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: tmThisTask
                               - kind: Newline
                                 text: "\r\n"
                           - kind: Whitespace
@@ -6140,8 +6302,14 @@ cst:
                                 text: Sleep
                               - kind: Whitespace
                                 text: " "
-                              - kind: IntegerLiteral
-                                text: "50"
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "50"
                               - kind: Newline
                                 text: "\r\n"
                           - kind: Whitespace
@@ -6178,8 +6346,14 @@ cst:
                                 text: Sleep
                               - kind: Whitespace
                                 text: " "
-                              - kind: IntegerLiteral
-                                text: "5"
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "5"
                               - kind: Newline
                                 text: "\r\n"
                           - kind: Whitespace
@@ -6646,8 +6820,14 @@ cst:
                                                                 text: AddTask
                                                               - kind: Whitespace
                                                                 text: " "
-                                                              - kind: Identifier
-                                                                text: this
+                                                              - kind: ArgumentList
+                                                                children:
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: IdentifierExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: this
                                                               - kind: Newline
                                                                 text: "\r\n"
                                                           - kind: Whitespace
@@ -6720,18 +6900,28 @@ cst:
                                                             text: AddTask
                                                           - kind: Whitespace
                                                             text: " "
-                                                          - kind: Identifier
-                                                            text: this
-                                                          - kind: Comma
-                                                            text: ","
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: Identifier
-                                                            text: this
-                                                          - kind: PeriodOperator
-                                                            text: "."
-                                                          - kind: Identifier
-                                                            text: Priority
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: this
+                                                              - kind: Comma
+                                                                text: ","
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: MemberAccessExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: this
+                                                                      - kind: PeriodOperator
+                                                                        text: "."
+                                                                      - kind: Identifier
+                                                                        text: Priority
                                                           - kind: Newline
                                                             text: "\r\n"
                                                       - kind: Whitespace
@@ -6788,8 +6978,14 @@ cst:
                                                 text: Add
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: Identifier
-                                                text: this
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: this
                                               - kind: Newline
                                                 text: "\r\n"
                                           - kind: Whitespace
@@ -7050,8 +7246,14 @@ cst:
                                                         text: Dispose
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: Identifier
-                                                        text: tmThisTask
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: tmThisTask
                                                       - kind: Newline
                                                         text: "\r\n"
                                                   - kind: Whitespace
@@ -7094,18 +7296,28 @@ cst:
                                                                     text: AddTask
                                                                   - kind: Whitespace
                                                                     text: " "
-                                                                  - kind: Identifier
-                                                                    text: this
-                                                                  - kind: Comma
-                                                                    text: ","
-                                                                  - kind: Whitespace
-                                                                    text: " "
-                                                                  - kind: Identifier
-                                                                    text: this
-                                                                  - kind: PeriodOperator
-                                                                    text: "."
-                                                                  - kind: Identifier
-                                                                    text: Priority
+                                                                  - kind: ArgumentList
+                                                                    children:
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: IdentifierExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: this
+                                                                      - kind: Comma
+                                                                        text: ","
+                                                                      - kind: Whitespace
+                                                                        text: " "
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: MemberAccessExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: this
+                                                                              - kind: PeriodOperator
+                                                                                text: "."
+                                                                              - kind: Identifier
+                                                                                text: Priority
                                                                   - kind: Newline
                                                                     text: "\r\n"
                                                           - kind: ElseClause
@@ -7126,8 +7338,14 @@ cst:
                                                                         text: Dispose
                                                                       - kind: Whitespace
                                                                         text: " "
-                                                                      - kind: Identifier
-                                                                        text: tmThisTask
+                                                                      - kind: ArgumentList
+                                                                        children:
+                                                                          - kind: Argument
+                                                                            children:
+                                                                              - kind: IdentifierExpression
+                                                                                children:
+                                                                                  - kind: Identifier
+                                                                                    text: tmThisTask
                                                                       - kind: Newline
                                                                         text: "\r\n"
                                                           - kind: EndKeyword
@@ -7230,8 +7448,14 @@ cst:
                                                     text: Dispose
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: Identifier
-                                                    text: tmThisTask
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: tmThisTask
                                                   - kind: Newline
                                                     text: "\r\n"
                                               - kind: Whitespace
@@ -7364,8 +7588,14 @@ cst:
                                                     text: Sleep
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: IntegerLiteral
-                                                    text: "50"
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: NumericLiteralExpression
+                                                            children:
+                                                              - kind: IntegerLiteral
+                                                                text: "50"
                                                   - kind: Newline
                                                     text: "\r\n"
                                               - kind: Whitespace
@@ -7710,8 +7940,14 @@ cst:
                                                                 text: AddTask
                                                               - kind: Whitespace
                                                                 text: " "
-                                                              - kind: Identifier
-                                                                text: this
+                                                              - kind: ArgumentList
+                                                                children:
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: IdentifierExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: this
                                                               - kind: Newline
                                                                 text: "\r\n"
                                                           - kind: ExitStatement
@@ -7764,18 +8000,28 @@ cst:
                                                             text: AddTask
                                                           - kind: Whitespace
                                                             text: " "
-                                                          - kind: Identifier
-                                                            text: this
-                                                          - kind: Comma
-                                                            text: ","
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: Identifier
-                                                            text: this
-                                                          - kind: PeriodOperator
-                                                            text: "."
-                                                          - kind: Identifier
-                                                            text: Priority
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: this
+                                                              - kind: Comma
+                                                                text: ","
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: MemberAccessExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: this
+                                                                      - kind: PeriodOperator
+                                                                        text: "."
+                                                                      - kind: Identifier
+                                                                        text: Priority
                                                           - kind: Newline
                                                             text: "\r\n"
                                                       - kind: ExitStatement
@@ -7812,8 +8058,14 @@ cst:
                                                 text: Add
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: Identifier
-                                                text: this
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: this
                                               - kind: Newline
                                                 text: "\r\n"
                                           - kind: Whitespace
@@ -8096,8 +8348,14 @@ cst:
                                                         text: Dispose
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: Identifier
-                                                        text: tmThisTask
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: tmThisTask
                                                       - kind: Newline
                                                         text: "\r\n"
                                                   - kind: Whitespace
@@ -8140,18 +8398,28 @@ cst:
                                                                     text: AddTask
                                                                   - kind: Whitespace
                                                                     text: " "
-                                                                  - kind: Identifier
-                                                                    text: this
-                                                                  - kind: Comma
-                                                                    text: ","
-                                                                  - kind: Whitespace
-                                                                    text: " "
-                                                                  - kind: Identifier
-                                                                    text: this
-                                                                  - kind: PeriodOperator
-                                                                    text: "."
-                                                                  - kind: Identifier
-                                                                    text: Priority
+                                                                  - kind: ArgumentList
+                                                                    children:
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: IdentifierExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: this
+                                                                      - kind: Comma
+                                                                        text: ","
+                                                                      - kind: Whitespace
+                                                                        text: " "
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: MemberAccessExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: this
+                                                                              - kind: PeriodOperator
+                                                                                text: "."
+                                                                              - kind: Identifier
+                                                                                text: Priority
                                                                   - kind: Newline
                                                                     text: "\r\n"
                                                           - kind: ElseClause
@@ -8172,8 +8440,14 @@ cst:
                                                                         text: Dispose
                                                                       - kind: Whitespace
                                                                         text: " "
-                                                                      - kind: Identifier
-                                                                        text: tmThisTask
+                                                                      - kind: ArgumentList
+                                                                        children:
+                                                                          - kind: Argument
+                                                                            children:
+                                                                              - kind: IdentifierExpression
+                                                                                children:
+                                                                                  - kind: Identifier
+                                                                                    text: tmThisTask
                                                                       - kind: Newline
                                                                         text: "\r\n"
                                                           - kind: EndKeyword
@@ -8244,8 +8518,14 @@ cst:
                                                             text: Dispose
                                                           - kind: Whitespace
                                                             text: " "
-                                                          - kind: Identifier
-                                                            text: tmThisTask
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: tmThisTask
                                                           - kind: Newline
                                                             text: "\r\n"
                                                       - kind: Whitespace
@@ -8268,18 +8548,28 @@ cst:
                                                                 text: AddTask
                                                               - kind: Whitespace
                                                                 text: " "
-                                                              - kind: Identifier
-                                                                text: this
-                                                              - kind: Comma
-                                                                text: ","
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: Identifier
-                                                                text: this
-                                                              - kind: PeriodOperator
-                                                                text: "."
-                                                              - kind: Identifier
-                                                                text: Priority
+                                                              - kind: ArgumentList
+                                                                children:
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: IdentifierExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: this
+                                                                  - kind: Comma
+                                                                    text: ","
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: MemberAccessExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: this
+                                                                          - kind: PeriodOperator
+                                                                            text: "."
+                                                                          - kind: Identifier
+                                                                            text: Priority
                                                               - kind: Newline
                                                                 text: "\r\n"
                                                           - kind: Whitespace
@@ -8308,8 +8598,14 @@ cst:
                                                     text: Dispose
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: Identifier
-                                                    text: tmThisTask
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: tmThisTask
                                                   - kind: Newline
                                                     text: "\r\n"
                                               - kind: Whitespace
@@ -8442,8 +8738,14 @@ cst:
                                                     text: Sleep
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: IntegerLiteral
-                                                    text: "50"
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: NumericLiteralExpression
+                                                            children:
+                                                              - kind: IntegerLiteral
+                                                                text: "50"
                                                   - kind: Newline
                                                     text: "\r\n"
                                               - kind: Whitespace
@@ -9166,8 +9468,14 @@ cst:
                                                                         children:
                                                                           - kind: Identifier
                                                                             text: TaskMasterTick
-                                                                          - kind: RightParenthesis
-                                                                            text: )
+                                                                          - kind: ArgumentList
+                                                                            children:
+                                                                              - kind: Argument
+                                                                                children:
+                                                                                  - kind: IdentifierExpression
+                                                                                    children:
+                                                                                      - kind: RightParenthesis
+                                                                                        text: )
                                                                           - kind: Newline
                                                                             text: "\r\n"
                                                                       - kind: Whitespace
@@ -9304,14 +9612,24 @@ cst:
                                                                     text: KillTimer
                                                                   - kind: Whitespace
                                                                     text: " "
-                                                                  - kind: LongLiteral
-                                                                    text: 0&
-                                                                  - kind: Comma
-                                                                    text: ","
-                                                                  - kind: Whitespace
-                                                                    text: " "
-                                                                  - kind: Identifier
-                                                                    text: myTimerHandle
+                                                                  - kind: ArgumentList
+                                                                    children:
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: NumericLiteralExpression
+                                                                            children:
+                                                                              - kind: LongLiteral
+                                                                                text: 0&
+                                                                      - kind: Comma
+                                                                        text: ","
+                                                                      - kind: Whitespace
+                                                                        text: " "
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: IdentifierExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: myTimerHandle
                                                                   - kind: Newline
                                                                     text: "\r\n"
                                                               - kind: Whitespace
@@ -9918,8 +10236,14 @@ cst:
                                                                         text: Dispose
                                                                       - kind: Whitespace
                                                                         text: " "
-                                                                      - kind: Identifier
-                                                                        text: tmAllTasks
+                                                                      - kind: ArgumentList
+                                                                        children:
+                                                                          - kind: Argument
+                                                                            children:
+                                                                              - kind: IdentifierExpression
+                                                                                children:
+                                                                                  - kind: Identifier
+                                                                                    text: tmAllTasks
                                                                       - kind: Newline
                                                                         text: "\r\n"
                                                           - kind: NextKeyword
@@ -10054,8 +10378,14 @@ cst:
                                                                         text: Dispose
                                                                       - kind: Whitespace
                                                                         text: " "
-                                                                      - kind: Identifier
-                                                                        text: tmAllTasks
+                                                                      - kind: ArgumentList
+                                                                        children:
+                                                                          - kind: Argument
+                                                                            children:
+                                                                              - kind: IdentifierExpression
+                                                                                children:
+                                                                                  - kind: Identifier
+                                                                                    text: tmAllTasks
                                                                       - kind: Newline
                                                                         text: "\r\n"
                                                           - kind: NextKeyword

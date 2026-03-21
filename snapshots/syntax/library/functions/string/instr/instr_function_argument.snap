@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/instr.rs
+source: vb6parse/src/syntax/library/functions/string/instr.rs
 expression: tree
 ---
 root:
@@ -37,20 +37,36 @@ root:
                   text: ProcessPosition
                 - kind: LeftParenthesis
                   text: (
-                - kind: Identifier
-                  text: InStr
-                - kind: LeftParenthesis
-                  text: (
-                - kind: TextKeyword
-                  text: text
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: StringLiteral
-                  text: "\"marker\""
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: InStr
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: TextKeyword
+                                          text: text
+                                - kind: Comma
+                                  text: ","
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"marker\""
+                            - kind: RightParenthesis
+                              text: )
                 - kind: RightParenthesis
                   text: )
                 - kind: Newline

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/math/fix.rs
+source: vb6parse/src/syntax/library/functions/math/fix.rs
 expression: tree
 ---
 root:
@@ -77,8 +77,14 @@ root:
                           text: MsgBox
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"Amount matches\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Amount matches\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

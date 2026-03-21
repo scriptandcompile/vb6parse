@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/filesystem/setattr.rs
+source: vb6parse/src/syntax/library/statements/filesystem/setattr.rs
 expression: tree
 ---
 root:
@@ -83,8 +83,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Error\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Error\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

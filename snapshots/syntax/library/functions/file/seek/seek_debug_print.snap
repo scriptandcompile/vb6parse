@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/file/seek.rs
+source: vb6parse/src/syntax/library/functions/file/seek.rs
 expression: tree
 ---
 root:
@@ -37,14 +37,26 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: SeekKeyword
-                  text: Seek
-                - kind: LeftParenthesis
-                  text: (
-                - kind: IntegerLiteral
-                  text: "1"
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: SeekKeyword
+                              text: Seek
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: NumericLiteralExpression
+                                      children:
+                                        - kind: IntegerLiteral
+                                          text: "1"
+                            - kind: RightParenthesis
+                              text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

@@ -576,8 +576,14 @@ cst:
                     text: Execute
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: sql
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: sql
                   - kind: Newline
                     text: "\r\n"
               - kind: Newline
@@ -662,44 +668,62 @@ cst:
                     text: _
                   - kind: Newline
                     text: "\r\n"
-                  - kind: StringLiteral
-                    text: "\"Provider=sqloledb; \""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Underscore
-                    text: _
-                  - kind: Newline
-                    text: "\r\n"
-                  - kind: StringLiteral
-                    text: "\"Data Source=SANTHOSH-BAHADU\\SQLEXPRESS; \""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Underscore
-                    text: _
-                  - kind: Newline
-                    text: "\r\n"
-                  - kind: StringLiteral
-                    text: "\"Initial Catalog=EndlessRunner; \""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Underscore
-                    text: _
-                  - kind: Newline
-                    text: "\r\n"
-                  - kind: StringLiteral
-                    text: "\"Trusted_Connection=yes; \""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"Provider=sqloledb; \""
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Ampersand
+                                        text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Underscore
+                                        text: _
+                                      - kind: Newline
+                                        text: "\r\n"
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"Data Source=SANTHOSH-BAHADU\\SQLEXPRESS; \""
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Ampersand
+                                    text: "&"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Underscore
+                                    text: _
+                                  - kind: Newline
+                                    text: "\r\n"
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"Initial Catalog=EndlessRunner; \""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Underscore
+                                text: _
+                              - kind: Newline
+                                text: "\r\n"
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"Trusted_Connection=yes; \""
                   - kind: Newline
                     text: "\r\n"
               - kind: Newline

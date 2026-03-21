@@ -672,8 +672,14 @@ cst:
                     text: putnode
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: nod
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: nod
                   - kind: Newline
                     text: "\r\n"
               - kind: SetStatement
@@ -758,8 +764,14 @@ cst:
                     text: getnode
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: nod
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: nod
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -774,8 +786,14 @@ cst:
                     text: PlaceProcessingInstructions
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: nod
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: nod
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword
@@ -860,50 +878,88 @@ cst:
                     text: CreateNodeArray
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Array
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: tagname
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NothingKeyword
-                    text: Nothing
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NothingKeyword
-                    text: Nothing
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: CVar
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: IntegerLiteral
-                    text: "0"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbNullString
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbNullString
-                  - kind: RightParenthesis
-                    text: )
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: Array
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: tagname
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: NothingKeyword
+                                            text: Nothing
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: NothingKeyword
+                                            text: Nothing
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: CVar
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: NumericLiteralExpression
+                                                    children:
+                                                      - kind: IntegerLiteral
+                                                        text: "0"
+                                          - kind: RightParenthesis
+                                            text: )
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: vbNullString
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: vbNullString
+                              - kind: RightParenthesis
+                                text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: SetStatement
@@ -1046,68 +1102,114 @@ cst:
                     text: CreateNodeArray
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Array
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: tagname
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NothingKeyword
-                    text: Nothing
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NothingKeyword
-                    text: Nothing
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: CVar
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: IntegerLiteral
-                    text: "1"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: SubtractionOperator
-                    text: "-"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "2"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: MultiplicationOperator
-                    text: "*"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: cdata
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: val
-                  - kind: DollarSign
-                    text: $
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbNullString
-                  - kind: RightParenthesis
-                    text: )
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: Array
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: tagname
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: NothingKeyword
+                                            text: Nothing
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: NothingKeyword
+                                            text: Nothing
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: CVar
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: BinaryExpression
+                                                    children:
+                                                      - kind: NumericLiteralExpression
+                                                        children:
+                                                          - kind: IntegerLiteral
+                                                            text: "1"
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: SubtractionOperator
+                                                        text: "-"
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: BinaryExpression
+                                                        children:
+                                                          - kind: NumericLiteralExpression
+                                                            children:
+                                                              - kind: IntegerLiteral
+                                                                text: "2"
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: MultiplicationOperator
+                                                            text: "*"
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: cdata
+                                          - kind: RightParenthesis
+                                            text: )
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: val
+                                          - kind: DollarSign
+                                            text: $
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: vbNullString
+                              - kind: RightParenthesis
+                                text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Newline
@@ -1356,24 +1458,38 @@ cst:
                     text: PlaceAttribute
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: attrname
-                  - kind: DollarSign
-                    text: $
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: attrvalue
-                  - kind: DollarSign
-                    text: $
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: usesingle
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: attrname
+                              - kind: DollarSign
+                                text: $
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: attrvalue
+                              - kind: DollarSign
+                                text: $
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: usesingle
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword
@@ -1478,8 +1594,14 @@ cst:
                     text: getnode
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: node
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: node
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1494,30 +1616,48 @@ cst:
                     text: PlaceAttributeToNode
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: node
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: attrname
-                  - kind: DollarSign
-                    text: $
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: attrvalue
-                  - kind: DollarSign
-                    text: $
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: usesingle
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: node
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: attrname
+                              - kind: DollarSign
+                                text: $
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: attrvalue
+                              - kind: DollarSign
+                                text: $
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: usesingle
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1532,8 +1672,14 @@ cst:
                     text: putnode
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: node
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: node
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword
@@ -1596,8 +1742,14 @@ cst:
                     text: getnode
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: node
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: node
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1612,8 +1764,14 @@ cst:
                     text: insertnode
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: node
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: node
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword
@@ -1676,8 +1834,14 @@ cst:
                     text: getnode
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: node
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: node
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1692,8 +1856,14 @@ cst:
                     text: AppendChild
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: node
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: node
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword
@@ -1764,8 +1934,14 @@ cst:
                     text: getTree
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: m
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: m
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1780,8 +1956,14 @@ cst:
                     text: AppendChildObj
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: m
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: m
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword
@@ -1940,8 +2122,14 @@ cst:
                             text: createTree
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: m
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: m
                           - kind: Newline
                             text: "\r\n"
                       - kind: SetStatement
@@ -2130,8 +2318,14 @@ cst:
                             text: createTree
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: m
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: m
                           - kind: Newline
                             text: "\r\n"
                       - kind: SetStatement
@@ -2320,8 +2514,14 @@ cst:
                             text: createTree
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: m
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: m
                           - kind: Newline
                             text: "\r\n"
                       - kind: SetStatement
@@ -2526,8 +2726,14 @@ cst:
                             text: createTree
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: m
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: m
                           - kind: Newline
                             text: "\r\n"
                       - kind: SetStatement
@@ -2736,8 +2942,14 @@ cst:
                             text: createTree
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: m
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: m
                           - kind: Newline
                             text: "\r\n"
                       - kind: SetStatement
@@ -3322,8 +3534,14 @@ cst:
                                     text: createTree
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Identifier
-                                    text: m
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: m
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: SetStatement
@@ -3624,8 +3842,14 @@ cst:
                             text: DataObj
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: v
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: v
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -3828,16 +4052,30 @@ cst:
                     text: putnode
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: oXml
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: node
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: RemComment
-                    text: Remove)
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: oXml
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: node
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: RemComment
+                                            text: Remove)
                   - kind: Newline
                     text: "\r\n"
               - kind: SetStatement
@@ -4908,8 +5146,14 @@ cst:
                     text: SetNumericCharacterEntities
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: RHS
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: RHS
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword

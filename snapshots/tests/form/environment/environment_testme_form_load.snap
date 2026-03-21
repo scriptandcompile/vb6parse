@@ -190,18 +190,32 @@ cst:
                     text: Print
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: m
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Eval
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: StringLiteral
-                    text: "\"100\""
-                  - kind: RightParenthesis
-                    text: )
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: m
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Eval
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"100\""
+                              - kind: RightParenthesis
+                                text: )
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword

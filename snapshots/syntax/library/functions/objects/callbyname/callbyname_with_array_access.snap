@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/objects/callbyname.rs
+source: vb6parse/src/syntax/library/functions/objects/callbyname.rs
 expression: tree
 ---
 root:
@@ -81,26 +81,46 @@ root:
                           text: CallByName
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: objects
-                        - kind: LeftParenthesis
-                          text: (
-                        - kind: Identifier
-                          text: i
-                        - kind: RightParenthesis
-                          text: )
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
-                        - kind: Identifier
-                          text: methodName
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
-                        - kind: Identifier
-                          text: VbMethod
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: CallExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: objects
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: IdentifierExpression
+                                              children:
+                                                - kind: Identifier
+                                                  text: i
+                                    - kind: RightParenthesis
+                                      text: )
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: methodName
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: VbMethod
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

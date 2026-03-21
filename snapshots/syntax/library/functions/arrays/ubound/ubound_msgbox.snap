@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/arrays/ubound.rs
+source: vb6parse/src/syntax/library/functions/arrays/ubound.rs
 expression: tree
 ---
 root:
@@ -33,48 +33,80 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Array size: \""
-                - kind: Whitespace
-                  text: " "
-                - kind: Ampersand
-                  text: "&"
-                - kind: Whitespace
-                  text: " "
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: UBound
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: arr
-                - kind: RightParenthesis
-                  text: )
-                - kind: Whitespace
-                  text: " "
-                - kind: SubtractionOperator
-                  text: "-"
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: LBound
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: arr
-                - kind: RightParenthesis
-                  text: )
-                - kind: Whitespace
-                  text: " "
-                - kind: AdditionOperator
-                  text: +
-                - kind: Whitespace
-                  text: " "
-                - kind: IntegerLiteral
-                  text: "1"
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: BinaryExpression
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Array size: \""
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Ampersand
+                              text: "&"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: ParenthesizedExpression
+                              children:
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: BinaryExpression
+                                  children:
+                                    - kind: BinaryExpression
+                                      children:
+                                        - kind: CallExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: UBound
+                                            - kind: LeftParenthesis
+                                              text: (
+                                            - kind: ArgumentList
+                                              children:
+                                                - kind: Argument
+                                                  children:
+                                                    - kind: IdentifierExpression
+                                                      children:
+                                                        - kind: Identifier
+                                                          text: arr
+                                            - kind: RightParenthesis
+                                              text: )
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: SubtractionOperator
+                                          text: "-"
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: CallExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: LBound
+                                            - kind: LeftParenthesis
+                                              text: (
+                                            - kind: ArgumentList
+                                              children:
+                                                - kind: Argument
+                                                  children:
+                                                    - kind: IdentifierExpression
+                                                      children:
+                                                        - kind: Identifier
+                                                          text: arr
+                                            - kind: RightParenthesis
+                                              text: )
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: AdditionOperator
+                                      text: +
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: NumericLiteralExpression
+                                      children:
+                                        - kind: IntegerLiteral
+                                          text: "1"
+                                - kind: RightParenthesis
+                                  text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

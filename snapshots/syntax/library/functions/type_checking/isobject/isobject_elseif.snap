@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/type_checking/isobject.rs
+source: vb6parse/src/syntax/library/functions/type_checking/isobject.rs
 expression: tree
 ---
 root:
@@ -65,8 +65,14 @@ root:
                           text: ProcessNumber
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: data
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: data
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace
@@ -109,8 +115,14 @@ root:
                               text: ProcessObject
                             - kind: Whitespace
                               text: " "
-                            - kind: Identifier
-                              text: data
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: data
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace

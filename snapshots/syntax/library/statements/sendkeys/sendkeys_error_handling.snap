@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/system_interaction/sendkeys.rs
+source: vb6parse/src/syntax/library/statements/system_interaction/sendkeys.rs
 expression: tree
 ---
 root:
@@ -83,8 +83,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"SendKeys failed\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"SendKeys failed\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

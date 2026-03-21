@@ -79,16 +79,22 @@ root:
                       children:
                         - kind: Identifier
                           text: FullCode
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
-                        - kind: IntegerLiteral
-                          text: "4"
-                        - kind: RightParenthesis
-                          text: )
-                        - kind: Newline
-                          text: "\n"
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Comma
+                                      text: ","
+                            - kind: Whitespace
+                              text: " "
+                    - kind: Unknown
+                      text: "4"
+                    - kind: Unknown
+                      text: )
+                    - kind: Newline
+                      text: "\n"
                     - kind: Whitespace
                       text: "    "
                 - kind: EndKeyword

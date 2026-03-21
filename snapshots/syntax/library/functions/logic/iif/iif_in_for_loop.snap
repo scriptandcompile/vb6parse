@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/logic/iif.rs
+source: vb6parse/src/syntax/library/functions/logic/iif.rs
 expression: tree
 ---
 root:
@@ -125,8 +125,14 @@ root:
                           text: Print
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: i
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: i
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

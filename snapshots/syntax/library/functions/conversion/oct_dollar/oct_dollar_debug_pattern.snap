@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/conversion/oct_dollar.rs
+source: vb6parse/src/syntax/library/functions/conversion/oct_dollar.rs
 expression: tree
 ---
 root:
@@ -47,16 +47,26 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Decimal: \""
-                - kind: Whitespace
-                  text: " "
-                - kind: Ampersand
-                  text: "&"
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: value
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: BinaryExpression
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Decimal: \""
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Ampersand
+                              text: "&"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: value
                 - kind: Newline
                   text: "\n"
             - kind: Whitespace
@@ -71,22 +81,38 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Octal: \""
-                - kind: Whitespace
-                  text: " "
-                - kind: Ampersand
-                  text: "&"
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: Oct$
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: value
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: BinaryExpression
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Octal: \""
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Ampersand
+                              text: "&"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: Oct$
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: value
+                                - kind: RightParenthesis
+                                  text: )
                 - kind: Newline
                   text: "\n"
             - kind: Whitespace
@@ -101,22 +127,38 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Hex: \""
-                - kind: Whitespace
-                  text: " "
-                - kind: Ampersand
-                  text: "&"
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: Hex$
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: value
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: BinaryExpression
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Hex: \""
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Ampersand
+                              text: "&"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: Hex$
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: value
+                                - kind: RightParenthesis
+                                  text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

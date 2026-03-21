@@ -49,8 +49,14 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Normal code\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Normal code\""
                 - kind: Newline
                   text: "\n"
             - kind: LabelStatement
@@ -73,8 +79,14 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Error handling\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Error handling\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

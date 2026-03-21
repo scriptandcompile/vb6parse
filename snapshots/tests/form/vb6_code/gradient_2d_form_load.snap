@@ -390,38 +390,56 @@ cst:
                     text: DrawGradient
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: frmGradient
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: picColor1
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: BackColor
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: picColor2
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: BackColor
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: cmbStyle
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: ListIndex
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: frmGradient
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: picColor1
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: BackColor
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: picColor2
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: BackColor
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: cmbStyle
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: ListIndex
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword
@@ -464,38 +482,56 @@ cst:
                     text: DrawGradient
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: frmGradient
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: picColor1
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: BackColor
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: picColor2
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: BackColor
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: cmbStyle
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: ListIndex
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: frmGradient
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: picColor1
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: BackColor
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: picColor2
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: BackColor
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: cmbStyle
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: ListIndex
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword
@@ -548,8 +584,14 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"Horizontal\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"Horizontal\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -564,8 +606,14 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"Vertical\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"Vertical\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -812,38 +860,56 @@ cst:
                     text: DrawGradient
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: frmGradient
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: picColor1
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: BackColor
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: picColor2
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: BackColor
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: cmbStyle
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: ListIndex
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: frmGradient
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: picColor1
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: BackColor
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: picColor2
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: BackColor
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: cmbStyle
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: ListIndex
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword
@@ -890,38 +956,56 @@ cst:
                     text: DrawGradient
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: frmGradient
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: picColor1
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: BackColor
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: picColor2
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: BackColor
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: cmbStyle
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: ListIndex
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: frmGradient
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: picColor1
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: BackColor
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: picColor2
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: BackColor
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: cmbStyle
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: ListIndex
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword
@@ -1148,38 +1232,56 @@ cst:
                             text: DrawGradient
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: frmGradient
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: picColor1
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: BackColor
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: picColor2
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: BackColor
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: cmbStyle
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: ListIndex
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: frmGradient
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: picColor1
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: BackColor
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: picColor2
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: BackColor
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: cmbStyle
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: ListIndex
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -1408,38 +1510,56 @@ cst:
                             text: DrawGradient
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: frmGradient
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: picColor1
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: BackColor
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: picColor2
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: BackColor
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: cmbStyle
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: ListIndex
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: frmGradient
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: picColor1
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: BackColor
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: picColor2
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: BackColor
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: cmbStyle
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: ListIndex
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -2714,54 +2834,98 @@ cst:
                                     text: " "
                                   - kind: LeftParenthesis
                                     text: (
-                                  - kind: IntegerLiteral
-                                    text: "0"
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
-                                    text: Y
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "0"
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: Y
                                   - kind: RightParenthesis
                                     text: )
-                                  - kind: SubtractionOperator
-                                    text: "-"
-                                  - kind: LeftParenthesis
-                                    text: (
+                              - kind: Unknown
+                                text: "-"
+                              - kind: Unknown
+                                text: (
+                              - kind: CallStatement
+                                children:
                                   - kind: Identifier
                                     text: TempWidth
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Comma
+                                                text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                              - kind: CallStatement
+                                children:
                                   - kind: Identifier
                                     text: Y
-                                  - kind: RightParenthesis
-                                    text: )
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
-                                    text: RGB
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: Identifier
-                                    text: R2
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
-                                    text: G2
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
-                                    text: B2
-                                  - kind: RightParenthesis
-                                    text: )
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: RightParenthesis
+                                                text: )
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: CallExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: RGB
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: R2
+                                                  - kind: Comma
+                                                    text: ","
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: G2
+                                                  - kind: Comma
+                                                    text: ","
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: B2
+                                              - kind: RightParenthesis
+                                                text: )
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -3314,54 +3478,98 @@ cst:
                                                 text: " "
                                               - kind: LeftParenthesis
                                                 text: (
-                                              - kind: Identifier
-                                                text: X
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: IntegerLiteral
-                                                text: "0"
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: X
+                                                  - kind: Comma
+                                                    text: ","
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: NumericLiteralExpression
+                                                        children:
+                                                          - kind: IntegerLiteral
+                                                            text: "0"
                                               - kind: RightParenthesis
                                                 text: )
-                                              - kind: SubtractionOperator
-                                                text: "-"
-                                              - kind: LeftParenthesis
-                                                text: (
+                                          - kind: Unknown
+                                            text: "-"
+                                          - kind: Unknown
+                                            text: (
+                                          - kind: CallStatement
+                                            children:
                                               - kind: Identifier
                                                 text: X
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Comma
+                                                            text: ","
+                                                  - kind: Whitespace
+                                                    text: " "
+                                          - kind: CallStatement
+                                            children:
                                               - kind: Identifier
                                                 text: TempHeight
-                                              - kind: RightParenthesis
-                                                text: )
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: RGB
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: Identifier
-                                                text: R2
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: G2
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: B2
-                                              - kind: RightParenthesis
-                                                text: )
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: RightParenthesis
+                                                            text: )
+                                                  - kind: Comma
+                                                    text: ","
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: CallExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: RGB
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: R2
+                                                              - kind: Comma
+                                                                text: ","
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: G2
+                                                              - kind: Comma
+                                                                text: ","
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: B2
+                                                          - kind: RightParenthesis
+                                                            text: )
                                               - kind: Newline
                                                 text: "\r\n"
                                           - kind: Whitespace

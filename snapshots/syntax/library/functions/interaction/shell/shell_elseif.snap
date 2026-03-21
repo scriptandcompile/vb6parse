@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/interaction/shell.rs
+source: vb6parse/src/syntax/library/functions/interaction/shell.rs
 expression: tree
 ---
 root:
@@ -127,8 +127,14 @@ root:
                           text: MsgBox
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"Failed\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Failed\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace
@@ -171,8 +177,14 @@ root:
                               text: MsgBox
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Success\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Success\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/conversion/oct_dollar.rs
+source: vb6parse/src/syntax/library/functions/conversion/oct_dollar.rs
 expression: tree
 ---
 root:
@@ -37,14 +37,26 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: Oct$
-                - kind: LeftParenthesis
-                  text: (
-                - kind: IntegerLiteral
-                  text: "8"
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: Oct$
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: NumericLiteralExpression
+                                      children:
+                                        - kind: IntegerLiteral
+                                          text: "8"
+                            - kind: RightParenthesis
+                              text: )
                 - kind: Newline
                   text: "\n"
             - kind: Whitespace
@@ -59,14 +71,26 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: Oct$
-                - kind: LeftParenthesis
-                  text: (
-                - kind: IntegerLiteral
-                  text: "64"
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: Oct$
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: NumericLiteralExpression
+                                      children:
+                                        - kind: IntegerLiteral
+                                          text: "64"
+                            - kind: RightParenthesis
+                              text: )
                 - kind: Newline
                   text: "\n"
             - kind: Whitespace
@@ -81,14 +105,26 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: Oct$
-                - kind: LeftParenthesis
-                  text: (
-                - kind: IntegerLiteral
-                  text: "511"
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: Oct$
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: NumericLiteralExpression
+                                      children:
+                                        - kind: IntegerLiteral
+                                          text: "511"
+                            - kind: RightParenthesis
+                              text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

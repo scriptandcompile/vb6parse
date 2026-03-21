@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/timer.rs
+source: vb6parse/src/syntax/library/functions/datetime/timer.rs
 expression: tree
 ---
 root:
@@ -61,8 +61,14 @@ root:
                   text: Start
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: Timer
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: Timer
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

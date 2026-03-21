@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/financial/pmt.rs
+source: vb6parse/src/syntax/library/functions/financial/pmt.rs
 expression: tree
 ---
 root:
@@ -141,14 +141,24 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: years
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: payment
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: years
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: payment
                 - kind: Newline
                   text: "\n"
         - kind: NextKeyword

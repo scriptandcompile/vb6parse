@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/interaction/input.rs
+source: vb6parse/src/syntax/library/functions/interaction/input.rs
 expression: tree
 ---
 root:
@@ -99,8 +99,14 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Data read\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Data read\""
                 - kind: Newline
                   text: "\n"
             - kind: Whitespace

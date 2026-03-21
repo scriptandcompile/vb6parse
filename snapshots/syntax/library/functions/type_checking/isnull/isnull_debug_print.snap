@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/type_checking/isnull.rs
+source: vb6parse/src/syntax/library/functions/type_checking/isnull.rs
 expression: tree
 ---
 root:
@@ -37,22 +37,38 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Is null: \""
-                - kind: Whitespace
-                  text: " "
-                - kind: Ampersand
-                  text: "&"
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: IsNull
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: testVar
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: BinaryExpression
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Is null: \""
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Ampersand
+                              text: "&"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: IsNull
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: testVar
+                                - kind: RightParenthesis
+                                  text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

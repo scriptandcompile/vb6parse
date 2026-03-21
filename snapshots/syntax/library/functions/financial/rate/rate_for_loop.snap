@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/financial/rate.rs
+source: vb6parse/src/syntax/library/functions/financial/rate.rs
 expression: tree
 ---
 root:
@@ -119,22 +119,36 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: payment
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: r
-                - kind: Whitespace
-                  text: " "
-                - kind: MultiplicationOperator
-                  text: "*"
-                - kind: Whitespace
-                  text: " "
-                - kind: IntegerLiteral
-                  text: "12"
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: payment
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Argument
+                      children:
+                        - kind: BinaryExpression
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: r
+                            - kind: Whitespace
+                              text: " "
+                            - kind: MultiplicationOperator
+                              text: "*"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "12"
                 - kind: Newline
                   text: "\n"
         - kind: NextKeyword

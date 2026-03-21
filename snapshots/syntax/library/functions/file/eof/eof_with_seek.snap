@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/file/eof.rs
+source: vb6parse/src/syntax/library/functions/file/eof.rs
 expression: tree
 ---
 root:
@@ -105,14 +105,24 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: position
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: LineKeyword
-                  text: line
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: position
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: LineKeyword
+                              text: line
                 - kind: Newline
                   text: "\n"
         - kind: LoopKeyword

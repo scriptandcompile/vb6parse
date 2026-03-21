@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/interaction/msgbox.rs
+source: vb6parse/src/syntax/library/functions/interaction/msgbox.rs
 expression: tree
 ---
 root:
@@ -13,51 +13,81 @@ root:
           text: MsgBox
         - kind: Whitespace
           text: " "
-        - kind: StringLiteral
-          text: "\"Line 1\""
-        - kind: Whitespace
-          text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: vbCrLf
-        - kind: Whitespace
-          text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Whitespace
-          text: " "
-        - kind: StringLiteral
-          text: "\"Line 2\""
-        - kind: Whitespace
-          text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: vbCrLf
-        - kind: Whitespace
-          text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Whitespace
-          text: " "
-        - kind: StringLiteral
-          text: "\"Line 3\""
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: vbInformation
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: StringLiteral
-          text: "\"Multi-line\""
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: BinaryExpression
+                  children:
+                    - kind: BinaryExpression
+                      children:
+                        - kind: BinaryExpression
+                          children:
+                            - kind: BinaryExpression
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Line 1\""
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Ampersand
+                                  text: "&"
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: vbCrLf
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Ampersand
+                              text: "&"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Line 2\""
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Ampersand
+                          text: "&"
+                        - kind: Whitespace
+                          text: " "
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: vbCrLf
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Line 3\""
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: vbInformation
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: StringLiteralExpression
+                  children:
+                    - kind: StringLiteral
+                      text: "\"Multi-line\""
         - kind: Newline
           text: "\n"

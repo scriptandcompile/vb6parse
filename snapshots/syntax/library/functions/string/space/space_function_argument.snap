@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/space.rs
+source: vb6parse/src/syntax/library/functions/string/space.rs
 expression: tree
 ---
 root:
@@ -71,14 +71,26 @@ root:
                   text: ProcessText
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: Space
-                - kind: LeftParenthesis
-                  text: (
-                - kind: IntegerLiteral
-                  text: "15"
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: Space
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: NumericLiteralExpression
+                                      children:
+                                        - kind: IntegerLiteral
+                                          text: "15"
+                            - kind: RightParenthesis
+                              text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

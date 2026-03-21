@@ -61,34 +61,48 @@ root:
                   text: Rate
                 - kind: Whitespace
                   text: " "
-                - kind: DivisionOperator
-                  text: /
-                - kind: Whitespace
-                  text: " "
-                - kind: IntegerLiteral
-                  text: "12"
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: SubtractionOperator
-                  text: "-"
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: DivisionOperator
+                              text: /
+                    - kind: Whitespace
+                      text: " "
+            - kind: Unknown
+              text: "12"
+            - kind: Unknown
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Unknown
+              text: "-"
+            - kind: CallStatement
+              children:
                 - kind: PeriodOperator
                   text: "."
                 - kind: Identifier
                   text: MonthlyPayment
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: PeriodOperator
-                  text: "."
-                - kind: Identifier
-                  text: Principal
-                - kind: RightParenthesis
-                  text: )
-                - kind: Newline
-                  text: "\n"
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: MemberAccessExpression
+                          children:
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: PeriodOperator
+                              text: "."
+                            - kind: Identifier
+                              text: Principal
+            - kind: Unknown
+              text: )
+            - kind: Newline
+              text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

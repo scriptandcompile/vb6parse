@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/type_checking/iserror.rs
+source: vb6parse/src/syntax/library/functions/type_checking/iserror.rs
 expression: tree
 ---
 root:
@@ -65,8 +65,14 @@ root:
                           text: HandleError
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: value
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: value
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

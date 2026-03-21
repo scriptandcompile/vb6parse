@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/file/filelen.rs
+source: vb6parse/src/syntax/library/functions/file/filelen.rs
 expression: tree
 ---
 root:
@@ -97,8 +97,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Error\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Error\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

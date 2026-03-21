@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/math/rnd.rs
+source: vb6parse/src/syntax/library/functions/math/rnd.rs
 expression: tree
 ---
 root:
@@ -17,8 +17,14 @@ root:
           text: ProcessValue
         - kind: LeftParenthesis
           text: (
-        - kind: Identifier
-          text: Rnd
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: Rnd
         - kind: RightParenthesis
           text: )
         - kind: Newline

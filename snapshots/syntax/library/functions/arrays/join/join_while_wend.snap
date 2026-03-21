@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/arrays/join.rs
+source: vb6parse/src/syntax/library/functions/arrays/join.rs
 expression: tree
 ---
 root:
@@ -99,12 +99,20 @@ root:
                           text: Add
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: GetNextItem
-                        - kind: LeftParenthesis
-                          text: (
-                        - kind: RightParenthesis
-                          text: )
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: CallExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: GetNextItem
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children: []
+                                    - kind: RightParenthesis
+                                      text: )
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

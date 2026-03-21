@@ -23,16 +23,30 @@ cst:
             text: Global
           - kind: Whitespace
             text: " "
-          - kind: Identifier
-            text: MinMonitorLeft
-          - kind: Whitespace
-            text: " "
+          - kind: ArgumentList
+            children:
+              - kind: Argument
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: MinMonitorLeft
+              - kind: Whitespace
+                text: " "
+      - kind: CallStatement
+        children:
           - kind: AsKeyword
             text: As
           - kind: Whitespace
             text: " "
-          - kind: LongKeyword
-            text: Long
+          - kind: ArgumentList
+            children:
+              - kind: Argument
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: LongKeyword
+                        text: Long
           - kind: Newline
             text: "\r\n"
       - kind: CallStatement
@@ -41,16 +55,30 @@ cst:
             text: Global
           - kind: Whitespace
             text: " "
-          - kind: Identifier
-            text: MinMonitorTop
-          - kind: Whitespace
-            text: " "
+          - kind: ArgumentList
+            children:
+              - kind: Argument
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: MinMonitorTop
+              - kind: Whitespace
+                text: " "
+      - kind: CallStatement
+        children:
           - kind: AsKeyword
             text: As
           - kind: Whitespace
             text: " "
-          - kind: LongKeyword
-            text: Long
+          - kind: ArgumentList
+            children:
+              - kind: Argument
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: LongKeyword
+                        text: Long
           - kind: Newline
             text: "\r\n"
       - kind: DeclareStatement
@@ -1977,34 +2005,56 @@ cst:
                     text: EnumDisplayMonitors
                   - kind: Whitespace
                     text: " "
-                  - kind: IntegerLiteral
-                    text: "0"
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ByValKeyword
-                    text: ByVal
-                  - kind: Whitespace
-                    text: " "
-                  - kind: LongLiteral
-                    text: 0&
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "0"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: ByValKeyword
+                                text: ByVal
+                      - kind: Whitespace
+                        text: " "
+              - kind: Unknown
+                text: 0&
+              - kind: Unknown
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: CallStatement
+                children:
                   - kind: Identifier
                     text: AddressOf
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: MonitorEnumProc
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: n
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: MonitorEnumProc
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: n
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -2133,34 +2183,56 @@ cst:
                     text: EnumDisplayMonitors
                   - kind: Whitespace
                     text: " "
-                  - kind: IntegerLiteral
-                    text: "0"
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ByValKeyword
-                    text: ByVal
-                  - kind: Whitespace
-                    text: " "
-                  - kind: LongLiteral
-                    text: 0&
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "0"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: ByValKeyword
+                                text: ByVal
+                      - kind: Whitespace
+                        text: " "
+              - kind: Unknown
+                text: 0&
+              - kind: Unknown
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: CallStatement
+                children:
                   - kind: Identifier
                     text: AddressOf
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: MonitorEnumProc
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: n
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: MonitorEnumProc
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: n
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword
@@ -2235,34 +2307,56 @@ cst:
                     text: EnumDisplayMonitors
                   - kind: Whitespace
                     text: " "
-                  - kind: IntegerLiteral
-                    text: "0"
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ByValKeyword
-                    text: ByVal
-                  - kind: Whitespace
-                    text: " "
-                  - kind: LongLiteral
-                    text: 0&
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "0"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: ByValKeyword
+                                text: ByVal
+                      - kind: Whitespace
+                        text: " "
+              - kind: Unknown
+                text: 0&
+              - kind: Unknown
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: CallStatement
+                children:
                   - kind: Identifier
                     text: AddressOf
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: MonitorEnumProc
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: n
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: MonitorEnumProc
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: n
                   - kind: Newline
                     text: "\r\n"
               - kind: WithStatement
@@ -2295,56 +2389,82 @@ cst:
                             text: "."
                           - kind: Identifier
                             text: Left
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: top
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: Identifier
-                            text: rcVS
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: Right
-                          - kind: Whitespace
-                            text: " "
-                          - kind: SubtractionOperator
-                            text: "-"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: rcVS
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: Left
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Whitespace
-                            text: " "
-                          - kind: MultiplicationOperator
-                            text: "*"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IntegerLiteral
-                            text: "2"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: AdditionOperator
-                            text: +
-                          - kind: Whitespace
-                            text: " "
-                          - kind: PeriodOperator
-                            text: "."
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: top
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: ParenthesizedExpression
+                                            children:
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: BinaryExpression
+                                                children:
+                                                  - kind: MemberAccessExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: rcVS
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: Identifier
+                                                        text: Right
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: SubtractionOperator
+                                                    text: "-"
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: MemberAccessExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: rcVS
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: Identifier
+                                                        text: Left
+                                              - kind: RightParenthesis
+                                                text: )
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: MultiplicationOperator
+                                            text: "*"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "2"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: AdditionOperator
+                                        text: +
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: PeriodOperator
+                                            text: "."
+                      - kind: WidthStatement
+                        children:
                           - kind: WidthKeyword
                             text: Width
                           - kind: Whitespace
@@ -2437,46 +2557,72 @@ cst:
                     text: " "
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: rcVS
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Left
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: rcVS
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: top
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: rcVS
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Left
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: rcVS
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: top
                   - kind: RightParenthesis
                     text: )
-                  - kind: SubtractionOperator
-                    text: "-"
-                  - kind: LeftParenthesis
-                    text: (
+              - kind: Unknown
+                text: "-"
+              - kind: Unknown
+                text: (
+              - kind: CallStatement
+                children:
                   - kind: Identifier
                     text: rcVS
                   - kind: PeriodOperator
                     text: "."
                   - kind: Identifier
                     text: Right
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Comma
+                                text: ","
+                      - kind: Whitespace
+                        text: " "
+              - kind: CallStatement
+                children:
                   - kind: Identifier
                     text: rcVS
                   - kind: PeriodOperator
                     text: "."
                   - kind: Identifier
                     text: Bottom
-                  - kind: RightParenthesis
-                    text: )
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: RightParenthesis
+                                text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -2851,10 +2997,18 @@ cst:
                                     text: lblMonitors
                                   - kind: LeftParenthesis
                                     text: (
-                                  - kind: Identifier
-                                    text: n
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: n
                                   - kind: RightParenthesis
                                     text: )
+                              - kind: CallStatement
+                                children:
                                   - kind: PeriodOperator
                                     text: "."
                                   - kind: Identifier
@@ -2865,48 +3019,82 @@ cst:
                                     text: "."
                                   - kind: Identifier
                                     text: Left
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: Identifier
-                                    text: top
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: PeriodOperator
-                                    text: "."
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: top
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: PeriodOperator
+                                                text: "."
+                              - kind: CallStatement
+                                children:
                                   - kind: Identifier
                                     text: Right
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: SubtractionOperator
-                                    text: "-"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: PeriodOperator
-                                    text: "."
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: UnaryExpression
+                                            children:
+                                              - kind: SubtractionOperator
+                                                text: "-"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                              - kind: CallStatement
+                                children:
                                   - kind: Identifier
                                     text: Left
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: Identifier
-                                    text: Bottom
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: SubtractionOperator
-                                    text: "-"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: PeriodOperator
-                                    text: "."
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: MemberAccessExpression
+                                                children:
+                                                  - kind: Comma
+                                                    text: ","
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: Bottom
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: SubtractionOperator
+                                                text: "-"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                              - kind: CallStatement
+                                children:
                                   - kind: Identifier
                                     text: top
                                   - kind: Newline
@@ -3013,142 +3201,220 @@ cst:
                                     text: Right
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: SubtractionOperator
-                                    text: "-"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: PeriodOperator
-                                    text: "."
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: UnaryExpression
+                                            children:
+                                              - kind: SubtractionOperator
+                                                text: "-"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                              - kind: CallStatement
+                                children:
                                   - kind: Identifier
                                     text: Left
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Ampersand
-                                    text: "&"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: StringLiteral
-                                    text: "\" x \""
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Ampersand
-                                    text: "&"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: LeftParenthesis
-                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Ampersand
+                                                text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                              - kind: Unknown
+                                text: "\" x \""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Unknown
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Unknown
+                                text: (
+                              - kind: CallStatement
+                                children:
                                   - kind: PeriodOperator
                                     text: "."
                                   - kind: Identifier
                                     text: Bottom
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: SubtractionOperator
-                                    text: "-"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: PeriodOperator
-                                    text: "."
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: UnaryExpression
+                                            children:
+                                              - kind: SubtractionOperator
+                                                text: "-"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                              - kind: CallStatement
+                                children:
                                   - kind: Identifier
                                     text: top
-                                  - kind: RightParenthesis
-                                    text: )
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Ampersand
-                                    text: "&"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
-                                    text: vbLf
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Ampersand
-                                    text: "&"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Underscore
-                                    text: _
-                                  - kind: Newline
-                                    text: "\r\n"
-                                  - kind: Whitespace
-                                    text: "                "
-                                  - kind: StringLiteral
-                                    text: "\"(\""
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Ampersand
-                                    text: "&"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: PeriodOperator
-                                    text: "."
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: BinaryExpression
+                                                children:
+                                                  - kind: BinaryExpression
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: RightParenthesis
+                                                            text: )
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Ampersand
+                                                        text: "&"
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: vbLf
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Ampersand
+                                                    text: "&"
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Underscore
+                                                    text: _
+                                                  - kind: Newline
+                                                    text: "\r\n"
+                                                  - kind: Whitespace
+                                                    text: "                "
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"(\""
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Ampersand
+                                                text: "&"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                              - kind: CallStatement
+                                children:
                                   - kind: Identifier
                                     text: Left
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Ampersand
-                                    text: "&"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: StringLiteral
-                                    text: "\", \""
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Ampersand
-                                    text: "&"
-                                  - kind: Whitespace
-                                    text: " "
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Ampersand
+                                                text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                              - kind: Unknown
+                                text: "\", \""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Unknown
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: CallStatement
+                                children:
                                   - kind: PeriodOperator
                                     text: "."
                                   - kind: Identifier
                                     text: top
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Ampersand
-                                    text: "&"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: StringLiteral
-                                    text: "\")-(\""
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Ampersand
-                                    text: "&"
-                                  - kind: Whitespace
-                                    text: " "
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Ampersand
+                                                text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                              - kind: Unknown
+                                text: "\")-(\""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Unknown
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: CallStatement
+                                children:
                                   - kind: PeriodOperator
                                     text: "."
                                   - kind: Identifier
                                     text: Right
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Ampersand
-                                    text: "&"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: StringLiteral
-                                    text: "\", \""
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Ampersand
-                                    text: "&"
-                                  - kind: Whitespace
-                                    text: " "
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Ampersand
+                                                text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                              - kind: Unknown
+                                text: "\", \""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Unknown
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: CallStatement
+                                children:
                                   - kind: PeriodOperator
                                     text: "."
                                   - kind: Identifier
                                     text: Bottom
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Ampersand
-                                    text: "&"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: StringLiteral
-                                    text: "\")\""
-                                  - kind: Newline
-                                    text: "\r\n"
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Ampersand
+                                                text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                              - kind: Unknown
+                                text: "\")\""
+                              - kind: Newline
+                                text: "\r\n"
                               - kind: Whitespace
                                 text: "        "
                           - kind: EndKeyword
@@ -3403,14 +3669,24 @@ cst:
                     text: GetMonitorInfo
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: hmonitor
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: mi
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: hmonitor
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: mi
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -3539,36 +3815,54 @@ cst:
                                 text: Left
                               - kind: Whitespace
                                 text: " "
-                              - kind: LessThanOperator
-                                text: "<"
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: MinMonitorLeft
-                              - kind: Whitespace
-                                text: " "
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: LessThanOperator
+                                            text: "<"
+                                  - kind: Whitespace
+                                    text: " "
+                      - kind: Unknown
+                        text: MinMonitorLeft
+                      - kind: Whitespace
+                        text: " "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
                               - kind: ThenKeyword
                                 text: Then
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: MinMonitorLeft
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: MinMonitorLeft
                               - kind: Whitespace
                                 text: " "
                               - kind: EqualityOperator
                                 text: "="
                               - kind: Whitespace
                                 text: " "
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: Left
-                              - kind: Newline
-                                text: "\r\n"
-                          - kind: Whitespace
-                            text: "  "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: PeriodOperator
+                                    text: "."
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: Left
                           - kind: Newline
                             text: "\r\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                       - kind: AssignmentStatement
@@ -3635,38 +3929,56 @@ cst:
                                 text: top
                               - kind: Whitespace
                                 text: " "
-                              - kind: LessThanOperator
-                                text: "<"
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: MinMonitorTop
-                              - kind: Whitespace
-                                text: " "
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: LessThanOperator
+                                            text: "<"
+                                  - kind: Whitespace
+                                    text: " "
+                      - kind: Unknown
+                        text: MinMonitorTop
+                      - kind: Whitespace
+                        text: " "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
                               - kind: ThenKeyword
                                 text: Then
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: MinMonitorTop
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: MinMonitorTop
                               - kind: Whitespace
                                 text: " "
                               - kind: EqualityOperator
                                 text: "="
                               - kind: Whitespace
                                 text: " "
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: top
-                              - kind: Newline
-                                text: "\r\n"
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: EndOfLineComment
-                            text: "'End If"
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: PeriodOperator
+                                    text: "."
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: top
                           - kind: Newline
                             text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: EndOfLineComment
+                        text: "'End If"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                       - kind: Newline
@@ -3925,26 +4237,40 @@ cst:
                     text: UnionRect
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: rcVS
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: rcVS
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: lprcMonitor
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EndOfLineComment
-                    text: "'merge all monitors together to get the virtual screen coordinates"
-                  - kind: Newline
-                    text: "\r\n"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: rcVS
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: rcVS
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: lprcMonitor
+                      - kind: Whitespace
+                        text: " "
+              - kind: EndOfLineComment
+                text: "'merge all monitors together to get the virtual screen coordinates"
+              - kind: Newline
+                text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: AssignmentStatement
@@ -4071,20 +4397,30 @@ cst:
                     text: GetWindowRect
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: hWnd
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: rc
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EndOfLineComment
-                    text: "'save position in pixel units"
-                  - kind: Newline
-                    text: "\r\n"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: hWnd
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: rc
+                      - kind: Whitespace
+                        text: " "
+              - kind: EndOfLineComment
+                text: "'save position in pixel units"
+              - kind: Newline
+                text: "\r\n"
               - kind: SaveSettingStatement
                 children:
                   - kind: Whitespace
@@ -4413,18 +4749,32 @@ cst:
                         text: z
                       - kind: Whitespace
                         text: " "
-                      - kind: IsKeyword
-                        text: Is
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: Form
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ThenKeyword
-                        text: Then
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: IsKeyword
+                                    text: Is
+                          - kind: Whitespace
+                            text: " "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: Form
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: ThenKeyword
+                                text: Then
+                  - kind: Newline
+                    text: "\r\n"
               - kind: SetStatement
                 children:
                   - kind: SetKeyword
@@ -4603,18 +4953,32 @@ cst:
                         text: z
                       - kind: Whitespace
                         text: " "
-                      - kind: IsKeyword
-                        text: Is
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: Form
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ThenKeyword
-                        text: Then
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: IsKeyword
+                                    text: Is
+                          - kind: Whitespace
+                            text: " "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: Form
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: ThenKeyword
+                                text: Then
+                  - kind: Newline
+                    text: "\r\n"
               - kind: SetStatement
                 children:
                   - kind: SetKeyword
@@ -5019,24 +5383,42 @@ cst:
                             text: FindMonitorFromPixel
                           - kind: LeftParenthesis
                             text: (
-                          - kind: Identifier
-                            text: X
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Y
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: X
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Y
                           - kind: RightParenthesis
                             text: )
-                          - kind: Whitespace
-                            text: " "
+                      - kind: Whitespace
+                        text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: AsKeyword
                             text: As
                           - kind: Whitespace
                             text: " "
-                          - kind: LongKeyword
-                            text: Long
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: LongKeyword
+                                        text: Long
                           - kind: Newline
                             text: "\r\n"
                       - kind: DimStatement
@@ -5337,6 +5719,8 @@ cst:
                             text: FindMonitorFromMouse
                           - kind: LeftParenthesis
                             text: (
+                          - kind: ArgumentList
+                            children: []
                           - kind: RightParenthesis
                             text: )
                           - kind: Newline
@@ -5403,8 +5787,14 @@ cst:
                             text: GetCursorPos
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: tp
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: tp
                           - kind: Newline
                             text: "\r\n"
                       - kind: AssignmentStatement
@@ -5683,20 +6073,34 @@ cst:
                             text: MoveFormToOtherMonitor
                           - kind: LeftParenthesis
                             text: (
-                          - kind: Identifier
-                            text: f
-                          - kind: Whitespace
-                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: f
+                              - kind: Whitespace
+                                text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: AsKeyword
                             text: As
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: Form
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Newline
-                            text: "\r\n"
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Form
+                      - kind: Unknown
+                        text: )
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: DimStatement
                         children:
                           - kind: DimKeyword
@@ -5877,34 +6281,60 @@ cst:
                                             text: move
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Identifier
-                                            text: ScrInfo
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: Identifier
-                                            text: z
-                                          - kind: RightParenthesis
-                                            text: )
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: Left
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Identifier
-                                            text: ScrInfo
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: Identifier
-                                            text: z
-                                          - kind: RightParenthesis
-                                            text: )
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: top
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: MemberAccessExpression
+                                                    children:
+                                                      - kind: CallExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: ScrInfo
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: z
+                                                          - kind: RightParenthesis
+                                                            text: )
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: Identifier
+                                                        text: Left
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: MemberAccessExpression
+                                                    children:
+                                                      - kind: CallExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: ScrInfo
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: z
+                                                          - kind: RightParenthesis
+                                                            text: )
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: Identifier
+                                                        text: top
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace
@@ -5929,76 +6359,124 @@ cst:
                                                 text: move
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: Identifier
-                                                text: ScrInfo
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: Identifier
-                                                text: z
-                                              - kind: RightParenthesis
-                                                text: )
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: Left
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: ScrInfo
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: Identifier
-                                                text: z
-                                              - kind: RightParenthesis
-                                                text: )
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: top
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: AdditionOperator
-                                                text: +
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: Identifier
-                                                text: ScrInfo
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: Identifier
-                                                text: z
-                                              - kind: RightParenthesis
-                                                text: )
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: Height
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: SubtractionOperator
-                                                text: "-"
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: f
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: Height
-                                              - kind: RightParenthesis
-                                                text: )
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: DivisionOperator
-                                                text: /
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: IntegerLiteral
-                                                text: "2"
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: MemberAccessExpression
+                                                        children:
+                                                          - kind: CallExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: ScrInfo
+                                                              - kind: LeftParenthesis
+                                                                text: (
+                                                              - kind: ArgumentList
+                                                                children:
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: IdentifierExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: z
+                                                              - kind: RightParenthesis
+                                                                text: )
+                                                          - kind: PeriodOperator
+                                                            text: "."
+                                                          - kind: Identifier
+                                                            text: Left
+                                                  - kind: Comma
+                                                    text: ","
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: BinaryExpression
+                                                        children:
+                                                          - kind: MemberAccessExpression
+                                                            children:
+                                                              - kind: CallExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: ScrInfo
+                                                                  - kind: LeftParenthesis
+                                                                    text: (
+                                                                  - kind: ArgumentList
+                                                                    children:
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: IdentifierExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: z
+                                                                  - kind: RightParenthesis
+                                                                    text: )
+                                                              - kind: PeriodOperator
+                                                                text: "."
+                                                              - kind: Identifier
+                                                                text: top
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: AdditionOperator
+                                                            text: +
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: BinaryExpression
+                                                            children:
+                                                              - kind: ParenthesizedExpression
+                                                                children:
+                                                                  - kind: LeftParenthesis
+                                                                    text: (
+                                                                  - kind: BinaryExpression
+                                                                    children:
+                                                                      - kind: MemberAccessExpression
+                                                                        children:
+                                                                          - kind: CallExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: ScrInfo
+                                                                              - kind: LeftParenthesis
+                                                                                text: (
+                                                                              - kind: ArgumentList
+                                                                                children:
+                                                                                  - kind: Argument
+                                                                                    children:
+                                                                                      - kind: IdentifierExpression
+                                                                                        children:
+                                                                                          - kind: Identifier
+                                                                                            text: z
+                                                                              - kind: RightParenthesis
+                                                                                text: )
+                                                                          - kind: PeriodOperator
+                                                                            text: "."
+                                                                          - kind: Identifier
+                                                                            text: Height
+                                                                      - kind: Whitespace
+                                                                        text: " "
+                                                                      - kind: SubtractionOperator
+                                                                        text: "-"
+                                                                      - kind: Whitespace
+                                                                        text: " "
+                                                                      - kind: MemberAccessExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: f
+                                                                          - kind: PeriodOperator
+                                                                            text: "."
+                                                                          - kind: Identifier
+                                                                            text: Height
+                                                                  - kind: RightParenthesis
+                                                                    text: )
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: DivisionOperator
+                                                                text: /
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: NumericLiteralExpression
+                                                                children:
+                                                                  - kind: IntegerLiteral
+                                                                    text: "2"
                                               - kind: Newline
                                                 text: "\r\n"
                                           - kind: Whitespace
@@ -6079,76 +6557,124 @@ cst:
                                         text: move
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Identifier
-                                        text: ScrInfo
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: Identifier
-                                        text: z
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: Left
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: AdditionOperator
-                                        text: +
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: Identifier
-                                        text: ScrInfo
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: Identifier
-                                        text: z
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: WidthKeyword
-                                        text: Width
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: SubtractionOperator
-                                        text: "-"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: f
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: WidthKeyword
-                                        text: Width
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: DivisionOperator
-                                        text: /
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IntegerLiteral
-                                        text: "2"
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: ScrInfo
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: Identifier
-                                        text: z
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: top
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: BinaryExpression
+                                                children:
+                                                  - kind: MemberAccessExpression
+                                                    children:
+                                                      - kind: CallExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: ScrInfo
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: z
+                                                          - kind: RightParenthesis
+                                                            text: )
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: Identifier
+                                                        text: Left
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: AdditionOperator
+                                                    text: +
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: BinaryExpression
+                                                    children:
+                                                      - kind: ParenthesizedExpression
+                                                        children:
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: BinaryExpression
+                                                            children:
+                                                              - kind: MemberAccessExpression
+                                                                children:
+                                                                  - kind: CallExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: ScrInfo
+                                                                      - kind: LeftParenthesis
+                                                                        text: (
+                                                                      - kind: ArgumentList
+                                                                        children:
+                                                                          - kind: Argument
+                                                                            children:
+                                                                              - kind: IdentifierExpression
+                                                                                children:
+                                                                                  - kind: Identifier
+                                                                                    text: z
+                                                                      - kind: RightParenthesis
+                                                                        text: )
+                                                                  - kind: PeriodOperator
+                                                                    text: "."
+                                                                  - kind: WidthKeyword
+                                                                    text: Width
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: SubtractionOperator
+                                                                text: "-"
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: MemberAccessExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: f
+                                                                  - kind: PeriodOperator
+                                                                    text: "."
+                                                                  - kind: WidthKeyword
+                                                                    text: Width
+                                                          - kind: RightParenthesis
+                                                            text: )
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: DivisionOperator
+                                                        text: /
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: NumericLiteralExpression
+                                                        children:
+                                                          - kind: IntegerLiteral
+                                                            text: "2"
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: MemberAccessExpression
+                                                children:
+                                                  - kind: CallExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: ScrInfo
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: z
+                                                      - kind: RightParenthesis
+                                                        text: )
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: top
                                       - kind: Newline
                                         text: "\r\n"
                           - kind: ElseClause
@@ -6197,38 +6723,64 @@ cst:
                             text: MoveFormToOtherMonitorOnly
                           - kind: LeftParenthesis
                             text: (
-                          - kind: Identifier
-                            text: f
-                          - kind: Whitespace
-                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: f
+                              - kind: Whitespace
+                                text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: AsKeyword
                             text: As
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: Form
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: OptionalKeyword
-                            text: Optional
-                          - kind: Whitespace
-                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Form
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: OptionalKeyword
+                                        text: Optional
+                              - kind: Whitespace
+                                text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: Identifier
                             text: flag
                           - kind: Whitespace
                             text: " "
-                          - kind: AsKeyword
-                            text: As
-                          - kind: Whitespace
-                            text: " "
-                          - kind: BooleanKeyword
-                            text: Boolean
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Newline
-                            text: "\r\n"
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: AsKeyword
+                                        text: As
+                              - kind: Whitespace
+                                text: " "
+                      - kind: Unknown
+                        text: Boolean
+                      - kind: Unknown
+                        text: )
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: DimStatement
                         children:
                           - kind: DimKeyword
@@ -6475,8 +7027,14 @@ cst:
                                             text: GetCursorPos
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Identifier
-                                            text: tp
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: tp
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace
@@ -10145,14 +10703,24 @@ cst:
                             text: move
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: nowX
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: nowY
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: nowX
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: nowY
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -10173,20 +10741,34 @@ cst:
                             text: MoveFormToOtherMonitorCenter
                           - kind: LeftParenthesis
                             text: (
-                          - kind: Identifier
-                            text: f
-                          - kind: Whitespace
-                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: f
+                              - kind: Whitespace
+                                text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: AsKeyword
                             text: As
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: Form
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Newline
-                            text: "\r\n"
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Form
+                      - kind: Unknown
+                        text: )
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: DimStatement
                         children:
                           - kind: DimKeyword
@@ -10355,34 +10937,60 @@ cst:
                                             text: move
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Identifier
-                                            text: ScrInfo
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: Identifier
-                                            text: z
-                                          - kind: RightParenthesis
-                                            text: )
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: Left
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Identifier
-                                            text: ScrInfo
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: Identifier
-                                            text: z
-                                          - kind: RightParenthesis
-                                            text: )
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: top
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: MemberAccessExpression
+                                                    children:
+                                                      - kind: CallExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: ScrInfo
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: z
+                                                          - kind: RightParenthesis
+                                                            text: )
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: Identifier
+                                                        text: Left
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: MemberAccessExpression
+                                                    children:
+                                                      - kind: CallExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: ScrInfo
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: z
+                                                          - kind: RightParenthesis
+                                                            text: )
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: Identifier
+                                                        text: top
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace
@@ -10407,76 +11015,124 @@ cst:
                                                 text: move
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: Identifier
-                                                text: ScrInfo
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: Identifier
-                                                text: z
-                                              - kind: RightParenthesis
-                                                text: )
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: Left
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: ScrInfo
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: Identifier
-                                                text: z
-                                              - kind: RightParenthesis
-                                                text: )
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: top
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: AdditionOperator
-                                                text: +
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: Identifier
-                                                text: ScrInfo
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: Identifier
-                                                text: z
-                                              - kind: RightParenthesis
-                                                text: )
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: Height
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: SubtractionOperator
-                                                text: "-"
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: f
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: Height
-                                              - kind: RightParenthesis
-                                                text: )
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: DivisionOperator
-                                                text: /
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: IntegerLiteral
-                                                text: "2"
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: MemberAccessExpression
+                                                        children:
+                                                          - kind: CallExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: ScrInfo
+                                                              - kind: LeftParenthesis
+                                                                text: (
+                                                              - kind: ArgumentList
+                                                                children:
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: IdentifierExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: z
+                                                              - kind: RightParenthesis
+                                                                text: )
+                                                          - kind: PeriodOperator
+                                                            text: "."
+                                                          - kind: Identifier
+                                                            text: Left
+                                                  - kind: Comma
+                                                    text: ","
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: BinaryExpression
+                                                        children:
+                                                          - kind: MemberAccessExpression
+                                                            children:
+                                                              - kind: CallExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: ScrInfo
+                                                                  - kind: LeftParenthesis
+                                                                    text: (
+                                                                  - kind: ArgumentList
+                                                                    children:
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: IdentifierExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: z
+                                                                  - kind: RightParenthesis
+                                                                    text: )
+                                                              - kind: PeriodOperator
+                                                                text: "."
+                                                              - kind: Identifier
+                                                                text: top
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: AdditionOperator
+                                                            text: +
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: BinaryExpression
+                                                            children:
+                                                              - kind: ParenthesizedExpression
+                                                                children:
+                                                                  - kind: LeftParenthesis
+                                                                    text: (
+                                                                  - kind: BinaryExpression
+                                                                    children:
+                                                                      - kind: MemberAccessExpression
+                                                                        children:
+                                                                          - kind: CallExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: ScrInfo
+                                                                              - kind: LeftParenthesis
+                                                                                text: (
+                                                                              - kind: ArgumentList
+                                                                                children:
+                                                                                  - kind: Argument
+                                                                                    children:
+                                                                                      - kind: IdentifierExpression
+                                                                                        children:
+                                                                                          - kind: Identifier
+                                                                                            text: z
+                                                                              - kind: RightParenthesis
+                                                                                text: )
+                                                                          - kind: PeriodOperator
+                                                                            text: "."
+                                                                          - kind: Identifier
+                                                                            text: Height
+                                                                      - kind: Whitespace
+                                                                        text: " "
+                                                                      - kind: SubtractionOperator
+                                                                        text: "-"
+                                                                      - kind: Whitespace
+                                                                        text: " "
+                                                                      - kind: MemberAccessExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: f
+                                                                          - kind: PeriodOperator
+                                                                            text: "."
+                                                                          - kind: Identifier
+                                                                            text: Height
+                                                                  - kind: RightParenthesis
+                                                                    text: )
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: DivisionOperator
+                                                                text: /
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: NumericLiteralExpression
+                                                                children:
+                                                                  - kind: IntegerLiteral
+                                                                    text: "2"
                                               - kind: Newline
                                                 text: "\r\n"
                                           - kind: Whitespace
@@ -10557,76 +11213,124 @@ cst:
                                         text: move
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Identifier
-                                        text: ScrInfo
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: Identifier
-                                        text: z
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: Left
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: AdditionOperator
-                                        text: +
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: Identifier
-                                        text: ScrInfo
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: Identifier
-                                        text: z
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: WidthKeyword
-                                        text: Width
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: SubtractionOperator
-                                        text: "-"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: f
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: WidthKeyword
-                                        text: Width
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: DivisionOperator
-                                        text: /
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IntegerLiteral
-                                        text: "2"
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: ScrInfo
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: Identifier
-                                        text: z
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: top
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: BinaryExpression
+                                                children:
+                                                  - kind: MemberAccessExpression
+                                                    children:
+                                                      - kind: CallExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: ScrInfo
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: z
+                                                          - kind: RightParenthesis
+                                                            text: )
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: Identifier
+                                                        text: Left
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: AdditionOperator
+                                                    text: +
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: BinaryExpression
+                                                    children:
+                                                      - kind: ParenthesizedExpression
+                                                        children:
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: BinaryExpression
+                                                            children:
+                                                              - kind: MemberAccessExpression
+                                                                children:
+                                                                  - kind: CallExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: ScrInfo
+                                                                      - kind: LeftParenthesis
+                                                                        text: (
+                                                                      - kind: ArgumentList
+                                                                        children:
+                                                                          - kind: Argument
+                                                                            children:
+                                                                              - kind: IdentifierExpression
+                                                                                children:
+                                                                                  - kind: Identifier
+                                                                                    text: z
+                                                                      - kind: RightParenthesis
+                                                                        text: )
+                                                                  - kind: PeriodOperator
+                                                                    text: "."
+                                                                  - kind: WidthKeyword
+                                                                    text: Width
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: SubtractionOperator
+                                                                text: "-"
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: MemberAccessExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: f
+                                                                  - kind: PeriodOperator
+                                                                    text: "."
+                                                                  - kind: WidthKeyword
+                                                                    text: Width
+                                                          - kind: RightParenthesis
+                                                            text: )
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: DivisionOperator
+                                                        text: /
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: NumericLiteralExpression
+                                                        children:
+                                                          - kind: IntegerLiteral
+                                                            text: "2"
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: MemberAccessExpression
+                                                children:
+                                                  - kind: CallExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: ScrInfo
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: z
+                                                      - kind: RightParenthesis
+                                                        text: )
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: top
                                       - kind: Newline
                                         text: "\r\n"
                           - kind: ElseClause
@@ -10649,118 +11353,188 @@ cst:
                                         text: move
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Identifier
-                                        text: ScrInfo
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: Identifier
-                                        text: z
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: Left
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: AdditionOperator
-                                        text: +
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: Identifier
-                                        text: ScrInfo
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: Identifier
-                                        text: z
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: WidthKeyword
-                                        text: Width
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: SubtractionOperator
-                                        text: "-"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: f
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: WidthKeyword
-                                        text: Width
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: DivisionOperator
-                                        text: /
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IntegerLiteral
-                                        text: "2"
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: ScrInfo
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: Identifier
-                                        text: z
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: top
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: AdditionOperator
-                                        text: +
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: Identifier
-                                        text: ScrInfo
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: Identifier
-                                        text: z
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: Height
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: SubtractionOperator
-                                        text: "-"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: f
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: Height
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: DivisionOperator
-                                        text: /
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IntegerLiteral
-                                        text: "2"
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: BinaryExpression
+                                                children:
+                                                  - kind: MemberAccessExpression
+                                                    children:
+                                                      - kind: CallExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: ScrInfo
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: z
+                                                          - kind: RightParenthesis
+                                                            text: )
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: Identifier
+                                                        text: Left
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: AdditionOperator
+                                                    text: +
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: BinaryExpression
+                                                    children:
+                                                      - kind: ParenthesizedExpression
+                                                        children:
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: BinaryExpression
+                                                            children:
+                                                              - kind: MemberAccessExpression
+                                                                children:
+                                                                  - kind: CallExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: ScrInfo
+                                                                      - kind: LeftParenthesis
+                                                                        text: (
+                                                                      - kind: ArgumentList
+                                                                        children:
+                                                                          - kind: Argument
+                                                                            children:
+                                                                              - kind: IdentifierExpression
+                                                                                children:
+                                                                                  - kind: Identifier
+                                                                                    text: z
+                                                                      - kind: RightParenthesis
+                                                                        text: )
+                                                                  - kind: PeriodOperator
+                                                                    text: "."
+                                                                  - kind: WidthKeyword
+                                                                    text: Width
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: SubtractionOperator
+                                                                text: "-"
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: MemberAccessExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: f
+                                                                  - kind: PeriodOperator
+                                                                    text: "."
+                                                                  - kind: WidthKeyword
+                                                                    text: Width
+                                                          - kind: RightParenthesis
+                                                            text: )
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: DivisionOperator
+                                                        text: /
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: NumericLiteralExpression
+                                                        children:
+                                                          - kind: IntegerLiteral
+                                                            text: "2"
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: BinaryExpression
+                                                children:
+                                                  - kind: MemberAccessExpression
+                                                    children:
+                                                      - kind: CallExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: ScrInfo
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: z
+                                                          - kind: RightParenthesis
+                                                            text: )
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: Identifier
+                                                        text: top
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: AdditionOperator
+                                                    text: +
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: BinaryExpression
+                                                    children:
+                                                      - kind: ParenthesizedExpression
+                                                        children:
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: BinaryExpression
+                                                            children:
+                                                              - kind: MemberAccessExpression
+                                                                children:
+                                                                  - kind: CallExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: ScrInfo
+                                                                      - kind: LeftParenthesis
+                                                                        text: (
+                                                                      - kind: ArgumentList
+                                                                        children:
+                                                                          - kind: Argument
+                                                                            children:
+                                                                              - kind: IdentifierExpression
+                                                                                children:
+                                                                                  - kind: Identifier
+                                                                                    text: z
+                                                                      - kind: RightParenthesis
+                                                                        text: )
+                                                                  - kind: PeriodOperator
+                                                                    text: "."
+                                                                  - kind: Identifier
+                                                                    text: Height
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: SubtractionOperator
+                                                                text: "-"
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: MemberAccessExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: f
+                                                                  - kind: PeriodOperator
+                                                                    text: "."
+                                                                  - kind: Identifier
+                                                                    text: Height
+                                                          - kind: RightParenthesis
+                                                            text: )
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: DivisionOperator
+                                                        text: /
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: NumericLiteralExpression
+                                                        children:
+                                                          - kind: IntegerLiteral
+                                                            text: "2"
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Newline

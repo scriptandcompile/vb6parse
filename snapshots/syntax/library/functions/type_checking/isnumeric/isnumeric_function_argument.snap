@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/type_checking/isnumeric.rs
+source: vb6parse/src/syntax/library/functions/type_checking/isnumeric.rs
 expression: tree
 ---
 root:
@@ -37,18 +37,30 @@ root:
                   text: ValidateInput
                 - kind: LeftParenthesis
                   text: (
-                - kind: Identifier
-                  text: IsNumeric
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: txtAmount
-                - kind: PeriodOperator
-                  text: "."
-                - kind: TextKeyword
-                  text: Text
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: IsNumeric
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: MemberAccessExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: txtAmount
+                                        - kind: PeriodOperator
+                                          text: "."
+                                        - kind: TextKeyword
+                                          text: Text
+                            - kind: RightParenthesis
+                              text: )
                 - kind: RightParenthesis
                   text: )
                 - kind: Newline

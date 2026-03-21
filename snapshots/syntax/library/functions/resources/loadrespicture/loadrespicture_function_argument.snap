@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/resources/loadrespicture.rs
+source: vb6parse/src/syntax/library/functions/resources/loadrespicture.rs
 expression: tree
 ---
 root:
@@ -19,20 +19,36 @@ root:
           text: SetPicture
         - kind: LeftParenthesis
           text: (
-        - kind: Identifier
-          text: LoadResPicture
-        - kind: LeftParenthesis
-          text: (
-        - kind: IntegerLiteral
-          text: "101"
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: vbResBitmap
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: LoadResPicture
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "101"
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: vbResBitmap
+                    - kind: RightParenthesis
+                      text: )
         - kind: RightParenthesis
           text: )
         - kind: Newline

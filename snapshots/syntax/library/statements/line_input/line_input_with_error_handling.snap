@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/file_operations/line_input.rs
+source: vb6parse/src/syntax/library/statements/file_operations/line_input.rs
 expression: tree
 ---
 root:
@@ -113,8 +113,14 @@ root:
                           text: MsgBox
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"Error reading file\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Error reading file\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

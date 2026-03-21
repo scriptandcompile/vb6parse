@@ -1,5 +1,5 @@
 ---
-source: src/parsers/cst/loop_statements.rs
+source: vb6parse/src/parsers/cst/loop_statements.rs
 expression: tree
 ---
 root:
@@ -121,8 +121,14 @@ root:
                           text: ProcessLine
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: dataLine
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: dataLine
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

@@ -519,14 +519,24 @@ cst:
                     text: PlayTrackFromCD
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: drive
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: track
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: drive
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: track
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -633,28 +643,44 @@ cst:
                             text: BASS_CD_StreamSetTrack
                           - kind: LeftParenthesis
                             text: (
-                          - kind: Identifier
-                            text: stream
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: Identifier
-                            text: drive
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: CallExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: stream
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: drive
+                                      - kind: RightParenthesis
+                                        text: )
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: track
                           - kind: RightParenthesis
                             text: )
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: track
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Whitespace
-                            text: " "
-                          - kind: EndOfLineComment
-                            text: "' already have a stream, so just set the track"
-                          - kind: Newline
-                            text: "\n"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EndOfLineComment
+                        text: "' already have a stream, so just set the track"
+                      - kind: Newline
+                        text: "\n"
                   - kind: ElseClause
                     children:
                       - kind: ElseKeyword
@@ -743,50 +769,82 @@ cst:
                                 text: BASS_ChannelSetSync
                               - kind: LeftParenthesis
                                 text: (
-                              - kind: Identifier
-                                text: stream
-                              - kind: LeftParenthesis
-                                text: (
-                              - kind: Identifier
-                                text: drive
-                              - kind: RightParenthesis
-                                text: )
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: BASS_SYNC_END
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IntegerLiteral
-                                text: "0"
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: AddressOf
-                              - kind: Whitespace
-                                text: " "
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: stream
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: drive
+                                          - kind: RightParenthesis
+                                            text: )
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: BASS_SYNC_END
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: AddressOf
+                                  - kind: Whitespace
+                                    text: " "
+                          - kind: CallStatement
+                            children:
                               - kind: Identifier
                                 text: EndSync
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IntegerLiteral
-                                text: "0"
-                              - kind: RightParenthesis
-                                text: )
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EndOfLineComment
-                                text: "' set end sync"
-                              - kind: Newline
-                                text: "\n"
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Comma
+                                            text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                          - kind: Unknown
+                            text: "0"
+                          - kind: Unknown
+                            text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EndOfLineComment
+                            text: "' set end sync"
+                          - kind: Newline
+                            text: "\n"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace
@@ -807,28 +865,44 @@ cst:
                     text: BASS_ChannelPlay
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: stream
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: drive
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: stream
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: drive
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: BASSFALSE
                   - kind: RightParenthesis
                     text: )
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: BASSFALSE
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EndOfLineComment
-                    text: "' start playing"
-                  - kind: Newline
-                    text: "\n"
+              - kind: Whitespace
+                text: " "
+              - kind: EndOfLineComment
+                text: "' start playing"
+              - kind: Newline
+                text: "\n"
           - kind: EndKeyword
             text: End
           - kind: Whitespace
@@ -869,8 +943,14 @@ cst:
                     text: BASS_ChannelStop
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: curdrive
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: curdrive
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -1307,14 +1387,24 @@ cst:
                             text: BASS_ChannelPlay
                           - kind: LeftParenthesis
                             text: (
-                          - kind: Identifier
-                            text: curdrive
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IntegerLiteral
-                            text: "0"
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: curdrive
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "0"
                           - kind: RightParenthesis
                             text: )
                           - kind: Newline
@@ -1339,14 +1429,24 @@ cst:
                                 text: BASS_ChannelPlay
                               - kind: LeftParenthesis
                                 text: (
-                              - kind: Identifier
-                                text: curdrive
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IntegerLiteral
-                                text: "1"
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: curdrive
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "1"
                               - kind: RightParenthesis
                                 text: )
                               - kind: Newline
@@ -1431,8 +1531,14 @@ cst:
                     text: BASS_ChannelPause
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: curdrive
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: curdrive
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -1557,40 +1663,68 @@ cst:
                     text: BASS_ChannelSetPosition
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: curdrive
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: BASS_ChannelSeconds2Bytes
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: curdrive
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: pos
-                  - kind: Whitespace
-                    text: " "
-                  - kind: SubtractionOperator
-                    text: "-"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "5"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: BASS_POS_BYTE
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: curdrive
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: BASS_ChannelSeconds2Bytes
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: curdrive
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: pos
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: SubtractionOperator
+                                            text: "-"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "5"
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: BASS_POS_BYTE
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -1715,40 +1849,68 @@ cst:
                     text: BASS_ChannelSetPosition
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: curdrive
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: BASS_ChannelSeconds2Bytes
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: curdrive
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: pos
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AdditionOperator
-                    text: +
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "5"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: BASS_POS_BYTE
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: curdrive
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: BASS_ChannelSeconds2Bytes
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: curdrive
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: pos
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: AdditionOperator
+                                            text: +
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "5"
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: BASS_POS_BYTE
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -1825,14 +1987,24 @@ cst:
                             text: BASS_CD_Door
                           - kind: LeftParenthesis
                             text: (
-                          - kind: Identifier
-                            text: curdrive
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: BASS_CD_DOOR_CLOSE
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: curdrive
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: BASS_CD_DOOR_CLOSE
                           - kind: RightParenthesis
                             text: )
                           - kind: Newline
@@ -1857,14 +2029,24 @@ cst:
                                 text: BASS_CD_Door
                               - kind: LeftParenthesis
                                 text: (
-                              - kind: Identifier
-                                text: curdrive
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: BASS_CD_DOOR_OPEN
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: curdrive
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: BASS_CD_DOOR_OPEN
                               - kind: RightParenthesis
                                 text: )
                               - kind: Newline
@@ -2057,14 +2239,24 @@ cst:
                     text: PlayTrackFromCD
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: curdrive
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: CurrentTrackNr
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: curdrive
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: CurrentTrackNr
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -2139,14 +2331,24 @@ cst:
                     text: PlayTrackFromCD
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: curdrive
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: CurrentTrackNr
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: curdrive
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: CurrentTrackNr
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline

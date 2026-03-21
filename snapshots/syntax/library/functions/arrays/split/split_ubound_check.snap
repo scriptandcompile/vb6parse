@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/arrays/split.rs
+source: vb6parse/src/syntax/library/functions/arrays/split.rs
 expression: tree
 ---
 root:
@@ -143,14 +143,26 @@ root:
                           text: MsgBox
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: arr
-                        - kind: LeftParenthesis
-                          text: (
-                        - kind: IntegerLiteral
-                          text: "0"
-                        - kind: RightParenthesis
-                          text: )
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: CallExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: arr
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: NumericLiteralExpression
+                                              children:
+                                                - kind: IntegerLiteral
+                                                  text: "0"
+                                    - kind: RightParenthesis
+                                      text: )
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

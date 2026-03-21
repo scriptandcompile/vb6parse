@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/financial/nper.rs
+source: vb6parse/src/syntax/library/functions/financial/nper.rs
 expression: tree
 ---
 root:
@@ -125,8 +125,14 @@ root:
                       text: MsgBox
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Short term\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Short term\""
                     - kind: Newline
                       text: "\n"
                 - kind: Whitespace
@@ -159,8 +165,14 @@ root:
                       text: MsgBox
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Medium term\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Medium term\""
                     - kind: Newline
                       text: "\n"
                 - kind: Whitespace
@@ -185,8 +197,14 @@ root:
                       text: MsgBox
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Long term\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Long term\""
                     - kind: Newline
                       text: "\n"
         - kind: EndKeyword

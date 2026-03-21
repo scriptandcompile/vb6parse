@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/strconv.rs
+source: vb6parse/src/syntax/library/functions/string/strconv.rs
 expression: tree
 ---
 root:
@@ -87,8 +87,14 @@ root:
                           text: MsgBox
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"Confirmed\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Confirmed\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

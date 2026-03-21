@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/datevalue.rs
+source: vb6parse/src/syntax/library/functions/datetime/datevalue.rs
 expression: tree
 ---
 root:
@@ -13,21 +13,37 @@ root:
           text: MsgBox
         - kind: Whitespace
           text: " "
-        - kind: StringLiteral
-          text: "\"Parsed: \""
-        - kind: Whitespace
-          text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: DateValue
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: userInput
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: BinaryExpression
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Parsed: \""
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: DateValue
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: userInput
+                        - kind: RightParenthesis
+                          text: )
         - kind: Newline
           text: "\n"

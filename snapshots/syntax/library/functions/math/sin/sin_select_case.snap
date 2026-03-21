@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/math/sin.rs
+source: vb6parse/src/syntax/library/functions/math/sin.rs
 expression: tree
 ---
 root:
@@ -85,8 +85,14 @@ root:
                               text: MsgBox
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Positive\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Positive\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace
@@ -119,8 +125,14 @@ root:
                               text: MsgBox
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Negative\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Negative\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace
@@ -145,8 +157,14 @@ root:
                               text: MsgBox
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Zero\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Zero\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace

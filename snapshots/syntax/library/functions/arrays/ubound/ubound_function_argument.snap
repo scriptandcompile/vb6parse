@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/arrays/ubound.rs
+source: vb6parse/src/syntax/library/functions/arrays/ubound.rs
 expression: tree
 ---
 root:
@@ -37,20 +37,36 @@ root:
                   text: ProcessArray
                 - kind: LeftParenthesis
                   text: (
-                - kind: Identifier
-                  text: data
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: UBound
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: data
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: data
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: UBound
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: data
+                            - kind: RightParenthesis
+                              text: )
                 - kind: RightParenthesis
                   text: )
                 - kind: Newline

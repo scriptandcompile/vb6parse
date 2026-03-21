@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/weekdayname.rs
+source: vb6parse/src/syntax/library/functions/datetime/weekdayname.rs
 expression: tree
 ---
 root:
@@ -37,26 +37,48 @@ root:
                   text: Add
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: WeekdayName
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: i
-                - kind: RightParenthesis
-                  text: )
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: CStr
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: i
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: WeekdayName
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: i
+                            - kind: RightParenthesis
+                              text: )
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: CStr
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: i
+                            - kind: RightParenthesis
+                              text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

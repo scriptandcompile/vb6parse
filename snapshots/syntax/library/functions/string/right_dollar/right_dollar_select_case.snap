@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/right_dollar.rs
+source: vb6parse/src/syntax/library/functions/string/right_dollar.rs
 expression: tree
 ---
 root:
@@ -91,8 +91,14 @@ root:
                               text: Print
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Text\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Text\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace
@@ -121,8 +127,14 @@ root:
                               text: Print
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Document\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Document\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace

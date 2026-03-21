@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/financial/ipmt.rs
+source: vb6parse/src/syntax/library/functions/financial/ipmt.rs
 expression: tree
 ---
 root:
@@ -117,8 +117,14 @@ root:
                               text: MsgBox
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"High interest\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"High interest\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace
@@ -153,8 +159,14 @@ root:
                               text: MsgBox
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Medium interest\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Medium interest\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/type_checking/ismissing.rs
+source: vb6parse/src/syntax/library/functions/type_checking/ismissing.rs
 expression: tree
 ---
 root:
@@ -51,14 +51,26 @@ root:
                   text: LogStatus
                 - kind: LeftParenthesis
                   text: (
-                - kind: Identifier
-                  text: IsMissing
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: param
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: IsMissing
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: param
+                            - kind: RightParenthesis
+                              text: )
                 - kind: RightParenthesis
                   text: )
                 - kind: Newline

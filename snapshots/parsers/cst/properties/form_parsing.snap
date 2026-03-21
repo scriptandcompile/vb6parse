@@ -1,5 +1,5 @@
 ---
-source: src/parsers/cst/properties.rs
+source: vb6parse/src/parsers/cst/properties.rs
 expression: tree
 ---
 root:
@@ -267,8 +267,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Hello\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Hello\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

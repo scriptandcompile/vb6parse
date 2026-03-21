@@ -157,8 +157,14 @@ cst:
                     text: MsgBox
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"&name\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"&name\""
                   - kind: Newline
                     text: "\r\n"
               - kind: CallStatement
@@ -167,8 +173,14 @@ cst:
                     text: MsgBox
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"&marks\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"&marks\""
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword

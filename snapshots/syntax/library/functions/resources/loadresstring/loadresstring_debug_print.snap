@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/resources/loadresstring.rs
+source: vb6parse/src/syntax/library/functions/resources/loadresstring.rs
 expression: tree
 ---
 root:
@@ -19,14 +19,26 @@ root:
           text: Print
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: LoadResString
-        - kind: LeftParenthesis
-          text: (
-        - kind: IntegerLiteral
-          text: "24001"
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: LoadResString
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "24001"
+                    - kind: RightParenthesis
+                      text: )
         - kind: Newline
           text: "\n"
     - kind: Whitespace

@@ -81,56 +81,78 @@ root:
                           text: Value
                         - kind: Whitespace
                           text: " "
-                        - kind: GreaterThanOperator
-                          text: ">"
-                        - kind: Whitespace
-                          text: " "
-                        - kind: IntegerLiteral
-                          text: "100"
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
-                        - kind: StringLiteral
-                          text: "\"High\""
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: GreaterThanOperator
+                                      text: ">"
+                            - kind: Whitespace
+                              text: " "
+                    - kind: Unknown
+                      text: "100"
+                    - kind: Unknown
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Unknown
+                      text: "\"High\""
+                    - kind: Unknown
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallStatement
+                      children:
                         - kind: PeriodOperator
                           text: "."
                         - kind: Identifier
                           text: Value
                         - kind: Whitespace
                           text: " "
-                        - kind: GreaterThanOperator
-                          text: ">"
-                        - kind: Whitespace
-                          text: " "
-                        - kind: IntegerLiteral
-                          text: "50"
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
-                        - kind: StringLiteral
-                          text: "\"Medium\""
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: GreaterThanOperator
+                                      text: ">"
+                            - kind: Whitespace
+                              text: " "
+                    - kind: Unknown
+                      text: "50"
+                    - kind: Unknown
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Unknown
+                      text: "\"Medium\""
+                    - kind: Unknown
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallStatement
+                      children:
                         - kind: TrueKeyword
                           text: "True"
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
-                        - kind: StringLiteral
-                          text: "\"Low\""
-                        - kind: RightParenthesis
-                          text: )
-                        - kind: Newline
-                          text: "\n"
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Comma
+                                      text: ","
+                            - kind: Whitespace
+                              text: " "
+                    - kind: Unknown
+                      text: "\"Low\""
+                    - kind: Unknown
+                      text: )
+                    - kind: Newline
+                      text: "\n"
                     - kind: Whitespace
                       text: "    "
                 - kind: EndKeyword

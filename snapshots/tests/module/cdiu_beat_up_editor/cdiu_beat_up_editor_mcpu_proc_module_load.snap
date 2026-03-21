@@ -1081,8 +1081,14 @@ cst:
                     text: CloseHandle
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: hProc
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: hProc
                   - kind: Newline
                     text: "\n"
               - kind: Whitespace

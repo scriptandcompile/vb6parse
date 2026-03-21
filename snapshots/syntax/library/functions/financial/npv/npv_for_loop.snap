@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/financial/npv.rs
+source: vb6parse/src/syntax/library/functions/financial/npv.rs
 expression: tree
 ---
 root:
@@ -117,14 +117,24 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: rate
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: npvValue
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: rate
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: npvValue
                 - kind: Newline
                   text: "\n"
         - kind: NextKeyword

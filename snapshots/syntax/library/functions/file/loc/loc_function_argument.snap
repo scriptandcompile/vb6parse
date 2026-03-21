@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/file/loc.rs
+source: vb6parse/src/syntax/library/functions/file/loc.rs
 expression: tree
 ---
 root:
@@ -19,14 +19,26 @@ root:
           text: UpdateProgress
         - kind: LeftParenthesis
           text: (
-        - kind: Identifier
-          text: Loc
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: fileNum
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: Loc
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: fileNum
+                    - kind: RightParenthesis
+                      text: )
         - kind: RightParenthesis
           text: )
         - kind: Newline

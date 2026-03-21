@@ -73,20 +73,34 @@ root:
                       children:
                         - kind: Identifier
                           text: Item
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
-                        - kind: StringLiteral
-                          text: "\"Method\""
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Comma
+                                      text: ","
+                            - kind: Whitespace
+                              text: " "
+                    - kind: Unknown
+                      text: "\"Method\""
+                    - kind: Unknown
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallStatement
+                      children:
                         - kind: Identifier
                           text: VbMethod
-                        - kind: RightParenthesis
-                          text: )
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: RightParenthesis
+                                      text: )
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

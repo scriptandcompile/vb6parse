@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/objects/typename.rs
+source: vb6parse/src/syntax/library/functions/objects/typename.rs
 expression: tree
 ---
 root:
@@ -99,8 +99,14 @@ root:
                           text: MsgBox
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"It's an array!\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"It's an array!\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

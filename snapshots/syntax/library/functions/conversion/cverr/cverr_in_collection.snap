@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/conversion/cverr.rs
+source: vb6parse/src/syntax/library/functions/conversion/cverr.rs
 expression: tree
 ---
 root:
@@ -17,13 +17,25 @@ root:
           text: Add
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: CVErr
-        - kind: LeftParenthesis
-          text: (
-        - kind: IntegerLiteral
-          text: "2042"
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: CVErr
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "2042"
+                    - kind: RightParenthesis
+                      text: )
         - kind: Newline
           text: "\n"

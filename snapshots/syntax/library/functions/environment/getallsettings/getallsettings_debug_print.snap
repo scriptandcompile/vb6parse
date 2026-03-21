@@ -15,49 +15,85 @@ root:
           text: Print
         - kind: Whitespace
           text: " "
-        - kind: StringLiteral
-          text: "\"Settings count: \""
-        - kind: Whitespace
-          text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Whitespace
-          text: " "
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: UBound
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: GetAllSettings
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: appName
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: section
-        - kind: RightParenthesis
-          text: )
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "1"
-        - kind: RightParenthesis
-          text: )
-        - kind: Whitespace
-          text: " "
-        - kind: AdditionOperator
-          text: +
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "1"
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: BinaryExpression
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Settings count: \""
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: ParenthesizedExpression
+                      children:
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: BinaryExpression
+                          children:
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: UBound
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: CallExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: GetAllSettings
+                                            - kind: LeftParenthesis
+                                              text: (
+                                            - kind: ArgumentList
+                                              children:
+                                                - kind: Argument
+                                                  children:
+                                                    - kind: IdentifierExpression
+                                                      children:
+                                                        - kind: Identifier
+                                                          text: appName
+                                                - kind: Comma
+                                                  text: ","
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: Argument
+                                                  children:
+                                                    - kind: IdentifierExpression
+                                                      children:
+                                                        - kind: Identifier
+                                                          text: section
+                                            - kind: RightParenthesis
+                                              text: )
+                                    - kind: Comma
+                                      text: ","
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: Argument
+                                      children:
+                                        - kind: NumericLiteralExpression
+                                          children:
+                                            - kind: IntegerLiteral
+                                              text: "1"
+                                - kind: RightParenthesis
+                                  text: )
+                            - kind: Whitespace
+                              text: " "
+                            - kind: AdditionOperator
+                              text: +
+                            - kind: Whitespace
+                              text: " "
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "1"
+                        - kind: RightParenthesis
+                          text: )

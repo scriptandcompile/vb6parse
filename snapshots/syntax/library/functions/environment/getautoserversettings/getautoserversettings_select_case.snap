@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/environment/getautoserversettings.rs
+source: vb6parse/src/syntax/library/functions/environment/getautoserversettings.rs
 expression: tree
 ---
 root:
@@ -87,8 +87,14 @@ root:
                       text: Print
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Configured\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Configured\""
                     - kind: Newline
                       text: "\n"
         - kind: EndKeyword

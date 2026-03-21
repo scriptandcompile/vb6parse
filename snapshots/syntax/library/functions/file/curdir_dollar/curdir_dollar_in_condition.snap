@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/file/curdir_dollar.rs
+source: vb6parse/src/syntax/library/functions/file/curdir_dollar.rs
 expression: tree
 ---
 root:
@@ -71,8 +71,14 @@ root:
                           text: MsgBox
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"Correct directory\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Correct directory\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/date_dollar.rs
+source: vb6parse/src/syntax/library/functions/datetime/date_dollar.rs
 expression: tree
 ---
 root:
@@ -37,16 +37,26 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Current date: \""
-                - kind: Whitespace
-                  text: " "
-                - kind: Ampersand
-                  text: "&"
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: Date$
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: BinaryExpression
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Current date: \""
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Ampersand
+                              text: "&"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: Date$
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

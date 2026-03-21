@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/now.rs
+source: vb6parse/src/syntax/library/functions/datetime/now.rs
 expression: tree
 ---
 root:
@@ -17,14 +17,24 @@ root:
           text: LogEvent
         - kind: LeftParenthesis
           text: (
-        - kind: StringLiteral
-          text: "\"User login\""
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: Now
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: StringLiteralExpression
+                  children:
+                    - kind: StringLiteral
+                      text: "\"User login\""
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: Now
         - kind: RightParenthesis
           text: )
         - kind: Newline

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/conversion/vartype.rs
+source: vb6parse/src/syntax/library/functions/conversion/vartype.rs
 expression: tree
 ---
 root:
@@ -77,14 +77,26 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: VarType
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: v
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: VarType
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: v
+                            - kind: RightParenthesis
+                              text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

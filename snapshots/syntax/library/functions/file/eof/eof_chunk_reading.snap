@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/file/eof.rs
+source: vb6parse/src/syntax/library/functions/file/eof.rs
 expression: tree
 ---
 root:
@@ -87,8 +87,14 @@ root:
                   text: ProcessChunk
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: chunk
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: chunk
                 - kind: Newline
                   text: "\n"
         - kind: LoopKeyword

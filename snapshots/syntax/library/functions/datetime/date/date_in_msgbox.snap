@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/date.rs
+source: vb6parse/src/syntax/library/functions/datetime/date.rs
 expression: tree
 ---
 root:
@@ -13,15 +13,25 @@ root:
           text: MsgBox
         - kind: Whitespace
           text: " "
-        - kind: StringLiteral
-          text: "\"Today is: \""
-        - kind: Whitespace
-          text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Whitespace
-          text: " "
-        - kind: DateKeyword
-          text: Date
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: BinaryExpression
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Today is: \""
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: DateKeyword
+                          text: Date
         - kind: Newline
           text: "\n"

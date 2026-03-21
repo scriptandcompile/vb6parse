@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/arrays/lbound.rs
+source: vb6parse/src/syntax/library/functions/arrays/lbound.rs
 expression: tree
 ---
 root:
@@ -117,14 +117,26 @@ root:
                           text: Print
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: arr
-                        - kind: LeftParenthesis
-                          text: (
-                        - kind: Identifier
-                          text: i
-                        - kind: RightParenthesis
-                          text: )
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: CallExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: arr
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: IdentifierExpression
+                                              children:
+                                                - kind: Identifier
+                                                  text: i
+                                    - kind: RightParenthesis
+                                      text: )
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

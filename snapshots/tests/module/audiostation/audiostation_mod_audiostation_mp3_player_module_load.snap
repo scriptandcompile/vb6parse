@@ -409,40 +409,68 @@ cst:
                     text: BASS_ChannelSetPosition
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: chan
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: BASS_ChannelSeconds2Bytes
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: chan
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: pos
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AdditionOperator
-                    text: +
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "5"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: BASS_POS_BYTE
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: chan
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: BASS_ChannelSeconds2Bytes
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: chan
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: pos
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: AdditionOperator
+                                            text: +
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "5"
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: BASS_POS_BYTE
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -571,40 +599,68 @@ cst:
                     text: BASS_ChannelSetPosition
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: chan
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: BASS_ChannelSeconds2Bytes
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: chan
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: pos
-                  - kind: Whitespace
-                    text: " "
-                  - kind: SubtractionOperator
-                    text: "-"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "5"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: BASS_POS_BYTE
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: chan
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: BASS_ChannelSeconds2Bytes
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: chan
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: pos
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: SubtractionOperator
+                                            text: "-"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "5"
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: BASS_POS_BYTE
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -649,8 +705,14 @@ cst:
                     text: BASS_ChannelPause
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: chan
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: chan
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -787,14 +849,24 @@ cst:
                             text: BASS_ChannelPlay
                           - kind: LeftParenthesis
                             text: (
-                          - kind: Identifier
-                            text: chan
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: FalseKeyword
-                            text: "False"
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: chan
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: BooleanLiteralExpression
+                                    children:
+                                      - kind: FalseKeyword
+                                        text: "False"
                           - kind: RightParenthesis
                             text: )
                           - kind: Newline
@@ -897,8 +969,14 @@ cst:
                                 text: BASS_StreamFree
                               - kind: LeftParenthesis
                                 text: (
-                              - kind: Identifier
-                                text: chan
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: chan
                               - kind: RightParenthesis
                                 text: )
                               - kind: Newline
@@ -915,8 +993,14 @@ cst:
                                 text: BASS_MusicFree
                               - kind: LeftParenthesis
                                 text: (
-                              - kind: Identifier
-                                text: chan
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: chan
                               - kind: RightParenthesis
                                 text: )
                               - kind: Newline
@@ -1211,14 +1295,24 @@ cst:
                                 text: BASS_ChannelPlay
                               - kind: LeftParenthesis
                                 text: (
-                              - kind: Identifier
-                                text: chan
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: TrueKeyword
-                                text: "True"
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: chan
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: BooleanLiteralExpression
+                                        children:
+                                          - kind: TrueKeyword
+                                            text: "True"
                               - kind: RightParenthesis
                                 text: )
                               - kind: Newline
@@ -1291,8 +1385,14 @@ cst:
                     text: BASS_ChannelStop
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: chan
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: chan
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline

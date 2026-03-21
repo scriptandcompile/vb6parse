@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/weekday.rs
+source: vb6parse/src/syntax/library/functions/datetime/weekday.rs
 expression: tree
 ---
 root:
@@ -37,14 +37,26 @@ root:
                   text: ProcessDay
                 - kind: LeftParenthesis
                   text: (
-                - kind: Identifier
-                  text: Weekday
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: currentDate
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: Weekday
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: currentDate
+                            - kind: RightParenthesis
+                              text: )
                 - kind: RightParenthesis
                   text: )
                 - kind: Newline

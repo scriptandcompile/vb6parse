@@ -59,22 +59,30 @@ root:
               children:
                 - kind: Identifier
                   text: DiscountRate
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: PeriodOperator
-                  text: "."
-                - kind: Identifier
-                  text: CashFlows
-                - kind: RightParenthesis
-                  text: )
-                - kind: Whitespace
-                  text: " "
-                - kind: SubtractionOperator
-                  text: "-"
-                - kind: Whitespace
-                  text: " "
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: MemberAccessExpression
+                          children:
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: PeriodOperator
+                              text: "."
+                            - kind: Identifier
+                              text: CashFlows
+            - kind: Unknown
+              text: )
+            - kind: Whitespace
+              text: " "
+            - kind: Unknown
+              text: "-"
+            - kind: Whitespace
+              text: " "
+            - kind: CallStatement
+              children:
                 - kind: PeriodOperator
                   text: "."
                 - kind: Identifier

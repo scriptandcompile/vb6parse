@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/second.rs
+source: vb6parse/src/syntax/library/functions/datetime/second.rs
 expression: tree
 ---
 root:
@@ -17,14 +17,26 @@ root:
           text: LogTime
         - kind: LeftParenthesis
           text: (
-        - kind: Identifier
-          text: Second
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: Now
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: Second
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: Now
+                    - kind: RightParenthesis
+                      text: )
         - kind: RightParenthesis
           text: )
         - kind: Newline

@@ -59,16 +59,22 @@ root:
               children:
                 - kind: TextKeyword
                   text: Text
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: IntegerLiteral
-                  text: "20"
-                - kind: RightParenthesis
-                  text: )
-                - kind: Newline
-                  text: "\n"
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Comma
+                              text: ","
+                    - kind: Whitespace
+                      text: " "
+            - kind: Unknown
+              text: "20"
+            - kind: Unknown
+              text: )
+            - kind: Newline
+              text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

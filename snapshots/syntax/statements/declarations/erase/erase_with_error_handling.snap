@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/declarations/erase.rs
+source: vb6parse/src/syntax/statements/declarations/erase.rs
 expression: tree
 ---
 root:
@@ -101,8 +101,14 @@ root:
                           text: MsgBox
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"Error erasing array\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Error erasing array\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/day.rs
+source: vb6parse/src/syntax/library/functions/datetime/day.rs
 expression: tree
 ---
 root:
@@ -65,8 +65,14 @@ root:
                       text: MsgBox
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Early\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Early\""
                     - kind: Newline
                       text: "\n"
                 - kind: Whitespace
@@ -99,8 +105,14 @@ root:
                       text: MsgBox
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Mid\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Mid\""
                     - kind: Newline
                       text: "\n"
                 - kind: Whitespace
@@ -125,8 +137,14 @@ root:
                       text: MsgBox
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Late\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Late\""
                     - kind: Newline
                       text: "\n"
         - kind: EndKeyword

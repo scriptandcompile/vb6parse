@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/hour.rs
+source: vb6parse/src/syntax/library/functions/datetime/hour.rs
 expression: tree
 ---
 root:
@@ -33,14 +33,26 @@ root:
                   text: ProcessHour
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: Hour
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: Now
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: Hour
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: Now
+                            - kind: RightParenthesis
+                              text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

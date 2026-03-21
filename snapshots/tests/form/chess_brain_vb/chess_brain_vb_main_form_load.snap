@@ -1161,66 +1161,104 @@ cst:
                             text: Major
                           - kind: Whitespace
                             text: " "
-                          - kind: Ampersand
-                            text: "&"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: StringLiteral
-                            text: "\".\""
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Ampersand
-                            text: "&"
-                          - kind: Whitespace
-                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Ampersand
+                                        text: "&"
+                              - kind: Whitespace
+                                text: " "
+                      - kind: Unknown
+                        text: "\".\""
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Unknown
+                        text: "&"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: Identifier
                             text: Format
                           - kind: LeftParenthesis
                             text: (
-                          - kind: PeriodOperator
-                            text: "."
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: PeriodOperator
+                                        text: "."
+                      - kind: CallStatement
+                        children:
                           - kind: Identifier
                             text: Minor
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: StringLiteral
-                            text: "\"00\""
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Ampersand
-                            text: "&"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: StringLiteral
-                            text: "\".\""
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Ampersand
-                            text: "&"
-                          - kind: Whitespace
-                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Comma
+                                        text: ","
+                              - kind: Whitespace
+                                text: " "
+                      - kind: Unknown
+                        text: "\"00\""
+                      - kind: Unknown
+                        text: )
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Unknown
+                        text: "&"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Unknown
+                        text: "\".\""
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Unknown
+                        text: "&"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: Identifier
                             text: Format
                           - kind: LeftParenthesis
                             text: (
-                          - kind: PeriodOperator
-                            text: "."
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: PeriodOperator
+                                        text: "."
+                      - kind: CallStatement
+                        children:
                           - kind: Identifier
                             text: Revision
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: StringLiteral
-                            text: "\"0000\""
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Newline
-                            text: "\r\n"
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Comma
+                                        text: ","
+                              - kind: Whitespace
+                                text: " "
+                      - kind: Unknown
+                        text: "\"0000\""
+                      - kind: Unknown
+                        text: )
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                       - kind: EndOfLineComment
@@ -1743,30 +1781,48 @@ cst:
                                 text: Shell
                               - kind: Whitespace
                                 text: " "
-                              - kind: Identifier
-                                text: sWBPath
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Ampersand
-                                text: "&"
-                              - kind: Whitespace
-                                text: " "
-                              - kind: StringLiteral
-                                text: "\"\\winboard.exe\""
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Ampersand
-                                text: "&"
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: GetCmdLine
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: vbNormalFocus
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: sWBPath
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Ampersand
+                                                text: "&"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: StringLiteralExpression
+                                                children:
+                                                  - kind: StringLiteral
+                                                    text: "\"\\winboard.exe\""
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Ampersand
+                                            text: "&"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: GetCmdLine
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: vbNormalFocus
                               - kind: Newline
                                 text: "\r\n"
                           - kind: Whitespace
@@ -1777,14 +1833,24 @@ cst:
                                 text: WriteINISetting
                               - kind: Whitespace
                                 text: " "
-                              - kind: StringLiteral
-                                text: "\"WINBOARD\""
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: sWBPath
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"WINBOARD\""
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: sWBPath
                               - kind: Newline
                                 text: "\r\n"
                           - kind: Whitespace
@@ -1955,14 +2021,24 @@ cst:
                                             text: MsgBox
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: StringLiteral
-                                            text: "\"Cannot find Winboard\""
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Identifier
-                                            text: vbCritical
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"Cannot find Winboard\""
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: vbCritical
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace
@@ -1987,14 +2063,24 @@ cst:
                                             text: MsgBox
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: StringLiteral
-                                            text: "\"Cannot find  BookEdit\""
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Identifier
-                                            text: vbCritical
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"Cannot find  BookEdit\""
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: vbCritical
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace

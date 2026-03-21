@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/minute.rs
+source: vb6parse/src/syntax/library/functions/datetime/minute.rs
 expression: tree
 ---
 root:
@@ -59,8 +59,14 @@ root:
                       text: MsgBox
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Top of hour\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Top of hour\""
                     - kind: Newline
                       text: "\n"
                 - kind: Whitespace
@@ -97,8 +103,14 @@ root:
                       text: MsgBox
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Quarter hour\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Quarter hour\""
                     - kind: Newline
                       text: "\n"
                 - kind: Whitespace

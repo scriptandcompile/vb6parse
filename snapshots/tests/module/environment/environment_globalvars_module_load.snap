@@ -1915,42 +1915,56 @@ cst:
                                 text: ActiveForm
                               - kind: Whitespace
                                 text: " "
-                              - kind: IsKeyword
-                                text: Is
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: GuiM2000
-                              - kind: Whitespace
-                                text: " "
-                              - kind: ThenKeyword
-                                text: Then
-                              - kind: Newline
-                                text: "\r\n"
-                          - kind: SetStatement
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: IsKeyword
+                                            text: Is
+                                  - kind: Whitespace
+                                    text: " "
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: GuiM2000
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ArgumentList
                             children:
-                              - kind: Whitespace
-                                text: "    "
-                              - kind: SetKeyword
-                                text: Set
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: thisform
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: Screen
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: ActiveForm
-                              - kind: Newline
-                                text: "\r\n"
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: ThenKeyword
+                                        text: Then
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: SetStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: SetKeyword
+                            text: Set
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: thisform
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: Screen
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: ActiveForm
+                          - kind: Newline
+                            text: "\r\n"
                   - kind: ElseIfClause
                     children:
                       - kind: ElseIfKeyword
@@ -2171,10 +2185,18 @@ cst:
                                 text: Show
                               - kind: Whitespace
                                 text: " "
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Comma
+                                            text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                          - kind: CallStatement
+                            children:
                               - kind: Identifier
                                 text: thisform
                               - kind: Newline
@@ -2245,30 +2267,44 @@ cst:
                         text: Scr
                       - kind: Whitespace
                         text: " "
-                      - kind: IsKeyword
-                        text: Is
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: GuiM2000
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ThenKeyword
-                        text: Then
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: IsKeyword
+                                    text: Is
+                          - kind: Whitespace
+                            text: " "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: GuiM2000
                   - kind: Whitespace
-                    text: "    "
-                  - kind: CallStatement
+                    text: " "
+                  - kind: ArgumentList
                     children:
-                      - kind: Identifier
-                        text: Scr
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: UNhookMe
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: ThenKeyword
+                                text: Then
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: Scr
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: UNhookMe
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Unknown
                 text: ElseIf
               - kind: Whitespace
@@ -2279,40 +2315,52 @@ cst:
                     text: val
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"0\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AdditionOperator
-                    text: +
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: bstack
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Owner
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Tag
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"0\""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AdditionOperator
+                                text: +
+                              - kind: Whitespace
+                                text: " "
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: bstack
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Owner
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Tag
                   - kind: RightParenthesis
                     text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: GreaterThanOperator
-                    text: ">"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "32"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: ">"
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: "32"
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: Then
+              - kind: Newline
+                text: "\r\n"
               - kind: SetStatement
                 children:
                   - kind: Whitespace
@@ -2409,10 +2457,18 @@ cst:
                             text: Scr
                           - kind: Whitespace
                             text: " "
-                          - kind: IsKeyword
-                            text: Is
-                          - kind: Whitespace
-                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: IsKeyword
+                                        text: Is
+                              - kind: Whitespace
+                                text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: Identifier
                             text: GuiM2000
                           - kind: Newline
@@ -2509,26 +2565,36 @@ cst:
                     text: Not
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Screen
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: ActiveForm
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IsKeyword
-                    text: Is
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NothingKeyword
-                    text: Nothing
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Newline
-                    text: "\r\n"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Screen
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: ActiveForm
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IsKeyword
+                                text: Is
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: NothingKeyword
+                                    text: Nothing
+                      - kind: Whitespace
+                        text: " "
+              - kind: Unknown
+                text: Then
+              - kind: Newline
+                text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: CallStatement
@@ -2651,10 +2717,18 @@ cst:
                                             text: Show
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Comma
+                                                        text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                      - kind: CallStatement
+                                        children:
                                           - kind: Identifier
                                             text: Screen
                                           - kind: PeriodOperator
@@ -2815,8 +2889,14 @@ cst:
                             text: WaitDialog
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: bstack
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: bstack
                           - kind: Newline
                             text: "\r\n"
                       - kind: IfStatement
@@ -3259,42 +3339,56 @@ cst:
                                         text: ActiveForm
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IsKeyword
-                                        text: Is
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: GuiM2000
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: ThenKeyword
-                                        text: Then
-                                      - kind: Newline
-                                        text: "\r\n"
-                                  - kind: SetStatement
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: IsKeyword
+                                                    text: Is
+                                          - kind: Whitespace
+                                            text: " "
+                              - kind: CallStatement
+                                children:
+                                  - kind: Identifier
+                                    text: GuiM2000
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ArgumentList
                                     children:
-                                      - kind: Whitespace
-                                        text: "    "
-                                      - kind: SetKeyword
-                                        text: Set
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: thisform
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: Screen
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: ActiveForm
-                                      - kind: Newline
-                                        text: "\r\n"
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: ThenKeyword
+                                                text: Then
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: SetStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "    "
+                                  - kind: SetKeyword
+                                    text: Set
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: thisform
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: Screen
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: ActiveForm
+                                  - kind: Newline
+                                    text: "\r\n"
                           - kind: ElseIfClause
                             children:
                               - kind: ElseIfKeyword
@@ -3491,30 +3585,44 @@ cst:
                         text: Scr
                       - kind: Whitespace
                         text: " "
-                      - kind: IsKeyword
-                        text: Is
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: GuiM2000
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ThenKeyword
-                        text: Then
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: IsKeyword
+                                    text: Is
+                          - kind: Whitespace
+                            text: " "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: GuiM2000
                   - kind: Whitespace
-                    text: "    "
-                  - kind: CallStatement
+                    text: " "
+                  - kind: ArgumentList
                     children:
-                      - kind: Identifier
-                        text: Scr
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: UNhookMe
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: ThenKeyword
+                                text: Then
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: Scr
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: UNhookMe
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Unknown
                 text: ElseIf
               - kind: Whitespace
@@ -3525,40 +3633,52 @@ cst:
                     text: val
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"0\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AdditionOperator
-                    text: +
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: bstack
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Owner
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Tag
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"0\""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AdditionOperator
+                                text: +
+                              - kind: Whitespace
+                                text: " "
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: bstack
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Owner
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Tag
                   - kind: RightParenthesis
                     text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: GreaterThanOperator
-                    text: ">"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "32"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: ">"
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: "32"
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: Then
+              - kind: Newline
+                text: "\r\n"
               - kind: SetStatement
                 children:
                   - kind: Whitespace
@@ -3655,10 +3775,18 @@ cst:
                             text: Scr
                           - kind: Whitespace
                             text: " "
-                          - kind: IsKeyword
-                            text: Is
-                          - kind: Whitespace
-                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: IsKeyword
+                                        text: Is
+                              - kind: Whitespace
+                                text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: Identifier
                             text: GuiM2000
                           - kind: Newline
@@ -3755,26 +3883,36 @@ cst:
                     text: Not
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Screen
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: ActiveForm
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IsKeyword
-                    text: Is
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NothingKeyword
-                    text: Nothing
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Newline
-                    text: "\r\n"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Screen
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: ActiveForm
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IsKeyword
+                                text: Is
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: NothingKeyword
+                                    text: Nothing
+                      - kind: Whitespace
+                        text: " "
+              - kind: Unknown
+                text: Then
+              - kind: Newline
+                text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: CallStatement
@@ -3865,10 +4003,18 @@ cst:
                                         text: Show
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Comma
+                                                    text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                  - kind: CallStatement
+                                    children:
                                       - kind: Identifier
                                         text: thisform
                                       - kind: Newline
@@ -3971,10 +4117,18 @@ cst:
                                             text: Show
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Comma
+                                                        text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                      - kind: CallStatement
+                                        children:
                                           - kind: Identifier
                                             text: Screen
                                           - kind: PeriodOperator
@@ -4135,8 +4289,14 @@ cst:
                             text: WaitDialog
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: bstack
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: bstack
                           - kind: Newline
                             text: "\r\n"
                       - kind: IfStatement
@@ -4645,42 +4805,56 @@ cst:
                                         text: ActiveForm
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IsKeyword
-                                        text: Is
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: GuiM2000
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: ThenKeyword
-                                        text: Then
-                                      - kind: Newline
-                                        text: "\r\n"
-                                  - kind: SetStatement
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: IsKeyword
+                                                    text: Is
+                                          - kind: Whitespace
+                                            text: " "
+                              - kind: CallStatement
+                                children:
+                                  - kind: Identifier
+                                    text: GuiM2000
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ArgumentList
                                     children:
-                                      - kind: Whitespace
-                                        text: "    "
-                                      - kind: SetKeyword
-                                        text: Set
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: thisform
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: Screen
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: ActiveForm
-                                      - kind: Newline
-                                        text: "\r\n"
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: ThenKeyword
+                                                text: Then
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: SetStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "    "
+                                  - kind: SetKeyword
+                                    text: Set
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: thisform
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: Screen
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: ActiveForm
+                                  - kind: Newline
+                                    text: "\r\n"
                           - kind: ElseIfClause
                             children:
                               - kind: ElseIfKeyword
@@ -5521,30 +5695,44 @@ cst:
                         text: Scr
                       - kind: Whitespace
                         text: " "
-                      - kind: IsKeyword
-                        text: Is
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: GuiM2000
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ThenKeyword
-                        text: Then
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: IsKeyword
+                                    text: Is
+                          - kind: Whitespace
+                            text: " "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: GuiM2000
                   - kind: Whitespace
-                    text: "    "
-                  - kind: CallStatement
+                    text: " "
+                  - kind: ArgumentList
                     children:
-                      - kind: Identifier
-                        text: Scr
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: UNhookMe
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: ThenKeyword
+                                text: Then
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: Scr
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: UNhookMe
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Unknown
                 text: ElseIf
               - kind: Whitespace
@@ -5555,40 +5743,52 @@ cst:
                     text: val
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"0\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AdditionOperator
-                    text: +
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: bstack
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Owner
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Tag
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"0\""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AdditionOperator
+                                text: +
+                              - kind: Whitespace
+                                text: " "
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: bstack
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Owner
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Tag
                   - kind: RightParenthesis
                     text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: GreaterThanOperator
-                    text: ">"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "32"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: ">"
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: "32"
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: Then
+              - kind: Newline
+                text: "\r\n"
               - kind: SetStatement
                 children:
                   - kind: Whitespace
@@ -5685,10 +5885,18 @@ cst:
                             text: Scr
                           - kind: Whitespace
                             text: " "
-                          - kind: IsKeyword
-                            text: Is
-                          - kind: Whitespace
-                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: IsKeyword
+                                        text: Is
+                              - kind: Whitespace
+                                text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: Identifier
                             text: GuiM2000
                           - kind: Newline
@@ -5785,26 +5993,36 @@ cst:
                     text: Not
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Screen
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: ActiveForm
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IsKeyword
-                    text: Is
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NothingKeyword
-                    text: Nothing
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Newline
-                    text: "\r\n"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Screen
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: ActiveForm
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IsKeyword
+                                text: Is
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: NothingKeyword
+                                    text: Nothing
+                      - kind: Whitespace
+                        text: " "
+              - kind: Unknown
+                text: Then
+              - kind: Newline
+                text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: CallStatement
@@ -5895,10 +6113,18 @@ cst:
                                         text: Show
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Comma
+                                                    text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                  - kind: CallStatement
+                                    children:
                                       - kind: Identifier
                                         text: thisform
                                       - kind: Newline
@@ -6001,10 +6227,18 @@ cst:
                                             text: Show
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Comma
+                                                        text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                      - kind: CallStatement
+                                        children:
                                           - kind: Identifier
                                             text: Screen
                                           - kind: PeriodOperator
@@ -6165,8 +6399,14 @@ cst:
                             text: WaitDialog
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: bstack
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: bstack
                           - kind: Newline
                             text: "\r\n"
                       - kind: IfStatement
@@ -6747,42 +6987,56 @@ cst:
                                         text: ActiveForm
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IsKeyword
-                                        text: Is
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: GuiM2000
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: ThenKeyword
-                                        text: Then
-                                      - kind: Newline
-                                        text: "\r\n"
-                                  - kind: SetStatement
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: IsKeyword
+                                                    text: Is
+                                          - kind: Whitespace
+                                            text: " "
+                              - kind: CallStatement
+                                children:
+                                  - kind: Identifier
+                                    text: GuiM2000
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ArgumentList
                                     children:
-                                      - kind: Whitespace
-                                        text: "    "
-                                      - kind: SetKeyword
-                                        text: Set
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: thisform
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: Screen
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: ActiveForm
-                                      - kind: Newline
-                                        text: "\r\n"
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: ThenKeyword
+                                                text: Then
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: SetStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "    "
+                                  - kind: SetKeyword
+                                    text: Set
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: thisform
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: Screen
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: ActiveForm
+                                  - kind: Newline
+                                    text: "\r\n"
                           - kind: ElseIfClause
                             children:
                               - kind: ElseIfKeyword
@@ -7699,30 +7953,44 @@ cst:
                         text: Scr
                       - kind: Whitespace
                         text: " "
-                      - kind: IsKeyword
-                        text: Is
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: GuiM2000
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ThenKeyword
-                        text: Then
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: IsKeyword
+                                    text: Is
+                          - kind: Whitespace
+                            text: " "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: GuiM2000
                   - kind: Whitespace
-                    text: "    "
-                  - kind: CallStatement
+                    text: " "
+                  - kind: ArgumentList
                     children:
-                      - kind: Identifier
-                        text: Scr
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: UNhookMe
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: ThenKeyword
+                                text: Then
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: Scr
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: UNhookMe
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Unknown
                 text: ElseIf
               - kind: Whitespace
@@ -7733,40 +8001,52 @@ cst:
                     text: val
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"0\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AdditionOperator
-                    text: +
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: bstack
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Owner
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Tag
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"0\""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AdditionOperator
+                                text: +
+                              - kind: Whitespace
+                                text: " "
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: bstack
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Owner
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Tag
                   - kind: RightParenthesis
                     text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: GreaterThanOperator
-                    text: ">"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "32"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: ">"
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: "32"
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: Then
+              - kind: Newline
+                text: "\r\n"
               - kind: SetStatement
                 children:
                   - kind: Whitespace
@@ -7863,10 +8143,18 @@ cst:
                             text: Scr
                           - kind: Whitespace
                             text: " "
-                          - kind: IsKeyword
-                            text: Is
-                          - kind: Whitespace
-                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: IsKeyword
+                                        text: Is
+                              - kind: Whitespace
+                                text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: Identifier
                             text: GuiM2000
                           - kind: Newline
@@ -7963,26 +8251,36 @@ cst:
                     text: Not
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Screen
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: ActiveForm
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IsKeyword
-                    text: Is
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NothingKeyword
-                    text: Nothing
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Newline
-                    text: "\r\n"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Screen
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: ActiveForm
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IsKeyword
+                                text: Is
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: NothingKeyword
+                                    text: Nothing
+                      - kind: Whitespace
+                        text: " "
+              - kind: Unknown
+                text: Then
+              - kind: Newline
+                text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: CallStatement
@@ -8069,10 +8367,18 @@ cst:
                                     text: Show
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Comma
+                                                text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                              - kind: CallStatement
+                                children:
                                   - kind: Identifier
                                     text: thisform
                                   - kind: Newline
@@ -8175,10 +8481,18 @@ cst:
                                     text: Show
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Comma
+                                                text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                              - kind: CallStatement
+                                children:
                                   - kind: Identifier
                                     text: Screen
                                   - kind: PeriodOperator
@@ -8343,8 +8657,14 @@ cst:
                     text: WaitDialog
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: bstack
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: bstack
                   - kind: Newline
                     text: "\r\n"
               - kind: IfStatement
@@ -8983,42 +9303,56 @@ cst:
                                 text: ActiveForm
                               - kind: Whitespace
                                 text: " "
-                              - kind: IsKeyword
-                                text: Is
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: GuiM2000
-                              - kind: Whitespace
-                                text: " "
-                              - kind: ThenKeyword
-                                text: Then
-                              - kind: Newline
-                                text: "\r\n"
-                          - kind: SetStatement
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: IsKeyword
+                                            text: Is
+                                  - kind: Whitespace
+                                    text: " "
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: GuiM2000
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ArgumentList
                             children:
-                              - kind: Whitespace
-                                text: "    "
-                              - kind: SetKeyword
-                                text: Set
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: thisform
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: Screen
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: ActiveForm
-                              - kind: Newline
-                                text: "\r\n"
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: ThenKeyword
+                                        text: Then
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: SetStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: SetKeyword
+                            text: Set
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: thisform
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: Screen
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: ActiveForm
+                          - kind: Newline
+                            text: "\r\n"
                   - kind: ElseIfClause
                     children:
                       - kind: ElseIfKeyword
@@ -9883,30 +10217,44 @@ cst:
                         text: Scr
                       - kind: Whitespace
                         text: " "
-                      - kind: IsKeyword
-                        text: Is
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: GuiM2000
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ThenKeyword
-                        text: Then
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: IsKeyword
+                                    text: Is
+                          - kind: Whitespace
+                            text: " "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: GuiM2000
                   - kind: Whitespace
-                    text: "    "
-                  - kind: CallStatement
+                    text: " "
+                  - kind: ArgumentList
                     children:
-                      - kind: Identifier
-                        text: Scr
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: UNhookMe
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: ThenKeyword
+                                text: Then
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: Scr
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: UNhookMe
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Unknown
                 text: ElseIf
               - kind: Whitespace
@@ -9917,40 +10265,52 @@ cst:
                     text: val
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"0\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AdditionOperator
-                    text: +
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: bstack
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Owner
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Tag
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"0\""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AdditionOperator
+                                text: +
+                              - kind: Whitespace
+                                text: " "
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: bstack
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Owner
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Tag
                   - kind: RightParenthesis
                     text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: GreaterThanOperator
-                    text: ">"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "32"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: ">"
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: "32"
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: Then
+              - kind: Newline
+                text: "\r\n"
               - kind: SetStatement
                 children:
                   - kind: Whitespace
@@ -10047,10 +10407,18 @@ cst:
                             text: Scr
                           - kind: Whitespace
                             text: " "
-                          - kind: IsKeyword
-                            text: Is
-                          - kind: Whitespace
-                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: IsKeyword
+                                        text: Is
+                              - kind: Whitespace
+                                text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: Identifier
                             text: GuiM2000
                           - kind: Newline
@@ -10147,26 +10515,36 @@ cst:
                     text: Not
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Screen
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: ActiveForm
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IsKeyword
-                    text: Is
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NothingKeyword
-                    text: Nothing
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Newline
-                    text: "\r\n"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Screen
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: ActiveForm
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IsKeyword
+                                text: Is
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: NothingKeyword
+                                    text: Nothing
+                      - kind: Whitespace
+                        text: " "
+              - kind: Unknown
+                text: Then
+              - kind: Newline
+                text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: CallStatement
@@ -10261,10 +10639,18 @@ cst:
                                         text: Show
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Comma
+                                                    text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                  - kind: CallStatement
+                                    children:
                                       - kind: Identifier
                                         text: thisform
                                       - kind: Newline
@@ -10367,10 +10753,18 @@ cst:
                                             text: Show
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Comma
+                                                        text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                      - kind: CallStatement
+                                        children:
                                           - kind: Identifier
                                             text: Screen
                                           - kind: PeriodOperator
@@ -10535,8 +10929,14 @@ cst:
                             text: WaitDialog
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: bstack
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: bstack
                           - kind: Newline
                             text: "\r\n"
                       - kind: IfStatement
@@ -11263,42 +11663,56 @@ cst:
                                         text: ActiveForm
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IsKeyword
-                                        text: Is
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: GuiM2000
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: ThenKeyword
-                                        text: Then
-                                      - kind: Newline
-                                        text: "\r\n"
-                                  - kind: SetStatement
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: IsKeyword
+                                                    text: Is
+                                          - kind: Whitespace
+                                            text: " "
+                              - kind: CallStatement
+                                children:
+                                  - kind: Identifier
+                                    text: GuiM2000
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ArgumentList
                                     children:
-                                      - kind: Whitespace
-                                        text: "    "
-                                      - kind: SetKeyword
-                                        text: Set
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: thatform
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: Screen
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: ActiveForm
-                                      - kind: Newline
-                                        text: "\r\n"
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: ThenKeyword
+                                                text: Then
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: SetStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "    "
+                                  - kind: SetKeyword
+                                    text: Set
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: thatform
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: Screen
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: ActiveForm
+                                  - kind: Newline
+                                    text: "\r\n"
                           - kind: ElseIfClause
                             children:
                               - kind: ElseIfKeyword
@@ -11999,30 +12413,44 @@ cst:
                         text: Scr
                       - kind: Whitespace
                         text: " "
-                      - kind: IsKeyword
-                        text: Is
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: GuiM2000
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ThenKeyword
-                        text: Then
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: IsKeyword
+                                    text: Is
+                          - kind: Whitespace
+                            text: " "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: GuiM2000
                   - kind: Whitespace
-                    text: "    "
-                  - kind: CallStatement
+                    text: " "
+                  - kind: ArgumentList
                     children:
-                      - kind: Identifier
-                        text: Scr
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: UNhookMe
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: ThenKeyword
+                                text: Then
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: Scr
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: UNhookMe
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Unknown
                 text: ElseIf
               - kind: Whitespace
@@ -12033,40 +12461,52 @@ cst:
                     text: val
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"0\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AdditionOperator
-                    text: +
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: bstack
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Owner
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Tag
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"0\""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AdditionOperator
+                                text: +
+                              - kind: Whitespace
+                                text: " "
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: bstack
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Owner
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Tag
                   - kind: RightParenthesis
                     text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: GreaterThanOperator
-                    text: ">"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "32"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: ">"
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: "32"
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: Then
+              - kind: Newline
+                text: "\r\n"
               - kind: SetStatement
                 children:
                   - kind: Whitespace
@@ -12163,10 +12603,18 @@ cst:
                             text: Scr
                           - kind: Whitespace
                             text: " "
-                          - kind: IsKeyword
-                            text: Is
-                          - kind: Whitespace
-                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: IsKeyword
+                                        text: Is
+                              - kind: Whitespace
+                                text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: Identifier
                             text: GuiM2000
                           - kind: Newline
@@ -12263,26 +12711,36 @@ cst:
                     text: Not
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Screen
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: ActiveForm
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IsKeyword
-                    text: Is
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NothingKeyword
-                    text: Nothing
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Newline
-                    text: "\r\n"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Screen
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: ActiveForm
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IsKeyword
+                                text: Is
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: NothingKeyword
+                                    text: Nothing
+                      - kind: Whitespace
+                        text: " "
+              - kind: Unknown
+                text: Then
+              - kind: Newline
+                text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: CallStatement
@@ -12373,10 +12831,18 @@ cst:
                                         text: Show
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Comma
+                                                    text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                  - kind: CallStatement
+                                    children:
                                       - kind: Identifier
                                         text: thatform
                                       - kind: Newline
@@ -12479,10 +12945,18 @@ cst:
                                             text: Show
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Comma
+                                                        text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                      - kind: CallStatement
+                                        children:
                                           - kind: Identifier
                                             text: Screen
                                           - kind: PeriodOperator
@@ -12643,8 +13117,14 @@ cst:
                             text: WaitDialog
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: bstack
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: bstack
                           - kind: Newline
                             text: "\r\n"
                       - kind: IfStatement
@@ -12909,6 +13389,8 @@ cst:
                             text: ReleaseSelector
                           - kind: LeftParenthesis
                             text: (
+                          - kind: ArgumentList
+                            children: []
                           - kind: RightParenthesis
                             text: )
                           - kind: Newline
@@ -12949,34 +13431,60 @@ cst:
                             text: ConCat
                           - kind: LeftParenthesis
                             text: (
-                          - kind: ParamArrayKeyword
-                            text: ParamArray
-                          - kind: Whitespace
-                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: ParamArrayKeyword
+                                        text: ParamArray
+                              - kind: Whitespace
+                                text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: Identifier
                             text: aa
                           - kind: LeftParenthesis
                             text: (
+                          - kind: ArgumentList
+                            children: []
                           - kind: RightParenthesis
                             text: )
-                          - kind: Whitespace
-                            text: " "
+                      - kind: Whitespace
+                        text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: AsKeyword
                             text: As
                           - kind: Whitespace
                             text: " "
-                          - kind: VariantKeyword
-                            text: Variant
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Whitespace
-                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: VariantKeyword
+                                        text: Variant
+                      - kind: Unknown
+                        text: )
+                      - kind: Whitespace
+                        text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: AsKeyword
                             text: As
                           - kind: Whitespace
                             text: " "
-                          - kind: StringKeyword
-                            text: String
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: StringKeyword
+                                        text: String
                           - kind: Newline
                             text: "\r\n"
                       - kind: DimStatement

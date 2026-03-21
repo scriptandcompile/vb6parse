@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/date.rs
+source: vb6parse/src/syntax/library/functions/datetime/date.rs
 expression: tree
 ---
 root:
@@ -51,8 +51,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"New Year\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"New Year\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

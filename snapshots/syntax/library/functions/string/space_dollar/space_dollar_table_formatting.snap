@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/space_dollar.rs
+source: vb6parse/src/syntax/library/functions/string/space_dollar.rs
 expression: tree
 ---
 root:
@@ -219,8 +219,14 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: row
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: row
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

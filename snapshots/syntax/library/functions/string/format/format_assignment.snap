@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/format.rs
+source: vb6parse/src/syntax/library/functions/string/format.rs
 expression: tree
 ---
 root:
@@ -17,25 +17,47 @@ root:
           text: AddItem
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: Format
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: items
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: i
-        - kind: RightParenthesis
-          text: )
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: StringLiteral
-          text: "\"$#,##0.00\""
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: Format
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: items
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: i
+                                - kind: RightParenthesis
+                                  text: )
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"$#,##0.00\""
+                    - kind: RightParenthesis
+                      text: )
         - kind: Newline
           text: "\n"

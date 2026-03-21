@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/environment/error.rs
+source: vb6parse/src/syntax/library/functions/environment/error.rs
 expression: tree
 ---
 root:
@@ -17,13 +17,25 @@ root:
           text: Print
         - kind: Whitespace
           text: " "
-        - kind: ErrorKeyword
-          text: Error
-        - kind: LeftParenthesis
-          text: (
-        - kind: IntegerLiteral
-          text: "11"
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: ErrorKeyword
+                      text: Error
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "11"
+                    - kind: RightParenthesis
+                      text: )
         - kind: Newline
           text: "\n"

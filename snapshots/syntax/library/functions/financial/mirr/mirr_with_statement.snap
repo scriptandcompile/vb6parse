@@ -75,18 +75,24 @@ root:
               children:
                 - kind: Identifier
                   text: FinanceRate
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: PeriodOperator
-                  text: "."
-                - kind: Identifier
-                  text: ReinvestRate
-                - kind: RightParenthesis
-                  text: )
-                - kind: Newline
-                  text: "\n"
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: MemberAccessExpression
+                          children:
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: PeriodOperator
+                              text: "."
+                            - kind: Identifier
+                              text: ReinvestRate
+            - kind: Unknown
+              text: )
+            - kind: Newline
+              text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

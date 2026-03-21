@@ -79,18 +79,24 @@ root:
                       children:
                         - kind: Identifier
                           text: DayNumber
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
-                        - kind: PeriodOperator
-                          text: "."
-                        - kind: Identifier
-                          text: Abbreviate
-                        - kind: RightParenthesis
-                          text: )
-                        - kind: Newline
-                          text: "\n"
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: MemberAccessExpression
+                                  children:
+                                    - kind: Comma
+                                      text: ","
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: PeriodOperator
+                                      text: "."
+                                    - kind: Identifier
+                                      text: Abbreviate
+                    - kind: Unknown
+                      text: )
+                    - kind: Newline
+                      text: "\n"
                     - kind: Whitespace
                       text: "    "
                 - kind: EndKeyword

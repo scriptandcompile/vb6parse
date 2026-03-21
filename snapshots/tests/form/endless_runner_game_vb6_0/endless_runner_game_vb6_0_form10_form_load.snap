@@ -7340,24 +7340,30 @@ cst:
                     text: Left
                   - kind: Whitespace
                     text: " "
-                  - kind: GreaterThanOperator
-                    text: ">"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "9120"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Whitespace
-                    text: "   "
-                  - kind: EndOfLineComment
-                    text: "'<"
-                  - kind: Newline
-                    text: "\r\n"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: GreaterThanOperator
+                                text: ">"
+                      - kind: Whitespace
+                        text: " "
+              - kind: Unknown
+                text: "9120"
+              - kind: Unknown
+                text: )
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: Then
+              - kind: Whitespace
+                text: "   "
+              - kind: EndOfLineComment
+                text: "'<"
+              - kind: Newline
+                text: "\r\n"
               - kind: AssignmentStatement
                 children:
                   - kind: MemberAccessExpression

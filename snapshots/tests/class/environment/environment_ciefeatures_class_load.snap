@@ -1540,44 +1540,70 @@ cst:
                     text: RegWrite
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: FeatureBaseKey
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: FeatureKey
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"\\\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: mExeName
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Value
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: ValueType
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: FeatureBaseKey
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Ampersand
+                                        text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: FeatureKey
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Ampersand
+                                    text: "&"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"\\\""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: mExeName
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: Value
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: ValueType
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword
@@ -1814,14 +1840,24 @@ cst:
                                 text: WriteFeature
                               - kind: Whitespace
                                 text: " "
-                              - kind: Identifier
-                                text: FeatureKey
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: Default
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: FeatureKey
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Default
                               - kind: Newline
                                 text: "\r\n"
                           - kind: Whitespace
@@ -2248,14 +2284,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_ENABLE_WEB_CONTROL_VISUALS\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_ENABLE_WEB_CONTROL_VISUALS\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -2378,14 +2424,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_RESTRICT_ACTIVEXINSTALL\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_RESTRICT_ACTIVEXINSTALL\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -2506,14 +2562,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_ADDON_MANAGEMENT\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_ADDON_MANAGEMENT\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -2634,14 +2700,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_ZONE_ELEVATION\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_ZONE_ELEVATION\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -2762,14 +2838,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_AJAX_CONNECTIONEVENTS\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_AJAX_CONNECTIONEVENTS\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -2890,14 +2976,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_ENABLE_CLIPCHILDREN_OPTIMIZATION\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_ENABLE_CLIPCHILDREN_OPTIMIZATION\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -3018,14 +3114,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_MANAGE_SCRIPT_CIRCULAR_REFS\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_MANAGE_SCRIPT_CIRCULAR_REFS\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -3146,14 +3252,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_MIME_HANDLING\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_MIME_HANDLING\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -3274,14 +3390,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_DOMSTORAGE\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_DOMSTORAGE\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -3402,14 +3528,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_GPU_RENDERING\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_GPU_RENDERING\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -3530,14 +3666,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_IVIEWOBJECTDRAW_DMLT9_WITH_GDI\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_IVIEWOBJECTDRAW_DMLT9_WITH_GDI\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -3658,14 +3804,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_NINPUT_LEGACYMODE\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_NINPUT_LEGACYMODE\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -3786,14 +3942,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_DISABLE_LEGACY_COMPRESSION\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_DISABLE_LEGACY_COMPRESSION\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -3914,14 +4080,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_LOCALMACHINE_LOCKDOWN\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_LOCALMACHINE_LOCKDOWN\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -4042,14 +4218,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_BLOCK_LMZ_OBJECT\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_BLOCK_LMZ_OBJECT\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -4170,14 +4356,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_BLOCK_LMZ_SCRIPT\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_BLOCK_LMZ_SCRIPT\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -4298,14 +4494,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_DISABLE_NAVIGATION_SOUNDS\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_DISABLE_NAVIGATION_SOUNDS\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -4426,14 +4632,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_SCRIPTURL_MITIGATION\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_SCRIPTURL_MITIGATION\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -4554,14 +4770,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_SPELLCHECKING\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_SPELLCHECKING\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -4682,14 +4908,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_STATUS_BAR_THROTTLING\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_STATUS_BAR_THROTTLING\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -4810,14 +5046,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_TABBED_BROWSING\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_TABBED_BROWSING\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -4938,14 +5184,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_VALIDATE_NAVIGATE_URL\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_VALIDATE_NAVIGATE_URL\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -5066,14 +5322,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_WEBOC_DOCUMENT_ZOOM\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_WEBOC_DOCUMENT_ZOOM\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -5194,14 +5460,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_WEBOC_POPUPMANAGEMENT\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_WEBOC_POPUPMANAGEMENT\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -5322,14 +5598,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_WEBOC_MOVESIZECHILD\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_WEBOC_MOVESIZECHILD\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -5450,14 +5736,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_WEBSOCKET\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_WEBSOCKET\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -5578,14 +5874,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_WINDOW_RESTRICTIONS\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_WINDOW_RESTRICTIONS\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -5706,14 +6012,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_XMLHTTP\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_XMLHTTP\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -5834,14 +6150,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_BLOCK_CROSS_PROTOCOL_FILE_NAVIGATION\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_BLOCK_CROSS_PROTOCOL_FILE_NAVIGATION\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -5962,14 +6288,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_RESTRICT_FILEDOWNLOAD\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_RESTRICT_FILEDOWNLOAD\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -6092,14 +6428,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_MAXCONNECTIONSPERSERVER\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_MAXCONNECTIONSPERSERVER\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -6220,14 +6566,24 @@ cst:
                             text: WriteFeature
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"FEATURE_96DPI_PIXEL\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"FEATURE_96DPI_PIXEL\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -6328,28 +6684,46 @@ cst:
                             text: RegWrite
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: FeaturePageSetup
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Ampersand
-                            text: "&"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: PageSetupKey
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Value
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: ValueType
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: FeaturePageSetup
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Ampersand
+                                        text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: PageSetupKey
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Value
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: ValueType
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -6556,14 +6930,24 @@ cst:
                                         text: WritePageSetup
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Identifier
-                                        text: PageSetupKey
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: Default
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: PageSetupKey
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: Default
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace

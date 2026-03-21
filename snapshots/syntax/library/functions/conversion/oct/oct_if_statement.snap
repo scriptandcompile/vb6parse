@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/conversion/oct.rs
+source: vb6parse/src/syntax/library/functions/conversion/oct.rs
 expression: tree
 ---
 root:
@@ -57,8 +57,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Value is 64 in decimal\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Value is 64 in decimal\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

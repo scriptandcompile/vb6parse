@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/midb_dollar.rs
+source: vb6parse/src/syntax/library/functions/string/midb_dollar.rs
 expression: tree
 ---
 root:
@@ -101,8 +101,14 @@ root:
                           text: Print
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"WAV file\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"WAV file\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

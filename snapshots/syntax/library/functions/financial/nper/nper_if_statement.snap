@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/financial/nper.rs
+source: vb6parse/src/syntax/library/functions/financial/nper.rs
 expression: tree
 ---
 root:
@@ -93,8 +93,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Payoff will take over 5 years\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Payoff will take over 5 years\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

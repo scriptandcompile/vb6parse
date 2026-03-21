@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/instr.rs
+source: vb6parse/src/syntax/library/functions/string/instr.rs
 expression: tree
 ---
 root:
@@ -91,8 +91,14 @@ root:
                               text: Print
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Starts with http\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Starts with http\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace
@@ -129,8 +135,14 @@ root:
                               text: Print
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Contains http\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Contains http\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace

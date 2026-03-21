@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/type_checking/isnull.rs
+source: vb6parse/src/syntax/library/functions/type_checking/isnull.rs
 expression: tree
 ---
 root:
@@ -71,8 +71,14 @@ root:
                           text: ProcessField
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: field
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: field
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

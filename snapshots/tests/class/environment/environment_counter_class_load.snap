@@ -740,8 +740,14 @@ cst:
                             text: CloseHandle
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: hPipe
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: hPipe
                           - kind: Newline
                             text: "\r\n"
                   - kind: EndKeyword
@@ -2956,46 +2962,78 @@ cst:
                                             text: Thing
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Identifier
-                                            text: mytarget
-                                          - kind: DollarSign
-                                            text: $
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Identifier
-                                            text: Left$
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: Identifier
-                                            text: BytesToStr
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: Identifier
-                                            text: lpBuffer
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: RightParenthesis
-                                            text: )
-                                          - kind: RightParenthesis
-                                            text: )
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Identifier
-                                            text: mycnt
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: DivisionOperator
-                                            text: /
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: IntegerLiteral
-                                            text: "2"
-                                          - kind: RightParenthesis
-                                            text: )
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: mytarget
+                                                      - kind: DollarSign
+                                                        text: $
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: CallExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: Left$
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: CallExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: BytesToStr
+                                                                  - kind: LeftParenthesis
+                                                                    text: (
+                                                                  - kind: ArgumentList
+                                                                    children:
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: CallExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: lpBuffer
+                                                                              - kind: LeftParenthesis
+                                                                                text: (
+                                                                              - kind: ArgumentList
+                                                                                children: []
+                                                                              - kind: RightParenthesis
+                                                                                text: )
+                                                                  - kind: RightParenthesis
+                                                                    text: )
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: BinaryExpression
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: mycnt
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: DivisionOperator
+                                                                    text: /
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: NumericLiteralExpression
+                                                                    children:
+                                                                      - kind: IntegerLiteral
+                                                                        text: "2"
+                                                      - kind: RightParenthesis
+                                                        text: )
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace
@@ -3006,8 +3044,14 @@ cst:
                                             text: DisconnectNamedPipe
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Identifier
-                                            text: hPipe
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: hPipe
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace
@@ -3994,8 +4038,14 @@ cst:
                     text: Dispose
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Action
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: Action
                   - kind: Newline
                     text: "\r\n"
               - kind: SetStatement

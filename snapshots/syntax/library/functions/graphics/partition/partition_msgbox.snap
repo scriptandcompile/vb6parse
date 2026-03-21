@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/graphics/partition.rs
+source: vb6parse/src/syntax/library/functions/graphics/partition.rs
 expression: tree
 ---
 root:
@@ -13,39 +13,67 @@ root:
           text: MsgBox
         - kind: Whitespace
           text: " "
-        - kind: StringLiteral
-          text: "\"Value falls in range: \""
-        - kind: Whitespace
-          text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: Partition
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: num
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "0"
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "50"
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "5"
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: BinaryExpression
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Value falls in range: \""
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: Partition
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: num
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: NumericLiteralExpression
+                                  children:
+                                    - kind: IntegerLiteral
+                                      text: "0"
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: NumericLiteralExpression
+                                  children:
+                                    - kind: IntegerLiteral
+                                      text: "50"
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: NumericLiteralExpression
+                                  children:
+                                    - kind: IntegerLiteral
+                                      text: "5"
+                        - kind: RightParenthesis
+                          text: )
         - kind: Newline
           text: "\n"

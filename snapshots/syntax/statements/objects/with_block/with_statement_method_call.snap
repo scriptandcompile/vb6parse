@@ -51,8 +51,14 @@ root:
                           text: Method
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"argument\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"argument\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

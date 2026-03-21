@@ -2078,14 +2078,24 @@ cst:
                     text: Shell
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: SysInfoPath
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbNormalFocus
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: SysInfoPath
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: vbNormalFocus
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -2122,14 +2132,24 @@ cst:
                     text: MsgBox
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"System Information Is Unavailable At This Time\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbOKOnly
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"System Information Is Unavailable At This Time\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: vbOKOnly
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword

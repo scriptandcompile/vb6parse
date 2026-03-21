@@ -5192,28 +5192,42 @@ cst:
                     text: Left
                   - kind: Whitespace
                     text: " "
-                  - kind: GreaterThanOperator
-                    text: ">"
-                  - kind: Whitespace
-                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: GreaterThanOperator
+                                text: ">"
+                      - kind: Whitespace
+                        text: " "
+              - kind: CallStatement
+                children:
                   - kind: Identifier
                     text: Image1
                   - kind: PeriodOperator
                     text: "."
                   - kind: Identifier
                     text: Left
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EndOfLineComment
-                    text: "'>"
-                  - kind: Newline
-                    text: "\r\n"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Whitespace
+                        text: " "
+              - kind: Unknown
+                text: Then
+              - kind: Whitespace
+                text: " "
+              - kind: EndOfLineComment
+                text: "'>"
+              - kind: Newline
+                text: "\r\n"
               - kind: AssignmentStatement
                 children:
                   - kind: MemberAccessExpression
@@ -7716,24 +7730,30 @@ cst:
                     text: Left
                   - kind: Whitespace
                     text: " "
-                  - kind: GreaterThanOperator
-                    text: ">"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "9240"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ThenKeyword
-                    text: Then
-                  - kind: Whitespace
-                    text: "   "
-                  - kind: EndOfLineComment
-                    text: "'<"
-                  - kind: Newline
-                    text: "\r\n"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: GreaterThanOperator
+                                text: ">"
+                      - kind: Whitespace
+                        text: " "
+              - kind: Unknown
+                text: "9240"
+              - kind: Unknown
+                text: )
+              - kind: Whitespace
+                text: " "
+              - kind: Unknown
+                text: Then
+              - kind: Whitespace
+                text: "   "
+              - kind: EndOfLineComment
+                text: "'<"
+              - kind: Newline
+                text: "\r\n"
               - kind: AssignmentStatement
                 children:
                   - kind: MemberAccessExpression

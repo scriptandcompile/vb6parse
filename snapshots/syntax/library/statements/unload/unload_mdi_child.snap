@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/system_interaction/unload.rs
+source: vb6parse/src/syntax/library/statements/system_interaction/unload.rs
 expression: tree
 ---
 root:
@@ -49,8 +49,14 @@ root:
                   text: Arrange
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: vbCascade
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: vbCascade
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

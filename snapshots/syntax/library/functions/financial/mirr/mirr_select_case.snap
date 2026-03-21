@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/financial/mirr.rs
+source: vb6parse/src/syntax/library/functions/financial/mirr.rs
 expression: tree
 ---
 root:
@@ -91,8 +91,14 @@ root:
                       text: MsgBox
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Excellent\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Excellent\""
                     - kind: Newline
                       text: "\n"
                 - kind: Whitespace
@@ -125,8 +131,14 @@ root:
                       text: MsgBox
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Good\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Good\""
                     - kind: Newline
                       text: "\n"
                 - kind: Whitespace
@@ -151,8 +163,14 @@ root:
                       text: MsgBox
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Poor\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Poor\""
                     - kind: Newline
                       text: "\n"
         - kind: EndKeyword

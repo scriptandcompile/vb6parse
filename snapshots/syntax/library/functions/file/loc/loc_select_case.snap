@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/file/loc.rs
+source: vb6parse/src/syntax/library/functions/file/loc.rs
 expression: tree
 ---
 root:
@@ -59,8 +59,14 @@ root:
                       text: MsgBox
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"No data\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"No data\""
                     - kind: Newline
                       text: "\n"
                 - kind: Whitespace
@@ -85,8 +91,14 @@ root:
                       text: MsgBox
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Processing\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Processing\""
                     - kind: Newline
                       text: "\n"
                 - kind: Whitespace

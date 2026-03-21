@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/environment/environ.rs
+source: vb6parse/src/syntax/library/functions/environment/environ.rs
 expression: tree
 ---
 root:
@@ -17,21 +17,37 @@ root:
           text: Print
         - kind: Whitespace
           text: " "
-        - kind: StringLiteral
-          text: "\"User: \""
-        - kind: Whitespace
-          text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: Environ
-        - kind: LeftParenthesis
-          text: (
-        - kind: StringLiteral
-          text: "\"USERNAME\""
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: BinaryExpression
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"User: \""
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: Environ
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"USERNAME\""
+                        - kind: RightParenthesis
+                          text: )
         - kind: Newline
           text: "\n"

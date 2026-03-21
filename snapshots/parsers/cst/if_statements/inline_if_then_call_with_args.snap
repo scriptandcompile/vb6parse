@@ -53,20 +53,34 @@ root:
                       text: Process
                     - kind: LeftParenthesis
                       text: (
-                    - kind: Identifier
-                      text: x
-                    - kind: Comma
-                      text: ","
-                    - kind: Whitespace
-                      text: " "
-                    - kind: Identifier
-                      text: y
-                    - kind: Comma
-                      text: ","
-                    - kind: Whitespace
-                      text: " "
-                    - kind: Identifier
-                      text: z
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: x
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: y
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: z
                     - kind: RightParenthesis
                       text: )
                     - kind: Newline

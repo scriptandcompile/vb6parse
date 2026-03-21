@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/file/fileattr.rs
+source: vb6parse/src/syntax/library/functions/file/fileattr.rs
 expression: tree
 ---
 root:
@@ -131,14 +131,24 @@ root:
                           text: Print
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: i
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
-                        - kind: Identifier
-                          text: mode
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: i
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: mode
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

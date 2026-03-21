@@ -15,26 +15,44 @@ root:
           text: Print
         - kind: Whitespace
           text: " "
-        - kind: StringLiteral
-          text: "\"Count: \""
-        - kind: Whitespace
-          text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: GetObject
-        - kind: LeftParenthesis
-          text: (
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: StringLiteral
-          text: "\"Excel.Application\""
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: BinaryExpression
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Count: \""
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: GetObject
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Comma
+                                      text: ","
+                            - kind: Whitespace
+                              text: " "
+    - kind: Unknown
+      text: "\"Excel.Application\""
+    - kind: Unknown
+      text: )
+    - kind: CallStatement
+      children:
         - kind: PeriodOperator
           text: "."
         - kind: Identifier

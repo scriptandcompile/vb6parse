@@ -11,17 +11,35 @@ root:
           text: MsgBox
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: TypeName
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: GetObject
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: filePath
-        - kind: RightParenthesis
-          text: )
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: TypeName
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: GetObject
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: filePath
+                                - kind: RightParenthesis
+                                  text: )
+                    - kind: RightParenthesis
+                      text: )

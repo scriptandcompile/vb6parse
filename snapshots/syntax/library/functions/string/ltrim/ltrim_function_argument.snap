@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/ltrim.rs
+source: vb6parse/src/syntax/library/functions/string/ltrim.rs
 expression: tree
 ---
 root:
@@ -19,14 +19,26 @@ root:
           text: ProcessText
         - kind: LeftParenthesis
           text: (
-        - kind: Identifier
-          text: LTrim
-        - kind: LeftParenthesis
-          text: (
-        - kind: InputKeyword
-          text: input
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: LTrim
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: InputKeyword
+                                  text: input
+                    - kind: RightParenthesis
+                      text: )
         - kind: RightParenthesis
           text: )
         - kind: Newline

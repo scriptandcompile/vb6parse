@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/environment/error_dollar.rs
+source: vb6parse/src/syntax/library/functions/environment/error_dollar.rs
 expression: tree
 ---
 root:
@@ -251,8 +251,14 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: msg
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: msg
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

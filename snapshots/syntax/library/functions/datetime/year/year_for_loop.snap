@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/year.rs
+source: vb6parse/src/syntax/library/functions/datetime/year.rs
 expression: tree
 ---
 root:
@@ -93,8 +93,14 @@ root:
                           text: ProcessYear
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: i
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: i
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

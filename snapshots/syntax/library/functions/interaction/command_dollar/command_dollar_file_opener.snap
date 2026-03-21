@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/interaction/command_dollar.rs
+source: vb6parse/src/syntax/library/functions/interaction/command_dollar.rs
 expression: tree
 ---
 root:
@@ -123,8 +123,14 @@ root:
                           text: OpenFile
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: filename
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: filename
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

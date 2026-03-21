@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/type_checking/ismissing.rs
+source: vb6parse/src/syntax/library/functions/type_checking/ismissing.rs
 expression: tree
 ---
 root:
@@ -107,8 +107,14 @@ root:
                               text: UseSpecifiedMode
                             - kind: Whitespace
                               text: " "
-                            - kind: Identifier
-                              text: mode
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: mode
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace

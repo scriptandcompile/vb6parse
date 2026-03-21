@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/trim.rs
+source: vb6parse/src/syntax/library/functions/string/trim.rs
 expression: tree
 ---
 root:
@@ -75,8 +75,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Too short\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Too short\""
                 - kind: Newline
                   text: "\n"
             - kind: Whitespace

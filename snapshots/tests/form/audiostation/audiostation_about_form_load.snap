@@ -864,248 +864,354 @@ cst:
                     text: MsgBox
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"Thanks to:\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbNewLine
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Underscore
-                    text: _
-                  - kind: Newline
-                    text: "\n"
-                  - kind: StringLiteral
-                    text: "\"- Pieter van den Broek\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbNewLine
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Underscore
-                    text: _
-                  - kind: Newline
-                    text: "\n"
-                  - kind: StringLiteral
-                    text: "\"- N.Heine (Creative Bug Finder)\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbNewLine
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbNewLine
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Underscore
-                    text: _
-                  - kind: Newline
-                    text: "\n"
-                  - kind: StringLiteral
-                    text: "\"- BroeX Audiovisuele Producties\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbNewLine
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Underscore
-                    text: _
-                  - kind: Newline
-                    text: "\n"
-                  - kind: StringLiteral
-                    text: "\"- Voyetra Software\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbNewLine
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Underscore
-                    text: _
-                  - kind: Newline
-                    text: "\n"
-                  - kind: StringLiteral
-                    text: "\"- High Voltage SID Collection\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbNewLine
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Underscore
-                    text: _
-                  - kind: Newline
-                    text: "\n"
-                  - kind: StringLiteral
-                    text: "\"- Virtual Midi Synth\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbNewLine
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Underscore
-                    text: _
-                  - kind: Newline
-                    text: "\n"
-                  - kind: StringLiteral
-                    text: "\"- SID Player\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbNewLine
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Underscore
-                    text: _
-                  - kind: Newline
-                    text: "\n"
-                  - kind: StringLiteral
-                    text: "\"- Rogerd Pack (Screen Capture Recorder)\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbNewLine
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Underscore
-                    text: _
-                  - kind: Newline
-                    text: "\n"
-                  - kind: StringLiteral
-                    text: "\"- Mabry Software, Inc. (Midi Device Controller)\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbNewLine
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Underscore
-                    text: _
-                  - kind: Newline
-                    text: "\n"
-                  - kind: StringLiteral
-                    text: "\"- BeepBox.co\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbNewLine
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Underscore
-                    text: _
-                  - kind: Newline
-                    text: "\n"
-                  - kind: StringLiteral
-                    text: "\"- ffmpeg.org\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbInformation
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"Thanks\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: BinaryExpression
+                                                children:
+                                                  - kind: BinaryExpression
+                                                    children:
+                                                      - kind: BinaryExpression
+                                                        children:
+                                                          - kind: BinaryExpression
+                                                            children:
+                                                              - kind: BinaryExpression
+                                                                children:
+                                                                  - kind: BinaryExpression
+                                                                    children:
+                                                                      - kind: BinaryExpression
+                                                                        children:
+                                                                          - kind: BinaryExpression
+                                                                            children:
+                                                                              - kind: BinaryExpression
+                                                                                children:
+                                                                                  - kind: BinaryExpression
+                                                                                    children:
+                                                                                      - kind: BinaryExpression
+                                                                                        children:
+                                                                                          - kind: BinaryExpression
+                                                                                            children:
+                                                                                              - kind: BinaryExpression
+                                                                                                children:
+                                                                                                  - kind: BinaryExpression
+                                                                                                    children:
+                                                                                                      - kind: BinaryExpression
+                                                                                                        children:
+                                                                                                          - kind: BinaryExpression
+                                                                                                            children:
+                                                                                                              - kind: BinaryExpression
+                                                                                                                children:
+                                                                                                                  - kind: BinaryExpression
+                                                                                                                    children:
+                                                                                                                      - kind: StringLiteralExpression
+                                                                                                                        children:
+                                                                                                                          - kind: StringLiteral
+                                                                                                                            text: "\"Thanks to:\""
+                                                                                                                      - kind: Whitespace
+                                                                                                                        text: " "
+                                                                                                                      - kind: Ampersand
+                                                                                                                        text: "&"
+                                                                                                                      - kind: Whitespace
+                                                                                                                        text: " "
+                                                                                                                      - kind: IdentifierExpression
+                                                                                                                        children:
+                                                                                                                          - kind: Identifier
+                                                                                                                            text: vbNewLine
+                                                                                                                  - kind: Whitespace
+                                                                                                                    text: " "
+                                                                                                                  - kind: Ampersand
+                                                                                                                    text: "&"
+                                                                                                                  - kind: Whitespace
+                                                                                                                    text: " "
+                                                                                                                  - kind: Underscore
+                                                                                                                    text: _
+                                                                                                                  - kind: Newline
+                                                                                                                    text: "\n"
+                                                                                                                  - kind: StringLiteralExpression
+                                                                                                                    children:
+                                                                                                                      - kind: StringLiteral
+                                                                                                                        text: "\"- Pieter van den Broek\""
+                                                                                                              - kind: Whitespace
+                                                                                                                text: " "
+                                                                                                              - kind: Ampersand
+                                                                                                                text: "&"
+                                                                                                              - kind: Whitespace
+                                                                                                                text: " "
+                                                                                                              - kind: IdentifierExpression
+                                                                                                                children:
+                                                                                                                  - kind: Identifier
+                                                                                                                    text: vbNewLine
+                                                                                                          - kind: Whitespace
+                                                                                                            text: " "
+                                                                                                          - kind: Ampersand
+                                                                                                            text: "&"
+                                                                                                          - kind: Whitespace
+                                                                                                            text: " "
+                                                                                                          - kind: Underscore
+                                                                                                            text: _
+                                                                                                          - kind: Newline
+                                                                                                            text: "\n"
+                                                                                                          - kind: StringLiteralExpression
+                                                                                                            children:
+                                                                                                              - kind: StringLiteral
+                                                                                                                text: "\"- N.Heine (Creative Bug Finder)\""
+                                                                                                      - kind: Whitespace
+                                                                                                        text: " "
+                                                                                                      - kind: Ampersand
+                                                                                                        text: "&"
+                                                                                                      - kind: Whitespace
+                                                                                                        text: " "
+                                                                                                      - kind: IdentifierExpression
+                                                                                                        children:
+                                                                                                          - kind: Identifier
+                                                                                                            text: vbNewLine
+                                                                                                  - kind: Whitespace
+                                                                                                    text: " "
+                                                                                                  - kind: Ampersand
+                                                                                                    text: "&"
+                                                                                                  - kind: Whitespace
+                                                                                                    text: " "
+                                                                                                  - kind: IdentifierExpression
+                                                                                                    children:
+                                                                                                      - kind: Identifier
+                                                                                                        text: vbNewLine
+                                                                                              - kind: Whitespace
+                                                                                                text: " "
+                                                                                              - kind: Ampersand
+                                                                                                text: "&"
+                                                                                              - kind: Whitespace
+                                                                                                text: " "
+                                                                                              - kind: Underscore
+                                                                                                text: _
+                                                                                              - kind: Newline
+                                                                                                text: "\n"
+                                                                                              - kind: StringLiteralExpression
+                                                                                                children:
+                                                                                                  - kind: StringLiteral
+                                                                                                    text: "\"- BroeX Audiovisuele Producties\""
+                                                                                          - kind: Whitespace
+                                                                                            text: " "
+                                                                                          - kind: Ampersand
+                                                                                            text: "&"
+                                                                                          - kind: Whitespace
+                                                                                            text: " "
+                                                                                          - kind: IdentifierExpression
+                                                                                            children:
+                                                                                              - kind: Identifier
+                                                                                                text: vbNewLine
+                                                                                      - kind: Whitespace
+                                                                                        text: " "
+                                                                                      - kind: Ampersand
+                                                                                        text: "&"
+                                                                                      - kind: Whitespace
+                                                                                        text: " "
+                                                                                      - kind: Underscore
+                                                                                        text: _
+                                                                                      - kind: Newline
+                                                                                        text: "\n"
+                                                                                      - kind: StringLiteralExpression
+                                                                                        children:
+                                                                                          - kind: StringLiteral
+                                                                                            text: "\"- Voyetra Software\""
+                                                                                  - kind: Whitespace
+                                                                                    text: " "
+                                                                                  - kind: Ampersand
+                                                                                    text: "&"
+                                                                                  - kind: Whitespace
+                                                                                    text: " "
+                                                                                  - kind: IdentifierExpression
+                                                                                    children:
+                                                                                      - kind: Identifier
+                                                                                        text: vbNewLine
+                                                                              - kind: Whitespace
+                                                                                text: " "
+                                                                              - kind: Ampersand
+                                                                                text: "&"
+                                                                              - kind: Whitespace
+                                                                                text: " "
+                                                                              - kind: Underscore
+                                                                                text: _
+                                                                              - kind: Newline
+                                                                                text: "\n"
+                                                                              - kind: StringLiteralExpression
+                                                                                children:
+                                                                                  - kind: StringLiteral
+                                                                                    text: "\"- High Voltage SID Collection\""
+                                                                          - kind: Whitespace
+                                                                            text: " "
+                                                                          - kind: Ampersand
+                                                                            text: "&"
+                                                                          - kind: Whitespace
+                                                                            text: " "
+                                                                          - kind: IdentifierExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: vbNewLine
+                                                                      - kind: Whitespace
+                                                                        text: " "
+                                                                      - kind: Ampersand
+                                                                        text: "&"
+                                                                      - kind: Whitespace
+                                                                        text: " "
+                                                                      - kind: Underscore
+                                                                        text: _
+                                                                      - kind: Newline
+                                                                        text: "\n"
+                                                                      - kind: StringLiteralExpression
+                                                                        children:
+                                                                          - kind: StringLiteral
+                                                                            text: "\"- Virtual Midi Synth\""
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: Ampersand
+                                                                    text: "&"
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: vbNewLine
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: Ampersand
+                                                                text: "&"
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: Underscore
+                                                                text: _
+                                                              - kind: Newline
+                                                                text: "\n"
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"- SID Player\""
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Ampersand
+                                                            text: "&"
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: vbNewLine
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Ampersand
+                                                        text: "&"
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Underscore
+                                                        text: _
+                                                      - kind: Newline
+                                                        text: "\n"
+                                                      - kind: StringLiteralExpression
+                                                        children:
+                                                          - kind: StringLiteral
+                                                            text: "\"- Rogerd Pack (Screen Capture Recorder)\""
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Ampersand
+                                                    text: "&"
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: vbNewLine
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Ampersand
+                                                text: "&"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Underscore
+                                                text: _
+                                              - kind: Newline
+                                                text: "\n"
+                                              - kind: StringLiteralExpression
+                                                children:
+                                                  - kind: StringLiteral
+                                                    text: "\"- Mabry Software, Inc. (Midi Device Controller)\""
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Ampersand
+                                            text: "&"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: vbNewLine
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Ampersand
+                                        text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Underscore
+                                        text: _
+                                      - kind: Newline
+                                        text: "\n"
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"- BeepBox.co\""
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Ampersand
+                                    text: "&"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: vbNewLine
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Underscore
+                                text: _
+                              - kind: Newline
+                                text: "\n"
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"- ffmpeg.org\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: vbInformation
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"Thanks\""
                   - kind: Newline
                     text: "\n"
           - kind: EndKeyword
@@ -1234,8 +1340,14 @@ cst:
                     text: TranslateFormAndControls
                   - kind: LeftParenthesis
                     text: (
-                  - kind: MeKeyword
-                    text: Me
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: MeKeyword
+                                text: Me
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline

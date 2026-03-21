@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/replace.rs
+source: vb6parse/src/syntax/library/functions/string/replace.rs
 expression: tree
 ---
 root:
@@ -13,25 +13,45 @@ root:
           text: MsgBox
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: Replace
-        - kind: LeftParenthesis
-          text: (
-        - kind: StringLiteral
-          text: "\"Error: {code}\""
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: StringLiteral
-          text: "\"{code}\""
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: StringLiteral
-          text: "\"404\""
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: Replace
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Error: {code}\""
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"{code}\""
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"404\""
+                    - kind: RightParenthesis
+                      text: )
         - kind: Newline
           text: "\n"

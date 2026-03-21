@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/math/tan.rs
+source: vb6parse/src/syntax/library/functions/math/tan.rs
 expression: tree
 ---
 root:
@@ -83,30 +83,50 @@ root:
                           text: Print
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: Tan
-                        - kind: LeftParenthesis
-                          text: (
-                        - kind: Identifier
-                          text: i
-                        - kind: Whitespace
-                          text: " "
-                        - kind: MultiplicationOperator
-                          text: "*"
-                        - kind: Whitespace
-                          text: " "
-                        - kind: SingleLiteral
-                          text: "3.14159265358979"
-                        - kind: Whitespace
-                          text: " "
-                        - kind: DivisionOperator
-                          text: /
-                        - kind: Whitespace
-                          text: " "
-                        - kind: IntegerLiteral
-                          text: "180"
-                        - kind: RightParenthesis
-                          text: )
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: CallExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: Tan
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: BinaryExpression
+                                              children:
+                                                - kind: BinaryExpression
+                                                  children:
+                                                    - kind: IdentifierExpression
+                                                      children:
+                                                        - kind: Identifier
+                                                          text: i
+                                                    - kind: Whitespace
+                                                      text: " "
+                                                    - kind: MultiplicationOperator
+                                                      text: "*"
+                                                    - kind: Whitespace
+                                                      text: " "
+                                                    - kind: NumericLiteralExpression
+                                                      children:
+                                                        - kind: SingleLiteral
+                                                          text: "3.14159265358979"
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: DivisionOperator
+                                                  text: /
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: NumericLiteralExpression
+                                                  children:
+                                                    - kind: IntegerLiteral
+                                                      text: "180"
+                                    - kind: RightParenthesis
+                                      text: )
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/graphics/partition.rs
+source: vb6parse/src/syntax/library/functions/graphics/partition.rs
 expression: tree
 ---
 root:
@@ -115,14 +115,24 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: i
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: rangeStr
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: i
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: rangeStr
                 - kind: Newline
                   text: "\n"
         - kind: NextKeyword

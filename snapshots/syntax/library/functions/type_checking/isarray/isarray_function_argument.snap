@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/type_checking/isarray.rs
+source: vb6parse/src/syntax/library/functions/type_checking/isarray.rs
 expression: tree
 ---
 root:
@@ -37,14 +37,26 @@ root:
                   text: ValidateData
                 - kind: LeftParenthesis
                   text: (
-                - kind: Identifier
-                  text: IsArray
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: myVariable
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: IsArray
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: myVariable
+                            - kind: RightParenthesis
+                              text: )
                 - kind: RightParenthesis
                   text: )
                 - kind: Newline

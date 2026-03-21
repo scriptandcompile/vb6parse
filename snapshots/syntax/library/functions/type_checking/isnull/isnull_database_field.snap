@@ -63,40 +63,46 @@ root:
                   children:
                     - kind: Identifier
                       text: Email
-                    - kind: RightParenthesis
-                      text: )
-                    - kind: Whitespace
-                      text: " "
-                    - kind: ThenKeyword
-                      text: Then
-                    - kind: Newline
-                      text: "\n"
-                - kind: Whitespace
-                  text: "        "
-                - kind: AssignmentStatement
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: RightParenthesis
+                                  text: )
+                        - kind: Whitespace
+                          text: " "
+            - kind: Unknown
+              text: Then
+            - kind: Newline
+              text: "\n"
+            - kind: Whitespace
+              text: "        "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
                   children:
-                    - kind: IdentifierExpression
-                      children:
-                        - kind: Identifier
-                          text: email
-                    - kind: Whitespace
-                      text: " "
-                    - kind: EqualityOperator
-                      text: "="
-                    - kind: Whitespace
-                      text: " "
-                    - kind: StringLiteralExpression
-                      children:
-                        - kind: StringLiteral
-                          text: "\"N/A\""
-                    - kind: Newline
-                      text: "\n"
+                    - kind: Identifier
+                      text: email
                 - kind: Whitespace
-                  text: "    "
-                - kind: ElseKeyword
-                  text: Else
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteralExpression
+                  children:
+                    - kind: StringLiteral
+                      text: "\"N/A\""
                 - kind: Newline
                   text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: Unknown
+              text: Else
+            - kind: Newline
+              text: "\n"
             - kind: Whitespace
               text: "        "
             - kind: AssignmentStatement

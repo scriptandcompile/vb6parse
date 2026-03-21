@@ -261,14 +261,24 @@ cst:
                     text: SetMove
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: ChooseBookMove
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: EmptyMove
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: ChooseBookMove
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: EmptyMove
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -339,20 +349,34 @@ cst:
                     text: GenerateMoves
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Ply
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: FalseKeyword
-                    text: "False"
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: iNumMoves
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: Ply
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: BooleanLiteralExpression
+                            children:
+                              - kind: FalseKeyword
+                                text: "False"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: iNumMoves
                   - kind: Newline
                     text: "\r\n"
               - kind: Newline
@@ -503,26 +527,46 @@ cst:
                                     text: SetMove
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Identifier
-                                    text: ChooseBookMove
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
-                                    text: Moves
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: Identifier
-                                    text: Ply
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
-                                    text: i
-                                  - kind: RightParenthesis
-                                    text: )
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: ChooseBookMove
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: CallExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: Moves
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: Ply
+                                                  - kind: Comma
+                                                    text: ","
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: i
+                                              - kind: RightParenthesis
+                                                text: )
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: ExitStatement
@@ -1363,32 +1407,56 @@ cst:
                                     text: Cells
                                   - kind: LeftParenthesis
                                     text: (
-                                  - kind: PeriodOperator
-                                    text: "."
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: PeriodOperator
+                                                text: "."
+                              - kind: CallStatement
+                                children:
                                   - kind: Identifier
                                     text: Rows
                                   - kind: PeriodOperator
                                     text: "."
                                   - kind: Identifier
                                     text: Count
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IntegerLiteral
-                                    text: "1"
-                                  - kind: RightParenthesis
-                                    text: )
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Comma
+                                                text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                              - kind: Unknown
+                                text: "1"
+                              - kind: Unknown
+                                text: )
+                              - kind: CallStatement
+                                children:
                                   - kind: PeriodOperator
                                     text: "."
                                   - kind: EndKeyword
                                     text: End
                                   - kind: LeftParenthesis
                                     text: (
-                                  - kind: Identifier
-                                    text: xlUp
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: xlUp
                                   - kind: RightParenthesis
                                     text: )
+                              - kind: CallStatement
+                                children:
                                   - kind: PeriodOperator
                                     text: "."
                                   - kind: Identifier
@@ -1465,20 +1533,30 @@ cst:
                                             text: Cells
                                           - kind: LeftParenthesis
                                             text: (
-                                          - kind: Identifier
-                                            text: i
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: IntegerLiteral
-                                            text: "1"
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: i
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: NumericLiteralExpression
+                                                    children:
+                                                      - kind: IntegerLiteral
+                                                        text: "1"
                                           - kind: RightParenthesis
                                             text: )
-                                          - kind: RightParenthesis
-                                            text: )
-                                          - kind: Newline
-                                            text: "\r\n"
+                                      - kind: Unknown
+                                        text: )
+                                      - kind: Newline
+                                        text: "\r\n"
                                       - kind: IfStatement
                                         children:
                                           - kind: Whitespace
@@ -1819,16 +1897,26 @@ cst:
                                                                 text: SendCommand
                                                               - kind: Whitespace
                                                                 text: " "
-                                                              - kind: StringLiteral
-                                                                text: "\"opening book found in Excel sheet CB_BOOK. Lines found:\""
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: Ampersand
-                                                                text: "&"
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: Identifier
-                                                                text: UCIBookCnt
+                                                              - kind: ArgumentList
+                                                                children:
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: BinaryExpression
+                                                                        children:
+                                                                          - kind: StringLiteralExpression
+                                                                            children:
+                                                                              - kind: StringLiteral
+                                                                                text: "\"opening book found in Excel sheet CB_BOOK. Lines found:\""
+                                                                          - kind: Whitespace
+                                                                            text: " "
+                                                                          - kind: Ampersand
+                                                                            text: "&"
+                                                                          - kind: Whitespace
+                                                                            text: " "
+                                                                          - kind: IdentifierExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: UCIBookCnt
                                                               - kind: Newline
                                                                 text: "\r\n"
                                                           - kind: Whitespace
@@ -1873,8 +1961,14 @@ cst:
                                                         children:
                                                           - kind: Identifier
                                                             text: lblError
-                                                          - kind: ColonOperator
-                                                            text: ":"
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: ColonOperator
+                                                                        text: ":"
                                                           - kind: Newline
                                                             text: "\r\n"
                                                       - kind: Whitespace
@@ -2995,8 +3089,14 @@ cst:
                                                                                         text: SendCommand
                                                                                       - kind: Whitespace
                                                                                         text: " "
-                                                                                      - kind: StringLiteral
-                                                                                        text: "\"internal opening book active\""
+                                                                                      - kind: ArgumentList
+                                                                                        children:
+                                                                                          - kind: Argument
+                                                                                            children:
+                                                                                              - kind: StringLiteralExpression
+                                                                                                children:
+                                                                                                  - kind: StringLiteral
+                                                                                                    text: "\"internal opening book active\""
                                                                                       - kind: Newline
                                                                                         text: "\r\n"
                                                                                   - kind: Whitespace
@@ -3027,8 +3127,14 @@ cst:
                                                                                             text: SendCommand
                                                                                           - kind: Whitespace
                                                                                             text: " "
-                                                                                          - kind: StringLiteral
-                                                                                            text: "\"info string internal opening book active\""
+                                                                                          - kind: ArgumentList
+                                                                                            children:
+                                                                                              - kind: Argument
+                                                                                                children:
+                                                                                                  - kind: StringLiteralExpression
+                                                                                                    children:
+                                                                                                      - kind: StringLiteral
+                                                                                                        text: "\"info string internal opening book active\""
                                                                                           - kind: Newline
                                                                                             text: "\r\n"
                                                                                       - kind: Whitespace
@@ -3517,16 +3623,26 @@ cst:
                                                                                             text: SendCommand
                                                                                           - kind: Whitespace
                                                                                             text: " "
-                                                                                          - kind: StringLiteral
-                                                                                            text: "\"opening book found: \""
-                                                                                          - kind: Whitespace
-                                                                                            text: " "
-                                                                                          - kind: Ampersand
-                                                                                            text: "&"
-                                                                                          - kind: Whitespace
-                                                                                            text: " "
-                                                                                          - kind: Identifier
-                                                                                            text: isFile
+                                                                                          - kind: ArgumentList
+                                                                                            children:
+                                                                                              - kind: Argument
+                                                                                                children:
+                                                                                                  - kind: BinaryExpression
+                                                                                                    children:
+                                                                                                      - kind: StringLiteralExpression
+                                                                                                        children:
+                                                                                                          - kind: StringLiteral
+                                                                                                            text: "\"opening book found: \""
+                                                                                                      - kind: Whitespace
+                                                                                                        text: " "
+                                                                                                      - kind: Ampersand
+                                                                                                        text: "&"
+                                                                                                      - kind: Whitespace
+                                                                                                        text: " "
+                                                                                                      - kind: IdentifierExpression
+                                                                                                        children:
+                                                                                                          - kind: Identifier
+                                                                                                            text: isFile
                                                                                           - kind: Newline
                                                                                             text: "\r\n"
                                                                                       - kind: Whitespace
@@ -3557,16 +3673,26 @@ cst:
                                                                                                 text: SendCommand
                                                                                               - kind: Whitespace
                                                                                                 text: " "
-                                                                                              - kind: StringLiteral
-                                                                                                text: "\"info string opening book found: \""
-                                                                                              - kind: Whitespace
-                                                                                                text: " "
-                                                                                              - kind: Ampersand
-                                                                                                text: "&"
-                                                                                              - kind: Whitespace
-                                                                                                text: " "
-                                                                                              - kind: Identifier
-                                                                                                text: isFile
+                                                                                              - kind: ArgumentList
+                                                                                                children:
+                                                                                                  - kind: Argument
+                                                                                                    children:
+                                                                                                      - kind: BinaryExpression
+                                                                                                        children:
+                                                                                                          - kind: StringLiteralExpression
+                                                                                                            children:
+                                                                                                              - kind: StringLiteral
+                                                                                                                text: "\"info string opening book found: \""
+                                                                                                          - kind: Whitespace
+                                                                                                            text: " "
+                                                                                                          - kind: Ampersand
+                                                                                                            text: "&"
+                                                                                                          - kind: Whitespace
+                                                                                                            text: " "
+                                                                                                          - kind: IdentifierExpression
+                                                                                                            children:
+                                                                                                              - kind: Identifier
+                                                                                                                text: isFile
                                                                                               - kind: Newline
                                                                                                 text: "\r\n"
                                                                                           - kind: Whitespace

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/formatdatetime.rs
+source: vb6parse/src/syntax/library/functions/string/formatdatetime.rs
 expression: tree
 ---
 root:
@@ -17,19 +17,35 @@ root:
           text: Print
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: FormatDateTime
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: Now
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: vbLongDate
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: FormatDateTime
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: Now
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: vbLongDate
+                    - kind: RightParenthesis
+                      text: )
         - kind: Newline
           text: "\n"

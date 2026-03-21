@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/environment/error.rs
+source: vb6parse/src/syntax/library/functions/environment/error.rs
 expression: tree
 ---
 root:
@@ -13,25 +13,41 @@ root:
           text: MsgBox
         - kind: Whitespace
           text: " "
-        - kind: StringLiteral
-          text: "\"Error: \""
-        - kind: Whitespace
-          text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Whitespace
-          text: " "
-        - kind: ErrorKeyword
-          text: Error
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: Err
-        - kind: PeriodOperator
-          text: "."
-        - kind: Identifier
-          text: Number
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: BinaryExpression
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Error: \""
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallExpression
+                      children:
+                        - kind: ErrorKeyword
+                          text: Error
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: MemberAccessExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: Err
+                                    - kind: PeriodOperator
+                                      text: "."
+                                    - kind: Identifier
+                                      text: Number
+                        - kind: RightParenthesis
+                          text: )
         - kind: Newline
           text: "\n"

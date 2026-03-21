@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/mid.rs
+source: vb6parse/src/syntax/library/functions/string/mid.rs
 expression: tree
 ---
 root:
@@ -15,26 +15,46 @@ root:
           text: MsgBox
         - kind: Whitespace
           text: " "
-        - kind: MidKeyword
-          text: Mid
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: errorMessage
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "1"
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "50"
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: MidKeyword
+                      text: Mid
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: errorMessage
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "1"
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "50"
+                    - kind: RightParenthesis
+                      text: )
         - kind: Newline
           text: "\n"
     - kind: Whitespace

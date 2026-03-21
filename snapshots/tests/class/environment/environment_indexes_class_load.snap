@@ -158,20 +158,36 @@ cst:
                     text: SwapVariant
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: ar
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: n
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: RHS
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: ar
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: n
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: RHS
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword
@@ -818,14 +834,26 @@ cst:
                             text: OptVariant
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: ar
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: Identifier
-                            text: n
-                          - kind: RightParenthesis
-                            text: )
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: CallExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: ar
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: n
+                                      - kind: RightParenthesis
+                                        text: )
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -910,14 +938,26 @@ cst:
                                 text: OptVariant
                               - kind: Whitespace
                                 text: " "
-                              - kind: Identifier
-                                text: ar
-                              - kind: LeftParenthesis
-                                text: (
-                              - kind: Identifier
-                                text: n
-                              - kind: RightParenthesis
-                                text: )
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: ar
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: n
+                                          - kind: RightParenthesis
+                                            text: )
                               - kind: Newline
                                 text: "\r\n"
                           - kind: Whitespace

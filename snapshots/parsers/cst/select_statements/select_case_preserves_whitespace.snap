@@ -1,5 +1,5 @@
 ---
-source: src/parsers/cst/select_statements.rs
+source: vb6parse/src/parsers/cst/select_statements.rs
 expression: tree
 ---
 root:
@@ -69,8 +69,14 @@ root:
                               text: Print
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"test\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"test\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace

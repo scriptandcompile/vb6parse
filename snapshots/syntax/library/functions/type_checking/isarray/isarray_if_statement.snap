@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/type_checking/isarray.rs
+source: vb6parse/src/syntax/library/functions/type_checking/isarray.rs
 expression: tree
 ---
 root:
@@ -65,8 +65,14 @@ root:
                           text: MsgBox
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"Data is an array\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Data is an array\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

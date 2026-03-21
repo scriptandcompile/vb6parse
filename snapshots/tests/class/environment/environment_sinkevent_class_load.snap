@@ -386,16 +386,26 @@ cst:
                         text: SwapString2Variant
                       - kind: Whitespace
                         text: " "
-                      - kind: Identifier
-                        text: b
-                      - kind: DollarSign
-                        text: $
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: a
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: b
+                                  - kind: DollarSign
+                                    text: $
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: a
                       - kind: Newline
                         text: "\r\n"
                   - kind: RaiseEventStatement
@@ -426,16 +436,26 @@ cst:
                         text: SwapString2Variant
                       - kind: Whitespace
                         text: " "
-                      - kind: Identifier
-                        text: b
-                      - kind: DollarSign
-                        text: $
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: a
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: b
+                                  - kind: DollarSign
+                                    text: $
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: a
                       - kind: Newline
                         text: "\r\n"
           - kind: EndKeyword
@@ -786,8 +806,14 @@ cst:
                     text: LoadTuple
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: resp
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: resp
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace

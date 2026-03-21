@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/time.rs
+source: vb6parse/src/syntax/library/functions/datetime/time.rs
 expression: tree
 ---
 root:
@@ -33,16 +33,26 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Current time: \""
-                - kind: Whitespace
-                  text: " "
-                - kind: Ampersand
-                  text: "&"
-                - kind: Whitespace
-                  text: " "
-                - kind: TimeKeyword
-                  text: Time
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: BinaryExpression
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Current time: \""
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Ampersand
+                              text: "&"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: TimeKeyword
+                                  text: Time
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

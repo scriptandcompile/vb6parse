@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/dateserial.rs
+source: vb6parse/src/syntax/library/functions/datetime/dateserial.rs
 expression: tree
 ---
 root:
@@ -77,8 +77,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Past deadline\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Past deadline\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

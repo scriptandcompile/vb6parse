@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/type_checking/isarray.rs
+source: vb6parse/src/syntax/library/functions/type_checking/isarray.rs
 expression: tree
 ---
 root:
@@ -133,14 +133,26 @@ root:
                                   text: ProcessArray
                                 - kind: Whitespace
                                   text: " "
-                                - kind: Identifier
-                                  text: items
-                                - kind: LeftParenthesis
-                                  text: (
-                                - kind: Identifier
-                                  text: i
-                                - kind: RightParenthesis
-                                  text: )
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: CallExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: items
+                                            - kind: LeftParenthesis
+                                              text: (
+                                            - kind: ArgumentList
+                                              children:
+                                                - kind: Argument
+                                                  children:
+                                                    - kind: IdentifierExpression
+                                                      children:
+                                                        - kind: Identifier
+                                                          text: i
+                                            - kind: RightParenthesis
+                                              text: )
                                 - kind: Newline
                                   text: "\n"
                             - kind: Whitespace

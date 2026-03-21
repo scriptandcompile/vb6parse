@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/conversion/oct.rs
+source: vb6parse/src/syntax/library/functions/conversion/oct.rs
 expression: tree
 ---
 root:
@@ -69,8 +69,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Permissions match\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Permissions match\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

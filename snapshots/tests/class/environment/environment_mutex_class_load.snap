@@ -394,18 +394,26 @@ cst:
                     children:
                       - kind: Identifier
                         text: exist
-                      - kind: ColonOperator
-                        text: ":"
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ExitKeyword
-                        text: Exit
-                      - kind: Whitespace
-                        text: " "
-                      - kind: FunctionKeyword
-                        text: Function
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: ColonOperator
+                                    text: ":"
+                          - kind: Whitespace
+                            text: " "
+              - kind: ExitStatement
+                children:
+                  - kind: ExitKeyword
+                    text: Exit
+                  - kind: Whitespace
+                    text: " "
+                  - kind: FunctionKeyword
+                    text: Function
+              - kind: Newline
+                text: "\r\n"
               - kind: DimStatement
                 children:
                   - kind: DimKeyword
@@ -560,18 +568,30 @@ cst:
                         text: AddKey2
                       - kind: Whitespace
                         text: " "
-                      - kind: NameKeyword
-                        text: Name
-                      - kind: DollarSign
-                        text: $
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: myMutex
-                      - kind: ColonOperator
-                        text: ":"
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: NameKeyword
+                                    text: Name
+                                  - kind: DollarSign
+                                    text: $
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: myMutex
+                  - kind: ColonOperator
+                    text: ":"
+                  - kind: ExitStatement
+                    children:
                       - kind: Whitespace
                         text: " "
                       - kind: ExitKeyword
@@ -580,8 +600,8 @@ cst:
                         text: " "
                       - kind: FunctionKeyword
                         text: Function
-                      - kind: Newline
-                        text: "\r\n"
+                  - kind: Newline
+                    text: "\r\n"
               - kind: IfStatement
                 children:
                   - kind: IfKeyword
@@ -616,8 +636,14 @@ cst:
                         text: CloseHandle
                       - kind: Whitespace
                         text: " "
-                      - kind: Identifier
-                        text: myMutex
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: myMutex
                       - kind: Newline
                         text: "\r\n"
                   - kind: Newline
@@ -628,14 +654,24 @@ cst:
                     text: MyEr
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"Mutex object exist\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"ÕðÜñ÷åé Þäç ôï áíôéêåßìåíï\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"Mutex object exist\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"ÕðÜñ÷åé Þäç ôï áíôéêåßìåíï\""
                   - kind: Newline
                     text: "\r\n"
               - kind: AssignmentStatement
@@ -694,14 +730,24 @@ cst:
                     text: MyEr
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"named mutex not exist\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"ôï áíôéêåßìåíï äåí õðÜñ÷åé\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"named mutex not exist\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"ôï áíôéêåßìåíï äåí õðÜñ÷åé\""
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword
@@ -742,14 +788,24 @@ cst:
                     text: MyEr
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"named mutex exist\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"ôï áíôéêåßìåíï õðÜñ÷åé\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"named mutex exist\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"ôï áíôéêåßìåíï õðÜñ÷åé\""
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword
@@ -828,36 +884,56 @@ cst:
                     children:
                       - kind: Identifier
                         text: notexist
-                      - kind: ColonOperator
-                        text: ":"
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ExitKeyword
-                        text: Exit
-                      - kind: Whitespace
-                        text: " "
-                      - kind: SubKeyword
-                        text: Sub
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: ColonOperator
+                                    text: ":"
+                          - kind: Whitespace
+                            text: " "
+              - kind: ExitStatement
+                children:
+                  - kind: ExitKeyword
+                    text: Exit
+                  - kind: Whitespace
+                    text: " "
+                  - kind: SubKeyword
+                    text: Sub
+              - kind: Newline
+                text: "\r\n"
               - kind: CallStatement
                 children:
                   - kind: Identifier
                     text: ReleaseMutex
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: CLng
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: Mymutexs
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Value
-                  - kind: RightParenthesis
-                    text: )
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: CLng
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Mymutexs
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: Value
+                              - kind: RightParenthesis
+                                text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: CallStatement
@@ -866,18 +942,30 @@ cst:
                     text: CloseHandle
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: CLng
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: Mymutexs
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Value
-                  - kind: RightParenthesis
-                    text: )
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: CLng
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Mymutexs
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: Value
+                              - kind: RightParenthesis
+                                text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: CallStatement
@@ -1066,18 +1154,30 @@ cst:
                                     text: ReleaseMutex
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Identifier
-                                    text: CLng
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: Identifier
-                                    text: Mymutexs
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: Identifier
-                                    text: Value
-                                  - kind: RightParenthesis
-                                    text: )
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: CallExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: CLng
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: MemberAccessExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: Mymutexs
+                                                          - kind: PeriodOperator
+                                                            text: "."
+                                                          - kind: Identifier
+                                                            text: Value
+                                              - kind: RightParenthesis
+                                                text: )
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: CallStatement
@@ -1086,18 +1186,30 @@ cst:
                                     text: CloseHandle
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Identifier
-                                    text: CLng
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: Identifier
-                                    text: Mymutexs
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: Identifier
-                                    text: Value
-                                  - kind: RightParenthesis
-                                    text: )
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: CallExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: CLng
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: MemberAccessExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: Mymutexs
+                                                          - kind: PeriodOperator
+                                                            text: "."
+                                                          - kind: Identifier
+                                                            text: Value
+                                              - kind: RightParenthesis
+                                                text: )
                                   - kind: Newline
                                     text: "\r\n"
                           - kind: NextKeyword

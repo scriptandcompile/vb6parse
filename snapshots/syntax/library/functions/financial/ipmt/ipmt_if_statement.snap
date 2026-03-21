@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/financial/ipmt.rs
+source: vb6parse/src/syntax/library/functions/financial/ipmt.rs
 expression: tree
 ---
 root:
@@ -107,8 +107,14 @@ root:
                           text: MsgBox
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"Interest below threshold\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Interest below threshold\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

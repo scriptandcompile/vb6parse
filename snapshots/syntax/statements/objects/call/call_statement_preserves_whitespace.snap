@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/objects/call.rs
+source: vb6parse/src/syntax/statements/objects/call.rs
 expression: tree
 ---
 root:
@@ -17,20 +17,30 @@ root:
           text: " "
         - kind: LeftParenthesis
           text: (
-        - kind: Whitespace
-          text: "  "
-        - kind: Identifier
-          text: arg1
-        - kind: Whitespace
-          text: " "
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: "  "
-        - kind: Identifier
-          text: arg2
-        - kind: Whitespace
-          text: "  "
+        - kind: ArgumentList
+          children:
+            - kind: Whitespace
+              text: "  "
+            - kind: Argument
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: arg1
+            - kind: Whitespace
+              text: " "
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: "  "
+            - kind: Argument
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: arg2
+            - kind: Whitespace
+              text: "  "
         - kind: RightParenthesis
           text: )
         - kind: Newline

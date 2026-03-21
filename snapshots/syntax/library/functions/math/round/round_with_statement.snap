@@ -59,18 +59,24 @@ root:
               children:
                 - kind: Identifier
                   text: RawValue
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: PeriodOperator
-                  text: "."
-                - kind: Identifier
-                  text: Precision
-                - kind: RightParenthesis
-                  text: )
-                - kind: Newline
-                  text: "\n"
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: MemberAccessExpression
+                          children:
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: PeriodOperator
+                              text: "."
+                            - kind: Identifier
+                              text: Precision
+            - kind: Unknown
+              text: )
+            - kind: Newline
+              text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

@@ -1264,28 +1264,48 @@ cst:
                         text: MsgBox
                       - kind: Whitespace
                         text: " "
-                      - kind: Identifier
-                        text: GetTranslation
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: IntegerLiteral
-                        text: "1065"
-                      - kind: RightParenthesis
-                        text: )
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: vbExclamation
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AdditionOperator
-                        text: +
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: vbOKOnly
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: CallExpression
+                                children:
+                                  - kind: Identifier
+                                    text: GetTranslation
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "1065"
+                                  - kind: RightParenthesis
+                                    text: )
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: vbExclamation
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: AdditionOperator
+                                    text: +
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: vbOKOnly
                       - kind: Newline
                         text: "\n"
                   - kind: Newline
@@ -1304,30 +1324,48 @@ cst:
                     text: INIWrite
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"main\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"CDDeviceId\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Combox_CDRomDrive
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: ListIndex
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: ConfigFile
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"main\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"CDDeviceId\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Combox_CDRomDrive
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: ListIndex
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: ConfigFile
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -1346,30 +1384,48 @@ cst:
                     text: INIWrite
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"main\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"MidiPlaybackDeviceId\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Combox_MidiDevice
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: ListIndex
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: ConfigFile
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"main\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"MidiPlaybackDeviceId\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Combox_MidiDevice
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: ListIndex
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: ConfigFile
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -1388,30 +1444,48 @@ cst:
                     text: INIWrite
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"main\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"UseSpectrumAnalyzer\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Checkbox_ShowSpectrum
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Value
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: ConfigFile
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"main\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"UseSpectrumAnalyzer\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Checkbox_ShowSpectrum
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Value
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: ConfigFile
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -1430,30 +1504,48 @@ cst:
                     text: INIWrite
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"main\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"Langauge\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Combox_Language
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: TextKeyword
-                    text: Text
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: ConfigFile
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"main\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"Langauge\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Combox_Language
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: TextKeyword
+                                text: Text
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: ConfigFile
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -1472,30 +1564,48 @@ cst:
                     text: INIWrite
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"main\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"Animation-CD\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Checkbox_AnimationCD
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Value
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: ConfigFile
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"main\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"Animation-CD\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Checkbox_AnimationCD
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Value
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: ConfigFile
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -1514,30 +1624,48 @@ cst:
                     text: INIWrite
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"main\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"Animation-DAT\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Checkbox_AnimationDat
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Value
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: ConfigFile
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"main\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"Animation-DAT\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Checkbox_AnimationDat
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Value
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: ConfigFile
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -1556,30 +1684,48 @@ cst:
                     text: INIWrite
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"main\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"AutoStop\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Checkbox_AutoStop
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Value
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: ConfigFile
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"main\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"AutoStop\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Checkbox_AutoStop
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Value
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: ConfigFile
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -1598,30 +1744,48 @@ cst:
                     text: INIWrite
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"main\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"ShowRemainingTime\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: OptionButton_RemainingTime
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Value
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: ConfigFile
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"main\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"ShowRemainingTime\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: OptionButton_RemainingTime
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Value
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: ConfigFile
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -1640,30 +1804,48 @@ cst:
                     text: INIWrite
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"main\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"ShowRemainingTimeForMidi\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: OptionButton_RemainingTimeMidi
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Value
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: ConfigFile
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"main\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"ShowRemainingTimeForMidi\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: OptionButton_RemainingTimeMidi
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Value
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: ConfigFile
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -1682,30 +1864,48 @@ cst:
                     text: INIWrite
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"main\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"AutoStopForMidi\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Checkbox_AutoStopMidi
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Value
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: ConfigFile
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"main\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"AutoStopForMidi\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Checkbox_AutoStopMidi
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Value
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: ConfigFile
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -1936,20 +2136,30 @@ cst:
                             text: AddItem
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: CdDevice
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: cdLetter
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Ampersand
-                            text: "&"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: StringLiteral
-                            text: "\":\""
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: CdDevice
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: cdLetter
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Ampersand
+                                        text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\":\""
                           - kind: Newline
                             text: "\n"
                   - kind: NextKeyword
@@ -2036,12 +2246,18 @@ cst:
                             text: AddItem
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: MidiDevice
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: mName
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: MidiDevice
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: mName
                           - kind: Newline
                             text: "\n"
                   - kind: NextKeyword
@@ -2946,8 +3162,14 @@ cst:
                     text: TranslateFormAndControls
                   - kind: LeftParenthesis
                     text: (
-                  - kind: MeKeyword
-                    text: Me
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: MeKeyword
+                                text: Me
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -2994,14 +3216,24 @@ cst:
                     text: Show
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: vbModal
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: MeKeyword
-                    text: Me
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: vbModal
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: MeKeyword
+                                text: Me
                   - kind: Newline
                     text: "\n"
           - kind: EndKeyword
@@ -3046,14 +3278,24 @@ cst:
                     text: Show
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: vbModal
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: MeKeyword
-                    text: Me
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: vbModal
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: MeKeyword
+                                text: Me
                   - kind: Newline
                     text: "\n"
           - kind: EndKeyword

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/objects/typename.rs
+source: vb6parse/src/syntax/library/functions/objects/typename.rs
 expression: tree
 ---
 root:
@@ -77,14 +77,26 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: TypeName
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: c
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: TypeName
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: c
+                            - kind: RightParenthesis
+                              text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

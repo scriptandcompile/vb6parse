@@ -59,9 +59,21 @@ impl Parser<'_> {
 
         // Consume "Call" keyword
         self.consume_token();
+        self.consume_whitespace();
 
-        // Consume everything until newline (preserving all tokens)
-        self.consume_until_after(Token::Newline);
+        // Parse the callee (procedure name, which may include member access)
+        self.parse_call_target();
+
+        // With the Call keyword, arguments must be in parentheses
+        self.consume_whitespace();
+        if self.at_token(Token::LeftParenthesis) {
+            self.parse_parenthesized_arguments();
+        }
+
+        // Consume until newline
+        if self.at_token(Token::Newline) {
+            self.consume_token();
+        }
 
         self.builder.finish_node(); // CallStatement
     }
@@ -77,10 +89,130 @@ impl Parser<'_> {
         self.builder.start_node(SyntaxKind::CallStatement.to_raw());
         self.consume_whitespace();
 
-        // Consume everything until newline (procedure name and arguments)
-        self.consume_until_after(Token::Newline);
+        // Parse the callee (procedure name, which may include member access or dot-prefix)
+        self.parse_call_target();
+
+        // Parse arguments (with or without parentheses)
+        self.consume_whitespace();
+        if self.at_token(Token::LeftParenthesis) {
+            // Arguments with parentheses
+            self.parse_parenthesized_arguments();
+        } else if !self.at_token(Token::Newline) && !self.is_at_end() {
+            // Arguments without parentheses (VB6 allows this for Sub calls)
+            self.parse_unparenthesized_arguments();
+        }
+
+        // Consume until newline
+        if self.at_token(Token::Newline) {
+            self.consume_token();
+        }
 
         self.builder.finish_node(); // CallStatement
+    }
+
+    /// Parse the call target (procedure name with optional member access).
+    /// This handles patterns like:
+    /// - `MySub`
+    /// - `obj.Method`
+    /// - `.Method` (in With blocks)
+    fn parse_call_target(&mut self) {
+        // Check if this starts with a period (With block member access)
+        if self.at_token(Token::PeriodOperator) {
+            self.consume_token();
+            self.consume_whitespace();
+        }
+
+        // Consume the identifier or keyword (VB6 allows keywords as method names)
+        if self.is_identifier() || self.at_keyword() {
+            self.consume_token();
+        }
+
+        // Handle member access chains (obj.prop.method)
+        while !self.is_at_end() && !self.at_token(Token::Newline) {
+            self.consume_whitespace();
+
+            if self.at_token(Token::PeriodOperator) {
+                self.consume_token();
+                self.consume_whitespace();
+
+                // Consume the member name
+                if self.is_identifier() || self.at_keyword() {
+                    self.consume_token();
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+    }
+
+    /// Parse arguments enclosed in parentheses.
+    /// Creates an `ArgumentList` node with `Argument` children.
+    fn parse_parenthesized_arguments(&mut self) {
+        self.consume_token(); // (
+
+        self.builder.start_node(SyntaxKind::ArgumentList.to_raw());
+        self.consume_whitespace();
+
+        // Parse arguments until we hit the closing parenthesis
+        while !self.is_at_end() && !self.at_token(Token::RightParenthesis) {
+            self.builder.start_node(SyntaxKind::Argument.to_raw());
+
+            // Parse the argument expression
+            self.parse_expression();
+
+            self.builder.finish_node(); // Argument
+
+            self.consume_whitespace();
+
+            // Check for comma (more arguments)
+            if self.at_token(Token::Comma) {
+                self.consume_token();
+                self.consume_whitespace();
+            } else {
+                break;
+            }
+        }
+
+        self.builder.finish_node(); // ArgumentList
+
+        // Consume closing parenthesis
+        if self.at_token(Token::RightParenthesis) {
+            self.consume_token();
+        }
+    }
+
+    /// Parse arguments without parentheses (VB6 Sub call syntax).
+    /// Creates an `ArgumentList` node with `Argument` children.
+    fn parse_unparenthesized_arguments(&mut self) {
+        self.builder.start_node(SyntaxKind::ArgumentList.to_raw());
+
+        // Parse arguments separated by commas until we hit a newline
+        loop {
+            if self.at_token(Token::Newline) || self.is_at_end() {
+                break;
+            }
+
+            self.builder.start_node(SyntaxKind::Argument.to_raw());
+
+            // Parse the argument expression
+            self.parse_expression();
+
+            self.builder.finish_node(); // Argument
+
+            self.consume_whitespace();
+
+            // Check for comma (more arguments)
+            if self.at_token(Token::Comma) {
+                self.consume_token();
+                self.consume_whitespace();
+            } else {
+                break;
+            }
+        }
+
+        self.builder.finish_node(); // ArgumentList
     }
 
     /// Check if the current position is at a procedure call (without Call keyword).

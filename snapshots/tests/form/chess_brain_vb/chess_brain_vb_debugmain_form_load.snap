@@ -910,16 +910,26 @@ cst:
                     text: ParseCommand
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"setboard r1b2rk1/pp1n2pp/2p1p3/2Pp4/1q1Pp3/4P1PN/PP2QPBP/2R2RK1 w - - 0 15\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbLf
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"setboard r1b2rk1/pp1n2pp/2p1p3/2Pp4/1q1Pp3/4P1PN/PP2QPBP/2R2RK1 w - - 0 15\""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: vbLf
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -930,16 +940,26 @@ cst:
                     text: ParseCommand
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"sd 10\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbLf
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"sd 10\""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: vbLf
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -950,16 +970,26 @@ cst:
                     text: ParseCommand
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"go\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbLf
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"go\""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: vbLf
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1088,8 +1118,14 @@ cst:
                     text: UCIPositionSetup
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"position fen r1bqk2r/pp1nbppp/2p1p3/3n4/4N3/3P1NP1/PPP1QPBP/R1B1K2R w KQkq - 0 1 moves e1g1 e8g8 c2c4 d5f6 e4c3 e6e5 f3e5 d7e5 e2e5 f8e8 d3d4 e7b4 e5f4 b4c3 b2c3 c8e6 f1e1 e6c4 e1e8 d8e8 c1d2 e8d7 a2a4 f6d5 f4e4 a8e8 e4c2 d5f6 c2b2 g7g6 a4a5 f6g4 g2f3 g4f6 b2b4 d7f5 f3g2 f5d3 d2e1 d3e2 h2h3 a7a6 b4b1 e8e7 b1d1 e2e6 d1d2 g8g7 d2f4 c4d5 f2f3 e6c8 g3g4 d5b3 f4d6 f6d5 d6a3 b3c4 a3c5 e7e2 g2f1 c8e8 f1e2 e8e2 c5d6 e2f3 g4g5 f3f1 g1h2 h7h6 g5h6 g7h7 d6e5 f7f6 e5e4 d5f4 e4e7 h7h6 e7f8 h6h7 f8e7 h7g8 e7d8 g8f7 d8d7 f7f8 d7d8 f8g7 d8e7 c4f7 e7f6 g7g8 f6d8 g8g7 d8f6 g7g8 f6d8\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"position fen r1bqk2r/pp1nbppp/2p1p3/3n4/4N3/3P1NP1/PPP1QPBP/R1B1K2R w KQkq - 0 1 moves e1g1 e8g8 c2c4 d5f6 e4c3 e6e5 f3e5 d7e5 e2e5 f8e8 d3d4 e7b4 e5f4 b4c3 b2c3 c8e6 f1e1 e6c4 e1e8 d8e8 c1d2 e8d7 a2a4 f6d5 f4e4 a8e8 e4c2 d5f6 c2b2 g7g6 a4a5 f6g4 g2f3 g4f6 b2b4 d7f5 f3g2 f5d3 d2e1 d3e2 h2h3 a7a6 b4b1 e8e7 b1d1 e2e6 d1d2 g8g7 d2f4 c4d5 f2f3 e6c8 g3g4 d5b3 f4d6 f6d5 d6a3 b3c4 a3c5 e7e2 g2f1 c8e8 f1e2 e8e2 c5d6 e2f3 g4g5 f3f1 g1h2 h7h6 g5h6 g7h7 d6e5 f7f6 e5e4 d5f4 e4e7 h7h6 e7f8 h6h7 f8e7 h7g8 e7d8 g8f7 d8d7 f7f8 d7d8 f8g7 d8e7 c4f7 e7f6 g7g8 f6d8 g8g7 d8f6 g7g8 f6d8\""
                   - kind: Newline
                     text: "\r\n"
               - kind: AssignmentStatement
@@ -1646,8 +1682,14 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"analyze\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"analyze\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1662,12 +1704,40 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"eval\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"eval\""
+                      - kind: Whitespace
+                        text: "  "
+              - kind: EndOfLineComment
+                text: "' input in Immediate window and Tracexxx.txt"
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "  "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: cboFakeInput
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: AddItem
                   - kind: Whitespace
-                    text: "  "
-                  - kind: EndOfLineComment
-                    text: "' input in Immediate window and Tracexxx.txt"
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"bench 6\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1682,8 +1752,14 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"bench 6\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"writeepd\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1698,8 +1774,14 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"writeepd\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"display\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1714,8 +1796,14 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"display\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"list\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1730,8 +1818,14 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"list\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"new\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1746,8 +1840,14 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"new\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"setboard 1b5k/7P/p1p2np1/2P2p2/PP3P2/4RQ1R/q2r3P/6K1 w - - 0 1\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1762,8 +1862,14 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"setboard 1b5k/7P/p1p2np1/2P2p2/PP3P2/4RQ1R/q2r3P/6K1 w - - 0 1\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"setboard r1b2rk1/pp1nq1p1/2p1p2p/3p1p2/2PPn3/2NBPN2/PPQ2PPP/2R2RK1 b - -\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1778,8 +1884,14 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"setboard r1b2rk1/pp1nq1p1/2p1p2p/3p1p2/2PPn3/2NBPN2/PPQ2PPP/2R2RK1 b - -\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"setboard 2br2k1/ppp2p1p/4p1p1/4P2q/2P1Bn2/2Q5/PP3P1P/4R1RK b - -\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1794,8 +1906,14 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"setboard 2br2k1/ppp2p1p/4p1p1/4P2q/2P1Bn2/2Q5/PP3P1P/4R1RK b - -\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"setboard 8/8/R3k3/1R6/8/8/8/2K5 b - -\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1810,8 +1928,14 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"setboard 8/8/R3k3/1R6/8/8/8/2K5 b - -\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"setboard 2k4r/1pr1n3/p1p1q2p/5pp1/3P1P2/P1P1P3/1R2Q1PP/1RB3K1 w KQkq -\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1826,8 +1950,14 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"setboard 2k4r/1pr1n3/p1p1q2p/5pp1/3P1P2/P1P1P3/1R2Q1PP/1RB3K1 w KQkq -\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"setboard 6k1/1b1nqpbp/pp4p1/5P2/1PN5/4Q3/P5PP/1B2B1K1 b - -\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1842,8 +1972,14 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"setboard 6k1/1b1nqpbp/pp4p1/5P2/1PN5/4Q3/P5PP/1B2B1K1 b - -\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"perft 3\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1858,8 +1994,110 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"perft 3\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: BinaryExpression
+                                                children:
+                                                  - kind: BinaryExpression
+                                                    children:
+                                                      - kind: BinaryExpression
+                                                        children:
+                                                          - kind: StringLiteralExpression
+                                                            children:
+                                                              - kind: StringLiteral
+                                                                text: "\"xboard\""
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Ampersand
+                                                            text: "&"
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: vbLf
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Ampersand
+                                                        text: "&"
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: StringLiteralExpression
+                                                        children:
+                                                          - kind: StringLiteral
+                                                            text: "\"new\""
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Ampersand
+                                                    text: "&"
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: vbLf
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Ampersand
+                                                text: "&"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: StringLiteralExpression
+                                                children:
+                                                  - kind: StringLiteral
+                                                    text: "\"random\""
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Ampersand
+                                            text: "&"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: vbLf
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Ampersand
+                                        text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"level 40 5 0\""
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Ampersand
+                                    text: "&"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: vbLf
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"post\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1874,72 +2112,110 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"xboard\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbLf
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"new\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbLf
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"random\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbLf
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"level 40 5 0\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbLf
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"post\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: BinaryExpression
+                                                children:
+                                                  - kind: BinaryExpression
+                                                    children:
+                                                      - kind: BinaryExpression
+                                                        children:
+                                                          - kind: StringLiteralExpression
+                                                            children:
+                                                              - kind: StringLiteral
+                                                                text: "\"xboard\""
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Ampersand
+                                                            text: "&"
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: vbLf
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Ampersand
+                                                        text: "&"
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: StringLiteralExpression
+                                                        children:
+                                                          - kind: StringLiteral
+                                                            text: "\"new\""
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Ampersand
+                                                    text: "&"
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: vbLf
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Ampersand
+                                                text: "&"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: StringLiteralExpression
+                                                children:
+                                                  - kind: StringLiteral
+                                                    text: "\"random\""
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Ampersand
+                                            text: "&"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: vbLf
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Ampersand
+                                        text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"sd 4\""
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Ampersand
+                                    text: "&"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: vbLf
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"post\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1954,72 +2230,62 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"xboard\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbLf
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"new\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbLf
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"random\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbLf
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"sd 4\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbLf
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"post\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: StringLiteralExpression
+                                            children:
+                                              - kind: StringLiteral
+                                                text: "\"time 30000\""
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Ampersand
+                                            text: "&"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: vbLf
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Ampersand
+                                        text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"otim 30000\""
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Ampersand
+                                    text: "&"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: vbLf
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"e2e4\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -2034,40 +2300,38 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"time 30000\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbLf
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"otim 30000\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbLf
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"e2e4\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"force\""
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Ampersand
+                                    text: "&"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: vbLf
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"quit\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -2082,24 +2346,14 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"force\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbLf
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"quit\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"setboard rnbqkbnr/ppp2ppp/4p3/3pP3/3P4/8/PPP2PPP/RNBQKBNR b KQkq -\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -2114,8 +2368,14 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"setboard rnbqkbnr/ppp2ppp/4p3/3pP3/3P4/8/PPP2PPP/RNBQKBNR b KQkq -\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"setboard 8/p1b1k1p1/Pp4p1/1Pp2pPp/2P2P1P/3B1K2/8/8 w - -\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -2130,8 +2390,14 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"setboard 8/p1b1k1p1/Pp4p1/1Pp2pPp/2P2P1P/3B1K2/8/8 w - -\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"setboard 8/2R5/1r3kp1/2p4p/2P2P2/p3K1P1/P6P/8 w - -\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -2146,8 +2412,14 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"setboard 8/2R5/1r3kp1/2p4p/2P2P2/p3K1P1/P6P/8 w - -\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"setboard 7k/p7/6K1/5Q2/8/8/8/8 w - -\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -2162,24 +2434,14 @@ cst:
                     text: AddItem
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"setboard 7k/p7/6K1/5Q2/8/8/8/8 w - -\""
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "  "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: cboFakeInput
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: AddItem
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"debug1\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"debug1\""
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace

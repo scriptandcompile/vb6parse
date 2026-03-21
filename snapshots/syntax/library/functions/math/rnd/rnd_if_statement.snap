@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/math/rnd.rs
+source: vb6parse/src/syntax/library/functions/math/rnd.rs
 expression: tree
 ---
 root:
@@ -45,8 +45,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Heads\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Heads\""
                 - kind: Newline
                   text: "\n"
         - kind: ElseClause
@@ -65,8 +71,14 @@ root:
                       text: MsgBox
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Tails\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Tails\""
                     - kind: Newline
                       text: "\n"
         - kind: EndKeyword

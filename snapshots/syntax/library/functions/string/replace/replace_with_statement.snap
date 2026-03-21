@@ -59,20 +59,42 @@ root:
               children:
                 - kind: Identifier
                   text: Content
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Comma
+                              text: ","
+                    - kind: Whitespace
+                      text: " "
+            - kind: CallStatement
+              children:
                 - kind: Identifier
                   text: oldText
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Comma
+                              text: ","
+                    - kind: Whitespace
+                      text: " "
+            - kind: CallStatement
+              children:
                 - kind: Identifier
                   text: newText
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: RightParenthesis
+                              text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

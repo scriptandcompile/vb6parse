@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/financial/mirr.rs
+source: vb6parse/src/syntax/library/functions/financial/mirr.rs
 expression: tree
 ---
 root:
@@ -121,8 +121,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Project A is better\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Project A is better\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

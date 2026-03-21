@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/rtrim.rs
+source: vb6parse/src/syntax/library/functions/string/rtrim.rs
 expression: tree
 ---
 root:
@@ -19,20 +19,38 @@ root:
           text: AddItem
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: RTrim
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: rs
-        - kind: LeftParenthesis
-          text: (
-        - kind: StringLiteral
-          text: "\"CompanyName\""
-        - kind: RightParenthesis
-          text: )
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: RTrim
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: rs
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: StringLiteralExpression
+                                          children:
+                                            - kind: StringLiteral
+                                              text: "\"CompanyName\""
+                                - kind: RightParenthesis
+                                  text: )
+                    - kind: RightParenthesis
+                      text: )
         - kind: Newline
           text: "\n"
     - kind: Whitespace

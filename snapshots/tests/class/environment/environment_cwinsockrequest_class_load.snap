@@ -1121,60 +1121,90 @@ cst:
                     text: Print
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"Critical error: \""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Err
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Description
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\" [\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: MODULE_NAME
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\".\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: sFunction
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"]\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: BinaryExpression
+                                                children:
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"Critical error: \""
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Ampersand
+                                                    text: "&"
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: MemberAccessExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: Err
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: Identifier
+                                                        text: Description
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Ampersand
+                                                text: "&"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: StringLiteralExpression
+                                                children:
+                                                  - kind: StringLiteral
+                                                    text: "\" [\""
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Ampersand
+                                            text: "&"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: MODULE_NAME
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Ampersand
+                                        text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\".\""
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Ampersand
+                                    text: "&"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: sFunction
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"]\""
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword
@@ -2293,16 +2323,28 @@ cst:
                                         text: Raise
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Identifier
-                                        text: vbObjectError
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: vbObjectError
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Comma
+                                                    text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                  - kind: CallStatement
+                                    children:
                                       - kind: Identifier
                                         text: STR_ERR_SYNC_NOT_IMPL
                                       - kind: Newline
@@ -2523,12 +2565,18 @@ cst:
                     text: pvSetStatus
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: m_oSocket
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: LastError
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: m_oSocket
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: LastError
                   - kind: Newline
                     text: "\r\n"
               - kind: GotoStatement
@@ -2641,16 +2689,28 @@ cst:
                             text: Raise
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: vbObjectError
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: vbObjectError
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Comma
+                                        text: ","
+                              - kind: Whitespace
+                                text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: Identifier
                             text: StatusText
                           - kind: Newline
@@ -2693,8 +2753,14 @@ cst:
                     text: PrintError
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: FUNC_NAME
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FUNC_NAME
                   - kind: Newline
                     text: "\r\n"
               - kind: GotoStatement
@@ -3093,12 +3159,18 @@ cst:
                             text: pvSetStatus
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: m_oSocket
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: LastError
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: m_oSocket
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: LastError
                           - kind: Newline
                             text: "\r\n"
                       - kind: GotoStatement
@@ -3205,40 +3277,54 @@ cst:
                                     children:
                                       - kind: Identifier
                                         text: ucsSfdResolve
-                                      - kind: RightSquareBracket
-                                        text: "]"
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: m_lResolveTimeout
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: ucsRdsUninitialized
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: ThenKeyword
-                                        text: Then
-                                      - kind: Newline
-                                        text: "\r\n"
-                                  - kind: GotoStatement
-                                    children:
-                                      - kind: Whitespace
-                                        text: "                "
-                                      - kind: GotoKeyword
-                                        text: GoTo
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: QH
-                                  - kind: Newline
-                                    text: "\r\n"
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: RightSquareBracket
+                                                    text: "]"
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: m_lResolveTimeout
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: ucsRdsUninitialized
+                              - kind: Unknown
+                                text: )
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Unknown
+                                text: Then
+                              - kind: Newline
+                                text: "\r\n"
+                              - kind: GotoStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "                "
+                                  - kind: GotoKeyword
+                                    text: GoTo
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: QH
+                              - kind: Newline
+                                text: "\r\n"
                               - kind: Whitespace
                                 text: "            "
                           - kind: EndKeyword
@@ -3607,16 +3693,28 @@ cst:
                             text: Raise
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: vbObjectError
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: vbObjectError
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Comma
+                                        text: ","
+                              - kind: Whitespace
+                                text: " "
+                      - kind: CallStatement
+                        children:
                           - kind: Identifier
                             text: StatusText
                           - kind: Newline
@@ -3659,8 +3757,14 @@ cst:
                     text: PrintError
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: FUNC_NAME
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FUNC_NAME
                   - kind: Newline
                     text: "\r\n"
               - kind: GotoStatement
@@ -3827,16 +3931,28 @@ cst:
                                 text: Raise
                               - kind: Whitespace
                                 text: " "
-                              - kind: Identifier
-                                text: vbObjectError
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: vbObjectError
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Comma
+                                            text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                          - kind: CallStatement
+                            children:
                               - kind: Identifier
                                 text: STR_ERR_SYNC_NOT_IMPL
                               - kind: Newline
@@ -4515,8 +4631,14 @@ cst:
                                                     text: pvSetStatus
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: Identifier
-                                                    text: ERR_TIMEOUT
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: ERR_TIMEOUT
                                                   - kind: Newline
                                                     text: "\r\n"
                                               - kind: GotoStatement
@@ -4679,12 +4801,18 @@ cst:
                                             text: pvSetStatus
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Identifier
-                                            text: m_oSocket
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: LastError
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: MemberAccessExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: m_oSocket
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: Identifier
+                                                        text: LastError
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: GotoStatement
@@ -5259,8 +5387,14 @@ cst:
                             text: QueryPerformanceFrequency
                           - kind: LeftParenthesis
                             text: (
-                          - kind: Identifier
-                            text: cFreq
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: cFreq
                           - kind: RightParenthesis
                             text: )
                           - kind: Newline
@@ -5277,8 +5411,14 @@ cst:
                             text: QueryPerformanceCounter
                           - kind: LeftParenthesis
                             text: (
-                          - kind: Identifier
-                            text: cValue
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: cValue
                           - kind: RightParenthesis
                             text: )
                           - kind: Newline
@@ -5657,8 +5797,14 @@ cst:
                     text: PrintError
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: FUNC_NAME
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FUNC_NAME
                   - kind: Newline
                     text: "\r\n"
               - kind: Unknown
@@ -5805,8 +5951,14 @@ cst:
                     text: pvSetReadyState
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: ucsRdsLoading
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: ucsRdsLoading
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -5841,8 +5993,14 @@ cst:
                     text: PostEvent
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: ucsSfdWrite
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: ucsSfdWrite
                   - kind: Newline
                     text: "\r\n"
               - kind: ExitStatement
@@ -5873,8 +6031,14 @@ cst:
                     text: PrintError
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: FUNC_NAME
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FUNC_NAME
                   - kind: Newline
                     text: "\r\n"
               - kind: Unknown
@@ -6257,12 +6421,18 @@ cst:
                                     text: pvSetStatus
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Identifier
-                                    text: m_oSocket
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: Identifier
-                                    text: LastError
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: m_oSocket
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: LastError
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: GotoStatement
@@ -6331,8 +6501,14 @@ cst:
                             text: PostEvent
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: ucsSfdWrite
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: ucsSfdWrite
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -6353,8 +6529,14 @@ cst:
                                 text: pvSetReadyState
                               - kind: Whitespace
                                 text: " "
-                              - kind: Identifier
-                                text: ucsRdsLoaded
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: ucsRdsLoaded
                               - kind: Newline
                                 text: "\r\n"
                           - kind: IfStatement
@@ -6467,8 +6649,14 @@ cst:
                                             text: pvSetReadyState
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Identifier
-                                            text: ucsRdsCompleted
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: ucsRdsCompleted
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace
@@ -6527,8 +6715,14 @@ cst:
                     text: PrintError
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: FUNC_NAME
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FUNC_NAME
                   - kind: Newline
                     text: "\r\n"
               - kind: Unknown
@@ -6793,12 +6987,18 @@ cst:
                             text: pvSetStatus
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: m_oSocket
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: LastError
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: m_oSocket
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: LastError
                           - kind: Newline
                             text: "\r\n"
                       - kind: GotoStatement
@@ -6945,66 +7145,118 @@ cst:
                             text: CopyMemory
                           - kind: LeftParenthesis
                             text: (
-                          - kind: Identifier
-                            text: m_baResponse
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: Identifier
-                            text: UBound
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: Identifier
-                            text: m_baResponse
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Whitespace
-                            text: " "
-                          - kind: SubtractionOperator
-                            text: "-"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: UBound
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: Identifier
-                            text: baBuffer
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: baBuffer
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: IntegerLiteral
-                            text: "0"
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: UBound
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: Identifier
-                            text: baBuffer
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Whitespace
-                            text: " "
-                          - kind: AdditionOperator
-                            text: +
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IntegerLiteral
-                            text: "1"
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: CallExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: m_baResponse
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: BinaryExpression
+                                                children:
+                                                  - kind: CallExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: UBound
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: m_baResponse
+                                                      - kind: RightParenthesis
+                                                        text: )
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: SubtractionOperator
+                                                    text: "-"
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: CallExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: UBound
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: baBuffer
+                                                      - kind: RightParenthesis
+                                                        text: )
+                                      - kind: RightParenthesis
+                                        text: )
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: CallExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: baBuffer
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "0"
+                                      - kind: RightParenthesis
+                                        text: )
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: UBound
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: baBuffer
+                                          - kind: RightParenthesis
+                                            text: )
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: AdditionOperator
+                                        text: +
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "1"
                           - kind: RightParenthesis
                             text: )
                           - kind: Newline
@@ -7017,8 +7269,14 @@ cst:
                             text: pvSetReadyState
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: ucsRdsInteractive
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: ucsRdsInteractive
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -7173,8 +7431,14 @@ cst:
                                 text: pvSetReadyState
                               - kind: Whitespace
                                 text: " "
-                              - kind: Identifier
-                                text: ucsRdsCompleted
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: ucsRdsCompleted
                               - kind: Newline
                                 text: "\r\n"
                           - kind: GotoStatement
@@ -7283,8 +7547,14 @@ cst:
                                 text: pvSetStatus
                               - kind: Whitespace
                                 text: " "
-                              - kind: Identifier
-                                text: ERR_TIMEOUT
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: ERR_TIMEOUT
                               - kind: Newline
                                 text: "\r\n"
                           - kind: GotoStatement
@@ -7321,14 +7591,28 @@ cst:
                     text: PostEvent
                   - kind: Whitespace
                     text: " "
-                  - kind: LeftSquareBracket
-                    text: "["
-                  - kind: Underscore
-                    text: _
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: LeftSquareBracket
+                                text: "["
+              - kind: Unknown
+                text: _
+              - kind: CallStatement
+                children:
                   - kind: Identifier
                     text: ucsSfdForceRead
-                  - kind: RightSquareBracket
-                    text: "]"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: RightSquareBracket
+                                text: "]"
                   - kind: Newline
                     text: "\r\n"
               - kind: LabelStatement
@@ -7367,8 +7651,14 @@ cst:
                     text: PrintError
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: FUNC_NAME
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FUNC_NAME
                   - kind: Newline
                     text: "\r\n"
               - kind: Unknown
@@ -7515,8 +7805,14 @@ cst:
                     text: pvSetReadyState
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: ucsRdsCompleted
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: ucsRdsCompleted
                   - kind: Newline
                     text: "\r\n"
               - kind: ExitStatement
@@ -7547,8 +7843,14 @@ cst:
                     text: PrintError
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: FUNC_NAME
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FUNC_NAME
                   - kind: Newline
                     text: "\r\n"
               - kind: Unknown
@@ -7673,8 +7975,14 @@ cst:
                     text: pvSetStatus
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: ErrorCode
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: ErrorCode
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -7713,8 +8021,14 @@ cst:
                     text: PrintError
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: FUNC_NAME
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FUNC_NAME
                   - kind: Newline
                     text: "\r\n"
               - kind: Unknown

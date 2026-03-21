@@ -576,30 +576,48 @@ cst:
                     text: INIWrite
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"main\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"RecordingDeviceId\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Combox_InputDevice
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: ListIndex
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: ConfigFile
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"main\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"RecordingDeviceId\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Combox_InputDevice
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: ListIndex
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: ConfigFile
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -618,30 +636,48 @@ cst:
                     text: INIWrite
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"main\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\"RecordingRate\""
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Combox_Rate
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: TextKeyword
-                    text: Text
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: ConfigFile
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"main\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"RecordingRate\""
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Combox_Rate
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: TextKeyword
+                                text: Text
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: ConfigFile
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -662,8 +698,14 @@ cst:
                     text: SendData
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"Done\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"Done\""
                   - kind: Newline
                     text: "\n"
               - kind: Newline
@@ -750,8 +792,14 @@ cst:
                     text: TranslateFormAndControls
                   - kind: LeftParenthesis
                     text: (
-                  - kind: MeKeyword
-                    text: Me
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: MeKeyword
+                                text: Me
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -782,8 +830,14 @@ cst:
                             text: AddItem
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"96000\""
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"96000\""
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace
@@ -796,8 +850,14 @@ cst:
                             text: AddItem
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"48000\""
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"48000\""
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace
@@ -810,8 +870,14 @@ cst:
                             text: AddItem
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"44100\""
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"44100\""
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace
@@ -824,8 +890,14 @@ cst:
                             text: AddItem
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"32000\""
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"32000\""
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace
@@ -838,8 +910,14 @@ cst:
                             text: AddItem
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"22050\""
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"22050\""
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace
@@ -1036,12 +1114,18 @@ cst:
                                     text: AddItem
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Identifier
-                                    text: Device
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: Identifier
-                                    text: dName
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: Device
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: dName
                                   - kind: Newline
                                     text: "\n"
                               - kind: Whitespace

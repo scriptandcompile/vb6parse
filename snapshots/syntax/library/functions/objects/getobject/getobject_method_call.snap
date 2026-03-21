@@ -11,10 +11,18 @@ root:
           text: GetObject
         - kind: LeftParenthesis
           text: (
-        - kind: Identifier
-          text: filePath
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: filePath
         - kind: RightParenthesis
           text: )
+    - kind: CallStatement
+      children:
         - kind: PeriodOperator
           text: "."
         - kind: Identifier

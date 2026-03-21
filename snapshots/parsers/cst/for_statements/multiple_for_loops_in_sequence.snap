@@ -1,5 +1,5 @@
 ---
-source: src/parsers/cst/for_statements.rs
+source: vb6parse/src/parsers/cst/for_statements.rs
 expression: tree
 ---
 root:
@@ -73,16 +73,26 @@ root:
                           text: Print
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"First: \""
-                        - kind: Whitespace
-                          text: " "
-                        - kind: Ampersand
-                          text: "&"
-                        - kind: Whitespace
-                          text: " "
-                        - kind: Identifier
-                          text: i
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: BinaryExpression
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"First: \""
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: Ampersand
+                                      text: "&"
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: i
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace
@@ -157,16 +167,26 @@ root:
                           text: Print
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"Second: \""
-                        - kind: Whitespace
-                          text: " "
-                        - kind: Ampersand
-                          text: "&"
-                        - kind: Whitespace
-                          text: " "
-                        - kind: Identifier
-                          text: j
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: BinaryExpression
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Second: \""
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: Ampersand
+                                      text: "&"
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: j
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

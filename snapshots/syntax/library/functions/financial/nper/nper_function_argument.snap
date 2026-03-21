@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/financial/nper.rs
+source: vb6parse/src/syntax/library/functions/financial/nper.rs
 expression: tree
 ---
 root:
@@ -17,36 +17,62 @@ root:
           text: DisplayPayoffSchedule
         - kind: LeftParenthesis
           text: (
-        - kind: Identifier
-          text: NPer
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: apr
-        - kind: Whitespace
-          text: " "
-        - kind: DivisionOperator
-          text: /
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "12"
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: SubtractionOperator
-          text: "-"
-        - kind: Identifier
-          text: monthlyPmt
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: loanAmount
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: NPer
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: BinaryExpression
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: apr
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: DivisionOperator
+                                  text: /
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: NumericLiteralExpression
+                                  children:
+                                    - kind: IntegerLiteral
+                                      text: "12"
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: UnaryExpression
+                              children:
+                                - kind: SubtractionOperator
+                                  text: "-"
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: monthlyPmt
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: loanAmount
+                    - kind: RightParenthesis
+                      text: )
         - kind: RightParenthesis
           text: )
         - kind: Newline

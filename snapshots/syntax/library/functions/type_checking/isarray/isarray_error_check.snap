@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/type_checking/isarray.rs
+source: vb6parse/src/syntax/library/functions/type_checking/isarray.rs
 expression: tree
 ---
 root:
@@ -75,8 +75,14 @@ root:
                           text: Raise
                         - kind: Whitespace
                           text: " "
-                        - kind: IntegerLiteral
-                          text: "5"
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: NumericLiteralExpression
+                                  children:
+                                    - kind: IntegerLiteral
+                                      text: "5"
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

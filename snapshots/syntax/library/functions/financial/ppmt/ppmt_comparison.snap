@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/financial/ppmt.rs
+source: vb6parse/src/syntax/library/functions/financial/ppmt.rs
 expression: tree
 ---
 root:
@@ -153,8 +153,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Loan 1 pays more principal\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Loan 1 pays more principal\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

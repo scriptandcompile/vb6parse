@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/asc.rs
+source: vb6parse/src/syntax/library/functions/string/asc.rs
 expression: tree
 ---
 root:
@@ -77,8 +77,14 @@ root:
                           text: ProcessChar
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: buffer
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: buffer
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

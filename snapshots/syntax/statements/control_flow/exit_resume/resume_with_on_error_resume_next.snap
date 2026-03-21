@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/control_flow/exit_resume.rs
+source: vb6parse/src/syntax/statements/control_flow/exit_resume.rs
 expression: tree
 ---
 root:
@@ -121,8 +121,14 @@ root:
                           text: MsgBox
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"Error occurred\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Error occurred\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

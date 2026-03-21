@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/type_checking/isnumeric.rs
+source: vb6parse/src/syntax/library/functions/type_checking/isnumeric.rs
 expression: tree
 ---
 root:
@@ -71,8 +71,14 @@ root:
                               text: ProcessNumber
                             - kind: Whitespace
                               text: " "
-                            - kind: Identifier
-                              text: value
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: value
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace
@@ -97,8 +103,14 @@ root:
                               text: ProcessText
                             - kind: Whitespace
                               text: " "
-                            - kind: Identifier
-                              text: value
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: value
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace

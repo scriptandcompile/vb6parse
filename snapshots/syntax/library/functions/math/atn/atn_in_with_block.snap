@@ -75,18 +75,24 @@ root:
                           text: Opposite
                         - kind: Whitespace
                           text: " "
-                        - kind: DivisionOperator
-                          text: /
-                        - kind: Whitespace
-                          text: " "
-                        - kind: PeriodOperator
-                          text: "."
-                        - kind: Identifier
-                          text: Adjacent
-                        - kind: RightParenthesis
-                          text: )
-                        - kind: Newline
-                          text: "\n"
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: MemberAccessExpression
+                                  children:
+                                    - kind: DivisionOperator
+                                      text: /
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: PeriodOperator
+                                      text: "."
+                                    - kind: Identifier
+                                      text: Adjacent
+                    - kind: Unknown
+                      text: )
+                    - kind: Newline
+                      text: "\n"
                     - kind: Whitespace
                       text: "    "
                 - kind: EndKeyword

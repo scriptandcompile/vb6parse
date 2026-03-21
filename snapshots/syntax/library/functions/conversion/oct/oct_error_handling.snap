@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/conversion/oct.rs
+source: vb6parse/src/syntax/library/functions/conversion/oct.rs
 expression: tree
 ---
 root:
@@ -97,8 +97,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Invalid value for octal conversion\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Invalid value for octal conversion\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

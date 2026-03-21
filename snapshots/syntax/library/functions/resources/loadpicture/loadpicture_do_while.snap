@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/resources/loadpicture.rs
+source: vb6parse/src/syntax/library/functions/resources/loadpicture.rs
 expression: tree
 ---
 root:
@@ -65,8 +65,14 @@ root:
                   text: ProcessPicture
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: currentPic
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: currentPic
                 - kind: Newline
                   text: "\n"
             - kind: Whitespace

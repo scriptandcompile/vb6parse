@@ -11,39 +11,71 @@ root:
           text: MsgBox
         - kind: Whitespace
           text: " "
-        - kind: StringLiteral
-          text: "\"Your savings will grow to \""
-        - kind: Whitespace
-          text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: FormatCurrency
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: Fv
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: rate
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: periods
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: SubtractionOperator
-          text: "-"
-        - kind: Identifier
-          text: deposit
-        - kind: RightParenthesis
-          text: )
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: BinaryExpression
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Your savings will grow to \""
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: FormatCurrency
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: CallExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: Fv
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: IdentifierExpression
+                                              children:
+                                                - kind: Identifier
+                                                  text: rate
+                                        - kind: Comma
+                                          text: ","
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: Argument
+                                          children:
+                                            - kind: IdentifierExpression
+                                              children:
+                                                - kind: Identifier
+                                                  text: periods
+                                        - kind: Comma
+                                          text: ","
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: Argument
+                                          children:
+                                            - kind: UnaryExpression
+                                              children:
+                                                - kind: SubtractionOperator
+                                                  text: "-"
+                                                - kind: IdentifierExpression
+                                                  children:
+                                                    - kind: Identifier
+                                                      text: deposit
+                                    - kind: RightParenthesis
+                                      text: )
+                        - kind: RightParenthesis
+                          text: )

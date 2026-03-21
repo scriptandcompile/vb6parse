@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/timer.rs
+source: vb6parse/src/syntax/library/functions/datetime/timer.rs
 expression: tree
 ---
 root:
@@ -33,28 +33,44 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Elapsed: \""
-                - kind: Whitespace
-                  text: " "
-                - kind: Ampersand
-                  text: "&"
-                - kind: Whitespace
-                  text: " "
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: Timer
-                - kind: Whitespace
-                  text: " "
-                - kind: SubtractionOperator
-                  text: "-"
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: startTime
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: BinaryExpression
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Elapsed: \""
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Ampersand
+                              text: "&"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: ParenthesizedExpression
+                              children:
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: BinaryExpression
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: Timer
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: SubtractionOperator
+                                      text: "-"
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: startTime
+                                - kind: RightParenthesis
+                                  text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

@@ -763,8 +763,14 @@ cst:
                             text: Add
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: StreamLink
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: StreamLink
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace
@@ -783,8 +789,14 @@ cst:
                             text: AddItem
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: StreamName
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: StreamName
                           - kind: Newline
                             text: "\n"
                   - kind: NextKeyword
@@ -803,8 +815,14 @@ cst:
                     text: TranslateFormAndControls
                   - kind: LeftParenthesis
                     text: (
-                  - kind: MeKeyword
-                    text: Me
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: MeKeyword
+                                text: Me
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline

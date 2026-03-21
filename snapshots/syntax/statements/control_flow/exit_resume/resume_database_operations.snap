@@ -57,8 +57,14 @@ root:
                   text: Open
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"SELECT * FROM Users\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"SELECT * FROM Users\""
                 - kind: Newline
                   text: "\n"
             - kind: ExitStatement

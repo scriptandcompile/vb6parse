@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/timevalue.rs
+source: vb6parse/src/syntax/library/functions/datetime/timevalue.rs
 expression: tree
 ---
 root:
@@ -37,14 +37,26 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: TimeValue
-                - kind: LeftParenthesis
-                  text: (
-                - kind: StringLiteral
-                  text: "\"23:59:59\""
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: TimeValue
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"23:59:59\""
+                            - kind: RightParenthesis
+                              text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

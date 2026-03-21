@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/file/dir.rs
+source: vb6parse/src/syntax/library/functions/file/dir.rs
 expression: tree
 ---
 root:
@@ -133,8 +133,14 @@ root:
                           text: Print
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: fileName
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: fileName
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

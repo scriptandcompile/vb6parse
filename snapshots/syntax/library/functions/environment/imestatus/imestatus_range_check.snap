@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/environment/imestatus.rs
+source: vb6parse/src/syntax/library/functions/environment/imestatus.rs
 expression: tree
 ---
 root:
@@ -139,8 +139,14 @@ root:
                           text: Print
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"Asian language mode\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Asian language mode\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

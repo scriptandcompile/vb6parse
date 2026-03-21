@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/financial/rate.rs
+source: vb6parse/src/syntax/library/functions/financial/rate.rs
 expression: tree
 ---
 root:
@@ -13,71 +13,119 @@ root:
           text: MsgBox
         - kind: Whitespace
           text: " "
-        - kind: StringLiteral
-          text: "\"APR: \""
-        - kind: Whitespace
-          text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: Format
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: Rate
-        - kind: LeftParenthesis
-          text: (
-        - kind: IntegerLiteral
-          text: "60"
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: SubtractionOperator
-          text: "-"
-        - kind: IntegerLiteral
-          text: "500"
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "20000"
-        - kind: RightParenthesis
-          text: )
-        - kind: Whitespace
-          text: " "
-        - kind: MultiplicationOperator
-          text: "*"
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "12"
-        - kind: Whitespace
-          text: " "
-        - kind: MultiplicationOperator
-          text: "*"
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "100"
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: StringLiteral
-          text: "\"0.00\""
-        - kind: RightParenthesis
-          text: )
-        - kind: Whitespace
-          text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Whitespace
-          text: " "
-        - kind: StringLiteral
-          text: "\"%\""
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: BinaryExpression
+                  children:
+                    - kind: BinaryExpression
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"APR: \""
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Ampersand
+                          text: "&"
+                        - kind: Whitespace
+                          text: " "
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: Format
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: BinaryExpression
+                                      children:
+                                        - kind: BinaryExpression
+                                          children:
+                                            - kind: CallExpression
+                                              children:
+                                                - kind: Identifier
+                                                  text: Rate
+                                                - kind: LeftParenthesis
+                                                  text: (
+                                                - kind: ArgumentList
+                                                  children:
+                                                    - kind: Argument
+                                                      children:
+                                                        - kind: NumericLiteralExpression
+                                                          children:
+                                                            - kind: IntegerLiteral
+                                                              text: "60"
+                                                    - kind: Comma
+                                                      text: ","
+                                                    - kind: Whitespace
+                                                      text: " "
+                                                    - kind: Argument
+                                                      children:
+                                                        - kind: UnaryExpression
+                                                          children:
+                                                            - kind: SubtractionOperator
+                                                              text: "-"
+                                                            - kind: NumericLiteralExpression
+                                                              children:
+                                                                - kind: IntegerLiteral
+                                                                  text: "500"
+                                                    - kind: Comma
+                                                      text: ","
+                                                    - kind: Whitespace
+                                                      text: " "
+                                                    - kind: Argument
+                                                      children:
+                                                        - kind: NumericLiteralExpression
+                                                          children:
+                                                            - kind: IntegerLiteral
+                                                              text: "20000"
+                                                - kind: RightParenthesis
+                                                  text: )
+                                            - kind: Whitespace
+                                              text: " "
+                                            - kind: MultiplicationOperator
+                                              text: "*"
+                                            - kind: Whitespace
+                                              text: " "
+                                            - kind: NumericLiteralExpression
+                                              children:
+                                                - kind: IntegerLiteral
+                                                  text: "12"
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: MultiplicationOperator
+                                          text: "*"
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: NumericLiteralExpression
+                                          children:
+                                            - kind: IntegerLiteral
+                                              text: "100"
+                                - kind: Comma
+                                  text: ","
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"0.00\""
+                            - kind: RightParenthesis
+                              text: )
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"%\""
         - kind: Newline
           text: "\n"

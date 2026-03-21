@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/strcomp.rs
+source: vb6parse/src/syntax/library/functions/string/strcomp.rs
 expression: tree
 ---
 root:
@@ -101,8 +101,14 @@ root:
                           text: MsgBox
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"Found\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Found\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

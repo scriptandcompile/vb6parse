@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/file/filedatetime.rs
+source: vb6parse/src/syntax/library/functions/file/filedatetime.rs
 expression: tree
 ---
 root:
@@ -101,8 +101,14 @@ root:
                       text: Print
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Old file\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Old file\""
                     - kind: Newline
                       text: "\n"
                 - kind: Whitespace
@@ -131,8 +137,14 @@ root:
                       text: Print
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Recent file\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Recent file\""
                     - kind: Newline
                       text: "\n"
         - kind: EndKeyword

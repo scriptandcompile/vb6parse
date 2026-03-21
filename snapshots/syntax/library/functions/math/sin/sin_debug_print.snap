@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/math/sin.rs
+source: vb6parse/src/syntax/library/functions/math/sin.rs
 expression: tree
 ---
 root:
@@ -37,14 +37,26 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: Sin
-                - kind: LeftParenthesis
-                  text: (
-                - kind: SingleLiteral
-                  text: "1.0472"
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: Sin
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: NumericLiteralExpression
+                                      children:
+                                        - kind: SingleLiteral
+                                          text: "1.0472"
+                            - kind: RightParenthesis
+                              text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

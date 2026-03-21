@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/space.rs
+source: vb6parse/src/syntax/library/functions/string/space.rs
 expression: tree
 ---
 root:
@@ -89,8 +89,14 @@ root:
                               text: MsgBox
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Five\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Five\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace
@@ -115,8 +121,14 @@ root:
                               text: MsgBox
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Ten\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Ten\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace

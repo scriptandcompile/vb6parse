@@ -1150,28 +1150,50 @@ cst:
                     text: Friend
                   - kind: Whitespace
                     text: " "
-                  - kind: SubKeyword
-                    text: Sub
-                  - kind: Whitespace
-                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: SubKeyword
+                                text: Sub
+                      - kind: Whitespace
+                        text: " "
+              - kind: CallStatement
+                children:
                   - kind: Identifier
                     text: ConstructEnumerator
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: penum
-                  - kind: Whitespace
-                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: penum
+                      - kind: Whitespace
+                        text: " "
+              - kind: CallStatement
+                children:
                   - kind: AsKeyword
                     text: As
                   - kind: Whitespace
                     text: " "
-                  - kind: VariantKeyword
-                    text: Variant
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Newline
-                    text: "\r\n"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: VariantKeyword
+                                text: Variant
+              - kind: Unknown
+                text: )
+              - kind: Newline
+                text: "\r\n"
               - kind: AssignmentStatement
                 children:
                   - kind: IdentifierExpression
@@ -1362,76 +1384,142 @@ cst:
                     text: Friend
                   - kind: Whitespace
                     text: " "
-                  - kind: FunctionKeyword
-                    text: Function
-                  - kind: Whitespace
-                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: FunctionKeyword
+                                text: Function
+                      - kind: Whitespace
+                        text: " "
+              - kind: CallStatement
+                children:
                   - kind: Identifier
                     text: CreateFromPicture
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: b
-                  - kind: Whitespace
-                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: b
+                      - kind: Whitespace
+                        text: " "
+              - kind: CallStatement
+                children:
                   - kind: AsKeyword
                     text: As
                   - kind: Whitespace
                     text: " "
-                  - kind: LongKeyword
-                    text: Long
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: w1
-                  - kind: Whitespace
-                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: LongKeyword
+                                text: Long
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: w1
+                      - kind: Whitespace
+                        text: " "
+              - kind: CallStatement
+                children:
                   - kind: AsKeyword
                     text: As
                   - kind: Whitespace
                     text: " "
-                  - kind: LongKeyword
-                    text: Long
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: w2
-                  - kind: Whitespace
-                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: LongKeyword
+                                text: Long
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: w2
+                      - kind: Whitespace
+                        text: " "
+              - kind: CallStatement
+                children:
                   - kind: AsKeyword
                     text: As
                   - kind: Whitespace
                     text: " "
-                  - kind: LongKeyword
-                    text: Long
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: w3
-                  - kind: Whitespace
-                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: LongKeyword
+                                text: Long
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: w3
+                      - kind: Whitespace
+                        text: " "
+              - kind: CallStatement
+                children:
                   - kind: AsKeyword
                     text: As
                   - kind: Whitespace
                     text: " "
-                  - kind: LongKeyword
-                    text: Long
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: LongKeyword
+                                text: Long
+              - kind: Unknown
+                text: )
+              - kind: Whitespace
+                text: " "
+              - kind: CallStatement
+                children:
                   - kind: AsKeyword
                     text: As
                   - kind: Whitespace
                     text: " "
-                  - kind: ObjectKeyword
-                    text: Object
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: ObjectKeyword
+                                text: Object
                   - kind: Newline
                     text: "\r\n"
               - kind: IfStatement

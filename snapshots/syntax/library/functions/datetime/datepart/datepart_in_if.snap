@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/datepart.rs
+source: vb6parse/src/syntax/library/functions/datetime/datepart.rs
 expression: tree
 ---
 root:
@@ -67,8 +67,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"After hours\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"After hours\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

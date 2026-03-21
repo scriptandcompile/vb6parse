@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/file_operations/put.rs
+source: vb6parse/src/syntax/library/statements/file_operations/put.rs
 expression: tree
 ---
 root:
@@ -113,8 +113,14 @@ root:
                           text: MsgBox
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"Error writing record\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Error writing record\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

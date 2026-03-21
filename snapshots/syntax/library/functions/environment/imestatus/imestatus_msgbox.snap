@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/environment/imestatus.rs
+source: vb6parse/src/syntax/library/functions/environment/imestatus.rs
 expression: tree
 ---
 root:
@@ -33,20 +33,32 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"IME Status: \""
-                - kind: Whitespace
-                  text: " "
-                - kind: Ampersand
-                  text: "&"
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: IMEStatus
-                - kind: LeftParenthesis
-                  text: (
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: BinaryExpression
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"IME Status: \""
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Ampersand
+                              text: "&"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: IMEStatus
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children: []
+                                - kind: RightParenthesis
+                                  text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

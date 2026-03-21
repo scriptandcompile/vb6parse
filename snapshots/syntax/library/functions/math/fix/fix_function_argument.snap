@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/math/fix.rs
+source: vb6parse/src/syntax/library/functions/math/fix.rs
 expression: tree
 ---
 root:
@@ -37,14 +37,26 @@ root:
                   text: ProcessInteger
                 - kind: LeftParenthesis
                   text: (
-                - kind: Identifier
-                  text: Fix
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: value
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: Fix
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: value
+                            - kind: RightParenthesis
+                              text: )
                 - kind: RightParenthesis
                   text: )
                 - kind: Newline

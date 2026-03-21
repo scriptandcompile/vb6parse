@@ -1,5 +1,5 @@
 ---
-source: src/parsers/cst/select_statements.rs
+source: vb6parse/src/parsers/cst/select_statements.rs
 expression: tree
 ---
 root:
@@ -75,8 +75,14 @@ root:
                               text: Print
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Weekend\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Weekend\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace
@@ -129,8 +135,14 @@ root:
                               text: Print
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Weekday\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Weekday\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace

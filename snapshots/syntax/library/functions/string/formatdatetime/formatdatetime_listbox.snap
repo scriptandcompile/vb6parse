@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/formatdatetime.rs
+source: vb6parse/src/syntax/library/functions/string/formatdatetime.rs
 expression: tree
 ---
 root:
@@ -17,25 +17,47 @@ root:
           text: AddItem
         - kind: Whitespace
           text: " "
-        - kind: Identifier
-          text: FormatDateTime
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: dates
-        - kind: LeftParenthesis
-          text: (
-        - kind: Identifier
-          text: i
-        - kind: RightParenthesis
-          text: )
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: Identifier
-          text: vbShortDate
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: FormatDateTime
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: dates
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: i
+                                - kind: RightParenthesis
+                                  text: )
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: vbShortDate
+                    - kind: RightParenthesis
+                      text: )
         - kind: Newline
           text: "\n"

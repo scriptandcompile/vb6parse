@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/file_operations/lock.rs
+source: vb6parse/src/syntax/library/statements/file_operations/lock.rs
 expression: tree
 ---
 root:
@@ -109,8 +109,14 @@ root:
                           text: MsgBox
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"Could not lock record\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Could not lock record\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/trim_dollar.rs
+source: vb6parse/src/syntax/library/functions/string/trim_dollar.rs
 expression: tree
 ---
 root:
@@ -81,8 +81,14 @@ root:
                               text: Print
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Active record\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Active record\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace
@@ -111,8 +117,14 @@ root:
                               text: Print
                             - kind: Whitespace
                               text: " "
-                            - kind: StringLiteral
-                              text: "\"Inactive record\""
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Inactive record\""
                             - kind: Newline
                               text: "\n"
                         - kind: Whitespace

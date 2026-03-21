@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/objects/callbyname.rs
+source: vb6parse/src/syntax/library/functions/objects/callbyname.rs
 expression: tree
 ---
 root:
@@ -63,20 +63,34 @@ root:
                           text: CallByName
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: rs
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
-                        - kind: StringLiteral
-                          text: "\"MoveNext\""
-                        - kind: Comma
-                          text: ","
-                        - kind: Whitespace
-                          text: " "
-                        - kind: Identifier
-                          text: VbMethod
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: rs
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"MoveNext\""
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: VbMethod
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

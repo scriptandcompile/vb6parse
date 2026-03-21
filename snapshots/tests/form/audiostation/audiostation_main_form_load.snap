@@ -8770,14 +8770,24 @@ cst:
                     text: Show
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: vbModal
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: MeKeyword
-                    text: Me
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: vbModal
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: MeKeyword
+                                text: Me
                   - kind: Newline
                     text: "\n"
               - kind: Newline
@@ -8828,50 +8838,80 @@ cst:
                             text: INIWrite
                           - kind: LeftParenthesis
                             text: (
-                          - kind: StringLiteral
-                            text: "\"main\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: StringLiteral
-                            text: "\"TunerMemory-\""
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Ampersand
-                            text: "&"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: MemorySlot
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: url
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Ampersand
-                            text: "&"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: StringLiteral
-                            text: "\"~\""
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Ampersand
-                            text: "&"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: NameKeyword
-                            text: Name
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: ConfigFile
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"main\""
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"TunerMemory-\""
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Ampersand
+                                        text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: MemorySlot
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: url
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Ampersand
+                                            text: "&"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: StringLiteralExpression
+                                            children:
+                                              - kind: StringLiteral
+                                                text: "\"~\""
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Ampersand
+                                        text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: NameKeyword
+                                            text: Name
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: ConfigFile
                           - kind: RightParenthesis
                             text: )
                           - kind: Newline
@@ -9312,40 +9352,62 @@ cst:
                     text: LogInfo
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"CD-Rom device found: \""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: DriveName
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\" - \""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: DriveLetter
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\":\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: StringLiteralExpression
+                                            children:
+                                              - kind: StringLiteral
+                                                text: "\"CD-Rom device found: \""
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Ampersand
+                                            text: "&"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: DriveName
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Ampersand
+                                        text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\" - \""
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Ampersand
+                                    text: "&"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: DriveLetter
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\":\""
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -9396,8 +9458,14 @@ cst:
                     text: LogInfo
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"No CD-Rom device found on this computer\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"No CD-Rom device found on this computer\""
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -9506,12 +9574,18 @@ cst:
                     text: SetChannel
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: AdioCDPlayer
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Channel
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: AdioCDPlayer
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Channel
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -9614,64 +9688,98 @@ cst:
                     text: LogInfo
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"Audio device found: \""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NameKeyword
-                    text: Name
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\" - \""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Id
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\" - Input: \""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: InputDev
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteral
-                    text: "\" - Output: \""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: OutputDev
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: BinaryExpression
+                                                children:
+                                                  - kind: BinaryExpression
+                                                    children:
+                                                      - kind: StringLiteralExpression
+                                                        children:
+                                                          - kind: StringLiteral
+                                                            text: "\"Audio device found: \""
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Ampersand
+                                                        text: "&"
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: NameKeyword
+                                                            text: Name
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Ampersand
+                                                    text: "&"
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\" - \""
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Ampersand
+                                                text: "&"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: Id
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Ampersand
+                                            text: "&"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: StringLiteralExpression
+                                            children:
+                                              - kind: StringLiteral
+                                                text: "\" - Input: \""
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Ampersand
+                                        text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: InputDev
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Ampersand
+                                    text: "&"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\" - Output: \""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: OutputDev
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -9776,8 +9884,14 @@ cst:
                                     text: GetTrack
                                   - kind: LeftParenthesis
                                     text: (
-                                  - kind: Identifier
-                                    text: PLS_NEXT
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: PLS_NEXT
                                   - kind: RightParenthesis
                                     text: )
                                   - kind: Newline
@@ -9972,16 +10086,26 @@ cst:
                     text: LogInfo
                   - kind: LeftParenthesis
                     text: (
-                  - kind: StringLiteral
-                    text: "\"Starting playing \""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: File
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"Starting playing \""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: File
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -10132,12 +10256,18 @@ cst:
                     text: SetChannel
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: AdioMediaPlayer
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Channel
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: AdioMediaPlayer
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Channel
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -10194,8 +10324,14 @@ cst:
                     text: Print
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Percent
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: Percent
                   - kind: Newline
                     text: "\n"
           - kind: EndKeyword
@@ -10318,12 +10454,18 @@ cst:
                     text: LoadFile
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Track
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: LocalFile
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Track
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: LocalFile
                   - kind: Newline
                     text: "\n"
               - kind: CallStatement
@@ -10426,16 +10568,26 @@ cst:
                     text: Print
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"Midi track: \""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NameKeyword
-                    text: Name
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: BinaryExpression
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"Midi track: \""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: NameKeyword
+                                    text: Name
                   - kind: Newline
                     text: "\n"
           - kind: EndKeyword
@@ -10720,8 +10872,14 @@ cst:
                     text: Print
                   - kind: Whitespace
                     text: " "
-                  - kind: StringLiteral
-                    text: "\"Midi player ready\""
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"Midi player ready\""
                   - kind: Newline
                     text: "\n"
           - kind: EndKeyword
@@ -10842,12 +11000,18 @@ cst:
                     text: LoadFile
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Track
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: LocalFile
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Track
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: LocalFile
                   - kind: Newline
                     text: "\n"
               - kind: CallStatement
@@ -11234,8 +11398,14 @@ cst:
                     text: SeekBySeconds
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: AdioRewind
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: AdioRewind
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -11352,8 +11522,14 @@ cst:
                     text: SeekBySeconds
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: AdioForward
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: AdioForward
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -11980,8 +12156,14 @@ cst:
                                                 text: Show
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: Identifier
-                                                text: vbModal
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: vbModal
                                               - kind: Newline
                                                 text: "\n"
                                           - kind: Whitespace
@@ -12176,14 +12358,24 @@ cst:
                     text: Show
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: vbModal
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: MeKeyword
-                    text: Me
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: vbModal
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: MeKeyword
+                                text: Me
                   - kind: Newline
                     text: "\n"
               - kind: Newline
@@ -12242,8 +12434,14 @@ cst:
                             text: LoadStream
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: StreamUrl
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: StreamUrl
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace
@@ -12566,8 +12764,14 @@ cst:
                                 text: LoadStream
                               - kind: LeftParenthesis
                                 text: (
-                              - kind: Identifier
-                                text: StreamUrl
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: StreamUrl
                               - kind: RightParenthesis
                                 text: )
                               - kind: Newline
@@ -13926,8 +14130,14 @@ cst:
                                 text: LoadStream
                               - kind: LeftParenthesis
                                 text: (
-                              - kind: Identifier
-                                text: StreamUrl
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: StreamUrl
                               - kind: RightParenthesis
                                 text: )
                               - kind: Newline
@@ -14314,8 +14524,14 @@ cst:
                                                 text: Show
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: Identifier
-                                                text: vbModal
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: vbModal
                                               - kind: Newline
                                                 text: "\n"
                                           - kind: Whitespace
@@ -14390,8 +14606,14 @@ cst:
                                                 text: GetTrack
                                               - kind: LeftParenthesis
                                                 text: (
-                                              - kind: Identifier
-                                                text: PLS_FIRST
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: PLS_FIRST
                                               - kind: RightParenthesis
                                                 text: )
                                               - kind: Newline
@@ -14488,8 +14710,14 @@ cst:
                                                         text: SeekBySeconds
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                      - kind: Identifier
-                                                        text: AdioForward
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: AdioForward
                                                       - kind: RightParenthesis
                                                         text: )
                                                       - kind: Newline
@@ -14522,8 +14750,14 @@ cst:
                                                         text: GetTrack
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                      - kind: Identifier
-                                                        text: PLS_NEXT
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: PLS_NEXT
                                                       - kind: RightParenthesis
                                                         text: )
                                                       - kind: Newline
@@ -14600,10 +14834,18 @@ cst:
                                                         text: Show
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Comma
+                                                                    text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                  - kind: CallStatement
+                                                    children:
                                                       - kind: MeKeyword
                                                         text: Me
                                                       - kind: Newline
@@ -14668,10 +14910,18 @@ cst:
                                                         text: Show
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Comma
+                                                                    text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                  - kind: CallStatement
+                                                    children:
                                                       - kind: MeKeyword
                                                         text: Me
                                                       - kind: Newline
@@ -14714,14 +14964,24 @@ cst:
                                                         text: Show
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: Identifier
-                                                        text: vbModal
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: MeKeyword
-                                                        text: Me
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: vbModal
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: MeKeyword
+                                                                    text: Me
                                                       - kind: Newline
                                                         text: "\n"
                                                   - kind: Unknown
@@ -14762,14 +15022,24 @@ cst:
                                                         text: Show
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: Identifier
-                                                        text: vbModal
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: MeKeyword
-                                                        text: Me
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: vbModal
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: MeKeyword
+                                                                    text: Me
                                                       - kind: Newline
                                                         text: "\n"
                                                   - kind: Unknown
@@ -14824,16 +15094,26 @@ cst:
                                                         text: LogInfo
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                      - kind: StringLiteral
-                                                        text: "\"DataInterFileCopy\""
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: Ampersand
-                                                        text: "&"
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: Identifier
-                                                        text: Data
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: BinaryExpression
+                                                                children:
+                                                                  - kind: StringLiteralExpression
+                                                                    children:
+                                                                      - kind: StringLiteral
+                                                                        text: "\"DataInterFileCopy\""
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: Ampersand
+                                                                    text: "&"
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: Data
                                                       - kind: RightParenthesis
                                                         text: )
                                                       - kind: Newline
@@ -14924,30 +15204,52 @@ cst:
                                                                     text: OpenFile
                                                                   - kind: LeftParenthesis
                                                                     text: (
-                                                                  - kind: Identifier
-                                                                    text: StrExt
-                                                                  - kind: PeriodOperator
-                                                                    text: "."
-                                                                  - kind: Identifier
-                                                                    text: SplitStr
-                                                                  - kind: LeftParenthesis
-                                                                    text: (
-                                                                  - kind: Identifier
-                                                                    text: Data
-                                                                  - kind: Comma
-                                                                    text: ","
-                                                                  - kind: Whitespace
-                                                                    text: " "
-                                                                  - kind: StringLiteral
-                                                                    text: "\"~\""
-                                                                  - kind: Comma
-                                                                    text: ","
-                                                                  - kind: Whitespace
-                                                                    text: " "
-                                                                  - kind: IntegerLiteral
-                                                                    text: "1"
-                                                                  - kind: RightParenthesis
-                                                                    text: )
+                                                                  - kind: ArgumentList
+                                                                    children:
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: CallExpression
+                                                                            children:
+                                                                              - kind: MemberAccessExpression
+                                                                                children:
+                                                                                  - kind: Identifier
+                                                                                    text: StrExt
+                                                                                  - kind: PeriodOperator
+                                                                                    text: "."
+                                                                                  - kind: Identifier
+                                                                                    text: SplitStr
+                                                                              - kind: LeftParenthesis
+                                                                                text: (
+                                                                              - kind: ArgumentList
+                                                                                children:
+                                                                                  - kind: Argument
+                                                                                    children:
+                                                                                      - kind: IdentifierExpression
+                                                                                        children:
+                                                                                          - kind: Identifier
+                                                                                            text: Data
+                                                                                  - kind: Comma
+                                                                                    text: ","
+                                                                                  - kind: Whitespace
+                                                                                    text: " "
+                                                                                  - kind: Argument
+                                                                                    children:
+                                                                                      - kind: StringLiteralExpression
+                                                                                        children:
+                                                                                          - kind: StringLiteral
+                                                                                            text: "\"~\""
+                                                                                  - kind: Comma
+                                                                                    text: ","
+                                                                                  - kind: Whitespace
+                                                                                    text: " "
+                                                                                  - kind: Argument
+                                                                                    children:
+                                                                                      - kind: NumericLiteralExpression
+                                                                                        children:
+                                                                                          - kind: IntegerLiteral
+                                                                                            text: "1"
+                                                                              - kind: RightParenthesis
+                                                                                text: )
                                                                   - kind: RightParenthesis
                                                                     text: )
                                                                   - kind: Newline
@@ -15252,38 +15554,64 @@ cst:
                                                                     text: Print
                                                                   - kind: Whitespace
                                                                     text: " "
-                                                                  - kind: StringLiteral
-                                                                    text: "\"Stop recording, Length: \""
-                                                                  - kind: Whitespace
-                                                                    text: " "
-                                                                  - kind: Ampersand
-                                                                    text: "&"
-                                                                  - kind: Whitespace
-                                                                    text: " "
-                                                                  - kind: Identifier
-                                                                    text: StrExt
-                                                                  - kind: PeriodOperator
-                                                                    text: "."
-                                                                  - kind: Identifier
-                                                                    text: SplitStr
-                                                                  - kind: LeftParenthesis
-                                                                    text: (
-                                                                  - kind: Identifier
-                                                                    text: Data
-                                                                  - kind: Comma
-                                                                    text: ","
-                                                                  - kind: Whitespace
-                                                                    text: " "
-                                                                  - kind: StringLiteral
-                                                                    text: "\"~\""
-                                                                  - kind: Comma
-                                                                    text: ","
-                                                                  - kind: Whitespace
-                                                                    text: " "
-                                                                  - kind: IntegerLiteral
-                                                                    text: "1"
-                                                                  - kind: RightParenthesis
-                                                                    text: )
+                                                                  - kind: ArgumentList
+                                                                    children:
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: BinaryExpression
+                                                                            children:
+                                                                              - kind: StringLiteralExpression
+                                                                                children:
+                                                                                  - kind: StringLiteral
+                                                                                    text: "\"Stop recording, Length: \""
+                                                                              - kind: Whitespace
+                                                                                text: " "
+                                                                              - kind: Ampersand
+                                                                                text: "&"
+                                                                              - kind: Whitespace
+                                                                                text: " "
+                                                                              - kind: CallExpression
+                                                                                children:
+                                                                                  - kind: MemberAccessExpression
+                                                                                    children:
+                                                                                      - kind: Identifier
+                                                                                        text: StrExt
+                                                                                      - kind: PeriodOperator
+                                                                                        text: "."
+                                                                                      - kind: Identifier
+                                                                                        text: SplitStr
+                                                                                  - kind: LeftParenthesis
+                                                                                    text: (
+                                                                                  - kind: ArgumentList
+                                                                                    children:
+                                                                                      - kind: Argument
+                                                                                        children:
+                                                                                          - kind: IdentifierExpression
+                                                                                            children:
+                                                                                              - kind: Identifier
+                                                                                                text: Data
+                                                                                      - kind: Comma
+                                                                                        text: ","
+                                                                                      - kind: Whitespace
+                                                                                        text: " "
+                                                                                      - kind: Argument
+                                                                                        children:
+                                                                                          - kind: StringLiteralExpression
+                                                                                            children:
+                                                                                              - kind: StringLiteral
+                                                                                                text: "\"~\""
+                                                                                      - kind: Comma
+                                                                                        text: ","
+                                                                                      - kind: Whitespace
+                                                                                        text: " "
+                                                                                      - kind: Argument
+                                                                                        children:
+                                                                                          - kind: NumericLiteralExpression
+                                                                                            children:
+                                                                                              - kind: IntegerLiteral
+                                                                                                text: "1"
+                                                                                  - kind: RightParenthesis
+                                                                                    text: )
                                                                   - kind: Newline
                                                                     text: "\n"
                                                               - kind: Whitespace
@@ -15408,8 +15736,14 @@ cst:
                                                         text: LogInfo
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                      - kind: StringLiteral
-                                                        text: "\"Application connected to data interchange\""
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"Application connected to data interchange\""
                                                       - kind: RightParenthesis
                                                         text: )
                                                       - kind: Newline
@@ -15704,8 +16038,14 @@ cst:
                                                         text: LogInfo
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                      - kind: StringLiteral
-                                                        text: "\"Initialize AdioCore component\""
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"Initialize AdioCore component\""
                                                       - kind: RightParenthesis
                                                         text: )
                                                       - kind: Newline
@@ -15736,8 +16076,14 @@ cst:
                                                         text: LogInfo
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                      - kind: StringLiteral
-                                                        text: "\"Initialize AdioAudioPeak component\""
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"Initialize AdioAudioPeak component\""
                                                       - kind: RightParenthesis
                                                         text: )
                                                       - kind: Newline
@@ -15768,8 +16114,14 @@ cst:
                                                         text: LogInfo
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                      - kind: StringLiteral
-                                                        text: "\"Initialize AdioCDPlayer component\""
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"Initialize AdioCDPlayer component\""
                                                       - kind: RightParenthesis
                                                         text: )
                                                       - kind: Newline
@@ -15800,8 +16152,14 @@ cst:
                                                         text: LogInfo
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                      - kind: StringLiteral
-                                                        text: "\"Initialize AdioMidiPlayer component\""
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"Initialize AdioMidiPlayer component\""
                                                       - kind: RightParenthesis
                                                         text: )
                                                       - kind: Newline
@@ -15918,8 +16276,14 @@ cst:
                                                         text: InitComponent
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: Identifier
-                                                        text: MidiDeviceId
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: MidiDeviceId
                                                       - kind: Newline
                                                         text: "\n"
                                                   - kind: Newline
@@ -15944,8 +16308,14 @@ cst:
                                                         text: Connect
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                      - kind: StringLiteral
-                                                        text: "\"15448\""
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"15448\""
                                                       - kind: RightParenthesis
                                                         text: )
                                                       - kind: Newline
@@ -16842,8 +17212,14 @@ cst:
                                                         text: TranslateFormAndControls
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                      - kind: MeKeyword
-                                                        text: Me
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: MeKeyword
+                                                                    text: Me
                                                       - kind: RightParenthesis
                                                         text: )
                                                       - kind: Newline
@@ -17252,8 +17628,14 @@ cst:
                                                         text: LogInfo
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                      - kind: StringLiteral
-                                                        text: "\"Ending\""
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"Ending\""
                                                       - kind: RightParenthesis
                                                         text: )
                                                       - kind: Newline
@@ -17308,8 +17690,14 @@ cst:
                                                         text: SendData
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: StringLiteral
-                                                        text: "\"end\""
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"end\""
                                                       - kind: Newline
                                                         text: "\n"
                                                   - kind: Newline
@@ -17386,44 +17774,74 @@ cst:
                                                                 text: INIWrite
                                                               - kind: LeftParenthesis
                                                                 text: (
-                                                              - kind: StringLiteral
-                                                                text: "\"main\""
-                                                              - kind: Comma
-                                                                text: ","
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: StringLiteral
-                                                                text: "\"Element-\""
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: Ampersand
-                                                                text: "&"
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: Identifier
-                                                                text: I
-                                                              - kind: Comma
-                                                                text: ","
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: Identifier
-                                                                text: Element
-                                                              - kind: LeftParenthesis
-                                                                text: (
-                                                              - kind: Identifier
-                                                                text: I
-                                                              - kind: RightParenthesis
-                                                                text: )
-                                                              - kind: PeriodOperator
-                                                                text: "."
-                                                              - kind: Identifier
-                                                                text: Tag
-                                                              - kind: Comma
-                                                                text: ","
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: Identifier
-                                                                text: ConfigFile
+                                                              - kind: ArgumentList
+                                                                children:
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: StringLiteralExpression
+                                                                        children:
+                                                                          - kind: StringLiteral
+                                                                            text: "\"main\""
+                                                                  - kind: Comma
+                                                                    text: ","
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: BinaryExpression
+                                                                        children:
+                                                                          - kind: StringLiteralExpression
+                                                                            children:
+                                                                              - kind: StringLiteral
+                                                                                text: "\"Element-\""
+                                                                          - kind: Whitespace
+                                                                            text: " "
+                                                                          - kind: Ampersand
+                                                                            text: "&"
+                                                                          - kind: Whitespace
+                                                                            text: " "
+                                                                          - kind: IdentifierExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: I
+                                                                  - kind: Comma
+                                                                    text: ","
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: MemberAccessExpression
+                                                                        children:
+                                                                          - kind: CallExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: Element
+                                                                              - kind: LeftParenthesis
+                                                                                text: (
+                                                                              - kind: ArgumentList
+                                                                                children:
+                                                                                  - kind: Argument
+                                                                                    children:
+                                                                                      - kind: IdentifierExpression
+                                                                                        children:
+                                                                                          - kind: Identifier
+                                                                                            text: I
+                                                                              - kind: RightParenthesis
+                                                                                text: )
+                                                                          - kind: PeriodOperator
+                                                                            text: "."
+                                                                          - kind: Identifier
+                                                                            text: Tag
+                                                                  - kind: Comma
+                                                                    text: ","
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: IdentifierExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: ConfigFile
                                                               - kind: RightParenthesis
                                                                 text: )
                                                               - kind: Newline
@@ -17616,14 +18034,24 @@ cst:
                                                         text: Show
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: Identifier
-                                                        text: vbModal
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: MeKeyword
-                                                        text: Me
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: vbModal
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: MeKeyword
+                                                                    text: Me
                                                       - kind: Newline
                                                         text: "\n"
                                                   - kind: Unknown
@@ -17756,48 +18184,80 @@ cst:
                                                         text: INIWrite
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                      - kind: StringLiteral
-                                                        text: "\"main\""
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: StringLiteral
-                                                        text: "\"AutoStop\""
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: Identifier
-                                                        text: IIf
-                                                      - kind: LeftParenthesis
-                                                        text: (
-                                                      - kind: Identifier
-                                                        text: menu_Popup_AutoStop
-                                                      - kind: PeriodOperator
-                                                        text: "."
-                                                      - kind: Identifier
-                                                        text: Checked
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: IntegerLiteral
-                                                        text: "1"
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: IntegerLiteral
-                                                        text: "0"
-                                                      - kind: RightParenthesis
-                                                        text: )
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: Identifier
-                                                        text: ConfigFile
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"main\""
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"AutoStop\""
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: CallExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: IIf
+                                                                  - kind: LeftParenthesis
+                                                                    text: (
+                                                                  - kind: ArgumentList
+                                                                    children:
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: MemberAccessExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: menu_Popup_AutoStop
+                                                                              - kind: PeriodOperator
+                                                                                text: "."
+                                                                              - kind: Identifier
+                                                                                text: Checked
+                                                                      - kind: Comma
+                                                                        text: ","
+                                                                      - kind: Whitespace
+                                                                        text: " "
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: NumericLiteralExpression
+                                                                            children:
+                                                                              - kind: IntegerLiteral
+                                                                                text: "1"
+                                                                      - kind: Comma
+                                                                        text: ","
+                                                                      - kind: Whitespace
+                                                                        text: " "
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: NumericLiteralExpression
+                                                                            children:
+                                                                              - kind: IntegerLiteral
+                                                                                text: "0"
+                                                                  - kind: RightParenthesis
+                                                                    text: )
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: ConfigFile
                                                       - kind: RightParenthesis
                                                         text: )
                                                       - kind: Newline
@@ -18064,8 +18524,14 @@ cst:
                                                         text: SendData
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: StringLiteral
-                                                        text: "\"play\""
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"play\""
                                                       - kind: Newline
                                                         text: "\n"
                                                   - kind: Unknown
@@ -18132,14 +18598,24 @@ cst:
                                                         text: Show
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: Identifier
-                                                        text: vbModal
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: MeKeyword
-                                                        text: Me
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: vbModal
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: MeKeyword
+                                                                    text: Me
                                                       - kind: Newline
                                                         text: "\n"
                                                   - kind: Unknown
@@ -18208,26 +18684,40 @@ cst:
                                                                 text: Shell
                                                               - kind: Whitespace
                                                                 text: " "
-                                                              - kind: Identifier
-                                                                text: App
-                                                              - kind: PeriodOperator
-                                                                text: "."
-                                                              - kind: Identifier
-                                                                text: path
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: Ampersand
-                                                                text: "&"
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: StringLiteral
-                                                                text: "\"\\recorder.exe\""
-                                                              - kind: Comma
-                                                                text: ","
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: Identifier
-                                                                text: vbHide
+                                                              - kind: ArgumentList
+                                                                children:
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: BinaryExpression
+                                                                        children:
+                                                                          - kind: MemberAccessExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: App
+                                                                              - kind: PeriodOperator
+                                                                                text: "."
+                                                                              - kind: Identifier
+                                                                                text: path
+                                                                          - kind: Whitespace
+                                                                            text: " "
+                                                                          - kind: Ampersand
+                                                                            text: "&"
+                                                                          - kind: Whitespace
+                                                                            text: " "
+                                                                          - kind: StringLiteralExpression
+                                                                            children:
+                                                                              - kind: StringLiteral
+                                                                                text: "\"\\recorder.exe\""
+                                                                  - kind: Comma
+                                                                    text: ","
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: IdentifierExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: vbHide
                                                               - kind: Newline
                                                                 text: "\n"
                                                           - kind: Whitespace
@@ -18344,8 +18834,14 @@ cst:
                                                                 text: SendData
                                                               - kind: LeftParenthesis
                                                                 text: (
-                                                              - kind: StringLiteral
-                                                                text: "\"record\""
+                                                              - kind: ArgumentList
+                                                                children:
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: StringLiteralExpression
+                                                                        children:
+                                                                          - kind: StringLiteral
+                                                                            text: "\"record\""
                                                               - kind: RightParenthesis
                                                                 text: )
                                                               - kind: Newline
@@ -18406,8 +18902,14 @@ cst:
                                                                     text: SendData
                                                                   - kind: LeftParenthesis
                                                                     text: (
-                                                                  - kind: StringLiteral
-                                                                    text: "\"stop\""
+                                                                  - kind: ArgumentList
+                                                                    children:
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: StringLiteralExpression
+                                                                            children:
+                                                                              - kind: StringLiteral
+                                                                                text: "\"stop\""
                                                                   - kind: RightParenthesis
                                                                     text: )
                                                                   - kind: Newline
@@ -18462,14 +18964,24 @@ cst:
                                                         text: Show
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: Identifier
-                                                        text: vbModal
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: MeKeyword
-                                                        text: Me
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: vbModal
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: MeKeyword
+                                                                    text: Me
                                                       - kind: Newline
                                                         text: "\n"
                                                   - kind: Unknown
@@ -18724,8 +19236,14 @@ cst:
                                                         text: SendData
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: StringLiteral
-                                                        text: "\"save\""
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"save\""
                                                       - kind: Newline
                                                         text: "\n"
                                                   - kind: CallStatement
@@ -18738,8 +19256,14 @@ cst:
                                                         text: SendData
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: StringLiteral
-                                                        text: "\"end\""
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"end\""
                                                       - kind: Newline
                                                         text: "\n"
                                                   - kind: Unknown
@@ -18780,14 +19304,24 @@ cst:
                                                         text: Show
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: Identifier
-                                                        text: vbModal
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: MeKeyword
-                                                        text: Me
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: vbModal
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: MeKeyword
+                                                                    text: Me
                                                       - kind: Newline
                                                         text: "\n"
                                                   - kind: Unknown
@@ -18990,32 +19524,56 @@ cst:
                                                         text: INIWrite
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                      - kind: StringLiteral
-                                                        text: "\"main\""
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: StringLiteral
-                                                        text: "\"UseSpectrumAnalyzer\""
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: Identifier
-                                                        text: CStr
-                                                      - kind: LeftParenthesis
-                                                        text: (
-                                                      - kind: Identifier
-                                                        text: Result
-                                                      - kind: RightParenthesis
-                                                        text: )
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: Identifier
-                                                        text: ConfigFile
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"main\""
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: StringLiteralExpression
+                                                                children:
+                                                                  - kind: StringLiteral
+                                                                    text: "\"UseSpectrumAnalyzer\""
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: CallExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: CStr
+                                                                  - kind: LeftParenthesis
+                                                                    text: (
+                                                                  - kind: ArgumentList
+                                                                    children:
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: IdentifierExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: Result
+                                                                  - kind: RightParenthesis
+                                                                    text: )
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: ConfigFile
                                                       - kind: RightParenthesis
                                                         text: )
                                                       - kind: Newline
@@ -19172,8 +19730,14 @@ cst:
                                                         text: PopupMenu
                                                       - kind: Whitespace
                                                         text: " "
-                                                      - kind: Identifier
-                                                        text: menu_Popup02
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: menu_Popup02
                                                       - kind: Newline
                                                         text: "\n"
                                                   - kind: Unknown
@@ -19320,12 +19884,18 @@ cst:
                                                         text: SetBalance
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                      - kind: Identifier
-                                                        text: Slider_CD_Balance
-                                                      - kind: PeriodOperator
-                                                        text: "."
-                                                      - kind: Identifier
-                                                        text: Value
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: MemberAccessExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: Slider_CD_Balance
+                                                                  - kind: PeriodOperator
+                                                                    text: "."
+                                                                  - kind: Identifier
+                                                                    text: Value
                                                       - kind: RightParenthesis
                                                         text: )
                                                       - kind: Newline
@@ -19372,12 +19942,18 @@ cst:
                                                         text: SetBalance
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                      - kind: Identifier
-                                                        text: Slider_Dat_Balance
-                                                      - kind: PeriodOperator
-                                                        text: "."
-                                                      - kind: Identifier
-                                                        text: Value
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: MemberAccessExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: Slider_Dat_Balance
+                                                                  - kind: PeriodOperator
+                                                                    text: "."
+                                                                  - kind: Identifier
+                                                                    text: Value
                                                       - kind: RightParenthesis
                                                         text: )
                                                       - kind: Newline
@@ -19424,12 +20000,18 @@ cst:
                                                         text: SetVolume
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                      - kind: Identifier
-                                                        text: Slider_Dat_Volume
-                                                      - kind: PeriodOperator
-                                                        text: "."
-                                                      - kind: Identifier
-                                                        text: Value
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: MemberAccessExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: Slider_Dat_Volume
+                                                                  - kind: PeriodOperator
+                                                                    text: "."
+                                                                  - kind: Identifier
+                                                                    text: Value
                                                       - kind: RightParenthesis
                                                         text: )
                                                       - kind: Newline
@@ -19476,12 +20058,18 @@ cst:
                                                         text: SetMasterVolume
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                      - kind: Identifier
-                                                        text: Slider_Master
-                                                      - kind: PeriodOperator
-                                                        text: "."
-                                                      - kind: Identifier
-                                                        text: Value
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: MemberAccessExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: Slider_Master
+                                                                  - kind: PeriodOperator
+                                                                    text: "."
+                                                                  - kind: Identifier
+                                                                    text: Value
                                                       - kind: RightParenthesis
                                                         text: )
                                                       - kind: Newline
@@ -19528,18 +20116,28 @@ cst:
                                                         text: SetVolumeById
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                      - kind: Identifier
-                                                        text: VolumeChannelId
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: Identifier
-                                                        text: Slider_Midi_Volume
-                                                      - kind: PeriodOperator
-                                                        text: "."
-                                                      - kind: Identifier
-                                                        text: Value
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: VolumeChannelId
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: MemberAccessExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: Slider_Midi_Volume
+                                                                  - kind: PeriodOperator
+                                                                    text: "."
+                                                                  - kind: Identifier
+                                                                    text: Value
                                                       - kind: RightParenthesis
                                                         text: )
                                                       - kind: Newline
@@ -19784,8 +20382,14 @@ cst:
                                                                 text: SetUnmuteById
                                                               - kind: LeftParenthesis
                                                                 text: (
-                                                              - kind: Identifier
-                                                                text: VolumeChannelId
+                                                              - kind: ArgumentList
+                                                                children:
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: IdentifierExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: VolumeChannelId
                                                               - kind: RightParenthesis
                                                                 text: )
                                                               - kind: Newline
@@ -19814,8 +20418,14 @@ cst:
                                                                     text: SetMuteById
                                                                   - kind: LeftParenthesis
                                                                     text: (
-                                                                  - kind: Identifier
-                                                                    text: VolumeChannelId
+                                                                  - kind: ArgumentList
+                                                                    children:
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: IdentifierExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: VolumeChannelId
                                                                   - kind: RightParenthesis
                                                                     text: )
                                                                   - kind: Newline
@@ -22428,18 +23038,32 @@ cst:
                                                                                 text: PictureBox_Disabled
                                                                               - kind: LeftParenthesis
                                                                                 text: (
-                                                                              - kind: IntegerLiteral
-                                                                                text: "4"
+                                                                              - kind: ArgumentList
+                                                                                children:
+                                                                                  - kind: Argument
+                                                                                    children:
+                                                                                      - kind: NumericLiteralExpression
+                                                                                        children:
+                                                                                          - kind: IntegerLiteral
+                                                                                            text: "4"
                                                                               - kind: RightParenthesis
                                                                                 text: )
+                                                                          - kind: CallStatement
+                                                                            children:
                                                                               - kind: PeriodOperator
                                                                                 text: "."
                                                                               - kind: Identifier
                                                                                 text: ZOrder
                                                                               - kind: Whitespace
                                                                                 text: " "
-                                                                              - kind: IntegerLiteral
-                                                                                text: "0"
+                                                                              - kind: ArgumentList
+                                                                                children:
+                                                                                  - kind: Argument
+                                                                                    children:
+                                                                                      - kind: NumericLiteralExpression
+                                                                                        children:
+                                                                                          - kind: IntegerLiteral
+                                                                                            text: "0"
                                                                               - kind: Newline
                                                                                 text: "\n"
                                                                           - kind: Whitespace
@@ -22522,18 +23146,32 @@ cst:
                                                                                     text: PictureBox_Disabled
                                                                                   - kind: LeftParenthesis
                                                                                     text: (
-                                                                                  - kind: Identifier
-                                                                                    text: NewElementIndex
+                                                                                  - kind: ArgumentList
+                                                                                    children:
+                                                                                      - kind: Argument
+                                                                                        children:
+                                                                                          - kind: IdentifierExpression
+                                                                                            children:
+                                                                                              - kind: Identifier
+                                                                                                text: NewElementIndex
                                                                                   - kind: RightParenthesis
                                                                                     text: )
+                                                                              - kind: CallStatement
+                                                                                children:
                                                                                   - kind: PeriodOperator
                                                                                     text: "."
                                                                                   - kind: Identifier
                                                                                     text: ZOrder
                                                                                   - kind: Whitespace
                                                                                     text: " "
-                                                                                  - kind: IntegerLiteral
-                                                                                    text: "0"
+                                                                                  - kind: ArgumentList
+                                                                                    children:
+                                                                                      - kind: Argument
+                                                                                        children:
+                                                                                          - kind: NumericLiteralExpression
+                                                                                            children:
+                                                                                              - kind: IntegerLiteral
+                                                                                                text: "0"
                                                                                   - kind: Newline
                                                                                     text: "\n"
                                                                               - kind: Whitespace

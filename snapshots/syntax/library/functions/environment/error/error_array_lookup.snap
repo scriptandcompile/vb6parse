@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/environment/error.rs
+source: vb6parse/src/syntax/library/functions/environment/error.rs
 expression: tree
 ---
 root:
@@ -77,42 +77,74 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: errorNumbers
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: i
-                - kind: RightParenthesis
-                  text: )
-                - kind: Whitespace
-                  text: " "
-                - kind: Ampersand
-                  text: "&"
-                - kind: Whitespace
-                  text: " "
-                - kind: StringLiteral
-                  text: "\": \""
-                - kind: Whitespace
-                  text: " "
-                - kind: Ampersand
-                  text: "&"
-                - kind: Whitespace
-                  text: " "
-                - kind: ErrorKeyword
-                  text: Error
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: errorNumbers
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: i
-                - kind: RightParenthesis
-                  text: )
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: BinaryExpression
+                          children:
+                            - kind: BinaryExpression
+                              children:
+                                - kind: CallExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: errorNumbers
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: IdentifierExpression
+                                              children:
+                                                - kind: Identifier
+                                                  text: i
+                                    - kind: RightParenthesis
+                                      text: )
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Ampersand
+                                  text: "&"
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\": \""
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Ampersand
+                              text: "&"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: CallExpression
+                              children:
+                                - kind: ErrorKeyword
+                                  text: Error
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: CallExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: errorNumbers
+                                            - kind: LeftParenthesis
+                                              text: (
+                                            - kind: ArgumentList
+                                              children:
+                                                - kind: Argument
+                                                  children:
+                                                    - kind: IdentifierExpression
+                                                      children:
+                                                        - kind: Identifier
+                                                          text: i
+                                            - kind: RightParenthesis
+                                              text: )
+                                - kind: RightParenthesis
+                                  text: )
                 - kind: Newline
                   text: "\n"
         - kind: NextKeyword

@@ -51,8 +51,14 @@ root:
                   text: Is
                 - kind: Whitespace
                   text: " "
-                - kind: NothingKeyword
-                  text: Nothing
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: NothingKeyword
+                              text: Nothing
                 - kind: Newline
                   text: "\n"
             - kind: Whitespace

@@ -246,8 +246,14 @@ cst:
                     text: QueryPerformanceCounter
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: CTR
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: CTR
                   - kind: Newline
                     text: "\r\n"
               - kind: AssignmentStatement
@@ -388,8 +394,14 @@ cst:
                                 text: QueryPerformanceFrequency
                               - kind: Whitespace
                                 text: " "
-                              - kind: Identifier
-                                text: CountsPerSecond
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: CountsPerSecond
                               - kind: Newline
                                 text: "\r\n"
                       - kind: AssignmentStatement
@@ -596,8 +608,14 @@ cst:
                             text: QueryPerformanceCounter
                           - kind: Whitespace
                             text: " "
-                          - kind: Identifier
-                            text: b
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: b
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -640,8 +658,14 @@ cst:
                                 text: QueryPerformanceFrequency
                               - kind: Whitespace
                                 text: " "
-                              - kind: Identifier
-                                text: CountsPerSecond
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: CountsPerSecond
                               - kind: Newline
                                 text: "\r\n"
                           - kind: Whitespace

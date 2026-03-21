@@ -81,14 +81,20 @@ root:
                           text: Fields
                         - kind: LeftParenthesis
                           text: (
-                        - kind: StringLiteral
-                          text: "\"OrderDate\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"OrderDate\""
                         - kind: RightParenthesis
                           text: )
-                        - kind: RightParenthesis
-                          text: )
-                        - kind: Newline
-                          text: "\n"
+                    - kind: Unknown
+                      text: )
+                    - kind: Newline
+                      text: "\n"
                     - kind: Whitespace
                       text: "    "
                 - kind: EndKeyword

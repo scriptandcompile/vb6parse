@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/math/round.rs
+source: vb6parse/src/syntax/library/functions/math/round.rs
 expression: tree
 ---
 root:
@@ -89,8 +89,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Equal\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Equal\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

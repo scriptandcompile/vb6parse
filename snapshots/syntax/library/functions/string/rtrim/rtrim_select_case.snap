@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/rtrim.rs
+source: vb6parse/src/syntax/library/functions/string/rtrim.rs
 expression: tree
 ---
 root:
@@ -59,8 +59,14 @@ root:
                       text: MsgBox
                     - kind: Whitespace
                       text: " "
-                    - kind: StringLiteral
-                      text: "\"Empty\""
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Empty\""
                     - kind: Newline
                       text: "\n"
                 - kind: Whitespace
@@ -85,8 +91,14 @@ root:
                       text: Process
                     - kind: Whitespace
                       text: " "
-                    - kind: InputKeyword
-                      text: input
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: InputKeyword
+                                  text: input
                     - kind: Newline
                       text: "\n"
                 - kind: Whitespace

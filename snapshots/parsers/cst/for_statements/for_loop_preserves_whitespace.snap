@@ -1,5 +1,5 @@
 ---
-source: src/parsers/cst/for_statements.rs
+source: vb6parse/src/parsers/cst/for_statements.rs
 expression: tree
 ---
 root:
@@ -83,8 +83,14 @@ root:
                           text: Print
                         - kind: Whitespace
                           text: " "
-                        - kind: Identifier
-                          text: i
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: i
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/resources/loadresdata.rs
+source: vb6parse/src/syntax/library/functions/resources/loadresdata.rs
 expression: tree
 ---
 root:
@@ -19,20 +19,36 @@ root:
           text: ProcessData
         - kind: LeftParenthesis
           text: (
-        - kind: Identifier
-          text: LoadResData
-        - kind: LeftParenthesis
-          text: (
-        - kind: IntegerLiteral
-          text: "101"
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "256"
-        - kind: RightParenthesis
-          text: )
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: LoadResData
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "101"
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "256"
+                    - kind: RightParenthesis
+                      text: )
         - kind: RightParenthesis
           text: )
         - kind: Newline

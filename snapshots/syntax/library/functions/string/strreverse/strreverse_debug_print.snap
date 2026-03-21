@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/strreverse.rs
+source: vb6parse/src/syntax/library/functions/string/strreverse.rs
 expression: tree
 ---
 root:
@@ -37,14 +37,26 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: StrReverse
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: message
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: StrReverse
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: message
+                            - kind: RightParenthesis
+                              text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

@@ -224,14 +224,24 @@ cst:
                     text: BASS_SetConfigPtr
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: BASS_CONFIG_NET_PROXY
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: vbNullString
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: BASS_CONFIG_NET_PROXY
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: vbNullString
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -246,8 +256,14 @@ cst:
                     text: BASS_StreamFree
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: chan
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: chan
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -262,8 +278,14 @@ cst:
                     text: BASS_ChannelFree
                   - kind: LeftParenthesis
                     text: (
-                  - kind: Identifier
-                    text: chan
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: chan
                   - kind: RightParenthesis
                     text: )
                   - kind: Newline
@@ -416,16 +438,22 @@ cst:
                 children:
                   - kind: Identifier
                     text: SUBDOWNLOADPROC
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "0"
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Newline
-                    text: "\n"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Comma
+                                text: ","
+                      - kind: Whitespace
+                        text: " "
+              - kind: Unknown
+                text: "0"
+              - kind: Unknown
+                text: )
+              - kind: Newline
+                text: "\n"
               - kind: Newline
                 text: "\n"
               - kind: IfStatement
@@ -486,8 +514,14 @@ cst:
                             text: MsgBox
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteral
-                            text: "\"Can't play the stream\""
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"Can't play the stream\""
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace

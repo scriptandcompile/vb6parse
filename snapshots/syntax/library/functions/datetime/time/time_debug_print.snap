@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/time.rs
+source: vb6parse/src/syntax/library/functions/datetime/time.rs
 expression: tree
 ---
 root:
@@ -37,8 +37,14 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: TimeKeyword
-                  text: Time
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: TimeKeyword
+                              text: Time
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

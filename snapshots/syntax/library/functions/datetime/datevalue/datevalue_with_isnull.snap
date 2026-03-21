@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/datetime/datevalue.rs
+source: vb6parse/src/syntax/library/functions/datetime/datevalue.rs
 expression: tree
 ---
 root:
@@ -81,8 +81,14 @@ root:
                   text: Process
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: result
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: result
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

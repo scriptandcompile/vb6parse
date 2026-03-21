@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/graphics/tab.rs
+source: vb6parse/src/syntax/library/functions/graphics/tab.rs
 expression: tree
 ---
 root:
@@ -37,22 +37,34 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: Tab
-                - kind: LeftParenthesis
-                  text: (
-                - kind: IntegerLiteral
-                  text: "15"
-                - kind: RightParenthesis
-                  text: )
-                - kind: Semicolon
-                  text: ;
-                - kind: Whitespace
-                  text: " "
-                - kind: StringLiteral
-                  text: "\"Debug info\""
-                - kind: Newline
-                  text: "\n"
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: Tab
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: NumericLiteralExpression
+                                      children:
+                                        - kind: IntegerLiteral
+                                          text: "15"
+                            - kind: RightParenthesis
+                              text: )
+            - kind: Unknown
+              text: ;
+            - kind: Whitespace
+              text: " "
+            - kind: Unknown
+              text: "\"Debug info\""
+            - kind: Newline
+              text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

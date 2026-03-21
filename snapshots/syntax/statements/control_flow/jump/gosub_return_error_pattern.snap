@@ -107,12 +107,18 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: Err
-                - kind: PeriodOperator
-                  text: "."
-                - kind: Identifier
-                  text: Description
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: MemberAccessExpression
+                          children:
+                            - kind: Identifier
+                              text: Err
+                            - kind: PeriodOperator
+                              text: "."
+                            - kind: Identifier
+                              text: Description
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

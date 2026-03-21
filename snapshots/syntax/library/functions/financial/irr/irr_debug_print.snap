@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/financial/irr.rs
+source: vb6parse/src/syntax/library/functions/financial/irr.rs
 expression: tree
 ---
 root:
@@ -37,50 +37,84 @@ root:
                   text: Print
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"IRR: \""
-                - kind: Whitespace
-                  text: " "
-                - kind: Ampersand
-                  text: "&"
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: Format$
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: IRR
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: cashFlows
-                - kind: RightParenthesis
-                  text: )
-                - kind: Whitespace
-                  text: " "
-                - kind: MultiplicationOperator
-                  text: "*"
-                - kind: Whitespace
-                  text: " "
-                - kind: IntegerLiteral
-                  text: "100"
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: StringLiteral
-                  text: "\"0.00\""
-                - kind: RightParenthesis
-                  text: )
-                - kind: Whitespace
-                  text: " "
-                - kind: Ampersand
-                  text: "&"
-                - kind: Whitespace
-                  text: " "
-                - kind: StringLiteral
-                  text: "\"%\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: BinaryExpression
+                          children:
+                            - kind: BinaryExpression
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"IRR: \""
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Ampersand
+                                  text: "&"
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: CallExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: Format$
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: BinaryExpression
+                                              children:
+                                                - kind: CallExpression
+                                                  children:
+                                                    - kind: Identifier
+                                                      text: IRR
+                                                    - kind: LeftParenthesis
+                                                      text: (
+                                                    - kind: ArgumentList
+                                                      children:
+                                                        - kind: Argument
+                                                          children:
+                                                            - kind: IdentifierExpression
+                                                              children:
+                                                                - kind: Identifier
+                                                                  text: cashFlows
+                                                    - kind: RightParenthesis
+                                                      text: )
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: MultiplicationOperator
+                                                  text: "*"
+                                                - kind: Whitespace
+                                                  text: " "
+                                                - kind: NumericLiteralExpression
+                                                  children:
+                                                    - kind: IntegerLiteral
+                                                      text: "100"
+                                        - kind: Comma
+                                          text: ","
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: Argument
+                                          children:
+                                            - kind: StringLiteralExpression
+                                              children:
+                                                - kind: StringLiteral
+                                                  text: "\"0.00\""
+                                    - kind: RightParenthesis
+                                      text: )
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Ampersand
+                              text: "&"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"%\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/interaction/command.rs
+source: vb6parse/src/syntax/library/functions/interaction/command.rs
 expression: tree
 ---
 root:
@@ -51,8 +51,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"No arguments\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"No arguments\""
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

@@ -426,8 +426,14 @@ cst:
                     text: ZOrder
                   - kind: Whitespace
                     text: " "
-                  - kind: IntegerLiteral
-                    text: "1"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
                   - kind: Newline
                     text: "\r\n"
               - kind: IfStatement
@@ -580,10 +586,18 @@ cst:
                             text: move
                           - kind: Whitespace
                             text: " "
-                          - kind: SubtractionOperator
-                            text: "-"
-                          - kind: IntegerLiteral
-                            text: "100000"
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: UnaryExpression
+                                    children:
+                                      - kind: SubtractionOperator
+                                        text: "-"
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "100000"
                           - kind: Newline
                             text: "\r\n"
                       - kind: IfStatement
@@ -628,10 +642,18 @@ cst:
                                 text: move
                               - kind: Whitespace
                                 text: " "
-                              - kind: SubtractionOperator
-                                text: "-"
-                              - kind: IntegerLiteral
-                                text: "30000"
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: UnaryExpression
+                                        children:
+                                          - kind: SubtractionOperator
+                                            text: "-"
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "30000"
                               - kind: Newline
                                 text: "\r\n"
                           - kind: Newline
@@ -1224,8 +1246,14 @@ cst:
                     text: SetErrorMode
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: SEM_NOGPFAULTERRORBOX
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: SEM_NOGPFAULTERRORBOX
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword
@@ -1796,42 +1824,60 @@ cst:
                     text: move
                   - kind: Whitespace
                     text: " "
-                  - kind: Identifier
-                    text: Form1
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Left
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Form1
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: top
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Form1
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: WidthKeyword
-                    text: Width
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Form1
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Height
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Form1
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Left
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Form1
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: top
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Form1
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: WidthKeyword
+                                text: Width
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Form1
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Height
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword
@@ -2056,8 +2102,14 @@ cst:
                 children:
                   - kind: Identifier
                     text: HFFFF
-                  - kind: Ampersand
-                    text: "&"
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Ampersand
+                                text: "&"
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace

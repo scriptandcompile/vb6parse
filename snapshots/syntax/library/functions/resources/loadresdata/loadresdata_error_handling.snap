@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/resources/loadresdata.rs
+source: vb6parse/src/syntax/library/functions/resources/loadresdata.rs
 expression: tree
 ---
 root:
@@ -113,8 +113,14 @@ root:
                   text: MsgBox
                 - kind: Whitespace
                   text: " "
-                - kind: StringLiteral
-                  text: "\"Resource not found\""
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Resource not found\""
                 - kind: Newline
                   text: "\n"
             - kind: Whitespace

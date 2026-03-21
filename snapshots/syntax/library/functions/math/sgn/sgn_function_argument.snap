@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/math/sgn.rs
+source: vb6parse/src/syntax/library/functions/math/sgn.rs
 expression: tree
 ---
 root:
@@ -71,14 +71,26 @@ root:
                   text: ProcessSign
                 - kind: Whitespace
                   text: " "
-                - kind: Identifier
-                  text: Sgn
-                - kind: LeftParenthesis
-                  text: (
-                - kind: Identifier
-                  text: value
-                - kind: RightParenthesis
-                  text: )
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: Sgn
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: value
+                            - kind: RightParenthesis
+                              text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

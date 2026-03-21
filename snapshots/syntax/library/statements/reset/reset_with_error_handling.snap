@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/file_operations/reset.rs
+source: vb6parse/src/syntax/library/statements/file_operations/reset.rs
 expression: tree
 ---
 root:
@@ -97,8 +97,14 @@ root:
                           text: MsgBox
                         - kind: Whitespace
                           text: " "
-                        - kind: StringLiteral
-                          text: "\"Error closing files\""
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Error closing files\""
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/graphics/rgb.rs
+source: vb6parse/src/syntax/library/functions/graphics/rgb.rs
 expression: tree
 ---
 root:
@@ -19,58 +19,86 @@ root:
           text: " "
         - kind: LeftParenthesis
           text: (
-        - kind: IntegerLiteral
-          text: "0"
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "0"
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: NumericLiteralExpression
+                  children:
+                    - kind: IntegerLiteral
+                      text: "0"
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: NumericLiteralExpression
+                  children:
+                    - kind: IntegerLiteral
+                      text: "0"
         - kind: RightParenthesis
           text: )
-        - kind: SubtractionOperator
-          text: "-"
-        - kind: LeftParenthesis
-          text: (
-        - kind: IntegerLiteral
-          text: "100"
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "100"
-        - kind: RightParenthesis
-          text: )
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
+    - kind: Unknown
+      text: "-"
+    - kind: Unknown
+      text: (
+    - kind: Unknown
+      text: "100"
+    - kind: Unknown
+      text: ","
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "100"
+    - kind: Unknown
+      text: )
+    - kind: Unknown
+      text: ","
+    - kind: Whitespace
+      text: " "
+    - kind: CallStatement
+      children:
         - kind: Identifier
           text: RGB
         - kind: LeftParenthesis
           text: (
-        - kind: IntegerLiteral
-          text: "255"
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "0"
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
-        - kind: IntegerLiteral
-          text: "0"
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: NumericLiteralExpression
+                  children:
+                    - kind: IntegerLiteral
+                      text: "255"
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: NumericLiteralExpression
+                  children:
+                    - kind: IntegerLiteral
+                      text: "0"
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: NumericLiteralExpression
+                  children:
+                    - kind: IntegerLiteral
+                      text: "0"
         - kind: RightParenthesis
           text: )
-        - kind: Comma
-          text: ","
-        - kind: Whitespace
-          text: " "
+    - kind: Unknown
+      text: ","
+    - kind: Whitespace
+      text: " "
+    - kind: CallStatement
+      children:
         - kind: Identifier
           text: BF
         - kind: Newline

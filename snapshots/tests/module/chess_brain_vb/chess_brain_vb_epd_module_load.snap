@@ -3979,26 +3979,42 @@ cst:
                                                                                                         text: HashBoard
                                                                                                       - kind: Whitespace
                                                                                                         text: " "
-                                                                                                      - kind: Identifier
-                                                                                                        text: GamePosHash
-                                                                                                      - kind: LeftParenthesis
-                                                                                                        text: (
-                                                                                                      - kind: Identifier
-                                                                                                        text: GameMovesCnt
-                                                                                                      - kind: RightParenthesis
-                                                                                                        text: )
-                                                                                                      - kind: Comma
-                                                                                                        text: ","
-                                                                                                      - kind: Whitespace
-                                                                                                        text: " "
-                                                                                                      - kind: Identifier
-                                                                                                        text: EmptyMove
-                                                                                                      - kind: Whitespace
-                                                                                                        text: "  "
-                                                                                                      - kind: EndOfLineComment
-                                                                                                        text: "' for 3x repetition draw"
-                                                                                                      - kind: Newline
-                                                                                                        text: "\r\n"
+                                                                                                      - kind: ArgumentList
+                                                                                                        children:
+                                                                                                          - kind: Argument
+                                                                                                            children:
+                                                                                                              - kind: CallExpression
+                                                                                                                children:
+                                                                                                                  - kind: Identifier
+                                                                                                                    text: GamePosHash
+                                                                                                                  - kind: LeftParenthesis
+                                                                                                                    text: (
+                                                                                                                  - kind: ArgumentList
+                                                                                                                    children:
+                                                                                                                      - kind: Argument
+                                                                                                                        children:
+                                                                                                                          - kind: IdentifierExpression
+                                                                                                                            children:
+                                                                                                                              - kind: Identifier
+                                                                                                                                text: GameMovesCnt
+                                                                                                                  - kind: RightParenthesis
+                                                                                                                    text: )
+                                                                                                          - kind: Comma
+                                                                                                            text: ","
+                                                                                                          - kind: Whitespace
+                                                                                                            text: " "
+                                                                                                          - kind: Argument
+                                                                                                            children:
+                                                                                                              - kind: IdentifierExpression
+                                                                                                                children:
+                                                                                                                  - kind: Identifier
+                                                                                                                    text: EmptyMove
+                                                                                                          - kind: Whitespace
+                                                                                                            text: "  "
+                                                                                                  - kind: EndOfLineComment
+                                                                                                    text: "' for 3x repetition draw"
+                                                                                                  - kind: Newline
+                                                                                                    text: "\r\n"
                                                                                                   - kind: Whitespace
                                                                                                     text: "  "
                                                                                                   - kind: AssignmentStatement
