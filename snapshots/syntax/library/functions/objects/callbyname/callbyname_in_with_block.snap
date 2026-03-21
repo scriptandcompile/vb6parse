@@ -69,38 +69,30 @@ root:
                                       children:
                                         - kind: PeriodOperator
                                           text: "."
-                    - kind: CallStatement
-                      children:
-                        - kind: Identifier
-                          text: Item
-                        - kind: ArgumentList
-                          children:
-                            - kind: Argument
-                              children:
-                                - kind: IdentifierExpression
+                                        - kind: Identifier
+                                          text: Item
+                                - kind: Comma
+                                  text: ","
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Argument
                                   children:
-                                    - kind: Comma
-                                      text: ","
-                            - kind: Whitespace
-                              text: " "
-                    - kind: Unknown
-                      text: "\"Method\""
-                    - kind: Unknown
-                      text: ","
-                    - kind: Whitespace
-                      text: " "
-                    - kind: CallStatement
-                      children:
-                        - kind: Identifier
-                          text: VbMethod
-                        - kind: ArgumentList
-                          children:
-                            - kind: Argument
-                              children:
-                                - kind: IdentifierExpression
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Method\""
+                                - kind: Comma
+                                  text: ","
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Argument
                                   children:
-                                    - kind: RightParenthesis
-                                      text: )
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: VbMethod
+                            - kind: RightParenthesis
+                              text: )
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

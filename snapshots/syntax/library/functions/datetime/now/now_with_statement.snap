@@ -29,22 +29,18 @@ root:
                   children:
                     - kind: PeriodOperator
                       text: "."
-                - kind: BinaryExpression
+                    - kind: Identifier
+                      text: CreatedDate
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
                   children:
-                    - kind: IdentifierExpression
-                      children:
-                        - kind: Identifier
-                          text: CreatedDate
-                    - kind: Whitespace
-                      text: " "
-                    - kind: EqualityOperator
-                      text: "="
-                    - kind: Whitespace
-                      text: " "
-                    - kind: IdentifierExpression
-                      children:
-                        - kind: Identifier
-                          text: Now
+                    - kind: Identifier
+                      text: Now
                 - kind: Newline
                   text: "\n"
             - kind: Whitespace
@@ -55,22 +51,18 @@ root:
                   children:
                     - kind: PeriodOperator
                       text: "."
-                - kind: BinaryExpression
+                    - kind: Identifier
+                      text: ModifiedDate
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
                   children:
-                    - kind: IdentifierExpression
-                      children:
-                        - kind: Identifier
-                          text: ModifiedDate
-                    - kind: Whitespace
-                      text: " "
-                    - kind: EqualityOperator
-                      text: "="
-                    - kind: Whitespace
-                      text: " "
-                    - kind: IdentifierExpression
-                      children:
-                        - kind: Identifier
-                          text: Now
+                    - kind: Identifier
+                      text: Now
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

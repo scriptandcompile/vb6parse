@@ -3307,8 +3307,8 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: Identifier
-                            text: body
+                              - kind: Identifier
+                                text: body
                           - kind: Newline
                             text: "\n"
                           - kind: StatementList
@@ -3335,10 +3335,8 @@ cst:
                                     children:
                                       - kind: PeriodOperator
                                         text: "."
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: innerText
+                                      - kind: Identifier
+                                        text: innerText
                                   - kind: Newline
                                     text: "\n"
                               - kind: Whitespace

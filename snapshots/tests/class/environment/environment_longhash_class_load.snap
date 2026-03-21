@@ -2942,22 +2942,18 @@ cst:
                                     children:
                                       - kind: PeriodOperator
                                         text: "."
-                                  - kind: BinaryExpression
+                                      - kind: Identifier
+                                        text: Key
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
                                     children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: Key
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: Key
+                                      - kind: Identifier
+                                        text: Key
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -2968,22 +2964,18 @@ cst:
                                     children:
                                       - kind: PeriodOperator
                                         text: "."
-                                  - kind: BinaryExpression
+                                      - kind: Identifier
+                                        text: Container
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
                                     children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: Container
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: storethis
+                                      - kind: Identifier
+                                        text: storethis
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -2994,22 +2986,18 @@ cst:
                                     children:
                                       - kind: PeriodOperator
                                         text: "."
-                                  - kind: BinaryExpression
+                                      - kind: Identifier
+                                        text: infostr
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
                                     children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: infostr
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: andthis
+                                      - kind: Identifier
+                                        text: andthis
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -3020,22 +3008,18 @@ cst:
                                     children:
                                       - kind: PeriodOperator
                                         text: "."
-                                  - kind: BinaryExpression
+                                      - kind: Identifier
+                                        text: firsthash
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
                                     children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: firsthash
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: first
+                                      - kind: Identifier
+                                        text: first
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: CallStatement
@@ -3240,22 +3224,18 @@ cst:
                                     children:
                                       - kind: PeriodOperator
                                         text: "."
-                                  - kind: BinaryExpression
+                                      - kind: Identifier
+                                        text: Key
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
                                     children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: Key
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: Key
+                                      - kind: Identifier
+                                        text: Key
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -3266,22 +3246,18 @@ cst:
                                     children:
                                       - kind: PeriodOperator
                                         text: "."
-                                  - kind: BinaryExpression
+                                      - kind: Identifier
+                                        text: Container
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
                                     children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: Container
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: storethis
+                                      - kind: Identifier
+                                        text: storethis
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -3292,22 +3268,18 @@ cst:
                                     children:
                                       - kind: PeriodOperator
                                         text: "."
-                                  - kind: BinaryExpression
+                                      - kind: Identifier
+                                        text: firsthash
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
                                     children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: firsthash
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: first
+                                      - kind: Identifier
+                                        text: first
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: CallStatement

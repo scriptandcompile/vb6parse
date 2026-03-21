@@ -3676,18 +3676,16 @@ cst:
                                                                     children:
                                                                       - kind: PeriodOperator
                                                                         text: "."
+                                                                      - kind: Identifier
+                                                                        text: ByeBye2
+                                                                  - kind: Whitespace
+                                                                    text: " "
                                                                   - kind: IdentifierExpression
                                                                     children:
                                                                       - kind: Identifier
-                                                                        text: ByeBye2
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: LabelStatement
-                                                                children:
-                                                                  - kind: Identifier
-                                                                    text: nook
-                                                                  - kind: ColonOperator
-                                                                    text: ":"
+                                                                        text: nook
+                                                              - kind: Unknown
+                                                                text: ":"
                                                               - kind: Whitespace
                                                                 text: " "
                                                               - kind: AssignmentStatement
@@ -3918,18 +3916,16 @@ cst:
                                                                 children:
                                                                   - kind: PeriodOperator
                                                                     text: "."
+                                                                  - kind: Identifier
+                                                                    text: ByeBye2
+                                                              - kind: Whitespace
+                                                                text: " "
                                                               - kind: IdentifierExpression
                                                                 children:
                                                                   - kind: Identifier
-                                                                    text: ByeBye2
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: LabelStatement
-                                                            children:
-                                                              - kind: Identifier
-                                                                text: nook
-                                                              - kind: ColonOperator
-                                                                text: ":"
+                                                                    text: nook
+                                                          - kind: Unknown
+                                                            text: ":"
                                                           - kind: Whitespace
                                                             text: " "
                                                           - kind: AssignmentStatement
@@ -9962,14 +9958,14 @@ cst:
                                                                                                                                                     children:
                                                                                                                                                       - kind: PeriodOperator
                                                                                                                                                         text: "."
-                                                                                                                                                  - kind: IdentifierExpression
-                                                                                                                                                    children:
                                                                                                                                                       - kind: Identifier
                                                                                                                                                         text: Show
-                                                                                                                                              - kind: Whitespace
-                                                                                                                                                text: " "
-                                                                                                                                              - kind: Comma
-                                                                                                                                                text: ","
+                                                                                                                                                  - kind: Whitespace
+                                                                                                                                                    text: " "
+                                                                                                                                                  - kind: IdentifierExpression
+                                                                                                                                                    children:
+                                                                                                                                                      - kind: Comma
+                                                                                                                                                        text: ","
                                                                                                                                               - kind: Whitespace
                                                                                                                                                 text: " "
                                                                                                                                               - kind: Identifier
@@ -10024,14 +10020,14 @@ cst:
                                                                                                                                                     children:
                                                                                                                                                       - kind: PeriodOperator
                                                                                                                                                         text: "."
-                                                                                                                                                  - kind: IdentifierExpression
-                                                                                                                                                    children:
                                                                                                                                                       - kind: Identifier
                                                                                                                                                         text: Show
-                                                                                                                                              - kind: Whitespace
-                                                                                                                                                text: " "
-                                                                                                                                              - kind: Comma
-                                                                                                                                                text: ","
+                                                                                                                                                  - kind: Whitespace
+                                                                                                                                                    text: " "
+                                                                                                                                                  - kind: IdentifierExpression
+                                                                                                                                                    children:
+                                                                                                                                                      - kind: Comma
+                                                                                                                                                        text: ","
                                                                                                                                               - kind: Whitespace
                                                                                                                                                 text: " "
                                                                                                                                               - kind: Identifier
@@ -10132,12 +10128,12 @@ cst:
                                                                                                                                                     children:
                                                                                                                                                       - kind: PeriodOperator
                                                                                                                                                         text: "."
-                                                                                                                                                  - kind: IdentifierExpression
-                                                                                                                                                    children:
                                                                                                                                                       - kind: Identifier
                                                                                                                                                         text: SetFocus
-                                                                                                                                              - kind: ColonOperator
-                                                                                                                                                text: ":"
+                                                                                                                                                  - kind: IdentifierExpression
+                                                                                                                                                    children:
+                                                                                                                                                      - kind: ColonOperator
+                                                                                                                                                        text: ":"
                                                                                                                                               - kind: Whitespace
                                                                                                                                                 text: "  "
                                                                                                                                               - kind: AssignmentStatement

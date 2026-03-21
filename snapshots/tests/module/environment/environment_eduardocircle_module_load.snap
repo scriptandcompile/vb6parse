@@ -5091,16 +5091,8 @@ cst:
                                                 children:
                                                   - kind: PeriodOperator
                                                     text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: Blue
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
+                                                  - kind: Identifier
+                                                    text: Blue
                                       - kind: RightParenthesis
                                         text: )
                               - kind: Comma
@@ -5193,16 +5185,8 @@ cst:
                                                 children:
                                                   - kind: PeriodOperator
                                                     text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: Green
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
+                                                  - kind: Identifier
+                                                    text: Green
                                       - kind: RightParenthesis
                                         text: )
                               - kind: Comma
@@ -5295,16 +5279,8 @@ cst:
                                                 children:
                                                   - kind: PeriodOperator
                                                     text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: Red
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
+                                                  - kind: Identifier
+                                                    text: Red
                                       - kind: RightParenthesis
                                         text: )
                               - kind: Comma
@@ -5397,16 +5373,8 @@ cst:
                                                 children:
                                                   - kind: PeriodOperator
                                                     text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: Alpha
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
+                                                  - kind: Identifier
+                                                    text: Alpha
                                       - kind: RightParenthesis
                                         text: )
                               - kind: Comma
@@ -5473,38 +5441,34 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
+                              - kind: Identifier
+                                text: x
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
                           - kind: BinaryExpression
                             children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Scr
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Scalewidth
+                              - kind: Whitespace
+                                text: " "
+                              - kind: BackwardSlashOperator
+                                text: "\\"
+                              - kind: Whitespace
+                                text: " "
                               - kind: IdentifierExpression
                                 children:
                                   - kind: Identifier
-                                    text: x
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BinaryExpression
-                                children:
-                                  - kind: MemberAccessExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: Scr
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: Scalewidth
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: BackwardSlashOperator
-                                    text: "\\"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: dv15
+                                    text: dv15
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -5515,38 +5479,34 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
+                              - kind: Identifier
+                                text: y
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
                           - kind: BinaryExpression
                             children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Scr
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Scaleheight
+                              - kind: Whitespace
+                                text: " "
+                              - kind: BackwardSlashOperator
+                                text: "\\"
+                              - kind: Whitespace
+                                text: " "
                               - kind: IdentifierExpression
                                 children:
                                   - kind: Identifier
-                                    text: y
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BinaryExpression
-                                children:
-                                  - kind: MemberAccessExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: Scr
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: Scaleheight
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: BackwardSlashOperator
-                                    text: "\\"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: dv15
+                                    text: dv15
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -5615,16 +5575,8 @@ cst:
                                                 children:
                                                   - kind: PeriodOperator
                                                     text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: Blue
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
+                                                  - kind: Identifier
+                                                    text: Blue
                                       - kind: RightParenthesis
                                         text: )
                               - kind: Comma
@@ -5717,16 +5669,8 @@ cst:
                                                 children:
                                                   - kind: PeriodOperator
                                                     text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: Green
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
+                                                  - kind: Identifier
+                                                    text: Green
                                       - kind: RightParenthesis
                                         text: )
                               - kind: Comma
@@ -5819,16 +5763,8 @@ cst:
                                                 children:
                                                   - kind: PeriodOperator
                                                     text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: Red
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
+                                                  - kind: Identifier
+                                                    text: Red
                                       - kind: RightParenthesis
                                         text: )
                               - kind: Comma
@@ -5921,16 +5857,8 @@ cst:
                                                 children:
                                                   - kind: PeriodOperator
                                                     text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: Alpha
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
+                                                  - kind: Identifier
+                                                    text: Alpha
                                       - kind: RightParenthesis
                                         text: )
                               - kind: Comma
@@ -6043,22 +5971,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: Vertex1
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: Vertex1
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "0"
+                              - kind: IntegerLiteral
+                                text: "0"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -6069,22 +5993,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: Vertex2
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: Vertex2
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "1"
+                              - kind: IntegerLiteral
+                                text: "1"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -6523,34 +6443,30 @@ cst:
                                     children:
                                       - kind: PeriodOperator
                                         text: "."
+                                      - kind: Identifier
+                                        text: x
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
                                   - kind: BinaryExpression
                                     children:
                                       - kind: IdentifierExpression
                                         children:
                                           - kind: Identifier
-                                            text: x
+                                            text: x1
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
+                                      - kind: BackwardSlashOperator
+                                        text: "\\"
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: BinaryExpression
+                                      - kind: IdentifierExpression
                                         children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: x1
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: BackwardSlashOperator
-                                            text: "\\"
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: dv15
+                                          - kind: Identifier
+                                            text: dv15
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -6561,34 +6477,30 @@ cst:
                                     children:
                                       - kind: PeriodOperator
                                         text: "."
+                                      - kind: Identifier
+                                        text: y
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
                                   - kind: BinaryExpression
                                     children:
                                       - kind: IdentifierExpression
                                         children:
                                           - kind: Identifier
-                                            text: y
+                                            text: y1
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
+                                      - kind: BackwardSlashOperator
+                                        text: "\\"
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: BinaryExpression
+                                      - kind: IdentifierExpression
                                         children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: y1
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: BackwardSlashOperator
-                                            text: "\\"
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: dv15
+                                          - kind: Identifier
+                                            text: dv15
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -6657,16 +6569,8 @@ cst:
                                                         children:
                                                           - kind: PeriodOperator
                                                             text: "."
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: Red
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
+                                                          - kind: Identifier
+                                                            text: Red
                                               - kind: RightParenthesis
                                                 text: )
                                       - kind: Comma
@@ -6759,16 +6663,8 @@ cst:
                                                         children:
                                                           - kind: PeriodOperator
                                                             text: "."
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: Green
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
+                                                          - kind: Identifier
+                                                            text: Green
                                               - kind: RightParenthesis
                                                 text: )
                                       - kind: Comma
@@ -6861,16 +6757,8 @@ cst:
                                                         children:
                                                           - kind: PeriodOperator
                                                             text: "."
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: Blue
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
+                                                          - kind: Identifier
+                                                            text: Blue
                                               - kind: RightParenthesis
                                                 text: )
                                       - kind: Comma
@@ -6943,34 +6831,30 @@ cst:
                                     children:
                                       - kind: PeriodOperator
                                         text: "."
+                                      - kind: Identifier
+                                        text: x
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
                                   - kind: BinaryExpression
                                     children:
                                       - kind: IdentifierExpression
                                         children:
                                           - kind: Identifier
-                                            text: x
+                                            text: x2
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
+                                      - kind: BackwardSlashOperator
+                                        text: "\\"
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: BinaryExpression
+                                      - kind: IdentifierExpression
                                         children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: x2
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: BackwardSlashOperator
-                                            text: "\\"
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: dv15
+                                          - kind: Identifier
+                                            text: dv15
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -6981,34 +6865,30 @@ cst:
                                     children:
                                       - kind: PeriodOperator
                                         text: "."
+                                      - kind: Identifier
+                                        text: y
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
                                   - kind: BinaryExpression
                                     children:
                                       - kind: IdentifierExpression
                                         children:
                                           - kind: Identifier
-                                            text: y
+                                            text: y2
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
+                                      - kind: BackwardSlashOperator
+                                        text: "\\"
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: BinaryExpression
+                                      - kind: IdentifierExpression
                                         children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: y2
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: BackwardSlashOperator
-                                            text: "\\"
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: dv15
+                                          - kind: Identifier
+                                            text: dv15
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -7077,16 +6957,8 @@ cst:
                                                         children:
                                                           - kind: PeriodOperator
                                                             text: "."
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: Red
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
+                                                          - kind: Identifier
+                                                            text: Red
                                               - kind: RightParenthesis
                                                 text: )
                                       - kind: Comma
@@ -7179,16 +7051,8 @@ cst:
                                                         children:
                                                           - kind: PeriodOperator
                                                             text: "."
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: Green
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
+                                                          - kind: Identifier
+                                                            text: Green
                                               - kind: RightParenthesis
                                                 text: )
                                       - kind: Comma
@@ -7281,16 +7145,8 @@ cst:
                                                         children:
                                                           - kind: PeriodOperator
                                                             text: "."
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: Blue
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
+                                                          - kind: Identifier
+                                                            text: Blue
                                               - kind: RightParenthesis
                                                 text: )
                                       - kind: Comma
@@ -7397,22 +7253,18 @@ cst:
                                     children:
                                       - kind: PeriodOperator
                                         text: "."
-                                  - kind: BinaryExpression
+                                      - kind: Identifier
+                                        text: Vertex1
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: NumericLiteralExpression
                                     children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: Vertex1
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "0"
+                                      - kind: IntegerLiteral
+                                        text: "0"
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -7423,22 +7275,18 @@ cst:
                                     children:
                                       - kind: PeriodOperator
                                         text: "."
-                                  - kind: BinaryExpression
+                                      - kind: Identifier
+                                        text: Vertex2
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: NumericLiteralExpression
                                     children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: Vertex2
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "1"
+                                      - kind: IntegerLiteral
+                                        text: "1"
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -7663,16 +7511,8 @@ cst:
                                                             children:
                                                               - kind: PeriodOperator
                                                                 text: "."
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: Red
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
+                                                              - kind: Identifier
+                                                                text: Red
                                                   - kind: RightParenthesis
                                                     text: )
                                           - kind: Comma
@@ -7765,16 +7605,8 @@ cst:
                                                             children:
                                                               - kind: PeriodOperator
                                                                 text: "."
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: Green
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
+                                                              - kind: Identifier
+                                                                text: Green
                                                   - kind: RightParenthesis
                                                     text: )
                                           - kind: Comma
@@ -7867,16 +7699,8 @@ cst:
                                                             children:
                                                               - kind: PeriodOperator
                                                                 text: "."
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: Blue
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
+                                                              - kind: Identifier
+                                                                text: Blue
                                                   - kind: RightParenthesis
                                                     text: )
                                           - kind: Comma
@@ -7949,38 +7773,34 @@ cst:
                                         children:
                                           - kind: PeriodOperator
                                             text: "."
+                                          - kind: Identifier
+                                            text: x
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
                                       - kind: BinaryExpression
                                         children:
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: Scr
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: Scalewidth
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: BackwardSlashOperator
+                                            text: "\\"
+                                          - kind: Whitespace
+                                            text: " "
                                           - kind: IdentifierExpression
                                             children:
                                               - kind: Identifier
-                                                text: x
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: EqualityOperator
-                                            text: "="
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: BinaryExpression
-                                            children:
-                                              - kind: MemberAccessExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: Scr
-                                                  - kind: PeriodOperator
-                                                    text: "."
-                                                  - kind: Identifier
-                                                    text: Scalewidth
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: BackwardSlashOperator
-                                                text: "\\"
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: dv15
+                                                text: dv15
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace
@@ -7991,38 +7811,34 @@ cst:
                                         children:
                                           - kind: PeriodOperator
                                             text: "."
+                                          - kind: Identifier
+                                            text: y
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
                                       - kind: BinaryExpression
                                         children:
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: Scr
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: Scaleheight
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: BackwardSlashOperator
+                                            text: "\\"
+                                          - kind: Whitespace
+                                            text: " "
                                           - kind: IdentifierExpression
                                             children:
                                               - kind: Identifier
-                                                text: y
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: EqualityOperator
-                                            text: "="
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: BinaryExpression
-                                            children:
-                                              - kind: MemberAccessExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: Scr
-                                                  - kind: PeriodOperator
-                                                    text: "."
-                                                  - kind: Identifier
-                                                    text: Scaleheight
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: BackwardSlashOperator
-                                                text: "\\"
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: dv15
+                                                text: dv15
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace
@@ -8091,16 +7907,8 @@ cst:
                                                             children:
                                                               - kind: PeriodOperator
                                                                 text: "."
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: Red
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
+                                                              - kind: Identifier
+                                                                text: Red
                                                   - kind: RightParenthesis
                                                     text: )
                                           - kind: Comma
@@ -8193,16 +8001,8 @@ cst:
                                                             children:
                                                               - kind: PeriodOperator
                                                                 text: "."
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: Green
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
+                                                              - kind: Identifier
+                                                                text: Green
                                                   - kind: RightParenthesis
                                                     text: )
                                           - kind: Comma
@@ -8295,16 +8095,8 @@ cst:
                                                             children:
                                                               - kind: PeriodOperator
                                                                 text: "."
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: Blue
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
+                                                              - kind: Identifier
+                                                                text: Blue
                                                   - kind: RightParenthesis
                                                     text: )
                                           - kind: Comma
@@ -8413,22 +8205,18 @@ cst:
                                         children:
                                           - kind: PeriodOperator
                                             text: "."
-                                      - kind: BinaryExpression
+                                          - kind: Identifier
+                                            text: Vertex1
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: NumericLiteralExpression
                                         children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: Vertex1
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: EqualityOperator
-                                            text: "="
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: NumericLiteralExpression
-                                            children:
-                                              - kind: IntegerLiteral
-                                                text: "0"
+                                          - kind: IntegerLiteral
+                                            text: "0"
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace
@@ -8439,22 +8227,18 @@ cst:
                                         children:
                                           - kind: PeriodOperator
                                             text: "."
-                                      - kind: BinaryExpression
+                                          - kind: Identifier
+                                            text: Vertex2
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: NumericLiteralExpression
                                         children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: Vertex2
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: EqualityOperator
-                                            text: "="
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: NumericLiteralExpression
-                                            children:
-                                              - kind: IntegerLiteral
-                                                text: "1"
+                                          - kind: IntegerLiteral
+                                            text: "1"
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace

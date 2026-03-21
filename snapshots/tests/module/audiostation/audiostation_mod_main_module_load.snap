@@ -605,36 +605,36 @@ cst:
                                         text: "="
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IdentifierExpression
+                                      - kind: MemberAccessExpression
                                         children:
+                                          - kind: CallExpression
+                                            children:
+                                              - kind: MemberAccessExpression
+                                                children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: AdioMediaPlaylist
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: AddFile
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: MediaFile
+                                              - kind: RightParenthesis
+                                                text: )
                                           - kind: PeriodOperator
                                             text: "."
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: AdioMediaPlaylist
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: AddFile
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: MediaFile
-                                      - kind: RightParenthesis
-                                        text: )
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: nR
+                                          - kind: Identifier
+                                            text: nR
                                       - kind: Newline
                                         text: "\n"
                                   - kind: CallStatement
@@ -731,36 +731,36 @@ cst:
                                         text: "="
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IdentifierExpression
+                                      - kind: MemberAccessExpression
                                         children:
+                                          - kind: CallExpression
+                                            children:
+                                              - kind: MemberAccessExpression
+                                                children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: AdioMidiPlaylist
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: AddFile
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: MediaFile
+                                              - kind: RightParenthesis
+                                                text: )
                                           - kind: PeriodOperator
                                             text: "."
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: AdioMidiPlaylist
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: AddFile
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: MediaFile
-                                      - kind: RightParenthesis
-                                        text: )
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: nR
+                                          - kind: Identifier
+                                            text: nR
                                       - kind: Newline
                                         text: "\n"
                                   - kind: CallStatement

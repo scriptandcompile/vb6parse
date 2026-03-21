@@ -1304,11 +1304,11 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: QueryInterface
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Whitespace
             text: " "
@@ -1322,11 +1322,11 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: AddRef
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Whitespace
             text: " "
@@ -1340,11 +1340,11 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: Release
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Whitespace
             text: " "
@@ -1382,31 +1382,31 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: eConsole
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: eMultimedia
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: eCommunications
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
@@ -1436,31 +1436,31 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: eRender
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: eCapture
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: eAll
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
@@ -1490,11 +1490,11 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: EnumAudioEndpoints
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Whitespace
             text: " "
@@ -1508,11 +1508,11 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: GetDefaultAudioEndpoint
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Whitespace
             text: " "
@@ -1530,11 +1530,11 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: GetDevice
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Whitespace
             text: " "
@@ -1548,11 +1548,11 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: RegisterEndpointNotificationCallback
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Whitespace
             text: " "
@@ -1566,11 +1566,11 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: UnregisterEndpointNotificationCallback
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
@@ -1600,11 +1600,11 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: GetPeakValue
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Whitespace
             text: " "
@@ -1622,11 +1622,11 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: GetMeteringChannelCount
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Whitespace
             text: " "
@@ -1644,11 +1644,11 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: GetChannelsPeakValues
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Whitespace
             text: " "
@@ -1666,11 +1666,11 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: QueryHardwareSupport
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Whitespace
             text: " "
@@ -1708,11 +1708,11 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: Activate
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Whitespace
             text: " "
@@ -1730,11 +1730,11 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: OpenPropertyStore
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Whitespace
             text: " "
@@ -1748,11 +1748,11 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: GetId
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Whitespace
             text: " "
@@ -1766,11 +1766,11 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: GetState
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Whitespace
             text: " "

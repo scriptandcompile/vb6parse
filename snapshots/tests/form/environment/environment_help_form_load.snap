@@ -1694,46 +1694,42 @@ cst:
                                     children:
                                       - kind: PeriodOperator
                                         text: "."
+                                      - kind: Identifier
+                                        text: WordCharRightButIncluded
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
                                   - kind: BinaryExpression
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: CallExpression
                                         children:
                                           - kind: Identifier
-                                            text: WordCharRightButIncluded
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: BinaryExpression
-                                        children:
-                                          - kind: CallExpression
+                                            text: ChrW
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
                                             children:
-                                              - kind: Identifier
-                                                text: ChrW
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: ArgumentList
+                                              - kind: Argument
                                                 children:
-                                                  - kind: Argument
+                                                  - kind: NumericLiteralExpression
                                                     children:
-                                                      - kind: NumericLiteralExpression
-                                                        children:
-                                                          - kind: IntegerLiteral
-                                                            text: "160"
-                                              - kind: RightParenthesis
-                                                text: )
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: AdditionOperator
-                                            text: +
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: StringLiteralExpression
-                                            children:
-                                              - kind: StringLiteral
-                                                text: "\"(\""
+                                                      - kind: IntegerLiteral
+                                                        text: "160"
+                                          - kind: RightParenthesis
+                                            text: )
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: AdditionOperator
+                                        text: +
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"(\""
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: AssignmentStatement
@@ -1742,306 +1738,302 @@ cst:
                                     children:
                                       - kind: PeriodOperator
                                         text: "."
-                                  - kind: BinaryExpression
+                                      - kind: Identifier
+                                        text: WordCharLeft
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: CallExpression
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: Identifier
+                                        text: ConCat
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
                                         children:
-                                          - kind: Identifier
-                                            text: WordCharLeft
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: CallExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: ConCat
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: ArgumentList
+                                          - kind: Argument
                                             children:
-                                              - kind: Argument
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\":\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\":\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"{\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"{\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"}\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"}\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"[\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"[\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"]\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"]\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\",\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\",\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"(\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"(\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\")\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\")\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"!\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"!\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\";\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\";\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"=\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"=\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\">\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\">\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"<\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"<\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"'\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"'\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"\"\"\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"\"\"\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\" \""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\" \""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"+\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"+\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"-\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"-\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"/\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"/\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"*\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"*\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"^\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"^\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"@\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"@\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: CallExpression
                                                 children:
-                                                  - kind: CallExpression
+                                                  - kind: Identifier
+                                                    text: Chr$
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
                                                     children:
-                                                      - kind: Identifier
-                                                        text: Chr$
-                                                      - kind: LeftParenthesis
-                                                        text: (
-                                                      - kind: ArgumentList
+                                                      - kind: Argument
                                                         children:
-                                                          - kind: Argument
+                                                          - kind: NumericLiteralExpression
                                                             children:
-                                                              - kind: NumericLiteralExpression
-                                                                children:
-                                                                  - kind: IntegerLiteral
-                                                                    text: "9"
-                                                      - kind: RightParenthesis
-                                                        text: )
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                              - kind: IntegerLiteral
+                                                                text: "9"
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"#\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"#\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"%\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"%\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"&\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"&\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"$\""
-                                          - kind: RightParenthesis
-                                            text: )
+                                                  - kind: StringLiteral
+                                                    text: "\"$\""
+                                      - kind: RightParenthesis
+                                        text: )
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: AssignmentStatement
@@ -2050,256 +2042,252 @@ cst:
                                     children:
                                       - kind: PeriodOperator
                                         text: "."
-                                  - kind: BinaryExpression
+                                      - kind: Identifier
+                                        text: WordCharRight
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: CallExpression
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: Identifier
+                                        text: ConCat
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
                                         children:
-                                          - kind: Identifier
-                                            text: WordCharRight
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: CallExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: ConCat
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: ArgumentList
+                                          - kind: Argument
                                             children:
-                                              - kind: Argument
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\":\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\":\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"{\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"{\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"}\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"}\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"[\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"[\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"]\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"]\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\",\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\",\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\")\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\")\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"!\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"!\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\";\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\";\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"=\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"=\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\">\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\">\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"<\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"<\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"'\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"'\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"\"\"\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"\"\"\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\" \""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\" \""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"+\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"+\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"-\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"-\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"/\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"/\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"*\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"*\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"^\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: StringLiteral
+                                                    text: "\"^\""
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: CallExpression
                                                 children:
-                                                  - kind: CallExpression
+                                                  - kind: Identifier
+                                                    text: Chr$
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
                                                     children:
-                                                      - kind: Identifier
-                                                        text: Chr$
-                                                      - kind: LeftParenthesis
-                                                        text: (
-                                                      - kind: ArgumentList
+                                                      - kind: Argument
                                                         children:
-                                                          - kind: Argument
+                                                          - kind: NumericLiteralExpression
                                                             children:
-                                                              - kind: NumericLiteralExpression
-                                                                children:
-                                                                  - kind: IntegerLiteral
-                                                                    text: "9"
-                                                      - kind: RightParenthesis
-                                                        text: )
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                              - kind: IntegerLiteral
+                                                                text: "9"
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: StringLiteralExpression
-                                                    children:
-                                                      - kind: StringLiteral
-                                                        text: "\"#\""
-                                          - kind: RightParenthesis
-                                            text: )
+                                                  - kind: StringLiteral
+                                                    text: "\"#\""
+                                      - kind: RightParenthesis
+                                        text: )
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: EndOfLineComment
@@ -2312,22 +2300,18 @@ cst:
                                     children:
                                       - kind: PeriodOperator
                                         text: "."
-                                  - kind: BinaryExpression
+                                      - kind: Identifier
+                                        text: WordCharLeftButIncluded
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: StringLiteralExpression
                                     children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: WordCharLeftButIncluded
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: StringLiteralExpression
-                                        children:
-                                          - kind: StringLiteral
-                                            text: "\"#$@~\""
+                                      - kind: StringLiteral
+                                        text: "\"#$@~\""
                                   - kind: Newline
                                     text: "\r\n"
                           - kind: ElseClause
@@ -2344,22 +2328,18 @@ cst:
                                         children:
                                           - kind: PeriodOperator
                                             text: "."
-                                      - kind: BinaryExpression
+                                          - kind: Identifier
+                                            text: WordCharLeft
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: StringLiteralExpression
                                         children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: WordCharLeft
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: EqualityOperator
-                                            text: "="
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: StringLiteralExpression
-                                            children:
-                                              - kind: StringLiteral
-                                                text: "\"['\""
+                                          - kind: StringLiteral
+                                            text: "\"['\""
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: AssignmentStatement
@@ -2368,22 +2348,18 @@ cst:
                                         children:
                                           - kind: PeriodOperator
                                             text: "."
-                                      - kind: BinaryExpression
+                                          - kind: Identifier
+                                            text: WordCharRight
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: StringLiteralExpression
                                         children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: WordCharRight
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: EqualityOperator
-                                            text: "="
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: StringLiteralExpression
-                                            children:
-                                              - kind: StringLiteral
-                                                text: "\"']\""
+                                          - kind: StringLiteral
+                                            text: "\"']\""
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: AssignmentStatement
@@ -2392,34 +2368,30 @@ cst:
                                         children:
                                           - kind: PeriodOperator
                                             text: "."
-                                      - kind: BinaryExpression
+                                          - kind: Identifier
+                                            text: WordCharRightButIncluded
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: CallExpression
                                         children:
-                                          - kind: IdentifierExpression
+                                          - kind: Identifier
+                                            text: ChrW
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
                                             children:
-                                              - kind: Identifier
-                                                text: WordCharRightButIncluded
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: EqualityOperator
-                                            text: "="
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: CallExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: ChrW
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: ArgumentList
+                                              - kind: Argument
                                                 children:
-                                                  - kind: Argument
+                                                  - kind: NumericLiteralExpression
                                                     children:
-                                                      - kind: NumericLiteralExpression
-                                                        children:
-                                                          - kind: IntegerLiteral
-                                                            text: "160"
-                                              - kind: RightParenthesis
-                                                text: )
+                                                      - kind: IntegerLiteral
+                                                        text: "160"
+                                          - kind: RightParenthesis
+                                            text: )
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: AssignmentStatement
@@ -2428,22 +2400,18 @@ cst:
                                         children:
                                           - kind: PeriodOperator
                                             text: "."
-                                      - kind: BinaryExpression
+                                          - kind: Identifier
+                                            text: WordCharLeftButIncluded
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: IdentifierExpression
                                         children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: WordCharLeftButIncluded
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: EqualityOperator
-                                            text: "="
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: vbNullString
+                                          - kind: Identifier
+                                            text: vbNullString
                                       - kind: Newline
                                         text: "\r\n"
                           - kind: EndKeyword

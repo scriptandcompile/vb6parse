@@ -93,28 +93,24 @@ root:
                                       children:
                                         - kind: PeriodOperator
                                           text: "."
-                    - kind: CallStatement
-                      children:
-                        - kind: TextKeyword
-                          text: Text
-                        - kind: ArgumentList
-                          children:
-                            - kind: Argument
-                              children:
-                                - kind: MemberAccessExpression
+                                        - kind: Identifier
+                                          text: Text
+                                - kind: Comma
+                                  text: ","
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Argument
                                   children:
-                                    - kind: Comma
-                                      text: ","
-                                    - kind: Whitespace
-                                      text: " "
-                                    - kind: PeriodOperator
-                                      text: "."
-                                    - kind: Identifier
-                                      text: Delimiter
-                    - kind: Unknown
-                      text: )
-                    - kind: Newline
-                      text: "\n"
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: PeriodOperator
+                                          text: "."
+                                        - kind: Identifier
+                                          text: Delimiter
+                            - kind: RightParenthesis
+                              text: )
+                        - kind: Newline
+                          text: "\n"
                     - kind: Whitespace
                       text: "    "
                 - kind: EndKeyword

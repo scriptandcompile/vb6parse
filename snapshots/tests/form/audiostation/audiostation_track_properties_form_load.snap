@@ -348,50 +348,50 @@ cst:
                                         text: "&"
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IdentifierExpression
+                                      - kind: CallExpression
                                         children:
-                                          - kind: PeriodOperator
-                                            text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: AdioTagging
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: ReadTag
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: File
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: tArtist
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: v2
-                          - kind: RightParenthesis
-                            text: )
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: AdioTagging
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: ReadTag
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: File
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: tArtist
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: v2
+                                          - kind: RightParenthesis
+                                            text: )
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace
@@ -458,50 +458,50 @@ cst:
                                         text: "&"
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IdentifierExpression
+                                      - kind: CallExpression
                                         children:
-                                          - kind: PeriodOperator
-                                            text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: AdioTagging
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: ReadTag
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: File
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: tTitle
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: v2
-                          - kind: RightParenthesis
-                            text: )
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: AdioTagging
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: ReadTag
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: File
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: tTitle
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: v2
+                                          - kind: RightParenthesis
+                                            text: )
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace
@@ -568,50 +568,50 @@ cst:
                                         text: "&"
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IdentifierExpression
+                                      - kind: CallExpression
                                         children:
-                                          - kind: PeriodOperator
-                                            text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: AdioTagging
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: ReadTag
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: File
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: tAlbum
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: v2
-                          - kind: RightParenthesis
-                            text: )
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: AdioTagging
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: ReadTag
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: File
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: tAlbum
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: v2
+                                          - kind: RightParenthesis
+                                            text: )
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace
@@ -678,50 +678,50 @@ cst:
                                         text: "&"
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IdentifierExpression
+                                      - kind: CallExpression
                                         children:
-                                          - kind: PeriodOperator
-                                            text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: AdioTagging
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: ReadTag
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: File
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: tYear
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: v2
-                          - kind: RightParenthesis
-                            text: )
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: AdioTagging
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: ReadTag
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: File
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: tYear
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: v2
+                                          - kind: RightParenthesis
+                                            text: )
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace
@@ -788,50 +788,50 @@ cst:
                                         text: "&"
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IdentifierExpression
+                                      - kind: CallExpression
                                         children:
-                                          - kind: PeriodOperator
-                                            text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: AdioTagging
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: ReadTag
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: File
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: tGenre
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: v2
-                          - kind: RightParenthesis
-                            text: )
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: AdioTagging
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: ReadTag
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: File
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: tGenre
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: v2
+                                          - kind: RightParenthesis
+                                            text: )
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace
@@ -874,60 +874,64 @@ cst:
                                 children:
                                   - kind: BinaryExpression
                                     children:
-                                      - kind: StringLiteralExpression
+                                      - kind: BinaryExpression
                                         children:
-                                          - kind: StringLiteral
-                                            text: "\"Biterate: \""
+                                          - kind: StringLiteralExpression
+                                            children:
+                                              - kind: StringLiteral
+                                                text: "\"Biterate: \""
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Ampersand
+                                            text: "&"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: CallExpression
+                                            children:
+                                              - kind: MemberAccessExpression
+                                                children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: AdioTagging
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: ReadProperty
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: File
+                                                  - kind: Comma
+                                                    text: ","
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: pBitrate
+                                              - kind: RightParenthesis
+                                                text: )
                                       - kind: Whitespace
                                         text: " "
                                       - kind: Ampersand
                                         text: "&"
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IdentifierExpression
+                                      - kind: StringLiteralExpression
                                         children:
-                                          - kind: PeriodOperator
-                                            text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: AdioTagging
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: ReadProperty
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: File
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: pBitrate
-                          - kind: RightParenthesis
-                            text: )
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Unknown
-                        text: "&"
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Unknown
-                        text: "\"kbps\""
-                      - kind: Newline
-                        text: "\n"
+                                          - kind: StringLiteral
+                                            text: "\"kbps\""
+                          - kind: Newline
+                            text: "\n"
                       - kind: Whitespace
                         text: "    "
                       - kind: CallStatement
@@ -956,40 +960,40 @@ cst:
                                         text: "&"
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IdentifierExpression
+                                      - kind: CallExpression
                                         children:
-                                          - kind: PeriodOperator
-                                            text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: AdioTagging
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: ReadProperty
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: File
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: pChannels
-                          - kind: RightParenthesis
-                            text: )
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: AdioTagging
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: ReadProperty
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: File
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: pChannels
+                                          - kind: RightParenthesis
+                                            text: )
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace
@@ -1020,40 +1024,40 @@ cst:
                                         text: "&"
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IdentifierExpression
+                                      - kind: CallExpression
                                         children:
-                                          - kind: PeriodOperator
-                                            text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: AdioTagging
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: ReadProperty
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: File
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: pFrequency
-                          - kind: RightParenthesis
-                            text: )
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: AdioTagging
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: ReadProperty
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: File
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: pFrequency
+                                          - kind: RightParenthesis
+                                            text: )
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace
@@ -1084,40 +1088,40 @@ cst:
                                         text: "&"
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IdentifierExpression
+                                      - kind: CallExpression
                                         children:
-                                          - kind: PeriodOperator
-                                            text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: AdioTagging
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: ReadProperty
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: File
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: pDurationInSeconds
-                          - kind: RightParenthesis
-                            text: )
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: AdioTagging
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: ReadProperty
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: File
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: pDurationInSeconds
+                                          - kind: RightParenthesis
+                                            text: )
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace

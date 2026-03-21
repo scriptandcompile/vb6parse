@@ -1954,26 +1954,22 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: bmWidth
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: MemberAccessExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: bmWidth
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: MemberAccessExpression
-                                children:
-                                  - kind: Identifier
-                                    text: bm
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: Identifier
-                                    text: bmWidth
+                              - kind: Identifier
+                                text: bm
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: bmWidth
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -1984,26 +1980,22 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: bmHeight
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: MemberAccessExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: bmHeight
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: MemberAccessExpression
-                                children:
-                                  - kind: Identifier
-                                    text: bm
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: Identifier
-                                    text: bmHeight
+                              - kind: Identifier
+                                text: bm
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: bmHeight
                           - kind: Newline
                             text: "\r\n"
                       - kind: IfStatement
@@ -2030,56 +2022,46 @@ cst:
                                 children:
                                   - kind: PeriodOperator
                                     text: "."
+                                  - kind: Identifier
+                                    text: bmHeight
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
                               - kind: BinaryExpression
                                 children:
+                                  - kind: UnaryExpression
+                                    children:
+                                      - kind: SubtractionOperator
+                                        text: "-"
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "1"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: MultiplicationOperator
+                                    text: "*"
+                                  - kind: Whitespace
+                                    text: " "
                                   - kind: IdentifierExpression
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: bmHeight
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: EqualityOperator
-                                    text: "="
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: UnaryExpression
-                                        children:
-                                          - kind: SubtractionOperator
-                                            text: "-"
-                                          - kind: NumericLiteralExpression
-                                            children:
-                                              - kind: IntegerLiteral
-                                                text: "1"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: MultiplicationOperator
-                                        text: "*"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: PeriodOperator
-                                            text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: bmHeight
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Whitespace
-                        text: "        "
-                      - kind: AssignmentStatement
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: PeriodOperator
-                                text: "."
-                          - kind: BinaryExpression
+                              - kind: Newline
+                                text: "\r\n"
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: AssignmentStatement
                             children:
                               - kind: IdentifierExpression
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: bmSize
                               - kind: Whitespace
@@ -2092,12 +2074,12 @@ cst:
                                 children:
                                   - kind: IntegerLiteral
                                     text: "40"
-                      - kind: Whitespace
-                        text: "                "
-                      - kind: EndOfLineComment
-                        text: "'Size, in bytes, of the header"
-                      - kind: Newline
-                        text: "\r\n"
+                          - kind: Whitespace
+                            text: "                "
+                          - kind: EndOfLineComment
+                            text: "'Size, in bytes, of the header"
+                          - kind: Newline
+                            text: "\r\n"
                       - kind: Whitespace
                         text: "        "
                       - kind: AssignmentStatement
@@ -2106,22 +2088,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: bmPlanes
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: bmPlanes
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "1"
+                              - kind: IntegerLiteral
+                                text: "1"
                       - kind: Whitespace
                         text: "               "
                       - kind: EndOfLineComment
@@ -2136,22 +2114,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: bmBitCount
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: bmBitCount
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "24"
+                              - kind: IntegerLiteral
+                                text: "24"
                       - kind: Whitespace
                         text: "            "
                       - kind: EndOfLineComment
@@ -2166,22 +2140,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: bmCompression
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: bmCompression
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "0"
+                              - kind: IntegerLiteral
+                                text: "0"
                       - kind: Whitespace
                         text: "          "
                       - kind: EndOfLineComment
@@ -2630,22 +2600,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: bmWidth
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: bmWidth
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: imgWidth
+                              - kind: Identifier
+                                text: imgWidth
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -2656,22 +2622,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: bmHeight
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: bmHeight
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: imgHeight
+                              - kind: Identifier
+                                text: imgHeight
                           - kind: Newline
                             text: "\r\n"
                       - kind: IfStatement
@@ -2698,56 +2660,46 @@ cst:
                                 children:
                                   - kind: PeriodOperator
                                     text: "."
+                                  - kind: Identifier
+                                    text: bmHeight
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
                               - kind: BinaryExpression
                                 children:
+                                  - kind: UnaryExpression
+                                    children:
+                                      - kind: SubtractionOperator
+                                        text: "-"
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "1"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: MultiplicationOperator
+                                    text: "*"
+                                  - kind: Whitespace
+                                    text: " "
                                   - kind: IdentifierExpression
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: bmHeight
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: EqualityOperator
-                                    text: "="
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: UnaryExpression
-                                        children:
-                                          - kind: SubtractionOperator
-                                            text: "-"
-                                          - kind: NumericLiteralExpression
-                                            children:
-                                              - kind: IntegerLiteral
-                                                text: "1"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: MultiplicationOperator
-                                        text: "*"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: PeriodOperator
-                                            text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: bmHeight
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Whitespace
-                        text: "        "
-                      - kind: AssignmentStatement
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: PeriodOperator
-                                text: "."
-                          - kind: BinaryExpression
+                              - kind: Newline
+                                text: "\r\n"
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: AssignmentStatement
                             children:
                               - kind: IdentifierExpression
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: bmSize
                               - kind: Whitespace
@@ -2760,12 +2712,12 @@ cst:
                                 children:
                                   - kind: IntegerLiteral
                                     text: "40"
-                      - kind: Whitespace
-                        text: "                "
-                      - kind: EndOfLineComment
-                        text: "'Size, in bytes, of the header"
-                      - kind: Newline
-                        text: "\r\n"
+                          - kind: Whitespace
+                            text: "                "
+                          - kind: EndOfLineComment
+                            text: "'Size, in bytes, of the header"
+                          - kind: Newline
+                            text: "\r\n"
                       - kind: Whitespace
                         text: "        "
                       - kind: AssignmentStatement
@@ -2774,22 +2726,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: bmPlanes
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: bmPlanes
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "1"
+                              - kind: IntegerLiteral
+                                text: "1"
                       - kind: Whitespace
                         text: "               "
                       - kind: EndOfLineComment
@@ -2804,22 +2752,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: bmBitCount
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: bmBitCount
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "24"
+                              - kind: IntegerLiteral
+                                text: "24"
                       - kind: Whitespace
                         text: "            "
                       - kind: EndOfLineComment
@@ -2834,22 +2778,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: bmCompression
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: bmCompression
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "0"
+                              - kind: IntegerLiteral
+                                text: "0"
                       - kind: Whitespace
                         text: "          "
                       - kind: EndOfLineComment

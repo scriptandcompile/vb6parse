@@ -29,34 +29,30 @@ root:
                   children:
                     - kind: PeriodOperator
                       text: "."
-                - kind: BinaryExpression
+                    - kind: Identifier
+                      text: BackColor
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
                   children:
-                    - kind: IdentifierExpression
+                    - kind: Identifier
+                      text: QBColor
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
                       children:
-                        - kind: Identifier
-                          text: BackColor
-                    - kind: Whitespace
-                      text: " "
-                    - kind: EqualityOperator
-                      text: "="
-                    - kind: Whitespace
-                      text: " "
-                    - kind: CallExpression
-                      children:
-                        - kind: Identifier
-                          text: QBColor
-                        - kind: LeftParenthesis
-                          text: (
-                        - kind: ArgumentList
+                        - kind: Argument
                           children:
-                            - kind: Argument
+                            - kind: NumericLiteralExpression
                               children:
-                                - kind: NumericLiteralExpression
-                                  children:
-                                    - kind: IntegerLiteral
-                                      text: "0"
-                        - kind: RightParenthesis
-                          text: )
+                                - kind: IntegerLiteral
+                                  text: "0"
+                    - kind: RightParenthesis
+                      text: )
                 - kind: Newline
                   text: "\n"
             - kind: Whitespace
@@ -67,34 +63,30 @@ root:
                   children:
                     - kind: PeriodOperator
                       text: "."
-                - kind: BinaryExpression
+                    - kind: Identifier
+                      text: ForeColor
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
                   children:
-                    - kind: IdentifierExpression
+                    - kind: Identifier
+                      text: QBColor
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
                       children:
-                        - kind: Identifier
-                          text: ForeColor
-                    - kind: Whitespace
-                      text: " "
-                    - kind: EqualityOperator
-                      text: "="
-                    - kind: Whitespace
-                      text: " "
-                    - kind: CallExpression
-                      children:
-                        - kind: Identifier
-                          text: QBColor
-                        - kind: LeftParenthesis
-                          text: (
-                        - kind: ArgumentList
+                        - kind: Argument
                           children:
-                            - kind: Argument
+                            - kind: NumericLiteralExpression
                               children:
-                                - kind: NumericLiteralExpression
-                                  children:
-                                    - kind: IntegerLiteral
-                                      text: "15"
-                        - kind: RightParenthesis
-                          text: )
+                                - kind: IntegerLiteral
+                                  text: "15"
+                    - kind: RightParenthesis
+                      text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

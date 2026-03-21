@@ -23,7 +23,7 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: Real
@@ -31,13 +31,13 @@ cst:
             text: " "
           - kind: Identifier
             text: Media
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: Real
@@ -45,13 +45,13 @@ cst:
             text: " "
           - kind: Identifier
             text: Audio
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: Voice
@@ -63,13 +63,13 @@ cst:
             text: " "
           - kind: Identifier
             text: Format
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: Apple
@@ -81,13 +81,13 @@ cst:
             text: " "
           - kind: Identifier
             text: Format
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: Sony
@@ -95,23 +95,23 @@ cst:
             text: " "
           - kind: Identifier
             text: Wave64
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: OGG
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: Westwood
@@ -123,13 +123,13 @@ cst:
             text: " "
           - kind: Identifier
             text: Audio
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: Sony
@@ -141,13 +141,13 @@ cst:
             text: " "
           - kind: Identifier
             text: Audio
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: Raw
@@ -155,13 +155,13 @@ cst:
             text: " "
           - kind: Identifier
             text: Flac
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: Creative
@@ -169,13 +169,13 @@ cst:
             text: " "
           - kind: Identifier
             text: Voice
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: Windows
@@ -183,17 +183,17 @@ cst:
             text: " "
           - kind: Identifier
             text: Media
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: Media4A
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
@@ -223,21 +223,21 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: MP3
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: WAV
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"

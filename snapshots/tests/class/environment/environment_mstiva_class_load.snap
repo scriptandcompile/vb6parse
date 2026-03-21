@@ -14836,22 +14836,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: myarrbase
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: myarrbase
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "0"
+                              - kind: IntegerLiteral
+                                text: "0"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -14896,22 +14892,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: Arr
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BooleanLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: Arr
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BooleanLiteralExpression
-                                children:
-                                  - kind: TrueKeyword
-                                    text: "True"
+                              - kind: TrueKeyword
+                                text: "True"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Newline
@@ -15824,67 +15816,109 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: CallStatement
-                            children:
                               - kind: Identifier
                                 text: IamFloatGroup
-                              - kind: Whitespace
-                                text: " "
-                              - kind: ArgumentList
-                                children:
-                                  - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: ThenKeyword
-                                            text: Then
-                              - kind: Newline
-                                text: "\r\n"
                           - kind: Whitespace
-                            text: "        "
-                          - kind: CallStatement
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Newline
+                            text: "\r\n"
+                          - kind: StatementList
                             children:
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: PeekItem
                               - kind: Whitespace
-                                text: " "
-                              - kind: ArgumentList
+                                text: "        "
+                              - kind: CallStatement
                                 children:
-                                  - kind: Argument
-                                    children:
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "1"
-                                  - kind: Comma
-                                    text: ","
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: PeekItem
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Argument
+                                  - kind: ArgumentList
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: Argument
                                         children:
-                                          - kind: Identifier
-                                            text: vvl
-                              - kind: Newline
-                                text: "\r\n"
-                          - kind: Whitespace
-                            text: "        "
-                          - kind: CallStatement
-                            children:
-                              - kind: Identifier
-                                text: mygroup2
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: BeginFloat
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "1"
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: vvl
+                                  - kind: Newline
+                                    text: "\r\n"
                               - kind: Whitespace
-                                text: " "
-                              - kind: ArgumentList
+                                text: "        "
+                              - kind: CallStatement
                                 children:
-                                  - kind: Argument
+                                  - kind: Identifier
+                                    text: mygroup2
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: BeginFloat
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: vvl
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: AdditionOperator
+                                                text: +
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "2"
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: ForStatement
+                                children:
+                                  - kind: Whitespace
+                                    text: "         "
+                                  - kind: ForKeyword
+                                    text: For
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: x1
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "0"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ToKeyword
+                                    text: To
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: BinaryExpression
                                     children:
                                       - kind: BinaryExpression
                                         children:
@@ -15894,128 +15928,38 @@ cst:
                                                 text: vvl
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: AdditionOperator
-                                            text: +
+                                          - kind: MultiplicationOperator
+                                            text: "*"
                                           - kind: Whitespace
                                             text: " "
                                           - kind: NumericLiteralExpression
                                             children:
                                               - kind: IntegerLiteral
                                                 text: "2"
-                              - kind: Newline
-                                text: "\r\n"
-                          - kind: ForStatement
-                            children:
-                              - kind: Whitespace
-                                text: "         "
-                              - kind: ForKeyword
-                                text: For
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: x1
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "0"
-                              - kind: Whitespace
-                                text: " "
-                              - kind: ToKeyword
-                                text: To
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BinaryExpression
-                                children:
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: vvl
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: MultiplicationOperator
-                                        text: "*"
+                                      - kind: AdditionOperator
+                                        text: +
                                       - kind: Whitespace
                                         text: " "
                                       - kind: NumericLiteralExpression
                                         children:
                                           - kind: IntegerLiteral
-                                            text: "2"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: AdditionOperator
-                                    text: +
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: NumericLiteralExpression
+                                            text: "3"
+                                  - kind: Newline
+                                    text: "\r\n"
+                                  - kind: StatementList
                                     children:
-                                      - kind: IntegerLiteral
-                                        text: "3"
-                              - kind: Newline
-                                text: "\r\n"
-                              - kind: StatementList
-                                children:
-                                  - kind: Whitespace
-                                    text: "            "
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: PeekItem
                                       - kind: Whitespace
-                                        text: " "
-                                      - kind: ArgumentList
+                                        text: "            "
+                                      - kind: CallStatement
                                         children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: x1
-                                          - kind: Comma
-                                            text: ","
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: PeekItem
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: vvl
-                                      - kind: Newline
-                                        text: "\r\n"
-                                  - kind: Whitespace
-                                    text: "            "
-                                  - kind: Unknown
-                                    text: s
-                                  - kind: Unknown
-                                    text: $
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: AssignmentStatement
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: EqualityOperator
-                                            text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: CallExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: VarTypeName
-                                          - kind: LeftParenthesis
-                                            text: (
                                           - kind: ArgumentList
                                             children:
                                               - kind: Argument
@@ -16023,73 +15967,41 @@ cst:
                                                   - kind: IdentifierExpression
                                                     children:
                                                       - kind: Identifier
+                                                        text: x1
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
                                                         text: vvl
-                                          - kind: RightParenthesis
-                                            text: )
-                                      - kind: Newline
-                                        text: "\r\n"
-                                  - kind: IfStatement
-                                    children:
+                                          - kind: Newline
+                                            text: "\r\n"
                                       - kind: Whitespace
                                         text: "            "
-                                      - kind: IfKeyword
-                                        text: If
+                                      - kind: Unknown
+                                        text: s
+                                      - kind: Unknown
+                                        text: $
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: BinaryExpression
+                                      - kind: AssignmentStatement
                                         children:
                                           - kind: IdentifierExpression
                                             children:
-                                              - kind: Identifier
-                                                text: s
-                                              - kind: DollarSign
-                                                text: $
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: EqualityOperator
-                                            text: "="
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: StringLiteralExpression
-                                            children:
-                                              - kind: StringLiteral
-                                                text: "\"Group\""
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: ThenKeyword
-                                        text: Then
-                                      - kind: Newline
-                                        text: "\r\n"
-                                      - kind: StatementList
-                                        children:
-                                          - kind: SetStatement
-                                            children:
-                                              - kind: Whitespace
-                                                text: "                "
-                                              - kind: SetKeyword
-                                                text: Set
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: subgroup
-                                              - kind: Whitespace
-                                                text: " "
                                               - kind: EqualityOperator
                                                 text: "="
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: vvl
-                                              - kind: Newline
-                                                text: "\r\n"
                                           - kind: Whitespace
-                                            text: "                "
-                                          - kind: CallStatement
+                                            text: " "
+                                          - kind: CallExpression
                                             children:
                                               - kind: Identifier
-                                                text: CopyGroupObj
-                                              - kind: Whitespace
-                                                text: " "
+                                                text: VarTypeName
+                                              - kind: LeftParenthesis
+                                                text: (
                                               - kind: ArgumentList
                                                 children:
                                                   - kind: Argument
@@ -16097,85 +16009,17 @@ cst:
                                                       - kind: IdentifierExpression
                                                         children:
                                                           - kind: Identifier
-                                                            text: subgroup
-                                                  - kind: Comma
-                                                    text: ","
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: Argument
-                                                    children:
-                                                      - kind: IdentifierExpression
-                                                        children:
-                                                          - kind: Identifier
-                                                            text: sub2
-                                              - kind: Newline
-                                                text: "\r\n"
-                                          - kind: SetStatement
-                                            children:
-                                              - kind: Whitespace
-                                                text: "                "
-                                              - kind: SetKeyword
-                                                text: Set
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: subgroup
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: EqualityOperator
-                                                text: "="
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: NothingKeyword
-                                                text: Nothing
-                                              - kind: Newline
-                                                text: "\r\n"
-                                          - kind: SetStatement
-                                            children:
-                                              - kind: Whitespace
-                                                text: "                "
-                                              - kind: SetKeyword
-                                                text: Set
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: vvl
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: EqualityOperator
-                                                text: "="
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: sub2
-                                              - kind: Newline
-                                                text: "\r\n"
-                                          - kind: SetStatement
-                                            children:
-                                              - kind: Whitespace
-                                                text: "                "
-                                              - kind: SetKeyword
-                                                text: Set
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: sub2
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: EqualityOperator
-                                                text: "="
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: NothingKeyword
-                                                text: Nothing
-                                              - kind: Newline
-                                                text: "\r\n"
+                                                            text: vvl
+                                              - kind: RightParenthesis
+                                                text: )
+                                          - kind: Newline
+                                            text: "\r\n"
+                                      - kind: IfStatement
+                                        children:
                                           - kind: Whitespace
                                             text: "            "
-                                      - kind: ElseIfClause
-                                        children:
-                                          - kind: ElseIfKeyword
-                                            text: ElseIf
+                                          - kind: IfKeyword
+                                            text: If
                                           - kind: Whitespace
                                             text: " "
                                           - kind: BinaryExpression
@@ -16195,7 +16039,7 @@ cst:
                                               - kind: StringLiteralExpression
                                                 children:
                                                   - kind: StringLiteral
-                                                    text: "\"mArray\""
+                                                    text: "\"Group\""
                                           - kind: Whitespace
                                             text: " "
                                           - kind: ThenKeyword
@@ -16204,290 +16048,426 @@ cst:
                                             text: "\r\n"
                                           - kind: StatementList
                                             children:
-                                              - kind: IfStatement
+                                              - kind: SetStatement
                                                 children:
                                                   - kind: Whitespace
                                                     text: "                "
-                                                  - kind: IfKeyword
-                                                    text: If
+                                                  - kind: SetKeyword
+                                                    text: Set
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: UnaryExpression
-                                                    children:
-                                                      - kind: NotKeyword
-                                                        text: Not
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: MemberAccessExpression
-                                                        children:
-                                                          - kind: Identifier
-                                                            text: vvl
-                                                          - kind: PeriodOperator
-                                                            text: "."
-                                                          - kind: Identifier
-                                                            text: common
+                                                  - kind: Identifier
+                                                    text: subgroup
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: ThenKeyword
-                                                    text: Then
+                                                  - kind: EqualityOperator
+                                                    text: "="
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Identifier
+                                                    text: vvl
                                                   - kind: Newline
                                                     text: "\r\n"
-                                                  - kind: StatementList
-                                                    children:
-                                                      - kind: SetStatement
-                                                        children:
-                                                          - kind: Whitespace
-                                                            text: "                    "
-                                                          - kind: SetKeyword
-                                                            text: Set
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: Identifier
-                                                            text: myArray
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: EqualityOperator
-                                                            text: "="
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: Identifier
-                                                            text: vvl
-                                                          - kind: Newline
-                                                            text: "\r\n"
-                                                      - kind: SetStatement
-                                                        children:
-                                                          - kind: Whitespace
-                                                            text: "                    "
-                                                          - kind: SetKeyword
-                                                            text: Set
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: Identifier
-                                                            text: mySecondArray
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: EqualityOperator
-                                                            text: "="
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: NewKeyword
-                                                            text: New
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: Identifier
-                                                            text: mArray
-                                                          - kind: Newline
-                                                            text: "\r\n"
-                                                      - kind: Whitespace
-                                                        text: "                    "
-                                                      - kind: CallStatement
-                                                        children:
-                                                          - kind: Identifier
-                                                            text: myArray
-                                                          - kind: PeriodOperator
-                                                            text: "."
-                                                          - kind: Identifier
-                                                            text: CopyArray
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: ArgumentList
-                                                            children:
-                                                              - kind: Argument
-                                                                children:
-                                                                  - kind: IdentifierExpression
-                                                                    children:
-                                                                      - kind: Identifier
-                                                                        text: mySecondArray
-                                                          - kind: Newline
-                                                            text: "\r\n"
-                                                      - kind: SetStatement
-                                                        children:
-                                                          - kind: Whitespace
-                                                            text: "                    "
-                                                          - kind: SetKeyword
-                                                            text: Set
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: Identifier
-                                                            text: myArray
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: EqualityOperator
-                                                            text: "="
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: NothingKeyword
-                                                            text: Nothing
-                                                          - kind: Newline
-                                                            text: "\r\n"
-                                                      - kind: SetStatement
-                                                        children:
-                                                          - kind: Whitespace
-                                                            text: "                    "
-                                                          - kind: SetKeyword
-                                                            text: Set
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: Identifier
-                                                            text: vvl
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: EqualityOperator
-                                                            text: "="
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: Identifier
-                                                            text: mySecondArray
-                                                          - kind: Newline
-                                                            text: "\r\n"
-                                                      - kind: SetStatement
-                                                        children:
-                                                          - kind: Whitespace
-                                                            text: "                    "
-                                                          - kind: SetKeyword
-                                                            text: Set
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: Identifier
-                                                            text: mySecondArray
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: EqualityOperator
-                                                            text: "="
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: NothingKeyword
-                                                            text: Nothing
-                                                          - kind: Newline
-                                                            text: "\r\n"
-                                                      - kind: Whitespace
-                                                        text: "                "
-                                                  - kind: EndKeyword
-                                                    text: End
+                                              - kind: Whitespace
+                                                text: "                "
+                                              - kind: CallStatement
+                                                children:
+                                                  - kind: Identifier
+                                                    text: CopyGroupObj
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: IfKeyword
-                                                    text: If
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: subgroup
+                                                      - kind: Comma
+                                                        text: ","
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: sub2
+                                                  - kind: Newline
+                                                    text: "\r\n"
+                                              - kind: SetStatement
+                                                children:
+                                                  - kind: Whitespace
+                                                    text: "                "
+                                                  - kind: SetKeyword
+                                                    text: Set
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Identifier
+                                                    text: subgroup
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: EqualityOperator
+                                                    text: "="
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: NothingKeyword
+                                                    text: Nothing
+                                                  - kind: Newline
+                                                    text: "\r\n"
+                                              - kind: SetStatement
+                                                children:
+                                                  - kind: Whitespace
+                                                    text: "                "
+                                                  - kind: SetKeyword
+                                                    text: Set
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Identifier
+                                                    text: vvl
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: EqualityOperator
+                                                    text: "="
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Identifier
+                                                    text: sub2
+                                                  - kind: Newline
+                                                    text: "\r\n"
+                                              - kind: SetStatement
+                                                children:
+                                                  - kind: Whitespace
+                                                    text: "                "
+                                                  - kind: SetKeyword
+                                                    text: Set
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Identifier
+                                                    text: sub2
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: EqualityOperator
+                                                    text: "="
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: NothingKeyword
+                                                    text: Nothing
                                                   - kind: Newline
                                                     text: "\r\n"
                                               - kind: Whitespace
                                                 text: "            "
-                                      - kind: EndKeyword
-                                        text: End
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IfKeyword
-                                        text: If
-                                      - kind: Newline
-                                        text: "\r\n"
-                                  - kind: Whitespace
-                                    text: "            "
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: mygroup2
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: PokeItem
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
+                                          - kind: ElseIfClause
                                             children:
-                                              - kind: IdentifierExpression
+                                              - kind: ElseIfKeyword
+                                                text: ElseIf
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: BinaryExpression
                                                 children:
-                                                  - kind: Identifier
-                                                    text: x1
-                                          - kind: Comma
-                                            text: ","
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: s
+                                                      - kind: DollarSign
+                                                        text: $
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: EqualityOperator
+                                                    text: "="
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"mArray\""
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: ThenKeyword
+                                                text: Then
+                                              - kind: Newline
+                                                text: "\r\n"
+                                              - kind: StatementList
+                                                children:
+                                                  - kind: IfStatement
+                                                    children:
+                                                      - kind: Whitespace
+                                                        text: "                "
+                                                      - kind: IfKeyword
+                                                        text: If
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: UnaryExpression
+                                                        children:
+                                                          - kind: NotKeyword
+                                                            text: Not
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: MemberAccessExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: vvl
+                                                              - kind: PeriodOperator
+                                                                text: "."
+                                                              - kind: Identifier
+                                                                text: common
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: ThenKeyword
+                                                        text: Then
+                                                      - kind: Newline
+                                                        text: "\r\n"
+                                                      - kind: StatementList
+                                                        children:
+                                                          - kind: SetStatement
+                                                            children:
+                                                              - kind: Whitespace
+                                                                text: "                    "
+                                                              - kind: SetKeyword
+                                                                text: Set
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: Identifier
+                                                                text: myArray
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: EqualityOperator
+                                                                text: "="
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: Identifier
+                                                                text: vvl
+                                                              - kind: Newline
+                                                                text: "\r\n"
+                                                          - kind: SetStatement
+                                                            children:
+                                                              - kind: Whitespace
+                                                                text: "                    "
+                                                              - kind: SetKeyword
+                                                                text: Set
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: Identifier
+                                                                text: mySecondArray
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: EqualityOperator
+                                                                text: "="
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: NewKeyword
+                                                                text: New
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: Identifier
+                                                                text: mArray
+                                                              - kind: Newline
+                                                                text: "\r\n"
+                                                          - kind: Whitespace
+                                                            text: "                    "
+                                                          - kind: CallStatement
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: myArray
+                                                              - kind: PeriodOperator
+                                                                text: "."
+                                                              - kind: Identifier
+                                                                text: CopyArray
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: ArgumentList
+                                                                children:
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: IdentifierExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: mySecondArray
+                                                              - kind: Newline
+                                                                text: "\r\n"
+                                                          - kind: SetStatement
+                                                            children:
+                                                              - kind: Whitespace
+                                                                text: "                    "
+                                                              - kind: SetKeyword
+                                                                text: Set
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: Identifier
+                                                                text: myArray
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: EqualityOperator
+                                                                text: "="
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: NothingKeyword
+                                                                text: Nothing
+                                                              - kind: Newline
+                                                                text: "\r\n"
+                                                          - kind: SetStatement
+                                                            children:
+                                                              - kind: Whitespace
+                                                                text: "                    "
+                                                              - kind: SetKeyword
+                                                                text: Set
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: Identifier
+                                                                text: vvl
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: EqualityOperator
+                                                                text: "="
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: Identifier
+                                                                text: mySecondArray
+                                                              - kind: Newline
+                                                                text: "\r\n"
+                                                          - kind: SetStatement
+                                                            children:
+                                                              - kind: Whitespace
+                                                                text: "                    "
+                                                              - kind: SetKeyword
+                                                                text: Set
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: Identifier
+                                                                text: mySecondArray
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: EqualityOperator
+                                                                text: "="
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: NothingKeyword
+                                                                text: Nothing
+                                                              - kind: Newline
+                                                                text: "\r\n"
+                                                          - kind: Whitespace
+                                                            text: "                "
+                                                      - kind: EndKeyword
+                                                        text: End
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: IfKeyword
+                                                        text: If
+                                                      - kind: Newline
+                                                        text: "\r\n"
+                                                  - kind: Whitespace
+                                                    text: "            "
+                                          - kind: EndKeyword
+                                            text: End
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: Argument
+                                          - kind: IfKeyword
+                                            text: If
+                                          - kind: Newline
+                                            text: "\r\n"
+                                      - kind: Whitespace
+                                        text: "            "
+                                      - kind: CallStatement
+                                        children:
+                                          - kind: Identifier
+                                            text: mygroup2
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: PokeItem
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: ArgumentList
                                             children:
-                                              - kind: IdentifierExpression
+                                              - kind: Argument
                                                 children:
-                                                  - kind: Identifier
-                                                    text: vvl
-                                      - kind: Newline
-                                        text: "\r\n"
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: x1
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: vvl
+                                          - kind: Newline
+                                            text: "\r\n"
+                                      - kind: Whitespace
+                                        text: "        "
+                                  - kind: NextKeyword
+                                    text: Next
                                   - kind: Whitespace
-                                    text: "        "
-                              - kind: NextKeyword
-                                text: Next
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: x1
-                              - kind: Newline
-                                text: "\r\n"
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: EndKeyword
-                            text: End
-                          - kind: IfStatement
-                            children:
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IfKeyword
-                                text: If
-                              - kind: IdentifierExpression
-                                children:
+                                    text: " "
+                                  - kind: Identifier
+                                    text: x1
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
                                 text: "    "
-                              - kind: AssignmentStatement
-                                children:
-                                  - kind: MemberAccessExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: mygroup2
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: HasStrValue
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: EqualityOperator
-                                    text: "="
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: PeriodOperator
-                                        text: "."
+                          - kind: EndKeyword
+                            text: End
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: mygroup2
+                              - kind: PeriodOperator
+                                text: "."
                               - kind: Identifier
                                 text: HasStrValue
-                              - kind: Newline
-                                text: "\r\n"
                           - kind: Whitespace
-                            text: "    "
-                          - kind: AssignmentStatement
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: MemberAccessExpression
-                                children:
-                                  - kind: Identifier
-                                    text: mygroup2
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: Identifier
-                                    text: HasValue
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: PeriodOperator
-                                    text: "."
-                      - kind: CallStatement
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: HasStrValue
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
                         children:
-                          - kind: Identifier
-                            text: HasValue
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: mygroup2
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: HasValue
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: HasValue
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -16512,10 +16492,8 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: HasSet
+                              - kind: Identifier
+                                text: HasSet
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -16540,10 +16518,8 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: HasParameters
+                              - kind: Identifier
+                                text: HasParameters
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -16568,10 +16544,8 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: HasParametersSet
+                              - kind: Identifier
+                                text: HasParametersSet
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -16596,10 +16570,8 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: HasRemove
+                              - kind: Identifier
+                                text: HasRemove
                           - kind: Newline
                             text: "\r\n"
                       - kind: SetStatement
@@ -16676,10 +16648,8 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: highpriorityoper
+                              - kind: Identifier
+                                text: highpriorityoper
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -16704,10 +16674,8 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: HasUnary
+                              - kind: Identifier
+                                text: HasUnary
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -16732,10 +16700,8 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: ToDelete
+                              - kind: Identifier
+                                text: ToDelete
                           - kind: Newline
                             text: "\r\n"
                       - kind: SetStatement

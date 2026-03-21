@@ -1443,12 +1443,12 @@ cst:
                                     children:
                                       - kind: PeriodOperator
                                         text: "."
-                                  - kind: IdentifierExpression
-                                    children:
                                       - kind: Identifier
                                         text: SetFocus
-                              - kind: ColonOperator
-                                text: ":"
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: ColonOperator
+                                        text: ":"
                               - kind: Whitespace
                                 text: " "
                               - kind: AssignmentStatement
@@ -1809,12 +1809,12 @@ cst:
                                 children:
                                   - kind: PeriodOperator
                                     text: "."
-                              - kind: IdentifierExpression
-                                children:
                                   - kind: Identifier
                                     text: SetFocus
-                          - kind: ColonOperator
-                            text: ":"
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: ColonOperator
+                                    text: ":"
                           - kind: Whitespace
                             text: " "
                           - kind: AssignmentStatement
@@ -10233,12 +10233,12 @@ cst:
                                                             children:
                                                               - kind: PeriodOperator
                                                                 text: "."
-                                                          - kind: IdentifierExpression
-                                                            children:
                                                               - kind: Identifier
                                                                 text: WrapAgain
-                                                      - kind: Unknown
-                                                        text: ":"
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: ColonOperator
+                                                                text: ":"
                                                       - kind: Whitespace
                                                         text: " "
                                                       - kind: AssignmentStatement

@@ -732,6 +732,12 @@ impl Parser<'_> {
             Some(Token::DateTimeLiteral) => {
                 self.parse_date_literal();
             }
+            // Period operator at start of expression (With block member access)
+            // In a With block, ".Property" is shorthand for accessing the With object's property
+            Some(Token::PeriodOperator) => {
+                self.parse_with_member_expression();
+                is_identifier = true;
+            }
             // Identifiers (including keywords that can be identifiers in expression context)
             _ => {
                 self.parse_identifier_or_call_expression();
@@ -940,6 +946,47 @@ impl Parser<'_> {
         self.consume_token();
 
         self.builder.finish_node();
+    }
+
+    /// Parse a With block member expression.
+    ///
+    /// Syntax: `.PropertyName` or `.MethodName`
+    ///
+    /// This is used inside With blocks where the period operator at the start
+    /// indicates a member access on the implicit With object.
+    ///
+    /// Example:
+    /// ```vb
+    /// With myObject
+    ///     .Property = 123  ' .Property accesses myObject.Property
+    /// End With
+    /// ```
+    fn parse_with_member_expression(&mut self) {
+        // Consume the period operator
+        self.consume_token();
+
+        // Skip whitespace after period
+        self.consume_whitespace();
+
+        // Parse the member name (can be a keyword in VB6)
+        if self.is_identifier() || self.at_keyword() {
+            self.consume_token_as_identifier();
+
+            // Check for type character suffix
+            if matches!(
+                self.current_token(),
+                Some(
+                    Token::DollarSign
+                        | Token::Percent
+                        | Token::Ampersand
+                        | Token::ExclamationMark
+                        | Token::Octothorpe
+                        | Token::AtSign
+                )
+            ) {
+                self.consume_token();
+            }
+        }
     }
 
     /// Parse the content of a member access (everything after the dot).

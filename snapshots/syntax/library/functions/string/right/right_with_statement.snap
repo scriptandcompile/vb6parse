@@ -29,52 +29,44 @@ root:
                   children:
                     - kind: PeriodOperator
                       text: "."
-                - kind: BinaryExpression
+                    - kind: Identifier
+                      text: Text
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
                   children:
-                    - kind: IdentifierExpression
+                    - kind: Identifier
+                      text: Right
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
                       children:
-                        - kind: TextKeyword
-                          text: Text
-                    - kind: Whitespace
-                      text: " "
-                    - kind: EqualityOperator
-                      text: "="
-                    - kind: Whitespace
-                      text: " "
-                    - kind: CallExpression
-                      children:
-                        - kind: Identifier
-                          text: Right
-                        - kind: LeftParenthesis
-                          text: (
-                        - kind: ArgumentList
+                        - kind: Argument
                           children:
-                            - kind: Argument
+                            - kind: IdentifierExpression
                               children:
-                                - kind: IdentifierExpression
-                                  children:
-                                    - kind: PeriodOperator
-                                      text: "."
-            - kind: CallStatement
-              children:
-                - kind: TextKeyword
-                  text: Text
-                - kind: ArgumentList
-                  children:
-                    - kind: Argument
-                      children:
-                        - kind: IdentifierExpression
+                                - kind: PeriodOperator
+                                  text: "."
+                                - kind: Identifier
+                                  text: Text
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
                           children:
-                            - kind: Comma
-                              text: ","
-                    - kind: Whitespace
-                      text: " "
-            - kind: Unknown
-              text: "20"
-            - kind: Unknown
-              text: )
-            - kind: Newline
-              text: "\n"
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "20"
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

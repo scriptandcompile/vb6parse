@@ -36752,46 +36752,36 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
+                              - kind: Identifier
+                                text: W
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
                           - kind: BinaryExpression
                             children:
                               - kind: IdentifierExpression
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: W
                               - kind: Whitespace
                                 text: " "
-                              - kind: EqualityOperator
-                                text: "="
+                              - kind: AdditionOperator
+                                text: +
                               - kind: Whitespace
                                 text: " "
-                              - kind: IdentifierExpression
+                              - kind: MemberAccessExpression
                                 children:
+                                  - kind: Identifier
+                                    text: q2
                                   - kind: PeriodOperator
                                     text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: W
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: AdditionOperator
-                                        text: +
-                              - kind: Whitespace
-                                text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: q2
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: W
+                                  - kind: Identifier
+                                    text: W
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -36802,46 +36792,36 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
+                              - kind: Identifier
+                                text: X
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
                           - kind: BinaryExpression
                             children:
                               - kind: IdentifierExpression
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: X
                               - kind: Whitespace
                                 text: " "
-                              - kind: EqualityOperator
-                                text: "="
+                              - kind: AdditionOperator
+                                text: +
                               - kind: Whitespace
                                 text: " "
-                              - kind: IdentifierExpression
+                              - kind: MemberAccessExpression
                                 children:
+                                  - kind: Identifier
+                                    text: q2
                                   - kind: PeriodOperator
                                     text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: X
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: AdditionOperator
-                                        text: +
-                              - kind: Whitespace
-                                text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: q2
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: X
+                                  - kind: Identifier
+                                    text: X
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -36852,46 +36832,36 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
+                              - kind: Identifier
+                                text: y
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
                           - kind: BinaryExpression
                             children:
                               - kind: IdentifierExpression
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: y
                               - kind: Whitespace
                                 text: " "
-                              - kind: EqualityOperator
-                                text: "="
+                              - kind: AdditionOperator
+                                text: +
                               - kind: Whitespace
                                 text: " "
-                              - kind: IdentifierExpression
+                              - kind: MemberAccessExpression
                                 children:
+                                  - kind: Identifier
+                                    text: q2
                                   - kind: PeriodOperator
                                     text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: y
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: AdditionOperator
-                                        text: +
-                              - kind: Whitespace
-                                text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: q2
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: y
+                                  - kind: Identifier
+                                    text: y
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -36902,46 +36872,36 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
+                              - kind: Identifier
+                                text: z
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
                           - kind: BinaryExpression
                             children:
                               - kind: IdentifierExpression
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: z
                               - kind: Whitespace
                                 text: " "
-                              - kind: EqualityOperator
-                                text: "="
+                              - kind: AdditionOperator
+                                text: +
                               - kind: Whitespace
                                 text: " "
-                              - kind: IdentifierExpression
+                              - kind: MemberAccessExpression
                                 children:
+                                  - kind: Identifier
+                                    text: q2
                                   - kind: PeriodOperator
                                     text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: z
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: AdditionOperator
-                                        text: +
-                              - kind: Whitespace
-                                text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: q2
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: z
+                                  - kind: Identifier
+                                    text: z
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -37394,46 +37354,36 @@ cst:
                                             children:
                                               - kind: PeriodOperator
                                                 text: "."
+                                              - kind: Identifier
+                                                text: W
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EqualityOperator
+                                            text: "="
+                                          - kind: Whitespace
+                                            text: " "
                                           - kind: BinaryExpression
                                             children:
                                               - kind: IdentifierExpression
                                                 children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
                                                   - kind: Identifier
                                                     text: W
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: EqualityOperator
-                                                text: "="
+                                              - kind: AdditionOperator
+                                                text: +
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: IdentifierExpression
+                                              - kind: MemberAccessExpression
                                                 children:
+                                                  - kind: Identifier
+                                                    text: q2
                                                   - kind: PeriodOperator
                                                     text: "."
-                                      - kind: CallStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: W
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: ArgumentList
-                                            children:
-                                              - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: AdditionOperator
-                                                        text: +
-                                              - kind: Whitespace
-                                                text: " "
-                                      - kind: CallStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: q2
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: W
+                                                  - kind: Identifier
+                                                    text: W
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace
@@ -37444,46 +37394,36 @@ cst:
                                             children:
                                               - kind: PeriodOperator
                                                 text: "."
+                                              - kind: Identifier
+                                                text: X
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EqualityOperator
+                                            text: "="
+                                          - kind: Whitespace
+                                            text: " "
                                           - kind: BinaryExpression
                                             children:
                                               - kind: IdentifierExpression
                                                 children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
                                                   - kind: Identifier
                                                     text: X
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: EqualityOperator
-                                                text: "="
+                                              - kind: AdditionOperator
+                                                text: +
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: IdentifierExpression
+                                              - kind: MemberAccessExpression
                                                 children:
+                                                  - kind: Identifier
+                                                    text: q2
                                                   - kind: PeriodOperator
                                                     text: "."
-                                      - kind: CallStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: X
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: ArgumentList
-                                            children:
-                                              - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: AdditionOperator
-                                                        text: +
-                                              - kind: Whitespace
-                                                text: " "
-                                      - kind: CallStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: q2
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: X
+                                                  - kind: Identifier
+                                                    text: X
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace
@@ -37494,46 +37434,36 @@ cst:
                                             children:
                                               - kind: PeriodOperator
                                                 text: "."
+                                              - kind: Identifier
+                                                text: y
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EqualityOperator
+                                            text: "="
+                                          - kind: Whitespace
+                                            text: " "
                                           - kind: BinaryExpression
                                             children:
                                               - kind: IdentifierExpression
                                                 children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
                                                   - kind: Identifier
                                                     text: y
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: EqualityOperator
-                                                text: "="
+                                              - kind: AdditionOperator
+                                                text: +
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: IdentifierExpression
+                                              - kind: MemberAccessExpression
                                                 children:
+                                                  - kind: Identifier
+                                                    text: q2
                                                   - kind: PeriodOperator
                                                     text: "."
-                                      - kind: CallStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: y
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: ArgumentList
-                                            children:
-                                              - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: AdditionOperator
-                                                        text: +
-                                              - kind: Whitespace
-                                                text: " "
-                                      - kind: CallStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: q2
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: y
+                                                  - kind: Identifier
+                                                    text: y
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace
@@ -37544,46 +37474,36 @@ cst:
                                             children:
                                               - kind: PeriodOperator
                                                 text: "."
+                                              - kind: Identifier
+                                                text: z
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EqualityOperator
+                                            text: "="
+                                          - kind: Whitespace
+                                            text: " "
                                           - kind: BinaryExpression
                                             children:
                                               - kind: IdentifierExpression
                                                 children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
                                                   - kind: Identifier
                                                     text: z
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: EqualityOperator
-                                                text: "="
+                                              - kind: AdditionOperator
+                                                text: +
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: IdentifierExpression
+                                              - kind: MemberAccessExpression
                                                 children:
+                                                  - kind: Identifier
+                                                    text: q2
                                                   - kind: PeriodOperator
                                                     text: "."
-                                      - kind: CallStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: z
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: ArgumentList
-                                            children:
-                                              - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: AdditionOperator
-                                                        text: +
-                                              - kind: Whitespace
-                                                text: " "
-                                      - kind: CallStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: q2
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: z
+                                                  - kind: Identifier
+                                                    text: z
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace
@@ -37854,46 +37774,36 @@ cst:
                                                 children:
                                                   - kind: PeriodOperator
                                                     text: "."
+                                                  - kind: Identifier
+                                                    text: W
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: EqualityOperator
+                                                text: "="
+                                              - kind: Whitespace
+                                                text: " "
                                               - kind: BinaryExpression
                                                 children:
                                                   - kind: IdentifierExpression
                                                     children:
+                                                      - kind: PeriodOperator
+                                                        text: "."
                                                       - kind: Identifier
                                                         text: W
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: EqualityOperator
-                                                    text: "="
+                                                  - kind: AdditionOperator
+                                                    text: +
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: IdentifierExpression
+                                                  - kind: MemberAccessExpression
                                                     children:
+                                                      - kind: Identifier
+                                                        text: q2
                                                       - kind: PeriodOperator
                                                         text: "."
-                                          - kind: CallStatement
-                                            children:
-                                              - kind: Identifier
-                                                text: W
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: ArgumentList
-                                                children:
-                                                  - kind: Argument
-                                                    children:
-                                                      - kind: IdentifierExpression
-                                                        children:
-                                                          - kind: AdditionOperator
-                                                            text: +
-                                                  - kind: Whitespace
-                                                    text: " "
-                                          - kind: CallStatement
-                                            children:
-                                              - kind: Identifier
-                                                text: q2
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: W
+                                                      - kind: Identifier
+                                                        text: W
                                               - kind: Newline
                                                 text: "\r\n"
                                           - kind: Whitespace
@@ -37904,46 +37814,36 @@ cst:
                                                 children:
                                                   - kind: PeriodOperator
                                                     text: "."
+                                                  - kind: Identifier
+                                                    text: X
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: EqualityOperator
+                                                text: "="
+                                              - kind: Whitespace
+                                                text: " "
                                               - kind: BinaryExpression
                                                 children:
                                                   - kind: IdentifierExpression
                                                     children:
+                                                      - kind: PeriodOperator
+                                                        text: "."
                                                       - kind: Identifier
                                                         text: X
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: EqualityOperator
-                                                    text: "="
+                                                  - kind: AdditionOperator
+                                                    text: +
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: IdentifierExpression
+                                                  - kind: MemberAccessExpression
                                                     children:
+                                                      - kind: Identifier
+                                                        text: q2
                                                       - kind: PeriodOperator
                                                         text: "."
-                                          - kind: CallStatement
-                                            children:
-                                              - kind: Identifier
-                                                text: X
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: ArgumentList
-                                                children:
-                                                  - kind: Argument
-                                                    children:
-                                                      - kind: IdentifierExpression
-                                                        children:
-                                                          - kind: AdditionOperator
-                                                            text: +
-                                                  - kind: Whitespace
-                                                    text: " "
-                                          - kind: CallStatement
-                                            children:
-                                              - kind: Identifier
-                                                text: q2
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: X
+                                                      - kind: Identifier
+                                                        text: X
                                               - kind: Newline
                                                 text: "\r\n"
                                           - kind: Whitespace
@@ -37954,46 +37854,36 @@ cst:
                                                 children:
                                                   - kind: PeriodOperator
                                                     text: "."
+                                                  - kind: Identifier
+                                                    text: y
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: EqualityOperator
+                                                text: "="
+                                              - kind: Whitespace
+                                                text: " "
                                               - kind: BinaryExpression
                                                 children:
                                                   - kind: IdentifierExpression
                                                     children:
+                                                      - kind: PeriodOperator
+                                                        text: "."
                                                       - kind: Identifier
                                                         text: y
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: EqualityOperator
-                                                    text: "="
+                                                  - kind: AdditionOperator
+                                                    text: +
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: IdentifierExpression
+                                                  - kind: MemberAccessExpression
                                                     children:
+                                                      - kind: Identifier
+                                                        text: q2
                                                       - kind: PeriodOperator
                                                         text: "."
-                                          - kind: CallStatement
-                                            children:
-                                              - kind: Identifier
-                                                text: y
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: ArgumentList
-                                                children:
-                                                  - kind: Argument
-                                                    children:
-                                                      - kind: IdentifierExpression
-                                                        children:
-                                                          - kind: AdditionOperator
-                                                            text: +
-                                                  - kind: Whitespace
-                                                    text: " "
-                                          - kind: CallStatement
-                                            children:
-                                              - kind: Identifier
-                                                text: q2
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: y
+                                                      - kind: Identifier
+                                                        text: y
                                               - kind: Newline
                                                 text: "\r\n"
                                           - kind: Whitespace
@@ -38004,46 +37894,36 @@ cst:
                                                 children:
                                                   - kind: PeriodOperator
                                                     text: "."
+                                                  - kind: Identifier
+                                                    text: z
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: EqualityOperator
+                                                text: "="
+                                              - kind: Whitespace
+                                                text: " "
                                               - kind: BinaryExpression
                                                 children:
                                                   - kind: IdentifierExpression
                                                     children:
+                                                      - kind: PeriodOperator
+                                                        text: "."
                                                       - kind: Identifier
                                                         text: z
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: EqualityOperator
-                                                    text: "="
+                                                  - kind: AdditionOperator
+                                                    text: +
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: IdentifierExpression
+                                                  - kind: MemberAccessExpression
                                                     children:
+                                                      - kind: Identifier
+                                                        text: q2
                                                       - kind: PeriodOperator
                                                         text: "."
-                                          - kind: CallStatement
-                                            children:
-                                              - kind: Identifier
-                                                text: z
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: ArgumentList
-                                                children:
-                                                  - kind: Argument
-                                                    children:
-                                                      - kind: IdentifierExpression
-                                                        children:
-                                                          - kind: AdditionOperator
-                                                            text: +
-                                                  - kind: Whitespace
-                                                    text: " "
-                                          - kind: CallStatement
-                                            children:
-                                              - kind: Identifier
-                                                text: q2
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: z
+                                                      - kind: Identifier
+                                                        text: z
                                               - kind: Newline
                                                 text: "\r\n"
                                           - kind: Whitespace

@@ -14752,22 +14752,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: Type
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: TypeKeyword
-                                    text: Type
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: eType
+                              - kind: Identifier
+                                text: eType
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -14778,34 +14774,30 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
+                              - kind: Identifier
+                                text: Position
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
                           - kind: BinaryExpression
                             children:
                               - kind: IdentifierExpression
                                 children:
                                   - kind: Identifier
-                                    text: Position
+                                    text: lPos
                               - kind: Whitespace
                                 text: " "
-                              - kind: EqualityOperator
-                                text: "="
+                              - kind: AdditionOperator
+                                text: +
                               - kind: Whitespace
                                 text: " "
-                              - kind: BinaryExpression
+                              - kind: NumericLiteralExpression
                                 children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: lPos
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: AdditionOperator
-                                    text: +
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: NumericLiteralExpression
-                                    children:
-                                      - kind: IntegerLiteral
-                                        text: "1"
+                                  - kind: IntegerLiteral
+                                    text: "1"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -14816,34 +14808,30 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
+                              - kind: Identifier
+                                text: Size
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
                           - kind: BinaryExpression
                             children:
                               - kind: IdentifierExpression
                                 children:
                                   - kind: Identifier
-                                    text: Size
+                                    text: lIdx
                               - kind: Whitespace
                                 text: " "
-                              - kind: EqualityOperator
-                                text: "="
+                              - kind: SubtractionOperator
+                                text: "-"
                               - kind: Whitespace
                                 text: " "
-                              - kind: BinaryExpression
+                              - kind: IdentifierExpression
                                 children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: lIdx
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: SubtractionOperator
-                                    text: "-"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: lPos
+                                  - kind: Identifier
+                                    text: lPos
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace

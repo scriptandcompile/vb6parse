@@ -86,11 +86,11 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: LongTimeSerial
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Whitespace
             text: " "
@@ -104,11 +104,11 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: SmallTimeSerial
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Whitespace
             text: " "
@@ -226,51 +226,51 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: logError
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: logWarning
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: logInfo
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: logSuccessAudit
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: logFailureAudit
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
@@ -432,7 +432,7 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: System
@@ -440,7 +440,7 @@ cst:
             text: " "
           - kind: Identifier
             text: Path
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
@@ -452,7 +452,7 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: Start
@@ -460,7 +460,7 @@ cst:
             text: " "
           - kind: Identifier
             text: Menu
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
@@ -17190,22 +17190,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: lngHwnd
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: lngHwnd
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: lngHwnd
+                              - kind: Identifier
+                                text: lngHwnd
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace
@@ -17216,44 +17212,40 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: lpszTitle
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
                             children:
-                              - kind: IdentifierExpression
+                              - kind: Identifier
+                                text: lstrcat
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
                                 children:
-                                  - kind: Identifier
-                                    text: lpszTitle
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: CallExpression
-                                children:
-                                  - kind: Identifier
-                                    text: lstrcat
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: ArgumentList
+                                  - kind: Argument
                                     children:
-                                      - kind: Argument
+                                      - kind: IdentifierExpression
                                         children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: strPrompt
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Argument
+                                          - kind: Identifier
+                                            text: strPrompt
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: StringLiteralExpression
                                         children:
-                                          - kind: StringLiteralExpression
-                                            children:
-                                              - kind: StringLiteral
-                                                text: "\"\""
-                                  - kind: RightParenthesis
-                                    text: )
+                                          - kind: StringLiteral
+                                            text: "\"\""
+                              - kind: RightParenthesis
+                                text: )
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace
@@ -17264,22 +17256,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: ulFlags
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: ulFlags
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: BIF_RETURNONLYFSDIRS
+                              - kind: Identifier
+                                text: BIF_RETURNONLYFSDIRS
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace

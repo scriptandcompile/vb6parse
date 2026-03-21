@@ -49,44 +49,32 @@ root:
                           children:
                             - kind: PeriodOperator
                               text: "."
-                        - kind: BinaryExpression
+                            - kind: Identifier
+                              text: IsValid
+                        - kind: Whitespace
+                          text: " "
+                        - kind: EqualityOperator
+                          text: "="
+                        - kind: Whitespace
+                          text: " "
+                        - kind: CallExpression
                           children:
-                            - kind: IdentifierExpression
+                            - kind: Identifier
+                              text: IsArray
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
                               children:
-                                - kind: Identifier
-                                  text: IsValid
-                            - kind: Whitespace
-                              text: " "
-                            - kind: EqualityOperator
-                              text: "="
-                            - kind: Whitespace
-                              text: " "
-                            - kind: CallExpression
-                              children:
-                                - kind: Identifier
-                                  text: IsArray
-                                - kind: LeftParenthesis
-                                  text: (
-                                - kind: ArgumentList
+                                - kind: Argument
                                   children:
-                                    - kind: Argument
+                                    - kind: IdentifierExpression
                                       children:
-                                        - kind: IdentifierExpression
-                                          children:
-                                            - kind: PeriodOperator
-                                              text: "."
-                    - kind: CallStatement
-                      children:
-                        - kind: Identifier
-                          text: Values
-                        - kind: ArgumentList
-                          children:
-                            - kind: Argument
-                              children:
-                                - kind: IdentifierExpression
-                                  children:
-                                    - kind: RightParenthesis
-                                      text: )
+                                        - kind: PeriodOperator
+                                          text: "."
+                                        - kind: Identifier
+                                          text: Values
+                            - kind: RightParenthesis
+                              text: )
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

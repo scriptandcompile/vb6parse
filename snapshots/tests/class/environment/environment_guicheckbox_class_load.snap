@@ -2225,10 +2225,8 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: CtrlFontName
+                              - kind: Identifier
+                                text: CtrlFontName
                           - kind: Newline
                             text: "\r\n"
                       - kind: AssignmentStatement
@@ -2289,10 +2287,8 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: CtrlFontSize
+                              - kind: Identifier
+                                text: CtrlFontSize
                           - kind: Newline
                             text: "\r\n"
                       - kind: AssignmentStatement
@@ -2315,10 +2311,8 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: CtrlFontBold
+                              - kind: Identifier
+                                text: CtrlFontBold
                           - kind: Newline
                             text: "\r\n"
                   - kind: EndKeyword
@@ -2375,22 +2369,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: Arrows2Tab
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BooleanLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: Arrows2Tab
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BooleanLiteralExpression
-                                children:
-                                  - kind: TrueKeyword
-                                    text: "True"
+                              - kind: TrueKeyword
+                                text: "True"
                           - kind: Newline
                             text: "\r\n"
                       - kind: AssignmentStatement
@@ -2399,22 +2389,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: NoArrowDown
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BooleanLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: NoArrowDown
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BooleanLiteralExpression
-                                children:
-                                  - kind: TrueKeyword
-                                    text: "True"
+                              - kind: TrueKeyword
+                                text: "True"
                           - kind: Newline
                             text: "\r\n"
                       - kind: AssignmentStatement
@@ -2423,22 +2409,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: NoArrowUp
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BooleanLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: NoArrowUp
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BooleanLiteralExpression
-                                children:
-                                  - kind: TrueKeyword
-                                    text: "True"
+                              - kind: TrueKeyword
+                                text: "True"
                           - kind: Newline
                             text: "\r\n"
                       - kind: AssignmentStatement
@@ -2447,22 +2429,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: NoEscapeKey
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BooleanLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: NoEscapeKey
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BooleanLiteralExpression
-                                children:
-                                  - kind: TrueKeyword
-                                    text: "True"
+                              - kind: TrueKeyword
+                                text: "True"
                           - kind: Newline
                             text: "\r\n"
                       - kind: AssignmentStatement
@@ -2471,22 +2449,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: bypassfirstClick
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BooleanLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: bypassfirstClick
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BooleanLiteralExpression
-                                children:
-                                  - kind: TrueKeyword
-                                    text: "True"
+                              - kind: TrueKeyword
+                                text: "True"
                           - kind: Newline
                             text: "\r\n"
                       - kind: CallStatement
@@ -2525,22 +2499,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: NoCaretShow
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BooleanLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: NoCaretShow
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BooleanLiteralExpression
-                                children:
-                                  - kind: TrueKeyword
-                                    text: "True"
+                              - kind: TrueKeyword
+                                text: "True"
                           - kind: Newline
                             text: "\r\n"
                       - kind: AssignmentStatement
@@ -2549,22 +2519,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: NoPanRight
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BooleanLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: NoPanRight
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BooleanLiteralExpression
-                                children:
-                                  - kind: FalseKeyword
-                                    text: "False"
+                              - kind: FalseKeyword
+                                text: "False"
                           - kind: Newline
                             text: "\r\n"
                       - kind: AssignmentStatement
@@ -2573,22 +2539,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: VerticalCenterText
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BooleanLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: VerticalCenterText
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BooleanLiteralExpression
-                                children:
-                                  - kind: TrueKeyword
-                                    text: "True"
+                              - kind: TrueKeyword
+                                text: "True"
                           - kind: Newline
                             text: "\r\n"
                       - kind: AssignmentStatement
@@ -2597,22 +2559,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: restrictLines
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: restrictLines
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "1"
+                              - kind: IntegerLiteral
+                                text: "1"
                           - kind: Newline
                             text: "\r\n"
                       - kind: CallStatement
@@ -2669,22 +2627,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: ListIndex
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: ListIndex
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "0"
+                              - kind: IntegerLiteral
+                                text: "0"
                           - kind: Newline
                             text: "\r\n"
                       - kind: SetStatement
@@ -2713,46 +2667,42 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: ForeColor
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: MemberAccessExpression
                             children:
-                              - kind: IdentifierExpression
+                              - kind: CallExpression
                                 children:
-                                  - kind: Identifier
-                                    text: ForeColor
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: MemberAccessExpression
-                                children:
-                                  - kind: CallExpression
+                                  - kind: MemberAccessExpression
                                     children:
-                                      - kind: MemberAccessExpression
+                                      - kind: Identifier
+                                        text: Callback
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Controls
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
                                         children:
-                                          - kind: Identifier
-                                            text: Callback
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: Controls
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
+                                          - kind: NumericLiteralExpression
                                             children:
-                                              - kind: NumericLiteralExpression
-                                                children:
-                                                  - kind: IntegerLiteral
-                                                    text: "1"
-                                      - kind: RightParenthesis
-                                        text: )
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: Identifier
-                                    text: ForeColor
+                                              - kind: IntegerLiteral
+                                                text: "1"
+                                  - kind: RightParenthesis
+                                    text: )
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: ForeColor
                           - kind: Newline
                             text: "\r\n"
                       - kind: AssignmentStatement
@@ -2761,46 +2711,42 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: dcolor
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: MemberAccessExpression
                             children:
-                              - kind: IdentifierExpression
+                              - kind: CallExpression
                                 children:
-                                  - kind: Identifier
-                                    text: dcolor
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: MemberAccessExpression
-                                children:
-                                  - kind: CallExpression
+                                  - kind: MemberAccessExpression
                                     children:
-                                      - kind: MemberAccessExpression
+                                      - kind: Identifier
+                                        text: Callback
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Controls
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
                                         children:
-                                          - kind: Identifier
-                                            text: Callback
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: Controls
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
+                                          - kind: NumericLiteralExpression
                                             children:
-                                              - kind: NumericLiteralExpression
-                                                children:
-                                                  - kind: IntegerLiteral
-                                                    text: "1"
-                                      - kind: RightParenthesis
-                                        text: )
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: Identifier
-                                    text: dcolor
+                                              - kind: IntegerLiteral
+                                                text: "1"
+                                  - kind: RightParenthesis
+                                    text: )
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: dcolor
                           - kind: Newline
                             text: "\r\n"
                       - kind: AssignmentStatement
@@ -2809,26 +2755,20 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: LeftMarginPixels
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: LeftMarginPixels
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: PeriodOperator
-                                    text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: HeightPixels
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: HeightPixels
                           - kind: Newline
                             text: "\r\n"
                       - kind: CallStatement
@@ -2845,22 +2785,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: enabled
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BooleanLiteralExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: enabled
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BooleanLiteralExpression
-                                children:
-                                  - kind: TrueKeyword
-                                    text: "True"
+                              - kind: TrueKeyword
+                                text: "True"
                           - kind: Newline
                             text: "\r\n"
                   - kind: EndKeyword

@@ -23,31 +23,31 @@ cst:
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: Midi
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
           - kind: Identifier
             text: sID
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"
           - kind: Whitespace
             text: "    "
-          - kind: Unknown
+          - kind: LeftSquareBracket
             text: "["
-          - kind: Unknown
+          - kind: BeepKeyword
             text: Beep
-          - kind: Unknown
+          - kind: RightSquareBracket
             text: "]"
           - kind: Newline
             text: "\n"

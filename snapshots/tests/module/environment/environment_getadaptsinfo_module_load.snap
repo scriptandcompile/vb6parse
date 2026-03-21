@@ -1893,38 +1893,34 @@ cst:
                                                             children:
                                                               - kind: PeriodOperator
                                                                 text: "."
-                                                          - kind: BinaryExpression
+                                                              - kind: Identifier
+                                                                text: Name
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: EqualityOperator
+                                                            text: "="
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: CallExpression
                                                             children:
-                                                              - kind: IdentifierExpression
+                                                              - kind: Identifier
+                                                                text: RNullTrim
+                                                              - kind: LeftParenthesis
+                                                                text: (
+                                                              - kind: ArgumentList
                                                                 children:
-                                                                  - kind: NameKeyword
-                                                                    text: Name
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: EqualityOperator
-                                                                text: "="
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: CallExpression
-                                                                children:
-                                                                  - kind: Identifier
-                                                                    text: RNullTrim
-                                                                  - kind: LeftParenthesis
-                                                                    text: (
-                                                                  - kind: ArgumentList
+                                                                  - kind: Argument
                                                                     children:
-                                                                      - kind: Argument
+                                                                      - kind: MemberAccessExpression
                                                                         children:
-                                                                          - kind: MemberAccessExpression
-                                                                            children:
-                                                                              - kind: Identifier
-                                                                                text: APIAdapterInfo
-                                                                              - kind: PeriodOperator
-                                                                                text: "."
-                                                                              - kind: Identifier
-                                                                                text: AdapterName
-                                                                  - kind: RightParenthesis
-                                                                    text: )
+                                                                          - kind: Identifier
+                                                                            text: APIAdapterInfo
+                                                                          - kind: PeriodOperator
+                                                                            text: "."
+                                                                          - kind: Identifier
+                                                                            text: AdapterName
+                                                              - kind: RightParenthesis
+                                                                text: )
                                                           - kind: Newline
                                                             text: "\r\n"
                                                       - kind: Whitespace
@@ -1935,26 +1931,22 @@ cst:
                                                             children:
                                                               - kind: PeriodOperator
                                                                 text: "."
-                                                          - kind: BinaryExpression
+                                                              - kind: Identifier
+                                                                text: AdapterIndex
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: EqualityOperator
+                                                            text: "="
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: MemberAccessExpression
                                                             children:
-                                                              - kind: IdentifierExpression
-                                                                children:
-                                                                  - kind: Identifier
-                                                                    text: AdapterIndex
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: EqualityOperator
-                                                                text: "="
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: MemberAccessExpression
-                                                                children:
-                                                                  - kind: Identifier
-                                                                    text: APIAdapterInfo
-                                                                  - kind: PeriodOperator
-                                                                    text: "."
-                                                                  - kind: Identifier
-                                                                    text: Index
+                                                              - kind: Identifier
+                                                                text: APIAdapterInfo
+                                                              - kind: PeriodOperator
+                                                                text: "."
+                                                              - kind: Identifier
+                                                                text: Index
                                                           - kind: Newline
                                                             text: "\r\n"
                                                       - kind: Whitespace
@@ -1965,38 +1957,34 @@ cst:
                                                             children:
                                                               - kind: PeriodOperator
                                                                 text: "."
-                                                          - kind: BinaryExpression
+                                                              - kind: Identifier
+                                                                text: Description
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: EqualityOperator
+                                                            text: "="
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: CallExpression
                                                             children:
-                                                              - kind: IdentifierExpression
+                                                              - kind: Identifier
+                                                                text: RNullTrim
+                                                              - kind: LeftParenthesis
+                                                                text: (
+                                                              - kind: ArgumentList
                                                                 children:
-                                                                  - kind: Identifier
-                                                                    text: Description
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: EqualityOperator
-                                                                text: "="
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: CallExpression
-                                                                children:
-                                                                  - kind: Identifier
-                                                                    text: RNullTrim
-                                                                  - kind: LeftParenthesis
-                                                                    text: (
-                                                                  - kind: ArgumentList
+                                                                  - kind: Argument
                                                                     children:
-                                                                      - kind: Argument
+                                                                      - kind: MemberAccessExpression
                                                                         children:
-                                                                          - kind: MemberAccessExpression
-                                                                            children:
-                                                                              - kind: Identifier
-                                                                                text: APIAdapterInfo
-                                                                              - kind: PeriodOperator
-                                                                                text: "."
-                                                                              - kind: Identifier
-                                                                                text: Description
-                                                                  - kind: RightParenthesis
-                                                                    text: )
+                                                                          - kind: Identifier
+                                                                            text: APIAdapterInfo
+                                                                          - kind: PeriodOperator
+                                                                            text: "."
+                                                                          - kind: Identifier
+                                                                            text: Description
+                                                              - kind: RightParenthesis
+                                                                text: )
                                                           - kind: Newline
                                                             text: "\r\n"
                                                       - kind: Whitespace
@@ -2041,44 +2029,40 @@ cst:
                                                             children:
                                                               - kind: PeriodOperator
                                                                 text: "."
-                                                          - kind: BinaryExpression
+                                                              - kind: Identifier
+                                                                text: IP
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: EqualityOperator
+                                                            text: "="
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: CallExpression
                                                             children:
-                                                              - kind: IdentifierExpression
+                                                              - kind: Identifier
+                                                                text: RNullTrim
+                                                              - kind: LeftParenthesis
+                                                                text: (
+                                                              - kind: ArgumentList
                                                                 children:
-                                                                  - kind: Identifier
-                                                                    text: IP
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: EqualityOperator
-                                                                text: "="
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: CallExpression
-                                                                children:
-                                                                  - kind: Identifier
-                                                                    text: RNullTrim
-                                                                  - kind: LeftParenthesis
-                                                                    text: (
-                                                                  - kind: ArgumentList
+                                                                  - kind: Argument
                                                                     children:
-                                                                      - kind: Argument
+                                                                      - kind: MemberAccessExpression
                                                                         children:
                                                                           - kind: MemberAccessExpression
                                                                             children:
-                                                                              - kind: MemberAccessExpression
-                                                                                children:
-                                                                                  - kind: Identifier
-                                                                                    text: APIAdapterInfo
-                                                                                  - kind: PeriodOperator
-                                                                                    text: "."
-                                                                                  - kind: Identifier
-                                                                                    text: IpAddressList
+                                                                              - kind: Identifier
+                                                                                text: APIAdapterInfo
                                                                               - kind: PeriodOperator
                                                                                 text: "."
                                                                               - kind: Identifier
-                                                                                text: IpAddress
-                                                                  - kind: RightParenthesis
-                                                                    text: )
+                                                                                text: IpAddressList
+                                                                          - kind: PeriodOperator
+                                                                            text: "."
+                                                                          - kind: Identifier
+                                                                            text: IpAddress
+                                                              - kind: RightParenthesis
+                                                                text: )
                                                           - kind: Newline
                                                             text: "\r\n"
                                                       - kind: Whitespace
@@ -2089,44 +2073,40 @@ cst:
                                                             children:
                                                               - kind: PeriodOperator
                                                                 text: "."
-                                                          - kind: BinaryExpression
+                                                              - kind: Identifier
+                                                                text: GatewayIP
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: EqualityOperator
+                                                            text: "="
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: CallExpression
                                                             children:
-                                                              - kind: IdentifierExpression
+                                                              - kind: Identifier
+                                                                text: RNullTrim
+                                                              - kind: LeftParenthesis
+                                                                text: (
+                                                              - kind: ArgumentList
                                                                 children:
-                                                                  - kind: Identifier
-                                                                    text: GatewayIP
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: EqualityOperator
-                                                                text: "="
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: CallExpression
-                                                                children:
-                                                                  - kind: Identifier
-                                                                    text: RNullTrim
-                                                                  - kind: LeftParenthesis
-                                                                    text: (
-                                                                  - kind: ArgumentList
+                                                                  - kind: Argument
                                                                     children:
-                                                                      - kind: Argument
+                                                                      - kind: MemberAccessExpression
                                                                         children:
                                                                           - kind: MemberAccessExpression
                                                                             children:
-                                                                              - kind: MemberAccessExpression
-                                                                                children:
-                                                                                  - kind: Identifier
-                                                                                    text: APIAdapterInfo
-                                                                                  - kind: PeriodOperator
-                                                                                    text: "."
-                                                                                  - kind: Identifier
-                                                                                    text: GatewayList
+                                                                              - kind: Identifier
+                                                                                text: APIAdapterInfo
                                                                               - kind: PeriodOperator
                                                                                 text: "."
                                                                               - kind: Identifier
-                                                                                text: IpAddress
-                                                                  - kind: RightParenthesis
-                                                                    text: )
+                                                                                text: GatewayList
+                                                                          - kind: PeriodOperator
+                                                                            text: "."
+                                                                          - kind: Identifier
+                                                                            text: IpAddress
+                                                              - kind: RightParenthesis
+                                                                text: )
                                                           - kind: Newline
                                                             text: "\r\n"
                                                       - kind: Whitespace

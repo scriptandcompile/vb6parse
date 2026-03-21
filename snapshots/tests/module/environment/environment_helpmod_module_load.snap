@@ -6505,22 +6505,18 @@ cst:
                                             children:
                                               - kind: PeriodOperator
                                                 text: "."
-                                          - kind: BinaryExpression
+                                              - kind: Identifier
+                                                text: NoError
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EqualityOperator
+                                            text: "="
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: BooleanLiteralExpression
                                             children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: NoError
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: EqualityOperator
-                                                text: "="
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: BooleanLiteralExpression
-                                                children:
-                                                  - kind: TrueKeyword
-                                                    text: "True"
+                                              - kind: TrueKeyword
+                                                text: "True"
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace
@@ -6587,36 +6583,34 @@ cst:
                                             text: "="
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: IdentifierExpression
+                                          - kind: CallExpression
                                             children:
                                               - kind: PeriodOperator
                                                 text: "."
-                                      - kind: CallStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: Connect
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: ArgumentList
-                                            children:
-                                              - kind: Argument
+                                              - kind: Identifier
+                                                text: Connect
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: ArgumentList
                                                 children:
-                                                  - kind: StringLiteralExpression
+                                                  - kind: Argument
                                                     children:
-                                                      - kind: StringLiteral
-                                                        text: "\"142.250.187.100\""
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
-                                                children:
-                                                  - kind: NumericLiteralExpression
+                                                      - kind: StringLiteralExpression
+                                                        children:
+                                                          - kind: StringLiteral
+                                                            text: "\"142.250.187.100\""
+                                                  - kind: Comma
+                                                    text: ","
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Argument
                                                     children:
-                                                      - kind: IntegerLiteral
-                                                        text: "80"
-                                          - kind: RightParenthesis
-                                            text: )
+                                                      - kind: NumericLiteralExpression
+                                                        children:
+                                                          - kind: IntegerLiteral
+                                                            text: "80"
+                                              - kind: RightParenthesis
+                                                text: )
                                           - kind: Newline
                                             text: "\r\n"
                                   - kind: EndKeyword

@@ -2133,24 +2133,20 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: IdentifierExpression
-                            children:
                               - kind: Identifier
                                 text: PostEvent
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Unknown
-                        text: m_cEvents
-                      - kind: AssignmentStatement
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: PeriodOperator
-                                text: "."
+                          - kind: Whitespace
+                            text: " "
                           - kind: CallExpression
                             children:
-                              - kind: Identifier
-                                text: Item
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: m_cEvents
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Item
                               - kind: LeftParenthesis
                                 text: (
                               - kind: ArgumentList

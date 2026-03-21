@@ -2037,12 +2037,12 @@ cst:
                                                 children:
                                                   - kind: PeriodOperator
                                                     text: "."
-                                              - kind: IdentifierExpression
-                                                children:
                                                   - kind: Identifier
                                                     text: Flush
-                                          - kind: ColonOperator
-                                            text: ":"
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: ColonOperator
+                                                    text: ":"
                                           - kind: Whitespace
                                             text: " "
                                           - kind: AssignmentStatement

@@ -2100,128 +2100,104 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: CallExpression
+                          - kind: BinaryExpression
                             children:
-                              - kind: Identifier
-                                text: DateSerial
-                              - kind: LeftParenthesis
-                                text: (
-                              - kind: ArgumentList
+                              - kind: CallExpression
                                 children:
-                                  - kind: Argument
+                                  - kind: Identifier
+                                    text: DateSerial
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: Argument
                                         children:
-                                          - kind: PeriodOperator
-                                            text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: wYear
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: MemberAccessExpression
-                                    children:
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: wMonth
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: PeriodOperator
-                                        text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: wDay
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: RightParenthesis
-                                            text: )
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: AdditionOperator
-                                        text: +
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Underscore
-                                        text: _
-                                      - kind: Newline
-                                        text: "\r\n"
-                                      - kind: Whitespace
-                                        text: "                   "
-                                      - kind: CallExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: TimeSerial
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: ArgumentList
+                                          - kind: IdentifierExpression
                                             children:
-                                              - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: PeriodOperator
-                                                        text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: wHour
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: MemberAccessExpression
-                                    children:
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: wYear
                                       - kind: Comma
                                         text: ","
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: wMinute
-                              - kind: Comma
-                                text: ","
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: wMonth
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: wDay
+                                  - kind: RightParenthesis
+                                    text: )
                               - kind: Whitespace
                                 text: " "
-                              - kind: Argument
+                              - kind: AdditionOperator
+                                text: +
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Underscore
+                                text: _
+                              - kind: Newline
+                                text: "\r\n"
+                              - kind: Whitespace
+                                text: "                   "
+                              - kind: CallExpression
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: Identifier
+                                    text: TimeSerial
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
                                     children:
-                                      - kind: PeriodOperator
-                                        text: "."
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: wSecond
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: RightParenthesis
-                                        text: )
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: wHour
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: wMinute
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: wSecond
+                                  - kind: RightParenthesis
+                                    text: )
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace

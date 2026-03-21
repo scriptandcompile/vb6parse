@@ -101,6 +101,7 @@ impl Parser<'_> {
 
             // Consume enum member lines (identifier [= expression])
             // This includes whitespace, comments, identifiers, operators, and newlines
+            // Also includes square brackets for VB6 attributes like [Description("...")]
             match self.current_token() {
                 Some(
                     Token::Whitespace
@@ -120,8 +121,14 @@ impl Parser<'_> {
                     | Token::LeftParenthesis
                     | Token::RightParenthesis
                     | Token::Ampersand
-                    | Token::Comma,
+                    | Token::Comma
+                    | Token::LeftSquareBracket
+                    | Token::RightSquareBracket,
                 ) => {
+                    self.consume_token();
+                }
+                _ if self.at_keyword() => {
+                    // Keywords can appear inside square brackets as escaped identifiers
                     self.consume_token();
                 }
                 _ => {

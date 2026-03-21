@@ -27,72 +27,56 @@ root:
                   children:
                     - kind: PeriodOperator
                       text: "."
-                - kind: BinaryExpression
+                    - kind: Identifier
+                      text: Settings
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
                   children:
-                    - kind: IdentifierExpression
+                    - kind: Identifier
+                      text: GetAutoServerSettings
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
                       children:
-                        - kind: Identifier
-                          text: Settings
-                    - kind: Whitespace
-                      text: " "
-                    - kind: EqualityOperator
-                      text: "="
-                    - kind: Whitespace
-                      text: " "
-                    - kind: CallExpression
-                      children:
-                        - kind: Identifier
-                          text: GetAutoServerSettings
-                        - kind: LeftParenthesis
-                          text: (
-                        - kind: ArgumentList
+                        - kind: Argument
                           children:
-                            - kind: Argument
+                            - kind: IdentifierExpression
                               children:
-                                - kind: IdentifierExpression
-                                  children:
-                                    - kind: PeriodOperator
-                                      text: "."
-            - kind: CallStatement
-              children:
-                - kind: Identifier
-                  text: ProgID
-                - kind: ArgumentList
-                  children:
-                    - kind: Argument
-                      children:
-                        - kind: MemberAccessExpression
+                                - kind: PeriodOperator
+                                  text: "."
+                                - kind: Identifier
+                                  text: ProgID
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
                           children:
-                            - kind: Comma
-                              text: ","
-                            - kind: Whitespace
-                              text: " "
-                            - kind: PeriodOperator
-                              text: "."
-                            - kind: Identifier
-                              text: CLSID
-                    - kind: Comma
-                      text: ","
-                    - kind: Whitespace
-                      text: " "
-                    - kind: Argument
-                      children:
-                        - kind: IdentifierExpression
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: PeriodOperator
+                                  text: "."
+                                - kind: Identifier
+                                  text: CLSID
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
                           children:
-                            - kind: PeriodOperator
-                              text: "."
-            - kind: CallStatement
-              children:
-                - kind: Identifier
-                  text: ServerName
-                - kind: ArgumentList
-                  children:
-                    - kind: Argument
-                      children:
-                        - kind: IdentifierExpression
-                          children:
-                            - kind: RightParenthesis
-                              text: )
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: PeriodOperator
+                                  text: "."
+                                - kind: Identifier
+                                  text: ServerName
+                    - kind: RightParenthesis
+                      text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

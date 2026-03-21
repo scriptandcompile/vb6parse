@@ -29,68 +29,56 @@ root:
                   children:
                     - kind: PeriodOperator
                       text: "."
-                - kind: BinaryExpression
+                    - kind: Identifier
+                      text: MonthDisplay
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
                   children:
-                    - kind: IdentifierExpression
+                    - kind: Identifier
+                      text: MonthName
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
                       children:
-                        - kind: Identifier
-                          text: MonthDisplay
-                    - kind: Whitespace
-                      text: " "
-                    - kind: EqualityOperator
-                      text: "="
-                    - kind: Whitespace
-                      text: " "
-                    - kind: CallExpression
-                      children:
-                        - kind: Identifier
-                          text: MonthName
-                        - kind: LeftParenthesis
-                          text: (
-                        - kind: ArgumentList
+                        - kind: Argument
                           children:
-                            - kind: Argument
+                            - kind: CallExpression
                               children:
-                                - kind: CallExpression
+                                - kind: Identifier
+                                  text: Month
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
                                   children:
-                                    - kind: Identifier
-                                      text: Month
-                                    - kind: LeftParenthesis
-                                      text: (
-                                    - kind: ArgumentList
+                                    - kind: Argument
                                       children:
-                                        - kind: Argument
+                                        - kind: IdentifierExpression
                                           children:
-                                            - kind: IdentifierExpression
-                                              children:
-                                                - kind: PeriodOperator
-                                                  text: "."
-            - kind: CallStatement
-              children:
-                - kind: Identifier
-                  text: ReportDate
-                - kind: ArgumentList
-                  children:
-                    - kind: Argument
-                      children:
-                        - kind: IdentifierExpression
+                                            - kind: PeriodOperator
+                                              text: "."
+                                            - kind: Identifier
+                                              text: ReportDate
+                                - kind: RightParenthesis
+                                  text: )
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
                           children:
-                            - kind: RightParenthesis
-                              text: )
-                    - kind: Comma
-                      text: ","
-                    - kind: Whitespace
-                      text: " "
-                    - kind: Argument
-                      children:
-                        - kind: BooleanLiteralExpression
-                          children:
-                            - kind: TrueKeyword
-                              text: "True"
-            - kind: Unknown
-              text: )
-            - kind: Newline
-              text: "\n"
+                            - kind: BooleanLiteralExpression
+                              children:
+                                - kind: TrueKeyword
+                                  text: "True"
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

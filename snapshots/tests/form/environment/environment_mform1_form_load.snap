@@ -4462,28 +4462,24 @@ cst:
                                                             children:
                                                               - kind: PeriodOperator
                                                                 text: "."
-                                                          - kind: BinaryExpression
+                                                              - kind: Identifier
+                                                                text: Contents
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: EqualityOperator
+                                                            text: "="
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: CallExpression
                                                             children:
-                                                              - kind: IdentifierExpression
-                                                                children:
-                                                                  - kind: Identifier
-                                                                    text: Contents
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: EqualityOperator
-                                                                text: "="
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: CallExpression
-                                                                children:
-                                                                  - kind: Identifier
-                                                                    text: arData
-                                                                  - kind: LeftParenthesis
-                                                                    text: (
-                                                                  - kind: ArgumentList
-                                                                    children: []
-                                                                  - kind: RightParenthesis
-                                                                    text: )
+                                                              - kind: Identifier
+                                                                text: arData
+                                                              - kind: LeftParenthesis
+                                                                text: (
+                                                              - kind: ArgumentList
+                                                                children: []
+                                                              - kind: RightParenthesis
+                                                                text: )
                                                           - kind: Newline
                                                             text: "\r\n"
                                                       - kind: SetStatement
@@ -4710,10 +4706,8 @@ cst:
                                                             children:
                                                               - kind: PeriodOperator
                                                                 text: "."
-                                                      - kind: CallStatement
-                                                        children:
-                                                          - kind: Identifier
-                                                            text: Contents
+                                                              - kind: Identifier
+                                                                text: Contents
                                                           - kind: Newline
                                                             text: "\r\n"
                                                       - kind: Whitespace

@@ -7762,34 +7762,30 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: lStructSize
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
                             children:
-                              - kind: IdentifierExpression
+                              - kind: LenKeyword
+                                text: Len
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
                                 children:
-                                  - kind: Identifier
-                                    text: lStructSize
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: CallExpression
-                                children:
-                                  - kind: LenKeyword
-                                    text: Len
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: ArgumentList
+                                  - kind: Argument
                                     children:
-                                      - kind: Argument
+                                      - kind: IdentifierExpression
                                         children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: opfile
-                                  - kind: RightParenthesis
-                                    text: )
+                                          - kind: Identifier
+                                            text: opfile
+                              - kind: RightParenthesis
+                                text: )
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -7814,6 +7810,14 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
+                              - kind: Identifier
+                                text: flags
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
                           - kind: BinaryExpression
                             children:
                               - kind: BinaryExpression
@@ -7822,44 +7826,32 @@ cst:
                                     children:
                                       - kind: BinaryExpression
                                         children:
-                                          - kind: BinaryExpression
+                                          - kind: ParenthesizedExpression
                                             children:
-                                              - kind: IdentifierExpression
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: BinaryExpression
                                                 children:
-                                                  - kind: Identifier
-                                                    text: flags
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: EqualityOperator
-                                                text: "="
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: ParenthesizedExpression
-                                                children:
-                                                  - kind: LeftParenthesis
-                                                    text: (
-                                                  - kind: BinaryExpression
+                                                  - kind: UnaryExpression
                                                     children:
-                                                      - kind: UnaryExpression
-                                                        children:
-                                                          - kind: SubtractionOperator
-                                                            text: "-"
-                                                          - kind: IdentifierExpression
-                                                            children:
-                                                              - kind: Identifier
-                                                                text: FileMustExist
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: MultiplicationOperator
-                                                        text: "*"
-                                                      - kind: Whitespace
-                                                        text: " "
+                                                      - kind: SubtractionOperator
+                                                        text: "-"
                                                       - kind: IdentifierExpression
                                                         children:
                                                           - kind: Identifier
-                                                            text: OFN_FILEMUSTEXIST
-                                                  - kind: RightParenthesis
-                                                    text: )
+                                                            text: FileMustExist
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: MultiplicationOperator
+                                                    text: "*"
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: OFN_FILEMUSTEXIST
+                                              - kind: RightParenthesis
+                                                text: )
                                           - kind: Whitespace
                                             text: " "
                                           - kind: OrKeyword
@@ -8098,22 +8090,18 @@ cst:
                                 children:
                                   - kind: PeriodOperator
                                     text: "."
-                              - kind: BinaryExpression
+                                  - kind: Identifier
+                                    text: hWndOwner
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
                                 children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: hWndOwner
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: EqualityOperator
-                                    text: "="
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: Owner
+                                  - kind: Identifier
+                                    text: Owner
                               - kind: Newline
                                 text: "\r\n"
                           - kind: Whitespace
@@ -8130,22 +8118,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: lpstrInitialDir
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: lpstrInitialDir
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: InitDir
+                              - kind: Identifier
+                                text: InitDir
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -8162,22 +8146,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: lpstrDefExt
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: lpstrDefExt
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: DefaultExt
+                              - kind: Identifier
+                                text: DefaultExt
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -8194,22 +8174,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: lpstrTitle
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: lpstrTitle
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: DlgTitle
+                              - kind: Identifier
+                                text: DlgTitle
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -8560,22 +8536,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: lpstrFilter
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: lpstrFilter
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: s
+                              - kind: Identifier
+                                text: s
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -8586,22 +8558,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: nFilterIndex
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: nFilterIndex
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: FilterIndex
+                              - kind: Identifier
+                                text: FilterIndex
                           - kind: Newline
                             text: "\r\n"
                       - kind: Newline
@@ -8700,22 +8668,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: lpstrFile
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: lpstrFile
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: s
+                              - kind: Identifier
+                                text: s
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -8726,22 +8690,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: nMaxFile
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: nMaxFile
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: MAX_PATH
+                              - kind: Identifier
+                                text: MAX_PATH
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -8832,22 +8792,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: lpstrFileTitle
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: lpstrFileTitle
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: s
+                              - kind: Identifier
+                                text: s
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -8858,22 +8814,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: nMaxFileTitle
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: nMaxFileTitle
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: MAX_FILE
+                              - kind: Identifier
+                                text: MAX_FILE
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -9004,18 +8956,10 @@ cst:
                                                     children:
                                                       - kind: PeriodOperator
                                                         text: "."
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: lpstrFile
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: RightParenthesis
-                                                    text: )
+                                                      - kind: Identifier
+                                                        text: lpstrFile
+                                          - kind: RightParenthesis
+                                            text: )
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace
@@ -9046,18 +8990,10 @@ cst:
                                                     children:
                                                       - kind: PeriodOperator
                                                         text: "."
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: lpstrFileTitle
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: RightParenthesis
-                                                    text: )
+                                                      - kind: Identifier
+                                                        text: lpstrFileTitle
+                                          - kind: RightParenthesis
+                                            text: )
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace
@@ -9078,10 +9014,8 @@ cst:
                                         children:
                                           - kind: PeriodOperator
                                             text: "."
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: flags
+                                          - kind: Identifier
+                                            text: flags
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace
@@ -9108,10 +9042,8 @@ cst:
                                         children:
                                           - kind: PeriodOperator
                                             text: "."
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: nFilterIndex
+                                          - kind: Identifier
+                                            text: nFilterIndex
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace
@@ -9148,32 +9080,20 @@ cst:
                                                     children:
                                                       - kind: PeriodOperator
                                                         text: "."
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: lpstrFilter
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
+                                                      - kind: Identifier
+                                                        text: lpstrFilter
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
                                                 children:
-                                                  - kind: Comma
-                                                    text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: FilterIndex
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: RightParenthesis
-                                                    text: )
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: FilterIndex
+                                          - kind: RightParenthesis
+                                            text: )
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: IfStatement
@@ -9188,49 +9108,33 @@ cst:
                                         children:
                                           - kind: LeftParenthesis
                                             text: (
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: PeriodOperator
-                                                text: "."
-                                      - kind: CallStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: flags
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: ArgumentList
-                                            children:
-                                              - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: AndKeyword
-                                                        text: And
-                                              - kind: Whitespace
-                                                text: " "
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: OFN_READONLY
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
+                                          - kind: BinaryExpression
                                             children:
                                               - kind: IdentifierExpression
                                                 children:
-                                                  - kind: RightParenthesis
-                                                    text: )
-                                          - kind: Whitespace
-                                            text: " "
-                                  - kind: AssignmentStatement
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: ThenKeyword
-                                            text: Then
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: flags
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: AndKeyword
+                                                text: And
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: OFN_READONLY
+                                          - kind: RightParenthesis
+                                            text: )
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: BinaryExpression
+                                      - kind: ThenKeyword
+                                        text: Then
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: AssignmentStatement
                                         children:
                                           - kind: IdentifierExpression
                                             children:
@@ -9246,22 +9150,18 @@ cst:
                                             children:
                                               - kind: TrueKeyword
                                                 text: "True"
+                                          - kind: Newline
+                                            text: "\r\n"
+                                      - kind: Whitespace
+                                        text: "    "
+                                      - kind: CaseKeyword
+                                        text: Case
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: IntegerLiteral
+                                        text: "0"
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Whitespace
-                                    text: "    "
-                          - kind: CaseClause
-                            children:
-                              - kind: CaseKeyword
-                                text: Case
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IntegerLiteral
-                                text: "0"
-                              - kind: Newline
-                                text: "\r\n"
-                              - kind: StatementList
-                                children:
                                   - kind: Whitespace
                                     text: "        "
                                   - kind: EndOfLineComment
@@ -10092,34 +9992,30 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: lStructSize
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
                             children:
-                              - kind: IdentifierExpression
+                              - kind: LenKeyword
+                                text: Len
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
                                 children:
-                                  - kind: Identifier
-                                    text: lStructSize
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: CallExpression
-                                children:
-                                  - kind: LenKeyword
-                                    text: Len
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: ArgumentList
+                                  - kind: Argument
                                     children:
-                                      - kind: Argument
+                                      - kind: IdentifierExpression
                                         children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: opfile
-                                  - kind: RightParenthesis
-                                    text: )
+                                          - kind: Identifier
+                                            text: opfile
+                              - kind: RightParenthesis
+                                text: )
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -10140,48 +10036,44 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
+                              - kind: Identifier
+                                text: flags
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
                           - kind: BinaryExpression
                             children:
                               - kind: BinaryExpression
                                 children:
-                                  - kind: BinaryExpression
+                                  - kind: ParenthesizedExpression
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: BinaryExpression
                                         children:
-                                          - kind: Identifier
-                                            text: flags
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: ParenthesizedExpression
-                                        children:
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: BinaryExpression
+                                          - kind: UnaryExpression
                                             children:
-                                              - kind: UnaryExpression
-                                                children:
-                                                  - kind: SubtractionOperator
-                                                    text: "-"
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: OverWritePrompt
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: MultiplicationOperator
-                                                text: "*"
-                                              - kind: Whitespace
-                                                text: " "
+                                              - kind: SubtractionOperator
+                                                text: "-"
                                               - kind: IdentifierExpression
                                                 children:
                                                   - kind: Identifier
-                                                    text: OFN_OVERWRITEPROMPT
-                                          - kind: RightParenthesis
-                                            text: )
+                                                    text: OverWritePrompt
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: MultiplicationOperator
+                                            text: "*"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: OFN_OVERWRITEPROMPT
+                                      - kind: RightParenthesis
+                                        text: )
                                   - kind: Whitespace
                                     text: " "
                                   - kind: OrKeyword
@@ -10322,22 +10214,18 @@ cst:
                                 children:
                                   - kind: PeriodOperator
                                     text: "."
-                              - kind: BinaryExpression
+                                  - kind: Identifier
+                                    text: hWndOwner
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
                                 children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: hWndOwner
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: EqualityOperator
-                                    text: "="
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: Owner
+                                  - kind: Identifier
+                                    text: Owner
                               - kind: Newline
                                 text: "\r\n"
                           - kind: Whitespace
@@ -10354,22 +10242,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: lpstrInitialDir
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: lpstrInitialDir
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: InitDir
+                              - kind: Identifier
+                                text: InitDir
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -10386,22 +10270,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: lpstrDefExt
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: lpstrDefExt
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: DefaultExt
+                              - kind: Identifier
+                                text: DefaultExt
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -10418,22 +10298,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: lpstrTitle
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: lpstrTitle
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: DlgTitle
+                              - kind: Identifier
+                                text: DlgTitle
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -10784,22 +10660,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: lpstrFilter
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: lpstrFilter
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: s
+                              - kind: Identifier
+                                text: s
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -10810,22 +10682,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: nFilterIndex
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: nFilterIndex
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: FilterIndex
+                              - kind: Identifier
+                                text: FilterIndex
                           - kind: Newline
                             text: "\r\n"
                       - kind: Newline
@@ -10924,22 +10792,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: lpstrFile
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: lpstrFile
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: s
+                              - kind: Identifier
+                                text: s
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -10950,22 +10814,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: nMaxFile
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: nMaxFile
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: MAX_PATH
+                              - kind: Identifier
+                                text: MAX_PATH
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -11056,22 +10916,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: lpstrFileTitle
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: lpstrFileTitle
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: s
+                              - kind: Identifier
+                                text: s
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -11082,22 +10938,18 @@ cst:
                             children:
                               - kind: PeriodOperator
                                 text: "."
-                          - kind: BinaryExpression
+                              - kind: Identifier
+                                text: nMaxFileTitle
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: nMaxFileTitle
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: MAX_FILE
+                              - kind: Identifier
+                                text: MAX_FILE
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -11222,18 +11074,10 @@ cst:
                                                     children:
                                                       - kind: PeriodOperator
                                                         text: "."
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: lpstrFile
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: RightParenthesis
-                                                    text: )
+                                                      - kind: Identifier
+                                                        text: lpstrFile
+                                          - kind: RightParenthesis
+                                            text: )
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace
@@ -11264,18 +11108,10 @@ cst:
                                                     children:
                                                       - kind: PeriodOperator
                                                         text: "."
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: lpstrFileTitle
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: RightParenthesis
-                                                    text: )
+                                                      - kind: Identifier
+                                                        text: lpstrFileTitle
+                                          - kind: RightParenthesis
+                                            text: )
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace
@@ -11296,10 +11132,8 @@ cst:
                                         children:
                                           - kind: PeriodOperator
                                             text: "."
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: flags
+                                          - kind: Identifier
+                                            text: flags
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace
@@ -11326,10 +11160,8 @@ cst:
                                         children:
                                           - kind: PeriodOperator
                                             text: "."
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: nFilterIndex
+                                          - kind: Identifier
+                                            text: nFilterIndex
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace
@@ -11366,32 +11198,20 @@ cst:
                                                     children:
                                                       - kind: PeriodOperator
                                                         text: "."
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: lpstrFilter
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
+                                                      - kind: Identifier
+                                                        text: lpstrFilter
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
                                                 children:
-                                                  - kind: Comma
-                                                    text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: FilterIndex
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: RightParenthesis
-                                                    text: )
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: FilterIndex
+                                          - kind: RightParenthesis
+                                            text: )
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace

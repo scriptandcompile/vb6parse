@@ -45,30 +45,26 @@ root:
                       text: "        "
                     - kind: AssignmentStatement
                       children:
-                        - kind: IdentifierExpression
+                        - kind: MemberAccessExpression
                           children:
                             - kind: PeriodOperator
                               text: "."
-                        - kind: BinaryExpression
+                            - kind: Identifier
+                              text: NestedObject
+                            - kind: PeriodOperator
+                              text: "."
+                            - kind: PropertyKeyword
+                              text: Property
+                        - kind: Whitespace
+                          text: " "
+                        - kind: EqualityOperator
+                          text: "="
+                        - kind: Whitespace
+                          text: " "
+                        - kind: NumericLiteralExpression
                           children:
-                            - kind: MemberAccessExpression
-                              children:
-                                - kind: Identifier
-                                  text: NestedObject
-                                - kind: PeriodOperator
-                                  text: "."
-                                - kind: PropertyKeyword
-                                  text: Property
-                            - kind: Whitespace
-                              text: " "
-                            - kind: EqualityOperator
-                              text: "="
-                            - kind: Whitespace
-                              text: " "
-                            - kind: NumericLiteralExpression
-                              children:
-                                - kind: IntegerLiteral
-                                  text: "123"
+                            - kind: IntegerLiteral
+                              text: "123"
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace
