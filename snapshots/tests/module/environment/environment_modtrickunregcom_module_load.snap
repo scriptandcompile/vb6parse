@@ -26647,14 +26647,18 @@ cst:
                                                                                                         text: "    "
                                                                                                       - kind: Unknown
                                                                                                         text: Err
-                                                                                                      - kind: Unknown
-                                                                                                        text: "."
-                                                                                                      - kind: LabelStatement
+                                                                                                      - kind: AssignmentStatement
                                                                                                         children:
-                                                                                                          - kind: Identifier
-                                                                                                            text: Clear
-                                                                                                          - kind: ColonOperator
-                                                                                                            text: ":"
+                                                                                                          - kind: IdentifierExpression
+                                                                                                            children:
+                                                                                                              - kind: PeriodOperator
+                                                                                                                text: "."
+                                                                                                          - kind: IdentifierExpression
+                                                                                                            children:
+                                                                                                              - kind: Identifier
+                                                                                                                text: Clear
+                                                                                                      - kind: Unknown
+                                                                                                        text: ":"
                                                                                                       - kind: Whitespace
                                                                                                         text: " "
                                                                                                       - kind: AssignmentStatement

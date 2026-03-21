@@ -13135,28 +13135,36 @@ cst:
                                                                                                     text: ","
                                                                                                   - kind: Whitespace
                                                                                                     text: " "
-                                                                                                  - kind: PeriodOperator
-                                                                                                    text: "."
-                                                                                                  - kind: Identifier
-                                                                                                    text: cbBuffer
-                                                                                                  - kind: Comma
-                                                                                                    text: ","
-                                                                                                  - kind: Whitespace
-                                                                                                    text: " "
-                                                                                                  - kind: Identifier
-                                                                                                    text: Timeout
-                                                                                                  - kind: ColonOperator
-                                                                                                    text: ":"
                                                                                                   - kind: AssignmentStatement
                                                                                                     children:
                                                                                                       - kind: IdentifierExpression
                                                                                                         children:
-                                                                                                          - kind: EqualityOperator
-                                                                                                            text: "="
+                                                                                                          - kind: PeriodOperator
+                                                                                                            text: "."
                                                                                                       - kind: IdentifierExpression
                                                                                                         children:
                                                                                                           - kind: Identifier
-                                                                                                            text: m_lWriteTimeout
+                                                                                                            text: cbBuffer
+                                                                                              - kind: Unknown
+                                                                                                text: ","
+                                                                                              - kind: Whitespace
+                                                                                                text: " "
+                                                                                              - kind: LabelStatement
+                                                                                                children:
+                                                                                                  - kind: Identifier
+                                                                                                    text: Timeout
+                                                                                                  - kind: ColonOperator
+                                                                                                    text: ":"
+                                                                                              - kind: AssignmentStatement
+                                                                                                children:
+                                                                                                  - kind: IdentifierExpression
+                                                                                                    children:
+                                                                                                      - kind: EqualityOperator
+                                                                                                        text: "="
+                                                                                                  - kind: IdentifierExpression
+                                                                                                    children:
+                                                                                                      - kind: Identifier
+                                                                                                        text: m_lWriteTimeout
                                                                                               - kind: Unknown
                                                                                                 text: )
                                                                                               - kind: Whitespace
@@ -15807,28 +15815,36 @@ cst:
                                                                                                                                                                 text: ","
                                                                                                                                                               - kind: Whitespace
                                                                                                                                                                 text: " "
-                                                                                                                                                              - kind: PeriodOperator
-                                                                                                                                                                text: "."
-                                                                                                                                                              - kind: Identifier
-                                                                                                                                                                text: cbBuffer
-                                                                                                                                                              - kind: Comma
-                                                                                                                                                                text: ","
-                                                                                                                                                              - kind: Whitespace
-                                                                                                                                                                text: " "
-                                                                                                                                                              - kind: Identifier
-                                                                                                                                                                text: Timeout
-                                                                                                                                                              - kind: ColonOperator
-                                                                                                                                                                text: ":"
                                                                                                                                                               - kind: AssignmentStatement
                                                                                                                                                                 children:
                                                                                                                                                                   - kind: IdentifierExpression
                                                                                                                                                                     children:
-                                                                                                                                                                      - kind: EqualityOperator
-                                                                                                                                                                        text: "="
+                                                                                                                                                                      - kind: PeriodOperator
+                                                                                                                                                                        text: "."
                                                                                                                                                                   - kind: IdentifierExpression
                                                                                                                                                                     children:
                                                                                                                                                                       - kind: Identifier
-                                                                                                                                                                        text: m_lWriteTimeout
+                                                                                                                                                                        text: cbBuffer
+                                                                                                                                                          - kind: Unknown
+                                                                                                                                                            text: ","
+                                                                                                                                                          - kind: Whitespace
+                                                                                                                                                            text: " "
+                                                                                                                                                          - kind: LabelStatement
+                                                                                                                                                            children:
+                                                                                                                                                              - kind: Identifier
+                                                                                                                                                                text: Timeout
+                                                                                                                                                              - kind: ColonOperator
+                                                                                                                                                                text: ":"
+                                                                                                                                                          - kind: AssignmentStatement
+                                                                                                                                                            children:
+                                                                                                                                                              - kind: IdentifierExpression
+                                                                                                                                                                children:
+                                                                                                                                                                  - kind: EqualityOperator
+                                                                                                                                                                    text: "="
+                                                                                                                                                              - kind: IdentifierExpression
+                                                                                                                                                                children:
+                                                                                                                                                                  - kind: Identifier
+                                                                                                                                                                    text: m_lWriteTimeout
                                                                                                                                                           - kind: Unknown
                                                                                                                                                             text: )
                                                                                                                                                           - kind: Whitespace

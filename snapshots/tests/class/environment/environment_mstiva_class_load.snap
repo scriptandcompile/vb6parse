@@ -14258,10 +14258,10 @@ cst:
                             text: "\r\n"
                       - kind: Whitespace
                         text: "    "
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: PushDim
                           - kind: Whitespace
@@ -14276,10 +14276,10 @@ cst:
                             text: "\r\n"
                       - kind: Whitespace
                         text: "    "
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: PushEnd
                           - kind: Newline
@@ -14408,10 +14408,10 @@ cst:
                                         text: "\r\n"
                                       - kind: StatementList
                                         children:
-                                          - kind: Unknown
-                                            text: "."
                                           - kind: CallStatement
                                             children:
+                                              - kind: PeriodOperator
+                                                text: "."
                                               - kind: Identifier
                                                 text: item
                                               - kind: LeftParenthesis
@@ -14466,10 +14466,10 @@ cst:
                                         text: "\r\n"
                                       - kind: StatementList
                                         children:
-                                          - kind: Unknown
-                                            text: "."
                                           - kind: CallStatement
                                             children:
+                                              - kind: PeriodOperator
+                                                text: "."
                                               - kind: Identifier
                                                 text: item
                                               - kind: LeftParenthesis
@@ -15188,10 +15188,10 @@ cst:
                                 text: "\r\n"
                           - kind: Whitespace
                             text: "        "
-                          - kind: PeriodOperator
-                            text: "."
                           - kind: CallStatement
                             children:
+                              - kind: PeriodOperator
+                                text: "."
                               - kind: Identifier
                                 text: PeekItem
                               - kind: Whitespace
@@ -15292,10 +15292,10 @@ cst:
                                 children:
                                   - kind: Whitespace
                                     text: "            "
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: PeekItem
                                       - kind: Whitespace

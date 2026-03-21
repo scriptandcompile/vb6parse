@@ -1,16 +1,16 @@
 ---
-source: src/syntax/library/functions/objects/getobject.rs
+source: vb6parse/src/syntax/library/functions/objects/getobject.rs
 expression: tree
 ---
 root:
   kind: Root
   children:
-    - kind: Identifier
-      text: Debug
-    - kind: Unknown
-      text: "."
-    - kind: PrintStatement
+    - kind: CallStatement
       children:
+        - kind: Identifier
+          text: Debug
+        - kind: PeriodOperator
+          text: "."
         - kind: PrintKeyword
           text: Print
         - kind: Whitespace

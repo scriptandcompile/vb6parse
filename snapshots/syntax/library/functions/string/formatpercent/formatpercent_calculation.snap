@@ -1,53 +1,55 @@
 ---
-source: src/syntax/library/functions/string/formatpercent.rs
+source: vb6parse/src/syntax/library/functions/string/formatpercent.rs
 expression: tree
 ---
 root:
   kind: Root
   children:
-    - kind: Identifier
-      text: MsgBox
-    - kind: Whitespace
-      text: " "
-    - kind: Unknown
-      text: "\"Growth: \""
-    - kind: Whitespace
-      text: " "
-    - kind: Unknown
-      text: "&"
-    - kind: Whitespace
-      text: " "
-    - kind: Identifier
-      text: FormatPercent
-    - kind: Unknown
-      text: (
-    - kind: Unknown
-      text: (
-    - kind: Identifier
-      text: currentValue
-    - kind: Whitespace
-      text: " "
-    - kind: Unknown
-      text: "-"
-    - kind: Whitespace
-      text: " "
-    - kind: Identifier
-      text: previousValue
-    - kind: Unknown
-      text: )
-    - kind: Whitespace
-      text: " "
-    - kind: Unknown
-      text: /
-    - kind: Whitespace
-      text: " "
-    - kind: Identifier
-      text: previousValue
-    - kind: Unknown
-      text: ","
-    - kind: Whitespace
-      text: " "
-    - kind: Unknown
-      text: "1"
-    - kind: Unknown
-      text: )
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Growth: \""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: FormatPercent
+        - kind: LeftParenthesis
+          text: (
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: currentValue
+        - kind: Whitespace
+          text: " "
+        - kind: SubtractionOperator
+          text: "-"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: previousValue
+        - kind: RightParenthesis
+          text: )
+        - kind: Whitespace
+          text: " "
+        - kind: DivisionOperator
+          text: /
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: previousValue
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: RightParenthesis
+          text: )

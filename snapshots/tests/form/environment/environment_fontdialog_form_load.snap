@@ -1119,10 +1119,10 @@ cst:
                             text: "\r\n"
                           - kind: StatementList
                             children:
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: additemFast
                                   - kind: Whitespace
@@ -1167,10 +1167,10 @@ cst:
                                             text: "False"
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: additemFast
                                   - kind: Whitespace
@@ -1179,10 +1179,10 @@ cst:
                                     text: "\"  Bold\""
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: additemFast
                                   - kind: Whitespace
@@ -1191,10 +1191,10 @@ cst:
                                     text: "\"  Italic\""
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: MenuItem
                                   - kind: Whitespace
@@ -1227,10 +1227,10 @@ cst:
                                     text: "\"bold\""
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: MenuItem
                                   - kind: Whitespace
@@ -1263,10 +1263,10 @@ cst:
                                     text: "\"italic\""
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: additemFast
                                   - kind: Whitespace
@@ -1311,10 +1311,10 @@ cst:
                                             text: "False"
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: additemFast
                                   - kind: Whitespace
@@ -1323,10 +1323,10 @@ cst:
                                     text: "\"  12\""
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: additemFast
                                   - kind: Whitespace
@@ -1371,10 +1371,10 @@ cst:
                                             text: "False"
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: additemFast
                                   - kind: Whitespace
@@ -1383,10 +1383,10 @@ cst:
                                     text: "\"  0\""
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: additemFast
                                   - kind: Whitespace
@@ -1431,10 +1431,10 @@ cst:
                                             text: "False"
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: additemFast
                                   - kind: Whitespace
@@ -1443,10 +1443,10 @@ cst:
                                     text: "\"  ANSI - 0\""
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: additemFast
                                   - kind: Whitespace
@@ -1455,10 +1455,10 @@ cst:
                                     text: "\"  Default - 1\""
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: additemFast
                                   - kind: Whitespace
@@ -1467,10 +1467,10 @@ cst:
                                     text: "\"  Greek - 161\""
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: additemFast
                                   - kind: Whitespace
@@ -1479,10 +1479,10 @@ cst:
                                     text: "\"  Turkish - 162\""
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: additemFast
                                   - kind: Whitespace
@@ -1491,10 +1491,10 @@ cst:
                                     text: "\"  Hebrew - 177\""
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: additemFast
                                   - kind: Whitespace
@@ -1503,10 +1503,10 @@ cst:
                                     text: "\"  Arabic - 178\""
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: additemFast
                                   - kind: Whitespace
@@ -1515,10 +1515,10 @@ cst:
                                     text: "\"  East Europe - 238\""
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: additemFast
                                   - kind: Whitespace
@@ -1527,10 +1527,10 @@ cst:
                                     text: "\"  Russian - 204\""
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: additemFast
                                   - kind: Whitespace
@@ -1539,10 +1539,10 @@ cst:
                                     text: "\"  Baltic -186\""
                                   - kind: Newline
                                     text: "\r\n"
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: additemFast
                                   - kind: Whitespace
@@ -1559,10 +1559,10 @@ cst:
                                 text: "\r\n"
                               - kind: StatementList
                                 children:
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: additemFast
                                       - kind: Whitespace
@@ -1607,10 +1607,10 @@ cst:
                                                 text: "False"
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: additemFast
                                       - kind: Whitespace
@@ -1619,10 +1619,10 @@ cst:
                                         text: "\"  ¸íôïíç\""
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: additemFast
                                       - kind: Whitespace
@@ -1631,10 +1631,10 @@ cst:
                                         text: "\"  ÐëÜãéá\""
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: MenuItem
                                       - kind: Whitespace
@@ -1667,10 +1667,10 @@ cst:
                                         text: "\"bold\""
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: MenuItem
                                       - kind: Whitespace
@@ -1703,10 +1703,10 @@ cst:
                                         text: "\"italic\""
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: additemFast
                                       - kind: Whitespace
@@ -1751,10 +1751,10 @@ cst:
                                                 text: "False"
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: additemFast
                                       - kind: Whitespace
@@ -1763,10 +1763,10 @@ cst:
                                         text: "\"  12\""
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: additemFast
                                       - kind: Whitespace
@@ -1811,10 +1811,10 @@ cst:
                                                 text: "False"
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: additemFast
                                       - kind: Whitespace
@@ -1823,10 +1823,10 @@ cst:
                                         text: "\"  0\""
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: additemFast
                                       - kind: Whitespace
@@ -1871,10 +1871,10 @@ cst:
                                                 text: "False"
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: additemFast
                                       - kind: Whitespace
@@ -1883,10 +1883,10 @@ cst:
                                         text: "\"  ANSI - 0\""
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: additemFast
                                       - kind: Whitespace
@@ -1895,10 +1895,10 @@ cst:
                                         text: "\"  Default - 1\""
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: additemFast
                                       - kind: Whitespace
@@ -1907,10 +1907,10 @@ cst:
                                         text: "\"  Greek - 161\""
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: additemFast
                                       - kind: Whitespace
@@ -1919,10 +1919,10 @@ cst:
                                         text: "\"  Turkish - 162\""
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: additemFast
                                       - kind: Whitespace
@@ -1931,10 +1931,10 @@ cst:
                                         text: "\"  Hebrew - 177\""
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: additemFast
                                       - kind: Whitespace
@@ -1943,10 +1943,10 @@ cst:
                                         text: "\"  Arabic - 178\""
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: additemFast
                                       - kind: Whitespace
@@ -1955,10 +1955,10 @@ cst:
                                         text: "\"  East Europe - 238\""
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: additemFast
                                       - kind: Whitespace
@@ -1967,10 +1967,10 @@ cst:
                                         text: "\"  Russian - 204\""
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: additemFast
                                       - kind: Whitespace
@@ -1979,10 +1979,10 @@ cst:
                                         text: "\"  Baltic -186\""
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: Unknown
-                                    text: "."
                                   - kind: CallStatement
                                     children:
+                                      - kind: PeriodOperator
+                                        text: "."
                                       - kind: Identifier
                                         text: additemFast
                                       - kind: Whitespace
@@ -2035,10 +2035,10 @@ cst:
                                     text: "False"
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: additemFast
                           - kind: Whitespace
@@ -2047,10 +2047,10 @@ cst:
                             text: "\"  8\""
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: additemFast
                           - kind: Whitespace
@@ -2059,10 +2059,10 @@ cst:
                             text: "\"  9\""
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: additemFast
                           - kind: Whitespace
@@ -2071,10 +2071,10 @@ cst:
                             text: "\"  10\""
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: additemFast
                           - kind: Whitespace
@@ -2083,10 +2083,10 @@ cst:
                             text: "\"  11\""
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: additemFast
                           - kind: Whitespace
@@ -2095,10 +2095,10 @@ cst:
                             text: "\"  12\""
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: additemFast
                           - kind: Whitespace
@@ -2107,10 +2107,10 @@ cst:
                             text: "\"  14\""
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: additemFast
                           - kind: Whitespace
@@ -2119,10 +2119,10 @@ cst:
                             text: "\"  16\""
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: additemFast
                           - kind: Whitespace
@@ -2131,10 +2131,10 @@ cst:
                             text: "\"  18\""
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: additemFast
                           - kind: Whitespace
@@ -2143,10 +2143,10 @@ cst:
                             text: "\"  20\""
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: additemFast
                           - kind: Whitespace
@@ -2155,10 +2155,10 @@ cst:
                             text: "\"  22\""
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: additemFast
                           - kind: Whitespace
@@ -2167,10 +2167,10 @@ cst:
                             text: "\"  24\""
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: additemFast
                           - kind: Whitespace
@@ -2179,10 +2179,10 @@ cst:
                             text: "\"  26\""
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: additemFast
                           - kind: Whitespace
@@ -2191,10 +2191,10 @@ cst:
                             text: "\"  28\""
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: additemFast
                           - kind: Whitespace
@@ -2203,10 +2203,10 @@ cst:
                             text: "\"  36\""
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: additemFast
                           - kind: Whitespace
@@ -2215,10 +2215,10 @@ cst:
                             text: "\"  48\""
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: additemFast
                           - kind: Whitespace
@@ -2227,10 +2227,10 @@ cst:
                             text: "\"  72\""
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: ShowMe
                           - kind: Newline

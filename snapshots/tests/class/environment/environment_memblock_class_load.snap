@@ -7218,10 +7218,10 @@ cst:
                                                 text: "\r\n"
                                               - kind: Whitespace
                                                 text: "        "
-                                              - kind: Unknown
-                                                text: "."
                                               - kind: CallStatement
                                                 children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
                                                   - kind: Identifier
                                                     text: ItemCreator2
                                                   - kind: Whitespace

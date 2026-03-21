@@ -2572,36 +2572,38 @@ cst:
                                                                             text: " "
                                                                           - kind: Identifier
                                                                             text: m
-                                                                          - kind: PeriodOperator
-                                                                            text: "."
-                                                                          - kind: Identifier
-                                                                            text: getform
-                                                                          - kind: Whitespace
-                                                                            text: " "
-                                                                          - kind: NothingKeyword
-                                                                            text: Nothing
-                                                                          - kind: Newline
-                                                                            text: "\r\n"
-                                                                      - kind: SetStatement
-                                                                        children:
-                                                                          - kind: Whitespace
-                                                                            text: "        "
-                                                                          - kind: SetKeyword
-                                                                            text: Set
-                                                                          - kind: Whitespace
-                                                                            text: " "
-                                                                          - kind: Identifier
-                                                                            text: m
-                                                                          - kind: Whitespace
-                                                                            text: " "
-                                                                          - kind: EqualityOperator
-                                                                            text: "="
-                                                                          - kind: Whitespace
-                                                                            text: " "
-                                                                          - kind: NothingKeyword
-                                                                            text: Nothing
-                                                                          - kind: Newline
-                                                                            text: "\r\n"
+                                                                          - kind: CallStatement
+                                                                            children:
+                                                                              - kind: PeriodOperator
+                                                                                text: "."
+                                                                              - kind: Identifier
+                                                                                text: getform
+                                                                              - kind: Whitespace
+                                                                                text: " "
+                                                                              - kind: NothingKeyword
+                                                                                text: Nothing
+                                                                              - kind: Newline
+                                                                                text: "\r\n"
+                                                                          - kind: SetStatement
+                                                                            children:
+                                                                              - kind: Whitespace
+                                                                                text: "        "
+                                                                              - kind: SetKeyword
+                                                                                text: Set
+                                                                              - kind: Whitespace
+                                                                                text: " "
+                                                                              - kind: Identifier
+                                                                                text: m
+                                                                              - kind: Whitespace
+                                                                                text: " "
+                                                                              - kind: EqualityOperator
+                                                                                text: "="
+                                                                              - kind: Whitespace
+                                                                                text: " "
+                                                                              - kind: NothingKeyword
+                                                                                text: Nothing
+                                                                              - kind: Newline
+                                                                                text: "\r\n"
                                                                       - kind: ElseKeyword
                                                                         text: Else
                                                                       - kind: Newline

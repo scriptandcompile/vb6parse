@@ -2211,10 +2211,10 @@ cst:
                                     text: "0"
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: ShowMe
                           - kind: Newline

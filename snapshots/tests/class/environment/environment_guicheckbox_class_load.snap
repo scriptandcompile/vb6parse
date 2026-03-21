@@ -2207,10 +2207,10 @@ cst:
                     text: "\r\n"
                   - kind: StatementList
                     children:
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: Clear
                           - kind: Newline
@@ -2335,10 +2335,10 @@ cst:
                                     text: "True"
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: AddItem
                           - kind: Whitespace
@@ -2451,10 +2451,10 @@ cst:
                                     text: "1"
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: MenuItem
                           - kind: Whitespace
@@ -2649,10 +2649,10 @@ cst:
                             text: HeightPixels
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: ShowMe
                           - kind: Newline

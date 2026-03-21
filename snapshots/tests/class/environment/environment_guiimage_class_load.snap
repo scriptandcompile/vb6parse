@@ -5545,10 +5545,10 @@ cst:
                                     text: "\r\n"
                                   - kind: StatementList
                                     children:
-                                      - kind: Unknown
-                                        text: "."
                                       - kind: CallStatement
                                         children:
+                                          - kind: PeriodOperator
+                                            text: "."
                                           - kind: Identifier
                                             text: ByeBye
                                           - kind: Newline

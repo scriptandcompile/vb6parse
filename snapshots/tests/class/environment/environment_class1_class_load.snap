@@ -1196,10 +1196,16 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: frmAbout
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: Show
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: PeriodOperator
+                                    text: "."
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Show
                           - kind: Whitespace
                             text: " "
                           - kind: IntegerLiteral
@@ -1632,10 +1638,16 @@ cst:
                                 text: " "
                               - kind: Identifier
                                 text: frmAbout
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: Show
+                              - kind: AssignmentStatement
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: PeriodOperator
+                                        text: "."
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Show
                               - kind: Whitespace
                                 text: " "
                               - kind: IntegerLiteral
@@ -2328,10 +2340,16 @@ cst:
                 text: " "
               - kind: Unknown
                 text: m
-              - kind: Unknown
-                text: "."
-              - kind: Unknown
-                text: ShutDown
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: PeriodOperator
+                        text: "."
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: ShutDown
               - kind: Whitespace
                 text: " "
               - kind: LabelStatement

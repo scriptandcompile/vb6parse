@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/file/getattr.rs
+source: vb6parse/src/syntax/library/functions/file/getattr.rs
 expression: tree
 ---
 root:
@@ -47,10 +47,10 @@ root:
           text: " "
         - kind: Identifier
           text: Debug
-        - kind: PeriodOperator
-          text: "."
-        - kind: PrintStatement
+        - kind: CallStatement
           children:
+            - kind: PeriodOperator
+              text: "."
             - kind: PrintKeyword
               text: Print
             - kind: Whitespace

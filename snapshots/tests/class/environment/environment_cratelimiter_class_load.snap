@@ -2091,24 +2091,42 @@ cst:
                         text: "        "
                       - kind: Unknown
                         text: m_oSocket
-                      - kind: Unknown
-                        text: "."
-                      - kind: Unknown
-                        text: PostEvent
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: PeriodOperator
+                                text: "."
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: PostEvent
                       - kind: Whitespace
                         text: " "
                       - kind: Unknown
                         text: m_cEvents
-                      - kind: Unknown
-                        text: "."
-                      - kind: Unknown
-                        text: Item
-                      - kind: Unknown
-                        text: (
-                      - kind: Unknown
-                        text: "1"
-                      - kind: Unknown
-                        text: )
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: PeriodOperator
+                                text: "."
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: Item
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "1"
+                              - kind: RightParenthesis
+                                text: )
                       - kind: Unknown
                         text: ","
                       - kind: Whitespace

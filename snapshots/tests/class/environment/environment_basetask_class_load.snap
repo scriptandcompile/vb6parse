@@ -2210,10 +2210,10 @@ cst:
                             text: soros
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: DropNdot
                           - kind: Whitespace
@@ -2256,10 +2256,10 @@ cst:
                             text: "\r\n"
                           - kind: StatementList
                             children:
-                              - kind: Unknown
-                                text: "."
                               - kind: CallStatement
                                 children:
+                                  - kind: PeriodOperator
+                                    text: "."
                                   - kind: Identifier
                                     text: MoveNameDot
                                   - kind: Whitespace
@@ -2282,10 +2282,10 @@ cst:
                             text: i
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: DropRetStack
                           - kind: Newline
@@ -4026,16 +4026,16 @@ cst:
                                                                     text: " "
                                                                   - kind: Identifier
                                                                     text: paren
-                                                                  - kind: PeriodOperator
-                                                                    text: "."
-                                                                  - kind: Identifier
-                                                                    text: StaticCollection
-                                                                  - kind: PeriodOperator
-                                                                    text: "."
-                                                                  - kind: Identifier
-                                                                    text: AddKey
-                                                                  - kind: NameStatement
+                                                                  - kind: CallStatement
                                                                     children:
+                                                                      - kind: PeriodOperator
+                                                                        text: "."
+                                                                      - kind: Identifier
+                                                                        text: StaticCollection
+                                                                      - kind: PeriodOperator
+                                                                        text: "."
+                                                                      - kind: Identifier
+                                                                        text: AddKey
                                                                       - kind: Whitespace
                                                                         text: " "
                                                                       - kind: NameKeyword

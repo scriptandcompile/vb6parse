@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/formatpercent.rs
+source: vb6parse/src/syntax/library/functions/string/formatpercent.rs
 expression: tree
 ---
 root:
@@ -57,7 +57,9 @@ root:
                           text: ","
                 - kind: Whitespace
                   text: " "
-    - kind: Identifier
-      text: vbTrue
-    - kind: Unknown
-      text: )
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: vbTrue
+        - kind: RightParenthesis
+          text: )

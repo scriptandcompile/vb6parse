@@ -5442,40 +5442,42 @@ cst:
                                                     text: " "
                                                   - kind: Identifier
                                                     text: dstPic
-                                                  - kind: PeriodOperator
-                                                    text: "."
-                                                  - kind: Identifier
-                                                    text: hdc
-                                                  - kind: Comma
-                                                    text: ","
+                                                  - kind: CallStatement
+                                                    children:
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: Identifier
+                                                        text: hdc
+                                                      - kind: Comma
+                                                        text: ","
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Identifier
+                                                        text: fxTri
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: IntegerLiteral
+                                                        text: "0"
+                                                      - kind: RightParenthesis
+                                                        text: )
+                                                      - kind: Comma
+                                                        text: ","
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: IntegerLiteral
+                                                        text: "3"
+                                                      - kind: Newline
+                                                        text: "\r\n"
                                                   - kind: Whitespace
-                                                    text: " "
-                                                  - kind: Identifier
-                                                    text: fxTri
-                                                  - kind: LeftParenthesis
-                                                    text: (
-                                                  - kind: IntegerLiteral
-                                                    text: "0"
-                                                  - kind: RightParenthesis
-                                                    text: )
-                                                  - kind: Comma
-                                                    text: ","
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: IntegerLiteral
-                                                    text: "3"
+                                                    text: "        "
                                                   - kind: Newline
                                                     text: "\r\n"
                                               - kind: Whitespace
                                                 text: "        "
+                                              - kind: EndOfLineComment
+                                                text: "'dstPic.Line (x, y)-(x2, y2), RGB(R, G, B)"
                                               - kind: Newline
                                                 text: "\r\n"
-                                          - kind: Whitespace
-                                            text: "        "
-                                          - kind: EndOfLineComment
-                                            text: "'dstPic.Line (x, y)-(x2, y2), RGB(R, G, B)"
-                                          - kind: Newline
-                                            text: "\r\n"
                                           - kind: Whitespace
                                             text: "    "
                                           - kind: Newline

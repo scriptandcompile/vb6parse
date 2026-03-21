@@ -47835,10 +47835,10 @@ cst:
                                         text: ElseIf
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Unknown
-                                        text: "."
                                       - kind: CallStatement
                                         children:
+                                          - kind: PeriodOperator
+                                            text: "."
                                           - kind: Identifier
                                             text: Bottom
                                           - kind: Whitespace
@@ -48851,10 +48851,10 @@ cst:
                                         text: ElseIf
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Unknown
-                                        text: "."
                                       - kind: CallStatement
                                         children:
+                                          - kind: PeriodOperator
+                                            text: "."
                                           - kind: Identifier
                                             text: Left
                                           - kind: Whitespace
@@ -49867,10 +49867,10 @@ cst:
                                         text: ElseIf
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Unknown
-                                        text: "."
                                       - kind: CallStatement
                                         children:
+                                          - kind: PeriodOperator
+                                            text: "."
                                           - kind: Identifier
                                             text: top
                                           - kind: Whitespace

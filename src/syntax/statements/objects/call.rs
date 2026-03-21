@@ -179,7 +179,8 @@ impl Parser<'_> {
             }
         }
 
-        false
+        // Reached end of input without finding assignment or newline - this is a procedure call
+        true
     }
 }
 

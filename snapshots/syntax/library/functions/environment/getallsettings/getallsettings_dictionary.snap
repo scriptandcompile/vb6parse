@@ -1,47 +1,49 @@
 ---
-source: src/syntax/library/functions/environment/getallsettings.rs
+source: vb6parse/src/syntax/library/functions/environment/getallsettings.rs
 expression: tree
 ---
 root:
   kind: Root
   children:
-    - kind: Identifier
-      text: dict
-    - kind: Unknown
-      text: "."
-    - kind: Identifier
-      text: Add
-    - kind: Whitespace
-      text: " "
-    - kind: Identifier
-      text: settings
-    - kind: Unknown
-      text: (
-    - kind: Identifier
-      text: i
-    - kind: Unknown
-      text: ","
-    - kind: Whitespace
-      text: " "
-    - kind: Unknown
-      text: "0"
-    - kind: Unknown
-      text: )
-    - kind: Unknown
-      text: ","
-    - kind: Whitespace
-      text: " "
-    - kind: Identifier
-      text: settings
-    - kind: Unknown
-      text: (
-    - kind: Identifier
-      text: i
-    - kind: Unknown
-      text: ","
-    - kind: Whitespace
-      text: " "
-    - kind: Unknown
-      text: "1"
-    - kind: Unknown
-      text: )
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: dict
+        - kind: PeriodOperator
+          text: "."
+        - kind: Identifier
+          text: Add
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: settings
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: i
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "0"
+        - kind: RightParenthesis
+          text: )
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: settings
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: i
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: RightParenthesis
+          text: )

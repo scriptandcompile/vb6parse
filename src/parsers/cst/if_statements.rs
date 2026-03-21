@@ -84,6 +84,13 @@ impl Parser<'_> {
                     _ => {
                         if self.at_token(Token::LetKeyword) {
                             self.parse_let_statement();
+                        } else if self.at_token(Token::PeriodOperator) {
+                            // Handle dot-prefixed member access in With blocks
+                            if self.is_at_with_member_assignment() {
+                                self.parse_assignment_statement();
+                            } else {
+                                self.parse_procedure_call();
+                            }
                         } else if self.is_at_assignment() {
                             self.parse_assignment_statement();
                         } else {

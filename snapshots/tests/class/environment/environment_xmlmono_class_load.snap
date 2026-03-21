@@ -4176,10 +4176,16 @@ cst:
                         text: "   "
                       - kind: Unknown
                         text: child
-                      - kind: Unknown
-                        text: "."
-                      - kind: Unknown
-                        text: createTree
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: PeriodOperator
+                                text: "."
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: createTree
                       - kind: Whitespace
                         text: " "
                       - kind: LabelStatement
@@ -4430,28 +4436,42 @@ cst:
                 text: "    "
               - kind: Unknown
                 text: oXml
-              - kind: Unknown
-                text: "."
-              - kind: Unknown
-                text: attr
-              - kind: Unknown
-                text: (
-              - kind: CallStatement
+              - kind: AssignmentStatement
                 children:
-                  - kind: Identifier
-                    text: t
-                  - kind: DollarSign
-                    text: $
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: RHS
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: PeriodOperator
+                        text: "."
+                  - kind: BinaryExpression
+                    children:
+                      - kind: CallExpression
+                        children:
+                          - kind: Identifier
+                            text: attr
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: t
+                                      - kind: DollarSign
+                                        text: $
+                          - kind: RightParenthesis
+                            text: )
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: RHS
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword

@@ -3161,10 +3161,10 @@ cst:
                                     text: "\r\n"
                                   - kind: StatementList
                                     children:
-                                      - kind: Unknown
-                                        text: "."
                                       - kind: CallStatement
                                         children:
+                                          - kind: PeriodOperator
+                                            text: "."
                                           - kind: Identifier
                                             text: needHDC
                                           - kind: Newline
@@ -3201,10 +3201,10 @@ cst:
                                             text: Height
                                           - kind: Newline
                                             text: "\r\n"
-                                      - kind: Unknown
-                                        text: "."
                                       - kind: CallStatement
                                         children:
+                                          - kind: PeriodOperator
+                                            text: "."
                                           - kind: Identifier
                                             text: FreeHDC
                                           - kind: Newline

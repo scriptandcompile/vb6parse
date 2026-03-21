@@ -2042,80 +2042,82 @@ cst:
                                 text: "    "
                               - kind: Identifier
                                 text: GoRoom
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: Hide
-                              - kind: Newline
-                                text: "\n"
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: AssignmentStatement
-                            children:
-                              - kind: MemberAccessExpression
+                              - kind: CallStatement
                                 children:
-                                  - kind: Identifier
-                                    text: GoRoom
                                   - kind: PeriodOperator
                                     text: "."
                                   - kind: Identifier
-                                    text: Enabled
+                                    text: Hide
+                                  - kind: Newline
+                                    text: "\n"
                               - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BooleanLiteralExpression
+                                text: "    "
+                              - kind: AssignmentStatement
                                 children:
-                                  - kind: FalseKeyword
-                                    text: "False"
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: GoRoom
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Enabled
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: BooleanLiteralExpression
+                                    children:
+                                      - kind: FalseKeyword
+                                        text: "False"
+                                  - kind: Newline
+                                    text: "\n"
+                              - kind: Whitespace
+                                text: "    "
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: CallStatement
+                            children:
+                              - kind: Identifier
+                                text: cma1
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: CloseSound
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: CallStatement
+                            children:
+                              - kind: Identifier
+                                text: cma4
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: UnloadD3D
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: CallStatement
+                            children:
+                              - kind: Identifier
+                                text: cma6
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: UnloadDI
                               - kind: Newline
                                 text: "\n"
                           - kind: Whitespace
                             text: "    "
                           - kind: Newline
                             text: "\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: cma1
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: CloseSound
-                          - kind: Newline
-                            text: "\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: cma4
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: UnloadD3D
-                          - kind: Newline
-                            text: "\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: cma6
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: UnloadDI
-                          - kind: Newline
-                            text: "\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: Newline
-                        text: "\n"
                       - kind: Whitespace
                         text: "    "
                       - kind: CallStatement

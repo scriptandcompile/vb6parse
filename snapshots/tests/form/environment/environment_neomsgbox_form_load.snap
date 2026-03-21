@@ -1437,10 +1437,16 @@ cst:
                                 text: " "
                               - kind: Identifier
                                 text: command2
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: SetFocus
+                              - kind: AssignmentStatement
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: PeriodOperator
+                                        text: "."
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: SetFocus
                               - kind: ColonOperator
                                 text: ":"
                               - kind: Whitespace
@@ -1797,10 +1803,16 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: command1
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: SetFocus
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: PeriodOperator
+                                    text: "."
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: SetFocus
                           - kind: ColonOperator
                             text: ":"
                           - kind: Whitespace
@@ -10053,14 +10065,18 @@ cst:
                                                         text: " "
                                                       - kind: Unknown
                                                         text: ListPad
-                                                      - kind: Unknown
-                                                        text: "."
-                                                      - kind: LabelStatement
+                                                      - kind: AssignmentStatement
                                                         children:
-                                                          - kind: Identifier
-                                                            text: WrapAgain
-                                                          - kind: ColonOperator
-                                                            text: ":"
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: PeriodOperator
+                                                                text: "."
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: WrapAgain
+                                                      - kind: Unknown
+                                                        text: ":"
                                                       - kind: Whitespace
                                                         text: " "
                                                       - kind: AssignmentStatement

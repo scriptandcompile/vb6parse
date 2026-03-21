@@ -1,47 +1,49 @@
 ---
-source: src/syntax/library/functions/file/getattr.rs
+source: vb6parse/src/syntax/library/functions/file/getattr.rs
 expression: tree
 ---
 root:
   kind: Root
   children:
-    - kind: Identifier
-      text: lst
-    - kind: Unknown
-      text: "."
-    - kind: Identifier
-      text: AddItem
-    - kind: Whitespace
-      text: " "
-    - kind: Identifier
-      text: filename
-    - kind: Whitespace
-      text: " "
-    - kind: Unknown
-      text: "&"
-    - kind: Whitespace
-      text: " "
-    - kind: Unknown
-      text: "\" (\""
-    - kind: Whitespace
-      text: " "
-    - kind: Unknown
-      text: "&"
-    - kind: Whitespace
-      text: " "
-    - kind: Identifier
-      text: GetAttr
-    - kind: Unknown
-      text: (
-    - kind: Identifier
-      text: fullPath
-    - kind: Unknown
-      text: )
-    - kind: Whitespace
-      text: " "
-    - kind: Unknown
-      text: "&"
-    - kind: Whitespace
-      text: " "
-    - kind: Unknown
-      text: "\")\""
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: lst
+        - kind: PeriodOperator
+          text: "."
+        - kind: Identifier
+          text: AddItem
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: filename
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\" (\""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: GetAttr
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: fullPath
+        - kind: RightParenthesis
+          text: )
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\")\""

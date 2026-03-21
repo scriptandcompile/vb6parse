@@ -1,47 +1,49 @@
 ---
-source: src/syntax/library/functions/financial/fv.rs
+source: vb6parse/src/syntax/library/functions/financial/fv.rs
 expression: tree
 ---
 root:
   kind: Root
   children:
-    - kind: Identifier
-      text: MsgBox
-    - kind: Whitespace
-      text: " "
-    - kind: Unknown
-      text: "\"Your savings will grow to \""
-    - kind: Whitespace
-      text: " "
-    - kind: Unknown
-      text: "&"
-    - kind: Whitespace
-      text: " "
-    - kind: Identifier
-      text: FormatCurrency
-    - kind: Unknown
-      text: (
-    - kind: Identifier
-      text: Fv
-    - kind: Unknown
-      text: (
-    - kind: Identifier
-      text: rate
-    - kind: Unknown
-      text: ","
-    - kind: Whitespace
-      text: " "
-    - kind: Identifier
-      text: periods
-    - kind: Unknown
-      text: ","
-    - kind: Whitespace
-      text: " "
-    - kind: Unknown
-      text: "-"
-    - kind: Identifier
-      text: deposit
-    - kind: Unknown
-      text: )
-    - kind: Unknown
-      text: )
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Your savings will grow to \""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: FormatCurrency
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: Fv
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: rate
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: periods
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: SubtractionOperator
+          text: "-"
+        - kind: Identifier
+          text: deposit
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )

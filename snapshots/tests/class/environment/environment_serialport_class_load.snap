@@ -7528,14 +7528,16 @@ cst:
                                         text: " "
                                       - kind: Identifier
                                         text: Err
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: LastDllError
-                                      - kind: Newline
-                                        text: "\r\n"
-                                  - kind: Whitespace
-                                    text: "    "
+                                      - kind: CallStatement
+                                        children:
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: LastDllError
+                                          - kind: Newline
+                                            text: "\r\n"
+                                      - kind: Whitespace
+                                        text: "    "
                                   - kind: ElseKeyword
                                     text: Else
                                   - kind: Newline
@@ -7878,14 +7880,16 @@ cst:
                                         text: " "
                                       - kind: Identifier
                                         text: Err
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: LastDllError
-                                      - kind: Newline
-                                        text: "\r\n"
-                                  - kind: Whitespace
-                                    text: "    "
+                                      - kind: CallStatement
+                                        children:
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: LastDllError
+                                          - kind: Newline
+                                            text: "\r\n"
+                                      - kind: Whitespace
+                                        text: "    "
                                   - kind: ElseKeyword
                                     text: Else
                                   - kind: Newline
@@ -8228,14 +8232,16 @@ cst:
                                         text: " "
                                       - kind: Identifier
                                         text: Err
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: LastDllError
-                                      - kind: Newline
-                                        text: "\r\n"
-                                  - kind: Whitespace
-                                    text: "    "
+                                      - kind: CallStatement
+                                        children:
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: LastDllError
+                                          - kind: Newline
+                                            text: "\r\n"
+                                      - kind: Whitespace
+                                        text: "    "
                                   - kind: ElseKeyword
                                     text: Else
                                   - kind: Newline
@@ -8400,62 +8406,68 @@ cst:
                             text: " "
                           - kind: Identifier
                             text: Err
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: LastDllError
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: StringLiteral
-                            text: "\"GetCommModemStatus\""
-                          - kind: ColonOperator
-                            text: ":"
-                          - kind: Whitespace
-                            text: " "
                           - kind: AssignmentStatement
                             children:
                               - kind: IdentifierExpression
                                 children:
-                                  - kind: Identifier
-                                    text: R
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: UnaryExpression
+                                  - kind: PeriodOperator
+                                    text: "."
+                              - kind: IdentifierExpression
                                 children:
-                                  - kind: SubtractionOperator
-                                    text: "-"
-                                  - kind: NumericLiteralExpression
-                                    children:
-                                      - kind: IntegerLiteral
-                                        text: "1"
-                              - kind: Newline
-                                text: "\r\n"
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: AssignmentStatement
+                                  - kind: Identifier
+                                    text: LastDllError
+                      - kind: Unknown
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Unknown
+                        text: "\"GetCommModemStatus\""
+                      - kind: Unknown
+                        text: ":"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
+                              - kind: Identifier
+                                text: R
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: UnaryExpression
+                            children:
+                              - kind: SubtractionOperator
+                                text: "-"
+                              - kind: NumericLiteralExpression
                                 children:
-                                  - kind: Identifier
-                                    text: Inputs
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: R
-                              - kind: Newline
-                                text: "\r\n"
+                                  - kind: IntegerLiteral
+                                    text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: Inputs
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: R
+                          - kind: Newline
+                            text: "\r\n"
                       - kind: Unknown
                         text: End
                       - kind: Whitespace
@@ -8730,10 +8742,16 @@ cst:
                                             text: " "
                                           - kind: Identifier
                                             text: Err
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: LastDllError
+                                          - kind: AssignmentStatement
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: LastDllError
                                           - kind: Comma
                                             text: ","
                                           - kind: Whitespace
@@ -9114,10 +9132,16 @@ cst:
                                             text: " "
                                           - kind: Identifier
                                             text: Err
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: LastDllError
+                                          - kind: AssignmentStatement
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: LastDllError
                                           - kind: Comma
                                             text: ","
                                           - kind: Whitespace
@@ -9498,10 +9522,16 @@ cst:
                                             text: " "
                                           - kind: Identifier
                                             text: Err
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: LastDllError
+                                          - kind: AssignmentStatement
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: LastDllError
                                           - kind: Comma
                                             text: ","
                                           - kind: Whitespace
@@ -9882,10 +9912,16 @@ cst:
                                             text: " "
                                           - kind: Identifier
                                             text: Err
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: LastDllError
+                                          - kind: AssignmentStatement
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: LastDllError
                                           - kind: Comma
                                             text: ","
                                           - kind: Whitespace
@@ -10266,10 +10302,16 @@ cst:
                                             text: " "
                                           - kind: Identifier
                                             text: Err
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: LastDllError
+                                          - kind: AssignmentStatement
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: LastDllError
                                           - kind: Comma
                                             text: ","
                                           - kind: Whitespace

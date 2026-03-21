@@ -5658,10 +5658,16 @@ cst:
                                             text: " "
                                           - kind: Identifier
                                             text: bb
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: Flush
+                                          - kind: AssignmentStatement
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: Flush
                                           - kind: ColonOperator
                                             text: ":"
                                           - kind: Whitespace

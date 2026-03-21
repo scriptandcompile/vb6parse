@@ -2123,6 +2123,14 @@ impl<'a> Parser<'a> {
                     // Check for Let statement (optional assignment keyword)
                     } else if self.at_token(Token::LetKeyword) {
                         self.parse_let_statement();
+                    // Check for dot-prefixed member access in With blocks (e.g., .Property = value or .Method arg)
+                    } else if self.at_token(Token::PeriodOperator) {
+                        // Look ahead to see if this is an assignment or procedure call
+                        if self.is_at_with_member_assignment() {
+                            self.parse_assignment_statement();
+                        } else {
+                            self.parse_procedure_call();
+                        }
                     // Check if this looks like an assignment statement (identifier = expression)
                     // This must come BEFORE at_keyword() check to handle keywords used as variables
                     } else if self.is_at_assignment() {
@@ -2141,6 +2149,65 @@ impl<'a> Parser<'a> {
                 }
             }
         }
+    }
+
+    /// Check if the current position is at a With block member assignment.
+    /// This checks for the pattern: `.PropertyName = value` (used in With blocks).
+    /// Returns true if we're at a period followed by an assignment.
+    fn is_at_with_member_assignment(&self) -> bool {
+        // Must start with a period
+        if !self.at_token(Token::PeriodOperator) {
+            return false;
+        }
+
+        // Look ahead to see if there's an = operator at depth 0 before a newline
+        let mut paren_depth: i32 = 0;
+        let mut seen_other_operator = false;
+
+        for (_text, token) in self.tokens.iter().skip(self.pos + 1) {
+            match token {
+                Token::Newline | Token::EndOfLineComment | Token::RemComment => {
+                    // Reached end of line without finding assignment
+                    return false;
+                }
+                Token::LeftParenthesis => {
+                    paren_depth += 1;
+                }
+                Token::RightParenthesis => {
+                    paren_depth = paren_depth.saturating_sub(1);
+                }
+                Token::EqualityOperator if paren_depth == 0 => {
+                    // Found = operator at depth 0
+                    // If we've seen other operators, this is part of an expression, not assignment
+                    return !seen_other_operator;
+                }
+                // Track operators that indicate we're in an expression context
+                Token::AndKeyword
+                | Token::OrKeyword
+                | Token::XorKeyword
+                | Token::EqvKeyword
+                | Token::ImpKeyword
+                | Token::ModKeyword
+                | Token::NotKeyword
+                | Token::LessThanOperator
+                | Token::GreaterThanOperator
+                | Token::LessThanOrEqualOperator
+                | Token::GreaterThanOrEqualOperator
+                | Token::InequalityOperator
+                | Token::AdditionOperator
+                | Token::SubtractionOperator
+                | Token::MultiplicationOperator
+                | Token::DivisionOperator
+                | Token::BackwardSlashOperator
+                | Token::ExponentiationOperator
+                | Token::Ampersand => {
+                    seen_other_operator = true;
+                }
+                // Other tokens are allowed in the lvalue or rvalue
+                _ => {}
+            }
+        }
+        false
     }
 
     /// Check if the current token is a control flow keyword.
@@ -2580,6 +2647,13 @@ impl<'a> Parser<'a> {
                                     && self.peek_next_keyword() == Some(Token::LetKeyword))
                             {
                                 self.parse_let_statement();
+                            // Check for dot-prefixed member access in With blocks
+                            } else if self.at_token(Token::PeriodOperator) {
+                                if self.is_at_with_member_assignment() {
+                                    self.parse_assignment_statement();
+                                } else {
+                                    self.parse_procedure_call();
+                                }
                             // Check if this looks like an assignment statement (identifier = expression)
                             } else if self.is_at_assignment() {
                                 self.parse_assignment_statement();
@@ -2716,6 +2790,14 @@ impl<'a> Parser<'a> {
                                     if self.at_token(Token::LetKeyword) {
                                         self.parse_let_statement();
                                         true
+                                    } else if self.at_token(Token::PeriodOperator) {
+                                        // Handle dot-prefixed member access in With blocks
+                                        if self.is_at_with_member_assignment() {
+                                            self.parse_assignment_statement();
+                                        } else {
+                                            self.parse_procedure_call();
+                                        }
+                                        true
                                     } else if self.is_at_assignment() {
                                         self.parse_assignment_statement();
                                         true
@@ -2796,6 +2878,13 @@ impl<'a> Parser<'a> {
                                 self.parse_statement();
                             } else if self.at_token(Token::LetKeyword) {
                                 self.parse_let_statement();
+                            } else if self.at_token(Token::PeriodOperator) {
+                                // Handle dot-prefixed member access in With blocks
+                                if self.is_at_with_member_assignment() {
+                                    self.parse_assignment_statement();
+                                } else {
+                                    self.parse_procedure_call();
+                                }
                             } else if self.is_at_assignment() {
                                 self.parse_assignment_statement();
                             } else if self.is_at_procedure_call() {

@@ -1,43 +1,45 @@
 ---
-source: src/syntax/library/functions/string/formatpercent.rs
+source: vb6parse/src/syntax/library/functions/string/formatpercent.rs
 expression: tree
 ---
 root:
   kind: Root
   children:
-    - kind: Identifier
-      text: lstResults
-    - kind: Unknown
-      text: "."
-    - kind: Identifier
-      text: AddItem
-    - kind: Whitespace
-      text: " "
-    - kind: Identifier
-      text: FormatPercent
-    - kind: Unknown
-      text: (
-    - kind: Identifier
-      text: values
-    - kind: Unknown
-      text: (
-    - kind: Identifier
-      text: i
-    - kind: Unknown
-      text: )
-    - kind: Whitespace
-      text: " "
-    - kind: Unknown
-      text: /
-    - kind: Whitespace
-      text: " "
-    - kind: Identifier
-      text: total
-    - kind: Unknown
-      text: ","
-    - kind: Whitespace
-      text: " "
-    - kind: Unknown
-      text: "1"
-    - kind: Unknown
-      text: )
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: lstResults
+        - kind: PeriodOperator
+          text: "."
+        - kind: Identifier
+          text: AddItem
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: FormatPercent
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: values
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: i
+        - kind: RightParenthesis
+          text: )
+        - kind: Whitespace
+          text: " "
+        - kind: DivisionOperator
+          text: /
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: total
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: RightParenthesis
+          text: )

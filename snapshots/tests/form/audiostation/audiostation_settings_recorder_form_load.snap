@@ -774,10 +774,10 @@ cst:
                     children:
                       - kind: Whitespace
                         text: "    "
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: AddItem
                           - kind: Whitespace
@@ -788,10 +788,10 @@ cst:
                             text: "\n"
                       - kind: Whitespace
                         text: "    "
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: AddItem
                           - kind: Whitespace
@@ -802,10 +802,10 @@ cst:
                             text: "\n"
                       - kind: Whitespace
                         text: "    "
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: AddItem
                           - kind: Whitespace
@@ -816,10 +816,10 @@ cst:
                             text: "\n"
                       - kind: Whitespace
                         text: "    "
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: AddItem
                           - kind: Whitespace
@@ -830,10 +830,10 @@ cst:
                             text: "\n"
                       - kind: Whitespace
                         text: "    "
-                      - kind: Unknown
-                        text: "."
                       - kind: CallStatement
                         children:
+                          - kind: PeriodOperator
+                            text: "."
                           - kind: Identifier
                             text: AddItem
                           - kind: Whitespace
