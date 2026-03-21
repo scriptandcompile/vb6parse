@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-16T00:15:57Z",
+  "last_updated": "2026-03-16T09:43:51Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T21:29:13Z",
@@ -715,38 +715,72 @@
           "percent": 96.05
         }
       }
+    },
+    {
+      "timestamp": "2026-03-16T09:43:51Z",
+      "commit_sha": "48a1e03d4b44dc08961aabf9cfbd752e3422c53c",
+      "commit_message": "Finally fixed the last statement and expression parsing.",
+      "coverage": {
+        "line_coverage": 95.88,
+        "function_coverage": 92.89,
+        "region_coverage": 96.07
+      },
+      "tests": {
+        "total": 6162,
+        "lib_tests": 5496,
+        "doc_tests": 119,
+        "integration_tests": 547,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 95594,
+          "total": 99706,
+          "percent": 95.88
+        },
+        "functions": {
+          "covered": 6137,
+          "total": 6607,
+          "percent": 92.89
+        },
+        "regions": {
+          "covered": 152783,
+          "total": 159035,
+          "percent": 96.07
+        }
+      }
     }
   ],
   "coverage_summary": {
     "line_coverage": {
-      "latest": 95.85,
+      "latest": 95.88,
       "trend": "stable",
-      "change_percent": 0.0,
+      "change_percent": 0.03,
       "best": 95.93,
       "worst": 95.13,
-      "average": 95.46
+      "average": 95.48
     },
     "function_coverage": {
-      "latest": 92.87,
+      "latest": 92.89,
       "trend": "stable",
-      "change_percent": 0.0,
+      "change_percent": 0.02,
       "best": 93.76,
       "worst": 92.87,
-      "average": 93.15
+      "average": 93.14
     },
     "region_coverage": {
-      "latest": 96.05,
+      "latest": 96.07,
       "trend": "stable",
-      "change_percent": 0.0,
+      "change_percent": 0.02,
       "best": 96.17,
       "worst": 95.39,
-      "average": 95.66
+      "average": 95.68
     },
     "test_count": {
-      "latest": 6150,
-      "trend": "stable",
-      "change_count": 0,
-      "growth_rate": 0.0
+      "latest": 6162,
+      "trend": "growing",
+      "change_count": 12,
+      "growth_rate": 0.2
     }
   }
 }
