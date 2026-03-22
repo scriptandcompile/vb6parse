@@ -1,0 +1,11 @@
+---
+source: vb6parse/tests/call_argument_list.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: DoEvents

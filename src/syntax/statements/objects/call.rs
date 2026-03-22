@@ -205,8 +205,12 @@ impl Parser<'_> {
         while !self.is_at_end() && !self.at_token(Token::RightParenthesis) {
             self.builder.start_node(SyntaxKind::Argument.to_raw());
 
-            // Parse the argument expression
-            self.parse_expression();
+            // Check if this is an empty argument (comma or closing paren immediately following)
+            // Empty arguments are valid in VB6: Err.Raise 1, , "error message"
+            if !self.at_token(Token::Comma) && !self.at_token(Token::RightParenthesis) {
+                // Parse the argument expression
+                self.parse_expression();
+            }
 
             self.builder.finish_node(); // Argument
 
@@ -242,8 +246,12 @@ impl Parser<'_> {
 
             self.builder.start_node(SyntaxKind::Argument.to_raw());
 
-            // Parse the argument expression
-            self.parse_expression();
+            // Check if this is an empty argument (comma or newline immediately following)
+            // Empty arguments are valid in VB6: Err.Raise 1, , "error message"
+            if !self.at_token(Token::Comma) && !self.at_token(Token::Newline) {
+                // Parse the argument expression
+                self.parse_expression();
+            }
 
             self.builder.finish_node(); // Argument
 

@@ -1913,17 +1913,19 @@ cst:
                               - kind: Whitespace
                                 text: " "
                               - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Comma
-                                        text: ","
+                                children: []
+                              - kind: Comma
+                                text: ","
                               - kind: Whitespace
                                 text: " "
-                      - kind: Unknown
-                        text: "\"AppName may not be empty\""
-                      - kind: Newline
-                        text: "\n"
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"AppName may not be empty\""
+                          - kind: Newline
+                            text: "\n"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace
@@ -2011,17 +2013,19 @@ cst:
                               - kind: Whitespace
                                 text: " "
                               - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Comma
-                                        text: ","
+                                children: []
+                              - kind: Comma
+                                text: ","
                               - kind: Whitespace
                                 text: " "
-                      - kind: Unknown
-                        text: "\"Section may not be empty\""
-                      - kind: Newline
-                        text: "\n"
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"Section may not be empty\""
+                          - kind: Newline
+                            text: "\n"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace
@@ -2109,17 +2113,19 @@ cst:
                               - kind: Whitespace
                                 text: " "
                               - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Comma
-                                        text: ","
+                                children: []
+                              - kind: Comma
+                                text: ","
                               - kind: Whitespace
                                 text: " "
-                      - kind: Unknown
-                        text: "\"Key may not be empty\""
-                      - kind: Newline
-                        text: "\n"
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"Key may not be empty\""
+                          - kind: Newline
+                            text: "\n"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace
@@ -2425,11 +2431,9 @@ cst:
                               - kind: Whitespace
                                 text: " "
                               - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Comma
-                                        text: ","
+                                children: []
+                              - kind: Comma
+                                text: ","
                               - kind: Whitespace
                                 text: " "
                               - kind: Underscore
@@ -2438,10 +2442,14 @@ cst:
                                 text: "\n"
                               - kind: Whitespace
                                 text: "        "
-                      - kind: Unknown
-                        text: "\"Could not open/create registry section\""
-                      - kind: Newline
-                        text: "\n"
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"Could not open/create registry section\""
+                          - kind: Newline
+                            text: "\n"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace
@@ -2635,17 +2643,19 @@ cst:
                               - kind: Whitespace
                                 text: " "
                               - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Comma
-                                        text: ","
+                                children: []
+                              - kind: Comma
+                                text: ","
                               - kind: Whitespace
                                 text: " "
-                      - kind: Unknown
-                        text: "\"Could not set key value\""
-                      - kind: Newline
-                        text: "\n"
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"Could not set key value\""
+                          - kind: Newline
+                            text: "\n"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace
@@ -3289,17 +3299,19 @@ cst:
                               - kind: Whitespace
                                 text: " "
                               - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Comma
-                                        text: ","
+                                children: []
+                              - kind: Comma
+                                text: ","
                               - kind: Whitespace
                                 text: " "
-                      - kind: Unknown
-                        text: "\"AppName may not be empty\""
-                      - kind: Newline
-                        text: "\n"
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"AppName may not be empty\""
+                          - kind: Newline
+                            text: "\n"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace
@@ -3387,17 +3399,19 @@ cst:
                               - kind: Whitespace
                                 text: " "
                               - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Comma
-                                        text: ","
+                                children: []
+                              - kind: Comma
+                                text: ","
                               - kind: Whitespace
                                 text: " "
-                      - kind: Unknown
-                        text: "\"Section may not be empty\""
-                      - kind: Newline
-                        text: "\n"
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"Section may not be empty\""
+                          - kind: Newline
+                            text: "\n"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace
@@ -3485,17 +3499,19 @@ cst:
                               - kind: Whitespace
                                 text: " "
                               - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Comma
-                                        text: ","
+                                children: []
+                              - kind: Comma
+                                text: ","
                               - kind: Whitespace
                                 text: " "
-                      - kind: Unknown
-                        text: "\"Key may not be empty\""
-                      - kind: Newline
-                        text: "\n"
+                              - kind: Argument
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"Key may not be empty\""
+                          - kind: Newline
+                            text: "\n"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace
@@ -3825,11 +3841,9 @@ cst:
                                           - kind: Whitespace
                                             text: " "
                                           - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Comma
-                                                    text: ","
+                                            children: []
+                                          - kind: Comma
+                                            text: ","
                                           - kind: Whitespace
                                             text: " "
                                           - kind: Underscore
@@ -3838,10 +3852,14 @@ cst:
                                             text: "\n"
                                           - kind: Whitespace
                                             text: "            "
-                                  - kind: Unknown
-                                    text: "\"Could not open registry section\""
-                                  - kind: Newline
-                                    text: "\n"
+                                          - kind: Argument
+                                            children:
+                                              - kind: StringLiteralExpression
+                                                children:
+                                                  - kind: StringLiteral
+                                                    text: "\"Could not open registry section\""
+                                      - kind: Newline
+                                        text: "\n"
                                   - kind: Whitespace
                                     text: "    "
                           - kind: EndKeyword
@@ -4445,11 +4463,9 @@ cst:
                                   - kind: Whitespace
                                     text: " "
                                   - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Comma
-                                            text: ","
+                                    children: []
+                                  - kind: Comma
+                                    text: ","
                                   - kind: Whitespace
                                     text: " "
                                   - kind: Underscore
@@ -4458,10 +4474,14 @@ cst:
                                     text: "\n"
                                   - kind: Whitespace
                                     text: "        "
-                          - kind: Unknown
-                            text: "\"Registry data not a string\""
-                          - kind: Newline
-                            text: "\n"
+                                  - kind: Argument
+                                    children:
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"Registry data not a string\""
+                              - kind: Newline
+                                text: "\n"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace

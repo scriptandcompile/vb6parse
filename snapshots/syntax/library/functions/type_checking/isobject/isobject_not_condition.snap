@@ -88,17 +88,19 @@ root:
                             - kind: Whitespace
                               text: " "
                             - kind: Argument
-                              children:
-                                - kind: IdentifierExpression
-                                  children:
-                                    - kind: Comma
-                                      text: ","
+                              children: []
+                            - kind: Comma
+                              text: ","
                             - kind: Whitespace
                               text: " "
-                    - kind: Unknown
-                      text: "\"Object required\""
-                    - kind: Newline
-                      text: "\n"
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Object required\""
+                        - kind: Newline
+                          text: "\n"
                     - kind: Whitespace
                       text: "    "
                 - kind: EndKeyword

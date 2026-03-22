@@ -2336,17 +2336,17 @@ cst:
                                           - kind: Whitespace
                                             text: " "
                                           - kind: Argument
+                                            children: []
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
                                             children:
                                               - kind: IdentifierExpression
                                                 children:
-                                                  - kind: Comma
-                                                    text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: STR_ERR_SYNC_NOT_IMPL
+                                                  - kind: Identifier
+                                                    text: STR_ERR_SYNC_NOT_IMPL
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace
@@ -2702,17 +2702,17 @@ cst:
                               - kind: Whitespace
                                 text: " "
                               - kind: Argument
+                                children: []
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
                                 children:
                                   - kind: IdentifierExpression
                                     children:
-                                      - kind: Comma
-                                        text: ","
-                              - kind: Whitespace
-                                text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: StatusText
+                                      - kind: Identifier
+                                        text: StatusText
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -3706,17 +3706,17 @@ cst:
                               - kind: Whitespace
                                 text: " "
                               - kind: Argument
+                                children: []
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
                                 children:
                                   - kind: IdentifierExpression
                                     children:
-                                      - kind: Comma
-                                        text: ","
-                              - kind: Whitespace
-                                text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: StatusText
+                                      - kind: Identifier
+                                        text: StatusText
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -3944,17 +3944,17 @@ cst:
                                   - kind: Whitespace
                                     text: " "
                                   - kind: Argument
+                                    children: []
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
                                     children:
                                       - kind: IdentifierExpression
                                         children:
-                                          - kind: Comma
-                                            text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                          - kind: CallStatement
-                            children:
-                              - kind: Identifier
-                                text: STR_ERR_SYNC_NOT_IMPL
+                                          - kind: Identifier
+                                            text: STR_ERR_SYNC_NOT_IMPL
                               - kind: Newline
                                 text: "\r\n"
                           - kind: Whitespace

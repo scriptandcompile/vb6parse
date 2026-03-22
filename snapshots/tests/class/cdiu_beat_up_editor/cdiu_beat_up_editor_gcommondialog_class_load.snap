@@ -8887,29 +8887,29 @@ cst:
                                       - kind: ArgumentList
                                         children:
                                           - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Comma
-                                                    text: ","
+                                            children: []
+                                          - kind: Comma
+                                            text: ","
                                           - kind: Whitespace
                                             text: " "
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: LenKeyword
-                                        text: Len
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: ArgumentList
-                                        children:
                                           - kind: Argument
                                             children:
-                                              - kind: IdentifierExpression
+                                              - kind: CallExpression
                                                 children:
-                                                  - kind: Identifier
-                                                    text: tNMH
-                                      - kind: RightParenthesis
-                                        text: )
+                                                  - kind: LenKeyword
+                                                    text: Len
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: tNMH
+                                                  - kind: RightParenthesis
+                                                    text: )
                                       - kind: Newline
                                         text: "\n"
                                   - kind: SelectCaseStatement
@@ -17379,15 +17379,17 @@ cst:
                   - kind: ArgumentList
                     children:
                       - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Comma
-                                text: ","
+                        children: []
+                      - kind: Comma
+                        text: ","
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: "0"
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "0"
               - kind: Unknown
                 text: )
               - kind: Newline
@@ -18537,17 +18539,17 @@ cst:
                           - kind: ArgumentList
                             children:
                               - kind: Argument
+                                children: []
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
                                 children:
                                   - kind: IdentifierExpression
                                     children:
-                                      - kind: Comma
-                                        text: ","
-                              - kind: Whitespace
-                                text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: lSize
+                                      - kind: Identifier
+                                        text: lSize
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace

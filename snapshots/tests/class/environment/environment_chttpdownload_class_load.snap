@@ -3655,17 +3655,17 @@ cst:
                               - kind: Whitespace
                                 text: " "
                               - kind: Argument
+                                children: []
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
                                 children:
                                   - kind: IdentifierExpression
                                     children:
-                                      - kind: Comma
-                                        text: ","
-                              - kind: Whitespace
-                                text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: ERR_INVALID_URL
+                                      - kind: Identifier
+                                        text: ERR_INVALID_URL
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -3765,17 +3765,17 @@ cst:
                               - kind: Whitespace
                                 text: " "
                               - kind: Argument
+                                children: []
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
                                 children:
                                   - kind: IdentifierExpression
                                     children:
-                                      - kind: Comma
-                                        text: ","
-                              - kind: Whitespace
-                                text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: ERR_HTTP_ONLY
+                                      - kind: Identifier
+                                        text: ERR_HTTP_ONLY
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -4541,37 +4541,39 @@ cst:
                       - kind: Whitespace
                         text: " "
                       - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Comma
-                                text: ","
+                        children: []
+                      - kind: Comma
+                        text: ","
                       - kind: Whitespace
                         text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: m_oSocket
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: GetErrorDescription
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: ArgumentList
-                    children:
                       - kind: Argument
                         children:
-                          - kind: MemberAccessExpression
+                          - kind: CallExpression
                             children:
-                              - kind: Identifier
-                                text: m_oSocket
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: LastError
-                  - kind: RightParenthesis
-                    text: )
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: m_oSocket
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: GetErrorDescription
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: m_oSocket
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: LastError
+                              - kind: RightParenthesis
+                                text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -4839,37 +4841,39 @@ cst:
                                       - kind: Whitespace
                                         text: " "
                                       - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Comma
-                                                text: ","
+                                        children: []
+                                      - kind: Comma
+                                        text: ","
                                       - kind: Whitespace
                                         text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: m_oSocket
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: Identifier
-                                    text: GetErrorDescription
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: ArgumentList
-                                    children:
                                       - kind: Argument
                                         children:
-                                          - kind: MemberAccessExpression
+                                          - kind: CallExpression
                                             children:
-                                              - kind: Identifier
-                                                text: m_oSocket
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: LastError
-                                  - kind: RightParenthesis
-                                    text: )
+                                              - kind: MemberAccessExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: m_oSocket
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: GetErrorDescription
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: MemberAccessExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: m_oSocket
+                                                          - kind: PeriodOperator
+                                                            text: "."
+                                                          - kind: Identifier
+                                                            text: LastError
+                                              - kind: RightParenthesis
+                                                text: )
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -17501,13 +17505,15 @@ cst:
                                           - kind: ArgumentList
                                             children:
                                               - kind: Argument
+                                                children: []
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
                                                 children:
-                                                  - kind: MemberAccessExpression
+                                                  - kind: IdentifierExpression
                                                     children:
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
                                                       - kind: PeriodOperator
                                                         text: "."
                                                       - kind: Identifier
@@ -17623,13 +17629,13 @@ cst:
                                               - kind: ArgumentList
                                                 children:
                                                   - kind: Argument
-                                                    children:
-                                                      - kind: IdentifierExpression
-                                                        children:
-                                                          - kind: Comma
-                                                            text: ","
+                                                    children: []
+                                                  - kind: Comma
+                                                    text: ","
                                                   - kind: Whitespace
                                                     text: " "
+                                                  - kind: Argument
+                                                    children: []
                                                   - kind: Comma
                                                     text: ","
                                                   - kind: Whitespace

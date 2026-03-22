@@ -2680,17 +2680,19 @@ cst:
                   - kind: ArgumentList
                     children:
                       - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Comma
-                                text: ","
+                        children: []
+                      - kind: Comma
+                        text: ","
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: "4"
-              - kind: Newline
-                text: "\r\n"
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "4"
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: CallStatement
@@ -2726,29 +2728,29 @@ cst:
                   - kind: ArgumentList
                     children:
                       - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Comma
-                                text: ","
+                        children: []
+                      - kind: Comma
+                        text: ","
                       - kind: Whitespace
                         text: " "
-              - kind: CallStatement
-                children:
-                  - kind: LenKeyword
-                    text: Len
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: ArgumentList
-                    children:
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
+                          - kind: CallExpression
                             children:
-                              - kind: Identifier
-                                text: oECP
-                  - kind: RightParenthesis
-                    text: )
+                              - kind: LenKeyword
+                                text: Len
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: oECP
+                              - kind: RightParenthesis
+                                text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Newline
@@ -5408,43 +5410,39 @@ cst:
                   - kind: ArgumentList
                     children:
                       - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Comma
-                                text: ","
+                        children: []
+                      - kind: Comma
+                        text: ","
                       - kind: Whitespace
                         text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: sink
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Comma
-                                text: ","
-                      - kind: Whitespace
-                        text: " "
-              - kind: CallStatement
-                children:
-                  - kind: LenKeyword
-                    text: Len
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: ArgumentList
-                    children:
                       - kind: Argument
                         children:
                           - kind: IdentifierExpression
                             children:
                               - kind: Identifier
                                 text: sink
-                  - kind: RightParenthesis
-                    text: )
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: LenKeyword
+                                text: Len
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: sink
+                              - kind: RightParenthesis
+                                text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Newline
@@ -5934,41 +5932,31 @@ cst:
                           - kind: ArgumentList
                             children:
                               - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Comma
-                                        text: ","
+                                children: []
+                              - kind: Comma
+                                text: ","
                               - kind: Whitespace
                                 text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: MEM_COMMIT
-                          - kind: ArgumentList
-                            children:
                               - kind: Argument
                                 children:
                                   - kind: IdentifierExpression
                                     children:
-                                      - kind: Comma
-                                        text: ","
+                                      - kind: Identifier
+                                        text: MEM_COMMIT
+                              - kind: Comma
+                                text: ","
                               - kind: Whitespace
                                 text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: PAGE_EXECUTE_READWRITE
-                          - kind: ArgumentList
-                            children:
                               - kind: Argument
                                 children:
                                   - kind: IdentifierExpression
                                     children:
-                                      - kind: RightParenthesis
-                                        text: )
-                          - kind: Newline
-                            text: "\r\n"
+                                      - kind: Identifier
+                                        text: PAGE_EXECUTE_READWRITE
+                      - kind: Unknown
+                        text: )
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -6228,35 +6216,31 @@ cst:
                   - kind: ArgumentList
                     children:
                       - kind: Argument
+                        children: []
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: Comma
-                                text: ","
+                              - kind: Identifier
+                                text: MAXCODE
+                      - kind: Comma
+                        text: ","
                       - kind: Whitespace
                         text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Ampersand
+                                text: "&"
               - kind: CallStatement
                 children:
                   - kind: Identifier
-                    text: MAXCODE
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: BinaryExpression
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Comma
-                                    text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Ampersand
-                                text: "&"
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: HCC
+                    text: HCC
                   - kind: Newline
                     text: "\r\n"
               - kind: Newline
@@ -7662,31 +7646,29 @@ cst:
                   - kind: ArgumentList
                     children:
                       - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Comma
-                                text: ","
+                        children: []
+                      - kind: Comma
+                        text: ","
                       - kind: Whitespace
                         text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: lng
-                  - kind: ArgumentList
-                    children:
                       - kind: Argument
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: Comma
-                                text: ","
+                              - kind: Identifier
+                                text: lng
+                      - kind: Comma
+                        text: ","
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: "4"
-              - kind: Newline
-                text: "\r\n"
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "4"
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: AssignmentStatement
@@ -7800,31 +7782,29 @@ cst:
                   - kind: ArgumentList
                     children:
                       - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Comma
-                                text: ","
+                        children: []
+                      - kind: Comma
+                        text: ","
                       - kind: Whitespace
                         text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: bt
-                  - kind: ArgumentList
-                    children:
                       - kind: Argument
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: Comma
-                                text: ","
+                              - kind: Identifier
+                                text: bt
+                      - kind: Comma
+                        text: ","
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: "1"
-              - kind: Newline
-                text: "\r\n"
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: AssignmentStatement

@@ -6890,37 +6890,37 @@ cst:
                                   - kind: ArgumentList
                                     children:
                                       - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Comma
-                                                text: ","
+                                        children: []
+                                      - kind: Comma
+                                        text: ","
                                       - kind: Whitespace
                                         text: " "
-                              - kind: Unknown
-                                text: "4"
-                              - kind: Unknown
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: baQrCode
-                                  - kind: ArgumentList
-                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "4"
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
                                       - kind: Argument
                                         children:
                                           - kind: IdentifierExpression
                                             children:
-                                              - kind: Comma
-                                                text: ","
+                                              - kind: Identifier
+                                                text: baQrCode
+                                      - kind: Comma
+                                        text: ","
                                       - kind: Whitespace
                                         text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: lBitLen
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: lBitLen
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -6938,29 +6938,41 @@ cst:
                                   - kind: ArgumentList
                                     children:
                                       - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Comma
-                                                text: ","
+                                        children: []
+                                      - kind: Comma
+                                        text: ","
                                       - kind: Whitespace
                                         text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: pvNumCharCountBits
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: ArgumentList
-                                    children:
                                       - kind: Argument
                                         children:
-                                          - kind: IdentifierExpression
+                                          - kind: CallExpression
                                             children:
-                                              - kind: PeriodOperator
-                                                text: "."
                                               - kind: Identifier
-                                                text: Mode
+                                                text: pvNumCharCountBits
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: PeriodOperator
+                                                            text: "."
+                                                          - kind: Identifier
+                                                            text: Mode
+                                                  - kind: Comma
+                                                    text: ","
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: lVersion
+                                              - kind: RightParenthesis
+                                                text: )
                                       - kind: Comma
                                         text: ","
                                       - kind: Whitespace
@@ -6970,31 +6982,17 @@ cst:
                                           - kind: IdentifierExpression
                                             children:
                                               - kind: Identifier
-                                                text: lVersion
-                                  - kind: RightParenthesis
-                                    text: )
-                              - kind: Unknown
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: baQrCode
-                                  - kind: ArgumentList
-                                    children:
+                                                text: baQrCode
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
                                       - kind: Argument
                                         children:
                                           - kind: IdentifierExpression
                                             children:
-                                              - kind: Comma
-                                                text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: lBitLen
+                                              - kind: Identifier
+                                                text: lBitLen
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: ForStatement
@@ -20320,35 +20318,37 @@ cst:
                                       - kind: ArgumentList
                                         children:
                                           - kind: Argument
+                                            children: []
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "10"
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
                                             children:
                                               - kind: IdentifierExpression
                                                 children:
-                                                  - kind: Comma
-                                                    text: ","
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: Data
+                                          - kind: Comma
+                                            text: ","
                                           - kind: Whitespace
                                             text: " "
-                                  - kind: Unknown
-                                    text: "10"
-                                  - kind: Unknown
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: Data
-                                      - kind: ArgumentList
-                                        children:
                                           - kind: Argument
                                             children:
-                                              - kind: MemberAccessExpression
+                                              - kind: IdentifierExpression
                                                 children:
-                                                  - kind: Comma
-                                                    text: ","
-                                                  - kind: Whitespace
-                                                    text: " "
                                                   - kind: PeriodOperator
                                                     text: "."
                                                   - kind: Identifier

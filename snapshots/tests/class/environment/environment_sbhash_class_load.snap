@@ -5457,17 +5457,17 @@ cst:
                                   - kind: ArgumentList
                                     children:
                                       - kind: Argument
+                                        children: []
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
                                         children:
                                           - kind: IdentifierExpression
                                             children:
-                                              - kind: Comma
-                                                text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: Key
+                                              - kind: Identifier
+                                                text: Key
                                   - kind: Newline
                                     text: "\r\n"
                           - kind: EndKeyword
@@ -6169,17 +6169,17 @@ cst:
                                   - kind: ArgumentList
                                     children:
                                       - kind: Argument
+                                        children: []
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
                                         children:
                                           - kind: IdentifierExpression
                                             children:
-                                              - kind: Comma
-                                                text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: Key
+                                              - kind: Identifier
+                                                text: Key
                                   - kind: Newline
                                     text: "\r\n"
                           - kind: EndKeyword

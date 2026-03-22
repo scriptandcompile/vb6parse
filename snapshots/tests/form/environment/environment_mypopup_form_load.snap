@@ -15070,17 +15070,17 @@ cst:
                                                                                               - kind: Whitespace
                                                                                                 text: " "
                                                                                               - kind: Argument
-                                                                                                children:
-                                                                                                  - kind: IdentifierExpression
-                                                                                                    children:
-                                                                                                      - kind: Comma
-                                                                                                        text: ","
+                                                                                                children: []
+                                                                                              - kind: Comma
+                                                                                                text: ","
                                                                                               - kind: Whitespace
                                                                                                 text: " "
-                                                                                      - kind: CallStatement
-                                                                                        children:
-                                                                                          - kind: TrueKeyword
-                                                                                            text: "True"
+                                                                                              - kind: Argument
+                                                                                                children:
+                                                                                                  - kind: BooleanLiteralExpression
+                                                                                                    children:
+                                                                                                      - kind: TrueKeyword
+                                                                                                        text: "True"
                                                                                           - kind: Newline
                                                                                             text: "\r\n"
                                                                                       - kind: Whitespace

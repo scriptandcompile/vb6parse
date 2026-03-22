@@ -6399,17 +6399,19 @@ cst:
                                                   - kind: ArgumentList
                                                     children:
                                                       - kind: Argument
+                                                        children: []
+                                                      - kind: Comma
+                                                        text: ","
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Argument
                                                         children:
                                                           - kind: IdentifierExpression
                                                             children:
-                                                              - kind: Comma
-                                                                text: ","
+                                                              - kind: OptionalKeyword
+                                                                text: Optional
                                                       - kind: Whitespace
                                                         text: " "
-                                              - kind: Unknown
-                                                text: Optional
-                                              - kind: Whitespace
-                                                text: " "
                                               - kind: CallStatement
                                                 children:
                                                   - kind: Identifier
@@ -6417,17 +6419,19 @@ cst:
                                                   - kind: ArgumentList
                                                     children:
                                                       - kind: Argument
+                                                        children: []
+                                                      - kind: Comma
+                                                        text: ","
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Argument
                                                         children:
                                                           - kind: IdentifierExpression
                                                             children:
-                                                              - kind: Comma
-                                                                text: ","
+                                                              - kind: OptionalKeyword
+                                                                text: Optional
                                                       - kind: Whitespace
                                                         text: " "
-                                              - kind: Unknown
-                                                text: Optional
-                                              - kind: Whitespace
-                                                text: " "
                                               - kind: CallStatement
                                                 children:
                                                   - kind: Identifier

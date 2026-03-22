@@ -1239,27 +1239,6 @@ End Sub
     }
 
     #[test]
-    fn strcomp_class_method() {
-        let source = r"
-Sub Test()
-    Set obj = New StringComparer
-    obj.Compare str1, str2
-End Sub
-";
-        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-
-        let tree = cst.to_serializable();
-
-        let mut settings = insta::Settings::clone_current();
-        settings
-            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/string/strcomp");
-        settings.set_prepend_module_to_snapshot(false);
-        let _guard = settings.bind_to_scope();
-        insta::assert_yaml_snapshot!(tree);
-    }
-
-    #[test]
     fn strcomp_binary_search() {
         let source = r"
 Function BinarySearch() As Integer

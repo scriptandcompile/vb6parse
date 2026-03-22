@@ -1033,81 +1033,73 @@ cst:
                       - kind: ArgumentList
                         children:
                           - kind: Argument
+                            children: []
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: BooleanLiteralExpression
+                                children:
+                                  - kind: FalseKeyword
+                                    text: "False"
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
                             children:
                               - kind: IdentifierExpression
                                 children:
-                                  - kind: Comma
-                                    text: ","
+                                  - kind: Identifier
+                                    text: cdfStr
+                          - kind: Comma
+                            text: ","
                           - kind: Whitespace
                             text: " "
-              - kind: CallStatement
-                children:
-                  - kind: FalseKeyword
-                    text: "False"
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
+                          - kind: Argument
+                            children: []
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children: []
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
                             children:
-                              - kind: Comma
-                                text: ","
-                      - kind: Whitespace
-                        text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: cdfStr
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"Select image\""
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children: []
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
                             children:
-                              - kind: Comma
-                                text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Comma
-                                text: ","
-                      - kind: Whitespace
-                        text: " "
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: MeKeyword
+                                    text: Me
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: hWnd
               - kind: Unknown
-                text: "\"Select image\""
-              - kind: Unknown
-                text: ","
+                text: )
               - kind: Whitespace
                 text: " "
-              - kind: Unknown
-                text: ","
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
-                children:
-                  - kind: MeKeyword
-                    text: Me
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: hWnd
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: RightParenthesis
-                                text: )
-                      - kind: Whitespace
-                        text: " "
               - kind: Unknown
                 text: Then
               - kind: Newline

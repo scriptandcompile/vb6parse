@@ -2740,27 +2740,21 @@ cst:
                   - kind: ArgumentList
                     children:
                       - kind: Argument
+                        children: []
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: Comma
-                                text: ","
+                              - kind: ByValKeyword
+                                text: ByVal
                       - kind: Whitespace
                         text: " "
-              - kind: CallStatement
-                children:
-                  - kind: ByValKeyword
-                    text: ByVal
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: NumericLiteralExpression
-                            children:
-                              - kind: LongLiteral
-                                text: 0&
+              - kind: Unknown
+                text: 0&
               - kind: Unknown
                 text: )
               - kind: Newline

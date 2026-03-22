@@ -1,0 +1,45 @@
+---
+source: vb6parse/tests/call_argument_list.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: Debug
+        - kind: PeriodOperator
+          text: "."
+        - kind: PrintKeyword
+          text: Print
+        - kind: Whitespace
+          text: " "
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: x
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: y
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: z

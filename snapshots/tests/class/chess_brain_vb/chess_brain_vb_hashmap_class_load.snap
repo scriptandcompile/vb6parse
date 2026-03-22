@@ -2947,61 +2947,67 @@ cst:
                                       - kind: ArgumentList
                                         children:
                                           - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Comma
-                                                    text: ","
+                                            children: []
+                                          - kind: Comma
+                                            text: ","
                                           - kind: Whitespace
                                             text: " "
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: TypeName
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: ArgumentList
-                                        children:
                                           - kind: Argument
                                             children:
-                                              - kind: IdentifierExpression
+                                              - kind: CallExpression
                                                 children:
-                                                  - kind: MeKeyword
-                                                    text: Me
-                                      - kind: RightParenthesis
-                                        text: )
-                                  - kind: Unknown
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Unknown
-                                    text: "\"CreateFileMapping system error \""
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Unknown
-                                    text: "&"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: CStr
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: ArgumentList
-                                        children:
+                                                  - kind: Identifier
+                                                    text: TypeName
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: MeKeyword
+                                                                text: Me
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
                                           - kind: Argument
                                             children:
-                                              - kind: MemberAccessExpression
+                                              - kind: BinaryExpression
                                                 children:
-                                                  - kind: Identifier
-                                                    text: Err
-                                                  - kind: PeriodOperator
-                                                    text: "."
-                                                  - kind: Identifier
-                                                    text: LastDllError
-                                      - kind: RightParenthesis
-                                        text: )
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"CreateFileMapping system error \""
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Ampersand
+                                                    text: "&"
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: CallExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: CStr
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: MemberAccessExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: Err
+                                                                  - kind: PeriodOperator
+                                                                    text: "."
+                                                                  - kind: Identifier
+                                                                    text: LastDllError
+                                                      - kind: RightParenthesis
+                                                        text: )
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace
@@ -3243,61 +3249,67 @@ cst:
                                               - kind: ArgumentList
                                                 children:
                                                   - kind: Argument
-                                                    children:
-                                                      - kind: IdentifierExpression
-                                                        children:
-                                                          - kind: Comma
-                                                            text: ","
+                                                    children: []
+                                                  - kind: Comma
+                                                    text: ","
                                                   - kind: Whitespace
                                                     text: " "
-                                          - kind: CallStatement
-                                            children:
-                                              - kind: Identifier
-                                                text: TypeName
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: ArgumentList
-                                                children:
                                                   - kind: Argument
                                                     children:
-                                                      - kind: IdentifierExpression
+                                                      - kind: CallExpression
                                                         children:
-                                                          - kind: MeKeyword
-                                                            text: Me
-                                              - kind: RightParenthesis
-                                                text: )
-                                          - kind: Unknown
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Unknown
-                                            text: "\"MapViewOfFile system error \""
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Unknown
-                                            text: "&"
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: CallStatement
-                                            children:
-                                              - kind: Identifier
-                                                text: CStr
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: ArgumentList
-                                                children:
+                                                          - kind: Identifier
+                                                            text: TypeName
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: MeKeyword
+                                                                        text: Me
+                                                          - kind: RightParenthesis
+                                                            text: )
+                                                  - kind: Comma
+                                                    text: ","
+                                                  - kind: Whitespace
+                                                    text: " "
                                                   - kind: Argument
                                                     children:
-                                                      - kind: MemberAccessExpression
+                                                      - kind: BinaryExpression
                                                         children:
-                                                          - kind: Identifier
-                                                            text: Err
-                                                          - kind: PeriodOperator
-                                                            text: "."
-                                                          - kind: Identifier
-                                                            text: LastDllError
-                                              - kind: RightParenthesis
-                                                text: )
+                                                          - kind: StringLiteralExpression
+                                                            children:
+                                                              - kind: StringLiteral
+                                                                text: "\"MapViewOfFile system error \""
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Ampersand
+                                                            text: "&"
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: CallExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: CStr
+                                                              - kind: LeftParenthesis
+                                                                text: (
+                                                              - kind: ArgumentList
+                                                                children:
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: MemberAccessExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: Err
+                                                                          - kind: PeriodOperator
+                                                                            text: "."
+                                                                          - kind: Identifier
+                                                                            text: LastDllError
+                                                              - kind: RightParenthesis
+                                                                text: )
                                               - kind: Newline
                                                 text: "\r\n"
                                           - kind: ExitStatement
@@ -3647,17 +3659,17 @@ cst:
                   - kind: ArgumentList
                     children:
                       - kind: Argument
+                        children: []
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: Comma
-                                text: ","
-                      - kind: Whitespace
-                        text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: Size
+                              - kind: Identifier
+                                text: Size
                   - kind: Newline
                     text: "\r\n"
               - kind: IfStatement
@@ -3803,17 +3815,17 @@ cst:
                   - kind: ArgumentList
                     children:
                       - kind: Argument
+                        children: []
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: Comma
-                                text: ","
-                      - kind: Whitespace
-                        text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: Size
+                              - kind: Identifier
+                                text: Size
                   - kind: Newline
                     text: "\r\n"
               - kind: IfStatement
@@ -4155,61 +4167,67 @@ cst:
                               - kind: ArgumentList
                                 children:
                                   - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Comma
-                                            text: ","
+                                    children: []
+                                  - kind: Comma
+                                    text: ","
                                   - kind: Whitespace
                                     text: " "
-                          - kind: CallStatement
-                            children:
-                              - kind: Identifier
-                                text: TypeName
-                              - kind: LeftParenthesis
-                                text: (
-                              - kind: ArgumentList
-                                children:
                                   - kind: Argument
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: CallExpression
                                         children:
-                                          - kind: MeKeyword
-                                            text: Me
-                              - kind: RightParenthesis
-                                text: )
-                          - kind: Unknown
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Unknown
-                            text: "\"OpenFileMapping system error \""
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Unknown
-                            text: "&"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: CallStatement
-                            children:
-                              - kind: Identifier
-                                text: CStr
-                              - kind: LeftParenthesis
-                                text: (
-                              - kind: ArgumentList
-                                children:
+                                          - kind: Identifier
+                                            text: TypeName
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: MeKeyword
+                                                        text: Me
+                                          - kind: RightParenthesis
+                                            text: )
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
                                   - kind: Argument
                                     children:
-                                      - kind: MemberAccessExpression
+                                      - kind: BinaryExpression
                                         children:
-                                          - kind: Identifier
-                                            text: Err
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: LastDllError
-                              - kind: RightParenthesis
-                                text: )
+                                          - kind: StringLiteralExpression
+                                            children:
+                                              - kind: StringLiteral
+                                                text: "\"OpenFileMapping system error \""
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Ampersand
+                                            text: "&"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: CallExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: CStr
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: MemberAccessExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: Err
+                                                          - kind: PeriodOperator
+                                                            text: "."
+                                                          - kind: Identifier
+                                                            text: LastDllError
+                                              - kind: RightParenthesis
+                                                text: )
                               - kind: Newline
                                 text: "\r\n"
                           - kind: Whitespace
@@ -4397,61 +4415,67 @@ cst:
                                       - kind: ArgumentList
                                         children:
                                           - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Comma
-                                                    text: ","
+                                            children: []
+                                          - kind: Comma
+                                            text: ","
                                           - kind: Whitespace
                                             text: " "
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: TypeName
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: ArgumentList
-                                        children:
                                           - kind: Argument
                                             children:
-                                              - kind: IdentifierExpression
+                                              - kind: CallExpression
                                                 children:
-                                                  - kind: MeKeyword
-                                                    text: Me
-                                      - kind: RightParenthesis
-                                        text: )
-                                  - kind: Unknown
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Unknown
-                                    text: "\"MapViewOfFile system error \""
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Unknown
-                                    text: "&"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: CStr
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: ArgumentList
-                                        children:
+                                                  - kind: Identifier
+                                                    text: TypeName
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: MeKeyword
+                                                                text: Me
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
                                           - kind: Argument
                                             children:
-                                              - kind: MemberAccessExpression
+                                              - kind: BinaryExpression
                                                 children:
-                                                  - kind: Identifier
-                                                    text: Err
-                                                  - kind: PeriodOperator
-                                                    text: "."
-                                                  - kind: Identifier
-                                                    text: LastDllError
-                                      - kind: RightParenthesis
-                                        text: )
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"MapViewOfFile system error \""
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Ampersand
+                                                    text: "&"
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: CallExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: CStr
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: MemberAccessExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: Err
+                                                                  - kind: PeriodOperator
+                                                                    text: "."
+                                                                  - kind: Identifier
+                                                                    text: LastDllError
+                                                      - kind: RightParenthesis
+                                                        text: )
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace
@@ -4995,27 +5019,27 @@ cst:
                           - kind: ArgumentList
                             children:
                               - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Comma
-                                        text: ","
+                                children: []
+                              - kind: Comma
+                                text: ","
                               - kind: Whitespace
                                 text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: ByValKeyword
-                            text: ByVal
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ArgumentList
-                            children:
                               - kind: Argument
                                 children:
                                   - kind: IdentifierExpression
                                     children:
-                                      - kind: Identifier
-                                        text: Ptr
+                                      - kind: ByValKeyword
+                                        text: ByVal
+                              - kind: Whitespace
+                                text: " "
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: Ptr
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children: []
                               - kind: Comma
                                 text: ","
                               - kind: Whitespace
@@ -5191,13 +5215,63 @@ cst:
                                       - kind: ArgumentList
                                         children:
                                           - kind: Argument
+                                            children: []
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
                                             children:
                                               - kind: IdentifierExpression
                                                 children:
-                                                  - kind: Comma
-                                                    text: ","
+                                                  - kind: ByValKeyword
+                                                    text: ByVal
                                           - kind: Whitespace
                                             text: " "
+                              - kind: CallStatement
+                                children:
+                                  - kind: Identifier
+                                    text: CLng
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: CallExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: VarPtr
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: CallExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: VerifyArr
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: NumericLiteralExpression
+                                                                    children:
+                                                                      - kind: IntegerLiteral
+                                                                        text: "0"
+                                                          - kind: RightParenthesis
+                                                            text: )
+                                              - kind: RightParenthesis
+                                                text: )
+                                  - kind: RightParenthesis
+                                    text: )
+                              - kind: Unknown
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
                               - kind: CallStatement
                                 children:
                                   - kind: ByValKeyword
@@ -5208,88 +5282,34 @@ cst:
                                     children:
                                       - kind: Argument
                                         children:
-                                          - kind: CallExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: CLng
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: ArgumentList
-                                                children:
-                                                  - kind: Argument
-                                                    children:
-                                                      - kind: CallExpression
-                                                        children:
-                                                          - kind: Identifier
-                                                            text: VarPtr
-                                                          - kind: LeftParenthesis
-                                                            text: (
-                                                          - kind: ArgumentList
-                                                            children:
-                                                              - kind: Argument
-                                                                children:
-                                                                  - kind: CallExpression
-                                                                    children:
-                                                                      - kind: Identifier
-                                                                        text: VerifyArr
-                                                                      - kind: LeftParenthesis
-                                                                        text: (
-                                                                      - kind: ArgumentList
-                                                                        children:
-                                                                          - kind: Argument
-                                                                            children:
-                                                                              - kind: NumericLiteralExpression
-                                                                                children:
-                                                                                  - kind: IntegerLiteral
-                                                                                    text: "0"
-                                                                      - kind: RightParenthesis
-                                                                        text: )
-                                                          - kind: RightParenthesis
-                                                            text: )
-                                              - kind: RightParenthesis
-                                                text: )
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Argument
-                                        children:
                                           - kind: IdentifierExpression
                                             children:
-                                              - kind: ByValKeyword
-                                                text: ByVal
-                                      - kind: Whitespace
-                                        text: " "
+                                              - kind: Identifier
+                                                text: Size
+                              - kind: Unknown
+                                text: )
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Unknown
+                                text: "<>"
+                              - kind: Whitespace
+                                text: " "
                               - kind: CallStatement
                                 children:
                                   - kind: Identifier
                                     text: Size
+                                  - kind: Whitespace
+                                    text: " "
                                   - kind: ArgumentList
                                     children:
                                       - kind: Argument
                                         children:
-                                          - kind: BinaryExpression
+                                          - kind: IdentifierExpression
                                             children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: RightParenthesis
-                                                    text: )
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: InequalityOperator
-                                                text: "<>"
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: Size
-                                      - kind: Whitespace
-                                        text: " "
-                              - kind: Unknown
-                                text: Then
-                              - kind: Newline
-                                text: "\r\n"
+                                              - kind: ThenKeyword
+                                                text: Then
+                                  - kind: Newline
+                                    text: "\r\n"
                               - kind: Whitespace
                                 text: "        "
                               - kind: EndOfLineComment
@@ -5883,27 +5903,27 @@ cst:
                                   - kind: ArgumentList
                                     children:
                                       - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Comma
-                                                text: ","
+                                        children: []
+                                      - kind: Comma
+                                        text: ","
                                       - kind: Whitespace
                                         text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: ByValKeyword
-                                    text: ByVal
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: ArgumentList
-                                    children:
                                       - kind: Argument
                                         children:
                                           - kind: IdentifierExpression
                                             children:
-                                              - kind: Identifier
-                                                text: lpData
+                                              - kind: ByValKeyword
+                                                text: ByVal
+                                      - kind: Whitespace
+                                        text: " "
+                              - kind: CallStatement
+                                children:
+                                  - kind: Identifier
+                                    text: lpData
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children: []
                                       - kind: Comma
                                         text: ","
                                       - kind: Whitespace
@@ -5965,27 +5985,27 @@ cst:
                                       - kind: ArgumentList
                                         children:
                                           - kind: Argument
+                                            children: []
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
                                             children:
                                               - kind: IdentifierExpression
                                                 children:
-                                                  - kind: Comma
-                                                    text: ","
+                                                  - kind: ByValKeyword
+                                                    text: ByVal
                                           - kind: Whitespace
                                             text: " "
                               - kind: CallStatement
                                 children:
-                                  - kind: ByValKeyword
-                                    text: ByVal
-                                  - kind: Whitespace
-                                    text: " "
+                                  - kind: Identifier
+                                    text: lpData
                                   - kind: ArgumentList
                                     children:
                                       - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: lpData
+                                        children: []
                                       - kind: Comma
                                         text: ","
                                       - kind: Whitespace
@@ -6503,27 +6523,27 @@ cst:
                                   - kind: ArgumentList
                                     children:
                                       - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Comma
-                                                text: ","
+                                        children: []
+                                      - kind: Comma
+                                        text: ","
                                       - kind: Whitespace
                                         text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: ByValKeyword
-                                    text: ByVal
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: ArgumentList
-                                    children:
                                       - kind: Argument
                                         children:
                                           - kind: IdentifierExpression
                                             children:
-                                              - kind: Identifier
-                                                text: lpData
+                                              - kind: ByValKeyword
+                                                text: ByVal
+                                      - kind: Whitespace
+                                        text: " "
+                              - kind: CallStatement
+                                children:
+                                  - kind: Identifier
+                                    text: lpData
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children: []
                                       - kind: Comma
                                         text: ","
                                       - kind: Whitespace
@@ -6847,27 +6867,27 @@ cst:
                                   - kind: ArgumentList
                                     children:
                                       - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Comma
-                                                text: ","
+                                        children: []
+                                      - kind: Comma
+                                        text: ","
                                       - kind: Whitespace
                                         text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: ByValKeyword
-                                    text: ByVal
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: ArgumentList
-                                    children:
                                       - kind: Argument
                                         children:
                                           - kind: IdentifierExpression
                                             children:
-                                              - kind: Identifier
-                                                text: Ptr
+                                              - kind: ByValKeyword
+                                                text: ByVal
+                                      - kind: Whitespace
+                                        text: " "
+                              - kind: CallStatement
+                                children:
+                                  - kind: Identifier
+                                    text: Ptr
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children: []
                                       - kind: Comma
                                         text: ","
                                       - kind: Whitespace

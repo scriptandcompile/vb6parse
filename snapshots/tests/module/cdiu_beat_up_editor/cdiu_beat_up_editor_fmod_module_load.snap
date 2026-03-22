@@ -25194,17 +25194,19 @@ cst:
                   - kind: ArgumentList
                     children:
                       - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Comma
-                                text: ","
+                        children: []
+                      - kind: Comma
+                        text: ","
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: "4"
-              - kind: Newline
-                text: "\n"
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "4"
+                  - kind: Newline
+                    text: "\n"
           - kind: EndKeyword
             text: End
           - kind: Whitespace
@@ -25482,33 +25484,31 @@ cst:
                   - kind: ArgumentList
                     children:
                       - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Comma
-                                text: ","
+                        children: []
+                      - kind: Comma
+                        text: ","
                       - kind: Whitespace
                         text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: nrOfVals
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ArgumentList
-                    children:
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
+                          - kind: BinaryExpression
                             children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: nrOfVals
+                              - kind: Whitespace
+                                text: " "
                               - kind: MultiplicationOperator
                                 text: "*"
-                      - kind: Whitespace
-                        text: " "
-              - kind: Unknown
-                text: "4"
-              - kind: Newline
-                text: "\n"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "4"
+                  - kind: Newline
+                    text: "\n"
           - kind: EndKeyword
             text: End
           - kind: Whitespace

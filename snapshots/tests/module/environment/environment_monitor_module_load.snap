@@ -2392,13 +2392,15 @@ cst:
                           - kind: ArgumentList
                             children:
                               - kind: Argument
+                                children: []
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
                                 children:
-                                  - kind: MemberAccessExpression
+                                  - kind: IdentifierExpression
                                     children:
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
                                       - kind: PeriodOperator
                                         text: "."
                                       - kind: Identifier
@@ -3038,13 +3040,15 @@ cst:
                                   - kind: ArgumentList
                                     children:
                                       - kind: Argument
+                                        children: []
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
                                         children:
-                                          - kind: MemberAccessExpression
+                                          - kind: IdentifierExpression
                                             children:
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
                                               - kind: PeriodOperator
                                                 text: "."
                                               - kind: Identifier

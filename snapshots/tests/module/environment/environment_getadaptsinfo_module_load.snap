@@ -1430,29 +1430,35 @@ cst:
                               - kind: ArgumentList
                                 children:
                                   - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Comma
-                                            text: ","
+                                    children: []
+                                  - kind: Comma
+                                    text: ","
                                   - kind: Whitespace
                                     text: " "
-                          - kind: Unknown
-                            text: "\"GetAdaptersInfo\""
-                          - kind: Unknown
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Unknown
-                            text: _
-                          - kind: Newline
-                            text: "\r\n"
-                          - kind: Whitespace
-                            text: "                      "
-                          - kind: Unknown
-                            text: "\"GetAdaptersInfo Early Success: internal error\""
-                          - kind: Newline
-                            text: "\r\n"
+                                  - kind: Argument
+                                    children:
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"GetAdaptersInfo\""
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Underscore
+                                    text: _
+                                  - kind: Newline
+                                    text: "\r\n"
+                                  - kind: Whitespace
+                                    text: "                      "
+                                  - kind: Argument
+                                    children:
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"GetAdaptersInfo Early Success: internal error\""
+                              - kind: Newline
+                                text: "\r\n"
                           - kind: Newline
                             text: "\r\n"
                           - kind: Whitespace
@@ -1496,29 +1502,35 @@ cst:
                               - kind: ArgumentList
                                 children:
                                   - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Comma
-                                            text: ","
+                                    children: []
+                                  - kind: Comma
+                                    text: ","
                                   - kind: Whitespace
                                     text: " "
-                          - kind: Unknown
-                            text: "\"GetAdaptersInfo\""
-                          - kind: Unknown
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Unknown
-                            text: _
-                          - kind: Newline
-                            text: "\r\n"
-                          - kind: Whitespace
-                            text: "                      "
-                          - kind: Unknown
-                            text: "\"GetAdaptersInfo is not supported by this OS\""
-                          - kind: Newline
-                            text: "\r\n"
+                                  - kind: Argument
+                                    children:
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"GetAdaptersInfo\""
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Underscore
+                                    text: _
+                                  - kind: Newline
+                                    text: "\r\n"
+                                  - kind: Whitespace
+                                    text: "                      "
+                                  - kind: Argument
+                                    children:
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"GetAdaptersInfo is not supported by this OS\""
+                              - kind: Newline
+                                text: "\r\n"
                           - kind: Newline
                             text: "\r\n"
                           - kind: Whitespace
@@ -1562,29 +1574,35 @@ cst:
                               - kind: ArgumentList
                                 children:
                                   - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Comma
-                                            text: ","
+                                    children: []
+                                  - kind: Comma
+                                    text: ","
                                   - kind: Whitespace
                                     text: " "
-                          - kind: Unknown
-                            text: "\"GetAdaptersInfo\""
-                          - kind: Unknown
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Unknown
-                            text: _
-                          - kind: Newline
-                            text: "\r\n"
-                          - kind: Whitespace
-                            text: "                      "
-                          - kind: Unknown
-                            text: "\"GetAdaptersInfo Bad Parameters: internal error\""
-                          - kind: Newline
-                            text: "\r\n"
+                                  - kind: Argument
+                                    children:
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"GetAdaptersInfo\""
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Underscore
+                                    text: _
+                                  - kind: Newline
+                                    text: "\r\n"
+                                  - kind: Whitespace
+                                    text: "                      "
+                                  - kind: Argument
+                                    children:
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"GetAdaptersInfo Bad Parameters: internal error\""
+                              - kind: Newline
+                                text: "\r\n"
                           - kind: Newline
                             text: "\r\n"
                           - kind: Whitespace
@@ -1810,29 +1828,29 @@ cst:
                                                   - kind: ArgumentList
                                                     children:
                                                       - kind: Argument
-                                                        children:
-                                                          - kind: IdentifierExpression
-                                                            children:
-                                                              - kind: Comma
-                                                                text: ","
+                                                        children: []
+                                                      - kind: Comma
+                                                        text: ","
                                                       - kind: Whitespace
                                                         text: " "
-                                              - kind: CallStatement
-                                                children:
-                                                  - kind: LenKeyword
-                                                    text: Len
-                                                  - kind: LeftParenthesis
-                                                    text: (
-                                                  - kind: ArgumentList
-                                                    children:
                                                       - kind: Argument
                                                         children:
-                                                          - kind: IdentifierExpression
+                                                          - kind: CallExpression
                                                             children:
-                                                              - kind: Identifier
-                                                                text: APIAdapterInfo
-                                                  - kind: RightParenthesis
-                                                    text: )
+                                                              - kind: LenKeyword
+                                                                text: Len
+                                                              - kind: LeftParenthesis
+                                                                text: (
+                                                              - kind: ArgumentList
+                                                                children:
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: IdentifierExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: APIAdapterInfo
+                                                              - kind: RightParenthesis
+                                                                text: )
                                                   - kind: Newline
                                                     text: "\r\n"
                                               - kind: ReDimStatement
@@ -2250,29 +2268,35 @@ cst:
                                           - kind: ArgumentList
                                             children:
                                               - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Comma
-                                                        text: ","
+                                                children: []
+                                              - kind: Comma
+                                                text: ","
                                               - kind: Whitespace
                                                 text: " "
-                                      - kind: Unknown
-                                        text: "\"GetAdaptersInfo\""
-                                      - kind: Unknown
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Unknown
-                                        text: _
-                                      - kind: Newline
-                                        text: "\r\n"
-                                      - kind: Whitespace
-                                        text: "                              "
-                                      - kind: Unknown
-                                        text: "\"GetAdaptersInfo Late Failure: is not supported by this OS\""
-                                      - kind: Newline
-                                        text: "\r\n"
+                                              - kind: Argument
+                                                children:
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"GetAdaptersInfo\""
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Underscore
+                                                text: _
+                                              - kind: Newline
+                                                text: "\r\n"
+                                              - kind: Whitespace
+                                                text: "                              "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"GetAdaptersInfo Late Failure: is not supported by this OS\""
+                                          - kind: Newline
+                                            text: "\r\n"
                                       - kind: Newline
                                         text: "\r\n"
                                       - kind: Whitespace
@@ -2316,29 +2340,35 @@ cst:
                                           - kind: ArgumentList
                                             children:
                                               - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Comma
-                                                        text: ","
+                                                children: []
+                                              - kind: Comma
+                                                text: ","
                                               - kind: Whitespace
                                                 text: " "
-                                      - kind: Unknown
-                                        text: "\"GetAdaptersInfo\""
-                                      - kind: Unknown
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Unknown
-                                        text: _
-                                      - kind: Newline
-                                        text: "\r\n"
-                                      - kind: Whitespace
-                                        text: "                              "
-                                      - kind: Unknown
-                                        text: "\"GetAdaptersInfo Late Failure, Bad Parameters: internal error\""
-                                      - kind: Newline
-                                        text: "\r\n"
+                                              - kind: Argument
+                                                children:
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"GetAdaptersInfo\""
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Underscore
+                                                text: _
+                                              - kind: Newline
+                                                text: "\r\n"
+                                              - kind: Whitespace
+                                                text: "                              "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"GetAdaptersInfo Late Failure, Bad Parameters: internal error\""
+                                          - kind: Newline
+                                            text: "\r\n"
                                       - kind: Newline
                                         text: "\r\n"
                                       - kind: Whitespace
@@ -2382,29 +2412,35 @@ cst:
                                           - kind: ArgumentList
                                             children:
                                               - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Comma
-                                                        text: ","
+                                                children: []
+                                              - kind: Comma
+                                                text: ","
                                               - kind: Whitespace
                                                 text: " "
-                                      - kind: Unknown
-                                        text: "\"GetAdaptersInfo\""
-                                      - kind: Unknown
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Unknown
-                                        text: _
-                                      - kind: Newline
-                                        text: "\r\n"
-                                      - kind: Whitespace
-                                        text: "                              "
-                                      - kind: Unknown
-                                        text: "\"GetAdaptersInfo Late Failure: buffer overflow\""
-                                      - kind: Newline
-                                        text: "\r\n"
+                                              - kind: Argument
+                                                children:
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"GetAdaptersInfo\""
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Underscore
+                                                text: _
+                                              - kind: Newline
+                                                text: "\r\n"
+                                              - kind: Whitespace
+                                                text: "                              "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"GetAdaptersInfo Late Failure: buffer overflow\""
+                                          - kind: Newline
+                                            text: "\r\n"
                                       - kind: Whitespace
                                         text: "                "
                                       - kind: Newline
@@ -2450,53 +2486,61 @@ cst:
                                           - kind: ArgumentList
                                             children:
                                               - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Comma
-                                                        text: ","
+                                                children: []
+                                              - kind: Comma
+                                                text: ","
                                               - kind: Whitespace
                                                 text: " "
-                                      - kind: Unknown
-                                        text: "\"GetAdaptersInfo\""
-                                      - kind: Unknown
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Unknown
-                                        text: _
-                                      - kind: Newline
-                                        text: "\r\n"
-                                      - kind: Whitespace
-                                        text: "                              "
-                                      - kind: Unknown
-                                        text: "\"GetAdaptersInfo Late Failure: system error \""
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Unknown
-                                        text: "&"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: CallStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: CStr
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: ArgumentList
-                                            children:
                                               - kind: Argument
                                                 children:
-                                                  - kind: MemberAccessExpression
+                                                  - kind: StringLiteralExpression
                                                     children:
-                                                      - kind: Identifier
-                                                        text: Err
-                                                      - kind: PeriodOperator
-                                                        text: "."
-                                                      - kind: Identifier
-                                                        text: LastDllError
-                                          - kind: RightParenthesis
-                                            text: )
+                                                      - kind: StringLiteral
+                                                        text: "\"GetAdaptersInfo\""
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Underscore
+                                                text: _
+                                              - kind: Newline
+                                                text: "\r\n"
+                                              - kind: Whitespace
+                                                text: "                              "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: BinaryExpression
+                                                    children:
+                                                      - kind: StringLiteralExpression
+                                                        children:
+                                                          - kind: StringLiteral
+                                                            text: "\"GetAdaptersInfo Late Failure: system error \""
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Ampersand
+                                                        text: "&"
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: CallExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: CStr
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: MemberAccessExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: Err
+                                                                      - kind: PeriodOperator
+                                                                        text: "."
+                                                                      - kind: Identifier
+                                                                        text: LastDllError
+                                                          - kind: RightParenthesis
+                                                            text: )
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace
@@ -2584,53 +2628,61 @@ cst:
                               - kind: ArgumentList
                                 children:
                                   - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Comma
-                                            text: ","
+                                    children: []
+                                  - kind: Comma
+                                    text: ","
                                   - kind: Whitespace
                                     text: " "
-                          - kind: Unknown
-                            text: "\"GetAdaptersInfo\""
-                          - kind: Unknown
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Unknown
-                            text: _
-                          - kind: Newline
-                            text: "\r\n"
-                          - kind: Whitespace
-                            text: "                      "
-                          - kind: Unknown
-                            text: "\"GetAdaptersInfo system error \""
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Unknown
-                            text: "&"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: CallStatement
-                            children:
-                              - kind: Identifier
-                                text: CStr
-                              - kind: LeftParenthesis
-                                text: (
-                              - kind: ArgumentList
-                                children:
                                   - kind: Argument
                                     children:
-                                      - kind: MemberAccessExpression
+                                      - kind: StringLiteralExpression
                                         children:
-                                          - kind: Identifier
-                                            text: Err
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: LastDllError
-                              - kind: RightParenthesis
-                                text: )
+                                          - kind: StringLiteral
+                                            text: "\"GetAdaptersInfo\""
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Underscore
+                                    text: _
+                                  - kind: Newline
+                                    text: "\r\n"
+                                  - kind: Whitespace
+                                    text: "                      "
+                                  - kind: Argument
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: StringLiteralExpression
+                                            children:
+                                              - kind: StringLiteral
+                                                text: "\"GetAdaptersInfo system error \""
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Ampersand
+                                            text: "&"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: CallExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: CStr
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: MemberAccessExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: Err
+                                                          - kind: PeriodOperator
+                                                            text: "."
+                                                          - kind: Identifier
+                                                            text: LastDllError
+                                              - kind: RightParenthesis
+                                                text: )
                               - kind: Newline
                                 text: "\r\n"
                           - kind: Whitespace

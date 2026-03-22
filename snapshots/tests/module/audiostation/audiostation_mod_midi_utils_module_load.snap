@@ -1772,57 +1772,53 @@ cst:
                                           - kind: Whitespace
                                             text: " "
                                           - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Comma
-                                                    text: ","
+                                            children: []
+                                          - kind: Comma
+                                            text: ","
                                           - kind: Whitespace
                                             text: " "
-                                  - kind: Unknown
-                                    text: "\"PROGRAM ERROR 454, invalid note, \""
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Unknown
-                                    text: "&"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: Trim
-                                      - kind: ArgumentList
-                                        children:
                                           - kind: Argument
                                             children:
-                                              - kind: CallExpression
+                                              - kind: BinaryExpression
                                                 children:
-                                                  - kind: DollarSign
-                                                    text: $
-                                                  - kind: LeftParenthesis
-                                                    text: (
-                                                  - kind: ArgumentList
+                                                  - kind: StringLiteralExpression
                                                     children:
-                                                      - kind: Argument
+                                                      - kind: StringLiteral
+                                                        text: "\"PROGRAM ERROR 454, invalid note, \""
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Ampersand
+                                                    text: "&"
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: CallExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: Trim$
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
                                                         children:
-                                                          - kind: CallExpression
+                                                          - kind: Argument
                                                             children:
-                                                              - kind: Identifier
-                                                                text: str$
-                                                              - kind: LeftParenthesis
-                                                                text: (
-                                                              - kind: ArgumentList
+                                                              - kind: CallExpression
                                                                 children:
-                                                                  - kind: Argument
+                                                                  - kind: Identifier
+                                                                    text: str$
+                                                                  - kind: LeftParenthesis
+                                                                    text: (
+                                                                  - kind: ArgumentList
                                                                     children:
-                                                                      - kind: IdentifierExpression
+                                                                      - kind: Argument
                                                                         children:
-                                                                          - kind: Identifier
-                                                                            text: mNote
-                                                              - kind: RightParenthesis
-                                                                text: )
-                                                  - kind: RightParenthesis
-                                                    text: )
+                                                                          - kind: IdentifierExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: mNote
+                                                                  - kind: RightParenthesis
+                                                                    text: )
+                                                      - kind: RightParenthesis
+                                                        text: )
                                       - kind: Newline
                                         text: "\n"
                                   - kind: Whitespace

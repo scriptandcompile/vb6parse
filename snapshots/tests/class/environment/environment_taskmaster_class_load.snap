@@ -2641,17 +2641,19 @@ cst:
                                       - kind: Whitespace
                                         text: " "
                                       - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Comma
-                                                text: ","
+                                        children: []
+                                      - kind: Comma
+                                        text: ","
                                       - kind: Whitespace
                                         text: " "
-                              - kind: Unknown
-                                text: "1"
-                              - kind: Newline
-                                text: "\r\n"
+                                      - kind: Argument
+                                        children:
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "1"
+                                  - kind: Newline
+                                    text: "\r\n"
                               - kind: Whitespace
                                 text: "    "
                           - kind: ElseClause
@@ -2769,13 +2771,13 @@ cst:
                                           - kind: Whitespace
                                             text: " "
                                           - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Comma
-                                                    text: ","
+                                            children: []
+                                          - kind: Comma
+                                            text: ","
                                           - kind: Whitespace
                                             text: " "
+                                          - kind: Argument
+                                            children: []
                                           - kind: Comma
                                             text: ","
                                           - kind: Whitespace

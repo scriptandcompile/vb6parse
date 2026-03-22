@@ -3077,29 +3077,23 @@ cst:
                           - kind: ArgumentList
                             children:
                               - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Comma
-                                        text: ","
+                                children: []
+                              - kind: Comma
+                                text: ","
                               - kind: Whitespace
                                 text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: BF
-                          - kind: Whitespace
-                            text: "      "
-                          - kind: ArgumentList
-                            children:
                               - kind: Argument
                                 children:
                                   - kind: IdentifierExpression
                                     children:
-                                      - kind: EndOfLineComment
-                                        text: "' &H008080FF&"
-                          - kind: Newline
-                            text: "\r\n"
+                                      - kind: Identifier
+                                        text: BF
+                              - kind: Whitespace
+                                text: "      "
+                      - kind: EndOfLineComment
+                        text: "' &H008080FF&"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "        "
                       - kind: CallStatement
@@ -3347,85 +3341,95 @@ cst:
                       - kind: ArgumentList
                         children:
                           - kind: Argument
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Comma
-                                    text: ","
+                            children: []
+                          - kind: Comma
+                            text: ","
                           - kind: Whitespace
                             text: " "
+                          - kind: Argument
+                            children: []
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children: []
                           - kind: Comma
                             text: ","
                           - kind: Whitespace
                             text: " "
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: BooleanLiteralExpression
                                 children:
-                                  - kind: Comma
-                                    text: ","
+                                  - kind: TrueKeyword
+                                    text: "True"
+                          - kind: Comma
+                            text: ","
                           - kind: Whitespace
                             text: " "
-              - kind: CallStatement
-                children:
-                  - kind: TrueKeyword
-                    text: "True"
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
+                          - kind: Argument
                             children:
-                              - kind: Comma
-                                text: ","
-                      - kind: Whitespace
-                        text: " "
-              - kind: Unknown
-                text: "\"EXE files (*.exe, *.bin, *.jpg)|*.exe;*.bin;*.jpg|All files|*.*\""
-              - kind: Unknown
-                text: ","
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: ","
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: ","
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "\"Open a EXE file\""
-              - kind: Unknown
-                text: ","
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "\"\""
-              - kind: Unknown
-                text: ","
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: Form1
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: hWnd
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"EXE files (*.exe, *.bin, *.jpg)|*.exe;*.bin;*.jpg|All files|*.*\""
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children: []
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children: []
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
                             children:
-                              - kind: Comma
-                                text: ","
-                      - kind: Whitespace
-                        text: " "
-              - kind: Unknown
-                text: "0"
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"Open a EXE file\""
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"\""
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Form1
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: hWnd
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "0"
               - kind: Unknown
                 text: )
               - kind: Whitespace
@@ -3805,15 +3809,17 @@ cst:
                               - kind: ArgumentList
                                 children:
                                   - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Comma
-                                            text: ","
+                                    children: []
+                                  - kind: Comma
+                                    text: ","
                                   - kind: Whitespace
                                     text: " "
-                      - kind: Unknown
-                        text: "0"
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
                       - kind: Unknown
                         text: )
                       - kind: Whitespace

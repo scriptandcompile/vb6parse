@@ -13303,17 +13303,17 @@ cst:
                                           - kind: ArgumentList
                                             children:
                                               - kind: Argument
+                                                children: []
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
                                                 children:
                                                   - kind: IdentifierExpression
                                                     children:
-                                                      - kind: Comma
-                                                        text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                      - kind: CallStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: Form5
+                                                      - kind: Identifier
+                                                        text: Form5
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: IfStatement

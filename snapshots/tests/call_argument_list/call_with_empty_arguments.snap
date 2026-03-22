@@ -1,0 +1,77 @@
+---
+source: vb6parse/tests/call_argument_list.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: Err
+        - kind: PeriodOperator
+          text: "."
+        - kind: Identifier
+          text: Raise
+        - kind: Whitespace
+          text: " "
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: NumericLiteralExpression
+                  children:
+                    - kind: IntegerLiteral
+                      text: "1"
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children: []
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: BinaryExpression
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"PROGRAM ERROR 454, invalid note, \""
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: Trim$
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: CallExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: str$
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: IdentifierExpression
+                                              children:
+                                                - kind: Identifier
+                                                  text: mNote
+                                    - kind: RightParenthesis
+                                      text: )
+                        - kind: RightParenthesis
+                          text: )

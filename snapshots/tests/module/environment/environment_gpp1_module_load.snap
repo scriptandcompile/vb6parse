@@ -5176,27 +5176,21 @@ cst:
                                   - kind: ArgumentList
                                     children:
                                       - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Comma
-                                                text: ","
+                                        children: []
+                                      - kind: Comma
+                                        text: ","
                                       - kind: Whitespace
                                         text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: DM_OUT_BUFFER
-                                  - kind: ArgumentList
-                                    children:
                                       - kind: Argument
                                         children:
                                           - kind: IdentifierExpression
                                             children:
-                                              - kind: RightParenthesis
-                                                text: )
-                                  - kind: Newline
-                                    text: "\r\n"
+                                              - kind: Identifier
+                                                text: DM_OUT_BUFFER
+                              - kind: Unknown
+                                text: )
+                              - kind: Newline
+                                text: "\r\n"
                               - kind: Whitespace
                                 text: "          "
                               - kind: Newline
@@ -8528,27 +8522,21 @@ cst:
                                   - kind: ArgumentList
                                     children:
                                       - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Comma
-                                                text: ","
+                                        children: []
+                                      - kind: Comma
+                                        text: ","
                                       - kind: Whitespace
                                         text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: DM_OUT_BUFFER
-                                  - kind: ArgumentList
-                                    children:
                                       - kind: Argument
                                         children:
                                           - kind: IdentifierExpression
                                             children:
-                                              - kind: RightParenthesis
-                                                text: )
-                                  - kind: Newline
-                                    text: "\r\n"
+                                              - kind: Identifier
+                                                text: DM_OUT_BUFFER
+                              - kind: Unknown
+                                text: )
+                              - kind: Newline
+                                text: "\r\n"
                               - kind: Whitespace
                                 text: "          "
                               - kind: Newline

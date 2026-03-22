@@ -14837,17 +14837,17 @@ cst:
                                                       - kind: ArgumentList
                                                         children:
                                                           - kind: Argument
+                                                            children: []
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
                                                             children:
                                                               - kind: IdentifierExpression
                                                                 children:
-                                                                  - kind: Comma
-                                                                    text: ","
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                  - kind: CallStatement
-                                                    children:
-                                                      - kind: MeKeyword
-                                                        text: Me
+                                                                  - kind: MeKeyword
+                                                                    text: Me
                                                       - kind: Newline
                                                         text: "\n"
                                                   - kind: Unknown
@@ -14913,17 +14913,17 @@ cst:
                                                       - kind: ArgumentList
                                                         children:
                                                           - kind: Argument
+                                                            children: []
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
                                                             children:
                                                               - kind: IdentifierExpression
                                                                 children:
-                                                                  - kind: Comma
-                                                                    text: ","
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                  - kind: CallStatement
-                                                    children:
-                                                      - kind: MeKeyword
-                                                        text: Me
+                                                                  - kind: MeKeyword
+                                                                    text: Me
                                                       - kind: Newline
                                                         text: "\n"
                                                   - kind: Unknown
